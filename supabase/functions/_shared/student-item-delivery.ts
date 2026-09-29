@@ -142,6 +142,18 @@ export type RenderItem = {
   // (attach_capture) instead of typed text. Only ever "hand_drawn" for rows
   // select_hand_drawn_pilot_items returns -- see SelectedRow.hand_drawn.
   response_mode: "typed" | "hand_drawn";
+  // TASK-0051 / DECISION-0086. True when this student has already been shown
+  // this item's full answer key in Open Hand, which permanently excludes the
+  // item from scoring for them. Additive and default false; annotated after
+  // selection by annotateOpenHandExclusions, never derived from content.
+  //
+  // The serving queues deliberately still RETURN these items -- filtering them
+  // out silently would make an excluded item indistinguishable from an item
+  // that does not exist, which is the failure mode recorded in
+  // feedback_silent_absence_failures. The client is expected to render them as
+  // not-scorable rather than hide them; evaluate-attempt refuses them with
+  // HTTP 409 open_hand_item_not_scorable regardless of what the client does.
+  open_hand_excluded: boolean;
   // TASK-0047 Decision 17 follow-on -- generic, subject-agnostic resolved
   // topic/cell identity. Additive: absent (null) for any item neither
   // resolution path below can identify (no cell tag AND no non-empty
@@ -603,6 +615,51 @@ export function buildRenderItem(
     choices: choices && choices.length ? [...choices] : null,
     media,
     response_mode: row.hand_drawn === true ? "hand_drawn" : "typed",
+    // Default false; annotateOpenHandExclusions flips it after selection.
+    open_hand_excluded: false,
     cell,
   };
+}
+
+/**
+ * TASK-0051 / DECISION-0086. Marks any returned item whose answer key this
+ * student has already been shown in Open Hand.
+ *
+ * One service-role read of the private exclusion table, keyed on
+ * content_item_id rather than content_item_version_id: republishing an item
+ * mints a new version id, and an exclusion follows the item, not the version.
+ *
+ * Fails CLOSED on a lookup error -- every item is marked excluded rather than
+ * silently reported as scorable. A student briefly told "you can't be scored on
+ * this" when they could be is a visible, recoverable annoyance; the opposite
+ * error invites them to spend an attempt that evaluate-attempt will refuse.
+ */
+export async function annotateOpenHandExclusions(
+  // deno-lint-ignore no-explicit-any
+  service: any,
+  userId: string,
+  items: RenderItem[],
+): Promise<RenderItem[]> {
+  if (!items.length) return items;
+
+  const itemIds = [...new Set(items.map((i) => i.content_item_id))];
+  const { data, error } = await service.schema("app")
+    .from("open_hand_scoring_exclusions")
+    .select("content_item_id")
+    .eq("user_id", userId)
+    .in("content_item_id", itemIds);
+
+  if (error) {
+    return items.map((i) => ({ ...i, open_hand_excluded: true }));
+  }
+
+  const excluded = new Set(
+    ((data ?? []) as Array<{ content_item_id: string }>)
+      .map((r) => r.content_item_id),
+  );
+  if (!excluded.size) return items;
+
+  return items.map((i) =>
+    excluded.has(i.content_item_id) ? { ...i, open_hand_excluded: true } : i
+  );
 }

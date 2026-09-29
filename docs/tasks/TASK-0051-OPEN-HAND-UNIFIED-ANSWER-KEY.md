@@ -103,15 +103,89 @@ Production v61 (`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md:1057-1061`), and Producti
 detection fails silently in this checkout, which has no `supabase/config.toml`. **Do not** refactor
 the function to satisfy the MCP tool's limit, and do not use that tool for this function.
 
-## Severity context — do not let this get re-escalated or forgotten
+## Severity context — CORRECTED 2026-09-29. The caller already exists.
 
-Step 0 established that **no student-facing exposure exists today**: `open-hand-item` is deployed in
-Dev with **no caller**, the Open Hand screens are demo-only components fed local sample content with
-no network call, Dev's exclusions table holds 0 rows, and Production has no `open-hand-item` at all.
+**An earlier version of this section said "no student-facing exposure exists today" because
+`open-hand-item` had "no caller." That was wrong.** Verified at Lovable HEAD (`56cae479`):
 
-The gap becomes real **the moment the plate loop is wired to live data**, which is what
-`PLATE_LOOP_BUILD_PLAN_2026_09_27.md` sets out to do. **The exclusion mechanism must land in the
-same change as that wiring, not as a follow-up.** That is the one scheduling constraint here.
+- `src/lib/open-hand/client.ts` calls `supabase.functions.invoke("open-hand-item", …)` on the
+  **superseded batch contract**, typed to receive `is_correct`, `rationale`, `criteria` and
+  `credited_response_spans`.
+- `src/lib/practice-entry.ts` sends Home's "start practice" to **`/open-hand-mcq`** when the plate-loop
+  flag is on; `src/lib/feature-flags.ts` turns that flag on from **`?loop=plate` in the URL** and
+  **persists it to `localStorage`**. `/open-hand-mcq` is also reachable by typing it.
+- The app points at **Production** Supabase.
+
+So the batch, no-exclusion path is **wired and dormant**, rendering an error only because
+`open-hand-item` does not exist in Production. It is not "unwired work."
+
+**Operational consequence — the hard rule for this task.** Deploying **any** function named
+`open-hand-item` that returns the batch answer-key shape to Production would immediately expose answer
+keys with no exclusion recorded, reachable by URL. #256's P4 step (1) instructed exactly that; it is
+annotated as superseded on this branch.
+
+**Recommended resolution (needs Product Owner confirmation — see Open items):** delete the
+`open-hand-item` edge function altogether and have the front end call `public.get_open_hand_item`
+directly. Its only non-answer payload (`topic_explainers`, `topic_point_briefs`) is already fetched by
+the app through `fetchTopicGuides`, so the function adds nothing the RPC does not. Deleting it removes
+the dormant batch caller **at the source**, removes one deploy from the Production gate, and lets #256
+close outright rather than with a pointer. An acceptance line should assert that no code in the app
+imports `functions.invoke("open-hand-item")`.
+
+The wiring itself remains `TASK-0052`.
+
+## Development verification — RUN 2026-09-29
+
+Migration applied to Development as `20260929034129_open_hand_entitlement_scoped_contract`. The file
+was renamed from `20260929120000` to match the version Development recorded (MCP `apply_migration`
+stamps its own). It sorts after every Production-applied migration, so a plain `db push` will pick it
+up, and it is self-sufficient — Production needs only this file, not the superseded
+`20260928023843`.
+
+**Schema, verified by query:** `learning_session_id` nullable YES; `content_item_id` NOT NULL;
+**exactly one** function overload, signature `(p_content_item_version_id uuid,
+p_learning_session_id uuid)` — no PostgREST ambiguity; zero `anon`/`authenticated` grants on the
+table.
+
+**Access matrix, executed against Development by simulating `auth.uid()` through the JWT-claims GUC —
+i.e. exercising the direct-PostgREST path, not the edge function:**
+
+| Case | Result |
+| --- | --- |
+| Anonymous | `REFUSED not_authenticated` |
+| Entitled student | `OK` — key returned (4 choices, `is_correct` present), `exclusion_recorded=true` |
+| Unentitled student | `REFUSED open_hand:entitlement_required` |
+| Staff (`tutor`) | `OK` — key returned, **`exclusion_recorded=false`**, no row written |
+| Same entitled student, second call | `OK`, and still **exactly one** exclusion row (idempotent) |
+| Unknown / unpublished item | `REFUSED open_hand:item_not_accessible` |
+| Foreign `learning_session_id` | `REFUSED open_hand:session_not_accessible` |
+
+The single written row carried the correct `content_item_id` and a **null** `learning_session_id`,
+confirming entitlement-scoped access works with no session — the point of D1(c).
+
+**Ordinary answer-key boundary unchanged:** `authenticated` may still select only `choice_key`,
+`choice_text`, `content_item_version_id`, `created_at`, `id` on `app.mcq_choices` — **not**
+`is_correct`, **not** `rationale`. `anon` has no grant at all. The RPC is the only path to a key.
+
+**Advisors run.** Two findings touch this work, both intentional and both matching the pre-existing
+pattern: `rls_enabled_no_policy` INFO on `open_hand_scoring_exclusions` (1 of 22 such private tables
+— RLS forced with no policy is deny-all, and only `service_role` holds `select`), and
+`authenticated_security_definer_function_executable` WARN on `get_open_hand_item` (1 of 16 — required
+by `DECISION-0086`, since the RPC *is* the boundary students call). Notably `get_open_hand_item` does
+**not** appear in the `anon`-executable list.
+
+**Test data cleaned up:** the one exclusion row created during verification was deleted; the table is
+back to 0 rows.
+
+**Unit tests:** `student-item-delivery` 42/42 (3 new, including the fail-closed path and the
+key-allowlist updated for `open_hand_excluded`), `student-session-items` 26/26, `evaluate-attempt` 3/3
+with the table-order assertion extended to prove the item-resolution read touches nothing
+answer-bearing. `deno check` clean on both functions.
+
+**Not yet done:** the end-to-end sequence through the deployed edge functions (view a key, then submit
+an attempt on that same item, assert `409`). That needs the functions deployed to Development and a
+real user JWT; the SQL-level matrix above proves the RPC half but not `evaluate-attempt`'s refusal in
+a live request.
 
 ## Verification
 

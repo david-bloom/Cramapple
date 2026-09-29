@@ -1135,6 +1135,49 @@ export async function handleEvaluateAttempt(
     return respond({ error: "missing_content_version" }, { status: 409 });
   }
 
+  // Open Hand discloses the full key and permanently makes that ITEM
+  // non-scorable for that student. Fail before loading content or any
+  // answer-bearing tables; service_role is the only direct reader of the
+  // private exclusion table.
+  //
+  // Keyed on content_item_id, not content_item_version_id (DECISION-0086):
+  // republishing an item mints a new version id, so a version-keyed check would
+  // silently restore scorability for a student who has already read the key. The
+  // version the attempt carries is client-supplied, so it is resolved to its item
+  // here rather than trusted as a stable identity.
+  // Resolve the version to its item first. This reads one non-answer-bearing
+  // column and touches no key, rubric, or criterion data.
+  const { data: versionItem, error: versionItemError } = await service
+    .schema("app")
+    .from("content_item_versions")
+    .select("content_item_id")
+    .eq("id", effectiveContentItemVersionId)
+    .maybeSingle();
+
+  if (versionItemError || !versionItem?.content_item_id) {
+    return respond({ error: "open_hand_eligibility_check_failed" }, {
+      status: 500,
+    });
+  }
+
+  const { data: openHandExclusion, error: openHandExclusionError } =
+    await service.schema("app")
+      .from("open_hand_scoring_exclusions")
+      .select("content_item_id")
+      .eq("user_id", attempt.user_id)
+      .eq("content_item_id", versionItem.content_item_id)
+      .maybeSingle();
+
+  if (openHandExclusionError) {
+    return respond({ error: "open_hand_eligibility_check_failed" }, {
+      status: 500,
+    });
+  }
+
+  if (openHandExclusion) {
+    return respond({ error: "open_hand_item_not_scorable" }, { status: 409 });
+  }
+
   const { data: contentVersion, error: contentError } = await service
     .schema("app")
     .from("content_item_versions")

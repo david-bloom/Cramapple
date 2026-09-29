@@ -10,6 +10,41 @@
 **Related:** `docs/product/PLATE_LOOP_BUILD_PLAN_2026_09_27.md` (on PR #256), `docs/product/OPEN_HAND_BRANCH_RESOLUTION_PLAN_2026_09_29.md`
 **Area:** Open Hand / frontend / answer-key exposure
 
+> **CORRECTED AND EXPANDED 2026-09-29.** Two things this record originally got wrong, and three
+> decisions David made after it was written.
+>
+> **Wrong: "the Open Hand screens make no network call" is true of `/cramapple` only.** The app
+> already has a **live Open Hand route** — `src/routes/open-hand-mcq.tsx` → `LiveOpenHandMcq` →
+> `LiveOpenHand.jsx` → `fetchOpenHandItems()` in `src/lib/open-hand/client.ts` →
+> `supabase.functions.invoke("open-hand-item", …)`, on the superseded **batch** contract, pointed at
+> **Production**. `src/lib/practice-entry.ts` routes Home's "start practice" there whenever the
+> plate-loop flag is on, and `src/lib/feature-flags.ts` enables that flag from **`?loop=plate` in the
+> URL, persisting it to `localStorage`**. So this is not greenfield wiring: **a wired, dormant
+> answer-key path already exists**, and the work is to replace it, not to build it.
+>
+> **Wrong: "no session required."** D1(c) removed the session requirement from the **RPC**. The list
+> step still uses `student-session-items`, which requires a `learning_session_id`, so a session is
+> still created for the list. "No session" is a property of the RPC, not of the screen.
+>
+> **Decision 1 (David) — `open-hand-item` is deleted.** The front end calls
+> `supabase.rpc("get_open_hand_item", …)` **directly**. `client.ts` and `LiveOpenHand.jsx`'s batch
+> fetch are to be **replaced, not adapted** — adapting risks leaving the batch path alive. Acceptance
+> line: **no code in the app imports or invokes `open-hand-item`.**
+>
+> **Decision 2 (David) — remove the `?loop=` URL override.** A student-reachable, self-persisting
+> switch into an unfinished path is not acceptable. Remove the override (and the `localStorage`
+> persistence of it) from `feature-flags.ts`; keep the flag itself off by default.
+>
+> **Decision 3 (David) — the not-scorable marker is backend, and is already built.**
+> `student-session-items` items now carry **`open_hand_excluded: boolean`** (TASK-0051). Use that;
+> do **not** track disclosed items in `localStorage`, which would not survive a device change. Note
+> the queue deliberately still **returns** excluded items so they can be shown as not-scorable rather
+> than silently vanishing.
+>
+> One more thing to fix while in there: `handleNext` currently cycles the whole fetched list
+> (`(i+1) % length`). Under the new contract **every Next is a new exclusion**, so it needs per-item
+> consent and must not loop back around.
+
 ## Why this is its own task
 
 TASK-0051 closes the backend gate. **It changes nothing a student can see.** The Open Hand screens
@@ -62,11 +97,30 @@ you. Read `DECISION-0086` before writing the first fetch.
 - [ ] Product Owner go-ahead before publishing to `app.cramapple.com` — publishing is its own step in
       Lovable and does not follow from a commit.
 
-## Open question for the Product Owner
+## Where Open Hand lives — ANSWERED 2026-09-29
 
-**Where does Open Hand actually live for a student?** The plate templates are not what students
-practise in — `SessionFrame` is. This task assumes Open Hand keeps its own route rather than being
-folded into `SessionFrame`, which would be the much larger B2-style rebuild described in the
-front-end's own findings doc
-(`.lovable/plan/gate-the-four-aids-in-practice-findings-and-plan-2026-09-27.md`). Confirm before
-estimating.
+**Open Hand keeps its own route** (`/open-hand-mcq`, plus an `/open-hand-frq` sibling). It is **not**
+folded into `SessionFrame`. Note this was never really a choice: the route already exists and is
+already routed from Home behind the flag.
+
+The reason it should stay its own route is structural, not stylistic. In a dedicated route the answer
+key only ever renders in a component with **no `submitResponse`, no attempt, and no session cursor**,
+so "nothing on this screen can be scored" is greppable and unit-testable. Inside `SessionFrame` it
+becomes a third state threaded through `assisted` → `effectiveAssistance` → `submitResponse`,
+`needsConfirmTransfer`, the repair panel's own "Show" (which also sets `assisted`), recheck, and the
+queue cursor in `use-session` — where **one missed branch shows a key on a scorable attempt.**
+
+It also keeps two different consequences visibly different, which matters for the student as much as
+for the code: `DECISION-0080` hint use means *still scored, evidence weight drops*; an Open Hand
+disclosure means *never scored*. Sharing one `assisted` bit would blur them. The consent copy this
+task requires is unambiguous only on a page with no submit button.
+
+**Not on the B1/B2 axis.** The front-end findings doc's B1/B2 options are about gating the four aids
+in Practice (`DECISION-0080`). Open Hand is not an aid — different consequence — so B1 can proceed
+independently of this task and should not be scoped against it.
+
+## Open question that remains for the Product Owner
+
+**Should Home's "start practice" ever land on Open Hand first?** That is the plate-loop product
+decision — teaching-first versus practice-first as the default entry — and it is bigger than this
+task. The flag is off by default; keep it that way until this task lands, then decide deliberately.

@@ -45,6 +45,7 @@ import { requireProfile } from "../_shared/auth.ts";
 import {
   applyItemPackageFallback,
   type AssetMetadata,
+  annotateOpenHandExclusions,
   buildRenderItem,
   buildResolvedCells,
   indexAssets,
@@ -730,6 +731,16 @@ export async function handleStudentSessionItems(
       ? "no_matching_content"
       : "all_items_omitted";
 
+    // TASK-0051 / DECISION-0086. Mark items whose answer key this student has
+    // already seen in Open Hand. Deliberately a MARK, not a filter: dropping
+    // them would make an excluded item look like one that does not exist, and
+    // the client needs to show the student why it cannot be scored.
+    const annotatedItems = await annotateOpenHandExclusions(
+      service,
+      user.id,
+      delivered.items,
+    );
+
     return respond({
       status: "ok",
       function: "student-session-items",
@@ -738,7 +749,7 @@ export async function handleStudentSessionItems(
         practice_format: session.practice_format,
         qa_mode: qaMode,
         signed_url_ttl_seconds: SIGNED_URL_TTL_SECONDS,
-        items: delivered.items,
+        items: annotatedItems,
         omitted: delivered.omitted,
         reason: emptyQueueReason,
       },

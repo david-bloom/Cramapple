@@ -12,6 +12,7 @@ import {
 import {
   applyItemPackageFallback,
   type AssetMetadata,
+  annotateOpenHandExclusions,
   buildRenderItem,
   buildResolvedCells,
   derivePackageChoices,
@@ -255,6 +256,7 @@ Deno.test("render payload carries no grading or answer-bearing field", () => {
     "frq_form",
     "item_type",
     "media",
+    "open_hand_excluded",
     "parts",
     "practice_format",
     "response_mode",
@@ -670,4 +672,76 @@ Deno.test("buildResolvedCells resolves a null title when the view's own title co
     topic_title: null,
     unit_number: null,
   });
+});
+
+// ---------------------------------------------------------------------------
+// TASK-0051 / DECISION-0086 — Open Hand exclusion annotation.
+// ---------------------------------------------------------------------------
+
+function exclusionService(
+  rows: Array<{ content_item_id: string }> | null,
+  error: unknown = null,
+) {
+  const calls: Array<Record<string, unknown>> = [];
+  const service = {
+    schema: () => ({
+      from: (table: string) => {
+        const state: Record<string, unknown> = { table };
+        const chain = {
+          select: (cols: string) => {
+            state.select = cols;
+            return chain;
+          },
+          eq: (col: string, val: unknown) => {
+            state[`eq:${col}`] = val;
+            return chain;
+          },
+          in: (col: string, vals: unknown[]) => {
+            state[`in:${col}`] = vals;
+            calls.push(state);
+            return Promise.resolve({ data: rows, error });
+          },
+        };
+        return chain;
+      },
+    }),
+  };
+  return { service, calls };
+}
+
+Deno.test("annotateOpenHandExclusions marks only the excluded item, by item id", async () => {
+  const a = { ...buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", [])!, content_item_id: "item-a" };
+  const b = { ...a, content_item_id: "item-b" };
+  const { service, calls } = exclusionService([{ content_item_id: "item-b" }]);
+
+  // deno-lint-ignore no-explicit-any
+  const out = await annotateOpenHandExclusions(service as any, "user-1", [a, b]);
+
+  assertEquals(out[0].open_hand_excluded, false);
+  assertEquals(out[1].open_hand_excluded, true);
+  // Keyed on the ITEM, never the version: a re-publish must not clear it.
+  assertEquals(calls[0]["table"], "open_hand_scoring_exclusions");
+  assertEquals(calls[0]["eq:user_id"], "user-1");
+  assertEquals(calls[0]["in:content_item_id"], ["item-a", "item-b"]);
+});
+
+Deno.test("annotateOpenHandExclusions fails CLOSED when the lookup errors", async () => {
+  const a = { ...buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", [])!, content_item_id: "item-a" };
+  const { service } = exclusionService(null, { message: "boom" });
+
+  // deno-lint-ignore no-explicit-any
+  const out = await annotateOpenHandExclusions(service as any, "user-1", [a]);
+
+  // Every item is marked not-scorable rather than silently reported scorable.
+  // Telling a student "this can't be scored" when it could be is visible and
+  // recoverable; the opposite invites an attempt evaluate-attempt will refuse.
+  assertEquals(out[0].open_hand_excluded, true);
+});
+
+Deno.test("annotateOpenHandExclusions does not query for an empty queue", async () => {
+  const { service, calls } = exclusionService([]);
+  // deno-lint-ignore no-explicit-any
+  const out = await annotateOpenHandExclusions(service as any, "user-1", []);
+  assertEquals(out, []);
+  assertEquals(calls.length, 0);
 });
