@@ -27,6 +27,13 @@ before catching the mistake. It is kept under that name (not renamed) because la
 migrations and an active Codex prompt already cite it by filename. This document remains the sole
 source of truth for TASK-0049's scope and status.
 
+Two further workstreams also carried this ID by mistake and were corrected by renumbering, since
+neither had durable citations to preserve: the `app.attempt_criterion_results` writer, now
+`docs/tasks/SESSION-NOTE-ATTEMPT-CRITERION-RESULTS-WRITER.md` (main, commit `734cf286`), and the Open
+Hand answer-key serving contract, now `docs/tasks/TASK-0051-OPEN-HAND-UNIFIED-ANSWER-KEY.md`
+(renumbered 0049 → 0050 → 0051; it briefly held TASK-0050, which now belongs to the skill-dimension
+rollout — see `DECISION-0086`). Neither is part of this task's scope.
+
 ## Product Goal
 
 Bring the intended current-published AP Biology and AP Statistics inventory to an explicit six-criterion-ready state for unit-gated practice, with every remaining gap either:
