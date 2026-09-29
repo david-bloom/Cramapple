@@ -33,11 +33,24 @@ the plate loop is wired to live data, which is precisely what #256's `PLATE_LOOP
 to do. So the exclusion mechanism has to land **with** that wiring, in the same change, not as a
 follow-up afterwards. That is the single scheduling constraint this plan exists to protect.
 
-**Finding 0b — the bundle blocker is real and not marginal.** `evaluate-attempt/index.ts` is 89,616
-bytes; with its 20 direct `_shared` imports it is **289,938 bytes**, and that is a floor (transitive
-imports are not counted) against the platform safety reviewer's 200,000-byte limit. Splitting would
-have to shed ~90KB+ of the import closure. This blocks the enforcement half's deployment to **both**
-Dev and Production, under either §4 D2 option.
+**Finding 0b — WITHDRAWN. There is no bundle blocker.** An independent review (Fable, 2026-09-29)
+falsified this, and the correction is verified: `evaluate-attempt` was deployed to Dev **and
+Production** on 2026-09-27 via the Supabase **CLI** — `supabase functions deploy evaluate-attempt
+--project-ref <id> --workdir /Users/davidbloom/Documents/Cramapple.nosync` — reaching Production
+version 61 (`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md:1057-1061`); Production is on version 66 today.
+The same import closure this section called undeployable was deployed twice in the days before it was
+written.
+
+The 200,000-byte limit belongs to the **Supabase MCP `deploy_edge_function` tool**, not to the
+platform. The only source for the original claim was `TASK-0050-OPEN-HAND-ANSWER-KEY.md:118-120`,
+which recorded the MCP refusal accurately and from which this plan wrongly generalised to "cannot be
+deployed."
+
+**Nothing needs splitting.** Deploy via the documented CLI path with an explicit `--workdir` (its
+default workdir detection fails silently in this checkout — there is no `supabase/config.toml` here).
+The superseded measurement, for the record: `index.ts` is 89,616 bytes and its direct `_shared`
+imports bring the floor to 289,938 bytes (the review counts 22 imports, not 20). That is a real
+number about the MCP tool's limit and nothing else.
 
 **Finding 0c — not established: whether Dev's deployed `evaluate-attempt` contains the `409` check.**
 Three routes were tried and none is conclusive: the Supabase MCP returns `PLACEHOLDER` for the
@@ -159,11 +172,10 @@ in the branch's own task file rather than assumed.
 
 **Step 1 — Product Owner decides D1, D2, D3.** Record as a DECISION entry.
 
-**Step 2 — Resolve the bundle-size blocker.** `evaluate-attempt` exceeds the 200,000-byte platform
-safety-review limit, which blocked its Dev deploy. **This blocks the enforcement half under either
-D2 option**, so it is on the critical path regardless of D1/D2. Two routes: request the explicit
-Product Owner approval the reviewer asks for and retry, or split `evaluate-attempt`. Do not attempt
-a workaround — the original session correctly did not.
+**Step 2 — ~~Resolve the bundle-size blocker~~ WITHDRAWN (see §0b).** There is no blocker and nothing
+is on the critical path here. Deploy `evaluate-attempt` with the Supabase CLI, passing `--workdir`
+explicitly; do not use the MCP `deploy_edge_function` tool for this function, which refuses it over a
+200,000-byte review limit of its own.
 
 **Step 3 — One branch, one PR.** Consolidate onto a single branch implementing the D1/D2 outcome.
 Close the loser with a pointer rather than deleting it, so the reasoning stays on record. Carry

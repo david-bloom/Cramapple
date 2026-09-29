@@ -48,7 +48,7 @@ Most recent entries (full chronological list follows below):
 **Related Docs:** `docs/product/OPEN_HAND_BRANCH_RESOLUTION_PLAN_2026_09_29.md`; `docs/product/PLATE_LOOP_BUILD_PLAN_2026_09_27.md` (on PR #256); `DECISION-0080` (the four gated aids count as pre-submission hint use)
 **Area:** Open Hand / answer-key exposure / scoring integrity
 
-_Numbering note: `DECISION-0085` is claimed by the skill-dimension rollout on the unmerged PR #259 and is not yet on `main`. This entry takes 0086 to avoid colliding with it. If #259 merges second, no renumbering is needed; if it never merges, 0085 stays unused._
+_Numbering note: this entry took 0086 because `DECISION-0085` was, at the time of writing, claimed by the skill-dimension rollout on the then-unmerged PR #259. **#259 merged 2026-09-29 (`25c18e7c`)**, so 0085 is now on `main` and the sequence is correct with no renumbering needed._
 
 ### Context
 
@@ -83,9 +83,20 @@ exposes strictly more than those four aids.
 - **`app.open_hand_scoring_exclusions.learning_session_id` is `NOT NULL`** (verified in Dev,
   2026-09-29). Entitlement-scoped callers may have no learning session, so this column must become
   nullable — otherwise D1 (c) collapses back into D1 (a) in practice.
-- `evaluate-attempt` cannot currently be deployed to either environment: 289,938 bytes for
-  `index.ts` plus its 20 direct `_shared` imports (a floor) against a 200,000-byte platform limit.
-  This is on the critical path for the enforcement half under any option.
+- ~~`evaluate-attempt` cannot currently be deployed to either environment~~ — **withdrawn
+  2026-09-29** after independent review (Fable) falsified it. The 200,000-byte limit belongs to the
+  Supabase MCP `deploy_edge_function` tool, not the platform; `evaluate-attempt` was deployed to Dev
+  and Production via the CLI on 2026-09-27 (Production v61; v66 today). There is no bundle blocker
+  and nothing needs splitting. Deploy with the CLI and an explicit `--workdir`.
+- The RPC, not the edge function, is the real security boundary: it is granted `execute` to
+  `authenticated`, so students can call it directly through PostgREST. The entitlement predicate and
+  the staff/QA exemption must therefore live in SQL, reading the role from `app.profiles`, and the
+  exemption must never be a caller-supplied flag.
+- `open-hand-item` is a **list** endpoint (up to 50 items) while the RPC is single-item. Looping the
+  RPC across a listed page would permanently exclude ~20 items per screen load — enough to burn AP
+  Biology's entire 43-item MCQ pool in two loads. The disclosure contract must be settled before
+  implementation; TASK-0051 records the recommendation (list without keys, one RPC per item actually
+  opened) and flags it as needing Product Owner confirmation because it changes a frontend contract.
 
 ### Severity, as established by the plan's Step 0
 

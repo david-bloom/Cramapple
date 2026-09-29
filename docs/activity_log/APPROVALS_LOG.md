@@ -47,12 +47,19 @@ function at the RPC, consolidating the two competing branches onto one, Developm
 Development function deploys, and the end-to-end Dev verification in the task's checklist.
 
 This approval does **not** authorize: any Production migration or function deploy; wiring the plate
-loop to live data for students; or a workaround for the `evaluate-attempt` bundle-size limit — that
-needs either the explicit reviewer approval or a real reduction of the import closure, as its own
-gate.
+loop to live data for students; or changing the `open-hand-item` response contract (the list-vs-
+single-item disclosure question in TASK-0051 item 5) or the exclusion's version-vs-item keying
+(item 7) — both are frontend/integrity contract changes needing the Product Owner's confirmation
+first.
 
-_Numbering note: `APPROVAL-0060` is claimed by the skill-dimension rollout on the unmerged PR #259
-and is not yet on `main`. This entry takes 0061 to avoid colliding with it._
+_Correction, 2026-09-29: an earlier version of this entry also withheld authorization for "a
+workaround for the `evaluate-attempt` bundle-size limit." No such limit applies — it belongs to the
+Supabase MCP deploy tool, not the platform, and the function has been deployed to Production via the
+CLI. That clause is withdrawn; deploying `evaluate-attempt` to Development via the CLI is within this
+approval._
+
+_Numbering note: this entry took 0061 because `APPROVAL-0060` was then claimed by the unmerged PR
+#259. **#259 merged 2026-09-29**, so 0060 is on `main` and the sequence is correct._
 
 ## APPROVAL-0059 — Execute TASK-0041 Purchase Funnel in Development
 
