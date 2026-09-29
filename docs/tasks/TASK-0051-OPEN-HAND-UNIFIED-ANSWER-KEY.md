@@ -103,15 +103,36 @@ Production v61 (`LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md:1057-1061`), and Producti
 detection fails silently in this checkout, which has no `supabase/config.toml`. **Do not** refactor
 the function to satisfy the MCP tool's limit, and do not use that tool for this function.
 
-## Severity context — do not let this get re-escalated or forgotten
+## Severity context — CORRECTED 2026-09-29. The caller already exists.
 
-Step 0 established that **no student-facing exposure exists today**: `open-hand-item` is deployed in
-Dev with **no caller**, the Open Hand screens are demo-only components fed local sample content with
-no network call, Dev's exclusions table holds 0 rows, and Production has no `open-hand-item` at all.
+**An earlier version of this section said "no student-facing exposure exists today" because
+`open-hand-item` had "no caller." That was wrong.** Verified at Lovable HEAD (`56cae479`):
 
-The gap becomes real **the moment the plate loop is wired to live data**, which is what
-`PLATE_LOOP_BUILD_PLAN_2026_09_27.md` sets out to do. **The exclusion mechanism must land in the
-same change as that wiring, not as a follow-up.** That is the one scheduling constraint here.
+- `src/lib/open-hand/client.ts` calls `supabase.functions.invoke("open-hand-item", …)` on the
+  **superseded batch contract**, typed to receive `is_correct`, `rationale`, `criteria` and
+  `credited_response_spans`.
+- `src/lib/practice-entry.ts` sends Home's "start practice" to **`/open-hand-mcq`** when the plate-loop
+  flag is on; `src/lib/feature-flags.ts` turns that flag on from **`?loop=plate` in the URL** and
+  **persists it to `localStorage`**. `/open-hand-mcq` is also reachable by typing it.
+- The app points at **Production** Supabase.
+
+So the batch, no-exclusion path is **wired and dormant**, rendering an error only because
+`open-hand-item` does not exist in Production. It is not "unwired work."
+
+**Operational consequence — the hard rule for this task.** Deploying **any** function named
+`open-hand-item` that returns the batch answer-key shape to Production would immediately expose answer
+keys with no exclusion recorded, reachable by URL. #256's P4 step (1) instructed exactly that; it is
+annotated as superseded on this branch.
+
+**Recommended resolution (needs Product Owner confirmation — see Open items):** delete the
+`open-hand-item` edge function altogether and have the front end call `public.get_open_hand_item`
+directly. Its only non-answer payload (`topic_explainers`, `topic_point_briefs`) is already fetched by
+the app through `fetchTopicGuides`, so the function adds nothing the RPC does not. Deleting it removes
+the dormant batch caller **at the source**, removes one deploy from the Production gate, and lets #256
+close outright rather than with a pointer. An acceptance line should assert that no code in the app
+imports `functions.invoke("open-hand-item")`.
+
+The wiring itself remains `TASK-0052`.
 
 ## Verification
 

@@ -9,7 +9,32 @@
 
 Step 0 ran. It changes the severity, not the plan.
 
-**Finding 0a — the exposure is not reachable today. `open-hand-item` has no caller.** The Open Hand
+> **FINDING 0a IS WRONG — CORRECTED 2026-09-29 (second Fable review). Read this before acting on
+> anything below.** `open-hand-item` **does** have a caller in the live app, and it is the superseded
+> batch, answer-bearing contract. Verified first-hand at Lovable HEAD (`56cae479`):
+>
+> - `src/lib/open-hand/client.ts` — `fetchOpenHandItems()` calls
+>   `supabase.functions.invoke("open-hand-item", { body })` with `{exam_pack_version_id, item_type,
+>   topic, cell, limit}`, and types the response as carrying `is_correct`, `rationale`, `criteria`
+>   and `credited_response_spans`.
+> - `src/lib/practice-entry.ts` — Home's "start practice" routes to **`/open-hand-mcq`** whenever the
+>   plate-loop flag is on (`/session` only when it is off).
+> - `src/lib/feature-flags.ts` — `isPlateLoopEnabled` turns on from **`?loop=plate` in the URL**, and
+>   **persists that to `localStorage`**. So any student can enable it, permanently, by visiting a URL.
+>   `/open-hand-mcq` is also reachable just by typing it.
+> - The app points at **Production** Supabase (stated in `PLATE_LOOP_BUILD_PLAN_2026_09_27.md` P4).
+>
+> **The path renders an error today only because `open-hand-item` does not exist in Production.** It is
+> not unwired — it is **wired and dormant, waiting for the function to appear.** Deploying
+> `open-hand-item` to Production, which #256's P4 step (1) instructed, would light up a batch
+> answer-key read with **no exclusion write**, reachable by URL.
+>
+> What 0a got right: the `/cramapple` plate *demo* screens are demo-only and make no network call.
+> What it got wrong: it generalised from those screens plus a 2026-09-27 front-end findings doc to "no
+> caller," without searching the front end for `open-hand-item`. The mistake was treating "the
+> component I read makes no fetch" as "nothing fetches." The original text follows, struck through.
+
+**~~Finding 0a — the exposure is not reachable today. `open-hand-item` has no caller.~~** The Open Hand
 screens in the live app (`src/screens/OpenHandMcqScreen.jsx`, `OpenHandFrqScreen.jsx`, mounted at
 `/cramapple` via `QuestionRoute`) are **demo-only presentation components**. `OpenHandMcqScreen`
 takes its `question` as a prop, makes **no network call of any kind**, and renders `is_correct`,
