@@ -1,6 +1,6 @@
 import "./_test_setup.ts";
 import { assertEquals } from "jsr:@std/assert@1";
-import { handleEvaluateAttempt } from "./index.ts";
+import { composeMcqFeedback, handleEvaluateAttempt } from "./index.ts";
 
 Deno.test("evaluate-attempt rejects an unsubmitted response before loading answer-key tables", async () => {
   const tablesQueried: string[] = [];
@@ -249,4 +249,105 @@ Deno.test("qa_no_persist proceeds past a present canonical_answer_1 instead of r
   assertEquals(res.status, 409);
   const json = await res.json();
   assertEquals(json.error, "content_not_published_frq");
+});
+
+// --- MCQ wrong-answer feedback -------------------------------------------
+// These pin the pedagogy, not the prose. What must hold is that a wrong answer
+// is told WHERE it went wrong (the chosen distractor's authored rationale) and
+// WHAT the question is for (the skill), and is then left holding a question
+// rather than a correction — and that each of those degrades on its own when
+// the underlying data is missing, without ever naming the correct choice.
+
+const STATS_SKILL =
+  "Calculate summary statistics, relative positions, predicted responses";
+
+Deno.test("MCQ feedback names the chosen distractor's misconception and the skill", () => {
+  const { summary, actionableFix, redirect } = composeMcqFeedback({
+    earned: false,
+    rationale: "Reported a standard deviation instead of the mean",
+    skillLabels: [STATS_SKILL],
+  });
+  assertEquals(
+    summary,
+    "Not quite. This question is testing how to calculate summary statistics, " +
+      "relative positions, predicted responses. Look again at the choice you " +
+      "picked: Reported a standard deviation instead of the mean. What would " +
+      "you need to work out to answer the question as asked?",
+  );
+  // The diagnosis, not a restatement of "pick the right answer".
+  assertEquals(
+    actionableFix,
+    "Reported a standard deviation instead of the mean",
+  );
+  // Closes on a question.
+  assertEquals(redirect.endsWith("?"), true);
+});
+
+Deno.test("MCQ feedback keeps a rationale that is already a full sentence intact", () => {
+  const { summary } = composeMcqFeedback({
+    earned: false,
+    rationale: "The pump works to maintain — not equalize — these gradients.",
+    skillLabels: [],
+  });
+  // No doubled full stop, and no skill sentence when the item is unlabelled.
+  assertEquals(summary.includes("gradients.."), false);
+  assertEquals(summary.includes("This question is testing"), false);
+  assertEquals(summary.includes("The pump works to maintain"), true);
+});
+
+Deno.test("MCQ feedback degrades to a question when the distractor has no rationale", () => {
+  const { summary } = composeMcqFeedback({
+    earned: false,
+    rationale: null,
+    skillLabels: [STATS_SKILL],
+  });
+  assertEquals(summary.includes("Look again at the choice you picked"), false);
+  assertEquals(summary.includes("how to calculate summary statistics"), true);
+  assertEquals(summary.endsWith("?"), true);
+});
+
+Deno.test("MCQ feedback falls back to a colon form for a noun-initial skill label", () => {
+  // No CED label registered today is noun-initial, but a later subject's grid
+  // could be. The bend to "how to ..." must not produce "testing Models and
+  // representations".
+  const { summary } = composeMcqFeedback({
+    earned: false,
+    rationale: null,
+    skillLabels: ["Models and representations"],
+  });
+  assertEquals(
+    summary.includes(
+      "The skill this question is testing: Models and representations.",
+    ),
+    true,
+  );
+  assertEquals(summary.includes("how to Models"), false);
+});
+
+Deno.test("MCQ feedback never emits the retired placeholder or names the answer", () => {
+  for (
+    const labels of [[], [STATS_SKILL], ["Models and representations"]]
+  ) {
+    for (const rationale of [null, "Reported the median instead of the mean"]) {
+      const { summary, actionableFix, redirect } = composeMcqFeedback({
+        earned: false,
+        rationale,
+        skillLabels: labels,
+      });
+      for (const text of [summary, actionableFix, redirect]) {
+        assertEquals(text.includes("published correct answer"), false);
+      }
+      assertEquals(summary.startsWith("Not quite."), true);
+      assertEquals(summary.endsWith("?"), true);
+    }
+  }
+});
+
+Deno.test("MCQ feedback stays a bare acknowledgement when the answer is right", () => {
+  const { summary } = composeMcqFeedback({
+    earned: true,
+    rationale: "Reported a standard deviation instead of the mean",
+    skillLabels: [STATS_SKILL],
+  });
+  assertEquals(summary, "Correct.");
 });
