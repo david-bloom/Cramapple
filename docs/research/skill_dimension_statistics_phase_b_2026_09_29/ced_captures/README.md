@@ -41,3 +41,20 @@ per-skill exclusion.
 **Not yet supplied for Chemistry:** the "Course at a Glance" pages carrying each topic's practice
 tag. Those are what made the Calculus grid a transcription rather than a curation; without them a
 Chemistry grid would offer all 28 skills against each of 91 topics.
+
+### AP Chemistry — Course at a Glance (partial)
+
+Supplied 2026-09-29, second batch.
+
+| File | CED page | What was taken from it |
+| --- | --- | --- |
+| `chem_course_at_a_glance_units_6_8.png` | Course Framework V.1 pp. 18-19 | Topic → practice alignment, Units 6, 7, 8, plus exam weightings |
+| `chem_course_at_a_glance_unit_9.png` | Course Framework V.1 p. 20 | Topic → practice alignment, Unit 9 |
+
+**Covers Units 6-9 only — 43 of Chemistry's 91 topics.** Units 1-5 (48 topics) are still needed
+before a Chemistry grid can be built. Transcription check that passed: the captures give 9, 12, 11
+and 11 topics for Units 6-9, and `app.taxonomy_topics` holds exactly those counts.
+
+The same batch re-supplied the two Science Practices pages already archived as
+`chem_science_practices_1_3.png` / `chem_science_practices_4_6.png`; they are identical in content
+and were not duplicated here.
