@@ -339,6 +339,25 @@ The 2026-09-27 Product Owner instruction establishes the new TASK-0041 scope. It
 
 ## Implementation Notes
 
+**2026-09-29 direction change (`DECISION-0090`).** The Product Owner revised the source checkout doc
+(Screens 1, 2, 3, §6); the spec is amended accordingly. Branch `claude/task-0041-payment-login-direction`:
+
+- Backend (done in repo, **not yet deployed to Development** — see below): the parent-share session no longer
+  sets `setup_future_usage`; `stripe-webhook` no longer writes parent-paid customers to `app.stripe_customers`;
+  `get-checkout-status` returns no offer for parent-paid sessions and adds `purchaser_type` and
+  `student_first_name`; `create-post-purchase-addon` refuses parent-paid source sessions. Shared policy in
+  `_shared/addon-checkout.ts` (`isPayerNotLearner`), unit-tested and added to CI.
+- Deployment: the Dev deploy of the four functions (all `verify_jwt: false` today; deployed code confirmed
+  identical to `main` beforehand) was blocked by the session's permission classifier and is left for David.
+- Live defect (2026-09-29, anonymous browser): `/signup` subject picker navigates to
+  `app.cramapple.com/home?subject=<key>`, which bounces to `/login?redirect=…`. Fix is front-end (Lovable
+  `61dd6602`): route to `/checkout?subject=<key>`.
+- Front-end still to build (Lovable `61dd6602`): `/signup` routing; optional Google at checkout; student
+  waiting state polling `get-checkout-status`; inline 6-digit code step before "Start Studying Now";
+  passwordless `/login`; first-name-only parent copy; no add-on on parent views.
+- Auth config still to do: Supabase email template with `{{ .Token }}` (Dev, then gated Prod); disable the
+  password provider (Prod, gated).
+
 **Implementation Summary:** Implemented on `chatgpt/task-0041-purchase-funnel` (PR #253):
 anonymous `student_direct` Stripe Elements checkout, `parent_share` hosted Checkout, checkout-status
 API, webhook recipient resolution for `student_direct`/`parent_share`/legacy `parent_gift`, Stripe

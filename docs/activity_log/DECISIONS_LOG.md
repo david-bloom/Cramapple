@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0090 — TASK-0041 Checkout/Login Direction Revised: Passwordless Only (Password Login Removed Permanently), Optional Google Sign-In at Checkout, "Start Studying Now" Only on a Verified Session, Add-On Is Student-Direct Only (Parent's Card Never Saved), Parent Screens Show Student First Name Only, `/signup` Picks Route to `/checkout`
 - DECISION-0088 — Skill Grain Is the Full Sub-Skill Grid (Option 3): Store Fine, Roll Up Later; Mastery Definition Unchanged
 - DECISION-0087 — Home's "Start Practice" Always Starts With Open Hand (Teaching-First Entry); Answer Keys Must Reveal on an Explicit Action, Never on Mount
 - DECISION-0086 — Open Hand Resolves to One Gated Path: Entitlement-Scoped Access With a Mandatory Exclusion Write (Staff/QA Exempt), Unified on `get_open_hand_item`; the Work Is TASK-0051
@@ -40,6 +41,57 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0090 — TASK-0041 Checkout/Login Direction Revised (Passwordless, Verified-Session Entry, Student-Direct-Only Add-On)
+
+**Date:** 2026-09-29
+**Decision Owner:** David Bloom
+**Status:** Approved — Product Owner answers in the 2026-09-29 Claude session, recorded verbatim below
+**Related Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Related Docs:** `docs/product/PURCHASE_FUNNEL_TECHNICAL_SPEC_2026_09_27.md` (amended); `docs/product/LAUNCH_PLAN_PAYMENT_FLOW_2026_09_26.md`; source Google Doc "Cramapple Mobile Checkout Product Spec" (`1xqzjImgQ9lcCuxPwosp2y3uhM6kpauA3loYv_MCflcQ`, Screens 1, 2, 3 and §6 revised)
+**Area:** Payments / auth / front-end
+**ID note:** `DECISION-0089` is claimed by open PR #278 (TASK-0056); this entry takes 0090 to avoid a collision.
+
+### Context
+
+The Product Owner revised the source checkout doc (Screens 1, 2, 3, §6). Claude compared it to the repo spec
+and the live site and raised five questions. A live anonymous repro the same day showed `/signup`'s subject
+picker sends visitors to `app.cramapple.com/home?subject=…`, which bounces them to `/login`.
+
+### Decided
+
+1. **Verified-session entry.** "Start Studying Now" and the parent-paid auto-redirect enter the app only on a
+   verified session: optional Google Sign-In at checkout, or a 6-digit email code after payment. A cleared
+   payment never signs a device in by itself. — *"yes"*
+2. **Add-on is off entirely for parent-paid purchases** (`parent_share`, legacy `parent_gift`), and the
+   parent's card is never saved for reuse. Reverses the parent-share add-on reuse added in `09b3124`. —
+   *"off entirely."*
+3. **Password login is removed permanently.** Sign-in is email code / magic link or Google only. —
+   *"yes- permanently"*
+4. **`/signup` subject picks go to `/checkout`** with the subject preselected, per spec §8.1 and the doc's
+   Subject Selection → Checkout flow. — *"follow the guidance in the spec"*
+5. **Parent-facing screens show the student's first name only**, never the email (masked or not). —
+   *"yes, just show the name"*
+6. **Checkout trust line is "Secure payment powered by Stripe"** (spec A3), not the source doc's "Secure
+   256-Bit Encrypted Checkout". — *"\"Secure payment powered by Stripe\"."*
+7. **No live test** of the invited-student 6-digit-code sign-in is required. — *"No live test"*
+
+### Not decided / still gated
+
+- Disabling the password provider in Supabase Auth and editing the Auth email template for 6-digit codes
+  are auth-config changes: Development is covered by `APPROVAL-0059`; Production stays a Hard Gate.
+- Live Stripe changes, Production deploys, and paid-sales enablement stay behind Phase E.
+
+### Consequences
+
+- Backend (this change): the parent-share session no longer sets `setup_future_usage`; the webhook no longer
+  writes parent-paid customers into `app.stripe_customers`; `get-checkout-status` returns no offer for
+  parent-paid sessions and adds `purchaser_type` + `student_first_name`; `create-post-purchase-addon` refuses
+  parent-paid source sessions.
+- Front-end (Lovable `61dd6602`): `/signup` routing, Google button on checkout, student waiting state,
+  inline code step, passwordless `/login`, name-only parent copy.
+- Development data: checked 2026-09-29 — `app.stripe_customers` in Development has 0 rows, so no parent
+  card is stored against any student. Production has no TASK-0041 tables yet.
 
 ## DECISION-0088 — Skill Grain Is the Full Sub-Skill Grid; Store Fine and Roll Up Later
 
