@@ -1,11 +1,12 @@
 # TASK-0053 — Replace All Placeholder MCQ Feedback With Distractor-Specific Feedback
 
-**Status:** Code complete and on PR, awaiting review + deploy. **LAUNCH GATING.**
+**Status:** **Deployed to Production 2026-09-29** (`evaluate-attempt` v67), authorized in-session by David. Post-deploy live verification is outstanding and is folded into the pre-test-student smoke run. **LAUNCH GATING.**
 **Tier:** Hard-Gate (changes what every student reads after every wrong MCQ, in Production)
 **Owner:** Claude
 **Product Owner:** David Bloom
 **Date opened:** 2026-09-29
 **Area:** Grading / student-facing feedback / `evaluate-attempt`
+**Execution steps:** `docs/handoffs/RESOLUTION_RUNBOOK_2026_09_29.md`
 **Pull request:** `david-bloom/Cramapple#264` (branch `claude/mcq-distractor-feedback`)
 **Related:** `DECISION-0085` (skill dimension), `tasks/TASK-0050-SKILL-DIMENSION-ROLLOUT.md`
 
@@ -123,10 +124,14 @@ Before and after, on real Production data:
       otherwise decided.
 - [x] Composition is a pure exported function; 13/13 tests pass, `deno check` clean, `deno lint` at
       main's pre-existing baseline of 3.
-- [ ] **Deployed to Production** — `evaluate-attempt` must go via the Supabase **CLI** with an
-      explicit `--workdir`, not the MCP deploy tool.
+- [x] **Deployed to Production** 2026-09-29 via the Supabase CLI with `--workdir` (v67), after
+      Development. The MCP deploy tool is not usable here (its 200,000-byte limit, which is a tool
+      limit and not a platform one).
 - [ ] **Post-deploy verification**: submit a wrong MCQ on a labelled item (Statistics) and an
       unlabelled one (a Physics item), and confirm both read correctly and neither names the answer.
+      **Owner: David**, folded into the `scripts/student_grade_smoke.mjs` run immediately before the
+      app goes to test students. Until that runs, the live path remains unexercised end to end —
+      deploying is not evidence that a student gets the new text.
 
 ## Open questions for the Product Owner
 

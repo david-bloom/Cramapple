@@ -88,6 +88,134 @@ Practice 6 - Argumentation: make claims and support them with experimental evide
 
 MCQ practice weighting: Practice 1, 8-12%; Practice 2, 8-12%; Practice 4, 23-30%; Practice 5, 35-42%; Practice 6, 8-12%. Practice 3 is not assessed in the MCQ section.
 
+## Practice skills (sub-skills) — TASK-0050 Phase 0, added 2026-09-29
+
+Source: CED "Science Practices" pages (Course Framework V.1 pp. 12-13, © 2024 College Board),
+supplied by David 2026-09-29 as a direct capture of the College Board PDF — the same Fall 2024
+edition this pack's Source control section records. Transcribed verbatim. These are the skill codes
+the skill dimension uses (`app.taxonomy_skills`): **28 total, all assessed.**
+
+Unlike AP Calculus, whose CED marks three sub-skills *not assessed* (1.A, 1.B, 3.A), the AP
+Chemistry page marks none — so all 28 are candidates. Note separately that Practice 3 as a whole is
+not assessed in the **MCQ** section (see the weighting line above); that is a section-level
+restriction, not a per-skill exclusion, and it does not remove 3.A-3.C from FRQ scope.
+
+### Practice 1 — Models and Representations
+*Describe models and representations, including across scales.*
+
+- **1.A** Describe the components of and quantitative information from models and representations that illustrate particulate-level properties only.
+- **1.B** Describe the components of and quantitative information from models and representations that illustrate both particulate-level and macroscopic-level properties.
+
+### Practice 2 — Question and Method
+*Determine scientific questions and methods.*
+
+- **2.A** Identify a testable scientific question based on an observation, data, or a model.
+- **2.B** Formulate a hypothesis or predict the results of an experiment.
+- **2.C** Identify experimental procedures that are aligned to a scientific question (which may include a sketch of a lab setup).
+- **2.D** Make observations or collect data from representations of laboratory setups or results, while attending to precision where appropriate.
+- **2.E** Identify or describe potential sources of experimental error.
+- **2.F** Explain how modifications to an experimental procedure will alter results.
+
+### Practice 3 — Representing Data and Phenomena
+*Create representations or models of chemical phenomena.*
+
+- **3.A** Represent chemical phenomena using appropriate graphing techniques, including correct scale and units.
+- **3.B** Represent chemical substances or phenomena with appropriate diagrams or models (e.g., electron configuration).
+- **3.C** Represent visually the relationship between the structures and interactions across multiple levels or scales (e.g., particulate to macroscopic).
+
+### Practice 4 — Model Analysis
+*Analyze and interpret models and representations on a single scale or across multiple scales.*
+
+- **4.A** Predict and/or explain chemical properties or phenomena (e.g., of atoms or molecules) using given chemical theories, models, and representations.
+- **4.B** Explain whether a model is consistent with chemical theories.
+- **4.C** Explain the connection between particulate-level and macroscopic properties of a substance using models and representations.
+- **4.D** Explain the degree to which a model or representation describes the connection between particulate-level properties and macroscopic properties.
+
+### Practice 5 — Mathematical Routines
+*Solve problems using mathematical relationships.*
+
+- **5.A** Identify quantities needed to solve a problem from given information (e.g., text, mathematical expressions, graphs, or tables).
+- **5.B** Identify an appropriate theory, definition, or mathematical relationship to solve a problem.
+- **5.C** Explain the relationship between variables within an equation when one variable changes.
+- **5.D** Identify information presented graphically to solve a problem.
+- **5.E** Determine a balanced chemical equation for a given chemical phenomenon.
+- **5.F** Calculate, estimate, or predict an unknown quantity from known quantities by selecting and following a logical computational pathway and attending to precision (e.g., performing dimensional analysis and attending to significant figures).
+
+### Practice 6 — Argumentation
+*Develop an explanation or scientific argument.*
+
+- **6.A** Make a scientific claim.
+- **6.B** Support a claim with evidence from experimental data.
+- **6.C** Support a claim with evidence from representations or models at the particulate level, such as the structure of atoms and/or molecules.
+- **6.D** Provide reasoning to justify a claim using chemical principles or laws, or using mathematical justification.
+- **6.E** Provide reasoning to justify a claim using connections between particulate and macroscopic scales or levels.
+- **6.F** Explain the connection between experimental results and chemical concepts, processes, or theories.
+- **6.G** Explain how potential sources of experimental error may affect the experimental results.
+
+## Topic-to-practice alignment — TASK-0050 Phase 0, COMPLETE (all 9 units)
+
+Source: CED "Course at a Glance" (Course Framework V.1 pp. 16-20, © 2024 College Board), supplied by
+David 2026-09-29 in two batches. Each topic carries the Science Practice the CED aligns to it, so the topic × skill
+grid is **transcribed rather than curated** for the units covered — the case `TASK-0050` §6.2 says to
+prefer.
+
+**COVERAGE: complete — all 91 topics across all 9 units.** Units 6-9 were supplied first
+(2026-09-29), Units 1-5 in a second batch the same day.
+
+**Verification of this transcription.** The per-unit topic counts read from the captures are 8, 7,
+13, 9, 11, 9, 12, 11, 11 for Units 1-9, totalling 91. `app.taxonomy_topics` holds exactly those nine
+counts and exactly 91 topics. A miscount in any unit would have broken that equality.
+
+| Unit | Topic → Practice |
+| --- | --- |
+| 1 — Atomic Structure and Properties | 1.1→5, 1.2→5, 1.3→2, 1.4→5, 1.5→1, 1.6→4, 1.7→4, 1.8→4 |
+| 2 — Compound Structure and Properties | 2.1→6, 2.2→3, 2.3→4, 2.4→4, 2.5→3, 2.6→6, 2.7→6 |
+| 3 — Properties of Substances and Mixtures | 3.1→4, 3.2→4, 3.3→3, 3.4→5, 3.5→4, 3.6→6, 3.7→5, 3.8→3, 3.9→2, 3.10→4, 3.11→4, 3.12→5, 3.13→2 |
+| 4 — Chemical Reactions | 4.1→2, 4.2→5, 4.3→3, 4.4→6, 4.5→5, 4.6→3, 4.7→1, 4.8→1, 4.9→5 |
+| 5 — Kinetics | 5.1→6, 5.2→5, 5.3→5, 5.4→5, 5.5→6, 5.6→3, 5.7→1, 5.8→5, 5.9→5, 5.10→3, 5.11→6 |
+| 6 — Thermochemistry | 6.1→6, 6.2→3, 6.3→6, 6.4→2, 6.5→1, 6.6→4, 6.7→5, 6.8→5, 6.9→5 |
+| 7 — Equilibrium | 7.1→6, 7.2→4, 7.3→3, 7.4→5, 7.5→6, 7.6→5, 7.7→3, 7.8→3, 7.9→6, 7.10→5, 7.11→5, 7.12→2 |
+| 8 — Acids and Bases | 8.1→5, 8.2→5, 8.3→5, 8.4→5, 8.5→5, 8.6→6, 8.7→2, 8.8→6, 8.9→5, 8.10→6, 8.11→2 |
+| 9 — Thermodynamics and Electrochemistry | 9.1→6, 9.2→5, 9.3→6, 9.4→6, 9.5→6, 9.6→4, 9.7→4, 9.8→2, 9.9→5, 9.10→6, 9.11→5 |
+
+Every Chemistry topic in these units carries **exactly one** practice — unlike AP Calculus, where
+three topics (2.2, 5.12, 10.11) carry two.
+
+Exam weightings captured alongside, for authoring reference: Unit 1 7-9%, Unit 2 7-9%,
+**Unit 3 18-22%** (the heaviest unit in the course), Unit 4 7-9%, Unit 5 7-9%, Unit 6 7-9%,
+Unit 7 7-9%, **Unit 8 11-15%**, Unit 9 7-9%.
+
+**How the grid derives from this.** A topic's candidate skills are the sub-skills of its aligned
+practice — so a Practice 5 topic offers 5.A-5.F (six candidates), Practice 6 offers 6.A-6.G (seven),
+Practice 2 offers 2.A-2.F (six), Practice 4 offers 4.A-4.D (four), Practice 3 offers 3.A-3.C (three),
+Practice 1 offers 1.A-1.B (two). No Chemistry sub-skill is marked *not assessed*, so none are
+excluded — unlike AP Calculus, which excludes 1.A, 1.B and 3.A.
+
+### Practice distribution across the course
+
+Useful when sizing a labelling run, since a topic's candidate count is the size of its practice:
+
+| Practice | Sub-skills | Topics aligned to it |
+| --- | --- | --- |
+| 1 Models and Representations | 2 | 5 |
+| 2 Question and Method | 6 | 9 |
+| 3 Representing Data and Phenomena | 3 | 12 |
+| 4 Model Analysis | 4 | 14 |
+| 5 Mathematical Routines | 6 | 30 |
+| 6 Argumentation | 7 | 21 |
+| **Total** | | **91** |
+
+Practice 5 (Mathematical Routines) carries a third of the course, consistent with its 35-42% MCQ
+weighting recorded above.
+
+Mean candidates per topic is **5.31** — larger than AP Statistics' 2.33, so expect lower proposer
+agreement than Statistics' 85.6% on the eventual Phase B run, though far better than the 28-way
+choice that would apply without this alignment.
+
+**Phase 0 for AP Chemistry is complete.** Phase A (building `taxonomy_skills` and `taxonomy_cells`)
+can now be transcribed from this section plus the sub-skill list above. Phase B still requires the
+topic pass first: no AP Chemistry item currently carries a topic assignment.
+
 FRQ practice weighting: Practice 1, 2-4%; Practice 2, 10-16%; Practice 3, 8-16%; Practice 4, 5-9%; Practice 5, 43-53%; Practice 6, 15-24%.
 
 ## Topic map

@@ -6,6 +6,7 @@
 **Product Owner:** David Bloom
 **Date opened:** 2026-09-29
 **Area:** Reference content / taxonomy / feedback inputs
+**Execution steps:** `docs/handoffs/RESOLUTION_RUNBOOK_2026_09_29.md`
 **Depends on:** PR #268 (`taxonomy_source_versions.subject_id`), `TASK-0050` (skill labelling)
 **Related:** `TASK-0053` (distractor-specific MCQ feedback), `DECISION-0085`,
 `docs/research/TOPIC_GUIDE_PROTOCOL_ASSESSMENT_2026_08_21.md`,
