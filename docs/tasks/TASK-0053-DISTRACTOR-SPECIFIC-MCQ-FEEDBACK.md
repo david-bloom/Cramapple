@@ -52,11 +52,19 @@ moment the code deploys. No authoring, no backfill, no model spend.
 The feedback also names the **skill** the question tests and the **unit** it sits in. Those come from
 `content_item_cells` → `taxonomy_skills` / `taxonomy_topics`.
 
-> **CORRECTED 2026-09-29.** This section originally reported "406 of 783 (51.9%) has skill cell".
-> That was wrong. `content_item_cells.skill_code` is **nullable in Production** — the migration that
-> created the table declares it `not null`, and the deployed schema drifted. The original count used
-> `exists(...)` on a cell row, which counts **topic-only** tags as though they were skill tags.
-> Biology's 43 and Calculus AB's 56 are topic-only rows with a null `skill_code`. Corrected below.
+> **CORRECTED 2026-09-29 (twice).** This section originally reported "406 of 783 (51.9%) has skill
+> cell". That was wrong: the count used `exists(...)` on a cell row, which counts **topic-only** tags
+> as though they were skill tags. Biology's 43 and Calculus AB's 56 are topic-only rows with a null
+> `skill_code`. Corrected below.
+>
+> The first correction also gave the wrong **reason**, calling the nullable `skill_code` schema drift
+> from a `not null` DDL. It is not drift. Migration
+> `20260927004500_generalize_content_item_cells_topic_only.sql` deliberately made topic-only
+> assignment legal on 2026-09-26/27 per `CONTENT_TAXONOMY_RATIONALIZATION_PLAN_2026_09_26.md` §3.2,
+> and it already guards the hazard: because the composite FK to `taxonomy_cells` is MATCH SIMPLE and
+> is trivially satisfied when `skill_code` is NULL, that migration added
+> `content_item_cells_topic_fkey` so a topic-only row still cannot name a nonexistent topic. The
+> lesson is about reading the latest migration for a table, not about the schema.
 
 | Subject | Published MCQ | Has topic | Has **skill** |
 |---|---:|---:|---:|
