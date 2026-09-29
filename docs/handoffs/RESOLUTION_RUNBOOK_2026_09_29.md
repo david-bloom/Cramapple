@@ -72,6 +72,20 @@ Expect exactly these, and **no** `20260929113000_*`:
 **No Production write happens here.** These migrations are already applied; a recorded version is a
 no-op for `db push`.
 
+**Done 2026-09-29** — merged as `13bb2ba`. All five files were checked against Production's ledger
+before the merge: four are byte-identical, and `110501` is the recorded SQL with a comment-only
+header added.
+
+---
+
+## STEP 1b — Production grading hotfix (done 2026-09-29, `APPROVAL-0062`)
+
+`evaluate-attempt` v67 read `app.open_hand_scoring_exclusions`, which did not exist in Production,
+so every graded submission would have returned 500. Fixed by creating that table alone
+(`20260929130754_open_hand_scoring_exclusions_table_only.sql`) in Dev and Prod, with the same
+ledger version in both. Details: TASK-0051 § "Production hotfix". **Step 2 was not runnable
+before this fix** — it would have failed at grading.
+
 ---
 
 ## STEP 2 — Run the student submit-to-grade smoke test
@@ -161,6 +175,12 @@ git ls-tree -r --name-only origin/main supabase/migrations/ \
 ```
 
 On 2026-09-29 these were **185** and **113** — at least 72 migrations exist only in Production.
+
+**Drift runs the other way too.** Development's ledger does not record PR #272's five migrations
+(`20260929071941`…`110501`). Before `20260929130754` was added, the newest version it recorded was
+`20260929034129`. Those five were applied to Production only, so Dev is missing the skill-dimension
+data and `app.taxonomy_scope_selftest()`. Reconciliation should cover Prod→Dev as well as
+Prod→repo.
 
 **Recovery recipe** (this is how PR #272's five were recovered, verbatim and byte-exact):
 

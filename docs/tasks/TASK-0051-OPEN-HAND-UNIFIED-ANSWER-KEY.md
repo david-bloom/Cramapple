@@ -187,6 +187,31 @@ an attempt on that same item, assert `409`). That needs the functions deployed t
 real user JWT; the SQL-level matrix above proves the RPC half but not `evaluate-attempt`'s refusal in
 a live request.
 
+## Production hotfix — exclusions table created ahead of this task (2026-09-29, `APPROVAL-0062`)
+
+`evaluate-attempt` v67 (TASK-0053's MCQ-feedback deploy) went to Production from a `main` that
+already carried this task's exclusion check, but the table it reads existed only in Development.
+Every graded Production submission would have returned 500 `open_hand_eligibility_check_failed`
+(zero attempts had arrived, so nobody was affected). Fixed by
+`20260929130754_open_hand_scoring_exclusions_table_only.sql`: this task's table section, verbatim,
+and nothing else. Applied to Development (no-op) and Production; both ledgers record
+`20260929130754`, and the recorded SQL hashes identically to the file.
+
+State after the hotfix:
+
+- **Production has the table but not `public.get_open_hand_item`.** Nothing answer-bearing shipped.
+  The table is empty, so `evaluate-attempt` finds no exclusion and grades normally.
+- Table parity Dev = Prod on columns, constraints, indexes, forced RLS and the `service_role` grant.
+  One environment difference is pre-existing and harmless: Production's `app` schema has a default
+  privilege granting `SELECT` to a `content_reviewer` role (100 of 104 `app` tables carry it; the
+  role does not exist in Dev). Forced RLS with no policy gives that role zero rows.
+- **`20260929034129` can no longer reach Production through `db push`.** Its header says it "sorts
+  after every Production-applied migration, so a plain `db push` picks it up." That stopped being
+  true when PR #272's migrations (`20260929071941`…`110501`) were recorded in Production. It now
+  needs a direct apply followed by the recorded-version rename (runbook Trap 1), or
+  `--include-all` once TASK-0055 makes `db push` safe. Its table section is a no-op on top of the
+  hotfix.
+
 ## Verification
 
 - [ ] Amended RPC applied to Development; entitlement-scoped access confirmed; staff/QA path
