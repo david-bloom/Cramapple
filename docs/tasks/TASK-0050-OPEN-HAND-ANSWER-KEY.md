@@ -1,10 +1,17 @@
-# TASK-0049 - Open Hand Answer-Key Serving Contract
+# TASK-0050 - Open Hand Answer-Key Serving Contract
 
 Status: Dev migration and RPC verified; evaluate-attempt Dev deploy pending approval
 Tier: Hard-Gate
 Owner: Codex
 Product Owner: David Bloom
 Date: 2026-09-27
+
+Renumbered from TASK-0049 on 2026-09-28. TASK-0049 belongs to the Biology/
+Statistics six-criterion label remediation, which two Production migrations
+(`task0049_promote_*`) and an active Codex prompt already cite by number. This
+work carried the same number by mistake and had no durable citations of its own,
+so it was renumbered rather than annotated in place — the same correction main
+made for the `attempt_criterion_results` writer (commit `734cf286`).
 
 ## Outcome
 
@@ -65,7 +72,7 @@ session's exact exam pack. The RPC intentionally has no admin ownership bypass.
 
 ## O9 Decision
 
-MCQ has no authored `minimum_fix` column. TASK-0049 derives that response field
+MCQ has no authored `minimum_fix` column. TASK-0050 derives that response field
 from the existing rationale, avoiding a schema addition and content-authoring
 pass. This can be overridden later without changing the security contract.
 
