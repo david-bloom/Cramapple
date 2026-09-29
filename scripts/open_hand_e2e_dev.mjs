@@ -111,7 +111,7 @@ async function answerAndGrade(token, sessionId, versionId, choiceKey) {
   if (submitted.status !== 200) return { step: "submit", ...submitted };
 
   const graded = await fn("evaluate-attempt", {
-    attempt_id: attemptId, response_version_id: rvId, idempotency_key: uuid(), operation: "grade",
+    attempt_id: attemptId, response_version_id: rvId, idempotency_key: uuid(), operation: "grade_initial_attempt",
   }, token);
   return { step: "grade", attemptId, ...graded };
 }
