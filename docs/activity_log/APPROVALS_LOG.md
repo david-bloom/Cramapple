@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0062 — Production Hotfix: Create `open_hand_scoring_exclusions` Table Only (Dev + Prod) — TASK-0051
 - APPROVAL-0061 — Execute TASK-0051 Open Hand Unification in Development — DECISION-0086
 - APPROVAL-0060 — Execute TASK-0050 Skill-Dimension Rollout in Development, with AI-Gateway Spend — DECISION-0085
 - APPROVAL-0059 — Execute TASK-0041 Purchase Funnel in Development — DECISION-0083
@@ -32,6 +33,29 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0062 — Production Hotfix: Create `open_hand_scoring_exclusions` Table Only (Dev + Prod)
+
+**Date:** 2026-09-29  
+**Approved By:** David Bloom  
+**Related Task:** `TASK-0051-OPEN-HAND-UNIFIED-ANSWER-KEY.md`, `TASK-0053`  
+**Related Decision:** `DECISION-0086`  
+**Decision:** Approved (option A of three presented; "Go with A but do Dev and Prod so they stay sync'd")
+
+**Why:** `evaluate-attempt` v67 (the TASK-0053 MCQ-feedback deploy, 2026-09-29 12:26 UTC) was
+deployed from a `main` that already carried TASK-0051's scoring-exclusion check. That check selects
+from `app.open_hand_scoring_exclusions` before grading and returns HTTP 500
+`open_hand_eligibility_check_failed` on any error. Production had no such table, so every graded
+submission in Production would have failed. Zero attempts had reached Production since v67, so no
+student was affected.
+
+**Approved scope:** migration `20260929130754_open_hand_scoring_exclusions_table_only.sql` — the
+table section of `20260929034129` copied verbatim, nothing else — applied to Development (a no-op
+there) and Production, with both ledgers recording the same version.
+
+**Not authorized by this entry:** `public.get_open_hand_item` in Production, or any other part of
+`20260929034129`. The answer-key RPC stays behind TASK-0051's end-to-end test, independent QA and
+Production gate.
 
 ## APPROVAL-0061 — Execute TASK-0051 Open Hand Unification in Development
 

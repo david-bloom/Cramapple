@@ -187,15 +187,64 @@ an attempt on that same item, assert `409`). That needs the functions deployed t
 real user JWT; the SQL-level matrix above proves the RPC half but not `evaluate-attempt`'s refusal in
 a live request.
 
+## Production hotfix — exclusions table created ahead of this task (2026-09-29, `APPROVAL-0062`)
+
+`evaluate-attempt` v67 (TASK-0053's MCQ-feedback deploy) went to Production from a `main` that
+already carried this task's exclusion check, but the table it reads existed only in Development.
+Every graded Production submission would have returned 500 `open_hand_eligibility_check_failed`
+(zero attempts had arrived, so nobody was affected). Fixed by
+`20260929130754_open_hand_scoring_exclusions_table_only.sql`: this task's table section, verbatim,
+and nothing else. Applied to Development (no-op) and Production; both ledgers record
+`20260929130754`, and the recorded SQL hashes identically to the file.
+
+State after the hotfix:
+
+- **Production has the table but not `public.get_open_hand_item`.** Nothing answer-bearing shipped.
+  The table is empty, so `evaluate-attempt` finds no exclusion and grades normally.
+- Table parity Dev = Prod on columns, constraints, indexes, forced RLS and the `service_role` grant.
+  One environment difference is pre-existing and harmless: Production's `app` schema has a default
+  privilege granting `SELECT` to a `content_reviewer` role (100 of 104 `app` tables carry it; the
+  role does not exist in Dev). Forced RLS with no policy gives that role zero rows.
+- **`20260929034129` can no longer reach Production through `db push`.** Its header says it "sorts
+  after every Production-applied migration, so a plain `db push` picks it up." That stopped being
+  true when PR #272's migrations (`20260929071941`…`110501`) were recorded in Production. It now
+  needs a direct apply followed by the recorded-version rename (runbook Trap 1), or
+  `--include-all` once TASK-0055 makes `db push` safe. Its table section is a no-op on top of the
+  hotfix.
+
+## Live Development end-to-end — PASSED 2026-09-29
+
+`scripts/open_hand_e2e_dev.mjs`, run by David from his Mac against Development, all 16 checks
+passed. A brand-new confirmed student with a real JWT, entitled to AP Statistics:
+
+- read item A's key by calling `public.get_open_hand_item` **directly through PostgREST** (not via
+  any edge function), got the key and `exclusion_recorded=true`, and exactly one exclusion row was
+  written;
+- created, saved and submitted an MCQ attempt on item A, and `evaluate-attempt` refused it with
+  **409 `open_hand_item_not_scorable`**;
+- did the same on item B, never viewed, which graded normally (200, one `grading_results` row);
+- read item A's key again and still had exactly one exclusion row.
+
+Dev's function logs confirm it independently: `evaluate-attempt` 409 at 16:56:28 UTC, then 200 at
+16:56:32. The script deleted the student and every row it created. A SQL check afterwards found no
+test users, exclusions, entitlements or attempts left.
+
+Dev ran `evaluate-attempt` v33, the same bundle hash as Production v67 and `main`, so this also
+exercises the code live in Production (minus the RPC, which Production does not have yet).
+
+Still open, not proven by this run: staff/QA live path, the unentitled/anonymous refusals as live
+calls (proven at SQL level above), the Open Hand screen's per-load exclusion count (a frontend
+check, TASK-0052), parity, advisors, independent QA, and the Production gate.
+
 ## Verification
 
 - [ ] Amended RPC applied to Development; entitlement-scoped access confirmed; staff/QA path
       confirmed to view without writing an exclusion row.
 - [ ] Anonymous, unentitled, retired-pack and unpublished-item calls all confirmed to fail.
-- [ ] Called twice for the same student/item: same key returned, exactly one exclusion row.
+- [x] Called twice for the same student/item: same key returned, exactly one exclusion row.
 - [ ] **One load of the Open Hand screen writes exactly N exclusions, where N = the number of items
       whose key was actually returned** — the guard against the list-endpoint pool burn (item 5).
-- [ ] A student calling `public.get_open_hand_item` **directly** via PostgREST, bypassing the edge
+- [x] A student calling `public.get_open_hand_item` **directly** via PostgREST, bypassing the edge
       function, is subject to the same entitlement check and the same exclusion write (item 6).
 - [ ] Staff/QA caller: key returned, **no** exclusion row written.
 - [ ] Known negative, recorded whether or not it is fixed here: an excluded item can still be
@@ -204,9 +253,9 @@ a live request.
 - [ ] Dev/Production object parity checked explicitly (table columns, function signature, grants).
 - [ ] `anon` and `authenticated` still cannot directly select `mcq_choices.is_correct` or
       `.rationale`.
-- [ ] End-to-end, as one sequence: view an item's key through Open Hand, submit an attempt on that
+- [x] End-to-end, as one sequence: view an item's key through Open Hand, submit an attempt on that
       same item, assert `409 open_hand_item_not_scorable`.
-- [ ] Negative case: an item never viewed in Open Hand still scores normally.
+- [x] Negative case: an item never viewed in Open Hand still scores normally.
 - [ ] Database advisors run; any new INFO/WARN explained.
 - [ ] Fresh independent QA in a new context, not a continuation of the implementing session.
 - [ ] Production: migration + both function deploys, as one coherent change, on David's explicit
