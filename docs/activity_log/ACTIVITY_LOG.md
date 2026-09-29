@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- MCQ Feedback Rebuilt From The Chosen Distractor; Deployed To Production (2026-09-29): every wrong MCQ answer had returned one fixed string on every item in every subject — "Select the answer choice that matches the published correct answer" — while the item's own authored distractor rationales sat unread two variables away in `mcqChoices`. **34 of the 63** recorded `highest_value_gap` rows were that placeholder, across **19 items carrying 76 unused rationales**. Rebuilt as three moves (orient by skill/unit, point at the chosen distractor's authored rationale, close on a question), with the shape rotating across four variants by an FNV-1a hash of item × chosen key so a twenty-question session does not read as one template — David, 2026-09-29: feedback should mix "tell" and "ask" and be "loose enough that it doesn't feel overly formulaic". The correct choice's rationale is never read. **The scope finding is that this was never blocked on content:** all **2,349** published distractors across all ten subjects already carry an authored rationale, zero gaps, so coverage is 100% at deploy with no authoring and no model spend (`TASK-0053`, PR #264/#265). Three self-corrections en route, all published: a skill-coverage figure of 406 that was really **304** (PR #266 — `content_item_cells.skill_code` is nullable, so `exists(...)` counted topic-only tags as skill tags); the reason given for that nullability, which I called schema drift when migration `20260927004500` had made topic-only tagging deliberate **and had already guarded the MATCH SIMPLE hazard I reported as a discovery** (PR #267); and two of the three "traps" I proposed fixing turning out not to be defects at all — the third, the hyphen/underscore subject-key split, is real (`replace('_','-')` silently drops Biology) and is parked as draft PR #268 with no current consumer. **Deployed to Development then Production (v67) on explicit per-action authorization.** `TASK-0054` opened for the reference-content model: `topic_explainers` and `topic_point_briefs` were authored as markdown, key the taxonomy as plain text with no FK, and carry **no skill reference at all**. **Next Owner:** David Bloom. **Next Action:** run `scripts/student_grade_smoke.mjs` (PR #270, unmerged) against Production immediately before handing the app to test students — the brand-new-student submit-to-grade path has still never been exercised end to end.
 - Skill-Dimension Rollout Planned and Measured; Open Hand's Two Competing Implementations Resolved (2026-09-29): Two strands, no Production writes and no AI-Gateway spend in either. **Skill dimension (TASK-0050, `DECISION-0085`, `APPROVAL-0060`, PRs #258/#259, both merged):** corrected the rollout plan against the live `content_item_cells` schema — a 2026-09-27 migration the first draft predated had already added the whole `assignment_status`/`validated_by` governance apparatus, made `skill_code` nullable (so the composite FK no longer catches an *unassigned* skill, only a hallucinated one), and added a one-primary-per-version index that would break a naive Phase B insert. Then ran a feasibility measurement across all ten subjects: **MCQ inventory, not the skill dimension, is the binding constraint on `DECISION-0074` mastery — the ceiling is `floor(published_MCQ / 2)` and is independent of grid size**, so the rollout delivers schema parity but is not the mastery unlock. AP Statistics' 203 existing skill-coded rows turned out to be stranded on retired pilot pack `7c5a2975` (203 MCQ, **0 FRQ**, 0 servable items), so GAP-10's measured zero is a pack/content gap before it is a labeling gap. David then set the labeling roster (proposers `openai/gpt-5.5` + `gemini-2.5-pro`, blind adjudicator `claude-opus-5`) and ruled that `validated` is earned by ≥2-of-3 model consensus with no human review pass — recorded as extending `DECISION-0066` rather than reversing `DECISION-0079`. One open Hard Gate: `content_item_cells_validation_check` requires a human `validated_by`, so a model-consensus `validated` is rejected by the database today. **Open Hand (TASK-0051, `DECISION-0086`, `APPROVAL-0061`):** the feature had been built twice by agents that could not see each other's work — one branch was local-only until this session pushed it. PR #256 served answer keys and recorded nothing; `codex/task-0049-open-hand-answer-key` recorded a scoring exclusion and refused to score the item afterwards. Verification established there is **no student-facing exposure today** (the deployed `open-hand-item` has no caller; the Open Hand screens are demo-only and make no network call; Production has no such function), so this is a latent gap in unwired work that becomes real the moment the plate loop is wired to live data — hence TASK-0052 for that wiring. David chose entitlement-scoped access with a mandatory exclusion write (staff/QA exempt), unified on the RPC. An independent Fable review then falsified a claim this session had propagated into three documents: **there is no `evaluate-attempt` bundle blocker** — the 200,000-byte limit belongs to the Supabase MCP deploy tool, not the platform, and the function was deployed to Production via the CLI on 2026-09-27. The same review found that the RPC, not the edge function, is the real security boundary (it is granted to `authenticated`), and that looping the single-item RPC across `open-hand-item`'s list response would have excluded ~20 items per screen load — enough to burn AP Biology's entire 43-item MCQ pool in two loads. **Next Owner:** David Bloom. **Next Action:** TASK-0051 execution to the Development boundary, then the Production Hard Gate; separately, decide the `validated_by` route for `DECISION-0085`.
 - TASK-0039 BYOQ Live in Production, Phases 1–2 (2026-09-28): Claude built and shipped bring-your-own-question end to end under `APPROVAL-0058`/`DECISION-0084`. The work covers parallel `byoq_*` tables with no answer-bearing column (enforced by a CHECK), the `byoq` edge function (anonymous owner keys plus recognized students, the answer-leak gate, unscored responses, phone/QR capture with metadata-stripped photos), 30-day anonymous retention on pg_cron, and the App screens at `app.cramapple.com/byoq` with a homepage link on `cramapple.com`. Independent QA returned Fail on the first round (unswept raw uploads, unscheduled purge, spoofable IP rate limit, title/source-note answer leak); all four were fixed and re-verified on Dev (24/24 live smoke checks) before Production. A Production round trip passed and was cleaned up. Phase 3 (worksheet upload) remains blocked on `BYOQ_WORKSHEET_PARSING_DESIGN.md`. **Next Owner:** David. **Next Action:** confirm or revise the eight launch defaults in `DECISION-0084`, and do a real-phone QR test on `app.cramapple.com/byoq`.
 - Oct 2 Launch Audit, TASK-0049 File Collision Resolved + Cold-Start Test Added, TASK-0039 BYOQ
@@ -324,6 +325,68 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## MCQ Feedback Rebuilt From The Chosen Distractor; Deployed To Production — 2026-09-29
+
+**Task:** `TASK-0053-DISTRACTOR-SPECIFIC-MCQ-FEEDBACK.md` (launch gating); `TASK-0054-REFERENCE-CONTENT-MODEL.md` opened
+**Authorization:** David, 2026-09-29, in-session: "Do all three in that order", then "Deploy to prod"
+**PRs:** #264 (code, merged), #265 / #266 / #267 / #269 (docs, merged), #268 (migration, parked draft), #270 (smoke test, open)
+**Environments:** Development and **Production** — `evaluate-attempt` v67, CLI with `--workdir`
+
+### What was wrong
+
+Every wrong MCQ answer produced one fixed string, on every item, in every subject:
+"Select the answer choice that matches the published correct answer." It restates the definition of
+"wrong", and it is the only thing a student gets back from an MCQ. Measured on Production: 34 of 63
+recorded `highest_value_gap` rows were that placeholder, across 19 items which carry 76 authored
+distractor rationales the code never read.
+
+### What shipped
+
+Feedback is composed from what the item already knows — orient (skill via `content_item_cells` →
+`taxonomy_skills`, unit via `taxonomy_topics`), point (the **chosen** distractor's authored
+rationale), redirect (a question, never a correction). The shape rotates across four variants keyed
+by an FNV-1a hash of item version × chosen key: stable on re-read, different across items. The
+correct choice's rationale is never read, since the item may be served to the same student again.
+
+Deliberately not approximated: naming what the student got right first (a 1-point MCQ has no partial
+credit to praise) and immediate re-practice (a serving decision, not a string).
+
+### The finding that decided scope
+
+**This was never blocked on content.** All 783 published MCQ items across all ten subjects carry
+authored rationales on all 2,349 distractors — zero gaps. Coverage is 100% at deploy, with no
+authoring and no model spend. It was also not blocked on `TASK-0050`: the orienting cue degrades
+independently.
+
+### Corrections made in-session, all published
+
+1. **406 → 304** skill-labelled MCQs (PR #266). `content_item_cells.skill_code` is nullable, so an
+   `exists(...)` test counted topic-only tags as skill tags. Only Statistics has any skill labelling.
+2. **"Schema drift" was wrong** (PR #267). Migration `20260927004500` made topic-only tagging
+   deliberate, and had already found and guarded the MATCH SIMPLE hazard I reported as a discovery,
+   via `content_item_cells_topic_fkey`. I had read the migration that *created* the table rather than
+   the newest one touching it.
+3. **Two of three "traps" were not defects.** The nullable `skill_code` is by design; the missing
+   `authenticated` grant on `content_item_cells` is INV-1 ("store fine, present coarse") and granting
+   it would undo a security decision. Only the subject-key namespace split is real — parked as draft
+   PR #268 because nothing in the shipping path consumes it.
+
+David's read on the session: "I feel like we are learning but also getting off track." Accurate — of
+five PRs opened, only #264 was on the critical path.
+
+### Open
+
+- `scripts/student_grade_smoke.mjs` (PR #270) is written but **has never been run**. Dev has no
+  secret key available locally (the one in `.secrets.env` is Production-only: Dev 401 / Prod 200) and
+  Dev requires email confirmation. David will run it against Production immediately before handing
+  the app to test students.
+- `TASK-0054`: reference content carries no skill reference and no FK to the taxonomy; AP Physics C:
+  E&M is short 14 topics in both `topic_explainers` and `topic_point_briefs`.
+
+**Next Owner:** David Bloom.
+**Next Action:** run the smoke test before test students; then TASK-0051/0052 (Open Hand).
+
 
 ## TASK-0039 BYOQ Live in Production, Phases 1–2 — 2026-09-28
 
