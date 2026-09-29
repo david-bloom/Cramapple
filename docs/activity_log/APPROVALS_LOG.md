@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0061 — Execute TASK-0051 Open Hand Unification in Development — DECISION-0086
 - APPROVAL-0059 — Execute TASK-0041 Purchase Funnel in Development — DECISION-0083
 - APPROVAL-0058 — Ship TASK-0039 BYOQ (Phases 1–2: Data Model, Typed Fallback, Phone/QR Capture, Practice Screen) to Production — DECISION-0084
 - APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
@@ -30,6 +31,28 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0061 — Execute TASK-0051 Open Hand Unification in Development
+
+**Date:** 2026-09-29  
+**Approved By:** David Bloom  
+**Related Task:** `TASK-0051-OPEN-HAND-UNIFIED-ANSWER-KEY.md`  
+**Related Decision:** `DECISION-0086`  
+**Decision:** Approved
+
+Approves execution of TASK-0051 in Development/task-branch scope: amending `get_open_hand_item` to
+the entitlement-scoped access model with a view-only staff/QA bypass, making
+`open_hand_scoring_exclusions.learning_session_id` nullable, repointing the `open-hand-item` edge
+function at the RPC, consolidating the two competing branches onto one, Development migrations and
+Development function deploys, and the end-to-end Dev verification in the task's checklist.
+
+This approval does **not** authorize: any Production migration or function deploy; wiring the plate
+loop to live data for students; or a workaround for the `evaluate-attempt` bundle-size limit — that
+needs either the explicit reviewer approval or a real reduction of the import closure, as its own
+gate.
+
+_Numbering note: `APPROVAL-0060` is claimed by the skill-dimension rollout on the unmerged PR #259
+and is not yet on `main`. This entry takes 0061 to avoid colliding with it._
 
 ## APPROVAL-0059 — Execute TASK-0041 Purchase Funnel in Development
 

@@ -110,9 +110,18 @@ contract requires a published item in the session's own exam pack, which implies
 is inference from a contract, not a front-end check. **This is the single cheapest thing that could
 shrink the whole problem, so §5 checks it first.**
 
-## 4. Decisions needed from the Product Owner
+## 4. Decisions needed from the Product Owner — **ANSWERED 2026-09-29, see `DECISION-0086`**
 
-These are not resolvable by an executing agent.
+> **Resolved.** David chose **D1 (c)**, **D2 (a)**, and **D3 = TASK-0051**, recorded as
+> `DECISION-0086` / `APPROVAL-0061`, with execution scoped in
+> `docs/tasks/TASK-0051-OPEN-HAND-UNIFIED-ANSWER-KEY.md`. Two consequences of D1 (c) surfaced while
+> recording it: the existing RPC implements D1 (a), so its access predicate must be rewritten and a
+> view-only staff/QA bypass added; and
+> `app.open_hand_scoring_exclusions.learning_session_id` is `NOT NULL`, which must become nullable
+> or entitlement-scoped access collapses back into session-scoped access. The options below are kept
+> as the reasoning behind the choice.
+
+These were not resolvable by an executing agent.
 
 **D1 — Access model. Which rule governs who may see an answer key?**
 - (a) Session-scoped (codex): must own an active learning session containing the item. Tightest; no
