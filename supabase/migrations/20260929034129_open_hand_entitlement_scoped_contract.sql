@@ -31,6 +31,26 @@
 --
 -- Written to be safe on a database that already has the D1(a) objects (Development)
 -- and on one that has none of them (Production, as of 2026-09-29).
+--
+-- MIGRATION ORDERING — this file is self-sufficient, and that matters.
+--
+-- 20260928023843_open_hand_answer_key_contract.sql sorts BEFORE eight migrations
+-- already applied to Production (20260928130000 … 20260928191213), so `db push`
+-- would skip it there without --include-all. That is fine and requires no special
+-- handling, because THIS file needs none of it: `create table if not exists` plus
+-- `add column if not exists` plus a full `create function` build the whole contract
+-- from nothing. Production needs only this migration. The earlier file is, in
+-- effect, a Development-only historical artifact.
+--
+-- Its filename is 20260929034129 to match the version Development actually
+-- recorded. The MCP apply_migration tool stamps its own version at call time
+-- rather than using the filename, so the file was renamed after applying (the
+-- same drift TASK-0039's BYOQ migrations hit). It sorts after every
+-- Production-applied migration, so a plain `db push` picks it up.
+--
+-- Re-running is safe: every DDL statement is guarded (`if not exists`,
+-- `drop function if exists` before `create function`), and the backfill is a
+-- no-op once content_item_id is populated.
 
 begin;
 

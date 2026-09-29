@@ -134,6 +134,59 @@ imports `functions.invoke("open-hand-item")`.
 
 The wiring itself remains `TASK-0052`.
 
+## Development verification — RUN 2026-09-29
+
+Migration applied to Development as `20260929034129_open_hand_entitlement_scoped_contract`. The file
+was renamed from `20260929120000` to match the version Development recorded (MCP `apply_migration`
+stamps its own). It sorts after every Production-applied migration, so a plain `db push` will pick it
+up, and it is self-sufficient — Production needs only this file, not the superseded
+`20260928023843`.
+
+**Schema, verified by query:** `learning_session_id` nullable YES; `content_item_id` NOT NULL;
+**exactly one** function overload, signature `(p_content_item_version_id uuid,
+p_learning_session_id uuid)` — no PostgREST ambiguity; zero `anon`/`authenticated` grants on the
+table.
+
+**Access matrix, executed against Development by simulating `auth.uid()` through the JWT-claims GUC —
+i.e. exercising the direct-PostgREST path, not the edge function:**
+
+| Case | Result |
+| --- | --- |
+| Anonymous | `REFUSED not_authenticated` |
+| Entitled student | `OK` — key returned (4 choices, `is_correct` present), `exclusion_recorded=true` |
+| Unentitled student | `REFUSED open_hand:entitlement_required` |
+| Staff (`tutor`) | `OK` — key returned, **`exclusion_recorded=false`**, no row written |
+| Same entitled student, second call | `OK`, and still **exactly one** exclusion row (idempotent) |
+| Unknown / unpublished item | `REFUSED open_hand:item_not_accessible` |
+| Foreign `learning_session_id` | `REFUSED open_hand:session_not_accessible` |
+
+The single written row carried the correct `content_item_id` and a **null** `learning_session_id`,
+confirming entitlement-scoped access works with no session — the point of D1(c).
+
+**Ordinary answer-key boundary unchanged:** `authenticated` may still select only `choice_key`,
+`choice_text`, `content_item_version_id`, `created_at`, `id` on `app.mcq_choices` — **not**
+`is_correct`, **not** `rationale`. `anon` has no grant at all. The RPC is the only path to a key.
+
+**Advisors run.** Two findings touch this work, both intentional and both matching the pre-existing
+pattern: `rls_enabled_no_policy` INFO on `open_hand_scoring_exclusions` (1 of 22 such private tables
+— RLS forced with no policy is deny-all, and only `service_role` holds `select`), and
+`authenticated_security_definer_function_executable` WARN on `get_open_hand_item` (1 of 16 — required
+by `DECISION-0086`, since the RPC *is* the boundary students call). Notably `get_open_hand_item` does
+**not** appear in the `anon`-executable list.
+
+**Test data cleaned up:** the one exclusion row created during verification was deleted; the table is
+back to 0 rows.
+
+**Unit tests:** `student-item-delivery` 42/42 (3 new, including the fail-closed path and the
+key-allowlist updated for `open_hand_excluded`), `student-session-items` 26/26, `evaluate-attempt` 3/3
+with the table-order assertion extended to prove the item-resolution read touches nothing
+answer-bearing. `deno check` clean on both functions.
+
+**Not yet done:** the end-to-end sequence through the deployed edge functions (view a key, then submit
+an attempt on that same item, assert `409`). That needs the functions deployed to Development and a
+real user JWT; the SQL-level matrix above proves the RPC half but not `evaluate-attempt`'s refusal in
+a live request.
+
 ## Verification
 
 - [ ] Amended RPC applied to Development; entitlement-scoped access confirmed; staff/QA path
