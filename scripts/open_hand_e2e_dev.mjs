@@ -20,6 +20,9 @@ import { readFileSync } from "node:fs";
 
 const URL_BASE = "https://wmgjsdkphcyhngaffbqf.supabase.co"; // Development
 const PUB = "sb_publishable_75zU2AprWByjZi83_Mzmqw_VdtqaAZt"; // Dev publishable
+// Dev's AP Statistics pack: selectable, and 203 published MCQs with keys (2026-09-29).
+const DEV_PACK_VERSION_ID = "4e54bb4f-695f-41be-ac06-745fe9ad8bcc";
+const DEV_SUBJECT_ID = "19e1a256-df88-4f17-a69e-96052885a137";
 
 function loadSecret() {
   if (process.env.SUPABASE_DEV_SECRET_KEY) {
@@ -137,21 +140,31 @@ async function main() {
   const token = signin.json?.access_token;
   if (!check("the student signs in and holds a JWT", Boolean(token), signin.text.slice(0, 300))) return;
 
-  // --- 2. entitlement (all subjects, marked as a smoke test) ---------------
-  const anySubject = await rest("subjects?status=eq.active&select=id&limit=1");
-  const subjectId = anySubject.json?.[0]?.id;
+  // --- 2. entitlement + active subject (AP Statistics on Dev) ---------------
   const grant = await rest("subject_entitlements", {
     method: "POST", headers: { prefer: "return=representation" },
-    body: { user_id: userId, subject_id: subjectId, all_subjects: true, access_tier: "trial", source: "smoke_test_task0051" },
+    body: { user_id: userId, subject_id: DEV_SUBJECT_ID, access_tier: "trial", source: "smoke_test_task0051" },
   });
-  if (!check("grant the student an active all-subjects entitlement", grant.status === 201,
+  if (!check("grant the student an active AP Statistics entitlement", grant.status === 201,
     `${grant.status} ${grant.text.slice(0, 300)}`)) return;
+
+  // A learning session starts from the profile's active pack
+  // (home_session:active_subject_required otherwise).
+  const pick = await rest(`profiles?user_id=eq.${userId}`, {
+    method: "PATCH", headers: { prefer: "return=representation" },
+    body: { active_exam_pack_version_id: DEV_PACK_VERSION_ID },
+  });
+  if (!check("set AP Statistics as the student's active subject",
+    pick.status === 200 && Array.isArray(pick.json) && pick.json.length === 1,
+    `${pick.status} ${pick.text.slice(0, 300)}`)) return;
 
   // --- 3. a learning session and two served MCQ items ----------------------
   const sess = await rest("rpc/start_home_learning_session_for_user", {
     method: "POST", body: { _user_id: userId, _minutes: 20, _idempotency_key: uuid() },
   });
-  const sessionId = typeof sess.json === "string" ? sess.json : sess.json?.learning_session_id ?? sess.json?.id ?? null;
+  // The RPC returns a one-row table, so PostgREST sends an array.
+  const sessRow = Array.isArray(sess.json) ? sess.json[0] : sess.json;
+  const sessionId = typeof sessRow === "string" ? sessRow : sessRow?.learning_session_id ?? sessRow?.id ?? null;
   if (!check("a learning session starts", Boolean(sessionId), `${sess.status} ${sess.text.slice(0, 300)}`)) return;
 
   const items = await fn("student-session-items",
