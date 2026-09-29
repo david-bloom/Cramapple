@@ -87,3 +87,44 @@ query against Production before any write was contemplated.
 181 inserts; `is_primary = false` on all 181 (the one-primary-per-version index would reject a second
 primary, and every item already has a topic-only primary); `assignment_status = 'provisional_model'`
 on all 181; `on conflict do nothing` on all 181; no row asserts `'validated'`.
+
+---
+
+## APPLIED TO PRODUCTION — 2026-09-29
+
+David gave explicit Production approval. Migration
+`task0050_apstats_phase_b_skill_codes` applied to `pcntajvbdfqhbeewmdry`.
+
+Rather than restating the data, the insert **derives** `content_item_id`,
+`topic_code` and `taxonomy_source_version` from each item's existing primary row and
+supplies only `(content_item_version_id, skill_code, tier)`. A topic therefore cannot
+disagree with what was already recorded, and 181 fewer values had to be transcribed.
+
+Verified after applying, against Production:
+
+| Check | Result |
+| --- | --- |
+| Skill-bearing rows created | **181** |
+| Items labelled | **181** (all of the live pack) |
+| Skill rows marked `is_primary` | **0** (correct — all secondary) |
+| Skill rows not `provisional_model` | **0** |
+| Pre-existing primary rows still intact | **181** (nothing modified) |
+| Distinct topic × skill cells filled | **72** |
+| Cells with >= 2 MCQ | **27** |
+| Cells with >= 1 FRQ | **44** |
+| **Masterable cells (>= 2 MCQ and >= 1 FRQ)** | **12** |
+
+The twelve are exactly the twelve projected before applying: `1.11x2.B, 1.13x2.A,
+1.13x2.B, 1.6x4.A, 1.7x3.B, 1.7x4.B, 2.6x3.C, 2.9x3.B, 4.1x3.D, 5.2x4.D, 5.3x3.B,
+5.4x4.D`. **GAP-10 for AP Statistics moves from 0 to 12.**
+
+**Reversal, if ever needed:** every row carries the run tag, so
+`delete from app.content_item_cells where model_run_id like
+'skill-codes-ap_statistics-20260929040715%';` removes exactly this run and nothing else.
+
+**One behavioural coupling to watch.** `app.select_confirm_transfer_item` matches a
+follow-up item by shared (topic, skill) cell. Before this run, live-pack items had
+`skill_code` NULL, so it matched nothing; it can now return matches. That is the
+intended direction of the skill dimension, but it is a real behaviour change and was
+not rehearsable in Development (which holds different AP Statistics content). Worth
+confirming whether the live front end calls it on the practice path.
