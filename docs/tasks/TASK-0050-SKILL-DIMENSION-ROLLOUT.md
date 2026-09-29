@@ -72,6 +72,31 @@ All three run on every item. `validated` is earned by ≥2-of-3 agreement; no-ma
 `scripts/taxonomy/extend_serving_labels_mcp.mjs:33` still hardcodes the superseded pair and must be
 updated in the Phase B fork.
 
+## Blocker found 2026-09-29 — Phase B cannot be completed in Development
+
+**Development does not hold the content this task needs to label.** Verified by query:
+
+| Environment | AP Statistics packs | Items | Skill-labelled |
+| --- | --- | --- | --- |
+| Production | `548f06be` (2027-05-11) | 101 MCQ + 80 FRQ | **0** — this is the work |
+| Production | `7c5a2975` (2027-05-18, retired pilot) | 203 MCQ + 0 FRQ | 203 |
+| Development | `4e54bb4f` (2027-05-11) | 203 MCQ + 0 FRQ | **203 — already done** |
+
+Development holds what looks like the pilot content under a different pack id and an earlier date,
+already fully skill-labelled. **The 181 items that need labelling exist only in Production.** So
+`APPROVAL-0060`'s Development scope cannot deliver Phase B for AP Statistics: there is nothing in Dev
+to label, and labelling Dev's 203 already-labelled pilot MCQs would achieve nothing.
+
+**What was done instead, within the approval.** Production was read (reads are not writes), the
+model-consensus pass was run, and the resulting labels, SQL and report were written to disk —
+**nothing was applied anywhere.** Applying them is a Production write and therefore a Hard Gate
+outside `APPROVAL-0060`, needing David's explicit go-ahead for this subject's content.
+
+**This likely generalises.** Before planning any other subject's Phase B, check whether Dev actually
+holds that subject's Production content, rather than assuming the Dev-then-Prod sequence in §8 is
+available. It may not be for any subject. This is consistent with the Dev/Prod divergence already on
+record in the schema-convergence work.
+
 ## Open items
 
 1. **Blocker, not blocking:** `content_item_cells_validation_check` requires `validated_by`, a uuid
