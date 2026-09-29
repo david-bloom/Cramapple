@@ -50,18 +50,29 @@ moment the code deploys. No authoring, no backfill, no model spend.
 ## What is NOT covered, stated plainly
 
 The feedback also names the **skill** the question tests and the **unit** it sits in. Those come from
-`content_item_cells` → `taxonomy_skills` / `taxonomy_topics`, which only half the corpus has:
+`content_item_cells` → `taxonomy_skills` / `taxonomy_topics`.
 
-| Subject | Published MCQ | Has skill cell |
-|---|---:|---:|
-| ap-statistics | 304 | 304 |
-| ap-calculus-ab | 57 | 56 |
-| biology | 43 | 43 |
-| ap-calculus-bc | 66 | 3 |
-| ap-chemistry | 68 | 0 |
-| ap-precalculus | 53 | 0 |
-| ap-physics-1 / 2 / c-mech / c-em | 192 | 0 |
-| **Total** | **783** | **406 (51.9%)** |
+> **CORRECTED 2026-09-29.** This section originally reported "406 of 783 (51.9%) has skill cell".
+> That was wrong. `content_item_cells.skill_code` is **nullable in Production** — the migration that
+> created the table declares it `not null`, and the deployed schema drifted. The original count used
+> `exists(...)` on a cell row, which counts **topic-only** tags as though they were skill tags.
+> Biology's 43 and Calculus AB's 56 are topic-only rows with a null `skill_code`. Corrected below.
+
+| Subject | Published MCQ | Has topic | Has **skill** |
+|---|---:|---:|---:|
+| ap-statistics | 304 | 304 | **304** |
+| ap-calculus-ab | 57 | 56 | 0 |
+| biology | 43 | 43 | 0 |
+| ap-calculus-bc | 66 | 3 | 0 |
+| ap-chemistry | 68 | 0 | 0 |
+| ap-precalculus | 53 | 0 | 0 |
+| ap-physics-1 / 2 / c-mech / c-em | 192 | 0 | 0 |
+| **Total** | **783** | **406 (51.9%)** | **304 (38.8%)** |
+
+Only **Statistics** has any skill labelling at all: it is the only subject with rows in
+`app.taxonomy_skills` (18) and `app.taxonomy_cells` (131) besides Calculus AB, whose 23 skills and
+404 cells are registered but **not yet attached to any item**. So the "skill" half of the orienting
+cue currently reaches one subject, and the "unit" half reaches five.
 
 **This does not block the gate.** The orienting sentence degrades independently: an unlabelled item
 drops it and still gets the distractor-specific pointer and the closing question. Completing the
