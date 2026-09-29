@@ -93,7 +93,7 @@ const exclusionCount = async (userId) => {
 async function answerAndGrade(token, sessionId, versionId, choiceKey) {
   const created = await fn("attempt-response", {
     operation: "create_attempt", idempotency_key: uuid(),
-    learning_session_id: sessionId, content_item_version_id: versionId, attempt_mode: "practice",
+    learning_session_id: sessionId, content_item_version_id: versionId, attempt_mode: "mcq",
   }, token);
   const attemptId = created.json?.result?.attempt?.id ?? created.json?.attempt?.id ?? created.json?.attempt_id;
   if (!attemptId) return { step: "create_attempt", ...created };
