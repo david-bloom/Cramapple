@@ -8,8 +8,8 @@
 **Status:** In Progress — implementation begun 2026-09-28 (`DECISION-0083`); independent QA
 (2026-09-28/29) verified the parent-share purchase → webhook → entitlement round trip, the
 refund → revocation round trip, and fixes for the three blocking defects QA found (see QA Review
-below). PR #253 remains **Draft** pending frontend/mobile verification and one more clean
-forward-looking regression pass.
+below). PR #253 merged to `main` on 2026-09-28 at merge commit `31ff3418`; frontend/mobile
+verification and one more clean forward-looking regression pass remain follow-ups.
 **Priority:** Medium — still not on the October 2, 2026 free-launch critical path (`DECISION-0071`
 unchanged: October 2 remains free, no payment gating), but building starts now rather than waiting
 for a post-launch follow-up  
@@ -17,7 +17,7 @@ for a post-launch follow-up
 **Reframed Date:** 2026-09-27  
 **Approved Date:** 2026-09-28 (`DECISION-0083` / `APPROVAL-0059`) — execution of Phase A/B begins now  
 **Branch:** `chatgpt/task-0041-purchase-funnel`  
-**PR:** [#253](https://github.com/david-bloom/Cramapple/pull/253) — Draft, open
+**PR:** [#253](https://github.com/david-bloom/Cramapple/pull/253) — merged 2026-09-28 (`31ff3418`)
 
 > **TASK REFRAME — 2026-09-27.** The prior "post-launch verify-and-fix" framing is superseded.  
 > TASK-0041 is now the implementation task for the redesigned Cramapple purchase funnel.  
