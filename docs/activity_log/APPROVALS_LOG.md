@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0060 — Execute TASK-0050 Skill-Dimension Rollout in Development, with AI-Gateway Spend — DECISION-0085
 - APPROVAL-0059 — Execute TASK-0041 Purchase Funnel in Development — DECISION-0083
 - APPROVAL-0058 — Ship TASK-0039 BYOQ (Phases 1–2: Data Model, Typed Fallback, Phone/QR Capture, Practice Screen) to Production — DECISION-0084
 - APPROVAL-0057 — Execute TASK-0046 Subject Onboarding Gate in Ordered Per-Subject Slices
@@ -30,6 +31,26 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0060 — Execute TASK-0050 Skill-Dimension Rollout in Development, with AI-Gateway Spend
+
+**Date:** 2026-09-29  
+**Approved By:** David Bloom  
+**Related Task:** `TASK-0050-SKILL-DIMENSION-ROLLOUT.md`  
+**Related Decision:** `DECISION-0085`  
+**Decision:** Approved
+
+Approves execution of TASK-0050 subject by subject in Development/task-branch scope: CED sourcing
+into fact packs (Phase 0), topic × skill grid migrations applied to Development (Phase A), and
+model-consensus skill labeling of published MCQ and FRQ items (Phase B) — including the Vercel
+AI-Gateway spend, per David, 2026-09-29: "create a plan for adding the skill dimension to each
+subject. I authorize the vercel gateway cost. Use the CEDs."
+
+This approval does **not** authorize: Production migrations or Production writes of any grid or
+label; relaxing `content_item_cells_validation_check` or creating a system/service profile
+(`DECISION-0085`'s open item); changing `DECISION-0074`'s mastery rule; or authoring new content
+items. Each remains a separate Hard Gate, and Production stays gated per subject on David's explicit
+go-ahead for that subject's content.
 
 ## APPROVAL-0059 — Execute TASK-0041 Purchase Funnel in Development
 
