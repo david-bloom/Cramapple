@@ -347,8 +347,25 @@ The 2026-09-27 Product Owner instruction establishes the new TASK-0041 scope. It
   `get-checkout-status` returns no offer for parent-paid sessions and adds `purchaser_type` and
   `student_first_name`; `create-post-purchase-addon` refuses parent-paid source sessions. Shared policy in
   `_shared/addon-checkout.ts` (`isPayerNotLearner`), unit-tested and added to CI.
-- Deployment: the Dev deploy of the four functions (all `verify_jwt: false` today; deployed code confirmed
-  identical to `main` beforehand) was blocked by the session's permission classifier and is left for David.
+- Deployment: **deployed to Development 2026-09-29** by David (PR #279 merged; `stripe-webhook` v23,
+  `create-parent-payment-link` v15, `get-checkout-status` v16, `create-post-purchase-addon` v15, all
+  `verify_jwt: false` as before). Deployed source re-downloaded and confirmed byte-identical to `main`. Live
+  checks: `get-checkout-status` on a paid parent-share session returns `purchaser_type: parent_share`,
+  `student_first_name`, `offer: null`, and no email; `create-post-purchase-addon` with a parent-share source
+  returns `addon_not_eligible`.
+- Front-end: Lovable `61dd6602` built all seven changes on 2026-09-29 (new `StartStudying.tsx`,
+  `use-checkout-status-poll.ts`; changed `signup.tsx`, `checkout.index.tsx`, `login.tsx`,
+  `PaymentResult.tsx`, `payment-status.ts`, `checkout.css`). **Not published** — cramapple.com still has the
+  `/signup` → `/login` bug until David publishes. Reviewed: "Start Studying Now" requires a verified session
+  or a 6-digit code (`signInWithOtp` with `shouldCreateUser: false`, then `verifyOtp`); the session cookie is
+  shared across cramapple.com and app.cramapple.com. The Google button sits in the email step rather than
+  under the "or pay with card" divider, because that divider only renders after the email step.
+- Open: (1) a refunded session makes `get-checkout-status` report `processing` forever (entitlement revoked,
+  so `entitled` never becomes true) — the waiting screen would spin; should return a terminal state.
+  (2) Dev has no fresh successful paid session — the only two paid sessions are the refund fixture and the
+  deliberate invalid-email fixture — so "Access Unlocked" has not been seen end to end. (3) The Supabase Auth
+  email template needs `{{ .Token }}` for the 6-digit code. (4) `/reset-password` is now unlinked; remove or
+  keep. (5) The two confirmation lines use exclamation marks, against the site's usual copy rule.
 - Live defect (2026-09-29, anonymous browser): `/signup` subject picker navigates to
   `app.cramapple.com/home?subject=<key>`, which bounces to `/login?redirect=…`. Fix is front-end (Lovable
   `61dd6602`): route to `/checkout?subject=<key>`.
