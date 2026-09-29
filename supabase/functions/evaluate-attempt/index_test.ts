@@ -1,6 +1,6 @@
 import "./_test_setup.ts";
 import { assertEquals } from "jsr:@std/assert@1";
-import { handleEvaluateAttempt } from "./index.ts";
+import { composeMcqFeedback, handleEvaluateAttempt } from "./index.ts";
 
 Deno.test("evaluate-attempt rejects an unsubmitted response before loading answer-key tables", async () => {
   const tablesQueried: string[] = [];
@@ -249,4 +249,195 @@ Deno.test("qa_no_persist proceeds past a present canonical_answer_1 instead of r
   assertEquals(res.status, 409);
   const json = await res.json();
   assertEquals(json.error, "content_not_published_frq");
+});
+
+// --- MCQ wrong-answer feedback -------------------------------------------
+// These pin the pedagogy, not the prose. What must hold is that a wrong answer
+// is told WHERE it went wrong (the chosen distractor's authored rationale) and
+// WHAT the question is for (the skill and unit), and is then left holding a
+// question rather than a correction — that the shape VARIES so a session of
+// twenty questions does not read like one template twenty times, and that each
+// ingredient degrades on its own when the data is missing, without ever naming
+// the correct choice.
+//
+// Seeds are chosen to pin one variant each; variantIndex is a pure hash, so
+// these stay stable across deploys.
+const STATS_SKILL =
+  "Calculate summary statistics, relative positions, predicted responses";
+const SEED_TELL_FIRST = "seed-3";
+const SEED_UNIT_ASK = "seed-0";
+const SEED_POINTER_FIRST = "seed-1";
+const SEED_UNIT_SKILL = "seed-2";
+
+Deno.test("MCQ feedback tells, points and then asks", () => {
+  const { summary, actionableFix, redirect } = composeMcqFeedback({
+    earned: false,
+    rationale: "Reported a standard deviation instead of the mean",
+    skillLabels: [STATS_SKILL],
+    unitNumber: 2,
+    variantSeed: SEED_TELL_FIRST,
+  });
+  assertEquals(
+    summary,
+    "Not quite. This question is testing how to calculate summary statistics, " +
+      "relative positions, predicted responses. Look again at the choice you " +
+      "picked: Reported a standard deviation instead of the mean. What would " +
+      "you need to work out to answer the question as asked?",
+  );
+  // The diagnosis, not a restatement of "pick the right answer".
+  assertEquals(
+    actionableFix,
+    "Reported a standard deviation instead of the mean",
+  );
+  assertEquals(redirect.endsWith("?"), true);
+});
+
+Deno.test("MCQ feedback can orient by unit and ask in the keeping-in-mind voice", () => {
+  const { summary } = composeMcqFeedback({
+    earned: false,
+    rationale: "Reported the median instead of the mean",
+    skillLabels: [STATS_SKILL],
+    unitNumber: 2,
+    variantSeed: SEED_UNIT_ASK,
+  });
+  assertEquals(
+    summary,
+    "Not quite. This is Unit 2 material. Look again at the choice you picked: " +
+      "Reported the median instead of the mean. Keeping how to calculate " +
+      "summary statistics, relative positions, predicted responses in mind, " +
+      "how would you answer it now?",
+  );
+});
+
+Deno.test("MCQ feedback varies its shape across items in a session", () => {
+  const shapes = new Set(
+    [SEED_TELL_FIRST, SEED_UNIT_ASK, SEED_POINTER_FIRST, SEED_UNIT_SKILL].map((
+      variantSeed,
+    ) =>
+      composeMcqFeedback({
+        earned: false,
+        rationale: "Swapped quartile and median positions",
+        skillLabels: [STATS_SKILL],
+        unitNumber: 1,
+        variantSeed,
+      }).summary
+    ),
+  );
+  // Four distinct shapes, so the feedback does not read as one template.
+  assertEquals(shapes.size, 4);
+});
+
+Deno.test("MCQ feedback is stable for a given item and chosen distractor", () => {
+  const once = composeMcqFeedback({
+    earned: false,
+    rationale: "Drew a whisker to an outlier",
+    skillLabels: [STATS_SKILL],
+    unitNumber: 1,
+    variantSeed: "item-a:D",
+  });
+  const twice = composeMcqFeedback({
+    earned: false,
+    rationale: "Drew a whisker to an outlier",
+    skillLabels: [STATS_SKILL],
+    unitNumber: 1,
+    variantSeed: "item-a:D",
+  });
+  // Re-reading the same result must not reword it.
+  assertEquals(once.summary, twice.summary);
+});
+
+Deno.test("MCQ feedback keeps a rationale that is already a full sentence intact", () => {
+  const { summary } = composeMcqFeedback({
+    earned: false,
+    rationale: "The pump works to maintain — not equalize — these gradients.",
+    skillLabels: [],
+    unitNumber: null,
+    variantSeed: SEED_TELL_FIRST,
+  });
+  // No doubled full stop, and no skill sentence when the item is unlabelled.
+  assertEquals(summary.includes("gradients.."), false);
+  assertEquals(summary.includes("This question is testing"), false);
+  assertEquals(summary.includes("The pump works to maintain"), true);
+});
+
+Deno.test("MCQ feedback drops the unit cue when the item spans no single unit", () => {
+  const { summary } = composeMcqFeedback({
+    earned: false,
+    rationale: "Used the wrong statistic for a comparison",
+    skillLabels: [STATS_SKILL],
+    unitNumber: null,
+    variantSeed: SEED_UNIT_ASK,
+  });
+  assertEquals(summary.includes("This is Unit"), false);
+  assertEquals(summary.endsWith("?"), true);
+});
+
+Deno.test("MCQ feedback degrades to a question when the distractor has no rationale", () => {
+  const { summary } = composeMcqFeedback({
+    earned: false,
+    rationale: null,
+    skillLabels: [STATS_SKILL],
+    unitNumber: 2,
+    variantSeed: SEED_TELL_FIRST,
+  });
+  assertEquals(summary.includes("Look again at the choice you picked"), false);
+  assertEquals(summary.includes("how to calculate summary statistics"), true);
+  assertEquals(summary.endsWith("?"), true);
+});
+
+Deno.test("MCQ feedback falls back to a colon form for a noun-initial skill label", () => {
+  // No CED label registered today is noun-initial, but a later subject's grid
+  // could be. The bend to "how to ..." must not produce "testing Models and
+  // representations".
+  const { summary } = composeMcqFeedback({
+    earned: false,
+    rationale: null,
+    skillLabels: ["Models and representations"],
+    unitNumber: null,
+    variantSeed: SEED_TELL_FIRST,
+  });
+  assertEquals(
+    summary.includes(
+      "The skill this question is testing: Models and representations.",
+    ),
+    true,
+  );
+  assertEquals(summary.includes("how to Models"), false);
+});
+
+Deno.test("no variant emits the retired placeholder or names the answer", () => {
+  for (const labels of [[], [STATS_SKILL], ["Models and representations"]]) {
+    for (const rationale of [null, "Reported the median instead of the mean"]) {
+      for (const unitNumber of [null, 2]) {
+        for (let seed = 0; seed < 24; seed++) {
+          const { summary, actionableFix, redirect } = composeMcqFeedback({
+            earned: false,
+            rationale,
+            skillLabels: labels,
+            unitNumber,
+            variantSeed: `seed-${seed}`,
+          });
+          for (const text of [summary, actionableFix, redirect]) {
+            assertEquals(text.includes("published correct answer"), false);
+          }
+          assertEquals(summary.startsWith("Not quite."), true);
+          // Every shape, on every degradation path, still ends on a question.
+          assertEquals(summary.endsWith("?"), true);
+          // No empty fragment ever collapses into a double space.
+          assertEquals(summary.includes("  "), false);
+        }
+      }
+    }
+  }
+});
+
+Deno.test("MCQ feedback stays a bare acknowledgement when the answer is right", () => {
+  const { summary } = composeMcqFeedback({
+    earned: true,
+    rationale: "Reported a standard deviation instead of the mean",
+    skillLabels: [STATS_SKILL],
+    unitNumber: 2,
+    variantSeed: SEED_UNIT_ASK,
+  });
+  assertEquals(summary, "Correct.");
 });

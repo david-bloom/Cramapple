@@ -334,6 +334,208 @@ async function persistAttemptCriterionResults(
   }
 }
 
+// Wrong-answer MCQ feedback used to be one fixed string on every item:
+// "Select the answer choice that matches the published correct answer." That
+// tells a student nothing they did not already know, and it said it while the
+// item's own authored distractor rationales sat unread two variables away in
+// mcqChoices. On 2026-09-29, 34 of the 63 recorded highest_value_gap rows were
+// that placeholder, spread over 19 items which carry 76 authored rationales
+// between them.
+//
+// Feedback is built from what the item already knows, in three moves:
+//   1. orient  — name the skill the question is FOR (content_item_cells ->
+//                taxonomy_skills.label)
+//   2. point   — the CHOSEN distractor's authored rationale, aimed at the exact
+//                spot the student went wrong
+//   3. redirect— hand back a question, never a correction
+// The "Not quite." opener carries the verdict and deliberately none of the
+// substance. Three moves and no more: the brief is to fix one conceptual error,
+// not to enumerate every fault.
+//
+// The moves degrade independently: an unlabelled item loses move 1 and keeps 2
+// and 3; a distractor with no authored rationale loses move 2.
+//
+// Deliberately absent: the CORRECT choice's rationale. It names the answer, and
+// this item may be served to the same student again. Two further strategies are
+// out of reach here and are NOT silently approximated — naming what the student
+// got right first (a 1-point MCQ has no partial credit to praise), and handing
+// them a similar bite-sized problem immediately (a serving decision, not a
+// feedback string).
+//
+// Pure and exported so the wording is testable without a database.
+
+// Skill labels are lifted verbatim from the CED and written in the register of a
+// curriculum document, not of a student: every one of the 41 labels registered
+// across the labelled subjects is an imperative verb phrase ("Calculate summary
+// statistics, relative positions, predicted responses"). Dropped straight into
+// "This question is testing <label>" the result is ungrammatical, so a
+// verb-initial label is bent into "how to calculate ...".
+//
+// The verb list is an allowlist rather than a "lowercase the first letter" rule
+// because the bend is only valid for a verb. A subject whose grid lands later
+// with a noun-initial label ("Models and representations") simply will not
+// match, and falls back to a colon form that is grammatical for any label
+// shape. That is the failure mode worth having: a new subject reads slightly
+// stiffly instead of emitting broken English.
+const SKILL_VERBS = new Set([
+  "analyze",
+  "apply",
+  "argue",
+  "calculate",
+  "compare",
+  "confirm",
+  "construct",
+  "derive",
+  "describe",
+  "determine",
+  "estimate",
+  "evaluate",
+  "explain",
+  "identify",
+  "interpret",
+  "justify",
+  "model",
+  "perform",
+  "predict",
+  "provide",
+  "represent",
+  "select",
+  "use",
+]);
+
+function asHowTo(label: string): string | null {
+  const trimmed = label.replace(/\.$/, "").trim();
+  const firstWord = trimmed.split(/\s+/)[0] ?? "";
+  // "Calculate/estimate expected counts ..." — the slash form is a single token
+  // whose leading half is the verb.
+  const head = firstWord.split("/")[0].toLowerCase();
+  if (!SKILL_VERBS.has(head)) return null;
+  return trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
+}
+
+// A single template, however well built, is formulaic by the third question:
+// a student working twenty MCQs would read the same three-move skeleton twenty
+// times and stop reading it. So the three ingredients are held constant and the
+// SHAPE rotates — some variants tell and then ask, some open with the pointer,
+// some orient by unit first, in the manner of "This is Unit 2 material. Keeping
+// <skill> in mind, how would you answer it now?".
+//
+// Rotation is by a hash of the item and the chosen key, not by random(): the
+// same student re-reading the same result sees the same words, two different
+// items in one session almost certainly differ, and the output stays
+// reproducible in tests and in support.
+function variantIndex(seed: string, count: number): number {
+  // FNV-1a. Any cheap avalanche would do; what matters is that it is stable
+  // across deploys, which Math.random and Date.now are not.
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < seed.length; index++) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return count > 0 ? hash % count : 0;
+}
+
+export function composeMcqFeedback(
+  input: {
+    earned: boolean;
+    rationale?: string | null;
+    skillLabels?: string[];
+    unitNumber?: number | null;
+    variantSeed?: string | null;
+  },
+): { summary: string; actionableFix: string; redirect: string } {
+  const cleanedLabels = (input.skillLabels ?? [])
+    .filter((label): label is string => typeof label === "string")
+    .map((label) => label.replace(/\.$/, "").trim())
+    .filter((label) => label.length > 0);
+
+  const howToLabels = cleanedLabels.map(asHowTo);
+  const skillPhrase = cleanedLabels.length === 0
+    ? null
+    : howToLabels.every((label) => label !== null)
+    ? `how to ${howToLabels.join(", and how to ")}`
+    : null;
+  // Set only when the label could not be bent into the "how to" form; the
+  // sentence is then built with a colon, which accepts any label shape.
+  const skillColonPhrase = skillPhrase === null && cleanedLabels.length > 0
+    ? cleanedLabels.join("; ")
+    : null;
+  const skillTell = skillPhrase
+    ? `This question is testing ${skillPhrase}.`
+    : skillColonPhrase
+    ? `The skill this question is testing: ${skillColonPhrase}.`
+    : "";
+
+  // Authored rationales come in two styles and nothing constrains which:
+  // subject-less fragments ("Reported a standard deviation instead of the
+  // mean") from the bulk-generated Stats items, and whole sentences ("The
+  // magnitude of residuals alone doesn't establish appropriateness; ...") from
+  // the hand-authored ones. Spliced in as a bare sentence the first style reads
+  // clipped, so every variant introduces it after a colon, which is grammatical
+  // for a fragment and a sentence alike. Terminal punctuation is not enforced
+  // either, so do not rely on it.
+  const authored = typeof input.rationale === "string"
+    ? input.rationale.trim()
+    : "";
+  const pointed = authored
+    ? (/[.!?]$/.test(authored) ? authored : `${authored}.`)
+    : "";
+
+  const unitSentence = typeof input.unitNumber === "number" &&
+      Number.isFinite(input.unitNumber)
+    ? `This is Unit ${input.unitNumber} material.`
+    : "";
+
+  // Every variant ends on a question: the student is always left holding
+  // something to do, never a verdict to absorb.
+  const askKeepingInMind = skillPhrase
+    ? `Keeping ${skillPhrase} in mind, how would you answer it now?`
+    : "How would you answer it now?";
+  const askAgainPlain = "How would you answer it now?";
+  const askWorkItThrough = skillPhrase || skillColonPhrase
+    ? "What would you need to work out to answer the question as asked?"
+    : "What is the question actually asking you to find, and how does that differ from what you chose?";
+
+  // Each variant is a list of fragments; empty ones drop out, so a missing
+  // skill, rationale or unit degrades the shape without breaking its grammar.
+  const variants: string[][] = [
+    // tell, then point, then ask
+    ["Not quite.", skillTell, pointer(pointed), askWorkItThrough],
+    // orient by unit, point, then ask in the "keeping X in mind" voice
+    ["Not quite.", unitSentence, pointer(pointed), askKeepingInMind],
+    // lead with the pointer, tell second
+    [
+      "Not quite.",
+      pointed ? `Here is the catch with the one you chose: ${pointed}` : "",
+      skillTell,
+      askWorkItThrough,
+    ],
+    // orient by unit and skill together, then point and ask. The ask is the
+    // plain one: this shape has already named the skill, and repeating it
+    // inside "keeping ... in mind" reads as padding, especially with a label
+    // as long as "calculate summary statistics, relative positions, predicted
+    // responses".
+    ["Not quite.", unitSentence, skillTell, pointer(pointed), askAgainPlain],
+  ];
+
+  const chosen = variants[
+    variantIndex(input.variantSeed ?? "", variants.length)
+  ];
+  const summary = input.earned ? "Correct." : chosen.filter(Boolean).join(" ");
+
+  // The authored rationale is the closest thing the item writers produced to
+  // "what to fix", so it carries the field even though the field is named for a
+  // fix rather than a diagnosis.
+  const actionableFix = authored ||
+    "Identify which quantity the question asks for before choosing.";
+
+  return { summary, actionableFix, redirect: chosen[chosen.length - 1] };
+}
+
+function pointer(pointed: string): string {
+  return pointed ? `Look again at the choice you picked: ${pointed}` : "";
+}
+
 function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
   const candidates = [
     responseJson.selected_choice_key,
@@ -511,7 +713,8 @@ async function callOpenAIGraderPerCriterion(input: {
         userPrompt: input.buildUserPrompt(criterion),
         userIdHash: input.userIdHash,
       });
-      const idempotencyKey = `${input.idempotencyKey}:${criterion.criterion_key}`;
+      const idempotencyKey =
+        `${input.idempotencyKey}:${criterion.criterion_key}`;
 
       try {
         return await attemptOpenAICall({
@@ -599,8 +802,7 @@ export interface EvaluateAttemptDeps {
   requireProfile?: typeof requireProfile;
 }
 
-const QA_NO_PERSIST_PATH_VERSION =
-  "evaluate-attempt-qa-no-persist-2026-09-22";
+const QA_NO_PERSIST_PATH_VERSION = "evaluate-attempt-qa-no-persist-2026-09-22";
 
 // FF-11 (2026-09-24): this used to refuse any item that already carried a
 // canonical_answer_1 (409 canonical_answer_already_present). That made
@@ -1013,7 +1215,9 @@ export async function handleEvaluateAttempt(
   const exemplarModeRaw = asString(
     getBodyField(body, "exemplar_mode", "exemplarMode"),
   );
-  const exemplarMode = exemplarModeRaw === "with_exemplar" ? "with_exemplar" : "off";
+  const exemplarMode = exemplarModeRaw === "with_exemplar"
+    ? "with_exemplar"
+    : "off";
   const requestExemplars = exemplarMode === "with_exemplar"
     ? (Array.isArray(getBodyField(body, "exemplars"))
       ? getBodyField(body, "exemplars") as GradingExemplar[]
@@ -1126,10 +1330,10 @@ export async function handleEvaluateAttempt(
     attempt.pre_submit_hint_count as number | null,
   );
 
-  const effectiveContentItemVersionId =
-    requestedContentItemVersionId ?? attempt.content_item_version_id as string;
-  const effectiveRubricVersionId =
-    requestedRubricVersionId ?? effectiveContentItemVersionId;
+  const effectiveContentItemVersionId = requestedContentItemVersionId ??
+    attempt.content_item_version_id as string;
+  const effectiveRubricVersionId = requestedRubricVersionId ??
+    effectiveContentItemVersionId;
 
   if (!effectiveContentItemVersionId || !effectiveRubricVersionId) {
     return respond({ error: "missing_content_version" }, { status: 409 });
@@ -1392,7 +1596,8 @@ export async function handleEvaluateAttempt(
 
   const routing = resolveGradingRoute({
     rubricType: (contentVersion as Record<string, unknown>).rubric_type,
-    evaluatorStrategy: (contentVersion as Record<string, unknown>).evaluator_strategy,
+    evaluatorStrategy:
+      (contentVersion as Record<string, unknown>).evaluator_strategy,
     itemType: contentItem.item_type as string | null,
     promptJson: contentVersion.prompt_json,
   });
@@ -1545,6 +1750,104 @@ export async function handleEvaluateAttempt(
       ? 1
       : 0;
 
+    const normalizedSelection = selectedChoice?.trim().toUpperCase() ?? null;
+    const chosenChoice = Array.isArray(mcqChoices)
+      ? mcqChoices.find((choice) =>
+        (typeof choice.choice_key === "string" &&
+          choice.choice_key.trim().toUpperCase() === normalizedSelection) ||
+        (typeof choice.choice_text === "string" && selectedChoice !== null &&
+          choice.choice_text.trim() === selectedChoice.trim())
+      ) ?? null
+      : null;
+
+    let skillLabels: string[] = [];
+    let unitNumber: number | null = null;
+    if (!earned) {
+      const { data: cellRows, error: cellError } = await service.schema("app")
+        .from("content_item_cells")
+        .select("skill_code, topic_code, taxonomy_source_version")
+        .eq("content_item_version_id", contentVersion.id);
+      if (!cellError && Array.isArray(cellRows) && cellRows.length > 0) {
+        // An item is tagged against exactly one taxonomy version in practice;
+        // pin to the first and ignore any stragglers rather than mixing labels
+        // from two CED editions into one sentence.
+        const taxonomyVersion = cellRows[0].taxonomy_source_version;
+        // skill_code is NULLABLE in Production, despite the original DDL
+        // declaring it NOT NULL. Most tagged items are topic-only: of the 783
+        // published MCQs, 406 carry a topic and only 304 (all Statistics)
+        // carry a skill. Passing a null through to .in() would query for a
+        // skill code of "null", so drop them here and let the skill sentence
+        // be absent rather than wrong.
+        const codes = [
+          ...new Set(
+            cellRows
+              .filter((row) => row.taxonomy_source_version === taxonomyVersion)
+              .map((row) => row.skill_code)
+              .filter((code): code is string =>
+                typeof code === "string" && code.length > 0
+              ),
+          ),
+        ];
+        const { data: skillRows, error: skillError } = codes.length === 0
+          ? { data: [], error: null }
+          : await service
+            .schema("app")
+            .from("taxonomy_skills")
+            .select("skill_code, label")
+            .eq("taxonomy_source_version", taxonomyVersion)
+            .in("skill_code", codes);
+        if (!skillError && Array.isArray(skillRows)) {
+          skillLabels = codes
+            .map((code) =>
+              skillRows.find((row) => row.skill_code === code)?.label ?? null
+            )
+            .filter((label): label is string => typeof label === "string");
+        }
+
+        // The unit is an orienting cue ("This is Unit 2 material"), so it is
+        // only worth stating when the item sits in ONE unit. A cross-unit item
+        // has no single answer here and simply drops the cue rather than
+        // picking a unit arbitrarily. As with the skill lookup, an error is
+        // treated as "unknown" and never fails the grade.
+        const topicCodes = [
+          ...new Set(
+            cellRows
+              .filter((row) => row.taxonomy_source_version === taxonomyVersion)
+              .map((row) => row.topic_code),
+          ),
+        ];
+        const { data: topicRows, error: topicError } = await service
+          .schema("app")
+          .from("taxonomy_topics")
+          .select("unit_number")
+          .eq("taxonomy_source_version", taxonomyVersion)
+          .in("topic_code", topicCodes);
+        if (!topicError && Array.isArray(topicRows) && topicRows.length > 0) {
+          const units = [
+            ...new Set(
+              topicRows
+                .map((row) => row.unit_number)
+                .filter((unit): unit is number => typeof unit === "number"),
+            ),
+          ];
+          if (units.length === 1) unitNumber = units[0];
+        }
+      }
+    }
+
+    const { summary, actionableFix, redirect } = composeMcqFeedback({
+      earned: earned === 1,
+      rationale: chosenChoice && !chosenChoice.is_correct
+        ? chosenChoice.rationale
+        : null,
+      skillLabels,
+      unitNumber,
+      // Stable per item and per chosen distractor: the same result re-read
+      // reads the same way, while two items in one session almost certainly
+      // take different shapes.
+      variantSeed: `${contentVersion.id}:${chosenChoice?.choice_key ?? ""}`,
+    });
+
     const criteria: OutputCriterion[] = [
       {
         criterion_key: "mcq_correct_choice",
@@ -1554,9 +1857,7 @@ export async function handleEvaluateAttempt(
         decision_explanation: earned
           ? "The selected choice matches the published correct answer."
           : "The submitted choice does not match the published correct answer.",
-        minimum_fix: earned
-          ? null
-          : "Select the answer choice that matches the published correct answer.",
+        minimum_fix: earned ? null : actionableFix,
       },
     ];
 
@@ -1567,17 +1868,13 @@ export async function handleEvaluateAttempt(
       criteria,
       highest_value_gap: earned ? null : {
         criterion_key: "mcq_correct_choice",
-        minimum_fix:
-          "Select the answer choice that matches the published correct answer.",
-        repair_prompt:
-          "Choose the answer that matches the published correct answer.",
+        minimum_fix: actionableFix,
+        repair_prompt: redirect,
       },
       predicted_improvement: null,
       confidence: "high",
       uncertainty_reason: null,
-      student_facing_summary: earned
-        ? "Correct."
-        : "Not quite. Review the selected answer against the published choices.",
+      student_facing_summary: summary,
     };
 
     await service.schema("app").from("grading_results").update({
@@ -1708,11 +2005,12 @@ export async function handleEvaluateAttempt(
     elapsedMs: number;
   } | null = null;
   let finalStatus: "graded" | "uncertain" | "failed" = "failed";
-  let finalPayload: ReturnType<typeof sanitizeModelResult> |
-    ReturnType<typeof buildShadowReviewPayload> |
-    ReturnType<typeof buildDeterministicGradedPayload> |
-    NonNullable<ReturnType<typeof buildStatisticsDeterministicFallback>> |
-    null = null;
+  let finalPayload:
+    | ReturnType<typeof sanitizeModelResult>
+    | ReturnType<typeof buildShadowReviewPayload>
+    | ReturnType<typeof buildDeterministicGradedPayload>
+    | NonNullable<ReturnType<typeof buildStatisticsDeterministicFallback>>
+    | null = null;
   let inputTokens = estimatedInputTokens;
   let outputTokens = 0;
   let actualCost = 0;
@@ -1741,16 +2039,19 @@ export async function handleEvaluateAttempt(
     const ecfResult = ecfQuestion ? buildEcfResult(ecfQuestion) : null;
     const ecfCriteria = ecfResult?.parts.map((part) => ({
       criterion_key: part.part,
-      learner_facing_text:
-        statisticsItem?.ecf_parts.find((item) => item.id === part.part)?.note ??
-          `ECF part ${part.part}`,
-      points_possible:
-        statisticsItem?.ecf_parts.find((item) => item.id === part.part)?.points ??
-          part.points_possible,
+      learner_facing_text: statisticsItem?.ecf_parts.find((item) =>
+        item.id === part.part
+      )?.note ??
+        `ECF part ${part.part}`,
+      points_possible: statisticsItem?.ecf_parts.find((item) =>
+        item.id === part.part
+      )?.points ??
+        part.points_possible,
       evidence_requirements: null,
-      minimum_fix:
-        statisticsItem?.ecf_parts.find((item) => item.id === part.part)?.note ??
-          "Show the formula and substitutions for this step.",
+      minimum_fix: statisticsItem?.ecf_parts.find((item) =>
+        item.id === part.part
+      )?.note ??
+        "Show the formula and substitutions for this step.",
       accepted_variants: [],
     })) ?? promptBase.criteria;
     const ecfHighestGap = ecfResult?.parts.find((part) =>
@@ -1764,7 +2065,8 @@ export async function handleEvaluateAttempt(
     const resolvedActionHint = typedFormulaAmbiguity.ambiguous
       ? "show_scaffold"
       : ecfResult?.parts.some((part) =>
-          part.verdict === "NAKED_ANSWER" || part.verdict === "CONCEPTUAL_COLLAPSE"
+          part.verdict === "NAKED_ANSWER" ||
+          part.verdict === "CONCEPTUAL_COLLAPSE"
         )
       ? "show_scaffold"
       : "review_context";
@@ -1812,17 +2114,23 @@ export async function handleEvaluateAttempt(
         resolvedRepairHint ?? statisticsCheck?.repair_hint,
         ecfHighestGap
           ? {
-            minimum_fix:
-              statisticsItem?.ecf_parts.find((item) => item.id === ecfHighestGap.part)
-                ?.note ?? "Show the missing work.",
-            repair_prompt:
-              statisticsItem?.ecf_parts.find((item) => item.id === ecfHighestGap.part)
-                ?.note ?? "Show the missing work.",
+            minimum_fix: statisticsItem?.ecf_parts.find((item) =>
+              item.id === ecfHighestGap.part
+            )
+              ?.note ?? "Show the missing work.",
+            repair_prompt: statisticsItem?.ecf_parts.find((item) =>
+              item.id === ecfHighestGap.part
+            )
+              ?.note ?? "Show the missing work.",
           }
           : null,
       ),
       deterministicCheck,
-      summary: `${shadowSummary}${typedFormulaAmbiguity.ambiguous ? ` ${typedFormulaAmbiguity.reason}` : ""}`,
+      summary: `${shadowSummary}${
+        typedFormulaAmbiguity.ambiguous
+          ? ` ${typedFormulaAmbiguity.reason}`
+          : ""
+      }`,
       verificationProfileSummary,
     });
     finalStatus = "uncertain";
@@ -1854,9 +2162,13 @@ export async function handleEvaluateAttempt(
     }
 
     const checkList = Array.isArray(checkRows) ? checkRows : [];
-    const checkKeys = new Set(checkList.map((row) => row.criterion_key as string));
+    const checkKeys = new Set(
+      checkList.map((row) => row.criterion_key as string),
+    );
     const sourceByKey = new Map(
-      promptBase.criteria.map((criterion) => [criterion.criterion_key, criterion]),
+      promptBase.criteria.map((
+        criterion,
+      ) => [criterion.criterion_key, criterion]),
     );
     // F5: a criterion declared in frq_criteria but with NO persisted check would
     // otherwise vanish from grading (graded on a shrunken denominator = over-grade).
@@ -1980,10 +2292,22 @@ export async function handleEvaluateAttempt(
       null,
     );
     const shadowSummary = verificationProfile
-      ? `${verificationProfile.display_name} formula feedback is saved and routed for reviewer follow-up. The symbolic verifier is declared but not wired in this phase, so we are holding the item instead of guessing.${typedFormulaAmbiguity.ambiguous ? ` ${typedFormulaAmbiguity.reason}` : ""}`
+      ? `${verificationProfile.display_name} formula feedback is saved and routed for reviewer follow-up. The symbolic verifier is declared but not wired in this phase, so we are holding the item instead of guessing.${
+        typedFormulaAmbiguity.ambiguous
+          ? ` ${typedFormulaAmbiguity.reason}`
+          : ""
+      }`
       : "This response is saved and routed for reviewer follow-up.";
     const shadowReason =
-      `${routing.reason} The item is held for human/shadow review until the declared verifier is wired in.${typedFormulaAmbiguity.ambiguous ? ` ${typedFormulaAmbiguity.reason}` : ""}${statisticsCheck?.status === "flag" ? ` Deterministic statistics check: ${statisticsCheck.reason}` : ""}`;
+      `${routing.reason} The item is held for human/shadow review until the declared verifier is wired in.${
+        typedFormulaAmbiguity.ambiguous
+          ? ` ${typedFormulaAmbiguity.reason}`
+          : ""
+      }${
+        statisticsCheck?.status === "flag"
+          ? ` Deterministic statistics check: ${statisticsCheck.reason}`
+          : ""
+      }`;
     finalPayload = buildShadowReviewPayload({
       criteria: promptBase.criteria,
       pointsAvailable: defaultPointsAvailable,
@@ -1992,7 +2316,15 @@ export async function handleEvaluateAttempt(
       repairHint,
       deterministicCheck: statisticsCheck,
       summary: readableVerificationSummary
-        ? `${shadowSummary} Expected checks: ${verificationProfile?.required_checks.map((check) => check.check).join(", ")}.${statisticsCheck?.status === "flag" ? ` Deterministic check flagged the keyed Statistics evidence.` : ""}`
+        ? `${shadowSummary} Expected checks: ${
+          verificationProfile?.required_checks.map((check) => check.check).join(
+            ", ",
+          )
+        }.${
+          statisticsCheck?.status === "flag"
+            ? ` Deterministic check flagged the keyed Statistics evidence.`
+            : ""
+        }`
         : shadowSummary,
       verificationProfileSummary,
     });
@@ -2022,7 +2354,8 @@ export async function handleEvaluateAttempt(
           prompt_version: promptVersion,
           rubric_version_id: effectiveRubricVersionId,
           deterministic_verifier_version: MATH_VERIFIER_VERSION,
-          boundary_contract_version: verificationProfile?.profile_version ?? null,
+          boundary_contract_version: verificationProfile?.profile_version ??
+            null,
         }).eq("request_id", idempotencyKey);
 
         if (usageRow) {
@@ -2215,7 +2548,8 @@ export async function handleEvaluateAttempt(
   );
   const repairPlan = buildRepairPlan({
     lockedGrade: lockGradeDecision({
-      gradeFingerprint: `${idempotencyKey}:${promptVersion}:${effectiveRubricVersionId}`,
+      gradeFingerprint:
+        `${idempotencyKey}:${promptVersion}:${effectiveRubricVersionId}`,
       pointsEarned: finalPayload.points_earned,
       pointsAvailable: finalPayload.points_available,
       criteria: finalPayload.criteria,
