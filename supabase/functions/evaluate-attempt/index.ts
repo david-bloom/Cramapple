@@ -413,11 +413,35 @@ function asHowTo(label: string): string | null {
   return trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
 }
 
+// A single template, however well built, is formulaic by the third question:
+// a student working twenty MCQs would read the same three-move skeleton twenty
+// times and stop reading it. So the three ingredients are held constant and the
+// SHAPE rotates — some variants tell and then ask, some open with the pointer,
+// some orient by unit first, in the manner of "This is Unit 2 material. Keeping
+// <skill> in mind, how would you answer it now?".
+//
+// Rotation is by a hash of the item and the chosen key, not by random(): the
+// same student re-reading the same result sees the same words, two different
+// items in one session almost certainly differ, and the output stays
+// reproducible in tests and in support.
+function variantIndex(seed: string, count: number): number {
+  // FNV-1a. Any cheap avalanche would do; what matters is that it is stable
+  // across deploys, which Math.random and Date.now are not.
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < seed.length; index++) {
+    hash ^= seed.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return count > 0 ? hash % count : 0;
+}
+
 export function composeMcqFeedback(
   input: {
     earned: boolean;
     rationale?: string | null;
     skillLabels?: string[];
+    unitNumber?: number | null;
+    variantSeed?: string | null;
   },
 ): { summary: string; actionableFix: string; redirect: string } {
   const cleanedLabels = (input.skillLabels ?? [])
@@ -436,41 +460,68 @@ export function composeMcqFeedback(
   const skillColonPhrase = skillPhrase === null && cleanedLabels.length > 0
     ? cleanedLabels.join("; ")
     : null;
+  const skillTell = skillPhrase
+    ? `This question is testing ${skillPhrase}.`
+    : skillColonPhrase
+    ? `The skill this question is testing: ${skillColonPhrase}.`
+    : "";
 
   // Authored rationales come in two styles and nothing constrains which:
   // subject-less fragments ("Reported a standard deviation instead of the
   // mean") from the bulk-generated Stats items, and whole sentences ("The
   // magnitude of residuals alone doesn't establish appropriateness; ...") from
   // the hand-authored ones. Spliced in as a bare sentence the first style reads
-  // clipped, so introduce it after a colon, which is grammatical for a fragment
-  // and a sentence alike. Terminal punctuation is likewise not enforced.
+  // clipped, so every variant introduces it after a colon, which is grammatical
+  // for a fragment and a sentence alike. Terminal punctuation is not enforced
+  // either, so do not rely on it.
   const authored = typeof input.rationale === "string"
     ? input.rationale.trim()
     : "";
-  const misconception = authored
-    ? `Look again at the choice you picked: ${
-      /[.!?]$/.test(authored) ? authored : `${authored}.`
-    }`
+  const pointed = authored
+    ? (/[.!?]$/.test(authored) ? authored : `${authored}.`)
     : "";
 
-  const hasSkill = skillPhrase !== null || skillColonPhrase !== null;
-  const redirect = hasSkill
+  const unitSentence = typeof input.unitNumber === "number" &&
+      Number.isFinite(input.unitNumber)
+    ? `This is Unit ${input.unitNumber} material.`
+    : "";
+
+  // Every variant ends on a question: the student is always left holding
+  // something to do, never a verdict to absorb.
+  const askKeepingInMind = skillPhrase
+    ? `Keeping ${skillPhrase} in mind, how would you answer it now?`
+    : "How would you answer it now?";
+  const askAgainPlain = "How would you answer it now?";
+  const askWorkItThrough = skillPhrase || skillColonPhrase
     ? "What would you need to work out to answer the question as asked?"
     : "What is the question actually asking you to find, and how does that differ from what you chose?";
 
-  // actionableFix and redirect are always populated, including on a correct
-  // answer where the caller discards them. Returning nulls there would only
-  // push an impossible-in-practice null into the caller's types.
-  const summary = input.earned ? "Correct." : [
-    "Not quite.",
-    skillPhrase
-      ? `This question is testing ${skillPhrase}.`
-      : skillColonPhrase
-      ? `The skill this question is testing: ${skillColonPhrase}.`
-      : "",
-    misconception,
-    redirect,
-  ].filter(Boolean).join(" ");
+  // Each variant is a list of fragments; empty ones drop out, so a missing
+  // skill, rationale or unit degrades the shape without breaking its grammar.
+  const variants: string[][] = [
+    // tell, then point, then ask
+    ["Not quite.", skillTell, pointer(pointed), askWorkItThrough],
+    // orient by unit, point, then ask in the "keeping X in mind" voice
+    ["Not quite.", unitSentence, pointer(pointed), askKeepingInMind],
+    // lead with the pointer, tell second
+    [
+      "Not quite.",
+      pointed ? `Here is the catch with the one you chose: ${pointed}` : "",
+      skillTell,
+      askWorkItThrough,
+    ],
+    // orient by unit and skill together, then point and ask. The ask is the
+    // plain one: this shape has already named the skill, and repeating it
+    // inside "keeping ... in mind" reads as padding, especially with a label
+    // as long as "calculate summary statistics, relative positions, predicted
+    // responses".
+    ["Not quite.", unitSentence, skillTell, pointer(pointed), askAgainPlain],
+  ];
+
+  const chosen = variants[
+    variantIndex(input.variantSeed ?? "", variants.length)
+  ];
+  const summary = input.earned ? "Correct." : chosen.filter(Boolean).join(" ");
 
   // The authored rationale is the closest thing the item writers produced to
   // "what to fix", so it carries the field even though the field is named for a
@@ -478,7 +529,11 @@ export function composeMcqFeedback(
   const actionableFix = authored ||
     "Identify which quantity the question asks for before choosing.";
 
-  return { summary, actionableFix, redirect };
+  return { summary, actionableFix, redirect: chosen[chosen.length - 1] };
+}
+
+function pointer(pointed: string): string {
+  return pointed ? `Look again at the choice you picked: ${pointed}` : "";
 }
 
 function summarizeSelectedChoice(responseJson: Record<string, unknown>) {
@@ -1706,10 +1761,11 @@ export async function handleEvaluateAttempt(
       : null;
 
     let skillLabels: string[] = [];
+    let unitNumber: number | null = null;
     if (!earned) {
       const { data: cellRows, error: cellError } = await service.schema("app")
         .from("content_item_cells")
-        .select("skill_code, taxonomy_source_version")
+        .select("skill_code, topic_code, taxonomy_source_version")
         .eq("content_item_version_id", contentVersion.id);
       if (!cellError && Array.isArray(cellRows) && cellRows.length > 0) {
         // An item is tagged against exactly one taxonomy version in practice;
@@ -1736,6 +1792,35 @@ export async function handleEvaluateAttempt(
             )
             .filter((label): label is string => typeof label === "string");
         }
+
+        // The unit is an orienting cue ("This is Unit 2 material"), so it is
+        // only worth stating when the item sits in ONE unit. A cross-unit item
+        // has no single answer here and simply drops the cue rather than
+        // picking a unit arbitrarily. As with the skill lookup, an error is
+        // treated as "unknown" and never fails the grade.
+        const topicCodes = [
+          ...new Set(
+            cellRows
+              .filter((row) => row.taxonomy_source_version === taxonomyVersion)
+              .map((row) => row.topic_code),
+          ),
+        ];
+        const { data: topicRows, error: topicError } = await service
+          .schema("app")
+          .from("taxonomy_topics")
+          .select("unit_number")
+          .eq("taxonomy_source_version", taxonomyVersion)
+          .in("topic_code", topicCodes);
+        if (!topicError && Array.isArray(topicRows) && topicRows.length > 0) {
+          const units = [
+            ...new Set(
+              topicRows
+                .map((row) => row.unit_number)
+                .filter((unit): unit is number => typeof unit === "number"),
+            ),
+          ];
+          if (units.length === 1) unitNumber = units[0];
+        }
       }
     }
 
@@ -1745,6 +1830,11 @@ export async function handleEvaluateAttempt(
         ? chosenChoice.rationale
         : null,
       skillLabels,
+      unitNumber,
+      // Stable per item and per chosen distractor: the same result re-read
+      // reads the same way, while two items in one session almost certainly
+      // take different shapes.
+      variantSeed: `${contentVersion.id}:${chosenChoice?.choice_key ?? ""}`,
     });
 
     const criteria: OutputCriterion[] = [
