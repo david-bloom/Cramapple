@@ -82,6 +82,89 @@ MCQ practice weighting: Practice 1, 50-70%; Practice 2, 15-30%; Practice 3, 10-2
 
 FRQ practice weighting: Practice 1, 35-60%; Practice 2, 10-20%; Practice 3, 35-60%; Practice 4, 10-25%.
 
+## Practice skills (sub-skills) — TASK-0050 Phase 0, added 2026-09-29
+
+Source: CED "Mathematical Practices" page (Course Framework p. 12), supplied by David 2026-09-29 as
+a direct capture of the College Board PDF. Transcribed verbatim, including the three sub-skills the
+CED itself marks **not assessed**. These are the skill codes the skill dimension uses
+(`app.taxonomy_skills`); **23 total, 20 assessed.**
+
+### Practice 1 — Implementing Mathematical Processes
+*Determine expressions and values using mathematical procedures and rules.*
+
+- **1.A** Identify the question to be answered or problem to be solved. *(not assessed)*
+- **1.B** Identify key and relevant information to answer a question or solve a problem. *(not assessed)*
+- **1.C** Identify an appropriate mathematical rule or procedure based on the classification of a given expression (e.g., use the chain rule to find the derivative of a composite function).
+- **1.D** Identify an appropriate mathematical rule or procedure based on the relationship between concepts (e.g., rate of change and accumulation) or processes (e.g., differentiation and its inverse process, anti-differentiation) to solve problems.
+- **1.E** Apply appropriate mathematical rules or procedures, with and without technology.
+- **1.F** Explain how an approximated value relates to the actual value.
+
+### Practice 2 — Connecting Representations
+*Translate mathematical information from a single representation or across multiple representations.*
+
+- **2.A** Identify common underlying structures in problems involving different contextual situations.
+- **2.B** Identify mathematical information from graphical, numerical, analytical, and/or verbal representations.
+- **2.C** Identify a re-expression of mathematical information presented in a given representation.
+- **2.D** Identify how mathematical characteristics or properties of functions are related in different representations.
+- **2.E** Describe the relationships among different representations of functions and their derivatives.
+
+### Practice 3 — Justification
+*Justify reasoning and solutions.*
+
+- **3.A** Apply technology to develop claims and conjectures. *(not assessed)*
+- **3.B** Identify an appropriate mathematical definition, theorem, or test to apply.
+- **3.C** Confirm whether hypotheses or conditions of a selected definition, theorem, or test have been satisfied.
+- **3.D** Apply an appropriate mathematical definition, theorem, or test.
+- **3.E** Provide reasons or rationales for solutions and conclusions.
+- **3.F** Explain the meaning of mathematical solutions in context.
+- **3.G** Confirm that solutions are accurate and appropriate.
+
+### Practice 4 — Communication and Notation
+*Use correct notation, language, and mathematical conventions to communicate results or solutions.*
+
+- **4.A** Use precise mathematical language.
+- **4.B** Use appropriate units of measure.
+- **4.C** Use appropriate mathematical symbols and notation (e.g., represent a derivative using f'(x), y', and dy/dx).
+- **4.D** Use appropriate graphing techniques.
+- **4.E** Apply appropriate rounding procedures.
+
+## Topic-to-practice alignment — TASK-0050 Phase 0, added 2026-09-29
+
+Source: CED "Course at a Glance" (Course Framework pp. 9-10), supplied by David 2026-09-29. Each
+topic carries the practice the CED aligns to it. This is the CED's **own** alignment, so the
+topic × skill grid is transcribed rather than curated — the case `TASK-0050` §6.2 says to prefer.
+
+**Independent verification of this transcription.** Counting topics here gives 87 across Units 1-8,
+of which six are BC-only (6.11, 6.12, 6.13, 7.5, 7.9, 8.13). That predicts AB = 81 and
+BC = 87 + 9 + 15 = 111. Production holds exactly **81** and **111**. The topic sets match the CED
+exactly, which corroborates both the transcription and the existing topic map.
+
+| Unit | Topic → Practice |
+| --- | --- |
+| 1 | 1.1→2, 1.2→2, 1.3→2, 1.4→2, 1.5→1, 1.6→1, 1.7→1, 1.8→3, 1.9→2, 1.10→3, 1.11→3, 1.12→1, 1.13→1, 1.14→3, 1.15→2, 1.16→3 |
+| 2 | 2.1→2, **2.2→1 and 4**, 2.3→1, 2.4→3, 2.5→1, 2.6→1, 2.7→1, 2.8→1, 2.9→1, 2.10→1 |
+| 3 | 3.1→1, 3.2→1, 3.3→3, 3.4→1, 3.5→1, 3.6→1 |
+| 4 | 4.1→1, 4.2→1, 4.3→2, 4.4→1, 4.5→3, 4.6→1, 4.7→3 |
+| 5 | 5.1→3, 5.2→3, 5.3→2, 5.4→3, 5.5→1, 5.6→2, 5.7→3, 5.8→2, 5.9→2, 5.10→2, 5.11→3, **5.12→1 and 3** |
+| 6 | 6.1→4, 6.2→1, 6.3→2, 6.4→1, 6.5→2, 6.6→3, 6.7→3, 6.8→4, 6.9→1, 6.10→1, 6.11→1 *(BC)*, 6.12→1 *(BC)*, 6.13→1 *(BC)*, 6.14→1 |
+| 7 | 7.1→2, 7.2→3, 7.3→2, 7.4→4, 7.5→1 *(BC)*, 7.6→1, 7.7→1, 7.8→3, 7.9→3 *(BC)* |
+| 8 | 8.1→1, 8.2→1, 8.3→3, 8.4→4, 8.5→1, 8.6→2, 8.7→3, 8.8→3, 8.9→3, 8.10→2, 8.11→4, 8.12→2, 8.13→3 *(BC)* |
+| 9 *(BC only)* | 9.1→2, 9.2→1, 9.3→1, 9.4→1, 9.5→1, 9.6→1, 9.7→2, 9.8→3, 9.9→3 |
+| 10 *(BC only)* | 10.1→3, 10.2→3, 10.3→3, 10.4→3, 10.5→3, 10.6→3, 10.7→3, 10.8→3, 10.9→3, 10.10→1, **10.11→3 and 2**, 10.12→1, 10.13→2, 10.14→2, 10.15→3 |
+
+**Three topics carry two practices** — 2.2 (1 and 4, confirmed by the page's own footnote), 5.12
+(1 and 3), and 10.11 (3 and 2). Every other topic carries exactly one.
+
+**Not a two-practice case:** topic 2.7 displays two *big-idea* badges (FUN and LIM) both tagged
+practice 1. Big ideas (CHA Change, LIM Limits, FUN Analysis of Functions) are a separate axis from
+practices and are not skill codes.
+
+**How the grid derives from this.** A topic's candidate skills are the **assessed** sub-skills of its
+aligned practice — so a Practice 3 topic offers 3.B–3.G (six candidates, 3.A excluded as not
+assessed), a Practice 1 topic offers 1.C–1.F (four, 1.A/1.B excluded), Practice 2 offers 2.A–2.E
+(five), Practice 4 offers 4.A–4.E (five). Item-level labelling then chooses one sub-skill from that
+set, exactly as AP Statistics' Phase B did.
+
 ## Topic map
 
 ### Unit 1 - Limits and Continuity
