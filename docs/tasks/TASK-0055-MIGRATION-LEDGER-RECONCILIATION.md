@@ -6,6 +6,7 @@
 **Product Owner:** David Bloom
 **Date opened:** 2026-09-29
 **Area:** Schema governance / migrations
+**Execution steps:** `docs/handoffs/RESOLUTION_RUNBOOK_2026_09_29.md`
 **Related:** `TASK-0050` (PR #272 recovered five of these), `TASK-0027-DEV-PROD-SCHEMA-CONVERGENCE.md`
 
 ---

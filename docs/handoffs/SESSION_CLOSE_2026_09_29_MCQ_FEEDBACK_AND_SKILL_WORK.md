@@ -5,6 +5,10 @@
 **Environments touched:** Development (deploy), **Production** (edge function deploy, authorized
 in-session: "Deploy to prod"). No Production *schema* writes this session.
 
+> **To act on any of this, use `RESOLUTION_RUNBOOK_2026_09_29.md` in this directory.** It has the
+> ordered steps, exact commands, preconditions and rollback. This file explains *what happened and
+> why*; the runbook is *what to do next*.
+
 ---
 
 ## What shipped
