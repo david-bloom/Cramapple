@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0087 — Home's "Start Practice" Always Starts With Open Hand (Teaching-First Entry); Answer Keys Must Reveal on an Explicit Action, Never on Mount
 - DECISION-0086 — Open Hand Resolves to One Gated Path: Entitlement-Scoped Access With a Mandatory Exclusion Write (Staff/QA Exempt), Unified on `get_open_hand_item`; the Work Is TASK-0051
 - DECISION-0085 — Skill-Dimension Labels Are Validated by Model Consensus (≥2 of 3), Not Human Review; Frontier Proposer Pair Plus Blind Adjudicator; Extends DECISION-0066 to `skill_code`
 - DECISION-0084 — TASK-0039 BYOQ Ships to Production (Phases 1–2): Launch Defaults for the Eight "New Gaps" (No Entitlement Gate, Quotas, 30-Day Anonymous Retention, Consent Copy, Private-Only, Stuck-Routing and Hints Deferred); Phase 3 Remains Blocked
@@ -38,6 +39,48 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0087 — Home's "Start Practice" Always Starts With Open Hand; Keys Reveal on an Explicit Action, Never on Mount
+
+**Date:** 2026-09-29
+**Decision Owner:** David Bloom
+**Status:** Approved (direction given in session, 2026-09-29)
+**Related Task:** `docs/tasks/TASK-0052-OPEN-HAND-FRONTEND-WIRING.md`
+**Related Docs:** `DECISION-0086` (the Open Hand serving contract), `DECISION-0074` (mastery bar), `DECISION-0080` (gated aids), `docs/product/SKILL_DIMENSION_FEASIBILITY_2026_09_29.md` (the MCQ ceiling arithmetic)
+**Area:** Product / student entry flow / content economics
+
+### Decided
+
+**Teaching-first is the default entry.** Home's "start practice" always routes to Open Hand, not to
+`/session`. This is no longer a flagged experiment: `practice_entry.ts` stops branching on the
+plate-loop flag for this decision, and the `?loop=` URL override is removed (`DECISION-0086`
+follow-on).
+
+### Consequence recorded at decision time, and the requirement it forces
+
+Every disclosed answer key permanently removes that item from the student's scorable pool
+(`DECISION-0086`). With Open Hand as the mandatory entry, that collides with `DECISION-0074`'s bar of
+2 correct MCQ + 1 full-point FRQ per topic×skill cell. Measured against Production 2026-09-29:
+AP Biology has 43 published MCQs, so a ceiling of 21 masterable cells, falling to **16 after ten
+disclosures and 11 after twenty**; AP Statistics goes 50 → 45 → 40. **Roughly one masterable cell
+lost per two MCQ keys disclosed**, permanently and per student.
+
+**Therefore, a hard requirement on `TASK-0052`:** the key must be revealed by an **explicit student
+action**, never on mount. `OpenHandMcqScreen` currently renders every choice's verdict as soon as it
+renders; combined with a mandatory Open Hand entry that would burn an item on **every session start**,
+with no student choice and no opportunity for the consent notice TASK-0052 already requires. The
+screen opens keys-hidden, showing the question; disclosure sits behind a deliberate action carrying
+the consequence in plain words. A student who passes through without opening a key burns nothing.
+
+So teaching-first costs inventory only when a student actually asks to be taught — which is what this
+decision intends, and is not what the current screen would do.
+
+### Left open
+
+Whether Open Hand should draw from a **reserved teaching pool** rather than the same published pool
+practice scores from. That decouples teaching cost from the mastery ceiling entirely, at the price of
+authoring or designating dedicated items. Not required now; recorded so it is not lost once real usage
+shows how fast students actually disclose.
 
 ## DECISION-0086 — Open Hand Resolves to One Gated Path: Entitlement-Scoped Access With a Mandatory Exclusion Write, Unified on `get_open_hand_item`
 
