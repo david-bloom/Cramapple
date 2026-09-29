@@ -95,14 +95,14 @@ async function answerAndGrade(token, sessionId, versionId, choiceKey) {
     operation: "create_attempt", idempotency_key: uuid(),
     learning_session_id: sessionId, content_item_version_id: versionId, attempt_mode: "practice",
   }, token);
-  const attemptId = created.json?.attempt?.id ?? created.json?.attempt_id ?? created.json?.id;
+  const attemptId = created.json?.result?.attempt?.id ?? created.json?.attempt?.id ?? created.json?.attempt_id;
   if (!attemptId) return { step: "create_attempt", ...created };
 
   const saved = await fn("attempt-response", {
     operation: "save_response", idempotency_key: uuid(),
     attempt_id: attemptId, response_parts: { selected_choice_key: choiceKey },
   }, token);
-  const rvId = saved.json?.response_version?.id ?? saved.json?.response_version_id ?? saved.json?.id;
+  const rvId = saved.json?.result?.response_version?.id ?? saved.json?.response_version?.id ?? saved.json?.response_version_id;
   if (!rvId) return { step: "save_response", ...saved };
 
   const submitted = await fn("submit-response", {
@@ -169,7 +169,7 @@ async function main() {
 
   const items = await fn("student-session-items",
     { learning_session_id: sessionId, mode: "cell_scoped", item_type: "mcq", limit: 25 }, token);
-  const list = (items.json?.items ?? items.json?.data ?? [])
+  const list = (items.json?.result?.items ?? items.json?.items ?? items.json?.data ?? [])
     .map((i) => i.content_item_version_id ?? i.contentItemVersionId).filter(Boolean);
   const versions = [...new Set(list)];
   if (!check("the session serves at least two MCQ items", versions.length >= 2,
