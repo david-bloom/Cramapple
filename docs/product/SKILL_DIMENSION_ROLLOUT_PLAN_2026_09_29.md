@@ -136,22 +136,39 @@ be assumed to sit at or below that 44% agreement ceiling until measured otherwis
 
 ## 5a. Feasibility gate — run this before spending anything on a subject
 
+**Status: RUN, 2026-09-29.** This gate has been executed for all ten subjects against Production,
+read-only, no gateway spend. Results and queries:
+`SKILL_DIMENSION_FEASIBILITY_2026_09_29.md`. A subject session should read that doc's row for its
+subject rather than re-deriving the numbers, and re-run only the parts its own scope changes.
+
 **Why this section exists.** §10's definition of done is "at least one topic×skill cell satisfies
 `DECISION-0074`'s 2 MCQ + 1 FRQ bar." Whether that is *reachable* is arithmetic, and it is knowable
-before a single AI-Gateway call: a subject's published items spread across a grid of N cells can only
-produce masterable cells if items concentrate. Statistics is the warning case — its 203 existing
-skill-coded rows collapse to roughly **11 distinct cells out of 131**, which is what a thin spread
-looks like. A full paid labeling run that ends schema-complete and mastery-empty satisfies §2 and
-fails §10, and no amount of labeling quality fixes it, because the cause is grid size, not labels.
+before a single AI-Gateway call.
 
-Per subject, read-only, no writes and no gateway spend:
+**What the measurement found — read this before planning any subject.** The ceiling is
+`min(published_FRQ, floor(published_MCQ / 2), grid_cells)`, and **MCQ is the binding term in 10 of 10
+subjects**: Biology 21, Statistics 50, Chemistry 34, Physics 1 31, Physics 2 20, Physics C Mech 20,
+Physics C E&M 24, Precalculus 26, Calculus AB 30, Calculus BC 31 masterable cells at the absolute
+optimistic bound. **That cap is independent of grid size** — no Phase A curation choice and no
+labeling improvement raises it. Coarsening the grid raises the *fraction* of cells that realistically
+reach the bar (items concentrate) but not the ceiling itself.
+
+**Consequence for this plan's framing.** The rollout delivers the schema parity §2 asks for, which is
+what David authorized and is worth doing. It should **not** be presented as the unlock for
+`DECISION-0074` mastery: reaching mastery at scale additionally requires authoring more MCQs (~2 per
+cell you want masterable), which is a content-production decision, not a taxonomy one. Say this
+plainly in any status report rather than reporting "schema complete" as if mastery followed.
+
+Per subject, read-only, no writes and no gateway spend (the recipe, for re-running):
 
 1. Count published items by type (MCQ, FRQ) for the subject.
 2. Count the candidate grid size N the Phase A curation would produce (topics × plausible skills per
    topic from the fact pack — an estimate is fine here).
-3. Compute items-per-cell for each type. A cell needs **2 MCQ and 1 FRQ**, so the binding constraint
-   is usually FRQ: if `published_FRQ / N < 1`, then *even perfectly uniform* labeling cannot make
-   most cells masterable, and a uniform spread is the optimistic case.
+3. Compute items-per-cell for each type and the ceiling
+   `min(published_FRQ, floor(published_MCQ / 2), N)`. **Measured: MCQ binds in every subject** — the
+   `floor(MCQ/2)` term was smaller than the FRQ term in all ten. Check item counts **per exam pack
+   version**, not per subject: Statistics has two published packs and the distinction is decisive
+   (see below).
 4. Record the numbers as evidence (counts + the query used), and state the implied ceiling: the
    maximum number of masterable cells this subject can reach at that grid size.
 
@@ -162,14 +179,19 @@ cannot succeed. Coarsening is a product decision (it changes what "mastery of a 
 student) and belongs to David, not to the executing session. Surface the number and the recommended
 grid size; do not silently pick one.
 
-**Open decision, not resolved by this plan — provisional topics under provisional skills.** Both
-launch subjects' *topic* assignments are themselves `assignment_status='provisional_model'`
-(unratified AI proposals: Biology's ~112 rows, Statistics' 181 seeded rows). If Phase B writes skill
-codes onto those rows, a resulting "masterable cell" rests on two unvalidated assertions stacked, and
-`DECISION-0074`'s bar is student-facing. **David to decide:** may a cell count toward mastery when its
-topic assignment is not yet `validated`, or does topic validation gate skill labeling for that item?
-Until this is answered, Phase B should record the topic's `assignment_status` alongside each skill
-label so the question can be answered retroactively rather than re-run.
+**Closed by measurement — provisional topics under provisional skills.** An earlier draft of this
+section raised an open decision about skill labels stacked on unratified `provisional_model` topic
+assignments. Measured in Production 2026-09-29: **zero `content_item_cells` rows are
+`provisional_model`.** Biology's 112 topic-only rows and Statistics' 181 seeded rows are now
+`validated`; the 203 pilot rows are `authored`. No decision is needed today. It could re-apply if a
+future Phase B writes `provisional_model` skill rows onto topics later invalidated, so Phase B should
+still record the topic's `assignment_status` alongside each skill label.
+
+**Check the exam pack before labeling anything.** Item counts and servability are per exam pack
+version, and a skill label on a non-servable pack is wasted work. Statistics is the live example: its
+203 existing skill-coded rows sit on retired pilot pack `7c5a2975`, which has **zero FRQs and zero
+servable items**, so no cell on it can ever be masterable. Confirm which pack a subject actually
+serves (`app.servable_items_census()`) before choosing Phase B's target.
 
 ## 6. Phase A — build each subject's topic × skill grid
 
@@ -268,8 +290,14 @@ Per-subject checklist for that session:
 
 Not a hard dependency order (§8), just cheapest-and-most-valuable first:
 
-1. **AP Statistics** — Phase B only (grid exists), cheapest possible first win, closes the launch
-   subject's own gap.
+1. **AP Statistics** — Phase B only (its 131-cell grid genuinely exists, so Phase A is skippable),
+   but **not cheap and not an FRQ-only top-up**. Corrected 2026-09-29: its 203 existing skill-coded
+   rows are stranded on retired pilot pack `7c5a2975` (203 MCQ, **0 FRQ**, 0 servable items). The
+   pack Statistics actually serves, `548f06be`, has 101 MCQ + 80 FRQ and **zero** skill-level labels.
+   Phase B here is a full MCQ + FRQ labeling pass against `548f06be`. This is also why GAP-10
+   measures zero masterable cells despite 11 cells already clearing the 2-MCQ half of the bar — their
+   pack has no FRQ to clear the other half. Still a sensible first subject, because it is the only
+   one that skips Phase A.
 2. **AP Biology** — Phase A + B, the other launch subject, matches GAP-10's original ask.
 3. **AP Chemistry, AP Calculus AB, AP Calculus BC** — Phase 0 is light (practice-level already
    documented, just needs sub-skill sourcing) before Phase A + B.
