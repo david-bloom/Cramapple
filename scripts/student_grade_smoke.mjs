@@ -24,6 +24,9 @@ const URL_BASE = process.env.SMOKE_URL;
 const PUB = process.env.SMOKE_PUBLISHABLE_KEY;
 const SECRET = process.env.SMOKE_SECRET_KEY;
 const PRIVACY = process.env.SMOKE_PRIVACY_VERSION ?? "2026-08-01";
+// The subject the student practises. A session starts from the profile's
+// active pack, so the test must pick one (the app does this in onboarding).
+const SUBJECT_KEY = process.env.SMOKE_SUBJECT_KEY ?? "ap-statistics";
 
 if (!URL_BASE || !PUB || !SECRET) {
   console.error("SMOKE_URL, SMOKE_PUBLISHABLE_KEY and SMOKE_SECRET_KEY are required");
@@ -119,18 +122,68 @@ async function main() {
   const userId = auth?.user?.id;
 
   // --- 2. entitlement ------------------------------------------------------
-  const trial = await fn("start-trial", { privacy_notice_version: PRIVACY }, token);
-  check("start-trial grants the new student access", trial.status === 200,
-    `${trial.status} ${trial.text.slice(0, 300)}`);
+  // Production grants a trial on every active subject through start-trial.
+  // Development has no start-trial function; there the test grants the chosen
+  // subject directly and says so, because that is a weaker test.
+  const subj = await rest(`subjects?subject_key=eq.${SUBJECT_KEY}&select=id`, { schema: "app" });
+  const subjectId = subj.json?.[0]?.id;
+  if (!check(`subject ${SUBJECT_KEY} exists`, Boolean(subjectId), subj.text.slice(0, 200))) return;
 
-  // --- 3. a learning session ----------------------------------------------
+  const trial = await fn("start-trial", { privacy_notice_version: PRIVACY }, token);
+  if (trial.status === 404) {
+    console.log("NOTE  no start-trial function here (Development); granting the subject directly");
+    const grant = await rest("subject_entitlements", {
+      method: "POST", schema: "app", headers: { prefer: "return=representation" },
+      body: { user_id: userId, subject_id: subjectId, access_tier: "trial", source: "smoke_test" },
+    });
+    check("the new student is entitled", grant.status === 201, `${grant.status} ${grant.text.slice(0, 300)}`);
+  } else {
+    check("start-trial grants the new student access", trial.status === 200,
+      `${trial.status} ${trial.text.slice(0, 300)}`);
+  }
+
+  // --- 3. pick the subject, then a learning session ------------------------
+  const packs = await rest(`exam_packs?subject_id=eq.${subjectId}&select=id`, { schema: "app" });
+  const packIds = (packs.json ?? []).map((p) => p.id);
+  const versions = packIds.length ? await rest(
+    `exam_pack_versions?exam_pack_id=in.(${packIds.join(",")})&status=eq.published&retired_at=is.null&select=id`,
+    { schema: "app" },
+  ) : { json: [] };
+  // Of the selectable versions, take the one with the most published MCQs
+  // (Development carries a near-empty fixture pack alongside the real one).
+  let packVersionId = null;
+  let bestCount = 0;
+  for (const v of versions.json ?? []) {
+    const ok = await rest("rpc/exam_pack_version_is_selectable", {
+      method: "POST", schema: "app", body: { _version_id: v.id },
+    });
+    if (ok.json !== true) continue;
+    const mcqs = await rest(
+      `content_items?exam_pack_version_id=eq.${v.id}&status=eq.published&item_type=eq.mcq&select=id`,
+      { schema: "app" },
+    );
+    const n = Array.isArray(mcqs.json) ? mcqs.json.length : 0;
+    if (n > bestCount) { bestCount = n; packVersionId = v.id; }
+  }
+  if (!check(`a selectable ${SUBJECT_KEY} pack exists`, Boolean(packVersionId),
+    `${(versions.json ?? []).length} published version(s), none selectable`)) return;
+
+  const pick = await rest(`profiles?user_id=eq.${userId}`, {
+    method: "PATCH", schema: "app", headers: { prefer: "return=representation" },
+    body: { active_exam_pack_version_id: packVersionId },
+  });
+  if (!check("the student's active subject is set", pick.status === 200,
+    `${pick.status} ${pick.text.slice(0, 300)}`)) return;
+
   const sess = await rest("rpc/start_home_learning_session_for_user", {
     method: "POST", schema: "app",
     body: { _user_id: userId, _minutes: 20, _idempotency_key: uuid() },
   });
-  const sessionId = typeof sess.json === "string"
-    ? sess.json
-    : sess.json?.learning_session_id ?? sess.json?.id ?? null;
+  // The RPC returns a one-row table, so PostgREST sends an array.
+  const sessRow = Array.isArray(sess.json) ? sess.json[0] : sess.json;
+  const sessionId = typeof sessRow === "string"
+    ? sessRow
+    : sessRow?.learning_session_id ?? sessRow?.id ?? null;
   check("a learning session starts", Boolean(sessionId),
     `${sess.status} ${sess.text.slice(0, 300)}`);
   if (!sessionId) return;
@@ -138,7 +191,8 @@ async function main() {
   // --- 4. items are served -------------------------------------------------
   const items = await fn("student-session-items",
     { learning_session_id: sessionId, mode: "cell_scoped", item_type: "mcq", limit: 25 }, token);
-  const list = items.json?.items ?? items.json?.data ?? [];
+  // Functions reply as {status, function, result}.
+  const list = items.json?.result?.items ?? items.json?.items ?? items.json?.data ?? [];
   check("the session serves MCQ items", Array.isArray(list) && list.length > 0,
     `${items.status} ${items.text.slice(0, 400)}`);
   if (!Array.isArray(list) || list.length === 0) return;
@@ -177,9 +231,9 @@ async function main() {
     idempotency_key: uuid(),
     learning_session_id: sessionId,
     content_item_version_id: target.versionId,
-    attempt_mode: "practice",
+    attempt_mode: "mcq",
   }, token);
-  const attemptId = created.json?.attempt?.id ?? created.json?.attempt_id ?? created.json?.id;
+  const attemptId = created.json?.result?.attempt?.id ?? created.json?.attempt?.id ?? created.json?.attempt_id;
   check("an attempt is created", Boolean(attemptId),
     `${created.status} ${created.text.slice(0, 400)}`);
   if (!attemptId) return;
@@ -190,14 +244,16 @@ async function main() {
     attempt_id: attemptId,
     response_parts: { selected_choice_key: target.wrong.choice_key },
   }, token);
-  const responseVersionId = saved.json?.response_version?.id ??
-    saved.json?.response_version_id ?? saved.json?.id;
+  const responseVersionId = saved.json?.result?.response_version?.id ??
+    saved.json?.response_version?.id ?? saved.json?.response_version_id;
   check("the answer is saved", Boolean(responseVersionId),
     `${saved.status} ${saved.text.slice(0, 400)}`);
   if (!responseVersionId) return;
 
-  const submitted = await fn("submit-response", {
-    operation: "submit",
+  // The app submits through attempt-response. Production has no
+  // submit-response function deployed.
+  const submitted = await fn("attempt-response", {
+    operation: "submit_response",
     attempt_id: attemptId,
     response_version_id: responseVersionId,
     idempotency_key: uuid(),
@@ -209,7 +265,7 @@ async function main() {
     attempt_id: attemptId,
     response_version_id: responseVersionId,
     idempotency_key: uuid(),
-    operation: "grade",
+    operation: "grade_initial_attempt",
   }, token);
   check("evaluate-attempt grades the answer", graded.status === 200,
     `${graded.status} ${graded.text.slice(0, 500)}`);
