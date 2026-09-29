@@ -119,8 +119,41 @@ task requires is unambiguous only on a page with no submit button.
 in Practice (`DECISION-0080`). Open Hand is not an aid — different consequence — so B1 can proceed
 independently of this task and should not be scoped against it.
 
-## Open question that remains for the Product Owner
+## Entry point — DECIDED 2026-09-29 (`DECISION-0087`)
 
-**Should Home's "start practice" ever land on Open Hand first?** That is the plate-loop product
-decision — teaching-first versus practice-first as the default entry — and it is bigger than this
-task. The flag is off by default; keep it that way until this task lands, then decide deliberately.
+**Home's "start practice" always starts with Open Hand.** Teaching-first is the default entry, not a
+flagged experiment. David, 2026-09-29. `practice_entry.ts` should therefore stop branching on the
+plate-loop flag for this decision and route to Open Hand unconditionally (the flag's other job — and
+its `?loop=` override — is removed per Decision 2 above).
+
+### The consequence this creates, and the requirement that falls out of it
+
+Every disclosed answer key **permanently removes that item from the student's scorable pool**. With
+Open Hand as the mandatory entry, that interacts directly with `DECISION-0074`'s mastery bar
+(2 correct MCQ + 1 full-point FRQ per topic×skill cell). Measured against Production, 2026-09-29:
+
+| Subject | Published MCQ | Max masterable cells now | After 10 disclosures | After 20 |
+| --- | --- | --- | --- | --- |
+| AP Biology | 43 | 21 | **16** | **11** |
+| AP Statistics | 101 | 50 | **45** | **40** |
+
+Roughly **one masterable cell lost for every two MCQ keys disclosed**, permanently and per student.
+Biology is the tight one: 43 MCQs total.
+
+**Therefore — a hard requirement for this task.** The answer key must be revealed on an **explicit
+student action**, never on mount. `OpenHandMcqScreen` today renders every choice's verdict
+immediately when it renders. Combined with "always start with Open Hand," that would mean **every
+session start silently burns an item** with no student choice involved — which is both a content
+problem and a consent problem, since TASK-0052 already requires the student be told the consequence
+*before* it happens.
+
+The screen must therefore open in a **keys-hidden** state showing the question only, with disclosure
+behind a deliberate "show me the answer key" action carrying the consent copy. A student who passes
+through Open Hand without opening a key must burn nothing. Under that design, teaching-first costs
+inventory only when the student actually asks to be taught — which is the behaviour the decision
+intends.
+
+**Still open, and worth revisiting once real usage exists:** whether Open Hand should draw from a
+reserved teaching pool rather than the same published pool practice scores from. That would decouple
+teaching cost from mastery ceiling entirely, at the price of authoring or designating dedicated
+items. Not required for this task; recorded so the option is not lost.
