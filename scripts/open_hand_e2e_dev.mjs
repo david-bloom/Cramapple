@@ -106,7 +106,7 @@ async function answerAndGrade(token, sessionId, versionId, choiceKey) {
   if (!rvId) return { step: "save_response", ...saved };
 
   const submitted = await fn("submit-response", {
-    operation: "submit", attempt_id: attemptId, response_version_id: rvId, idempotency_key: uuid(),
+    operation: "submit_response", attempt_id: attemptId, response_version_id: rvId, idempotency_key: uuid(),
   }, token);
   if (submitted.status !== 200) return { step: "submit", ...submitted };
 
@@ -216,9 +216,16 @@ async function main() {
 // --- cleanup: always runs --------------------------------------------------
 async function cleanup() {
   if (!userId) return;
-  // These rows either reference the user without ON DELETE CASCADE or block
-  // the learning-session cascade (ON DELETE RESTRICT), so they go first.
-  await rest(`open_hand_scoring_exclusions?user_id=eq.${userId}`, { method: "DELETE" });
+  // Deleting the auth user cascades to the profile and its rows, but three
+  // things block that cascade, so they go first:
+  //  - response_versions.created_by references the profile with no cascade;
+  //    deleting the attempts removes their response_versions.
+  //  - session_targets.learning_session_id is ON DELETE RESTRICT.
+  //  - audit_events references the profile with no cascade.
+  // Exclusion rows need no step here: service_role may only SELECT that table,
+  // and they cascade from auth.users (learning_session_id is null because the
+  // key is read without a session).
+  await rest(`attempts?user_id=eq.${userId}`, { method: "DELETE" });
   await rest(`session_targets?user_id=eq.${userId}`, { method: "DELETE" });
   await rest(`audit_events?or=(subject_user_id.eq.${userId},actor_user_id.eq.${userId})`, { method: "DELETE" });
   const del = await call(`${URL_BASE}/auth/v1/admin/users/${userId}`, { method: "DELETE", headers: svc });
