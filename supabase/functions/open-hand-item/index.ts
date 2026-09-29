@@ -377,4 +377,6 @@ export async function handleOpenHandItem(
   );
 }
 
-Deno.serve((req) => handleOpenHandItem(req));
+if (import.meta.main) {
+  Deno.serve((req) => handleOpenHandItem(req));
+}
