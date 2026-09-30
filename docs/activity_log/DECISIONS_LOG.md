@@ -75,6 +75,14 @@ picker sends visitors to `app.cramapple.com/home?subject=…`, which bounces the
 6. **Checkout trust line is "Secure payment powered by Stripe"** (spec A3), not the source doc's "Secure
    256-Bit Encrypted Checkout". — *"\"Secure payment powered by Stripe\"."*
 7. **No live test** of the invited-student 6-digit-code sign-in is required. — *"No live test"*
+8. **`/signup` is retired (2026-09-29, later the same day; supersedes item 4).** `/checkout` is the only
+   subject-selection step. `/signup` redirects to `/checkout`, keeping `?subject=`; landing pages, ads and
+   referral links preselect via `?subject=` (catalog key or legacy alias). `/checkout` copy: "Get started"
+   (was "Get Cramapple") and "2 · Create your account" (was "2 · Your email"). Retiring `/signup` also
+   removes its leftover email+password `signUp` form. — *"I want to remove https://cramapple.com/signup from
+   the flow, students will choose their subject on /checkout."*
+9. **Password reset removed.** `/reset-password` deleted from the marketing site. — *"Reset PW removed from
+   the site."*
 
 ### Not decided / still gated
 

@@ -423,10 +423,11 @@ Example:
 
 The page calls the backend to resolve the authoritative offer.
 
-**`DECISION-0090`:** the `/signup` "Choose your subject" picker is the funnel's subject-selection step. Picking
-a subject goes to `/checkout` with that subject preselected (using the parameter `/checkout` already reads —
-live today as `?subject=<key>`). It must not send an anonymous visitor to the app's `/home`, which bounces
-them to `/login` (defect reproduced 2026-09-29).
+**`DECISION-0090` (item 8):** `/checkout` is the funnel's only subject-selection step; `/signup` is retired and
+redirects to `/checkout`, preserving `?subject=`. Landing pages, ads and referral links preselect with
+`?subject=<key>` (catalog keys such as `ap-calculus-ab`, `biology`, plus legacy aliases such as `ap_biology`)
+or `?subjects=a,b` for bundles; unknown values are ignored. No path may send an anonymous visitor to the
+app's `/home`, which bounces them to `/login` (defect reproduced 2026-09-29).
 
 ### 8.2 Components
 
