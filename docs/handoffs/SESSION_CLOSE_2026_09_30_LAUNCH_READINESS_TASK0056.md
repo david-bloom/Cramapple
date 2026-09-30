@@ -5,11 +5,52 @@
 **Single best next action:** deploy #284's two checkout functions to Dev, then complete a $0 checkout
 in Stripe test mode with a 100%-off code. That path is now the only way into the Oct 2 launch.
 
+## Update — 2026-09-30 midday (added from the activity log and `main` at `4451a69`)
+
+Nothing below changes the original close; it records what landed on `main` after it, and what the log shows
+is still open. The activity log has **no record** of #284's checkout functions being deployed or of any $0
+checkout being run, so the "single best next action" above stands unchanged.
+
+| Landed after close | Record |
+|---|---|
+| PR triage: TASK-0056 confirmed live in Production (ledger `20260930120000/100/200`, SQL re-check). #268 closed unmerged and replaced by **TASK-0057** (post-launch). Four stale branches retired. Remote is `main` + `claude/taxonomy-subject-id-link` only | Activity log, "PR Triage, TASK-0057 Opened" (#288, #290, #291) |
+| **DECISION-0092:** AP Calculus AB opened to a named tester (Orly) in Production. `student-session-items` **v28** (v27 + Calc AB selector/parts patch only; deliberately excludes TASK-0051's `annotateOpenHandExclusions`); Lovable `56cae479` commit `be177e5` published. Calc AB is **not** an advertised Oct 2 subject | DECISIONS_LOG; PR #287 |
+| **Calc AB Unit 1: 136 items published to Production** (hash-exact load, owner approval with human review waived by David, labels promoted, difficulty on 119). Calc AB census: 255 published, was 119. Log/decision/approval entries for this publish are **not written yet** (the publication record says so) | PR #292; `scripts/content-seed/calc-ab-unit1-original-2026-09-29/PUBLICATION_RECORD.md` |
+| **TASK-0056 independent QA brief** written for a fresh-context session. It has not started | `docs/qa/TASK-0056_INDEPENDENT_QA_BRIEF.md` (#292) |
+| Seeded item generation protocol added (content pipeline; not launch-gating) | PR #293 |
+
+Still open from this addendum:
+
+- **Calc AB grading is unproven in Production** (0 graded attempts before the tester night). Math renders as plain text.
+- **Criteria-sourced `parts` on other subjects' long FRQs** show students answer text from
+  `learner_facing_text`. **Now measured (2026-09-30):** 50 of 119 published Biology + Statistics FRQ items
+  leak a value, hypothesis or conclusion as the question — AP Statistics 31 of 44 (70%). Two independent
+  serving defects, both required to fix; 26 of the 50 close with content already in Production, 24 need
+  authoring. Needs a Product Owner decision and a Hard-Gate deploy. See
+  `docs/qa/FRQ_CRITERIA_PARTS_ANSWER_EXPOSURE_2026_09_30.md`.
+- ~~**`APBIO-MCQ-031` / `-035`** are suspected Unit 3/4 label mix-ups; Biology is a day-1 subject.~~
+  **Withdrawn (2026-09-30).** Both items are `reviewed_disapproved` with zero published versions, so no
+  selector can reach them, and none of the three Oct 2 flat-path selectors read taxonomy labels at all.
+  Three genuine serving/coverage disagreements exist and are post-launch, with the unit-gated work. See
+  `docs/qa/APBIO_MCQ_031_035_UNIT_LABEL_CHECK_2026_09_30.md`.
+- **Production `student-session-items` is v28, not `main`.** The next deploy from `main` would pull in the still-gated
+  TASK-0051 change. Do not deploy that function from `main` before the TASK-0051 gate.
+- **Approval/decision records lag the Production writes** for the Calc AB publish.
+- **Runbook §5 (BYOQ) checked 2026-09-30.** Answer exposure is structurally impossible (no answer column
+  exists; the MCQ-choice CHECK is an exact two-key allowlist; `anon` holds no grants; RLS is owner-only).
+  Marketing retention copy is accurate. Three open items — the privacy policy predates BYOQ and documents
+  neither the 30-day purge nor EXIF stripping, it describes a publication path that does not exist, and the
+  purge has never had anything older than 30 days to delete. Real-phone QR capture still needs a human. See
+  `docs/qa/BYOQ_LAUNCH_SECTION5_EVIDENCE_2026_09_30.md`.
+- **`get-checkout-status` is not deployed to Production at all** (confirmed against the live function list),
+  which independently confirms the coupon-checkout path above is untested end to end.
+
 ## 1. Tasks in scope
 
 - **TASK-0056** (answer keys directly readable; launch-gating per DECISION-0089): steps 2–5, Dev and Production.
 - **TASK-0051** QA finding F2 (`evaluate-attempt` exclusion lookup).
 - **Launch shape:** Oct 2 access runs through coupon checkout (DECISION-0091).
+- **Added at update:** DECISION-0092 (Calc AB tester, `student-session-items` v28) and the Calc AB Unit 1 publish; see the update above.
 
 ## 2. What changed
 
@@ -111,3 +152,4 @@ body MD5-identical to the committed file. No renames are needed (runbook Trap 1)
 - Do not run `supabase db push` (TASK-0055).
 - Do not enable Stripe live mode or create the live coupon without David's explicit approval.
 - Do not run the smoke test against Production except at David's direction.
+- Do not deploy `student-session-items` from `main` (Production is v28 with the TASK-0051 change deliberately excluded).
