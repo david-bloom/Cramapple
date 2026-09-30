@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0064 — TASK-0056 to Production (Three Migrations) and the `evaluate-attempt` F2 Deploy — DECISION-0089
 - APPROVAL-0063 — TASK-0056 in Development (Parity Replay, Reviewer Function, Revoke) and the Lovable Reviewer-Read Edit — DECISION-0089
 - APPROVAL-0062 — Production Hotfix: Create `open_hand_scoring_exclusions` Table Only (Dev + Prod) — TASK-0051
 - APPROVAL-0061 — Execute TASK-0051 Open Hand Unification in Development — DECISION-0086
@@ -34,6 +35,32 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0064 — TASK-0056 to Production, Plus the `evaluate-attempt` F2 Deploy
+
+**Date:** 2026-09-30  
+**Approved By:** David Bloom ("You deploy the grading fix"; "Approved, apply the Prod migrations tonight", 2026-09-30 Claude session)  
+**Related Task:** `TASK-0056-ANSWER-KEY-DIRECT-READ-EXPOSURE.md`; `TASK-0051` (F2)  
+**Related Decision:** `DECISION-0089`  
+**Decision:** Approved
+
+**Approved scope:** apply `20260930120000`, `20260930120100` and `20260930120200` to Production, and
+deploy `evaluate-attempt` with the F2 fix (`.maybeSingle()` → `.limit(1)`).
+
+**How it was used:**
+
+- Precondition: David published the Lovable reviewer-read edit (`783f6e04`) before the apply.
+- All three migrations applied to Production. `…120100` and `…120200` went in one transaction, so no
+  half-applied state was ever live. Each ledger entry is recorded under its file version, and its body
+  MD5 matches the committed file and Dev.
+- Guard (`scripts/qa/answer_key_exposure_guard.sql`) on Production: **no rows.**
+- **`evaluate-attempt` deploy: not done from the cloud session.** The proxy blocks `api.supabase.com`, and
+  the MCP deploy would have meant re-typing 24 files (about 340 KB). Handed to David as the repo's usual
+  CLI command. Production v68 was confirmed byte-identical to `main` beforehand, so the deploy changes
+  only the F2 lines.
+
+**Not authorized by this entry:** `get_open_hand_item` / the TASK-0051 Production gate, or Stripe
+live-mode work.
 
 ## APPROVAL-0063 — TASK-0056 in Development, Plus the Lovable Reviewer-Read Edit
 

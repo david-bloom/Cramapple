@@ -1,12 +1,12 @@
 # TASK-0056 — Close Direct Reads of Answer Keys
 
-**Status:** In Progress. Step 1 done 2026-09-29. Development done 2026-09-30 (`APPROVAL-0063`); guard clean on Dev. **Production not started.** **Launch gating for October 2** (`DECISION-0089`).
+**Status:** In Progress. Step 1 done 2026-09-29. Applied to Development and **Production** 2026-09-30 (`APPROVAL-0063`, `APPROVAL-0064`); guard clean on both. Remaining: live click-through, 24h log watch, fresh independent QA. **Launch gating for October 2** (`DECISION-0089`).
 **Tier:** Hard-Gate (Production grant changes and a data-exposure fix)
 **Owner:** TBD (single agent, single branch)
 **Product Owner:** David Bloom
 **Date opened:** 2026-09-29
 **Decision:** `DECISION-0089`
-**Approval:** `APPROVAL-0063` (Development + Lovable edit). Production needs its own approval.
+**Approval:** `APPROVAL-0063` (Development + Lovable edit); `APPROVAL-0064` (Production + `evaluate-attempt` deploy).
 **Found by:** `docs/qa/TASK-0051_INDEPENDENT_QA_2026_09_29.md`, finding F1 (PR #277)
 **Blocks:** `TASK-0051`'s Production gate
 **Area:** Security / answer-key exposure / scoring integrity
@@ -297,6 +297,30 @@ Production right after the apply.**
    a reviewer can open a submitted assignment.
 5. Deploy `evaluate-attempt` with the F2 fix (same approval or separate).
 6. Watch logs for 42501 / 42703 from app traffic.
+
+## Production execution, 2026-09-30 (`APPROVAL-0064`)
+
+- Lovable `783f6e04` published by David before the apply.
+- Pre-check: none of the three versions was in the ledger; no view depends on the two public views.
+- Applied `20260930120000`, then `20260930120100` + `20260930120200` in one transaction. Ledger bodies are
+  MD5-identical to the files and to Dev.
+- **Guard: no rows.**
+- Student access matrix (rolled-back SQL as a real Production student):
+
+| Read | Result |
+| --- | --- |
+| `app.content_item_versions`: `canonical_answer_1`, `explanation`, `item_package_payload`; `app.frq_criteria.minimum_fix` | 42501 |
+| `public.content_item_versions.canonical_answer_1`, `public.frq_criteria.evidence_requirements` | 42703 (gone) |
+| Safe columns: `public.content_item_versions` / `app.content_item_versions` / `public.frq_criteria` / `public.mcq_choices` | 1,335 / 1,335 / 2,885 / 3,132 rows |
+| `select_practice_frqs` (Biology pack, `targeted_drill`) | 20 items |
+| `get_review_item_version`: student / admin | 0 rows / 1 row |
+
+- `get_open_hand_item` does not exist in Production yet (TASK-0051's gate, not taken). Nothing to break.
+- **`evaluate-attempt` F2:** not yet deployed. David runs the CLI deploy (see `APPROVAL-0064`), then
+  Claude verifies the deployed source against the branch.
+
+**Still open:** David and Orly's live practice session (MCQ and FRQ, a graded submit, a reviewer opening a
+submitted assignment); 24h of logs with no new 42501/42703 from app traffic; a fresh independent QA.
 
 ## Handoff (session close, 2026-09-29)
 
