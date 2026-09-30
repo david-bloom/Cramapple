@@ -11,6 +11,8 @@ different pipeline from `GOLD_SET_GENERATION_PROTOCOL.md`, which produces **stud
 answers** to test the grader. The two share conventions (multi-family independence,
 blind verification, grep-verify before trusting a model's citation claim) but are not the
 same process — do not merge them.
+For generating items *from existing questions as seeds* (variant families, or a third-party problem's
+skill family), see `SEEDED_ITEM_GENERATION_PROTOCOL_2026_09_30.md`, which feeds this pipeline's Phases 2-6.
 
 **Revision note (v0.2):** incorporates an independent review (Opus 4.8, 2026-08-06) that
 caught a factual error in v0.1's fact-pack claim (§1.6, §7.3), an under-specified publish

@@ -233,6 +233,10 @@ Cramapple's schema has no place for (e.g., readiness/prerequisite content per
 §4) — stop and raise it as a product question rather than force-fitting it
 into an existing unit/topic. That is a §5 insight, not a §6 authoring task.
 
+**Seeding from problems (2026-09-30):** using a document's *problem families* as seeds, rather than its topic
+scope, is governed by `SEEDED_ITEM_GENERATION_PROTOCOL_2026_09_30.md` (seed classes, clean-room
+requirement, scrub). It narrows §2; it does not relax it.
+
 ## 7. What this protocol deliberately does not cover
 
 - Grading or evaluating Orly's own submitted work — this is about Cramapple's
