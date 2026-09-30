@@ -85,6 +85,14 @@ Rules this implies:
    it settles it.
 4. **Record the roster and role per batch** (AQP §7.1 is still open; the batch README is the record).
 
+**Standing checker design (Product Owner decision, 2026-09-30, after the Fable calibration run,
+`calc-ab-fable-calibration-2026-09-30/CALIBRATION_REPORT.md`).** Two checkers from different families per stage,
+one patch loop, and a full re-check of every patched item. Treat the **union** of the two checkers' flags as
+candidates and verify each by hand or sympy before acting (single-model flags proved real). A stronger model
+(e.g. Fable) is a **sample-as-needed** tool, not a standing third stage: use it for a per-batch calibration sample,
+to adjudicate single-model flags, or when a repeat pass of the same two checkers disagrees with the first. Count
+only key errors and per-choice rationale inaccuracies as defects; style notes are a separate channel.
+
 **Staying current is a maintenance duty, not a preference.**
 - The fixed checker roster in AQP had gone stale; the Product Owner spotted that a superseded Gemini
   generation was still in use, and the roster had never been checked against what the gateway actually offered.
@@ -123,6 +131,7 @@ Gate rules:
 
 ```
 S0  Classify seed, log source            (§2)
+S0a Audit the seed (class A)             (§3, before any variant is written)
 S1  Extract family spec                  (B only; A uses the item as is)
 S2  Scrub the spec                       (B only)
 S3  Generate from the spec               (fresh context that has never seen the source, for B)
@@ -131,6 +140,19 @@ S5  Enter the AQP pipeline               (Phases 2-6, mapping in §5)
 S6  Label originals, then check heirs    (§6)
 S7  Record provenance                    (§7)
 ```
+
+### S0a. Audit the seed first (class A)
+Run the same checks on the seed that its variants will get: sympy recompute of the key and every distractor
+value, then the two-model blind solve and rationale audit (AQP §9). Pilot result (2026-09-30,
+`calc-ab-pilot-2026-09-30/PILOT_REPORT.md`): 6 of 8 published seeds had distractor rationales that do not produce
+their shown values, while all keys were right; the review record for those seeds was mostly single-reviewer
+approvals and owner remediation approvals, and nothing in that flow re-derives distractor rationales. So:
+- A seed with a key defect or a rationale defect is **repaired first** through the owner-remediation path (new
+  version, never an in-place edit). Variants are written from the repaired seed, never the defective one.
+- A seed that cannot be repaired is dropped as a seed; do not copy its distractor pattern into variants.
+- Approval status of a seed (human-reviewed, published, validated) does not exempt it. Doing this audit only for
+  seeds actually used, rather than sweeping the whole library, is deliberate: it folds the audit into work that is
+  already happening. Record which seeds were audited and the outcome in the batch manifest.
 
 ### S1. Extract the family spec (class B)
 One spec per *family*, not per problem. Fields:
