@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- PR Triage, TASK-0057 Opened, Stale Branches Retired (2026-09-30): triaged the open PRs against live state. The TASK-0056 migrations were already in Production and the revoke was verified (no answer or rubric column readable by `authenticated`/`anon`); #277, #278, #284, #285, #286 were merged. PR #268 (taxonomy `subject_id` link) was closed unmerged because it added the link without moving any join onto it, and its migration was never applied anywhere. The full three-step fix (link, move every join, CI guard) is now `TASK-0057` (post-launch, PR #288), with an initial inventory of eight live Production functions; `get_home_start_queue` reads the taxonomy without the normalizer. Retired four stale branches after checking each against `main`; the only unique work, Codex Work Orders N/N.1 (Biology serving labels, incomplete), was preserved first (PR #290). No code, migration or deploy. **Next Owner:** David Bloom. **Next Action:** none from this thread; TASK-0057 is post-launch.
 - TASK-0056 Closed In Production; Launch Shape Set To Coupon Checkout (2026-09-30): answer keys are no longer directly readable by any signed-in or anonymous caller on Dev or Production (`APPROVAL-0063`/`0064`); guard `scripts/qa/answer_key_exposure_guard.sql` returns no rows on both and now runs daily. The first revoke was a silent no-op (table-level grant), and the guard caught it on Dev; fixed with a safe-column grant. `evaluate-attempt` F2 fix live (Prod v70, verified). `DECISION-0091`: Oct 2 is free via `/checkout` with a 100%-off coupon. PRs #284/#285/#286/#277 merged. Handoff: `docs/handoffs/SESSION_CLOSE_2026_09_30_LAUNCH_READINESS_TASK0056.md`. **Next Owner:** David Bloom. **Next Action:** deploy #284 to Dev and complete a $0 test-mode checkout; practice session with Orly; fresh independent QA.
 - TASK-0051 Independent QA → BLOCKED; TASK-0056 Opened, Step 1 Audit Done (2026-09-29): independent QA of the Open Hand RPC found the RPC and `evaluate-attempt` sound but **answer keys directly readable by any signed-in user** outside the RPC (`content_item_versions.canonical_answer_1/2`, `explanation`, `item_package_payload`, plus the `public` views) in Dev and Production. TASK-0051 set Blocked (PR #277). David chose launch-gating, explanation after submission only, and the FRQ rubric as a recorded hint (`DECISION-0089`), opening TASK-0056 (PR #278). Step 1 reader audit: only the reviewer fallback screen breaks on the revoke; no student or anonymous path reads a revoked column; Production logs show only service-role reads. No code, migration or deploy. **Next Owner:** David Bloom. **Next Action:** approve step 2 (the reviewer SECURITY DEFINER function on Dev, plus the Lovable `review.functions.ts` edit), then the step 3 migration.
 - TASK-0041 Checkout/Login Direction Revised (2026-09-29): anonymous re-QA reproduced `/signup` → `/login` redirect (subject picker targets the app's `/home`, not `/checkout`). Product Owner revised the checkout doc; five answers recorded as `DECISION-0090` (passwordless only, verified-session entry, student-direct-only add-on, first-name-only parent screens, `/signup` → `/checkout`). Found that parent-share checkouts saved the parent's card for off-session reuse and the webhook would attach it to the student; fixed in four edge functions on `claude/task-0041-payment-login-direction` (Dev `stripe_customers` confirmed empty, so no card was ever attached). Dev deploy blocked by the permission classifier — left for David. Lovable prompt drafted, not sent.
@@ -329,6 +330,49 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## PR Triage, TASK-0057 Opened, Stale Branches Retired — 2026-09-30
+
+**Tasks:** `TASK-0057-SUBJECT-TAXONOMY-KEY-LINK.md` (opened, post-launch); triage across TASK-0041, TASK-0051, TASK-0056
+**Authorization:** David, in session: "open the task for the three step fix and close 268"; "delete the three and open the preservation PR"; "merge 288"
+**PRs:** #288 (TASK-0057, merged); #290 (Work Order N preservation, merged); #268 (closed unmerged). Others merged by David: #277, #278, #284, #285, #286.
+**Environments:** read-only SQL and logs on Development and Production. **No code, migration or deploy.**
+
+### What was checked
+
+- **All open PRs merged cleanly together** in any order. The blockers were drafts, missing records and
+  one unapplied migration, not conflicts.
+- **TASK-0056 was already live in Production.** The ledger recorded `20260930120000/100/200`, and SQL
+  confirmed that no answer or rubric column is selectable by `authenticated`/`anon` and that the public
+  views no longer project them. The Lovable `review.functions.ts` at HEAD no longer reads `explanation`.
+  Production `evaluate-attempt` is v70 (F2 fix).
+- **PR #268's migration `20260929190000` was never applied** in either environment. Merging it would
+  have left an unapplied migration on `main` (runbook Trap 7).
+
+### Decisions taken in session
+
+- **#268 closed, replaced by TASK-0057.** A `subject_id` link with no join moved onto it leaves the
+  Biology key-mismatch trap live. TASK-0057 ships the link, the join migration and a CI guard together.
+  Initial Production inventory: eight live functions on the path, and `get_home_start_queue` reads the
+  taxonomy without `normalize_student_subject_key()`, so check it. Branch
+  `claude/taxonomy-subject-id-link` is kept as step 1's starting point.
+- **Four branches retired** after checking every file against `main`:
+  - `codex/task-0049-open-hand-answer-key` (fully merged);
+  - `claude/task-0051-skill-dimension-rollout` (superseded by `TASK-0050-SKILL-DIMENSION-ROLLOUT.md`);
+  - `claude/student-hub-launch-plan-s3t7ua` (landed via #256; its only unique file was the batch
+    `open-hand-item` that `DECISION-0086` removed, so it was not merged);
+  - `codex/work-order-n-biology-serving-labels`, after its files were preserved on `main` as
+    `docs/research/apbio_serving_labels_2026_09_24/` with a `STATUS.md` marking them historical and
+    incomplete. They hold the only 48-item Production packet and two newly suspected Unit 3/Unit 4 label
+    mix-ups, `APBIO-MCQ-031` and `-035`.
+
+  The deletion was done by David; this session's GitHub access returns 403 on deleting branches it did
+  not create.
+
+**Remote after cleanup:** `main` and `claude/taxonomy-subject-id-link` only.
+
+**Next Owner:** David Bloom. **Next Action:** none from this thread. TASK-0057 is post-launch.
+`APBIO-MCQ-031`/`-035` should be checked by whoever next owns Biology serving labels.
 
 ## TASK-0056 Closed In Production; Launch Shape Set To Coupon Checkout — 2026-09-30
 
