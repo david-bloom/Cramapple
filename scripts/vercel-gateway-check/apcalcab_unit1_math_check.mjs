@@ -71,14 +71,14 @@ async function callModel(model, prompt, schema) {
   for (let a = 1; a <= 4; a++) {
     try {
       const r = await generateObject({ model, schema, prompt, abortSignal: AbortSignal.timeout(240_000) });
-      return { ok: true, object: r.object, attempts: a, mode: 'object', ms: Math.round(performance.now() - started) };
+      return { ok: true, object: r.object, usage: r.usage, attempts: a, mode: 'object', ms: Math.round(performance.now() - started) };
     } catch (e) { lastErr = String(e?.message ?? e).replace(/\s+/g, ' ').slice(0, 300); }
   }
   try {
     const t = await generateText({ model, prompt: prompt + '\n\nReturn ONLY one JSON object matching the fields described, no markdown fences.', abortSignal: AbortSignal.timeout(240_000) });
     const raw = t.text.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
     const obj = schema.parse(JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1)));
-    return { ok: true, object: obj, attempts: 5, mode: 'text_json', ms: Math.round(performance.now() - started) };
+    return { ok: true, object: obj, usage: t.usage, attempts: 5, mode: 'text_json', ms: Math.round(performance.now() - started) };
   } catch (e) { lastErr += ' | text: ' + String(e?.message ?? e).replace(/\s+/g, ' ').slice(0, 200); }
   return { ok: false, error: lastErr, attempts: 5, ms: Math.round(performance.now() - started) };
 }

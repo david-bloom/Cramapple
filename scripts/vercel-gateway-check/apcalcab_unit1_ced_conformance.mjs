@@ -82,7 +82,7 @@ async function check(model, item, factPack) {
   for (let attempt = 1; attempt <= 6; attempt++) {
     try {
       const r = await generateObject({ model, schema: SCHEMA, prompt: buildPrompt(item, factPack), abortSignal: AbortSignal.timeout(120_000) });
-      return { ok: true, model, content_key: item.content_key, result: r.object, error: '', attempts: attempt, ms: Math.round(performance.now() - started) };
+      return { ok: true, model, content_key: item.content_key, result: r.object, usage: r.usage, error: '', attempts: attempt, ms: Math.round(performance.now() - started) };
     } catch (err) {
       lastErr = String(err?.message ?? err).replace(/\s+/g, ' ').slice(0, 400);
     }
@@ -93,7 +93,7 @@ async function check(model, item, factPack) {
     const t = await generateText({ model, prompt: buildPrompt(item, factPack) + '\n\nReturn ONLY one JSON object, no markdown fences, with exactly these keys: content_key (string), scope_verdict (one of fully_in_scope, contains_out_of_scope_content, uncertain), out_of_scope_concepts (array of strings), internal_consistency_issues (array of strings), confidence (number 0-1), reasoning (string).', abortSignal: AbortSignal.timeout(120_000) });
     const raw = t.text.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
     const obj = SCHEMA.parse(JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1)));
-    return { ok: true, model, content_key: item.content_key, result: obj, error: '', attempts: 7, mode: 'text_json', ms: Math.round(performance.now() - started) };
+    return { ok: true, model, content_key: item.content_key, result: obj, usage: t.usage, error: '', attempts: 7, mode: 'text_json', ms: Math.round(performance.now() - started) };
   } catch (err) {
     lastErr += ' | text fallback: ' + String(err?.message ?? err).replace(/\s+/g, ' ').slice(0, 200);
   }

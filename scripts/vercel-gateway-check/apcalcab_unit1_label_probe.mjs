@@ -44,9 +44,9 @@ const jobs = []; for (const it of items) for (let s = 1; s <= SAMPLES; s++) jobs
 async function worker() {
   while (jobs.length) {
     const { it, s } = jobs.shift();
-    let res = null, err = '';
-    for (let a = 1; a <= 4 && !res; a++) { try { res = (await generateObject({ model: MODEL, schema: SCHEMA, prompt: prompt(it), abortSignal: AbortSignal.timeout(180_000) })).object; } catch (e) { err = String(e?.message ?? e).slice(0, 200); } }
-    fs.appendFileSync(out, JSON.stringify({ key: it.key, sample: s, model: MODEL, ok: !!res, label: res, error: res ? '' : err }) + '\n');
+    let res = null, err = '', usage = null;
+    for (let a = 1; a <= 4 && !res; a++) { try { const g = await generateObject({ model: MODEL, schema: SCHEMA, prompt: prompt(it), abortSignal: AbortSignal.timeout(180_000) }); res = g.object; usage = g.usage; } catch (e) { err = String(e?.message ?? e).slice(0, 200); } }
+    fs.appendFileSync(out, JSON.stringify({ key: it.key, sample: s, model: MODEL, ok: !!res, usage, label: res, error: res ? '' : err }) + '\n');
   }
 }
 await Promise.all(Array.from({ length: 5 }, worker));
