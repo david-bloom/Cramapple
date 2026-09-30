@@ -10,7 +10,8 @@ Marketing," `61dd6602`) and **`https://app.cramapple.com`** (student app → Lov
 App," `56cae479`). The previously listed `https://ap-prep-canvas.lovable.app/` ("Remix of Cramapple App,"
 `d334fed9`) is **NOT** the production frontend — a live DNS/`curl` check on 2026-09-27 confirmed the
 domains resolve to `61dd6602`/`56cae479`. Re-confirm via DNS before trusting any doc's project citation.
-**Launch shape:** Free; no Stripe checkout or payment gating
+**Launch shape (AMENDED 2026-09-30, `DECISION-0091`):** Free to the student, via `/checkout` with a 100%-off
+coupon. `/signup` is retired (`DECISION-0090`). Stripe live-mode setup and the live coupon remain Hard Gates.
 **Day-1 subjects:** AP Biology and AP Statistics, both on flat practice paths
 
 ## Purpose
@@ -36,15 +37,16 @@ for detailed evidence and post-launch commercial work.
 
 - [ ] Re-read the live page, not a cached Lovable screenshot.
 - [ ] Confirm the page clearly states that access is free for this launch.
-- [ ] Confirm every primary CTA routes to free access/sign-up and does not require checkout.
+- [ ] Confirm every primary CTA routes to `/checkout`, and the coupon brings the total to $0 without the
+      student paying or entering a card (`DECISION-0091`).
 - [ ] Confirm AP Biology and AP Statistics are “Live now”; other subjects are not advertised as live.
 - [ ] Confirm no unsupported performance claim is present.
 - [ ] Record URL, timestamp, screenshots or HTML evidence, and the Lovable commit/version checked.
 
 ### 2. Brand-new-student access smoke
 
-- [ ] Create a clearly labeled launch-QA student through the real public signup route.
-- [ ] Confirm the signup/free-trial path creates active Biology and Statistics entitlements. Do not
+- [ ] Create a clearly labeled launch-QA student through the real public route (`/checkout`).
+- [ ] Confirm a $0 coupon checkout creates active Biology and Statistics entitlements (needs PR #284). Do not
       assume “free” bypasses the Production grading entitlement check.
 - [ ] Confirm the student reaches both practice routes without an admin/manual entitlement grant.
 - [ ] Record the entitlement source, start/end window, subjects covered, and test-account cleanup plan.
@@ -122,7 +124,8 @@ experience" failing, and it is a stop condition, not something to work around. S
 Stop and report rather than work around any of these:
 
 - a new student cannot obtain the entitlement needed for grading;
-- a live CTA still requires or implies payment;
+- a live CTA requires a student to pay or enter a card, or the coupon does not bring checkout to $0
+  (`DECISION-0091`);
 - Biology or Statistics cannot complete a real submit-to-grade round trip;
 - the live page or app differs materially from the version that was reviewed;
 - completing the next step requires an unapproved Production mutation; or

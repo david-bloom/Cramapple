@@ -1,6 +1,6 @@
 # TASK-0056 — Close Direct Reads of Answer Keys
 
-**Status:** In Progress. Step 1 (reader inventory) is done, 2026-09-29. **Launch gating for October 2** (`DECISION-0089`).
+**Status:** In Progress. Step 1 done 2026-09-29. Steps 2–4 and the F2 fix drafted 2026-09-30, **not applied anywhere**. **Launch gating for October 2** (`DECISION-0089`).
 **Tier:** Hard-Gate (Production grant changes and a data-exposure fix)
 **Owner:** TBD (single agent, single branch)
 **Product Owner:** David Bloom
@@ -223,6 +223,41 @@ Fold in the other two QA findings and re-run QA:
 - Once the column grants are revoked, does any student-facing flow still need direct `SELECT` on
   `app.content_item_versions` at all? If none does, revoking table-level access and serving items only
   through edge functions is the simpler long-term shape. That would be a follow-up, not this task.
+
+## Session 2026-09-30: steps 2–4 drafted (branch `claude/cramapple-launch-readiness-1q9dcq`)
+
+Nothing below has been applied to any database or deployed. Read-only SQL only, on Dev and Prod.
+
+| Piece | File | State |
+| --- | --- | --- |
+| Step 2: reviewer function `public.get_review_item_version(uuid)` | `supabase/migrations/20260930120000_task0056_get_review_item_version.sql` | Drafted. Same gate as `get_review_mcq_choices`; returns the ten columns `getReviewTask` selects today. Column types checked on both environments. |
+| Step 3: revoke + recreate `public.content_item_versions` and `public.frq_criteria` | `supabase/migrations/20260930120100_task0056_revoke_answer_key_reads.sql` | Drafted. Grants reset explicitly, because Supabase's default privileges would re-grant ALL to `anon` on the recreated views. Drops Production's pointless `anon` grant on the view. Rollback in the header. |
+| Step 4: guard | `scripts/qa/answer_key_exposure_guard.sql`; new `answer-key-exposure-guard` job in `.github/workflows/servable-items-check.yml` (daily, same DB secret) | Run on both environments today, read-only. It reports exactly the known leaks, so it detects them. **The daily job will fail on Production until step 3 lands there.** That is intended. |
+| Step 6: F2 (`.maybeSingle()` → `.limit(1)`) | `supabase/functions/evaluate-attempt/index.ts`, `index_test.ts` | Fixed, with a two-row unit test. 14/14 pass locally; both Open Hand tests fail against the old code. Not deployed. `index_test.ts` is not in `minimal-ci.yml`'s test list. |
+
+**Guard result, 2026-09-30 (before any change):**
+
+- Both environments: `authenticated` can read all seven revoked columns on the base tables, and the three
+  answer columns through `public.content_item_versions` and the three rubric columns through `public.frq_criteria`.
+- Production only: `anon` also holds column grants on `public.content_item_versions`'s answer columns.
+  It can't read them in practice, because `anon` has no base-table grant and the view is `security_invoker`.
+- **Development only (drift, TASK-0055):** `public.mcq_choices` still projects `is_correct` and `rationale`.
+  Production already has the committed fix `20260827010000_mcq_choices_public_view_drop_answer_key.sql`;
+  Dev never got it. On Dev that also means **every** student read of `public.mcq_choices` fails with 42501,
+  so a Dev click-through of Course Mode MCQs will fail for a reason unrelated to this task. Replaying that
+  committed migration on Dev comes first, under the same Dev approval.
+
+**Apply order (each line is its own approval):**
+
+1. Dev: replay `20260827010000` (parity), apply `…120000` (reviewer function). Test the function as an
+   assigned reviewer, an unassigned reviewer and an admin (rolled-back SQL, per the QA report §1).
+2. Lovable app `56cae479`: switch `getReviewTask` in `src/lib/review.functions.ts` to
+   `supabase.rpc("get_review_item_version", { p_content_item_version_id })` instead of the select on
+   `content_item_versions`. Same in `exam-buddy-wireframe` only if that portal is still used.
+3. Dev: apply `…120100` (revoke). Guard must return no rows. Run the student and reviewer click-through.
+4. Prod: `…120000`, then `…120100` after the Lovable change is published. Guard must return no rows.
+   Deploy `evaluate-attempt` with F2 under the same approval, or separately.
+5. Rename each migration file to the version the environments record (Trap 1).
 
 ## Handoff (session close, 2026-09-29)
 
