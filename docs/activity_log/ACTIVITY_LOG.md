@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0056 Closed In Production; Launch Shape Set To Coupon Checkout (2026-09-30): answer keys are no longer directly readable by any signed-in or anonymous caller on Dev or Production (`APPROVAL-0063`/`0064`); guard `scripts/qa/answer_key_exposure_guard.sql` returns no rows on both and now runs daily. The first revoke was a silent no-op (table-level grant), and the guard caught it on Dev; fixed with a safe-column grant. `evaluate-attempt` F2 fix live (Prod v70, verified). `DECISION-0091`: Oct 2 is free via `/checkout` with a 100%-off coupon. PRs #284/#285/#286/#277 merged. Handoff: `docs/handoffs/SESSION_CLOSE_2026_09_30_LAUNCH_READINESS_TASK0056.md`. **Next Owner:** David Bloom. **Next Action:** deploy #284 to Dev and complete a $0 test-mode checkout; practice session with Orly; fresh independent QA.
 - TASK-0051 Independent QA → BLOCKED; TASK-0056 Opened, Step 1 Audit Done (2026-09-29): independent QA of the Open Hand RPC found the RPC and `evaluate-attempt` sound but **answer keys directly readable by any signed-in user** outside the RPC (`content_item_versions.canonical_answer_1/2`, `explanation`, `item_package_payload`, plus the `public` views) in Dev and Production. TASK-0051 set Blocked (PR #277). David chose launch-gating, explanation after submission only, and the FRQ rubric as a recorded hint (`DECISION-0089`), opening TASK-0056 (PR #278). Step 1 reader audit: only the reviewer fallback screen breaks on the revoke; no student or anonymous path reads a revoked column; Production logs show only service-role reads. No code, migration or deploy. **Next Owner:** David Bloom. **Next Action:** approve step 2 (the reviewer SECURITY DEFINER function on Dev, plus the Lovable `review.functions.ts` edit), then the step 3 migration.
 - TASK-0041 Checkout/Login Direction Revised (2026-09-29): anonymous re-QA reproduced `/signup` → `/login` redirect (subject picker targets the app's `/home`, not `/checkout`). Product Owner revised the checkout doc; five answers recorded as `DECISION-0090` (passwordless only, verified-session entry, student-direct-only add-on, first-name-only parent screens, `/signup` → `/checkout`). Found that parent-share checkouts saved the parent's card for off-session reuse and the webhook would attach it to the student; fixed in four edge functions on `claude/task-0041-payment-login-direction` (Dev `stripe_customers` confirmed empty, so no card was ever attached). Dev deploy blocked by the permission classifier — left for David. Lovable prompt drafted, not sent.
 - Session Close: Skill Work Captured Off A Stranded Branch; Migration Ledger Gap Found (2026-09-29): end-of-session capture after the MCQ feedback deploy. The skill-dimension work (~13,500 lines) was sitting on an unmerged branch **while its effects were already live in Production** — now PR #272. Recovering it exposed that TASK-0050 applied five migrations to Production of which **four had no file in the repository at all**, and the fifth was a stub whose timestamp (`20260929113000`) did not match the recorded version (`20260929110501`), so the next `supabase db push` would have re-applied it. All five recovered verbatim from `supabase_migrations.schema_migrations`, byte counts matching the recorded lengths. A wider count then showed the problem is systemic: **185 migrations applied to Production since 2026-09-01 against 113 files in the repo — at least 72 exist only in Production**, so the schema cannot be rebuilt from source. Opened `TASK-0055` rather than fixing 72 migrations at session end. Root cause: `apply_migration` records a server-assigned version and writes no local file, and nothing in CI catches the divergence. Handoff: `docs/handoffs/SESSION_CLOSE_2026_09_29_MCQ_FEEDBACK_AND_SKILL_WORK.md`, with the ordered execution plan (commands, preconditions, rollback, traps, open decisions) in `docs/handoffs/RESOLUTION_RUNBOOK_2026_09_29.md`. **Next Owner:** David Bloom. **Next Action:** merge PR #272; run `scripts/student_grade_smoke.mjs` before test students; then Open Hand (TASK-0051/0052).
@@ -328,6 +329,22 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## TASK-0056 Closed In Production; Launch Shape Set To Coupon Checkout — 2026-09-30
+
+- **Answer-key exposure (TASK-0056, DECISION-0089):** three migrations applied to Dev (`APPROVAL-0063`) and
+  Production (`APPROVAL-0064`), each recorded under its file version with a body MD5-identical to the file.
+  The guard returns no rows on both. A real Production student is refused every protected column; safe
+  reads and `select_practice_frqs` still work.
+- **Caught by the guard:** the column-level revokes were no-ops, because `authenticated` held table-level
+  SELECT. Fixed with `20260930120200` (the `20260824060000` pattern).
+- **Reviewer portal:** a one-line Lovable edit (`783f6e04`, published) instead of the planned RPC switch,
+  because the selected `explanation` was never used.
+- **F2:** `evaluate-attempt` `.limit(1)` deployed by David; Production v70 verified byte-identical to `main`.
+- **DECISION-0091:** Oct 2 stays free, via `/checkout` with a 100%-off coupon; runbook amended.
+- **Open:** #284's $0 checkout path undeployed and never exercised; live click-through; 24-hour log watch;
+  fresh independent QA (TASK-0051 stays Blocked until then).
+- **Handoff:** `docs/handoffs/SESSION_CLOSE_2026_09_30_LAUNCH_READINESS_TASK0056.md`.
 
 ## TASK-0051 Independent QA → BLOCKED; TASK-0056 Opened, Step 1 Audit Done — 2026-09-29
 
