@@ -22,8 +22,8 @@ Files: `pilot.py`, `all_math_items.json`, `out_math/`, `out_ced/`, `out_labels/`
 | Seed defects propagate | See new finding | **Extended** |
 
 ## New finding: the seeds were worse than the variants
-The same audit run on the 8 published seeds flagged **6 of 8** for distractor rationales that do not produce the shown value
-(both models agreed on 5 of the 6). Independently verified: `mcq-026` D ("polynomial only" gives 2e, not e), `mcq-031` A and B (-5.34 not reproducible; the
+The same audit run on the 8 published seeds flagged **5 of 8** for distractor rationales that do not produce the shown value
+(both models agreed on 4 of the 5; `mcq-017` and `mcq-029` were not flagged). Independently verified: `mcq-026` D ("polynomial only" gives 2e, not e), `mcq-031` A and B (-5.34 not reproducible; the
 "position" distractor is -2.04 m, not -3.81), `mcq-np2-006` B ("linear" result is quadratic), `mcq-038` (vague/misdescribed B, C), `mcq-016` B (borderline).
 All 8 keys are correct. Separately, `mcq-037` is keyed A in `canonical_answer_1` but B is flagged correct (B is right). Both filed as tasks.
 Caveat: I wrote the variants knowing the audit criteria, so the gap partly reflects that. It still means the "fix the original first" rule (Phase 5b) has real teeth.

@@ -239,7 +239,7 @@ add("np2-006-v1", "apcalcab-mcq-np2-006", 7, "medium", "Separable Growth With an
     "If dy/dx = xy and y(0) = 4, then y(2) = ?", None,
     ("4e^2", "Separating variables gives ln|y| = x^2/2 + C; y(0) = 4 gives C = ln 4, so y = 4e^(x^2/2). At x = 2, y = 4e^2."),
     [("4e^4", "Integrates x as x^2 instead of x^2/2, giving y = 4e^(x^2) and y(2) = 4e^4."),
-     ("e^2", "Omits the initial condition: C = 0 gives y = e^(x^2/2), so y(2) = e^2."),
+     ("e^2", "Sets the constant of integration to C = 0 instead of using y(0) = 4, giving y = e^(x^2/2), so y(2) = e^2."),
      ("12", "Treats y as the constant 4 while integrating, giving y = 2x^2 + 4 and y(2) = 12.")],
     lambda: same(4 * exp(Rational(1, 2) * 2**2), "4e^2"),
     [lambda: same(4 * exp(2**2), "4e^4"), lambda: same(exp(Rational(1, 2) * 2**2), "e^2"), lambda: same((2 * x**2 + 4).subs(x, 2), "12")],
