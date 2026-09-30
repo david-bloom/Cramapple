@@ -1,0 +1,228 @@
+== per model ==
+deepseek-v4-pro {'solve_calls': 136, 'solve_agree': 116, 'audit_calls': 136, 'audit_rationale_flags': 10, 'audit_criterion_flags': 1}
+qwen3.8-max {'solve_calls': 136, 'solve_agree': 108, 'audit_calls': 136, 'solve_DISAGREE': 8, 'audit_rationale_flags': 44, 'audit_criterion_flags': 6}
+
+== items flagged by BOTH models (excluding label slips/errors): 11 ==
+apcalcab-frq-u1v-005-v1
+apcalcab-mcq-u1n-019
+apcalcab-mcq-u1v-008-v1
+apcalcab-mcq-u1v-009-v1
+apcalcab-mcq-u1v-010-v2
+apcalcab-mcq-u1v-010-v3
+apcalcab-mcq-u1v-016-v3
+apcalcab-mcq-u1v-021-v2
+apcalcab-mcq-u1v-028-v2
+apcalcab-mcq-u1v-029-v1
+apcalcab-mcq-u1v-029-v3
+
+== all flags (82 items) ==
+ab-frq-u1n-001  qwen3.8-max    defect          solve: None. The question is well-posed if infinite one-sided limits are allowed in the standard AP Calculus extended sense.
+ab-frq-u1n-001  qwen3.8-max    other           For each part in stem that has no rubric criteria, list it. Otherwise [].
+ab-frq-u1n-001  qwen3.8-max    other           For each rubric criterion for part not in stem, list it. Otherwise [].
+ab-frq-u1n-001  qwen3.8-max    other           None: All stem parts have at least one criterion, and no criterion targets an unasked part.
+ab-frq-u1n-002  qwen3.8-max    defect          solve: None. All parts are well-posed. Parts (b) and (c) are infinite limits, not finite real-number limits.
+ab-frq-u1n-002  qwen3.8-max    other           For part (a), identifying the zeros of the denominator and confirming the numerator is nonzero is an acceptable justification for vertical asymptotes, but it should also be stated or understood that n
+ab-frq-u1n-002  qwen3.8-max    other           The expressions lim(x->5+) f(x) = infinity and lim(x->-1-) f(x) = -infinity are acceptable as descriptions of infinite one-sided limits, though formally they are not finite real limits.
+ab-frq-u1n-003  qwen3.8-max    defect          solve: None.
+ab-frq-u1n-004  qwen3.8-max    defect          solve: None; all parts are well-defined.
+ab-frq-u1n-004  qwen3.8-max    other           None
+ab-frq-u1n-004  qwen3.8-max    other           Minor note: part-a criterion requires a specific factor/cancel method, while the stem only says to show work. The required method is mathematically valid.
+ab-frq-u1n-004  qwen3.8-max    other           Minor note: part-b criterion 02 should be understood together with k = 2, because the two-sided limit exists only when k = 2.
+ab-frq-u1n-004  qwen3.8-max    other           Minor note: part-c criterion does not require stating f(1) = 4, but that is not necessary for the required conclusion.
+ab-frq-u1n-005  qwen3.8-max    defect          solve: None. The question is well-posed.
+ab-frq-u1n-005  qwen3.8-max    other           The rubric's part-b criteria only give credit for the rationalizing conjugate method. That method is mathematically correct and appropriate, but the stem only says use algebra. Another algebraic metho
+frq-u1v-001-v1  qwen3.8-max    defect          solve: No defect. All parts are well-defined, although the limits in part (c) are infinite, not finite real-number limits.
+frq-u1v-001-v1  qwen3.8-max    criterion       part-c-criterion-01: The numerator should be described as approaching 2 and being positive near x = 3, not literally being 2 near x = 3.
+frq-u1v-001-v1  qwen3.8-max    other           For part-c-criterion-01, the phrase 'the numerator is 2 (positive) near x = 3' is not literally accurate: the numerator 3x - 7 approaches 2 and is positive near x = 3, but it is not equal to 2 away fr
+frq-u1v-001-v1  qwen3.8-max    other           For part-b-criterion-01, the parenthetical 'or does not equal the limit' is a general removable-discontinuity condition, but in this specific stem g(-2) is undefined; a response should justify using u
+frq-u1v-001-v1  qwen3.8-max    other           No missing stem part criteria detected.
+frq-u1v-001-v1  qwen3.8-max    other           No criterion for an unasked part detected.
+frq-u1v-001-v2  qwen3.8-max    defect          solve: none found; all requested parts are mathematically defined. In part (c), the one-sided limits are infinite, not finite real limits.
+frq-u1v-001-v2  qwen3.8-max    criterion       part-b-criterion-01: The core justification is correct, but the evidence allows 'does not equal the limit,' which is not strictly consistent with the stem because r(-1) is undefined, not defined and unequal.
+frq-u1v-001-v2  qwen3.8-max    other           part-b-criterion-01: The evidence line accepts 'r(-1) does not equal the limit,' but the stem explicitly restricts the formula to x != -1 and x != 4, so r(-1) is undefined rather than defined and uneq
+frq-u1v-001-v2  qwen3.8-max    other           part-c-criterion-01: The phrase 'the numerator is -2' should more precisely say 'the numerator approaches -2 and is negative near x = 4.' This is a minor wording issue and does not affect the mathemat
+frq-u1v-001-v2  qwen3.8-max    other           part-a-criterion-01 could explicitly allow algebraically equivalent factorizations such as -(x + 1)(x - 2) in the numerator, but this is a scoring flexibility issue rather than a mathematical error.
+frq-u1v-001-v3  qwen3.8-max    defect          solve: None; all parts are well-posed.
+frq-u1v-001-v3  qwen3.8-max    criterion       part_c_criterion_01: part_c_criterion_01: The numerator is not literally 5 near x=1; it approaches 5 and is positive near x=1.
+frq-u1v-001-v3  qwen3.8-max    criterion       part_a_criterion_01: part_a_criterion_01: Evidence requires canceling x+3, but cancellation is not valid at x=-3; it is only valid for x != -3 when taking the limit.
+frq-u1v-001-v3  qwen3.8-max    other           part_a_criterion_01
+frq-u1v-001-v3  qwen3.8-max    other           part_b_criterion_02
+frq-u1v-001-v3  qwen3.8-max    other           part_c_criterion_01
+frq-u1v-001-v3  qwen3.8-max    other           part_a_criterion_01: The denominator factorization is written as (x + 3)(1 - x), but the original denominator is 3 - 2x - x^2; this is equivalent to (x + 3)(1 - x), so no mathematical error.
+frq-u1v-002-v1  qwen3.8-max    defect          solve: none; the problem is well-posed.
+frq-u1v-002-v1  qwen3.8-max    other           part-a-criterion-01: correct
+frq-u1v-002-v1  qwen3.8-max    other           part-b-criterion-01: correct
+frq-u1v-002-v1  qwen3.8-max    other           part-c-criterion-01: correct
+frq-u1v-002-v1  qwen3.8-max    other           part-d-criterion-01: correct
+frq-u1v-002-v1  qwen3.8-max    other           all parts of the stem have corresponding rubric criteria
+frq-u1v-002-v1  qwen3.8-max    other           no criterion addresses a part that the stem does not ask
+frq-u1v-002-v1  qwen3.8-max    other           No mathematical defects found in the item or rubric. Minor wording note: part (b) says 'infinity' where '+infinity' is more explicit, but the required sign reasoning fixes the sign. Minor scope note: 
+frq-u1v-002-v3  qwen3.8-max    defect          solve: None. The function and requested limits are well-defined; note that in part (b) the two-sided limit is infinite, so it does not exist as a finite real number.
+frq-u1v-002-v3  qwen3.8-max    criterion       part-e-criterion-01: Rubric omits a criterion for the required value of k.
+frq-u1v-002-v3  qwen3.8-max    other           Stem domain ambiguity if x is distance but math parts ask about negative x.
+frq-u1v-002-v3  qwen3.8-max    other           Differentiation: derivative is f'(x) = (4x^2-16x+15)/(2sqrt(x)(2x-5)^2).
+frq-u1v-002-v3  qwen3.8-max    other           None.
+frq-u1v-003-v2  qwen3.8-max    defect          solve: None; all parts are defined and well-posed.
+frq-u1v-003-v3  qwen3.8-max    defect          solve: None. All parts are well-posed.
+frq-u1v-003-v3  qwen3.8-max    other           None found. Every part of the stem has at least one rubric criterion, and every rubric criterion corresponds to a part of the stem.
+frq-u1v-004-v2  qwen3.8-max    defect          solve: None. All parts are well-defined.
+frq-u1v-004-v2  qwen3.8-max    other           part-a-criterion-01
+frq-u1v-004-v2  qwen3.8-max    other           part-b-criterion-02
+frq-u1v-004-v3  qwen3.8-max    defect          solve: None. All parts are defined and well-posed.
+frq-u1v-004-v3  qwen3.8-max    other           None. No stem part lacks a criterion. No criterion refers to a part the stem never asks. Part (a), part (b), and part (c) are each covered.
+frq-u1v-004-v3  qwen3.8-max    other           The only minor alignment note is that part-b-criterion-02 should be applied only when the two-sided limit is actually established, which requires k = 4 from part-b-criterion-01. Otherwise, the phrase 
+frq-u1v-004-v3  qwen3.8-max    other           No mathematical errors were found in the stem or in any rubric criterion. All values, signs, factorizations, limits, and classifications are consistent.
+frq-u1v-005-v1  qwen3.8-max    defect          solve: None. The problem is well-posed, and the table values are consistent with the given formula to the shown rounding.
+frq-u1v-005-v1  qwen3.8-max    criterion       part-b-criterion-01: The required factorization and cancellation are correct: x^3 - 4x = x(x - 2)(x + 2), x^2 + x - 6 = (x - 2)(x + 3), and canceling x - 2 gives x(x + 2)/(x + 3) for x != 2. However, the phrase 'including the common factor x' is wrong because x is not a common fac
+frq-u1v-005-v1  qwen3.8-max    other           part-b-criterion-01: The criterion text says 'including the common factor x'. This is mathematically incorrect because x is not a factor of the denominator x^2 + x - 6. The common factor is x - 2. The
+frq-u1v-005-v1  deepseek-v4-pr criterion       part-b-criterion-01: The criterion incorrectly calls x a common factor; x is not a factor of the denominator x^2+x-6. The only factor common to the numerator and denominator is x-2. The required factorizations and cancellation are otherwise correct.
+frq-u1v-005-v2  qwen3.8-max    defect          solve: No defect: the question is well-posed and all parts are defined.
+ab-mcq-u1n-003  qwen3.8-max    other           Choice A’s rationale is slightly imprecise: it should be understood that x approaches 4 through values in the domain of f, with x != 4. In an AP Calculus two-sided-limit context this is acceptable, bu
+ab-mcq-u1n-004  qwen3.8-max    SOLVE-DISAGREE  chose C 'The limit does not exist.' vs key B '5' | A two-sided limit at x=3 exists only if the left-hand and right-hand limits both exist and are equal. For x<3, f(x)=2x-1, so lim(x->3-) f(x)=2(3)-1=5. For x>3, f(x)=x^2-4, so lim(x->3+) f(x)=3^2-4=5. The value f(3)=9 is 
+ab-mcq-u1n-004  qwen3.8-max    defect          solve: The question is defective because, as written, choice B is correct while the answer key/expected format claims C is correct. If C were correct, the intended right-hand branch would likely be x^2+4 (gi
+ab-mcq-u1n-005  qwen3.8-max    other           Choice A rationale: The phrase 'The values keep decreasing toward 3' is not fully precise unless it is understood to refer only to the right-side values as x approaches 2 from the right. The left-side
+ab-mcq-u1n-005  qwen3.8-max    other           Choice C rationale: The phrase 'not one of the sampled outputs' is acceptable in this specific problem because the limiting estimate is 3, but it could be misread as a universal claim. In general, a l
+ab-mcq-u1n-008  qwen3.8-max    other           The phrase 'must be simplified first' in the rationales for B and C could be read as overstated if interpreted to mean factoring is the only possible method. It would be more precise to say that direc
+ab-mcq-u1n-011  qwen3.8-max    rationale       A: The rationale correctly notes II is false, but choice A is wrong because it omits III. In this situation, since lim(x->2) f(x) = 5 exists and f(2)=1 differs from the limit, the discontinuity at x=2 is removable. Thus III is also true.
+ab-mcq-u1n-011  qwen3.8-max    rationale       B: The rationale's statements that II is false and I is true are correct, but choice B is wrong because it includes II. A choice containing II cannot be correct when f(2)=1 does not equal the two-sided limit 5. It also omits I, which is true.
+ab-mcq-u1n-011  qwen3.8-max    rationale       C: The rationale itself says III is also true, which contradicts choice C ('I only'). Since the limit exists and differs from f(2), both I and III are true, so C is incorrect.
+ab-mcq-u1n-012  qwen3.8-max    rationale       C: The rationale says the absolute value expression is never 0 near x = 3 except at x = 3, but in fact |x - 3| = 0 only at x = 3; it is nonzero for all x near but not equal to 3. Its justification does not explain why someone would choose 0.
+ab-mcq-u1n-017  qwen3.8-max    rationale       A: The conclusion is correct, but the statement of where tangent is undefined is incomplete. tan(pi x/12) is undefined for x=6+12k for every integer k, not only x=6 and x=-6.
+ab-mcq-u1n-017  qwen3.8-max    other           A key is correct, but the rationale for A is imprecise because it lists only x=6 and x=-6 instead of the full family x=6+12k.
+ab-mcq-u1n-019  qwen3.8-max    rationale       A: Imprecise wording: 'the conjugate's denominator' is not a well-defined object. The intended mathematical explanation is correct, but the rationale should be reworded for student feedback.
+ab-mcq-u1n-019  qwen3.8-max    rationale       C: Substantively correct, but strict wording issue: direct substitution gives the indeterminate form 0/0; rationalizing is a valid method, not necessarily the only method.
+ab-mcq-u1n-019  qwen3.8-max    other           Choice A: Rationale is substantively correct, but the wording is imprecise: 'the conjugate's denominator' is not standard. The conjugate is sqrt(x + 9) + 3, and after rationalizing/canceling it become
+ab-mcq-u1n-019  qwen3.8-max    other           Choice C: Rationale is substantively correct, but for strict wording it should say that substituting x = 0 into the formula gives the indeterminate form 0/0, not that the quotient literally is 0/0. Al
+ab-mcq-u1n-019  deepseek-v4-pr rationale       C: The limit is not required to be found by rationalizing; other valid methods such as L'Hôpital's Rule can evaluate it. The statement 'must be found by rationalizing' is too strong.
+ab-mcq-u1n-020  qwen3.8-max    other           Item is mathematically sound.
+ab-mcq-u1n-020  qwen3.8-max    other           Rationale A could be strengthened by including the direct check a=7 fails continuity.
+ab-mcq-u1n-020  qwen3.8-max    other           Rationale C could be rewritten to avoid variable confusion.
+ab-mcq-u1n-021  qwen3.8-max    rationale       Choice C: Removable at both x = 2 and x = 3. Rationale: At x = 2 the numerator is 4 - 9 = -5, not 0, so nothing cancels and f is unbounded near 2.: The rationale contains a non-local statement 'nothing cancels' for choice C, but globally the factor x - 3 does cancel. Strictly, it should say 'no factor x - 2 cancels' or 'nothing cancels that removes the zero at x = 2'.
+ab-mcq-u1n-021  qwen3.8-max    other           Choice D's rationale says the numerator is -5 at x = 2. That is true for the original numerator x^2 - 9, but after canceling x - 3 the reduced numerator x + 3 is 5 at x = 2. This is not mathematically
+ab-mcq-u1n-021  qwen3.8-max    other           Choice A's rationale is mathematically true and correctly shows why A is wrong, but it reads as a rebuttal of A rather than a rationale that explains the error behind A. It would be clearer to say tha
+ab-mcq-u1n-022  qwen3.8-max    other           Strictly speaking, the one-sided limit diverges to +infinity rather than existing as a finite real limit, but 'infinity' is the intended AP-style answer among the choices.
+ab-mcq-u1n-024  qwen3.8-max    rationale       A: Choice A says the limit is 0. The rationale says a denominator approaching 0 makes the quotient large in magnitude, not small. This is true only when the numerator approaches a nonzero value. As written, it is a false generalization. For example, lim(x->0) x^2
+ab-mcq-u1n-025  qwen3.8-max    rationale       B: It does not state that cos(pi/6) = sqrt(3)/2, so the denominator is not zero. The claim that the error is using sin(pi/6)=1/2 is only speculative.
+ab-mcq-u1n-025  qwen3.8-max    other           Choice B rationale is not fully accurate as an explanation. It mentions sin(pi/6), but the reason pi/6 is wrong is that cos(pi/6) = sqrt(3)/2, so 2cos(pi/6) - 1 = sqrt(3) - 1 != 0. As written, it may 
+mcq-u1v-001-v3  qwen3.8-max    other           None (minor wording notes only; no mathematical errors)
+mcq-u1v-002-v1  qwen3.8-max    other           None that make the item or rationales mathematically wrong. Several rationales would benefit from slightly more precise wording about estimation, one-sided intervals, or smoothness assumptions.
+mcq-u1v-003-v3  qwen3.8-max    rationale       A: The rationale says C(q) could be 12.1 at one point and 11.98 at another and still have limit 12. That is only safe if those points are not part of a set approaching 3 with values staying away from 12. For a strict explanation, use C(q)=12+(q-3), q != 3, which 
+mcq-u1v-003-v3  qwen3.8-max    rationale       B: The rationale is incomplete/misleading because it does not distinguish arbitrary extension from continuous extension. An arbitrary extension can define C(3)=0, and the limit can still be 12. But a continuous extension must define C(3)=12. Since the choice says
+mcq-u1v-003-v3  qwen3.8-max    other           Choice B is ambiguous: if 'extended' means 'extended continuously', then B would be true; if it means 'extended arbitrarily', it is false. The rationale needs that distinction.
+mcq-u1v-003-v3  qwen3.8-max    other           Rationale A is mathematically acceptable but slightly imprecise: fixed values such as 12.1 cannot occur arbitrarily close to 3 while staying a fixed distance away from 12. A clearer counterexample is 
+mcq-u1v-004-v1  qwen3.8-max    SOLVE-DISAGREE  chose C 'The limit does not exist.' vs key D '7' | For the two-sided limit to exist, the left- and right-hand limits must be equal. For q<2, C(q)=3q+1, so lim(q->2-) C(q)=3*2+1=7. For q>2, C(q)=q^2+3, so lim(q->2+) C(q)=2^2+3=7. These one-sided limits are equal to 7, and
+mcq-u1v-004-v1  qwen3.8-max    defect          solve: The listed correct choice is D, not C; the two-sided limit exists and equals 7.
+mcq-u1v-004-v3  qwen3.8-max    SOLVE-DISAGREE  chose A 'The limit does not exist.' vs key B '3' | For x<3, g(x)=sqrt(x+13)-1. As x->3-, sqrt(x+13)-1 -> sqrt(16)-1=4-1=3. For x>3, g(x)=(x^2-3)/2. As x->3+, (x^2-3)/2 -> (9-3)/2=6/2=3. The left- and right-hand limits are both 3, so lim(x->3) g(x)=3. The defined value g(
+mcq-u1v-004-v3  qwen3.8-max    defect          solve: The question is defective because no choice matches the correct limit. Choices A, C, and D are incorrect; B (3) is correct, so the intended answer should be B.
+mcq-u1v-005-v2  qwen3.8-max    other           Choice B rationale contains a mathematically imprecise/overbroad statement: 'The limit is the number the values approach, not one of the sampled outputs.' In this item it is clear enough, but as a gen
+mcq-u1v-005-v3  qwen3.8-max    defect          solve: none; exactly one choice is correct
+mcq-u1v-005-v3  qwen3.8-max    other           All rationales are acceptable, but B could be tightened. It says, 'The limit is the number the values approach, not one of the sampled outputs.' In this problem that is true because the estimated limi
+mcq-u1v-006-v1  qwen3.8-max    other           Choice C rationale is accurate but incomplete as standalone feedback: it identifies the numerator sign error that produces 31, but does not explicitly state that the denominator is -1, so it does not 
+mcq-u1v-006-v2  qwen3.8-max    SOLVE-DISAGREE  chose A '-12' vs key C '-4' | By limit laws, since lim F = -2 and lim G = 4, and the denominator limit is 4 - (-2) = 6 != 0, the limit is [(-2)^3 + 2(-2)(4)]/[4 - (-2)] = (-8 - 16)/6 = -24/6 = -12.
+mcq-u1v-006-v2  qwen3.8-max    rationale       A: The rationale claims choice A results from adding in the denominator, but the computation it describes (denominator = 4 + (-2) = 2) yields -24/2 = -12, which does match choice A. However, it incorrectly states the denominator's limit is 6 in the same sentence 
+mcq-u1v-006-v2  qwen3.8-max    rationale       B: The rationale says this treats (-2)^3 as 8, giving numerator 8 - 16 = -8 over 6. But -8/6 = -4/3 only if the numerator is -8; with numerator 8 - 16 = -8 and denominator 6, the value is indeed -4/3. However, the rationale then says 'Cubing -2 gives -8, so the n
+mcq-u1v-006-v2  qwen3.8-max    other           Choice A rationale is self-contradictory / poorly written: it says the wrong denominator is 4 + (-2) = 2, which would give -24/2 = -12 (matching A), but then immediately states the denominator's limit
+mcq-u1v-006-v3  qwen3.8-max    SOLVE-DISAGREE  chose D '-32' vs key B '64' | Since both limits exist finite, use limit laws. lim(S-D)=3-(-5)=8, so numerator limit is 8^2=64. Denominator limit is lim D + 2 lim S = -5 + 2*3 = 1. Because denominator limit is nonzero, quotient limit is 64/1 = 64. Thu
+mcq-u1v-006-v3  qwen3.8-max    defect          solve: The mathematically correct choice is B (64), but the provided answer key labels D (-32); none of the listed choices other than B matches the correct computation.
+mcq-u1v-006-v3  qwen3.8-max    rationale       D: The rationale claims this uses D + S in the denominator, but that would give -5 + 3 = -2 and result (-16)/(-2) = 8, not -32. The value -32 is obtained by omitting the square on the numerator: (3 - (-5)) = 8 over denominator 1 gives 8, and with a sign error or 
+mcq-u1v-007-v1  qwen3.8-max    rationale       B: The rationale says 'The quotient rule requires the denominator's limit to be nonzero,' but the quotient rule concerns derivatives. The relevant theorem is the quotient law for limits, which requires the denominator's limit to be nonzero. The examples and concl
+mcq-u1v-007-v1  qwen3.8-max    other           Choice C's rationale says a denominator approaching 0 gives an unbounded result only if the numerator does not shrink too; more precisely, if the numerator approaches a nonzero limit and the denominat
+mcq-u1v-008-v1  deepseek-v4-pr rationale       D: The statement that the expression 'must' be rationalized is too strong; the limit can also be found by recognizing it as the derivative of sqrt(x+4) at x=5, or by substituting u=sqrt(t+4).
+mcq-u1v-008-v1  qwen3.8-max    rationale       D: The first sentence is correct, but saying the expression must be rationalized is too strong. Rationalization is one valid method, but not the only way to find the limit.
+mcq-u1v-008-v1  qwen3.8-max    other           Choice B's limit does not exist as a finite two-sided limit, so the stem calling all four 'limits' is only loosely accurate.
+mcq-u1v-009-v1  deepseek-v4-pr rationale       A: The rationale claims choice A forgets the 6 in the denominator, but then it includes the 6 and computes 8x/(6x) = 4/3, which is the correct limit rather than explaining how choice A = 8 arises. Forgetting the 6 would give sin(8x)/x -> 8.
+mcq-u1v-009-v1  qwen3.8-max    rationale       A: The rationale is internally inconsistent/mislabels the distractor: it says this choice handles the 8 but forgets the 6, yet if one forgot the 6 the estimate would be sin(8x)/x ~ 8, not 8x/(6x). The displayed computation 8x/(6x)=4/3 explains choice B, not A.
+mcq-u1v-009-v1  qwen3.8-max    other           Choice A's rationale does not correctly explain why a student would select 8; the stated error would more plausibly produce 8 by treating sin(8x)/(6x) as approximately (8x)/x or by dropping the denomi
+mcq-u1v-009-v3  qwen3.8-max    rationale       D: Rationale imprecise/misleading
+mcq-u1v-009-v3  qwen3.8-max    other           The rationale for D is not strictly accurate as written. It invokes lim sin(u)/u = 1 in a way that does not directly apply to sin(2x)/sin(7x), and saying only that the arguments differ is too vague. T
+mcq-u1v-010-v1  qwen3.8-max    SOLVE-DISAGREE  chose 9 'D' vs key D '9' | Let g(x)=9-5(x-2)^2 and h(x)=9+4|x-2|. Since g(x)<=f(x)<=h(x) for all x, and lim(x->2)g(x)=9-5*0=9 while lim(x->2)h(x)=9+4*0=9, the Squeeze Theorem gives lim(x->2)f(x)=9.
+mcq-u1v-010-v2  qwen3.8-max    rationale       B: The rationale says the bound 4(x - 1)^2 is how far g is from 5. Strictly, the bound is an upper bound on the distance |g(x) - 5|, not necessarily the distance itself. The intended correction is right, but the wording is mathematically imprecise.
+mcq-u1v-010-v2  qwen3.8-max    other           choice B rationale is not strictly accurate as written
+mcq-u1v-010-v2  deepseek-v4-pr rationale       B: It says 4(x-1)^2 is how far g is from 5, but it is only an upper bound on |g(x)-5|; the actual distance may be smaller.
+mcq-u1v-010-v3  qwen3.8-max    rationale       D: Misdescribes how the distractor is produced; saying it uses the largest value of sine would still give x^2 if x^2 is retained, not 1.
+mcq-u1v-010-v3  qwen3.8-max    other           D rationale's diagnosis of the error is incomplete/misleading.
+mcq-u1v-010-v3  deepseek-v4-pr rationale       D: The rationale says D uses the largest value of sin(1/x), but replacing sin(1/x) by 1 gives x^2, which tends to 0, not 1. It misdescribes how the distractor 1 would arise unless it also explains that the factor x^2 was ignored.
+mcq-u1v-011-v1  qwen3.8-max    SOLVE-DISAGREE  chose A 'I only' vs key C 'I and III only' | For t != 4, r(t) = (2t^2 - 7t - 4)/(t - 4). Factor the numerator: 2t^2 - 7t - 4 = (2t + 1)(t - 4). Thus for t != 4, r(t) = 2t + 1. Therefore lim(t->4) r(t) = 2(4) + 1 = 9, so statement I is true. Since r(4) = 3, the limi
+mcq-u1v-011-v1  qwen3.8-max    defect          solve: Choice mismatch: The correct answer is I and III only, but that is not among the choices. The provided choices include A. I only, B. II and III only, C. I and III only, D. I and II only. Based on the 
+mcq-u1v-011-v1  qwen3.8-max    other           All factual content in the rationales is correct.
+mcq-u1v-011-v1  qwen3.8-max    other           Rationales for A, B, and D are incomplete as student feedback because they do not explicitly address every statement.
+mcq-u1v-011-v1  qwen3.8-max    other           None of the rationales contains a false mathematical statement.
+mcq-u1v-011-v2  qwen3.8-max    rationale       B: The rationale labels B 'I and III only' but then correctly explains that the two-sided limit does not exist, so statement I is false. That reasoning actually supports 'III only,' not B.
+mcq-u1v-011-v2  qwen3.8-max    rationale       D: The rationale labels D 'I and II only' but then correctly explains that the two-sided limit does not exist and continuity fails. That reasoning actually supports 'III only,' not D.
+mcq-u1v-012-v3  qwen3.8-max    other           For C, the statement that 0/0 must be resolved by cases is valid here; the conclusion that it gives one-sided limits -10 and 10, and therefore the two-sided limit is not 0, is accurate.
+mcq-u1v-012-v3  qwen3.8-max    other           Note that q -> 5 (output in thousands) is approached within the model domain; the piecewise simplification is valid for q near 5, with q != 5.
+mcq-u1v-013-v2  qwen3.8-max    other           Choice A rationale is slightly imprecise as written because it says 'the values stay near 12' without explicitly excluding x = 4. Since P(4) = 5, the value at the point is not near 12. The intended me
+mcq-u1v-015-v1  qwen3.8-max    other           The rationale for choice B says, 'The left-hand value at x = 3 is 3a - 5.' This is not strictly wrong if 'left-hand value' is meant as the left-hand limiting value, but for rigorous calculus feedback 
+mcq-u1v-015-v2  qwen3.8-max    SOLVE-DISAGREE  chose C '11' vs key B '11/3' | For continuity at x=4, the left-hand limit must equal the right-hand value. Left side: lim(x->4-) T(x)=3(4)-a=12-a. Right side/value at 4: T(4)=a*sqrt(4)+1=2a+1. Set equal: 12-a=2a+1, so 11=3a and a=11/3. Since choice B 
+mcq-u1v-015-v2  qwen3.8-max    rationale       D: The rationale says the error moves +1 and writes 3a = 12 + 1 instead of 3a = 12 - 1, which correctly gives 13/3. But that same sign error would also arise from using sqrt(4)=4: 12 - a = 4a + 1 leads to 5a = 11? Wait, no—actually, if one mistakenly writes 3a = 
+mcq-u1v-016-v2  qwen3.8-max    other           No defect: key is correct
+mcq-u1v-016-v2  qwen3.8-max    other           Potential wording ambiguity in B: it says 'radical is defined and nonzero' but then requires radicand > 0; this is mathematically correct because sqrt(y) is nonzero only when y > 0, and f also needs d
+mcq-u1v-016-v3  deepseek-v4-pr rationale       C: The value at x=1 is f(1)=1/(|1-1|-3)=-1/3, not -1/2.
+mcq-u1v-016-v3  qwen3.8-max    other           Choice C rationale is inaccurate: f(1) = -1/3, not -1/2.
+mcq-u1v-017-v2  qwen3.8-max    other           All rationales are mathematically accurate and correctly explain the status of each choice.
+mcq-u1v-017-v3  qwen3.8-max    rationale       A: rationale_imprecise_incomplete
+mcq-u1v-017-v3  qwen3.8-max    other           A has a rationale issue. tan(pi x/10) is undefined at all x satisfying pi x/10 = pi/2 + k pi, i.e. x = 5 + 10k for integers k. The rationale lists only x = 5 and x = -5, which are just two such values
+mcq-u1v-018-v2  qwen3.8-max    other           Choice A rationale is mathematically true but incomplete/overly broad: it says the limit must be found by simplifying, which is a valid method here but not the only possible method, and it does not ex
+mcq-u1v-018-v2  qwen3.8-max    other           Choice B rationale is compressed/ambiguous: it correctly identifies an error that can produce 6, but it should explicitly say that forgetting the remaining denominator factor 2 doubles the correct lim
+mcq-u1v-018-v2  qwen3.8-max    other           Choice A rationale should be phrased as substituting into the s != 1/2 formula/limiting expression, not into V(1/2), since V(1/2) is defined as m.
+mcq-u1v-019-v1  qwen3.8-max    rationale       D: It says the quotient is 0/0, but the formula is not defined at x = 4; more precisely, direct substitution into the limit gives the indeterminate form 0/0. It also does not state that the limit is 4, and 'must be found by rationalizing' is too strong.
+mcq-u1v-019-v1  qwen3.8-max    other           A correct solution is included.
+mcq-u1v-019-v1  qwen3.8-max    other           Rationale for choice C correctly rationalizes the expression and finds the limit.
+mcq-u1v-019-v2  qwen3.8-max    other           A: Rationale is substantively correct but slightly imprecise as written. The original formula is not evaluated at x=0; direct substitution into that formula gives the indeterminate form 0/0. Also, rat
+mcq-u1v-019-v3  qwen3.8-max    rationale       A: The rationale correctly identifies the 0/0 form, but it fails to explain why choosing 0 is wrong. 0/0 is indeterminate; the actual limit is -1. Saying the limit 'must' be found by rationalizing is also too strong, since other limit methods could work.
+mcq-u1v-019-v3  qwen3.8-max    other           Choice A rationale is incomplete/misleading: it notes 0/0 but does not state the limit is not 0; it also suggests rationalizing is required rather than one valid method.
+mcq-u1v-020-v1  qwen3.8-max    other           The rationale for choice A is mathematically acceptable but slightly compressed and could be clearer. It says the error comes from treating the post-cancel factor as x + a and setting 1 + a = -5, givi
+mcq-u1v-021-v1  qwen3.8-max    rationale       A: The rationale says cancellation occurs at x = 4. It should say cancellation is for x != 4, leaving a hole at x = 4. It should also explicitly state the numerator is nonzero at x = -5.
+mcq-u1v-021-v1  qwen3.8-max    rationale       D: The conclusion is correct. The rationale should avoid mixing original and reduced forms: after canceling, numerator is x + 3 and equals -2 at x = -5; original numerator equals 18.
+mcq-u1v-021-v1  qwen3.8-max    other           A: Rationale is slightly imprecise. It says the factor x - 4 cancels at x = 4, but cancellation is valid only for x != 4. It also should explicitly note that the numerator is nonzero at x = -5.
+mcq-u1v-021-v1  qwen3.8-max    other           B: Rationale is correct but slightly imprecise. It should say more explicitly that the factor x + 5 does not cancel, so there is a vertical asymptote at x = -5.
+mcq-u1v-021-v1  qwen3.8-max    other           C: Rationale is correct. It correctly explains that cancellation at x = 4 produces a finite limit there, so the discontinuity is not infinite.
+mcq-u1v-021-v1  qwen3.8-max    other           D: Key is correct. Rationale is mostly correct but mixes forms. After canceling x - 4, the numerator is x + 3, whose value at x = -5 is -2, not 18. The value 18 is the original numerator. The conclusi
+mcq-u1v-021-v2  qwen3.8-max    rationale       C: The choice itself is correct, but the rationale says the removable limit at x = 1 is -1. The correct limit is -2. After canceling, r(x) = (x + 1)/(x(x - 2)), so lim(x->1) r(x) = 2/(1 * -1) = -2.
+mcq-u1v-021-v2  qwen3.8-max    other           In rationale C, the phrase 'the numerator is -1 at x = 0' is ambiguous or misleading after cancellation: the reduced numerator is x + 1, which equals 1 at x = 0. If it refers to the original numerator
+mcq-u1v-021-v2  deepseek-v4-pr rationale       C: The limit at x = 1 is -2, not -1: after canceling x - 1, r(x) = (x + 1)/(x(x - 2)), so lim(x->1) r(x) = 2/(1*(-1)) = -2.
+mcq-u1v-021-v3  qwen3.8-max    defect          solve: none; exactly one choice is correct
+mcq-u1v-021-v3  qwen3.8-max    other           A: correct answer_status but rationale omits that x=0 is removable (only gives finite limit).
+mcq-u1v-021-v3  qwen3.8-max    other           B: no defect.
+mcq-u1v-021-v3  qwen3.8-max    other           C: no defect.
+mcq-u1v-021-v3  qwen3.8-max    other           D: correct mathematics, but wording could better say the error is assuming x=2 becomes removable after one cancellation.
+mcq-u1v-022-v1  qwen3.8-max    other           The question itself is mathematically sound. The only possible refinement is to state explicitly that the limit is an infinite limit, not a finite real-number limit.
+mcq-u1v-022-v2  qwen3.8-max    other           None found. The question is mathematically sound, the keyed answer is correct, and all rationales are accurate and appropriate as feedback.
+mcq-u1v-023-v2  qwen3.8-max    other           B: rationale accurately describes the hole at x = 1/2 and the vertical asymptote at x = 1, but it could explicitly state that Choice B is wrong because it lists the hole as an asymptote and omits x = 
+mcq-u1v-023-v2  qwen3.8-max    other           A: rationale is mathematically accurate but could explicitly say Choice A is wrong because it includes the removable hole x = 1/2.
+mcq-u1v-023-v2  qwen3.8-max    other           D: rationale is mathematically accurate but could explicitly say Choice D is wrong because it includes x = -3, which is not a vertical asymptote, while x = 1 is.
+mcq-u1v-024-v1  qwen3.8-max    rationale       C: correct
+mcq-u1v-024-v1  qwen3.8-max    other           C
+mcq-u1v-024-v2  qwen3.8-max    defect          solve: None final? It must be final response. Already included? Need final now. Ensure no issue. final with answer. Maybe include defect field? User asked if none/several say so in 
+mcq-u1v-024-v2  qwen3.8-max    rationale       B: Incorrect answer, rationale overgeneralizes and should be revised
+mcq-u1v-024-v3  qwen3.8-max    rationale       A: The rationale says this choice recognizes that the denominator is positive but ignores that the numerator is negative near x = 1, so the quotient is negative.
+mcq-u1v-024-v3  qwen3.8-max    rationale       B: The rationale says a denominator approaching 0 makes the quotient large in magnitude, not small. This is not fully accurate as a general mathematical statement because it depends on the numerator not also approaching 0. In this problem, the numerator approache
+mcq-u1v-024-v3  qwen3.8-max    other           Choice B's rationale is not fully accurate as written: it states that a denominator approaching 0 makes the quotient large in magnitude, but this is only true here because the numerator approaches a n
+mcq-u1v-025-v2  qwen3.8-max    other           A vertical asymptote is generally confirmed by checking infinite one-sided limits; the keyed rationale’s denominator-zero/numerator-nonzero test is sufficient in this problem because the denominator i
+mcq-u1v-025-v3  deepseek-v4-pr other           The interval/domain statement excludes only x = pi/2, but f is also undefined at x = pi/4 where tan x = 1. The domain should be clarified to exclude both x = pi/4 and x = pi/2, or state that f is defi
+mcq-u1v-026-v3  qwen3.8-max    rationale       C: 5/4
+mcq-u1v-026-v3  qwen3.8-max    other           Choice C rationale is not strictly accurate as written.
+mcq-u1v-027-v1  qwen3.8-max    rationale       A: Partially incomplete/insufficient. It correctly identifies that A only considers +infinity and correctly states the missing limit is -4, but the justification as written is not adequate. A positive denominator and negative numerator do not by themselves give l
+mcq-u1v-027-v1  qwen3.8-max    other           Choice A rationale is not fully mathematically explanatory: saying numerator is negative and radical is positive only establishes sign, not the limit value -4. It should mention sqrt(4s^2+7) ~ -2s as 
+mcq-u1v-027-v2  qwen3.8-max    other           Choice B rationale is correct mathematically, but the wording is imprecise. The error producing y = 0 is better described as ignoring the constant +1 in the numerator (or treating e^x as if it control
+mcq-u1v-027-v3  qwen3.8-max    defect          solve: : none
+mcq-u1v-027-v3  qwen3.8-max    rationale       B: The denominator does not change sign; it is positive for all x. Wording about sign change is misleading.
+mcq-u1v-027-v3  qwen3.8-max    other           Rationale B contains a misleading sign statement.
+mcq-u1v-028-v1  qwen3.8-max    rationale       A: The rationale correctly notes that e^(-t/5) decays to 0, but 'V(t) stays near 12' is unqualified and misleading because V(0)=3.
+mcq-u1v-028-v1  qwen3.8-max    other           Choice A's rationale is imprecise/misleading: it says V(t) stays near 12, but V(0)=3; it should say V(t) approaches 12 for large t.
+mcq-u1v-028-v2  deepseek-v4-pr rationale       D: For large t, t + 5 is approximately t, not 5. Replacing t + 5 by 5 gives 400t/5 = 80t, not a constant 80, so the rationale misdescribes the error that would produce D.
+mcq-u1v-028-v2  qwen3.8-max    rationale       D: The rationale is not mathematically coherent as written. Treating t + 5 as roughly 5 for large t would give 400t/5 = 80t, which tends to infinity, not 80. The choice 80 is better explained as incorrectly dividing 400 by 5, i.e., using the constant term 5 as if
+mcq-u1v-028-v2  qwen3.8-max    other           Choice D's rationale misdescribes the error that produces 80. If t+5 were treated as roughly 5, the expression would become 400t/5 = 80t, which tends to infinity, not 80. A better explanation is that 
+mcq-u1v-028-v3  qwen3.8-max    other           In Choice B's rationale, the explanation is acceptable but slightly imprecise: as t -> infinity, -t/3 -> -infinity, so e^(-t/3) -> 0; it is not enough merely to say the exponent is negative. Also, say
+mcq-u1v-028-v3  qwen3.8-max    other           In Choice D's rationale, 'settles near 900 thousand bacteria' is contextually acceptable, but a strict statement would say the model's limiting value is exactly 900 thousand bacteria, approached asymp
+mcq-u1v-029-v1  deepseek-v4-pr rationale       D: The statement 'Any exponential eventually outgrows every polynomial' is false as written; it must be restricted to exponential growth with base greater than 1, e.g. (1/2)^x decays. The intended point about the polynomials not deciding the limit is otherwise co
+mcq-u1v-029-v1  qwen3.8-max    rationale       B: Rationale is vague/misleading. It suggests the misconception is merely assuming comparable sizes; the clearer explanation is that the student ignores the differing exponential bases. The limit is not 1 because the ratio behaves like (5/3)^x, which diverges.
+mcq-u1v-029-v1  qwen3.8-max    rationale       D: Rationale includes overbroad wording: 'Any exponential eventually outgrows every polynomial' should be 'Any exponential a^x with a > 1 eventually outgrows every polynomial.'
+mcq-u1v-029-v1  qwen3.8-max    other           B: Rationale is vague/misleading. It suggests the misconception is merely assuming comparable sizes; the clearer explanation is that the student ignores the differing exponential bases. The limit is n
+mcq-u1v-029-v1  qwen3.8-max    other           D: Rationale includes overbroad wording: 'Any exponential eventually outgrows every polynomial' should be 'Any exponential a^x with a > 1 eventually outgrows every polynomial.'
+mcq-u1v-029-v2  qwen3.8-max    rationale       Incorrect: Choice A is incorrect. Rationale is generally correct but slightly imprecise: 12 and 5 are exponents/degrees, not leading coefficients. Better to say the choice misuses the exponents as if they controlled the ratio.
+mcq-u1v-029-v2  qwen3.8-max    rationale       Incorrect: Choice C is incorrect. Rationale is generally correct but imprecise: the functions do share the same dominant exponential growth; the error is assuming ratio 1 instead of the ratio of dominant coefficients 9/6.
+mcq-u1v-029-v3  deepseek-v4-pr rationale       D: The claim that the error is taking leading coefficients 3 and 1 is inaccurate: the denominator has no polynomial leading coefficient 1. If the exponential is ignored, the polynomial part is -x^3, whose leading coefficient is -1 and degree 3, not the same as th
+mcq-u1v-029-v3  qwen3.8-max    rationale       incorrect choice; rationale imprecise as written: D
+mcq-u1v-029-v3  qwen3.8-max    other           A rationale omits the more precise error (thinking -x^3 dominates 2^x), though it is not false.
+mcq-u1v-029-v3  qwen3.8-max    other           D rationale is imprecise: C(x) is not a polynomial and has no polynomial leading coefficient; better to say the error is comparing coefficients while ignoring exponential vs polynomial growth.

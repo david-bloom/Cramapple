@@ -36,6 +36,14 @@ stimulus data, mismatched rubric criteria, redundant FRQ parts), and confirmed �
 defect classes §4 cannot. §9's status line and Phase 6 (§6) are updated accordingly —
 independent re-derivation is no longer optional-pilot, it is a publish precondition.
 
+**Revision note (v0.5, 2026-09-29):** §3.2's fixed checker roster (Haiku 4.5 + DeepSeek v3.2) is replaced
+by a **suggested-model menu the Product Owner picks two from** per batch. The fixed roster had gone stale
+(the gateway now offers several newer generations of each family) and it named a same-family checker for
+batches authored by Claude. The independence rules themselves are unchanged. Direction: David Bloom,
+2026-09-29 (in-session). No DECISION/APPROVAL number has been assigned yet; record one before relying on this
+as ratified policy. The same revision adds **variants as an optional, prompted step** (§2.1, Phase 5b): before each
+run the Product Owner is asked whether to make variants of each question and how many.
+
 **Why this document exists:** there is currently no single place that states what has to
 be true before a batch of questions gets written, which model does which job and why,
 what gates a question before it reaches a student, and what closes the loop after
@@ -137,6 +145,24 @@ is enough to write a plausible in-scope question) but Phase 4's coverage is limi
 (partial) or impossible (bare). Record the fact-pack hash and tier at check time (§7.1)
 so a later fact-pack upgrade knows exactly which items to re-check (§6 Phase 7).
 
+### 2.1 Questions the Product Owner answers before every run (v0.5)
+
+The authoring session asks these **before** a batch is checked or extended, waits for the answers, and records
+them in the batch README next to the authoring provenance. It never assumes an answer or reuses the last
+batch's answers.
+
+1. **Checker models.** "Which two of these four checker models do you want?" (the §3.2 menu, with current
+   prices and what each has been tested on). The two must be from different families and neither from the
+   author's family.
+2. **Variants.** "**Do you want variants? If yes, how many per question?**"
+   - **No answer or "no": no variants are made.** Variants multiply the item count, the review load and the
+     model spend, so they are opt-in.
+   - **A number k:** each original gets k variants, following Phase 5b below.
+   - If the answer is yes but the number is missing, ask again; do not pick a number.
+
+Ask them together in one prompt so the Product Owner can see the cost of both choices at once: the estimated
+checker spend for the two picks, and the size of the batch with and without variants (originals x (1 + k)).
+
 ---
 
 ## 3. Model role assignment — and why each rule exists
@@ -162,20 +188,48 @@ reference point is the **item's own author**, not the grader.
   models used this session. This is the direct answer to "can we just run one model and
   trust it": no, because each family's errors are systematic, not random noise a bigger
   sample averages out.
-- **Confirmed checker families today:** Anthropic `claude-haiku-4-5` and DeepSeek
-  `deepseek-v3.2` (Vercel AI Gateway, `scripts/vercel-gateway-check/`). `moonshotai/kimi-k2`
-  is confirmed broken for structured-schema `generateObject` on this path (100% failure,
-  verified twice) — excluded until independently reproduced fixed. Gemini 2.5 Flash is
-  reachable and is the candidate third family when the panel must grow (see next point).
+- **Checker selection is a menu, not a fixed roster (v0.5).** Before each batch the protocol proposes **four**
+  candidate checker models, one per family, spanning reasoning power and cost. The Product Owner picks **two**, as one of the two pre-run questions in §2.1.
+  Rules for the pick, which do not bend:
+  1. The two picks must be from **different families**. Because the menu has one model per family, any two of
+     the four satisfy this.
+  2. **Neither pick may share a family with the item's author.** If the author is a menu family, drop that
+     model from the menu and pick from the remaining three. (The 2026-09-29 Calc AB batch was authored by
+     Claude, so Anthropic models were never on the menu.)
+  3. Record the picks, their exact model ids, and the date in the batch's README next to the authoring
+     provenance, so a later re-check knows which slate cleared the batch.
+  4. A model that has never been used on this pipeline must pass a **smoke test** before its verdicts count:
+     valid structured output (`generateObject`) on at least three items, one of which has a table or a
+     piecewise definition, and it must reproduce at least the known flags in a small calibration sample
+     (the Chemistry items `apchem-frq-l-021` and `apchem-sfrq-035` are grep-confirmed real). A model that only
+     works through the plain-JSON fallback is usable but must be recorded as such.
+  5. Changing the slate never re-opens already-checked published content (§6 Phase 7, last paragraph), but it does
+     require re-measuring the §5 bias table for any model newly used at scale (§7.4).
 
-> **⚠ §3.2 is currently inert, and depends on P0-A.** Writer-independence requires knowing
-> who authored the item — which §7.1 says is **not recorded anywhere**. You cannot
-> guarantee non-overlap with an author you did not log. Worse: the confirmed checker
-> roster is exactly **two** families. If a batch was authored by Claude or DeepSeek,
-> writer-independence drops the usable panel to **one** checker — which §5 says is unsafe.
-> So until provenance exists (§7.1) **and** a third checker family is confirmed (Gemini),
-> §3.2 cannot be honored for a batch authored by a checker-family model. This is the
-> strongest reason P0-A ranks first.
+  **Menu as of 2026-09-29** (prices are gateway list prices, $ per million input / output tokens; they change,
+  so re-list them at batch start with `gateway.getAvailableModels()`). "Evidence" is what has actually been
+  run on this pipeline, not a claim about the model in general.
+
+  | Slot | Model id | Family | Price in/out | Role | Evidence on this pipeline |
+  |---|---|---|---:|---|---|
+  | A. Reasoning-strong | `openai/gpt-6-sol` | OpenAI | $2.00 / $10.00 | Highest reasoning on the menu; use when a batch is scope-sensitive (Biology, Chemistry) | none yet: smoke test required |
+  | B. Balanced | `google/gemini-3.5-flash` | Google | $1.50 / $9.00 | Fast, strong structured output; a sound default | Calc AB Unit 1 (34 items): 34/34 valid, 0 retries. Its predecessor `gemini-2.5-flash` failed structured output on 11 items |
+  | C. Value reasoning | `deepseek/deepseek-v4-pro` | DeepSeek | $0.66 / $1.98 | Cheapest reasoning-class option; good for large batches | none yet for v4. Its predecessor `deepseek-v3.2` ran 34/34 with 0 retries, but over-flags verbatim mismatches (§5.2) |
+  | D. Low cost | `alibaba/qwen3.7-plus` | Alibaba | $0.40 / $1.60 | Cheapest acceptable tier; use for high-volume variant sampling, not for first-time scope checks on a new subject | none yet: smoke test required |
+
+  Menu maintenance: replace a slot's model when a newer generation from the same family is available and
+  smoke-tested, keep one family per slot, and keep the four slots spanning reasoning power and cost. The
+  menu is proposed by the authoring session and ratified per batch by the Product Owner's pick; it is not a
+  standing approval to spend on any model.
+
+  **Cost sanity check.** Each call sends the full fact pack with the item. The Calc AB/BC pack is about 80 KB,
+  roughly 22,000 input tokens, so one 34-item batch checked by two models is 68 calls and about 1.5 million
+  input tokens: on the order of $1.50 to $3 at these list prices, plus a small output cost. A batch against
+  a larger pack (Biology, 1,007 lines) costs proportionally more; estimate it at batch start.
+
+> **⚠ §3.2 depends on P0-A.** Writer-independence requires knowing who authored the item, which §7.1 says is
+> **not recorded anywhere** in the database. Until provenance columns exist, the author is recorded in the
+> batch README (see the Calc AB Unit 1 batch) and the person picking the two checkers must read it.
 
 **3.3 What the adjudicating model (Sonnet, in this conversation) is and isn't.** Sonnet
 acted as tie-breaker this session — but **not as a third independent vote.** Every
@@ -296,6 +350,24 @@ Phase 4  AI CED-conformance   Two independent-family models, blind (§4). Runs o
 
 Phase 5  Disagreement         Grep-adjudicate per §5.3. Never repair on a model's unverified
          adjudication         citation — confirm the specific claim against the source first.
+
+Phase 5b Variants (optional)  ONLY if the Product Owner said yes in §2.1, and ONLY after the originals have
+                             cleared Phase 4/5 (a defect found in an original is fixed first: every
+                             variant inherits it otherwise). For each original, author k variants:
+                             separate content_items with their own content_keys (a variant is never a new
+                             content_item_versions row; that mechanism is for edits to the same question).
+                             By default a variant changes BOTH the numbers and the context, keeps the same
+                             skill and the same misconception targets for its distractors, and must differ
+                             from its original and its siblings in more than constants. Every variant carries
+                             an independent recomputation of its answer (§9 discipline; never parse the keyed
+                             text), stems are checked for near-duplication (similarity below 0.7 to the
+                             original and to siblings), and correct-answer positions are drawn at random
+                             across the set with no triple sharing one letter. Record the variant count and
+                             which original each came from. Phase 4 then runs on the ORIGINALS in full and on
+                             a SAMPLE of variants (at least one per original, and every variant whose function
+                             family or setting differs from its original); Phase 3 reviews originals in full
+                             and spot-checks variants. Each variant still needs its own Phase 6; a variant is
+                             not publishable just because its original is.
 
 Phase 6  Publish gate         status='published' allowed ONLY from an allowlist of
                              terminal-approved review_status values (§7.2), AND ONLY after

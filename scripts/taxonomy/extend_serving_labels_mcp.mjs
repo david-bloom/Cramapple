@@ -30,7 +30,12 @@ const DEFAULT_REPORT = path.join(
   "docs/research/MATH_TAXONOMY_SERVING_LABEL_RUN_2026_08_04.md",
 );
 
-const MODELS = ["openai/gpt-5.5", "google/gemini-2.5-flash"];
+// Default pair is unchanged. Override with --models=a,b to run a newer pair (2026-09-30: the default
+// gemini-2.5-flash is two generations old; the Product Owner picks the pair per run, see the authoring protocol 2.1).
+const modelsArg = process.argv.find((arg) => arg.startsWith("--models="));
+const MODELS = modelsArg
+  ? modelsArg.slice("--models=".length).split(",").filter(Boolean)
+  : ["openai/gpt-5.5", "google/gemini-2.5-flash"];
 const RUN_STARTED_AT = new Date().toISOString();
 const RUN_ID =
   "serving-units-mcp-2026-09-25-" +
@@ -773,6 +778,8 @@ commit;
 }
 
 function reportPath(subjectFilter) {
+  const reportArg = process.argv.find((arg) => arg.startsWith("--report="));
+  if (reportArg) return path.resolve(reportArg.slice("--report=".length));
   // Never overwrite the original 2026-08-05 run docs -- always write a freshly dated file for today's
   // run, named after the subject (or "all_subjects" when unfiltered).
   const slug = subjectFilter ? subjectFilter.toUpperCase() : "ALL_SUBJECTS";
