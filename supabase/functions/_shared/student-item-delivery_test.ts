@@ -226,8 +226,12 @@ Deno.test("render payload carries no grading or answer-bearing field", () => {
   assert(item);
 
   // Serialize the way the function actually returns it, so a nested leak is
-  // caught rather than only a top-level one.
-  const serialized = JSON.stringify(item);
+  // caught rather than only a top-level one. parts_source is a provenance
+  // label whose value ("criteria") is not itself a leaked field, so it is
+  // checked separately below rather than tripping the substring guard.
+  assertEquals(item.parts_source, "criteria");
+  const { parts_source: _partsSource, ...rest } = item;
+  const serialized = JSON.stringify(rest);
   for (
     const forbidden of [
       "prompt_json",
@@ -258,6 +262,7 @@ Deno.test("render payload carries no grading or answer-bearing field", () => {
     "media",
     "open_hand_excluded",
     "parts",
+    "parts_source",
     "practice_format",
     "response_mode",
     "stem",
@@ -744,4 +749,29 @@ Deno.test("annotateOpenHandExclusions does not query for an empty queue", async 
   const out = await annotateOpenHandExclusions(service as any, "user-1", []);
   assertEquals(out, []);
   assertEquals(calls.length, 0);
+});
+
+Deno.test("authored question_parts replace criteria text and are labelled prompt", () => {
+  const item = buildRenderItem(
+    row({
+      question_parts: [
+        { part_key: "part-a", prompt: "Approximate T'(4).", points: 2 },
+      ],
+    }),
+    null,
+    null,
+    "2026-08-05T00:15:00Z",
+    [{
+      content_item_version_id: VERSION_A,
+      criterion_key: "part-a-criterion-01",
+      learner_facing_text: "Correct value of -4.5 C/min.",
+      points_possible: 1,
+    }],
+  );
+  assert(item);
+  assertEquals(item.parts_source, "prompt");
+  assertEquals(item.parts, [
+    { part_key: "part-a", prompt_text: "Approximate T'(4).", points_possible: 2 },
+  ]);
+  assertFalse(JSON.stringify(item).includes("-4.5"));
 });

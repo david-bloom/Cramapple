@@ -104,12 +104,42 @@ function asPositiveInt(value: unknown, fallback: number) {
 // answer-bearing fields like expected_graph_spec). TASK-0038 Phase 3.
 function withHandDrawnFlag(
   rows: ReadonlyArray<SelectedRow & { prompt_json?: unknown }>,
+  options: { questionParts?: boolean } = {},
 ): SelectedRow[] {
   return rows.map(({ prompt_json, ...row }) => ({
     ...row,
     hand_drawn: typeof prompt_json === "object" && prompt_json !== null &&
       (prompt_json as Record<string, unknown>).hand_drawn === true,
+    ...(options.questionParts
+      ? { question_parts: extractQuestionParts(prompt_json) }
+      : {}),
   }));
+}
+
+// Authored part prompts only (part_key, prompt, points). Returns [] unless
+// EVERY part has a non-empty prompt, so a half-authored item falls back to the
+// existing behaviour instead of showing some parts. Criteria and any other
+// prompt_json field are never copied. 2026-09-30 Calc AB tester launch.
+function extractQuestionParts(
+  prompt_json: unknown,
+): Array<{ part_key: string; prompt: string; points: number | null }> {
+  if (typeof prompt_json !== "object" || prompt_json === null) return [];
+  const parts = (prompt_json as Record<string, unknown>).parts;
+  if (!Array.isArray(parts) || parts.length === 0) return [];
+  const out: Array<{ part_key: string; prompt: string; points: number | null }> = [];
+  for (let i = 0; i < parts.length; i++) {
+    const p = parts[i] as Record<string, unknown> | null;
+    const prompt = typeof p?.prompt === "string" ? p.prompt.trim() : "";
+    if (!prompt) return [];
+    out.push({
+      part_key: typeof p?.part_key === "string" && p.part_key
+        ? p.part_key
+        : `part-${String.fromCharCode(97 + i)}`,
+      prompt,
+      points: typeof p?.points === "number" ? p.points : null,
+    });
+  }
+  return out;
 }
 
 // Only these three columns are ever read from frq_criteria. The same table
@@ -683,7 +713,12 @@ export async function handleStudentSessionItems(
             _limit: limit,
           }));
       } else if (
-        sessionExamCode === "ap_statistics" &&
+        (
+          sessionExamCode === "ap_statistics" ||
+          // 2026-09-30: Calc AB tester launch (David Bloom). The generic
+          // select_practice_frqs fallback served FRQ-only in a fixed order.
+          sessionExamCode === "ap_calculus_ab"
+        ) &&
         (
           session.practice_format === "targeted_drill" ||
           session.practice_format === "mcq"
@@ -712,7 +747,9 @@ export async function handleStudentSessionItems(
       return respond({ error: "item_selection_failed" }, { status: 500 });
     }
 
-    const rows = withHandDrawnFlag((selected ?? []) as SelectedRow[]);
+    const rows = withHandDrawnFlag((selected ?? []) as SelectedRow[], {
+      questionParts: sessionExamCode === "ap_calculus_ab",
+    });
     const delivered = await deliverRows(service, rows, qaMode);
     if (!delivered.ok) {
       return respond({ error: delivered.error }, { status: 500 });
