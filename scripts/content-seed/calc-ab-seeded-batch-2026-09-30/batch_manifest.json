@@ -1,0 +1,914 @@
+[
+ {
+  "key": "apcalcab-mcq-sv-001-v1",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-001",
+  "title": "Calibration Ratio Near a Reference Setting",
+  "stem": "A sensor's calibration ratio at setting x is R(x) = (x^2 - 25)/(x - 5) for x != 5. What is the limit of R(x) as x approaches 5?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "10",
+    "r": "Since x^2 - 25 = (x - 5)(x + 5), R(x) = x + 5 for x != 5, so the limit as x approaches 5 is 10.",
+    "c": true
+   },
+   {
+    "k": "B",
+    "t": "The limit does not exist",
+    "r": "The factor x - 5 cancels, leaving a hole at x = 5 that does not prevent the two-sided limit from existing.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "0",
+    "r": "Substituting x = 5 into the numerator alone gives 0, but the denominator is also 0, so the quotient is not evaluated this way.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "5",
+    "r": "This is the value x approaches, not the limit of the simplified expression x + 5.",
+    "c": false
+   }
+  ],
+  "letter": "A",
+  "h_stem": "01e51455b362c5e0c8f60efa5a4c1feb",
+  "h_body": "ef4285fd8a0ef2bcaaedb7616e2f12e8",
+  "change": "numbers 3,9 -> 5,25; context: bare limit -> sensor calibration ratio"
+ },
+ {
+  "key": "apcalcab-mcq-sv-001-v2",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-001",
+  "title": "Rate Ratio Near a Negative Value",
+  "stem": "A pump's efficiency ratio is E(x) = (x^2 - 4)/(x + 2) for x != -2. What is the limit of E(x) as x approaches -2?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "0",
+    "r": "Substituting x = -2 into the numerator alone gives 0, but the denominator is also 0, so this does not evaluate the quotient.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "-4",
+    "r": "Since x^2 - 4 = (x - 2)(x + 2), E(x) = x - 2 for x != -2, and its limit as x approaches -2 is -4.",
+    "c": true
+   },
+   {
+    "k": "C",
+    "t": "The limit does not exist",
+    "r": "The factor x + 2 cancels, so the hole at x = -2 does not prevent the two-sided limit from existing.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "-2",
+    "r": "This is the value x approaches, not the limit of the simplified expression x - 2.",
+    "c": false
+   }
+  ],
+  "letter": "B",
+  "h_stem": "81e0dbc307d9d400bef8d4d0d3d5bebd",
+  "h_body": "9c31422bc11268bb4ed7eae16878ad52",
+  "change": "numbers 3,9 -> -2,4 (negative approach value, sign of result flips); context: pump efficiency"
+ },
+ {
+  "key": "apcalcab-mcq-sv-026-v1",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-026",
+  "title": "Charge Rate of a Battery Model",
+  "stem": "The charge in a battery is modeled by Q(t) = t^3 e^t. What is Q'(1)?",
+  "stimulus": "No calculator is permitted.",
+  "choices": [
+   {
+    "k": "A",
+    "t": "3+e",
+    "r": "Adds the two derivatives 3t^2 and e^t instead of applying the product rule: 3(1)^2 + e^1 = 3 + e.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "4e",
+    "r": "The product rule gives Q'(t) = 3t^2 e^t + t^3 e^t. At t = 1 this is 3e + e = 4e.",
+    "c": true
+   },
+   {
+    "k": "C",
+    "t": "e",
+    "r": "Differentiates only the exponential factor: t^3 e^t evaluated at t = 1 is e, dropping the 3t^2 e^t term.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "3e",
+    "r": "Differentiates only the polynomial factor: 3t^2 e^t evaluated at t = 1 is 3e, dropping the t^3 e^t term.",
+    "c": false
+   }
+  ],
+  "letter": "B",
+  "h_stem": "8515c6410611b288927a926c90b927b4",
+  "h_body": "72bed8b74adffe4a10862074579b7868",
+  "change": "x^2 e^x -> t^3 e^t; context: battery charge"
+ },
+ {
+  "key": "apcalcab-mcq-sv-026-v2",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-026",
+  "title": "Growth Model With a Logarithm Factor",
+  "stem": "A population index is modeled by g(x) = x^3 ln x for x > 0. What is g'(e)?",
+  "stimulus": "No calculator is permitted.",
+  "choices": [
+   {
+    "k": "A",
+    "t": "e^2",
+    "r": "Differentiates only the logarithm: x^3 (1/x) evaluated at x = e is e^2, dropping the 3x^2 ln x term.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "3e^2",
+    "r": "Differentiates only the polynomial: 3x^2 ln x evaluated at x = e is 3e^2, dropping the x^2 term.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "3e^2+1/e",
+    "r": "Adds the two derivatives 3x^2 and 1/x instead of applying the product rule: 3e^2 + 1/e.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "4e^2",
+    "r": "The product rule gives g'(x) = 3x^2 ln x + x^3 (1/x) = 3x^2 ln x + x^2. At x = e this is 3e^2 + e^2 = 4e^2.",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "358cf654436b7a154357a3e68dbc24e2",
+  "h_body": "84071cdf6ad272595f7b3768704b447f",
+  "change": "x^2 e^x -> x^3 ln x (new second factor); context: population index"
+ },
+ {
+  "key": "apcalcab-mcq-sv-029-v1",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-029",
+  "title": "Voltage Signal With a Squared Inner Term",
+  "stem": "A sensor voltage is modeled by V(x) = cos(3x^2). What is V'(x)?",
+  "stimulus": "No calculator is permitted.",
+  "choices": [
+   {
+    "k": "A",
+    "t": "-sin(6x)",
+    "r": "Moves the inner derivative inside the sine, replacing 3x^2 by 6x instead of multiplying by it.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "-6x sin(3x^2)",
+    "r": "By the chain rule, V'(x) = -sin(3x^2) times the derivative of the inner function 3x^2, which is 6x.",
+    "c": true
+   },
+   {
+    "k": "C",
+    "t": "-sin(3x^2)",
+    "r": "Omits the inner derivative 6x.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "6x sin(3x^2)",
+    "r": "Uses the derivative of cosine as +sin instead of -sin, losing the negative sign.",
+    "c": false
+   }
+  ],
+  "letter": "B",
+  "h_stem": "931a2e137f51018cf776e7bd658f33c8",
+  "h_body": "59fd1b6792c7e0a6c3c0aee9aa6a2739",
+  "change": "sin(x^2) -> cos(3x^2); context: sensor voltage; new sign trap"
+ },
+ {
+  "key": "apcalcab-mcq-sv-029-v2",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-029",
+  "title": "Exponential Response to a Sine Input",
+  "stem": "A response function is R(x) = e^(sin x). What is R'(x)?",
+  "stimulus": "No calculator is permitted.",
+  "choices": [
+   {
+    "k": "A",
+    "t": "e^(sin(x))",
+    "r": "Omits the inner derivative cos x.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "sin(x) e^(sin(x))",
+    "r": "Uses sin x as the derivative of the inner function sin x, instead of cos x.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "e^(cos(x))",
+    "r": "Moves the inner derivative inside the exponent, replacing sin x by cos x.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "cos(x) e^(sin(x))",
+    "r": "By the chain rule, R'(x) = e^(sin x) times the derivative of the inner function sin x, which is cos x.",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "6b391490e2c9ffc998905430b91230e5",
+  "h_body": "c3d0caa5bf3c49111b4edb5b73ffb407",
+  "change": "outer function sin -> exp (new outer function); inner x^2 -> sin x; context: response function"
+ },
+ {
+  "key": "apcalcab-mcq-sv-031-v1",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-031",
+  "title": "Cart Velocity on a Track",
+  "stem": "A cart has position s(t) = t^3 - 5.2t^2 + 3.4t + 8 meters. What is its velocity at t = 2.6 seconds, to the nearest hundredth?",
+  "stimulus": "A graphing calculator is permitted.",
+  "choices": [
+   {
+    "k": "A",
+    "t": "-0.74 m/s",
+    "r": "Evaluates the position s(2.6) rather than the velocity.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "2.60 m/s",
+    "r": "Reports the time as though it were a velocity.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "10.16 m/s",
+    "r": "Evaluates 3t^2 - 5.2t + 3.4, forgetting to double the coefficient of the quadratic term when differentiating t^2.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "-3.36 m/s",
+    "r": "The velocity is s'(t) = 3t^2 - 10.4t + 3.4. At t = 2.6 this is 20.28 - 27.04 + 3.4 = -3.36 m/s.",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "08c689819361f83f9eb390da275c9871",
+  "h_body": "a9fcb0f9b668e98d5e754a207444c044",
+  "change": "coefficients and time changed; context: cart on a track; distractor patterns kept"
+ },
+ {
+  "key": "apcalcab-mcq-sv-031-v2",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-031",
+  "title": "Speed of a Falling Marker",
+  "stem": "A marker's height above the ground is s(t) = 2t^3 - 7.3t^2 + 1.9t + 12 meters. What is its velocity at t = 1.8 seconds, to the nearest hundredth?",
+  "stimulus": "A graphing calculator is permitted.",
+  "choices": [
+   {
+    "k": "A",
+    "t": "-4.94 m/s",
+    "r": "The velocity is s'(t) = 6t^2 - 14.6t + 1.9. At t = 1.8 this is 19.44 - 26.28 + 1.9 = -4.94 m/s.",
+    "c": true
+   },
+   {
+    "k": "B",
+    "t": "1.80 m/s",
+    "r": "Reports the time as though it were a velocity.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "8.20 m/s",
+    "r": "Evaluates 6t^2 - 7.3t + 1.9, forgetting to double the coefficient of the quadratic term when differentiating t^2.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "3.43 m/s",
+    "r": "Evaluates the position s(1.8) rather than the velocity.",
+    "c": false
+   }
+  ],
+  "letter": "A",
+  "h_stem": "eb705860ff2393ae7f874e3054850197",
+  "h_body": "22151c169d93f37329b85dfe41e4e6a0",
+  "change": "cubic leading coefficient 1 -> 2 and different numbers; context: falling marker"
+ },
+ {
+  "key": "apcalcab-mcq-sv-038-v1",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-038",
+  "title": "Curvature of a Ramp Profile",
+  "stem": "If f''(x) = 4x + 8, on which interval is the graph of f concave up?",
+  "stimulus": "No calculator is permitted.",
+  "choices": [
+   {
+    "k": "A",
+    "t": "x > 0",
+    "r": "Uses the sign of x rather than the sign of the second derivative.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "x > -2",
+    "r": "The graph is concave up where f''(x) > 0. Solving 4x + 8 > 0 gives x > -2.",
+    "c": true
+   },
+   {
+    "k": "C",
+    "t": "x > 2",
+    "r": "Makes a sign error when solving, moving +8 across the inequality as +8 instead of -8.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "x < -2",
+    "r": "Reverses the inequality: f'' is negative, not positive, for x < -2.",
+    "c": false
+   }
+  ],
+  "letter": "B",
+  "h_stem": "3e284a7ba9808f16b9899352cc308a75",
+  "h_body": "387c4f0ff71541cd15394430d422c004",
+  "change": "6x-12 -> 4x+8 (positive intercept, root at -2); context: ramp profile"
+ },
+ {
+  "key": "apcalcab-mcq-sv-038-v2",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-038",
+  "title": "Concavity With a Negative Leading Coefficient",
+  "stem": "If f''(x) = 18 - 3x, on which interval is the graph of f concave up?",
+  "stimulus": "No calculator is permitted.",
+  "choices": [
+   {
+    "k": "A",
+    "t": "x < 6",
+    "r": "The graph is concave up where f''(x) > 0. Solving 18 - 3x > 0 gives -3x > -18, and dividing by -3 reverses the inequality: x < 6.",
+    "c": true
+   },
+   {
+    "k": "B",
+    "t": "x > 6",
+    "r": "Divides by -3 without reversing the inequality, giving x > 6.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "x > 0",
+    "r": "Uses the sign of x rather than the sign of the second derivative.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "x < -6",
+    "r": "Makes a sign error when solving, treating 18 - 3x > 0 as 3x + 18 < 0.",
+    "c": false
+   }
+  ],
+  "letter": "A",
+  "h_stem": "bab82352addeaa239237edc91cf367ff",
+  "h_body": "9e92796d33dd93cd717e7f8e877c0cb5",
+  "change": "negative leading coefficient (inequality flips); context: none, pure f''"
+ },
+ {
+  "key": "apcalcab-mcq-sv-017-v1",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-017",
+  "title": "Accumulated Stock Level Falling",
+  "stem": "B(x) = 25 + \u222b[0 to x](u^2 - 6u + 8)du. On which interval is B decreasing?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "(4, oo)",
+    "r": "B'(x) is positive for x > 4, so B is increasing there.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "(-oo, 2)",
+    "r": "B'(x) is positive for x < 2, so B is increasing there.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "(2, 4)",
+    "r": "By the Fundamental Theorem of Calculus, B'(x) = x^2 - 6x + 8 = (x - 2)(x - 4), which is negative between its zeros.",
+    "c": true
+   },
+   {
+    "k": "D",
+    "t": "B never decreases",
+    "r": "B'(x) is negative on (2, 4), so B does decrease there.",
+    "c": false
+   }
+  ],
+  "letter": "C",
+  "h_stem": "1cd271d194f6fc277983d29cca3a4946",
+  "h_body": "c849fe4b22faa87176e71a72bdfe242f",
+  "change": "u^2-4u+3 -> u^2-6u+8 (zeros 2,4); context: stock level"
+ },
+ {
+  "key": "apcalcab-mcq-sv-017-v2",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-017",
+  "title": "Decreasing After a Peak Rate",
+  "stem": "Q(t) = 5 + \u222b[0 to t](12 - u - u^2)du for t >= 0. On which interval is Q decreasing?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "Q never decreases",
+    "r": "Q'(t) is negative for t > 3, so Q does decrease there.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "(0, 3)",
+    "r": "Q'(t) is positive on (0, 3), so Q is increasing there.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "(0, oo)",
+    "r": "Q'(t) is positive on (0, 3), so Q is not decreasing on the whole interval.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "(3, oo)",
+    "r": "By the Fundamental Theorem of Calculus, Q'(t) = 12 - t - t^2 = -(t - 3)(t + 4), which is negative for t > 3 when t >= 0.",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "dab1522760d557dd12dbef04d5467821",
+  "h_body": "6127bfdd5c30f30cca7732d801379c88",
+  "change": "integrand with negative leading coefficient and domain t>=0; decreasing interval is unbounded; context: rate model"
+ },
+ {
+  "key": "apcalcab-mcq-sv-np2-006-v1",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-np2-006",
+  "title": "Separable Growth With an Initial Value",
+  "stem": "If dy/dx = xy and y(0) = 4, then y(2) = ?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "4e^2",
+    "r": "Separating variables gives ln|y| = x^2/2 + C; y(0) = 4 gives C = ln 4, so y = 4e^(x^2/2). At x = 2, y = 4e^2.",
+    "c": true
+   },
+   {
+    "k": "B",
+    "t": "12",
+    "r": "Treats y as the constant 4 while integrating, giving y = 2x^2 + 4 and y(2) = 12.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "4e^4",
+    "r": "Integrates x as x^2 instead of x^2/2, giving y = 4e^(x^2) and y(2) = 4e^4.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "e^2",
+    "r": "Sets the constant of integration to C = 0 instead of using y(0) = 4, giving y = e^(x^2/2), so y(2) = e^2.",
+    "c": false
+   }
+  ],
+  "letter": "A",
+  "h_stem": "4f411ad834027fccb581b1f2e86429da",
+  "h_body": "dbfa4a674344b96d9e11318ef6981bcd",
+  "change": "coefficient 2x -> x, y(0)=3 -> 4, evaluate at 2 instead of 1"
+ },
+ {
+  "key": "apcalcab-mcq-sv-np2-006-v2",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-np2-006",
+  "title": "Decay Model With an Initial Concentration",
+  "stem": "A concentration y satisfies dy/dx = -2xy with y(0) = 5. What is y(1)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "5/e^2",
+    "r": "Integrates -2x as -2x^2 instead of -x^2, giving y = 5e^(-2x^2) and y(1) = 5/e^2.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "0",
+    "r": "Treats y as the constant 5 while integrating, giving y = 5 - 5x^2 and y(1) = 0.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "5e",
+    "r": "Drops the negative sign, giving y = 5e^(x^2) and y(1) = 5e.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "5/e",
+    "r": "Separating variables gives ln|y| = -x^2 + C; y(0) = 5 gives C = ln 5, so y = 5e^(-x^2). At x = 1, y = 5/e.",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "e4cce4918fbca8dbef94dcd0064a7e52",
+  "h_body": "f4a2fa03742cc047c62ef3068a37c7c9",
+  "change": "growth -> decay (negative coefficient); context: concentration"
+ },
+ {
+  "key": "apcalcab-mcq-sv-016-v1",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-016",
+  "title": "Average Cost Over a Production Range",
+  "stem": "The marginal cost of a product is modeled by c(x) = 3x^2 dollars per unit for 1 <= x <= 3. What is the average value of c on [1, 3]?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "27",
+    "r": "This is c(3), the value at the right endpoint, not the average.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "26",
+    "r": "Computes the integral (26) but omits the division by the interval length 3 - 1 = 2.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "15",
+    "r": "Averages the endpoint values (3 + 27)/2 instead of integrating.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "13",
+    "r": "The average value is (1/(3 - 1)) times the integral of 3x^2 from 1 to 3, which is (1/2)(27 - 1) = 13.",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "9a6f838129d1f6537f3356bf53ca66ce",
+  "h_body": "e45fc17ae4d26351a8774baa40ee632c",
+  "change": "f(x)=x^2 on [0,3] -> 3x^2 on [1,3]; context: marginal cost; distractors: no division, endpoint value, endpoint average"
+ },
+ {
+  "key": "apcalcab-mcq-sv-016-v2",
+  "src": "pilot",
+  "seed": "apcalcab-mcq-016",
+  "title": "Average Power Over an Interval",
+  "stem": "The power drawn by a device is P(t) = t^2 + 2t watts for 0 <= t <= 4. What is the average value of P on [0, 4]?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "28/3",
+    "r": "The average value is (1/4) times the integral of t^2 + 2t from 0 to 4, which is (1/4)(64/3 + 16) = (1/4)(112/3) = 28/3.",
+    "c": true
+   },
+   {
+    "k": "B",
+    "t": "12",
+    "r": "Averages the endpoint values (0 + 24)/2 instead of integrating.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "24",
+    "r": "This is P(4), the value at the right endpoint, not the average.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "112/3",
+    "r": "Computes the integral (112/3) but omits the division by the interval length 4.",
+    "c": false
+   }
+  ],
+  "letter": "A",
+  "h_stem": "48174ca845aaf02d6195234ff000d034",
+  "h_body": "05933a5977d84c7c8d2943f1d8b31df2",
+  "change": "f(x)=x^2 on [0,3] -> t^2+2t on [0,4] (non-integer answer); context: device power"
+ },
+ {
+  "key": "apcalcab-mcq-sv-005-v1",
+  "src": "unit3",
+  "seed": "apcalcab-mcq-005",
+  "title": "Signal Decay With a Cosine Carrier",
+  "stem": "A signal is modeled by S(x) = e^(3x) cos x. What is S'(x)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "3e^x cos(x)",
+    "r": "Writes the derivative of e^(3x) as 3e^x, changing the exponent 3x to x, and omits the second product-rule term.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "-3e^(3x) sin(x)",
+    "r": "Multiplies the derivatives of the two factors, 3e^(3x) and -sin x, instead of applying the product rule.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "e^(3x)(3cos(x) - sin(x))",
+    "r": "By the product rule with the chain rule on e^(3x): S'(x) = 3e^(3x) cos x + e^(3x)(-sin x) = e^(3x)(3 cos x - sin x).",
+    "c": true
+   },
+   {
+    "k": "D",
+    "t": "e^(3x)(cos(x) - 3sin(x))",
+    "r": "Attaches the factor 3 to the wrong term: the 3 comes from differentiating e^(3x), which multiplies cos x, not sin x.",
+    "c": false
+   }
+  ],
+  "letter": "C",
+  "h_stem": "1695abd7165e9df48409d4f1c649d2b4",
+  "h_body": "11929f2fa6da435daee3a199b7f230ad",
+  "change": "2x -> 3x, sin -> cos (sign enters); context: signal"
+ },
+ {
+  "key": "apcalcab-mcq-sv-005-v2",
+  "src": "unit3",
+  "seed": "apcalcab-mcq-005",
+  "title": "Concentration Times a Decaying Exponential",
+  "stem": "A concentration is modeled by C(x) = x^2 e^(-x). What is C'(x)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "2x e^(-x)",
+    "r": "Omits the second product-rule term x^2(-e^(-x)).",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "-2x e^(-x)",
+    "r": "Multiplies the derivatives of the two factors, 2x and -e^(-x), instead of applying the product rule.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "e^(-x)(2x - x^2)",
+    "r": "By the product rule with the chain rule on e^(-x): C'(x) = 2x e^(-x) + x^2(-e^(-x)) = e^(-x)(2x - x^2).",
+    "c": true
+   },
+   {
+    "k": "D",
+    "t": "e^(-x)(2x + x^2)",
+    "r": "Loses the negative sign from the chain rule on e^(-x) in the second product-rule term.",
+    "c": false
+   }
+  ],
+  "letter": "C",
+  "h_stem": "9d3895cc219b2c2904aea1c4bfd12a5f",
+  "h_body": "e911858207e4397e3c18c5ec3b4339a7",
+  "change": "trig factor -> power factor; exponent 2x -> -x (negative chain factor); context: concentration"
+ },
+ {
+  "key": "apcalcab-mcq-sv-007-v1",
+  "src": "unit3",
+  "seed": "apcalcab-mcq-007",
+  "title": "Rate of a Radical Response",
+  "stem": "A response is modeled by R(x) = \u221a(4x^2 + 9). What is R'(x)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "1/(2\u221a(4x^2+9))",
+    "r": "Omits the inner derivative 8x.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "2x/\u221a(4x^2+9)",
+    "r": "Differentiates the inner function 4x^2 as 4x instead of 8x, then simplifies (4x)/(2\u221a(4x^2+9)).",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "8x\u221a(4x^2+9)",
+    "r": "Multiplies the inner derivative 8x by \u221a(4x^2+9) instead of by the derivative of the square root, 1/(2\u221a(4x^2+9)).",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "4x/\u221a(4x^2+9)",
+    "r": "By the chain rule, R'(x) = 1/(2\u221a(4x^2+9)) times the inner derivative 8x, which simplifies to 4x/\u221a(4x^2+9).",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "7594d53812285ed6d8faa57d2331e747",
+  "h_body": "9dff2ebd1011d4b961afb6f1d751a52a",
+  "change": "1+x^3 -> 4x^2+9; inner coefficient makes simplification a step; context: response"
+ },
+ {
+  "key": "apcalcab-mcq-sv-007-v2",
+  "src": "unit3",
+  "seed": "apcalcab-mcq-007",
+  "title": "Cube-Root Growth Index",
+  "stem": "An index is modeled by G(x) = (1 + x^4)^(1/3). What is G'(x)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "4x^3(1+x^4)^(2/3)/3",
+    "r": "Uses the exponent +2/3 instead of -2/3 after reducing the power.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "1/(3(1+x^4)^(2/3))",
+    "r": "Omits the inner derivative 4x^3.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "4x^3/(3(1+x^4)^(1/3))",
+    "r": "Negates the exponent 1/3 to -1/3 instead of reducing it by 1 to -2/3 when applying the power rule.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "4x^3/(3(1+x^4)^(2/3))",
+    "r": "By the chain rule, G'(x) = (1/3)(1+x^4)^(-2/3) times the inner derivative 4x^3, which is 4x^3/(3(1+x^4)^(2/3)).",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "baa8a862dde897fcce4b659d60b3068f",
+  "h_body": "9146e965789424d673c24fca1d7fe323",
+  "change": "square root -> cube root (fractional exponent); x^3 -> x^4; context: index"
+ },
+ {
+  "key": "apcalcab-mcq-sv-030-v1",
+  "src": "unit3",
+  "seed": "apcalcab-mcq-030",
+  "title": "Slope on a Circular Boundary",
+  "stem": "The boundary of a circular field satisfies x^2 + y^2 = 169. What is dy/dx at the point (5, 12)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "5/12",
+    "r": "Drops the negative sign when solving for dy/dx.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "12/5",
+    "r": "Interchanges x and y and drops the negative sign.",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "-5/12",
+    "r": "Differentiating implicitly gives 2x + 2y(dy/dx) = 0, so dy/dx = -x/y. At (5, 12) this is -5/12.",
+    "c": true
+   },
+   {
+    "k": "D",
+    "t": "-12/5",
+    "r": "Uses -y/x instead of -x/y, which is the reciprocal of the correct slope.",
+    "c": false
+   }
+  ],
+  "letter": "C",
+  "h_stem": "4872fff8565ce1f2a22c31ebd08c1874",
+  "h_body": "e4321ad42c6301903ab80e8767e9e423",
+  "change": "radius 5 -> 13; point (3,4) -> (5,12); context: field boundary"
+ },
+ {
+  "key": "apcalcab-mcq-sv-030-v2",
+  "src": "unit3",
+  "seed": "apcalcab-mcq-030",
+  "title": "Slope on a Circle at a Negative x-Value",
+  "stem": "A curve satisfies x^2 + y^2 = 50. What is dy/dx at the point (-1, 7)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "7",
+    "r": "Uses -y/x instead of -x/y: -7/(-1) = 7, the reciprocal of the correct slope.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "1/7",
+    "r": "Differentiating implicitly gives 2x + 2y(dy/dx) = 0, so dy/dx = -x/y. At (-1, 7) this is -(-1)/7 = 1/7.",
+    "c": true
+   },
+   {
+    "k": "C",
+    "t": "-7",
+    "r": "Uses y/x instead of -x/y.",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "-1/7",
+    "r": "Substitutes x = -1 as if it were +1, giving -x/y = -1/7 instead of -(-1)/7 = 1/7.",
+    "c": false
+   }
+  ],
+  "letter": "B",
+  "h_stem": "c4547e6e368b30c1eca43952b0608ef3",
+  "h_body": "fa55bfd2e8013a5ae917a910f1ed5d5e",
+  "change": "negative x-coordinate flips the sign; context: none"
+ },
+ {
+  "key": "apcalcab-mcq-sv-008-v1",
+  "src": "unit3",
+  "seed": "apcalcab-mcq-008",
+  "title": "Slope on a Cross-Term Curve",
+  "stem": "A curve is given by x^2 + 3xy - y^2 = 9. What is dy/dx at the point (2, 1)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "7/4",
+    "r": "Loses the negative sign when moving 2x + 3y to the other side.",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "-4/7",
+    "r": "Inverts the fraction, using -(3x - 2y)/(2x + 3y).",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "-7/4",
+    "r": "Differentiating gives 2x + 3y + 3x(dy/dx) - 2y(dy/dx) = 0, so dy/dx = -(2x + 3y)/(3x - 2y). At (2, 1) this is -7/4.",
+    "c": true
+   },
+   {
+    "k": "D",
+    "t": "7/2",
+    "r": "Omits the term 3x(dy/dx) from the product rule on 3xy, leaving (2x + 3y)/(2y).",
+    "c": false
+   }
+  ],
+  "letter": "C",
+  "h_stem": "5b9b37e9cf522d91d23907551d912646",
+  "h_body": "85c9348af8ab59b74790b8a6a6fd90b7",
+  "change": "x^2+xy+y^2=7 -> x^2+3xy-y^2=9; point (1,2) -> (2,1)"
+ },
+ {
+  "key": "apcalcab-mcq-sv-008-v2",
+  "src": "unit3",
+  "seed": "apcalcab-mcq-008",
+  "title": "Slope on a Conic With a Cross Term",
+  "stem": "A curve is given by 2x^2 - xy + y^2 = 8. What is dy/dx at the point (1, 3)?",
+  "stimulus": null,
+  "choices": [
+   {
+    "k": "A",
+    "t": "-1/6",
+    "r": "Omits the term -x(dy/dx) from the product rule on -xy, leaving 4x - y + 2y(dy/dx) = 0 and dy/dx = (y - 4x)/(2y).",
+    "c": false
+   },
+   {
+    "k": "B",
+    "t": "1/5",
+    "r": "Loses the sign when solving, giving (4x - y)/(2y - x).",
+    "c": false
+   },
+   {
+    "k": "C",
+    "t": "-5",
+    "r": "Inverts the fraction, using (2y - x)/(y - 4x).",
+    "c": false
+   },
+   {
+    "k": "D",
+    "t": "-1/5",
+    "r": "Differentiating gives 4x - y - x(dy/dx) + 2y(dy/dx) = 0, so dy/dx = (y - 4x)/(2y - x). At (1, 3) this is (3 - 4)/(6 - 1) = -1/5.",
+    "c": true
+   }
+  ],
+  "letter": "D",
+  "h_stem": "aa38dd62e39b288b8e29ffafb6cd7d76",
+  "h_body": "9599ae07624971526d9b7277282b1ef0",
+  "change": "different coefficients and a subtraction cross term; point (1,3)"
+ }
+]

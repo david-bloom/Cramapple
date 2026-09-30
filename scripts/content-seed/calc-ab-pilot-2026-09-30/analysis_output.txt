@@ -1,0 +1,19 @@
+== MATH: blind solve vs key
+solve rows: 48 disagree-or-defect: 0
+== MATH: audit flags
+items flagged by >=1 auditor: 6 of 24 | flag rows 11
+   ('pilot-038-v2', 'google/gemini-3.8-flash', True, [('C', 'Solving 3x + 18 > 0 yields 3x > -18, which gives x > -6, not x < -6.')], [])
+   ('pilot-038-v2', 'deepseek/deepseek-v4-pro', True, [('C', 'Treating 18 - 3x > 0 as 3x + 18 > 0 and solving gives x > -6, not x < -6, so the rationale misdescribes the error that produces x < -6.')], [])
+   ('pilotseed-apcalcab-mcq-026', 'google/gemini-3.8-flash', True, [('D', 'Differentiating only the polynomial factor gives (2x)(e^x), which evaluates to 2e at x = 1, not e. The value e results from differentiating only the exponential factor (or not differentiating at all, evaluating f(1)).')], [])
+   ('pilotseed-apcalcab-mcq-031', 'google/gemini-3.8-flash', True, [('B', 'Evaluating the position function s(t) at t = 2.35 yields s(2.35) = (2.35)^3 - 4.7(2.35)^2 + 2.1(2.35) + 6 ≈ -2.04 m, not -3.81 m.')], [])
+   ('pilotseed-apcalcab-mcq-026', 'deepseek/deepseek-v4-pro', True, [('D', 'Differentiating only the polynomial factor x^2 while treating e^x as constant gives 2x e^x, which is 2e at x=1, not e. The choice e arises from treating x^2 as constant and differentiating only e^x.')], [])
+   ('pilotseed-apcalcab-mcq-np2-006', 'google/gemini-3.8-flash', True, [('B', 'Treating y as a constant (y = 3) during integration gives dy/dx = 6x, which integrates to y = 3x^2 + C (a quadratic result, not a linear one). Evaluating at x = 1 gives 3(1)^2 + 3 = 6, so the result is quadratic, making ')], [])
+   ('pilotseed-apcalcab-mcq-016', 'google/gemini-3.8-flash', True, [('B', "The rationale claims this choice uses the 'correct change in function value,' but finding the average value of a function requires integrating the function, not finding its change in value (which is used for average rate")], [])
+   ('pilotseed-apcalcab-mcq-np2-006', 'deepseek/deepseek-v4-pro', True, [('B', "Treating y as constant during integration gives a quadratic result such as y=3x^2+3, not a linear result. The phrase 'linear rather than exponential' is mathematically inaccurate.")], [])
+   ('pilotseed-apcalcab-mcq-016', 'deepseek/deepseek-v4-pro', True, [('B', 'The average value is (1/(b-a))∫[a,b] f(x) dx, not the change in f(x) divided by an interval length. Although f(3)-f(0)=9 equals the integral here, the rationale incorrectly treats the change in function value as the corr')], [])
+   ('pilotseed-apcalcab-mcq-038', 'deepseek/deepseek-v4-pro', True, [('B', "0<x<2 is not a restriction of the solution x>2; on (0,2), f''(x)=6x-12<0, so f is concave down, not up."), ('C', "x<0 is an interval where f''(x)=6x-12<0, so f is concave down. The rationale about using the sign of x does not correctly explain the error and misdescribes the choice.")], [])
+   ('pilotseed-apcalcab-mcq-031', 'deepseek/deepseek-v4-pro', True, [('A', '-5.34 m/s is not produced by a simple incorrect linear coefficient in the derivative. With v(t)=3t^2-9.4t+2.1, using -4.7 as the t-coefficient gives +7.62 m/s, and omitting the +2.1 term gives -5.52 m/s, not -5.34.'), ('B', 'Evaluating position at t=2.35 gives s(2.35)=-2.042875 (about -2.04 m), not -3.81 m/s; position would also have units of meters, not meters per second.')], [])
+== COST (math check)
+google/gemini-3.8-flash $0.1279 [23950, 29316] median 4.6s
+deepseek/deepseek-v4-pro $0.1974 [25512, 91210] median 8.3s
+math total $0.3253 for 24 items
