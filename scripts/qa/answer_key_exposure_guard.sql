@@ -91,10 +91,21 @@ order by 1, 2, 3, 4;
 -- is exactly why the Dev matrix could not fail.
 -- ---------------------------------------------------------------------------
 
-create temporary table if not exists answer_key_content_scan(
+-- No ON COMMIT DROP. CI runs this file with `psql -f` in autocommit, so every
+-- top-level statement is its own transaction: an ON COMMIT DROP table would be
+-- dropped the instant this CREATE commits, and the DO block below would fail
+-- with "relation ... does not exist" on every run. A plain temporary table
+-- lives for the whole session, so it survives the CREATE, the DO block and the
+-- final SELECT. The DROP keeps a re-run inside one psql session from colliding,
+-- and is pg_temp-qualified so it can never touch a permanent table of the same
+-- name when this is run as postgres.
+-- Caught by review on PR #299; the original passed a batched test only because
+-- that harness wrapped all three statements in one implicit transaction.
+drop table if exists pg_temp.answer_key_content_scan;
+create temporary table answer_key_content_scan(
   table_schema text, table_name text, column_name text,
   matched_key text, rows_affected bigint
-) on commit drop;
+);
 
 do $scan$
 declare
