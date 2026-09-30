@@ -26,7 +26,7 @@ x, t, u, h, C = symbols("x t u h C", real=True)
 
 
 def parse(txt):
-    s = txt.replace("−", "-")
+    s = txt.replace("−", "-").replace("√", " sqrt")
     s = re.sub(r"(\d)e\b", r"\1*E", s)
     s = re.sub(r"\be\b", "E", s)
     s = re.sub(r"\)e\b", ")*E", s)
