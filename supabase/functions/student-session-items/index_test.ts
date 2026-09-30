@@ -9,7 +9,7 @@
 
 import "./_test_setup.ts";
 import { assert, assertEquals, assertFalse } from "jsr:@std/assert@1";
-import { handleStudentSessionItems } from "./index.ts";
+import { extractQuestionParts, handleStudentSessionItems } from "./index.ts";
 
 /* -------------------------------------------------------------------------- */
 /* Fake service client — models exactly the call chains the handler makes.    */
@@ -904,4 +904,96 @@ Deno.test("a Biology MCQ with no choices is omitted fail-closed", async () => {
     reason: "choices_missing",
   }]);
   assertEquals(result.reason, "all_items_omitted");
+});
+
+
+/* -------------------------------------------------------------------------- */
+/* extractQuestionParts — authored part prompts.                              */
+/*                                                                            */
+/* Regression guard for the 2026-09-30 finding: this read only `prompt`, but  */
+/* every AP Statistics and AP Biology authored part in Production stores its  */
+/* text under `prompt_text`. It therefore returned [] for all 80 of them and  */
+/* the server fell back to criteria-sourced parts, which are scoring lines    */
+/* and state the answer. See                                                  */
+/* docs/qa/FRQ_CRITERIA_PARTS_ANSWER_EXPOSURE_2026_09_30.md.                  */
+/* -------------------------------------------------------------------------- */
+
+Deno.test("extractQuestionParts reads the Calc AB `prompt` spelling", () => {
+  assertEquals(
+    extractQuestionParts({
+      parts: [{ part_key: "a", prompt: "Approximate T'(4).", points: 2 }],
+    }),
+    [{ part_key: "a", prompt: "Approximate T'(4).", points: 2 }],
+  );
+});
+
+Deno.test("extractQuestionParts reads the `prompt_text` spelling used by AP Statistics and AP Biology", () => {
+  assertEquals(
+    extractQuestionParts({
+      parts: [
+        {
+          part_key: "a",
+          prompt_text: "Write the null and alternative hypotheses.",
+          points_possible: 1,
+        },
+        {
+          part_key: "b",
+          prompt_text: "Calculate the t test statistic.",
+          points_possible: 2,
+        },
+      ],
+    }),
+    [
+      {
+        part_key: "a",
+        prompt: "Write the null and alternative hypotheses.",
+        points: 1,
+      },
+      { part_key: "b", prompt: "Calculate the t test statistic.", points: 2 },
+    ],
+  );
+});
+
+Deno.test("extractQuestionParts prefers `prompt` when both spellings are present", () => {
+  assertEquals(
+    extractQuestionParts({
+      parts: [{ part_key: "a", prompt: "Authored.", prompt_text: "Older." }],
+    }),
+    [{ part_key: "a", prompt: "Authored.", points: null }],
+  );
+});
+
+Deno.test("extractQuestionParts stays all-or-nothing when one part has no authored text", () => {
+  // A half-authored item must keep its existing behaviour rather than show
+  // some parts as questions and others as scoring lines.
+  assertEquals(
+    extractQuestionParts({
+      parts: [
+        { part_key: "a", prompt_text: "Interpret the slope in context." },
+        { part_key: "b", points_possible: 2 },
+      ],
+    }),
+    [],
+  );
+  assertEquals(
+    extractQuestionParts({
+      parts: [{ part_key: "a", prompt_text: "   " }],
+    }),
+    [],
+  );
+});
+
+Deno.test("extractQuestionParts copies no field other than key, text and points", () => {
+  // prompt_json also carries answer-bearing fields; only the three whitelisted
+  // keys may cross into the student payload.
+  const out = extractQuestionParts({
+    parts: [{
+      part_key: "a",
+      prompt_text: "Interpret the slope in context.",
+      points_possible: 1,
+      expected_graph_spec: { slope: -0.65 },
+      accepted_variants: ["about 0.65 fewer hours"],
+    }],
+  });
+  assertEquals(Object.keys(out[0]).sort(), ["part_key", "points", "prompt"]);
 });
