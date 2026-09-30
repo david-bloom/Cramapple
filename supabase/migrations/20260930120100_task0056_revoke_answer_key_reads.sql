@@ -18,8 +18,9 @@
 --
 -- PRECONDITIONS (do NOT apply before both are true on the target environment):
 --   * 20260930120000_task0056_get_review_item_version is applied.
---   * The reviewer portal's getReviewTask calls get_review_item_version instead
---     of selecting `explanation` from public.content_item_versions.
+--   * The reviewer portal's getReviewTask no longer selects `explanation` from
+--     public.content_item_versions (it never used the value). Lovable app
+--     56cae479 commit 783f6e04, 2026-09-30; must be PUBLISHED before the Prod apply.
 --
 -- Verify after apply: scripts/qa/answer_key_exposure_guard.sql returns no rows.
 --
@@ -40,7 +41,7 @@
 --   (Prod: anon + authenticated SELECT on public.content_item_versions;
 --   authenticated SELECT on public.frq_criteria).
 --
--- Trap 1: rename this file to the version each environment records on apply.
+-- Trap 1: record this as version 20260930120100 on every environment (file name = ledger version).
 
 begin;
 

@@ -1,12 +1,12 @@
 # TASK-0056 — Close Direct Reads of Answer Keys
 
-**Status:** In Progress. Step 1 done 2026-09-29. Steps 2–4 and the F2 fix drafted 2026-09-30, **not applied anywhere**. **Launch gating for October 2** (`DECISION-0089`).
+**Status:** In Progress. Step 1 done 2026-09-29. Development done 2026-09-30 (`APPROVAL-0063`); guard clean on Dev. **Production not started.** **Launch gating for October 2** (`DECISION-0089`).
 **Tier:** Hard-Gate (Production grant changes and a data-exposure fix)
 **Owner:** TBD (single agent, single branch)
 **Product Owner:** David Bloom
 **Date opened:** 2026-09-29
 **Decision:** `DECISION-0089`
-**Approval:** none yet. Step 1 is read-only and needs none. Step 3 needs an approval for Development and a separate approval for Production.
+**Approval:** `APPROVAL-0063` (Development + Lovable edit). Production needs its own approval.
 **Found by:** `docs/qa/TASK-0051_INDEPENDENT_QA_2026_09_29.md`, finding F1 (PR #277)
 **Blocks:** `TASK-0051`'s Production gate
 **Area:** Security / answer-key exposure / scoring integrity
@@ -258,6 +258,45 @@ Nothing below has been applied to any database or deployed. Read-only SQL only, 
 4. Prod: `…120000`, then `…120100` after the Lovable change is published. Guard must return no rows.
    Deploy `evaluate-attempt` with F2 under the same approval, or separately.
 5. Rename each migration file to the version the environments record (Trap 1).
+
+## Development execution, 2026-09-30 (`APPROVAL-0063`)
+
+Each migration is recorded in Dev's ledger under its file's version, with the file text as the
+statement body (MD5 matches the committed file). **Use the same versions on Production; no renames.**
+
+| Order | What | Result on Dev |
+| --- | --- | --- |
+| 1 | Replay `20260827010000` as ledger version `20260827010001` (Production's version, byte-identical body) | `public.mcq_choices` no longer projects `is_correct`/`rationale` |
+| 2 | `20260930120000_task0056_get_review_item_version.sql` | assigned reviewer 1 row (explanation present), unassigned 0, admin 1, `anon` 42501 |
+| 3 | Lovable `56cae479` commit `783f6e04`: `getReviewTask` drops the unused `explanation` from its select | Typechecks. **Not published.** |
+| 4 | `20260930120100_task0056_revoke_answer_key_reads.sql` | Views clean. **Base-table revokes were no-ops** (table-level grant), caught by the guard |
+| 5 | `20260930120200_task0056_column_grants_not_table_grant.sql` | Guard returns no rows |
+
+**Student access matrix after step 5** (rolled-back SQL as a real Dev student):
+
+| Read | Result |
+| --- | --- |
+| `app.content_item_versions`: `canonical_answer_1`, `explanation`, `item_package_payload` | 42501 |
+| `app.frq_criteria.evidence_requirements` | 42501 |
+| `public.content_item_versions.canonical_answer_1`, `public.frq_criteria.minimum_fix`, `public.mcq_choices.is_correct` | 42703 (column no longer exists) |
+| Safe columns: `public.content_item_versions` / `app.content_item_versions` / `public.frq_criteria` / `public.mcq_choices` | 211 / 211 / 7 / 815 rows |
+| `get_review_item_version` as a student | 0 rows |
+
+**Not exercised on Dev (no suitable data):** Dev has no published practice-format FRQ and no
+published keyed item in an active pack. So `select_practice_frqs` returned 0 rows and Open Hand could
+not be called with a real item. Both are safe by construction: `select_practice_frqs` selects only
+granted columns (source read), and `get_open_hand_item` is SECURITY DEFINER. **Verify both on
+Production right after the apply.**
+
+**Production apply, in order (needs David's approval):**
+
+1. Publish the Lovable edit (`783f6e04`) and confirm it is live.
+2. Apply `20260930120000`, `20260930120100`, `20260930120200`, recording each under its file version.
+3. Guard returns no rows.
+4. Straight away: a student practice FRQ and MCQ load, a submit grades, Open Hand still reveals, and
+   a reviewer can open a submitted assignment.
+5. Deploy `evaluate-attempt` with the F2 fix (same approval or separate).
+6. Watch logs for 42501 / 42703 from app traffic.
 
 ## Handoff (session close, 2026-09-29)
 

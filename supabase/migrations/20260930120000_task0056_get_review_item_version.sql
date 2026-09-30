@@ -16,7 +16,7 @@
 --
 -- Rollback: drop function public.get_review_item_version(uuid);
 --
--- Trap 1: rename this file to the version each environment records on apply.
+-- Trap 1: record this as version 20260930120000 on every environment (file name = ledger version).
 
 begin;
 

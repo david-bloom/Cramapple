@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0063 — TASK-0056 in Development (Parity Replay, Reviewer Function, Revoke) and the Lovable Reviewer-Read Edit — DECISION-0089
 - APPROVAL-0062 — Production Hotfix: Create `open_hand_scoring_exclusions` Table Only (Dev + Prod) — TASK-0051
 - APPROVAL-0061 — Execute TASK-0051 Open Hand Unification in Development — DECISION-0086
 - APPROVAL-0060 — Execute TASK-0050 Skill-Dimension Rollout in Development, with AI-Gateway Spend — DECISION-0085
@@ -33,6 +34,36 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0063 — TASK-0056 in Development, Plus the Lovable Reviewer-Read Edit
+
+**Date:** 2026-09-30  
+**Approved By:** David Bloom ("I approve all three", 2026-09-30 Claude session)  
+**Related Task:** `TASK-0056-ANSWER-KEY-DIRECT-READ-EXPOSURE.md`  
+**Related Decision:** `DECISION-0089`  
+**Decision:** Approved
+
+**Approved scope (as presented):**
+
+1. Development: replay the committed `public.mcq_choices` fix (Dev never had it), and apply
+   `public.get_review_item_version`.
+2. Lovable app `56cae479`: the reviewer portal's `getReviewTask` edit.
+3. Development: apply the answer-key revoke and confirm the guard is clean.
+
+**How it was used:**
+
+- (1) Replayed as ledger version `20260827010001`, byte-identical to Production's entry (MD5 match).
+  Applied `20260930120000`. Tested: assigned reviewer 1 row with explanation, unassigned 0, admin 1,
+  `anon` 42501.
+- (2) Narrower than presented: `getReviewTask` never used `explanation`, so the edit drops it from the
+  select instead of switching to the RPC. One line, Lovable commit `783f6e04`; typechecks. **Not
+  published.** This works on Production today and after the revoke, without the new function.
+- (3) Applied `20260930120100`. The guard then showed its column revokes were no-ops, because
+  `authenticated` holds table-level SELECT. Added and applied `20260930120200` (table SELECT replaced by
+  a safe-column grant, the `20260824060000` pattern). Same scope. Guard clean on Dev.
+
+**Not authorized by this entry:** any Production change (migrations, `evaluate-attempt` deploy),
+publishing the Lovable edit, or Stripe live-mode work.
 
 ## APPROVAL-0062 — Production Hotfix: Create `open_hand_scoring_exclusions` Table Only (Dev + Prod)
 
