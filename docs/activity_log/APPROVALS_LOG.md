@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend — DECISION-0093
 - APPROVAL-0064 — TASK-0056 to Production (Three Migrations) and the `evaluate-attempt` F2 Deploy — DECISION-0089
 - APPROVAL-0063 — TASK-0056 in Development (Parity Replay, Reviewer Function, Revoke) and the Lovable Reviewer-Read Edit — DECISION-0089
 - APPROVAL-0062 — Production Hotfix: Create `open_hand_scoring_exclusions` Table Only (Dev + Prod) — TASK-0051
@@ -35,6 +36,23 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend
+
+**Date:** 2026-09-30  
+**Approved By:** David Bloom (2026-09-30 Claude session: "Execute all with my permission as product owner"; "I approve promotion to validated"; "I approve putting all of these questions in front of students"; checker picks "Gemini 3.8 Flash + DeepSeek V4 Pro"; "Run it as a blind calibration run")  
+**Related Task:** none (content batch; see the handoff)  
+**Related Decision:** `DECISION-0093`  
+**Decision:** Approved
+
+**Approved scope:** load, owner-approve, label, promote to `validated` and publish 136 AP Calc AB Unit 1 items (34 originals + 102 variants; 8 of them relabelled to Unit 2) and 24 seeded variants on Production (`pcntajvbdfqhbeewmdry`); Vercel AI Gateway spend for the model checks.
+
+**How it was used:**
+
+- All loads were atomic chunks verified by md5 against the source (136 of 136 and 24 of 24 exact; 0 letter/key inconsistencies). Approvals, labels, difficulty, cells and publish ran in transactions with a duplicate-published-version guard.
+- After each publish: servable-items census and selftest (no mismatches, capped skips only), 0 stale label hashes, no column grant on `is_correct`/`rationale` for `anon`/`authenticated`. Calc AB moved from 119 to 255 to 279 published items and from 38 to 174 to 198 validated serving labels.
+- Gateway spend was logged for the pilot, Unit 3 run, Fable calibration and 24-variant labeling: about $1.03 + $0.47 + $2.73 + $0.99 (checkers, calibration, labels). The Unit 1 run's spend was not logged (the scripts did not record usage); token logging was added afterwards.
+- **Not approved by this entry:** any other subject or unit, changing an already-published item, or the repairs of the published seeds (separate tasks).
 
 ## APPROVAL-0064 — TASK-0056 to Production, Plus the `evaluate-attempt` F2 Deploy
 
