@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Seeded Generation Protocol, 136 + 24 AP Calc AB Items Published, Session Close (2026-09-30): wrote the seeded-item generation protocol, published the Unit 1 batch (136) and 24 seeded variants to Production under the Product Owner's approval (`DECISION-0093`, `APPROVAL-0065`). Keys were never wrong; 10 of 20 audited published seeds have rationale defects and `apcalcab-mcq-037` has a key desync, both handed off as open repairs.
 - PR Triage, TASK-0057 Opened, Stale Branches Retired (2026-09-30): triaged the open PRs against live state. The TASK-0056 migrations were already in Production and the revoke was verified (no answer or rubric column readable by `authenticated`/`anon`); #277, #278, #284, #285, #286 were merged. PR #268 (taxonomy `subject_id` link) was closed unmerged because it added the link without moving any join onto it, and its migration was never applied anywhere. The full three-step fix (link, move every join, CI guard) is now `TASK-0057` (post-launch, PR #288), with an initial inventory of eight live Production functions; `get_home_start_queue` reads the taxonomy without the normalizer. Retired four stale branches after checking each against `main`; the only unique work, Codex Work Orders N/N.1 (Biology serving labels, incomplete), was preserved first (PR #290). No code, migration or deploy. **Next Owner:** David Bloom. **Next Action:** none from this thread; TASK-0057 is post-launch.
 - TASK-0056 Closed In Production; Launch Shape Set To Coupon Checkout (2026-09-30): answer keys are no longer directly readable by any signed-in or anonymous caller on Dev or Production (`APPROVAL-0063`/`0064`); guard `scripts/qa/answer_key_exposure_guard.sql` returns no rows on both and now runs daily. The first revoke was a silent no-op (table-level grant), and the guard caught it on Dev; fixed with a safe-column grant. `evaluate-attempt` F2 fix live (Prod v70, verified). `DECISION-0091`: Oct 2 is free via `/checkout` with a 100%-off coupon. PRs #284/#285/#286/#277 merged. Handoff: `docs/handoffs/SESSION_CLOSE_2026_09_30_LAUNCH_READINESS_TASK0056.md`. **Next Owner:** David Bloom. **Next Action:** deploy #284 to Dev and complete a $0 test-mode checkout; practice session with Orly; fresh independent QA.
 - TASK-0051 Independent QA → BLOCKED; TASK-0056 Opened, Step 1 Audit Done (2026-09-29): independent QA of the Open Hand RPC found the RPC and `evaluate-attempt` sound but **answer keys directly readable by any signed-in user** outside the RPC (`content_item_versions.canonical_answer_1/2`, `explanation`, `item_package_payload`, plus the `public` views) in Dev and Production. TASK-0051 set Blocked (PR #277). David chose launch-gating, explanation after submission only, and the FRQ rubric as a recorded hint (`DECISION-0089`), opening TASK-0056 (PR #278). Step 1 reader audit: only the reviewer fallback screen breaks on the revoke; no student or anonymous path reads a revoked column; Production logs show only service-role reads. No code, migration or deploy. **Next Owner:** David Bloom. **Next Action:** approve step 2 (the reviewer SECURITY DEFINER function on Dev, plus the Lovable `review.functions.ts` edit), then the step 3 migration.
@@ -330,6 +331,22 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Seeded Generation Protocol, 136 + 24 AP Calc AB Items Published, Session Close — 2026-09-30
+
+**Tasks:** none opened; two repair items handed off (see handoff). **Decision / Approval:** `DECISION-0093`, `APPROVAL-0065`.
+**Environments:** Production writes (content only) on `pcntajvbdfqhbeewmdry`; Vercel AI Gateway calls. No code deploy, no migration.
+**PRs:** #292 (Unit 1 batch + protocol v0.5 + TASK-0056 QA brief, merged); #293 (seeded generation protocol, merged); this close-out PR; a separate scripts/content-seed PR left for David.
+
+### What happened
+
+- Authored, checked and published 34 original + 102 variant Unit 1 items (136), then relabelled 8 to Unit 2; wrote the **seeded item generation protocol** (seed classes, clean-room rule, family spec, model-combination and roster-currency lessons).
+- Ran a 16-variant cross-unit pilot, an 8-variant Unit 3 run and a blind Fable calibration; published 24 seeded variants.
+- Findings: keys were never wrong; defects sit in distractor rationales; a second checker catches what the first misses; 10 of 20 audited published seeds had rationale defects (all keys right); `apcalcab-mcq-037` has `canonical_answer_1 = A` while choice B is flagged correct.
+
+### Open at close
+
+See `docs/handoffs/SESSION_CLOSE_2026_09_30_SEEDED_GENERATION.md`.
 
 ## PR Triage, TASK-0057 Opened, Stale Branches Retired — 2026-09-30
 

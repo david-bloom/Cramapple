@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0093 — Seeded Generation and Checker Policy for AP Calc AB Content; Human Review Waived for the Unit 1 Batch and the Seeded Variants
 - DECISION-0092 — AP Calculus AB Opened for Tonight's Tester (Orly); Calc AB Served by the Combined MCQ+FRQ Selector; Authored Part Prompts Shown on Short FRQs; Tables Rendered in Stems
 - DECISION-0091 — October 2 Launch Stays Free, but Access Runs Through `/checkout` With a 100%-Off Coupon; Amends DECISION-0071's "No Stripe/Payment Gating" and the Runbook's Payment Stop Condition
 - DECISION-0090 — TASK-0041 Checkout/Login Direction Revised: Passwordless Only (Password Login Removed Permanently), Optional Google Sign-In at Checkout, "Start Studying Now" Only on a Verified Session, Add-On Is Student-Direct Only (Parent's Card Never Saved), Parent Screens Show Student First Name Only, `/signup` Picks Route to `/checkout`
@@ -44,6 +45,34 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0093 — Seeded Generation and Checker Policy for AP Calc AB Content; Human Review Waived for the Unit 1 Batch and the Seeded Variants
+
+**Date:** 2026-09-30
+**Decision Owner:** David Bloom
+**Status:** Approved (Product Owner direction in the 2026-09-30 Claude session; each point quoted below)
+**Related Docs:** `docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` (v0.5); `docs/research/SEEDED_ITEM_GENERATION_PROTOCOL_2026_09_30.md` (new, draft v0.1); `docs/handoffs/SESSION_CLOSE_2026_09_30_SEEDED_GENERATION.md`
+**Related Decisions:** `DECISION-0066`, `DECISION-0085`, `DECISION-0055`, `DECISION-0089`
+**Area:** Content / QA / Labeling
+
+### Context
+
+The session authored 34 original AP Calculus AB Unit 1 items and 102 variants, then ran a 16-variant cross-unit pilot, an 8-variant Unit 3 run and a blind stronger-model calibration to test whether the findings held. All keys were correct in every check (0 of about 250 blind solves disagreed); the defects were in distractor rationales and rubric wording.
+
+### Decided
+
+1. **Human review is waived for the Unit 1 batch (136 items) and the 24 seeded variants**, on the Product Owner's approval ("No human review at my approval as product owner"; "I approve promotion to validated"; "I approve putting all of these questions in front of students"). Serving labels were promoted to `validated` by `automated_spot_check` (variants) or `chat_review` (the 8 relabelled items) with David as approver of record.
+2. **The MCQ 001/002 family (8 items) is relabelled topic 2.1 / Unit 2** ("Relabel 001 and 002 as topic 2.1 in Unit 2"). Their content keys keep the `u1` prefix.
+3. **Checker policy.** Two checkers from different families per stage, picked by the Product Owner from a current roster menu before each run; one patch loop; a full re-check of every patched item; treat the union of the checkers' flags as candidates and verify each by hand or sympy. A stronger model (e.g. Fable 5.1) is a sample-as-needed tool, not a standing third stage ("I agree with the two checker approach. We can sample as needed.").
+4. **Seed audit is folded into variant runs** (step S0a), not run as a library-wide sweep ("If we do that we might as well do it while creating variants at the same time"). A seed with a key or rationale defect is repaired first; variants come from the repaired seed.
+5. **Pre-run prompts.** Before each authoring run the Product Owner is asked which two checker models to use and "Do you want variants? If yes, how many?" (AQP §2.1).
+
+### Consequences
+
+- Published seeds with known rationale defects (10) and one key mismatch (`apcalcab-mcq-037`) remain live until their repair tasks run; see the handoff.
+- The 8 relabelled items and 17 held difficulty / 10 held topic labels in Unit 1 stay as recorded in the batch labeling report.
+- Family membership is still not recorded in the schema (AQP §7.1); the batch manifests are the only record.
+- This decision does not authorize any other subject or unit; it records what was done for AP Calculus AB.
 
 ## DECISION-0092 — AP Calculus AB Opened for a Tester; Serving and Rendering Fixes Shipped to Production
 
