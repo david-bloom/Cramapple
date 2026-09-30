@@ -55,6 +55,15 @@ export type SelectedRow = {
   // expected_graph_spec) never has to flow through this type. TASK-0038
   // Phase 3.
   hand_drawn?: boolean;
+  // Authored student-facing part prompts (prompt_json.parts[].prompt), derived
+  // by the caller the same way as hand_drawn: only part_key/prompt/points are
+  // copied, never the rest of prompt_json. Present only when the caller opted
+  // in for this subject. 2026-09-30 Calc AB tester launch (David Bloom).
+  question_parts?: Array<{
+    part_key: string;
+    prompt: string;
+    points: number | null;
+  }>;
 };
 
 export type McqChoice = {
@@ -132,6 +141,11 @@ export type RenderItem = {
     prompt_text: string;
     points_possible: number | null;
   }>;
+  // "prompt": parts are authored question prompts (safe to show as the
+  // questions). "criteria": parts come from frq_criteria.learner_facing_text,
+  // which on some items states the expected answer -- clients must not render
+  // those as questions.
+  parts_source: "prompt" | "criteria";
   // Only for item_type mcq/quantitative. Deliberately choice_key/choice_text
   // only -- is_correct and rationale are answer-bearing and must never reach
   // a student, same rule toLearnerFacingParts already applies to criteria.
@@ -611,7 +625,16 @@ export function buildRenderItem(
     item_type: row.item_type ?? "frq",
     frq_form: row.frq_form,
     practice_format: row.practice_format,
-    parts: toLearnerFacingParts(criteria),
+    parts: row.question_parts && row.question_parts.length > 0
+      ? row.question_parts.map((p) => ({
+        part_key: p.part_key,
+        prompt_text: p.prompt,
+        points_possible: p.points,
+      }))
+      : toLearnerFacingParts(criteria),
+    parts_source: row.question_parts && row.question_parts.length > 0
+      ? "prompt"
+      : "criteria",
     choices: choices && choices.length ? [...choices] : null,
     media,
     response_mode: row.hand_drawn === true ? "hand_drawn" : "typed",

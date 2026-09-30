@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0092 — AP Calculus AB Opened for Tonight's Tester (Orly); Calc AB Served by the Combined MCQ+FRQ Selector; Authored Part Prompts Shown on Short FRQs; Tables Rendered in Stems
 - DECISION-0091 — October 2 Launch Stays Free, but Access Runs Through `/checkout` With a 100%-Off Coupon; Amends DECISION-0071's "No Stripe/Payment Gating" and the Runbook's Payment Stop Condition
 - DECISION-0090 — TASK-0041 Checkout/Login Direction Revised: Passwordless Only (Password Login Removed Permanently), Optional Google Sign-In at Checkout, "Start Studying Now" Only on a Verified Session, Add-On Is Student-Direct Only (Parent's Card Never Saved), Parent Screens Show Student First Name Only, `/signup` Picks Route to `/checkout`
 - DECISION-0089 — Answer Keys Are Never Directly Readable: Close Column Grants Before Launch; `explanation` Post-Submission Only; FRQ Rubric Is a Recorded Hint (TASK-0056)
@@ -44,6 +45,54 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
+## DECISION-0092 — AP Calculus AB Opened for a Tester; Serving and Rendering Fixes Shipped to Production
+
+**Date:** 2026-09-30
+**Decision Owner:** David Bloom
+**Status:** Approved — Product Owner, 2026-09-30 Claude session: *"Approve the selector fix and the Lovable edits … this is a launch plan change approved by me"*
+**ID note:** `DECISION-0091` is claimed by open PR #285; this entry takes 0092 to avoid a collision.
+**Area:** Launch scope / serving / front-end
+
+### Context
+
+David chose to have Orly test AP Calculus AB in Production on the night of 2026-09-29/30. The launch
+records (`DECISION-0069`, `LAUNCH_RUNBOOK_2026_10_02.md`) named only Biology and Statistics as day-1
+subjects. A pre-test audit found that Calc AB, having no branch of its own in `student-session-items`,
+fell through to `select_practice_frqs`: every session served the same 8 FRQs, no MCQs, and ignored
+unit/topic. Five of those eight (`apcalcab-frq-u13-*`) showed "Answer all parts" with no parts, because
+their part prompts live only in `prompt_json.parts` and the server builds `parts` from
+`frq_criteria.learner_facing_text`. On these items that text states the expected answers ("Correct value
+of -4.5 C/min"), so it cannot be shown as the question. `PromptText` also dropped pipe tables.
+
+### Decided
+
+1. **Calc AB is opened to a named tester in Production** ahead of the Oct 2 subject bar. This is a
+   launch-plan change for testing; it does not add Calc AB to the Oct 2 advertised subjects.
+2. **Calc AB is served by `app.select_ordinary_combined_practice_items`**, the branch Statistics already
+   uses (seeded mix of MCQ and FRQ per session).
+3. **For Calc AB, `parts` come from the authored `prompt_json.parts[].prompt`** when every part has one;
+   a new `parts_source: "prompt" | "criteria"` field tells the client which. The app renders
+   `parts_source="prompt"` items as multi-part (one box per part, lettered). Criteria-sourced parts keep
+   their existing behaviour.
+4. **Pipe tables render in question stems** (`PromptText` reuses `StimulusText`'s table).
+
+### What shipped
+
+- `student-session-items` **v28** in Production = the previously deployed v27 **plus only this patch**.
+  It deliberately does **not** include `main`'s TASK-0051 `annotateOpenHandExclusions` change, which is
+  still Production hard-gated. Deployed files were read back and byte-compared to the tested copy.
+- Lovable `56cae479` commit `be177e5` (published): `use-session.ts`, `PromptText.tsx`,
+  `StimulusText.tsx`. The publish also carried `783f6e0` ("Removed explanation from select",
+  `review.functions.ts`), which was already on HEAD.
+- This repo: the same patch applied on top of `main`, plus tests.
+
+### Still open
+
+- Grading on Calc AB is unproven in Production (0 graded attempts before tonight).
+- Math renders as plain Unicode/ASCII; FRQ answers are plain text boxes.
+- Criteria-sourced `parts` on **other** subjects' long FRQs are rendered as the questions today; where
+  `learner_facing_text` states answers, students see them. Not measured or fixed here; needs its own task.
+- Answer-key direct reads: TASK-0056 was applied to Production the same night (APPROVAL-0064, see its record); not re-verified here.
 ## DECISION-0091 — October 2 Launch Is Free via Coupon Checkout
 
 **Date:** 2026-09-30
