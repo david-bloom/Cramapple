@@ -11,8 +11,8 @@
 --
 -- Pattern: owner_remediation_approval (protocol section 9.4): new version (version_num+1), never an in-place edit; choices copied with
 -- only the listed edits; review assignment + decision; approve; publish. Serving-label carry-forward is NOT in this file
--- (separate file, not yet drafted: needs the Product Owner's decision) because re-pointing a 'validated' label is a human validation act.
--- NOT YET TESTED: Dev holds none of these items, so the only possible rehearsal is a rolled-back run on Production, which needs explicit approval.
+-- (20260930_apcalcab_label_carry_forward.sql, run right after this file) because re-pointing a 'validated' label is a human validation act.
+-- TESTED 2026-09-30: rolled-back run on Production (repair + carry-forward together): 11/11 repaired, keys and is_correct unchanged, 031 stem resynced, labels restored and hash-fresh.
 
 begin;
 select pg_advisory_xact_lock(hashtext('cramapple-apcalcab-037-rationale-repair-20260930'));
