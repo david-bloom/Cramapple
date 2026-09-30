@@ -3,6 +3,7 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
 import { isPayerNotLearner } from "../_shared/addon-checkout.ts";
+import { isSettledPaymentStatus } from "../_shared/checkout-access.ts";
 import {
   webhookDeliveryDisposition,
   type WebhookLedgerStatus,
@@ -421,7 +422,9 @@ async function handleCheckoutSessionEvent(
   const discounts = await recordCheckoutSession(service, session, status);
 
   if (status === "completed" || status === "async_payment_succeeded") {
-    if (session.payment_status && session.payment_status !== "paid") {
+    if (
+      session.payment_status && !isSettledPaymentStatus(session.payment_status)
+    ) {
       await recordGrowthEvent(service, {
         eventName: "checkout_payment_pending",
         userId: session.client_reference_id ?? null,
