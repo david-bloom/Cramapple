@@ -176,7 +176,7 @@ add("029-v2", "apcalcab-mcq-029", 3, "medium", "Exponential Response to a Sine I
 # ---- Unit 4  (seed 031: velocity from position, calculator)
 add("031-v1", "apcalcab-mcq-031", 4, "medium", "Cart Velocity on a Track",
     "A cart has position s(t) = t^3 - 5.2t^2 + 3.4t + 8 meters. What is its velocity at t = 2.6 seconds, to the nearest hundredth?",
-    "A graphing calculator is required.",
+    "A graphing calculator is permitted.",
     ("-3.36 m/s", "The velocity is s'(t) = 3t^2 - 10.4t + 3.4. At t = 2.6 this is 20.28 - 27.04 + 3.4 = -3.36 m/s."),
     [("2.60 m/s", "Reports the time as though it were a velocity."),
      ("-0.74 m/s", "Evaluates the position s(2.6) rather than the velocity."),
@@ -187,7 +187,7 @@ add("031-v1", "apcalcab-mcq-031", 4, "medium", "Cart Velocity on a Track",
     "coefficients and time changed; context: cart on a track; distractor patterns kept")
 add("031-v2", "apcalcab-mcq-031", 4, "medium", "Speed of a Falling Marker",
     "A marker's height above the ground is s(t) = 2t^3 - 7.3t^2 + 1.9t + 12 meters. What is its velocity at t = 1.8 seconds, to the nearest hundredth?",
-    "A graphing calculator is required.",
+    "A graphing calculator is permitted.",
     ("-4.94 m/s", "The velocity is s'(t) = 6t^2 - 14.6t + 1.9. At t = 1.8 this is 19.44 - 26.28 + 1.9 = -4.94 m/s."),
     [("1.80 m/s", "Reports the time as though it were a velocity."),
      ("3.43 m/s", "Evaluates the position s(1.8) rather than the velocity."),
