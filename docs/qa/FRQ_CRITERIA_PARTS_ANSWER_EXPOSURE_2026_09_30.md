@@ -8,17 +8,96 @@ measured or fixed here; needs its own task."* This is that measurement.
 
 ## Headline
 
-**50 of the 119 published AP Biology and AP Statistics FRQ items hand the student a value, hypothesis or
-conclusion inside the text shown as the question.** Both are day-1 Oct 2 subjects on the flat practice path.
+**112 of the 141 AP Biology and AP Statistics FRQ items a student can actually be served (79%) show
+answer content inside the text rendered as the question.** Both are day-1 Oct 2 subjects.
 
-| Subject | Published FRQ items | Leaking today | Closed by the serving fix | Left needing content work |
+| Subject | Servable FRQ items | Showing answer content | Closed by the serving fix | Residual |
 |---|---|---|---|---|
-| AP Statistics | 44 | **31 (70%)** | 23 | **8** |
-| AP Biology | 75 | **19 (25%)** | 3 | **16** |
-| **Total** | **119** | **50** | **26** | **24** |
+| AP Statistics | 69 | **59 (86%)** | 45 | **14** |
+| AP Biology | 72 | **53 (74%)** | 1 | **52** |
+| **Total** | **141** | **112 (79%)** | **46** | **66** |
 
-Rubric-register text reaches students far more widely than that: Statistics 127 of 152 criteria (84%),
-Biology 113 of 279 (41%). The 50 above are only the subset that discloses a concrete answer.
+At the criterion level: **345 of 618 rows (56%)** disclose an answer.
+
+> **Revision, same day.** A first pass using a keyword heuristic reported 50 items and treated Biology as
+> the milder case. Both figures were wrong. Independent review (below) found the heuristic missed 256 of
+> the 345 true positives — a roughly threefold undercount — and that **Biology is the harder problem, not
+> the easier one**: the serving fix closes 45 of 59 Statistics items but only 1 of 53 in Biology. The
+> numbers in this document are the reviewed ones. The superseded figures are kept here deliberately, so
+> the record shows what changed and why.
+
+## Validation
+
+Two things were checked: whether the exposure is real end to end, and whether the classification holds.
+
+### The path is live — run, not inferred
+
+`app.select_ordinary_combined_practice_items` was called on the **live** AP Statistics pack
+`548f06be` with `targeted_drill` and returned a real session: **7 FRQ + 13 MCQ**. (The pack with the most
+session history, `7c5a2975`, was **retired on 2026-09-25** and returns nothing — an early read of this
+suggested Statistics served no FRQs at all, and that was wrong.) Biology's
+`select_biology_practice_items` returned 12 FRQ + 8 MCQ; `select_practice_frqs` returned 20.
+
+The shipped `buildRenderItem` was then run over real Production criteria for items from that session.
+Verbatim output, current Production behaviour against the patched behaviour:
+
+```
+================ APSTATS-SFRQ-011 ================
+stem shown: "Answer all parts of the following question."
+
+-- BEFORE (Production v28 today) -- parts_source=criteria
+   [a] Identifies the parameter and computes the point estimate.
+   [b] Checks conditions and computes the confidence interval.
+   [c] Interprets the interval as a range of plausible values for the true
+       population proportion of supportive students.
+
+-- AFTER (with the patch) -- parts_source=prompt
+   [a] State the parameter of interest and calculate p-hat.
+   [b] Check the conditions for a one-proportion confidence interval.
+   [c] Calculate a 95% confidence interval for the proportion of all students
+       who support a later start time.
+   [d] Interpret the interval in context.
+```
+
+Note the item's stem is "Answer all parts of the following question." — so the criteria text is the only
+question the student gets. Today they also get **three** parts where the item has **four**.
+
+An item with no authored parts is unchanged by the patch, as expected:
+
+```
+================ APSTAT-MOD5-H001-INV ================
+-- BEFORE -- parts_source=criteria
+   [causation_vs_correlation] Correctly concludes no causation from correlation; ...
+-- AFTER  -- parts_source=criteria   (identical)
+```
+
+### The classification was judged independently
+
+All 618 criteria rows for servable items were stripped to `{id, subject, text}` — no stems, no labels, no
+statement of what was expected — and given to **two independent fresh-context reviewers** who did not see
+each other's work or the heuristic.
+
+| | Rows marked as disclosing an answer |
+|---|---|
+| Reviewer A | 351 |
+| Reviewer B | 349 |
+| **Both agree (the figure used above)** | **345** |
+| Either | 355 |
+| Original keyword heuristic | 109 |
+
+**Inter-rater agreement 608/618 = 98.4%.** The heuristic missed 256 rows the reviewers both flagged and
+raised 20 the reviewers both cleared. It keyed on digits and comparison words, so it caught
+"Computes the mean as about 23.7 minutes" and missed qualitative disclosure such as
+`APBIO-FRQ-S-011#a1` — "q^2 = 80/500 = 0.16, so q = 0.4 and p = 1 - 0.4 = 0.6." — and
+`APBIO-FRQ-L-003#a` — "Determines autosomal-recessive inheritance ... and assigns I-1=aa, I-2=Aa,
+II-3=aa, and II-4=Aa." Several Biology rows are a full worked solution.
+
+Raw evidence: `docs/qa/frq_exposure_2026_09_30/criteria_blind.json` (the exact input both reviewers saw),
+`review_A.json`, `review_B.json`.
+
+**Caveat.** Both reviewers are model judgements, not a subject-matter expert's. Agreement is high and the
+two were independent, but the 345 figure is a strong indication rather than a certified count. The ten
+clearest cases quoted in this document are unambiguous on their face.
 
 ## What a student sees
 
@@ -62,27 +141,32 @@ Biology and Statistics never request authored parts at all.
 2. Widen the `questionParts` flag from Calc AB to the day-1 exam codes.
 3. Keep the existing all-or-nothing rule: an item with any part missing its text keeps current behaviour.
 
-This closes **26 of 50** items using content already in Production. No migration, no content write.
+This closes **46 of 112** items using content already in Production — 45 of 59 in Statistics, 1 of 53 in Biology. No migration, no content write.
 
 **Deploy hazard.** Production `student-session-items` is **v28** — v27 plus the Calc AB patch, deliberately
 *excluding* `main`'s TASK-0051 `annotateOpenHandExclusions`, which is still Production-gated. Any deploy must
 be v28 + this patch only, read back and byte-compared, exactly as `DECISION-0092` did. **Do not deploy this
 function from `main`.**
 
-## The residual 24 items
+## The residual 66 items
 
-16 Biology and 8 Statistics leaking items have **no authored parts at all** — `prompt_json` is null or has no
-parts array. The serving fix cannot help them; only rewriting `learner_facing_text`, or authoring parts, will.
-That is content work with its own QA, not a pre-Oct-2 change. Options for David:
+66 items show answer content and have no authored parts the fix can use — **52 Biology, 14 Statistics**.
+Rewriting `learner_facing_text`, or authoring part prompts, is the only route. That is content work with
+its own QA, not a pre-Oct-2 change. Options:
 
-- **Suppress.** For an item with no authored parts, show the stem and a single response box instead of
-  criteria-derived parts. Closest to a real AP FRQ; needs a check that each stem carries the question.
-- **Descope.** Exclude the 24 from the day-1 pool. Leaves Biology FRQ practice thin.
-- **Accept.** Launch as-is and fix after. The student is handed the answer on those items.
+- **Suppress.** Where an item has no authored parts, render the stem and a single response box instead of
+  criteria-derived parts. Closest to a real AP FRQ. Needs a check that each stem carries the question —
+  and at least some do not: `APSTATS-SFRQ-011`'s stem is "Answer all parts of the following question."
+- **Descope.** Exclude the 66 from the day-1 pool. That is 52 of Biology's 72 servable FRQ items, which
+  leaves Biology FRQ practice at 20 items.
+- **Author.** Fix all 66 before launch. Highest quality, largest job, two days.
+- **Accept.** Launch as-is on those items.
+
+The full list is in `residual_items.json` beside this file.
 
 ## Bearing on the runbook
 
 §3 and §4 require a real submit-to-grade round trip on each subject. Neither says anything about whether the
-question shown is the question. On the evidence above, a Statistics FRQ smoke test has a ~70% chance of
-landing on an item that shows the answer — and would still pass §4 as written, because grading works. The
+question shown is the question. On the evidence above, a Statistics FRQ smoke test has an ~86% chance, and a
+Biology one a ~74% chance, of landing on an item that shows the student answer content — and would still pass §4 as written, because grading works. The
 checklist should gain an explicit "the question shown is the authored question" line before go/no-go.

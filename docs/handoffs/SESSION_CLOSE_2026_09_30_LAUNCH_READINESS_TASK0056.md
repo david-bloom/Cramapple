@@ -23,11 +23,13 @@ Still open from this addendum:
 
 - **Calc AB grading is unproven in Production** (0 graded attempts before the tester night). Math renders as plain text.
 - **Criteria-sourced `parts` on other subjects' long FRQs** show students answer text from
-  `learner_facing_text`. **Now measured (2026-09-30):** 50 of 119 published Biology + Statistics FRQ items
-  leak a value, hypothesis or conclusion as the question — AP Statistics 31 of 44 (70%). Two independent
-  serving defects, both required to fix; 26 of the 50 close with content already in Production, 24 need
-  authoring. Needs a Product Owner decision and a Hard-Gate deploy. See
-  `docs/qa/FRQ_CRITERIA_PARTS_ANSWER_EXPOSURE_2026_09_30.md`.
+  `learner_facing_text`. **Measured and independently validated (2026-09-30):** **112 of the 141 servable
+  Biology + Statistics FRQ items (79%) show answer content as the question** — Statistics 59 of 69,
+  Biology 53 of 72. Proven end to end by running the live selectors and the shipped delivery code, not
+  inferred. Two blind reviewers agreed 98.4%; an earlier keyword estimate of 50 items was a threefold
+  undercount and wrongly treated Biology as the milder case. A serving fix (committed, untested in Prod)
+  closes 46 — almost all Statistics. **66 remain, 52 of them Biology**, and need content work plus a
+  Product Owner call. See `docs/qa/FRQ_CRITERIA_PARTS_ANSWER_EXPOSURE_2026_09_30.md`.
 - ~~**`APBIO-MCQ-031` / `-035`** are suspected Unit 3/4 label mix-ups; Biology is a day-1 subject.~~
   **Withdrawn (2026-09-30).** Both items are `reviewed_disapproved` with zero published versions, so no
   selector can reach them, and none of the three Oct 2 flat-path selectors read taxonomy labels at all.
