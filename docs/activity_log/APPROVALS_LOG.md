@@ -58,6 +58,8 @@ deploy `evaluate-attempt` with the F2 fix (`.maybeSingle()` → `.limit(1)`).
   the MCP deploy would have meant re-typing 24 files (about 340 KB). Handed to David as the repo's usual
   CLI command. Production v68 was confirmed byte-identical to `main` beforehand, so the deploy changes
   only the F2 lines.
+- **Deploy done** (David, CLI): Production `evaluate-attempt` v70 was verified byte-identical to `main`
+  (24 files) after PR #285 merged.
 
 **Not authorized by this entry:** `get_open_hand_item` / the TASK-0051 Production gate, or Stripe
 live-mode work.

@@ -316,8 +316,8 @@ Production right after the apply.**
 | `get_review_item_version`: student / admin | 0 rows / 1 row |
 
 - `get_open_hand_item` does not exist in Production yet (TASK-0051's gate, not taken). Nothing to break.
-- **`evaluate-attempt` F2:** not yet deployed. David runs the CLI deploy (see `APPROVAL-0064`), then
-  Claude verifies the deployed source against the branch.
+- **`evaluate-attempt` F2: deployed** by David (CLI), 2026-09-30. Claude verified that Production v70 is
+  byte-identical to `main` across all 24 files and carries the `.limit(1)` fix.
 
 **Still open:** David and Orly's live practice session (MCQ and FRQ, a graded submit, a reviewer opening a
 submitted assignment); 24h of logs with no new 42501/42703 from app traffic; a fresh independent QA.
