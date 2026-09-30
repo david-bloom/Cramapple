@@ -16,3 +16,12 @@ export function checkoutAccess(
   }
   return "pending";
 }
+
+// A Checkout Session whose total a coupon brings to $0 completes with
+// payment_status "no_payment_required", not "paid". Both are settled and must
+// grant access; anything else ("unpaid") is still pending.
+export function isSettledPaymentStatus(
+  paymentStatus: string | null | undefined,
+) {
+  return paymentStatus === "paid" || paymentStatus === "no_payment_required";
+}

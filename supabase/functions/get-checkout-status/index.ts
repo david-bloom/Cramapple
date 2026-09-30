@@ -5,7 +5,10 @@ import {
   isPayerNotLearner,
   purchaserTypeFromMetadata,
 } from "../_shared/addon-checkout.ts";
-import { checkoutAccess } from "../_shared/checkout-access.ts";
+import {
+  checkoutAccess,
+  isSettledPaymentStatus,
+} from "../_shared/checkout-access.ts";
 
 function requireEnv(name: string) {
   const value = Deno.env.get(name);
@@ -97,7 +100,8 @@ Deno.serve(async (req) => {
   let entitled = false;
   let refunded = false;
 
-  if (stored.user_id && stored.payment_status === "paid") {
+  const settled = isSettledPaymentStatus(stored.payment_status);
+  if (stored.user_id && settled) {
     const { data: entitlements, error: entitlementError } = await service
       .schema("app")
       .from("subject_entitlements")
@@ -127,7 +131,8 @@ Deno.serve(async (req) => {
 
   let offer = null;
   if (
-    entitled && stored.mode === "single" && stored.user_id && !payerNotLearner
+    entitled && stored.payment_status === "paid" && stored.mode === "single" &&
+    stored.user_id && !payerNotLearner
   ) {
     const { count: activeSubjectCount } = await service.schema("app")
       .from("subjects")
@@ -149,7 +154,9 @@ Deno.serve(async (req) => {
 
   return respond({
     status: "ok",
-    payment_status: stored.payment_status === "paid"
+    // A $0 (coupon) order reports "paid" once entitled: the screens only need
+    // to know access is confirmed, not how much was charged.
+    payment_status: settled
       ? (entitled ? "paid" : refunded ? "refunded" : "processing")
       : stored.payment_status ?? "processing",
     entitled,

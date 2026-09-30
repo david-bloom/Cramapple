@@ -99,7 +99,8 @@ picker sends visitors to `app.cramapple.com/home?subject=…`, which bounces the
 - Front-end (Lovable `61dd6602`): `/signup` routing, Google button on checkout, student waiting state,
   inline code step, passwordless `/login`, name-only parent copy.
 - Development data: checked 2026-09-29 — `app.stripe_customers` in Development has 0 rows, so no parent
-  card is stored against any student. Production has no TASK-0041 tables yet.
+  card is stored against any student. Production has `app.stripe_checkout_sessions` and
+  `app.subject_entitlements` (from TASK-0023) but not `app.stripe_customers` (corrected 2026-09-29).
 
 ## DECISION-0088 — Skill Grain Is the Full Sub-Skill Grid; Store Fine and Roll Up Later
 
