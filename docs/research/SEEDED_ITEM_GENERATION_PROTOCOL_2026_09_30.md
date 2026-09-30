@@ -85,6 +85,14 @@ Rules this implies:
    it settles it.
 4. **Record the roster and role per batch** (AQP §7.1 is still open; the batch README is the record).
 
+**Standing checker design (Product Owner decision, 2026-09-30, after the Fable calibration run,
+`calc-ab-fable-calibration-2026-09-30/CALIBRATION_REPORT.md`).** Two checkers from different families per stage,
+one patch loop, and a full re-check of every patched item. Treat the **union** of the two checkers' flags as
+candidates and verify each by hand or sympy before acting (single-model flags proved real). A stronger model
+(e.g. Fable) is a **sample-as-needed** tool, not a standing third stage: use it for a per-batch calibration sample,
+to adjudicate single-model flags, or when a repeat pass of the same two checkers disagrees with the first. Count
+only key errors and per-choice rationale inaccuracies as defects; style notes are a separate channel.
+
 **Staying current is a maintenance duty, not a preference.**
 - The fixed checker roster in AQP had gone stale; the Product Owner spotted that a superseded Gemini
   generation was still in use, and the roster had never been checked against what the gateway actually offered.
