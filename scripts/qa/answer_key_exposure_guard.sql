@@ -29,7 +29,14 @@ with protected(tbl, col) as (
     ('app.frq_criteria',          'accepted_variants'),
     ('app.frq_criteria',          'minimum_fix'),
     ('app.mcq_choices',           'is_correct'),
-    ('app.mcq_choices',           'rationale')
+    ('app.mcq_choices',           'rationale'),
+    -- Added 2026-09-30 (TASK-0056b). prompt_json is a SECOND copy of the key:
+    -- on Production, 212 published versions carried the exact canonical_answer_1
+    -- string and 46 the explanation, while 20260930120200 granted the column and
+    -- 20260930120100 projected it into public.content_item_versions. The list
+    -- below is a deny-list and could not see it; the content scan at the end of
+    -- this file is what would have.
+    ('app.content_item_versions', 'prompt_json')
 ),
 protected_cols as (
   select p.tbl, p.col, a.attrelid, a.attnum
@@ -64,3 +71,78 @@ where has_table_privilege(r.r, v.oid, 'SELECT')
      where va.attrelid = v.oid and va.attnum > 0 and not va.attisdropped
        and has_column_privilege(r.r, v.oid, va.attnum, 'SELECT'))
 order by 1, 2, 3, 4;
+
+-- ---------------------------------------------------------------------------
+-- Content scan (added 2026-09-30, TASK-0056b).
+--
+-- The list above is a deny-list: it sees only columns someone remembered to
+-- add, which is why it returned zero rows on both environments while
+-- prompt_json was handing the key to every signed-in student. This scan is
+-- shaped the other way round -- it reads the DATA in any json column of the
+-- content bank that anon or authenticated can select, and fails on
+-- answer-shaped keys. A new carrier is caught without anyone editing this file.
+--
+-- Scoped to content-bank tables on purpose. Student-owned json (their own
+-- response, their own grading result) is RLS-scoped and legitimately readable,
+-- so scanning it would produce permanent noise and the guard would be ignored.
+--
+-- Run as a second statement, as postgres. A non-empty result is a violation.
+-- Must be run against PRODUCTION data: Dev's prompt_json held no answers, which
+-- is exactly why the Dev matrix could not fail.
+-- ---------------------------------------------------------------------------
+
+create temporary table if not exists answer_key_content_scan(
+  table_schema text, table_name text, column_name text,
+  matched_key text, rows_affected bigint
+) on commit drop;
+
+do $scan$
+declare
+  r record;
+  k text;
+  n bigint;
+  -- Key names that carry an answer, a rubric, or a worked solution.
+  keys text[] := array[
+    'canonical_answer', 'is_correct', 'correct_choice', 'answer_key',
+    'rationale', 'minimum_fix', 'accepted_variants', 'evidence_requirements',
+    'worked_solution', 'scoring_contract', 'criteria'
+  ];
+begin
+  for r in
+    select c.table_schema, c.table_name, c.column_name
+    from information_schema.columns c
+    where c.data_type in ('json','jsonb')
+      and c.table_schema in ('app','public')
+      -- Content bank only; student-owned rows are excluded by design (above).
+      and (c.table_name like 'content\_%' or c.table_name like 'frq\_%'
+           or c.table_name like 'mcq\_%' or c.table_name like 'gold\_set%'
+           or c.table_name in ('questions','topic_explainers','topic_point_briefs'))
+      and exists (
+        select 1 from information_schema.column_privileges g
+        where g.table_schema = c.table_schema and g.table_name = c.table_name
+          and g.column_name = c.column_name and g.privilege_type = 'SELECT'
+          and g.grantee in ('anon','authenticated'))
+  loop
+    foreach k in array keys loop
+      begin
+        execute format(
+          'select count(*) from %I.%I where %I::text ~ %L',
+          r.table_schema, r.table_name, r.column_name, '"' || k
+        ) into n;
+      exception when others then
+        n := 0;  -- unreadable relation: the deny-list above covers those
+      end;
+      if n > 0 then
+        insert into answer_key_content_scan
+        values (r.table_schema, r.table_name, r.column_name, k, n);
+      end if;
+    end loop;
+  end loop;
+end
+$scan$;
+
+select table_schema, table_name, column_name, matched_key, rows_affected,
+       'answer-shaped key readable by anon/authenticated in content-bank json; '
+       'revoke the column or remove the key at publish time' as finding
+from answer_key_content_scan
+order by rows_affected desc, table_schema, table_name, column_name, matched_key;
