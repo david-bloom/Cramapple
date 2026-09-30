@@ -1,6 +1,13 @@
 # TASK-0051 — Open Hand: One Gated Answer-Key Path
 
-**Status:** Approved to execute in Development. Production Hard-Gated.
+**Status:** Blocked (independent QA, 2026-09-29) — any signed-in user can read MCQ answer keys directly
+
+> **Update 2026-09-30:** F1 is fixed in Development and Production by TASK-0056 (`APPROVAL-0063`/`0064`; guard clean on both). F2 (`.limit(1)`) is deployed to Production (`evaluate-attempt` v70). F3 (Dev `open-hand-item` v9) is still open. Status stays Blocked until a **fresh** independent QA re-runs TASK-0051 + TASK-0056.
+through PostgREST (`content_item_versions.canonical_answer_1/2`, `.explanation`, `.item_package_payload`;
+live in Production too), so "the RPC is the only path to a key" is false and the scoring exclusion can be
+sidestepped. The Production gate should not proceed until that is closed. See
+`docs/qa/TASK-0051_INDEPENDENT_QA_2026_09_29.md` (F1). _Previously: Approved to execute in Development.
+Production Hard-Gated._
 **Tier:** Hard-Gate
 **Owner:** TBD (single agent, single branch)
 **Product Owner:** David Bloom

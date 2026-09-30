@@ -72,7 +72,7 @@ Deno.test("evaluate-attempt rejects an unsubmitted response before loading answe
   ]);
 });
 
-Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key tables", async () => {
+async function runOpenHandExclusionCase(exclusionRowCount: number) {
   const tablesQueried: string[] = [];
   const ids = {
     user: "11000000-0000-4000-8000-000000000001",
@@ -103,10 +103,13 @@ Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key 
     content_item_versions: {
       content_item_id: ids.item,
     },
-    open_hand_scoring_exclusions: {
-      content_item_id: ids.item,
-    },
   };
+  // One row per viewed version of the item (the table's key is
+  // user_id + content_item_version_id).
+  const exclusionRows = Array.from(
+    { length: exclusionRowCount },
+    () => ({ content_item_id: ids.item }),
+  );
   const service = {
     schema: () => ({
       from: (table: string) => {
@@ -114,6 +117,9 @@ Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key 
         const chain = {
           select: () => chain,
           eq: () => chain,
+          // Like PostgREST: limit(1) returns at most one row.
+          limit: (n: number) =>
+            Promise.resolve({ data: exclusionRows.slice(0, n), error: null }),
           maybeSingle: () =>
             Promise.resolve({ data: rows[table] ?? null, error: null }),
         };
@@ -141,6 +147,11 @@ Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key 
         profile: { user_id: ids.user, role: "student" },
       })) as any,
   });
+  return { res, tablesQueried };
+}
+
+Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key tables", async () => {
+  const { res, tablesQueried } = await runOpenHandExclusionCase(1);
 
   assertEquals(res.status, 409);
   assertEquals((await res.json()).error, "open_hand_item_not_scorable");
@@ -151,6 +162,16 @@ Deno.test("evaluate-attempt rejects an Open Hand item before loading answer-key 
     "content_item_versions",
     "open_hand_scoring_exclusions",
   ]);
+});
+
+// TASK-0051 QA F2: two viewed versions of one item used to make .maybeSingle()
+// fail, which returned a permanent 500 instead of 409.
+Deno.test("evaluate-attempt rejects an Open Hand item with exclusions for two versions", async () => {
+  const { res, tablesQueried } = await runOpenHandExclusionCase(2);
+
+  assertEquals(res.status, 409);
+  assertEquals((await res.json()).error, "open_hand_item_not_scorable");
+  assertEquals(tablesQueried.at(-1), "open_hand_scoring_exclusions");
 });
 
 /* -------------------------------------------------------------------------- */

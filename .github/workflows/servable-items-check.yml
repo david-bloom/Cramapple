@@ -49,3 +49,33 @@ jobs:
         env:
           CRAMAPPLE_DB_URL: ${{ secrets.SERVABLE_ITEMS_CHECK_DB_URL }}
         run: python3 scripts/qa/servable_items_check.py
+
+  # TASK-0056 (DECISION-0089). A separate job so an answer-key exposure and a
+  # servable-count drop each report on their own. The guard query returns one
+  # row per exposed column; any row fails the job. It is expected to fail on
+  # Production until TASK-0056's revoke migration is applied there.
+  answer-key-exposure-guard:
+    name: answer-key-exposure-guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install psql client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends postgresql-client
+
+      - name: Run answer-key exposure guard
+        env:
+          CRAMAPPLE_DB_URL: ${{ secrets.SERVABLE_ITEMS_CHECK_DB_URL }}
+        run: |
+          out=$(psql "$CRAMAPPLE_DB_URL" -v ON_ERROR_STOP=1 -At -F ' | ' -f scripts/qa/answer_key_exposure_guard.sql)
+          if [ -n "$out" ]; then
+            echo "Answer-key columns are directly readable (kind | role | relation | column):"
+            echo "$out"
+            exit 1
+          fi
+          echo "Guard passed: no answer-key column is readable by anon or authenticated."

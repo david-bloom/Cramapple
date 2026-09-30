@@ -1370,7 +1370,10 @@ export async function handleEvaluateAttempt(
       .select("content_item_id")
       .eq("user_id", attempt.user_id)
       .eq("content_item_id", versionItem.content_item_id)
-      .maybeSingle();
+      // TASK-0051 QA F2: the key is (user_id, content_item_version_id), so a
+      // student who viewed two versions of one item has two rows here.
+      // .maybeSingle() errors on that; any row at all means "excluded".
+      .limit(1);
 
   if (openHandExclusionError) {
     return respond({ error: "open_hand_eligibility_check_failed" }, {
@@ -1378,7 +1381,7 @@ export async function handleEvaluateAttempt(
     });
   }
 
-  if (openHandExclusion) {
+  if (openHandExclusion && openHandExclusion.length > 0) {
     return respond({ error: "open_hand_item_not_scorable" }, { status: 409 });
   }
 
