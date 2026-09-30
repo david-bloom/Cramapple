@@ -120,7 +120,27 @@ function withHandDrawnFlag(
 // EVERY part has a non-empty prompt, so a half-authored item falls back to the
 // existing behaviour instead of showing some parts. Criteria and any other
 // prompt_json field are never copied. 2026-09-30 Calc AB tester launch.
-function extractQuestionParts(
+//
+// Two authored spellings exist in Production and both are read here. Calc AB's
+// 2026-09-29 batch writes `prompt`; every AP Statistics and AP Biology item
+// authored before it writes `prompt_text` (76 and 4 parts respectively, none
+// carrying `prompt`). Reading only `prompt` made this return [] for all of
+// them, so those items silently fell back to criteria-sourced parts -- which
+// are scoring lines and state the answer. Measured 2026-09-30:
+// docs/qa/FRQ_CRITERIA_PARTS_ANSWER_EXPOSURE_2026_09_30.md.
+// Exam codes whose authored part prompts are preferred over criteria-sourced
+// parts. Widened from Calc AB alone on 2026-09-30 to cover the Oct 2 day-1
+// subjects: 31 of 44 published AP Statistics FRQ items and 19 of 75 AP Biology
+// items were showing a value, hypothesis or conclusion as the question text.
+// Safe to widen because extractQuestionParts is all-or-nothing -- an item with
+// no authored parts keeps its existing behaviour unchanged.
+const EXAM_CODES_WITH_AUTHORED_PARTS = new Set([
+  "ap_calculus_ab",
+  "ap_statistics",
+  "ap_biology",
+]);
+
+export function extractQuestionParts(
   prompt_json: unknown,
 ): Array<{ part_key: string; prompt: string; points: number | null }> {
   if (typeof prompt_json !== "object" || prompt_json === null) return [];
@@ -129,14 +149,23 @@ function extractQuestionParts(
   const out: Array<{ part_key: string; prompt: string; points: number | null }> = [];
   for (let i = 0; i < parts.length; i++) {
     const p = parts[i] as Record<string, unknown> | null;
-    const prompt = typeof p?.prompt === "string" ? p.prompt.trim() : "";
+    const authored = typeof p?.prompt === "string" && p.prompt.trim()
+      ? p.prompt
+      : typeof p?.prompt_text === "string"
+      ? p.prompt_text
+      : "";
+    const prompt = authored.trim();
     if (!prompt) return [];
     out.push({
       part_key: typeof p?.part_key === "string" && p.part_key
         ? p.part_key
         : `part-${String.fromCharCode(97 + i)}`,
       prompt,
-      points: typeof p?.points === "number" ? p.points : null,
+      points: typeof p?.points === "number"
+        ? p.points
+        : typeof p?.points_possible === "number"
+        ? p.points_possible
+        : null,
     });
   }
   return out;
@@ -748,7 +777,7 @@ export async function handleStudentSessionItems(
     }
 
     const rows = withHandDrawnFlag((selected ?? []) as SelectedRow[], {
-      questionParts: sessionExamCode === "ap_calculus_ab",
+      questionParts: EXAM_CODES_WITH_AUTHORED_PARTS.has(sessionExamCode ?? ""),
     });
     const delivered = await deliverRows(service, rows, qaMode);
     if (!delivered.ok) {
