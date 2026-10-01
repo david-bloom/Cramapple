@@ -27,18 +27,27 @@ One Production change was made: the repair of seed `APBIO-MCQ-023` (`APPROVAL-00
 Round 1 checks on all 16, then round 2 (full content + CED + label re-check) on the 5 rewritten items.
 Round 2: content 10/10 solves match and 10/10 audits flag-free; CED: 4 of the 5 now pass both models; `sv-021-v2` is still flagged by both, see below.
 
+## Round 3 (2026-10-01): CED V.1 checked, fact pack annotated, 021-v2 rewritten
+
+Re-run on all 16 variants with the annotated pack. Results: 9 of 16 pass both models; 021-v2 (new) passes both; 021-v1 fails both; DeepSeek alone flags 005-v1, 008-v1, 018-v1, 018-v2, 022-v1, 023-v1, 023-v2. I read each reason against the CED text (searched for every term; printed page numbers):
+- **Genuinely absent from the CED, inherited from the published seed, with the mechanism supplied in the stem:** isomers / hydroxyl orientation (005; CED has only "topoisomerase"), receptor-mediated endocytosis, clathrin, endosomes (018; CED 2.5.B.1 covers endocytosis generically), 70S/80S ribosomes and binary fission (022), peripheral vs integral membrane proteins, detergent and protease-topology assays (023; "integral" appears in the CED only as "integral part of lab safety"), signal peptide/SRP (021).
+- **Not a CED problem:** disulfide bridges ARE in the CED (1.7.A.5). 008-v1's flag is only borderline, because choice B's rationale relies on "cysteine, not isoleucine, has sulfur".
+- **My earlier expectation was wrong.** I said a refreshed pack should make most DeepSeek-only flags disappear. The pack already matched the CED (V.1, the latest edition), so they did not. The flags are accurate about vocabulary; the open question is policy, not a stale pack.
+
+**Policy decision for the Product Owner (new):** the published seeds 005, 018, 021, 022 and 023 themselves rely on terms the CED does not name, and their variants inherit that. Either (a) accept items that supply a beyond-CED mechanism in the stem and test only CED-level reasoning on it (how AP stimulus-based questions work, but the protocol then needs a rule), or (b) keep items to CED vocabulary and rewrite or remediate them as was done for 021-v2. 021-v1 and the seed 021 depend on the mechanism itself rather than only supplying it, so they are the weakest cases.
+
 ## Where each variant stands
 | Variant | Content | Scope | Labels (vs seed's probe label) | Status |
 |---|---|---|---|---|
-| 005-v1, 005-v2 | clean | clean (both models, round 2) | units ok / 005-v2 units (1) vs seed (1,2); topic 1.4 | ready for review |
-| 008-v1, 008-v2 | clean | DeepSeek only (disulfide, in the pack) | 1.7, unit 1 | ready |
+| 005-v1, 005-v2 | clean | v1 DeepSeek only (isomers, inherited; stem supplies it); v2 clean (round 3) | units ok / 005-v2 units (1) vs seed (1,2); topic 1.4 | ready for review |
+| 008-v1, 008-v2 | clean | v1 DeepSeek only (borderline: disulfide bridges ARE in the CED, 1.7.A.5; choice B's rationale leans on cysteine/sulfur detail); v2 clean (round 3) | 1.7, unit 1 | ready |
 | 014-v1, 014-v2 | clean | clean (round 2) | unit 2; topic 2.9/2.10 split | ready |
 | 016-v1, 016-v2 | clean | clean | 2.7, unit 2 | ready |
 | 018-v1, 018-v2 | clean (018-v1 patched) | DeepSeek only (receptor-mediated endocytosis, inherited) | 2.8, unit 2 | ready |
 | 022-v1, 022-v2 | clean | v1 DeepSeek only (inherited); v2 clean | 2.10, unit 2 | ready |
 | 023-v1, 023-v2 | clean | DeepSeek only (integral/peripheral, inherited) | 2.3, unit 2 | ready |
-| 021-v1 | clean | DeepSeek only (SRP, inherited) | 2.1, unit 2 | ready, conditional (see decision 1) |
-| 021-v2 | clean | **both models** (SRP, signal peptide) | 2.1, unit 2 | ready, conditional (see decision 1) |
+| 021-v1 | clean | **both models** (SRP, signal peptide; round 3) | 2.1, unit 2 | **hold**: outside the CED (decision 1) |
+| 021-v2 (rewritten 2026-10-01) | clean | **clean, both models** (round 3) | 2.1, unit 2 | ready for review |
 **16 of 16 ready for review preparation; 2 of them (`021-v1`, `021-v2`) conditional on decision 1.** (Originally 14 ready and 2 held; the hold was released on 2026-10-01 after the Product Owner's direction below.)
 
 ## Decisions and follow-ups for the Product Owner
