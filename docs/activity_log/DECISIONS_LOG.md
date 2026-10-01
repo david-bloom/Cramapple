@@ -66,8 +66,8 @@ real student has ever been graded. David asked why the product should be free at
 ### Decided
 
 1. **Phase 1 — paid-flow pilot.** Orly emails a **$1** coupon to a small group of friends, who sign up promptly. Stripe
-   coupon created by David: **$38.99 off, one redemption per customer, 10 redemptions maximum** (the Stripe mode it was
-   created in is not yet confirmed). It is a real card charge and so tests the live payment path.
+   coupon created by David in **Stripe live mode** (promotion code object `promo_1ULmINLwoRHzBJ1OIjwp6dwH`, not yet shared):
+   **$38.99 off, 1 use, 10 redemptions maximum, first-time orders only**. It is a real card charge and so tests the live payment path.
 2. **Phase 2 — public launch at 50% off through October**, after "some success with checkout". Success is **the Product
    Owner's judgment**; there is no automated gate.
 3. **Parent-pay is live** (all six checkout functions go to Production).
@@ -79,9 +79,9 @@ real student has ever been graded. David asked why the product should be free at
 
 - `DECISION-0091`'s free Oct 2 shape is superseded; the runbook carries a banner.
 - The $0 checkout path is off the critical path (optional Dev work). The real-card `paid` webhook path becomes the proof.
-- The coupon as created is **"$38.99 off any purchase"**, not limited to single-subject products: a 2-subject bundle ($69.99)
-  would cost $31.00 and a 3-subject bundle ($89.99) $51.00 with it. Restricting it with `applies_to` was recommended and
-  not yet decided.
+- The coupon is **"$38.99 off any purchase"**, not limited to single-subject products: a 2-subject bundle ($69.99) would
+  cost $31.00 and a 3-subject bundle ($89.99) $51.00 with it. **Risk accepted by David**: at most 10 people get it, and
+  mistakes will be handled manually. No `applies_to` restriction will be added.
 - **Still Hard-Gated, not approved by this entry:** Stripe live-mode setup, Production secrets, the three Production
   migrations, the six Production function deploys, the Lovable publish, and the go/no-go. A refund and terms position
   (BIZ-001) is needed before live mode is enabled, because strangers can pay from that moment.

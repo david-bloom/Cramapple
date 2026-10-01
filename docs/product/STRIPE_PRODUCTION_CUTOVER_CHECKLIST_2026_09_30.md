@@ -111,9 +111,10 @@ Claude has no Stripe access this session and cannot verify any of this. Everythi
 - [ ] **Live catalog** matches `DECISION-0083` prices: **$39.99 single / $69.99 two-bundle / $89.99 three-bundle**. (The
       older `DECISION-0069` prices of $79.99/$99.99 are superseded — confirm none were created.) Day-1 subjects are AP
       Biology and AP Statistics; any other subject the checkout can sell needs a live price or must be hidden.
-- [x] **Pilot coupon created by David (2026-10-01):** **$38.99 off any purchase, 1 per customer, 10 redemptions.** *Open:* Stripe mode
-      (test vs. live) not confirmed; **not restricted to single-subject products**, so a bundle cart with it costs $31.00 (2) or
-      $51.00 (3) instead of $1 — consider `applies_to`; expiry not set. Original spec follows:
+- [x] **Pilot coupon created by David in live mode (2026-10-01):** promotion code `promo_1ULmINLwoRHzBJ1OIjwp6dwH`, **$38.99 off, 1 use,
+      10 redemptions max, first-time orders only; not yet shared.** Not restricted to single-subject products, so a bundle cart
+      costs $31.00 (2) or $51.00 (3). **Risk accepted by David** (10 people max; errors handled manually). No expiry set.
+      Original spec, for reference:
 - [ ] **Pilot coupon:** fixed **`amount_off` = single-subject price − $1.00** (e.g. $38.99 off a $39.99 price), `duration: once`,
       **restricted via `applies_to` to the single-subject products** (confirm bundles are separate products), **max
       redemptions = 10**, **expiry date**, one redemption per customer. Create the **promotion code** string students type.
