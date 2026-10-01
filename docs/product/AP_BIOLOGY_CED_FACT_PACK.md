@@ -406,6 +406,16 @@ Cross-check: every unit's stated AP exam weighting % and class-period count
   - EK 2.1.A.7 — Vacuoles: large plant vacuole maintains turgor pressure;
     animal vacuoles smaller/more numerous, store materials.
   - EK 2.1.A.8 — Chloroplasts: double-membrane, site of photosynthesis.
+  - *Source: CED V.1 (© 2025), printed pp. 49-51; confirmed by the Product Owner on
+    2026-10-01 as the latest edition.*
+  - *Not in the CED (2026-10-01 check of printed pp. 49-51 and a full-text search):*
+    *signal sequence / signal peptide, signal recognition particle (SRP),
+    co-translational ER targeting, and sorting of proteins to specific organelles. The CED
+    states only that rough ER has membrane-bound ribosomes and helps carry out protein
+    synthesis (2.1.A.3.i), and that the endomembrane system works together to modify, package
+    and transport proteins (2.1.A.2). Items must not depend on those mechanisms. The Golgi
+    exclusion (2.1.A.4) also puts packaging of specific enzymes for lysosomes, peroxisomes and
+    secretory vesicles out of scope.*
 
 **2.2 Cell Size** — Big Idea 2
 - **LO 2.2.A** Explain the effect of surface area-to-volume ratio on exchange
