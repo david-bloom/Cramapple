@@ -20,7 +20,10 @@ Consequences of "entered by student":
 - `create-checkout-session` already supports it: with no `promo_code` input it sets `allow_promotion_codes: true`
   (`create-checkout-session/index.ts:221-223`). With a code supplied it validates via `promotionCodes.list` and applies it
   as a `discount`. **Both paths must be tested at $0** (§3, step 1b).
-- The student must be told the code. How it reaches them (landing copy, email, Orly's class) is **undecided** — see §7.
+- **Orly emails the code to students** (David, 2026-09-30). Consequences: the code leaves our control the moment it is
+  sent, so the redemption cap and expiry in §4 are the only real access control; the checkout page must not imply the
+  code is public; and the code string itself must never be written into this repo (docs, logs, tests, commits).
+  Orly needs the code only after Gate D passes, and an approved list or count of recipients to size the cap against.
 - A coupon that anyone can enter is, in effect, public. Cap redemptions and set an expiry (§4).
 
 ## 1. Verified state (2026-09-30, read-only against Supabase)
@@ -160,8 +163,9 @@ Labeled launch-QA student, real public route, live mode. David must perform any 
 
 ## 7. Open questions (David)
 
-1. **How do students get the code?** (landing copy, email, class distribution). Needed before Gate D passes.
-2. Redemption cap and expiry date for the live coupon.
+1. ~~How do students get the code?~~ **Answered:** Orly emails it. Still open: how many recipients, and whether the
+   email goes out only after Gate D passes (recommended).
+2. Redemption cap and expiry date for the live coupon (size the cap to Orly's recipient count plus margin).
 3. **D-6, D-9, D-10, D-11** (Payment flow's four open decisions, David-only per the activity log) — are any of them on the
    Oct 2 path, or all post-launch?
 4. Does the 2-bundle / 3-bundle matter on Oct 2, or can the Day-1 catalog be the single-subject prices only?
