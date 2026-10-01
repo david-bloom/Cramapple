@@ -53,6 +53,8 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other item; the published seed `APBIO-MCQ-018` wording (noted separately); any variant going into Production; changes to the provisional seed topic labels.
 
+**How it was used (2026-10-01):** a rolled-back run on Production came first (all in-script assertions passed; Production was unchanged afterwards: still one version, v1 published, labels unchanged). The real run then committed: `APBIO-MCQ-023` has a new published version 2 (v1 retired); only choice A's rationale differs; the key is still D; all choice texts and `is_correct` flags are unchanged; no stem/choice desync; one published version. Both labels (serving `validated`, coverage `provisional_model`) are back to their prior status, point at v2, are hash-fresh, and carry `approval_ref: APPROVAL-0067`; the serving label keeps its original validation record. AP Biology counts are unchanged (118 published, 43 unit-gated servable, 69 validated labels). The 6 stale Biology labels that remain are older and unrelated (4 FRQ coverage labels, `APBIO-MCQ-041`, `APBIO-MCQ-088`); `023` is not among them. No `anon`/`authenticated` grant on `is_correct`/`rationale`.
+
 ## APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward
 
 **Date:** 2026-10-01  
