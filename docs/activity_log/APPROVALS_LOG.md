@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0068 — Replace the Text of Five Published AP Biology Seeds in Production With CED-Vocabulary Versions (`APBIO-MCQ-005`, `018`, `021`, `022`, `023`) and Carry Their Labels Forward — DECISION-0093
 - APPROVAL-0067 — Repair One Distractor Rationale on Published AP Biology MCQ `APBIO-MCQ-023` in Production (Choice A) and Carry Its Labels Forward — DECISION-0093
 - APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
 - APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend — DECISION-0093
@@ -38,6 +39,24 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0068 — Replace the Text of Five Published AP Biology Seeds in Production With CED-Vocabulary Versions (`APBIO-MCQ-005`, `018`, `021`, `022`, `023`) and Carry Their Labels Forward
+
+**Date:** 2026-10-01  
+**Approved By:** David Bloom (2026-10-01 Claude session: "stay within the CED vocab"; "Seed_remediation_preview is approved"; "apply to production, do not run the roll back rehersal". The Product Owner reviewed the old-versus-new text in `SEED_REMEDIATION_PREVIEW.md` and declined the rolled-back rehearsal.)  
+**Related Task:** none (content remediation from the AP Biology seeded-variant pilot; see `scripts/content-seed/apbio-seeded-pilot-2026-09-30/PILOT_REPORT.md`, rounds 3 and 4)  
+**Related Decision:** `DECISION-0093`  
+**Decision:** Approved
+
+**Approved scope:** on Production (`pcntajvbdfqhbeewmdry`), run `scripts/content-seed/reviewer-qa-remediation/20261001_apbio_seed_ced_vocabulary_remediation.sql` for exactly five items: `APBIO-MCQ-005`, `APBIO-MCQ-018`, `APBIO-MCQ-021`, `APBIO-MCQ-022`, `APBIO-MCQ-023`. Owner-remediation pattern (new version, never in place). Stimulus, stem and all four choices and rationales are replaced with the text in the preview; the keyed letter of each item is unchanged (005 C, 018 B, 021 C, 022 A, 023 D) and asserted by the script. Each item's labels (validated serving, provisional coverage) are captured in the transaction, restored to their prior status and re-pointed at the new version with their original validation records, and the approval id recorded in each label payload. Unit and topic are not changed. `021` and `023` are replacement items on the same topic.
+
+**Evidence:** the AP Biology CED V.1 (printed pp. 49-51 and a full-text search) does not name isomers, receptor-mediated endocytosis, clathrin, signal peptide / SRP, 70S/80S ribosomes, binary fission, or integral/peripheral proteins; the Product Owner ruled that items stay within CED vocabulary.
+
+**Not approved by this entry:** any other item; the seeded variants going into Production; changes to topic or unit labels; the `005` variant pair (held); any change to the other published Biology seeds (for example `APBIO-MCQ-018` was included, but `APBIO-MCQ-008` and others were not).
+
+**Waiver recorded:** no rolled-back rehearsal was run, at the Product Owner's direction. The script is one transaction with in-script assertions and aborts without writing if any fail.
+
+**How it was used (2026-10-01):** no rolled-back rehearsal (waived by the Product Owner). The real run committed in one transaction: 5 items repaired, 10 labels restored; all in-script assertions passed. Verified afterwards on Production: `APBIO-MCQ-005` v3, `018` v3, `021` v2, `022` v2, `023` v3 are each the only published version, with 4 choices and exactly one correct, and the keyed letter unchanged (005 C, 018 B, 021 C, 022 A, 023 D); no stem/choice desync. Each item's serving label is `validated` and its coverage label `provisional_model`, both pointing at the new version, hash-fresh, with `approval_ref: APPROVAL-0068` and the original validation record. AP Biology counts are unchanged from before the run (118 published versions, 160 published items, 69 validated serving labels, 6 stale labels that are older and unrelated). 5 review decisions written, 0 duplicate published versions, no `anon`/`authenticated` grant on `is_correct`/`rationale`.
 
 ## APPROVAL-0067 — Repair One Distractor Rationale on Published AP Biology MCQ `APBIO-MCQ-023` in Production (Choice A) and Carry Its Labels Forward
 

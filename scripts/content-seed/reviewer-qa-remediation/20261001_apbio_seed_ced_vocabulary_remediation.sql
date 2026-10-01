@@ -1,4 +1,4 @@
--- AP Biology: CED-vocabulary remediation of five published seeds (005, 018, 021, 022, 023), 2026-10-01.   DRAFT -- NOT APPLIED.
+-- AP Biology: CED-vocabulary remediation of five published seeds (005, 018, 021, 022, 023), 2026-10-01.   APPLIED to Production 2026-10-01 under APPROVAL-0068.
 -- Why: the Product Owner ruled on 2026-10-01 that items stay within CED vocabulary. The scope check (round 3, CED V.1 pp. 49-51 and a full-text search)
 -- found these seeds depend on terms the CED does not name: isomer / aldohexose / ketohexose (005); receptor-mediated endocytosis, clathrin, endosome,
 -- HMG-CoA reductase (018); signal peptide, SRP, proteasome (021); 70S/80S ribosomes, binary fission (022); integral/peripheral proteins, detergent,
@@ -16,7 +16,7 @@ select pg_advisory_xact_lock(hashtext('cramapple-apbio-seed-ced-vocab-remediatio
 
 -- >>> EDIT THIS ONE LINE at apply time to the recorded Product Owner approval id; the guard below rejects 'PENDING'. <<<
 create temporary table approval (ref text) on commit drop;
-insert into approval values ('PENDING');
+insert into approval values ('APPROVAL-0068');
 do $$ begin if (select ref from approval) = 'PENDING' then raise exception 'not approved: enter the Product Owner approval reference above'; end if; end $$;
 
 create temporary table newc (content_key text primary key, stimulus text not null, stem text not null) on commit drop;

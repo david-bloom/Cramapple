@@ -27,7 +27,7 @@ select pg_advisory_xact_lock(hashtext('cramapple-apbio-seed-ced-vocab-remediatio
 
 -- >>> EDIT THIS ONE LINE at apply time to the recorded Product Owner approval id; the guard below rejects 'PENDING'. <<<
 create temporary table approval (ref text) on commit drop;
-insert into approval values ('PENDING');
+insert into approval values ('APPROVAL-0068');
 do $$ begin if (select ref from approval) = 'PENDING' then raise exception 'not approved: enter the Product Owner approval reference above'; end if; end $$;
 
 create temporary table newc (content_key text primary key, stimulus text not null, stem text not null) on commit drop;
