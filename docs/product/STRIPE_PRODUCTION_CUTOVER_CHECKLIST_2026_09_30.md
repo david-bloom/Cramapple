@@ -7,24 +7,36 @@
 **Governing records:** `TASK-0041`, `DECISION-0083`, `DECISION-0090`, `DECISION-0091`, `docs/product/LAUNCH_RUNBOOK_2026_10_02.md`
 **Supersedes for this purpose:** `TASK-0023` (background only; TASK-0041 governs where they differ)
 
-## 0. Scope decided 2026-09-30 (David, in chat — to be recorded as a DECISION)
+## 0. Scope decided (David, in chat, 2026-09-30 / 10-01 — to be recorded as a DECISION)
 
-1. **Parent-pays is live on October 2.** All six checkout functions go to Production, not two.
-2. **The 100%-off coupon is entered by the student.** It is not auto-applied. This refines `DECISION-0091`'s open
-   "auto-applied vs. entered" question.
+**Revised plan (supersedes the $0-coupon shape of `DECISION-0091`; amends `DECISION-0071`):**
 
-> Record both as a DECISION entry (next free ID — `DECISION-0093` already exists; verify at write time). Until recorded,
-> they are chat-only direction (session-start rule: a new owner decision must be recorded durably).
+1. **Phase 1 — paid-flow pilot.** Orly gives a **$1 coupon, capped at 10 redemptions**, to a small group of friends, who
+   sign up promptly. It is "basically free" but a **real card charge**, so it exercises the live payment path.
+2. **Phase 2 — public launch at 50% off through October**, after the pilot shows checkout works.
+3. **Parent-pays is live** (all six functions go to Production).
+4. The code is **entered by the student** (not auto-applied) and **emailed by Orly**.
 
-Consequences of "entered by student":
-- `create-checkout-session` already supports it: with no `promo_code` input it sets `allow_promotion_codes: true`
-  (`create-checkout-session/index.ts:221-223`). With a code supplied it validates via `promotionCodes.list` and applies it
-  as a `discount`. **Both paths must be tested at $0** (§3, step 1b).
-- **Orly emails the code to students** (David, 2026-09-30). Consequences: the code leaves our control the moment it is
-  sent, so the redemption cap and expiry in §4 are the only real access control; the checkout page must not imply the
-  code is public; and the code string itself must never be written into this repo (docs, logs, tests, commits).
-  Orly needs the code only after Gate D passes, and an approved list or count of recipients to size the cap against.
-- A coupon that anyone can enter is, in effect, public. Cap redemptions and set an expiry (§4).
+> Record as a DECISION (next free ID — `DECISION-0093` already exists; verify at write time) that supersedes
+> `DECISION-0091` and amends the runbook's Oct 2 shape. Until recorded it is chat-only direction.
+
+**What changes because the pilot uses $1 instead of $0:**
+- The unproven $0 / `no_payment_required` path (H6) is **no longer on the critical path** — keep it as optional Dev work.
+- The real-card, `paid` webhook path is what gets proven. That is the exact path the 50% launch depends on.
+- The 10 charges are an opportunity to test **refund → entitlement revocation** live (refund one deliberately).
+
+**Constraints this creates (see §4 and §7):**
+- `create-checkout-session` supports student-entered codes (`allow_promotion_codes: true` when none is passed;
+  `index.ts:221-223`), and `create-parent-payment-link` accepts a `promo_code` too.
+- **The $1 total only holds for a single-subject cart.** A fixed `amount_off` coupon removes a fixed amount, so it can
+  only land on exactly $1.00 against one $39.99 price. On a 2- or 3-subject bundle it would leave ~$31 or ~$51.
+  Restrict the coupon to the single-subject products (Stripe `applies_to`) so bundle carts reject it.
+- **The $30 add-on will be offered to the pilot group, and it charges for real.** `create-post-purchase-addon` charges a
+  fixed `ADDON_AMOUNT_CENTS = 3000` off-session against the card saved at checkout, and the offer appears after any
+  single-subject `student_direct` **paid** purchase. Decide deliberately whether pilot users see it (see §7).
+- The code leaves our control when emailed: the 10-use cap and an expiry are the only access control. The code string
+  must never be written into this repo (docs, logs, tests, commits).
+- Pilot users pay with real cards. Terms, refund handling, and receipts must exist before the first charge (§7).
 
 ## 1. Verified state (2026-09-30, read-only against Supabase)
 
@@ -73,6 +85,10 @@ Production is running the pre-redesign Stripe code (August). The redesign work i
 Owner: David deploys; Claude verifies against the database.
 
 1. Deploy to Dev (command in PR #284): `stripe-webhook`, `get-checkout-status`.
+   - 1.0 **$1 coupon, single-subject cart, real test card** (the pilot path): code typed into the promo field → total
+     $1.00 → `payment_status = paid` → one entitlement → `get-checkout-status` = `paid`. Also confirm a **bundle cart
+     rejects** the $1 code.
+   - *Optional now (not pilot-critical):* 1a/1b below test the $0 path.
    - 1a. **$0, code passed at session creation.** Sandbox 100%-off promo code → session completes → `payment_status =
      no_payment_required` → entitlements active → `get-checkout-status` reports `paid`.
    - 1b. **$0, code typed into the Elements promo field** (the real student path). Same expectations.
@@ -85,7 +101,7 @@ Owner: David deploys; Claude verifies against the database.
 5. **Replay/idempotency:** resend a webhook; no double grant. **Refund:** `charge.refunded` revokes.
 6. Anonymous caller can't read another student's checkout status.
 
-Exit: all of the above green, with session/event IDs written into this doc.
+Exit: steps 1.0 and 2-6 green (1a/1b optional), with session/event IDs written into this doc.
 
 ## 4. Gate B — Stripe live-mode setup (David, in the Stripe dashboard)
 
@@ -95,9 +111,12 @@ Claude has no Stripe access this session and cannot verify any of this. Everythi
 - [ ] **Live catalog** matches `DECISION-0083` prices: **$39.99 single / $69.99 two-bundle / $89.99 three-bundle**. (The
       older `DECISION-0069` prices of $79.99/$99.99 are superseded — confirm none were created.) Day-1 subjects are AP
       Biology and AP Statistics; any other subject the checkout can sell needs a live price or must be hidden.
-- [ ] **Live coupon:** 100% off, `duration: once`, **restricted to the Day-1 subject products**, with a
-      **max-redemptions cap** and **expiry date**. Create the **promotion code** (the string students type); consider
-      one redemption per customer. The code string is a Hard-Gate secret-ish value: do not paste it into logs.
+- [ ] **Pilot coupon:** fixed **`amount_off` = single-subject price − $1.00** (e.g. $38.99 off a $39.99 price), `duration: once`,
+      **restricted via `applies_to` to the single-subject products** (confirm bundles are separate products), **max
+      redemptions = 10**, **expiry date**, one redemption per customer. Create the **promotion code** string students type.
+      Do not paste the string into logs or this repo. Stripe's card minimum ($0.50) is satisfied at $1.00; expect ~$0.33
+      in fees per charge.
+- [ ] **Phase 2 coupon** (50% off through October): create later, after the pilot; `percent_off: 50`, expiry Oct 31.
 - [ ] **Live webhook endpoint:** `https://pcntajvbdfqhbeewmdry.supabase.co/functions/v1/stripe-webhook`, subscribed to
       exactly the events the handler processes: `checkout.session.completed`,
       `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`,
@@ -152,24 +171,35 @@ Test-mode keys must not ship in the published build.
 
 Labeled launch-QA student, real public route, live mode. David must perform any step that charges a card.
 
-- [ ] New student → `/checkout` → picks Biology + Statistics → **types the live code** → total shows $0.00 → completes.
-- [ ] `payment_status = no_payment_required`; `stripe_checkout_sessions` row; **active Biology and Statistics entitlements**;
+- [ ] David, as a launch-QA student: `/checkout` → one subject → **types the live $1 code** → total shows $1.00 →
+      pays with his own card.
+- [ ] `payment_status = paid`; `stripe_checkout_sessions` row; **active entitlement for that subject**;
       `get-checkout-status` = `paid`; a graded attempt is accepted (the runbook's entitlement-to-grading stop condition).
-- [ ] Wrong/expired/over-cap code shows a clear error and charges nothing.
-- [ ] Parent-share path with a live $0 code, or one real charge by David on his own card, then refunded to prove revocation
-      (David's decision; Claude cannot make payments).
+- [ ] Bundle cart with the $1 code is rejected; wrong/expired/over-cap code shows a clear error and charges nothing.
+- [ ] **Refund that $1 charge** → entitlement revoked (`charge.refunded`).
+- [ ] Parent-share path: a parent (David on a second card/device) pays via the link; student receives the entitlement;
+      no `stripe_customers` row for the parent. Claude cannot make payments.
+- [ ] Add-on behavior is what §7 decided (offered and charges $30, or hidden).
 - [ ] Webhook delivery log in Stripe shows 2xx; `stripe_webhook_events` rows `processed`; no `failed` rows.
 - [ ] Clean up the QA student's records only after checking H7 classification.
 
 ## 7. Open questions (David)
 
-1. ~~How do students get the code?~~ **Answered:** Orly emails it. Still open: how many recipients, and whether the
-   email goes out only after Gate D passes (recommended).
-2. Redemption cap and expiry date for the live coupon (size the cap to Orly's recipient count plus margin).
-3. **D-6, D-9, D-10, D-11** (Payment flow's four open decisions, David-only per the activity log) — are any of them on the
-   Oct 2 path, or all post-launch?
-4. Does the 2-bundle / 3-bundle matter on Oct 2, or can the Day-1 catalog be the single-subject prices only?
-5. Refund/access-duration/parent-purchaser terms (BIZ-001) — still undecided; deferred past launch unless you say otherwise.
+1. ~~How do students get the code?~~ **Answered:** Orly emails it. Send only after Gate D passes.
+2. **Add-on for the pilot group:** the post-purchase **$30 add-on** appears after a single-subject paid purchase and
+   charges the saved card. Show it to friends who paid $1, or hide it for the pilot? (Hiding is a small code/flag change
+   that must be proven in Dev first.)
+3. **Refund policy and terms before the first real charge** (BIZ-001: access duration, refunds, parent purchasers). The
+   pilot is 10 friends; the 50% public launch needs this written.
+4. **Is `/checkout` publicly reachable before the 50% launch?** If the marketing CTAs already route there, a stranger can
+   buy at full price ($39.99) during the pilot. Acceptable, or hide the CTAs until Phase 2?
+5. **Coupon expiry** and which single-subject products it covers (Biology and Statistics?).
+6. **Phase 2 trigger:** what counts as "some success with checkout" (e.g., 8/10 pilot payments complete, entitlement and
+   grading confirmed, one clean refund, zero `failed` webhook rows)?
+7. **D-6, D-9, D-10, D-11** (Payment flow's four open decisions) — which, if any, now sit on the Phase 2 path? D-9
+   (promo code) is clearly relevant to the 50% launch.
+8. Price anchor: confirm the public price list is **$39.99 / $69.99 / $89.99** (`DECISION-0083`), since "50% off" will
+   advertise it.
 
 ## 8. Rollback
 
