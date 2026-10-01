@@ -130,6 +130,7 @@ v("apbio-mcq-sv-021-v1","APBIO-MCQ-021",2,"2.1","deleted signal peptide on a gen
    "Incorrect. Without a functional signal peptide the ribosome is never attached to the ER, so the protein does not reach the lumen at all."),
   ("Amylase is packaged directly into secretory vesicles at the plasma membrane without passing through the ER or Golgi apparatus.",
    "Incorrect. Secretory vesicles carry cargo that has already entered the ER and passed through the Golgi; free cytoplasmic proteins are not loaded into them.")])
+# SUPERSEDED 2026-10-01 by patch_021_v2_ced_level.py (signal peptide is not in the CED); text below is no longer the live 021-v2
 v("apbio-mcq-sv-021-v2","APBIO-MCQ-021",2,"2.1","signal peptide deleted -> signal peptide ADDED to a cytoplasmic enzyme (the converse; stays inside ER targeting, replaces an out-of-scope nuclear-import version)",
  "Secretory proteins are targeted to the rough ER during translation by a hydrophobic N-terminal signal peptide. As the ribosome synthesizes the signal peptide, a signal recognition particle (SRP) binds it and brings the ribosome to the rough ER membrane, and the growing polypeptide is threaded into the ER lumen. A glycolytic enzyme is normally made on free ribosomes and stays in the cytoplasm. A researcher adds the signal peptide of a secretory protein to the start of this enzyme.",
  "Which outcome for the modified enzyme is most likely?",
