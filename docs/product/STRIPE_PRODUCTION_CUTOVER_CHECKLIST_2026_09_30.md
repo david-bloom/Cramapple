@@ -186,16 +186,20 @@ Labeled launch-QA student, real public route, live mode. David must perform any 
 ## 7. Open questions (David)
 
 1. ~~How do students get the code?~~ **Answered:** Orly emails it. Send only after Gate D passes.
-2. **Add-on for the pilot group:** the post-purchase **$30 add-on** appears after a single-subject paid purchase and
+2. **Add-on for the pilot group (needs confirmation).** *Correction:* the offer ("Add another AP subject … $30.00 extra")
+   appears only after a **single-subject** paid purchase; bundle buyers never see it (`get-checkout-status/index.ts:134`,
+   `create-post-purchase-addon/index.ts:56`). A $1 single-subject buyer would see Statistics for $30 (=$31 for two vs. $69.99
+   public). Intended, or hide it? Original question: the post-purchase **$30 add-on** appears after a single-subject paid purchase and
    charges the saved card. Show it to friends who paid $1, or hide it for the pilot? (Hiding is a small code/flag change
    that must be proven in Dev first.)
-3. **Refund policy and terms before the first real charge** (BIZ-001: access duration, refunds, parent purchasers). The
-   pilot is 10 friends; the 50% public launch needs this written.
-4. **Is `/checkout` publicly reachable before the 50% launch?** If the marketing CTAs already route there, a stranger can
-   buy at full price ($39.99) during the pilot. Acceptable, or hide the CTAs until Phase 2?
+3. **Refund policy and terms must exist before live mode is enabled** (BIZ-001: access duration, refunds, parent
+   purchasers) — not just before the 50% launch, because of item 4. Include what happens to a full-price buyer when the
+   50% offer starts (refund, credit, or nothing).
+4. ~~Is `/checkout` publicly reachable?~~ **Answered (David):** yes; strangers may reach it and pay full price ($39.99)
+   during the pilot. Accepted. Consequence: real money from the public starts the moment live mode is on (item 3).
 5. **Coupon expiry** and which single-subject products it covers (Biology and Statistics?).
-6. **Phase 2 trigger:** what counts as "some success with checkout" (e.g., 8/10 pilot payments complete, entitlement and
-   grading confirmed, one clean refund, zero `failed` webhook rows)?
+6. ~~Phase 2 trigger~~ **Answered (David):** success is the Product Owner's judgment call; no automated gate. Claude reports
+   the evidence (paid sessions, `failed` webhook rows, entitlement + graded attempt confirmed, refund result).
 7. **D-6, D-9, D-10, D-11** (Payment flow's four open decisions) — which, if any, now sit on the Phase 2 path? D-9
    (promo code) is clearly relevant to the 50% launch.
 8. Price anchor: confirm the public price list is **$39.99 / $69.99 / $89.99** (`DECISION-0083`), since "50% off" will
