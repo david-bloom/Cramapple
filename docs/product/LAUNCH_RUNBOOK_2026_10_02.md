@@ -10,6 +10,9 @@ Marketing," `61dd6602`) and **`https://app.cramapple.com`** (student app → Lov
 App," `56cae479`). The previously listed `https://ap-prep-canvas.lovable.app/` ("Remix of Cramapple App,"
 `d334fed9`) is **NOT** the production frontend — a live DNS/`curl` check on 2026-09-27 confirmed the
 domains resolve to `61dd6602`/`56cae479`. Re-confirm via DNS before trusting any doc's project citation.
+**SUPERSEDED launch shape (2026-10-01, `DECISION-0094`):** Phase 1 is a $1-coupon pilot for ~10 friends (Orly emails the
+code); Phase 2 is a public launch at 50% off through October. The free-via-100%-coupon text below is no longer current;
+see `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md`.
 **Launch shape (AMENDED 2026-09-30, `DECISION-0091`):** Free to the student, via `/checkout` with a 100%-off
 coupon. `/signup` is retired (`DECISION-0090`). Stripe live-mode setup and the live coupon remain Hard Gates.
 **Day-1 subjects:** AP Biology and AP Statistics, both on flat practice paths
