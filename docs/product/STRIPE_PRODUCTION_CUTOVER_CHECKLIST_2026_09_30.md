@@ -1,6 +1,6 @@
 # Stripe Production Cutover Checklist
 
-**Status:** DRAFT — not approved. No Production change, secret, or Stripe live-mode action has been taken.
+**Status:** DRAFT — scope recorded in `DECISION-0094`; Production steps not approved. No Production change, secret, or Stripe live-mode action has been taken.
 **Tier:** Hard-Gate (payments, Production deploys/migrations, secrets)
 **Owner:** David Bloom (Product Owner, final approver). Drafted by Claude.
 **Date:** 2026-09-30
@@ -111,6 +111,9 @@ Claude has no Stripe access this session and cannot verify any of this. Everythi
 - [ ] **Live catalog** matches `DECISION-0083` prices: **$39.99 single / $69.99 two-bundle / $89.99 three-bundle**. (The
       older `DECISION-0069` prices of $79.99/$99.99 are superseded — confirm none were created.) Day-1 subjects are AP
       Biology and AP Statistics; any other subject the checkout can sell needs a live price or must be hidden.
+- [x] **Pilot coupon created by David (2026-10-01):** **$38.99 off any purchase, 1 per customer, 10 redemptions.** *Open:* Stripe mode
+      (test vs. live) not confirmed; **not restricted to single-subject products**, so a bundle cart with it costs $31.00 (2) or
+      $51.00 (3) instead of $1 — consider `applies_to`; expiry not set. Original spec follows:
 - [ ] **Pilot coupon:** fixed **`amount_off` = single-subject price − $1.00** (e.g. $38.99 off a $39.99 price), `duration: once`,
       **restricted via `applies_to` to the single-subject products** (confirm bundles are separate products), **max
       redemptions = 10**, **expiry date**, one redemption per customer. Create the **promotion code** string students type.
@@ -186,12 +189,8 @@ Labeled launch-QA student, real public route, live mode. David must perform any 
 ## 7. Open questions (David)
 
 1. ~~How do students get the code?~~ **Answered:** Orly emails it. Send only after Gate D passes.
-2. **Add-on for the pilot group (needs confirmation).** *Correction:* the offer ("Add another AP subject … $30.00 extra")
-   appears only after a **single-subject** paid purchase; bundle buyers never see it (`get-checkout-status/index.ts:134`,
-   `create-post-purchase-addon/index.ts:56`). A $1 single-subject buyer would see Statistics for $30 (=$31 for two vs. $69.99
-   public). Intended, or hide it? Original question: the post-purchase **$30 add-on** appears after a single-subject paid purchase and
-   charges the saved card. Show it to friends who paid $1, or hide it for the pilot? (Hiding is a small code/flag change
-   that must be proven in Dev first.)
+2. ~~Add-on for the pilot group~~ **Answered (David):** pilot users who pay $1 for one subject **do** see the $30 "add another
+   subject" offer (single-subject buyers only; `get-checkout-status/index.ts:134`). It charges the saved card for real.
 3. **Refund policy and terms must exist before live mode is enabled** (BIZ-001: access duration, refunds, parent
    purchasers) — not just before the 50% launch, because of item 4. Include what happens to a full-price buyer when the
    50% offer starts (refund, credit, or nothing).

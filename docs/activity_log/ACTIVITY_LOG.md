@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Stripe Production Cutover Checklist Drafted; Launch Shape Revised to a $1 Pilot Then 50% Off (2026-10-01): read-only audit found Production is on the August Stripe code (4 of 6 functions missing, `stripe_customers`/`parent_payment_email_requests`/webhook-replay schema missing). Checklist written; `DECISION-0094` supersedes `DECISION-0091`. No Production, Stripe, or secret change.
 - Calc AB Repair Approved (APPROVAL-0066): `apcalcab-mcq-037` Key Letter, 10 Distractor-Rationale Repairs, Label Carry-Forward (2026-10-01): the Product Owner approved applying the 037 key-letter fix and the 10 audited distractor-rationale repairs (11 items) to Production, plus carrying their serving labels forward; scripts were tested in a rolled-back Production run first. Applied 2026-10-01; verified.
 - Seeded Generation Protocol, 136 + 24 AP Calc AB Items Published, Session Close (2026-09-30): wrote the seeded-item generation protocol, published the Unit 1 batch (136) and 24 seeded variants to Production under the Product Owner's approval (`DECISION-0093`, `APPROVAL-0065`). Keys were never wrong; 10 of 20 audited published seeds have rationale defects and `apcalcab-mcq-037` has a key desync, both handed off as open repairs.
 - PR Triage, TASK-0057 Opened, Stale Branches Retired (2026-09-30): triaged the open PRs against live state. The TASK-0056 migrations were already in Production and the revoke was verified (no answer or rubric column readable by `authenticated`/`anon`); #277, #278, #284, #285, #286 were merged. PR #268 (taxonomy `subject_id` link) was closed unmerged because it added the link without moving any join onto it, and its migration was never applied anywhere. The full three-step fix (link, move every join, CI guard) is now `TASK-0057` (post-launch, PR #288), with an initial inventory of eight live Production functions; `get_home_start_queue` reads the taxonomy without the normalizer. Retired four stale branches after checking each against `main`; the only unique work, Codex Work Orders N/N.1 (Biology serving labels, incomplete), was preserved first (PR #290). No code, migration or deploy. **Next Owner:** David Bloom. **Next Action:** none from this thread; TASK-0057 is post-launch.
@@ -332,6 +333,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Stripe Production Cutover Checklist Drafted; Launch Shape Revised to a $1 Pilot Then 50% Off — 2026-10-01
+
+**Decision:** `DECISION-0094`. **Doc:** `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md`. **Branch:** `claude/stripe-production-cutover`. Documentation only; no Production, Stripe, secret, or migration change.
+
+Read-only Supabase audit (2026-09-30): Production runs `create-checkout-session` v21 and `stripe-webhook` v20 from August; `get-checkout-status`, `create-parent-payment-link`, `send-parent-payment-email`, and `create-post-purchase-addon` are not deployed; `app.stripe_customers`, `app.parent_payment_email_requests`, the `stripe_webhook_events` replay columns, and `app.claim_stripe_webhook_event` are missing (Dev has all). Deploying the new webhook before the three migrations would fail every student checkout. Dev's payment functions run `verify_jwt=false`; Production's `create-checkout-session` is `true`, so every deploy needs `--no-verify-jwt`. Not verified: live-mode Stripe state, Loops, the Lovable frontend.
+
+**Approval state:** Hard Gate. Nothing for Production approved. **Next Owner:** David Bloom. **Next Action:** deploy `stripe-webhook` and `get-checkout-status` to Dev and run a $1 single-subject test-card purchase; confirm the coupon's Stripe mode; write the refund/terms position.
 
 ## Calc AB Repair Approved (APPROVAL-0066): `apcalcab-mcq-037` Key Letter, 10 Distractor-Rationale Repairs, Label Carry-Forward — 2026-10-01
 
