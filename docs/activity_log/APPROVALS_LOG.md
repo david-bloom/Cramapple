@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0067 — Repair One Distractor Rationale on Published AP Biology MCQ `APBIO-MCQ-023` in Production (Choice A) and Carry Its Labels Forward — DECISION-0093
 - APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
 - APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend — DECISION-0093
 - APPROVAL-0064 — TASK-0056 to Production (Three Migrations) and the `evaluate-attempt` F2 Deploy — DECISION-0089
@@ -37,6 +38,20 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0067 — Repair One Distractor Rationale on Published AP Biology MCQ `APBIO-MCQ-023` in Production (Choice A) and Carry Its Labels Forward
+
+**Date:** 2026-10-01  
+**Approved By:** David Bloom (2026-10-01 Claude session: "I approve 023 production change", given in answer to the written scope below: a Production repair of `APBIO-MCQ-023` choice A, with a rolled-back test first, then the real run)  
+**Related Task:** none (content repair from the AP Biology seeded-variant pilot; see `scripts/content-seed/apbio-seeded-pilot-2026-09-30/S0A_AUDIT_REPORT.md`)  
+**Related Decision:** `DECISION-0093`  
+**Decision:** Approved
+
+**Approved scope:** on Production (`pcntajvbdfqhbeewmdry`), run `scripts/content-seed/reviewer-qa-remediation/20261001_apbio_mcq_023_choice_a_rationale_repair.sql` for exactly one item, `APBIO-MCQ-023`. Owner-remediation pattern (new version, never in place). Only choice A's rationale text changes; the key (D), all choice texts and all `is_correct` flags are unchanged. The item's two labels (a validated serving label, a provisional coverage label) are restored to their prior status and re-pointed at the new version, with their original validation record, and the approval id recorded in each label's payload.
+
+**Evidence:** both checkers (Gemini 3.5 Flash, DeepSeek V4 Pro) flagged the same rationale; verified by hand: the old text said that not being labeled by impermeant biotin does not distinguish extracellular from cytoplasmic facing for a transmembrane protein, which is false because the reagent labels extracellular-facing domains. The first sentence of that rationale (integral proteins need detergent) was correct and is kept.
+
+**Not approved by this entry:** any other item; the published seed `APBIO-MCQ-018` wording (noted separately); any variant going into Production; changes to the provisional seed topic labels.
 
 ## APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward
 
