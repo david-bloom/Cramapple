@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
 - APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend — DECISION-0093
 - APPROVAL-0064 — TASK-0056 to Production (Three Migrations) and the `evaluate-attempt` F2 Deploy — DECISION-0089
 - APPROVAL-0063 — TASK-0056 in Development (Parity Replay, Reviewer Function, Revoke) and the Lovable Reviewer-Read Edit — DECISION-0089
@@ -36,6 +37,20 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward
+
+**Date:** 2026-10-01  
+**Approved By:** David Bloom (2026-09-30/10-01 Claude session: "Plan approved" for the 037 + TASK-0053 repair plan; "Yes, replace the two unexplained wrong-answer numbers in 031"; "Yes, draft the label carry-forward"; "Yes, do a rolled-back test run on Production"; and, to apply: "for calc, you register my approval in the activity log, put the id in the carry-forward approval and then you run the two scripts")  
+**Related Task:** `TASK-0053` (distractor-specific MCQ feedback shows these rationales to students); handoff open items 1 and 2 of `SESSION_CLOSE_2026_09_30_SEEDED_GENERATION.md`  
+**Related Decision:** `DECISION-0093`  
+**Decision:** Approved
+
+**Approved scope:** on Production (`pcntajvbdfqhbeewmdry`), run `scripts/content-seed/reviewer-qa-remediation/20260930_apcalcab_037_key_and_distractor_rationale_repair.sql` and then `20260930_apcalcab_label_carry_forward.sql` for exactly 11 items: `apcalcab-mcq-005, 007, 008, 016, 026, 030, 031, 037, 038, 080, np2-006`. Owner-remediation pattern (new version per item, never an in-place edit). Keys and `is_correct` flags unchanged. `037`: `canonical_answer_1` A to B (records only; grading reads `is_correct`). Distractor rationales corrected on 10 items. `031`: two distractor values with no derivation (-5.34, -3.81) replaced by 7.62 and -2.04 (approved). Serving labels carried forward: 5 `validated` items keep their original validation record (a human validation carried across a rationale-only change, hereby approved), 6 `provisional_model` items restored; no relabelling.
+
+**Evidence:** `scripts/content-seed/calc-ab-pilot-2026-09-30/PILOT_REPORT.md`, `.../calc-ab-seed-audit-2026-09-30/AUDIT_REPORT.md`; every number independently recomputed; rolled-back run on Production 2026-09-30 (repair + carry-forward together) passed all in-script assertions and left Production unchanged.
+
+**Not approved by this entry:** any other item, subject or unit; the 24 seeded Calc AB variants (to be re-checked against the repaired seeds separately); the unaudited published MCQs; anything touching a class B/C seed.
 
 ## APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend
 
