@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Seeded-Variant Runs: Status by Subject Documented; AP Biology Pilot Closed (2026-10-01): added protocol section 10, a table of which subjects have had a variant run (AP Calculus AB partly, AP Biology Units 1-2) and which still need one (Calculus BC, Chemistry, Physics 1, Physics 2, Physics C E&M, Physics C Mechanics, Precalculus, Statistics), plus a pre-run checklist. The label probe on the final AP Biology text is prepared (`probe_items_final.json`) but needs a run from the Product Owner's laptop.
 - AP Biology Seeded-Variant Pilot: Seed Audit, 14 Variants, `APBIO-MCQ-023` Repair Approved (APPROVAL-0067) (2026-10-01): S0a found 7 of 8 Biology seeds clean and 1 defective rationale (`APBIO-MCQ-023` choice A, both models); 14 class-A variants written and content-checked by both models (3 DeepSeek-only wording defects fixed, patched items re-checked clean). The Product Owner approved the one-item Production repair, which was applied and verified.
 - Stripe Production Cutover Checklist Drafted; Launch Shape Revised to a $1 Pilot Then 50% Off (2026-10-01): read-only audit found Production is on the August Stripe code (4 of 6 functions missing, `stripe_customers`/`parent_payment_email_requests`/webhook-replay schema missing). Checklist written; `DECISION-0094` supersedes `DECISION-0091`. No Production, Stripe, or secret change.
 - Calc AB Repair Approved (APPROVAL-0066): `apcalcab-mcq-037` Key Letter, 10 Distractor-Rationale Repairs, Label Carry-Forward (2026-10-01): the Product Owner approved applying the 037 key-letter fix and the 10 audited distractor-rationale repairs (11 items) to Production, plus carrying their serving labels forward; scripts were tested in a rolled-back Production run first. Applied 2026-10-01; verified.
@@ -334,6 +335,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Seeded-Variant Runs: Status by Subject Documented; AP Biology Pilot Closed — 2026-10-01
+
+**Doc:** `docs/research/SEEDED_ITEM_GENERATION_PROTOCOL_2026_09_30.md`, new section 10. **PRs:** #303 (merged), #305 (round-5 checks for the `005` variants, plus this documentation). No Production change in this entry; the Production changes of the day are `APPROVAL-0067` and `APPROVAL-0068`.
+
+**Status:** only AP Calculus AB (Unit 1 complete, Units 2-8 sampled with 1 seed each, 24 sampled variants published) and AP Biology (Units 1-2, 16 variants, not loaded) have had a variant run. AP Calculus BC, Chemistry, Physics 1, Physics 2, Physics C E&M, Physics C Mechanics, Precalculus and Statistics have not. FRQs have had none.
+
+**Open:** label probe on the final AP Biology text (input `probe_items_final.json`, to be run from the laptop that holds the gateway key); re-check of the 24 Calc variants against the repaired Calc seeds; seed topic relabelling by three-model consensus; whether any variant goes to review (needs its own approval).
 
 ## AP Biology Seeded-Variant Pilot: Seed Audit, 14 Variants, `APBIO-MCQ-023` Repair Approved (APPROVAL-0067) — 2026-10-01
 
