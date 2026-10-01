@@ -33,3 +33,8 @@ Only the two edited items changed; the other 12 are byte-identical (verified by 
 ## A note on the seeds
 The published seed `APBIO-MCQ-018` choice D has the same "never enters the cell at all" overstatement as defect 1, and its stimulus says cholesterol is "liberated in the cytoplasm".
 Neither model flagged the seed. It is minor, and I have not changed it; it is a candidate for the same owner-remediation path if you want it tightened.
+
+## Re-check of the two patched items (2026-10-01)
+`apbio-mcq-sv-018-v1` and `apbio-mcq-sv-021-v2`, full blind solve + rationale audit by both models (`out_recheck/results.jsonl`): **8 of 8 calls succeeded; both models solved both items to the key; 0 rationale flags and 0 other defects from either model.**
+No regression from the patches (Unit 1 had 3 patch-introduced defects; this round had none). All 14 variants have now passed the content check by both models.
+Still to run before any variant is eligible for review: CED conformance (two model families, Biology fact pack) and the label-inheritance probe, on all 14.
