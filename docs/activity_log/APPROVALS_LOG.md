@@ -52,6 +52,8 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other item, subject or unit; the 24 seeded Calc AB variants (to be re-checked against the repaired seeds separately); the unaudited published MCQs; anything touching a class B/C seed.
 
+**How it was used (2026-10-01):** both scripts ran on Production as one transaction (all in-script assertions passed): 11 items got a new published version, 11 serving labels restored and re-pointed (5 `validated` with their original validation record, 6 `provisional_model`). Verified afterwards: one published version per item; `canonical_answer_1` equals the correct choice on all 11 (`037` is now `B`); `is_correct` unchanged; 0 stem/choice desync; 0 stale hashes on the 5 validated labels; no stale Calc AB serving labels; no `anon`/`authenticated` grant on `is_correct`/`rationale`. Calc AB counts unchanged: 279 published, 196 unit-gated servable, 198 validated labels. `030`'s provisional label never had a hash (pre-existing, unchanged). A rolled-back run on 2026-09-30 preceded the real run.
+
 ## APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend
 
 **Date:** 2026-09-30  
