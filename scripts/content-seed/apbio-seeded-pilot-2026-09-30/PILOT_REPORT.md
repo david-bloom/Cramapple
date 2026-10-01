@@ -36,17 +36,26 @@ Re-run on all 16 variants with the annotated pack. Results: 9 of 16 pass both mo
 
 **Policy decision for the Product Owner (new):** the published seeds 005, 018, 021, 022 and 023 themselves rely on terms the CED does not name, and their variants inherit that. Either (a) accept items that supply a beyond-CED mechanism in the stem and test only CED-level reasoning on it (how AP stimulus-based questions work, but the protocol then needs a rule), or (b) keep items to CED vocabulary and rewrite or remediate them as was done for 021-v2. 021-v1 and the seed 021 depend on the mechanism itself rather than only supplying it, so they are the weakest cases.
 
+## Round 4 (2026-10-01): Product Owner policy "stay within CED vocabulary"
+
+Decision: items must not rely on terms the CED does not name, even when the stem supplies them. Consequences:
+- **Rewritten to CED vocabulary (6 items + 1 edit), not yet checked by the models:** `018-v1` (transferrin receptor, generic endocytosis), `018-v2` (receptor binds but cannot start endocytosis), `021-v1` (ribosomes cannot attach to the rough ER), `022-v1` (double membrane, circular DNA, ribosomes, independent reproduction), `023-v1` (hydrophobic and hydrophilic regions of an embedded protein, CED 2.3.A.2), `023-v2` (R-group pattern of a channel protein). `008-v1` choice B changed from disulfide to ionic bonding (letters unchanged). Patch: `patch_ced_vocab_round4.py`; items to check: `variants_round4_items.json`. All pass similarity (max 0.39 vs seed, 0.38 vs other variants) and length parity (ratio <= 1.37).
+- **What the rewrites give up:** `018` and `023` lose the clathrin / endosome / fractionation-assay reasoning, so they test a simpler idea than the seed (receptor needed for uptake; hydrophobic and hydrophilic regions of embedded proteins). `021-v1` and `021-v2` now both test the rough ER route, from different angles. They are variants of the seed's topic, not of its mechanism.
+- **Held, no CED-level version exists:** `005-v1` and `005-v2`. The seed's idea (same formula, different shape, so a protein distinguishes the sugars) is isomerism, which the CED does not name (it has only "topoisomerase"). Any variant keeps that idea.
+- **Seeds:** `APBIO-MCQ-005`, `018`, `021`, `022`, `023` themselves use beyond-CED terms. Under this policy they need owner-remediation (new version, never in place) before further variants are built from them. Not touched; each Production change needs its own approval.
+- **Next:** run the content check and CED check on `variants_round4_items.json` (7 items), then the label probe.
+
 ## Where each variant stands
 | Variant | Content | Scope | Labels (vs seed's probe label) | Status |
 |---|---|---|---|---|
-| 005-v1, 005-v2 | clean | v1 DeepSeek only (isomers, inherited; stem supplies it); v2 clean (round 3) | units ok / 005-v2 units (1) vs seed (1,2); topic 1.4 | ready for review |
-| 008-v1, 008-v2 | clean | v1 DeepSeek only (borderline: disulfide bridges ARE in the CED, 1.7.A.5; choice B's rationale leans on cysteine/sulfur detail); v2 clean (round 3) | 1.7, unit 1 | ready |
+| 005-v1, 005-v2 | clean | v1 DeepSeek only, v2 clean (round 3) but both rest on isomers, which the CED does not name | units ok / 005-v2 units (1) vs seed (1,2); topic 1.4 | **hold** pending seed 005 (policy: CED vocabulary) |
+| 008-v1, 008-v2 | clean | v1 choice B rewritten in round 4 (disulfide -> ionic; unchecked); v2 clean (round 3) | 1.7, unit 1 | ready |
 | 014-v1, 014-v2 | clean | clean (round 2) | unit 2; topic 2.9/2.10 split | ready |
 | 016-v1, 016-v2 | clean | clean | 2.7, unit 2 | ready |
-| 018-v1, 018-v2 | clean (018-v1 patched) | DeepSeek only (receptor-mediated endocytosis, inherited) | 2.8, unit 2 | ready |
-| 022-v1, 022-v2 | clean | v1 DeepSeek only (inherited); v2 clean | 2.10, unit 2 | ready |
-| 023-v1, 023-v2 | clean | DeepSeek only (integral/peripheral, inherited) | 2.3, unit 2 | ready |
-| 021-v1 | clean | **both models** (SRP, signal peptide; round 3) | 2.1, unit 2 | **hold**: outside the CED (decision 1) |
+| 018-v1, 018-v2 | rewritten in round 4 (CED vocabulary; unchecked) | rewritten, unchecked | 2.8, unit 2 | ready |
+| 022-v1, 022-v2 | v1 rewritten in round 4 (unchecked); v2 clean | v1 rewritten, unchecked; v2 clean | 2.10, unit 2 | ready |
+| 023-v1, 023-v2 | rewritten in round 4 (CED vocabulary; unchecked) | rewritten, unchecked | 2.3, unit 2 | ready |
+| 021-v1 | rewritten in round 4 (ribosomes detached from the rough ER; unchecked) | rewritten, unchecked | 2.1, unit 2 | needs round-4 checks |
 | 021-v2 (rewritten 2026-10-01) | clean | **clean, both models** (round 3) | 2.1, unit 2 | ready for review |
 **16 of 16 ready for review preparation; 2 of them (`021-v1`, `021-v2`) conditional on decision 1.** (Originally 14 ready and 2 held; the hold was released on 2026-10-01 after the Product Owner's direction below.)
 
