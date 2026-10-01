@@ -21,7 +21,7 @@ select pg_advisory_xact_lock(hashtext('cramapple-apcalcab-label-carry-forward-20
 
 -- >>> EDIT THIS ONE LINE at apply time to the recorded Product Owner approval id; the guard below rejects 'PENDING'. <<<
 create temporary table approval (ref text) on commit drop;
-insert into approval values ('PENDING');
+insert into approval values ('APPROVAL-0066');
 
 do $$ begin
   if (select ref from approval) = 'PENDING' then
