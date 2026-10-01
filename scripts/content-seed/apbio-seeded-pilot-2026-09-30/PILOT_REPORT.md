@@ -44,19 +44,23 @@ Decision: items must not rely on terms the CED does not name, even when the stem
 - **Held, no CED-level version exists:** `005-v1` and `005-v2`. The seed's idea (same formula, different shape, so a protein distinguishes the sugars) is isomerism, which the CED does not name (it has only "topoisomerase"). Any variant keeps that idea.
 - **Seeds:** `APBIO-MCQ-005`, `018`, `021`, `022`, `023` themselves use beyond-CED terms. Under this policy they need owner-remediation (new version, never in place) before further variants are built from them. Not touched; each Production change needs its own approval.
 - **Seed remediation drafted, NOT applied:** `scripts/content-seed/reviewer-qa-remediation/20261001_apbio_seed_ced_vocabulary_remediation.sql` rewrites seeds 005, 018, 021, 022 and 023 as new versions (owner-remediation pattern, keyed letters unchanged and asserted, labels captured and restored). Approval reference is `PENDING`, so it refuses to run. Old-versus-new text: `SEED_REMEDIATION_PREVIEW.md`. Syntax parse-checked only; no rolled-back rehearsal yet. `021` and `023` are replacement items on the same topic. After the seeds are applied, the 005 pair of variants (and the round-4 variants) should be re-derived or re-checked against the new seeds.
-- **Next:** run the content check and CED check on `variants_round4_items.json` (7 items), then the label probe.
+- **Round 4 results (run 2026-10-01):** content check clean for all 7 (both models solved to the key; audits found nothing). Scope: 018-v1, 018-v2, 023-v1, 023-v2 and 008-v1 pass both models. DeepSeek alone flags two:
+  - `021-v1` (0.90): says the item depends on signal sequence / SRP / co-translational targeting. The item never mentions any of these; the stem states the route (rough ER, Golgi, vesicles), and the keyed answer rests on CED 2.1.A.1, 2.1.A.3, 2.1.A.4 and 6.4.A.1 (translation on cytoplasmic ribosomes and on the rough ER surface). I read the flag as an over-read prompted by the fact-pack note that names those terms as out of scope. Kept; Gemini passes.
+  - `022-v1` (0.70, low confidence): says the evidence lines are not in the pack. Every term is in the CED (double membrane 2.1.A.5 / 2.1.A.8, endomembrane 2.1.A.2, endocytosis 2.5.B.1, circular chromosome 6.1.A.1, ribosomes 2.1.A.1, endosymbiosis 2.10.A.1). What the CED does not state is which membrane layer came from the host; the stem supplies that and the item tests the inference. Kept for reviewer judgement. `022-v2` is the cleaner CED-level test of the same topic.
+  - Label probe on the rewritten items has NOT been run.
+- **Superseded next step (done):** run the content check and CED check on `variants_round4_items.json` (7 items), then the label probe.
 
 ## Where each variant stands
 | Variant | Content | Scope | Labels (vs seed's probe label) | Status |
 |---|---|---|---|---|
 | 005-v1, 005-v2 | clean | v1 DeepSeek only, v2 clean (round 3) but both rest on isomers, which the CED does not name | units ok / 005-v2 units (1) vs seed (1,2); topic 1.4 | **hold** pending seed 005 (policy: CED vocabulary) |
-| 008-v1, 008-v2 | clean | v1 choice B rewritten in round 4 (disulfide -> ionic; unchecked); v2 clean (round 3) | 1.7, unit 1 | ready |
+| 008-v1, 008-v2 | clean (round 4 solve + audit, both models) | clean, both models (round 4); v2 clean (round 3) | 1.7, unit 1 | ready |
 | 014-v1, 014-v2 | clean | clean (round 2) | unit 2; topic 2.9/2.10 split | ready |
 | 016-v1, 016-v2 | clean | clean | 2.7, unit 2 | ready |
-| 018-v1, 018-v2 | rewritten in round 4 (CED vocabulary; unchecked) | rewritten, unchecked | 2.8, unit 2 | ready |
-| 022-v1, 022-v2 | v1 rewritten in round 4 (unchecked); v2 clean | v1 rewritten, unchecked; v2 clean | 2.10, unit 2 | ready |
-| 023-v1, 023-v2 | rewritten in round 4 (CED vocabulary; unchecked) | rewritten, unchecked | 2.3, unit 2 | ready |
-| 021-v1 | rewritten in round 4 (ribosomes detached from the rough ER; unchecked) | rewritten, unchecked | 2.1, unit 2 | needs round-4 checks |
+| 018-v1, 018-v2 | clean (round 4 solve + audit, both models) | clean, both models (round 4) | 2.8, unit 2 | ready |
+| 022-v1, 022-v2 | clean (round 4) | v1 DeepSeek only (0.70, low confidence; see round 4 adjudication); v2 clean | 2.10, unit 2 | ready |
+| 023-v1, 023-v2 | clean (round 4 solve + audit, both models) | clean, both models (round 4) | 2.3, unit 2 | ready |
+| 021-v1 (rewritten) | clean (round 4) | DeepSeek only (0.90; see round 4 adjudication) | 2.1, unit 2 | ready for review, flag noted |
 | 021-v2 (rewritten 2026-10-01) | clean | **clean, both models** (round 3) | 2.1, unit 2 | ready for review |
 **16 of 16 ready for review preparation; 2 of them (`021-v1`, `021-v2`) conditional on decision 1.** (Originally 14 ready and 2 held; the hold was released on 2026-10-01 after the Product Owner's direction below.)
 
