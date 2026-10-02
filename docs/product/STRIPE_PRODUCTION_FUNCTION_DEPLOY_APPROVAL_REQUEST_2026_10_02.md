@@ -1,6 +1,6 @@
 # Approval Request — Deploy the Six Stripe Functions to Production (two tranches)
 
-**Status:** **Tranche 1 APPROVED 2026-10-02 (`APPROVAL-0070`); tranche 2 NOT approved.** Outcome: `docs/activity_log/APPROVALS_LOG.md`.
+**Status:** **Tranche 1 APPROVED, DEPLOYED and VERIFIED 2026-10-02 (`APPROVAL-0070`); tranche 2 NOT approved.** Outcome: `docs/activity_log/APPROVALS_LOG.md`.
 **Requested by:** Claude (Main Conductor). **Approver:** David Bloom (Product Owner).
 **Approval ID:** `APPROVAL-0070` (tranche 1).
 **Governing records:** `TASK-0041`, `DECISION-0094`, `APPROVAL-0069` (schema, already applied), `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md` (Gate C, step E)
