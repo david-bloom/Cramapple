@@ -1,6 +1,6 @@
 # Approval Request — Deploy the Six Stripe Functions to Production (two tranches)
 
-**Status:** **Tranche 1 APPROVED, DEPLOYED and VERIFIED 2026-10-02 (`APPROVAL-0070`); tranche 2 NOT approved.** Outcome: `docs/activity_log/APPROVALS_LOG.md`.
+**Status:** **Tranche 1 APPROVED, DEPLOYED and VERIFIED 2026-10-02 (`APPROVAL-0070`). Tranche 2: REQUESTED (section 9), not approved.** Outcome: `docs/activity_log/APPROVALS_LOG.md`.
 **Requested by:** Claude (Main Conductor). **Approver:** David Bloom (Product Owner).
 **Approval ID:** `APPROVAL-0070` (tranche 1).
 **Governing records:** `TASK-0041`, `DECISION-0094`, `APPROVAL-0069` (schema, already applied), `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md` (Gate C, step E)
@@ -93,3 +93,53 @@ the open-hand migration; the `student-session-items` function; any `db push`; th
 
 Reply with an explicit yes. You can approve **tranche 1 now** and **tranche 2 later** (recommended): e.g., "Approved — deploy tranche 1."
 I will then record `APPROVAL-0070`, hand you the commands, verify, and report each check.
+
+## 9. Tranche 2 request (ready for approval; proposed ID `APPROVAL-0071`)
+
+**Deploy from `main`** (it now includes the partial-refund fix, PR #310, proven on Dev). Each with `--no-verify-jwt --use-api`, from a clean checkout of `main`, in this order:
+
+| # | Function | Production today | After | Can charge? |
+|---|---|---|---|---|
+| 1 | `stripe-webhook` | v21 (tranche 1, **old refund behavior**) | partial-refund fix | no |
+| 2 | `create-checkout-session` | v21 (August) | new Elements code | yes (needs the Lovable publish to be reachable) |
+| 3 | `create-post-purchase-addon` | not deployed | new | yes, $30 off-session |
+| 4 | `create-parent-payment-link` | not deployed | new | **yes: turns on "Ask a parent to pay" immediately** |
+
+```bash
+cd /Users/davidbloom/Documents/Cramapple.nosync && git switch main && git pull --ff-only
+for f in stripe-webhook create-checkout-session create-post-purchase-addon create-parent-payment-link; do
+  supabase functions deploy $f --project-ref pcntajvbdfqhbeewmdry --no-verify-jwt --use-api --workdir "$PWD"
+done
+```
+
+(Claude can run these on request, as for tranche 1.)
+
+### 9.1 Prerequisites (section 4), status 2026-10-02
+
+| Prerequisite | Status | Evidence |
+|---|---|---|
+| Secret-key and webhook-secret values correct and distinct | **Done, partly unverifiable** | Fingerprints differ (were identical, which was wrong). That the key is live and the signing secret matches the live endpoint cannot be seen from here; Gate D proves it |
+| Live webhook endpoint, 5 events | **Done** (David) | added `charge.refunded` |
+| Live price IDs in the catalog | **Done** | fingerprint equals the validated JSON |
+| Refund / terms position | **Done** | refund text is live in the Terms (David) |
+| "Free until November" copy removed | **Done** (David) | |
+| `support@cramapple.com` receives mail | **Not done**: David reported he did not get the test email | refund text names this address |
+| Lovable stays unpublished until verified | **Holding**: key is in `.env`; publish is the step that enables card payment | |
+
+### 9.2 What is still unproven
+- The student-direct Elements checkout has never run end to end (no Dev-pointed frontend). Its first real run is Gate D.
+- Whether the new `STRIPE_SECRET_KEY` is a live key. A wrong-mode key would make the live publishable key on the page fail at confirm, or create test sessions.
+- The live webhook signing secret matching the Production secret. If wrong: money charged, no access. Gate D catches this with a $1 charge you can refund.
+
+### 9.3 Verification after the deploys (Claude, read-only, no Stripe call)
+Versions advanced; `verify_jwt = false` on all four; deployed source re-downloaded and `diff -r` against `main`; an empty-body POST to each of `create-checkout-session` (400 `invalid_mode`), `create-parent-payment-link` (400 `invalid_mode`) and `create-post-purchase-addon` (400 `invalid_request`), all rejected before any Stripe call (code order checked); Production data counts unchanged (5 events, 5 sessions, 253 entitlements, `stripe_customers` 0).
+
+### 9.4 Risk and rollback
+- **"Ask a parent to pay" works as soon as #4 deploys** and the page already shows the button. With a correct live key and webhook this is fine; with a wrong one it takes real money and grants nothing. To hold it back, deploy 1-3 now and #4 after Gate D.
+- Rollback: `create-checkout-session` and the old `stripe-webhook` sources are in `scripts/stripe-cutover/prod-rollback-2026-10-02/`; v21 `stripe-webhook` is also `main` at `0bfe8511`. Delete the two new functions to restore today's behavior.
+
+### 9.5 Not authorized by this request
+The Lovable publish, the Orly email, any Stripe dashboard action, any secret change, the open-hand migration, `student-session-items`, `db push`, the go/no-go.
+
+### 9.6 To approve
+Reply with an explicit yes. You can approve all four, or approve 1-3 now and #4 later.

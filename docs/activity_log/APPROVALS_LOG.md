@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0071 — Deploy Stripe Functions to Production, Tranche 2 (`stripe-webhook` with the partial-refund fix, `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link`) — DECISION-0094
 - APPROVAL-0070 — Deploy Stripe Functions to Production, Tranche 1 Only (`stripe-webhook`, `get-checkout-status`, `send-parent-payment-email`) — DECISION-0094
 - APPROVAL-0069 — Apply the Three Stripe Payment-Schema Migrations to Production (TASK-0041 Cutover, Gate C Step D) — DECISION-0094
 - APPROVAL-0068 — Replace the Text of Five Published AP Biology Seeds in Production With CED-Vocabulary Versions (`APBIO-MCQ-005`, `018`, `021`, `022`, `023`) and Carry Their Labels Forward — DECISION-0093
@@ -41,6 +42,38 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0071 — Deploy Stripe Functions to Production, Tranche 2 (`stripe-webhook` with the partial-refund fix, `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link`) — DECISION-0094
+
+**Date:** 2026-10-02
+**Approved By:** David Bloom ("I approve all 4, you run the deploy", 2026-10-02 Claude session)
+**Related Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Related Decision:** `DECISION-0094`; predecessors `APPROVAL-0069` (schema), `APPROVAL-0070` (tranche 1)
+**Request:** `docs/product/STRIPE_PRODUCTION_FUNCTION_DEPLOY_APPROVAL_REQUEST_2026_10_02.md` section 9
+**Decision:** Approved — all four functions, Claude to run the deploy
+
+**Approved scope:** deploy `stripe-webhook`, `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link` from `main` to Production (`pcntajvbdfqhbeewmdry`), in that order, each with `--no-verify-jwt --use-api`. Verification is read-only: empty-body probes (rejected before any Stripe call) and a source diff against `main`.
+
+**David's acknowledged risk:** "Ask a parent to pay" starts working as soon as `create-parent-payment-link` deploys; strangers may pay full price (`DECISION-0094`). The live key mode, the webhook signing-secret match and the Elements checkout are unproven until the Gate D $1 test.
+
+**NOT approved by this entry:** the Lovable publish (enables card payment), the Orly email, any Stripe dashboard action, any secret change, the open-hand migration, `student-session-items`, `db push`, the go/no-go.
+
+**Outcome (2026-10-02):** all four deployed by Claude from a clean copy of `main` (`fc2f3a6c`, includes the partial-refund fix from PR #310), each with `--no-verify-jwt --use-api`, in the approved order.
+
+| Function | Before | After | `verify_jwt` | Deployed source vs `main` |
+|---|---|---|---|---|
+| `stripe-webhook` | v21 (tranche 1) | new revision, **partial-refund fix present** | false | `index.ts` + 10 shared files identical |
+| `create-checkout-session` | v21 (August) | new revision (Elements code) | false | identical |
+| `create-post-purchase-addon` | not deployed | **new** | false | identical |
+| `create-parent-payment-link` | not deployed | **new** | false | identical |
+
+(Supabase bumps every function's revision number when a secret is set, so version numbers rose on unrelated functions too; their source hashes did not change.)
+
+**Checks (all passed):** empty-body POSTs return 400 (`invalid_mode`, `invalid_mode`, `invalid_request`) and the webhook returns 400 `invalid_signature` without a signature, all rejected before any Stripe call. Production counts unchanged: 5 webhook events (all processed), 5 sessions, 253 entitlements, `stripe_customers` 0.
+
+**Observation, not caused by this deploy:** `app.stripe_checkout_session_attempts` has 9 rows from Oct 1–2 UTC (status `started`, none failed). They were made by the previous (August) `create-checkout-session` before this deploy; no payment completed (no new webhook event). Source unknown (David to say whether these were his own tests).
+
+**Still NOT done / NOT approved:** the Lovable publish (card payment stays off on the live page until then), the Orly email, and Gate D (David's own \$1 purchase, then a refund). Unproven until Gate D: the live key mode, the live webhook signing-secret match, and the Elements checkout end to end. Rollback: `scripts/stripe-cutover/prod-rollback-2026-10-02/` (August `stripe-webhook` and `create-checkout-session`); delete the two new functions.
 
 ## APPROVAL-0070 — Deploy Stripe Functions to Production, Tranche 1 Only (`stripe-webhook`, `get-checkout-status`, `send-parent-payment-email`) — DECISION-0094
 
