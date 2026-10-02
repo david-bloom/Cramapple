@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Stripe Live Payment Proven in Production; Refund Round Trip Verified (2026-10-02): David paid \$39.99 with Link on the live checkout, the live webhook processed it, access was granted; a \$10 partial refund kept access (PR #310 fix) and the remaining \$29.99 revoked it. Coupon and new-student paths still untested.
 - Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) (2026-10-02): `stripe-webhook` (partial-refund fix), `create-checkout-session`, `create-post-purchase-addon` and `create-parent-payment-link` deployed and verified (source identical to `main`, 400 probes, no data change, no charge). Production Stripe secrets re-set by David (key/webhook distinct, catalog exact match). Lovable not yet published; Gate D ($1 test) pending.
 - Stripe Functions Tranche 1 Deployed to Production (APPROVAL-0070) (2026-10-02): `stripe-webhook` v21, `get-checkout-status` v1 and `send-parent-payment-email` v1 deployed and verified (source identical to `main`, 400/405 probes, no data change, no charge). Tranche 2 and the Lovable publish remain unapproved.
 - Stripe Payment Migrations Applied to Production (APPROVAL-0069) (2026-10-02): the three TASK-0041 payment-schema migrations were applied to Production and verified (`stripe_customers`, `parent_payment_email_requests`, webhook replay columns + `claim_stripe_webhook_event`). No function, secret, or Stripe change. Next: deploy the six functions from David's Mac, then live Stripe setup.
@@ -338,6 +339,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Stripe Live Payment Proven in Production; Refund Round Trip Verified — 2026-10-02
+
+Evidence is in `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md` ("Gate D evidence, part 1"). A full-price live Link payment ($39.99, Biology, existing admin student) was processed by the live webhook on the first attempt; a $10 partial refund left the entitlement active and the remaining $29.99 refund revoked it. David refunded the whole charge. Found and fixed (Lovable `230e0670`) the email conflict that stopped the card form loading; Bank, Cash App Pay, Klarna and Amazon Pay switched off in Stripe.
+
+**Not approved / still open:** the Orly email; the new-student path (invite email, 6-digit code), which depends on Supabase email delivery (SMTP setting unverified); the $1 coupon on a live checkout; the `support@cramapple.com` alias; the go/no-go. **Next Owner:** David Bloom. **Next Action:** test a brand-new student in a private window with the `?promo=` link and a fresh email; check Supabase Auth SMTP settings.
 
 ## Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) — 2026-10-02
 
