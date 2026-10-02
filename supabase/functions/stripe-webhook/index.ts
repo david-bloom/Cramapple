@@ -3,7 +3,10 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
 import { isPayerNotLearner } from "../_shared/addon-checkout.ts";
-import { isSettledPaymentStatus } from "../_shared/checkout-access.ts";
+import {
+  isFullyRefunded,
+  isSettledPaymentStatus,
+} from "../_shared/checkout-access.ts";
 import {
   webhookDeliveryDisposition,
   type WebhookLedgerStatus,
@@ -72,6 +75,7 @@ type CheckoutSessionObject = {
 type ChargeObject = {
   id: string;
   payment_intent: string | null;
+  amount?: number | null;
   amount_refunded?: number | null;
   currency?: string | null;
   refunded?: boolean;
@@ -490,6 +494,19 @@ async function handleChargeRefunded(
   charge: ChargeObject,
   eventId: string,
 ) {
+  // A partial refund (goodwill, price adjustment) must not end access. The
+  // final refund that completes the charge arrives as its own event with
+  // `refunded: true`, and that one revokes.
+  if (!isFullyRefunded(charge)) {
+    console.warn(
+      "stripe-webhook charge_partially_refunded_access_kept",
+      charge.id,
+      charge.amount_refunded ?? null,
+      charge.amount ?? null,
+    );
+    return;
+  }
+
   const paymentIntentId = charge.payment_intent;
   if (!paymentIntentId) {
     console.warn(
