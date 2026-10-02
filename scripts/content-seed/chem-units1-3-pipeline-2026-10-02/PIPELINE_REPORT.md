@@ -35,3 +35,6 @@ A blind three-family probe over all 119 items put **37 items in Units 1-3** (25 
 ## Not done / needs a decision
 - The 72 variants are NOT loaded. Loading and publishing needs its own approval.
 - Seeds `007` and `028` (scope), 49 of 68 Chemistry MCQs have no `canonical_answer_1` (grading reads `is_correct`, so low risk), 20 stale hashes outside Units 1-3, 14 FRQs in scope were not audited (rubric audit is not part of S0a), FRQ variants not authored.
+
+## Addendum: load and publish (not in the 86 minutes above)
+Loading 72 drafts: 12 chunks, 4 agents, 432,523 tokens, about 7.5 minutes wall; md5 72 of 72. Publish: one guarded transaction (rehearsed). Chemistry published 119 to 191; servable 82 to 154. 49 canonical answers filled (not needed for MCQ grading).

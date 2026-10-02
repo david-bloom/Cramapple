@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0075 — Load and Publish 72 AP Chemistry Units 1-3 Variants; Fill `canonical_answer_1` on 49 Chemistry MCQs (Production) — DECISION-0085
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
@@ -42,6 +43,21 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0075 — Load and Publish 72 AP Chemistry Units 1-3 Variants; Fill `canonical_answer_1` on 49 Chemistry MCQs (Production)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "load the variants"; "We need canonical answers for Chemistry"; "publish")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0074`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** (1) 72 AP Chemistry variant MCQs (keys `apchem-mcq-sv-<seed>-v1..3`; 3 variants of each of 24 seeds; the 3 `007` variants were held out for a CED-scope concern) loaded as drafts in 12 atomic chunks (md5-verified 72 of 72 against the build manifest), then approved, given validated hash-fresh serving labels (units and topics inherited from the seed after a >= 5-of-6 three-family check, 75 of 75) and validated primary topic cells, and published; no difficulty or skill rows were written for them; (2) `canonical_answer_1` filled from the correct choice on 49 published Chemistry MCQs that had none (metadata only, no change to question content), with the 47 fresh serving labels carried forward (all 43 validated labels preserved).
+
+**How it was used:** the publish transaction and the canonical-answer fill were each rehearsed with a rollback, then applied. Chemistry census: published 119 to 191, unit-gated servable 82 to 154, validated labels 85 to 157, stale hashes 20 (unchanged, outside Units 1-3). Loading used four agents (432,523 tokens, 7.5 minutes).
+
+**Finding recorded with this approval:** MCQ grading reads `is_correct` on the choices (`evaluate-attempt`); `canonical_answer_1` is not used to score an MCQ. A sample across subjects shows 7 of 10 already carry a letter on every or nearly every MCQ (0 disagree with `is_correct`); Biology has 3 of 43, Statistics 0 of 304.
+
+**Not approved by this entry:** seeds `007` and `028` (CED-scope question); the 3 held `007` variants; other units or subjects; FRQ variants.
 
 ## APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production)
 
