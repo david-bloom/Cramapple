@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Stripe Payment Migrations Applied to Production (APPROVAL-0069) (2026-10-02): the three TASK-0041 payment-schema migrations were applied to Production and verified (`stripe_customers`, `parent_payment_email_requests`, webhook replay columns + `claim_stripe_webhook_event`). No function, secret, or Stripe change. Next: deploy the six functions from David's Mac, then live Stripe setup.
 - AP Biology Seeded-Variant Pilot: Seed Audit, 14 Variants, `APBIO-MCQ-023` Repair Approved (APPROVAL-0067) (2026-10-01): S0a found 7 of 8 Biology seeds clean and 1 defective rationale (`APBIO-MCQ-023` choice A, both models); 14 class-A variants written and content-checked by both models (3 DeepSeek-only wording defects fixed, patched items re-checked clean). The Product Owner approved the one-item Production repair, which was applied and verified.
 - Stripe Production Cutover Checklist Drafted; Launch Shape Revised to a $1 Pilot Then 50% Off (2026-10-01): read-only audit found Production is on the August Stripe code (4 of 6 functions missing, `stripe_customers`/`parent_payment_email_requests`/webhook-replay schema missing). Checklist written; `DECISION-0094` supersedes `DECISION-0091`. No Production, Stripe, or secret change.
 - Calc AB Repair Approved (APPROVAL-0066): `apcalcab-mcq-037` Key Letter, 10 Distractor-Rationale Repairs, Label Carry-Forward (2026-10-01): the Product Owner approved applying the 037 key-letter fix and the 10 audited distractor-rationale repairs (11 items) to Production, plus carrying their serving labels forward; scripts were tested in a rolled-back Production run first. Applied 2026-10-01; verified.
@@ -334,6 +335,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Stripe Payment Migrations Applied to Production (APPROVAL-0069) — 2026-10-02
+
+**Approval:** `APPROVAL-0069` (`DECISION-0094`). Three additive migrations applied to Production and checked one by one; ledger versions `20261002001232`, `…001253`, `…001308`; 5 existing webhook events backfilled to `processed`; entitlements unchanged (253); service-role-only access on the new objects; no new advisor findings. Dev evidence from the same day: `$1` coupon purchase and refund round trip pass on `stripe-webhook` v25 (PR #306). No function deployed, no secret, no Stripe or Lovable change.
+
+**Approval state:** Hard Gate. Remaining Production steps are unapproved: six function deploys, live secrets, live Stripe setup, Lovable publishable key. **Next Owner:** David Bloom. **Next Action:** deploy the six functions with `--no-verify-jwt`; confirm refund/terms position and live Stripe setup.
 
 ## AP Biology Seeded-Variant Pilot: Seed Audit, 14 Variants, `APBIO-MCQ-023` Repair Approved (APPROVAL-0067) — 2026-10-01
 

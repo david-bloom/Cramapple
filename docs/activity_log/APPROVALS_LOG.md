@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0069 — Apply the Three Stripe Payment-Schema Migrations to Production (TASK-0041 Cutover, Gate C Step D) — DECISION-0094
 - APPROVAL-0068 — Replace the Text of Five Published AP Biology Seeds in Production With CED-Vocabulary Versions (`APBIO-MCQ-005`, `018`, `021`, `022`, `023`) and Carry Their Labels Forward — DECISION-0093
 - APPROVAL-0067 — Repair One Distractor Rationale on Published AP Biology MCQ `APBIO-MCQ-023` in Production (Choice A) and Carry Its Labels Forward — DECISION-0093
 - APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
@@ -39,6 +40,30 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0069 — Apply the Three Stripe Payment-Schema Migrations to Production (TASK-0041 Cutover, Gate C Step D) — DECISION-0094
+
+**Date:** 2026-10-02
+**Approved By:** David Bloom ("approved", in reply to the request in `docs/product/STRIPE_PRODUCTION_MIGRATIONS_APPROVAL_REQUEST_2026_10_02.md`, 2026-10-02 Claude session)
+**Related Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Related Decision:** `DECISION-0094`
+**Decision:** Approved
+
+**Approved scope:** apply to Production (`pcntajvbdfqhbeewmdry`), in order, `20260928134000_task0041_payment_runtime_repair.sql`, `20260928135500_task0041_parent_email_audit.sql` and `20260928191213_task0041_webhook_replay.sql`. File SHA-256s were re-verified against the request immediately before applying.
+
+**How it was used (all three applied 2026-10-02, via `apply_migration`, one transaction each, each checked before the next):**
+
+| File | Ledger version recorded in Production | Result |
+|---|---|---|
+| `…134000_task0041_payment_runtime_repair` | `20261002001232` | `app.stripe_customers` created, RLS on, service-role policy only; existing tables/policies unchanged (5 session rows intact) |
+| `…135500_task0041_parent_email_audit` | `20261002001253` | `app.parent_payment_email_requests` created, RLS on, service-role policy only |
+| `…191213_task0041_webhook_replay` | `20261002001308` | replay columns added; **5 existing events backfilled to `processed`** (attempt_count 1); status CHECK present; `app.claim_stripe_webhook_event(text)` executable by `service_role` only |
+
+**Post-apply checks (all passed):** no `anon`/`authenticated` grants on the new tables; function privilege anon/authenticated/public = false, service_role = true; `subject_entitlements` still 253; security advisor reports no new finding for these objects.
+
+**Known drift (not fixed here):** `apply_migration` stamped its own versions (above), which differ from the committed filenames (`TASK-0055`). No files were renamed and no `db push` was run.
+
+**Not authorized by this entry:** any function deploy; any secret; Stripe live-mode work; the Lovable publish or publishable key; the open-hand migration; any `subject_entitlements` change; the go/no-go.
 
 ## APPROVAL-0068 — Replace the Text of Five Published AP Biology Seeds in Production With CED-Vocabulary Versions (`APBIO-MCQ-005`, `018`, `021`, `022`, `023`) and Carry Their Labels Forward
 
