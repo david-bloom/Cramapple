@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0071 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
 - APPROVAL-0069 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot — DECISION-0093
 - APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
 - APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend — DECISION-0093
@@ -38,6 +39,19 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0071 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "fix them", in answer to the two seed issues raised in the Units 2-3 pilot report)  
+**Related Decision:** `DECISION-0093`  
+**Decision:** Approved
+
+**Approved scope:** on Production (`pcntajvbdfqhbeewmdry`), two items, `scripts/content-seed/calc-ab-units2-3-seeded-2026-10-02/seed_fixes_apply.sql`. (1) `apcalcab-mcq-026`: choice C text `e²` replaced by `2e` (a real error: differentiating only x²), with a derived rationale; new version, never in place; key B, `is_correct` flags and the other choices unchanged; the validated serving label carried forward with its original validation record. (2) `apcalcab-mcq-028`: serving label required units changed from [2, 5] (provisional) to [1, 2], promoted to `validated` on the same basis as `APPROVAL-0065` and `0069` (6 of 6 blind samples from three models; the S0a audit found the item correct).
+
+**How it was used (2026-10-02):** rolled-back rehearsal on Production passed every in-script assertion and left Production unchanged; then applied in one transaction. Calc AB census before to after: unit-gated servable 207 to 208, validated labels 209 to 210, hash mismatches 1 (unchanged, `frq-u13-003`). `026` is now version 3. Choice C's edit goes beyond a rationale rewrite (the choice text changed) because no error pattern produces e².
+
+**Not approved by this entry:** loading or publishing the 30 pilot variants; any other item.
 
 ## APPROVAL-0069 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot
 

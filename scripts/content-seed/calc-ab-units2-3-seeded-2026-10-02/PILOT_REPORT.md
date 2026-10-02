@@ -52,8 +52,8 @@ CED dominates: 1.26M input tokens (the fact pack is in every call), about 90% of
 
 ## Open
 1. Load and publish the 30 variants: needs approval; build on the 9/30 `publish_step.sql` pattern with `label_inheritance.json` (held dimensions stay held). Do **not** re-run `units23.py export` (it re-randomizes letters; `math_items.json` sha256 prefix `d9f8dde6b0bd` before patch, patched in place with `patch_round1.py`).
-2. Seed repair for `026` choice C (owner-remediation, own approval).
-3. Seed `028` unit-set decision; `025-v1` units.
+2. ~~Seed repair for `026` choice C; seed `028` unit set~~ DONE 2026-10-02 (`APPROVAL-0071`, `seed_fixes_apply.sql`): C is now `2e`; 028 is [1,2], validated.
+3. `025-v1` units still held.
 4. `frq-u13-003` (max unit split Unit 2 vs Unit 4) still held.
 5. No `family_id` in the schema: six families now have 5 siblings each. Serving can put several in one session.
 6. Gateway roster has `deepseek/deepseek-v4-pro-0813` and `deepseek/deepseek-v4.1-flash`; kept `deepseek-v4-pro` (the model with measured behaviour here). A re-calibration would be needed before swapping.
