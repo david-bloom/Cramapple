@@ -101,7 +101,43 @@ Owner: David deploys; Claude verifies against the database.
 5. **Replay/idempotency:** resend a webhook; no double grant. **Refund:** `charge.refunded` revokes.
 6. Anonymous caller can't read another student's checkout status.
 
+### Gate A evidence — 2026-10-02 (Dev, Stripe sandbox, `stripe-webhook` v25, `get-checkout-status` v19)
+
+**Path tested: parent-share hosted checkout** (`create-parent-payment-link`). The student-direct Elements path was **not** tested
+(no Dev-pointed frontend; Stripe's Elements UI can't be driven from here).
+
+| Test | Result | Evidence |
+|---|---|---|
+| Full-price paid purchase | **Pass** | `cs_test_b1Rmx…` ($39.99, AP Statistics): `evt_1ULtu6…` `checkout.session.completed` processed, attempt 1; 1 active entitlement (`stripe_checkout_single`); status `paid`/`entitled`; no `stripe_customers` row |
+| $1 coupon typed on the checkout page | **Pass** | `cs_test_b1IkM…` (AP Chemistry): subtotal 3999, discount 3899, **total 100**, promotion code recorded; `evt_1ULty9…` processed, attempt 1; entitlement source `stripe_checkout_single_coupon`; status `paid` |
+| First attempt (code entered but not applied) | n/a | `cs_test_b1Rmx…` was charged $39.99 with `disc=0` — operator error, not a defect |
+| Refund → revoke | **Pass** | `evt_3ULty7…` `charge.refunded` processed, attempt 1; the coupon entitlement `revoked`; status `refunded`/`entitled:false`; the other (full-price) entitlement untouched |
+| Parent card not saved | **Pass** | `app.stripe_customers` gained no rows in either purchase |
+| Parent-share add-on offer | **Pass** (offer `null`, correct) | `get-checkout-status` |
+
+**Observations (not blockers):** `stripe_checkout_sessions.coupon_ids` stays empty even when a promotion code and discount are recorded;
+report coupon usage from `promotion_codes` / `amount_discount`, or from the `*_coupon` entitlement source.
+
+**Not yet proven:** student-direct Elements checkout; the $30 add-on (needs a student-direct paid single-subject purchase);
+bundle cart with the $38.99 coupon; $0 path (optional); replay of a duplicate webhook on the new code; anonymous caller can't read another
+student's status.
+
 Exit: steps 1.0 and 2-6 green (1a/1b optional), with session/event IDs written into this doc.
+
+### Frontend findings — read-only, 2026-10-02 (Lovable marketing project `61dd6602`, source at `be89e6a`, plus the live page)
+
+- **The frontend talks only to Production Supabase** (`pcntajvbdfqhbeewmdry`, hardcoded in `.env`). There is no Dev-pointed build, so the
+  student-direct Elements path **cannot be tested against Dev**. Its first real run will be the Production smoke test (Gate D).
+- **Live student card payment is currently OFF.** `cramapple.com/checkout` shows "Online payment isn't switched on yet. You can still
+  ask a parent to pay below." The Stripe publishable key is read from `VITE_STRIPE_PUBLISHABLE_KEY`, which is not in `.env` (it lives in
+  Lovable's environment). Turning payment on = set it to the **live** publishable key and publish. Do this **last**, after Gate C-E.
+- **"Ask a parent to pay" is visible today but cannot work:** it calls `create-parent-payment-link`, which is not deployed in Production.
+- **Promo codes are applied at session creation.** The page validates the code, then recreates the session with `promo_code`, so
+  `create-checkout-session` takes its `discounts` path (not the in-Elements path). `?promo=` in the URL is also supported. The $0
+  in-Elements question (H6) is therefore moot for the pilot.
+- **Conflicting public copy:** the homepage says "Sign up for free until November. Then a one-time $39.99 per subject after that."
+  That contradicts `DECISION-0094` (strangers pay full price during the pilot, then 50% off through October). Fix before payment is switched on.
+- Pricing shown on the page ($39.99 / $69.99 / $89.99) matches `DECISION-0083`.
 
 ## 4. Gate B — Stripe live-mode setup (David, in the Stripe dashboard)
 
