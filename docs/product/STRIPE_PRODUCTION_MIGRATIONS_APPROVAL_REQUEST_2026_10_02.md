@@ -1,8 +1,8 @@
 # Approval Request — Stripe Payment Schema to Production (3 migrations)
 
-**Status:** REQUESTED — **not approved. Nothing in this document has been run on Production.**
+**Status:** APPROVED and APPLIED 2026-10-02 (`APPROVAL-0069`). Outcome and ledger versions: `docs/activity_log/APPROVALS_LOG.md`.
 **Requested by:** Claude (Main Conductor). **Approver:** David Bloom (Product Owner).
-**Proposed ID when approved:** `APPROVAL-0069` (`0068` is taken on `main`; confirm the next free ID at record time).
+**Approval ID:** `APPROVAL-0069`.
 **Governing records:** `TASK-0041`, `DECISION-0094`, `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md` (Gate C, step D)
 **Tier:** Hard-Gate (Production migration, payments)
 
