@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0070 — Deploy Stripe Functions to Production, Tranche 1 Only (`stripe-webhook`, `get-checkout-status`, `send-parent-payment-email`) — DECISION-0094
 - APPROVAL-0069 — Apply the Three Stripe Payment-Schema Migrations to Production (TASK-0041 Cutover, Gate C Step D) — DECISION-0094
 - APPROVAL-0068 — Replace the Text of Five Published AP Biology Seeds in Production With CED-Vocabulary Versions (`APBIO-MCQ-005`, `018`, `021`, `022`, `023`) and Carry Their Labels Forward — DECISION-0093
 - APPROVAL-0067 — Repair One Distractor Rationale on Published AP Biology MCQ `APBIO-MCQ-023` in Production (Choice A) and Carry Its Labels Forward — DECISION-0093
@@ -40,6 +41,23 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0070 — Deploy Stripe Functions to Production, Tranche 1 Only (`stripe-webhook`, `get-checkout-status`, `send-parent-payment-email`) — DECISION-0094
+
+**Date:** 2026-10-02
+**Approved By:** David Bloom ("yes", in reply to "Do you approve tranche 1?", 2026-10-02 Claude session)
+**Related Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Related Decision:** `DECISION-0094`; schema precondition `APPROVAL-0069`
+**Request:** `docs/product/STRIPE_PRODUCTION_FUNCTION_DEPLOY_APPROVAL_REQUEST_2026_10_02.md`
+**Decision:** Approved — **tranche 1 only**
+
+**Approved scope:** deploy `stripe-webhook`, `get-checkout-status` and `send-parent-payment-email` from `main` (`0bfe8511`) to Production (`pcntajvbdfqhbeewmdry`), each with `--no-verify-jwt --use-api`. None of these creates a charge. Verification afterward is read-only and uses invalid-body probes only.
+
+**NOT approved by this entry (tranche 2, still pending, and gated by the checklist prerequisites):** `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link`. Also not approved: any secret change, any Stripe dashboard action, the Lovable publish, the Orly email, the go/no-go.
+
+**Standing condition recorded:** do not publish the Lovable marketing project until tranche 2 is deployed and verified. The live publishable key is already in the project's `.env` (verified 2026-10-02); the live site still shows "Online payment isn't switched on yet."
+
+**Outcome:** _pending — to be filled in after David runs the deploys and the checks are made._
 
 ## APPROVAL-0069 — Apply the Three Stripe Payment-Schema Migrations to Production (TASK-0041 Cutover, Gate C Step D) — DECISION-0094
 

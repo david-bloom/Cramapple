@@ -1,8 +1,8 @@
 # Approval Request — Deploy the Six Stripe Functions to Production (two tranches)
 
-**Status:** REQUESTED — **not approved. Nothing in this document has been run.**
+**Status:** **Tranche 1 APPROVED 2026-10-02 (`APPROVAL-0070`); tranche 2 NOT approved.** Outcome: `docs/activity_log/APPROVALS_LOG.md`.
 **Requested by:** Claude (Main Conductor). **Approver:** David Bloom (Product Owner).
-**Proposed ID when approved:** `APPROVAL-0070` (confirm the next free ID at record time).
+**Approval ID:** `APPROVAL-0070` (tranche 1).
 **Governing records:** `TASK-0041`, `DECISION-0094`, `APPROVAL-0069` (schema, already applied), `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md` (Gate C, step E)
 **Tier:** Hard-Gate (Production deploy, payments)
 **Deploy source:** `main` at or after `0bfe8511`. `supabase/functions/**` is byte-unchanged since the Dev deploy (`644a052c`); re-checked 2026-10-02.
