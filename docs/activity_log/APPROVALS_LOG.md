@@ -53,6 +53,8 @@ Most recent entries (full chronological list follows below):
 
 **How it was used (2026-10-02):** each step was rehearsed on Production with a rollback, then applied. Bio census before to after: unit-gated servable 43 to 110 of 118, items with no serving label 43 to 0, stale hashes 15 to 4. Five items stay held on a real unit split (`FRQ-L-013`, `FRQ-L-017`, `HDG-008`, `MCQ-017`, `MCQ-088`); 3 hand-drawn items are excluded from text serving by design.
 
+**Skill labels (applied 2026-10-02):** 104 live Bio items carry a `validated` secondary skill cell (`is_primary = false`; the validated primary topic rows are untouched): 56 unanimous, 48 majority-earned (tier recorded in `source`), 49 paired with the registered topic and 55 with the consensus topic. MCQs were labeled from their visible text; FRQs from their text plus scoring criteria, because 45 of 75 FRQs show only a scenario sentence (criteria raised unanimous FRQ agreement 27 to 39 and cut no-majority 12 to 6). Not written: 13 items with no 2-of-3 majority and 1 with no usable topic. `servable_items_census().topic_known_skill_level` stays 0 because it counts only primary cells.
+
 **Finding recorded with this approval:** the registered primary topic cells (validated under `DECISION-0079`) disagree with a 6-of-6 three-family consensus on about 58 live Bio items, 36 of them across units (ten FRQs are registered `1.1`, e.g. barnacles on a whale, a mycorrhizal fungus, frog mating calls, which are ecology and speciation). The registered topics were NOT changed; they need a decision.
 
 **Not approved by this entry:** changing the registered topic cells; retiring the 42 dead `published` Bio rows; other subjects.
