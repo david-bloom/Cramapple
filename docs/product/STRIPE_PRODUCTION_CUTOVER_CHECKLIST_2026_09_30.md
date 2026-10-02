@@ -147,6 +147,12 @@ Exit: steps 1.0 and 2-6 green (1a/1b optional), with session/event IDs written i
 - Subject keys the catalog should use (must match the app's slugs): `biology`, `ap-statistics`, `ap-chemistry`, `ap-physics-1`, `ap-physics-2`, `ap-physics-c-mechanics`, `ap-physics-c-em`, `ap-precalculus`, `ap-calculus-ab`, `ap-calculus-bc`. A subject with no price shows the student "One of those subjects isn't available yet", which is graceful; Day-1 needs `biology` and `ap-statistics`.
 - Confirmed by David 2026-10-02: live prices in Stripe match $39.99 / $69.99 / $89.99. Refund text is live in the Terms; the "free until November" homepage line is removed.
 
+**Resolved 2026-10-02 (David, from the Stripe live dashboard; verified by Claude from Supabase secret fingerprints only):**
+- Live webhook endpoint now subscribes to all 5 events (David added `charge.refunded`; it had 4).
+- `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` re-set; fingerprints now differ from each other and from before (`68bf1848…`, `c7eb7e38…`). *Not verifiable by Claude:* that the key is a live key and the signing secret belongs to the live endpoint. Gate D proves both.
+- `STRIPE_PRICE_CATALOG_JSON` re-set to the 10 subject prices + `bundle_2` + `bundle_3` + `unlimited` (placeholder). Validated with `parsePriceCatalog`; Production fingerprint `4cebcef0…` equals the SHA-256 of the validated JSON. All 13 IDs carry the live-account fragment. Amounts confirmed by David. "AP Calculus AP" was read as `ap-calculus-ab`.
+- `APP_BASE_URL` = `https://cramapple.com` (fingerprint match). `ALLOWED_ORIGINS` allows `https://cramapple.com` and `https://app.cramapple.com` (header probe).
+
 ## 4. Gate B — Stripe live-mode setup (David, in the Stripe dashboard)
 
 Claude has no Stripe access this session and cannot verify any of this. Everything below needs David to confirm.
