@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) (2026-10-02): `stripe-webhook` (partial-refund fix), `create-checkout-session`, `create-post-purchase-addon` and `create-parent-payment-link` deployed and verified (source identical to `main`, 400 probes, no data change, no charge). Production Stripe secrets re-set by David (key/webhook distinct, catalog exact match). Lovable not yet published; Gate D ($1 test) pending.
 - Stripe Functions Tranche 1 Deployed to Production (APPROVAL-0070) (2026-10-02): `stripe-webhook` v21, `get-checkout-status` v1 and `send-parent-payment-email` v1 deployed and verified (source identical to `main`, 400/405 probes, no data change, no charge). Tranche 2 and the Lovable publish remain unapproved.
 - Stripe Payment Migrations Applied to Production (APPROVAL-0069) (2026-10-02): the three TASK-0041 payment-schema migrations were applied to Production and verified (`stripe_customers`, `parent_payment_email_requests`, webhook replay columns + `claim_stripe_webhook_event`). No function, secret, or Stripe change. Next: deploy the six functions from David's Mac, then live Stripe setup.
 - Seeded-Variant Runs: Status by Subject Documented; AP Biology Pilot Closed (2026-10-01): added protocol section 10, a table of which subjects have had a variant run (AP Calculus AB partly, AP Biology Units 1-2) and which still need one (Calculus BC, Chemistry, Physics 1, Physics 2, Physics C E&M, Physics C Mechanics, Precalculus, Statistics), plus a pre-run checklist. The label probe on the final AP Biology text is prepared (`probe_items_final.json`) but needs a run from the Product Owner's laptop.
@@ -337,6 +338,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) — 2026-10-02
+
+**Approval:** `APPROVAL-0071`. All four functions deployed from `main` `fc2f3a6c` and verified (see the approval entry). Earlier the same day David re-set `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (Production had stored identical values for both, which was wrong) and `STRIPE_PRICE_CATALOG_JSON` (exact match to the validated JSON); a fifth event, `charge.refunded`, was added to the live webhook endpoint; the refund policy is live in the Terms; the "free until November" copy is gone.
+
+**Approval state:** Hard Gate. Not approved: the Lovable publish, the Orly email, the go/no-go. **Next Owner:** David Bloom. **Next Action:** fix the `support@cramapple.com` alias; decide when to publish the Lovable project; then Gate D (your own \$1 purchase with the live code, refund it, confirm access and revocation).
 
 ## Stripe Functions Tranche 1 Deployed to Production (APPROVAL-0070) — 2026-10-02
 

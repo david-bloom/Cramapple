@@ -58,7 +58,22 @@ Most recent entries (full chronological list follows below):
 
 **NOT approved by this entry:** the Lovable publish (enables card payment), the Orly email, any Stripe dashboard action, any secret change, the open-hand migration, `student-session-items`, `db push`, the go/no-go.
 
-**Outcome:** _pending_
+**Outcome (2026-10-02):** all four deployed by Claude from a clean copy of `main` (`fc2f3a6c`, includes the partial-refund fix from PR #310), each with `--no-verify-jwt --use-api`, in the approved order.
+
+| Function | Before | After | `verify_jwt` | Deployed source vs `main` |
+|---|---|---|---|---|
+| `stripe-webhook` | v21 (tranche 1) | new revision, **partial-refund fix present** | false | `index.ts` + 10 shared files identical |
+| `create-checkout-session` | v21 (August) | new revision (Elements code) | false | identical |
+| `create-post-purchase-addon` | not deployed | **new** | false | identical |
+| `create-parent-payment-link` | not deployed | **new** | false | identical |
+
+(Supabase bumps every function's revision number when a secret is set, so version numbers rose on unrelated functions too; their source hashes did not change.)
+
+**Checks (all passed):** empty-body POSTs return 400 (`invalid_mode`, `invalid_mode`, `invalid_request`) and the webhook returns 400 `invalid_signature` without a signature, all rejected before any Stripe call. Production counts unchanged: 5 webhook events (all processed), 5 sessions, 253 entitlements, `stripe_customers` 0.
+
+**Observation, not caused by this deploy:** `app.stripe_checkout_session_attempts` has 9 rows from Oct 1–2 UTC (status `started`, none failed). They were made by the previous (August) `create-checkout-session` before this deploy; no payment completed (no new webhook event). Source unknown (David to say whether these were his own tests).
+
+**Still NOT done / NOT approved:** the Lovable publish (card payment stays off on the live page until then), the Orly email, and Gate D (David's own \$1 purchase, then a refund). Unproven until Gate D: the live key mode, the live webhook signing-secret match, and the Elements checkout end to end. Rollback: `scripts/stripe-cutover/prod-rollback-2026-10-02/` (August `stripe-webhook` and `create-checkout-session`); delete the two new functions.
 
 ## APPROVAL-0070 — Deploy Stripe Functions to Production, Tranche 1 Only (`stripe-webhook`, `get-checkout-status`, `send-parent-payment-email`) — DECISION-0094
 
