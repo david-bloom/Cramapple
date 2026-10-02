@@ -62,15 +62,18 @@ Collect the student's email from Apple Pay / Google Pay / Link (the wallet retur
 Depends on A0. *Done when:* a new student pays first with a wallet and ends with a confirmed account and access.
 
 ### D. One checkout per attempt, not per keystroke
+**Observed live 2026-10-02:** the page creates a real Stripe checkout as soon as the email looks valid, so typing `david@bloominsights.me` created a session for `david@bloominsights.m` first (`customer_email` truncated). The final session is correct and a stale one cannot be paid, but it litters Stripe with abandoned sessions. A small pre-pilot fix (create on email blur / after ~1s idle) is listed under "Pre-pilot, small"; the full redesign stays here.
 Stop creating a new Stripe session each time subjects, email or promo change. Stripe supports updating an existing session
 (promo code, email, and line items for custom-UI sessions in newer API versions). Needs a newer Stripe library/API version than
 the functions use (`stripe-node` v17). Low customer value; do after C if at all.
 
 ### E. Stripe configuration hardening
+**Done 2026-10-02 (David, Stripe dashboard):** **Link was switched off.** Stripe confirmed Link's bank-account option ("Bank", with a "$5 back" incentive) cannot be removed while Link is enabled, so Link had to go to stop Bank appearing. A live session showed `payment_method_types: ["card","link"]` with Bank coming from Link; Apple Pay and Google Pay are part of `card`. Link's default-ticked "save my information" box and phone-number prompt also disappear. The Checkout display name was changed from "David Bloom" to Cramapple.
+Still open:
 - Pin `payment_method_types` in code (card + link; Apple/Google Pay ride on card) so a dashboard change cannot re-enable Bank,
   Klarna or Cash App by accident. Today the dashboard is the control (only Cards, Apple Pay, Google Pay, Link enabled).
 - Register `cramapple.com` as an Apple Pay domain (verification file on the site) so Apple Pay shows in Safari.
-- Check Link's own bank-account option and turn it off if present; David saw a "Bank" prompt after only four methods were enabled.
+- (Link is now off. Re-enabling Link later brings Bank back with it, so revisit only if one-tap Link is worth that.)
 - Decide whether to enable more methods later (each needs the async-payment webhook paths proven).
 
 ### F. Email, support and account setup
@@ -118,6 +121,8 @@ Google's usual requirements; confirm them in Google's own checklist.)
    usable. Test it in a private window first.
 3. Tell friends to **type their email** (Google sign-in is removed).
 4. A brand-new-student test (invite email, 6-digit code, access, a graded question).
+5. Layout fixes (Lovable): the sticky "Place order" bar hides the Order summary at full scroll (needs bottom padding); email step before payment, with a hint in Payment until an email is entered; create the checkout on email blur/idle, not per keystroke.
+6. Done 2026-10-02: Google sign-in removed from checkout; real total/discount shown (commit `50713031`); Link disabled in Stripe; checkout display name set to Cramapple.
 
 ## Gates and approvals
 
