@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0069 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot — DECISION-0093
 - APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
 - APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend — DECISION-0093
 - APPROVAL-0064 — TASK-0056 to Production (Three Migrations) and the `evaluate-attempt` F2 Deploy — DECISION-0089
@@ -37,6 +38,20 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0069 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "I Confirm the Units 2–3 scope"; "I Authorize relabelling the 13 problem items"; checkers Gemini 3.8 Flash plus DeepSeek V4 Pro)  
+**Related Task:** none (content readiness); follows `APPROVAL-0066`  
+**Related Decision:** `DECISION-0093`  
+**Decision:** Approved
+
+**Approved scope:** (1) on Production (`pcntajvbdfqhbeewmdry`) write new serving-label versions for the held or stale AP Calc AB items that a blind three-model probe could label by consensus, and mark them `validated` under the `automated_spot_check` pattern of `APPROVAL-0065`; (2) AI-Gateway spend and authoring for a seeded-variant pilot on Units 2 and 3 (3 variants per seed). Loading and publishing the pilot variants is NOT approved by this entry.
+
+**How (1) was used (2026-10-02):** the request said 13 items; the census shows 12 (10 held with stale hashes, 2 provisional with no hash). Eleven had at least 4 of 6 samples agreeing on max unit and topic (Gemini 3.8 Flash, DeepSeek V4 Pro, GPT-6.1 Sol, 2 samples each), and the consensus topic equals each item's existing primary cell. `scripts/content-seed/calc-ab-label-repair-2026-10-02/relabel_apply.sql` ran in one transaction after a rolled-back rehearsal on Production: old rows superseded (never edited), 11 new `validated` hash-fresh labels, 11 validation decisions. Calc AB census before to after: unit-gated servable 196 to 207, validated labels 198 to 209, hash mismatches 12 to 1. **Not relabelled:** `apcalcab-frq-u13-003` (max unit split 3 to 3 between Unit 2 and Unit 4) stays `held` for a Product Owner decision.
+
+**Not approved by this entry:** item text changes; loading or publishing any pilot variant; other subjects.
 
 ## APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward
 
