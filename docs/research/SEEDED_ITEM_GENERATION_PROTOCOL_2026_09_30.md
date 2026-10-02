@@ -276,3 +276,30 @@ family for spacing and coverage. This needs a task; it is out of scope for this 
 seeding, because it predates the clean-room requirement (finding 8). Reports: `MATH_CHECK_REPORT.md`,
 `CED_CONFORMANCE_REPORT.md`, `LABEL_INHERITANCE_SPOT_CHECK.md`, `LABELING_REPORT.md`,
 `PUBLICATION_RECORD.md`.
+
+## 10. Variant-run status by subject (as of 2026-10-01)
+
+"Run" means the full class-A procedure: S0a seed audit, variants written, blind solve and rationale audit by two checkers from different families, CED scope check, label probe. Counts of published MCQs are from Production on 2026-10-01 (by content-key family). Nothing here is a plan to load anything; loading any variant needs its own approval.
+
+| Subject | Published MCQs | Variant run | Where it stands | Reports |
+|---|---|---|---|---|
+| AP Calculus AB | 199 | **Partly done** | Unit 1 complete: 34 originals, 102 variants, published under `APPROVAL-0065`. Units 1-8 sampled with one seed each (16 variants), plus Unit 3 (8 more variants); the 24 seeded variants are published. Units 2 and 4-8 have only the one-seed sample. Follow-up still open: re-check the 24 variants against the repaired seeds (`APPROVAL-0066`). | `calc-ab-unit1-original-2026-09-29/`, `calc-ab-pilot-2026-09-30/`, `calc-ab-unit3-variants-2026-09-30/`, `calc-ab-seed-audit-2026-09-30/` |
+| AP Biology | 65 | **Done for Units 1-2, not loaded** | 8 seeds, 16 variants, all checks run through round 5. The five seeds that used beyond-CED terms were replaced in Production (`APPROVAL-0067`, `APPROVAL-0068`). The variants are in no database. Units 3-8 not run. Label probe on the final text: see the pilot report. | `apbio-seeded-pilot-2026-09-30/PILOT_REPORT.md` |
+| AP Calculus BC | 67 | **Needs a run** | None. Shares a fact pack with AB, and its AB-overlap units may share seeds; run S0a on BC-only units first. | none |
+| AP Chemistry | 70 | **Needs a run** | None. | none |
+| AP Physics 1 | 63 | **Needs a run** | None. | none |
+| AP Physics 2 | 42 | **Needs a run** | None. | none |
+| AP Physics C: E&M | 48 | **Needs a run** | None. | none |
+| AP Physics C: Mechanics | 42 | **Needs a run** | None. | none |
+| AP Precalculus | 55 | **Needs a run** | None. | none |
+| AP Statistics | about 312 (six key families) | **Needs a run** | None. | none |
+
+AP Calculus AB and AP Biology are the only subjects with any variant run. FRQs have had no seeded-variant run in any subject (the protocol and pilots covered MCQs only).
+
+### Before starting a run on a new subject
+1. **Read the subject's CED fact pack and its exclusions first**, and list them in the batch README. Packs exist for every subject in `docs/product/*_CED_FACT_PACK.md`; they are topic-level, so check any term you are unsure of against the CED itself (the AP Biology run found the pack already matched the CED).
+2. **Run S0a on the seeds before writing variants.** In Calc the seeds were clean on keys and the defects sat in variants and rationales; in Biology 1 of 8 seeds had a defective rationale and, after the CED check, 5 of 8 depended on terms the CED does not name. Expect seed repairs.
+3. **Keep items to CED vocabulary** (Product Owner ruling, 2026-10-01). A mechanism the stem supplies does not make a term in scope. If a seed needs a term the CED lacks, the seed is the thing to repair, through the owner-remediation path, before variants are built from it.
+4. **Reuse the Biology scripts as templates** (`scripts/vercel-gateway-check/apbio_seeded_math_check.mjs`, `apbio_seeded_ced_check.mjs`, `apbio_seeded_label_probe.mjs`); each carries a subject role, the fact pack, and a difficulty rubric that must be changed. Math-heavy subjects also need a symbolic recompute of every key and distractor value, as in the Calc pilots.
+5. **Run the label probe on drafts**, not only on the final set; it caught unit drift in Biology and costs about a cent per item.
+6. **Keep two checkers from different families.** In both subjects most real defects beyond keys were found by DeepSeek alone, and it also over-flags scope; adjudicate every flag against the CED text, never by vote.
