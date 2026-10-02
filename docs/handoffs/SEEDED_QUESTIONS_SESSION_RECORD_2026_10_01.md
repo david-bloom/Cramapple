@@ -118,7 +118,7 @@ Approval State:
 
 Live / Tool State:
 - Environments checked: Production (pcntajvbdfqhbeewmdry), read and the three approved writes only. Dev: not touched.
-- Not checked: unit-gated servable count after APPROVAL-0068 (labels verified hash-fresh instead); the real answer-length detector in supabase/functions/_shared/mcq-quality.ts; how prior student attempts relate to the replaced seeds (see the grading notes).
+- Not checked: unit-gated servable count after APPROVAL-0068 (labels verified hash-fresh instead); the real answer-length detector in supabase/functions/_shared/mcq-quality.ts. Checked at close: no attempts exist on any version of the five replaced seeds (see the grading notes).
 
 Files / Systems Affected:
 - Docs: protocol section 10, fact pack, PILOT_REPORT, activity and approvals logs
