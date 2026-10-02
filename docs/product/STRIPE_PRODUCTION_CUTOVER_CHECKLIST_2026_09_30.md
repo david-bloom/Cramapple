@@ -124,6 +124,21 @@ student's status.
 
 Exit: steps 1.0 and 2-6 green (1a/1b optional), with session/event IDs written into this doc.
 
+### Frontend findings — read-only, 2026-10-02 (Lovable marketing project `61dd6602`, source at `be89e6a`, plus the live page)
+
+- **The frontend talks only to Production Supabase** (`pcntajvbdfqhbeewmdry`, hardcoded in `.env`). There is no Dev-pointed build, so the
+  student-direct Elements path **cannot be tested against Dev**. Its first real run will be the Production smoke test (Gate D).
+- **Live student card payment is currently OFF.** `cramapple.com/checkout` shows "Online payment isn't switched on yet. You can still
+  ask a parent to pay below." The Stripe publishable key is read from `VITE_STRIPE_PUBLISHABLE_KEY`, which is not in `.env` (it lives in
+  Lovable's environment). Turning payment on = set it to the **live** publishable key and publish. Do this **last**, after Gate C-E.
+- **"Ask a parent to pay" is visible today but cannot work:** it calls `create-parent-payment-link`, which is not deployed in Production.
+- **Promo codes are applied at session creation.** The page validates the code, then recreates the session with `promo_code`, so
+  `create-checkout-session` takes its `discounts` path (not the in-Elements path). `?promo=` in the URL is also supported. The $0
+  in-Elements question (H6) is therefore moot for the pilot.
+- **Conflicting public copy:** the homepage says "Sign up for free until November. Then a one-time $39.99 per subject after that."
+  That contradicts `DECISION-0094` (strangers pay full price during the pilot, then 50% off through October). Fix before payment is switched on.
+- Pricing shown on the page ($39.99 / $69.99 / $89.99) matches `DECISION-0083`.
+
 ## 4. Gate B — Stripe live-mode setup (David, in the Stripe dashboard)
 
 Claude has no Stripe access this session and cannot verify any of this. Everything below needs David to confirm.
