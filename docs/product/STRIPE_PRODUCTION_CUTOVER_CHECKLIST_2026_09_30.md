@@ -101,6 +101,27 @@ Owner: David deploys; Claude verifies against the database.
 5. **Replay/idempotency:** resend a webhook; no double grant. **Refund:** `charge.refunded` revokes.
 6. Anonymous caller can't read another student's checkout status.
 
+### Gate A evidence — 2026-10-02 (Dev, Stripe sandbox, `stripe-webhook` v25, `get-checkout-status` v19)
+
+**Path tested: parent-share hosted checkout** (`create-parent-payment-link`). The student-direct Elements path was **not** tested
+(no Dev-pointed frontend; Stripe's Elements UI can't be driven from here).
+
+| Test | Result | Evidence |
+|---|---|---|
+| Full-price paid purchase | **Pass** | `cs_test_b1Rmx…` ($39.99, AP Statistics): `evt_1ULtu6…` `checkout.session.completed` processed, attempt 1; 1 active entitlement (`stripe_checkout_single`); status `paid`/`entitled`; no `stripe_customers` row |
+| $1 coupon typed on the checkout page | **Pass** | `cs_test_b1IkM…` (AP Chemistry): subtotal 3999, discount 3899, **total 100**, promotion code recorded; `evt_1ULty9…` processed, attempt 1; entitlement source `stripe_checkout_single_coupon`; status `paid` |
+| First attempt (code entered but not applied) | n/a | `cs_test_b1Rmx…` was charged $39.99 with `disc=0` — operator error, not a defect |
+| Refund → revoke | **Pass** | `evt_3ULty7…` `charge.refunded` processed, attempt 1; the coupon entitlement `revoked`; status `refunded`/`entitled:false`; the other (full-price) entitlement untouched |
+| Parent card not saved | **Pass** | `app.stripe_customers` gained no rows in either purchase |
+| Parent-share add-on offer | **Pass** (offer `null`, correct) | `get-checkout-status` |
+
+**Observations (not blockers):** `stripe_checkout_sessions.coupon_ids` stays empty even when a promotion code and discount are recorded;
+report coupon usage from `promotion_codes` / `amount_discount`, or from the `*_coupon` entitlement source.
+
+**Not yet proven:** student-direct Elements checkout; the $30 add-on (needs a student-direct paid single-subject purchase);
+bundle cart with the $38.99 coupon; $0 path (optional); replay of a duplicate webhook on the new code; anonymous caller can't read another
+student's status.
+
 Exit: steps 1.0 and 2-6 green (1a/1b optional), with session/event IDs written into this doc.
 
 ## 4. Gate B — Stripe live-mode setup (David, in the Stripe dashboard)
