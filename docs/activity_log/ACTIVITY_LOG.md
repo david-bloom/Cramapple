@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Chemistry Units 1-3 Full Pipeline Run (APPROVAL-0074) (2026-10-02): steps 1-7 from scratch in about 86 minutes, 2,040 gateway calls, $7.55 gateway list price, about 0.9M Claude tokens; 8 seeds repaired, 36 topic cells, 28-skill grid, 37 labels, 34 skill cells, 75 variant drafts (not loaded); audit recall gap and missing seed CED check found.
 - AP Biology Grid Created and 70 Live Items Relabeled for Serving (APPROVAL-0073) (2026-10-02): 22 skills x 60 topics = 1320-cell grid from the CED; Bio unit-gated servable 43 to 110 of 118; registered topic cells found wrong on about 58 items (36 across units), left unchanged for a decision; skill labels in progress.
 - Cells Validation Check Relaxed in Production for Model-Consensus Labels (APPROVAL-0072, DECISION-0085 Route 1) (2026-10-02): `validated` now needs a human or a `model_run_id` plus a decision id and timestamp; rehearsed and applied as migration `20261002164510`; no rows changed.
 - Calc AB Seed Fixes Applied (APPROVAL-0071): `apcalcab-mcq-026` Choice C Replaced, `apcalcab-mcq-028` Units Corrected to [1, 2] (2026-10-02): rehearsed then applied on Production; servable 207 to 208.

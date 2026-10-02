@@ -1,0 +1,500 @@
+[
+ {
+  "id": "apchem-mcq-005-v1",
+  "seed": "apchem-mcq-005",
+  "difficulty": "medium",
+  "title": "He and Kr kinetic energy",
+  "stem": "At 298 K, a sample of He gas and a sample of Kr gas are compared. Which statement correctly compares the particles in the two samples?",
+  "correct": {
+   "text": "The average kinetic energies are equal, and He particles have the greater average speed.",
+   "rationale": "Average kinetic energy depends only on Kelvin temperature, so both samples have the same average KE at 298 K. Since KE = 1/2 mv^2, equal KE with a smaller mass (He) requires a greater speed. He particles are faster on average."
+  },
+  "wrong": [
+   {
+    "text": "The average kinetic energies are equal, and Kr particles have the greater average speed.",
+    "rationale": "Correctly states that average KE is the same, but then reverses the mass-speed relationship. With KE = 1/2 mv^2 held equal, the heavier Kr particles must move more slowly than He particles, not faster.",
+    "error_pattern": "Believes heavier particles move faster at the same temperature (inverts the inverse relation between mass and speed)."
+   },
+   {
+    "text": "The He particles have the greater average kinetic energy because they move faster on average.",
+    "rationale": "Equates greater speed with greater kinetic energy while ignoring mass. Average KE is set by temperature alone and is identical for the two samples; He is faster only because its particles are lighter.",
+    "error_pattern": "Treats speed alone as the measure of kinetic energy, ignoring the mass term in KE = 1/2 mv^2."
+   },
+   {
+    "text": "The Kr particles have the greater average kinetic energy because each particle has a greater mass.",
+    "rationale": "Treats mass alone as determining kinetic energy. At the same Kelvin temperature the average KE of the two gases is identical; the greater mass of Kr is offset by its lower speed.",
+    "error_pattern": "Treats mass alone as determining kinetic energy, ignoring that average KE depends only on temperature."
+   }
+  ],
+  "change_note": "Seed asked for the fastest of four gases at one temperature. Variant uses two noble gases at 298 K and asks for a statement pairing KE and speed, adding the KE-versus-speed conflation targets. Substances, temperature, and task shape (statement comparison) all changed.",
+  "check": "conceptual",
+  "choice_facts": {
+   "correct": "Average KE is proportional to Kelvin temperature only (CED 3.5); KE = 1/2 mv^2, so at equal KE lighter He (4 g/mol) has greater speed than Kr (83.8 g/mol).",
+   "wrong_1": "Rests on the same KE fact; the speed ordering is reversed and therefore false.",
+   "wrong_2": "False because average KE is equal at equal T; speed difference comes from mass.",
+   "wrong_3": "False because average KE is equal at equal T; mass is compensated by lower speed."
+  }
+ },
+ {
+  "id": "apchem-mcq-005-v2",
+  "seed": "apchem-mcq-005",
+  "difficulty": "medium",
+  "title": "Ranking gas speeds at 400 K",
+  "stem": "Samples of Ne, N₂, and Cl₂ gas are all at 400 K. Which ranking of average particle speeds, from greatest to least, is correct?",
+  "correct": {
+   "text": "Ne > N₂ > Cl₂",
+   "rationale": "At the same temperature all particles have the same average kinetic energy, so average speed varies inversely with the square root of particle mass. Molar masses are Ne 20 g/mol, N₂ 28 g/mol, Cl₂ 71 g/mol, so the lightest (Ne) is fastest and the heaviest (Cl₂) is slowest."
+  },
+  "wrong": [
+   {
+    "text": "Cl₂ > N₂ > Ne",
+    "rationale": "Lists the gases in order of decreasing molar mass (Cl₂ 71, N₂ 28, Ne 20 g/mol). This reverses the inverse relation between mass and speed: at equal average KE the heavier particles are slower, so Cl₂ is the slowest, not the fastest.",
+    "error_pattern": "Assumes heavier particles move faster at the same temperature."
+   },
+   {
+    "text": "Ne = N₂ = Cl₂",
+    "rationale": "Reasons that equal temperature means equal particle speed. Equal temperature gives equal average kinetic energy, not equal speed; with different masses the speeds differ (v is proportional to 1/sqrt(m) at fixed KE).",
+    "error_pattern": "Confuses 'same average kinetic energy at the same temperature' with 'same average speed'."
+   },
+   {
+    "text": "N₂ = Cl₂ > Ne",
+    "rationale": "Reasons that diatomic molecules carry more energy because they contain two atoms, so they must outrun a monatomic gas. The average translational KE depends only on temperature, not on atom count, and the much heavier Cl₂ is slower than Ne.",
+    "error_pattern": "Believes particles with more atoms have more energy and therefore move faster, regardless of mass."
+   }
+  ],
+  "change_note": "Seed picked the single fastest gas among noble gases. Variant uses Ne/N2/Cl2 (mixed monatomic and diatomic), different temperature, and a full ranking task shape, which adds the equal-speed and atom-count misconceptions.",
+  "check": "conceptual",
+  "choice_facts": {
+   "correct": "At fixed T average KE is equal; v ~ 1/sqrt(m); molar masses Ne 20.2, N2 28.0, Cl2 70.9 g/mol, so Ne > N2 > Cl2.",
+   "wrong_1": "Reverses the correct ordering, contradicting v ~ 1/sqrt(m).",
+   "wrong_2": "Contradicted by differing masses at equal KE; equal T gives equal KE, not equal speed.",
+   "wrong_3": "Cl2 (71 g/mol) is far heavier than Ne (20 g/mol) so it is slower; atom count does not change average translational KE."
+  }
+ },
+ {
+  "id": "apchem-mcq-005-v3",
+  "seed": "apchem-mcq-005",
+  "difficulty": "hard",
+  "title": "H₂ versus O₂ speed ratio",
+  "stem": "At 300 K, a sample of H₂ (molar mass 2.0 g/mol) and a sample of O₂ (molar mass 32 g/mol) are compared. Which statement correctly compares the average particle speeds?",
+  "correct": {
+   "text": "H₂ particles are 4 times as fast as O₂ particles.",
+   "rationale": "Equal temperature means equal average KE: 1/2 m(H2)v(H2)^2 = 1/2 m(O2)v(O2)^2. Then v(H2)/v(O2) = sqrt(m(O2)/m(H2)) = sqrt(32/2.0) = sqrt(16) = 4."
+  },
+  "wrong": [
+   {
+    "text": "H₂ particles are 16 times as fast as O₂ particles.",
+    "rationale": "Uses the mass ratio 32/2.0 = 16 directly as the speed ratio. Since KE depends on v squared, the speed ratio is the square root of the mass ratio, sqrt(16) = 4, not 16.",
+    "error_pattern": "Forgets the square root: treats speed as inversely proportional to mass rather than to the square root of mass."
+   },
+   {
+    "text": "H₂ particles are one-fourth as fast as O₂ particles.",
+    "rationale": "Takes the square root correctly but inverts the ratio, sqrt(2.0/32) = 1/4, which would make the lighter H₂ the slower gas. The lighter particles must move faster to carry the same average KE.",
+    "error_pattern": "Inverts the mass ratio, effectively assuming heavier particles move faster."
+   },
+   {
+    "text": "H₂ and O₂ particles have the same average speed.",
+    "rationale": "Takes equal temperature to mean equal speed. Equal temperature gives equal average kinetic energy; speeds differ because the masses differ (speed ratio 4).",
+    "error_pattern": "Confuses equal average kinetic energy with equal average speed."
+   }
+  ],
+  "change_note": "Seed was a qualitative who-is-fastest question. Variant is a quantitative speed-ratio question with H2 and O2 at 300 K, requiring KE = 1/2 mv^2 manipulation (the CED equation), a different task shape and substances.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-006-v1",
+  "seed": "apchem-mcq-006",
+  "difficulty": "easy",
+  "title": "Absorbance after fourfold dilution",
+  "stem": "A copper(II) sulfate solution has an absorbance of 0.80 in a 1.0 cm cell. The solution is diluted with water to one-fourth of its original concentration. The absorbance of the diluted solution is approximately\n\nAssume the diluted solution is measured at the same wavelength in the same 1.0 cm cell and remains in the linear Beer-Lambert range.",
+  "correct": {
+   "text": "0.20",
+   "rationale": "Correct. With wavelength and path length unchanged, A = epsilon b c shows absorbance is directly proportional to concentration. One-fourth the concentration gives one-fourth the absorbance: 0.80 / 4 = 0.20."
+  },
+  "wrong": [
+   {
+    "text": "0.40",
+    "rationale": "0.80 / 2 = 0.40. Divides the absorbance by two instead of by four, as if the concentration had only been halved.",
+    "error_pattern": "Applies a factor of 1/2 regardless of the stated dilution factor (misreads 'one-fourth' as 'half')."
+   },
+   {
+    "text": "0.80",
+    "rationale": "Assumes absorbance does not change when the concentration changes. Absorbance is directly proportional to concentration at fixed wavelength and path length, so it must fall to 0.20.",
+    "error_pattern": "Believes absorbance is a property of the substance that does not depend on concentration."
+   },
+   {
+    "text": "3.2",
+    "rationale": "0.80 x 4 = 3.2. Multiplies by the dilution factor instead of dividing, treating the solution as if it had become four times more concentrated.",
+    "error_pattern": "Multiplies by the dilution factor instead of dividing, reversing the direction of the concentration change."
+   }
+  ],
+  "change_note": "Seed halved the concentration of a 0.60 absorbance solution. Variant uses CuSO4, starting absorbance 0.80, and a fourfold dilution, so the proportional-reasoning factor is different and the 'it was only halved' distractor replaces the seed's 'quartered' one.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-006-v2",
+  "seed": "apchem-mcq-006",
+  "difficulty": "medium",
+  "title": "Absorbance in a longer cell",
+  "stem": "A dye solution has an absorbance of 0.45 at its wavelength of maximum absorbance in a 1.0 cm cell. The same solution is then placed in a 2.0 cm cell and measured at the same wavelength. The absorbance in the 2.0 cm cell is approximately\n\nAssume the solution remains in the linear Beer-Lambert range.",
+  "correct": {
+   "text": "0.90",
+   "rationale": "Correct. In A = epsilon b c, concentration and wavelength are unchanged, so absorbance is directly proportional to path length b. Doubling the path from 1.0 cm to 2.0 cm doubles the absorbance: 0.45 x 2 = 0.90."
+  },
+  "wrong": [
+   {
+    "text": "0.225",
+    "rationale": "0.45 / 2 = 0.225. Divides by the path-length factor, treating absorbance as inversely related to path length. A longer path passes light through more absorbing particles, so absorbance increases.",
+    "error_pattern": "Reverses the dependence on path length (treats a longer cell as lowering absorbance)."
+   },
+   {
+    "text": "0.45",
+    "rationale": "Assumes that because the concentration of the solution is unchanged, the absorbance is unchanged. Absorbance also depends directly on path length b, which doubled.",
+    "error_pattern": "Ignores path length, treating absorbance as depending on concentration only."
+   },
+   {
+    "text": "1.45",
+    "rationale": "0.45 + 1.0 = 1.45. Adds the 1.0 cm increase in path length to the absorbance instead of multiplying by the factor 2.0/1.0. Absorbance is proportional to b, not shifted by an additive amount, and the units do not match anyway.",
+    "error_pattern": "Uses additive instead of multiplicative (proportional) reasoning when path length changes."
+   }
+  ],
+  "change_note": "Seed varied concentration (halved) at fixed path length. Variant holds concentration fixed and doubles the path length (1.0 cm to 2.0 cm), using a different dye and starting absorbance of 0.45, so the controlled variable and the proportional factor both change.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-006-v3",
+  "seed": "apchem-mcq-006",
+  "difficulty": "hard",
+  "title": "Unknown concentration from absorbance",
+  "stem": "A 0.020 M standard solution of a colored complex has an absorbance of 0.30. An unknown solution of the same complex has an absorbance of 0.75 under identical conditions. The concentration of the unknown solution is approximately\n\nAssume both solutions are measured at the same wavelength in the same cell and remain in the linear Beer-Lambert range.",
+  "correct": {
+   "text": "0.050 M",
+   "rationale": "Correct. With wavelength and path length fixed, A is directly proportional to c, so c(unknown) = 0.020 M x (0.75 / 0.30) = 0.020 M x 2.5 = 0.050 M."
+  },
+  "wrong": [
+   {
+    "text": "0.0080 M",
+    "rationale": "0.020 x (0.30 / 0.75) = 0.0080 M. Inverts the absorbance ratio, as if concentration were inversely proportional to absorbance. The unknown absorbs more strongly than the standard, so it must be more concentrated.",
+    "error_pattern": "Inverts the absorbance ratio, treating absorbance as inversely proportional to concentration."
+   },
+   {
+    "text": "0.015 M",
+    "rationale": "0.020 x 0.75 = 0.015 M. Multiplies the standard concentration by the absorbance value itself instead of by the ratio of absorbances. The result is also less than the standard's 0.020 M even though the unknown absorbs more.",
+    "error_pattern": "Multiplies the known concentration by the unknown's absorbance instead of using the ratio of absorbances."
+   },
+   {
+    "text": "2.5 M",
+    "rationale": "0.75 / 0.30 = 2.5. Computes the ratio of absorbances correctly but stops, reporting the ratio as the concentration instead of scaling the standard's 0.020 M by it.",
+    "error_pattern": "Reports the absorbance ratio as the concentration, omitting the multiplication by the standard's concentration."
+   }
+  ],
+  "change_note": "Seed predicted absorbance after a concentration change. Variant reverses the direction: given a standard (0.020 M, A = 0.30) and an unknown (A = 0.75), find the unknown concentration. New numbers, context (standard versus unknown), and task shape.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-007-v1",
+  "seed": "apchem-mcq-007",
+  "difficulty": "easy",
+  "title": "Maximizing dissolved oxygen",
+  "stem": "A student wants as much O₂ as possible to dissolve in a sample of water at equilibrium in a sealed vessel. Which set of conditions is expected to give the greatest amount of dissolved O₂?\n\nAssume the water and O₂ do not react chemically and that pressure refers to the O₂ partial pressure above the water.",
+  "correct": {
+   "text": "5 °C with O₂ at 3.0 atm above the water",
+   "rationale": "Gas solubility increases as gas partial pressure increases and decreases as temperature increases. The lowest temperature (5 °C) together with the highest pressure (3.0 atm) therefore dissolves the most O₂."
+  },
+  "wrong": [
+   {
+    "text": "5 °C with O₂ at 0.5 atm above the water",
+    "rationale": "The low temperature helps, but the low O₂ partial pressure (0.5 atm) means fewer gas particles collide with and enter the water, so less dissolves than at 3.0 atm.",
+    "error_pattern": "Reverses the pressure effect, assuming lower pressure increases gas solubility."
+   },
+   {
+    "text": "40 °C with O₂ at 3.0 atm above the water",
+    "rationale": "The high pressure helps, but at 40 °C dissolved gas molecules have more kinetic energy and escape more readily, so less O₂ stays dissolved than at 5 °C.",
+    "error_pattern": "Applies the solid-solute trend (solubility rises with temperature) to a gas."
+   },
+   {
+    "text": "40 °C with O₂ at 0.5 atm above the water",
+    "rationale": "Both factors work against dissolving: the high temperature drives dissolved gas out and the low O₂ pressure reduces the amount entering the water. This gives the least dissolved O₂ of the four.",
+    "error_pattern": "Reverses both trends at once (higher temperature increases and lower pressure increases gas solubility)."
+   }
+  ],
+  "change_note": "Seed asked which T/P change most increases solubility of a nonreactive gas with options listed as change phrases. Variant uses O2 in a sealed vessel and absolute conditions (5 vs 40 C, 0.5 vs 3.0 atm) rather than described changes, with distractor logic spanning each single and double reversal.",
+  "check": "conceptual",
+  "choice_facts": {
+   "correct": "Gas solubility rises with gas partial pressure and falls with temperature (CED 3.10 / general behaviour); lowest T + highest P maximizes dissolved gas.",
+   "wrong_1": "Low P reduces solubility; false for maximizing.",
+   "wrong_2": "High T lowers gas solubility; false for maximizing.",
+   "wrong_3": "High T and low P both lower gas solubility; least dissolved O2."
+  }
+ },
+ {
+  "id": "apchem-mcq-007-v2",
+  "seed": "apchem-mcq-007",
+  "difficulty": "medium",
+  "title": "Dissolved oxygen in lake water",
+  "stem": "A sample of lake water is in equilibrium with air. Which change would be expected to decrease the equilibrium concentration of dissolved O₂ in the water?\n\nAssume O₂ behaves as a nonreactive gas and that the pressure of O₂ above the water is proportional to the total air pressure.",
+  "correct": {
+   "text": "The water warms from 10 °C to 25 °C.",
+   "rationale": "Gas solubility decreases as temperature rises because dissolved gas molecules gain kinetic energy and escape the liquid more readily. Warming from 10 °C to 25 °C lowers the equilibrium dissolved O₂."
+  },
+  "wrong": [
+   {
+    "text": "The water cools from 25 °C to 10 °C.",
+    "rationale": "Cooling lowers the kinetic energy of dissolved gas molecules so fewer escape; the equilibrium concentration of dissolved O₂ increases, not decreases.",
+    "error_pattern": "Applies the solid-solute trend (solubility rises with temperature) to a gas, so assumes cooling lowers solubility."
+   },
+   {
+    "text": "The sample is moved to a lower elevation, where the air pressure is greater.",
+    "rationale": "Greater air pressure means a greater O₂ partial pressure above the water, which increases the equilibrium amount of dissolved O₂ rather than decreasing it.",
+    "error_pattern": "Reverses the pressure effect, assuming higher gas pressure pushes gas out of solution."
+   },
+   {
+    "text": "The water is stirred gently for an hour while it stays in contact with air.",
+    "rationale": "Stirring only speeds the approach to equilibrium. The equilibrium concentration depends on temperature and O₂ partial pressure, both unchanged, so it does not decrease.",
+    "error_pattern": "Confuses the rate of reaching equilibrium with the equilibrium amount of dissolved gas."
+   }
+  ],
+  "change_note": "Seed combined T and P changes as four paired options. Variant is a single-change environmental scenario (lake water, dissolved O2) with the question reversed to 'which decreases', and distractors adding a pressure reversal, a temperature reversal and a rate-versus-extent error.",
+  "check": "conceptual",
+  "choice_facts": {
+   "correct": "Gas solubility decreases with increasing T.",
+   "wrong_1": "Cooling increases gas solubility, so dissolved O2 rises.",
+   "wrong_2": "Higher pressure raises O2 partial pressure and increases solubility.",
+   "wrong_3": "Stirring changes rate, not equilibrium solubility at fixed T and P."
+  }
+ },
+ {
+  "id": "apchem-mcq-007-v3",
+  "seed": "apchem-mcq-007",
+  "difficulty": "hard",
+  "title": "CO₂ solubility on heating",
+  "stem": "A sealed container holds water in equilibrium with CO₂(g) at 25 °C and 1.0 atm. The temperature is raised to 60 °C while the CO₂ pressure is kept at 1.0 atm, and the system reaches a new equilibrium. Which statement correctly describes the amount of dissolved CO₂ at the new equilibrium and the reason?\n\nAssume CO₂ is treated as a nonreactive gas.",
+  "correct": {
+   "text": "Less CO₂ is dissolved, because dissolved molecules have more kinetic energy and escape into the gas phase more readily.",
+   "rationale": "Gas solubility decreases as temperature rises. At 60 °C the dissolved CO₂ molecules have greater kinetic energy and escape from the solution more easily, so at the new equilibrium (same pressure) less CO₂ remains dissolved."
+  },
+  "wrong": [
+   {
+    "text": "More CO₂ is dissolved, because the higher temperature makes gas molecules enter the water faster.",
+    "rationale": "Heating does speed up molecular motion, but it speeds up escape from solution as well. The equilibrium amount depends on the balance of those rates, and gas solubility decreases with temperature.",
+    "error_pattern": "Confuses a faster rate of dissolving with a greater equilibrium solubility."
+   },
+   {
+    "text": "The same amount of CO₂ is dissolved, because the CO₂ pressure above the water did not change.",
+    "rationale": "Pressure is one factor but not the only one. Solubility of a gas at fixed pressure still decreases as temperature rises, so the dissolved amount falls.",
+    "error_pattern": "Considers only the unchanged pressure and ignores the temperature dependence of gas solubility."
+   },
+   {
+    "text": "Less CO₂ is dissolved, because heating raises the CO₂ partial pressure above the solution.",
+    "rationale": "The conclusion (less dissolved) is correct, but the reason is wrong: the problem states the CO₂ pressure is held at 1.0 atm. Also, a rising partial pressure would increase, not decrease, solubility.",
+    "error_pattern": "Right outcome from a wrong mechanism: attributes the decrease to a pressure change that did not occur, contradicting the pressure-solubility relationship."
+   }
+  ],
+  "change_note": "Seed ranked four T/P combination changes. Variant isolates a single temperature change at held pressure for CO2/water and asks for amount plus reason, so the choices test rate-versus-equilibrium, ignoring temperature, and a right-answer/wrong-reason mechanism.",
+  "check": "conceptual",
+  "choice_facts": {
+   "correct": "Gas solubility falls as T rises (escape of higher-KE dissolved molecules).",
+   "wrong_1": "Rate of dissolving is not equilibrium solubility; solubility actually falls.",
+   "wrong_2": "Temperature alone changes gas solubility at fixed P.",
+   "wrong_3": "Stem states pressure held at 1.0 atm; increased pressure would raise, not lower, solubility."
+  }
+ },
+ {
+  "id": "apchem-mcq-008-v1",
+  "seed": "apchem-mcq-008",
+  "difficulty": "easy",
+  "title": "Gas volume after compression",
+  "stem": "A sample of gas occupies 6.0 L at 3.0 atm. At constant temperature and fixed amount of gas, its volume at 9.0 atm is",
+  "correct": {
+   "text": "2.0 L",
+   "rationale": "At constant T and n, P1V1 = P2V2, so V2 = P1V1/P2 = (3.0 atm)(6.0 L)/(9.0 atm) = 2.0 L."
+  },
+  "wrong": [
+   {
+    "text": "6.0 L",
+    "rationale": "Repeats the initial volume, assuming volume is unaffected by the pressure change. Volume is inversely proportional to pressure at constant T and n, so tripling P cuts V to one-third.",
+    "error_pattern": "Assumes volume does not change when pressure changes."
+   },
+   {
+    "text": "18 L",
+    "rationale": "V2 = V1 x P2/P1 = 6.0 x 9.0/3.0 = 18 L. Treats volume as directly proportional to pressure, inverting the pressure ratio. Compressing a gas by raising P cannot increase its volume.",
+    "error_pattern": "Inverts the Boyle's law ratio (volume directly proportional to pressure)."
+   },
+   {
+    "text": "9.0 L",
+    "rationale": "Reads the 9.0 given in the problem (the final pressure in atm) as the final volume. Boyle's law gives V2 = P1V1/P2 = 2.0 L.",
+    "error_pattern": "Reports a given number from the stem (final pressure value) as the answer instead of calculating."
+   }
+  ],
+  "change_note": "Seed: 2.0 L, 1.0 atm to 4.0 atm. Variant: 6.0 L, 3.0 atm to 9.0 atm; initial pressure is no longer 1.0 atm, so the P1 factor in P1V1/P2 matters. Same Boyle relationship with new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-008-v2",
+  "seed": "apchem-mcq-008",
+  "difficulty": "medium",
+  "title": "Syringe plunger withdrawn",
+  "stem": "A syringe holds 12 mL of air at 2.0 atm. The plunger is slowly pulled back at constant temperature until the pressure of the trapped air is 0.50 atm. Assuming the amount of air does not change, the volume of the air at 0.50 atm is",
+  "correct": {
+   "text": "48 mL",
+   "rationale": "At constant T and n, P1V1 = P2V2, so V2 = P1V1/P2 = (2.0 atm)(12 mL)/(0.50 atm) = 48 mL."
+  },
+  "wrong": [
+   {
+    "text": "3.0 mL",
+    "rationale": "V2 = V1 x P2/P1 = 12 x 0.50/2.0 = 3.0 mL. Treats volume as directly proportional to pressure, so a pressure decrease wrongly shrinks the gas. Pulling the plunger back expands the gas, so V must increase.",
+    "error_pattern": "Inverts the Boyle's law ratio (volume directly proportional to pressure)."
+   },
+   {
+    "text": "12 mL",
+    "rationale": "Repeats the initial volume, assuming the volume does not change when the pressure drops. At constant T and n, volume is inversely proportional to pressure and must increase fourfold.",
+    "error_pattern": "Assumes volume is unaffected by the pressure change."
+   },
+   {
+    "text": "0.50 mL",
+    "rationale": "Reads the 0.50 given in the problem (the final pressure in atm) as the final volume. Boyle's law gives V2 = P1V1/P2 = 48 mL.",
+    "error_pattern": "Reports a given number from the stem (final pressure value) as the answer instead of calculating."
+   }
+  ],
+  "change_note": "Seed compressed a gas. Variant expands air in a syringe (pressure falls from 2.0 to 0.50 atm), uses mL, different starting values, and a lab-style context, so the correct direction of change is reversed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-008-v3",
+  "seed": "apchem-mcq-008",
+  "difficulty": "medium",
+  "title": "Pressure after isothermal compression",
+  "stem": "A sample of gas has a volume of 5.0 L at a pressure of 1.0 atm. It is compressed to 2.0 L at constant temperature with no gas added or removed. The final pressure of the gas is",
+  "correct": {
+   "text": "2.5 atm",
+   "rationale": "At constant T and n, P1V1 = P2V2, so P2 = P1V1/V2 = (1.0 atm)(5.0 L)/(2.0 L) = 2.5 atm."
+  },
+  "wrong": [
+   {
+    "text": "0.40 atm",
+    "rationale": "P2 = P1 x V2/V1 = 1.0 x 2.0/5.0 = 0.40 atm. Treats pressure as directly proportional to volume, so shrinking the volume wrongly lowers the pressure. Compression raises pressure.",
+    "error_pattern": "Inverts the Boyle's law ratio (pressure directly proportional to volume)."
+   },
+   {
+    "text": "1.0 atm",
+    "rationale": "Repeats the initial pressure, assuming pressure is unaffected by the volume change. Pressure is inversely proportional to volume at constant T and n.",
+    "error_pattern": "Assumes pressure does not change when volume changes."
+   },
+   {
+    "text": "2.0 atm",
+    "rationale": "Reads the 2.0 given in the problem (the final volume in L) as the final pressure. Boyle's law gives P2 = P1V1/V2 = 2.5 atm.",
+    "error_pattern": "Reports a given number from the stem (final volume value) as the answer instead of calculating."
+   }
+  ],
+  "change_note": "Seed solved for the final volume given a pressure change. Variant solves for the final pressure given a volume change (5.0 L to 2.0 L), a different unknown and numbers, with the distractors built from the corresponding errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-029-v1",
+  "seed": "apchem-mcq-029",
+  "difficulty": "medium",
+  "title": "Boiling points of similar-mass liquids",
+  "stem": "Of the following liquids, which is expected to have the highest normal boiling point?",
+  "correct": {
+   "text": "CH₃CH₂OH",
+   "rationale": "CH₃CH₂OH molecules contain an O–H group, so they hydrogen-bond to one another in addition to having dispersion and dipole-dipole attractions. Hydrogen bonding is the strongest of the intermolecular forces among these molecules, so more energy is needed to vaporize it and it boils highest."
+  },
+  "wrong": [
+   {
+    "text": "CH₃OCH₃",
+    "rationale": "CH₃OCH₃ has nearly the same molar mass as CH₃CH₂OH and is polar, but all of its hydrogen atoms are bonded to carbon, so it cannot hydrogen-bond with itself. Its attractions are weaker than those of the alcohol.",
+    "error_pattern": "Believes any molecule containing oxygen and hydrogen can hydrogen-bond, or that polarity alone gives the strongest attraction."
+   },
+   {
+    "text": "CH₃CH₂CH₃",
+    "rationale": "CH₃CH₂CH₃ is nonpolar, so only London dispersion forces act between its molecules. Its similar molar mass does not make up for the lack of hydrogen bonding, so it boils lower than CH₃CH₂OH.",
+    "error_pattern": "Assumes similar molar mass means similar boiling point, ignoring differences in the type of intermolecular force."
+   },
+   {
+    "text": "CH₃CH₂F",
+    "rationale": "CH₃CH₂F is polar, but its hydrogen atoms are bonded to carbon, not to F, so it cannot form hydrogen bonds with itself. Having both H and F in the molecule does not create a hydrogen bond; only dipole-dipole and dispersion forces act.",
+    "error_pattern": "Counts any molecule with H and F/O/N somewhere in it as hydrogen bonding, even when the H is bonded to carbon."
+   }
+  ],
+  "change_note": "Seed compared CH4, CH3Cl, CH3OH, C2H6. Variant uses ethanol, dimethyl ether, propane and fluoroethane (all of similar molar mass, 44-48 g/mol), which removes the molar-mass shortcut and adds the H-on-carbon-with-F error.",
+  "check": "conceptual",
+  "choice_facts": {
+   "correct": "Ethanol has O-H and hydrogen bonds (CED 3.1); bp strongest-IMF trend (3.2). Actual bp 78 C.",
+   "wrong_1": "Dimethyl ether: polar, no O-H, no H-bond donor; bp about -24 C.",
+   "wrong_2": "Propane: nonpolar, dispersion only; bp about -42 C.",
+   "wrong_3": "Fluoroethane: polar, H bonded to C only, no H-bond; bp about -38 C."
+  }
+ },
+ {
+  "id": "apchem-mcq-029-v2",
+  "seed": "apchem-mcq-029",
+  "difficulty": "hard",
+  "title": "Why HF boils above HCl",
+  "stem": "Hydrogen fluoride has a much higher normal boiling point than hydrogen chloride. Which statement best explains this difference?",
+  "correct": {
+   "text": "Hydrogen bonds form between HF molecules and are stronger than the attractions between HCl molecules.",
+   "rationale": "In HF the hydrogen is bonded to fluorine, so one molecule's H is attracted to a lone pair on F of a neighboring molecule (hydrogen bonding). This is a stronger intermolecular force than the dipole-dipole and dispersion forces between HCl molecules, so more energy is needed to vaporize HF."
+  },
+  "wrong": [
+   {
+    "text": "HF has the greater molar mass, so its London dispersion forces are stronger than those in HCl.",
+    "rationale": "HF (20 g/mol) is lighter than HCl (36.5 g/mol) and has fewer electrons, so its dispersion forces are weaker, not stronger. The higher boiling point of HF comes from hydrogen bonding.",
+    "error_pattern": "Applies a 'greater molar mass means stronger forces' shortcut without checking which molecule is actually heavier."
+   },
+   {
+    "text": "The H–F bond is stronger than the H–Cl bond, so more energy is needed to vaporize HF.",
+    "rationale": "Bond strength is an intramolecular property. Boiling does not break H–F or H–Cl covalent bonds; it overcomes the forces between molecules. Bond energy does not explain the boiling-point difference.",
+    "error_pattern": "Confuses intramolecular covalent bonds with intermolecular forces when explaining boiling points."
+   },
+   {
+    "text": "HCl is nonpolar, so only weak London dispersion forces act between HCl molecules.",
+    "rationale": "HCl is polar because Cl is more electronegative than H, so dipole-dipole forces act between HCl molecules in addition to dispersion forces. The key difference is that HF molecules can also hydrogen-bond.",
+    "error_pattern": "Incorrectly classifies a heteronuclear diatomic molecule as nonpolar."
+   }
+  ],
+  "change_note": "Seed asked for the highest boiling point among four formulas. Variant is an explanation question (HF versus HCl) rather than a ranking, using different substances and testing intra- versus intermolecular forces, molar-mass shortcut and polarity classification.",
+  "check": "conceptual",
+  "choice_facts": {
+   "correct": "H bonded to F gives hydrogen bonding in HF (CED 3.1); H-bonding stronger than dipole-dipole + dispersion in HCl.",
+   "wrong_1": "False: HF 20.0 g/mol < HCl 36.5 g/mol, fewer electrons.",
+   "wrong_2": "Boiling overcomes intermolecular forces, not intramolecular bonds (CED 3.2).",
+   "wrong_3": "False: HCl is polar (electronegativity difference), has dipole-dipole forces."
+  }
+ },
+ {
+  "id": "apchem-mcq-029-v3",
+  "seed": "apchem-mcq-029",
+  "difficulty": "medium",
+  "title": "Highest boiling hydride or gas",
+  "stem": "At 1 atm, which of these substances is expected to condense at the highest temperature?",
+  "correct": {
+   "text": "NH₃",
+   "rationale": "NH₃ has hydrogen atoms bonded to nitrogen, so its molecules hydrogen-bond with one another. This strong intermolecular attraction means NH₃ condenses at the highest temperature of the four."
+  },
+  "wrong": [
+   {
+    "text": "PH₃",
+    "rationale": "PH₃ has H bonded to P, which is not N, O, or F and is too weakly polarized for hydrogen bonding. Its molecules attract through dipole-dipole and dispersion forces, which are weaker than the hydrogen bonds in NH₃.",
+    "error_pattern": "Assumes any hydrogen bonded to a nonmetal other than carbon can form hydrogen bonds (H on P treated as an H-bond donor)."
+   },
+   {
+    "text": "GeH₄",
+    "rationale": "GeH₄ has the greatest molar mass and electron count, so it has the strongest dispersion forces of the four. But it is nonpolar and cannot hydrogen-bond, and its dispersion forces are not enough to exceed the hydrogen bonding in NH₃.",
+    "error_pattern": "Assumes the largest molar mass always gives the strongest intermolecular attraction and highest boiling point."
+   },
+   {
+    "text": "N₂",
+    "rationale": "N₂ contains nitrogen but no hydrogen, so no hydrogen bonds can form. It is a small nonpolar molecule held only by weak dispersion forces and has the lowest boiling point of the four.",
+    "error_pattern": "Believes any molecule containing N, O, or F forms hydrogen bonds, even if it has no hydrogen atom."
+   }
+  ],
+  "change_note": "Seed compared small carbon compounds. Variant compares main-group hydrides and N2 (NH3, PH3, GeH4, N2), so the trap is molar mass versus hydrogen bonding, with different substances and different error patterns (H on P, N without H).",
+  "check": "conceptual",
+  "choice_facts": {
+   "correct": "NH3 has N-H hydrogen bonding (CED 3.1); normal bp -33 C.",
+   "wrong_1": "PH3: P-H not H-bonding; bp about -88 C.",
+   "wrong_2": "GeH4: nonpolar, dispersion only despite 76.6 g/mol; bp about -89 C.",
+   "wrong_3": "N2: no H atoms, nonpolar dispersion only; bp -196 C."
+  }
+ }
+]

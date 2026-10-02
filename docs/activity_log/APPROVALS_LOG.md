@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
 - APPROVAL-0071 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
@@ -41,6 +42,19 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "let's run the full progression 1-7 on Chemistry, units 1-3. I want to get a sense of time, cost $ and cost tokens when we start from scratch")  
+**Related Decision:** `DECISION-0085`; validator relaxation `APPROVAL-0072`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** AP Chemistry, Units 1-3 only: (1) new versions of 8 published MCQs (`001, 008, 022, 025, 027, 031, 037, 039`): rationale rewrites, plus choice D of `037` and `039` replaced; keys and `is_correct` unchanged; (2) 36 primary topic cells (blind 3-family consensus, >= 5 of 6); (3) fresh validated serving labels for 37 in-scope items (2 items had duplicate active labels, both retired); (4) migration `apchem_skill_grid_units1_3` (28 skills, 136 cells); (5) 34 secondary skill cells on the four-voter rule (30 validated at >= 3 of 4, 4 provisional). Each write was an atomic guarded transaction; the repair and relabel scripts were rehearsed with a rollback first.
+
+**Result (census, Chemistry):** unit-gated servable 65 to 82; topic-known items 0 to 36. Metrics for the run are in `scripts/content-seed/chem-units1-3-pipeline-2026-10-02/PIPELINE_REPORT.md`: about 86 minutes, 2,040 gateway calls, $7.55 gateway list price, about 0.9M Claude tokens.
+
+**Not approved by this entry:** loading or publishing the 72 drafted variants; changing seeds `007` or `028` (CED-scope questions); other units or subjects; the 20 out-of-scope stale hashes.
 
 ## APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085)
 
