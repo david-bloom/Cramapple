@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Stripe Functions Tranche 1 Deployed to Production (APPROVAL-0070) (2026-10-02): `stripe-webhook` v21, `get-checkout-status` v1 and `send-parent-payment-email` v1 deployed and verified (source identical to `main`, 400/405 probes, no data change, no charge). Tranche 2 and the Lovable publish remain unapproved.
 - Stripe Payment Migrations Applied to Production (APPROVAL-0069) (2026-10-02): the three TASK-0041 payment-schema migrations were applied to Production and verified (`stripe_customers`, `parent_payment_email_requests`, webhook replay columns + `claim_stripe_webhook_event`). No function, secret, or Stripe change. Next: deploy the six functions from David's Mac, then live Stripe setup.
 - Seeded-Variant Runs: Status by Subject Documented; AP Biology Pilot Closed (2026-10-01): added protocol section 10, a table of which subjects have had a variant run (AP Calculus AB partly, AP Biology Units 1-2) and which still need one (Calculus BC, Chemistry, Physics 1, Physics 2, Physics C E&M, Physics C Mechanics, Precalculus, Statistics), plus a pre-run checklist. The label probe on the final AP Biology text is prepared (`probe_items_final.json`) but needs a run from the Product Owner's laptop.
 - AP Biology Seeded-Variant Pilot: Seed Audit, 14 Variants, `APBIO-MCQ-023` Repair Approved (APPROVAL-0067) (2026-10-01): S0a found 7 of 8 Biology seeds clean and 1 defective rationale (`APBIO-MCQ-023` choice A, both models); 14 class-A variants written and content-checked by both models (3 DeepSeek-only wording defects fixed, patched items re-checked clean). The Product Owner approved the one-item Production repair, which was applied and verified.
@@ -336,6 +337,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Stripe Functions Tranche 1 Deployed to Production (APPROVAL-0070) — 2026-10-02
+
+**Approval:** `APPROVAL-0070` (tranche 1). `stripe-webhook` v20→v21, `get-checkout-status` v1, `send-parent-payment-email` v1, all `verify_jwt=false`, deployed source byte-identical to `main`; invalid-request probes returned 400/405; Production data unchanged. Live publishable key already sits in the Lovable `.env` but the project is unpublished (checkout still shows "Online payment isn't switched on yet"). Refund-policy draft is in PR #309; it exposed that the Contact Us form sends nothing.
+
+**Approval state:** tranche 2 not approved. **Next Owner:** David Bloom. **Next Action:** confirm Stripe mode of Production's `STRIPE_SECRET_KEY`, the live webhook endpoint and signing secret, live price IDs, the support email and refund text; then approve tranche 2.
 
 ## Stripe Payment Migrations Applied to Production (APPROVAL-0069) — 2026-10-02
 
