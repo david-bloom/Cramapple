@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
 - APPROVAL-0071 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
 - APPROVAL-0069 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot — DECISION-0093
@@ -40,6 +41,21 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "Assess Bio for how to make all 118 publishable, replace stale label hashes"; "Create the Bio CED grid, then do labels"; "widen that check")  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`; the validator relaxation is `APPROVAL-0072`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** (1) migration `20261002170626_apbio_skill_grid_phase_a.sql`: widen `taxonomy_skills_practice_number_check` from 1..4 to 1..12; add the 22 AP Biology skills and the full 60 x 22 = 1320-cell grid (CED p. 30: exam questions can pair a topic with any skill) under taxonomy source version `c676d1fc`; (2) `scripts/content-seed/apbio-skills-and-labels-2026-10-02/serving_relabel_apply.sql`: new validated serving-label versions for 70 live items (old rows superseded), accepted only where >= 5 of 6 samples from three model families agree on the max required unit; (3) skill labels as secondary `content_item_cells` rows, validated on >= 2 of 3 models (gpt-5.5, gemini-2.5-pro, claude-opus-5), agreement tier recorded in `source`.
+
+**How it was used (2026-10-02):** each step was rehearsed on Production with a rollback, then applied. Bio census before to after: unit-gated servable 43 to 110 of 118, items with no serving label 43 to 0, stale hashes 15 to 4. Five items stay held on a real unit split (`FRQ-L-013`, `FRQ-L-017`, `HDG-008`, `MCQ-017`, `MCQ-088`); 3 hand-drawn items are excluded from text serving by design.
+
+**Finding recorded with this approval:** the registered primary topic cells (validated under `DECISION-0079`) disagree with a 6-of-6 three-family consensus on about 58 live Bio items, 36 of them across units (ten FRQs are registered `1.1`, e.g. barnacles on a whale, a mycorrhizal fungus, frog mating calls, which are ecology and speciation). The registered topics were NOT changed; they need a decision.
+
+**Not approved by this entry:** changing the registered topic cells; retiring the 42 dead `published` Bio rows; other subjects.
 
 ## APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1)
 

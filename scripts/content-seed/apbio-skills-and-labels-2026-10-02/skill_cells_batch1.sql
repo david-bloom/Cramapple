@@ -1,0 +1,82 @@
+-- AP Biology skill labels, batch 1 (TASK-0050 Phase B for ap_biology; APPROVAL-0073). 60 live items whose student-visible text states a task, labeled by three models (gpt-5.5, gemini-2.5-pro, claude-opus-5; DECISION-0085 roster)
+-- on every item; validated on >= 2 of 3 agreeing, tier recorded in `source`. Written as SECONDARY cells (is_primary=false) so the existing topic-only primary rows are untouched.
+-- Model-consensus validation relies on migration 20261002164510 (model_run_id instead of a human validated_by). The 45 FRQs whose visible text is only a scenario sentence are NOT in this batch.
+begin;
+select pg_advisory_xact_lock(hashtext('cramapple-apbio-skill-cells-20261002'));
+create temporary table tgt (content_key text primary key, version_id uuid, topic text, skill text, tier text) on commit drop;
+insert into tgt values
+('APBIO-FRQ-L-003','0c9b6720-639f-4dc4-8fab-c66e65271b1d','5.3','5.C','unanimous'),
+('APBIO-FRQ-L-004','c721f9eb-1f78-4fa0-b035-15701b663bde','6.2','6.E','majority'),
+('APBIO-FRQ-L-006','9aaacb20-9b11-4867-aaff-57ec9dbb07cf','7.5','6.E','majority'),
+('APBIO-FRQ-L-012','1514c2ee-7cc6-4173-b547-b1f5535a4e95','3.2','1.B','majority'),
+('APBIO-FRQ-L-013','3f39e127-2862-4a16-9805-c8ad8251a224','2.1','6.E','unanimous'),
+('APBIO-FRQ-L-014','0fbbb21d-7816-41e5-96ef-d5f2d904c3a9','3.5','6.E','unanimous'),
+('APBIO-FRQ-L-016','2fea6947-66ba-4080-9bcb-863c35adeb1b','3.5','6.E','unanimous'),
+('APBIO-FRQ-L-017','1840ca34-d29d-45f2-b0c1-831759df1d46','4.3','6.E','unanimous'),
+('APBIO-FRQ-L-026','13f4a0e3-a018-4ddf-ba71-c4a0ca0d7e67','5.2','6.E','majority'),
+('APBIO-FRQ-L-030','e5703022-8587-4962-ad27-d63b8bb56227','3.2','6.E','unanimous'),
+('APBIO-FRQ-L-031','4bc0591a-b1a8-4709-9e8d-b749210972b7','2.1','6.E','majority'),
+('APBIO-FRQ-L-036','69b78d2f-d887-4d95-8fa4-0dd416185da6','6.5','6.E','unanimous'),
+('APBIO-FRQ-S-007','dac34d4b-b53d-4def-8fea-a4167b7a49de','5.3','3.B','majority'),
+('APBIO-FRQ-S-011','5b8ee27e-2447-416d-9691-070bdf3b96da','7.5','5.A','unanimous'),
+('APBIO-FRQ-S-021','1c8662ac-d06b-47e4-bfd3-714dae885aac','1.3','1.A','majority'),
+('APBIO-FRQ-S-025','9384a865-b082-4048-a087-b4c26cc859ee','1.1','1.C','majority'),
+('APBIO-FRQ-S-028','7a819a05-5d81-4359-9f51-006bc51212b3','2.10','1.A','majority'),
+('APBIO-FRQ-S-031','f4dc03a9-a479-4443-aa4f-5e6870cd6fae','2.3','1.C','majority'),
+('APBIO-FRQ-S-101','406df04d-6c14-4ca2-9444-9f18cd2a5ed8','7.9','2.D','unanimous'),
+('APBIO-FRQ-S-103','acef35fc-9531-45b7-95ae-3139b531baa7','6.1','1.C','majority'),
+('APBIO-HDG-2026-GRAPH-002','1c29347d-0f41-4f09-96a7-6f863be82eaf','3.2','4.A','unanimous'),
+('APBIO-HDG-2026-GRAPH-003','6ac7429d-1bb4-4be3-9cc4-6059fbdcfbc7','7.2','4.A','unanimous'),
+('APBIO-HDG-2026-GRAPH-008','5725097a-a077-4f98-98da-12a527455879','7.11','4.A','unanimous'),
+('APBIO-HDG-2026-GRAPH-010','dc837bba-58ad-4734-8539-47813be6e2c3','8.4','4.A','unanimous'),
+('APBIO-MCQ-005','b6033e88-6dc7-49cb-9f45-78583669a3fb','1.3','1.C','majority'),
+('APBIO-MCQ-008','8fbe9af9-b42f-4225-a880-0901d7c7a8f9','1.1','1.C','unanimous'),
+('APBIO-MCQ-011','533c21dd-cfa1-4d11-99ad-e6aab888b934','7.12','6.B','unanimous'),
+('APBIO-MCQ-014','ad7a9f91-3861-4f2e-a8ff-eff3558d3a52','2.1','6.B','unanimous'),
+('APBIO-MCQ-016','1be8f5a0-929c-479c-b70f-83a6e56cf75f','2.7','1.C','majority'),
+('APBIO-MCQ-017','bb05df6f-07b4-4d70-aacc-018327c5e23d','2.8','1.C','majority'),
+('APBIO-MCQ-018','2de784ce-f783-43a1-bdcd-a08f5890a5ab','2.5','6.E','unanimous'),
+('APBIO-MCQ-021','5799ccb6-c47d-47d2-b656-462609d19b36','2.1','6.E','unanimous'),
+('APBIO-MCQ-022','3a69b406-ed1c-4ea2-861f-a03ee7b6ac61','2.1','6.B','unanimous'),
+('APBIO-MCQ-023','cd0343a2-f93d-46ec-a6cd-7191fee07f7a','2.3','6.B','unanimous'),
+('APBIO-MCQ-024','ecd0db9f-67cc-4dff-9297-14bffd1c3fa8','2.3','6.B','majority'),
+('APBIO-MCQ-026','4521b833-b4c3-4376-860f-9262095b2a2c','4.1','1.A','majority'),
+('APBIO-MCQ-027','8dc89768-43d8-471b-8b7d-f671c798d561','4.2','1.C','majority'),
+('APBIO-MCQ-028','ebf7c9ea-3d0c-41c1-8604-f0aa0ebdcb0a','4.2','6.E','unanimous'),
+('APBIO-MCQ-030','64c9f99b-5569-43e0-a123-662c0bf33a64','3.3','1.C','unanimous'),
+('APBIO-MCQ-033','bbe37ba6-2a58-45c0-a10b-d25b032ddf8f','4.3','6.E','unanimous'),
+('APBIO-MCQ-034','c92dabc7-2a63-4835-8cd3-d25dffc7a674','4.3','6.B','majority'),
+('APBIO-MCQ-046','2613407b-e76f-4e3c-9cf2-97b588d2277e','4.4','6.E','majority'),
+('APBIO-MCQ-047','c5a8e814-20b5-4020-b66b-cd4806f918ff','4.2','1.C','majority'),
+('APBIO-MCQ-055','f1a362bf-9847-4f87-98ed-08af07f8dd82','5.4','6.B','unanimous'),
+('APBIO-MCQ-056','13c9c246-6f1c-46ee-9983-3e0cdfd7671d','5.3','1.C','majority'),
+('APBIO-MCQ-058','17ca7505-86ed-47e9-aa2f-1a8809671e07','5.3','5.A','unanimous'),
+('APBIO-MCQ-061','87ab7c3a-8afb-4085-a33d-ae49be5900f4','1.6','1.A','unanimous'),
+('APBIO-MCQ-063','b14827d3-ad59-4683-ae00-7ea8223306ef','6.5','6.E','unanimous'),
+('APBIO-MCQ-064','bdfe102c-6617-4190-9a1a-aa855cddf05b','6.5','1.A','majority'),
+('APBIO-MCQ-065','b8274747-ff97-4026-90d9-ba100388cf11','6.5','1.C','majority'),
+('APBIO-MCQ-067','97c2d55b-0295-4d15-bd54-87642ff59c29','6.5','6.B','majority'),
+('APBIO-MCQ-069','008f7245-0504-47d9-9a4f-e6860f0a9286','6.5','1.B','majority'),
+('APBIO-MCQ-074','82edfa5f-e94f-4b85-8b72-23220bde6547','6.8','6.E','unanimous'),
+('APBIO-MCQ-079','76e28f76-8a84-49a7-89c8-6528e01b57da','7.1','1.C','majority'),
+('APBIO-MCQ-084','e522fa68-d4ad-41f0-9e93-2c7b1ac2f0d1','6.6','1.B','majority'),
+('APBIO-MCQ-093','004bcd77-6f2a-4c57-957a-918c11720f2a','8.5','6.E','unanimous'),
+('APBIO-MCQ-094','430109f4-bf82-4e2a-8125-7b2063cc8a4f','8.6','6.C','majority'),
+('APBIO-MCQ-095','4dc6cd64-db54-403e-81bd-1b5620bb0cb5','8.2','5.A','unanimous'),
+('APBIO-MCQ-097','044c1796-d319-497f-b532-69168da5ce30','8.3','1.C','majority'),
+('APBIO-MCQ-099','76ed843d-af2c-481e-a7b2-a661dc2443dc','2.1','1.C','majority');
+do $$ begin
+  if (select count(*) from tgt)<>60 then raise exception 'target count'; end if;
+  if exists (select 1 from tgt t where not exists (select 1 from app.content_item_versions v join app.content_items i on i.id=v.content_item_id where v.id=t.version_id and i.content_key=t.content_key and v.status='published' and i.status='published' and v.version_num=(select max(version_num) from app.content_item_versions x where x.content_item_id=i.id))) then raise exception 'a probed version is no longer the live version'; end if;
+  if exists (select 1 from tgt t join app.content_item_cells c on c.content_item_version_id=t.version_id and c.skill_code is not null and c.superseded_by is null) then raise exception 'a target already has a skill cell'; end if;
+end $$;
+insert into app.content_item_cells (content_item_version_id, content_item_id, taxonomy_source_version, topic_code, skill_code, is_primary, assignment_status, source, model_run_id, validated_by, validated_at, validation_decision_id)
+select t.version_id, v.content_item_id, 'c676d1fc-3b58-4896-89e3-852d9bd1f81b', t.topic, t.skill, false, 'validated', 'apbio_skill_phase_b_2026_10_02:'||t.tier,
+ 'apbio-skill-phase-b-2026-10-02 (openai/gpt-5.5 + google/gemini-2.5-pro + anthropic/claude-opus-5; >=2 of 3)', null, now(), gen_random_uuid()
+from tgt t join app.content_item_versions v on v.id=t.version_id;
+do $$ declare n int; begin
+  select count(*) into n from app.content_item_cells c join tgt t on t.version_id=c.content_item_version_id where c.skill_code=t.skill and c.topic_code=t.topic and not c.is_primary and c.assignment_status='validated' and c.superseded_by is null;
+  if n<>60 then raise exception 'post-check: % of 60', n; end if;
+  select count(*) into n from (select content_item_version_id from app.content_item_cells where is_primary and superseded_by is null group by 1 having count(*)>1) d; if n<>0 then raise exception 'multiple primaries'; end if;
+end $$;
+select count(*) written from tgt;

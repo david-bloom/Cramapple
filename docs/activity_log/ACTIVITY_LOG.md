@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology Grid Created and 70 Live Items Relabeled for Serving (APPROVAL-0073) (2026-10-02): 22 skills x 60 topics = 1320-cell grid from the CED; Bio unit-gated servable 43 to 110 of 118; registered topic cells found wrong on about 58 items (36 across units), left unchanged for a decision; skill labels in progress.
 - Cells Validation Check Relaxed in Production for Model-Consensus Labels (APPROVAL-0072, DECISION-0085 Route 1) (2026-10-02): `validated` now needs a human or a `model_run_id` plus a decision id and timestamp; rehearsed and applied as migration `20261002164510`; no rows changed.
 - Calc AB Seed Fixes Applied (APPROVAL-0071): `apcalcab-mcq-026` Choice C Replaced, `apcalcab-mcq-028` Units Corrected to [1, 2] (2026-10-02): rehearsed then applied on Production; servable 207 to 208.
 - Calc AB Launch-Readiness Pass, Serving-Label Repair (APPROVAL-0069), Units 2-3 Pilot Started (2026-10-02): read-only readiness census, then relabelled 11 of 12 held/stale items on Production (servable 196 to 207); `frq-u13-003` left held; S0a audit of the 12 Unit 2-3 seeds found 0 key defects and 1 weak rationale (`026` C).
