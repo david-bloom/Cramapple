@@ -139,6 +139,14 @@ Exit: steps 1.0 and 2-6 green (1a/1b optional), with session/event IDs written i
   That contradicts `DECISION-0094` (strangers pay full price during the pilot, then 50% off through October). Fix before payment is switched on.
 - Pricing shown on the page ($39.99 / $69.99 / $89.99) matches `DECISION-0083`.
 
+### Production secrets findings — read-only, 2026-10-02
+
+- **`STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` have the identical digest in Production** (`998b04ba…`), so they hold the **same value**. In Dev the two digests differ, as they must (a secret key and a webhook signing secret are different strings). At least one of the two Production values is wrong, so the Production webhook cannot be trusted to verify live Stripe signatures, and/or Stripe API calls would fail. I cannot tell which is wrong or when it changed. **Do not enable payment until both are re-set from the Stripe live dashboard.**
+- **The key *was* live in August:** all 5 stored Production webhook events and all 5 stored sessions carry `livemode: true`.
+- **`STRIPE_PRICE_CATALOG_JSON` must contain an `unlimited` price ID** or the whole catalog fails to load and every checkout function errors (`stripe-catalog.ts`: `unlimited` is in the required bundle keys). Unlimited is deferred and the UI never offers it, so use an inert placeholder (an existing live price ID, e.g. the 3-bundle's). The Production catalog digest differs from Dev's; its contents (live vs test IDs, `unlimited` present) are unverified.
+- Subject keys the catalog should use (must match the app's slugs): `biology`, `ap-statistics`, `ap-chemistry`, `ap-physics-1`, `ap-physics-2`, `ap-physics-c-mechanics`, `ap-physics-c-em`, `ap-precalculus`, `ap-calculus-ab`, `ap-calculus-bc`. A subject with no price shows the student "One of those subjects isn't available yet", which is graceful; Day-1 needs `biology` and `ap-statistics`.
+- Confirmed by David 2026-10-02: live prices in Stripe match $39.99 / $69.99 / $89.99. Refund text is live in the Terms; the "free until November" homepage line is removed.
+
 ## 4. Gate B — Stripe live-mode setup (David, in the Stripe dashboard)
 
 Claude has no Stripe access this session and cannot verify any of this. Everything below needs David to confirm.
