@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
 - APPROVAL-0071 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
 - APPROVAL-0069 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot — DECISION-0093
 - APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
@@ -39,6 +40,19 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "change the validator rule in production from the human requirement to the AI requirement")  
+**Related Decision:** `DECISION-0085` (the open Hard Gate it left: "Relax the CHECK (recommended)")  
+**Decision:** Approved
+
+**Approved scope:** one migration on Production (`pcntajvbdfqhbeewmdry`), `supabase/migrations/20261002164510_relax_cells_validation_check_ai_consensus.sql`: a `validated` cell needs `validated_at`, `validation_decision_id` and either a human `validated_by` or a `model_run_id`. Non-validated rows still may not carry a complete validation record.
+
+**How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
+
+**Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
 ## APPROVAL-0071 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units
 
