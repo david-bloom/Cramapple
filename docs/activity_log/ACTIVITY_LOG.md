@@ -349,7 +349,7 @@ Most recent entries (full reverse-chronological list follows below):
 
 **Status:** only AP Calculus AB (Unit 1 complete, Units 2-8 sampled with 1 seed each, 24 sampled variants published) and AP Biology (Units 1-2, 16 variants, not loaded) have had a variant run. AP Calculus BC, Chemistry, Physics 1, Physics 2, Physics C E&M, Physics C Mechanics, Precalculus and Statistics have not. FRQs have had none.
 
-**Open:** label probe on the final AP Biology text (input `probe_items_final.json`, to be run from the laptop that holds the gateway key); re-check of the 24 Calc variants against the repaired Calc seeds; seed topic relabelling by three-model consensus; whether any variant goes to review (needs its own approval).
+**Session records (2026-10-02):** `docs/handoffs/SEEDED_QUESTIONS_SESSION_RECORD_2026_10_01.md` (generation, with the handoff packet) and, kept separate, `docs/handoffs/GRADING_NOTES_FROM_SEEDED_QUESTION_SESSION_2026_10_01.md`. **Open:** label probe on the final AP Biology text (input `probe_items_final.json`, to be run from the laptop that holds the gateway key); re-check of the 24 Calc variants against the repaired Calc seeds; seed topic relabelling by three-model consensus; whether any variant goes to review (needs its own approval).
 
 ## AP Biology Seeded-Variant Pilot: Seed Audit, 14 Variants, `APBIO-MCQ-023` Repair Approved (APPROVAL-0067) — 2026-10-01
 
