@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Google Sign-In Removed From Checkout; Post-Pilot Task Opened (TASK-0058) (2026-10-02): at David's direction Lovable removed the "Continue with Google" option from `/checkout` (commit `18666296`, only `checkout.index.tsx`, deletions only, not yet published). Reviewed Chrome's identity guidance against the redirect flow; improvements, layout wishes and Stripe hardening are collected in `docs/tasks/TASK-0058-POST-PILOT-CHECKOUT-AND-SIGN-IN.md`. Google branding/verification is David-owned and prepared there.
 - Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) (2026-10-02): `stripe-webhook` (partial-refund fix), `create-checkout-session`, `create-post-purchase-addon` and `create-parent-payment-link` deployed and verified (source identical to `main`, 400 probes, no data change, no charge). Production Stripe secrets re-set by David (key/webhook distinct, catalog exact match). Lovable not yet published; Gate D ($1 test) pending.
 - Stripe Functions Tranche 1 Deployed to Production (APPROVAL-0070) (2026-10-02): `stripe-webhook` v21, `get-checkout-status` v1 and `send-parent-payment-email` v1 deployed and verified (source identical to `main`, 400/405 probes, no data change, no charge). Tranche 2 and the Lovable publish remain unapproved.
 - Stripe Payment Migrations Applied to Production (APPROVAL-0069) (2026-10-02): the three TASK-0041 payment-schema migrations were applied to Production and verified (`stripe_customers`, `parent_payment_email_requests`, webhook replay columns + `claim_stripe_webhook_event`). No function, secret, or Stripe change. Next: deploy the six functions from David's Mac, then live Stripe setup.
@@ -338,6 +339,12 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Google Sign-In Removed From Checkout; Post-Pilot Task Opened (TASK-0058) — 2026-10-02
+
+At David's direction (after the Google consent screen showed the Supabase project URL and the redirect flow left the page), Claude sent a tightly scoped instruction to the Lovable marketing project; Lovable commit `18666296` removed the Google button, the "or type your email" divider and the code that existed only for it. The diff was checked line by line: one file (`src/routes/checkout.index.tsx`), deletions only, signed-in handling untouched, nothing published. `TASK-0058` collects the post-pilot work (Google One Tap/FedCM with `signInWithIdToken`, step reorder and wallet layout, wallets-first email capture, a Dev-pointed frontend, Stripe hardening, email/SMTP, passkeys) and the Google Auth Platform branding checklist.
+
+**Approval state:** documentation; the Lovable edit is unpublished. **Next Owner:** David Bloom. **Next Action:** publish the Lovable project when ready; start Google branding verification; the pre-pilot items listed in `TASK-0058`.
 
 ## Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) — 2026-10-02
 
