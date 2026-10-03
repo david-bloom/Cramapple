@@ -206,6 +206,19 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
+## APPROVAL-0103 — Skill Cells for the 6 Tagged Seeds and Their Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "I want skill cells for the other 6 tagged seeds, with their variants inheriting from them")  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0102`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):**
+- **Seed skill cells (four voters: claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash):** `apphy1-mcq-np1-008` 3.B, `apprecalc-mcq-015` 1.B, `apprecalc-mcq-037` 3.C, `apprecalc-mcq-040` 1.A (all 4 of 4, validated); `apprecalc-mcq-027` 2.A and `apprecalc-mcq-031` 2.A (2 of 4, unique plurality, `provisional_model`).
+- **Variants:** only variants without a skill cell inherit, and only when their own topic equals the seed's. That is `apprecalc-mcq-sv-031-v1` (provisional) and `apprecalc-mcq-sv-015-v2` (validated). For `-015-v2` the topic cell 3.2 was first inherited from the seed (its own vote tied 3-3 between 3.1 and 3.2). The other variants of these seeds already had cells from `APPROVAL-0100` and were left alone.
+
+**Not done:** `apprecalc-mcq-sv-037-v3` still has no topic or skill (its vote gave 1.4, not the seed's 2.6, so it may be a different question); `apprecalc-mcq-sv-027-v1`/`-v2` keep their own topic 1.4 and their own skills; FRQs; Units 4 and above; Calculus BC.
+
 ## APPROVAL-0102 — Retire AP Calculus AB Seed MCQ-005 and Its 5 Variants (Production)
 
 **Date:** 2026-10-03  
