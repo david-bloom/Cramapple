@@ -1,5 +1,7 @@
 # AP Biology Units 1-2 seeded-variant pilot: final report (2026-10-01)
 
+> **Update 2026-10-03.** Statements below that no variant is in any database describe this pilot's 16 drafts only. A different set of 24 Biology variants (`APBIO-MCQ-SV-...`) was published under `APPROVAL-0080` on 2026-10-02 and overlaps these drafts; seed topic relabelling was done by `APPROVAL-0079`. See `docs/handoffs/SEEDED_QUESTIONS_SESSION_RECORD_2026_10_01.md`, addendum.
+
 Protocol under test: `docs/research/SEEDED_ITEM_GENERATION_PROTOCOL_2026_09_30.md` (draft v0.1), second subject after AP Calculus AB. Class A seeds only (existing Cramapple items). 8 published MCQ seeds, 2 variants each = **16 variants**.
 Author: Claude Sonnet 5.5. Checkers (Product Owner's pick): `google/gemini-3.5-flash` + `deepseek/deepseek-v4-pro`. Nothing was loaded to any database for the variants.
 One Production change was made: the repair of seed `APBIO-MCQ-023` (`APPROVAL-0067`). Detail: `S0A_AUDIT_REPORT.md`, `VARIANTS_MATH_CHECK_REPORT.md`, `VARIANTS_CED_AND_LABEL_REPORT.md`.
