@@ -4,6 +4,18 @@ Scope of this file: **seeded question generation only** (the protocol, the AP Bi
 
 Governing records: `DECISION-0093` (seeded-item protocol), `docs/research/SEEDED_ITEM_GENERATION_PROTOCOL_2026_09_30.md` (now with section 10, status by subject). Approvals used: `APPROVAL-0066`, `APPROVAL-0067`, `APPROVAL-0068`. Merged PRs from this session: #303, #305 (earlier in the work: #302; the Product Owner also pushed #297 during the Calc repair work). Author: Claude Sonnet 5.5. Checkers: `google/gemini-3.5-flash` and `deepseek/deepseek-v4-pro`.
 
+## Addendum, 2026-10-03: what changed on `main` after this record was drafted (read this first)
+
+This record was written on 2026-10-02. Other sessions then landed substantial work on `main` on 2026-10-02, and several statements below were true when written and are no longer. The corrections are made in place where short; the important ones are here.
+
+1. **Another AP Biology variant set is published in Production.** `APPROVAL-0080` loaded and published **24 Biology Units 1-2 variants** (keys `APBIO-MCQ-SV-<seed>-v1..v3`, 9 seeds, checked by `gemini-3.8-flash` and `deepseek-v4-pro`; 6 of 30 drafts dropped). That is a **different set from this session's 16 drafts** (`apbio-mcq-sv-...`), which remain in **no database**. Statements below that "no variant is in any database" describe this session's 16 only.
+2. **The two sets overlap.** From the first 150 characters of each published item (a read-only Production query; no full comparison was made): `SV-005-v1` is the same galactose/glucose pair as this session's `005-v1`; `SV-018-v1` and `SV-018-v3` are the same transferrin and LDL receptor cases as `018-v1` and `018-v2`; `SV-022-v1` is the same chloroplast evidence list as `022-v1`; `SV-023-v1` is the same channel-protein R-group question as `023-v2`. Loading this session's drafts as well would put near-duplicates in the bank.
+3. **Some published variants use terms the 2026-10-01 CED-vocabulary ruling excludes.** Seen in the first 150 characters only: "70S ribosomes" (`SV-014-v1`, `SV-014-v2`, `SV-022-v3`, also "80S"), "receptor-mediated endocytosis" (`SV-018-v1`, `SV-018-v3`), "high-salt" membrane-protein release (`SV-023-v2`), "one hydroxyl group is oriented differently" (`SV-005-v1`). The rest were not read. `APPROVAL-0080` records that the seed-level CED scope check on the 10 Biology seeds was **not** approved or done, and its checkers did not have this session's CED-vocabulary ruling. This is the single most important open item: the Product Owner should decide whether those published variants stay, are retired, or are replaced by this session's CED-vocabulary drafts.
+4. **Biology topics were corrected by three-family consensus** (`APPROVAL-0079`): 73 primary topic cells replaced, 42 across units, and **`APBIO-MCQ-005` is now Unit 2** (it was Unit 1). This closes the "seed topic relabelling by three-model consensus" open item below. It also means this session's `005-v1` and `005-v2` drafts, written as Unit 1, topic 1.3, are mislabelled against their seed.
+5. **Biology serving and skills moved on:** the 22-skill by 60-topic grid was created and 70 live items relabelled (`APPROVAL-0073`: unit-gated servable 43 to 110 of 118); skill cells were re-voted (`APPROVAL-0081`). The validation constraint on cells was relaxed so model-consensus labels can be `validated` (`APPROVAL-0072`).
+6. **Chemistry and Statistics now have variant runs** (`APPROVAL-0074` to `0078`); Calc AB Units 2-3 pilot started (`APPROVAL-0082`, `0083`). Protocol section 10 has the current table.
+7. **Approval numbering:** an earlier-numbered Calc AB approval was renumbered 0082/0083 because 0069/0071 were taken by the Stripe cutover. This record's `APPROVAL-0066`, `0067`, `0068` are unaffected.
+
 ## 1. What was asked, in order
 1. Test the seeded-item protocol on a new subject: AP Biology Units 1-2, class A seeds only, 2 variants per seed, the same two checkers as the Calc pilot (for direct comparison).
 2. Repair `apcalcab-mcq-037` and the distractor-rationale defects (TASK-0053-related) on 10 published Calc AB MCQs.
@@ -16,13 +28,13 @@ Governing records: `DECISION-0093` (seeded-item protocol), `docs/research/SEEDED
 
 | Stream | Result |
 |---|---|
-| AP Biology pilot (Units 1-2) | 8 seeds audited, 16 variants written and checked, no variant in any database. Closed. |
+| AP Biology pilot (Units 1-2) | 8 seeds audited, 16 variants written and checked; **these 16 are in no database** (a different 24-variant set was published on 2026-10-02, see the addendum). Closed. |
 | Calc AB repair | 11 published items repaired and labels carried forward (`APPROVAL-0066`), verified. |
 | Biology `023` repair | Choice A rationale corrected, new version published (`APPROVAL-0067`), verified. |
 | Biology seeds replaced | `APBIO-MCQ-005`, `018`, `021`, `022`, `023` replaced with CED-vocabulary text (`APPROVAL-0068`), keyed letters unchanged, labels carried forward, verified. |
 | CED fact pack | Cites CED V.1 pp. 49-51, records that signal sequence / SRP are not in the CED. |
 | Protocol | Section 10 added: variant-run status by subject and a pre-run checklist. |
-| Open | Label probe on the final text; Calc variant re-check; seed topic relabelling; DECISION record for the CED-vocabulary ruling; whether any variant goes to review. |
+| Open | **Overlap and CED-vocabulary conflict with the published 24-variant set (addendum items 2 and 3)**; label probe on the final text; Calc variant re-check; DECISION record for the CED-vocabulary ruling. (Seed topic relabelling was done by `APPROVAL-0079`.) |
 
 ## 3. Pilot method and what it found
 
@@ -82,8 +94,8 @@ Dev (`wmgjsdkphcyhngaffbqf`) has none of these items; nothing was applied there.
 | 1 | Label probe on the final text (24 items) | Product Owner (laptop) | Command below. Watch `023-v1`, `023-v2`, `005-v1`, `005-v2` for Unit 1 drift. |
 | 2 | Record the "stay within CED vocabulary" ruling as a DECISION | Product Owner / next session | Currently recorded only in `APPROVAL-0068` and the protocol checklist. I did not create a decision number. |
 | 3 | Re-check the 24 seeded Calc variants against the repaired Calc seeds | next session | Noted since the Calc repair. |
-| 4 | Seed topic relabelling by three-model consensus | next session | One model, 2 samples only so far. Re-run after the seed changes. |
-| 5 | Whether any variant goes to review or Production | Product Owner | Needs its own approval. Two DeepSeek-only scope flags (`021-v1`, `022-v1`) need reviewer judgement. |
+| 4 | ~~Seed topic relabelling by three-model consensus~~ | **Done 2026-10-02, `APPROVAL-0079`** | `APBIO-MCQ-005` is now Unit 2; this session's `005` variants still say Unit 1 / topic 1.3. |
+| 5 | **Reconcile the two Biology variant sets.** Decide whether the 24 published variants that use terms outside the CED stay, are retired, or are replaced by this session's 16 drafts, and whether any of the 16 are loaded at all | Product Owner | Needs its own approval. Two DeepSeek-only scope flags (`021-v1`, `022-v1`) also need reviewer judgement if the drafts are used. |
 | 6 | Subjects with no variant run (Calc BC, Chem, Phys 1/2/C E&M/C Mech, Precalc, Stats) and Biology Units 3-8 | Product Owner to prioritize | See protocol section 10. |
 | 7 | Promote the CED-vocabulary rule from the section-10 checklist into the protocol body (sections 3-4) | next session | |
 
@@ -113,7 +125,7 @@ Current Source:
 
 Approval State:
 - Approved and used: APPROVAL-0066, 0067, 0068
-- Not approved: loading any variant into any database; any further Production content change
+- Not approved: loading this session's 16 drafts into any database; any further Production content change. (A different 24-variant set was approved and published under APPROVAL-0080; see the addendum.)
 - Required before execution: new approval for any Production write
 
 Live / Tool State:
@@ -127,6 +139,7 @@ Files / Systems Affected:
 
 Open Risks / Blockers:
 - P2: label probe not run; variants unreviewed; DECISION for the CED-vocabulary ruling missing
+- P1: the 24 published Biology variants overlap this session's drafts and some use terms outside the CED (addendum items 2 and 3)
 - Pending owner decisions: items 2, 5, 6 in section 8
 
 Do Not Touch:

@@ -277,24 +277,24 @@ seeding, because it predates the clean-room requirement (finding 8). Reports: `M
 `CED_CONFORMANCE_REPORT.md`, `LABEL_INHERITANCE_SPOT_CHECK.md`, `LABELING_REPORT.md`,
 `PUBLICATION_RECORD.md`.
 
-## 10. Variant-run status by subject (as of 2026-10-01)
+## 10. Variant-run status by subject (as of 2026-10-03)
 
-"Run" means the full class-A procedure: S0a seed audit, variants written, blind solve and rationale audit by two checkers from different families, CED scope check, label probe. Counts of published MCQs are from Production on 2026-10-01 (by content-key family). Nothing here is a plan to load anything; loading any variant needs its own approval.
+"Run" means the class-A procedure: S0a seed audit, variants written, blind solve and rationale audit by two checkers from different families, CED scope check, label check. Status below is from the approval and activity logs on `main` and read-only Production queries on 2026-10-03. It replaces the 2026-10-01 table, which was written before the other runs of 2026-10-02 landed.
 
-| Subject | Published MCQs | Variant run | Where it stands | Reports |
-|---|---|---|---|---|
-| AP Calculus AB | 199 | **Partly done** | Unit 1 complete: 34 originals, 102 variants, published under `APPROVAL-0065`. Units 1-8 sampled with one seed each (16 variants), plus Unit 3 (8 more variants); the 24 seeded variants are published. Units 2 and 4-8 have only the one-seed sample. Follow-up still open: re-check the 24 variants against the repaired seeds (`APPROVAL-0066`). | `calc-ab-unit1-original-2026-09-29/`, `calc-ab-pilot-2026-09-30/`, `calc-ab-unit3-variants-2026-09-30/`, `calc-ab-seed-audit-2026-09-30/` |
-| AP Biology | 65 | **Done for Units 1-2, not loaded** | 8 seeds, 16 variants, all checks run through round 5. The five seeds that used beyond-CED terms were replaced in Production (`APPROVAL-0067`, `APPROVAL-0068`). The variants are in no database. Units 3-8 not run. Label probe on the final text: see the pilot report. | `apbio-seeded-pilot-2026-09-30/PILOT_REPORT.md` |
-| AP Calculus BC | 67 | **Needs a run** | None. Shares a fact pack with AB, and its AB-overlap units may share seeds; run S0a on BC-only units first. | none |
-| AP Chemistry | 70 | **Needs a run** | None. | none |
-| AP Physics 1 | 63 | **Needs a run** | None. | none |
-| AP Physics 2 | 42 | **Needs a run** | None. | none |
-| AP Physics C: E&M | 48 | **Needs a run** | None. | none |
-| AP Physics C: Mechanics | 42 | **Needs a run** | None. | none |
-| AP Precalculus | 55 | **Needs a run** | None. | none |
-| AP Statistics | about 312 (six key families) | **Needs a run** | None. | none |
+| Subject | Variant-run status | Detail | Records |
+|---|---|---|---|
+| AP Calculus AB | **Run, partly continuing** | Unit 1 complete (34 originals, 102 variants, published, `APPROVAL-0065`); Units 1-8 sampled with one seed each plus Unit 3 (24 sampled variants published). 2026-10-02: Units 2-3 pilot started after a read-only readiness pass; S0a audit of the 12 Unit 2-3 seeds found 0 key defects and 1 weak rationale (`026` choice C); seed fixes under `APPROVAL-0083` (originally numbered 0071). The outcome of the Units 2-3 variants is not recorded in the files this entry was written from. Still open: re-check the 24 sampled variants against the repaired seeds. | `calc-ab-*` folders under `scripts/content-seed/`; `APPROVAL-0065`, `0066`, `0082`, `0083` |
+| AP Biology | **Run twice, two sets, overlapping** | (a) This session's pilot: 8 seeds, 16 variants (`apbio-mcq-sv-...` keys), fully checked, **not in any database**. (b) A separate 2026-10-02 run: 9 Unit 1-2 seeds, 30 drafts, 24 **published** (`APBIO-MCQ-SV-<seed>-v1..v3` keys, `APPROVAL-0080`); 6 dropped. The two sets cover the same seeds and in several cases the same idea. Some published variants use terms the 2026-10-01 CED-vocabulary ruling excludes (see the session record). Units 3-8 not run. | `scripts/content-seed/apbio-seeded-pilot-2026-09-30/`; `APPROVAL-0067`, `0068`, `0079`, `0080` |
+| AP Chemistry | **Run for Units 1-3** | Full pipeline from scratch on 2026-10-02: 8 seeds repaired, 75 variant drafts, 72 loaded and published (`APPROVAL-0075`); the 3 `007` variants held for a CED-scope concern; seeds `007` and `028` have an open CED-scope question. Units 4+ not run. | `APPROVAL-0074`, `0075` |
+| AP Statistics | **Run for Units 1-3** | 2026-10-02: 4 rationales repaired as version 2, 132 variants loaded as drafts (`APPROVAL-0077`) and 131 published (`APPROVAL-0078`); 1 variant held as a draft; 8 items on CED-removed topics retired. Units 4+ not run. | `APPROVAL-0076`, `0077`, `0078` |
+| AP Calculus BC | **Needs a run** | None. Shares a fact pack with AB; run S0a on BC-only units first. | none |
+| AP Physics 1 | **Needs a run** | None. | none |
+| AP Physics 2 | **Needs a run** | None. | none |
+| AP Physics C: E&M | **Needs a run** | None. | none |
+| AP Physics C: Mechanics | **Needs a run** | None. | none |
+| AP Precalculus | **Needs a run** | None. | none |
 
-AP Calculus AB and AP Biology are the only subjects with any variant run. FRQs have had no seeded-variant run in any subject (the protocol and pilots covered MCQs only).
+FRQs have had no seeded-variant run in any subject. Two things the table shows that earlier versions missed: runs on different subjects and on the same subject were happening in parallel sessions, and a subject's run can be published without the other session knowing about drafts from an earlier one. Before starting a run, read this table, the approvals log and Production (`content_key ilike '<prefix>-sv-%'`) so a run does not duplicate an existing set.
 
 ### Before starting a run on a new subject
 1. **Read the subject's CED fact pack and its exclusions first**, and list them in the batch README. Packs exist for every subject in `docs/product/*_CED_FACT_PACK.md`; they are topic-level, so check any term you are unsure of against the CED itself (the AP Biology run found the pack already matched the CED).
