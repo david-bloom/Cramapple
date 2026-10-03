@@ -16,8 +16,8 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
-- APPROVAL-0071 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
-- APPROVAL-0069 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot — DECISION-0093
+- APPROVAL-0083 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
+- APPROVAL-0082 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot — DECISION-0093
 - APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
 - APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend — DECISION-0093
 - APPROVAL-0064 — TASK-0056 to Production (Three Migrations) and the `evaluate-attempt` F2 Deploy — DECISION-0089
@@ -190,7 +190,9 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
-## APPROVAL-0071 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units
+## APPROVAL-0083 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units
+
+**Numbering:** recorded in the Production notes and in the SQL scripts as `APPROVAL-0071`; renumbered on merge because the Stripe cutover had already used `APPROVAL-0071` on `main`. The scripts are left unchanged because their text matches what was run.  
 
 **Date:** 2026-10-02  
 **Approved By:** David Bloom (2026-10-02 Claude session: "fix them", in answer to the two seed issues raised in the Units 2-3 pilot report)  
@@ -203,7 +205,9 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** loading or publishing the 30 pilot variants; any other item.
 
-## APPROVAL-0069 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot
+## APPROVAL-0082 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot
+
+**Numbering:** recorded in the Production notes and in the SQL scripts as `APPROVAL-0069`; renumbered on merge because the Stripe cutover had already used `APPROVAL-0069` on `main`. The scripts are left unchanged because their text matches what was run.  
 
 **Date:** 2026-10-02  
 **Approved By:** David Bloom (2026-10-02 Claude session: "I Confirm the Units 2–3 scope"; "I Authorize relabelling the 13 problem items"; checkers Gemini 3.8 Flash plus DeepSeek V4 Pro)  

@@ -1,7 +1,7 @@
 # AP Calc AB Units 2-3 seeded-variant pilot (2026-10-02)
 
 **Author:** Claude Sonnet 5.5. **Checkers (Product Owner's pick):** Gemini 3.8 Flash + DeepSeek V4 Pro; labels also GPT-6.1 Sol (as on 9/30).
-**Scope (confirmed 2026-10-02, `APPROVAL-0069`):** Units 2-3, 3 variants per seed. **Nothing loaded to any database.** Loading and publishing need their own approval.
+**Scope (confirmed 2026-10-02, `APPROVAL-0082` (originally numbered 0069)):** Units 2-3, 3 variants per seed. **Nothing loaded to any database.** Loading and publishing need their own approval.
 **Seeds (class A, all audited first, S0a):** Unit 2: `006`, `025`, `026`, `027`, `028`. Unit 3: `005`, `007`, `008`, `029`, `030`. 10 seeds x 3 = **30 variants**.
 **Skipped:** `u1n-001` and `u1n-002` (Unit 2) already have 3 variants each from the Unit 1 batch (`u1v-001-v1..3`, `u1v-002-v1..3`), so the plan's 12 seeds became 10.
 **Keys:** `apcalcab-mcq-sv-<seed>-vK`, with K = 3-5 for the six seeds that already have published `sv-<seed>-v1/v2` (005, 007, 008, 026, 029, 030), else 1-3. Those six families now have up to 5 siblings.
@@ -52,7 +52,7 @@ CED dominates: 1.26M input tokens (the fact pack is in every call), about 90% of
 
 ## Open
 1. Load and publish the 30 variants: needs approval; build on the 9/30 `publish_step.sql` pattern with `label_inheritance.json` (held dimensions stay held). Do **not** re-run `units23.py export` (it re-randomizes letters; `math_items.json` sha256 prefix `d9f8dde6b0bd` before patch, patched in place with `patch_round1.py`).
-2. ~~Seed repair for `026` choice C; seed `028` unit set~~ DONE 2026-10-02 (`APPROVAL-0071`, `seed_fixes_apply.sql`): C is now `2e`; 028 is [1,2], validated.
+2. ~~Seed repair for `026` choice C; seed `028` unit set~~ DONE 2026-10-02 (`APPROVAL-0083` (originally numbered 0071), `seed_fixes_apply.sql`): C is now `2e`; 028 is [1,2], validated.
 3. `025-v1` units still held.
 4. `frq-u13-003` (max unit split Unit 2 vs Unit 4) still held.
 5. No `family_id` in the schema: six families now have 5 siblings each. Serving can put several in one session.
