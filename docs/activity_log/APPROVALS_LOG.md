@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0094 — Set Item Status to `retired` on the Last 4 AP Biology Items Published With No Published Version (Production)
 - APPROVAL-0093 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
 - APPROVAL-0092 — Retire 3 Published AP Biology Seed MCQs Outside the CED (`APBIO-MCQ-014`, `063`, `025`) (Production) — DECISION-0095
 - APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production) — DECISION-0093
@@ -204,6 +205,21 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0094 — Set Item Status to `retired` on the Last 4 AP Biology Items Published With No Published Version (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "The attempts were tests- not real students. No risk to flipping. The latest label is retired. Those two should be retired.")  
+**Related Decision:** `DECISION-0095`; follows `APPROVAL-0093`, which held these four  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** run `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_retire_last_four_orphan_items.sql`. Set the item status to `retired` on `APBIO-FRQ-L-028` (5 attempts) and `APBIO-MCQ-012` (1 attempt), which the Product Owner confirmed are test attempts and not real students, and on `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041`, whose latest version is retired (their version 1 is an old `reviewed_approved` that is left as it is). Only `content_items.status` and `updated_at` change; versions, labels, cells and attempts are untouched.
+
+**How the statement was read:** the first sentence covers the two items with attempts; "the latest label is retired" is read as the latest version of `038` and `041` being retired, which the script asserts. If a different pair was meant, the effect is the same: all four are retired.
+
+**Not approved by this entry:** retiring or changing the old `reviewed_approved` version 1 of `038` and `041`; deleting any attempt; any other item or subject.
+
+**How it was used (2026-10-03):** one transaction with in-script assertions, no rehearsal. The script asserted exactly 4 published targets, none with a published version, the newest version of each retired, and that these were the only Biology items in that state; after the update it asserted published items fell by exactly 4 and that published versions, validated serving labels and the attempts on the targets did not change. Verified afterwards on Production: all four `retired`; Biology published items 136 to 132; every published Biology item has a published version (132 of 132); published versions 132; validated serving labels 163; the 6 attempts intact; `APBIO-FRQ-L-038` versions untouched (1 `reviewed_approved`, 2 and 3 `retired`).
 
 ## APPROVAL-0093 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
 

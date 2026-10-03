@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology: Last 4 Orphan Items Retired (APPROVAL-0094) (2026-10-03): `APBIO-FRQ-L-028`, `APBIO-MCQ-012` (test attempts only, per the Product Owner), `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041` (latest version retired) set to `retired`; every published Biology item now has a published version (132 of 132); Biology published items 136 to 132.
 - AP Biology: 38 Items With All Versions Retired Now Marked Retired (APPROVAL-0093) (2026-10-03): 38 of the 42 Biology items that were marked published with no published version (17 FRQ, 21 MCQ) set to `retired` at item level; no student-visible change (the selector already required a published version). Biology published items 174 to 136. Four left for a decision: `APBIO-FRQ-L-028` and `APBIO-MCQ-012` (attempts), `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041` (unretired `reviewed_approved` v1).
 - AP Biology: 3 More Items Retired (APPROVAL-0092) and DECISION-0095 Recorded (2026-10-03): `APBIO-MCQ-014` (70S/80S ribosomes), `063` (signal sequence) and `025` (kidney ADH outside the pack) retired, zero attempts; Biology published items 177 to 174. `DECISION-0095` records the rule that items stay within the CED vocabulary and that breaking items are retired. 42 older Biology items are marked published with no published version (not caused by this change).
 - AP Biology: 7 Published Variants With Out-of-CED Terms Retired (APPROVAL-0091) (2026-10-03): a full-text scan of the 24 variants published under `APPROVAL-0080` found 7 using terms the CED does not name (70S/80S ribosomes, receptor-mediated endocytosis, binary fission, high-salt wash); all 7 retired (zero attempts), 17 remain published; Biology published items 184 to 177; validated serving labels unchanged.
@@ -370,7 +371,7 @@ Most recent entries (full reverse-chronological list follows below):
 
 **What was done:** 38 of the 42 (17 FRQ, 21 MCQ) set to `retired` at item level by a rule inside the script (all versions retired, no attempts). Verified: Biology published items 174 to 136; published versions and validated serving labels unchanged (132 and 163). **Held, not touched (4):** `APBIO-FRQ-L-028` (5 attempts) and `APBIO-MCQ-012` (1 attempt), where an item-status change might affect anything listing a student's history by item status (not checked); `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041`, each with an unretired `reviewed_approved` version 1 beside retired versions 2 and 3.
 
-**Per the Product Owner:** no rescan of other subjects' banks under `DECISION-0095`. **Next Owner:** David Bloom. **Next Action:** decide what to do with the four held items, if anything.
+**Per the Product Owner:** no rescan of other subjects' banks under `DECISION-0095`. **Update, same day:** the four held items were retired under `APPROVAL-0094` after the Product Owner confirmed the attempts were tests, not real students. Biology now has 132 published items, each with a published version. **Next Owner:** David Bloom. **Next Action:** none from this thread.
 
 ## AP Biology: 3 More Items Retired (APPROVAL-0092) and DECISION-0095 Recorded — 2026-10-03
 
