@@ -1,0 +1,902 @@
+[
+ {
+  "id": "apprecalc-mcq-023-v1",
+  "seed": "apprecalc-mcq-023",
+  "difficulty": "easy",
+  "title": "End behavior of an even-degree polynomial",
+  "stem": "No calculator is permitted.\n\nWhich statement describes the end behavior of h(x)=9−x³+4x⁶?",
+  "correct": {
+   "text": "h(x)→∞ in both directions",
+   "rationale": "The leading term is 4x⁶ (degree 6 is even, coefficient 4 is positive), so h(x)→∞ as x→∞ and as x→−∞."
+  },
+  "wrong": [
+   {
+    "text": "h(x)→−∞ in both directions",
+    "rationale": "The sign is taken from the −x³ term instead of the leading term 4x⁶. An even degree with a negative coefficient would give −∞ at both ends, but the actual leading coefficient is +4.",
+    "error_pattern": "reads the sign from a lower-degree term"
+   },
+   {
+    "text": "h(x)→−∞ as x→∞ and h(x)→∞ as x→−∞",
+    "rationale": "This treats −x³ as the leading term (odd degree 3, coefficient −1), which falls to the right and rises to the left. The highest power is x⁶, not x³.",
+    "error_pattern": "uses the wrong term as the leading term"
+   },
+   {
+    "text": "h(x)→∞ as x→∞ and h(x)→−∞ as x→−∞",
+    "rationale": "This mixes terms: it reads the odd exponent 3 from x³ but the positive coefficient 4 from the leading term. With degree 6 (even), both ends go the same direction.",
+    "error_pattern": "mixes degree parity and sign from different terms"
+   }
+  ],
+  "change_note": "New even-degree polynomial with positive leading coefficient, terms written out of order, so the leading term must be identified.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-023-v2",
+  "seed": "apprecalc-mcq-023",
+  "difficulty": "medium",
+  "title": "End behavior of an odd-degree polynomial with a large even term",
+  "stem": "No calculator is permitted.\n\nA polynomial function is given by m(x)=−9x⁴+2x⁷+x. Which description of its graph is correct?",
+  "correct": {
+   "text": "The graph rises to the right and falls to the left",
+   "rationale": "The leading term is 2x⁷ (degree 7 is odd, coefficient 2 is positive), so m(x)→∞ as x→∞ and m(x)→−∞ as x→−∞."
+  },
+  "wrong": [
+   {
+    "text": "Both ends of the graph fall",
+    "rationale": "This takes −9x⁴ as the leading term because it has the largest coefficient in absolute value. The degree controls end behavior, and the highest degree is 7, from 2x⁷.",
+    "error_pattern": "picks the term with the largest coefficient"
+   },
+   {
+    "text": "Both ends of the graph rise",
+    "rationale": "The positive leading coefficient 2 is used, but the behavior of an even-degree polynomial is applied. The degree is 7 (odd), so the two ends go in opposite directions.",
+    "error_pattern": "ignores odd degree"
+   },
+   {
+    "text": "The graph falls to the right and rises to the left",
+    "rationale": "Odd degree is recognized, but the sign is taken as negative (from the −9 in −9x⁴). The leading coefficient is +2, so the right end rises, not falls.",
+    "error_pattern": "wrong sign of leading coefficient with odd degree"
+   }
+  ],
+  "change_note": "Odd-degree positive polynomial where a lower-degree term has a larger coefficient; verbal answer choices.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-023-v3",
+  "seed": "apprecalc-mcq-023",
+  "difficulty": "hard",
+  "title": "End behavior from a factored polynomial",
+  "stem": "No calculator is permitted.\n\nWhich statement describes the end behavior of p(x)=−3(x−1)²(x+2)(x−4)?",
+  "correct": {
+   "text": "p(x)→−∞ at both ends",
+   "rationale": "Multiplying the factors gives degree 2+1+1=4 with leading coefficient −3, an even degree with a negative coefficient, so p(x)→−∞ as x→∞ and as x→−∞."
+  },
+  "wrong": [
+   {
+    "text": "p(x)→∞ at both ends",
+    "rationale": "The even degree 4 is found, but the −3 is ignored. A negative leading coefficient makes both ends go down, not up.",
+    "error_pattern": "ignores the negative leading coefficient"
+   },
+   {
+    "text": "p(x)→−∞ as x→∞ and p(x)→∞ as x→−∞",
+    "rationale": "Counts only the three distinct factors, getting degree 3 instead of 4, since (x−1) appears squared. With an odd degree and coefficient −3 the right end falls and the left end rises, but the true degree is even.",
+    "error_pattern": "drops the repeated factor when finding degree"
+   },
+   {
+    "text": "p(x)→∞ as x→∞ and p(x)→−∞ as x→−∞",
+    "rationale": "Counts three distinct factors for an odd degree of 3 and also ignores the −3. The true degree is 4 and the leading coefficient is −3.",
+    "error_pattern": "drops the repeated factor and ignores the sign"
+   }
+  ],
+  "change_note": "Factored form with a repeated factor; degree and sign must be read from the factors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-024-v1",
+  "seed": "apprecalc-mcq-024",
+  "difficulty": "easy",
+  "title": "Vertical asymptotes of a rational function",
+  "stem": "No calculator is permitted.\n\nLet r(x)=(x−10)/(x²+3x−28). At which values of x does the graph of r have vertical asymptotes?",
+  "correct": {
+   "text": "x=−7 and x=4",
+   "rationale": "The denominator factors as (x+7)(x−4). Neither factor cancels the numerator x−10, so both x=−7 and x=4 are vertical asymptotes."
+  },
+  "wrong": [
+   {
+    "text": "x=10 only",
+    "rationale": "x=10 is the zero of the numerator, which gives an x-intercept of the graph, not a vertical asymptote.",
+    "error_pattern": "uses the numerator zero"
+   },
+   {
+    "text": "x=7 and x=−4",
+    "rationale": "The denominator is factored as (x−7)(x+4), which expands to x²−3x−28, not x²+3x−28. The signs of the roots are reversed; the correct roots are −7 and 4.",
+    "error_pattern": "reverses the signs of the denominator zeros"
+   },
+   {
+    "text": "x=4 only",
+    "rationale": "x=4 is a zero of the denominator, but x=−7 is also a zero of (x+7)(x−4) and does not cancel with the numerator, so it is a vertical asymptote too.",
+    "error_pattern": "finds only one denominator zero"
+   }
+  ],
+  "change_note": "Different rational function, numbers and wording; distractors from numerator zero, reversed signs and a missing zero.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-024-v2",
+  "seed": "apprecalc-mcq-024",
+  "difficulty": "medium",
+  "title": "Vertical asymptote versus hole",
+  "stem": "No calculator is permitted.\n\nThe function t(x)=(x+8)/(x²−x−72) is defined wherever its denominator is nonzero. Determine where its graph has vertical asymptotes.",
+  "correct": {
+   "text": "Only at x=9",
+   "rationale": "The denominator factors as (x−9)(x+8), so t(x)=1/(x−9) for x≠−8. The factor x+8 cancels, so x=−8 is a hole and only x=9 is a vertical asymptote."
+  },
+  "wrong": [
+   {
+    "text": "At x=−8 and x=9",
+    "rationale": "Both denominator zeros are used without checking for cancellation. The factor x+8 appears in the numerator too, so x=−8 is a hole, not an asymptote.",
+    "error_pattern": "does not check for canceled factors"
+   },
+   {
+    "text": "Only at x=−8",
+    "rationale": "x=−8 is the zero shared by numerator and denominator, which produces a hole. The only noncanceled denominator zero is x=9.",
+    "error_pattern": "selects the canceled factor instead of the remaining one"
+   },
+   {
+    "text": "At x=8 and x=−9",
+    "rationale": "The denominator is factored as (x−8)(x+9), which expands to x²+x−72, not x²−x−72. The signs of the roots are reversed, and the cancellation is also missed.",
+    "error_pattern": "reverses the signs of the denominator zeros"
+   }
+  ],
+  "change_note": "A canceled common factor means one denominator zero is a hole, testing the 'noncanceled' condition.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-024-v3",
+  "seed": "apprecalc-mcq-024",
+  "difficulty": "medium",
+  "title": "Vertical asymptotes with numerator factors",
+  "stem": "No calculator is permitted.\n\nFor the rational function w(x)=(x²−25)/(x²−x−56), which are the vertical asymptotes of its graph?",
+  "correct": {
+   "text": "x=−7 and x=8",
+   "rationale": "The denominator factors as (x−8)(x+7) and the numerator is (x−5)(x+5). No factors cancel, so the vertical asymptotes are x=−7 and x=8."
+  },
+  "wrong": [
+   {
+    "text": "x=−5 and x=5",
+    "rationale": "These are the zeros of the numerator x²−25, which are x-intercepts, not vertical asymptotes.",
+    "error_pattern": "uses the numerator zeros"
+   },
+   {
+    "text": "x=−8 and x=7",
+    "rationale": "The denominator is factored as (x+8)(x−7), which expands to x²+x−56, not x²−x−56. The signs of the roots are reversed.",
+    "error_pattern": "reverses the signs of the denominator zeros"
+   },
+   {
+    "text": "x=8 only",
+    "rationale": "x=8 is a zero of the denominator, but x=−7 also makes (x−8)(x+7) equal to 0 and nothing cancels it, so it is also a vertical asymptote.",
+    "error_pattern": "finds only one denominator zero"
+   }
+  ],
+  "change_note": "Quadratic numerator and denominator, no cancellation.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-025-v1",
+  "seed": "apprecalc-mcq-025",
+  "difficulty": "medium",
+  "title": "Hole from a removable factor",
+  "stem": "No calculator is permitted.\n\nConsider g(x)=(x²−x−6)/(x−3), defined for x≠3. Which description of the graph of g is correct?",
+  "correct": {
+   "text": "There is a hole at (3,5).",
+   "rationale": "For x≠3, g(x)=(x−3)(x+2)/(x−3)=x+2. The factor x−3 cancels, and the missing point has y-value 3+2=5, so there is a hole at (3,5)."
+  },
+  "wrong": [
+   {
+    "text": "x=3 is a vertical asymptote.",
+    "rationale": "A vertical asymptote needs a noncanceled denominator zero. The factor x−3 cancels completely, so x=3 is a hole.",
+    "error_pattern": "treats a canceled factor as an asymptote"
+   },
+   {
+    "text": "There is a hole at (−2,0).",
+    "rationale": "x=−2 is the zero of the remaining factor x+2, which is an x-intercept. The hole is at the canceled factor, x=3.",
+    "error_pattern": "uses the remaining zero as the hole"
+   },
+   {
+    "text": "There is a hole at (3,0).",
+    "rationale": "The hole's x-coordinate 3 is right, but the y-value is found by evaluating the original numerator at 3 (9−3−6=0). It should be found from the simplified expression: 3+2=5.",
+    "error_pattern": "evaluates the unsimplified numerator for the y-coordinate"
+   }
+  ],
+  "change_note": "Quadratic numerator with a non-obvious factorization; distractors include a wrong y-coordinate.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-025-v2",
+  "seed": "apprecalc-mcq-025",
+  "difficulty": "medium",
+  "title": "Hole coordinates from a factorable numerator",
+  "stem": "No calculator is permitted.\n\nA function is defined by k(x)=(2x²+x−3)/(x−1) for x≠1. Which is true of the graph of k at x=1?",
+  "correct": {
+   "text": "A hole at (1,5)",
+   "rationale": "The numerator factors as (2x+3)(x−1), so k(x)=2x+3 for x≠1. The y-value of the hole is 2(1)+3=5."
+  },
+  "wrong": [
+   {
+    "text": "A hole at (1,0)",
+    "rationale": "The numerator evaluates to 2+1−3=0 at x=1, but that is the unsimplified 0/0 form. The hole's y-value comes from the simplified function: 2(1)+3=5.",
+    "error_pattern": "uses the numerator's value as the y-coordinate"
+   },
+   {
+    "text": "A hole at (−3/2,0)",
+    "rationale": "x=−3/2 is the zero of the remaining factor 2x+3, which is an x-intercept. The hole is at the canceled factor x=1.",
+    "error_pattern": "uses the remaining zero as the hole"
+   },
+   {
+    "text": "A vertical asymptote",
+    "rationale": "The factor x−1 cancels with the numerator, so x=1 is a hole, not a vertical asymptote.",
+    "error_pattern": "treats a canceled factor as an asymptote"
+   }
+  ],
+  "change_note": "Leading coefficient other than 1 in the numerator; different function and distractor set.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-025-v3",
+  "seed": "apprecalc-mcq-025",
+  "difficulty": "hard",
+  "title": "Hole and asymptote in the same function",
+  "stem": "No calculator is permitted.\n\nLet p(x)=(x−5)/(x²−25) for x≠5 and x≠−5. Which statement is true?",
+  "correct": {
+   "text": "The graph has a hole at (5,1/10) and a vertical asymptote at x=−5.",
+   "rationale": "For x≠5, p(x)=(x−5)/((x−5)(x+5))=1/(x+5). The factor x−5 cancels, leaving a hole at x=5 with y=1/10, and x+5 stays in the denominator, giving a vertical asymptote at x=−5."
+  },
+  "wrong": [
+   {
+    "text": "The graph has holes at x=5 and x=−5 and no vertical asymptote.",
+    "rationale": "Only the factor x−5 cancels. The factor x+5 remains in the denominator after simplifying, so x=−5 is a vertical asymptote.",
+    "error_pattern": "treats every denominator zero as a hole"
+   },
+   {
+    "text": "The graph has a hole at (5,0) and a vertical asymptote at x=−5.",
+    "rationale": "The hole's location x=5 and the asymptote are right, but the y-value of the hole must come from the simplified function 1/(x+5), which gives 1/10 at x=5, not 0.",
+    "error_pattern": "uses the numerator value as the hole's y-coordinate"
+   },
+   {
+    "text": "The graph has vertical asymptotes at x=5 and x=−5 and no holes.",
+    "rationale": "The factor x−5 cancels with the numerator, so x=5 is a hole. Only x=−5 is a vertical asymptote.",
+    "error_pattern": "treats every denominator zero as an asymptote"
+   }
+  ],
+  "change_note": "Function with both a hole and an asymptote, and a nonzero hole value that is a fraction.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-026-v1",
+  "seed": "apprecalc-mcq-026",
+  "difficulty": "easy",
+  "title": "Reading shifts and a vertical shrink",
+  "stem": "No calculator is permitted.\n\nIf g(x)=(1/2)f(x+4)−6, which transformation takes the graph of f to the graph of g?",
+  "correct": {
+   "text": "Left 4, vertical shrink by factor 1/2, down 6",
+   "rationale": "x+4 inside f shifts left 4, the factor 1/2 outside shrinks vertically by 1/2, and −6 outside shifts down 6."
+  },
+  "wrong": [
+   {
+    "text": "Right 4, vertical shrink by factor 1/2, down 6",
+    "rationale": "This reverses the horizontal shift. Replacing x with x+4 moves the graph left 4, not right.",
+    "error_pattern": "reverses the direction of the horizontal shift"
+   },
+   {
+    "text": "Left 4, vertical stretch by factor 2, down 6",
+    "rationale": "This uses the reciprocal of the multiplier. Multiplying outputs by 1/2 halves them, which is a shrink by 1/2, not a stretch by 2.",
+    "error_pattern": "reverses stretch and shrink"
+   },
+   {
+    "text": "Left 6, vertical shrink by factor 1/2, down 4",
+    "rationale": "This swaps the two shifts. The +4 inside f gives the horizontal shift (left 4) and the −6 outside gives the vertical shift (down 6).",
+    "error_pattern": "swaps the horizontal and vertical shifts"
+   }
+  ],
+  "change_note": "No reflection; includes a shrink factor of 1/2 and a leftward shift.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-026-v2",
+  "seed": "apprecalc-mcq-026",
+  "difficulty": "medium",
+  "title": "Reflection across the y-axis with an outside multiplier",
+  "stem": "No calculator is permitted.\n\nLet g(x)=3f(−x)+2. Describe how the graph of f is changed to obtain the graph of g.",
+  "correct": {
+   "text": "Flip over the y-axis, triple every output, then move up 2",
+   "rationale": "The −x inside f flips the graph over the y-axis, the factor 3 outside multiplies every output by 3 (a vertical stretch), and +2 outside shifts up 2."
+  },
+  "wrong": [
+   {
+    "text": "Flip over the x-axis, triple every output, then move up 2",
+    "rationale": "The negative sign is inside f (f(−x)), which flips the graph over the y-axis. A flip over the x-axis would need a negative outside, as in −f(x).",
+    "error_pattern": "confuses the two reflections"
+   },
+   {
+    "text": "Flip over the y-axis, divide every x-value by 3, then move up 2",
+    "rationale": "The multiplier 3 is outside f, so it scales the outputs (vertical stretch by 3). Dividing x-values by 3 (a horizontal shrink by 1/3) would come from f(3x).",
+    "error_pattern": "treats an outside multiplier as an inside one"
+   },
+   {
+    "text": "Flip over the y-axis, triple every output, then move left 2",
+    "rationale": "The +2 is added outside f, so it shifts the graph up 2. A shift left 2 would come from f(x+2).",
+    "error_pattern": "treats an outside constant as a horizontal shift"
+   }
+  ],
+  "change_note": "Reflection inside the function with a different multiplier and distractors about inside versus outside.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-026-v3",
+  "seed": "apprecalc-mcq-026",
+  "difficulty": "hard",
+  "title": "Horizontal compression requiring factoring",
+  "stem": "No calculator is permitted.\n\nIf g(x)=−f(2x−6), which transformation takes the graph of f to the graph of g?",
+  "correct": {
+   "text": "Reflect across the x-axis, horizontal shrink by factor 1/2, right 3",
+   "rationale": "Writing 2x−6=2(x−3) gives g(x)=−f(2(x−3)). The factor 2 compresses horizontally by 1/2, x−3 shifts right 3, and the outside negative reflects across the x-axis."
+  },
+  "wrong": [
+   {
+    "text": "Reflect across the x-axis, horizontal shrink by factor 1/2, right 6",
+    "rationale": "The shift is read directly from the −6 without factoring out the 2. Since 2x−6=2(x−3), the shift is right 3, not 6.",
+    "error_pattern": "does not factor out the horizontal scale before reading the shift"
+   },
+   {
+    "text": "Reflect across the x-axis, horizontal stretch by factor 2, right 3",
+    "rationale": "The inside factor 2 makes the graph reach each output at half the x-distance, which is a horizontal shrink by 1/2, not a stretch by 2.",
+    "error_pattern": "reverses horizontal stretch and shrink"
+   },
+   {
+    "text": "Reflect across the y-axis, horizontal shrink by factor 1/2, right 3",
+    "rationale": "The negative sign is outside f, −f(…), which negates outputs and reflects across the x-axis. A reflection across the y-axis would need a negative inside the argument.",
+    "error_pattern": "confuses the two reflections"
+   }
+  ],
+  "change_note": "Inside linear expression needs factoring to read the shift; combined with a reflection.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-027-v1",
+  "seed": "apprecalc-mcq-027",
+  "difficulty": "easy",
+  "title": "Second differences identify a quadratic",
+  "stem": "No calculator is permitted.\n\nFor equally spaced inputs x=0, 1, 2, 3, 4, a table gives y=3, 4, 7, 12, 19. Which model type is most appropriate, and why?",
+  "correct": {
+   "text": "Quadratic, because the second differences are constant (all equal to 2)",
+   "rationale": "The first differences are 1, 3, 5, 7 and the second differences are 2, 2, 2. Constant nonzero second differences indicate a quadratic model."
+  },
+  "wrong": [
+   {
+    "text": "Linear, because the first differences (1, 3, 5, 7) increase by a steady amount",
+    "rationale": "A linear model needs constant first differences. These differ (1, 3, 5, 7), so the model is not linear; the steady change in the first differences is what indicates a quadratic.",
+    "error_pattern": "confuses a steady change in first differences with constant first differences"
+   },
+   {
+    "text": "Exponential, because the outputs increase by a larger amount each step",
+    "rationale": "An exponential model needs a constant ratio between consecutive outputs. Here the ratios are 4/3, 7/4, 12/7, 19/12, which are not equal.",
+    "error_pattern": "assumes any accelerating growth is exponential"
+   },
+   {
+    "text": "Cubic, because the first differences are not constant",
+    "rationale": "Nonconstant first differences only rule out a linear model. The second differences are already constant (2, 2, 2), which identifies a quadratic, not a cubic.",
+    "error_pattern": "stops at nonconstant first differences and jumps to a higher degree"
+   }
+  ],
+  "change_note": "Concrete table in place of an abstract description; reasoned choices.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-027-v2",
+  "seed": "apprecalc-mcq-027",
+  "difficulty": "hard",
+  "title": "Third differences identify a cubic",
+  "stem": "No calculator is permitted.\n\nEqually spaced inputs x=0, 1, 2, 3, 4, 5 produce the outputs 0, −1, 4, 21, 56, 115. Which kind of function best fits these values?",
+  "correct": {
+   "text": "A cubic model; the third differences are all 6",
+   "rationale": "The first differences are −1, 5, 17, 35, 59; the second differences are 6, 12, 18, 24; the third differences are 6, 6, 6. Constant third differences indicate a cubic."
+  },
+  "wrong": [
+   {
+    "text": "A quadratic model; the second differences 6, 12, 18, 24 grow steadily",
+    "rationale": "A quadratic needs constant second differences. These are 6, 12, 18, 24, which are not equal, so the model is not quadratic.",
+    "error_pattern": "confuses a steady change in second differences with constant second differences"
+   },
+   {
+    "text": "An exponential model; the first differences keep growing",
+    "rationale": "An exponential ab^x with a≠0 and b>0 never outputs 0 or changes sign, but the outputs here are 0 at x=0 and −1 at x=1. The consecutive ratios are also not constant.",
+    "error_pattern": "assumes growing differences mean exponential"
+   },
+   {
+    "text": "A quartic model; the third differences are not zero",
+    "rationale": "Nonzero constant third differences identify a cubic. A quartic model would show constant fourth differences, and here the third differences are already constant.",
+    "error_pattern": "uses 'nonzero' to push the degree one higher"
+   }
+  ],
+  "change_note": "Third differences instead of second; negative and zero outputs rule out exponential.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-027-v3",
+  "seed": "apprecalc-mcq-027",
+  "difficulty": "medium",
+  "title": "Quadratic with negative leading coefficient from a table",
+  "stem": "No calculator is permitted.\n\nA ball's height h (in feet) is recorded every half second: for t=0, 0.5, 1, 1.5, 2 seconds, h=2, 8, 12, 14, 14. Which model type is most appropriate for h as a function of t?",
+  "correct": {
+   "text": "Quadratic, with a negative leading coefficient",
+   "rationale": "The first differences are 6, 4, 2, 0 and the second differences are −2, −2, −2. Constant second differences indicate a quadratic, and the negative value means the leading coefficient is negative."
+  },
+  "wrong": [
+   {
+    "text": "Quadratic, with a positive leading coefficient",
+    "rationale": "The model type is right, but the second differences are −2 (negative), so the parabola opens downward and the leading coefficient is negative.",
+    "error_pattern": "ignores the sign of the second differences"
+   },
+   {
+    "text": "Linear, with a positive slope",
+    "rationale": "The outputs rise overall, but a linear model needs constant first differences. These are 6, 4, 2, 0.",
+    "error_pattern": "reads 'increasing' as linear"
+   },
+   {
+    "text": "Cubic, with a negative leading coefficient",
+    "rationale": "The negative sign is right, but the second differences are already constant (−2, −2, −2), which means degree 2. A cubic would need constant third differences.",
+    "error_pattern": "chooses a degree above the one the differences show"
+   }
+  ],
+  "change_note": "Context table with a downward-opening quadratic; asks for the sign of the leading coefficient.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-028-v1",
+  "seed": "apprecalc-mcq-028",
+  "difficulty": "medium",
+  "title": "Remainder Theorem with a positive root",
+  "stem": "No calculator is permitted.\n\nWhen p(x)=x³+4x²−5x+6 is divided by x−3, what is the remainder?",
+  "correct": {
+   "text": "54",
+   "rationale": "By the Remainder Theorem the remainder is p(3)=27+36−15+6=54."
+  },
+  "wrong": [
+   {
+    "text": "30",
+    "rationale": "This evaluates p(−3) instead of p(3): −27+36+15+6=30. Dividing by x−3 gives remainder p(3).",
+    "error_pattern": "evaluates at the opposite sign"
+   },
+   {
+    "text": "48",
+    "rationale": "This omits the constant term: 27+36−15=48. The remainder p(3) also includes +6, so it is 54.",
+    "error_pattern": "drops the constant term"
+   },
+   {
+    "text": "36",
+    "rationale": "This computes 3³ as 3·3=9 instead of 27: 9+36−15+6=36.",
+    "error_pattern": "treats a power as a product"
+   }
+  ],
+  "change_note": "New cubic and divisor; distractors use sign, constant term and exponent errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-028-v2",
+  "seed": "apprecalc-mcq-028",
+  "difficulty": "medium",
+  "title": "Remainder Theorem with x + 2",
+  "stem": "No calculator is permitted.\n\nWhen p(x)=3x³−x²+2x−10 is divided by x+2, what is the remainder?",
+  "correct": {
+   "text": "−42",
+   "rationale": "Dividing by x+2=x−(−2) gives remainder p(−2)=3(−8)−4+2(−2)−10=−24−4−4−10=−42."
+  },
+  "wrong": [
+   {
+    "text": "14",
+    "rationale": "This evaluates p(2) instead of p(−2): 24−4+4−10=14. Dividing by x+2 requires evaluating at −2.",
+    "error_pattern": "evaluates at the opposite sign"
+   },
+   {
+    "text": "−32",
+    "rationale": "This omits the constant term: −24−4−4=−32. The remainder p(−2) also includes −10, so it is −42.",
+    "error_pattern": "drops the constant term"
+   },
+   {
+    "text": "6",
+    "rationale": "This computes (−2)³ as +8 instead of −8: 3(8)−4−4−10=6.",
+    "error_pattern": "sign error on an odd power"
+   }
+  ],
+  "change_note": "Divisor x+2 requires evaluating at −2; different polynomial.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-028-v3",
+  "seed": "apprecalc-mcq-028",
+  "difficulty": "hard",
+  "title": "Remainder Theorem with a missing term",
+  "stem": "No calculator is permitted.\n\nWhen p(x)=2x⁴−5x²+3x+1 is divided by x+1, what is the remainder?",
+  "correct": {
+   "text": "−5",
+   "rationale": "Dividing by x+1=x−(−1) gives remainder p(−1)=2(1)−5(1)+3(−1)+1=2−5−3+1=−5."
+  },
+  "wrong": [
+   {
+    "text": "1",
+    "rationale": "This evaluates p(1) instead of p(−1): 2−5+3+1=1. Dividing by x+1 requires evaluating at −1.",
+    "error_pattern": "evaluates at the opposite sign"
+   },
+   {
+    "text": "−9",
+    "rationale": "This computes (−1)⁴ as −1 instead of 1: −2−5−3+1=−9.",
+    "error_pattern": "sign error on an even power"
+   },
+   {
+    "text": "−6",
+    "rationale": "This omits the constant term: 2−5−3=−6. The remainder p(−1) also includes +1, so it is −5.",
+    "error_pattern": "drops the constant term"
+   }
+  ],
+  "change_note": "Quartic with no cubic term, divisor x+1, even-power sign error.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-029-v1",
+  "seed": "apprecalc-mcq-029",
+  "difficulty": "medium",
+  "title": "Rational inequality with a nonstrict sign",
+  "stem": "No calculator is permitted.\n\nSolve the inequality (x+7)/(x−4)≥0. Which interval notation gives the solution set?",
+  "correct": {
+   "text": "(−∞,−7]∪(4,∞)",
+   "rationale": "The critical values are x=−7 (the quotient is 0 and is included) and x=4 (undefined and excluded). The quotient is positive for x<−7 and for x>4, giving (−∞,−7]∪(4,∞)."
+  },
+  "wrong": [
+   {
+    "text": "(−∞,−7]∪[4,∞)",
+    "rationale": "The intervals are right, but x=4 makes the denominator 0, so the expression is undefined there and 4 must be excluded.",
+    "error_pattern": "includes the denominator zero"
+   },
+   {
+    "text": "[−7,4)",
+    "rationale": "This is the solution of (x+7)/(x−4)≤0. For −7<x<4 the numerator is positive and the denominator is negative, so the quotient is negative.",
+    "error_pattern": "chooses the intervals where the quotient is negative"
+   },
+   {
+    "text": "(−∞,−7)∪(4,∞)",
+    "rationale": "The intervals are right, but the inequality is nonstrict, so x=−7, where the quotient equals 0, must be included.",
+    "error_pattern": "excludes the numerator zero"
+   }
+  ],
+  "change_note": "Reversed inequality direction relative to the seed, with different numbers, wording and distractors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-029-v2",
+  "seed": "apprecalc-mcq-029",
+  "difficulty": "hard",
+  "title": "Rational inequality with a reversed numerator",
+  "stem": "No calculator is permitted.\n\nFind all x satisfying (9−x)/(x+8)≥0.",
+  "correct": {
+   "text": "(−8,9]",
+   "rationale": "The critical values are x=9 (quotient 0, included) and x=−8 (undefined, excluded). For −8<x<9 both 9−x and x+8 are positive, so the quotient is positive; for x<−8 and x>9 it is negative."
+  },
+  "wrong": [
+   {
+    "text": "[−8,9]",
+    "rationale": "The interval is right, but x=−8 makes the denominator 0, so the expression is undefined there and −8 must be excluded.",
+    "error_pattern": "includes the denominator zero"
+   },
+   {
+    "text": "(−∞,−8)∪[9,∞)",
+    "rationale": "This is the solution of (x−9)/(x+8)≥0. The numerator is 9−x, not x−9, so its sign is reversed: the quotient is negative on these intervals.",
+    "error_pattern": "misses that the numerator has a negative x coefficient"
+   },
+   {
+    "text": "(−8,9)",
+    "rationale": "The interval is right, but the inequality is nonstrict, so x=9, where the quotient equals 0, must be included.",
+    "error_pattern": "excludes the numerator zero"
+   }
+  ],
+  "change_note": "Numerator written as 9−x so the sign pattern flips; endpoint decisions required.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-029-v3",
+  "seed": "apprecalc-mcq-029",
+  "difficulty": "hard",
+  "title": "Rational inequality with three critical values",
+  "stem": "No calculator is permitted.\n\nWhat is the solution set of the inequality (x−8)(x+4)/(x−9)≤0?",
+  "correct": {
+   "text": "(−∞,−4]∪[8,9)",
+   "rationale": "The critical values are −4 and 8 (zeros, included) and 9 (undefined, excluded). The quotient is negative on x<−4 and on 8<x<9, and equals 0 at x=−4 and x=8."
+  },
+  "wrong": [
+   {
+    "text": "(−∞,−4]∪[8,9]",
+    "rationale": "The intervals are right, but x=9 makes the denominator 0, so the expression is undefined there and 9 must be excluded.",
+    "error_pattern": "includes the denominator zero"
+   },
+   {
+    "text": "[−4,8]∪(9,∞)",
+    "rationale": "This is the solution of the ≥0 inequality. On (−4,8) and on x>9 the quotient is positive, not negative.",
+    "error_pattern": "chooses the intervals where the quotient is positive"
+   },
+   {
+    "text": "(−∞,−4)∪(8,9)",
+    "rationale": "The intervals are right, but the inequality is nonstrict, so the zeros x=−4 and x=8 must be included.",
+    "error_pattern": "excludes the numerator zeros"
+   }
+  ],
+  "change_note": "Three critical values with a factored numerator; endpoints and sign chart needed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-030-v1",
+  "seed": "apprecalc-mcq-030",
+  "difficulty": "medium",
+  "title": "Predicted change in water level from a cubic model",
+  "stem": "Calculator use is permitted.\n\nA cubic regression models the water level w (in cm) of a reservoir x days after a storm: w=0.31x³−2.2x²+1.45x+9.8. According to the model, what is the change in water level from x=1.5 to x=3.4, to the nearest hundredth?",
+  "correct": {
+   "text": "−6.59",
+   "rationale": "w(3.4)−w(1.5)=1.48224−8.07125=-6.58901, so the predicted change is −6.59 cm (a decrease)."
+  },
+  "wrong": [
+   {
+    "text": "6.59",
+    "rationale": "This subtracts in the wrong order: w(1.5)−w(3.4)=8.07125−1.48224=6.58901. The change from 1.5 to 3.4 is final minus initial, which is negative.",
+    "error_pattern": "reverses the subtraction"
+   },
+   {
+    "text": "−3.47",
+    "rationale": "This divides the change -6.58901 by the interval length 1.9, giving the average rate of change -3.46790 cm per day. The question asks for the total change.",
+    "error_pattern": "reports the average rate instead of the change"
+   },
+   {
+    "text": "1.48",
+    "rationale": "This is the model's value at the end of the interval, w(3.4)=1.48224, not the change from x=1.5 to x=3.4.",
+    "error_pattern": "reports the final value instead of the change"
+   }
+  ],
+  "change_note": "Reservoir context, new cubic, and a decreasing result.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-030-v2",
+  "seed": "apprecalc-mcq-030",
+  "difficulty": "medium",
+  "title": "Predicted change in visitors from a cubic model",
+  "stem": "Calculator use is permitted.\n\nA cubic regression models the number of daily visitors V (in hundreds) to a museum x months after it opens: V=−0.18x³+1.4x²−0.9x+12.5. What is the predicted change in V from x=2.2 to x=5.6, to the nearest hundredth?",
+  "correct": {
+   "text": "4.37",
+   "rationale": "V(5.6)−V(2.2)=19.75312−15.37936=4.37376, which rounds to 4.37."
+  },
+  "wrong": [
+   {
+    "text": "−4.37",
+    "rationale": "This subtracts in the wrong order: V(2.2)−V(5.6)=15.37936−19.75312=-4.37376. The change from 2.2 to 5.6 is final minus initial.",
+    "error_pattern": "reverses the subtraction"
+   },
+   {
+    "text": "1.29",
+    "rationale": "This divides the change 4.37376 by the interval length 3.4, giving the average rate 1.28640. The question asks for the total change.",
+    "error_pattern": "reports the average rate instead of the change"
+   },
+   {
+    "text": "18.55",
+    "rationale": "This evaluates the model at the interval length instead of at the endpoints: V(3.4)=18.54928. The change is V(5.6)−V(2.2).",
+    "error_pattern": "evaluates the model at the difference of the inputs"
+   }
+  ],
+  "change_note": "Positive change with new coefficients; distractors include evaluating at b−a.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-030-v3",
+  "seed": "apprecalc-mcq-030",
+  "difficulty": "hard",
+  "title": "Predicted temperature change from a quartic model",
+  "stem": "Calculator use is permitted.\n\nA quartic regression models the temperature T (in °C) of a greenhouse x hours after sunrise: T=0.07x⁴−0.9x²+2.3x+15. What is the predicted change in T from x=1.3 to x=3.8, to the nearest hundredth?",
+  "correct": {
+   "text": "8.67",
+   "rationale": "T(3.8)−T(1.3)=25.339952−16.668927=8.671025, which rounds to 8.67 °C."
+  },
+  "wrong": [
+   {
+    "text": "3.47",
+    "rationale": "This divides the change 8.671025 by the interval length 2.5, giving the average rate 3.468410 °C per hour. The question asks for the total change.",
+    "error_pattern": "reports the average rate instead of the change"
+   },
+   {
+    "text": "25.34",
+    "rationale": "This is the predicted temperature at the end of the interval, T(3.8)=25.339952, not the change.",
+    "error_pattern": "reports the final value instead of the change"
+   },
+   {
+    "text": "−8.67",
+    "rationale": "This subtracts in the wrong order: T(1.3)−T(3.8)=16.668927−25.339952=-8.671025. The change from 1.3 to 3.8 is final minus initial.",
+    "error_pattern": "reverses the subtraction"
+   }
+  ],
+  "change_note": "Quartic model in a temperature context.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-031-v1",
+  "seed": "apprecalc-mcq-031",
+  "difficulty": "medium",
+  "title": "Average rate of change of a cubic",
+  "stem": "Calculator use is permitted.\n\nFor g(x)=2x³−5x, what is the average rate of change from x=0.8 to x=2.3, to the nearest tenth?",
+  "correct": {
+   "text": "10.5",
+   "rationale": "[g(2.3)−g(0.8)]/(2.3−0.8)=[12.834−(-2.976)]/1.5=15.810/1.5=10.540, which rounds to 10.5."
+  },
+  "wrong": [
+   {
+    "text": "−10.5",
+    "rationale": "This reverses the numerator: [g(0.8)−g(2.3)]/(2.3−0.8)=-15.810/1.5=-10.540, changing the sign of the rate.",
+    "error_pattern": "reverses the subtraction in the numerator"
+   },
+   {
+    "text": "23.7",
+    "rationale": "This multiplies the output change 15.810 by the interval length 1.5 instead of dividing: 23.715. The average rate of change divides by 1.5.",
+    "error_pattern": "multiplies by Δx instead of dividing"
+   },
+   {
+    "text": "15.8",
+    "rationale": "This is the change in output, g(2.3)−g(0.8)=15.810, with no division by the input change 1.5.",
+    "error_pattern": "omits division by Δx"
+   }
+  ],
+  "change_note": "Different cubic and interval; distractors from sign, multiplication and omitted division.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-031-v2",
+  "seed": "apprecalc-mcq-031",
+  "difficulty": "hard",
+  "title": "Average rate of change of a quartic",
+  "stem": "Calculator use is permitted.\n\nFor h(x)=x⁴−3x³+x, what is the average rate of change from x=1.4 to x=3.1, to the nearest tenth?",
+  "correct": {
+   "text": "5.3",
+   "rationale": "[h(3.1)−h(1.4)]/(3.1−1.4)=[6.0791−(-2.9904)]/1.7=9.0695/1.7=5.3350, which rounds to 5.3."
+  },
+  "wrong": [
+   {
+    "text": "−5.3",
+    "rationale": "This reverses the numerator: [h(1.4)−h(3.1)]/(3.1−1.4)=-9.0695/1.7=-5.3350, changing the sign.",
+    "error_pattern": "reverses the subtraction in the numerator"
+   },
+   {
+    "text": "2.9",
+    "rationale": "This divides the output change 9.0695 by the right endpoint 3.1 instead of the interval length 1.7: 2.9256.",
+    "error_pattern": "divides by an endpoint instead of the interval length"
+   },
+   {
+    "text": "9.1",
+    "rationale": "This is the change in output, h(3.1)−h(1.4)=9.0695, with no division by the input change 1.7.",
+    "error_pattern": "omits division by Δx"
+   }
+  ],
+  "change_note": "Quartic with a negative output at the left endpoint; divide-by-endpoint distractor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-031-v3",
+  "seed": "apprecalc-mcq-031",
+  "difficulty": "medium",
+  "title": "Average rate of change of a drone's height",
+  "stem": "Calculator use is permitted.\n\nA drone's height (in meters) t seconds after launch is d(t)=0.2t⁴−1.5t²+3t. What is the average rate of change of its height from t=0.5 to t=2.5, in meters per second, to the nearest tenth?",
+  "correct": {
+   "text": "2.4",
+   "rationale": "[d(2.5)−d(0.5)]/(2.5−0.5)=[5.9375−1.1375]/2=4.8000/2=2.4000, which rounds to 2.4 m/s."
+  },
+  "wrong": [
+   {
+    "text": "3.5",
+    "rationale": "This averages the two heights, (1.1375+5.9375)/2=3.5375, which is a mean height, not a rate of change.",
+    "error_pattern": "averages the outputs instead of finding a slope"
+   },
+   {
+    "text": "4.8",
+    "rationale": "This is the change in height, d(2.5)−d(0.5)=4.8000, with no division by the elapsed time 2.",
+    "error_pattern": "omits division by Δt"
+   },
+   {
+    "text": "−2.4",
+    "rationale": "This reverses the numerator: [d(0.5)−d(2.5)]/2=-4.8000/2=-2.4000, changing the sign.",
+    "error_pattern": "reverses the subtraction in the numerator"
+   }
+  ],
+  "change_note": "Context version with a drone's height and an output-averaging distractor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-032-v1",
+  "seed": "apprecalc-mcq-032",
+  "difficulty": "easy",
+  "title": "Decay factor below 1",
+  "stem": "No calculator is permitted.\n\nConsider f(x)=400(0.85)^x. Which statement correctly describes the change in f each time x increases by 1?",
+  "correct": {
+   "text": "It is reduced by 15%",
+   "rationale": "The growth factor is 0.85=1−0.15, so each unit of x multiplies f by 0.85, a 15% decrease."
+  },
+  "wrong": [
+   {
+    "text": "It is reduced by 85%",
+    "rationale": "This uses the whole factor as the percent change. Multiplying by 0.85 keeps 85% of the value, so the decrease is 100%−85%=15%.",
+    "error_pattern": "reads the factor as the percent decrease"
+   },
+   {
+    "text": "It is raised by 15%",
+    "rationale": "The factor 0.85 is less than 1, so the outputs shrink. A 15% increase would use a factor of 1.15.",
+    "error_pattern": "treats a factor below 1 as growth"
+   },
+   {
+    "text": "It has 0.15 subtracted from it",
+    "rationale": "The change is multiplicative, not additive. Each unit multiplies f by 0.85, so the amount lost shrinks as f gets smaller.",
+    "error_pattern": "confuses multiplicative and additive change"
+   }
+  ],
+  "change_note": "Decay instead of growth; different initial value and rate.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-032-v2",
+  "seed": "apprecalc-mcq-032",
+  "difficulty": "medium",
+  "title": "Small growth rate as a percent",
+  "stem": "No calculator is permitted.\n\nFor g(x)=5(1.035)^x, which statement is true?",
+  "correct": {
+   "text": "g increases by 3.5% per unit",
+   "rationale": "The factor is 1.035=1+0.035, and 0.035 as a percent is 3.5%, so g increases by 3.5% per unit."
+  },
+  "wrong": [
+   {
+    "text": "g increases by 35% per unit",
+    "rationale": "This misplaces the decimal: 0.035 is 3.5%, not 35%. A 35% increase would use the factor 1.35.",
+    "error_pattern": "converts 0.035 to a percent incorrectly"
+   },
+   {
+    "text": "g increases by 103.5% per unit",
+    "rationale": "This uses the entire factor 1.035 as the percent change. The factor includes the original 100%, so the increase is 1.035−1=0.035, or 3.5%.",
+    "error_pattern": "reads the factor as the percent increase"
+   },
+   {
+    "text": "g increases by a constant amount of 0.035 per unit",
+    "rationale": "The change is multiplicative: each unit multiplies g by 1.035. The amount added grows as g grows (for example, 5(0.035)=0.175 from x=0 to x=1, but more later).",
+    "error_pattern": "confuses multiplicative and additive change"
+   }
+  ],
+  "change_note": "Growth rate with a decimal that has two leading digits to convert.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-032-v3",
+  "seed": "apprecalc-mcq-032",
+  "difficulty": "medium",
+  "title": "Medication decay in context",
+  "stem": "No calculator is permitted.\n\nThe amount of a medication in the bloodstream is modeled by A(t)=80(0.6)^t, where A is in milligrams and t is in hours. Which statement is true?",
+  "correct": {
+   "text": "The amount decreases by 40% each hour",
+   "rationale": "The factor 0.6=1−0.4, so each hour the amount is multiplied by 0.6, which is a 40% decrease."
+  },
+  "wrong": [
+   {
+    "text": "The amount decreases by 60% each hour",
+    "rationale": "This uses the whole factor as the percent decrease. Multiplying by 0.6 keeps 60% of the amount, so 40% is lost.",
+    "error_pattern": "reads the factor as the percent decrease"
+   },
+   {
+    "text": "The amount decreases by 32 mg each hour, which is 40% of 80 mg",
+    "rationale": "This takes 40% of the initial 80 mg as a fixed hourly loss. The 40% applies to the current amount: the loss from t=0 to t=1 is 32 mg, but from t=1 to t=2 it is 40% of 48, or 19.2 mg.",
+    "error_pattern": "treats the percent change as a percent of the initial value"
+   },
+   {
+    "text": "The amount decreases by 0.4 mg each hour",
+    "rationale": "This treats the 0.4 as a constant amount subtracted each hour. The change is multiplicative: the amount is multiplied by 0.6 each hour.",
+    "error_pattern": "confuses multiplicative and additive change"
+   }
+  ],
+  "change_note": "Medication context with a decay factor; distractor for percent of the initial value.",
+  "check": "conceptual"
+ }
+]

@@ -1,0 +1,104 @@
+[
+ {
+  "key": "apprecalc-mcq-033",
+  "kind": "mcq",
+  "stem": "No calculator is permitted.\n\nWhich expression is equivalent to 5·2^(3x−1)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(5/2)·8^x"
+   },
+   {
+    "label": "B",
+    "text": "10·8^x"
+   },
+   {
+    "label": "C",
+    "text": "5·6^(x−1)"
+   },
+   {
+    "label": "D",
+    "text": "(5/2)·6^x"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "5·2^(3x−1) = 5·2^(3x)·2^(−1) = (5/2)·(2³)^x = (5/2)·8^x. Check at x = 1: 5·2² = 20 and (5/2)·8 = 20.",
+   "B": "10·8^x treats 2^(−1) as 2, multiplying by 2 instead of dividing by 2: 5·2·8^x = 10·8^x. Check at x = 1: it gives 80, not 20.",
+   "C": "5·6^(x−1) multiplies the base 2 by the coefficient 3 of x to get 6 and keeps the −1 in the exponent. Check at x = 1: it gives 5·6⁰ = 5, not 20. The factor 2^(3x) is (2³)^x = 8^x, not 6^x.",
+   "D": "(5/2)·6^x handles the −1 correctly (the factor 1/2) but replaces 2³ with 2·3 = 6, so 2^(3x) becomes 6^x instead of 8^x. Check at x = 1: it gives 15, not 20."
+  },
+  "cur_unit": 2,
+  "cur_status": "provisional_model",
+  "embedded": true,
+  "hash_fresh": true
+ },
+ {
+  "key": "apprecalc-mcq-np2-003",
+  "kind": "mcq",
+  "stem": "A data set shows output values whose ratios between consecutive equal-interval inputs are all approximately 1.2 (the small differences come from rounding). A student instead runs an exponential regression on a calculator and obtains an r-squared value of 0.999, citing this as justification that the data is exponential. Is this reasoning valid for determining the appropriate model type?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "No -- the constant ratio itself is what establishes an exponential model; a high r-squared value alone is not sufficient justification"
+   },
+   {
+    "label": "B",
+    "text": "Yes -- a high r-squared value is sufficient to justify any regression model type"
+   },
+   {
+    "label": "C",
+    "text": "No -- only a perfect r-squared of 1 would justify the model"
+   },
+   {
+    "label": "D",
+    "text": "Yes, but only if r-squared is reported to at least four decimal places"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Per documented AP scoring guidance, citing a regression fit statistic instead of computing the actual ratio of consecutive outputs is explicitly insufficient reasoning, even when the classification is correct.",
+   "B": "A high r-squared value describes fit quality, not the underlying structural pattern (constant ratio) that defines an exponential model.",
+   "C": "This still relies on the regression statistic rather than the required ratio-based reasoning.",
+   "D": "The precision of the reported statistic does not change that it is not valid justification for the model type."
+  },
+  "cur_unit": 2,
+  "cur_status": "provisional_model",
+  "embedded": false,
+  "hash_fresh": true
+ },
+ {
+  "key": "apprecalc-mcq-np2-004",
+  "kind": "mcq",
+  "stem": "Which expression is equivalent to log base 5 of (25x^3)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2 + 3*log base 5 of x"
+   },
+   {
+    "label": "B",
+    "text": "6*log base 5 of x"
+   },
+   {
+    "label": "C",
+    "text": "3*log base 5 of (25x)"
+   },
+   {
+    "label": "D",
+    "text": "5 + 3*log base 5 of x"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "log_5(25x^3) = log_5(25) + log_5(x^3) = 2 + 3*log_5(x), since 5^2 = 25 (product property, then power property).",
+   "B": "6*log_5(x) comes from multiplying the constant 2 (the value of log_5(25)) by the exponent 3 instead of adding. The product property turns 25x^3 into a sum, log_5(25) + log_5(x^3) = 2 + 3*log_5(x). Check at x = 5: log_5(25*125) = 5, but 6*log_5(5) = 6.",
+   "C": "3*log_5(25x) = 3*(2 + log_5(x)) = 6 + 3*log_5(x) applies the exponent 3 to the whole argument, as if the expression were (25x)^3. The 3 is the exponent of x only. Check at x = 5: this gives 9, not 5.",
+   "D": "5 + 3*log_5(x) takes log_5(25) to be 5 instead of 2 (5^2 = 25, so the logarithm is 2). Check at x = 5: this gives 8, not 5."
+  },
+  "cur_unit": 2,
+  "cur_status": "provisional_model",
+  "embedded": false,
+  "hash_fresh": true
+ }
+]
