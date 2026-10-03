@@ -1,0 +1,7 @@
+begin;
+create temporary table t(version_id uuid,item_id uuid,tsv uuid,topic text) on commit drop;
+insert into t values ('5bb5e9c1-6bd7-47b2-8887-2146f1f79743'::uuid,'789fdd13-49b7-4099-93c3-6890bade2b4d'::uuid,'33b4408b-0ecc-4c7a-b0b1-612db81164a1'::uuid,'2.8'),('067e74e2-8eba-453f-8042-c26a6b2b23a7'::uuid,'c302143c-b631-4887-81ec-9b5e7a33abef'::uuid,'16383753-6775-430d-960a-544cd6ee0972'::uuid,'1.13'),('395fa42e-514b-4f12-9e77-2f237cf2baf0'::uuid,'5a20746d-6ccf-41eb-92a9-023ca0d7b48e'::uuid,'16383753-6775-430d-960a-544cd6ee0972'::uuid,'3.2');
+do $$ begin if exists (select 1 from t join app.content_item_cells c on c.content_item_version_id=t.version_id and c.is_primary and c.superseded_by is null) then raise exception 'already has primary'; end if; end $$;
+insert into app.content_item_cells (content_item_version_id,content_item_id,taxonomy_source_version,topic_code,skill_code,is_primary,assignment_status,source,model_run_id,validated_by,validated_at,validation_decision_id)
+select version_id,item_id,tsv,topic,null,true,'validated','seed_topic_tag_2026_10_03:ced_text_tiebreak','seed-topic-tag-2026-10-03 (model vote tied; tiebreak by Claude reading the item against the CED learning objectives)',null,now(),gen_random_uuid() from t;
+commit;

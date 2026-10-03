@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Units 1-3 Skill and Topic Cleanup, Biology 025-v3, MCQ-005 Retired (APPROVAL-0098 to 0103) (2026-10-03): two stale labels re-issued; Biology `025-v3` restored; Physics 1 and Precalculus skill grids built; 679 + 66 skill cells and 36 topic cells written; `apcalcab-mcq-005` and its 5 variants retired. See the entry below.
 - AP Biology: Last 4 Orphan Items Retired (APPROVAL-0096) (2026-10-03): `APBIO-FRQ-L-028`, `APBIO-MCQ-012` (test attempts only, per the Product Owner), `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041` (latest version retired) set to `retired`; every published Biology item now has a published version (132 of 132); Biology published items 136 to 132.
 - AP Biology: 38 Items With All Versions Retired Now Marked Retired (APPROVAL-0095) (2026-10-03): 38 of the 42 Biology items that were marked published with no published version (17 FRQ, 21 MCQ) set to `retired` at item level; no student-visible change (the selector already required a published version). Biology published items 174 to 136. Four left for a decision: `APBIO-FRQ-L-028` and `APBIO-MCQ-012` (attempts), `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041` (unretired `reviewed_approved` v1).
 - AP Biology: 3 More Items Retired (APPROVAL-0092) and DECISION-0095 Recorded (2026-10-03): `APBIO-MCQ-014` (70S/80S ribosomes), `063` (signal sequence) and `025` (kidney ADH outside the pack) retired, zero attempts; Biology published items 177 to 174. `DECISION-0095` records the rule that items stay within the CED vocabulary and that breaking items are retired. 42 older Biology items are marked published with no published version (not caused by this change).
@@ -22,6 +23,7 @@ Most recent entries (full reverse-chronological list follows below):
 - AP Chemistry Units 1-3 Full Pipeline Run (APPROVAL-0074) (2026-10-02): steps 1-7 from scratch in about 86 minutes, 2,040 gateway calls, $7.55 gateway list price, about 0.9M Claude tokens; 8 seeds repaired, 36 topic cells, 28-skill grid, 37 labels, 34 skill cells, 75 variant drafts (not loaded); audit recall gap and missing seed CED check found.
 - AP Biology Grid Created and 70 Live Items Relabeled for Serving (APPROVAL-0073) (2026-10-02): 22 skills x 60 topics = 1320-cell grid from the CED; Bio unit-gated servable 43 to 110 of 118; registered topic cells found wrong on about 58 items (36 across units), left unchanged for a decision; skill labels in progress.
 - Cells Validation Check Relaxed in Production for Model-Consensus Labels (APPROVAL-0072, DECISION-0085 Route 1) (2026-10-02): `validated` now needs a human or a `model_run_id` plus a decision id and timestamp; rehearsed and applied as migration `20261002164510`; no rows changed.
+- AP Precalculus Variants Published (APPROVAL-0097) (2026-10-03): 143 variants loaded (md5 143 of 143) and published with validated labels (Unit 1: 56, Unit 2: 42, Unit 3: 45); Precalculus published 116 to 259, servable 78 to 221.
 - AP Precalculus Units 1-3 Seeds Repaired and Labeled (APPROVAL-0093, 0094) (2026-10-03): 25 rationales corrected on 15 items, duplicated A-D list removed from 22 stems, 34 labels validated, 47 topic cells, 3 defective MCQs fixed, 010 retired; Precalculus servable 53 to 78; 147 variants authored, not loaded.
 - AP Calculus BC: 283 AB Units 1-3 Questions Mirrored (APPROVAL-0090) (2026-10-03): copied in-database from the AB pack with validated labels (Unit 1: 118, Unit 2: 83, Unit 3: 82); Calc BC published 130 to 413, servable 45 to 328.
 - AP Physics 1: 89 Variants Published, Units 4-8 Stems Cleaned (APPROVAL-0088, 0089) (2026-10-03): 89 variants loaded (md5 89 of 89) and published with validated labels (Unit 1: 12, Unit 2: 36, Unit 3: 41); 21 Units 4-8 stems cleaned; Physics 1 published 113 to 202, servable 83 to 172.
@@ -363,6 +365,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Units 1-3 Skill and Topic Cleanup, Biology 025-v3, MCQ-005 Retired (APPROVAL-0098 to 0103) — 2026-10-03
+
+**Approvals:** `APPROVAL-0098` to `APPROVAL-0103` (David Bloom, chat). **Scripts and votes:** `scripts/content-seed/skills-u13-2026-10-03/`, `scripts/content-seed/pipeline-v2-bio-u13-2026-10-02/load/restore_025v3.sql`.
+
+**What was done (Production `pcntajvbdfqhbeewmdry`):** (1) the two real stale labels (`APBIO-MCQ-088`, `apphy1-mcq-049`) re-issued validated on the published version; the other ~50 census "mismatches" are never-validated labels. (2) Biology `APBIO-MCQ-SV-025-v3` restored (the only 025 variant that passed both checkers). (3) Skill grids built for Physics 1 (10 skills, 430 cells) and Precalculus (8 skills, 464 cells). (4) Four-voter skill votes on 140 Units 1-3 seeds, then variants inherited: 679 skill cells. (5) 32 topic cells for topic-less variants, 7 for untagged seeds (3 by CED-text tiebreak), 34 more skill cells, 6 seed skill cells with 2 inheriting variants. (6) `apcalcab-mcq-005` and its 5 variants retired.
+
+**Verified:** every batch rehearsed with a rollback first; after each commit an md5 over the written rows equalled the locally computed plan.
+
+**Known leftovers:** 4 variants with a 2-2 skill split; 6 variants and 26 more waiting on seeds without a skill; FRQs, Units 4 and above, and Calculus BC not covered; two documented drafts (`APSTATS-MCQ-SV-057-v2`, `apcalcab-mcq-sv-025-v1`) stay held.
 
 ## AP Biology: 38 Items With All Versions Retired Now Marked Retired (APPROVAL-0095) — 2026-10-03
 

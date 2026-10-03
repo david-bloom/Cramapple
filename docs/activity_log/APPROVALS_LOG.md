@@ -16,10 +16,16 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0103 — Skill Cells for the 6 Tagged Seeds and Their Variants (Production) — DECISION-0085
+- APPROVAL-0102 — Retire AP Calculus AB Seed MCQ-005 and Its 5 Variants (Production) — DECISION-0085
+- APPROVAL-0101 — Topic Cells for 7 Seeds That Had None (Production) — DECISION-0085
+- APPROVAL-0100 — Skill Votes for 6 Variants; Topic Cells for 32 Topic-Less Variants (Production) — DECISION-0085
+- APPROVAL-0099 — Skill Grids for Physics 1 and Precalculus; Skill Cells for Units 1-3 MCQ Seeds and Variants (Production) — DECISION-0085
+- APPROVAL-0098 — Fix Two Stale Serving Labels and Restore Biology Variant 025-v3 (Production) — DECISION-0085
+- APPROVAL-0097 — Load and Publish 143 AP Precalculus Units 1-3 Variants (Production) — DECISION-0085
 - APPROVAL-0096 — Set Item Status to `retired` on the Last 4 AP Biology Items Published With No Published Version (Production)
 - APPROVAL-0095 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
 - APPROVAL-0092 — Retire 3 Published AP Biology Seed MCQs Outside the CED (`APBIO-MCQ-014`, `063`, `025`) (Production) — DECISION-0095
-
 - APPROVAL-0094 — AP Precalculus: Fix 3 Defective MCQs (`033`, `np2-003`, `np2-004`) and Retire `010` (Production) — DECISION-0085
 - APPROVAL-0093 — AP Precalculus Units 1-3: Correct 15 Items' Rationales, Remove the Duplicated A-D List From 22 Stems, Validate 23 Provisional Labels, Create 45 Topic Cells (Production) — DECISION-0085
 - APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production) — DECISION-0093
@@ -208,6 +214,104 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0103 — Skill Cells for the 6 Tagged Seeds and Their Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "I want skill cells for the other 6 tagged seeds, with their variants inheriting from them")  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0102`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):**
+- **Seed skill cells (four voters: claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash):** `apphy1-mcq-np1-008` 3.B, `apprecalc-mcq-015` 1.B, `apprecalc-mcq-037` 3.C, `apprecalc-mcq-040` 1.A (all 4 of 4, validated); `apprecalc-mcq-027` 2.A and `apprecalc-mcq-031` 2.A (2 of 4, unique plurality, `provisional_model`).
+- **Variants:** only variants without a skill cell inherit, and only when their own topic equals the seed's. That is `apprecalc-mcq-sv-031-v1` (provisional) and `apprecalc-mcq-sv-015-v2` (validated). For `-015-v2` the topic cell 3.2 was first inherited from the seed (its own vote tied 3-3 between 3.1 and 3.2). The other variants of these seeds already had cells from `APPROVAL-0100` and were left alone.
+
+**Not done:** `apprecalc-mcq-sv-037-v3` still has no topic or skill (its vote gave 1.4, not the seed's 2.6, so it may be a different question); `apprecalc-mcq-sv-027-v1`/`-v2` keep their own topic 1.4 and their own skills; FRQs; Units 4 and above; Calculus BC.
+
+## APPROVAL-0102 — Retire AP Calculus AB Seed MCQ-005 and Its 5 Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Retire MCQ-005. This seems like such a borderline call I'd rather not get it wrong and probably the question is not written cleanly enough for the skills.")  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0101`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`):** `apcalcab-mcq-005` (derivative of e^(2x) sin x) retired: the item and both versions set to `retired`. The topic cell 2.8 written in `APPROVAL-0101` stays on its row but is moot. The reason is that the item needs both the product rule (2.8) and the chain rule (3.1), the three-family vote split three ways and the topic could only be settled by judgment.
+
+**Variants retired too (David: "Retire them."):** `apcalcab-mcq-sv-005-v1` to `-v5` (5 items, each with one published version, none with a topic cell) set to `retired`, as a variant of a retired question carries the same borderline topic call.
+
+## APPROVAL-0101 — Topic Cells for 7 Seeds That Had None (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "tag those seeds with topics")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0100`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** the 7 published seeds whose variants had no topic to inherit were voted (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol, 2 samples each). 4 validated primary topic cells written, accepted at 4 of 6 or better and agreeing with the plurality pooled with the votes on their variants: `apphy1-mcq-np1-008` 3.2 (6 of 6), `apprecalc-mcq-031` 1.2, `apprecalc-mcq-037` 2.6, `apprecalc-mcq-040` 2.13.
+
+**Three seeds where the vote tied, decided by reading the item against the CED text** (David has no maths background and asked Claude to decide; reversible): `apprecalc-mcq-015` (150 degrees to radians) 3.2, because the radian measure objective sits in 3.2 and topic 3.1 has no angle content; `apprecalc-mcq-027` (constant second differences, which model) 1.13, from the model-selection objective on constant nth differences; `apcalcab-mcq-005` (derivative of e^(2x) sin x) 2.8 (Product Rule), the chain rule being a step inside one factor. Source tag `seed_topic_tag_2026_10_03:ced_text_tiebreak`.
+
+**Not done:** variants of these seeds were not changed (the 6 split variants and the skill cells for them still wait); no skill cells were written for the 7 seeds.
+
+## APPROVAL-0100 — Skill Votes for 6 Variants; Topic Cells for 32 Topic-Less Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "vote on the 6 variants, and fill in the missing topic cells for the 38")  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0099`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):**
+- **Topic cells for the 38 variants with no primary topic** (Calculus AB 20, Physics 1 3, Precalculus 15): 32 validated primary topic cells. 15 inherit the topic of their seed (all Calculus AB). For the 23 whose seed has no topic, a three-family serving vote (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol, 2 samples each) accepted a topic at 5 of 6, or at 4 of 6 when it equals the plurality pooled across the seed's variants: 17 accepted. **6 left without a cell** because the vote split: `apcalcab-mcq-sv-005-v1` to `-v4` (3.1 / 2.8 / 3.5), `apprecalc-mcq-sv-015-v2` (3.1 vs 3.2), `apprecalc-mcq-sv-037-v3` (1.4 vs 2.6). The seeds of these 23 (`apcalcab-mcq-005`, `apphy1-mcq-np1-008`, `apprecalc-mcq-015/027/031/037/040`) still have no topic cell themselves.
+- **Skill cells:** the four-voter vote (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash) was run on the 6 variants that could not inherit (`apcalcab-mcq-sv-027-v1/-v2`, `APSTATS-MCQ-SV-058-v1/-v2/-v3`, `APBIO-MCQ-SV-025-v3`) and on the 32 newly topic-filled variants, restricted to the skills the grid allows for the topic (Calculus AB, Statistics). Written: 34 cells (31 validated, 3 provisional). **No cell (2-2 split): 4** (`apcalcab-mcq-u1v-012-v1/-v2/-v3`: 1.C vs 1.E; `apprecalc-mcq-sv-031-v1`: 2.A vs 3.A).
+- Verification: rehearsed with a rollback; after commit the hash over the 34 skill rows and the 32 topic rows in Production equals the hash of the plan computed locally. SQL and votes: `scripts/content-seed/skills-u13-2026-10-03/`.
+
+**Not done:** the 6 split variants above; skill cells for the 26 variants whose seed has none; the 13 variants of the held seeds; FRQs; Units 4 and above; Calculus BC.
+
+## APPROVAL-0099 — Skill Grids for Physics 1 and Precalculus; Skill Cells for Units 1-3 MCQ Seeds and Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Do the skill cells", then "Do it for units 1-3", after agreeing that variants inherit the skill of their seed)  
+**Related Decision:** `DECISION-0085`, `DECISION-0088` (full sub-skill grain), `DECISION-0093`; follows `APPROVAL-0098`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):**
+- **Skill grids (reference data):** AP Physics 1 (10 skills from CED Course Framework V.1 p. 10, 430 cells) and AP Precalculus (8 skills from the CED Course Framework p. 14, 464 cells), each the full topic x skill cross-product as for Biology (the CED says any topic can pair with any skill). SQL: `scripts/content-seed/skills-u13-2026-10-03/grid_phys1.sql`, `grid_precalc.sql`. Calculus BC, Physics 2 and Physics C still have no grid (not needed here).
+- **Seed votes:** 140 published, non-variant MCQ seeds in Units 1-3 without skill cells (Calculus AB 62, Physics 1 29, Precalculus 47, Chemistry 2), four voters (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash), validated at 3 of 4, unique 2 of 4 `provisional_model`, ties no cell. The Calculus AB and Chemistry grids are restricted by topic, so 18 seeds whose first-round skill was not valid for their topic were re-voted with the choice limited to that topic's skills. Written: 131 cells (120 validated, 11 provisional). No cell (tie or split): 9 seeds.
+- **Variants:** 548 variants (504 validated, 44 provisional) took the skill of their seed on the variant's own topic, only where the pair exists in the grid: Statistics 125, Biology 17, Chemistry 72, Calculus AB 135, Physics 1 83, Precalculus 116 (548 in all; 574 were in scope after the 6 exclusions below). Variants of seeds that already had a skill cell (Statistics, Biology, Chemistry) copy that cell's status.
+- Verification: the hash over the 131 seed cells in Production equals the hash of the plan computed locally (`612a74cd7ec2ce95a5360ebb4f5b46c6`); rehearsed with a rollback first; 679 cells total.
+
+**Not done:** 6 variants whose topic differs from their seed or whose seed is retired (`apcalcab-mcq-sv-027-v1`, `-v2`, `APSTATS-MCQ-SV-058-v1/-v2/-v3`, `APBIO-MCQ-SV-025-v3`) need their own vote; 26 other variants wait on seeds with no skill (ties, held or none); FRQs; Units 4 and above; Calculus BC's own MCQs (per instruction); the 20 Calculus AB, 3 Physics 1 and 15 Precalculus variants with no primary topic cell.
+
+## APPROVAL-0098 — Fix Two Stale Serving Labels and Restore Biology Variant 025-v3 (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Do the skill cells, and stall hashes. Restore biology 025-v3. No action on the bc MCQs")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0097`  
+**Decision:** Approved (skill cells not yet done; see below)
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):**
+- **Stale labels:** `APBIO-MCQ-088` and `apphy1-mcq-049` each carried a `stale` serving label on a retired version 1. Each was replaced by a new validated label on the published version, with the unit carried forward (`[7]` and `[3, 7]`), and the old active labels superseded. A three-family serving probe on 049 gave topic 7.4 in 6 of 6 votes and max unit 7 in 6 of 6; its required units split 3 and 3 between `[7]` and `[3, 7]`, so the previously reviewed `[3, 7]` was kept. Hash fresh on both.
+- **Biology `APBIO-MCQ-SV-025-v3`:** the aquaporin knockout variant (load SQL `scripts/content-seed/pipeline-v2-bio-u13-2026-10-02/load/restore_025v3.sql`), dropped in `APPROVAL-0079`/`0086` along with its two siblings. Only v3 is restored: both checkers (gemini-3.8-flash, deepseek-v4-pro) solved it to the key, audited all four rationales clean and rated it fully in scope (topic 2.6, Unit 2). It does not depend on the retired kidney seed. Loaded as a draft (md5 matched), approved and published with a validated label (`[2]`) and a validated primary topic cell 2.6. Keyed A; the other two 025 variants stay dropped (real errors).
+
+**Not done:** skill cells. Physics 1, Precalculus and Calculus BC have no skill grids, and about 900 published items need four-voter skill votes. Per instruction, nothing was done to Calculus BC's own MCQs.
+
+**Remaining "stale hash" count:** the roughly 50 other census mismatches are labels that were never validated (held or legacy, hash NULL), not drifted validated labels. The census counts them; it was not changed.
+
+## APPROVAL-0097 — Load and Publish 143 AP Precalculus Units 1-3 Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Publish the 143.")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0094`  
+**Decision:** Approved
+
+**Numbering:** the Production notes for this change name it `APPROVAL-0095`; renumbered `0097` because `0095` and `0096` are taken by the AP Biology retirements on another branch.
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `5522b532-5e50-41f2-99a2-10144bd4e8db`):** 143 AP Precalculus variant MCQs (keys `apprecalc-mcq-sv-<seed>-vK`, from 49 seeds) were loaded as drafts in 12 atomic chunks (md5 143 of 143 against the build manifest), then approved and published with validated, hash-fresh serving labels (56 in Unit 1, 42 in Unit 2, 45 in Unit 3) and 128 validated primary topic cells (a variant has none where its seed has none). Unit and topic are inherited from the validated seed; no variant is above its seed's unit.
+
+**Checks behind the variants:** every value recomputed in python or sympy; two-checker blind solve (keys agree on all), rationale audit, CED scope check; 12 variants of 147 dropped or patched along the way: `036-v2` dropped (a similarity rewrite had changed its functions so its choices no longer matched), `005-v2` dropped (one checker needed Unit 2), `035-v1` and `035-v2` dropped (inverse of a shifted exponential, the CED restriction on topic 2.10); 13 rationales on 11 variants rewritten and re-audited clean; stems of 14 variants reworded to clear the similarity limit.
+
+**Result:** Precalculus published 116 to 259, unit-gated servable 78 to 221, topic-known 47 to 175. The census still reports 13 stale hashes (not investigated; most likely FRQs).
+
+**Not approved by this entry:** the `DECISION-0095` CED-vocabulary scan of these variants (parked as `TASK-0059`); skill cells; FRQ content.
 
 ## APPROVAL-0096 — Set Item Status to `retired` on the Last 4 AP Biology Items Published With No Published Version (Production)
 
