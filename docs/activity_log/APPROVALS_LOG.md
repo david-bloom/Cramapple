@@ -18,6 +18,11 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
 - APPROVAL-0083 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
 - APPROVAL-0082 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot — DECISION-0093
+- APPROVAL-0071 — Deploy Stripe Functions to Production, Tranche 2 (`stripe-webhook` with the partial-refund fix, `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link`) — DECISION-0094
+- APPROVAL-0070 — Deploy Stripe Functions to Production, Tranche 1 Only (`stripe-webhook`, `get-checkout-status`, `send-parent-payment-email`) — DECISION-0094
+- APPROVAL-0069 — Apply the Three Stripe Payment-Schema Migrations to Production (TASK-0041 Cutover, Gate C Step D) — DECISION-0094
+- APPROVAL-0068 — Replace the Text of Five Published AP Biology Seeds in Production With CED-Vocabulary Versions (`APBIO-MCQ-005`, `018`, `021`, `022`, `023`) and Carry Their Labels Forward — DECISION-0093
+- APPROVAL-0067 — Repair One Distractor Rationale on Published AP Biology MCQ `APBIO-MCQ-023` in Production (Choice A) and Carry Its Labels Forward — DECISION-0093
 - APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward — DECISION-0093
 - APPROVAL-0065 — AP Calc AB Unit 1 Batch (136 Items) and Seeded Variants (24 Items) to Production, With AI-Gateway Spend — DECISION-0093
 - APPROVAL-0064 — TASK-0056 to Production (Three Migrations) and the `evaluate-attempt` F2 Deploy — DECISION-0089
@@ -220,6 +225,126 @@ Most recent entries (full chronological list follows below):
 **How (1) was used (2026-10-02):** the request said 13 items; the census shows 12 (10 held with stale hashes, 2 provisional with no hash). Eleven had at least 4 of 6 samples agreeing on max unit and topic (Gemini 3.8 Flash, DeepSeek V4 Pro, GPT-6.1 Sol, 2 samples each), and the consensus topic equals each item's existing primary cell. `scripts/content-seed/calc-ab-label-repair-2026-10-02/relabel_apply.sql` ran in one transaction after a rolled-back rehearsal on Production: old rows superseded (never edited), 11 new `validated` hash-fresh labels, 11 validation decisions. Calc AB census before to after: unit-gated servable 196 to 207, validated labels 198 to 209, hash mismatches 12 to 1. **Not relabelled:** `apcalcab-frq-u13-003` (max unit split 3 to 3 between Unit 2 and Unit 4) stays `held` for a Product Owner decision.
 
 **Not approved by this entry:** item text changes; loading or publishing any pilot variant; other subjects.
+
+
+## APPROVAL-0071 — Deploy Stripe Functions to Production, Tranche 2 (`stripe-webhook` with the partial-refund fix, `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link`) — DECISION-0094
+
+**Date:** 2026-10-02
+**Approved By:** David Bloom ("I approve all 4, you run the deploy", 2026-10-02 Claude session)
+**Related Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Related Decision:** `DECISION-0094`; predecessors `APPROVAL-0069` (schema), `APPROVAL-0070` (tranche 1)
+**Request:** `docs/product/STRIPE_PRODUCTION_FUNCTION_DEPLOY_APPROVAL_REQUEST_2026_10_02.md` section 9
+**Decision:** Approved — all four functions, Claude to run the deploy
+
+**Approved scope:** deploy `stripe-webhook`, `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link` from `main` to Production (`pcntajvbdfqhbeewmdry`), in that order, each with `--no-verify-jwt --use-api`. Verification is read-only: empty-body probes (rejected before any Stripe call) and a source diff against `main`.
+
+**David's acknowledged risk:** "Ask a parent to pay" starts working as soon as `create-parent-payment-link` deploys; strangers may pay full price (`DECISION-0094`). The live key mode, the webhook signing-secret match and the Elements checkout are unproven until the Gate D $1 test.
+
+**NOT approved by this entry:** the Lovable publish (enables card payment), the Orly email, any Stripe dashboard action, any secret change, the open-hand migration, `student-session-items`, `db push`, the go/no-go.
+
+**Outcome (2026-10-02):** all four deployed by Claude from a clean copy of `main` (`fc2f3a6c`, includes the partial-refund fix from PR #310), each with `--no-verify-jwt --use-api`, in the approved order.
+
+| Function | Before | After | `verify_jwt` | Deployed source vs `main` |
+|---|---|---|---|---|
+| `stripe-webhook` | v21 (tranche 1) | new revision, **partial-refund fix present** | false | `index.ts` + 10 shared files identical |
+| `create-checkout-session` | v21 (August) | new revision (Elements code) | false | identical |
+| `create-post-purchase-addon` | not deployed | **new** | false | identical |
+| `create-parent-payment-link` | not deployed | **new** | false | identical |
+
+(Supabase bumps every function's revision number when a secret is set, so version numbers rose on unrelated functions too; their source hashes did not change.)
+
+**Checks (all passed):** empty-body POSTs return 400 (`invalid_mode`, `invalid_mode`, `invalid_request`) and the webhook returns 400 `invalid_signature` without a signature, all rejected before any Stripe call. Production counts unchanged: 5 webhook events (all processed), 5 sessions, 253 entitlements, `stripe_customers` 0.
+
+**Observation, not caused by this deploy:** `app.stripe_checkout_session_attempts` has 9 rows from Oct 1–2 UTC (status `started`, none failed). They were made by the previous (August) `create-checkout-session` before this deploy; no payment completed (no new webhook event). Source unknown (David to say whether these were his own tests).
+
+**Still NOT done / NOT approved:** the Lovable publish (card payment stays off on the live page until then), the Orly email, and Gate D (David's own \$1 purchase, then a refund). Unproven until Gate D: the live key mode, the live webhook signing-secret match, and the Elements checkout end to end. Rollback: `scripts/stripe-cutover/prod-rollback-2026-10-02/` (August `stripe-webhook` and `create-checkout-session`); delete the two new functions.
+
+## APPROVAL-0070 — Deploy Stripe Functions to Production, Tranche 1 Only (`stripe-webhook`, `get-checkout-status`, `send-parent-payment-email`) — DECISION-0094
+
+**Date:** 2026-10-02
+**Approved By:** David Bloom ("yes", in reply to "Do you approve tranche 1?", 2026-10-02 Claude session)
+**Related Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Related Decision:** `DECISION-0094`; schema precondition `APPROVAL-0069`
+**Request:** `docs/product/STRIPE_PRODUCTION_FUNCTION_DEPLOY_APPROVAL_REQUEST_2026_10_02.md`
+**Decision:** Approved — **tranche 1 only**
+
+**Approved scope:** deploy `stripe-webhook`, `get-checkout-status` and `send-parent-payment-email` from `main` (`0bfe8511`) to Production (`pcntajvbdfqhbeewmdry`), each with `--no-verify-jwt --use-api`. None of these creates a charge. Verification afterward is read-only and uses invalid-body probes only.
+
+**NOT approved by this entry (tranche 2, still pending, and gated by the checklist prerequisites):** `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link`. Also not approved: any secret change, any Stripe dashboard action, the Lovable publish, the Orly email, the go/no-go.
+
+**Standing condition recorded:** do not publish the Lovable marketing project until tranche 2 is deployed and verified. The live publishable key is already in the project's `.env` (verified 2026-10-02); the live site still shows "Online payment isn't switched on yet."
+
+**Outcome (2026-10-02):** tranche 1 **deployed by Claude** from a clean copy of `main` (`0bfe8511`) on David's instruction ("run tranche 1 to deploy"), each with `--no-verify-jwt --use-api`.
+
+| Function | Production before | After | `verify_jwt` | Deployed source vs `main` |
+|---|---|---|---|---|
+| `stripe-webhook` | v20 (August) | **v21** | false | `index.ts` + 8 shared files identical; ezbr hash equals Dev's (`0a236f11…`) |
+| `get-checkout-status` | not deployed | **v1** | false | identical; ezbr hash equals Dev's (`44edc24e…`) |
+| `send-parent-payment-email` | not deployed | **v1** | false | identical |
+
+**Checks (all passed):** `POST /stripe-webhook` with no signature → 400 `invalid_signature`; `GET` → 405; `get-checkout-status` with a bad or missing id → 400 `invalid_session_id`; `send-parent-payment-email` with an empty body → 400 `invalid_request`. No Stripe call was made and nothing was charged. Production data unchanged: 5 webhook events (all `processed`), 5 checkout sessions, 253 entitlements, `stripe_customers` empty.
+
+**Rollback:** the August `stripe-webhook` is saved at `scripts/stripe-cutover/prod-rollback-2026-10-02/`. The two new functions can be deleted.
+
+**Tranche 2 is still NOT approved** (`create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link`) and the Lovable project must stay unpublished until it is deployed and verified.
+
+## APPROVAL-0069 — Apply the Three Stripe Payment-Schema Migrations to Production (TASK-0041 Cutover, Gate C Step D) — DECISION-0094
+
+**Date:** 2026-10-02
+**Approved By:** David Bloom ("approved", in reply to the request in `docs/product/STRIPE_PRODUCTION_MIGRATIONS_APPROVAL_REQUEST_2026_10_02.md`, 2026-10-02 Claude session)
+**Related Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Related Decision:** `DECISION-0094`
+**Decision:** Approved
+
+**Approved scope:** apply to Production (`pcntajvbdfqhbeewmdry`), in order, `20260928134000_task0041_payment_runtime_repair.sql`, `20260928135500_task0041_parent_email_audit.sql` and `20260928191213_task0041_webhook_replay.sql`. File SHA-256s were re-verified against the request immediately before applying.
+
+**How it was used (all three applied 2026-10-02, via `apply_migration`, one transaction each, each checked before the next):**
+
+| File | Ledger version recorded in Production | Result |
+|---|---|---|
+| `…134000_task0041_payment_runtime_repair` | `20261002001232` | `app.stripe_customers` created, RLS on, service-role policy only; existing tables/policies unchanged (5 session rows intact) |
+| `…135500_task0041_parent_email_audit` | `20261002001253` | `app.parent_payment_email_requests` created, RLS on, service-role policy only |
+| `…191213_task0041_webhook_replay` | `20261002001308` | replay columns added; **5 existing events backfilled to `processed`** (attempt_count 1); status CHECK present; `app.claim_stripe_webhook_event(text)` executable by `service_role` only |
+
+**Post-apply checks (all passed):** no `anon`/`authenticated` grants on the new tables; function privilege anon/authenticated/public = false, service_role = true; `subject_entitlements` still 253; security advisor reports no new finding for these objects.
+
+**Known drift (not fixed here):** `apply_migration` stamped its own versions (above), which differ from the committed filenames (`TASK-0055`). No files were renamed and no `db push` was run.
+
+**Not authorized by this entry:** any function deploy; any secret; Stripe live-mode work; the Lovable publish or publishable key; the open-hand migration; any `subject_entitlements` change; the go/no-go.
+
+## APPROVAL-0068 — Replace the Text of Five Published AP Biology Seeds in Production With CED-Vocabulary Versions (`APBIO-MCQ-005`, `018`, `021`, `022`, `023`) and Carry Their Labels Forward
+
+**Date:** 2026-10-01  
+**Approved By:** David Bloom (2026-10-01 Claude session: "stay within the CED vocab"; "Seed_remediation_preview is approved"; "apply to production, do not run the roll back rehersal". The Product Owner reviewed the old-versus-new text in `SEED_REMEDIATION_PREVIEW.md` and declined the rolled-back rehearsal.)  
+**Related Task:** none (content remediation from the AP Biology seeded-variant pilot; see `scripts/content-seed/apbio-seeded-pilot-2026-09-30/PILOT_REPORT.md`, rounds 3 and 4)  
+**Related Decision:** `DECISION-0093`  
+**Decision:** Approved
+
+**Approved scope:** on Production (`pcntajvbdfqhbeewmdry`), run `scripts/content-seed/reviewer-qa-remediation/20261001_apbio_seed_ced_vocabulary_remediation.sql` for exactly five items: `APBIO-MCQ-005`, `APBIO-MCQ-018`, `APBIO-MCQ-021`, `APBIO-MCQ-022`, `APBIO-MCQ-023`. Owner-remediation pattern (new version, never in place). Stimulus, stem and all four choices and rationales are replaced with the text in the preview; the keyed letter of each item is unchanged (005 C, 018 B, 021 C, 022 A, 023 D) and asserted by the script. Each item's labels (validated serving, provisional coverage) are captured in the transaction, restored to their prior status and re-pointed at the new version with their original validation records, and the approval id recorded in each label payload. Unit and topic are not changed. `021` and `023` are replacement items on the same topic.
+
+**Evidence:** the AP Biology CED V.1 (printed pp. 49-51 and a full-text search) does not name isomers, receptor-mediated endocytosis, clathrin, signal peptide / SRP, 70S/80S ribosomes, binary fission, or integral/peripheral proteins; the Product Owner ruled that items stay within CED vocabulary.
+
+**Not approved by this entry:** any other item; the seeded variants going into Production; changes to topic or unit labels; the `005` variant pair (held); any change to the other published Biology seeds (for example `APBIO-MCQ-018` was included, but `APBIO-MCQ-008` and others were not).
+
+**Waiver recorded:** no rolled-back rehearsal was run, at the Product Owner's direction. The script is one transaction with in-script assertions and aborts without writing if any fail.
+
+**How it was used (2026-10-01):** no rolled-back rehearsal (waived by the Product Owner). The real run committed in one transaction: 5 items repaired, 10 labels restored; all in-script assertions passed. Verified afterwards on Production: `APBIO-MCQ-005` v3, `018` v3, `021` v2, `022` v2, `023` v3 are each the only published version, with 4 choices and exactly one correct, and the keyed letter unchanged (005 C, 018 B, 021 C, 022 A, 023 D); no stem/choice desync. Each item's serving label is `validated` and its coverage label `provisional_model`, both pointing at the new version, hash-fresh, with `approval_ref: APPROVAL-0068` and the original validation record. AP Biology counts are unchanged from before the run (118 published versions, 160 published items, 69 validated serving labels, 6 stale labels that are older and unrelated). 5 review decisions written, 0 duplicate published versions, no `anon`/`authenticated` grant on `is_correct`/`rationale`.
+
+## APPROVAL-0067 — Repair One Distractor Rationale on Published AP Biology MCQ `APBIO-MCQ-023` in Production (Choice A) and Carry Its Labels Forward
+
+**Date:** 2026-10-01  
+**Approved By:** David Bloom (2026-10-01 Claude session: "I approve 023 production change", given in answer to the written scope below: a Production repair of `APBIO-MCQ-023` choice A, with a rolled-back test first, then the real run)  
+**Related Task:** none (content repair from the AP Biology seeded-variant pilot; see `scripts/content-seed/apbio-seeded-pilot-2026-09-30/S0A_AUDIT_REPORT.md`)  
+**Related Decision:** `DECISION-0093`  
+**Decision:** Approved
+
+**Approved scope:** on Production (`pcntajvbdfqhbeewmdry`), run `scripts/content-seed/reviewer-qa-remediation/20261001_apbio_mcq_023_choice_a_rationale_repair.sql` for exactly one item, `APBIO-MCQ-023`. Owner-remediation pattern (new version, never in place). Only choice A's rationale text changes; the key (D), all choice texts and all `is_correct` flags are unchanged. The item's two labels (a validated serving label, a provisional coverage label) are restored to their prior status and re-pointed at the new version, with their original validation record, and the approval id recorded in each label's payload.
+
+**Evidence:** both checkers (Gemini 3.5 Flash, DeepSeek V4 Pro) flagged the same rationale; verified by hand: the old text said that not being labeled by impermeant biotin does not distinguish extracellular from cytoplasmic facing for a transmembrane protein, which is false because the reagent labels extracellular-facing domains. The first sentence of that rationale (integral proteins need detergent) was correct and is kept.
+
+**Not approved by this entry:** any other item; the published seed `APBIO-MCQ-018` wording (noted separately); any variant going into Production; changes to the provisional seed topic labels.
+
+**How it was used (2026-10-01):** a rolled-back run on Production came first (all in-script assertions passed; Production was unchanged afterwards: still one version, v1 published, labels unchanged). The real run then committed: `APBIO-MCQ-023` has a new published version 2 (v1 retired); only choice A's rationale differs; the key is still D; all choice texts and `is_correct` flags are unchanged; no stem/choice desync; one published version. Both labels (serving `validated`, coverage `provisional_model`) are back to their prior status, point at v2, are hash-fresh, and carry `approval_ref: APPROVAL-0067`; the serving label keeps its original validation record. AP Biology counts are unchanged (118 published, 43 unit-gated servable, 69 validated labels). The 6 stale Biology labels that remain are older and unrelated (4 FRQ coverage labels, `APBIO-MCQ-041`, `APBIO-MCQ-088`); `023` is not among them. No `anon`/`authenticated` grant on `is_correct`/`rationale`.
 
 ## APPROVAL-0066 — Repair 11 Published AP Calc AB MCQs in Production (Key Letter on `apcalcab-mcq-037`, 10 Distractor-Rationale Repairs) and Carry Their Serving Labels Forward
 

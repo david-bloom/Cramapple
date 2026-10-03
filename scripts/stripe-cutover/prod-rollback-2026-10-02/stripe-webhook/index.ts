@@ -2,27 +2,6 @@ import { jsonResponse } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
-import { isPayerNotLearner } from "../_shared/addon-checkout.ts";
-import {
-  isFullyRefunded,
-  isSettledPaymentStatus,
-} from "../_shared/checkout-access.ts";
-import {
-  webhookDeliveryDisposition,
-  type WebhookLedgerStatus,
-} from "../_shared/stripe-webhook-ledger.ts";
-
-function requireEnv(name: string) {
-  const value = Deno.env.get(name);
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
-
-// Used only as the redirectTo for parent-gift student invites (see
-// resolveGiftStudentUserId below).
-const APP_BASE_URL = requireEnv("APP_BASE_URL").replace(/\/$/, "");
 
 // This function is the sole authority for granting and revoking
 // Stripe-purchased entitlements, and for the purchase_completed/
@@ -37,11 +16,6 @@ type CheckoutSessionObject = {
   amount_total?: number | null;
   currency: string | null;
   payment_status?: string | null;
-  customer?: string | { id?: string } | null;
-  payment_intent?:
-    | string
-    | { id?: string; payment_method?: string | { id?: string } | null }
-    | null;
   metadata: Record<string, string> | null;
   discounts?:
     | Array<{
@@ -75,7 +49,6 @@ type CheckoutSessionObject = {
 type ChargeObject = {
   id: string;
   payment_intent: string | null;
-  amount?: number | null;
   amount_refunded?: number | null;
   currency?: string | null;
   refunded?: boolean;
@@ -151,7 +124,6 @@ async function retrieveCheckoutSession(session: CheckoutSessionObject) {
         "discounts.coupon",
         "discounts.promotion_code",
         "total_details.breakdown",
-        "payment_intent.payment_method",
       ],
     }) as unknown as CheckoutSessionObject;
   } catch (error) {
@@ -221,113 +193,18 @@ async function grantEntitlement(service: Service, params: {
   if (error) throw error;
 }
 
-// Same account-per-email lookup used by reviewer-invite: page through
-// auth.users rather than relying on a students table, since the invited
-// student may not have any app.profiles row yet.
-async function findAuthUserByEmail(service: Service, email: string) {
-  const target = email.toLowerCase();
-  const perPage = 1000;
-
-  // Bounded at 50 pages (50k users) as a runaway-loop backstop, not a
-  // real ceiling - the loop already exits early via the length check below
-  // once a page comes back short.
-  for (let page = 1; page <= 50; page += 1) {
-    const { data, error } = await service.auth.admin.listUsers({
-      page,
-      perPage,
-    });
-    if (error) throw new Error(`auth_user_lookup_failed:${error.message}`);
-
-    const user = data.users.find((entry) =>
-      (entry.email ?? "").toLowerCase() === target
-    );
-    if (user) return user;
-    if (data.users.length < perPage) break;
-  }
-
-  return null;
-}
-
-// Anonymous student-direct and parent-share/gift checkouts have no verified
-// client_reference_id. Resolve (or create, via a branded Supabase invite)
-// the learner's account from server-carried Stripe metadata so entitlement
-// ownership never follows the payer.
-async function resolveCheckoutStudentUserId(
-  service: Service,
-  metadata: Record<string, string>,
-) {
-  const studentEmail = metadata.student_email;
-  if (!studentEmail) {
-    throw new Error("checkout_session_missing_student_email");
-  }
-
-  const existing = await findAuthUserByEmail(service, studentEmail);
-  if (existing) return existing.id;
-
-  const { data, error } = await service.auth.admin.inviteUserByEmail(
-    studentEmail,
-    {
-      data: { full_name: metadata.student_name ?? studentEmail.split("@")[0] },
-      redirectTo: `${APP_BASE_URL}/welcome`,
-    },
-  );
-  if (error) {
-    throw new Error(`student_invite_failed:${error.message}`);
-  }
-  if (data.user) return data.user.id;
-
-  // The invite call can succeed without echoing the user back in rare
-  // races - fall back to a fresh lookup rather than failing the webhook.
-  const invited = await findAuthUserByEmail(service, studentEmail);
-  if (!invited) throw new Error("student_invite_user_not_found");
-  return invited.id;
-}
-
-async function persistStripeCustomer(
-  service: Service,
-  session: CheckoutSessionObject,
-  userId: string,
-) {
-  const stripeCustomerId = objectId(session.customer);
-  if (!stripeCustomerId) return;
-
-  const paymentIntent = session.payment_intent;
-  const paymentMethodId = paymentIntent && typeof paymentIntent === "object"
-    ? objectId(paymentIntent.payment_method)
-    : null;
-
-  const { error } = await service.schema("app").from("stripe_customers").upsert(
-    {
-      user_id: userId,
-      stripe_customer_id: stripeCustomerId,
-      default_payment_method_id: paymentMethodId,
-      source_checkout_session_id: session.id,
-      updated_at: new Date().toISOString(),
-    },
-    { onConflict: "user_id" },
-  );
-  if (error) throw error;
-}
-
 async function handleCheckoutSessionCompleted(
   service: Service,
   session: CheckoutSessionObject,
   eventId: string,
   eventType: CheckoutStatus,
 ) {
-  const metadata = session.metadata ?? {};
-  const purchaseType = metadata.purchase_type ?? metadata.purchaser_type ?? "";
-  const resolvesStudentByEmail = purchaseType === "parent_gift" ||
-    purchaseType === "parent_share" ||
-    purchaseType === "student_direct";
-  const userId = session.client_reference_id ??
-    (resolvesStudentByEmail
-      ? await resolveCheckoutStudentUserId(service, metadata)
-      : null);
+  const userId = session.client_reference_id;
   if (!userId) {
     throw new Error("checkout_session_missing_client_reference_id");
   }
 
+  const metadata = session.metadata ?? {};
   const mode = metadata.mode ?? "single";
   const checkoutSessionId = session.id;
 
@@ -373,9 +250,7 @@ async function handleCheckoutSessionCompleted(
     }
 
     const hadDiscount = Boolean(session.total_details?.amount_discount);
-    const source = metadata.purchase_type === "post_purchase_addon"
-      ? "stripe_checkout_addon"
-      : mode === "single"
+    const source = mode === "single"
       ? (hadDiscount
         ? "stripe_checkout_single_coupon"
         : "stripe_checkout_single")
@@ -393,10 +268,6 @@ async function handleCheckoutSessionCompleted(
     }
   }
 
-  if (!isPayerNotLearner(purchaseType)) {
-    await persistStripeCustomer(service, session, userId);
-  }
-
   await recordGrowthEvent(service, {
     eventName: "purchase_completed",
     userId,
@@ -412,8 +283,6 @@ async function handleCheckoutSessionCompleted(
       amount_discount: session.total_details?.amount_discount ?? 0,
     },
   });
-
-  return userId;
 }
 
 async function handleCheckoutSessionEvent(
@@ -426,9 +295,7 @@ async function handleCheckoutSessionEvent(
   const discounts = await recordCheckoutSession(service, session, status);
 
   if (status === "completed" || status === "async_payment_succeeded") {
-    if (
-      session.payment_status && !isSettledPaymentStatus(session.payment_status)
-    ) {
+    if (session.payment_status && session.payment_status !== "paid") {
       await recordGrowthEvent(service, {
         eventName: "checkout_payment_pending",
         userId: session.client_reference_id ?? null,
@@ -443,24 +310,7 @@ async function handleCheckoutSessionEvent(
       });
       return;
     }
-    const userId = await handleCheckoutSessionCompleted(
-      service,
-      session,
-      eventId,
-      status,
-    );
-    // recordCheckoutSession above ran before the gift student's account was
-    // resolved (client_reference_id is null for parent-gift checkouts), so
-    // the row it wrote still has user_id null for that case - backfill it
-    // now that the real recipient is known.
-    if (userId !== session.client_reference_id) {
-      const { error } = await service.schema("app").from(
-        "stripe_checkout_sessions",
-      )
-        .update({ user_id: userId, updated_at: new Date().toISOString() })
-        .eq("id", session.id);
-      if (error) throw error;
-    }
+    await handleCheckoutSessionCompleted(service, session, eventId, status);
     return;
   }
 
@@ -494,19 +344,6 @@ async function handleChargeRefunded(
   charge: ChargeObject,
   eventId: string,
 ) {
-  // A partial refund (goodwill, price adjustment) must not end access. The
-  // final refund that completes the charge arrives as its own event with
-  // `refunded: true`, and that one revokes.
-  if (!isFullyRefunded(charge)) {
-    console.warn(
-      "stripe-webhook charge_partially_refunded_access_kept",
-      charge.id,
-      charge.amount_refunded ?? null,
-      charge.amount ?? null,
-    );
-    return;
-  }
-
   const paymentIntentId = charge.payment_intent;
   if (!paymentIntentId) {
     console.warn(
@@ -585,59 +422,22 @@ Deno.serve(async (req) => {
 
   const service = createServiceClient();
 
-  // Insert-first preserves idempotency. A redelivery may claim a prior failed
-  // attempt (or one abandoned for at least five minutes), but processed events
-  // and active concurrent attempts never run twice.
-  const attemptStartedAt = new Date().toISOString();
+  // Idempotency ledger: insert-first on the Stripe event id. A primary-key
+  // conflict means this event was already received (redelivery or a
+  // concurrent delivery) - acknowledge without reprocessing.
   const { error: ledgerError } = await service.schema("app")
     .from("stripe_webhook_events")
     .insert({
       id: event.id,
       event_type: event.type,
       payload: JSON.parse(rawBody),
-      status: "processing",
-      attempt_count: 1,
-      last_attempt_at: attemptStartedAt,
     });
   if (ledgerError) {
     if (ledgerError.code === "23505") {
-      const { data: claimed, error: claimError } = await service.schema("app")
-        .rpc("claim_stripe_webhook_event", { p_event_id: event.id });
-      if (claimError) {
-        console.error("stripe-webhook ledger_claim_failed", claimError);
-        return respond({ error: "ledger_claim_failed" }, { status: 500 });
-      }
-      if (!claimed) {
-        const { data: existing, error: existingError } = await service.schema(
-          "app",
-        ).from("stripe_webhook_events")
-          .select("status,processed_at")
-          .eq("id", event.id)
-          .maybeSingle();
-        if (existingError || !existing) {
-          console.error(
-            "stripe-webhook ledger_status_failed",
-            existingError,
-          );
-          return respond({ error: "ledger_status_failed" }, { status: 500 });
-        }
-        const disposition = webhookDeliveryDisposition({
-          status: existing.status as WebhookLedgerStatus | null,
-          processedAt: existing.processed_at,
-        });
-        if (disposition === "retryable") {
-          return respond({ error: "ledger_claim_race" }, { status: 500 });
-        }
-        return respond({
-          status: "ok",
-          duplicate: disposition === "already_processed",
-          processing: disposition === "in_progress",
-        });
-      }
-    } else {
-      console.error("stripe-webhook ledger_insert_failed", ledgerError);
-      return respond({ error: "ledger_write_failed" }, { status: 500 });
+      return respond({ status: "ok", duplicate: true });
     }
+    console.error("stripe-webhook ledger_insert_failed", ledgerError);
+    return respond({ error: "ledger_write_failed" }, { status: 500 });
   }
 
   try {
@@ -679,20 +479,9 @@ Deno.serve(async (req) => {
       throw new Error(`unsupported_stripe_event_type:${event.type}`);
     }
 
-    const { error: processedLedgerError } = await service.schema("app").from(
-      "stripe_webhook_events",
-    )
-      .update({
-        status: "processed",
-        processed_at: new Date().toISOString(),
-        processing_error: null,
-      })
+    await service.schema("app").from("stripe_webhook_events")
+      .update({ processed_at: new Date().toISOString() })
       .eq("id", event.id);
-    if (processedLedgerError) {
-      throw new Error(
-        `webhook_ledger_mark_processed_failed:${processedLedgerError.message}`,
-      );
-    }
 
     return respond({ status: "ok" });
   } catch (error) {
@@ -701,10 +490,7 @@ Deno.serve(async (req) => {
       : "stripe_webhook_processing_failed";
     console.error("stripe-webhook processing_failed", error);
     await service.schema("app").from("stripe_webhook_events")
-      .update({
-        status: "failed",
-        processing_error: message.slice(0, 500),
-      })
+      .update({ processing_error: message.slice(0, 500) })
       .eq("id", event.id);
     return respond({ error: "processing_failed" }, { status: 500 });
   }

@@ -25,3 +25,26 @@ export function isSettledPaymentStatus(
 ) {
   return paymentStatus === "paid" || paymentStatus === "no_payment_required";
 }
+
+// Stripe sends `charge.refunded` for partial refunds too. Only a fully refunded
+// charge ends access; a partial refund (a goodwill gesture, or a price
+// adjustment) must leave the student's access alone. Stripe sets `refunded`
+// true only once the whole charge is refunded, so trust it when present; fall
+// back to comparing amounts; and if neither is usable keep the previous
+// behaviour (treat it as a full refund) rather than leave access after a refund.
+export function isFullyRefunded(
+  charge: {
+    refunded?: boolean | null;
+    amount?: number | null;
+    amount_refunded?: number | null;
+  },
+): boolean {
+  if (typeof charge.refunded === "boolean") return charge.refunded;
+  const { amount, amount_refunded: refunded } = charge;
+  if (
+    typeof amount === "number" && amount > 0 && typeof refunded === "number"
+  ) {
+    return refunded >= amount;
+  }
+  return true;
+}

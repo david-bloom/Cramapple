@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0094 — Launch Shape Revised: $1 Pilot Coupon (10 Friends) Before a 50%-Off Public Launch; Parent-Pay Live; Strangers May Pay Full Price; Supersedes DECISION-0091
 - DECISION-0093 — Seeded Generation and Checker Policy for AP Calc AB Content; Human Review Waived for the Unit 1 Batch and the Seeded Variants
 - DECISION-0092 — AP Calculus AB Opened for Tonight's Tester (Orly); Calc AB Served by the Combined MCQ+FRQ Selector; Authored Part Prompts Shown on Short FRQs; Tables Rendered in Stems
 - DECISION-0091 — October 2 Launch Stays Free, but Access Runs Through `/checkout` With a 100%-Off Coupon; Amends DECISION-0071's "No Stripe/Payment Gating" and the Runbook's Payment Stop Condition
@@ -45,6 +46,46 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0094 — Launch Shape Revised: $1 Pilot Coupon (10 Friends) Before a 50%-Off Public Launch; Parent-Pay Live; Strangers May Pay Full Price; Supersedes DECISION-0091
+
+**Date:** 2026-10-01
+**Decision Owner:** David Bloom
+**Status:** Approved (Product Owner direction in the 2026-09-30/10-01 Claude session; each point from David's own words)
+**Related Task:** `docs/tasks/TASK-0041-LAUNCH-PAYMENT-FLOW.md`
+**Related Docs:** `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md` (new); `docs/product/LAUNCH_RUNBOOK_2026_10_02.md` (amended)
+**Related Decisions:** `DECISION-0091` (superseded for launch shape), `DECISION-0071`, `DECISION-0083`, `DECISION-0090`
+**Area:** Product / Launch Scope / Payments
+
+### Context
+
+`DECISION-0071` chose a free launch because the payment flow was not built. `DECISION-0091` kept it free through a
+100%-off `/checkout` coupon. The flow now exists in Dev. The $0 / `no_payment_required` checkout has never run, and no
+real student has ever been graded. David asked why the product should be free at all.
+
+### Decided
+
+1. **Phase 1 — paid-flow pilot.** Orly emails a **$1** coupon to a small group of friends, who sign up promptly. Stripe
+   coupon created by David in **Stripe live mode** (promotion code object `promo_1ULmINLwoRHzBJ1OIjwp6dwH`, not yet shared):
+   **$38.99 off, 1 use, 10 redemptions maximum, first-time orders only**. It is a real card charge and so tests the live payment path.
+2. **Phase 2 — public launch at 50% off through October**, after "some success with checkout". Success is **the Product
+   Owner's judgment**; there is no automated gate.
+3. **Parent-pay is live** (all six checkout functions go to Production).
+4. **The code is entered by the student**, not auto-applied. **Orly emails it**, after the Production smoke test passes.
+5. **Pilot users who pay $1 for one subject see the $30 "add another subject" offer** (it charges the saved card for real).
+6. **Strangers may reach `/checkout` and pay full price** ($39.99 single) during the pilot. Accepted.
+
+### Consequences
+
+- `DECISION-0091`'s free Oct 2 shape is superseded; the runbook carries a banner.
+- The $0 checkout path is off the critical path (optional Dev work). The real-card `paid` webhook path becomes the proof.
+- The coupon is **"$38.99 off any purchase"**, not limited to single-subject products: a 2-subject bundle ($69.99) would
+  cost $31.00 and a 3-subject bundle ($89.99) $51.00 with it. **Risk accepted by David**: at most 10 people get it, and
+  mistakes will be handled manually. No `applies_to` restriction will be added.
+- **Still Hard-Gated, not approved by this entry:** Stripe live-mode setup, Production secrets, the three Production
+  migrations, the six Production function deploys, the Lovable publish, and the go/no-go. A refund and terms position
+  (BIZ-001) is needed before live mode is enabled, because strangers can pay from that moment.
+- The coupon code string must never be written into the repo.
 
 ## DECISION-0093 — Seeded Generation and Checker Policy for AP Calc AB Content; Human Review Waived for the Unit 1 Batch and the Seeded Variants
 
