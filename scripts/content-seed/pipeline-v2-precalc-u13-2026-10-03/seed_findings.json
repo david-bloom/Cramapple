@@ -1,0 +1,898 @@
+{
+ "apprecalc-mcq-004": {
+  "stem": "A polynomial has zeros −1 of multiplicity 2 and 3 of multiplicity 1. Which behavior is required?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It crosses at both zeros",
+    "rationale": "The even-multiplicity zero does not require crossing.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "It touches at −1 and crosses at 3",
+    "rationale": "Even multiplicity produces a touch and turn; odd multiplicity produces a crossing.",
+    "is_key": true
+   },
+   {
+    "label": "C",
+    "text": "It crosses at −1 and touches at 3",
+    "rationale": "The behaviors are reversed.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "It touches at both zeros",
+    "rationale": "The odd-multiplicity zero crosses.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "An even-multiplicity zero cannot cross the x-axis at all; stating that it 'does not require crossing' incorrectly implies that crossing is possible."
+   }
+  ]
+ },
+ "apprecalc-mcq-006": {
+  "stem": "If f(x)=2x−1 and g(x)=x²+3, then (g∘f)(x)=",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2x²+2",
+    "rationale": "This squares only x and distributes incorrectly.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "(2x−1)²+3",
+    "rationale": "Substituting f(x) into g gives (2x−1)²+3.",
+    "is_key": true
+   },
+   {
+    "label": "C",
+    "text": "2x²+5",
+    "rationale": "Computes f(g(x)) = 2(x² + 3) − 1 = 2x² + 5 instead of g(f(x)), reversing the order of composition.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "x²+2x+2",
+    "rationale": "This adds f(x) and g(x), (2x−1)+(x²+3)=x²+2x+2, rather than composing them.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "The rationale misdescribes the error: 2x²+2 comes from misapplying the exponent to only part of (2x−1), e.g. treating (2x−1)² as 2x²−1, not from incorrect distribution."
+   }
+  ]
+ },
+ "apprecalc-mcq-007": {
+  "stem": "For Q(x)=(x−1)²(x+2)/(x²+1), the right-end behavior is closest to",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Q(x) behaves like 0",
+    "rationale": "The numerator degree is larger, so the ratio does not tend to zero.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "Q(x) behaves like 1",
+    "rationale": "Equal-degree behavior would give a horizontal limit.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "Q(x) behaves like x",
+    "rationale": "The numerator has degree 3 with leading coefficient 1 and the denominator degree 2, so polynomial division gives slant behavior like x.",
+    "is_key": true
+   },
+   {
+    "label": "D",
+    "text": "Q(x) behaves like x²",
+    "rationale": "The degree difference is one, not two.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "The rationale states a true general fact about equal-degree rational functions but does not explain that here the numerator degree is 3 and denominator degree is 2, so the equal-degree case does not apply; it fails to explain why B is wrong."
+   }
+  ]
+ },
+ "apprecalc-mcq-010": {
+  "stem": "The inverse of f(x)=3e^(2x) is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(1/2)ln(x/3)",
+    "rationale": "From y=3e^(2x), divide by 3, take ln, and divide by 2. Because the original exponential has range y>0, the inverse has domain x>0.",
+    "is_key": true
+   },
+   {
+    "label": "B",
+    "text": "2ln(3x)",
+    "rationale": "The constants are not isolated correctly.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "ln(x−3)/2",
+    "rationale": "The model requires division by 3, not subtraction.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "3ln(x/2)",
+    "rationale": "This does not undo the multiplication and exponent coefficient.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "scope",
+    "issue": "['Inverse derivation of an exponential function with an initial value other than 1 (a ≠ 1)']"
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "scope",
+    "issue": "['Inverting an exponential function with an initial value other than 1']"
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "scope",
+    "issue": "['Inverse of an exponential function with initial value not 1 (here f(x)=3e^{2x}); topic 2.10 restricts inverse-derivation to initial value 1.']"
+   }
+  ]
+ },
+ "apprecalc-mcq-026": {
+  "stem": "No calculator is permitted.\n\nIf g(x)=−2f(x−3)+5, which transformation takes the graph of f to the graph of g?\n\nA. Left 3, vertical stretch 2, reflect across x-axis, up 5\nB. Right 3, vertical stretch 2, reflect across x-axis, up 5\nC. Right 5, vertical shrink 1/2, down 3\nD. Left 5, vertical stretch 2, reflect across y-axis, up 3",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Left 3, vertical stretch 2, reflect across x-axis, up 5",
+    "rationale": "Reverses the horizontal shift.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "Right 3, vertical stretch 2, reflect across x-axis, up 5",
+    "rationale": "Correctly interprets every transformation.",
+    "is_key": true
+   },
+   {
+    "label": "C",
+    "text": "Right 5, vertical shrink 1/2, down 3",
+    "rationale": "Interchanges the horizontal and vertical constants.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "Left 5, vertical stretch 2, reflect across y-axis, up 3",
+    "rationale": "Uses unrelated transformations.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "The rationale is incomplete and misleading: C also uses a vertical shrink by 1/2 instead of a vertical stretch by 2 and omits the reflection across the x-axis, so it does not merely interchange the horizontal and vertical constants."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "D",
+    "issue": "The transformations in D are not unrelated: vertical stretch by 2 is actually a correct transformation, while the other parts are incorrect versions of relevant transformations (left 5 instead of right 3, reflection across the y-axis instead of the x-axis, and up 3 instead of up 5)."
+   }
+  ]
+ },
+ "apprecalc-mcq-029": {
+  "stem": "No calculator is permitted.\n\nFor which x is (x−1)/(x+2)≤0?\n\nA. (−2,1]\nB. (−∞,−2)∪[1,∞)\nC. [−2,1]\nD. (−∞,1]",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(−2,1]",
+    "rationale": "Correct sign interval with the zero included and undefined value excluded.",
+    "is_key": true
+   },
+   {
+    "label": "B",
+    "text": "(−∞,−2)∪[1,∞)",
+    "rationale": "Selects the positive-sign intervals.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "[−2,1]",
+    "rationale": "Incorrectly includes the denominator zero.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "(−∞,1]",
+    "rationale": "Fails to account for the sign change at x=−2.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "B is not the positive-sign intervals: it includes x=1, where the expression equals 0, so it is actually the solution to (x−1)/(x+2)≥0. The strictly positive intervals are (−∞,−2)∪(1,∞)."
+   }
+  ]
+ },
+ "apprecalc-mcq-030": {
+  "stem": "Calculator use is permitted.\n\nA cubic regression for data is y=0.42x³−1.8x²+0.65x+7.1. What is the predicted change in y from x=2.4 to x=3.1, to the nearest hundredth?\n\nA. 0.64\nB. 0.23\nC. 1.29\nD. 3.43",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.64",
+    "rationale": "Uses an approximate rate with an incorrect interval.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "0.23",
+    "rationale": "Correct calculator evaluation of the change.",
+    "is_key": true
+   },
+   {
+    "label": "C",
+    "text": "1.29",
+    "rationale": "Uses the later output minus an incorrectly rounded earlier output.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "3.43",
+    "rationale": "Adds or otherwise combines the two outputs incorrectly.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "The rationale is speculative and fails to mathematically substantiate how 0.64 is obtained."
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "The value f(3.1) is approximately 4.33 and f(2.4) is approximately 4.10. Subtracting any reasonable rounding of 4.10 from 4.33 yields approximately 0.23, not 1.29. The rationale's claim that 1.29 comes from an 'incorrectly rounded earlier output' is mathematically false."
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "D",
+    "issue": "The rationale is vague and inaccurate; adding the two outputs (4.10 + 4.33 = 8.43) does not produce 3.43."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "The rationale says A comes from using an approximate rate with an incorrect interval, but A=0.64 is not produced by that error. The actual average rate over [2.4,3.1] is about 0.330, and multiplying by the interval 0.7 gives the correct change, not 0.64."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "The rationale says C uses the later output minus an incorrectly rounded earlier output. However, y(2.4)=4.09808 rounds to about 4.10, and subtracting that from y(3.1)=4.32922 gives 0.23, not 1.29. To get 1.29, the earlier output would have to be about 3.04, which is not an incorrect rounding of 4.09808."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "D",
+    "issue": "The rationale says D adds or otherwise combines the two outputs incorrectly, but adding the outputs gives about 8.43, not 3.43. Subtracting them gives the correct value 0.23. The stated error does not explain D=3.43."
+   }
+  ]
+ },
+ "apprecalc-mcq-031": {
+  "stem": "Calculator use is permitted.\n\nFor f(x)=x⁴−6x²+2, what is the average rate of change from x=1.2 to x=2.7, to the nearest tenth?\n\nA. -10.6\nB. 24.0\nC. 10.6\nD. 16.0",
+  "choices": [
+   {
+    "label": "A",
+    "text": "-10.6",
+    "rationale": "Reverses the subtraction in the numerator, computing [f(1.2)-f(2.7)]/(2.7-1.2), which changes the sign of the correct rate.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "24.0",
+    "rationale": "Uses the correct endpoint difference but divides by an incorrect interval length, producing a much larger positive rate.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "10.6",
+    "rationale": "Correct calculator evaluation of the secant slope.",
+    "is_key": true
+   },
+   {
+    "label": "D",
+    "text": "16.0",
+    "rationale": "Reports approximately the output change, not the rate.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "The value 24.0 is obtained by multiplying the change in output by the interval length (15.9705 × 1.5 ≈ 24.0), rather than dividing by an incorrect interval length."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "24.0 is not produced by dividing the correct endpoint difference by a plausible incorrect interval length. The correct output change is about 15.9705, and dividing by the actual interval length 1.5 gives 10.6. Choice B instead arises from multiplying the output change by the interval length: 15.9705 × 1.5 ≈ 23.96, which rounds to 24.0. The rationale misdescribes the error."
+   }
+  ]
+ },
+ "apprecalc-mcq-033": {
+  "stem": "No calculator is permitted.\n\nWhich expression is equivalent to 5·2^(3x−1)?\n\nA. (5/2)·8^x\nB. 10·8^x\nC. 5·6^x−1\nD. (5/2)·6^x",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(5/2)·8^x",
+    "rationale": "Correct exponent decomposition.",
+    "is_key": true
+   },
+   {
+    "label": "B",
+    "text": "10·8^x",
+    "rationale": "Multiplies by 2 instead of dividing.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "5·6^x−1",
+    "rationale": "Distributes the exponent incorrectly.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "(5/2)·6^x",
+    "rationale": "Incorrectly replaces the factor 2³ with 6.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "The error resulting in base 6 is multiplying the base 2 by the coefficient 3 (computing 2 · 3 instead of 2³), not an incorrect distribution of the exponent."
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "other",
+    "issue": "Choice C is typed as '5·6^x−1' without parentheses around the exponent, which strictly reads as 5·(6^x) − 1 rather than 5·6^(x−1)."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "An exponent-distribution error over the subtraction would give a base-8 expression such as 5(8^x - 2) = 5·8^x - 10, not 5·6^x - 1. Choice C also changes the base from 2 to 6, so the rationale does not correctly explain it."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "other",
+    "issue": "Choice C is typeset ambiguously; it is unclear whether the '-1' is part of the exponent."
+   }
+  ]
+ },
+ "apprecalc-mcq-034": {
+  "stem": "No calculator is permitted.\n\nWhat is the solution to log₃(x−1)+log₃(x+1)=2?\n\nA. x=3\nB. x=√10\nC. x=−√10\nD. x=10",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x=3",
+    "rationale": "Solves x²=9 instead of x²=10.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "x=√10",
+    "rationale": "Correct equation and domain restriction.",
+    "is_key": true
+   },
+   {
+    "label": "C",
+    "text": "x=−√10",
+    "rationale": "Keeps the extraneous negative root.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "x=10",
+    "rationale": "Fails to take the square root.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "D",
+    "issue": "Failing to take the square root of x^2=10 would leave x^2=10, not x=10. The error is better described as taking the square root of only one side or confusing x^2 with x."
+   }
+  ]
+ },
+ "apprecalc-mcq-035": {
+  "stem": "No calculator is permitted.\n\nIf f(x)=4^(x−2)+1, which formula gives f⁻¹(x)?\n\nA. log₄(x+1)−2\nB. 4^(x+2)−1\nC. log₄(x−1)+2\nD. log_(1/4)(x−1)+2",
+  "choices": [
+   {
+    "label": "A",
+    "text": "log₄(x+1)−2",
+    "rationale": "Uses the shifts with incorrect signs.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "4^(x+2)−1",
+    "rationale": "Does not form an inverse.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "log₄(x−1)+2",
+    "rationale": "Correctly reverses the transformations.",
+    "is_key": true
+   },
+   {
+    "label": "D",
+    "text": "log_(1/4)(x−1)+2",
+    "rationale": "Uses the reciprocal base, which changes the sign.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "As written, the rationale is misleading: 4^(x+2)-1 is a one-to-one function and does have an inverse, namely log_4(x+1)-2. It is not the inverse of f, and the rationale should state that rather than saying it does not form an inverse."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "scope",
+    "issue": "[\"Inverse of a shifted/non-unit-initial-value exponential function such as 4^(x−2)+1, beyond topic 2.10's restriction to exponential functions with initial value 1\"]"
+   }
+  ]
+ },
+ "apprecalc-mcq-036": {
+  "stem": "No calculator is permitted.\n\nIf f(x)=2x−5 and g(x)=x²+1, what is (g∘f)(x)?\n\nA. (x²+1)²−5\nB. (2x−4)²+1\nC. (2x−5)²−1\nD. (2x−5)²+1",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(x²+1)²−5",
+    "rationale": "Applies f after g rather than g after f.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "(2x−4)²+1",
+    "rationale": "Subtracts 5 before doubling the input.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "(2x−5)²−1",
+    "rationale": "Uses the correct inner function but subtracts 1.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "(2x−5)²+1",
+    "rationale": "Correct composition in the stated order.",
+    "is_key": true
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "Applying f after g yields (f ∘ g)(x) = 2(x² + 1) − 5, not (x² + 1)² − 5."
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "Subtracting 5 before doubling the input yields 2(x − 5) = 2x − 10, not 2x − 4."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "Applying f after g gives f(g(x)) = 2(x^2+1) - 5 = 2x^2 - 3, not (x^2+1)^2 - 5."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "Subtracting 5 before doubling the input would give 2(x - 5) = 2x - 10, not 2x - 4."
+   }
+  ]
+ },
+ "apprecalc-mcq-040": {
+  "stem": "Calculator use is permitted.\n\nA logarithmic regression is y=4.8+2.3ln(x). What x gives y=12, to the nearest tenth?\n\nA. 8.4\nB. 15.2\nC. 31.7\nD. 22.9",
+  "choices": [
+   {
+    "label": "A",
+    "text": "8.4",
+    "rationale": "Uses the logarithm value as x.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "15.2",
+    "rationale": "Uses base-10 exponentiation.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "31.7",
+    "rationale": "Divides 12 by 2.3 before exponentiating.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "22.9",
+    "rationale": "Correctly exponentiates with base e.",
+    "is_key": true
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "The value of the logarithm is ln(x) = (12 - 4.8) / 2.3 ≈ 3.13, not 8.4."
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "Base-10 exponentiation of ln(x) ≈ 3.13 gives 10^3.13 ≈ 1350, not 15.2."
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "Dividing 12 by 2.3 before exponentiating yields e^(12/2.3) ≈ e^5.217 ≈ 184.4, not 31.7."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "The rationale says the student used the logarithm value as x. Solving ln(x) = (12 - 4.8)/2.3 gives about 3.13, so using that value as x would give about 3.13, not 8.4. The rationale does not explain the choice."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "Base-10 exponentiation after isolating ln(x) would give 10^(7.2/2.3), which is about 1350, not 15.2. The stated error does not produce this choice."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "Dividing 12 by 2.3 before exponentiating would give e^(12/2.3), which is about 184.5, not 31.7. The stated error does not produce this choice."
+   }
+  ]
+ },
+ "apprecalc-mcq-041": {
+  "stem": "No calculator is permitted.\n\nWhat is the exact value of cos(5π/6)?\n\nA. −√3/2\nB. −1/2\nC. 1/2\nD. √3/2",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−√3/2",
+    "rationale": "Correct reference value and sign.",
+    "is_key": true
+   },
+   {
+    "label": "B",
+    "text": "−1/2",
+    "rationale": "Uses the sine reference value.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "1/2",
+    "rationale": "Uses the sine value with wrong sign.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "√3/2",
+    "rationale": "Uses the cosine value with wrong sign.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "The value 1/2 is exactly equal to sin(5π/6). Stating that it 'uses the sine value with wrong sign' is inaccurate and misidentifies the misconception, as the sine of 5π/6 is positive 1/2, not negative 1/2."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "sin(5π/6)=+1/2, so choice C is actually the sine value with the correct sign. The error is using sine instead of cosine, not a wrong sign."
+   }
+  ]
+ },
+ "apprecalc-mcq-047": {
+  "stem": "No calculator is permitted.\n\nWhich expression is equivalent to (1−cos²x)/sin x where sin x≠0?\n\nA. cos x\nB. tan x\nC. sin x\nD. 1",
+  "choices": [
+   {
+    "label": "A",
+    "text": "cos x",
+    "rationale": "Uses the wrong squared function.",
+    "is_key": false
+   },
+   {
+    "label": "B",
+    "text": "tan x",
+    "rationale": "Introduces an extra division by cosine.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "sin x",
+    "rationale": "Correct Pythagorean identity and cancellation.",
+    "is_key": true
+   },
+   {
+    "label": "D",
+    "text": "1",
+    "rationale": "Cancels the numerator incorrectly.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "A",
+    "issue": "The rationale is inaccurate: using the wrong squared function would not produce cos x. The numerator 1 - cos^2 x equals sin^2 x, so the expression simplifies to sin x, not cos x."
+   }
+  ]
+ },
+ "apprecalc-mcq-049": {
+  "stem": "Calculator use is permitted.\n\nFor r=2+2cosθ, which statement best describes the graph?\n\nA. A cardioid symmetric about the polar axis with a cusp at the pole\nB. A circle centered at (2,0) with radius 2 and tangent to the pole\nC. A four-petal rose symmetric about both coordinate axes with petal length 2\nD. A cardioid symmetric about θ=π/2 with a cusp above the pole",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A cardioid symmetric about the polar axis with a cusp at the pole",
+    "rationale": "Correct classification, symmetry, and cusp.",
+    "is_key": true
+   },
+   {
+    "label": "B",
+    "text": "A circle centered at (2,0) with radius 2 and tangent to the pole",
+    "rationale": "Confuses the polar equation with a rectangular circle tangent to the pole.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "A four-petal rose symmetric about both coordinate axes with petal length 2",
+    "rationale": "Confuses the equation with a rose of the form r=a cos(2θ).",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "A cardioid symmetric about θ=π/2 with a cusp above the pole",
+    "rationale": "Uses the symmetry and orientation associated with a sine-based cardioid.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "The rationale's phrase 'rectangular circle tangent to the pole' is mathematically inaccurate: a circle is not rectangular and cannot be tangent to a point. The circle described in B has polar equation r=4cosθ and is tangent to the line θ=π/2 at the pole, not to the pole itself."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "D",
+    "issue": "A sine-based cardioid such as r=2+2sinθ is symmetric about θ=π/2 but its cusp is at the pole, not above the pole. The rationale incorrectly treats 'cusp above the pole' as part of sine-cardioid orientation."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "other",
+    "issue": "Choice B's wording 'tangent to the pole' is imprecise; a curve can be tangent to a line at the pole, not to the pole as a point."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "other",
+    "issue": "Choice D's wording 'cusp above the pole' is incorrect because the cardioid's cusp is at the pole."
+   }
+  ]
+ },
+ "apprecalc-mcq-np2-003": {
+  "stem": "A data set shows output values with a constant ratio of 1.2 between consecutive equal-interval inputs. A student instead runs an exponential regression on a calculator and obtains an r-squared value of 0.999, citing this as justification that the data is exponential. Is this reasoning valid for determining the appropriate model type?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "No -- the constant ratio itself is what establishes an exponential model; a high r-squared value alone is not sufficient justification",
+    "rationale": "Per documented AP scoring guidance, citing a regression fit statistic instead of computing the actual ratio of consecutive outputs is explicitly insufficient reasoning, even when the classification is correct.",
+    "is_key": true
+   },
+   {
+    "label": "B",
+    "text": "Yes -- a high r-squared value is sufficient to justify any regression model type",
+    "rationale": "A high r-squared value describes fit quality, not the underlying structural pattern (constant ratio) that defines an exponential model.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "No -- only a perfect r-squared of 1 would justify the model",
+    "rationale": "This still relies on the regression statistic rather than the required ratio-based reasoning.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "Yes, but only if r-squared is reported to at least four decimal places",
+    "rationale": "The precision of the reported statistic does not change that it is not valid justification for the model type.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "other",
+    "issue": "The premise states an exact constant ratio of 1.2, but the student's exponential regression is said to yield r-squared = 0.999; exact exponential data should yield r-squared = 1, so the item is internally inconsistent unless the ratio is intended to be approximate."
+   }
+  ]
+ },
+ "apprecalc-mcq-np2-004": {
+  "stem": "Which expression is equivalent to log base 5 of (25x^3)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2 + 3*log base 5 of x",
+    "rationale": "log_5(25x^3) = log_5(25) + log_5(x^3) = 2 + 3*log_5(x), since 5^2=25.",
+    "is_key": true
+   },
+   {
+    "label": "B",
+    "text": "6*log base 5 of x",
+    "rationale": "This multiplies the exponent by the coefficient of the log_5(25) term instead of adding the two separate terms.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "log base 5 of 25, plus 3*log base 5 of x",
+    "rationale": "This correctly applies the product and power properties but fails to simplify log_5(25) to its numeric value, 2.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "5 + 3*log base 5 of x",
+    "rationale": "This incorrectly evaluates log_5(25) as 5 instead of 2, confusing the base with the simplified value.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "Choice C is mathematically equivalent to the given expression. Because the question only asks which expression is equivalent (and does not state that the expression must be completely simplified), Choice C is mathematically correct."
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "key",
+    "issue": "audit says keyed choice is not correct"
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "other",
+    "issue": "The item has multiple correct answers. Choice C is mathematically equivalent to log_5(25x^3), but the question stem lacks instructions such as 'completely simplified' or 'in simplest form' to exclude it."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "The rationale misstates the error: log_5(25) has coefficient 1, not 2; the number 2 is the value of log_5(25). The actual error in B is multiplying the value 2 by the exponent 3 instead of adding the separate terms 2 and 3 log_5 x."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "C",
+    "issue": "Choice C is mathematically equivalent to log_5(25x^3); failing to simplify log_5(25) to 2 does not make it incorrect for a question asking for an equivalent expression."
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "key",
+    "issue": "audit says keyed choice is not correct"
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "other",
+    "issue": "The item has two correct answers: A and C are both equivalent to log_5(25x^3), so the keyed choice is not the unique correct answer."
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "multi",
+    "issue": "more than one defensible choice"
+   },
+   {
+    "model": "gemini-3.8-flash",
+    "kind": "multi",
+    "issue": "more than one defensible choice"
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "multi",
+    "issue": "more than one defensible choice"
+   },
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "multi",
+    "issue": "more than one defensible choice"
+   }
+  ]
+ },
+ "apprecalc-mcq-np2-009": {
+  "stem": "A function's outputs at equally spaced inputs have constant third differences, but non-constant second differences. What is the minimum degree of a polynomial that could model this data?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3",
+    "rationale": "Constant nth differences over equally spaced inputs correspond to a degree-n polynomial; since the third differences are constant (and the second are not), the minimum degree is 3.",
+    "is_key": true
+   },
+   {
+    "label": "B",
+    "text": "2",
+    "rationale": "This confuses the level of differencing (third) with a different degree, and contradicts the given fact that second differences are non-constant.",
+    "is_key": false
+   },
+   {
+    "label": "C",
+    "text": "4",
+    "rationale": "This is one degree higher than what constant third differences indicate.",
+    "is_key": false
+   },
+   {
+    "label": "D",
+    "text": "6",
+    "rationale": "This does not follow from the finite-differences rule relating degree to the order of constant differences.",
+    "is_key": false
+   }
+  ],
+  "findings": [
+   {
+    "model": "deepseek-v4-pro",
+    "kind": "rationale",
+    "choice": "B",
+    "issue": "The first clause misdescribes the misconception: choosing degree 2 is wrong because a quadratic polynomial would have constant second differences, contradicting the given non-constant second differences, not because it 'confuses the level of differencing (third) with a different degree.'"
+   }
+  ]
+ }
+}

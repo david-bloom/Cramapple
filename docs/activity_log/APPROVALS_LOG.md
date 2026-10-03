@@ -16,6 +16,8 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0094 — AP Precalculus: Fix 3 Defective MCQs (`033`, `np2-003`, `np2-004`) and Retire `010` (Production) — DECISION-0085
+- APPROVAL-0093 — AP Precalculus Units 1-3: Correct 15 Items' Rationales, Remove the Duplicated A-D List From 22 Stems, Validate 23 Provisional Labels, Create 45 Topic Cells (Production) — DECISION-0085
 - APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production) — DECISION-0093
 - APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production) — DECISION-0085
 - APPROVAL-0089 — AP Physics 1 Units 4-8: Remove the Duplicated A-D List From 21 Published Stems (Production) — DECISION-0085
@@ -202,6 +204,36 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0094 — AP Precalculus: Fix 3 Defective MCQs (`033`, `np2-003`, `np2-004`) and Retire `010` (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Can these be fixed? If not retire them", about the four items held for a decision)  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0093`  
+**Decision:** Approved
+
+**Numbering:** the Production notes for this change name it `APPROVAL-0092`; renumbered `0094` because `0092` was taken by the AP Biology retirement on another branch.
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `5522b532-5e50-41f2-99a2-10144bd4e8db`):** (1) `apprecalc-mcq-np2-004` had two correct answers (A and C both equivalent to log_5(25x^3)): choice C was replaced by the non-equivalent `3*log base 5 of (25x)` and the B/C/D rationales rewritten. (2) `apprecalc-mcq-np2-003` stated a constant ratio of exactly 1.2 alongside r-squared = 0.999: the stem now says the ratios are approximately 1.2 (rounding). (3) `apprecalc-mcq-033` had choice C typed `5·6^x−1`: retyped as `5·6^(x−1)`, the duplicated A-D list removed from the stem, and all four rationales replaced with verified ones (checked at x = 1). All three keys are unchanged; each was re-audited by two models (keys agree, one defensible answer, in scope, rationales accurate) and received a validated, hash-fresh label (Unit 2, three-family topic consensus 6 of 6) and a topic cell. (4) `apprecalc-mcq-010` (inverse of 3e^(2x), an initial value other than 1 that the CED restricts for topic 2.10, with one-line rationales) was retired.
+
+**Not approved by this entry:** variants for these four seeds; the Precalculus variants (authored, not loaded).
+
+## APPROVAL-0093 — AP Precalculus Units 1-3: Correct 15 Items' Rationales, Remove the Duplicated A-D List From 22 Stems, Validate 23 Provisional Labels, Create 45 Topic Cells (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Go to precalc", continuing the Units 1-3 run)  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0090`  
+**Decision:** Approved
+
+**Numbering:** the Production notes for this change name it `APPROVAL-0091`; renumbered `0093` because `0091` was taken by the AP Biology variant retirement.
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `5522b532-5e50-41f2-99a2-10144bd4e8db`):** the 53 AP Precalculus Units 1-3 MCQs (27 validated, 26 provisional) were blind-solved, audited and CED-scope-checked by two models and probed by three families. 26 items received new versions: 25 wrong-answer rationales on 15 items were rewritten (drafted by an agent, every number checked in code, re-audited clean by two models) and the duplicated A-D list was removed from 22 stems (choices and keys unchanged). 34 new validated, hash-fresh serving labels were written: 23 provisional items validated on a three-family consensus at >= 5 of 6 on the unit, and 11 repaired items carried forward. 45 validated primary topic cells were created (agreement >= 5 of 6).
+
+**Held and then handled by `APPROVAL-0094`:** `033`, `np2-003`, `np2-004`, `010`.
+
+**Result:** Precalculus unit-gated servable 53 to 78 (after both approvals), topic-known 0 to 47, published 117 to 116 (`010` retired). The census still reports 13 stale hashes, not investigated (the MCQs in scope were refreshed, so they are most likely FRQs).
+
+**Not approved by this entry:** the 147 Precalculus variants (authored and linted, not loaded); skill cells; FRQ content.
 
 ## APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production)
 

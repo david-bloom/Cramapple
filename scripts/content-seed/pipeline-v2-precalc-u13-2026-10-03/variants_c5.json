@@ -1,0 +1,812 @@
+[
+ {
+  "id": "apprecalc-mcq-049-v1",
+  "seed": "apprecalc-mcq-049",
+  "difficulty": "medium",
+  "title": "Identify a sine cardioid",
+  "stem": "Calculator use is permitted.\n\nFor r = 3 − 3sinθ, which statement best describes the graph?",
+  "correct": {
+   "text": "A cardioid symmetric about the line θ = π/2, with a cusp at the pole and its farthest point at (6, 3π/2)",
+   "rationale": "Since the two coefficients have equal size (a = b = 3), r = 3 − 3sinθ is a cardioid. sin(π − θ) = sinθ, so the graph is symmetric about the line θ = π/2. r = 0 when sinθ = 1 (θ = π/2), giving the cusp at the pole, and r is largest at θ = 3π/2, where r = 3 − 3(−1) = 6."
+  },
+  "wrong": [
+   {
+    "text": "A cardioid symmetric about the polar axis, with a cusp at the pole and its farthest point at (6, π)",
+    "rationale": "This is the graph of r = 3 − 3cosθ, where the cosine makes r = 6 at θ = π. For r = 3 − 3sinθ the value at θ = π is r = 3 − 3·0 = 3, not 6, and the graph is symmetric about θ = π/2, not the polar axis.",
+    "error_pattern": "Treats sine as cosine (symmetry axis and farthest point of the cosine cardioid)"
+   },
+   {
+    "text": "A cardioid symmetric about the line θ = π/2, with a cusp at the pole and its farthest point at (6, π/2)",
+    "rationale": "This is the graph of r = 3 + 3sinθ. For r = 3 − 3sinθ, at θ = π/2 the value is r = 3 − 3(1) = 0, which is the cusp itself, not a farthest point; the farthest point is at θ = 3π/2.",
+    "error_pattern": "Ignores the minus sign, so the cardioid points the wrong way"
+   },
+   {
+    "text": "A limaçon with an inner loop, symmetric about the line θ = π/2, whose outer loop reaches (6, 3π/2)",
+    "rationale": "An inner loop appears only when r takes negative values, which requires the sine coefficient to be larger in size than the constant. Here r = 3 − 3sinθ ≥ 0 for every θ (sinθ ≤ 1), and r = 0 only at θ = π/2, so the graph has a cusp at the pole and no inner loop.",
+    "error_pattern": "Thinks any limaçon-type equation that reaches r = 0 forms an inner loop"
+   }
+  ],
+  "change_note": "New cardioid with sine and a minus sign, described by symmetry line, cusp, and farthest point; distractors are cos/sin swap, sign error, and loop misconception.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-049-v2",
+  "seed": "apprecalc-mcq-049",
+  "difficulty": "medium",
+  "title": "Describe a three-petal rose",
+  "stem": "Calculator use is permitted.\n\nWhich statement best describes the graph of r = 5cos(3θ)?",
+  "correct": {
+   "text": "A three-petal rose with petals of length 5, one of which is centered on the polar axis",
+   "rationale": "For r = a·cos(nθ) with n odd, the graph is a rose with n petals, so n = 3 gives three petals, each of length |a| = 5. At θ = 0, r = 5cos(0) = 5, so a petal tip lies on the polar axis (the other tips are at θ = 2π/3 and 4π/3, where r = 5cos(2π) = 5 and 5cos(4π) = 5)."
+  },
+  "wrong": [
+   {
+    "text": "A six-petal rose with petals of length 5, one of which is centered on the polar axis",
+    "rationale": "Doubling the petal count applies to roses with an even n (for example r = 5cos(2θ) has four petals). With n = 3 odd, r = 5cos(3θ) has exactly 3 petals; the tips at θ = 0, 2π/3, 4π/3 all have r = 5, and a six-tip pattern never appears.",
+    "error_pattern": "Applies the even-n rule (2n petals) to an odd n"
+   },
+   {
+    "text": "A three-petal rose with petals of length 3, one of which is centered on the polar axis",
+    "rationale": "The petal length is the amplitude |a| = 5, not the coefficient 3 of θ. At θ = 0 the value is r = 5cos(0) = 5, so the petal reaches 5 units from the pole. The 3 only sets the number of petals.",
+    "error_pattern": "Swaps the roles of a and n"
+   },
+   {
+    "text": "A three-petal rose with petals of length 5, one of which is centered on the line θ = π/2",
+    "rationale": "That placement belongs to r = 5sin(3θ). For r = 5cos(3θ) at θ = π/2 we get r = 5cos(3π/2) = 0, so the graph passes through the pole there instead of having a petal tip; the tips are at θ = 0, 2π/3, and 4π/3.",
+    "error_pattern": "Confuses the cosine rose with the sine rose"
+   }
+  ],
+  "change_note": "Changes from cardioid to odd-n rose; asks petal count, length, and orientation.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-049-v3",
+  "seed": "apprecalc-mcq-049",
+  "difficulty": "hard",
+  "title": "Limaçon with an inner loop",
+  "stem": "Calculator use is permitted.\n\nA student plots the polar equation r = 1 + 2cosθ on a graphing tool and examines its features. Which statement best describes the graph?",
+  "correct": {
+   "text": "A limaçon with an inner loop, symmetric about the polar axis, whose outer loop reaches (3, 0)",
+   "rationale": "The cosine makes the graph symmetric about the polar axis, and r(0) = 1 + 2 = 3 gives the outer point (3, 0). Because the coefficient of cosθ (2) is larger in size than the constant (1), r becomes negative when cosθ < −1/2 (for 2π/3 < θ < 4π/3), for example r(π) = 1 − 2 = −1, which creates an inner loop."
+  },
+  "wrong": [
+   {
+    "text": "A cardioid with a cusp at the pole, symmetric about the polar axis, reaching (3, 0)",
+    "rationale": "A cardioid needs the constant and the cosine coefficient to be equal in size (as in r = 2 + 2cosθ). Here they are 1 and 2, and r(π) = 1 − 2 = −1 ≠ 0, so the graph does not simply touch the pole at θ = π; r passes through 0 at θ = 2π/3 and goes negative, forming a loop.",
+    "error_pattern": "Classifies every a + b·cosθ curve as a cardioid"
+   },
+   {
+    "text": "A limaçon with an inner loop, symmetric about the line θ = π/2, whose outer loop reaches (3, π/2)",
+    "rationale": "This is the sine version, r = 1 + 2sinθ. For r = 1 + 2cosθ, at θ = π/2 the value is r = 1 + 2·0 = 1, not 3, and the symmetry is about the polar axis because cos(−θ) = cosθ.",
+    "error_pattern": "Confuses cosine with sine (symmetry axis and farthest point)"
+   },
+   {
+    "text": "A limaçon with no inner loop, symmetric about the polar axis, reaching (3, 0)",
+    "rationale": "No inner loop occurs only when the constant is at least as large in size as the cosine coefficient. Here 1 < 2, and r(π) = 1 + 2cos π = −1 is negative; the negative r-values for 2π/3 < θ < 4π/3 trace the inner loop.",
+    "error_pattern": "Reverses the rule for when a limaçon has an inner loop"
+   }
+  ],
+  "change_note": "New limaçon with |a| < |b|; options contrast cardioid, sine version, and no-loop limaçon.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-np2-001-v1",
+  "seed": "apprecalc-mcq-np2-001",
+  "difficulty": "easy",
+  "title": "End behavior of an even-degree polynomial",
+  "stem": "As x approaches negative infinity, what is the end behavior of h(x) = 4x^6 − 7x^3 + 2?",
+  "correct": {
+   "text": "h(x) approaches positive infinity",
+   "rationale": "The leading term 4x^6 determines end behavior. The degree is even and the leading coefficient is positive, so h(x) approaches positive infinity at both ends. For example, h(−10) = 4,000,000 + 7,000 + 2 = 4,007,002."
+  },
+  "wrong": [
+   {
+    "text": "h(x) approaches negative infinity",
+    "rationale": "This treats x^6 as negative when x is negative, as an odd power would be. An even power of a negative number is positive: (−10)^6 = 1,000,000, so h(−10) = 4,007,002, which is large and positive.",
+    "error_pattern": "Applies the odd-degree rule to an even-degree polynomial"
+   },
+   {
+    "text": "h(x) approaches 0",
+    "rationale": "This confuses the polynomial with a rational function whose denominator grows. A nonconstant polynomial is unbounded; h(−10) = 4,007,002 and h(−100) is even larger, so the values do not shrink toward 0.",
+    "error_pattern": "Confuses polynomial end behavior with a horizontal asymptote"
+   },
+   {
+    "text": "h(x) approaches 2",
+    "rationale": "This reads off the constant term as if it were a limiting value. The constant is dominated by 4x^6 for large |x|: h(−10) = 4,007,002, nowhere near 2.",
+    "error_pattern": "Reads the constant term as the end value"
+   }
+  ],
+  "change_note": "Even-degree, positive leading coefficient, x to negative infinity; distractors are sign, zero, and constant-term errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-001-v2",
+  "seed": "apprecalc-mcq-np2-001",
+  "difficulty": "medium",
+  "title": "End behavior from factored form",
+  "stem": "The polynomial p is given by p(x) = −2x²(x − 3)(x + 1)(x + 4). Which statement describes the end behavior of p?",
+  "correct": {
+   "text": "p(x) → +∞ as x → −∞, and p(x) → −∞ as x → +∞",
+   "rationale": "Multiplying the factors gives degree 2 + 1 + 1 + 1 = 5 and leading coefficient −2, so the leading term is −2x^5. An odd-degree polynomial with a negative leading coefficient rises to +∞ as x → −∞ and falls to −∞ as x → +∞. Check: p(−10) = −2·100·(−13)(−9)(−6) = 140,400 is positive, and p(10) = −2·100·7·11·14 = −215,600 is negative."
+  },
+  "wrong": [
+   {
+    "text": "p(x) → −∞ as x → −∞, and p(x) → −∞ as x → +∞",
+    "rationale": "This counts the four factors, (x²), (x − 3), (x + 1), (x + 4), to get degree 4 (even) and so uses the −2 to send both ends to −∞. The x² factor contributes degree 2, so the degree is 5 and the ends go in opposite directions.",
+    "error_pattern": "Counts factors instead of adding multiplicities to get the degree"
+   },
+   {
+    "text": "p(x) → −∞ as x → −∞, and p(x) → +∞ as x → +∞",
+    "rationale": "This has the odd-degree shape of an upward-sloping cubic or quintic, which would be right for a positive leading coefficient. Here the leading coefficient is −2, so the ends are reversed: p is positive for large negative x and negative for large positive x.",
+    "error_pattern": "Ignores the negative leading coefficient"
+   },
+   {
+    "text": "p(x) → +∞ as x → −∞, and p(x) → +∞ as x → +∞",
+    "rationale": "This combines two slips: counting four factors (degree 4, even) and ignoring the −2. With the correct degree 5 and leading coefficient −2, the two ends go to opposite infinities.",
+    "error_pattern": "Counts factors as degree and ignores the sign of the leading coefficient"
+   }
+  ],
+  "change_note": "Factored form with a repeated factor; the student must add multiplicities and use the sign of the leading coefficient.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-np2-001-v3",
+  "seed": "apprecalc-mcq-np2-001",
+  "difficulty": "medium",
+  "title": "Dominant term is not the largest coefficient",
+  "stem": "As x approaches positive infinity, what is the end behavior of f(x) = 100x^3 − 5x^4 + x^2?",
+  "correct": {
+   "text": "f(x) approaches negative infinity",
+   "rationale": "The term of highest degree, −5x^4, dominates for large x, and its coefficient is negative, so f(x) approaches negative infinity. For example, f(100) = 100,000,000 − 500,000,000 + 10,000 = −399,990,000."
+  },
+  "wrong": [
+   {
+    "text": "f(x) approaches positive infinity",
+    "rationale": "This chooses 100x^3 because it has the largest coefficient. Degree, not coefficient size, decides which term dominates. f(10) = 50,100 is still positive, but f(100) = −399,990,000, and the negative values grow without bound.",
+    "error_pattern": "Picks the dominant term by coefficient size rather than degree"
+   },
+   {
+    "text": "f(x) approaches 0",
+    "rationale": "This treats the function like a rational function with growing denominator. f(100) = −399,990,000, and the magnitude keeps growing for larger x, so the values do not approach 0.",
+    "error_pattern": "Confuses polynomial end behavior with a horizontal asymptote"
+   },
+   {
+    "text": "f(x) approaches −5",
+    "rationale": "This reports the leading coefficient as if it were the limiting value. The leading term −5x^4 grows without bound; f(100) = −399,990,000, not about −5.",
+    "error_pattern": "Reports the leading coefficient as the end value"
+   }
+  ],
+  "change_note": "Uses a larger coefficient on a lower-degree term to test degree vs. coefficient; x to positive infinity.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-002-v1",
+  "seed": "apprecalc-mcq-np2-002",
+  "difficulty": "medium",
+  "title": "Hole with its y-coordinate",
+  "stem": "Let h(x) = (x² + x − 6)/(x² − 4). Which statement correctly describes the graph of h at x = 2 and at x = −2?",
+  "correct": {
+   "text": "A hole at (2, 5/4) and a vertical asymptote at x = −2",
+   "rationale": "Factoring gives h(x) = (x + 3)(x − 2)/[(x − 2)(x + 2)]. The factor (x − 2) cancels, so there is a hole at x = 2 whose height is the value of the simplified function (x + 3)/(x + 2) at x = 2, which is 5/4. The factor (x + 2) stays in the denominator while the numerator (x + 3) is 1 at x = −2, so x = −2 is a vertical asymptote."
+  },
+  "wrong": [
+   {
+    "text": "A hole at (2, 0) and a vertical asymptote at x = −2",
+    "rationale": "This uses the numerator x² + x − 6, which equals 0 at x = 2, as the height of the hole. The hole's height comes from the simplified function (x + 3)/(x + 2): at x = 2 it is 5/4, not 0.",
+    "error_pattern": "Uses the original numerator's value instead of the simplified function's value"
+   },
+   {
+    "text": "Vertical asymptotes at both x = 2 and x = −2, and no hole",
+    "rationale": "This sets the denominator equal to zero without factoring the numerator. The numerator also has the factor (x − 2), which cancels, so x = 2 is a hole, not an asymptote.",
+    "error_pattern": "Does not check the numerator for common factors"
+   },
+   {
+    "text": "A hole at (2, 1/4) and a vertical asymptote at x = −2",
+    "rationale": "The location of the hole is right, but its height drops the remaining numerator factor: after canceling, the function is (x + 3)/(x + 2), so the height is (2 + 3)/(2 + 2) = 5/4. Using only 1/(2 + 2) = 1/4 leaves out (x + 3).",
+    "error_pattern": "Drops the remaining numerator factor when finding the hole's height"
+   }
+  ],
+  "change_note": "Rational function given in expanded form; hole must be located with its y-coordinate.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-002-v2",
+  "seed": "apprecalc-mcq-np2-002",
+  "difficulty": "medium",
+  "title": "Two holes and one asymptote",
+  "stem": "Let f(x) = (x − 1)(x + 2)(x − 5) / [(x + 2)(x − 5)(x − 3)]. Which statement is true about the graph of f?",
+  "correct": {
+   "text": "Holes at x = −2 and x = 5, and a vertical asymptote at x = 3",
+   "rationale": "The factors (x + 2) and (x − 5) appear in both the numerator and denominator and cancel, giving holes at x = −2 and x = 5. After canceling, f(x) = (x − 1)/(x − 3). The factor (x − 3) remains in the denominator, and the numerator is 3 − 1 = 2 ≠ 0 at x = 3, so x = 3 is a vertical asymptote."
+  },
+  "wrong": [
+   {
+    "text": "A hole at x = 3, and vertical asymptotes at x = −2 and x = 5",
+    "rationale": "This reverses the roles. The cancelled factors (x + 2) and (x − 5) produce holes, and the factor (x − 3) that does not cancel produces the vertical asymptote.",
+    "error_pattern": "Swaps which zeros of the denominator are holes and which are asymptotes"
+   },
+   {
+    "text": "Vertical asymptotes at x = −2, x = 3, and x = 5, and no holes",
+    "rationale": "This treats every zero of the denominator as an asymptote without canceling the shared factors (x + 2) and (x − 5) with the numerator.",
+    "error_pattern": "Does not cancel common factors"
+   },
+   {
+    "text": "Holes at x = −2, x = 3, and x = 5, and no vertical asymptotes",
+    "rationale": "This treats every zero of the denominator as a hole. Only the factors that cancel give holes; (x − 3) is not in the numerator, so it remains in the simplified denominator (x − 1)/(x − 3) and gives a vertical asymptote.",
+    "error_pattern": "Treats every denominator zero as a hole"
+   }
+  ],
+  "change_note": "Factored form with two cancelling factors and one remaining; no calculation, just classification.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-np2-002-v3",
+  "seed": "apprecalc-mcq-np2-002",
+  "difficulty": "hard",
+  "title": "Partial cancellation of a squared factor",
+  "stem": "Let p(x) = (x + 1) / [(x + 1)²(x − 2)]. Which statement correctly describes the graph of p at x = −1 and at x = 2?",
+  "correct": {
+   "text": "Vertical asymptotes at both x = −1 and x = 2, and no hole",
+   "rationale": "For x ≠ −1, canceling one factor of (x + 1) gives p(x) = 1/[(x + 1)(x − 2)]. The simplified denominator is still 0 at x = −1 and at x = 2, and the numerator is 1, so both are vertical asymptotes. There is no hole because a hole requires the factor to cancel completely."
+  },
+  "wrong": [
+   {
+    "text": "A hole at x = −1 and a vertical asymptote at x = 2",
+    "rationale": "This assumes that canceling any common factor creates a hole. Only one of the two factors of (x + 1) in the denominator cancels; the remaining (x + 1) keeps the denominator zero at x = −1 in 1/[(x + 1)(x − 2)], so it is an asymptote.",
+    "error_pattern": "Assumes any cancellation produces a hole"
+   },
+   {
+    "text": "A vertical asymptote at x = 2 only, with no hole or asymptote at x = −1",
+    "rationale": "This removes the entire (x + 1)² as if it cancelled with the single (x + 1) in the numerator. Only one factor cancels, leaving 1/[(x + 1)(x − 2)], which is undefined with a vertical asymptote at x = −1.",
+    "error_pattern": "Cancels the whole squared factor"
+   },
+   {
+    "text": "A hole at x = 2 and a vertical asymptote at x = −1",
+    "rationale": "This swaps the roles. The factor (x − 2) appears only in the denominator and does not cancel with anything, so x = 2 is a vertical asymptote, not a hole.",
+    "error_pattern": "Swaps the roles of the two values"
+   }
+  ],
+  "change_note": "Tests multiplicity: a squared factor only partly cancels, so the 'hole' is actually an asymptote.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-np2-005-v1",
+  "seed": "apprecalc-mcq-np2-005",
+  "difficulty": "hard",
+  "title": "Hidden quadratic with a rejected root",
+  "stem": "What is the solution set of e^(2x) − 5e^x − 14 = 0?",
+  "correct": {
+   "text": "x = ln 7 only",
+   "rationale": "Let u = e^x. Then u² − 5u − 14 = (u − 7)(u + 2) = 0, so u = 7 or u = −2. Since e^x > 0 for all x, u = −2 is rejected, leaving e^x = 7 and x = ln 7."
+  },
+  "wrong": [
+   {
+    "text": "x = 7 and x = −2",
+    "rationale": "These are the values of u = e^x, not of x. Converting back requires e^x = 7, which gives x = ln 7; e^x = −2 has no real solution.",
+    "error_pattern": "Stops at the values of u and does not convert back to x"
+   },
+   {
+    "text": "x = ln 7 and x = ln(−2)",
+    "rationale": "The natural logarithm of a negative number is not defined, so e^x = −2 gives no real x. This answer keeps u = −2 without rejecting it, although e^x is always positive.",
+    "error_pattern": "Does not reject the negative root of the quadratic in e^x"
+   },
+   {
+    "text": "No real solution",
+    "rationale": "This rejects the whole equation because one root is negative. The root u = 7 is positive, so e^x = 7 is solvable and x = ln 7 satisfies the equation: e^(2 ln 7) − 5·7 − 14 = 49 − 35 − 14 = 0.",
+    "error_pattern": "Concludes there is no solution after discarding one root"
+   }
+  ],
+  "change_note": "New coefficients so one root is negative; targets the documented failure of not rejecting e^x = negative.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-005-v2",
+  "seed": "apprecalc-mcq-np2-005",
+  "difficulty": "medium",
+  "title": "Quadratic form in 3^x",
+  "stem": "What is the solution set of 9^x − 4·3^x + 3 = 0?",
+  "correct": {
+   "text": "x = 0 and x = 1",
+   "rationale": "Since 9^x = (3^x)², let u = 3^x. Then u² − 4u + 3 = (u − 1)(u − 3) = 0, so u = 1 or u = 3. Then 3^x = 1 gives x = 0 and 3^x = 3 gives x = 1."
+  },
+  "wrong": [
+   {
+    "text": "x = 1 and x = 3",
+    "rationale": "These are the values of u = 3^x. Converting back, 3^x = 1 gives x = 0 and 3^x = 3 gives x = 1, so x = 3 would give 3^3 = 27, which is not a root (9^3 − 4·27 + 3 = 729 − 108 + 3 ≠ 0).",
+    "error_pattern": "Reports the values of u as the solutions for x"
+   },
+   {
+    "text": "x = 0 and x = ln 3",
+    "rationale": "This solves 3^x = 3 with the natural log as if the base were e, giving ln 3 ≈ 1.099. Because the base is 3, 3^x = 3 gives x = 1; indeed 3^(ln 3) ≈ 3.34, not 3.",
+    "error_pattern": "Converts back with ln u instead of log base 3"
+   },
+   {
+    "text": "x = 1 only",
+    "rationale": "This keeps only u = 3 and discards u = 1. But u = 1 is a valid root: 3^x = 1 gives x = 0, and 9^0 − 4·3^0 + 3 = 1 − 4 + 3 = 0.",
+    "error_pattern": "Drops the root u = 1"
+   }
+  ],
+  "change_note": "Base-3 version of the hidden-quadratic equation, with both roots valid; adds the base-3 vs ln conversion error.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-005-v3",
+  "seed": "apprecalc-mcq-np2-005",
+  "difficulty": "hard",
+  "title": "Equation with e^(−x) term",
+  "stem": "What is the solution set of e^x + 12e^(−x) = 7?",
+  "correct": {
+   "text": "x = ln 3 and x = ln 4",
+   "rationale": "Multiplying every term by e^x gives e^(2x) + 12 = 7e^x, so e^(2x) − 7e^x + 12 = 0. With u = e^x: u² − 7u + 12 = (u − 3)(u − 4) = 0, so u = 3 or u = 4, which gives x = ln 3 or x = ln 4."
+  },
+  "wrong": [
+   {
+    "text": "x = 3 and x = 4",
+    "rationale": "These are the values of u = e^x. Converting back requires x = ln u, so the solutions are ln 3 and ln 4; for example e^3 + 12e^(−3) ≈ 20.7, not 7.",
+    "error_pattern": "Reports u instead of x"
+   },
+   {
+    "text": "x = −ln 3 and x = −ln 4",
+    "rationale": "With u = e^(−x) the equation becomes 1/u + 12u = 7, so 12u² − 7u + 1 = 0 and u = 1/3 or 1/4. Since e^(−x) = u, x = −ln u, giving ln 3 and ln 4; writing x = ln u instead gives ln(1/3) = −ln 3 and ln(1/4) = −ln 4, which are the wrong signs.",
+    "error_pattern": "Sign error when solving for x from e^(−x)"
+   },
+   {
+    "text": "No real solution",
+    "rationale": "This comes from multiplying only the left side by e^x, giving e^(2x) + 12 = 7 and e^(2x) = −5. The right side must be multiplied too: 7e^x. The correct equation e^(2x) − 7e^x + 12 = 0 has two positive roots for e^x.",
+    "error_pattern": "Multiplies only one side of the equation by e^x"
+   }
+  ],
+  "change_note": "Negative exponent term must first be cleared; distractors are u-values, reciprocal sign error, and one-sided multiplication.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-006-v1",
+  "seed": "apprecalc-mcq-np2-006",
+  "difficulty": "medium",
+  "title": "Parameter b from cycles per time",
+  "stem": "A sinusoidal function used to model a pendulum completes 9 full cycles every 6 seconds. What is the value of b in the general form y = a·sin(b(x + c)) + d, where x is in seconds?",
+  "correct": {
+   "text": "3π",
+   "rationale": "One cycle takes 6/9 = 2/3 second, so the period is 2/3. Then b = 2π/period = 2π ÷ (2/3) = 3π."
+  },
+  "wrong": [
+   {
+    "text": "π/3",
+    "rationale": "This uses the whole 6 seconds as the period: b = 2π/6 = π/3. The 6 seconds contain 9 cycles, so the period is 6/9 = 2/3, and b = 2π ÷ (2/3) = 3π.",
+    "error_pattern": "Uses the total time as one period"
+   },
+   {
+    "text": "3/2",
+    "rationale": "This is the frequency, 9 cycles ÷ 6 seconds = 3/2 cycles per second, used directly as b. b is the number of radians per unit, so the frequency must be multiplied by 2π: b = 2π·(3/2) = 3π.",
+    "error_pattern": "Uses frequency as b without the factor of 2π"
+   },
+   {
+    "text": "2/3",
+    "rationale": "This is the period, 6/9 = 2/3 second, used directly as b. The period and b are related by b = 2π/period, so b = 2π ÷ (2/3) = 3π.",
+    "error_pattern": "Uses the period as b"
+   }
+  ],
+  "change_note": "Different context and numbers (9 cycles per 6 seconds); distractors separate total-time, frequency, and period errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-006-v2",
+  "seed": "apprecalc-mcq-np2-006",
+  "difficulty": "medium",
+  "title": "Parameter b from a frequency in Hz",
+  "stem": "A sound wave with a frequency of 250 Hz (250 cycles per second) is modeled by y = a·sin(b(t + c)) + d, where t is in seconds. What is the value of b?",
+  "correct": {
+   "text": "500π",
+   "rationale": "A frequency of 250 cycles per second means the period is 1/250 second. Then b = 2π/period = 2π·250 = 500π."
+  },
+  "wrong": [
+   {
+    "text": "250",
+    "rationale": "This uses the frequency directly as b. Each cycle spans 2π radians of the argument, so b = 2π·250 = 500π, not 250.",
+    "error_pattern": "Uses frequency as b without the factor of 2π"
+   },
+   {
+    "text": "π/125",
+    "rationale": "This treats 250 as if it were the period in seconds: b = 2π/250 = π/125. But 250 is the number of cycles per second; the period is 1/250 second, so b = 2π ÷ (1/250) = 500π.",
+    "error_pattern": "Treats the frequency as the period"
+   },
+   {
+    "text": "250π",
+    "rationale": "This uses b = π·(frequency), dropping the factor of 2. One cycle needs the argument b·t to increase by 2π, so with period 1/250 we get b = 2π·250 = 500π.",
+    "error_pattern": "Uses π instead of 2π"
+   }
+  ],
+  "change_note": "Hz-to-b conversion, a documented weak point; different context and numbers from the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-006-v3",
+  "seed": "apprecalc-mcq-np2-006",
+  "difficulty": "hard",
+  "title": "Parameter b from a maximum and the next minimum",
+  "stem": "A sinusoidal function y = a·sin(b(x + c)) + d, with b > 0, has a maximum at x = 3 and its next minimum at x = 11. What is the value of b?",
+  "correct": {
+   "text": "π/8",
+   "rationale": "A maximum to the next minimum is half a period, so half the period is 11 − 3 = 8 and the period is 16. Then b = 2π/16 = π/8."
+  },
+  "wrong": [
+   {
+    "text": "π/4",
+    "rationale": "This treats 8, the distance from a maximum to the next minimum, as a full period: 2π/8 = π/4. That distance is only half a period, so the period is 16 and b = π/8.",
+    "error_pattern": "Treats half a period as a full period"
+   },
+   {
+    "text": "16",
+    "rationale": "16 is the correct period, but b is not the period. The relationship is b = 2π/period = 2π/16 = π/8.",
+    "error_pattern": "Uses the period as b"
+   },
+   {
+    "text": "π/16",
+    "rationale": "This uses b = π/period = π/16, dropping the factor of 2. The period of a sinusoid is 2π/b, so with period 16, b = 2π/16 = π/8.",
+    "error_pattern": "Uses π instead of 2π"
+   }
+  ],
+  "change_note": "Requires recognizing half-period between max and min; adds a second step beyond the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-007-v1",
+  "seed": "apprecalc-mcq-np2-007",
+  "difficulty": "easy",
+  "title": "Sine at a third-quadrant angle",
+  "stem": "What is the exact value of sin(7π/6)?",
+  "correct": {
+   "text": "−1/2",
+   "rationale": "7π/6 lies in the third quadrant with reference angle 7π/6 − π = π/6. Sine is negative there, so sin(7π/6) = −sin(π/6) = −1/2."
+  },
+  "wrong": [
+   {
+    "text": "1/2",
+    "rationale": "This gives the reference value sin(π/6) = 1/2 but omits the negative sign. In the third quadrant the y-coordinate on the unit circle is negative.",
+    "error_pattern": "Omits the sign for the quadrant"
+   },
+   {
+    "text": "−√3/2",
+    "rationale": "The sign is right, but √3/2 is cos(π/6), the cosine reference value. The sine reference value for π/6 is 1/2, so sin(7π/6) = −1/2.",
+    "error_pattern": "Uses the cosine reference value"
+   },
+   {
+    "text": "√3/2",
+    "rationale": "This uses the cosine reference value cos(π/6) = √3/2 and also omits the negative sign for the third quadrant. The correct value is −sin(π/6) = −1/2.",
+    "error_pattern": "Uses the cosine value and omits the sign"
+   }
+  ],
+  "change_note": "Sine instead of cosine, third quadrant instead of second.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-007-v2",
+  "seed": "apprecalc-mcq-np2-007",
+  "difficulty": "medium",
+  "title": "Sine of a negative angle",
+  "stem": "What is the exact value of sin(−3π/4)?",
+  "correct": {
+   "text": "−√2/2",
+   "rationale": "The angle −3π/4 is measured clockwise and ends in the third quadrant, with reference angle π/4. Sine is negative there, so sin(−3π/4) = −sin(π/4) = −√2/2. Equivalently, sin(−3π/4) = −sin(3π/4) = −√2/2."
+  },
+  "wrong": [
+   {
+    "text": "√2/2",
+    "rationale": "This ignores the negative sign of the angle and computes sin(3π/4) = √2/2. Since sine is odd, sin(−3π/4) = −sin(3π/4) = −√2/2.",
+    "error_pattern": "Ignores that the angle is negative"
+   },
+   {
+    "text": "−√3/2",
+    "rationale": "The sign is right, but √3/2 is a reference value for π/3, not π/4. The reference angle here is π/4, with sine value √2/2.",
+    "error_pattern": "Uses the π/3 reference value instead of the π/4 value"
+   },
+   {
+    "text": "√3/2",
+    "rationale": "This both uses the π/3 reference value (√3/2) instead of the π/4 value (√2/2) and drops the negative sign.",
+    "error_pattern": "Wrong reference value and omitted sign"
+   }
+  ],
+  "change_note": "Negative angle with a π/4 reference value; different value set from the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-007-v3",
+  "seed": "apprecalc-mcq-np2-007",
+  "difficulty": "medium",
+  "title": "Unit circle point for an angle",
+  "stem": "A point P starts at (1, 0) on the unit circle and moves counterclockwise through an angle of 4π/3. What are the coordinates of P?",
+  "correct": {
+   "text": "(−1/2, −√3/2)",
+   "rationale": "The terminal side of 4π/3 is in the third quadrant with reference angle π/3. P = (cos(4π/3), sin(4π/3)) = (−cos(π/3), −sin(π/3)) = (−1/2, −√3/2)."
+  },
+  "wrong": [
+   {
+    "text": "(−√3/2, −1/2)",
+    "rationale": "This swaps the coordinates, using sine for the x-coordinate and cosine for the y-coordinate. For π/3, cos = 1/2 and sin = √3/2, so P = (−1/2, −√3/2).",
+    "error_pattern": "Swaps the cosine and sine values"
+   },
+   {
+    "text": "(1/2, √3/2)",
+    "rationale": "This is the point for angle π/3, the reference angle, without the signs from the third quadrant. Both coordinates are negative for 4π/3.",
+    "error_pattern": "Uses the reference-angle point without quadrant signs"
+   },
+   {
+    "text": "(−1/2, √3/2)",
+    "rationale": "This is the point for 2π/3 (second quadrant). For 4π/3, which is in the third quadrant, the y-coordinate is negative: sin(4π/3) = −√3/2.",
+    "error_pattern": "Gets the sign of the y-coordinate wrong"
+   }
+  ],
+  "change_note": "Asks for the unit circle point rather than a single function value.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-008-v1",
+  "seed": "apprecalc-mcq-np2-008",
+  "difficulty": "medium",
+  "title": "Polar to rectangular with negative r (5π/6)",
+  "stem": "Convert the polar coordinates (r, θ) = (−6, 5π/6) to rectangular coordinates.",
+  "correct": {
+   "text": "(3√3, −3)",
+   "rationale": "x = r·cosθ = −6·(−√3/2) = 3√3, and y = r·sinθ = −6·(1/2) = −3."
+  },
+  "wrong": [
+   {
+    "text": "(−3√3, 3)",
+    "rationale": "This treats r as +6 and ignores the negative sign: x = 6·(−√3/2) = −3√3, y = 6·(1/2) = 3. With r = −6, both coordinates change sign.",
+    "error_pattern": "Drops the negative sign of r"
+   },
+   {
+    "text": "(3√3, 3)",
+    "rationale": "This applies the negative sign of r to x but not to y: x = −6·(−√3/2) = 3√3 is right, but y = r·sinθ = −6·(1/2) = −3, not +3.",
+    "error_pattern": "Applies the sign of r to only one coordinate"
+   },
+   {
+    "text": "(−3, 3√3)",
+    "rationale": "This swaps the coordinates by using x = r·sinθ = −6·(1/2) = −3 and y = r·cosθ = −6·(−√3/2) = 3√3. The correct formulas are x = r·cosθ and y = r·sinθ.",
+    "error_pattern": "Swaps the cosine and sine formulas"
+   }
+  ],
+  "change_note": "Different angle (5π/6, second quadrant) and r; distractors are sign dropped, sign on one coordinate, and swapped.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-008-v2",
+  "seed": "apprecalc-mcq-np2-008",
+  "difficulty": "medium",
+  "title": "Polar to rectangular in quadrant IV",
+  "stem": "Which point, in rectangular coordinates, is the polar point (r, θ) = (8, 11π/6)?",
+  "correct": {
+   "text": "(4√3, −4)",
+   "rationale": "11π/6 is in the fourth quadrant with reference angle π/6. x = 8·cos(11π/6) = 8·(√3/2) = 4√3, and y = 8·sin(11π/6) = 8·(−1/2) = −4."
+  },
+  "wrong": [
+   {
+    "text": "(4√3, 4)",
+    "rationale": "This uses the sine reference value 1/2 without its negative sign: y = 8·(1/2) = 4. Sine is negative in the fourth quadrant, so y = 8·(−1/2) = −4.",
+    "error_pattern": "Omits the negative sign of sine in quadrant IV"
+   },
+   {
+    "text": "(−4, 4√3)",
+    "rationale": "This uses x = r·sinθ = 8·(−1/2) = −4 and y = r·cosθ = 8·(√3/2) = 4√3, swapping the roles of cosine and sine.",
+    "error_pattern": "Swaps the cosine and sine formulas"
+   },
+   {
+    "text": "(4, −4√3)",
+    "rationale": "This uses 1/2 as the cosine of π/6 and √3/2 as the sine: x = 8·(1/2) = 4, y = 8·(−√3/2) = −4√3. The reference values are reversed; cos(π/6) = √3/2 and sin(π/6) = 1/2.",
+    "error_pattern": "Reverses the reference values for π/6"
+   }
+  ],
+  "change_note": "Positive r in quadrant IV; different distractor set (reference-value reversal).",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-008-v3",
+  "seed": "apprecalc-mcq-np2-008",
+  "difficulty": "hard",
+  "title": "Polar to rectangular with negative irrational r",
+  "stem": "Which point, in rectangular coordinates, is the polar point (−4√2, 3π/4)?",
+  "correct": {
+   "text": "(4, −4)",
+   "rationale": "x = r·cosθ = −4√2·(−√2/2) = 4, and y = r·sinθ = −4√2·(√2/2) = −4."
+  },
+  "wrong": [
+   {
+    "text": "(−4, 4)",
+    "rationale": "This ignores the negative sign of r and uses r = 4√2: x = 4√2·(−√2/2) = −4, y = 4√2·(√2/2) = 4. With r = −4√2 both coordinates change sign.",
+    "error_pattern": "Drops the negative sign of r"
+   },
+   {
+    "text": "(4, 4)",
+    "rationale": "This applies the negative sign of r to x only: x = −4√2·(−√2/2) = 4 is right, but y = −4√2·(√2/2) = −4, not 4.",
+    "error_pattern": "Applies the sign of r to only one coordinate"
+   },
+   {
+    "text": "(−4, −4)",
+    "rationale": "This applies the negative sign of r to y only: y = −4√2·(√2/2) = −4 is right, but x = −4√2·(−√2/2) = 4, not −4.",
+    "error_pattern": "Applies the sign of r to only one coordinate (the other one)"
+   }
+  ],
+  "change_note": "Negative radius that is irrational and angle 3π/4; the distractors isolate which coordinate loses the sign.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-009-v1",
+  "seed": "apprecalc-mcq-np2-009",
+  "difficulty": "medium",
+  "title": "Degree from fourth differences",
+  "stem": "A function f is evaluated at equally spaced inputs x = 0, 1, 2, 3, 4, 5, giving outputs 0, 1, 16, 81, 256, 625. What is the minimum degree of a polynomial that could model these outputs?",
+  "correct": {
+   "text": "4",
+   "rationale": "First differences: 1, 15, 65, 175, 369. Second: 14, 50, 110, 194. Third: 36, 60, 84. Fourth: 24, 24. The fourth differences are the first constant ones, so the minimum degree is 4."
+  },
+  "wrong": [
+   {
+    "text": "3",
+    "rationale": "The third differences are 36, 60, 84, which are not constant, so a cubic cannot fit. The constant differences first appear at the fourth level (24, 24).",
+    "error_pattern": "Stops one level of differences too early"
+   },
+   {
+    "text": "5",
+    "rationale": "With 6 data points a polynomial of degree 5 can always pass through them, but the minimum degree is set by the first constant differences. The fourth differences are already constant (24, 24), so degree 4 is enough.",
+    "error_pattern": "Uses the number of points minus 1"
+   },
+   {
+    "text": "24",
+    "rationale": "24 is the value of the constant fourth difference, not the degree. The degree equals the number of the difference level that is constant, which is 4.",
+    "error_pattern": "Uses the constant difference value as the degree"
+   }
+  ],
+  "change_note": "Fourth-difference data (outputs 0,1,16,81,256,625) with new framing.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-009-v2",
+  "seed": "apprecalc-mcq-np2-009",
+  "difficulty": "easy",
+  "title": "Degree from second differences",
+  "stem": "The outputs of a function at equally spaced inputs x = 1, 2, 3, 4, 5 are 5, 8, 15, 26, 41. What is the minimum degree of a polynomial that could model these outputs?",
+  "correct": {
+   "text": "2",
+   "rationale": "First differences: 3, 7, 11, 15 (not constant). Second differences: 4, 4, 4 (constant). Constant second differences mean the minimum degree is 2."
+  },
+  "wrong": [
+   {
+    "text": "1",
+    "rationale": "A degree-1 polynomial has constant first differences. Here the first differences 3, 7, 11, 15 keep growing (by 4 each time), so the data are not linear.",
+    "error_pattern": "Does not check whether the first differences are constant"
+   },
+   {
+    "text": "4",
+    "rationale": "4 is the value of the constant second difference, not the degree. The second differences are the first constant ones, so the degree is 2.",
+    "error_pattern": "Uses the constant difference value as the degree"
+   },
+   {
+    "text": "5",
+    "rationale": "5 is the number of data points, which does not determine the degree. The first constant differences appear at the second level (4, 4, 4), so the degree is 2.",
+    "error_pattern": "Uses the number of data points"
+   }
+  ],
+  "change_note": "Smaller case with second differences constant; distractors based on first differences, constant value, and number of points.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-009-v3",
+  "seed": "apprecalc-mcq-np2-009",
+  "difficulty": "hard",
+  "title": "Degree from a list of first differences",
+  "stem": "The first differences of a function's outputs at equally spaced inputs are 4, 3, 6, 13, 24, 39. What is the minimum degree of a polynomial that could model the function?",
+  "correct": {
+   "text": "3",
+   "rationale": "Taking differences of the given first differences gives the second differences of the outputs: −1, 3, 7, 11, 15. Differences of those give the third differences of the outputs: 4, 4, 4, 4, which are constant. So the minimum degree is 3."
+  },
+  "wrong": [
+   {
+    "text": "2",
+    "rationale": "This treats the given list as the outputs: its second differences are constant (4, 4, 4, 4), suggesting degree 2. But the list is already the first differences of the outputs, so one more level of differences is needed, giving degree 3.",
+    "error_pattern": "Treats first differences as the outputs themselves"
+   },
+   {
+    "text": "4",
+    "rationale": "4 is the value of the constant difference, not the degree. The constant level is the third differences of the outputs, so the degree is 3.",
+    "error_pattern": "Uses the constant difference value as the degree"
+   },
+   {
+    "text": "5",
+    "rationale": "5 is one fewer than the 6 listed values, but the degree is not found by counting entries. The first constant differences appear at the third level for the outputs (4, 4, 4, 4), so the degree is 3.",
+    "error_pattern": "Uses the number of listed values"
+   }
+  ],
+  "change_note": "Gives first differences instead of outputs, so one extra level must be accounted for.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-np2-010-v1",
+  "seed": "apprecalc-mcq-np2-010",
+  "difficulty": "easy",
+  "title": "Where secant is undefined",
+  "stem": "For which value of x is sec(x) undefined?",
+  "correct": {
+   "text": "x = 3π/2",
+   "rationale": "sec(x) = 1/cos(x) is undefined where cos(x) = 0, and cos(3π/2) = 0."
+  },
+  "wrong": [
+   {
+    "text": "x = π",
+    "rationale": "cos(π) = −1, so sec(π) = −1 is defined. sin(π) = 0, which is where csc and cot are undefined, not sec.",
+    "error_pattern": "Confuses the zeros of sine with the zeros of cosine"
+   },
+   {
+    "text": "x = 5π/4",
+    "rationale": "cos(5π/4) = −√2/2 ≠ 0, so sec(5π/4) = −√2 is defined.",
+    "error_pattern": "Picks an angle without checking whether cosine is zero"
+   },
+   {
+    "text": "x = 2π/3",
+    "rationale": "cos(2π/3) = −1/2 ≠ 0, so sec(2π/3) = −2 is defined.",
+    "error_pattern": "Picks an angle without checking whether cosine is zero"
+   }
+  ],
+  "change_note": "Secant instead of cosecant; new angle values.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-np2-010-v2",
+  "seed": "apprecalc-mcq-np2-010",
+  "difficulty": "medium",
+  "title": "Where cotangent is undefined",
+  "stem": "For which value of x is cot(x) undefined?",
+  "correct": {
+   "text": "x = 2π",
+   "rationale": "cot(x) = cos(x)/sin(x) is undefined where sin(x) = 0, and sin(2π) = 0."
+  },
+  "wrong": [
+   {
+    "text": "x = π/2",
+    "rationale": "cos(π/2) = 0 and sin(π/2) = 1, so cot(π/2) = 0/1 = 0, which is defined. π/2 is where tan is undefined, not cot.",
+    "error_pattern": "Confuses where cotangent is zero with where it is undefined"
+   },
+   {
+    "text": "x = 3π/4",
+    "rationale": "sin(3π/4) = √2/2 ≠ 0, so cot(3π/4) = (−√2/2)/(√2/2) = −1 is defined.",
+    "error_pattern": "Picks an angle without checking whether sine is zero"
+   },
+   {
+    "text": "x = 7π/6",
+    "rationale": "sin(7π/6) = −1/2 ≠ 0, so cot(7π/6) = (−√3/2)/(−1/2) = √3 is defined.",
+    "error_pattern": "Picks an angle without checking whether sine is zero"
+   }
+  ],
+  "change_note": "Cotangent; undefined where sine is zero.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-np2-010-v3",
+  "seed": "apprecalc-mcq-np2-010",
+  "difficulty": "medium",
+  "title": "Where sec(2x) is undefined",
+  "stem": "For which value of x is sec(2x) undefined?",
+  "correct": {
+   "text": "x = π/4",
+   "rationale": "sec(2x) = 1/cos(2x) is undefined where cos(2x) = 0. At x = π/4, 2x = π/2 and cos(π/2) = 0."
+  },
+  "wrong": [
+   {
+    "text": "x = π/2",
+    "rationale": "This solves cos(x) = 0 and ignores the factor of 2. At x = π/2, 2x = π and cos(π) = −1, so sec(π) = −1 is defined.",
+    "error_pattern": "Ignores the coefficient 2 inside the function"
+   },
+   {
+    "text": "x = π",
+    "rationale": "This multiplies by 2 instead of dividing: setting 2x = π/2 gives x = π/4, not x = 2·(π/2) = π. At x = π, 2x = 2π and sec(2π) = 1 is defined.",
+    "error_pattern": "Multiplies by the coefficient instead of dividing"
+   },
+   {
+    "text": "x = 0",
+    "rationale": "cos(2·0) = cos(0) = 1, so sec(0) = 1 is defined. x = 0 is where sine is zero, which affects csc, not sec.",
+    "error_pattern": "Confuses the zeros of sine with the zeros of cosine"
+   }
+  ],
+  "change_note": "Horizontal compression inside secant; requires dividing the argument.",
+  "check": "conceptual"
+ }
+]
