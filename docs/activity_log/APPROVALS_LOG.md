@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production) — DECISION-0085
 - APPROVAL-0089 — AP Physics 1 Units 4-8: Remove the Duplicated A-D List From 21 Published Stems (Production) — DECISION-0085
 - APPROVAL-0088 — Load and Publish 89 AP Physics 1 Units 1-3 Variants (Production) — DECISION-0085
 - APPROVAL-0087 — AP Physics 1: Retire 4 Course-Framework Questions; Remove the Duplicated A-D List From 32 Published Stems (Production) — DECISION-0085
@@ -200,6 +201,21 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Option 1 for BC", choosing to mirror AB into BC; "I approve 0090")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0089`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, BC pack `3778d753-273a-403d-8f02-55dc64ec6a27`, source AB pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`):** every published, validated, hash-fresh AP Calculus AB MCQ in Units 1-3 with no image (283 items: 118 in Unit 1, 83 in Unit 2, 82 in Unit 3) was copied inside the database into the BC pack as a new item (`apcalcbc-mcq-ab-<ab suffix>`), with stem, choices, keys and rationales identical to the source (verified in-transaction), a provenance note in `prompt_json`, a validated hash-fresh serving label with the AB unit and required units, and a validated primary topic cell where the AB item has one (263 of 283). BC's Units 1-3 CED content is the same as AB's (BC taxonomy has the same 32 topic codes). Rehearsed with a rollback, then applied.
+
+**Why:** BC had 13 validated Units 1-3 MCQs of its own; the AB pack now has 283 checked ones, produced through the two-checker, sympy-verified process. The same question text now appears in both course packs.
+
+**Result:** Calc BC published 130 to 413, unit-gated servable 45 to 328, topic-known 3 to 266, stale hashes 4 (unchanged, native BC items).
+
+**Not done:** BC's own 13 validated, 3 provisional and 22 held MCQs were not touched (the 22 held look like Units 4-10 content and were not probed); skill cells; FRQ content; BC-only content (Units 9-10).
 
 ## APPROVAL-0089 — AP Physics 1 Units 4-8: Remove the Duplicated A-D List From 21 Published Stems (Production)
 
