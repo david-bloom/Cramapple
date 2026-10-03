@@ -153,6 +153,27 @@ Exit: steps 1.0 and 2-6 green (1a/1b optional), with session/event IDs written i
 - `STRIPE_PRICE_CATALOG_JSON` re-set to the 10 subject prices + `bundle_2` + `bundle_3` + `unlimited` (placeholder). Validated with `parsePriceCatalog`; Production fingerprint `4cebcef0…` equals the SHA-256 of the validated JSON. All 13 IDs carry the live-account fragment. Amounts confirmed by David. "AP Calculus AP" was read as `ap-calculus-ab`.
 - `APP_BASE_URL` = `https://cramapple.com` (fingerprint match). `ALLOWED_ORIGINS` allows `https://cramapple.com` and `https://app.cramapple.com` (header probe).
 
+### Gate D evidence, part 1 — Production, live mode, existing student (2026-10-02)
+
+David, signed in as an existing admin student, paid **$39.99** for AP Biology with **Link** on `cramapple.com/checkout` (live Stripe). The promo code was **not** applied (see "hazard" below), so this was a full-price charge, then refunded by David.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Live key, live signing secret, live webhook | **Pass** | `evt_1UM9arLwoRHzBJ1O…` `checkout.session.completed` (`livemode: true`) processed, attempt 1 |
+| Session recorded | **Pass** | `cs_live_b1SCeh…`: single, biology, paid, subtotal 3999, discount 0, `student_direct` |
+| Entitlement | **Pass** | paid/biology `stripe_checkout_single` active, tied to the live session (the August row re-activated by upsert) |
+| Card saved for the add-on | **Pass** | `app.stripe_customers` row with a payment method; `get-checkout-status` returned the $30 add-on offer |
+| **Partial refund keeps access** (fix from PR #310, first run in Production) | **Pass** | $10.00 refund: `evt_3UM9anLwoRHzBJ1O16quYKf4` processed; entitlement still active; status paid/entitled |
+| **Full refund revokes** | **Pass** | remaining $29.99: `evt_3UM9anLwoRHzBJ1O1BM5hyVr` processed; entitlement `revoked`; status `refunded` / not entitled |
+
+**Not yet proven:** (1) the **$1 coupon on a live checkout**; (2) the **new-student path** (the webhook creates the auth user with `inviteUserByEmail`; "Start Studying Now" then emails a 6-digit code with `shouldCreateUser: false`), which also depends on Supabase email delivery; (3) a graded attempt after payment; (4) the add-on purchase itself.
+
+**Hazard found:** the Link / Apple Pay / Google Pay buttons are live as soon as the page loads, but the promo field is below them and the checkout is built without a code until the student presses Apply. Paying with a wallet first charges full price. Mitigation: send the pilot as `cramapple.com/checkout?subject=<subject>&promo=<CODE>`, which the page applies when it creates the checkout (verified in `checkout.index.tsx`). Test that link in a private window first.
+
+**Fixed along the way (Lovable, `230e0670`):** the card form failed to load with "You cannot update the email because a `customer_email` … is already set" because the page re-sent the email Stripe already had. Removed from `defaultValues` and both `confirm()` calls.
+
+**Stripe live settings (David):** only Cards, Apple Pay, Google Pay and Link are enabled; Bank, Cash App Pay, Klarna and Amazon Pay were switched off.
+
 ## 4. Gate B — Stripe live-mode setup (David, in the Stripe dashboard)
 
 Claude has no Stripe access this session and cannot verify any of this. Everything below needs David to confirm.
