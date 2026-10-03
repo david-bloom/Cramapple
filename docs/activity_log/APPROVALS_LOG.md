@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0086 — AP Physics 1 Units 1-3: Repair 4 Published MCQ Rationales, Release 1 Held Item, Create 32 Topic Cells (Production) — DECISION-0085
 - APPROVAL-0085 — Author, Load and Publish 109 New AP Calculus AB Units 2-3 Questions: 28 Seeds and 81 Variants (Production) — DECISION-0093
 - APPROVAL-0084 — Load and Publish 29 AP Calculus AB Units 2-3 Pilot Variants (Production) — DECISION-0093
 - APPROVAL-0083 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
@@ -196,6 +197,23 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0086 — AP Physics 1 Units 1-3: Repair 4 Published MCQ Rationales, Release 1 Held Item, Create 32 Topic Cells (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Keep going", continuing the Units 1-3 run in the order Biology, Calculus AB, Physics 1, Calculus BC, Precalculus)  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0085`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `29c719dc-701b-470f-9e49-fab981722d3f`):** (1) Four published MCQs (`apphy1-mcq-001` choice D, `028` choice A, `033` choice C, `np1-004` choice A) whose wrong-answer rationales misdescribed the error behind their choice (and, for `np1-004`, cited an unverifiable "2024 Chief Reader Report" statistic) received new version 2 records with rewritten rationales; keys and choices unchanged. (2) New validated serving labels for those four (unit carried forward) and for `apphy1-mcq-041` (held, three-family consensus Unit 3, topic 3.4, 6 of 6). (3) 32 validated primary topic cells (Physics 1 had none) from a three-family blind consensus (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol, 2 samples each) at >= 5 of 6; `np1-006` and `np1-008` (4 of 6) left without. (4) `apphy1-mcq-np1-002` was also released to Unit 2 in this transaction and **returned to held in a follow-up transaction the same day**, because it is an exam-scoring-policy question (effect of using g = 9.8), not a physics question; this was my error in reading the item.
+
+**Checks:** 42 Units 1-3 MCQs (32 validated, 10 held) blind-solved, audited and CED-scope-checked by two checkers (all 42 keys agree except `np1-006`, disputed by DeepSeek) and probed by three families. The other 8 held items need Units 4-7 and stay held.
+
+**Finding recorded, not acted on:** `apphy1-mcq-np1-001`, `np1-002`, `np1-003` and `np1-006` ask about how the AP Physics 1 course framework treats a topic or how the exam is scored, not about physics. `np1-006`'s keyed answer is disputed. Recommendation: retire all four. 32 of the 42 seed stems also embed their own A-D list above the real choices.
+
+**Result:** Physics 1 unit-gated servable 85 to 87, topic-known items 0 to 32, stale hashes 0.
+
+**Not approved by this entry:** retiring the four framework questions; the 89 Physics 1 variants (authored and checked, not loaded); a skill grid or skill cells for Physics 1.
 
 ## APPROVAL-0085 — Author, Load and Publish 109 New AP Calculus AB Units 2-3 Questions: 28 Seeds and 81 Variants (Production)
 
