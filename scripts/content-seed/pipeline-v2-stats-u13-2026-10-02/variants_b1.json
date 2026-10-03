@@ -1,0 +1,1082 @@
+[
+ {
+  "id": "APSTATS-MCQ-001-v1",
+  "seed": "APSTATS-MCQ-001",
+  "difficulty": "medium",
+  "title": "Reporting delays on a commuter rail line",
+  "stem": "A transit agency records the delay (in minutes) of each of 60 commuter trains in one month. The histogram is strongly right-skewed: most delays are under 10 minutes, but a handful exceed two hours. An analyst wants one measure of center and one measure of spread that will not be distorted by those extreme delays. Which pair should the analyst report, and why?",
+  "correct": {
+   "text": "Median and IQR, because both depend only on the ordered middle of the data and are not moved by a few very long delays.",
+   "rationale": "The median is the middle value and the IQR (Q3 - Q1) covers the middle 50% of delays, so a few two-hour delays barely change either one; they are the resistant choices for a right-skewed distribution."
+  },
+  "wrong": [
+   {
+    "text": "Mean and standard deviation, because they take every train's delay into account and so reflect the whole month.",
+    "rationale": "The mean and SD are both pulled upward by the few delays over two hours; including every value is a drawback, not an advantage, when the distribution is skewed with extreme values.",
+    "error_pattern": "Believing that using all data values makes mean and SD best regardless of skew"
+   },
+   {
+    "text": "Median and range, because the range shows how bad the worst delays were.",
+    "rationale": "The median is resistant, but the range is determined only by the shortest and longest delays, so it is the spread measure most affected by the two-hour outliers.",
+    "error_pattern": "Pairing a resistant center with the least resistant spread measure"
+   },
+   {
+    "text": "Mean and IQR, because the mean gives the total delay spread evenly across all trains.",
+    "rationale": "The IQR is resistant, but the mean is still pulled toward the long right tail; a resistant spread does not fix a non-resistant center, and the mean would sit above what a typical train experiences.",
+    "error_pattern": "Mixing a non-resistant center with a resistant spread"
+   }
+  ],
+  "change_note": "New context (train delays), reworded task to ask for non-distorted measures; distractors reframed around different reasons.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-001-v2",
+  "seed": "APSTATS-MCQ-001",
+  "difficulty": "medium",
+  "title": "Text messages sent by teens",
+  "stem": "A school counselor asks 80 teens how many text messages they sent yesterday. The distribution is strongly right-skewed with a five-number summary of: Min = 0, Q1 = 12, Median = 30, Q3 = 66, Max = 410. Which description of typical value and variation is most appropriate?",
+  "correct": {
+   "text": "A median of 30 texts and an IQR of 54 texts, because neither is pulled by the few extremely high counts.",
+   "rationale": "IQR = Q3 - Q1 = 66 - 12 = 54. The median (30) and IQR (54) depend on the middle of the ordered data, so the maximum of 410 does not distort them in this skewed distribution."
+  },
+  "wrong": [
+   {
+    "text": "A median of 30 texts and a range of 410 texts, because the range shows the full spread of the data.",
+    "rationale": "The median is resistant, but the range 410 - 0 = 410 is determined entirely by the single extreme maximum and so is not resistant to the skew.",
+    "error_pattern": "Pairing a resistant center with the range"
+   },
+   {
+    "text": "A mean and standard deviation, because they use all 80 reported values.",
+    "rationale": "The mean and SD are both inflated by the few very high counts like 410; using every value is not a strength for a strongly skewed distribution.",
+    "error_pattern": "Preferring mean and SD because they use all values"
+   },
+   {
+    "text": "A median of 30 texts and an IQR of 36 texts, because the IQR is the distance from the median to Q3.",
+    "rationale": "The IQR is Q3 - Q1 = 66 - 12 = 54, not Q3 - median = 66 - 30 = 36; 36 is only the upper half of the middle 50%.",
+    "error_pattern": "Computing the IQR as Q3 minus the median"
+   }
+  ],
+  "change_note": "Numeric five-number summary included; IQR computed from quartiles; distractor adds an IQR computation error.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-001-v3",
+  "seed": "APSTATS-MCQ-001",
+  "difficulty": "hard",
+  "title": "Home prices in a neighborhood",
+  "stem": "A real estate agent reports that for homes sold in one neighborhood last year, the mean sale price was $410,000 and the median sale price was $325,000. A buyer asks for the single value that best represents a typical home price. Which response is best?",
+  "correct": {
+   "text": "Report the median of $325,000, because the mean is pulled above the typical home by a few very expensive sales.",
+   "rationale": "Mean greater than median signals right skew; the median is resistant to the few high-priced homes, so $325,000 better represents a typical sale."
+  },
+  "wrong": [
+   {
+    "text": "Report the mean of $410,000, because it accounts for every home's sale price.",
+    "rationale": "Including every value is exactly why the mean is dragged upward by a few very expensive homes; $410,000 is higher than half of the homes sold and so overstates a typical price.",
+    "error_pattern": "Preferring the mean because it uses all values"
+   },
+   {
+    "text": "Report the mean of $410,000, because the median ignores half of the data.",
+    "rationale": "The median is based on the position of the middle value and is not affected by how extreme the other values are; it does not 'ignore' data, it resists outliers.",
+    "error_pattern": "Misunderstanding the median as discarding data"
+   },
+   {
+    "text": "Report either one, because the mean and median always give the same typical value.",
+    "rationale": "Here they differ by $85,000, and a mean well above the median indicates right skew; the two are only close in roughly symmetric distributions.",
+    "error_pattern": "Believing mean and median always agree"
+   }
+  ],
+  "change_note": "Reverses given info: mean and median reported instead of five-number summary; asks for a typical value.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-019-v1",
+  "seed": "APSTATS-MCQ-019",
+  "difficulty": "easy",
+  "title": "Apartment rents in a city",
+  "stem": "Monthly rents for apartments listed in a city are strongly right-skewed because a few luxury units cost far more than the rest. A housing researcher wants to describe the typical rent and how much rents vary. Which pair of statistics is most appropriate?",
+  "correct": {
+   "text": "Median and IQR, since luxury listings barely affect either one.",
+   "rationale": "Both are resistant: they depend on the middle of the ordered rents, so the few luxury units do not change them much."
+  },
+  "wrong": [
+   {
+    "text": "Mean and standard deviation, since they are the most commonly used.",
+    "rationale": "Popularity is not the criterion; the luxury units inflate both the mean and SD in a right-skewed distribution.",
+    "error_pattern": "Choosing based on familiarity instead of resistance"
+   },
+   {
+    "text": "Median and range, since the range includes all of the listings.",
+    "rationale": "Although the median is resistant, the range depends only on the cheapest and most expensive unit, so the luxury listings dominate it.",
+    "error_pattern": "Pairing median with non-resistant range"
+   },
+   {
+    "text": "Mean and IQR, since the IQR is the only resistant spread measure.",
+    "rationale": "The IQR is resistant, but the mean is pulled toward the luxury rents, so this pair is only half-resistant.",
+    "error_pattern": "Using the mean with a resistant spread"
+   }
+  ],
+  "change_note": "Different context (rents); reasoning-style distractors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-019-v2",
+  "seed": "APSTATS-MCQ-019",
+  "difficulty": "easy",
+  "title": "Wingspans of a bird species",
+  "stem": "A biologist measures the wingspan of 120 randomly captured adults of one bird species. A histogram is symmetric and mound-shaped with no outliers. Which pair of statistics is most appropriate to describe the center and spread?",
+  "correct": {
+   "text": "Mean and SD, since a symmetric distribution without outliers does not distort them.",
+   "rationale": "With symmetry and no outliers, the mean and SD summarize center and spread well and use all of the data."
+  },
+  "wrong": [
+   {
+    "text": "Median and IQR, since they should always be used no matter what shape the data have.",
+    "rationale": "Median and IQR are preferred for skewed distributions or outliers, but nothing requires them for a symmetric distribution; mean and SD are appropriate here.",
+    "error_pattern": "Overgeneralizing the skewed-data rule to every distribution"
+   },
+   {
+    "text": "Median and range, since the range is the easiest spread measure to compute.",
+    "rationale": "Ease of computing is not the criterion, and the range uses only two values, discarding most of the information about spread.",
+    "error_pattern": "Choosing the range for convenience"
+   },
+   {
+    "text": "Mean and range, since the range reports the distance between the two extreme wingspans.",
+    "rationale": "The range uses only the two most extreme values and gives no information about how the middle of the data varies; SD is the better partner for the mean.",
+    "error_pattern": "Pairing the mean with the range"
+   }
+  ],
+  "change_note": "Flips the shape: symmetric case where mean/SD is correct, testing the same decision rule.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-019-v3",
+  "seed": "APSTATS-MCQ-019",
+  "difficulty": "medium",
+  "title": "Waiting times at an urgent care clinic",
+  "stem": "The waiting times (in minutes) of 150 patients at an urgent care clinic are strongly right-skewed with five-number summary: Min = 2, Q1 = 10, Median = 14, Q3 = 19, Max = 90. Which pair of values best describes the center and spread of the waiting times?",
+  "correct": {
+   "text": "Median = 14 minutes and IQR = 9 minutes, since neither is affected much by the 90-minute wait.",
+   "rationale": "IQR = Q3 - Q1 = 19 - 10 = 9. The median and IQR are resistant, so they describe the typical wait well despite the extreme 90."
+  },
+  "wrong": [
+   {
+    "text": "Median = 14 minutes and range = 88 minutes, since the range shows the full spread.",
+    "rationale": "The range is 90 - 2 = 88 but it is determined only by the two extremes, so the 90-minute wait dominates it.",
+    "error_pattern": "Using the range as spread for skewed data"
+   },
+   {
+    "text": "Median = 14 minutes and spread = 17 minutes, since that is the distance from the minimum to Q3.",
+    "rationale": "19 - 2 = 17 uses the minimum instead of Q1; the IQR is Q3 - Q1 = 9.",
+    "error_pattern": "Subtracting the minimum instead of Q1 when finding the IQR"
+   },
+   {
+    "text": "Median = 14 minutes and spread = 5 minutes, since that is the distance from the median to Q3.",
+    "rationale": "19 - 14 = 5 covers only the upper half of the middle 50%; the IQR is Q3 - Q1 = 9.",
+    "error_pattern": "Using Q3 minus median instead of the IQR"
+   }
+  ],
+  "change_note": "Gives numeric summary; requires computing IQR correctly.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-023-v1",
+  "seed": "APSTATS-MCQ-023",
+  "difficulty": "medium",
+  "title": "Effect of replacing the largest value",
+  "stem": "A quiz has these scores: 5, 6, 6, 7, 8, 9, 9, 52. If the largest score were changed from 52 to 520, which summary would stay exactly the same?",
+  "correct": {
+   "text": "The median, which stays at 7.5.",
+   "rationale": "The median is the average of the middle two values (7 and 8) = 7.5, and neither of those changes when the largest value is replaced."
+  },
+  "wrong": [
+   {
+    "text": "The mean, which stays at 12.75.",
+    "rationale": "The mean uses every value: the sum rises from 102 to 570, so the mean changes from 12.75 to 71.25.",
+    "error_pattern": "Believing the mean ignores one extreme value"
+   },
+   {
+    "text": "The range, which stays at 47.",
+    "rationale": "The range is max - min: 52 - 5 = 47 becomes 520 - 5 = 515, so it changes.",
+    "error_pattern": "Believing the range is stable when only the maximum changes"
+   },
+   {
+    "text": "The standard deviation, which stays near 16.",
+    "rationale": "The SD is about 15.9 now and would rise to about 181 because 520 lies far from the new mean of 71.25; SD depends on every value's distance from the mean.",
+    "error_pattern": "Believing SD is unaffected by extreme values"
+   }
+  ],
+  "change_note": "New data, asks which statistic is unchanged when an outlier grows; numeric statements recomputed.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-023-v2",
+  "seed": "APSTATS-MCQ-023",
+  "difficulty": "medium",
+  "title": "Lab timing with a recording error",
+  "stem": "A technician records the times (in seconds) for 8 lab trials: 12, 14, 15, 15, 16, 18, 19, 30. The 30 was later found to be a typing error for 300. Which statistic would be least affected by this error?",
+  "correct": {
+   "text": "The IQR, which is 4 seconds with either value.",
+   "rationale": "Q1 = (14 + 15)/2 = 14.5 and Q3 = (18 + 19)/2 = 18.5 either way, so IQR = 4; the largest value is not used in either quartile."
+  },
+  "wrong": [
+   {
+    "text": "The mean, because averaging dilutes one value among eight.",
+    "rationale": "The sum changes from 139 to 409, so the mean goes from 17.375 to 51.125; dilution does not make it resistant.",
+    "error_pattern": "Believing the mean dilutes a single extreme value"
+   },
+   {
+    "text": "The range, because it only involves the two ends of the data.",
+    "rationale": "Being based on the ends is why it is affected: the range changes from 30 - 12 = 18 to 300 - 12 = 288.",
+    "error_pattern": "Misreading dependence on the extreme as stability"
+   },
+   {
+    "text": "The standard deviation, because it measures typical deviation from the mean.",
+    "rationale": "The mean itself rises sharply and the 300 is far from it, so the SD increases dramatically.",
+    "error_pattern": "Believing SD is a typical deviation unaffected by outliers"
+   }
+  ],
+  "change_note": "Typo/outlier-correction framing; IQR quartiles computed explicitly.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-023-v3",
+  "seed": "APSTATS-MCQ-023",
+  "difficulty": "hard",
+  "title": "Adding a very low score",
+  "stem": "A teacher's quiz scores are 62, 68, 71, 74, 75, 77, 79 (mean about 72.3, median 74). A late student then turns in a quiz with a score of 3. Which statement about the effect of the new score is correct?",
+  "correct": {
+   "text": "The mean fell by about 8.7 points to 63.6, while the median fell by only 1.5 points to 72.5.",
+   "rationale": "New mean = 509/8 = 63.625 (from 506/7 = 72.29, a drop of 8.66); new median = (71 + 74)/2 = 72.5 (a drop of 1.5). The median is resistant."
+  },
+  "wrong": [
+   {
+    "text": "The median fell by about 8.7 points while the mean fell only 1.5, since the median is the middle value.",
+    "rationale": "The values are swapped: it is the mean that falls by about 8.7 (to 63.6); the median only moves to 72.5.",
+    "error_pattern": "Swapping the effects on mean and median"
+   },
+   {
+    "text": "The mean and median both fell by about 8.7 points, since both measure center.",
+    "rationale": "The median is determined by the middle positions: it only changes from 74 to 72.5.",
+    "error_pattern": "Assuming all measures of center react equally"
+   },
+   {
+    "text": "Neither the mean nor the median changed, since only one score was added.",
+    "rationale": "Adding a score changes the mean to 63.625 and shifts the middle of eight values to (71 + 74)/2 = 72.5.",
+    "error_pattern": "Assuming one added value cannot change either measure"
+   }
+  ],
+  "change_note": "Compares changes in mean and median after adding an outlier; full recomputation.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-027-v1",
+  "seed": "APSTATS-MCQ-027",
+  "difficulty": "easy",
+  "title": "Interpreting reported mean and median",
+  "stem": "For the lengths of 200 randomly selected leaves, a botanist reports a mean of 52.4 mm, a median of 52.1 mm, and a standard deviation of 6.0 mm. Which conclusion about the shape is most reasonable?",
+  "correct": {
+   "text": "The distribution is roughly symmetric, since the mean and median are nearly equal compared to the spread.",
+   "rationale": "A 0.3 mm gap is tiny relative to an SD of 6.0 mm, which is consistent with a roughly symmetric distribution."
+  },
+  "wrong": [
+   {
+    "text": "The distribution is right-skewed, since the mean is larger than the median.",
+    "rationale": "Any skew rule needs a meaningful gap; a 0.3 mm difference relative to SD 6.0 is negligible and not evidence of right skew.",
+    "error_pattern": "Treating any mean > median gap as skew"
+   },
+   {
+    "text": "The distribution is left-skewed, since the median is close to the mean rather than far above it.",
+    "rationale": "Left skew pulls the mean below the median by a notable amount; a nearly equal mean and median do not show that.",
+    "error_pattern": "Misapplying the left-skew rule"
+   },
+   {
+    "text": "Nothing can be said about shape, since the mean and median describe only center.",
+    "rationale": "Comparing the mean to the median gives evidence of symmetry or skew, so these two summaries do provide information about shape.",
+    "error_pattern": "Believing center statistics carry no shape information"
+   }
+  ],
+  "change_note": "Reverses direction: given statistics, infer shape.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-027-v2",
+  "seed": "APSTATS-MCQ-027",
+  "difficulty": "medium",
+  "title": "Commute time shape from summary statistics",
+  "stem": "The commute times of 300 workers have a mean of 38 minutes and a median of 29 minutes. Which description of the distribution is most consistent with these values?",
+  "correct": {
+   "text": "Right-skewed, because a few long commutes pull the mean above the median.",
+   "rationale": "Mean (38) greater than median (29) by 9 minutes is the signature of a long right tail."
+  },
+  "wrong": [
+   {
+    "text": "Left-skewed, because the mean is greater than the median.",
+    "rationale": "In left-skewed data the mean is pulled below the median, not above.",
+    "error_pattern": "Reversing the skew-direction rule"
+   },
+   {
+    "text": "Symmetric, because the mean and median are both measures of center.",
+    "rationale": "In a symmetric distribution the two would be close; a 9-minute gap indicates skew.",
+    "error_pattern": "Ignoring the gap between mean and median"
+   },
+   {
+    "text": "Left-skewed, because most workers have commutes shorter than the mean.",
+    "rationale": "Having more than half of values below the mean is consistent with right skew, not left.",
+    "error_pattern": "Misreading the position of the bulk of the data"
+   }
+  ],
+  "change_note": "Right-skew direction identification with numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-027-v3",
+  "seed": "APSTATS-MCQ-027",
+  "difficulty": "medium",
+  "title": "Retirement age distribution",
+  "stem": "The ages at which employees at a large company retired form a left-skewed distribution, with a few people retiring in their early forties and most retiring in their sixties. Which statement is most likely true?",
+  "correct": {
+   "text": "The mean retirement age is less than the median retirement age.",
+   "rationale": "The few very early retirements pull the mean toward the low tail while the median stays near the bulk of the data."
+  },
+  "wrong": [
+   {
+    "text": "The mean retirement age is greater than the median retirement age.",
+    "rationale": "This is the pattern for right skew; the low tail pulls the mean down in a left-skewed distribution.",
+    "error_pattern": "Reversing skew rule"
+   },
+   {
+    "text": "The mean and median retirement ages are exactly equal.",
+    "rationale": "Equality is expected only for symmetric distributions; skew separates them.",
+    "error_pattern": "Ignoring skew's effect"
+   },
+   {
+    "text": "The median is pulled further toward the early retirees than the mean is.",
+    "rationale": "The median is resistant to the early retirements and is pulled less than the mean.",
+    "error_pattern": "Misattributing resistance"
+   }
+  ],
+  "change_note": "Direction given, reasoning about mean vs median.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-040-v1",
+  "seed": "APSTATS-MCQ-040",
+  "difficulty": "medium",
+  "title": "Blocking in a fertilizer experiment",
+  "stem": "A gardener wants to compare two fertilizers using 24 tomato plants in a garden where half the plants are in full sun and half are in shade, and sunlight strongly affects growth. Which plan uses blocking?",
+  "correct": {
+   "text": "Separate the plants into sun and shade groups, then randomly assign fertilizers within each group.",
+   "rationale": "Sunlight is a known source of variability; random assignment within sun and shade blocks balances it across both fertilizers, so sunlight cannot be confounded with fertilizer."
+  },
+  "wrong": [
+   {
+    "text": "Flip a coin for each plant to choose its fertilizer, ignoring sunlight.",
+    "rationale": "This is a completely randomized design; no blocks are formed.",
+    "error_pattern": "Confusing complete randomization with blocking"
+   },
+   {
+    "text": "Apply fertilizer A to all sun plants and fertilizer B to all shade plants.",
+    "rationale": "Fertilizer is completely confounded with sunlight, so differences cannot be attributed to fertilizer; no random assignment within blocks.",
+    "error_pattern": "Assigning treatments to whole groups"
+   },
+   {
+    "text": "Use only the sun plants and randomly assign the two fertilizers.",
+    "rationale": "This controls sunlight by restricting the study, but it is not blocking since shade plants are not included and results do not extend to shade.",
+    "error_pattern": "Equating restricting the units with blocking"
+   }
+  ],
+  "change_note": "Agricultural scenario; asks which plan uses blocking.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-040-v2",
+  "seed": "APSTATS-MCQ-040",
+  "difficulty": "medium",
+  "title": "Purpose of blocking in a study-method experiment",
+  "stem": "Researchers compare two study methods using students whose prior GPAs vary widely, and they place students into 'high GPA' and 'low GPA' blocks before randomly assigning methods within each block. What is the main purpose of blocking here?",
+  "correct": {
+   "text": "To remove variation due to prior GPA so method differences are easier to detect.",
+   "rationale": "Blocking removes variation tied to GPA from the comparison between methods, making treatment differences clearer."
+  },
+  "wrong": [
+   {
+    "text": "To make sure the sample is representative of every student in the school.",
+    "rationale": "Representativeness comes from random sampling, not blocking.",
+    "error_pattern": "Confusing blocking with random sampling"
+   },
+   {
+    "text": "To make sure neither the students nor the graders know which method was used.",
+    "rationale": "That describes blinding; blocking concerns grouping similar units.",
+    "error_pattern": "Confusing blocking with blinding"
+   },
+   {
+    "text": "To remove the need for random assignment of methods to students.",
+    "rationale": "Random assignment is still done within each block.",
+    "error_pattern": "Believing blocking replaces randomization"
+   }
+  ],
+  "change_note": "Asks for purpose of an already specified block design.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-040-v3",
+  "seed": "APSTATS-MCQ-040",
+  "difficulty": "hard",
+  "title": "Identifying the design type",
+  "stem": "To compare two exercise programs, a researcher separates 60 volunteers into a male group and a female group, then within each group uses a random number generator to assign half to Program 1 and half to Program 2. Which description is most accurate?",
+  "correct": {
+   "text": "A randomized block experiment, with sex as the blocking variable.",
+   "rationale": "Subjects are grouped by sex and treatments are randomly assigned within each block."
+  },
+  "wrong": [
+   {
+    "text": "A stratified random sample, since subjects were grouped by sex.",
+    "rationale": "Stratified sampling is about selecting units for a sample; here the researcher assigns treatments, so it is an experiment.",
+    "error_pattern": "Confusing blocking with stratified sampling"
+   },
+   {
+    "text": "A completely randomized design, since random assignment was used.",
+    "rationale": "In a completely randomized design all subjects are randomized together; here randomization is within sex groups.",
+    "error_pattern": "Ignoring the grouping step"
+   },
+   {
+    "text": "An observational study, since sex cannot be assigned.",
+    "rationale": "The researcher imposes the exercise programs, so it is an experiment; sex is only a blocking variable.",
+    "error_pattern": "Confusing the blocking variable with the treatment"
+   }
+  ],
+  "change_note": "Asks to classify a described design; distractors about sampling and CRD.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-044-v1",
+  "seed": "APSTATS-MCQ-044",
+  "difficulty": "medium",
+  "title": "Single-blind scoring in a tutoring study",
+  "stem": "Students are randomly assigned to use a tutoring app or a traditional workbook. The final tests are scored by a teacher who is not told which students used which method. What is the main benefit of having the scorer blinded?",
+  "correct": {
+   "text": "It prevents the scorer's expectations about the app from influencing the scores.",
+   "rationale": "Blinding evaluators keeps expectations from biasing measurements."
+  },
+  "wrong": [
+   {
+    "text": "It prevents the students' expectations from affecting their performance.",
+    "rationale": "The students know which method they used, so blinding the scorer does not address student expectations.",
+    "error_pattern": "Confusing who is blinded"
+   },
+   {
+    "text": "It removes confounding variables such as prior ability.",
+    "rationale": "Confounding is handled by random assignment and design, not by blinding.",
+    "error_pattern": "Confusing blinding with control"
+   },
+   {
+    "text": "It makes the sample representative of all students.",
+    "rationale": "Representativeness comes from random sampling.",
+    "error_pattern": "Confusing blinding with sampling"
+   }
+  ],
+  "change_note": "Single-blind scorer scenario.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-044-v2",
+  "seed": "APSTATS-MCQ-044",
+  "difficulty": "medium",
+  "title": "Measuring the placebo effect",
+  "stem": "In a study of a headache remedy, a placebo group's pain score improved by an average of 4.1 points, while a no-treatment group's pain score improved by an average of 1.3 points. Using the definition of placebo effect as the difference between the average placebo response and the average no-treatment response, what is the placebo effect?",
+  "correct": {
+   "text": "2.8 points",
+   "rationale": "4.1 - 1.3 = 2.8, the extra improvement attributable to receiving a placebo rather than nothing."
+  },
+  "wrong": [
+   {
+    "text": "4.1 points",
+    "rationale": "This is the placebo group's full average improvement; part of it (1.3) would have happened with no treatment.",
+    "error_pattern": "Equating placebo response with placebo effect"
+   },
+   {
+    "text": "5.4 points",
+    "rationale": "4.1 + 1.3 = 5.4 adds the two averages rather than taking the difference.",
+    "error_pattern": "Adding instead of subtracting"
+   },
+   {
+    "text": "0 points, because a placebo contains no active ingredient.",
+    "rationale": "A placebo effect can occur even without an active ingredient; here the placebo group improved 2.8 points more than the no-treatment group.",
+    "error_pattern": "Believing an inert placebo cannot have an effect"
+   }
+  ],
+  "change_note": "Numeric placebo-effect calculation; tests placebo definition.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-044-v3",
+  "seed": "APSTATS-MCQ-044",
+  "difficulty": "medium",
+  "title": "Identifying a double-blind design",
+  "stem": "Which setup for a trial of a new cholesterol drug is double-blind?",
+  "correct": {
+   "text": "Identical-looking capsules coded by pharmacy; neither patients nor the clinicians recording outcomes know assignments.",
+   "rationale": "Hiding assignments from both patients and outcome evaluators makes it double-blind, reducing placebo effects and observer bias."
+  },
+  "wrong": [
+   {
+    "text": "Patients are unaware of what they receive, but the clinician recording outcomes knows each assignment.",
+    "rationale": "Since the clinician recording outcomes knows each assignment, only one party is blinded, so the design is single-blind.",
+    "error_pattern": "Confusing single-blind with double-blind"
+   },
+   {
+    "text": "Patients choose between the drug and a placebo, but clinicians do not know who chose which.",
+    "rationale": "Patients choosing their own treatment is not random assignment and the patients are not blinded, so it is not double-blind.",
+    "error_pattern": "Confusing blinding with random assignment"
+   },
+   {
+    "text": "All patients receive the drug and both patients and clinicians know it.",
+    "rationale": "Giving everyone the drug with everyone aware has no comparison group and no blinding, so it is neither single- nor double-blind.",
+    "error_pattern": "Confusing the absence of blinding"
+   }
+  ],
+  "change_note": "Identify double-blind among setups.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-048-v1",
+  "seed": "APSTATS-MCQ-048",
+  "difficulty": "easy",
+  "title": "Email open and click probabilities",
+  "stem": "For a marketing email, 45% of recipients open the message. Among those who open it, 20% click the link. What is the probability that a randomly selected recipient both opens the email and clicks the link?",
+  "correct": {
+   "text": "0.09",
+   "rationale": "P(open and click) = P(open) × P(click | open) = 0.45 × 0.20 = 0.09."
+  },
+  "wrong": [
+   {
+    "text": "0.65",
+    "rationale": "0.45 + 0.20 = 0.65 adds the probabilities rather than multiplying along the path.",
+    "error_pattern": "Adding"
+   },
+   {
+    "text": "0.11",
+    "rationale": "0.55 × 0.20 = 0.11 uses the probability of not opening.",
+    "error_pattern": "Using the complement"
+   },
+   {
+    "text": "0.25",
+    "rationale": "0.45 - 0.20 = 0.25 subtracts instead of multiplying.",
+    "error_pattern": "Subtracting"
+   }
+  ],
+  "change_note": "New context, numbers 0.45/0.20; different distractors.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-048-v2",
+  "seed": "APSTATS-MCQ-048",
+  "difficulty": "medium",
+  "title": "Passing two exams in sequence",
+  "stem": "A student passes the first exam of a course with probability 0.80. If the student passes the first exam, the probability of passing the second exam is 0.75. What is the probability that the student passes both exams?",
+  "correct": {
+   "text": "0.60",
+   "rationale": "P(both) = 0.80 × 0.75 = 0.60."
+  },
+  "wrong": [
+   {
+    "text": "0.75",
+    "rationale": "This is only the conditional probability of passing the second exam given the first.",
+    "error_pattern": "Confusing conditional with joint"
+   },
+   {
+    "text": "0.95",
+    "rationale": "0.80 + 0.75 - 0.60 = 0.95 is a union-type calculation.",
+    "error_pattern": "Union instead of intersection"
+   },
+   {
+    "text": "0.20",
+    "rationale": "0.80 × 0.25 = 0.20 is the probability of passing the first and failing the second.",
+    "error_pattern": "Using the failure probability"
+   }
+  ],
+  "change_note": "Different context, numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-048-v3",
+  "seed": "APSTATS-MCQ-048",
+  "difficulty": "medium",
+  "title": "Three-stage multiplication",
+  "stem": "In a three-step security check, 50% of travelers pass step 1. Of those, 40% pass step 2. Of those who pass steps 1 and 2, 90% pass step 3. What proportion of all travelers pass all three steps?",
+  "correct": {
+   "text": "0.18",
+   "rationale": "0.50 × 0.40 × 0.90 = 0.18."
+  },
+  "wrong": [
+   {
+    "text": "0.20",
+    "rationale": "0.50 × 0.40 = 0.20 stops after two steps.",
+    "error_pattern": "Omitting the last stage"
+   },
+   {
+    "text": "0.02",
+    "rationale": "0.50 × 0.40 × 0.10 = 0.02 uses the failure proportion for step 3.",
+    "error_pattern": "Using the complement at the last stage"
+   },
+   {
+    "text": "0.60",
+    "rationale": "The average of 0.50, 0.40, 0.90 is 0.60, not a probability of all three.",
+    "error_pattern": "Averaging"
+   }
+  ],
+  "change_note": "Three-stage version.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-052-v1",
+  "seed": "APSTATS-MCQ-052",
+  "difficulty": "medium",
+  "title": "Identify the binomial scenario",
+  "stem": "Which of the following random variables has a binomial distribution?",
+  "correct": {
+   "text": "The number of heads in 15 flips of a fair coin.",
+   "rationale": "A fixed 15 independent trials, two outcomes, constant p = 0.5."
+  },
+  "wrong": [
+   {
+    "text": "The number of hearts in a 5-card hand dealt without replacement from a standard deck.",
+    "rationale": "Trials are dependent and P(heart) changes after each card.",
+    "error_pattern": "Ignoring dependence"
+   },
+   {
+    "text": "The number of flips needed until the first head appears.",
+    "rationale": "The number of trials is not fixed in advance.",
+    "error_pattern": "Ignoring fixed n"
+   },
+   {
+    "text": "The sum of the faces in 10 rolls of a fair die.",
+    "rationale": "A sum is not a count of successes; each roll has six outcomes.",
+    "error_pattern": "Confusing sums with counts"
+   }
+  ],
+  "change_note": "Scenario identification.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-052-v2",
+  "seed": "APSTATS-MCQ-052",
+  "difficulty": "medium",
+  "title": "Justifying a binomial model",
+  "stem": "A quality inspector randomly selects 12 bulbs from a very large shipment, where each bulb is independently defective with probability 0.03. Let X be the number of defective bulbs. Which statement correctly justifies that X is binomial?",
+  "correct": {
+   "text": "There are a fixed 12 trials, each with two outcomes, independent, with constant P(defective) = 0.03.",
+   "rationale": "These match all binomial conditions."
+  },
+  "wrong": [
+   {
+    "text": "X is binomial because the defect probability is small.",
+    "rationale": "Small p is not a condition; the four conditions are required.",
+    "error_pattern": "Small p"
+   },
+   {
+    "text": "X is binomial because it takes whole-number values.",
+    "rationale": "Many discrete variables take whole numbers without being binomial.",
+    "error_pattern": "Discrete implies binomial"
+   },
+   {
+    "text": "X is binomial because the sample is large enough for X to be approximately normal.",
+    "rationale": "12 bulbs with p = 0.03 is not large enough, and normality is not what makes X binomial.",
+    "error_pattern": "Binomial and normal confusion"
+   }
+  ],
+  "change_note": "Justify binomial.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-052-v3",
+  "seed": "APSTATS-MCQ-052",
+  "difficulty": "hard",
+  "title": "Why a count is not binomial",
+  "stem": "A teacher randomly picks 6 students one at a time, without replacement, from a class of 20 students (10 girls and 10 boys). Let X be the number of girls selected. Why is X not binomial?",
+  "correct": {
+   "text": "Picking without replacement from a small class makes trials dependent, so P(girl) shifts.",
+   "rationale": "After one girl is picked P(girl) is 9/19; after a boy 10/19."
+  },
+  "wrong": [
+   {
+    "text": "Each pick has more than two possible outcomes for the student chosen.",
+    "rationale": "Each pick is a girl or a boy, two outcomes.",
+    "error_pattern": "Misidentifying outcomes"
+   },
+   {
+    "text": "The number of picks is not fixed in advance by the teacher.",
+    "rationale": "Exactly 6 students are picked.",
+    "error_pattern": "Misidentifying fixed n"
+   },
+   {
+    "text": "The probability of selecting a girl, 0.5, is too large for a binomial model.",
+    "rationale": "Binomials allow any p.",
+    "error_pattern": "Restricting p"
+   }
+  ],
+  "change_note": "Explains violation.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-058-v1",
+  "seed": "APSTATS-MCQ-058",
+  "difficulty": "medium",
+  "title": "Quadrupling a poll's sample size",
+  "stem": "A 90% confidence interval for a population proportion, based on a random sample of 400 voters, has a margin of error of 0.04. If the pollsters instead sampled 1600 voters, with the same confidence level and about the same sample proportion, what would the margin of error be approximately?",
+  "correct": {
+   "text": "0.02",
+   "rationale": "Quadrupling n halves the standard error (SE is proportional to 1/√n), so MOE = 0.04/2 = 0.02."
+  },
+  "wrong": [
+   {
+    "text": "0.01",
+    "rationale": "Dividing 0.04 by 4 treats MOE as proportional to 1/n instead of 1/√n.",
+    "error_pattern": "Dividing by the factor 4 instead of its square root"
+   },
+   {
+    "text": "0.08",
+    "rationale": "Doubling 0.04 goes the wrong direction; a larger sample reduces SE and MOE.",
+    "error_pattern": "Increasing MOE"
+   },
+   {
+    "text": "0.04",
+    "rationale": "Sample size appears in SE = sqrt(p̂(1-p̂)/n), so MOE cannot stay at 0.04 when n changes from 400 to 1600.",
+    "error_pattern": "Ignoring n"
+   }
+  ],
+  "change_note": "Quantitative version.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-058-v2",
+  "seed": "APSTATS-MCQ-058",
+  "difficulty": "medium",
+  "title": "Raising confidence level",
+  "stem": "A poll of 500 randomly chosen adults gives a 90% confidence interval for a population proportion. If the pollster keeps the same data but reports a 99% confidence interval, what happens to the margin of error?",
+  "correct": {
+   "text": "It gets larger, because the critical value z* increases from about 1.645 to about 2.576.",
+   "rationale": "MOE = z*·SE and SE is unchanged."
+  },
+  "wrong": [
+   {
+    "text": "It gets smaller, because greater confidence means a more precise estimate.",
+    "rationale": "Greater confidence widens the interval.",
+    "error_pattern": "Confidence = precision"
+   },
+   {
+    "text": "It stays the same, because the standard error depends only on n and p̂.",
+    "rationale": "z* changes with confidence level.",
+    "error_pattern": "Ignoring z*"
+   },
+   {
+    "text": "It gets larger, because 99% confidence needs a larger sample.",
+    "rationale": "The sample is unchanged; the increase comes from z*.",
+    "error_pattern": "Wrong reason"
+   }
+  ],
+  "change_note": "Confidence-level effect.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-058-v3",
+  "seed": "APSTATS-MCQ-058",
+  "difficulty": "hard",
+  "title": "Required sample size for a margin of error",
+  "stem": "A researcher wants a 95% confidence interval for a population proportion with a margin of error no larger than 0.03, and has no prior estimate of the proportion. Using z* = 1.96 and the most conservative p̂ = 0.5, what is the minimum sample size?",
+  "correct": {
+   "text": "1068",
+   "rationale": "n = (1.96)²(0.5)(0.5)/(0.03)² ≈ 1067.1, which must be rounded up to 1068."
+  },
+  "wrong": [
+   {
+    "text": "1067",
+    "rationale": "Rounding down gives a margin of error slightly above 0.03.",
+    "error_pattern": "Rounding down"
+   },
+   {
+    "text": "278",
+    "rationale": "0.25/0.03² = 277.8 omits z*².",
+    "error_pattern": "Omitting z*"
+   },
+   {
+    "text": "545",
+    "rationale": "1.96(0.25)/0.03² = 544.4 forgets to square z*.",
+    "error_pattern": "Not squaring z*"
+   }
+  ],
+  "change_note": "Sample size computation.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-063-v1",
+  "seed": "APSTATS-MCQ-063",
+  "difficulty": "easy",
+  "title": "Power from a Type II error probability",
+  "stem": "A significance test of H0: p = 0.5 at α = 0.05 has a 0.32 probability of failing to reject H0 when the true proportion is 0.6. What is the power of the test against p = 0.6?",
+  "correct": {
+   "text": "0.68",
+   "rationale": "Power = 1 - β = 1 - 0.32 = 0.68."
+  },
+  "wrong": [
+   {
+    "text": "0.32",
+    "rationale": "0.32 is β, the Type II error probability; power is its complement, 1 - 0.32 = 0.68.",
+    "error_pattern": "Confusing β with power"
+   },
+   {
+    "text": "0.95",
+    "rationale": "0.95 = 1 - α is the probability of correctly not rejecting a true H0, not power against p = 0.6.",
+    "error_pattern": "Using confidence"
+   },
+   {
+    "text": "0.05",
+    "rationale": "0.05 is the significance level (Type I error rate), unrelated to detecting the true value of 0.6.",
+    "error_pattern": "Using α"
+   }
+  ],
+  "change_note": "Context; power at specific alternative.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-063-v2",
+  "seed": "APSTATS-MCQ-063",
+  "difficulty": "medium",
+  "title": "What increases power",
+  "stem": "A researcher tests H0: p = 0.50 against Ha: p > 0.50 with n = 100 and α = 0.05. Which change would increase the power of the test against the true value p = 0.60?",
+  "correct": {
+   "text": "Increasing the sample size to 400.",
+   "rationale": "Quadrupling n from 100 to 400 halves the standard error of p-hat, so the sampling distributions under H0 and under p = 0.60 overlap less and rejection is more likely."
+  },
+  "wrong": [
+   {
+    "text": "Decreasing α to 0.01.",
+    "rationale": "Lowering α from 0.05 to 0.01 moves the rejection cutoff farther from 0.50, making rejection harder even when p = 0.60, so power decreases while Type I risk falls.",
+    "error_pattern": "Thinking lower α helps"
+   },
+   {
+    "text": "Testing against a true value closer to H0, such as 0.52.",
+    "rationale": "A true value of 0.52 is only 0.02 above the null value 0.50, much harder to detect than a gap of 0.10, so power decreases.",
+    "error_pattern": "Gap direction"
+   },
+   {
+    "text": "Decreasing the sample size to 25.",
+    "rationale": "Cutting n from 100 to 25 doubles the standard error, so the sampling distributions overlap more and power decreases.",
+    "error_pattern": "Smaller n helps"
+   }
+  ],
+  "change_note": "Factors affecting power.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-063-v3",
+  "seed": "APSTATS-MCQ-063",
+  "difficulty": "medium",
+  "title": "Defining power",
+  "stem": "A pharmaceutical company tests H0: the new drug has no effect on blood pressure, against Ha: the drug lowers blood pressure. Which statement correctly describes the power of this test?",
+  "correct": {
+   "text": "The probability of rejecting H0 when the drug really does lower blood pressure by a specific amount.",
+   "rationale": "Power = P(reject H0 | the stated alternative is true) = 1 - β, here the chance the test detects a real blood-pressure reduction of the specified size."
+  },
+  "wrong": [
+   {
+    "text": "The probability of rejecting H0 when the drug has no effect.",
+    "rationale": "Rejecting H0 when the drug has no effect (H0 true) is a Type I error, whose probability is α, not power.",
+    "error_pattern": "Confusing with α"
+   },
+   {
+    "text": "The probability of failing to reject H0 when the drug does lower blood pressure.",
+    "rationale": "Failing to reject H0 when the drug does lower blood pressure is a Type II error, whose probability is β = 1 - power.",
+    "error_pattern": "Confusing with β"
+   },
+   {
+    "text": "The probability that the drug lowers blood pressure given that H0 was rejected.",
+    "rationale": "This reverses the conditional: power is P(reject H0 | alternative true), not P(alternative true | H0 rejected).",
+    "error_pattern": "Reversed conditional"
+   }
+  ],
+  "change_note": "Conceptual definition.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-074-v1",
+  "seed": "APSTATS-MCQ-074",
+  "difficulty": "hard",
+  "title": "Which machine made a defective item",
+  "stem": "A plant has three machines. Machine A makes 50% of items with a 2% defect rate; Machine B makes 30% with a 3% defect rate; Machine C makes 20% with a 5% defect rate. A randomly selected item is defective. What is the probability it came from Machine B?",
+  "correct": {
+   "text": "About 0.310",
+   "rationale": "P(B | defective) = (0.30)(0.03) / (0.50(0.02) + 0.30(0.03) + 0.20(0.05)) = 0.009/0.029 ≈ 0.310."
+  },
+  "wrong": [
+   {
+    "text": "About 0.030",
+    "rationale": "This is P(defective | B), the reverse of the requested conditional probability P(B | defective).",
+    "error_pattern": "Reversing the conditional"
+   },
+   {
+    "text": "About 0.300",
+    "rationale": "This is Machine B's 30% production share, ignoring the information that the item is defective; Machine B has a 3% rate vs 2% and 5% for others, so the probability changes.",
+    "error_pattern": "Using the prior share"
+   },
+   {
+    "text": "About 0.009",
+    "rationale": "This is the joint probability P(B and defective) = 0.30 x 0.03; it must be divided by P(defective) = 0.029.",
+    "error_pattern": "Omitting the denominator"
+   }
+  ],
+  "change_note": "Numeric Bayes.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-074-v2",
+  "seed": "APSTATS-MCQ-074",
+  "difficulty": "medium",
+  "title": "Formula for a reversed conditional probability",
+  "stem": "A school tracks whether students studied and whether they passed. Which expression correctly gives P(studied | passed)?",
+  "correct": {
+   "text": "P(passed | studied)P(studied) / P(passed)",
+   "rationale": "P(studied and passed)/P(passed), with the numerator rewritten via the multiplication rule."
+  },
+  "wrong": [
+   {
+    "text": "P(passed | studied)P(passed)",
+    "rationale": "This multiplies by P(passed) rather than dividing by it; it is not P(studied | passed), and could even exceed 1.",
+    "error_pattern": "Multiplying by the wrong marginal"
+   },
+   {
+    "text": "P(studied) / P(passed | studied)",
+    "rationale": "The denominator should be the marginal P(passed) and the numerator should be P(passed | studied)P(studied); this inverts the structure.",
+    "error_pattern": "Mixing up the roles of the terms"
+   },
+   {
+    "text": "P(studied)P(passed)",
+    "rationale": "This is P(studied and passed) only if the events are independent, and it is not a conditional probability.",
+    "error_pattern": "Using independence"
+   }
+  ],
+  "change_note": "Formula recognition.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-074-v3",
+  "seed": "APSTATS-MCQ-074",
+  "difficulty": "medium",
+  "title": "Conditional probability from a table",
+  "stem": "A school surveyed 400 commuters, grouped by mode, and recorded who arrived late this month: Bus 160 (24 late), Bike 100 (15 late), Car 140 (11 late). Among all students who arrived late, what is the probability a randomly chosen late arrival is a bike rider?",
+  "correct": {
+   "text": "0.30",
+   "rationale": "P(bike | late) = 15/50 = 0.30."
+  },
+  "wrong": [
+   {
+    "text": "0.15",
+    "rationale": "P(late | bike) = 15/100.",
+    "error_pattern": "Reversing"
+   },
+   {
+    "text": "0.0375",
+    "rationale": "P(bike and late) = 15/400.",
+    "error_pattern": "Joint"
+   },
+   {
+    "text": "0.25",
+    "rationale": "P(bike) = 100/400.",
+    "error_pattern": "Marginal"
+   }
+  ],
+  "change_note": "Table version.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-081-v1",
+  "seed": "APSTATS-MCQ-081",
+  "difficulty": "easy",
+  "title": "Expected prize",
+  "stem": "A raffle ticket pays $10 with probability 0.5, $20 with probability 0.3, and $30 with probability 0.2. What is the expected payout of a ticket?",
+  "correct": {
+   "text": "$17",
+   "rationale": "10(0.5)+20(0.3)+30(0.2)=5+6+6=17."
+  },
+  "wrong": [
+   {
+    "text": "$20",
+    "rationale": "Unweighted mean of 10, 20, 30.",
+    "error_pattern": "Unweighted"
+   },
+   {
+    "text": "$10",
+    "rationale": "The most likely value.",
+    "error_pattern": "Mode"
+   },
+   {
+    "text": "$60",
+    "rationale": "Sum of the payouts.",
+    "error_pattern": "Sum"
+   }
+  ],
+  "change_note": "Payout context.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-081-v2",
+  "seed": "APSTATS-MCQ-081",
+  "difficulty": "medium",
+  "title": "Expected winnings of a game",
+  "stem": "In a carnival game, a player wins $5 with probability 0.1, wins $1 with probability 0.3, and loses $2 with probability 0.6. What is the expected net winnings per play?",
+  "correct": {
+   "text": "-$0.40",
+   "rationale": "5(0.1)+1(0.3)+(-2)(0.6)=0.5+0.3-1.2=-0.40."
+  },
+  "wrong": [
+   {
+    "text": "$1.33",
+    "rationale": "Unweighted mean of 5, 1, -2.",
+    "error_pattern": "Unweighted"
+   },
+   {
+    "text": "$0.40",
+    "rationale": "Sign error.",
+    "error_pattern": "Sign"
+   },
+   {
+    "text": "$2.00",
+    "rationale": "Treats loss as +2.",
+    "error_pattern": "Loss as gain"
+   }
+  ],
+  "change_note": "Game with a loss.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-081-v3",
+  "seed": "APSTATS-MCQ-081",
+  "difficulty": "medium",
+  "title": "Mean with a missing probability",
+  "stem": "A random variable X takes values 0, 2, and 5 with P(X = 0) = 0.25 and P(X = 2) = 0.35. What is E(X)?",
+  "correct": {
+   "text": "2.7",
+   "rationale": "P(X=5)=0.40; E=0+0.7+2.0=2.7."
+  },
+  "wrong": [
+   {
+    "text": "2.33",
+    "rationale": "Unweighted mean.",
+    "error_pattern": "Unweighted"
+   },
+   {
+    "text": "0.7",
+    "rationale": "Omits the 5 term.",
+    "error_pattern": "Omitted"
+   },
+   {
+    "text": "5",
+    "rationale": "Most likely value.",
+    "error_pattern": "Mode"
+   }
+  ],
+  "change_note": "Missing probability.",
+  "check": "numeric"
+ }
+]

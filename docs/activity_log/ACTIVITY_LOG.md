@@ -6,6 +6,11 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology Variants Loaded and Published (APPROVAL-0080) (2026-10-02): 24 variant MCQs loaded in 3 chunks (md5 24 of 24) and published with validated labels (Unit 1: 3, Unit 2: 21).
+- AP Biology Topic Correction (APPROVAL-0079) (2026-10-02): 73 primary topic cells replaced by three-family consensus (42 cross-unit), 21 skill cells moved to the new topic, MCQ-005 relabeled to Unit 2; 43 earlier-validated items topic-probed for the first time.
+- AP Statistics Variants Published (APPROVAL-0078) (2026-10-02): 131 variants published with validated labels (Unit 1: 63, Unit 2: 33, Unit 3: 35); Statistics published 293, unit-gated servable 261, stale hashes 0; one variant held as a draft.
+- AP Statistics Variants Loaded as Drafts; 8 Items Retired (APPROVAL-0077) (2026-10-02): 132 variant MCQs loaded in 12 chunks (md5 132 of 132), not yet published; 8 items on CED-removed topics retired.
+- AP Statistics Units 1-3 Pipeline v2: Repairs, Labels, Skill Cells (APPROVAL-0076) (2026-10-02): 4 MCQ rationales repaired as version 2, 8 serving labels validated, 129 skill cells written (116 validated, 1 provisional, 12 held); blind plus audit for 129 items took 7 minutes and $2.56.
 - AP Chemistry Variants Loaded and Published; Canonical Answers Filled (APPROVAL-0075) (2026-10-02): 72 variant MCQs loaded in 12 chunks (md5 72 of 72) and published with validated labels; 49 Chemistry MCQ canonical answers filled; Chemistry published 119 to 191, servable 82 to 154; MCQ grading found not to read canonical answers.
 - AP Chemistry Units 1-3 Full Pipeline Run (APPROVAL-0074) (2026-10-02): steps 1-7 from scratch in about 86 minutes, 2,040 gateway calls, $7.55 gateway list price, about 0.9M Claude tokens; 8 seeds repaired, 36 topic cells, 28-skill grid, 37 labels, 34 skill cells, 75 variant drafts (not loaded); audit recall gap and missing seed CED check found.
 - AP Biology Grid Created and 70 Live Items Relabeled for Serving (APPROVAL-0073) (2026-10-02): 22 skills x 60 topics = 1320-cell grid from the CED; Bio unit-gated servable 43 to 110 of 118; registered topic cells found wrong on about 58 items (36 across units), left unchanged for a decision; skill labels in progress.

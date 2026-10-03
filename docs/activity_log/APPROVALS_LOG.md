@@ -6,6 +6,11 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0080 — Load and Publish 24 AP Biology Units 1-2 Variants (Production) — DECISION-0085
+- APPROVAL-0079 — AP Biology Topic Correction: 73 Primary Topic Cells Replaced by Three-Family Consensus; MCQ-005 Relabeled to Unit 2 (Production) — DECISION-0085
+- APPROVAL-0078 — Publish 131 AP Statistics Units 1-3 Variants with Inherited Validated Labels (Production) — DECISION-0085
+- APPROVAL-0077 — Load 132 AP Statistics Units 1-3 Variants as Drafts; Retire 8 Statistics Items on CED-Removed Topics (Production) — DECISION-0085
+- APPROVAL-0076 — AP Statistics Units 1-3 Pipeline v2: Repair 4 Published MCQ Rationales, Relabel 8 Items, Write 129 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0075 — Load and Publish 72 AP Chemistry Units 1-3 Variants; Fill `canonical_answer_1` on 49 Chemistry MCQs (Production) — DECISION-0085
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
@@ -43,6 +48,73 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0080 — Load and Publish 24 AP Biology Units 1-2 Variants (Production)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "I think do 3 then 2 then 1", item 1 being load and publish the Biology variants)  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0079`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`):** 24 AP Biology variant MCQs (keys `APBIO-MCQ-SV-<seed>-v1..v3`, from 9 seeds in Units 1-2) loaded as drafts in 3 atomic chunks (md5 24 of 24 against the build manifest), then approved and published with validated, hash-fresh serving labels and validated primary topic cells. Unit and topic are inherited from the seed after the topic correction of `APPROVAL-0079` (3 in Unit 1, 21 in Unit 2; topics 1.7, 2.1, 2.3, 2.6, 2.7, 2.8, 2.10). No skill or difficulty rows were written.
+
+**Checks behind the variants:** two checkers (gemini-3.8-flash, deepseek-v4-pro) solved, audited and CED-scope-checked 30 drafts; no key disagreements and no scope flags; 2 patched (rationale wording) and re-audited clean; 6 dropped (all three `025` variants, whose seed rests on kidney ADH physiology outside the pack and whose v1 and v2 had real errors; `005-v2`, `014-v3`, `022-v2` placed at Unit 4 or higher by a checker).
+
+**Not approved by this entry:** retiring or repairing seed `025` (its topic was corrected to 2.7 by `APPROVAL-0079`; its choice D rationale is weak); the seed-level CED scope check on the 10 Biology seeds; skill cells for the variants; FRQ variants.
+
+## APPROVAL-0079 — AP Biology Topic Correction: 73 Primary Topic Cells Replaced by Three-Family Consensus; MCQ-005 Relabeled to Unit 2 (Production)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "I think do 3 then 2 then 1", answering the open question whether to correct the Biology registered topics now)  
+**Related Decision:** `DECISION-0085`; touches topics promoted by `DECISION-0079`; follows `APPROVAL-0078`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`):** (1) For the 73 of 118 published Biology items whose registered primary topic disagrees with a three-family blind consensus (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol, 2 samples each) at >= 5 of 6 samples, the registered primary topic cell was superseded (never edited) by a new validated cell at the consensus topic; 3 of the 73 had no primary cell. The 42 changes that cross a unit boundary and the 31 within a unit are all included. (2) 21 existing skill cells were moved to the corrected topic (every pairing is valid in the grid; none held). (3) `APBIO-MCQ-005`, the only one of the 43 items validated earlier whose unit disagreed with the consensus (6 of 6), received a new validated serving label: Unit 2, required units 1 and 2 (it was Unit 1). The other 42 earlier-validated items' units matched the consensus.
+
+**Method:** the 43 items validated before this session had never been topic-probed, so they were probed with the same method as the 75 non-servable items (258 gateway calls). Items whose topic agreement was below 5 of 6 (18 items) keep the registered topic. The transaction was rehearsed with a rollback, then applied.
+
+**Not approved by this entry:** a re-vote of skill labels for the changed items (skill votes were cast with the registered topic as a hint); changes to items below 5 of 6 agreement; relabeling or republishing any Unit 4+ serving labels beyond MCQ-005.
+
+## APPROVAL-0078 — Publish 131 AP Statistics Units 1-3 Variants with Inherited Validated Labels (Production)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "Publish")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0077`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `548f06be-ccf4-426d-b82b-b424137a4438`):** the 131 loaded AP Statistics variant MCQs (`APSTATS-MCQ-SV-*`) were approved and published, each with a validated, hash-fresh serving label and a validated primary topic cell. Unit and topic are inherited from the seed (63 items in Unit 1, 33 in Unit 2, 35 in Unit 3); both variant checkers (gemini-3.8-flash, deepseek-v4-pro) placed every one in Units 1-3. The three `058` variants use topic 3.3 (their content is a proportion interval) instead of the seed's registered 4.2. The `010-CAL` seed carries only a provisional label; its variants were confirmed by both checkers at topic 3.2, Unit 3. No skill or difficulty rows were written for the variants.
+
+**Held back:** `APSTATS-MCQ-SV-057-v2` stays a draft (its seed is registered at Unit 4 topic 4.1 and its siblings were dropped for a debatable central-limit claim).
+
+**How it was used:** the publish transaction was rehearsed with a rollback (the first rehearsal stopped at a guard on the `010-CAL` seed and wrote nothing), then applied. Statistics census: published 293, unit-gated servable 261, validated labels 301, stale hashes 0.
+
+**Not approved by this entry:** relabeling seeds `009`, `059`, `066`, `080` (both checkers place their variants in Unit 4); retiring `053` or `073`; the `037` choice D rationale repair; skill cells for the variants; FRQ variants.
+
+## APPROVAL-0077 — Load 132 AP Statistics Units 1-3 Variants as Drafts; Retire 8 Statistics Items on CED-Removed Topics (Production)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "Load. The 132"; "Retire the stats.")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0076`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `548f06be-ccf4-426d-b82b-b424137a4438`):** (1) 132 AP Statistics variant MCQs (keys `APSTATS-MCQ-SV-<seed>-v1..v3`, from 44 seeds) loaded as drafts in 12 atomic chunks; md5 of stem, choices, keys and rationales matches the build manifest for 132 of 132. They carry no labels, cells or difficulty rows and are not published. (2) Eight published items retired (item and version status `retired`): `APSTATS-MCQ-008-CAL`, `016-CAL`, `018-CAL`, `075`, `088`, `094`, `098`, `100` (topics the CED removed, per the fact pack). Only `008-CAL` was servable at the time.
+
+**Checks behind the variants:** two checkers (gemini-3.8-flash, deepseek-v4-pro) solved, audited and CED-scope-checked all 144 drafts; no key disagreements and no scope flags; 15 variants patched (rationale wording, three confidence-interval numbers, one terminology fix) and re-audited clean; 12 dropped (`057` v1/v3 for a debatable CLT claim at n = 40-64; `009`, `059`, `066` and `080-v2` because both checkers put them in Unit 4).
+
+**Not approved by this entry:** publishing the variants or giving them labels; retiring `053` or `073`; relabeling seeds `009`, `059`, `066`, `080`; the `037` choice D rationale repair; FRQ variants.
+
+## APPROVAL-0076 — AP Statistics Units 1-3 Pipeline v2: Repair 4 Published MCQ Rationales, Relabel 8 Items, Write 129 Skill Cells (Production)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "all subjects need this check done, but now lets finish stats, bio and calculus in that order. Only units 1-3 for now."; "rerun the skill votes in a fresh job")  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0075`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `548f06be-ccf4-426d-b82b-b424137a4438`):** (1) Four published MCQs (`APSTATS-MCQ-045`, `047`, `048`, `080`) with false or misleading wrong-answer rationales received new version 2 records (rationale text only; choices and keys unchanged), approved and published, with topic cells, difficulty and the skill cell carried forward; the five rewritten rationales re-audited clean by two checkers. (2) Eight items (those four plus `MCQ-002`, `009`, `020`, `HDG-2026-GRAPH-019`) received new validated, hash-fresh serving labels from a two-family blind agreement; all eight verified published, validated and fresh after commit. (3) 129 skill cells in Units 1-3 scope set by four voters (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash): 116 validated at >= 3 of 4, 1 provisional (unique 2-of-4), 12 held (ties or a vote that is not a valid cell for the topic: `MCQ-094`).
+
+**How it was used:** repair/label and skill transactions were each rehearsed with a rollback, then applied. The first skill rehearsal failed a foreign key (topic 5.3 admits only skill 3.B) and wrote nothing; invalid pairs are now held with the prior cell kept. The skill votes from the earlier job had already completed (129 of 129 per model), so they were reused instead of rerun.
+
+**Not approved by this entry:** retiring Statistics items on CED-removed topics (`008-CAL`, `016-CAL`, `075`, `100`, `018-CAL`, `088`, `094`, `098`); Statistics variants; the vague-rationale rewrite project; other units or subjects.
 
 ## APPROVAL-0075 — Load and Publish 72 AP Chemistry Units 1-3 Variants; Fill `canonical_answer_1` on 49 Chemistry MCQs (Production)
 

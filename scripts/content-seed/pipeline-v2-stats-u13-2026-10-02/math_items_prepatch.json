@@ -1,0 +1,4322 @@
+[
+ {
+  "key": "u13-APSTATS-MCQ-001-v1",
+  "kind": "mcq",
+  "stem": "A transit agency records the delay (in minutes) of each of 60 commuter trains in one month. The histogram is strongly right-skewed: most delays are under 10 minutes, but a handful exceed two hours. An analyst wants one measure of center and one measure of spread that will not be distorted by those extreme delays. Which pair should the analyst report, and why?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Mean and IQR, because the mean gives the total delay spread evenly across all trains."
+   },
+   {
+    "label": "B",
+    "text": "Median and range, because the range shows how bad the worst delays were."
+   },
+   {
+    "label": "C",
+    "text": "Median and IQR, because both depend only on the ordered middle of the data and are not moved by a few very long delays."
+   },
+   {
+    "label": "D",
+    "text": "Mean and standard deviation, because they take every train's delay into account and so reflect the whole month."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The IQR is resistant, but the mean is still pulled toward the long right tail; a resistant spread does not fix a non-resistant center, and the mean would sit above what a typical train experiences.",
+   "B": "The median is resistant, but the range is determined only by the shortest and longest delays, so it is the spread measure most affected by the two-hour outliers.",
+   "C": "The median is the middle value and the IQR (Q3 - Q1) covers the middle 50% of delays, so a few two-hour delays barely change either one; they are the resistant choices for a right-skewed distribution.",
+   "D": "The mean and SD are both pulled upward by the few delays over two hours; including every value is a drawback, not an advantage, when the distribution is skewed with extreme values."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-001-v2",
+  "kind": "mcq",
+  "stem": "A school counselor asks 80 teens how many text messages they sent yesterday. The distribution is strongly right-skewed with a five-number summary of: Min = 0, Q1 = 12, Median = 30, Q3 = 66, Max = 410. Which description of typical value and variation is most appropriate?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A median of 30 texts and a range of 410 texts, because the range shows the full spread of the data."
+   },
+   {
+    "label": "B",
+    "text": "A median of 30 texts and an IQR of 36 texts, because the IQR is the distance from the median to Q3."
+   },
+   {
+    "label": "C",
+    "text": "A median of 30 texts and an IQR of 54 texts, because neither is pulled by the few extremely high counts."
+   },
+   {
+    "label": "D",
+    "text": "A mean and standard deviation, because they use all 80 reported values."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The median is resistant, but the range 410 - 0 = 410 is determined entirely by the single extreme maximum and so is not resistant to the skew.",
+   "B": "The IQR is Q3 - Q1 = 66 - 12 = 54, not Q3 - median = 66 - 30 = 36; 36 is only the upper half of the middle 50%.",
+   "C": "IQR = Q3 - Q1 = 66 - 12 = 54. The median (30) and IQR (54) depend on the middle of the ordered data, so the maximum of 410 does not distort them in this skewed distribution.",
+   "D": "The mean and SD are both inflated by the few very high counts like 410; using every value is not a strength for a strongly skewed distribution."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-001-v3",
+  "kind": "mcq",
+  "stem": "A real estate agent reports that for homes sold in one neighborhood last year, the mean sale price was $410,000 and the median sale price was $325,000. A buyer asks for the single value that best represents a typical home price. Which response is best?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Report either one, because the mean and median always give the same typical value."
+   },
+   {
+    "label": "B",
+    "text": "Report the mean of $410,000, because it accounts for every home's sale price."
+   },
+   {
+    "label": "C",
+    "text": "Report the median of $325,000, because the mean is pulled above the typical home by a few very expensive sales."
+   },
+   {
+    "label": "D",
+    "text": "Report the mean of $410,000, because the median ignores half of the data."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Here they differ by $85,000, and a mean well above the median indicates right skew; the two are only close in roughly symmetric distributions.",
+   "B": "Including every value is exactly why the mean is dragged upward by a few very expensive homes; $410,000 is higher than half of the homes sold and so overstates a typical price.",
+   "C": "Mean greater than median signals right skew; the median is resistant to the few high-priced homes, so $325,000 better represents a typical sale.",
+   "D": "The median is based on the position of the middle value and is not affected by how extreme the other values are; it does not 'ignore' data, it resists outliers."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-019-v1",
+  "kind": "mcq",
+  "stem": "Monthly rents for apartments listed in a city are strongly right-skewed because a few luxury units cost far more than the rest. A housing researcher wants to describe the typical rent and how much rents vary. Which pair of statistics is most appropriate?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Median and range, since the range includes all of the listings."
+   },
+   {
+    "label": "B",
+    "text": "Mean and IQR, since the IQR is the only resistant spread measure."
+   },
+   {
+    "label": "C",
+    "text": "Mean and standard deviation, since they are the most commonly used."
+   },
+   {
+    "label": "D",
+    "text": "Median and IQR, since luxury listings barely affect either one."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Although the median is resistant, the range depends only on the cheapest and most expensive unit, so the luxury listings dominate it.",
+   "B": "The IQR is resistant, but the mean is pulled toward the luxury rents, so this pair is only half-resistant.",
+   "C": "Popularity is not the criterion; the luxury units inflate both the mean and SD in a right-skewed distribution.",
+   "D": "Both are resistant: they depend on the middle of the ordered rents, so the few luxury units do not change them much."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-019-v2",
+  "kind": "mcq",
+  "stem": "A biologist measures the wingspan of 120 randomly captured adults of one bird species. A histogram is symmetric and mound-shaped with no outliers. Which pair of statistics is most appropriate to describe the center and spread?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Mean and SD, since a symmetric distribution without outliers does not distort them."
+   },
+   {
+    "label": "B",
+    "text": "Mean and range, since the range reports the distance between the two extreme wingspans."
+   },
+   {
+    "label": "C",
+    "text": "Median and IQR, since they should always be used no matter what shape the data have."
+   },
+   {
+    "label": "D",
+    "text": "Median and range, since the range is the easiest spread measure to compute."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "With symmetry and no outliers, the mean and SD summarize center and spread well and use all of the data.",
+   "B": "The range uses only the two most extreme values and gives no information about how the middle of the data varies; SD is the better partner for the mean.",
+   "C": "Median and IQR are preferred for skewed distributions or outliers, but nothing requires them for a symmetric distribution; mean and SD are appropriate here.",
+   "D": "Ease of computing is not the criterion, and the range uses only two values, discarding most of the information about spread."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-019-v3",
+  "kind": "mcq",
+  "stem": "The waiting times (in minutes) of 150 patients at an urgent care clinic are strongly right-skewed with five-number summary: Min = 2, Q1 = 10, Median = 14, Q3 = 19, Max = 90. Which pair of values best describes the center and spread of the waiting times?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Median = 14 minutes and IQR = 9 minutes, since neither is affected much by the 90-minute wait."
+   },
+   {
+    "label": "B",
+    "text": "Median = 14 minutes and range = 88 minutes, since the range shows the full spread."
+   },
+   {
+    "label": "C",
+    "text": "Median = 14 minutes and spread = 17 minutes, since that is the distance from the minimum to Q3."
+   },
+   {
+    "label": "D",
+    "text": "Median = 14 minutes and spread = 5 minutes, since that is the distance from the median to Q3."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "IQR = Q3 - Q1 = 19 - 10 = 9. The median and IQR are resistant, so they describe the typical wait well despite the extreme 90.",
+   "B": "The range is 90 - 2 = 88 but it is determined only by the two extremes, so the 90-minute wait dominates it.",
+   "C": "19 - 2 = 17 uses the minimum instead of Q1; the IQR is Q3 - Q1 = 9.",
+   "D": "19 - 14 = 5 covers only the upper half of the middle 50%; the IQR is Q3 - Q1 = 9."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-023-v1",
+  "kind": "mcq",
+  "stem": "A quiz has these scores: 5, 6, 6, 7, 8, 9, 9, 52. If the largest score were changed from 52 to 520, which summary would stay exactly the same?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The standard deviation, which stays near 16."
+   },
+   {
+    "label": "B",
+    "text": "The range, which stays at 47."
+   },
+   {
+    "label": "C",
+    "text": "The mean, which stays at 12.75."
+   },
+   {
+    "label": "D",
+    "text": "The median, which stays at 7.5."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The SD is about 15.9 now and would rise to about 181 because 520 lies far from the new mean of 71.25; SD depends on every value's distance from the mean.",
+   "B": "The range is max - min: 52 - 5 = 47 becomes 520 - 5 = 515, so it changes.",
+   "C": "The mean uses every value: the sum rises from 102 to 570, so the mean changes from 12.75 to 71.25.",
+   "D": "The median is the average of the middle two values (7 and 8) = 7.5, and neither of those changes when the largest value is replaced."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-023-v2",
+  "kind": "mcq",
+  "stem": "A technician records the times (in seconds) for 8 lab trials: 12, 14, 15, 15, 16, 18, 19, 30. The 30 was later found to be a typing error for 300. Which statistic would be least affected by this error?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The range, because it only involves the two ends of the data."
+   },
+   {
+    "label": "B",
+    "text": "The standard deviation, because it measures typical deviation from the mean."
+   },
+   {
+    "label": "C",
+    "text": "The mean, because averaging dilutes one value among eight."
+   },
+   {
+    "label": "D",
+    "text": "The IQR, which is 4 seconds with either value."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Being based on the ends is why it is affected: the range changes from 30 - 12 = 18 to 300 - 12 = 288.",
+   "B": "The mean itself rises sharply and the 300 is far from it, so the SD increases dramatically.",
+   "C": "The sum changes from 139 to 409, so the mean goes from 17.375 to 51.125; dilution does not make it resistant.",
+   "D": "Q1 = (14 + 15)/2 = 14.5 and Q3 = (18 + 19)/2 = 18.5 either way, so IQR = 4; the largest value is not used in either quartile."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-023-v3",
+  "kind": "mcq",
+  "stem": "A teacher's quiz scores are 62, 68, 71, 74, 75, 77, 79 (mean about 72.3, median 74). A late student then turns in a quiz with a score of 3. Which statement about the effect of the new score is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Neither the mean nor the median changed, since only one score was added."
+   },
+   {
+    "label": "B",
+    "text": "The mean and median both fell by about 8.7 points, since both measure center."
+   },
+   {
+    "label": "C",
+    "text": "The median fell by about 8.7 points while the mean fell only 1.5, since the median is the middle value."
+   },
+   {
+    "label": "D",
+    "text": "The mean fell by about 8.7 points to 63.6, while the median fell by only 1.5 points to 72.5."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Adding a score changes the mean to 63.625 and shifts the middle of eight values to (71 + 74)/2 = 72.5.",
+   "B": "The median is determined by the middle positions: it only changes from 74 to 72.5.",
+   "C": "The values are swapped: it is the mean that falls by about 8.7 (to 63.6); the median only moves to 72.5.",
+   "D": "New mean = 509/8 = 63.625 (from 506/7 = 72.29, a drop of 8.66); new median = (71 + 74)/2 = 72.5 (a drop of 1.5). The median is resistant."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-027-v1",
+  "kind": "mcq",
+  "stem": "For the lengths of 200 randomly selected leaves, a botanist reports a mean of 52.4 mm, a median of 52.1 mm, and a standard deviation of 6.0 mm. Which conclusion about the shape is most reasonable?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The distribution is right-skewed, since the mean is larger than the median."
+   },
+   {
+    "label": "B",
+    "text": "The distribution is left-skewed, since the median is close to the mean rather than far above it."
+   },
+   {
+    "label": "C",
+    "text": "Nothing can be said about shape, since the mean and median describe only center."
+   },
+   {
+    "label": "D",
+    "text": "The distribution is roughly symmetric, since the mean and median are nearly equal compared to the spread."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Any skew rule needs a meaningful gap; a 0.3 mm difference relative to SD 6.0 is negligible and not evidence of right skew.",
+   "B": "Left skew pulls the mean below the median by a notable amount; a nearly equal mean and median do not show that.",
+   "C": "Comparing the mean to the median gives evidence of symmetry or skew, so these two summaries do provide information about shape.",
+   "D": "A 0.3 mm gap is tiny relative to an SD of 6.0 mm, which is consistent with a roughly symmetric distribution."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-027-v2",
+  "kind": "mcq",
+  "stem": "The commute times of 300 workers have a mean of 38 minutes and a median of 29 minutes. Which description of the distribution is most consistent with these values?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Left-skewed, because most workers have commutes shorter than the mean."
+   },
+   {
+    "label": "B",
+    "text": "Left-skewed, because the mean is greater than the median."
+   },
+   {
+    "label": "C",
+    "text": "Symmetric, because the mean and median are both measures of center."
+   },
+   {
+    "label": "D",
+    "text": "Right-skewed, because a few long commutes pull the mean above the median."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Having more than half of values below the mean is consistent with right skew, not left.",
+   "B": "In left-skewed data the mean is pulled below the median, not above.",
+   "C": "In a symmetric distribution the two would be close; a 9-minute gap indicates skew.",
+   "D": "Mean (38) greater than median (29) by 9 minutes is the signature of a long right tail."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-027-v3",
+  "kind": "mcq",
+  "stem": "The ages at which employees at a large company retired form a left-skewed distribution, with a few people retiring in their early forties and most retiring in their sixties. Which statement is most likely true?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The mean and median retirement ages are exactly equal."
+   },
+   {
+    "label": "B",
+    "text": "The mean retirement age is greater than the median retirement age."
+   },
+   {
+    "label": "C",
+    "text": "The mean retirement age is less than the median retirement age."
+   },
+   {
+    "label": "D",
+    "text": "The median is pulled further toward the early retirees than the mean is."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Equality is expected only for symmetric distributions; skew separates them.",
+   "B": "This is the pattern for right skew; the low tail pulls the mean down in a left-skewed distribution.",
+   "C": "The few very early retirements pull the mean toward the low tail while the median stays near the bulk of the data.",
+   "D": "The median is resistant to the early retirements and is pulled less than the mean."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-040-v1",
+  "kind": "mcq",
+  "stem": "A gardener wants to compare two fertilizers using 24 tomato plants in a garden where half the plants are in full sun and half are in shade, and sunlight strongly affects growth. Which plan uses blocking?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Apply fertilizer A to all sun plants and fertilizer B to all shade plants."
+   },
+   {
+    "label": "B",
+    "text": "Separate the plants into sun and shade groups, then randomly assign fertilizers within each group."
+   },
+   {
+    "label": "C",
+    "text": "Flip a coin for each plant to choose its fertilizer, ignoring sunlight."
+   },
+   {
+    "label": "D",
+    "text": "Use only the sun plants and randomly assign the two fertilizers."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Fertilizer is completely confounded with sunlight, so differences cannot be attributed to fertilizer; no random assignment within blocks.",
+   "B": "Sunlight is a known source of variability; random assignment within sun and shade blocks balances it across both fertilizers, so sunlight cannot be confounded with fertilizer.",
+   "C": "This is a completely randomized design; no blocks are formed.",
+   "D": "This controls sunlight by restricting the study, but it is not blocking since shade plants are not included and results do not extend to shade."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-040-v2",
+  "kind": "mcq",
+  "stem": "Researchers compare two study methods using students whose prior GPAs vary widely, and they place students into 'high GPA' and 'low GPA' blocks before randomly assigning methods within each block. What is the main purpose of blocking here?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "To remove variation due to prior GPA so method differences are easier to detect."
+   },
+   {
+    "label": "B",
+    "text": "To remove the need for random assignment of methods to students."
+   },
+   {
+    "label": "C",
+    "text": "To make sure the sample is representative of every student in the school."
+   },
+   {
+    "label": "D",
+    "text": "To make sure neither the students nor the graders know which method was used."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Blocking removes variation tied to GPA from the comparison between methods, making treatment differences clearer.",
+   "B": "Random assignment is still done within each block.",
+   "C": "Representativeness comes from random sampling, not blocking.",
+   "D": "That describes blinding; blocking concerns grouping similar units."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-040-v3",
+  "kind": "mcq",
+  "stem": "To compare two exercise programs, a researcher separates 60 volunteers into a male group and a female group, then within each group uses a random number generator to assign half to Program 1 and half to Program 2. Which description is most accurate?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A randomized block experiment, with sex as the blocking variable."
+   },
+   {
+    "label": "B",
+    "text": "A completely randomized design, since random assignment was used."
+   },
+   {
+    "label": "C",
+    "text": "A stratified random sample, since subjects were grouped by sex."
+   },
+   {
+    "label": "D",
+    "text": "An observational study, since sex cannot be assigned."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Subjects are grouped by sex and treatments are randomly assigned within each block.",
+   "B": "In a completely randomized design all subjects are randomized together; here randomization is within sex groups.",
+   "C": "Stratified sampling is about selecting units for a sample; here the researcher assigns treatments, so it is an experiment.",
+   "D": "The researcher imposes the exercise programs, so it is an experiment; sex is only a blocking variable."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-044-v1",
+  "kind": "mcq",
+  "stem": "Students are randomly assigned to use a tutoring app or a traditional workbook. The final tests are scored by a teacher who is not told which students used which method. What is the main benefit of having the scorer blinded?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It prevents the scorer's expectations about the app from influencing the scores."
+   },
+   {
+    "label": "B",
+    "text": "It removes confounding variables such as prior ability."
+   },
+   {
+    "label": "C",
+    "text": "It prevents the students' expectations from affecting their performance."
+   },
+   {
+    "label": "D",
+    "text": "It makes the sample representative of all students."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Blinding evaluators keeps expectations from biasing measurements.",
+   "B": "Confounding is handled by random assignment and design, not by blinding.",
+   "C": "The students know which method they used, so blinding the scorer does not address student expectations.",
+   "D": "Representativeness comes from random sampling."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-044-v2",
+  "kind": "mcq",
+  "stem": "In a study of a headache remedy, a placebo group's pain score improved by an average of 4.1 points, while a no-treatment group's pain score improved by an average of 1.3 points. Using the definition of placebo effect as the difference between the average placebo response and the average no-treatment response, what is the placebo effect?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5.4 points"
+   },
+   {
+    "label": "B",
+    "text": "4.1 points"
+   },
+   {
+    "label": "C",
+    "text": "2.8 points"
+   },
+   {
+    "label": "D",
+    "text": "0 points, because a placebo contains no active ingredient."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "4.1 + 1.3 = 5.4 adds the two averages rather than taking the difference.",
+   "B": "This is the placebo group's full average improvement; part of it (1.3) would have happened with no treatment.",
+   "C": "4.1 - 1.3 = 2.8, the extra improvement attributable to receiving a placebo rather than nothing.",
+   "D": "A placebo effect can occur even without an active ingredient; here the placebo group improved 2.8 points more than the no-treatment group."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-044-v3",
+  "kind": "mcq",
+  "stem": "Which setup for a trial of a new cholesterol drug is double-blind?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Identical-looking capsules coded by pharmacy; neither patients nor the clinicians recording outcomes know assignments."
+   },
+   {
+    "label": "B",
+    "text": "All patients receive the drug and both patients and clinicians know it."
+   },
+   {
+    "label": "C",
+    "text": "Patients are unaware of what they receive, but the clinician recording outcomes knows each assignment."
+   },
+   {
+    "label": "D",
+    "text": "Patients choose between the drug and a placebo, but clinicians do not know who chose which."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Hiding assignments from both patients and outcome evaluators makes it double-blind, reducing placebo effects and observer bias.",
+   "B": "Giving everyone the drug with everyone aware has no comparison group and no blinding, so it is neither single- nor double-blind.",
+   "C": "Since the clinician recording outcomes knows each assignment, only one party is blinded, so the design is single-blind.",
+   "D": "Patients choosing their own treatment is not random assignment and the patients are not blinded, so it is not double-blind."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-048-v1",
+  "kind": "mcq",
+  "stem": "For a marketing email, 45% of recipients open the message. Among those who open it, 20% click the link. What is the probability that a randomly selected recipient both opens the email and clicks the link?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.11"
+   },
+   {
+    "label": "B",
+    "text": "0.09"
+   },
+   {
+    "label": "C",
+    "text": "0.65"
+   },
+   {
+    "label": "D",
+    "text": "0.25"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "0.55 × 0.20 = 0.11 uses the probability of not opening.",
+   "B": "P(open and click) = P(open) × P(click | open) = 0.45 × 0.20 = 0.09.",
+   "C": "0.45 + 0.20 = 0.65 adds the probabilities rather than multiplying along the path.",
+   "D": "0.45 - 0.20 = 0.25 subtracts instead of multiplying."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-048-v2",
+  "kind": "mcq",
+  "stem": "A student passes the first exam of a course with probability 0.80. If the student passes the first exam, the probability of passing the second exam is 0.75. What is the probability that the student passes both exams?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.20"
+   },
+   {
+    "label": "B",
+    "text": "0.95"
+   },
+   {
+    "label": "C",
+    "text": "0.75"
+   },
+   {
+    "label": "D",
+    "text": "0.60"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "0.80 × 0.25 = 0.20 is the probability of passing the first and failing the second.",
+   "B": "0.80 + 0.75 - 0.60 = 0.95 is a union-type calculation.",
+   "C": "This is only the conditional probability of passing the second exam given the first.",
+   "D": "P(both) = 0.80 × 0.75 = 0.60."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-048-v3",
+  "kind": "mcq",
+  "stem": "In a three-step security check, 50% of travelers pass step 1. Of those, 40% pass step 2. Of those who pass steps 1 and 2, 90% pass step 3. What proportion of all travelers pass all three steps?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.02"
+   },
+   {
+    "label": "B",
+    "text": "0.18"
+   },
+   {
+    "label": "C",
+    "text": "0.60"
+   },
+   {
+    "label": "D",
+    "text": "0.20"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "0.50 × 0.40 × 0.10 = 0.02 uses the failure proportion for step 3.",
+   "B": "0.50 × 0.40 × 0.90 = 0.18.",
+   "C": "The average of 0.50, 0.40, 0.90 is 0.60, not a probability of all three.",
+   "D": "0.50 × 0.40 = 0.20 stops after two steps."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-052-v1",
+  "kind": "mcq",
+  "stem": "Which of the following random variables has a binomial distribution?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The number of heads in 15 flips of a fair coin."
+   },
+   {
+    "label": "B",
+    "text": "The number of flips needed until the first head appears."
+   },
+   {
+    "label": "C",
+    "text": "The sum of the faces in 10 rolls of a fair die."
+   },
+   {
+    "label": "D",
+    "text": "The number of hearts in a 5-card hand dealt without replacement from a standard deck."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "A fixed 15 independent trials, two outcomes, constant p = 0.5.",
+   "B": "The number of trials is not fixed in advance.",
+   "C": "A sum is not a count of successes; each roll has six outcomes.",
+   "D": "Trials are dependent and P(heart) changes after each card."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-052-v2",
+  "kind": "mcq",
+  "stem": "A quality inspector randomly selects 12 bulbs from a very large shipment, where each bulb is independently defective with probability 0.03. Let X be the number of defective bulbs. Which statement correctly justifies that X is binomial?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "X is binomial because the defect probability is small."
+   },
+   {
+    "label": "B",
+    "text": "X is binomial because it takes whole-number values."
+   },
+   {
+    "label": "C",
+    "text": "There are a fixed 12 trials, each with two outcomes, independent, with constant P(defective) = 0.03."
+   },
+   {
+    "label": "D",
+    "text": "X is binomial because the sample is large enough for X to be approximately normal."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Small p is not a condition; the four conditions are required.",
+   "B": "Many discrete variables take whole numbers without being binomial.",
+   "C": "These match all binomial conditions.",
+   "D": "12 bulbs with p = 0.03 is not large enough, and normality is not what makes X binomial."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-052-v3",
+  "kind": "mcq",
+  "stem": "A teacher randomly picks 6 students one at a time, without replacement, from a class of 20 students (10 girls and 10 boys). Let X be the number of girls selected. Why is X not binomial?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The probability of selecting a girl, 0.5, is too large for a binomial model."
+   },
+   {
+    "label": "B",
+    "text": "Picking without replacement from a small class makes trials dependent, so P(girl) shifts."
+   },
+   {
+    "label": "C",
+    "text": "The number of picks is not fixed in advance by the teacher."
+   },
+   {
+    "label": "D",
+    "text": "Each pick has more than two possible outcomes for the student chosen."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Binomials allow any p.",
+   "B": "After one girl is picked P(girl) is 9/19; after a boy 10/19.",
+   "C": "Exactly 6 students are picked.",
+   "D": "Each pick is a girl or a boy, two outcomes."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-058-v1",
+  "kind": "mcq",
+  "stem": "A 90% confidence interval for a population proportion, based on a random sample of 400 voters, has a margin of error of 0.04. If the pollsters instead sampled 1600 voters, with the same confidence level and about the same sample proportion, what would the margin of error be approximately?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.02"
+   },
+   {
+    "label": "B",
+    "text": "0.04"
+   },
+   {
+    "label": "C",
+    "text": "0.01"
+   },
+   {
+    "label": "D",
+    "text": "0.08"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Quadrupling n halves the standard error (SE is proportional to 1/√n), so MOE = 0.04/2 = 0.02.",
+   "B": "Sample size appears in SE = sqrt(p̂(1-p̂)/n), so MOE cannot stay at 0.04 when n changes from 400 to 1600.",
+   "C": "Dividing 0.04 by 4 treats MOE as proportional to 1/n instead of 1/√n.",
+   "D": "Doubling 0.04 goes the wrong direction; a larger sample reduces SE and MOE."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-058-v2",
+  "kind": "mcq",
+  "stem": "A poll of 500 randomly chosen adults gives a 90% confidence interval for a population proportion. If the pollster keeps the same data but reports a 99% confidence interval, what happens to the margin of error?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It gets larger, because the critical value z* increases from about 1.645 to about 2.576."
+   },
+   {
+    "label": "B",
+    "text": "It stays the same, because the standard error depends only on n and p̂."
+   },
+   {
+    "label": "C",
+    "text": "It gets smaller, because greater confidence means a more precise estimate."
+   },
+   {
+    "label": "D",
+    "text": "It gets larger, because 99% confidence needs a larger sample."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "MOE = z*·SE and SE is unchanged.",
+   "B": "z* changes with confidence level.",
+   "C": "Greater confidence widens the interval.",
+   "D": "The sample is unchanged; the increase comes from z*."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-058-v3",
+  "kind": "mcq",
+  "stem": "A researcher wants a 95% confidence interval for a population proportion with a margin of error no larger than 0.03, and has no prior estimate of the proportion. Using z* = 1.96 and the most conservative p̂ = 0.5, what is the minimum sample size?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "278"
+   },
+   {
+    "label": "B",
+    "text": "545"
+   },
+   {
+    "label": "C",
+    "text": "1068"
+   },
+   {
+    "label": "D",
+    "text": "1067"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "0.25/0.03² = 277.8 omits z*².",
+   "B": "1.96(0.25)/0.03² = 544.4 forgets to square z*.",
+   "C": "n = (1.96)²(0.5)(0.5)/(0.03)² ≈ 1067.1, which must be rounded up to 1068.",
+   "D": "Rounding down gives a margin of error slightly above 0.03."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-063-v1",
+  "kind": "mcq",
+  "stem": "A significance test of H0: p = 0.5 at α = 0.05 has a 0.32 probability of failing to reject H0 when the true proportion is 0.6. What is the power of the test against p = 0.6?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.95"
+   },
+   {
+    "label": "B",
+    "text": "0.32"
+   },
+   {
+    "label": "C",
+    "text": "0.68"
+   },
+   {
+    "label": "D",
+    "text": "0.05"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "0.95 = 1 - α is the probability of correctly not rejecting a true H0, not power against p = 0.6.",
+   "B": "0.32 is β, the Type II error probability; power is its complement, 1 - 0.32 = 0.68.",
+   "C": "Power = 1 - β = 1 - 0.32 = 0.68.",
+   "D": "0.05 is the significance level (Type I error rate), unrelated to detecting the true value of 0.6."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-063-v2",
+  "kind": "mcq",
+  "stem": "A researcher tests H0: p = 0.50 against Ha: p > 0.50 with n = 100 and α = 0.05. Which change would increase the power of the test against the true value p = 0.60?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Decreasing the sample size to 25."
+   },
+   {
+    "label": "B",
+    "text": "Increasing the sample size to 400."
+   },
+   {
+    "label": "C",
+    "text": "Testing against a true value closer to H0, such as 0.52."
+   },
+   {
+    "label": "D",
+    "text": "Decreasing α to 0.01."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Cutting n from 100 to 25 doubles the standard error, so the sampling distributions overlap more and power decreases.",
+   "B": "Quadrupling n from 100 to 400 halves the standard error of p-hat, so the sampling distributions under H0 and under p = 0.60 overlap less and rejection is more likely.",
+   "C": "A true value of 0.52 is only 0.02 above the null value 0.50, much harder to detect than a gap of 0.10, so power decreases.",
+   "D": "Lowering α from 0.05 to 0.01 moves the rejection cutoff farther from 0.50, making rejection harder even when p = 0.60, so power decreases while Type I risk falls."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-063-v3",
+  "kind": "mcq",
+  "stem": "A pharmaceutical company tests H0: the new drug has no effect on blood pressure, against Ha: the drug lowers blood pressure. Which statement correctly describes the power of this test?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The probability of failing to reject H0 when the drug does lower blood pressure."
+   },
+   {
+    "label": "B",
+    "text": "The probability that the drug lowers blood pressure given that H0 was rejected."
+   },
+   {
+    "label": "C",
+    "text": "The probability of rejecting H0 when the drug has no effect."
+   },
+   {
+    "label": "D",
+    "text": "The probability of rejecting H0 when the drug really does lower blood pressure by a specific amount."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Failing to reject H0 when the drug does lower blood pressure is a Type II error, whose probability is β = 1 - power.",
+   "B": "This reverses the conditional: power is P(reject H0 | alternative true), not P(alternative true | H0 rejected).",
+   "C": "Rejecting H0 when the drug has no effect (H0 true) is a Type I error, whose probability is α, not power.",
+   "D": "Power = P(reject H0 | the stated alternative is true) = 1 - β, here the chance the test detects a real blood-pressure reduction of the specified size."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-074-v1",
+  "kind": "mcq",
+  "stem": "A plant has three machines. Machine A makes 50% of items with a 2% defect rate; Machine B makes 30% with a 3% defect rate; Machine C makes 20% with a 5% defect rate. A randomly selected item is defective. What is the probability it came from Machine B?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 0.030"
+   },
+   {
+    "label": "B",
+    "text": "About 0.300"
+   },
+   {
+    "label": "C",
+    "text": "About 0.009"
+   },
+   {
+    "label": "D",
+    "text": "About 0.310"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This is P(defective | B), the reverse of the requested conditional probability P(B | defective).",
+   "B": "This is Machine B's 30% production share, ignoring the information that the item is defective; Machine B has a 3% rate vs 2% and 5% for others, so the probability changes.",
+   "C": "This is the joint probability P(B and defective) = 0.30 x 0.03; it must be divided by P(defective) = 0.029.",
+   "D": "P(B | defective) = (0.30)(0.03) / (0.50(0.02) + 0.30(0.03) + 0.20(0.05)) = 0.009/0.029 ≈ 0.310."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-074-v2",
+  "kind": "mcq",
+  "stem": "A school tracks whether students studied and whether they passed. Which expression correctly gives P(studied | passed)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "P(studied)P(passed)"
+   },
+   {
+    "label": "B",
+    "text": "P(passed | studied)P(passed)"
+   },
+   {
+    "label": "C",
+    "text": "P(studied) / P(passed | studied)"
+   },
+   {
+    "label": "D",
+    "text": "P(passed | studied)P(studied) / P(passed)"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This is P(studied and passed) only if the events are independent, and it is not a conditional probability.",
+   "B": "This multiplies by P(passed) rather than dividing by it; it is not P(studied | passed), and could even exceed 1.",
+   "C": "The denominator should be the marginal P(passed) and the numerator should be P(passed | studied)P(studied); this inverts the structure.",
+   "D": "P(studied and passed)/P(passed), with the numerator rewritten via the multiplication rule."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-074-v3",
+  "kind": "mcq",
+  "stem": "A school surveyed 400 commuters, grouped by mode, and recorded who arrived late this month: Bus 160 (24 late), Bike 100 (15 late), Car 140 (11 late). Among all students who arrived late, what is the probability a randomly chosen late arrival is a bike rider?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.15"
+   },
+   {
+    "label": "B",
+    "text": "0.0375"
+   },
+   {
+    "label": "C",
+    "text": "0.25"
+   },
+   {
+    "label": "D",
+    "text": "0.30"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "P(late | bike) = 15/100.",
+   "B": "P(bike and late) = 15/400.",
+   "C": "P(bike) = 100/400.",
+   "D": "P(bike | late) = 15/50 = 0.30."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-081-v1",
+  "kind": "mcq",
+  "stem": "A raffle ticket pays $10 with probability 0.5, $20 with probability 0.3, and $30 with probability 0.2. What is the expected payout of a ticket?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "$20"
+   },
+   {
+    "label": "B",
+    "text": "$60"
+   },
+   {
+    "label": "C",
+    "text": "$10"
+   },
+   {
+    "label": "D",
+    "text": "$17"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Unweighted mean of 10, 20, 30.",
+   "B": "Sum of the payouts.",
+   "C": "The most likely value.",
+   "D": "10(0.5)+20(0.3)+30(0.2)=5+6+6=17."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-081-v2",
+  "kind": "mcq",
+  "stem": "In a carnival game, a player wins $5 with probability 0.1, wins $1 with probability 0.3, and loses $2 with probability 0.6. What is the expected net winnings per play?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "$1.33"
+   },
+   {
+    "label": "B",
+    "text": "$0.40"
+   },
+   {
+    "label": "C",
+    "text": "-$0.40"
+   },
+   {
+    "label": "D",
+    "text": "$2.00"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Unweighted mean of 5, 1, -2.",
+   "B": "Sign error.",
+   "C": "5(0.1)+1(0.3)+(-2)(0.6)=0.5+0.3-1.2=-0.40.",
+   "D": "Treats loss as +2."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-081-v3",
+  "kind": "mcq",
+  "stem": "A random variable X takes values 0, 2, and 5 with P(X = 0) = 0.25 and P(X = 2) = 0.35. What is E(X)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5"
+   },
+   {
+    "label": "B",
+    "text": "2.33"
+   },
+   {
+    "label": "C",
+    "text": "0.7"
+   },
+   {
+    "label": "D",
+    "text": "2.7"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Most likely value.",
+   "B": "Unweighted mean.",
+   "C": "Omits the 5 term.",
+   "D": "P(X=5)=0.40; E=0+0.7+2.0=2.7."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-002-v1",
+  "kind": "mcq",
+  "stem": "Priya scored 83 on a chemistry exam whose scores have mean 74 and standard deviation 6. Marcus scored 68 on a history exam whose scores have mean 61 and standard deviation 4. Which student performed better relative to the other students who took the same exam?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Marcus, because his z-score of 1.75 is higher than Priya's z-score of 1.5."
+   },
+   {
+    "label": "B",
+    "text": "Priya, because her score is about 1.12 times her exam's mean, compared with about 1.11 times for Marcus."
+   },
+   {
+    "label": "C",
+    "text": "Priya, because she is 9 points above her mean while Marcus is only 7 points above his."
+   },
+   {
+    "label": "D",
+    "text": "Priya, because her raw score of 83 is higher than Marcus's raw score of 68."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Priya's z = (83 - 74)/6 = 1.5. Marcus's z = (68 - 61)/4 = 1.75. Standardizing puts the two exams on a common scale, and Marcus is farther above his own mean in standard-deviation units.",
+   "B": "Dividing a score by its mean is not standardizing: 83/74 is about 1.12 and 68/61 is about 1.11, but this ignores the SDs. Using z-scores, Marcus (1.75) beats Priya (1.5).",
+   "C": "Raw distances from the mean ignore the spread of each exam. Priya's 9 points is 9/6 = 1.5 SDs, while Marcus's 7 points is 7/4 = 1.75 SDs.",
+   "D": "The exams have different means and standard deviations, so raw scores cannot be compared directly; 83 corresponds to z = 1.5 while 68 corresponds to z = 1.75."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-002-v2",
+  "kind": "mcq",
+  "stem": "Lena earns $52,000 at a firm where salaries have mean $45,000 and standard deviation $4,000. Omar earns $61,000 at a different firm where salaries have mean $50,000 and standard deviation $7,000. Relative to the pay at their own firms, who is paid better?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Omar, because his salary is 22% above his firm's mean while Lena's is only 16% above hers."
+   },
+   {
+    "label": "B",
+    "text": "Omar, because he earns $11,000 above his firm's mean while Lena earns only $7,000 above hers."
+   },
+   {
+    "label": "C",
+    "text": "Omar, because $61,000 is a larger salary than $52,000."
+   },
+   {
+    "label": "D",
+    "text": "Lena, because her z-score of 1.75 exceeds Omar's z-score of about 1.57."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Percent above the mean (11,000/50,000 = 22% and 7,000/45,000 = about 16%) is not a standardized comparison because it ignores SDs. Using z-scores, Lena (1.75) is higher than Omar (about 1.57).",
+   "B": "Dollar distances from the mean ignore each firm's spread. $7,000 is 1.75 SDs of Lena's firm; $11,000 is only about 1.57 SDs of Omar's firm.",
+   "C": "The firms have different pay distributions, so raw salaries are not comparable. Standardizing gives z = 1.75 for Lena and about 1.57 for Omar.",
+   "D": "Lena's z = (52,000 - 45,000)/4,000 = 1.75. Omar's z = (61,000 - 50,000)/7,000 = about 1.57. Lena sits farther above her firm's mean in standard-deviation units."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-002-v3",
+  "kind": "mcq",
+  "stem": "Tom scored 35 on a placement test with mean 50 and standard deviation 10. Sue scored 58 on a different placement test with mean 50 and standard deviation 4. Whose result is farther from the typical score on her or his own test, measured in standard deviations?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Sue's, because her z-score of 2.0 is larger in absolute value than Tom's z-score of -1.5."
+   },
+   {
+    "label": "B",
+    "text": "Tom's, because 35 is lower than 58."
+   },
+   {
+    "label": "C",
+    "text": "Tom's, because he is 15 points from his mean while Sue is only 8 points from hers."
+   },
+   {
+    "label": "D",
+    "text": "Neither, because Tom's negative z-score of -1.5 shows he performed worse than Sue and the two cannot be compared."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Tom's z = (35 - 50)/10 = -1.5, so he is 1.5 SDs below the mean. Sue's z = (58 - 50)/4 = 2.0, so she is 2.0 SDs above the mean. Distance from the mean in SD units is the absolute z-score, and 2.0 > 1.5.",
+   "B": "Which raw score is lower does not determine distance from the mean in SD units; Tom is 1.5 SDs from his mean and Sue is 2.0 SDs from hers.",
+   "C": "Raw point distances ignore the spreads. Tom's 15 points is 1.5 SDs while Sue's 8 points is 2.0 SDs.",
+   "D": "A z-score of -1.5 and one of 2.0 can be compared by magnitude: the question asks for distance from the mean, which is |z|. |-1.5| = 1.5 is smaller than |2.0| = 2.0."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-009-v1",
+  "kind": "mcq",
+  "stem": "Waiting times at a walk-in clinic are strongly right-skewed with standard deviation 12 minutes. A researcher repeatedly takes simple random samples of patients and computes the sample mean waiting time. Compare the sampling distribution of the sample mean for n = 20 patients with that for n = 80 patients.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The shape is closer to normal for n = 80, and the standard error is cut to one-fourth, from about 2.7 to about 0.7 minutes."
+   },
+   {
+    "label": "B",
+    "text": "The shape is closer to normal for n = 80, but the standard error stays at 12 minutes for both sample sizes."
+   },
+   {
+    "label": "C",
+    "text": "The shape is still right-skewed like the population for both sizes, and the standard error is cut in half from about 2.7 to about 1.3 minutes."
+   },
+   {
+    "label": "D",
+    "text": "The shape is closer to normal for n = 80, and the standard error is cut in half, from about 2.7 to about 1.3 minutes."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The shape part is right, but SE shrinks with the square root of n, not n: 12/sqrt(80) is about 1.34, not 2.68/4 = 0.67.",
+   "B": "The standard error of x-bar is sigma/sqrt(n), not sigma; it is about 2.68 minutes for n = 20 and 1.34 minutes for n = 80.",
+   "C": "The SE values are right but the shape claim is not: as n grows, the sampling distribution of x-bar becomes more nearly normal even though the population is skewed.",
+   "D": "By the Central Limit Theorem the sampling distribution of x-bar is closer to normal for the larger sample. SE = 12/sqrt(20) is about 2.68 and 12/sqrt(80) is about 1.34, so quadrupling n halves the SE."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-009-v2",
+  "kind": "mcq",
+  "stem": "A hospital studies lengths of stay, which are right-skewed with standard deviation 6 days. The mean stay in a random sample of 36 patients is compared with the mean stay in a random sample of 144 patients. How do the standard errors of the two sample means compare?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The two samples have the same standard error of 6 days, since both come from the same population."
+   },
+   {
+    "label": "B",
+    "text": "The sample of 144 has one-fourth the standard error of the sample of 36: 0.25 days versus 1.0 days."
+   },
+   {
+    "label": "C",
+    "text": "The sample of 144 has twice the standard error of the sample of 36, because more patients add more variation."
+   },
+   {
+    "label": "D",
+    "text": "The sample of 144 has half the standard error of the sample of 36: 0.5 days versus 1.0 days."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The SE of x-bar is sigma/sqrt(n) and depends on n: it is 1.0 day for n = 36 and 0.5 day for n = 144, not the population SD of 6.",
+   "B": "SE falls with the square root of the sample size, so quadrupling n halves the SE. 6/sqrt(144) = 0.5, not 0.25.",
+   "C": "More observations do not add variability to the mean; averaging more values makes x-bar more stable. SE is 0.5 day at n = 144 and 1.0 day at n = 36.",
+   "D": "SE = 6/sqrt(36) = 1.0 day and SE = 6/sqrt(144) = 0.5 day. Four times as many patients cuts the standard error by a factor of sqrt(4) = 2."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-009-v3",
+  "kind": "mcq",
+  "stem": "Daily rainfall in a region is strongly right-skewed, with mean 3 mm and standard deviation 4 mm. Random samples of 64 days are taken and the sample mean rainfall is computed for each. Which description of the sampling distribution of the sample mean is best?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Approximately normal, with mean 3 mm and standard error 0.5 mm."
+   },
+   {
+    "label": "B",
+    "text": "Right-skewed like the population, with mean 3 mm and standard error 0.5 mm."
+   },
+   {
+    "label": "C",
+    "text": "Approximately normal, with mean 0.375 mm and standard error 0.5 mm."
+   },
+   {
+    "label": "D",
+    "text": "Approximately normal, with mean 3 mm and standard error 4 mm."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The mean of x-bar equals the population mean, 3 mm. SE = 4/sqrt(64) = 0.5 mm. With n = 64 the Central Limit Theorem makes the shape approximately normal.",
+   "B": "The center and spread are right, but with n = 64 the CLT makes the sampling distribution of x-bar approximately normal rather than skewed like the population.",
+   "C": "The mean of the sampling distribution is the population mean, 3 mm, not 3/8. Only the spread is divided by sqrt(n) (4/8 = 0.5).",
+   "D": "The shape and center are right, but SE = 4/sqrt(64) = 0.5 mm; 4 mm is the spread of individual days, not of sample means."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-020-v1",
+  "kind": "mcq",
+  "stem": "The heights of seedlings in a greenhouse have mean 35 cm and standard deviation 4 cm. What is the z-score of a seedling that is 29 cm tall?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1.5"
+   },
+   {
+    "label": "B",
+    "text": "-6"
+   },
+   {
+    "label": "C",
+    "text": "-1.5"
+   },
+   {
+    "label": "D",
+    "text": "-0.17"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The magnitude is right but the sign is wrong: 29 is below the mean of 35, so the z-score must be negative.",
+   "B": "This is only the raw difference 29 - 35; it was not divided by the standard deviation of 4.",
+   "C": "z = (29 - 35)/4 = -6/4 = -1.5; the seedling is 1.5 SDs below the mean.",
+   "D": "This divides the difference by the mean (-6/35, about -0.17) instead of by the standard deviation 4."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-020-v2",
+  "kind": "mcq",
+  "stem": "Package delivery times for a courier have mean 64 minutes and standard deviation 5 minutes. A particular delivery took 72 minutes. What is its z-score?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1.6"
+   },
+   {
+    "label": "B",
+    "text": "1.125"
+   },
+   {
+    "label": "C",
+    "text": "8"
+   },
+   {
+    "label": "D",
+    "text": "14.4"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "z = (72 - 64)/5 = 8/5 = 1.6.",
+   "B": "This is 72/64, a ratio of the value to the mean, rather than (72 - 64)/5.",
+   "C": "This is the raw difference 72 - 64; it was never divided by the standard deviation 5.",
+   "D": "This is 72/5: the value was divided by the SD without first subtracting the mean 64."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-020-v3",
+  "kind": "mcq",
+  "stem": "The time for a school's students to finish a puzzle has mean 12.5 minutes and standard deviation 2.5 minutes. A student finishes in 10 minutes. Find the z-score for this student.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "-2.5"
+   },
+   {
+    "label": "B",
+    "text": "-1.0"
+   },
+   {
+    "label": "C",
+    "text": "1.0"
+   },
+   {
+    "label": "D",
+    "text": "4.0"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This is only the difference 10 - 12.5; it was not divided by the SD of 2.5.",
+   "B": "z = (10 - 12.5)/2.5 = -2.5/2.5 = -1.0.",
+   "C": "The size is correct but the student finished faster than the mean, so the z-score must be negative.",
+   "D": "This is 10/2.5: the value was divided by the SD without subtracting the mean first."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-024-v1",
+  "kind": "mcq",
+  "stem": "Six commute times (in minutes), listed in order, are 3, 5, 7, 8, 12, 15. What is the median commute time?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7.5"
+   },
+   {
+    "label": "B",
+    "text": "15"
+   },
+   {
+    "label": "C",
+    "text": "7"
+   },
+   {
+    "label": "D",
+    "text": "8.3"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "With n = 6 the median is the mean of the 3rd and 4th values: (7 + 8)/2 = 7.5.",
+   "B": "This adds the two middle values (7 + 8 = 15) without dividing by 2.",
+   "C": "This takes only the 3rd value; with an even number of values, the median must average the two middle ones.",
+   "D": "This is the mean of all six values (50/6, about 8.3), not the median."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-024-v2",
+  "kind": "mcq",
+  "stem": "A researcher has 30 test scores arranged from smallest to largest. Which description locates the median of these scores?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The 15th ordered score alone."
+   },
+   {
+    "label": "B",
+    "text": "The mean of the 15th and 16th ordered scores."
+   },
+   {
+    "label": "C",
+    "text": "The mean of the 1st and 30th ordered scores."
+   },
+   {
+    "label": "D",
+    "text": "The 16th ordered score alone, since 30/2 + 1 = 16."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Using only the 15th value would be right only if the count were odd; with 30 values the median averages the 15th and 16th.",
+   "B": "With 30 values, the two middle positions are 15 and 16, and the median is their average.",
+   "C": "This is the midrange (average of min and max), which is not the median.",
+   "D": "The position (n + 1)/2 = 15.5 falls halfway between the 15th and 16th values, so both must be averaged."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-024-v3",
+  "kind": "mcq",
+  "stem": "The monthly rainfall totals (mm) for a city, sorted from least to greatest, are 4, 6, 6, 9, 10, 12, 13, 15, 18, 21, 25, 40. What is the median?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "6.5"
+   },
+   {
+    "label": "B",
+    "text": "12"
+   },
+   {
+    "label": "C",
+    "text": "12.5"
+   },
+   {
+    "label": "D",
+    "text": "14.9"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This is the average of the positions 6 and 7, not of the values stored at those positions.",
+   "B": "This is only the 6th value; with 12 values the median averages the 6th and 7th.",
+   "C": "With n = 12 the middle values are the 6th (12) and 7th (13), so the median is (12 + 13)/2 = 12.5.",
+   "D": "This is the mean of all 12 values (179/12, about 14.9), pulled up by the value 40; it is not the median."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-037-v1",
+  "kind": "mcq",
+  "stem": "A city council wants a simple random sample of 40 residents from a registry listing 2,000 residents. Which procedure best accomplishes this?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Interview the first 40 people who walk into city hall on Monday morning."
+   },
+   {
+    "label": "B",
+    "text": "Take the first 40 residents on the registry, which is sorted by last name."
+   },
+   {
+    "label": "C",
+    "text": "Number the residents 1 to 2,000 and use a random number generator to draw 40 different numbers."
+   },
+   {
+    "label": "D",
+    "text": "Mail a survey to all residents and use the first 40 that are returned."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This is a convenience sample: people at city hall on a Monday are not randomly chosen and are unlikely to represent all residents.",
+   "B": "The first 40 names alphabetically are a fixed group, not randomly chosen; most residents have no chance of selection.",
+   "C": "Numbering every resident and drawing distinct random numbers gives each resident, and each group of 40, the same chance of selection, which defines a simple random sample.",
+   "D": "Those who respond first are self-selected, so this is a voluntary response sample that is prone to bias."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-037-v2",
+  "kind": "mcq",
+  "stem": "A gym has 250 members and wants feedback from a simple random sample of 25 of them. Which plan is best?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Post a sign inviting members to take a survey and use the first 25 who respond."
+   },
+   {
+    "label": "B",
+    "text": "Ask the 25 members who are nearest the front desk at noon on Tuesday."
+   },
+   {
+    "label": "C",
+    "text": "Survey the 25 members who visit the gym most often."
+   },
+   {
+    "label": "D",
+    "text": "Give each member an ID from 1 to 250 and have software pick 25 different IDs at random."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Members who volunteer are self-selected, which creates voluntary response bias rather than a random sample.",
+   "B": "Whoever is convenient at one time and place is a convenience sample; most members have no chance of being chosen.",
+   "C": "Frequent visitors differ systematically from other members, so this non-random choice builds in bias.",
+   "D": "Random selection from a complete numbered list gives every member and every group of 25 the same chance of being chosen, which is the definition of an SRS."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-037-v3",
+  "kind": "mcq",
+  "stem": "A principal wants a simple random sample of 50 seniors from the 400 students in the senior class. Which method should she use?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Select the 50 seniors who have the highest grade point averages."
+   },
+   {
+    "label": "B",
+    "text": "Number the seniors 1 to 400 and use a random number generator for 50 distinct numbers."
+   },
+   {
+    "label": "C",
+    "text": "Announce a pizza party and take the first 50 seniors who sign up for it."
+   },
+   {
+    "label": "D",
+    "text": "Ask each of the 10 homeroom teachers to hand-pick the 5 students they prefer."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Choosing by GPA is a deliberate, non-random rule that excludes lower-GPA students and biases the sample.",
+   "B": "Each senior is equally likely to be chosen, and every set of 50 seniors is equally likely, so this is a simple random sample.",
+   "C": "Students who sign up are self-selected, so this voluntary response sample is not random.",
+   "D": "Teachers choose by their own judgment, so students are not selected by chance and bias is likely."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-041-v1",
+  "kind": "mcq",
+  "stem": "Public health data show that in months when ice cream sales are higher, more drownings occur. Which of the following is a plausible confounding variable for this association?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The year in which the data were recorded, with no link to either quantity"
+   },
+   {
+    "label": "B",
+    "text": "The correlation between the monthly ice cream sales and drownings"
+   },
+   {
+    "label": "C",
+    "text": "Hot weather, which draws more people to swim and also increases ice cream purchases"
+   },
+   {
+    "label": "D",
+    "text": "The number of drownings reported in each month"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "A variable with no relationship to swimming or to ice cream sales cannot create the association, so it cannot be a confounder.",
+   "B": "The correlation is a summary of the association, not a separate variable acting on both measurements.",
+   "C": "A confounder is linked to both variables. Warm weather leads to more swimming (more drownings) and to more ice cream sales, which can produce the association without either causing the other.",
+   "D": "This is the response variable itself, not a third variable that influences both quantities."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-041-v2",
+  "kind": "mcq",
+  "stem": "A school district finds that students who take piano lessons score higher on math tests than students who do not. Which is a plausible confounding variable?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The p-value from comparing the math scores of the two groups"
+   },
+   {
+    "label": "B",
+    "text": "Family income, which could affect both lesson enrollment and math scores"
+   },
+   {
+    "label": "C",
+    "text": "The total number of students included in the district study"
+   },
+   {
+    "label": "D",
+    "text": "The average math score earned by the group of students taking lessons"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "The p-value summarizes evidence from the data; it does not affect who takes lessons or how well students do.",
+   "B": "A third variable that influences both who takes lessons and how students do in math can create the observed association with no causal effect of lessons.",
+   "C": "Sample size affects precision of estimates, but it does not influence both lesson-taking and math scores for individual students.",
+   "D": "This is a summary of the response variable for one group, not a separate variable influencing both lessons and scores."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-041-v3",
+  "kind": "mcq",
+  "stem": "An observational study finds that adults who wear fitness trackers have lower body mass index (BMI), on average, than adults who do not. Which is a plausible confounding variable?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Health consciousness, causing people to wear trackers and keep a lower BMI"
+   },
+   {
+    "label": "B",
+    "text": "The test statistic used to compare BMI between the two groups"
+   },
+   {
+    "label": "C",
+    "text": "The BMI values that were measured for the adults in the study"
+   },
+   {
+    "label": "D",
+    "text": "The number of adults who were included in the study sample group"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "A trait that affects both tracker use and BMI could explain the association even if trackers have no effect on BMI.",
+   "B": "A test statistic summarizes the data after collection and cannot influence who wears a tracker or their BMI.",
+   "C": "BMI is the response variable being compared, not a third variable influencing both groups' tracker use and outcome.",
+   "D": "Sample size influences precision, but it does not drive both tracker use and BMI."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-045-v1",
+  "kind": "mcq",
+  "stem": "A city health department inspects every one of the 312 restaurants in the city. Which term best describes the way these data were collected?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A census, because every restaurant in the population was included"
+   },
+   {
+    "label": "B",
+    "text": "A cluster sample, because restaurants are grouped by neighborhood"
+   },
+   {
+    "label": "C",
+    "text": "A systematic sample, because inspectors go through restaurants in street-address order"
+   },
+   {
+    "label": "D",
+    "text": "A convenience sample, because easy-to-reach restaurants were inspected"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "A census collects data from every member of the population of interest; here all 312 restaurants were inspected.",
+   "B": "A cluster sample includes only some selected clusters; here every restaurant was inspected, so nothing was sampled.",
+   "C": "A systematic sample takes every kth unit; here all units are taken, so it is a census, not a sample.",
+   "D": "A convenience sample takes only readily available units; here all restaurants were inspected, not only the easy ones."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-045-v2",
+  "kind": "mcq",
+  "stem": "A company with 1,200 employees emails its satisfaction survey to every employee. What is the best name for this data collection method?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A census of the company's employees"
+   },
+   {
+    "label": "B",
+    "text": "A stratified random sample by department"
+   },
+   {
+    "label": "C",
+    "text": "A voluntary response sample"
+   },
+   {
+    "label": "D",
+    "text": "A simple random sample of 1,200 employees"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Every employee in the population of interest was asked to participate, so it is a census, even though some may not respond.",
+   "B": "Stratified sampling selects some units from each stratum; here all employees are contacted.",
+   "C": "In a voluntary response sample, people choose whether to be included by responding to an open invitation; here the company contacts every employee, so there is no sampling.",
+   "D": "The company has only 1,200 employees, so choosing 1,200 of them is not a random draw but everyone."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-045-v3",
+  "kind": "mcq",
+  "stem": "A zoo veterinarian weighs all 15 giraffes at the zoo to describe the herd. What is this called?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A random sample of giraffes"
+   },
+   {
+    "label": "B",
+    "text": "A census of the herd"
+   },
+   {
+    "label": "C",
+    "text": "An experiment"
+   },
+   {
+    "label": "D",
+    "text": "A convenience sample"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "A random sample uses chance to pick only some members of the population; here all 15 were measured.",
+   "B": "All 15 giraffes in the population of interest were measured, so no sampling was involved.",
+   "C": "An experiment imposes treatments on subjects; simply weighing animals imposes none, so it is an observational census.",
+   "D": "A convenience sample would include only easy-to-reach animals; here every giraffe was weighed."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-049-v1",
+  "kind": "mcq",
+  "stem": "At a school carnival, a prize wheel pays $20 with probability 0.15, $5 with probability 0.30, and $0 otherwise. What are a player's expected winnings per spin?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "$9.00"
+   },
+   {
+    "label": "B",
+    "text": "$8.33"
+   },
+   {
+    "label": "C",
+    "text": "$3.00"
+   },
+   {
+    "label": "D",
+    "text": "$4.50"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This multiplies the largest prize by the total probability of any win: 20 x 0.45 = 9, overstating the value of the $5 prize.",
+   "B": "This is the unweighted mean of the three payouts, (20 + 5 + 0)/3, which ignores their probabilities.",
+   "C": "This counts only the $20 prize (20 x 0.15) and leaves out the $5 prize's contribution of $1.50.",
+   "D": "E(X) = 20(0.15) + 5(0.30) + 0(0.55) = 3.00 + 1.50 = 4.50."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-049-v2",
+  "kind": "mcq",
+  "stem": "The number of pets X owned by a randomly chosen student has this distribution: P(X = 0) = 0.1, P(X = 1) = 0.4, P(X = 2) = 0.3, P(X = 3) = 0.2. What is the expected value of X?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1.0"
+   },
+   {
+    "label": "B",
+    "text": "1.5"
+   },
+   {
+    "label": "C",
+    "text": "1.6"
+   },
+   {
+    "label": "D",
+    "text": "0.25"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This is the most likely value (mode), not the probability-weighted mean of the distribution.",
+   "B": "This is the unweighted mean of the values 0, 1, 2, 3, which ignores the probabilities.",
+   "C": "E(X) = 0(0.1) + 1(0.4) + 2(0.3) + 3(0.2) = 0 + 0.4 + 0.6 + 0.6 = 1.6.",
+   "D": "This is the average of the four probabilities (1/4), not a probability-weighted average of the values."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-049-v3",
+  "kind": "mcq",
+  "stem": "An insurance company sells a policy for $60. With probability 0.02 it pays a claim of $2,000, and otherwise it pays nothing. What is the company's expected profit per policy, after the claim cost but including the $60 premium?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "$20"
+   },
+   {
+    "label": "B",
+    "text": "$40"
+   },
+   {
+    "label": "C",
+    "text": "-$20"
+   },
+   {
+    "label": "D",
+    "text": "$60"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Expected claim cost = 2,000(0.02) = $40, so expected profit = 60 - 40 = $20.",
+   "B": "This is the expected claim payout only; the $60 premium was not subtracted from it.",
+   "C": "The sign is reversed: expected profit is premium minus expected claim cost, 60 - 40 = +20, not 40 - 60.",
+   "D": "This is only the premium; the expected payout of $40 per policy was not subtracted."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-059-v1",
+  "kind": "mcq",
+  "stem": "A population has standard deviation 14. Researchers take one random sample of 49 observations and another of 196 observations and compute each sample mean. Which sample mean has the smaller standard error, and what are the two standard errors?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The sample of 196, with standard errors of 2.0 for n = 49 and 1.0 for n = 196"
+   },
+   {
+    "label": "B",
+    "text": "The sample of 49, with standard errors of 1.0 for n = 49 and 2.0 for n = 196"
+   },
+   {
+    "label": "C",
+    "text": "The sample of 196, with standard errors of 0.29 for n = 49 and 0.07 for n = 196"
+   },
+   {
+    "label": "D",
+    "text": "Neither; both have a standard error of 14 because they come from the same population"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "SE = 14/sqrt(49) = 2.0 and SE = 14/sqrt(196) = 1.0, so the larger sample has the smaller standard error.",
+   "B": "This reverses the effect of sample size: SE is 14/7 = 2.0 for n = 49 and 14/14 = 1.0 for n = 196.",
+   "C": "This divides 14 by n instead of the square root of n (14/49, 14/196). The correct SEs are 2.0 and 1.0.",
+   "D": "The SE of the sample mean is sigma/sqrt(n), so it depends on n; it equals 14 only for n = 1."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-059-v2",
+  "kind": "mcq",
+  "stem": "A random sample of n = 30 is used to estimate a population mean. By what sample size would the standard error of the sample mean be exactly half as large?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "n = 15"
+   },
+   {
+    "label": "B",
+    "text": "n = 120"
+   },
+   {
+    "label": "C",
+    "text": "n = 60"
+   },
+   {
+    "label": "D",
+    "text": "n = 90"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Cutting n in half makes SE larger, by a factor of sqrt(2), not smaller.",
+   "B": "SE is proportional to 1/sqrt(n). Halving SE needs sqrt(n) to double, so n must quadruple: 4 x 30 = 120.",
+   "C": "Doubling n shrinks SE only by a factor of 1/sqrt(2), to about 71% of the original, not to half.",
+   "D": "Tripling n shrinks SE by a factor of 1/sqrt(3), to about 58% of the original, not to half."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-059-v3",
+  "kind": "mcq",
+  "stem": "Commute times in a district have standard deviation 10 minutes. A simple random sample of 25 students is taken. What is the standard error of the sample mean commute time?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "50 minutes"
+   },
+   {
+    "label": "B",
+    "text": "0.4 minutes"
+   },
+   {
+    "label": "C",
+    "text": "10 minutes"
+   },
+   {
+    "label": "D",
+    "text": "2.0 minutes"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This multiplies sigma by sqrt(n) (10 x 5) instead of dividing; SE should be smaller than sigma, not larger.",
+   "B": "This divides sigma by n (10/25) rather than by sqrt(n) = 5.",
+   "C": "This is the standard deviation of individual commute times, not the standard error of the mean of 25 of them.",
+   "D": "SE = sigma/sqrt(n) = 10/sqrt(25) = 10/5 = 2.0."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-066-v1",
+  "kind": "mcq",
+  "stem": "A test of whether a tutoring program raises mean scores gives a p-value of 0.032. The significance level chosen before the study was alpha = 0.01. What is the appropriate decision?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Fail to reject H0, because 0.032 is greater than 0.01"
+   },
+   {
+    "label": "B",
+    "text": "Fail to reject H0 and conclude the tutoring program has no effect"
+   },
+   {
+    "label": "C",
+    "text": "Reject H0, because the p-value is greater than alpha, showing a significant result"
+   },
+   {
+    "label": "D",
+    "text": "Reject H0, because 0.032 is below the conventional 0.05 cutoff"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The p-value exceeds the chosen alpha, so the data do not provide convincing evidence against the null hypothesis at the 0.01 level.",
+   "B": "Failing to reject H0 does not prove the program has no effect; it only means the evidence was not strong enough at alpha = 0.01.",
+   "C": "The inequality is reversed: significance requires p-value < alpha, and here 0.032 > 0.01.",
+   "D": "The decision must use the alpha chosen for the study, 0.01. Since 0.032 > 0.01, the result is not significant."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-066-v2",
+  "kind": "mcq",
+  "stem": "A company tests H0: mu = 10 hours against Ha: mu is not 10 hours for the mean battery life of a new phone. The test gives a p-value of 0.003, and alpha = 0.05. Which conclusion is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Reject H0; there is convincing evidence the mean battery life differs from 10 hours."
+   },
+   {
+    "label": "B",
+    "text": "Reject H0, because there is only a 0.3% chance that H0 is true"
+   },
+   {
+    "label": "C",
+    "text": "Fail to reject H0, because the p-value of 0.003 is smaller than alpha"
+   },
+   {
+    "label": "D",
+    "text": "Reject H0, which proves the true mean is not exactly 10 hours"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Since 0.003 < 0.05, the data are unlikely under H0, so we reject it and conclude the mean differs from 10 hours.",
+   "B": "The p-value is the probability of results this extreme if H0 is true, not the probability that H0 is true.",
+   "C": "The rule is reversed: a p-value smaller than alpha leads to rejecting H0, not failing to reject.",
+   "D": "Rejecting H0 is statistical evidence, not proof; a significance test cannot establish a conclusion with certainty."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-066-v3",
+  "kind": "mcq",
+  "stem": "A one-sample test of a population mean results in a p-value of 0.07. The researcher specified alpha = 0.10 before collecting data. What decision should be made?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Fail to reject H0, because 0.07 is greater than the usual 0.05 cutoff"
+   },
+   {
+    "label": "B",
+    "text": "Reject H0 and conclude the probability H0 is true is 7%"
+   },
+   {
+    "label": "C",
+    "text": "Make no decision until the test statistic is converted to a z-score"
+   },
+   {
+    "label": "D",
+    "text": "Reject H0, because 0.07 is less than 0.10"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The cutoff is the alpha stated for this study, 0.10, not 0.05; since 0.07 < 0.10 the result is significant.",
+   "B": "The p-value is the probability of data this extreme assuming H0 is true, not the probability that H0 is true.",
+   "C": "The p-value can be compared directly with alpha; no further conversion is needed to decide.",
+   "D": "The p-value is below the stated significance level of 0.10, so there is statistically significant evidence against H0."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-076-v1",
+  "kind": "mcq",
+  "stem": "In a chi-square test of independence, one cell of the table has row total 60, column total 90, and the table total is 300. What is the expected count for that cell?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "18"
+   },
+   {
+    "label": "B",
+    "text": "5,400"
+   },
+   {
+    "label": "C",
+    "text": "150"
+   },
+   {
+    "label": "D",
+    "text": "36"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Expected count = (row total x column total)/table total = (60 x 90)/300 = 5400/300 = 18.",
+   "B": "This multiplies the row and column totals (60 x 90) but never divides by the table total of 300.",
+   "C": "This adds the row and column totals (60 + 90) instead of multiplying them and dividing by the table total.",
+   "D": "This divides by 150, half of the table total, instead of 300: (60 x 90)/150 = 36."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-076-v2",
+  "kind": "mcq",
+  "stem": "A random sample of students was classified by class year and favorite study method:\nStudy method: Flash cards | Notes | Videos | Row total\nFreshman: 30 | 45 | 25 | 100\nSophomore: 40 | 55 | 45 | 140\nColumn total: 70 | 100 | 70 | table total 240\nIf class year and study method are independent, what is the expected count for freshmen who prefer videos?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 29.2"
+   },
+   {
+    "label": "B",
+    "text": "35"
+   },
+   {
+    "label": "C",
+    "text": "About 33.3"
+   },
+   {
+    "label": "D",
+    "text": "25"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Expected count = (row total x column total)/table total = (100 x 70)/240 = about 29.2.",
+   "B": "This is the Videos column total divided by 2 rows (70/2), which ignores that the rows have different totals.",
+   "C": "This is the freshman row total divided by 3 columns (100/3), which assumes equal splits across methods rather than using column totals.",
+   "D": "This is the observed count for freshmen who prefer videos, not the expected count."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-076-v3",
+  "kind": "mcq",
+  "stem": "A chi-square test of independence for 500 survey respondents focuses on one cell. The observed count in that cell is 48, its row total is 200, its column total is 150, and the table total is 500. What is the expected count for this cell?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "350"
+   },
+   {
+    "label": "B",
+    "text": "0.12"
+   },
+   {
+    "label": "C",
+    "text": "48"
+   },
+   {
+    "label": "D",
+    "text": "60"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This adds the row and column totals (200 + 150), which is not how expected counts are computed.",
+   "B": "This is (200/500) x (150/500), the expected proportion; it must be multiplied by 500 to get an expected count of 60.",
+   "C": "This is the observed count in the cell, not the expected count under independence.",
+   "D": "Expected count = (200 x 150)/500 = 30,000/500 = 60."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-092-v1",
+  "kind": "mcq",
+  "stem": "In a clinical trial, researchers test H0: the new drug has no effect on blood pressure. They conclude the drug lowers blood pressure, but in fact the drug has no effect. Which type of error did they make?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Type II error, because the drug was wrongly judged effective"
+   },
+   {
+    "label": "B",
+    "text": "Type I error, because a true null hypothesis was rejected"
+   },
+   {
+    "label": "C",
+    "text": "Sampling bias, because the researchers used a sample"
+   },
+   {
+    "label": "D",
+    "text": "No error, because the conclusion followed from the sample results"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Type II error is failing to reject a false null; here H0 was rejected, so it cannot be Type II.",
+   "B": "Concluding the drug works when it truly has no effect means H0 (no effect) was true but rejected, which is a Type I error.",
+   "C": "Taking a sample is not itself an error; the incorrect decision about H0 is called a Type I error.",
+   "D": "A conclusion that follows from the data can still be wrong about the population; here H0 was true and was rejected, which is an error."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-092-v2",
+  "kind": "mcq",
+  "stem": "A quality inspector tests H0: mu = 500 g for the mean fill of cereal boxes. The machine has actually drifted so that the true mean is not 500 g, but the inspector fails to reject H0. What type of error is this?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Type I error, because the machine was not repaired"
+   },
+   {
+    "label": "B",
+    "text": "Type I error, because the inspector reached the wrong conclusion"
+   },
+   {
+    "label": "C",
+    "text": "Type II error, because a false null hypothesis was not rejected"
+   },
+   {
+    "label": "D",
+    "text": "No error, because failing to reject H0 is the safe decision"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Whether the machine is repaired is not what defines Type I; that error requires rejecting a true H0.",
+   "B": "Type I error is rejecting a true null; here H0 was false and was not rejected.",
+   "C": "H0 (mean = 500 g) is false, and the inspector failed to reject it; that is a Type II error.",
+   "D": "Failing to reject a false null leaves a real change undetected, which is an error even though no rejection occurred."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-092-v3",
+  "kind": "mcq",
+  "stem": "A researcher tests H0 at significance level alpha = 0.05 and obtains a p-value of 0.03, so H0 is rejected. If H0 is actually true, what is the probability that this testing procedure produces a Type I error?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.05, which is the significance level alpha"
+   },
+   {
+    "label": "B",
+    "text": "0.97, which is 1 - the p-value"
+   },
+   {
+    "label": "C",
+    "text": "0.03, which is the observed p-value"
+   },
+   {
+    "label": "D",
+    "text": "0.95, which is 1 - alpha"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The Type I error rate of a test is alpha; when H0 is true the procedure rejects with probability alpha = 0.05.",
+   "B": "1 - 0.03 is not a probability associated with a Type I error; the Type I error rate is alpha = 0.05.",
+   "C": "The p-value describes this particular sample result; the Type I error rate of the procedure is set by alpha = 0.05.",
+   "D": "1 - alpha = 0.95 is the probability of not rejecting a true H0, not of rejecting it."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-005-CAL-v1",
+  "kind": "mcq",
+  "stem": "A university health center reports that students who sleep at least 8 hours per night have a higher mean GPA than students who sleep less. The report is based on an email survey in which 320 students chose to respond and reported their own sleep and GPA. Which conclusion is appropriately supported by this study design?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Since sleep was not randomly assigned, the survey shows no relationship between sleep and GPA among respondents."
+   },
+   {
+    "label": "B",
+    "text": "Sleeping at least 8 hours per night causes students to earn higher GPAs."
+   },
+   {
+    "label": "C",
+    "text": "Because 320 respondents is a large sample, the data show that more sleep causes a higher GPA."
+   },
+   {
+    "label": "D",
+    "text": "Sleep duration and GPA are associated among these respondents, but a cause-and-effect conclusion is not supported because sleep was not randomly assigned."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Lack of random assignment limits causal claims, not the description of association; the respondents' mean GPAs did differ between the two sleep groups, so an association exists in the sample.",
+   "B": "This draws a causal conclusion from an observational survey; without random assignment, confounding variables (for example, motivation or course load) could explain the GPA difference.",
+   "C": "A large sample reduces sampling variability but does not remove confounding or the self-selection of respondents; only random assignment supports causal claims.",
+   "D": "The study is observational with self-selected respondents and no random assignment of sleep habits, so it can describe an association but cannot rule out confounders such as study habits or workload."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-005-CAL-v2",
+  "kind": "mcq",
+  "stem": "A clinic recruits 90 volunteers with mild insomnia and uses a random number generator to assign 45 to drink a new herbal tea nightly and 45 to drink a placebo tea. After four weeks, the tea group fell asleep an average of 12 minutes faster, and a significance test shows this difference is very unlikely to be due to chance alone. Which conclusion is best supported?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The tea very likely caused faster sleep onset among these volunteers, because treatments were randomly assigned and the difference is unlikely to be due to chance."
+   },
+   {
+    "label": "B",
+    "text": "The tea would cause faster sleep onset for all adults with insomnia, because random assignment makes the volunteers representative of them."
+   },
+   {
+    "label": "C",
+    "text": "Because the participants were volunteers, no cause-and-effect conclusion is possible for anyone in the study."
+   },
+   {
+    "label": "D",
+    "text": "Because only 90 people took part, no cause-and-effect conclusion can be drawn from this study."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Random assignment balances other variables across the two groups, and the significant difference rules out chance as the explanation, so a cause-and-effect conclusion is supported for the volunteers in the study.",
+   "B": "Random assignment supports causation within the study, not generalization; representativeness requires random selection from the target population, and these were volunteers.",
+   "C": "Volunteering limits generalization to a larger population, but causal conclusions within the study depend on random assignment of treatments, which was used here.",
+   "D": "A smaller sample does not prevent causal inference; the significant result already accounts for sample size, and random assignment is what supports causation."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-005-CAL-v3",
+  "kind": "mcq",
+  "stem": "Researchers select a simple random sample of 800 adults from a county and record how many cups of coffee each drinks per day and whether each has been diagnosed with heart disease. Adults who drink 3 or more cups a day have a lower rate of diagnosed heart disease than those who drink fewer. Which conclusion is appropriate?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The association cannot be generalized to the county's adults, because coffee drinking was not randomly assigned."
+   },
+   {
+    "label": "B",
+    "text": "Drinking 3 or more cups of coffee a day lowers the risk of heart disease, because the sample was randomly selected."
+   },
+   {
+    "label": "C",
+    "text": "Random selection ensures that age, diet, and other variables are balanced between heavy and light coffee drinkers, so differences are due to coffee."
+   },
+   {
+    "label": "D",
+    "text": "There is an association in the county's adults that can be generalized because of the random sample, but causation cannot be concluded because coffee drinking was not assigned."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Generalization depends on how subjects were selected, and these adults were randomly selected, so the association can be extended to the county's adults even though causation cannot be claimed.",
+   "B": "Random selection of subjects supports generalizing the association to the county; it does not establish cause and effect, which requires random assignment of the explanatory variable.",
+   "C": "Balancing lurking variables is the job of random assignment; in a random sample, heavy and light drinkers can still differ systematically in age, diet, and more.",
+   "D": "Random selection supports generalizing to the county, but with no random assignment of coffee consumption, confounders such as age or diet cannot be ruled out, so only association can be claimed."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-010-CAL-v1",
+  "kind": "mcq",
+  "stem": "A hospital analyst takes a random sample of n = 60 patients from a very large patient population in which the true readmission rate is p = 0.05. The analyst wants to use a normal approximation for the sampling distribution of the sample proportion who are readmitted. Why is this approximation not appropriate?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "p = 0.05 is below 0.5, so the sampling distribution of p-hat can only be approximately normal when p is at least 0.5."
+   },
+   {
+    "label": "B",
+    "text": "The sample size n = 60 is under 100, and a normal approximation needs at least 100 observations whatever the value of p."
+   },
+   {
+    "label": "C",
+    "text": "np = 60(0.05) = 3, which is less than 10, so the large-counts condition fails and the sampling distribution of p-hat is skewed right."
+   },
+   {
+    "label": "D",
+    "text": "The true rate p is known, so the sampling distribution of p-hat has no standard deviation to approximate with a normal model."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Normality does not require p ≥ 0.5; with p = 0.05 a large enough n (such as 300, giving np = 15) would satisfy the counts condition.",
+   "B": "There is no fixed minimum n of 100; the requirement is np ≥ 10 and n(1 − p) ≥ 10, which a sample of 60 could meet for a different p, such as 0.5 (np = 30).",
+   "C": "The normal approximation requires both np and n(1 − p) to be at least 10; here np = 3 fails, and with so few expected readmissions the distribution of p-hat is right-skewed.",
+   "D": "Because p is given, σ of p-hat = √(0.05·0.95/60) ≈ 0.028 can be computed; the issue is the shape, since np = 3 < 10."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-010-CAL-v2",
+  "kind": "mcq",
+  "stem": "A botanist plants a random sample of n = 50 seeds from a very large seed lot in which the true germination rate is p = 0.96. Which statement correctly evaluates using a normal approximation for the sampling distribution of the sample proportion that germinate?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The approximation is not appropriate, since n(1 − p) = 50(0.04) = 2 is less than 10, which leaves the distribution of p-hat skewed left."
+   },
+   {
+    "label": "B",
+    "text": "The approximation is appropriate, because n = 50 is at least 30, which is the sample-size requirement for normality."
+   },
+   {
+    "label": "C",
+    "text": "The approximation is inappropriate because p = 0.96 is greater than 0.5, and normal approximations require p ≤ 0.5."
+   },
+   {
+    "label": "D",
+    "text": "The approximation is appropriate, because np = 50(0.96) = 48 is at least 10."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Both np and n(1 − p) must be at least 10; here np = 48 passes but n(1 − p) = 2 fails, so the sampling distribution of p-hat is skewed to the left.",
+   "B": "The n ≥ 30 guideline applies to sample means; for proportions the condition is np ≥ 10 and n(1 − p) ≥ 10, and here n(1 − p) = 2.",
+   "C": "There is no rule that p must be at most 0.5; the failure is due to n(1 − p) = 2 being under 10, and a larger n (such as 500) would work for p = 0.96.",
+   "D": "Checking only np is not enough; n(1 − p) = 50(0.04) = 2 is below 10, so the large-counts condition is not met."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-010-CAL-v3",
+  "kind": "mcq",
+  "stem": "A human resources office has 600 employees. It plans to take a simple random sample of n = 80 employees and use a normal model for the sampling distribution of the proportion who support a new schedule, where the true proportion is p = 0.40. Which statement identifies the problem with this plan?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There is no problem: np = 32 and n(1 − p) = 48 are both at least 10, so every condition for a normal model is met."
+   },
+   {
+    "label": "B",
+    "text": "Because p = 0.40 is not close to 0.50, the large-counts condition fails and a normal model cannot be used."
+   },
+   {
+    "label": "C",
+    "text": "Since 80 is much smaller than 600, the sample is too small relative to the population for the sampling distribution to be normal."
+   },
+   {
+    "label": "D",
+    "text": "The sample of 80 is more than 10% of the 600 employees (10% of 600 is 60), so the independence (10%) condition is not met."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The counts are fine, but the 10% condition also must hold, and n = 80 exceeds 10% of 600 (60), so one condition is not met.",
+   "B": "Large counts holds here: np = 80(0.40) = 32 and n(1 − p) = 48 are both at least 10; p does not need to be near 0.5.",
+   "C": "Sample size relative to the population is not a lower-bound issue; the 10% condition limits how large the sample can be, and a small fraction of the population is desirable.",
+   "D": "The 10% condition requires the population to be at least 10 times the sample size, which would take at least 800 employees; with 600 the draws are not close enough to independent, even though np = 32 and n(1 − p) = 48 are fine."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-021-v1",
+  "kind": "mcq",
+  "stem": "A teacher has 15 quiz scores with a mean of 72. While rechecking, she corrects one score from 64 to 79 and recomputes the mean. How does the mean change?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It increases by 1.0, because the total of the scores rises by 15 and there are 15 scores."
+   },
+   {
+    "label": "B",
+    "text": "It increases by about 1.07, because the total rises by 15 and is divided by 14."
+   },
+   {
+    "label": "C",
+    "text": "It does not change, because changing one score does not affect the median."
+   },
+   {
+    "label": "D",
+    "text": "It increases by 15."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The corrected score is 79 − 64 = 15 points higher, so the sum rises by 15 and the mean rises by 15/15 = 1.0 (from 72 to 73).",
+   "B": "The mean divides by the number of values, n = 15, not n − 1 = 14 (n − 1 is used for sample standard deviation); 15/15 = 1.",
+   "C": "The median may be unaffected, but the mean uses every value; the sum changes by +15, so the mean changes by +1.",
+   "D": "15 is the change in the single score; the mean changes by that amount divided by the 15 scores, which is 1."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-021-v2",
+  "kind": "mcq",
+  "stem": "A data set of 20 commute times (in minutes) has a mean of 55. One entry of 90 minutes is found to be a typing error and is corrected to 50 minutes. What happens to the mean?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It decreases by about 2.1, because the total drops by 40 and is divided by 19."
+   },
+   {
+    "label": "B",
+    "text": "It decreases by 40."
+   },
+   {
+    "label": "C",
+    "text": "It increases by 2, because the size of the change, 40, is divided by 20 values."
+   },
+   {
+    "label": "D",
+    "text": "It decreases by 2, because the total drops by 40 minutes and is shared among 20 values."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The mean divides by all 20 values, not 19; 40/20 = 2.",
+   "B": "40 is the change in the single entry; the mean changes by 40/20 = 2.",
+   "C": "The magnitude 2 is right, but the entry went down, so the total and the mean go down, not up.",
+   "D": "The corrected entry is 40 minutes lower, so the sum drops by 40 and the mean drops by 40/20 = 2 (from 55 to 53)."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-021-v3",
+  "kind": "mcq",
+  "stem": "A set of 8 measurements has a mean of 25. A lab technician replaces one measurement of 10 with a new measurement of 34. How does the mean change?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It increases by 3, because the total rises by 24 and there are 8 measurements."
+   },
+   {
+    "label": "B",
+    "text": "It increases by 24."
+   },
+   {
+    "label": "C",
+    "text": "It increases by 2.4, because the 24-point change is spread over 10 measurements."
+   },
+   {
+    "label": "D",
+    "text": "It increases by 4.5, because the new mean is the average of the old mean, 25, and the new value, 34."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The replacement raises the sum by 34 − 10 = 24, so the mean rises by 24/8 = 3 (from 25 to 28).",
+   "B": "24 is how much the one measurement changed; the mean changes by 24/8 = 3.",
+   "C": "There are 8 measurements, not 10; 24/8 = 3.",
+   "D": "Averaging 25 with 34 ignores that the other 7 values still count; the new mean is 28, a change of 3."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-025-v1",
+  "kind": "mcq",
+  "stem": "A boxplot of the number of minutes students spent on homework has Q1 = 42 and Q3 = 58. Using the 1.5 × IQR rule, what is the upper fence for possible outliers?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "24"
+   },
+   {
+    "label": "B",
+    "text": "90"
+   },
+   {
+    "label": "C",
+    "text": "82"
+   },
+   {
+    "label": "D",
+    "text": "66"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This is only 1.5(IQR) = 1.5(16); the fence is found by adding it to Q3.",
+   "B": "This uses 2(IQR) instead of 1.5(IQR): 58 + 2(16) = 90.",
+   "C": "IQR = 58 − 42 = 16, so the upper fence is Q3 + 1.5(IQR) = 58 + 24 = 82.",
+   "D": "This starts from Q1: 42 + 1.5(16) = 66, but the upper fence is measured from Q3."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-025-v2",
+  "kind": "mcq",
+  "stem": "For a set of delivery times (in minutes), Q1 = 120 and Q3 = 150. Using the 1.5 × IQR rule, what is the lower fence for possible outliers?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "45"
+   },
+   {
+    "label": "B",
+    "text": "90"
+   },
+   {
+    "label": "C",
+    "text": "195"
+   },
+   {
+    "label": "D",
+    "text": "75"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This is only 1.5(IQR) = 1.5(30); it must be subtracted from Q1.",
+   "B": "This subtracts 1.0(IQR) instead of 1.5(IQR): 120 − 30 = 90.",
+   "C": "This is the upper fence, Q3 + 1.5(IQR) = 150 + 45 = 195, not the lower fence.",
+   "D": "IQR = 150 − 120 = 30, so the lower fence is Q1 − 1.5(IQR) = 120 − 45 = 75."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-025-v3",
+  "kind": "mcq",
+  "stem": "The daily change in temperature (in °F) for a city has Q1 = 20 and Q3 = 44. Using the 1.5 × IQR rule, which of the following values would be identified as a possible outlier?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "56"
+   },
+   {
+    "label": "B",
+    "text": "−10"
+   },
+   {
+    "label": "C",
+    "text": "84"
+   },
+   {
+    "label": "D",
+    "text": "68"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "56 = Q1 + 1.5(IQR) = 20 + 36, a fence built from the wrong quartile; it is below the actual upper fence of 80.",
+   "B": "−10 is below Q1 = 20, but the lower fence is 20 − 1.5(24) = −16, and −10 is above it, so it is not flagged.",
+   "C": "IQR = 44 − 20 = 24; the upper fence is 44 + 1.5(24) = 80, and the lower fence is 20 − 36 = −16. Since 84 > 80, it is a possible outlier.",
+   "D": "68 = Q3 + 1.0(IQR) = 44 + 24, which uses the wrong multiplier; it is below the upper fence of 80, so it is not flagged."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-038-v1",
+  "kind": "mcq",
+  "stem": "A county library system has members who mostly use urban branches, a smaller group who use suburban branches, and only about 8% who use rural branches. The system plans a satisfaction survey of 500 members. Why might a stratified random sample be better than a simple random sample here?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It guarantees that the small rural group is included in a planned amount, which a simple random sample could under-represent by chance."
+   },
+   {
+    "label": "B",
+    "text": "It is the only method in which every library member has the same chance of being selected."
+   },
+   {
+    "label": "C",
+    "text": "It lets surveyors hand-pick willing members within each branch type, which gives more complete responses."
+   },
+   {
+    "label": "D",
+    "text": "It removes sampling variability, so the sample percentages will equal the population percentages exactly."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Sampling within each branch type (stratum) fixes how many members come from each, so the 8% rural group cannot be missed or badly under-represented the way it could be in a simple random sample.",
+   "B": "In a simple random sample every member also has an equal chance of selection (and so does every possible group of 500), so stratified sampling is not unique in this.",
+   "C": "Members within each stratum must still be chosen randomly; hand-picking willing members would introduce selection bias.",
+   "D": "Stratified samples still vary from sample to sample; stratification can reduce variability but never eliminates it."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-038-v2",
+  "kind": "mcq",
+  "stem": "A factory has 300 day-shift, 150 evening-shift, and 50 night-shift workers. A manager wants to compare job satisfaction across the three shifts using a sample of 60 workers. Why might stratified sampling be preferable to a simple random sample of 60?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It removes the need to randomize, because the shifts are already natural groups of workers."
+   },
+   {
+    "label": "B",
+    "text": "It selects entire shifts at random and surveys everyone in them, which saves time and travel."
+   },
+   {
+    "label": "C",
+    "text": "It guarantees that no selected worker will refuse to answer, so the results are free of nonresponse bias."
+   },
+   {
+    "label": "D",
+    "text": "Randomly sampling within each shift guarantees that the small night shift appears in the sample, so shifts can be compared."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Workers must still be selected randomly within each shift; the shifts only define the strata.",
+   "B": "That describes cluster sampling; stratified sampling takes a random sample from every shift rather than whole shifts.",
+   "C": "Stratification does nothing to prevent nonresponse; selected workers can still decline to participate.",
+   "D": "A simple random sample of 60 from 500 would contain only about 6 night-shift workers on average and could contain very few; stratifying ensures each shift is represented."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-038-v3",
+  "kind": "mcq",
+  "stem": "A pollster will survey 600 voters in a state whose regions differ sharply in their support for a ballot measure, while voters within a region tend to share similar views. Why might sampling randomly within each region give a more precise estimate than a simple random sample of 600?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It ensures that every possible group of 600 voters has the same chance of being selected, as in a simple random sample."
+   },
+   {
+    "label": "B",
+    "text": "The pollster can choose the most typical voters in each region, which makes the sample more precise."
+   },
+   {
+    "label": "C",
+    "text": "It guarantees that the sample proportion for the state equals the true statewide proportion."
+   },
+   {
+    "label": "D",
+    "text": "Voters within each region are alike, so sampling within regions reduces variability in the statewide estimate compared with a simple random sample of 600."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Only a simple random sample gives every possible group of 600 equal chance; a stratified sample allows only groups with the planned count from each region.",
+   "B": "Handpicking typical voters is non-random and introduces bias; stratified sampling still selects voters randomly within each region.",
+   "C": "Stratified estimates still vary from sample to sample; they are only less variable, not exact.",
+   "D": "When strata are internally similar but differ from each other, stratifying removes the between-region variation from the estimate, so the sample proportion varies less from sample to sample."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-042-v1",
+  "kind": "mcq",
+  "stem": "A track coach randomly assigns 24 runners to either a new stretching routine or the usual warm-up, then compares their 5K times at the end of the season. What does random assignment help with most?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Making sure the 24 runners are representative of all runners in the league."
+   },
+   {
+    "label": "B",
+    "text": "Guaranteeing that the two groups have exactly the same mean 5K time before the routines begin."
+   },
+   {
+    "label": "C",
+    "text": "Keeping the runners from knowing which routine they received."
+   },
+   {
+    "label": "D",
+    "text": "Making the two groups similar in traits like fitness level, so a time difference can reasonably be attributed to the routine."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Representativeness comes from random selection of subjects from the population; random assignment only decides which treatment each subject gets.",
+   "B": "Random assignment balances groups on average, but chance can still leave differences; it does not guarantee identical means.",
+   "C": "Hiding the treatment from subjects is blinding, which is a separate design feature from random assignment.",
+   "D": "Chance assignment tends to spread fitness, age, and other traits evenly across groups, so the routine is the main systematic difference, supporting a cause-and-effect conclusion."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-042-v2",
+  "kind": "mcq",
+  "stem": "A pharmacy randomly assigns 60 volunteers with a mild rash to use either a new cream or the standard cream for two weeks and then rates how much each rash improved. What does random assignment help with most?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Ensuring that each cream group contains exactly the same number of men as women."
+   },
+   {
+    "label": "B",
+    "text": "Tending to balance known and unknown variables, like age and skin sensitivity, across the cream groups."
+   },
+   {
+    "label": "C",
+    "text": "Removing measurement error from the rash-improvement ratings."
+   },
+   {
+    "label": "D",
+    "text": "Making sure the volunteers represent all adults who develop rashes."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Random assignment does not guarantee equal counts in subgroups; getting equal numbers by sex would require blocking.",
+   "B": "Because every volunteer is equally likely to land in either group, chance tends to even out all other variables, including ones the researchers did not think to measure.",
+   "C": "Random assignment does not affect how accurately improvement is measured; measurement error comes from the rating process.",
+   "D": "These are volunteers; representing all adults would require random selection from that population, not random assignment."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-042-v3",
+  "kind": "mcq",
+  "stem": "A software company randomly shows each visitor to its site either layout A or layout B and compares the percent of visitors who sign up for a trial. What does random assignment help with most?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Making sure the visitors tested match the company's overall customer base."
+   },
+   {
+    "label": "B",
+    "text": "Making visitors who see layout A comparable to those who see B, so a difference in sign-up rates can be attributed to the layout."
+   },
+   {
+    "label": "C",
+    "text": "Ensuring the visitors cannot tell that two layouts are being compared, making the study blind."
+   },
+   {
+    "label": "D",
+    "text": "Guaranteeing that both layout groups contain exactly the same number of returning customers."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Matching the customer base depends on how the visitors were selected, not on how they were assigned to layouts.",
+   "B": "Random assignment tends to equalize visitor characteristics, such as device or interest level, across the layouts, which makes the layout the likely explanation for a large difference.",
+   "C": "Concealing the comparison from subjects is blinding, which random assignment does not provide.",
+   "D": "Chance can leave different counts of returning customers in each group; random assignment only balances such traits in the long run."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-046-v1",
+  "kind": "mcq",
+  "stem": "Of 60 employees at a company, 15 carpool to work and 20 arrive early. Six employees both carpool and arrive early. What is P(arrives early | carpools)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "6/15 = 0.40"
+   },
+   {
+    "label": "B",
+    "text": "6/9 ≈ 0.67"
+   },
+   {
+    "label": "C",
+    "text": "6/20 = 0.30"
+   },
+   {
+    "label": "D",
+    "text": "6/60 = 0.10"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Given that the employee carpools, the denominator is the 15 carpoolers; 6 of them arrive early, so 6/15 = 0.40.",
+   "B": "The 9 is the number of carpoolers who do NOT arrive early (15 − 6); the denominator should be all 15 carpoolers.",
+   "C": "This divides by the number who arrive early, which is P(carpools | arrives early), the reversed conditional.",
+   "D": "This divides by all employees, giving the joint probability P(carpools and arrives early) rather than a conditional probability."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-046-v2",
+  "kind": "mcq",
+  "stem": "In a school of 120 students, 48 are in band and 30 are in orchestra. Eighteen students are in both. What is P(in orchestra | in band)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "18/48 = 0.375"
+   },
+   {
+    "label": "B",
+    "text": "30/120 = 0.25"
+   },
+   {
+    "label": "C",
+    "text": "18/30 = 0.60"
+   },
+   {
+    "label": "D",
+    "text": "18/120 = 0.15"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Given the student is in band, the sample space is the 48 band members; 18 of them are in orchestra, so 18/48 = 0.375.",
+   "B": "This is the unconditional probability P(orchestra); knowing the student is in band changes the probability.",
+   "C": "This uses orchestra members as the denominator, which is P(band | orchestra), the reversed conditional.",
+   "D": "This is the joint probability P(band and orchestra), using the whole school as the denominator."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-046-v3",
+  "kind": "mcq",
+  "stem": "A store surveyed 200 customers and recorded age group and whether they bought online. The results are below.\nUnder 30, bought online: 50\nUnder 30, did not buy online: 30\n30 or older, bought online: 40\n30 or older, did not buy online: 80\nWhat is P(under 30 | bought online)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "50/80 = 0.625"
+   },
+   {
+    "label": "B",
+    "text": "90/200 = 0.45"
+   },
+   {
+    "label": "C",
+    "text": "50/200 = 0.25"
+   },
+   {
+    "label": "D",
+    "text": "50/90 ≈ 0.56"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This divides by the 80 under-30 customers, which is P(bought online | under 30), the reversed conditional.",
+   "B": "This is the marginal probability of buying online; it does not use the under-30 group at all.",
+   "C": "This divides by all 200 customers, giving the joint probability instead of the conditional probability.",
+   "D": "Among the 50 + 40 = 90 customers who bought online, 50 are under 30, so P = 50/90 ≈ 0.56."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-050-v1",
+  "kind": "mcq",
+  "stem": "The probability that a randomly selected bulb from a production line is defective is 0.08. What is the probability that the bulb is not defective?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−0.92"
+   },
+   {
+    "label": "B",
+    "text": "0.92"
+   },
+   {
+    "label": "C",
+    "text": "0.20"
+   },
+   {
+    "label": "D",
+    "text": "0.08"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This subtracts in the wrong order (0.08 − 1); a probability cannot be negative, and the complement is 1 − 0.08 = 0.92.",
+   "B": "The complement rule gives P(not defective) = 1 − 0.08 = 0.92.",
+   "C": "This comes from treating 0.08 as 0.8 and computing 1 − 0.8; the complement of 0.08 is 0.92.",
+   "D": "This repeats the probability of a defective bulb rather than its complement."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-050-v2",
+  "kind": "mcq",
+  "stem": "The probability that a certain flight arrives on time is 0.82. What is the probability that the flight does not arrive on time?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.18"
+   },
+   {
+    "label": "B",
+    "text": "0.08"
+   },
+   {
+    "label": "C",
+    "text": "0.82"
+   },
+   {
+    "label": "D",
+    "text": "1.82"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "By the complement rule, 1 − 0.82 = 0.18.",
+   "B": "This subtracts 0.82 from 0.90 instead of from 1.",
+   "C": "This is the probability of arriving on time, not its complement.",
+   "D": "This adds 0.82 to 1; a probability cannot exceed 1, and the complement is 1 − 0.82."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-050-v3",
+  "kind": "mcq",
+  "stem": "A forecaster says there is a 40% chance of snow tomorrow. What is the probability that it does not snow?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.60"
+   },
+   {
+    "label": "B",
+    "text": "0.96"
+   },
+   {
+    "label": "C",
+    "text": "0.40"
+   },
+   {
+    "label": "D",
+    "text": "0.50"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Writing 40% as 0.40, the complement is 1 − 0.40 = 0.60.",
+   "B": "This converts 40% to 0.04 and then computes 1 − 0.04; 40% is 0.40, so the complement is 0.60.",
+   "C": "This repeats the probability of snow instead of finding its complement.",
+   "D": "This assumes snow and no snow are equally likely, which ignores the given 40% chance."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-054-v1",
+  "kind": "mcq",
+  "stem": "At a school, the probability that a randomly selected student takes Spanish is 0.45, the probability the student takes music is 0.30, and the probability the student takes both is 0.10. What is the probability that a randomly selected student takes Spanish or music (or both)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.65"
+   },
+   {
+    "label": "B",
+    "text": "0.55"
+   },
+   {
+    "label": "C",
+    "text": "0.135"
+   },
+   {
+    "label": "D",
+    "text": "0.75"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "By the addition rule, P(Spanish or music) = 0.45 + 0.30 − 0.10 = 0.65.",
+   "B": "This subtracts the overlap twice: 0.45 + 0.30 − 2(0.10) = 0.55.",
+   "C": "This multiplies 0.45 × 0.30, which would be the probability of both only if the events were independent, and it is not the union.",
+   "D": "This adds 0.45 and 0.30 without subtracting the overlap, so students taking both are counted twice."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-054-v2",
+  "kind": "mcq",
+  "stem": "For two events A and B, P(A) = 0.70, P(B) = 0.40, and P(A and B) = 0.35. What is P(A or B)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.75"
+   },
+   {
+    "label": "B",
+    "text": "0.35"
+   },
+   {
+    "label": "C",
+    "text": "0.28"
+   },
+   {
+    "label": "D",
+    "text": "1.10"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Using the addition rule, 0.70 + 0.40 − 0.35 = 0.75.",
+   "B": "This is only P(A and B), the intersection.",
+   "C": "This is 0.70 × 0.40, the probability of both under independence, not the probability of either.",
+   "D": "This adds the two probabilities without subtracting the overlap; a probability cannot exceed 1."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-054-v3",
+  "kind": "mcq",
+  "stem": "Among 80 students surveyed, 50 own a laptop, 30 own a tablet, and 15 own both. What is the probability that a randomly selected student from this group owns a laptop or a tablet?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "80/80 = 1.0"
+   },
+   {
+    "label": "B",
+    "text": "(50/80)(30/80) ≈ 0.234"
+   },
+   {
+    "label": "C",
+    "text": "15/80 = 0.1875"
+   },
+   {
+    "label": "D",
+    "text": "65/80 = 0.8125"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This adds 50 and 30 without subtracting the 15 who own both, which would imply every student owns at least one device.",
+   "B": "This multiplies the individual probabilities, which would be the probability of both under independence, not the union.",
+   "C": "This is only the probability of owning both, the intersection.",
+   "D": "The number owning at least one is 50 + 30 − 15 = 65, so the probability is 65/80 = 0.8125."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-060-v1",
+  "kind": "mcq",
+  "stem": "A new thermometer is tested thousands of times on liquids with known temperatures. Its readings are tightly clustered, but they average 2.3 degrees above the true temperature no matter how many readings are averaged. What is the main problem?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The estimator has high variability, since its readings are not equal to the true temperature."
+   },
+   {
+    "label": "B",
+    "text": "The readings are not independent, since each is above the true temperature."
+   },
+   {
+    "label": "C",
+    "text": "The sample sizes are too small, since averaging more readings would remove the error."
+   },
+   {
+    "label": "D",
+    "text": "The estimator is biased, since its readings are centered above the true value."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Variability is the spread of readings; the stem says they are tightly clustered, so the problem is the off-center location, not scatter.",
+   "B": "Dependence between readings is not described; a consistent upward shift is a systematic error in the estimator, which is bias.",
+   "C": "The stem says the error remains no matter how many readings are averaged; more data cannot fix a systematic offset.",
+   "D": "An estimator whose values are systematically off target in one direction, even in the long run, is biased; here the center is about 2.3 degrees too high."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-060-v2",
+  "kind": "mcq",
+  "stem": "In repeated random samples of size 100 from a population with true mean 50, a new estimator has a sampling distribution centered at 56 with a standard deviation of 1.5. Which statement best describes this estimator?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It is unbiased with low variability, because its standard deviation is small."
+   },
+   {
+    "label": "B",
+    "text": "It is biased with high variability, since its values are far from 50."
+   },
+   {
+    "label": "C",
+    "text": "It is unbiased but has high variability, since it often misses 50."
+   },
+   {
+    "label": "D",
+    "text": "It is biased but has low variability: its values cluster near 56 instead of 50."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "A small standard deviation shows low variability only; unbiasedness requires the center to equal 50, and this one is centered at 56.",
+   "B": "Being far from 50 is explained by the bias of about 6 units; the standard deviation of 1.5 shows the values are not widely scattered.",
+   "C": "It misses 50 because its center is 56, which is bias; and a standard deviation of 1.5 is small, not large.",
+   "D": "The center of the sampling distribution, 56, is not the true value of 50, so it is biased; a standard deviation of 1.5 shows its values are tightly clustered."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-060-v3",
+  "kind": "mcq",
+  "stem": "A statistician simulates 2,000 random samples to estimate a true proportion of 0.40. The 2,000 sample proportions average exactly 0.40, but individual values range from 0.25 to 0.55. Which statement is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The estimator is unbiased but has high variability: its average is 0.40, yet single estimates are widely spread."
+   },
+   {
+    "label": "B",
+    "text": "The estimator is unbiased, so increasing the sample size cannot reduce how widely the estimates vary."
+   },
+   {
+    "label": "C",
+    "text": "The estimator is biased, because many individual estimates differ from the true proportion of 0.40."
+   },
+   {
+    "label": "D",
+    "text": "The estimator is unbiased with low variability, because its average equals 0.40."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The sampling distribution is centered at the true value of 0.40, so there is no bias, but the wide range from 0.25 to 0.55 shows high variability.",
+   "B": "Increasing the sample size reduces the standard error, so larger samples would make the estimates cluster more tightly around 0.40.",
+   "C": "Bias refers to the center of the sampling distribution, which is exactly 0.40; individual estimates differing from 0.40 reflects variability.",
+   "D": "The average only shows the center; the estimates range from 0.25 to 0.55, which is a wide spread, so variability is high."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-067-v1",
+  "kind": "mcq",
+  "stem": "In a random sample of 250 adults, 105 say they use public transit weekly. A researcher wants to know whether the proportion of all adults who use public transit weekly is less than 0.45. Which hypotheses should be tested?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H₀: p = 0.45, Hₐ: p < 0.45"
+   },
+   {
+    "label": "B",
+    "text": "H₀: p̂ = 0.45, Hₐ: p̂ < 0.45"
+   },
+   {
+    "label": "C",
+    "text": "H₀: p = 0.45, Hₐ: p > 0.45"
+   },
+   {
+    "label": "D",
+    "text": "H₀: p = 0.45, Hₐ: p < 0.42"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The claim is that the population proportion is less than 0.45, so the null sets p equal to 0.45 and the alternative is left-tailed.",
+   "B": "Hypotheses are about the population parameter p, not the sample statistic p̂.",
+   "C": "This is right-tailed, but the question asks whether the proportion is less than 0.45.",
+   "D": "Hypotheses use the claimed value, not the sample proportion 105/250 = 0.42."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-067-v2",
+  "kind": "mcq",
+  "stem": "A manufacturer says 10% of its chips are defective. In a random sample of 300 chips, 45 are defective. A quality inspector wants to know whether the true defect rate differs from 10%. Which hypotheses are correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H₀: p = 0.15, Hₐ: p ≠ 0.15"
+   },
+   {
+    "label": "B",
+    "text": "H₀: p = 0.10, Hₐ: p > 0.10"
+   },
+   {
+    "label": "C",
+    "text": "H₀: p = 0.10, Hₐ: p ≠ 0.10"
+   },
+   {
+    "label": "D",
+    "text": "H₀: p ≠ 0.10, Hₐ: p = 0.10"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "0.15 is the sample proportion 45/300; hypotheses use the claimed parameter value of 0.10.",
+   "B": "Although the sample proportion is above 0.10, the question asks about a difference in either direction, so a one-sided alternative does not match.",
+   "C": "The question asks whether the rate differs from 10% in either direction, so the null is p = 0.10 and the alternative is two-sided.",
+   "D": "The null and alternative are reversed; the null must contain the equality."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-067-v3",
+  "kind": "mcq",
+  "stem": "A candidate needs more than 40% of voters to win. In a random sample of 80 voters, 38 support the candidate. The campaign wants to test whether the proportion of all voters supporting the candidate exceeds 40%. Which hypotheses are correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H₀: p = 0.40, Hₐ: p > 0.40"
+   },
+   {
+    "label": "B",
+    "text": "H₀: p = 0.40, Hₐ: p = 0.475"
+   },
+   {
+    "label": "C",
+    "text": "H₀: p̂ = 0.475, Hₐ: p̂ > 0.475"
+   },
+   {
+    "label": "D",
+    "text": "H₀: p ≥ 0.40, Hₐ: p < 0.40"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The claim is that support exceeds 40%, so the alternative is right-tailed and the null sets p equal to 0.40.",
+   "B": "The alternative should describe a range, here p > 0.40, not a single value taken from the sample.",
+   "C": "Hypotheses concern the population parameter p and its claimed value of 0.40, not the sample proportion 38/80 = 0.475.",
+   "D": "This tests the opposite direction; the campaign wants evidence that support is greater than 0.40."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-078-v1",
+  "kind": "mcq",
+  "stem": "A basketball player makes each free throw independently with probability 0.3. Let X be the number of free throws made in 4 attempts. What is P(X = 0)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.7"
+   },
+   {
+    "label": "B",
+    "text": "0.2401"
+   },
+   {
+    "label": "C",
+    "text": "0.0081"
+   },
+   {
+    "label": "D",
+    "text": "0.7599"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This is the probability of missing a single shot, not of missing all 4.",
+   "B": "X is binomial with n = 4 and p = 0.3, so P(X = 0) = (0.7)^4 = 0.2401.",
+   "C": "This is (0.3)^4, the probability that all 4 shots are made, using p instead of 1 − p.",
+   "D": "This is P(X ≥ 1) = 1 − 0.2401, the probability of at least one made shot."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-078-v2",
+  "kind": "mcq",
+  "stem": "Each seed in a packet of 6 sprouts independently with probability 0.2. Let X be the number of seeds that sprout. What is P(X = 0)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.2621"
+   },
+   {
+    "label": "B",
+    "text": "0.7379"
+   },
+   {
+    "label": "C",
+    "text": "0.8"
+   },
+   {
+    "label": "D",
+    "text": "0.0001"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "X is binomial with n = 6 and p = 0.2, so P(X = 0) = (0.8)^6 ≈ 0.2621.",
+   "B": "This is P(X ≥ 1) = 1 − 0.2621, the probability that at least one seed sprouts.",
+   "C": "This is the probability a single seed fails to sprout, not that all 6 fail.",
+   "D": "This is (0.2)^6 ≈ 0.000064, the probability that all 6 sprout, using p instead of 1 − p."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-078-v3",
+  "kind": "mcq",
+  "stem": "A pollster makes 8 independent phone calls. Each call is answered with probability 0.35. Let X be the number of calls that are answered. What is P(X = 0)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.0319"
+   },
+   {
+    "label": "B",
+    "text": "0.65"
+   },
+   {
+    "label": "C",
+    "text": "0.0002"
+   },
+   {
+    "label": "D",
+    "text": "0.9681"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "X is binomial with n = 8 and p = 0.35, so P(X = 0) = (0.65)^8 ≈ 0.0319.",
+   "B": "This is the probability that one call is unanswered, not that all 8 are.",
+   "C": "This is (0.35)^8 ≈ 0.000225, the probability all 8 calls are answered, using p instead of 1 − p.",
+   "D": "This is P(X ≥ 1) = 1 − 0.0319, the probability that at least one call is answered."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-095-v1",
+  "kind": "mcq",
+  "stem": "Two researchers test the same hypotheses and the same true parameter value. Study X uses α = 0.10 with n = 400. Study Y uses α = 0.01 with n = 100. Which statement about their power is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The studies have equal power, because they test the same hypotheses with the same true parameter value."
+   },
+   {
+    "label": "B",
+    "text": "Study Y has lower power, because both its smaller α and smaller sample size reduce power."
+   },
+   {
+    "label": "C",
+    "text": "Study X has lower power, because the larger α makes a Type I error more likely, which reduces power."
+   },
+   {
+    "label": "D",
+    "text": "Study X has lower power, because a larger sample size increases variability and so makes rejection less likely."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Power depends on n and α as well as the true value, and these two differ in both (400 vs 100, 0.10 vs 0.01).",
+   "B": "A smaller α makes rejecting H₀ harder, and a smaller n gives a larger standard error; both lower the chance of detecting a false null, so Y has lower power.",
+   "C": "A larger α increases the chance of rejecting H₀, which raises power; it does not reduce it.",
+   "D": "A larger sample size decreases the standard error, which increases power."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-095-v2",
+  "kind": "mcq",
+  "stem": "A test of H₀: p = 0.50 versus Hₐ: p > 0.50 uses n = 100 and α = 0.05, and the true proportion is p = 0.60. Which change would increase the power of the test?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Increasing the sample size to 400, which reduces the standard error."
+   },
+   {
+    "label": "B",
+    "text": "Decreasing the sample size to 25, since a smaller sample has fewer chances for error."
+   },
+   {
+    "label": "C",
+    "text": "Lowering α to 0.01, which makes the test more careful about rejecting."
+   },
+   {
+    "label": "D",
+    "text": "Using the hypothesized value 0.58 in place of 0.50, so the null is closer to the truth."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "A larger n shrinks the standard error of p̂, making a true difference easier to detect, so power increases.",
+   "B": "A smaller sample gives a larger standard error, which lowers power; sample size reduction does not reduce error.",
+   "C": "A smaller α makes rejection harder, which reduces the probability of rejecting a false H₀ and so decreases power.",
+   "D": "A smaller gap between the null value and the true value makes the difference harder to detect, which lowers power."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-095-v3",
+  "kind": "mcq",
+  "stem": "A significance test with α = 0.05 has a Type II error probability of 0.35 when the true proportion is 0.60. What is the power of the test against that alternative?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.0175"
+   },
+   {
+    "label": "B",
+    "text": "0.95"
+   },
+   {
+    "label": "C",
+    "text": "0.35"
+   },
+   {
+    "label": "D",
+    "text": "0.65"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This multiplies α by the Type II probability (0.05 × 0.35); power is found by subtraction, not multiplication.",
+   "B": "This is 1 − α = 0.95, which is the probability of not making a Type I error when H₀ is true, not power.",
+   "C": "This is the probability of a Type II error itself; power is its complement.",
+   "D": "Power is the probability of rejecting a false null, 1 − P(Type II error) = 1 − 0.35 = 0.65."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-006-v1",
+  "kind": "mcq",
+  "stem": "A medical team tests whether a new drug lowers systolic blood pressure more than a placebo. They enroll 36 patients, 18 men and 18 women, and randomly assign drug or placebo separately within the men and within the women, instead of randomizing all 36 patients together. What is the main statistical advantage of assigning treatments within each sex?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It lets the team conclude the drug works for all adults, since both sexes were included in the trial."
+   },
+   {
+    "label": "B",
+    "text": "It makes the placebo group unnecessary, because sex differences are already accounted for."
+   },
+   {
+    "label": "C",
+    "text": "It eliminates confounding from every lurking variable, including ones the team never measured."
+   },
+   {
+    "label": "D",
+    "text": "It removes blood-pressure variation that is due to sex from the drug-versus-placebo comparison, making a real drug effect easier to detect."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Blocking does not extend conclusions to a population; generalizing depends on how the 36 patients were selected, not on how treatments were assigned.",
+   "B": "A placebo or other comparison group is still needed to measure the drug effect; blocking adjusts only for sex differences.",
+   "C": "Blocking only controls the blocked variable (sex); protection against unmeasured variables comes from random assignment, not from the blocks.",
+   "D": "Sex is a known source of variability in the response. Comparing drug and placebo inside each sex block keeps that variation from blurring the treatment difference, which raises power."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-006-v2",
+  "kind": "mcq",
+  "stem": "A teacher wants to compare a new study app with textbook review. She has 60 students: 30 in a morning section and 30 in an afternoon section. Within each section she randomly assigns half the students to the app and half to the textbook, rather than randomizing all 60 together. What is the primary benefit of this approach?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It allows the teacher to claim cause and effect, which complete randomization of all 60 students would not allow."
+   },
+   {
+    "label": "B",
+    "text": "It guarantees the class period has no effect on test scores in either treatment group."
+   },
+   {
+    "label": "C",
+    "text": "It makes the app and textbook groups larger, which gives more data for the comparison."
+   },
+   {
+    "label": "D",
+    "text": "It accounts for score differences caused by class period, so differences between the two study methods stand out more clearly."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Random assignment, whether across all 60 students or within blocks, is what supports cause-and-effect conclusions; blocking is not required for that.",
+   "B": "Blocking does not remove the effect of class period; it only prevents that effect from being mixed in with the treatment comparison.",
+   "C": "Blocking splits the same 60 students into the same two treatment groups; it adds no students and does not enlarge either group.",
+   "D": "Class period may affect scores. Randomizing within each section separates that effect from the app-versus-textbook comparison, reducing unexplained variability."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-006-v3",
+  "kind": "mcq",
+  "stem": "A veterinary researcher compares two diets for weight loss in 24 dogs: 12 small-breed dogs and 12 large-breed dogs. Diet is randomly assigned separately within the small-breed group and within the large-breed group. Compared with randomly assigning diets to all 24 dogs at once, what does this design mainly accomplish?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It makes the dogs and owners unaware of which diet each dog receives, so expectations cannot affect results."
+   },
+   {
+    "label": "B",
+    "text": "It raises the number of dogs in the study from 24 to 48, which strengthens the evidence."
+   },
+   {
+    "label": "C",
+    "text": "It removes the need for a second diet group because breed size is already being compared."
+   },
+   {
+    "label": "D",
+    "text": "It controls variation in weight loss that is related to breed size, so a real difference between the diets is easier to detect."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Hiding treatment assignments is blinding, which is a separate feature; grouping dogs by size does not conceal anything from anyone.",
+   "B": "The same 24 dogs are used either way; splitting them into size groups does not increase the number of animals.",
+   "C": "The two diets are still compared against each other; breed size is only used to organize the random assignment, not to replace a comparison.",
+   "D": "Breed size is expected to influence weight loss. Randomizing within each size group keeps that source of variation from hiding the diet effect."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-011-v1",
+  "kind": "mcq",
+  "stem": "A random sample of 600 teenagers in a school district is used to build a 90% confidence interval for the proportion of all teenagers in the district who own a laptop. The interval is (0.28, 0.36). Which statement is a correct interpretation?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "90% of teenagers in the district own a laptop, give or take 4 percentage points."
+   },
+   {
+    "label": "B",
+    "text": "There is a 90% probability that a new random sample of 600 teenagers will have a sample proportion between 0.28 and 0.36."
+   },
+   {
+    "label": "C",
+    "text": "Between 28% and 36% of the 600 sampled teenagers own a laptop, and we are 90% sure of this."
+   },
+   {
+    "label": "D",
+    "text": "We are 90% confident that the interval from 0.28 to 0.36 captures the proportion of all teenagers in the district who own a laptop."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The interval estimates the single population proportion; it does not say that 90% of individuals have the characteristic.",
+   "B": "The confidence level does not give the probability that a future sample proportion falls in this particular interval; it concerns the method capturing the population proportion.",
+   "C": "The sample proportion is known exactly from the data (and lies in the middle of the interval); the interval estimates the population proportion, not the sample's.",
+   "D": "The 90% describes how reliably the interval-building method captures the fixed population proportion over many random samples."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-011-v2",
+  "kind": "mcq",
+  "stem": "A news site reports a 95% confidence interval of (0.52, 0.60) for the proportion of registered voters in a county who favor a school bond, using a random sample of 1,000 voters. Which statement correctly explains what the 95% confidence level means?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 95% of the 1,000 voters in the sample favor the school bond, give or take a few points."
+   },
+   {
+    "label": "B",
+    "text": "About 95% of intervals built this way from repeated random samples would contain the true proportion."
+   },
+   {
+    "label": "C",
+    "text": "There is a 5% chance that this sample proportion lies outside the interval from 0.52 to 0.60."
+   },
+   {
+    "label": "D",
+    "text": "The probability is 0.95 that the true proportion of supporters in the county is exactly 0.56."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "The confidence level is not a percentage of individuals; the sample proportion of supporters is near 0.56, not 0.95.",
+   "B": "This describes the long-run capture rate of the interval-building method across repeated random samples, which is what the confidence level represents.",
+   "C": "The sample proportion is the midpoint of the interval, so it always lies inside it; the 5% refers to intervals that miss the population value.",
+   "D": "The true proportion is a single fixed value, and 0.56 is only the sample estimate at the interval's center; the chance of exact equality is not 0.95."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-011-v3",
+  "kind": "mcq",
+  "stem": "A company surveys a random sample of 1,200 of its customers and computes a 99% confidence interval of (0.71, 0.79) for the proportion of all its customers who are satisfied. Which statement is a correct interpretation of this interval?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 99% of the 1,200 surveyed customers gave a satisfaction rating between 0.71 and 0.79."
+   },
+   {
+    "label": "B",
+    "text": "We are 99% confident that the true proportion of all the company's customers who are satisfied is between 0.71 and 0.79."
+   },
+   {
+    "label": "C",
+    "text": "There is a 99% probability that the next customer surveyed will be satisfied."
+   },
+   {
+    "label": "D",
+    "text": "The true proportion of satisfied customers changes from sample to sample and falls between 0.71 and 0.79 in 99% of samples."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "The interval gives plausible values for a population proportion; it does not describe how individual customers' ratings are distributed.",
+   "B": "The 99% refers to the reliability of the method: about 99% of intervals constructed this way capture the true customer-satisfaction proportion.",
+   "C": "The interval says nothing about 0.99 as a probability for one customer; the estimated proportion satisfied is about 0.75.",
+   "D": "The population proportion is fixed; it is the interval that changes from sample to sample."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-026-v1",
+  "kind": "mcq",
+  "stem": "A pediatrician tells a parent that a baby's weight is at the 20th percentile for babies of the same age. What does this mean?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "This baby weighs 20% less than the average baby of the same age."
+   },
+   {
+    "label": "B",
+    "text": "About 20% of babies that age weigh more than this baby."
+   },
+   {
+    "label": "C",
+    "text": "About 20% of babies that age weigh the same as or less than this baby."
+   },
+   {
+    "label": "D",
+    "text": "This baby's weight is 20% of the way from the lightest to the heaviest baby."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Percentile reflects rank within the group, not a percent difference from the mean weight.",
+   "B": "If about 20% weigh more, the baby would be near the 80th percentile; at the 20th percentile it is about 80% who weigh at or above this baby.",
+   "C": "A percentile gives the percentage of values at or below the given value, so the 20th percentile has about 20% of babies at or below it.",
+   "D": "Percentile counts the fraction of individuals at or below a value, not the position of the value within the range from minimum to maximum."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-026-v2",
+  "kind": "mcq",
+  "stem": "A class of 40 students takes a quiz. Exactly 32 of the 40 scores, including Dana's, are less than or equal to Dana's score. Which percentile is Dana's score?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "80th percentile"
+   },
+   {
+    "label": "B",
+    "text": "20th percentile"
+   },
+   {
+    "label": "C",
+    "text": "8th percentile"
+   },
+   {
+    "label": "D",
+    "text": "32nd percentile"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Percentile = (number of scores at or below) / (total) x 100 = 32/40 x 100 = 80.",
+   "B": "8 scores are above Dana's, and 8/40 = 20%; that is the percentage above her, not at or below.",
+   "C": "8 is the number of scores above Dana's; using that count directly as the percentile is neither the percent at or below nor even a percent.",
+   "D": "32 is the count of scores at or below Dana's; it must be divided by 40 and converted to a percent."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-026-v3",
+  "kind": "mcq",
+  "stem": "An employee at a large company learns that her salary is at the 60th percentile of all salaries at the company. Which statement is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "About 60% of employees at the company earn her salary or less."
+   },
+   {
+    "label": "B",
+    "text": "About 60% of employees at the company earn more than she does."
+   },
+   {
+    "label": "C",
+    "text": "Her salary is 60% of the highest salary at the company."
+   },
+   {
+    "label": "D",
+    "text": "She has the 60th highest salary among the employees at the company."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The 60th percentile means about 60% of the values are at or below that value.",
+   "B": "That would put her near the 40th percentile; at the 60th percentile about 40% earn more.",
+   "C": "Percentile compares the count of employees below, not her salary as a fraction of the maximum.",
+   "D": "Percentile is a percentage of the group, not a rank; the 60th highest in a large company would be a much higher percentile."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-039-v1",
+  "kind": "mcq",
+  "stem": "Researchers examine the medical records of 500 adults, noting whether each person takes a daily vitamin D supplement and whether the person had a bone fracture in the past five years. The researchers do not tell anyone to start or stop taking supplements. What type of study is this?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A single-blind experiment"
+   },
+   {
+    "label": "B",
+    "text": "An observational study"
+   },
+   {
+    "label": "C",
+    "text": "A randomized block experiment"
+   },
+   {
+    "label": "D",
+    "text": "A completely randomized experiment"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "An experiment requires an imposed treatment, and nothing about blinding is described.",
+   "B": "The researchers only record existing behavior and outcomes; no treatment is imposed on the adults.",
+   "C": "There are no blocks and no random assignment of any treatment.",
+   "D": "No one is randomly assigned to supplements; people chose for themselves."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-039-v2",
+  "kind": "mcq",
+  "stem": "A teacher lets her 40 students choose either flashcards or practice tests as their study method for a unit, then compares the two groups' scores on the unit exam. What type of study is this?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A randomized block design, because the students form two groups."
+   },
+   {
+    "label": "B",
+    "text": "A randomized experiment, because the teacher compared two study methods."
+   },
+   {
+    "label": "C",
+    "text": "An observational study, because students chose their own study method instead of being assigned one."
+   },
+   {
+    "label": "D",
+    "text": "A matched-pairs experiment, because every student took the same exam."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Blocks are formed before treatments are randomly assigned within them; here the groups came from student choice.",
+   "B": "Comparing two groups is not enough; an experiment requires the researcher to assign treatments, ideally at random.",
+   "C": "The teacher did not impose the treatment; students self-selected into the groups, so this is observational and cannot show cause and effect.",
+   "D": "Matched pairs requires pairing subjects or measuring each subject twice under assigned conditions, which did not occur."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-039-v3",
+  "kind": "mcq",
+  "stem": "Researchers randomly assign 90 volunteers to one of three diets and measure each volunteer's cholesterol level after eight weeks. What type of study is this?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "An observational study, because cholesterol was only measured at the end."
+   },
+   {
+    "label": "B",
+    "text": "A randomized experiment, because the researchers assigned the diets to the volunteers at random."
+   },
+   {
+    "label": "C",
+    "text": "An observational study, because the volunteers were not a random sample of adults."
+   },
+   {
+    "label": "D",
+    "text": "A sample survey, because 90 people provided data."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Measuring a response does not make a study observational; what matters is that the researchers imposed the diets.",
+   "B": "The researchers imposed the treatments (diets) and used random assignment, which defines a randomized experiment.",
+   "C": "Volunteer subjects limit generalization, but the study type depends on whether treatments are imposed, and they were.",
+   "D": "A sample survey gathers opinions or facts from a sample without imposing treatments; here diets were assigned."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-043-v1",
+  "kind": "mcq",
+  "stem": "A school district wants to learn parents' opinions about school lunches. It mails questionnaires only to the families listed in the PTA directory. Which bias is most likely?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Voluntary response bias, because parents decide whether to fill out the form."
+   },
+   {
+    "label": "B",
+    "text": "Undercoverage bias, because parents not in the PTA directory have no chance to be selected."
+   },
+   {
+    "label": "C",
+    "text": "Nonresponse bias, because some mailed questionnaires will not be returned."
+   },
+   {
+    "label": "D",
+    "text": "No bias, because every questionnaire was sent by the same method."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Voluntary response bias applies when people select themselves into the sample; here the district chose whom to mail.",
+   "B": "Families missing from the directory are left out of the sampling frame, so the sample is likely to differ from all parents.",
+   "C": "Nonresponse concerns selected people who do not reply; the main problem here is that many parents were never selected at all.",
+   "D": "A uniform method does not fix a frame that omits parents; the sample is still unrepresentative."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-043-v2",
+  "kind": "mcq",
+  "stem": "A radio station asks listeners to call in during a morning show to vote on whether the city should build a new stadium, and it reports the percent of callers in favor. What is the most likely source of bias?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "No bias, because a large number of listeners will call in."
+   },
+   {
+    "label": "B",
+    "text": "Voluntary response bias, because only listeners with strong opinions are likely to call."
+   },
+   {
+    "label": "C",
+    "text": "Placebo effect, because the callers believe their vote matters."
+   },
+   {
+    "label": "D",
+    "text": "Confounding bias, because a lurking variable is mixed with the stadium vote."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "A large number of responses does not make a self-selected group representative; the bias remains however many call.",
+   "B": "Callers choose themselves, and people with strong feelings are more likely to respond, so the callers do not represent the city.",
+   "C": "A placebo effect concerns responses to inactive treatments in experiments, not to opinion polls.",
+   "D": "Confounding is a feature of comparing treatments or groups; this is a single poll of opinion."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-043-v3",
+  "kind": "mcq",
+  "stem": "A city randomly selects 1,000 households from a complete list of all households and mails each a survey about recycling. Only 220 households return it. Which bias is most likely?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Undercoverage bias, because 780 households are missing from the data."
+   },
+   {
+    "label": "B",
+    "text": "Response bias, because the survey asked about recycling."
+   },
+   {
+    "label": "C",
+    "text": "Nonresponse bias, because households that did not reply may differ from those that did."
+   },
+   {
+    "label": "D",
+    "text": "Convenience sampling bias, because mailed surveys are the cheapest approach."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Those 780 were in the frame and were selected; they are missing due to not responding, not because they were excluded from the frame.",
+   "B": "Response bias comes from untruthful or distorted answers, for example from wording; nothing in the setup points to that.",
+   "C": "All households had a chance to be chosen, but 780 chosen households did not respond, and the 220 who replied may not represent them.",
+   "D": "The households were chosen randomly from a complete list, so the selection was not by convenience."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-047-v1",
+  "kind": "mcq",
+  "stem": "At a high school, a student is chosen at random. Let C be the event that the student is in a club and J the event that the student has a part-time job. P(C) = 0.50, P(J) = 0.20, and P(C and J) = 0.15. Are C and J independent?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "No, because P(C and J) = 0.15 is not equal to P(C) + P(J) = 0.70."
+   },
+   {
+    "label": "B",
+    "text": "Yes, because P(C or J) = 0.55 is less than 1."
+   },
+   {
+    "label": "C",
+    "text": "No, because P(C)P(J) = 0.10, which does not equal P(C and J) = 0.15."
+   },
+   {
+    "label": "D",
+    "text": "Yes, because P(C and J) = 0.15 is smaller than both P(C) and P(J)."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The addition of probabilities is not the independence check; the product is.",
+   "B": "P(C or J) = 0.50 + 0.20 - 0.15 = 0.55 is a valid probability but says nothing about independence.",
+   "C": "Independence requires P(C and J) = P(C)P(J); 0.50 x 0.20 = 0.10, but the joint probability is 0.15.",
+   "D": "The joint probability is always at most each single probability; that does not test independence."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-047-v2",
+  "kind": "mcq",
+  "stem": "At a school, P(a student rides the bus) = 0.50 and P(a student wears glasses) = 0.20. Among students who ride the bus, 20% wear glasses. Are riding the bus and wearing glasses independent?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Yes, because P(glasses | bus) = 0.20 equals P(glasses) = 0.20."
+   },
+   {
+    "label": "B",
+    "text": "No, because P(glasses | bus) = 0.20 is much smaller than P(bus) = 0.50."
+   },
+   {
+    "label": "C",
+    "text": "Yes, because P(bus) + P(glasses) = 0.70, which is less than 1."
+   },
+   {
+    "label": "D",
+    "text": "No, because both events can occur together, with P(bus and glasses) = 0.10 > 0."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "If knowing a student rides the bus does not change the probability of wearing glasses, the events are independent.",
+   "B": "This compares probabilities of different events; independence compares P(glasses | bus) with P(glasses).",
+   "C": "A sum below 1 does not establish independence; the conditional probability equaling the marginal does.",
+   "D": "Events that can occur together may still be independent; here 0.50 x 0.20 = 0.10 matches the joint probability."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-047-v3",
+  "kind": "mcq",
+  "stem": "A cafe records 300 orders. Of these, 120 included coffee, 90 included a pastry, and 45 included both. For a randomly chosen order, are 'includes coffee' and 'includes a pastry' independent?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "No, because 45 does not equal 120 + 90 = 210."
+   },
+   {
+    "label": "B",
+    "text": "Yes, because 120 + 90 = 210, which is less than the 300 orders."
+   },
+   {
+    "label": "C",
+    "text": "Yes, because the 45 orders with both are fewer than the 120 or the 90 orders with each item."
+   },
+   {
+    "label": "D",
+    "text": "No, because P(coffee and pastry) = 45/300 = 0.15, which differs from P(coffee)P(pastry) = 0.40 x 0.30 = 0.12."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Independence is not tested by comparing the joint count to the sum of counts; the joint probability is compared with the product.",
+   "B": "Whether the counts sum to less than the total says nothing about how the events relate.",
+   "C": "The joint count being smaller than each single count is always true; it does not decide independence.",
+   "D": "Independence needs the joint probability to equal the product of the individual probabilities; 0.15 is not 0.12."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-051-v1",
+  "kind": "mcq",
+  "stem": "A student is chosen at random from a high school. Event S is that the student is a senior and event F is that the student is a freshman. Are S and F mutually exclusive?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Yes, because being a senior and being a freshman are independent events."
+   },
+   {
+    "label": "B",
+    "text": "No, because P(S) + P(F) is less than 1."
+   },
+   {
+    "label": "C",
+    "text": "No, because both groups belong to the same school."
+   },
+   {
+    "label": "D",
+    "text": "Yes, because a student cannot be both a senior and a freshman, so P(S and F) = 0."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Mutually exclusive events with nonzero probabilities are never independent, since knowing one occurred makes the other impossible.",
+   "B": "Mutually exclusive events need not add to 1; other grades make the sum less than 1.",
+   "C": "Belonging to the same school does not matter; what matters is whether the events can occur at the same time, and a student has only one grade.",
+   "D": "Mutually exclusive events cannot occur together; one student has only one grade level."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-051-v2",
+  "kind": "mcq",
+  "stem": "A student is chosen at random from a school. Event S is that the student plays on the soccer team and event O is that the student plays in the school orchestra. Are S and O mutually exclusive?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "No, but only if S and O are independent."
+   },
+   {
+    "label": "B",
+    "text": "Yes, because P(S and O) must equal P(S)P(O)."
+   },
+   {
+    "label": "C",
+    "text": "Yes, because soccer and orchestra are different activities."
+   },
+   {
+    "label": "D",
+    "text": "No, because a student can play on the soccer team and also play in the orchestra."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Whether they overlap does not depend on independence; the events can occur together in either case.",
+   "B": "P(S and O) = P(S)P(O) is the independence condition, not a test for exclusive events, whose joint probability is 0.",
+   "C": "Different activities do not prevent overlap; a student can do both, so P(S and O) can be greater than 0.",
+   "D": "Events are mutually exclusive only if they cannot occur together; nothing prevents one student from doing both."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-051-v3",
+  "kind": "mcq",
+  "stem": "A bag holds marbles of several colors. One marble is drawn at random. The probability it is red is 0.30 and the probability it is blue is 0.45. What is the probability that the marble is red or blue?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.15"
+   },
+   {
+    "label": "B",
+    "text": "0.615"
+   },
+   {
+    "label": "C",
+    "text": "0.135"
+   },
+   {
+    "label": "D",
+    "text": "0.75"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This is the difference 0.45 - 0.30 and does not represent the chance of either color.",
+   "B": "This subtracts 0.135 as if red and blue could overlap, but a marble cannot be both, so nothing is subtracted.",
+   "C": "This multiplies the probabilities (0.30 x 0.45), which would apply to independent events occurring together, not to 'or' for exclusive events.",
+   "D": "A marble cannot be both red and blue, so the events are mutually exclusive and P(red or blue) = 0.30 + 0.45 = 0.75."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-057-v1",
+  "kind": "mcq",
+  "stem": "Waiting times at a clinic have a strongly right-skewed distribution. A researcher takes many random samples of n = 64 patients and computes the sample mean wait time for each. Why is the sampling distribution of the sample mean approximately normal?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Because the individual wait times themselves become normally distributed once n = 64 is reached."
+   },
+   {
+    "label": "B",
+    "text": "By the CLT, means of large random samples are approximately normal, even when the population is skewed."
+   },
+   {
+    "label": "C",
+    "text": "Because the 64 patients sampled are less than 10% of all patients at the clinic."
+   },
+   {
+    "label": "D",
+    "text": "Because the sample mean is an unbiased estimator of the population mean wait time."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "The individual wait times keep their skewed distribution regardless of sample size.",
+   "B": "With n = 64, which is well above 30, the CLT applies, so the sample means pile up in a roughly normal shape.",
+   "C": "The 10% condition supports independence and the standard-deviation formula, not a normal shape.",
+   "D": "Unbiasedness only means the center of the sampling distribution equals the population mean; it says nothing about its shape."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-057-v2",
+  "kind": "mcq",
+  "stem": "A population of household incomes is strongly right-skewed. A statistician draws many random samples of size n = 2 and many of size n = 100, and plots the sample means from each. Which statement is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The means from n = 100 will look approximately normal, but the means from n = 2 will still be noticeably right-skewed."
+   },
+   {
+    "label": "B",
+    "text": "The n = 2 means will look more normal than the n = 100 means, because small samples contain less skew."
+   },
+   {
+    "label": "C",
+    "text": "Both sets of sample means will look approximately normal, because every mean is an average."
+   },
+   {
+    "label": "D",
+    "text": "Neither set will look normal, because a skewed population cannot give a normal sampling distribution."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The CLT needs a sufficiently large sample size; with n = 2 the sampling distribution retains much of the population's skew.",
+   "B": "Normality of the sampling distribution improves as n increases, so n = 100 is much closer to normal.",
+   "C": "Averaging alone is not enough; with a sample as small as 2 the shape stays close to the skewed population.",
+   "D": "The CLT says that for a large enough n, the sampling distribution of means is approximately normal for nearly any population shape."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-057-v3",
+  "kind": "mcq",
+  "stem": "A population of delivery times is heavily right-skewed with mean 45 minutes. Many random samples of n = 40 deliveries are taken and each sample mean is plotted in a dotplot. Which describes the dotplot and the reason?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Left-skewed, because averaging 40 times pulls the mean away from the long right tail."
+   },
+   {
+    "label": "B",
+    "text": "Approximately normal in shape, because the Central Limit Theorem applies to means of samples this large."
+   },
+   {
+    "label": "C",
+    "text": "Right-skewed like the population, because sample means keep the shape of the population."
+   },
+   {
+    "label": "D",
+    "text": "Uniform between the smallest and largest delivery times, because each sample mean is equally likely."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Averaging does not produce a left skew; the means are centered near 45 and roughly symmetric.",
+   "B": "For a sample size of 40, the sampling distribution of x-bar is approximately normal by the CLT, centered at the population mean of 45.",
+   "C": "The shape of the sampling distribution changes with n; with n = 40 it is approximately normal, not skewed.",
+   "D": "Sample means cluster near the population mean and are not equally likely across the range."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-061-v1",
+  "kind": "mcq",
+  "stem": "Suppose 30% of all students at a university commute by bike. A random sample of n = 200 students is selected. What is the standard deviation (standard error) of the sampling distribution of the sample proportion of bike commuters?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "sqrt[0.3(0.7)]/200 ~ 0.0023"
+   },
+   {
+    "label": "B",
+    "text": "0.3(0.7)/200 ~ 0.0011"
+   },
+   {
+    "label": "C",
+    "text": "sqrt[0.3(0.7)/200] ~ 0.032"
+   },
+   {
+    "label": "D",
+    "text": "sqrt[0.3/200] ~ 0.039"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The division by n belongs inside the square root; sqrt(0.21)/200 is about 0.0023.",
+   "B": "This is the variance 0.00105; the square root was not taken.",
+   "C": "sqrt(p(1-p)/n) = sqrt(0.21/200) = sqrt(0.00105) ~ 0.032.",
+   "D": "This omits the factor (1 - p); sqrt(0.3/200) is about 0.039."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-061-v2",
+  "kind": "mcq",
+  "stem": "In a large city, 55% of residents support a new park. A random sample of n = 150 residents is taken. Find the standard deviation of the sampling distribution of the sample proportion in favor.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "sqrt[0.55(0.45)]/150 ~ 0.0033"
+   },
+   {
+    "label": "B",
+    "text": "sqrt[0.55/150] ~ 0.061"
+   },
+   {
+    "label": "C",
+    "text": "sqrt[0.55(0.45)/150] ~ 0.041"
+   },
+   {
+    "label": "D",
+    "text": "0.55(0.45)/150 ~ 0.0017"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "n must be inside the radical; sqrt(0.2475)/150 is about 0.0033.",
+   "B": "This leaves out (1 - p); sqrt(0.55/150) is about 0.061.",
+   "C": "sqrt(0.55 x 0.45 / 150) = sqrt(0.2475/150) = sqrt(0.00165) ~ 0.041.",
+   "D": "This is the variance 0.00165; the square root is missing."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-061-v3",
+  "kind": "mcq",
+  "stem": "A factory knows that 12% of its widgets are defective. An inspector randomly selects n = 400 widgets. What is the standard error of the sample proportion of defective widgets?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "sqrt[0.12(0.88)/400] ~ 0.016"
+   },
+   {
+    "label": "B",
+    "text": "0.12(0.88)/sqrt(400) ~ 0.0053"
+   },
+   {
+    "label": "C",
+    "text": "sqrt[0.12/400] ~ 0.017"
+   },
+   {
+    "label": "D",
+    "text": "0.12(0.88)/400 ~ 0.0003"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "sqrt(0.12 x 0.88 / 400) = sqrt(0.1056/400) = sqrt(0.000264) ~ 0.016.",
+   "B": "The square root applies to the whole fraction p(1-p)/n, not just to n; the correct value is about 0.016.",
+   "C": "This drops (1 - p); sqrt(0.12/400) is about 0.017, which is not the correct standard error.",
+   "D": "This is the variance 0.000264; the square root was never taken."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-071-v1",
+  "kind": "mcq",
+  "stem": "Two researchers test the same hypotheses about a population proportion using the same sample size and the same true proportion. Researcher 1 uses a significance level of alpha = 0.10 and Researcher 2 uses alpha = 0.01. Which test has greater power?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Researcher 2's test, because a lower Type I error rate also means a lower Type II error rate."
+   },
+   {
+    "label": "B",
+    "text": "Researcher 1's test, because a larger alpha makes rejecting the null hypothesis easier when it is false."
+   },
+   {
+    "label": "C",
+    "text": "They have equal power, because both use the same hypotheses and sample size."
+   },
+   {
+    "label": "D",
+    "text": "Researcher 2's test, because a smaller alpha requires stronger evidence."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Lowering alpha raises the chance of a Type II error, so power falls.",
+   "B": "Increasing alpha enlarges the rejection region, which raises the probability of rejecting a false null, so power is higher.",
+   "C": "Power also depends on alpha; changing it changes the rejection region and therefore the power.",
+   "D": "Demanding stronger evidence makes it harder to reject, which lowers power."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-071-v2",
+  "kind": "mcq",
+  "stem": "Two tests of H0: p = 0.50 vs Ha: p > 0.50 use the same sample size and significance level. In one situation the true proportion is 0.55, and in the other the true proportion is 0.70. Which situation gives the test greater power?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "They have the same power, because the sample size and alpha are the same."
+   },
+   {
+    "label": "B",
+    "text": "The situation with true p = 0.55, because it is closer to the null value."
+   },
+   {
+    "label": "C",
+    "text": "The situation with true p = 0.70, because a larger gap from the null value makes a false null easier to detect."
+   },
+   {
+    "label": "D",
+    "text": "The situation with true p = 0.55, because power equals the Type I error probability alpha."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Power also depends on how far the true value is from the null, so these two situations differ.",
+   "B": "A smaller gap is harder to detect, which lowers power.",
+   "C": "The farther the true parameter lies from the hypothesized value, the greater the probability of rejecting H0.",
+   "D": "Power is the probability of rejecting a false null (1 minus Type II error), not alpha."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-071-v3",
+  "kind": "mcq",
+  "stem": "A school district tests H0: a new tutoring program does not change mean reading scores against Ha: the program raises mean reading scores. In this setting, what does the power of the test measure for a particular size of improvement?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The chance the test rejects H0 when the program has no effect on scores."
+   },
+   {
+    "label": "B",
+    "text": "The chance the test rejects H0 when the program truly raises scores by that amount."
+   },
+   {
+    "label": "C",
+    "text": "The chance that the program truly raises reading scores, given the data."
+   },
+   {
+    "label": "D",
+    "text": "The chance the test fails to reject H0 when the program truly raises scores."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Rejecting a true null hypothesis is a Type I error, and its probability is alpha, not power.",
+   "B": "Power is the probability that the test correctly rejects the null hypothesis when the alternative is true for a specific effect size; it equals 1 minus beta.",
+   "C": "Power is a probability about the test's decision for a given true effect, not the probability that the alternative hypothesis is true.",
+   "D": "Failing to reject a false null hypothesis is a Type II error with probability beta; power is 1 minus beta."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-080-v1",
+  "kind": "mcq",
+  "stem": "A test of whether a new bus route changes the proportion of on-time arrivals gives p = 0.03 with alpha = 0.05. Which conclusion is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Reject H0; there is convincing statistical evidence for the alternative hypothesis at the 0.05 level."
+   },
+   {
+    "label": "B",
+    "text": "Reject H0, which proves the alternative hypothesis is true."
+   },
+   {
+    "label": "C",
+    "text": "Fail to reject H0, because 0.03 is smaller than 0.05 and so the evidence is too weak."
+   },
+   {
+    "label": "D",
+    "text": "Reject H0; the probability that H0 is true is 0.03."
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Because p = 0.03 is less than alpha = 0.05, the result is statistically significant and the data provide convincing evidence for Ha.",
+   "B": "A test gives evidence, not proof; the conclusion should use language such as convincing evidence.",
+   "C": "A p-value smaller than alpha is evidence against H0; it leads to rejection, not failure to reject.",
+   "D": "The p-value is computed assuming H0 is true; it is not the probability that H0 is true."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-080-v2",
+  "kind": "mcq",
+  "stem": "A researcher chooses alpha = 0.10 before testing whether a new fertilizer changes mean plant height and obtains p = 0.08. Which conclusion is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Fail to reject H0, since p = 0.08 is greater than the usual cutoff of 0.05."
+   },
+   {
+    "label": "B",
+    "text": "Reject H0, and the probability of a Type I error in this study is exactly 0.08."
+   },
+   {
+    "label": "C",
+    "text": "Fail to reject H0, which shows H0 is true."
+   },
+   {
+    "label": "D",
+    "text": "Reject H0, since p = 0.08 is less than the chosen significance level of 0.10."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The cutoff is the alpha chosen for this test, 0.10, not automatically 0.05.",
+   "B": "The Type I error rate is alpha = 0.10; the p-value is not the probability of a Type I error.",
+   "C": "Failing to reject does not prove H0 true, and here H0 would be rejected anyway.",
+   "D": "The decision compares p with the alpha chosen for the test; 0.08 < 0.10, so the result is significant."
+  }
+ },
+ {
+  "key": "u13-APSTATS-MCQ-080-v3",
+  "kind": "mcq",
+  "stem": "A hospital tests whether a new protocol reduces readmission rates and uses alpha = 0.01. The test gives p = 0.047. Which conclusion is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Reject H0, since p = 0.047 is below the common 0.05 cutoff."
+   },
+   {
+    "label": "B",
+    "text": "Fail to reject H0, which means H0 is true with probability 1 - 0.047 = 0.953."
+   },
+   {
+    "label": "C",
+    "text": "Fail to reject H0; there is not convincing evidence at the 0.01 level."
+   },
+   {
+    "label": "D",
+    "text": "Reject H0, since 0.047 is close to 0.01."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The cutoff for this test is alpha = 0.01, set in advance, not 0.05.",
+   "B": "The p-value does not give the probability that H0 is true, and failing to reject does not prove it.",
+   "C": "Because p = 0.047 is greater than alpha = 0.01, the evidence is not strong enough at this level.",
+   "D": "Being close to alpha does not justify rejection; the rule is to reject only if p is less than alpha."
+  }
+ }
+]

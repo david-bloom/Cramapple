@@ -1,0 +1,1172 @@
+[
+ {
+  "id": "APSTATS-MCQ-005-CAL-v1",
+  "seed": "APSTATS-MCQ-005-CAL",
+  "difficulty": "medium",
+  "title": "Sleep duration and GPA survey",
+  "stem": "A university health center reports that students who sleep at least 8 hours per night have a higher mean GPA than students who sleep less. The report is based on an email survey in which 320 students chose to respond and reported their own sleep and GPA. Which conclusion is appropriately supported by this study design?",
+  "correct": {
+   "text": "Sleep duration and GPA are associated among these respondents, but a cause-and-effect conclusion is not supported because sleep was not randomly assigned.",
+   "rationale": "The study is observational with self-selected respondents and no random assignment of sleep habits, so it can describe an association but cannot rule out confounders such as study habits or workload."
+  },
+  "wrong": [
+   {
+    "text": "Sleeping at least 8 hours per night causes students to earn higher GPAs.",
+    "rationale": "This draws a causal conclusion from an observational survey; without random assignment, confounding variables (for example, motivation or course load) could explain the GPA difference.",
+    "error_pattern": "causal claim from observational data"
+   },
+   {
+    "text": "Because 320 respondents is a large sample, the data show that more sleep causes a higher GPA.",
+    "rationale": "A large sample reduces sampling variability but does not remove confounding or the self-selection of respondents; only random assignment supports causal claims.",
+    "error_pattern": "large sample implies causation"
+   },
+   {
+    "text": "Since sleep was not randomly assigned, the survey shows no relationship between sleep and GPA among respondents.",
+    "rationale": "Lack of random assignment limits causal claims, not the description of association; the respondents' mean GPAs did differ between the two sleep groups, so an association exists in the sample.",
+    "error_pattern": "overcorrecting: no association without an experiment"
+   }
+  ],
+  "change_note": "New scenario (sleep/GPA email survey) with 320 volunteers; same observational-vs-causal skill.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-005-CAL-v2",
+  "seed": "APSTATS-MCQ-005-CAL",
+  "difficulty": "medium",
+  "title": "Herbal tea randomized insomnia trial",
+  "stem": "A clinic recruits 90 volunteers with mild insomnia and uses a random number generator to assign 45 to drink a new herbal tea nightly and 45 to drink a placebo tea. After four weeks, the tea group fell asleep an average of 12 minutes faster, and a significance test shows this difference is very unlikely to be due to chance alone. Which conclusion is best supported?",
+  "correct": {
+   "text": "The tea very likely caused faster sleep onset among these volunteers, because treatments were randomly assigned and the difference is unlikely to be due to chance.",
+   "rationale": "Random assignment balances other variables across the two groups, and the significant difference rules out chance as the explanation, so a cause-and-effect conclusion is supported for the volunteers in the study."
+  },
+  "wrong": [
+   {
+    "text": "Because the participants were volunteers, no cause-and-effect conclusion is possible for anyone in the study.",
+    "rationale": "Volunteering limits generalization to a larger population, but causal conclusions within the study depend on random assignment of treatments, which was used here.",
+    "error_pattern": "confusing volunteer sample with lack of random assignment"
+   },
+   {
+    "text": "The tea would cause faster sleep onset for all adults with insomnia, because random assignment makes the volunteers representative of them.",
+    "rationale": "Random assignment supports causation within the study, not generalization; representativeness requires random selection from the target population, and these were volunteers.",
+    "error_pattern": "random assignment implies generalizability"
+   },
+   {
+    "text": "Because only 90 people took part, no cause-and-effect conclusion can be drawn from this study.",
+    "rationale": "A smaller sample does not prevent causal inference; the significant result already accounts for sample size, and random assignment is what supports causation.",
+    "error_pattern": "small sample blocks causation"
+   }
+  ],
+  "change_note": "Flips the seed: a randomized experiment, so causation is supported; distractors target volunteer/generalization and sample-size misconceptions.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-005-CAL-v3",
+  "seed": "APSTATS-MCQ-005-CAL",
+  "difficulty": "medium",
+  "title": "Coffee and heart disease county sample",
+  "stem": "Researchers select a simple random sample of 800 adults from a county and record how many cups of coffee each drinks per day and whether each has been diagnosed with heart disease. Adults who drink 3 or more cups a day have a lower rate of diagnosed heart disease than those who drink fewer. Which conclusion is appropriate?",
+  "correct": {
+   "text": "There is an association in the county's adults that can be generalized because of the random sample, but causation cannot be concluded because coffee drinking was not assigned.",
+   "rationale": "Random selection supports generalizing to the county, but with no random assignment of coffee consumption, confounders such as age or diet cannot be ruled out, so only association can be claimed."
+  },
+  "wrong": [
+   {
+    "text": "Drinking 3 or more cups of coffee a day lowers the risk of heart disease, because the sample was randomly selected.",
+    "rationale": "Random selection of subjects supports generalizing the association to the county; it does not establish cause and effect, which requires random assignment of the explanatory variable.",
+    "error_pattern": "random sampling implies causation"
+   },
+   {
+    "text": "Random selection ensures that age, diet, and other variables are balanced between heavy and light coffee drinkers, so differences are due to coffee.",
+    "rationale": "Balancing lurking variables is the job of random assignment; in a random sample, heavy and light drinkers can still differ systematically in age, diet, and more.",
+    "error_pattern": "random sampling balances lurking variables"
+   },
+   {
+    "text": "The association cannot be generalized to the county's adults, because coffee drinking was not randomly assigned.",
+    "rationale": "Generalization depends on how subjects were selected, and these adults were randomly selected, so the association can be extended to the county's adults even though causation cannot be claimed.",
+    "error_pattern": "confusing random assignment with random selection"
+   }
+  ],
+  "change_note": "Random sample but observational: separates random selection (generalization) from random assignment (causation).",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-010-CAL-v1",
+  "seed": "APSTATS-MCQ-010-CAL",
+  "difficulty": "medium",
+  "title": "Hospital readmission large-counts",
+  "stem": "A hospital analyst takes a random sample of n = 60 patients from a very large patient population in which the true readmission rate is p = 0.05. The analyst wants to use a normal approximation for the sampling distribution of the sample proportion who are readmitted. Why is this approximation not appropriate?",
+  "correct": {
+   "text": "np = 60(0.05) = 3, which is less than 10, so the large-counts condition fails and the sampling distribution of p-hat is skewed right.",
+   "rationale": "The normal approximation requires both np and n(1 − p) to be at least 10; here np = 3 fails, and with so few expected readmissions the distribution of p-hat is right-skewed."
+  },
+  "wrong": [
+   {
+    "text": "The sample size n = 60 is under 100, and a normal approximation needs at least 100 observations whatever the value of p.",
+    "rationale": "There is no fixed minimum n of 100; the requirement is np ≥ 10 and n(1 − p) ≥ 10, which a sample of 60 could meet for a different p, such as 0.5 (np = 30).",
+    "error_pattern": "fixed sample-size cutoff"
+   },
+   {
+    "text": "p = 0.05 is below 0.5, so the sampling distribution of p-hat can only be approximately normal when p is at least 0.5.",
+    "rationale": "Normality does not require p ≥ 0.5; with p = 0.05 a large enough n (such as 300, giving np = 15) would satisfy the counts condition.",
+    "error_pattern": "requires p near or above 0.5"
+   },
+   {
+    "text": "The true rate p is known, so the sampling distribution of p-hat has no standard deviation to approximate with a normal model.",
+    "rationale": "Because p is given, σ of p-hat = √(0.05·0.95/60) ≈ 0.028 can be computed; the issue is the shape, since np = 3 < 10.",
+    "error_pattern": "confusing known parameter with unusable model"
+   }
+  ],
+  "change_note": "New context and numbers (n = 60, p = 0.05); distractors target fixed-n cutoff, p-vs-0.5, and known-parameter misconceptions.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-010-CAL-v2",
+  "seed": "APSTATS-MCQ-010-CAL",
+  "difficulty": "medium",
+  "title": "Seed germination large-counts",
+  "stem": "A botanist plants a random sample of n = 50 seeds from a very large seed lot in which the true germination rate is p = 0.96. Which statement correctly evaluates using a normal approximation for the sampling distribution of the sample proportion that germinate?",
+  "correct": {
+   "text": "The approximation is not appropriate, since n(1 − p) = 50(0.04) = 2 is less than 10, which leaves the distribution of p-hat skewed left.",
+   "rationale": "Both np and n(1 − p) must be at least 10; here np = 48 passes but n(1 − p) = 2 fails, so the sampling distribution of p-hat is skewed to the left."
+  },
+  "wrong": [
+   {
+    "text": "The approximation is appropriate, because np = 50(0.96) = 48 is at least 10.",
+    "rationale": "Checking only np is not enough; n(1 − p) = 50(0.04) = 2 is below 10, so the large-counts condition is not met.",
+    "error_pattern": "checking only one of the two counts"
+   },
+   {
+    "text": "The approximation is inappropriate because p = 0.96 is greater than 0.5, and normal approximations require p ≤ 0.5.",
+    "rationale": "There is no rule that p must be at most 0.5; the failure is due to n(1 − p) = 2 being under 10, and a larger n (such as 500) would work for p = 0.96.",
+    "error_pattern": "requires p ≤ 0.5"
+   },
+   {
+    "text": "The approximation is appropriate, because n = 50 is at least 30, which is the sample-size requirement for normality.",
+    "rationale": "The n ≥ 30 guideline applies to sample means; for proportions the condition is np ≥ 10 and n(1 − p) ≥ 10, and here n(1 − p) = 2.",
+    "error_pattern": "applying the means n ≥ 30 rule"
+   }
+  ],
+  "change_note": "Flips to p near 1 so the failing count is n(1-p); stem asks to evaluate rather than only explain failure.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-010-CAL-v3",
+  "seed": "APSTATS-MCQ-010-CAL",
+  "difficulty": "hard",
+  "title": "Employee survey 10% condition",
+  "stem": "A human resources office has 600 employees. It plans to take a simple random sample of n = 80 employees and use a normal model for the sampling distribution of the proportion who support a new schedule, where the true proportion is p = 0.40. Which statement identifies the problem with this plan?",
+  "correct": {
+   "text": "The sample of 80 is more than 10% of the 600 employees (10% of 600 is 60), so the independence (10%) condition is not met.",
+   "rationale": "The 10% condition requires the population to be at least 10 times the sample size, which would take at least 800 employees; with 600 the draws are not close enough to independent, even though np = 32 and n(1 − p) = 48 are fine."
+  },
+  "wrong": [
+   {
+    "text": "Because p = 0.40 is not close to 0.50, the large-counts condition fails and a normal model cannot be used.",
+    "rationale": "Large counts holds here: np = 80(0.40) = 32 and n(1 − p) = 48 are both at least 10; p does not need to be near 0.5.",
+    "error_pattern": "large counts requires p near 0.5"
+   },
+   {
+    "text": "Since 80 is much smaller than 600, the sample is too small relative to the population for the sampling distribution to be normal.",
+    "rationale": "Sample size relative to the population is not a lower-bound issue; the 10% condition limits how large the sample can be, and a small fraction of the population is desirable.",
+    "error_pattern": "reversing the direction of the 10% condition"
+   },
+   {
+    "text": "There is no problem: np = 32 and n(1 − p) = 48 are both at least 10, so every condition for a normal model is met.",
+    "rationale": "The counts are fine, but the 10% condition also must hold, and n = 80 exceeds 10% of 600 (60), so one condition is not met.",
+    "error_pattern": "checking only large counts"
+   }
+  ],
+  "change_note": "Tests the 10% condition (part of 3.2 conditions) rather than large counts; new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-021-v1",
+  "seed": "APSTATS-MCQ-021",
+  "difficulty": "easy",
+  "title": "Quiz score correction effect on mean",
+  "stem": "A teacher has 15 quiz scores with a mean of 72. While rechecking, she corrects one score from 64 to 79 and recomputes the mean. How does the mean change?",
+  "correct": {
+   "text": "It increases by 1.0, because the total of the scores rises by 15 and there are 15 scores.",
+   "rationale": "The corrected score is 79 − 64 = 15 points higher, so the sum rises by 15 and the mean rises by 15/15 = 1.0 (from 72 to 73)."
+  },
+  "wrong": [
+   {
+    "text": "It increases by 15.",
+    "rationale": "15 is the change in the single score; the mean changes by that amount divided by the 15 scores, which is 1.",
+    "error_pattern": "reporting the change in the value"
+   },
+   {
+    "text": "It increases by about 1.07, because the total rises by 15 and is divided by 14.",
+    "rationale": "The mean divides by the number of values, n = 15, not n − 1 = 14 (n − 1 is used for sample standard deviation); 15/15 = 1.",
+    "error_pattern": "dividing by n − 1"
+   },
+   {
+    "text": "It does not change, because changing one score does not affect the median.",
+    "rationale": "The median may be unaffected, but the mean uses every value; the sum changes by +15, so the mean changes by +1.",
+    "error_pattern": "confusing mean with median"
+   }
+  ],
+  "change_note": "New context (quiz score, 15 values, +15 change); distractors target value-vs-mean change, n-1, and mean/median confusion.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-021-v2",
+  "seed": "APSTATS-MCQ-021",
+  "difficulty": "easy",
+  "title": "Commute data entry correction",
+  "stem": "A data set of 20 commute times (in minutes) has a mean of 55. One entry of 90 minutes is found to be a typing error and is corrected to 50 minutes. What happens to the mean?",
+  "correct": {
+   "text": "It decreases by 2, because the total drops by 40 minutes and is shared among 20 values.",
+   "rationale": "The corrected entry is 40 minutes lower, so the sum drops by 40 and the mean drops by 40/20 = 2 (from 55 to 53)."
+  },
+  "wrong": [
+   {
+    "text": "It decreases by 40.",
+    "rationale": "40 is the change in the single entry; the mean changes by 40/20 = 2.",
+    "error_pattern": "reporting the change in the value"
+   },
+   {
+    "text": "It increases by 2, because the size of the change, 40, is divided by 20 values.",
+    "rationale": "The magnitude 2 is right, but the entry went down, so the total and the mean go down, not up.",
+    "error_pattern": "sign error"
+   },
+   {
+    "text": "It decreases by about 2.1, because the total drops by 40 and is divided by 19.",
+    "rationale": "The mean divides by all 20 values, not 19; 40/20 = 2.",
+    "error_pattern": "dividing by n − 1"
+   }
+  ],
+  "change_note": "Decrease instead of increase; new numbers (n = 20, 90 to 50); sign and n-1 distractors.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-021-v3",
+  "seed": "APSTATS-MCQ-021",
+  "difficulty": "medium",
+  "title": "Replaced value in small data set",
+  "stem": "A set of 8 measurements has a mean of 25. A lab technician replaces one measurement of 10 with a new measurement of 34. How does the mean change?",
+  "correct": {
+   "text": "It increases by 3, because the total rises by 24 and there are 8 measurements.",
+   "rationale": "The replacement raises the sum by 34 − 10 = 24, so the mean rises by 24/8 = 3 (from 25 to 28)."
+  },
+  "wrong": [
+   {
+    "text": "It increases by 24.",
+    "rationale": "24 is how much the one measurement changed; the mean changes by 24/8 = 3.",
+    "error_pattern": "reporting the change in the value"
+   },
+   {
+    "text": "It increases by 2.4, because the 24-point change is spread over 10 measurements.",
+    "rationale": "There are 8 measurements, not 10; 24/8 = 3.",
+    "error_pattern": "wrong divisor"
+   },
+   {
+    "text": "It increases by 4.5, because the new mean is the average of the old mean, 25, and the new value, 34.",
+    "rationale": "Averaging 25 with 34 ignores that the other 7 values still count; the new mean is 28, a change of 3.",
+    "error_pattern": "averaging old mean with new value"
+   }
+  ],
+  "change_note": "Replacement framing, n = 8, +24; distractors include averaging old mean with new value.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-025-v1",
+  "seed": "APSTATS-MCQ-025",
+  "difficulty": "easy",
+  "title": "Homework minutes upper fence",
+  "stem": "A boxplot of the number of minutes students spent on homework has Q1 = 42 and Q3 = 58. Using the 1.5 × IQR rule, what is the upper fence for possible outliers?",
+  "correct": {
+   "text": "82",
+   "rationale": "IQR = 58 − 42 = 16, so the upper fence is Q3 + 1.5(IQR) = 58 + 24 = 82."
+  },
+  "wrong": [
+   {
+    "text": "24",
+    "rationale": "This is only 1.5(IQR) = 1.5(16); the fence is found by adding it to Q3.",
+    "error_pattern": "forgetting to add to Q3"
+   },
+   {
+    "text": "66",
+    "rationale": "This starts from Q1: 42 + 1.5(16) = 66, but the upper fence is measured from Q3.",
+    "error_pattern": "adding to Q1 instead of Q3"
+   },
+   {
+    "text": "90",
+    "rationale": "This uses 2(IQR) instead of 1.5(IQR): 58 + 2(16) = 90.",
+    "error_pattern": "wrong multiplier"
+   }
+  ],
+  "change_note": "New Q1/Q3 (42, 58); different distractor errors (no Q3, Q1 start, 2×IQR).",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-025-v2",
+  "seed": "APSTATS-MCQ-025",
+  "difficulty": "easy",
+  "title": "Lower fence for delivery times",
+  "stem": "For a set of delivery times (in minutes), Q1 = 120 and Q3 = 150. Using the 1.5 × IQR rule, what is the lower fence for possible outliers?",
+  "correct": {
+   "text": "75",
+   "rationale": "IQR = 150 − 120 = 30, so the lower fence is Q1 − 1.5(IQR) = 120 − 45 = 75."
+  },
+  "wrong": [
+   {
+    "text": "90",
+    "rationale": "This subtracts 1.0(IQR) instead of 1.5(IQR): 120 − 30 = 90.",
+    "error_pattern": "wrong multiplier"
+   },
+   {
+    "text": "195",
+    "rationale": "This is the upper fence, Q3 + 1.5(IQR) = 150 + 45 = 195, not the lower fence.",
+    "error_pattern": "computing the wrong fence"
+   },
+   {
+    "text": "45",
+    "rationale": "This is only 1.5(IQR) = 1.5(30); it must be subtracted from Q1.",
+    "error_pattern": "forgetting to subtract from Q1"
+   }
+  ],
+  "change_note": "Lower fence rather than upper fence; new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-025-v3",
+  "seed": "APSTATS-MCQ-025",
+  "difficulty": "medium",
+  "title": "Which value is a possible outlier",
+  "stem": "The daily change in temperature (in °F) for a city has Q1 = 20 and Q3 = 44. Using the 1.5 × IQR rule, which of the following values would be identified as a possible outlier?",
+  "correct": {
+   "text": "84",
+   "rationale": "IQR = 44 − 20 = 24; the upper fence is 44 + 1.5(24) = 80, and the lower fence is 20 − 36 = −16. Since 84 > 80, it is a possible outlier."
+  },
+  "wrong": [
+   {
+    "text": "68",
+    "rationale": "68 = Q3 + 1.0(IQR) = 44 + 24, which uses the wrong multiplier; it is below the upper fence of 80, so it is not flagged.",
+    "error_pattern": "wrong multiplier"
+   },
+   {
+    "text": "56",
+    "rationale": "56 = Q1 + 1.5(IQR) = 20 + 36, a fence built from the wrong quartile; it is below the actual upper fence of 80.",
+    "error_pattern": "adding to Q1 instead of Q3"
+   },
+   {
+    "text": "−10",
+    "rationale": "−10 is below Q1 = 20, but the lower fence is 20 − 1.5(24) = −16, and −10 is above it, so it is not flagged.",
+    "error_pattern": "treating any value below Q1 as an outlier"
+   }
+  ],
+  "change_note": "Applies the fence to identify an outlier among values; new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-038-v1",
+  "seed": "APSTATS-MCQ-038",
+  "difficulty": "medium",
+  "title": "Library members stratified by branch type",
+  "stem": "A county library system has members who mostly use urban branches, a smaller group who use suburban branches, and only about 8% who use rural branches. The system plans a satisfaction survey of 500 members. Why might a stratified random sample be better than a simple random sample here?",
+  "correct": {
+   "text": "It guarantees that the small rural group is included in a planned amount, which a simple random sample could under-represent by chance.",
+   "rationale": "Sampling within each branch type (stratum) fixes how many members come from each, so the 8% rural group cannot be missed or badly under-represented the way it could be in a simple random sample."
+  },
+  "wrong": [
+   {
+    "text": "It removes sampling variability, so the sample percentages will equal the population percentages exactly.",
+    "rationale": "Stratified samples still vary from sample to sample; stratification can reduce variability but never eliminates it.",
+    "error_pattern": "sampling variability removed"
+   },
+   {
+    "text": "It is the only method in which every library member has the same chance of being selected.",
+    "rationale": "In a simple random sample every member also has an equal chance of selection (and so does every possible group of 500), so stratified sampling is not unique in this.",
+    "error_pattern": "equal chance unique to stratified"
+   },
+   {
+    "text": "It lets surveyors hand-pick willing members within each branch type, which gives more complete responses.",
+    "rationale": "Members within each stratum must still be chosen randomly; hand-picking willing members would introduce selection bias.",
+    "error_pattern": "stratified permits non-random choice"
+   }
+  ],
+  "change_note": "New context (library branches); distractors target eliminated variability, equal-chance uniqueness, and non-random selection.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-038-v2",
+  "seed": "APSTATS-MCQ-038",
+  "difficulty": "medium",
+  "title": "Factory shifts stratified vs SRS",
+  "stem": "A factory has 300 day-shift, 150 evening-shift, and 50 night-shift workers. A manager wants to compare job satisfaction across the three shifts using a sample of 60 workers. Why might stratified sampling be preferable to a simple random sample of 60?",
+  "correct": {
+   "text": "Randomly sampling within each shift guarantees that the small night shift appears in the sample, so shifts can be compared.",
+   "rationale": "A simple random sample of 60 from 500 would contain only about 6 night-shift workers on average and could contain very few; stratifying ensures each shift is represented."
+  },
+  "wrong": [
+   {
+    "text": "It selects entire shifts at random and surveys everyone in them, which saves time and travel.",
+    "rationale": "That describes cluster sampling; stratified sampling takes a random sample from every shift rather than whole shifts.",
+    "error_pattern": "confusing stratified with cluster sampling"
+   },
+   {
+    "text": "It removes the need to randomize, because the shifts are already natural groups of workers.",
+    "rationale": "Workers must still be selected randomly within each shift; the shifts only define the strata.",
+    "error_pattern": "stratification replaces randomization"
+   },
+   {
+    "text": "It guarantees that no selected worker will refuse to answer, so the results are free of nonresponse bias.",
+    "rationale": "Stratification does nothing to prevent nonresponse; selected workers can still decline to participate.",
+    "error_pattern": "stratified removes nonresponse bias"
+   }
+  ],
+  "change_note": "New context (factory shifts); includes cluster-sampling confusion distractor.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-038-v3",
+  "seed": "APSTATS-MCQ-038",
+  "difficulty": "hard",
+  "title": "Statewide poll stratified by region precision",
+  "stem": "A pollster will survey 600 voters in a state whose regions differ sharply in their support for a ballot measure, while voters within a region tend to share similar views. Why might sampling randomly within each region give a more precise estimate than a simple random sample of 600?",
+  "correct": {
+   "text": "Voters within each region are alike, so sampling within regions reduces variability in the statewide estimate compared with a simple random sample of 600.",
+   "rationale": "When strata are internally similar but differ from each other, stratifying removes the between-region variation from the estimate, so the sample proportion varies less from sample to sample."
+  },
+  "wrong": [
+   {
+    "text": "The pollster can choose the most typical voters in each region, which makes the sample more precise.",
+    "rationale": "Handpicking typical voters is non-random and introduces bias; stratified sampling still selects voters randomly within each region.",
+    "error_pattern": "stratified permits choosing typical members"
+   },
+   {
+    "text": "It guarantees that the sample proportion for the state equals the true statewide proportion.",
+    "rationale": "Stratified estimates still vary from sample to sample; they are only less variable, not exact.",
+    "error_pattern": "stratified guarantees exact estimate"
+   },
+   {
+    "text": "It ensures that every possible group of 600 voters has the same chance of being selected, as in a simple random sample.",
+    "rationale": "Only a simple random sample gives every possible group of 600 equal chance; a stratified sample allows only groups with the planned count from each region.",
+    "error_pattern": "stratified is equivalent to SRS"
+   }
+  ],
+  "change_note": "Targets precision gain from homogeneous strata; harder conceptual angle.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-042-v1",
+  "seed": "APSTATS-MCQ-042",
+  "difficulty": "medium",
+  "title": "Running coach random assignment",
+  "stem": "A track coach randomly assigns 24 runners to either a new stretching routine or the usual warm-up, then compares their 5K times at the end of the season. What does random assignment help with most?",
+  "correct": {
+   "text": "Making the two groups similar in traits like fitness level, so a time difference can reasonably be attributed to the routine.",
+   "rationale": "Chance assignment tends to spread fitness, age, and other traits evenly across groups, so the routine is the main systematic difference, supporting a cause-and-effect conclusion."
+  },
+  "wrong": [
+   {
+    "text": "Making sure the 24 runners are representative of all runners in the league.",
+    "rationale": "Representativeness comes from random selection of subjects from the population; random assignment only decides which treatment each subject gets.",
+    "error_pattern": "confusing random assignment with random selection"
+   },
+   {
+    "text": "Guaranteeing that the two groups have exactly the same mean 5K time before the routines begin.",
+    "rationale": "Random assignment balances groups on average, but chance can still leave differences; it does not guarantee identical means.",
+    "error_pattern": "guaranteed exact balance"
+   },
+   {
+    "text": "Keeping the runners from knowing which routine they received.",
+    "rationale": "Hiding the treatment from subjects is blinding, which is a separate design feature from random assignment.",
+    "error_pattern": "confusing with blinding"
+   }
+  ],
+  "change_note": "New scenario (running); distractors target selection vs assignment, guaranteed balance, blinding.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-042-v2",
+  "seed": "APSTATS-MCQ-042",
+  "difficulty": "medium",
+  "title": "Skin cream random assignment",
+  "stem": "A pharmacy randomly assigns 60 volunteers with a mild rash to use either a new cream or the standard cream for two weeks and then rates how much each rash improved. What does random assignment help with most?",
+  "correct": {
+   "text": "Tending to balance known and unknown variables, like age and skin sensitivity, across the cream groups.",
+   "rationale": "Because every volunteer is equally likely to land in either group, chance tends to even out all other variables, including ones the researchers did not think to measure."
+  },
+  "wrong": [
+   {
+    "text": "Making sure the volunteers represent all adults who develop rashes.",
+    "rationale": "These are volunteers; representing all adults would require random selection from that population, not random assignment.",
+    "error_pattern": "confusing random assignment with random selection"
+   },
+   {
+    "text": "Ensuring that each cream group contains exactly the same number of men as women.",
+    "rationale": "Random assignment does not guarantee equal counts in subgroups; getting equal numbers by sex would require blocking.",
+    "error_pattern": "guaranteed equal subgroup counts"
+   },
+   {
+    "text": "Removing measurement error from the rash-improvement ratings.",
+    "rationale": "Random assignment does not affect how accurately improvement is measured; measurement error comes from the rating process.",
+    "error_pattern": "random assignment fixes measurement error"
+   }
+  ],
+  "change_note": "New context (skin cream, 60 volunteers); same concept; includes blocking-aware rationale.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-042-v3",
+  "seed": "APSTATS-MCQ-042",
+  "difficulty": "medium",
+  "title": "Website layout random assignment",
+  "stem": "A software company randomly shows each visitor to its site either layout A or layout B and compares the percent of visitors who sign up for a trial. What does random assignment help with most?",
+  "correct": {
+   "text": "Making visitors who see layout A comparable to those who see B, so a difference in sign-up rates can be attributed to the layout.",
+   "rationale": "Random assignment tends to equalize visitor characteristics, such as device or interest level, across the layouts, which makes the layout the likely explanation for a large difference."
+  },
+  "wrong": [
+   {
+    "text": "Making sure the visitors tested match the company's overall customer base.",
+    "rationale": "Matching the customer base depends on how the visitors were selected, not on how they were assigned to layouts.",
+    "error_pattern": "confusing random assignment with random selection"
+   },
+   {
+    "text": "Ensuring the visitors cannot tell that two layouts are being compared, making the study blind.",
+    "rationale": "Concealing the comparison from subjects is blinding, which random assignment does not provide.",
+    "error_pattern": "confusing with blinding"
+   },
+   {
+    "text": "Guaranteeing that both layout groups contain exactly the same number of returning customers.",
+    "rationale": "Chance can leave different counts of returning customers in each group; random assignment only balances such traits in the long run.",
+    "error_pattern": "guaranteed exact balance"
+   }
+  ],
+  "change_note": "Online A/B test context; same skill.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-046-v1",
+  "seed": "APSTATS-MCQ-046",
+  "difficulty": "easy",
+  "title": "Employee carpool and early arrival",
+  "stem": "Of 60 employees at a company, 15 carpool to work and 20 arrive early. Six employees both carpool and arrive early. What is P(arrives early | carpools)?",
+  "correct": {
+   "text": "6/15 = 0.40",
+   "rationale": "Given that the employee carpools, the denominator is the 15 carpoolers; 6 of them arrive early, so 6/15 = 0.40."
+  },
+  "wrong": [
+   {
+    "text": "6/20 = 0.30",
+    "rationale": "This divides by the number who arrive early, which is P(carpools | arrives early), the reversed conditional.",
+    "error_pattern": "reversed conditional"
+   },
+   {
+    "text": "6/60 = 0.10",
+    "rationale": "This divides by all employees, giving the joint probability P(carpools and arrives early) rather than a conditional probability.",
+    "error_pattern": "using the whole group as denominator"
+   },
+   {
+    "text": "6/9 ≈ 0.67",
+    "rationale": "The 9 is the number of carpoolers who do NOT arrive early (15 − 6); the denominator should be all 15 carpoolers.",
+    "error_pattern": "using the complement group as denominator"
+   }
+  ],
+  "change_note": "New context and numbers (60/15/20/6); reversed-conditional distractor added.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-046-v2",
+  "seed": "APSTATS-MCQ-046",
+  "difficulty": "easy",
+  "title": "Band and orchestra membership",
+  "stem": "In a school of 120 students, 48 are in band and 30 are in orchestra. Eighteen students are in both. What is P(in orchestra | in band)?",
+  "correct": {
+   "text": "18/48 = 0.375",
+   "rationale": "Given the student is in band, the sample space is the 48 band members; 18 of them are in orchestra, so 18/48 = 0.375."
+  },
+  "wrong": [
+   {
+    "text": "18/30 = 0.60",
+    "rationale": "This uses orchestra members as the denominator, which is P(band | orchestra), the reversed conditional.",
+    "error_pattern": "reversed conditional"
+   },
+   {
+    "text": "18/120 = 0.15",
+    "rationale": "This is the joint probability P(band and orchestra), using the whole school as the denominator.",
+    "error_pattern": "joint instead of conditional"
+   },
+   {
+    "text": "30/120 = 0.25",
+    "rationale": "This is the unconditional probability P(orchestra); knowing the student is in band changes the probability.",
+    "error_pattern": "ignoring the condition"
+   }
+  ],
+  "change_note": "Different scenario; overlap-count format; new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-046-v3",
+  "seed": "APSTATS-MCQ-046",
+  "difficulty": "medium",
+  "title": "Online purchases by age two-way table",
+  "stem": "A store surveyed 200 customers and recorded age group and whether they bought online. The results are below.\nUnder 30, bought online: 50\nUnder 30, did not buy online: 30\n30 or older, bought online: 40\n30 or older, did not buy online: 80\nWhat is P(under 30 | bought online)?",
+  "correct": {
+   "text": "50/90 ≈ 0.56",
+   "rationale": "Among the 50 + 40 = 90 customers who bought online, 50 are under 30, so P = 50/90 ≈ 0.56."
+  },
+  "wrong": [
+   {
+    "text": "50/80 = 0.625",
+    "rationale": "This divides by the 80 under-30 customers, which is P(bought online | under 30), the reversed conditional.",
+    "error_pattern": "reversed conditional"
+   },
+   {
+    "text": "50/200 = 0.25",
+    "rationale": "This divides by all 200 customers, giving the joint probability instead of the conditional probability.",
+    "error_pattern": "using the grand total as denominator"
+   },
+   {
+    "text": "90/200 = 0.45",
+    "rationale": "This is the marginal probability of buying online; it does not use the under-30 group at all.",
+    "error_pattern": "reporting the marginal probability"
+   }
+  ],
+  "change_note": "Two-way table in text form; condition on a column total; new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-050-v1",
+  "seed": "APSTATS-MCQ-050",
+  "difficulty": "easy",
+  "title": "Defective bulb complement",
+  "stem": "The probability that a randomly selected bulb from a production line is defective is 0.08. What is the probability that the bulb is not defective?",
+  "correct": {
+   "text": "0.92",
+   "rationale": "The complement rule gives P(not defective) = 1 − 0.08 = 0.92."
+  },
+  "wrong": [
+   {
+    "text": "0.08",
+    "rationale": "This repeats the probability of a defective bulb rather than its complement.",
+    "error_pattern": "repeating the original probability"
+   },
+   {
+    "text": "−0.92",
+    "rationale": "This subtracts in the wrong order (0.08 − 1); a probability cannot be negative, and the complement is 1 − 0.08 = 0.92.",
+    "error_pattern": "reversed subtraction"
+   },
+   {
+    "text": "0.20",
+    "rationale": "This comes from treating 0.08 as 0.8 and computing 1 − 0.8; the complement of 0.08 is 0.92.",
+    "error_pattern": "decimal place error"
+   }
+  ],
+  "change_note": "New context (bulbs, 0.08); new distractor errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-050-v2",
+  "seed": "APSTATS-MCQ-050",
+  "difficulty": "easy",
+  "title": "Flight on-time complement",
+  "stem": "The probability that a certain flight arrives on time is 0.82. What is the probability that the flight does not arrive on time?",
+  "correct": {
+   "text": "0.18",
+   "rationale": "By the complement rule, 1 − 0.82 = 0.18."
+  },
+  "wrong": [
+   {
+    "text": "0.82",
+    "rationale": "This is the probability of arriving on time, not its complement.",
+    "error_pattern": "repeating the original probability"
+   },
+   {
+    "text": "1.82",
+    "rationale": "This adds 0.82 to 1; a probability cannot exceed 1, and the complement is 1 − 0.82.",
+    "error_pattern": "adding instead of subtracting"
+   },
+   {
+    "text": "0.08",
+    "rationale": "This subtracts 0.82 from 0.90 instead of from 1.",
+    "error_pattern": "subtracting from the wrong total"
+   }
+  ],
+  "change_note": "New context (flight); new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-050-v3",
+  "seed": "APSTATS-MCQ-050",
+  "difficulty": "easy",
+  "title": "Snow forecast complement",
+  "stem": "A forecaster says there is a 40% chance of snow tomorrow. What is the probability that it does not snow?",
+  "correct": {
+   "text": "0.60",
+   "rationale": "Writing 40% as 0.40, the complement is 1 − 0.40 = 0.60."
+  },
+  "wrong": [
+   {
+    "text": "0.40",
+    "rationale": "This repeats the probability of snow instead of finding its complement.",
+    "error_pattern": "repeating the original probability"
+   },
+   {
+    "text": "0.50",
+    "rationale": "This assumes snow and no snow are equally likely, which ignores the given 40% chance.",
+    "error_pattern": "assuming equally likely outcomes"
+   },
+   {
+    "text": "0.96",
+    "rationale": "This converts 40% to 0.04 and then computes 1 − 0.04; 40% is 0.40, so the complement is 0.60.",
+    "error_pattern": "percent conversion error"
+   }
+  ],
+  "change_note": "Percent-form probability; new context; distinct distractor errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-054-v1",
+  "seed": "APSTATS-MCQ-054",
+  "difficulty": "medium",
+  "title": "Spanish or music union",
+  "stem": "At a school, the probability that a randomly selected student takes Spanish is 0.45, the probability the student takes music is 0.30, and the probability the student takes both is 0.10. What is the probability that a randomly selected student takes Spanish or music (or both)?",
+  "correct": {
+   "text": "0.65",
+   "rationale": "By the addition rule, P(Spanish or music) = 0.45 + 0.30 − 0.10 = 0.65."
+  },
+  "wrong": [
+   {
+    "text": "0.75",
+    "rationale": "This adds 0.45 and 0.30 without subtracting the overlap, so students taking both are counted twice.",
+    "error_pattern": "omitting the overlap"
+   },
+   {
+    "text": "0.55",
+    "rationale": "This subtracts the overlap twice: 0.45 + 0.30 − 2(0.10) = 0.55.",
+    "error_pattern": "subtracting the overlap twice"
+   },
+   {
+    "text": "0.135",
+    "rationale": "This multiplies 0.45 × 0.30, which would be the probability of both only if the events were independent, and it is not the union.",
+    "error_pattern": "multiplying instead of adding"
+   }
+  ],
+  "change_note": "New events and numbers; distractors: no overlap correction, double subtraction, product.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-054-v2",
+  "seed": "APSTATS-MCQ-054",
+  "difficulty": "medium",
+  "title": "Union with larger probabilities",
+  "stem": "For two events A and B, P(A) = 0.70, P(B) = 0.40, and P(A and B) = 0.35. What is P(A or B)?",
+  "correct": {
+   "text": "0.75",
+   "rationale": "Using the addition rule, 0.70 + 0.40 − 0.35 = 0.75."
+  },
+  "wrong": [
+   {
+    "text": "1.10",
+    "rationale": "This adds the two probabilities without subtracting the overlap; a probability cannot exceed 1.",
+    "error_pattern": "omitting the overlap"
+   },
+   {
+    "text": "0.35",
+    "rationale": "This is only P(A and B), the intersection.",
+    "error_pattern": "reporting the intersection"
+   },
+   {
+    "text": "0.28",
+    "rationale": "This is 0.70 × 0.40, the probability of both under independence, not the probability of either.",
+    "error_pattern": "product instead of union"
+   }
+  ],
+  "change_note": "Different numbers where the no-overlap answer exceeds 1.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-054-v3",
+  "seed": "APSTATS-MCQ-054",
+  "difficulty": "medium",
+  "title": "Laptop or tablet ownership counts",
+  "stem": "Among 80 students surveyed, 50 own a laptop, 30 own a tablet, and 15 own both. What is the probability that a randomly selected student from this group owns a laptop or a tablet?",
+  "correct": {
+   "text": "65/80 = 0.8125",
+   "rationale": "The number owning at least one is 50 + 30 − 15 = 65, so the probability is 65/80 = 0.8125."
+  },
+  "wrong": [
+   {
+    "text": "80/80 = 1.0",
+    "rationale": "This adds 50 and 30 without subtracting the 15 who own both, which would imply every student owns at least one device.",
+    "error_pattern": "omitting the overlap"
+   },
+   {
+    "text": "15/80 = 0.1875",
+    "rationale": "This is only the probability of owning both, the intersection.",
+    "error_pattern": "reporting the intersection"
+   },
+   {
+    "text": "(50/80)(30/80) ≈ 0.234",
+    "rationale": "This multiplies the individual probabilities, which would be the probability of both under independence, not the union.",
+    "error_pattern": "product instead of union"
+   }
+  ],
+  "change_note": "Counts instead of probabilities; new context.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-060-v1",
+  "seed": "APSTATS-MCQ-060",
+  "difficulty": "easy",
+  "title": "Thermometer systematic error",
+  "stem": "A new thermometer is tested thousands of times on liquids with known temperatures. Its readings are tightly clustered, but they average 2.3 degrees above the true temperature no matter how many readings are averaged. What is the main problem?",
+  "correct": {
+   "text": "The estimator is biased, since its readings are centered above the true value.",
+   "rationale": "An estimator whose values are systematically off target in one direction, even in the long run, is biased; here the center is about 2.3 degrees too high."
+  },
+  "wrong": [
+   {
+    "text": "The estimator has high variability, since its readings are not equal to the true temperature.",
+    "rationale": "Variability is the spread of readings; the stem says they are tightly clustered, so the problem is the off-center location, not scatter.",
+    "error_pattern": "confusing bias with variability"
+   },
+   {
+    "text": "The sample sizes are too small, since averaging more readings would remove the error.",
+    "rationale": "The stem says the error remains no matter how many readings are averaged; more data cannot fix a systematic offset.",
+    "error_pattern": "more data removes bias"
+   },
+   {
+    "text": "The readings are not independent, since each is above the true temperature.",
+    "rationale": "Dependence between readings is not described; a consistent upward shift is a systematic error in the estimator, which is bias.",
+    "error_pattern": "blaming independence"
+   }
+  ],
+  "change_note": "New context (thermometer); rewrote single-word choices as parallel phrases.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-060-v2",
+  "seed": "APSTATS-MCQ-060",
+  "difficulty": "medium",
+  "title": "Biased but precise estimator",
+  "stem": "In repeated random samples of size 100 from a population with true mean 50, a new estimator has a sampling distribution centered at 56 with a standard deviation of 1.5. Which statement best describes this estimator?",
+  "correct": {
+   "text": "It is biased but has low variability: its values cluster near 56 instead of 50.",
+   "rationale": "The center of the sampling distribution, 56, is not the true value of 50, so it is biased; a standard deviation of 1.5 shows its values are tightly clustered."
+  },
+  "wrong": [
+   {
+    "text": "It is unbiased but has high variability, since it often misses 50.",
+    "rationale": "It misses 50 because its center is 56, which is bias; and a standard deviation of 1.5 is small, not large.",
+    "error_pattern": "confusing bias with variability"
+   },
+   {
+    "text": "It is unbiased with low variability, because its standard deviation is small.",
+    "rationale": "A small standard deviation shows low variability only; unbiasedness requires the center to equal 50, and this one is centered at 56.",
+    "error_pattern": "low spread implies unbiased"
+   },
+   {
+    "text": "It is biased with high variability, since its values are far from 50.",
+    "rationale": "Being far from 50 is explained by the bias of about 6 units; the standard deviation of 1.5 shows the values are not widely scattered.",
+    "error_pattern": "attributing distance from target to variability"
+   }
+  ],
+  "change_note": "Conceptual bias vs variability with a given center and SD.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-060-v3",
+  "seed": "APSTATS-MCQ-060",
+  "difficulty": "medium",
+  "title": "Unbiased but variable estimator",
+  "stem": "A statistician simulates 2,000 random samples to estimate a true proportion of 0.40. The 2,000 sample proportions average exactly 0.40, but individual values range from 0.25 to 0.55. Which statement is correct?",
+  "correct": {
+   "text": "The estimator is unbiased but has high variability: its average is 0.40, yet single estimates are widely spread.",
+   "rationale": "The sampling distribution is centered at the true value of 0.40, so there is no bias, but the wide range from 0.25 to 0.55 shows high variability."
+  },
+  "wrong": [
+   {
+    "text": "The estimator is biased, because many individual estimates differ from the true proportion of 0.40.",
+    "rationale": "Bias refers to the center of the sampling distribution, which is exactly 0.40; individual estimates differing from 0.40 reflects variability.",
+    "error_pattern": "confusing bias with variability"
+   },
+   {
+    "text": "The estimator is unbiased with low variability, because its average equals 0.40.",
+    "rationale": "The average only shows the center; the estimates range from 0.25 to 0.55, which is a wide spread, so variability is high.",
+    "error_pattern": "center equals truth implies precision"
+   },
+   {
+    "text": "The estimator is unbiased, so increasing the sample size cannot reduce how widely the estimates vary.",
+    "rationale": "Increasing the sample size reduces the standard error, so larger samples would make the estimates cluster more tightly around 0.40.",
+    "error_pattern": "unbiased implies variability cannot be reduced"
+   }
+  ],
+  "change_note": "Unbiased-but-variable scenario; includes sample-size misconception.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-067-v1",
+  "seed": "APSTATS-MCQ-067",
+  "difficulty": "easy",
+  "title": "Public transit hypotheses (left-tailed)",
+  "stem": "In a random sample of 250 adults, 105 say they use public transit weekly. A researcher wants to know whether the proportion of all adults who use public transit weekly is less than 0.45. Which hypotheses should be tested?",
+  "correct": {
+   "text": "H₀: p = 0.45, Hₐ: p < 0.45",
+   "rationale": "The claim is that the population proportion is less than 0.45, so the null sets p equal to 0.45 and the alternative is left-tailed."
+  },
+  "wrong": [
+   {
+    "text": "H₀: p = 0.45, Hₐ: p < 0.42",
+    "rationale": "Hypotheses use the claimed value, not the sample proportion 105/250 = 0.42.",
+    "error_pattern": "using the sample statistic in the alternative"
+   },
+   {
+    "text": "H₀: p̂ = 0.45, Hₐ: p̂ < 0.45",
+    "rationale": "Hypotheses are about the population parameter p, not the sample statistic p̂.",
+    "error_pattern": "statistic instead of parameter"
+   },
+   {
+    "text": "H₀: p = 0.45, Hₐ: p > 0.45",
+    "rationale": "This is right-tailed, but the question asks whether the proportion is less than 0.45.",
+    "error_pattern": "wrong direction of alternative"
+   }
+  ],
+  "change_note": "New context; left-tailed; includes sample-statistic-in-hypothesis distractor.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-067-v2",
+  "seed": "APSTATS-MCQ-067",
+  "difficulty": "medium",
+  "title": "Chip defect rate two-sided hypotheses",
+  "stem": "A manufacturer says 10% of its chips are defective. In a random sample of 300 chips, 45 are defective. A quality inspector wants to know whether the true defect rate differs from 10%. Which hypotheses are correct?",
+  "correct": {
+   "text": "H₀: p = 0.10, Hₐ: p ≠ 0.10",
+   "rationale": "The question asks whether the rate differs from 10% in either direction, so the null is p = 0.10 and the alternative is two-sided."
+  },
+  "wrong": [
+   {
+    "text": "H₀: p = 0.15, Hₐ: p ≠ 0.15",
+    "rationale": "0.15 is the sample proportion 45/300; hypotheses use the claimed parameter value of 0.10.",
+    "error_pattern": "using the sample statistic in hypotheses"
+   },
+   {
+    "text": "H₀: p ≠ 0.10, Hₐ: p = 0.10",
+    "rationale": "The null and alternative are reversed; the null must contain the equality.",
+    "error_pattern": "null and alternative reversed"
+   },
+   {
+    "text": "H₀: p = 0.10, Hₐ: p > 0.10",
+    "rationale": "Although the sample proportion is above 0.10, the question asks about a difference in either direction, so a one-sided alternative does not match.",
+    "error_pattern": "direction chosen from the data"
+   }
+  ],
+  "change_note": "Two-sided; sample proportion used as distractor; direction-from-data distractor.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-067-v3",
+  "seed": "APSTATS-MCQ-067",
+  "difficulty": "medium",
+  "title": "Candidate support right-tailed",
+  "stem": "A candidate needs more than 40% of voters to win. In a random sample of 80 voters, 38 support the candidate. The campaign wants to test whether the proportion of all voters supporting the candidate exceeds 40%. Which hypotheses are correct?",
+  "correct": {
+   "text": "H₀: p = 0.40, Hₐ: p > 0.40",
+   "rationale": "The claim is that support exceeds 40%, so the alternative is right-tailed and the null sets p equal to 0.40."
+  },
+  "wrong": [
+   {
+    "text": "H₀: p ≥ 0.40, Hₐ: p < 0.40",
+    "rationale": "This tests the opposite direction; the campaign wants evidence that support is greater than 0.40.",
+    "error_pattern": "wrong direction of alternative"
+   },
+   {
+    "text": "H₀: p̂ = 0.475, Hₐ: p̂ > 0.475",
+    "rationale": "Hypotheses concern the population parameter p and its claimed value of 0.40, not the sample proportion 38/80 = 0.475.",
+    "error_pattern": "statistic and sample value used"
+   },
+   {
+    "text": "H₀: p = 0.40, Hₐ: p = 0.475",
+    "rationale": "The alternative should describe a range, here p > 0.40, not a single value taken from the sample.",
+    "error_pattern": "alternative set to sample value"
+   }
+  ],
+  "change_note": "Right-tailed with counts; new numbers and distractors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-078-v1",
+  "seed": "APSTATS-MCQ-078",
+  "difficulty": "medium",
+  "title": "Free throws zero successes",
+  "stem": "A basketball player makes each free throw independently with probability 0.3. Let X be the number of free throws made in 4 attempts. What is P(X = 0)?",
+  "correct": {
+   "text": "0.2401",
+   "rationale": "X is binomial with n = 4 and p = 0.3, so P(X = 0) = (0.7)^4 = 0.2401."
+  },
+  "wrong": [
+   {
+    "text": "0.0081",
+    "rationale": "This is (0.3)^4, the probability that all 4 shots are made, using p instead of 1 − p.",
+    "error_pattern": "using p instead of 1 − p"
+   },
+   {
+    "text": "0.7",
+    "rationale": "This is the probability of missing a single shot, not of missing all 4.",
+    "error_pattern": "single-trial probability"
+   },
+   {
+    "text": "0.7599",
+    "rationale": "This is P(X ≥ 1) = 1 − 0.2401, the probability of at least one made shot.",
+    "error_pattern": "giving the complement"
+   }
+  ],
+  "change_note": "New scenario, n = 4, p = 0.3; distractors from p vs q, single trial, complement.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-078-v2",
+  "seed": "APSTATS-MCQ-078",
+  "difficulty": "medium",
+  "title": "Seeds that fail to sprout",
+  "stem": "Each seed in a packet of 6 sprouts independently with probability 0.2. Let X be the number of seeds that sprout. What is P(X = 0)?",
+  "correct": {
+   "text": "0.2621",
+   "rationale": "X is binomial with n = 6 and p = 0.2, so P(X = 0) = (0.8)^6 ≈ 0.2621."
+  },
+  "wrong": [
+   {
+    "text": "0.0001",
+    "rationale": "This is (0.2)^6 ≈ 0.000064, the probability that all 6 sprout, using p instead of 1 − p.",
+    "error_pattern": "using p instead of 1 − p"
+   },
+   {
+    "text": "0.8",
+    "rationale": "This is the probability a single seed fails to sprout, not that all 6 fail.",
+    "error_pattern": "single-trial probability"
+   },
+   {
+    "text": "0.7379",
+    "rationale": "This is P(X ≥ 1) = 1 − 0.2621, the probability that at least one seed sprouts.",
+    "error_pattern": "giving the complement"
+   }
+  ],
+  "change_note": "New context and parameters (n = 6, p = 0.2).",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-078-v3",
+  "seed": "APSTATS-MCQ-078",
+  "difficulty": "medium",
+  "title": "Survey calls with no answers",
+  "stem": "A pollster makes 8 independent phone calls. Each call is answered with probability 0.35. Let X be the number of calls that are answered. What is P(X = 0)?",
+  "correct": {
+   "text": "0.0319",
+   "rationale": "X is binomial with n = 8 and p = 0.35, so P(X = 0) = (0.65)^8 ≈ 0.0319."
+  },
+  "wrong": [
+   {
+    "text": "0.0002",
+    "rationale": "This is (0.35)^8 ≈ 0.000225, the probability all 8 calls are answered, using p instead of 1 − p.",
+    "error_pattern": "using p instead of 1 − p"
+   },
+   {
+    "text": "0.65",
+    "rationale": "This is the probability that one call is unanswered, not that all 8 are.",
+    "error_pattern": "single-trial probability"
+   },
+   {
+    "text": "0.9681",
+    "rationale": "This is P(X ≥ 1) = 1 − 0.0319, the probability that at least one call is answered.",
+    "error_pattern": "giving the complement"
+   }
+  ],
+  "change_note": "New context (phone calls), n = 8, p = 0.35.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-095-v1",
+  "seed": "APSTATS-MCQ-095",
+  "difficulty": "medium",
+  "title": "Two tests compare power",
+  "stem": "Two researchers test the same hypotheses and the same true parameter value. Study X uses α = 0.10 with n = 400. Study Y uses α = 0.01 with n = 100. Which statement about their power is correct?",
+  "correct": {
+   "text": "Study Y has lower power, because both its smaller α and smaller sample size reduce power.",
+   "rationale": "A smaller α makes rejecting H₀ harder, and a smaller n gives a larger standard error; both lower the chance of detecting a false null, so Y has lower power."
+  },
+  "wrong": [
+   {
+    "text": "Study X has lower power, because a larger sample size increases variability and so makes rejection less likely.",
+    "rationale": "A larger sample size decreases the standard error, which increases power.",
+    "error_pattern": "larger n lowers power"
+   },
+   {
+    "text": "Study X has lower power, because the larger α makes a Type I error more likely, which reduces power.",
+    "rationale": "A larger α increases the chance of rejecting H₀, which raises power; it does not reduce it.",
+    "error_pattern": "larger α lowers power"
+   },
+   {
+    "text": "The studies have equal power, because they test the same hypotheses with the same true parameter value.",
+    "rationale": "Power depends on n and α as well as the true value, and these two differ in both (400 vs 100, 0.10 vs 0.01).",
+    "error_pattern": "power depends only on the hypotheses"
+   }
+  ],
+  "change_note": "Explicit α and n values; Study Y is lower on both; distractors reverse effects.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-095-v2",
+  "seed": "APSTATS-MCQ-095",
+  "difficulty": "medium",
+  "title": "Which change increases power",
+  "stem": "A test of H₀: p = 0.50 versus Hₐ: p > 0.50 uses n = 100 and α = 0.05, and the true proportion is p = 0.60. Which change would increase the power of the test?",
+  "correct": {
+   "text": "Increasing the sample size to 400, which reduces the standard error.",
+   "rationale": "A larger n shrinks the standard error of p̂, making a true difference easier to detect, so power increases."
+  },
+  "wrong": [
+   {
+    "text": "Lowering α to 0.01, which makes the test more careful about rejecting.",
+    "rationale": "A smaller α makes rejection harder, which reduces the probability of rejecting a false H₀ and so decreases power.",
+    "error_pattern": "smaller α raises power"
+   },
+   {
+    "text": "Using the hypothesized value 0.58 in place of 0.50, so the null is closer to the truth.",
+    "rationale": "A smaller gap between the null value and the true value makes the difference harder to detect, which lowers power.",
+    "error_pattern": "smaller gap raises power"
+   },
+   {
+    "text": "Decreasing the sample size to 25, since a smaller sample has fewer chances for error.",
+    "rationale": "A smaller sample gives a larger standard error, which lowers power; sample size reduction does not reduce error.",
+    "error_pattern": "smaller n raises power"
+   }
+  ],
+  "change_note": "Asks which change raises power, with all distractors reversed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-095-v3",
+  "seed": "APSTATS-MCQ-095",
+  "difficulty": "easy",
+  "title": "Power from Type II probability",
+  "stem": "A significance test with α = 0.05 has a Type II error probability of 0.35 when the true proportion is 0.60. What is the power of the test against that alternative?",
+  "correct": {
+   "text": "0.65",
+   "rationale": "Power is the probability of rejecting a false null, 1 − P(Type II error) = 1 − 0.35 = 0.65."
+  },
+  "wrong": [
+   {
+    "text": "0.35",
+    "rationale": "This is the probability of a Type II error itself; power is its complement.",
+    "error_pattern": "power equals Type II probability"
+   },
+   {
+    "text": "0.95",
+    "rationale": "This is 1 − α = 0.95, which is the probability of not making a Type I error when H₀ is true, not power.",
+    "error_pattern": "using 1 − α"
+   },
+   {
+    "text": "0.0175",
+    "rationale": "This multiplies α by the Type II probability (0.05 × 0.35); power is found by subtraction, not multiplication.",
+    "error_pattern": "multiplying α and β"
+   }
+  ],
+  "change_note": "Power as 1 - beta with numbers.",
+  "check": "numeric"
+ }
+]

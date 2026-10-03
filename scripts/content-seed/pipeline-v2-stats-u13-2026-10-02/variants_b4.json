@@ -1,0 +1,992 @@
+[
+ {
+  "id": "APSTATS-MCQ-006-v1",
+  "seed": "APSTATS-MCQ-006",
+  "difficulty": "medium",
+  "title": "Blocking by sex in a drug trial",
+  "stem": "A medical team tests whether a new drug lowers systolic blood pressure more than a placebo. They enroll 36 patients, 18 men and 18 women, and randomly assign drug or placebo separately within the men and within the women, instead of randomizing all 36 patients together. What is the main statistical advantage of assigning treatments within each sex?",
+  "correct": {
+   "text": "It removes blood-pressure variation that is due to sex from the drug-versus-placebo comparison, making a real drug effect easier to detect.",
+   "rationale": "Sex is a known source of variability in the response. Comparing drug and placebo inside each sex block keeps that variation from blurring the treatment difference, which raises power."
+  },
+  "wrong": [
+   {
+    "text": "It lets the team conclude the drug works for all adults, since both sexes were included in the trial.",
+    "rationale": "Blocking does not extend conclusions to a population; generalizing depends on how the 36 patients were selected, not on how treatments were assigned.",
+    "error_pattern": "confuses blocking with random sampling"
+   },
+   {
+    "text": "It eliminates confounding from every lurking variable, including ones the team never measured.",
+    "rationale": "Blocking only controls the blocked variable (sex); protection against unmeasured variables comes from random assignment, not from the blocks.",
+    "error_pattern": "thinks blocking controls all lurking variables"
+   },
+   {
+    "text": "It makes the placebo group unnecessary, because sex differences are already accounted for.",
+    "rationale": "A placebo or other comparison group is still needed to measure the drug effect; blocking adjusts only for sex differences.",
+    "error_pattern": "thinks blocking replaces a control group"
+   }
+  ],
+  "change_note": "New medical context, 36 patients, block variable sex; distractors target generalization, lurking-variable and control-group misconceptions.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-006-v2",
+  "seed": "APSTATS-MCQ-006",
+  "difficulty": "medium",
+  "title": "Blocking by class period",
+  "stem": "A teacher wants to compare a new study app with textbook review. She has 60 students: 30 in a morning section and 30 in an afternoon section. Within each section she randomly assigns half the students to the app and half to the textbook, rather than randomizing all 60 together. What is the primary benefit of this approach?",
+  "correct": {
+   "text": "It accounts for score differences caused by class period, so differences between the two study methods stand out more clearly.",
+   "rationale": "Class period may affect scores. Randomizing within each section separates that effect from the app-versus-textbook comparison, reducing unexplained variability."
+  },
+  "wrong": [
+   {
+    "text": "It makes the app and textbook groups larger, which gives more data for the comparison.",
+    "rationale": "Blocking splits the same 60 students into the same two treatment groups; it adds no students and does not enlarge either group.",
+    "error_pattern": "thinks blocking increases sample size"
+   },
+   {
+    "text": "It allows the teacher to claim cause and effect, which complete randomization of all 60 students would not allow.",
+    "rationale": "Random assignment, whether across all 60 students or within blocks, is what supports cause-and-effect conclusions; blocking is not required for that.",
+    "error_pattern": "thinks only blocking supports causation"
+   },
+   {
+    "text": "It guarantees the class period has no effect on test scores in either treatment group.",
+    "rationale": "Blocking does not remove the effect of class period; it only prevents that effect from being mixed in with the treatment comparison.",
+    "error_pattern": "thinks blocking eliminates the effect itself"
+   }
+  ],
+  "change_note": "School setting; 60 students blocked by class period; distractors target sample-size, causation and effect-elimination errors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-006-v3",
+  "seed": "APSTATS-MCQ-006",
+  "difficulty": "medium",
+  "title": "Blocking by dog size",
+  "stem": "A veterinary researcher compares two diets for weight loss in 24 dogs: 12 small-breed dogs and 12 large-breed dogs. Diet is randomly assigned separately within the small-breed group and within the large-breed group. Compared with randomly assigning diets to all 24 dogs at once, what does this design mainly accomplish?",
+  "correct": {
+   "text": "It controls variation in weight loss that is related to breed size, so a real difference between the diets is easier to detect.",
+   "rationale": "Breed size is expected to influence weight loss. Randomizing within each size group keeps that source of variation from hiding the diet effect."
+  },
+  "wrong": [
+   {
+    "text": "It makes the dogs and owners unaware of which diet each dog receives, so expectations cannot affect results.",
+    "rationale": "Hiding treatment assignments is blinding, which is a separate feature; grouping dogs by size does not conceal anything from anyone.",
+    "error_pattern": "confuses blocking with blinding"
+   },
+   {
+    "text": "It removes the need for a second diet group because breed size is already being compared.",
+    "rationale": "The two diets are still compared against each other; breed size is only used to organize the random assignment, not to replace a comparison.",
+    "error_pattern": "thinks blocking replaces comparison group"
+   },
+   {
+    "text": "It raises the number of dogs in the study from 24 to 48, which strengthens the evidence.",
+    "rationale": "The same 24 dogs are used either way; splitting them into size groups does not increase the number of animals.",
+    "error_pattern": "thinks blocking adds subjects"
+   }
+  ],
+  "change_note": "Veterinary context, 24 dogs; distractors target blinding confusion, comparison-group replacement and added-subject misconceptions.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-011-v1",
+  "seed": "APSTATS-MCQ-011",
+  "difficulty": "medium",
+  "title": "90% CI for teen proportion",
+  "stem": "A random sample of 600 teenagers in a school district is used to build a 90% confidence interval for the proportion of all teenagers in the district who own a laptop. The interval is (0.28, 0.36). Which statement is a correct interpretation?",
+  "correct": {
+   "text": "We are 90% confident that the interval from 0.28 to 0.36 captures the proportion of all teenagers in the district who own a laptop.",
+   "rationale": "The 90% describes how reliably the interval-building method captures the fixed population proportion over many random samples."
+  },
+  "wrong": [
+   {
+    "text": "Between 28% and 36% of the 600 sampled teenagers own a laptop, and we are 90% sure of this.",
+    "rationale": "The sample proportion is known exactly from the data (and lies in the middle of the interval); the interval estimates the population proportion, not the sample's.",
+    "error_pattern": "applies interval to sample instead of population"
+   },
+   {
+    "text": "There is a 90% probability that a new random sample of 600 teenagers will have a sample proportion between 0.28 and 0.36.",
+    "rationale": "The confidence level does not give the probability that a future sample proportion falls in this particular interval; it concerns the method capturing the population proportion.",
+    "error_pattern": "interprets as probability about the next sample statistic"
+   },
+   {
+    "text": "90% of teenagers in the district own a laptop, give or take 4 percentage points.",
+    "rationale": "The interval estimates the single population proportion; it does not say that 90% of individuals have the characteristic.",
+    "error_pattern": "confuses confidence level with the proportion itself"
+   }
+  ],
+  "change_note": "Laptop ownership context, 90% level; wrong options center on sample-vs-population and level-vs-proportion errors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-011-v2",
+  "seed": "APSTATS-MCQ-011",
+  "difficulty": "medium",
+  "title": "Meaning of a 95% confidence level",
+  "stem": "A news site reports a 95% confidence interval of (0.52, 0.60) for the proportion of registered voters in a county who favor a school bond, using a random sample of 1,000 voters. Which statement correctly explains what the 95% confidence level means?",
+  "correct": {
+   "text": "About 95% of intervals built this way from repeated random samples would contain the true proportion.",
+   "rationale": "This describes the long-run capture rate of the interval-building method across repeated random samples, which is what the confidence level represents."
+  },
+  "wrong": [
+   {
+    "text": "About 95% of the 1,000 voters in the sample favor the school bond, give or take a few points.",
+    "rationale": "The confidence level is not a percentage of individuals; the sample proportion of supporters is near 0.56, not 0.95.",
+    "error_pattern": "confuses confidence level with percent of sample"
+   },
+   {
+    "text": "The probability is 0.95 that the true proportion of supporters in the county is exactly 0.56.",
+    "rationale": "The true proportion is a single fixed value, and 0.56 is only the sample estimate at the interval's center; the chance of exact equality is not 0.95.",
+    "error_pattern": "interprets level as probability the estimate is exact"
+   },
+   {
+    "text": "There is a 5% chance that this sample proportion lies outside the interval from 0.52 to 0.60.",
+    "rationale": "The sample proportion is the midpoint of the interval, so it always lies inside it; the 5% refers to intervals that miss the population value.",
+    "error_pattern": "confuses statistic with parameter coverage"
+   }
+  ],
+  "change_note": "Interpretation of the confidence level itself (long-run), news-poll context.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-011-v3",
+  "seed": "APSTATS-MCQ-011",
+  "difficulty": "medium",
+  "title": "99% CI for customer satisfaction",
+  "stem": "A company surveys a random sample of 1,200 of its customers and computes a 99% confidence interval of (0.71, 0.79) for the proportion of all its customers who are satisfied. Which statement is a correct interpretation of this interval?",
+  "correct": {
+   "text": "We are 99% confident that the true proportion of all the company's customers who are satisfied is between 0.71 and 0.79.",
+   "rationale": "The 99% refers to the reliability of the method: about 99% of intervals constructed this way capture the true customer-satisfaction proportion."
+  },
+  "wrong": [
+   {
+    "text": "The true proportion of satisfied customers changes from sample to sample and falls between 0.71 and 0.79 in 99% of samples.",
+    "rationale": "The population proportion is fixed; it is the interval that changes from sample to sample.",
+    "error_pattern": "treats parameter as random"
+   },
+   {
+    "text": "About 99% of the 1,200 surveyed customers gave a satisfaction rating between 0.71 and 0.79.",
+    "rationale": "The interval gives plausible values for a population proportion; it does not describe how individual customers' ratings are distributed.",
+    "error_pattern": "treats the interval as covering individual data"
+   },
+   {
+    "text": "There is a 99% probability that the next customer surveyed will be satisfied.",
+    "rationale": "The interval says nothing about 0.99 as a probability for one customer; the estimated proportion satisfied is about 0.75.",
+    "error_pattern": "confuses confidence level with chance for an individual"
+   }
+  ],
+  "change_note": "Business context, 99% level; different error types than siblings.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-026-v1",
+  "seed": "APSTATS-MCQ-026",
+  "difficulty": "easy",
+  "title": "Birth weight percentile",
+  "stem": "A pediatrician tells a parent that a baby's weight is at the 20th percentile for babies of the same age. What does this mean?",
+  "correct": {
+   "text": "About 20% of babies that age weigh the same as or less than this baby.",
+   "rationale": "A percentile gives the percentage of values at or below the given value, so the 20th percentile has about 20% of babies at or below it."
+  },
+  "wrong": [
+   {
+    "text": "This baby weighs 20% less than the average baby of the same age.",
+    "rationale": "Percentile reflects rank within the group, not a percent difference from the mean weight.",
+    "error_pattern": "confuses percentile with percent below the mean"
+   },
+   {
+    "text": "About 20% of babies that age weigh more than this baby.",
+    "rationale": "If about 20% weigh more, the baby would be near the 80th percentile; at the 20th percentile it is about 80% who weigh at or above this baby.",
+    "error_pattern": "reverses direction"
+   },
+   {
+    "text": "This baby's weight is 20% of the way from the lightest to the heaviest baby.",
+    "rationale": "Percentile counts the fraction of individuals at or below a value, not the position of the value within the range from minimum to maximum.",
+    "error_pattern": "confuses percentile with position in range"
+   }
+  ],
+  "change_note": "Baby weight context, 20th percentile.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-026-v2",
+  "seed": "APSTATS-MCQ-026",
+  "difficulty": "easy",
+  "title": "Computing a percentile from counts",
+  "stem": "A class of 40 students takes a quiz. Exactly 32 of the 40 scores, including Dana's, are less than or equal to Dana's score. Which percentile is Dana's score?",
+  "correct": {
+   "text": "80th percentile",
+   "rationale": "Percentile = (number of scores at or below) / (total) x 100 = 32/40 x 100 = 80."
+  },
+  "wrong": [
+   {
+    "text": "20th percentile",
+    "rationale": "8 scores are above Dana's, and 8/40 = 20%; that is the percentage above her, not at or below.",
+    "error_pattern": "reports percentage above"
+   },
+   {
+    "text": "32nd percentile",
+    "rationale": "32 is the count of scores at or below Dana's; it must be divided by 40 and converted to a percent.",
+    "error_pattern": "reports count as the percentile"
+   },
+   {
+    "text": "8th percentile",
+    "rationale": "8 is the number of scores above Dana's; using that count directly as the percentile is neither the percent at or below nor even a percent.",
+    "error_pattern": "uses count above as percentile"
+   }
+  ],
+  "change_note": "Numeric percentile from counts: 32/40=0.80.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-026-v3",
+  "seed": "APSTATS-MCQ-026",
+  "difficulty": "easy",
+  "title": "Salary percentile",
+  "stem": "An employee at a large company learns that her salary is at the 60th percentile of all salaries at the company. Which statement is correct?",
+  "correct": {
+   "text": "About 60% of employees at the company earn her salary or less.",
+   "rationale": "The 60th percentile means about 60% of the values are at or below that value."
+  },
+  "wrong": [
+   {
+    "text": "Her salary is 60% of the highest salary at the company.",
+    "rationale": "Percentile compares the count of employees below, not her salary as a fraction of the maximum.",
+    "error_pattern": "confuses percentile with percent of maximum"
+   },
+   {
+    "text": "She has the 60th highest salary among the employees at the company.",
+    "rationale": "Percentile is a percentage of the group, not a rank; the 60th highest in a large company would be a much higher percentile.",
+    "error_pattern": "confuses percentile with rank"
+   },
+   {
+    "text": "About 60% of employees at the company earn more than she does.",
+    "rationale": "That would put her near the 40th percentile; at the 60th percentile about 40% earn more.",
+    "error_pattern": "reverses direction"
+   }
+  ],
+  "change_note": "Salary context, 60th percentile.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-039-v1",
+  "seed": "APSTATS-MCQ-039",
+  "difficulty": "easy",
+  "title": "Vitamin D records study",
+  "stem": "Researchers examine the medical records of 500 adults, noting whether each person takes a daily vitamin D supplement and whether the person had a bone fracture in the past five years. The researchers do not tell anyone to start or stop taking supplements. What type of study is this?",
+  "correct": {
+   "text": "An observational study",
+   "rationale": "The researchers only record existing behavior and outcomes; no treatment is imposed on the adults."
+  },
+  "wrong": [
+   {
+    "text": "A completely randomized experiment",
+    "rationale": "No one is randomly assigned to supplements; people chose for themselves.",
+    "error_pattern": "thinks recording both variables makes an experiment"
+   },
+   {
+    "text": "A randomized block experiment",
+    "rationale": "There are no blocks and no random assignment of any treatment.",
+    "error_pattern": "thinks any grouping is a block design"
+   },
+   {
+    "text": "A single-blind experiment",
+    "rationale": "An experiment requires an imposed treatment, and nothing about blinding is described.",
+    "error_pattern": "confuses blinding with study type"
+   }
+  ],
+  "change_note": "Medical records, no treatment assigned; observational.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-039-v2",
+  "seed": "APSTATS-MCQ-039",
+  "difficulty": "medium",
+  "title": "Self-selected study method",
+  "stem": "A teacher lets her 40 students choose either flashcards or practice tests as their study method for a unit, then compares the two groups' scores on the unit exam. What type of study is this?",
+  "correct": {
+   "text": "An observational study, because students chose their own study method instead of being assigned one.",
+   "rationale": "The teacher did not impose the treatment; students self-selected into the groups, so this is observational and cannot show cause and effect."
+  },
+  "wrong": [
+   {
+    "text": "A randomized experiment, because the teacher compared two study methods.",
+    "rationale": "Comparing two groups is not enough; an experiment requires the researcher to assign treatments, ideally at random.",
+    "error_pattern": "thinks comparing groups means experiment"
+   },
+   {
+    "text": "A matched-pairs experiment, because every student took the same exam.",
+    "rationale": "Matched pairs requires pairing subjects or measuring each subject twice under assigned conditions, which did not occur.",
+    "error_pattern": "confuses same exam with matched pairs"
+   },
+   {
+    "text": "A randomized block design, because the students form two groups.",
+    "rationale": "Blocks are formed before treatments are randomly assigned within them; here the groups came from student choice.",
+    "error_pattern": "confuses groups with blocks"
+   }
+  ],
+  "change_note": "Classroom self-selection; the trap is that groups are compared but not assigned.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-039-v3",
+  "seed": "APSTATS-MCQ-039",
+  "difficulty": "easy",
+  "title": "Diet assignment study",
+  "stem": "Researchers randomly assign 90 volunteers to one of three diets and measure each volunteer's cholesterol level after eight weeks. What type of study is this?",
+  "correct": {
+   "text": "A randomized experiment, because the researchers assigned the diets to the volunteers at random.",
+   "rationale": "The researchers imposed the treatments (diets) and used random assignment, which defines a randomized experiment."
+  },
+  "wrong": [
+   {
+    "text": "An observational study, because cholesterol was only measured at the end.",
+    "rationale": "Measuring a response does not make a study observational; what matters is that the researchers imposed the diets.",
+    "error_pattern": "thinks measuring only means observational"
+   },
+   {
+    "text": "An observational study, because the volunteers were not a random sample of adults.",
+    "rationale": "Volunteer subjects limit generalization, but the study type depends on whether treatments are imposed, and they were.",
+    "error_pattern": "confuses sampling method with study type"
+   },
+   {
+    "text": "A sample survey, because 90 people provided data.",
+    "rationale": "A sample survey gathers opinions or facts from a sample without imposing treatments; here diets were assigned.",
+    "error_pattern": "thinks any sample of people is a survey"
+   }
+  ],
+  "change_note": "Contrasting case where treatments are imposed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-043-v1",
+  "seed": "APSTATS-MCQ-043",
+  "difficulty": "easy",
+  "title": "PTA directory mailing",
+  "stem": "A school district wants to learn parents' opinions about school lunches. It mails questionnaires only to the families listed in the PTA directory. Which bias is most likely?",
+  "correct": {
+   "text": "Undercoverage bias, because parents not in the PTA directory have no chance to be selected.",
+   "rationale": "Families missing from the directory are left out of the sampling frame, so the sample is likely to differ from all parents."
+  },
+  "wrong": [
+   {
+    "text": "Nonresponse bias, because some mailed questionnaires will not be returned.",
+    "rationale": "Nonresponse concerns selected people who do not reply; the main problem here is that many parents were never selected at all.",
+    "error_pattern": "confuses exclusion with nonresponse"
+   },
+   {
+    "text": "Voluntary response bias, because parents decide whether to fill out the form.",
+    "rationale": "Voluntary response bias applies when people select themselves into the sample; here the district chose whom to mail.",
+    "error_pattern": "confuses sampling frame with self-selection"
+   },
+   {
+    "text": "No bias, because every questionnaire was sent by the same method.",
+    "rationale": "A uniform method does not fix a frame that omits parents; the sample is still unrepresentative.",
+    "error_pattern": "thinks consistent procedure removes bias"
+   }
+  ],
+  "change_note": "Mail survey frame problem; wrong options use other sampling-bias terms.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-043-v2",
+  "seed": "APSTATS-MCQ-043",
+  "difficulty": "easy",
+  "title": "Radio call-in poll",
+  "stem": "A radio station asks listeners to call in during a morning show to vote on whether the city should build a new stadium, and it reports the percent of callers in favor. What is the most likely source of bias?",
+  "correct": {
+   "text": "Voluntary response bias, because only listeners with strong opinions are likely to call.",
+   "rationale": "Callers choose themselves, and people with strong feelings are more likely to respond, so the callers do not represent the city."
+  },
+  "wrong": [
+   {
+    "text": "Confounding bias, because a lurking variable is mixed with the stadium vote.",
+    "rationale": "Confounding is a feature of comparing treatments or groups; this is a single poll of opinion.",
+    "error_pattern": "applies experiment concept to a survey"
+   },
+   {
+    "text": "Placebo effect, because the callers believe their vote matters.",
+    "rationale": "A placebo effect concerns responses to inactive treatments in experiments, not to opinion polls.",
+    "error_pattern": "applies experiment concept to a survey"
+   },
+   {
+    "text": "No bias, because a large number of listeners will call in.",
+    "rationale": "A large number of responses does not make a self-selected group representative; the bias remains however many call.",
+    "error_pattern": "thinks large volume fixes bias"
+   }
+  ],
+  "change_note": "Voluntary response bias via call-in poll.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-043-v3",
+  "seed": "APSTATS-MCQ-043",
+  "difficulty": "medium",
+  "title": "Low mail return rate",
+  "stem": "A city randomly selects 1,000 households from a complete list of all households and mails each a survey about recycling. Only 220 households return it. Which bias is most likely?",
+  "correct": {
+   "text": "Nonresponse bias, because households that did not reply may differ from those that did.",
+   "rationale": "All households had a chance to be chosen, but 780 chosen households did not respond, and the 220 who replied may not represent them."
+  },
+  "wrong": [
+   {
+    "text": "Undercoverage bias, because 780 households are missing from the data.",
+    "rationale": "Those 780 were in the frame and were selected; they are missing due to not responding, not because they were excluded from the frame.",
+    "error_pattern": "confuses nonresponse with undercoverage"
+   },
+   {
+    "text": "Convenience sampling bias, because mailed surveys are the cheapest approach.",
+    "rationale": "The households were chosen randomly from a complete list, so the selection was not by convenience.",
+    "error_pattern": "mislabels random selection as convenience"
+   },
+   {
+    "text": "Response bias, because the survey asked about recycling.",
+    "rationale": "Response bias comes from untruthful or distorted answers, for example from wording; nothing in the setup points to that.",
+    "error_pattern": "confuses topic with response bias"
+   }
+  ],
+  "change_note": "Nonresponse bias; random selection ensures coverage.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-047-v1",
+  "seed": "APSTATS-MCQ-047",
+  "difficulty": "medium",
+  "title": "Independence of club and job",
+  "stem": "At a high school, a student is chosen at random. Let C be the event that the student is in a club and J the event that the student has a part-time job. P(C) = 0.50, P(J) = 0.20, and P(C and J) = 0.15. Are C and J independent?",
+  "correct": {
+   "text": "No, because P(C)P(J) = 0.10, which does not equal P(C and J) = 0.15.",
+   "rationale": "Independence requires P(C and J) = P(C)P(J); 0.50 x 0.20 = 0.10, but the joint probability is 0.15."
+  },
+  "wrong": [
+   {
+    "text": "Yes, because P(C and J) = 0.15 is smaller than both P(C) and P(J).",
+    "rationale": "The joint probability is always at most each single probability; that does not test independence.",
+    "error_pattern": "thinks joint less than each implies independence"
+   },
+   {
+    "text": "No, because P(C and J) = 0.15 is not equal to P(C) + P(J) = 0.70.",
+    "rationale": "The addition of probabilities is not the independence check; the product is.",
+    "error_pattern": "adds instead of multiplying"
+   },
+   {
+    "text": "Yes, because P(C or J) = 0.55 is less than 1.",
+    "rationale": "P(C or J) = 0.50 + 0.20 - 0.15 = 0.55 is a valid probability but says nothing about independence.",
+    "error_pattern": "uses union probability as test"
+   }
+  ],
+  "change_note": "New context and numbers where events are dependent (0.10 vs 0.15).",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-047-v2",
+  "seed": "APSTATS-MCQ-047",
+  "difficulty": "medium",
+  "title": "Bus and glasses conditional check",
+  "stem": "At a school, P(a student rides the bus) = 0.50 and P(a student wears glasses) = 0.20. Among students who ride the bus, 20% wear glasses. Are riding the bus and wearing glasses independent?",
+  "correct": {
+   "text": "Yes, because P(glasses | bus) = 0.20 equals P(glasses) = 0.20.",
+   "rationale": "If knowing a student rides the bus does not change the probability of wearing glasses, the events are independent."
+  },
+  "wrong": [
+   {
+    "text": "No, because both events can occur together, with P(bus and glasses) = 0.10 > 0.",
+    "rationale": "Events that can occur together may still be independent; here 0.50 x 0.20 = 0.10 matches the joint probability.",
+    "error_pattern": "confuses independent with mutually exclusive"
+   },
+   {
+    "text": "No, because P(glasses | bus) = 0.20 is much smaller than P(bus) = 0.50.",
+    "rationale": "This compares probabilities of different events; independence compares P(glasses | bus) with P(glasses).",
+    "error_pattern": "compares wrong quantities"
+   },
+   {
+    "text": "Yes, because P(bus) + P(glasses) = 0.70, which is less than 1.",
+    "rationale": "A sum below 1 does not establish independence; the conditional probability equaling the marginal does.",
+    "error_pattern": "uses sum less than 1 as the test"
+   }
+  ],
+  "change_note": "Independence via conditional probability.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-047-v3",
+  "seed": "APSTATS-MCQ-047",
+  "difficulty": "hard",
+  "title": "Independence from counts",
+  "stem": "A cafe records 300 orders. Of these, 120 included coffee, 90 included a pastry, and 45 included both. For a randomly chosen order, are 'includes coffee' and 'includes a pastry' independent?",
+  "correct": {
+   "text": "No, because P(coffee and pastry) = 45/300 = 0.15, which differs from P(coffee)P(pastry) = 0.40 x 0.30 = 0.12.",
+   "rationale": "Independence needs the joint probability to equal the product of the individual probabilities; 0.15 is not 0.12."
+  },
+  "wrong": [
+   {
+    "text": "Yes, because the 45 orders with both are fewer than the 120 or the 90 orders with each item.",
+    "rationale": "The joint count being smaller than each single count is always true; it does not decide independence.",
+    "error_pattern": "uses smaller joint count as test"
+   },
+   {
+    "text": "Yes, because 120 + 90 = 210, which is less than the 300 orders.",
+    "rationale": "Whether the counts sum to less than the total says nothing about how the events relate.",
+    "error_pattern": "uses sum of counts below total as test"
+   },
+   {
+    "text": "No, because 45 does not equal 120 + 90 = 210.",
+    "rationale": "Independence is not tested by comparing the joint count to the sum of counts; the joint probability is compared with the product.",
+    "error_pattern": "adds instead of multiplying"
+   }
+  ],
+  "change_note": "Count-based independence; 0.15 vs 0.12.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-051-v1",
+  "seed": "APSTATS-MCQ-051",
+  "difficulty": "easy",
+  "title": "Senior and freshman exclusive",
+  "stem": "A student is chosen at random from a high school. Event S is that the student is a senior and event F is that the student is a freshman. Are S and F mutually exclusive?",
+  "correct": {
+   "text": "Yes, because a student cannot be both a senior and a freshman, so P(S and F) = 0.",
+   "rationale": "Mutually exclusive events cannot occur together; one student has only one grade level."
+  },
+  "wrong": [
+   {
+    "text": "No, because both groups belong to the same school.",
+    "rationale": "Belonging to the same school does not matter; what matters is whether the events can occur at the same time, and a student has only one grade.",
+    "error_pattern": "confuses shared population with overlapping events"
+   },
+   {
+    "text": "Yes, because being a senior and being a freshman are independent events.",
+    "rationale": "Mutually exclusive events with nonzero probabilities are never independent, since knowing one occurred makes the other impossible.",
+    "error_pattern": "confuses exclusive with independent"
+   },
+   {
+    "text": "No, because P(S) + P(F) is less than 1.",
+    "rationale": "Mutually exclusive events need not add to 1; other grades make the sum less than 1.",
+    "error_pattern": "thinks exclusive events must sum to 1"
+   }
+  ],
+  "change_note": "School-grade context.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-051-v2",
+  "seed": "APSTATS-MCQ-051",
+  "difficulty": "easy",
+  "title": "Soccer and orchestra overlap",
+  "stem": "A student is chosen at random from a school. Event S is that the student plays on the soccer team and event O is that the student plays in the school orchestra. Are S and O mutually exclusive?",
+  "correct": {
+   "text": "No, because a student can play on the soccer team and also play in the orchestra.",
+   "rationale": "Events are mutually exclusive only if they cannot occur together; nothing prevents one student from doing both."
+  },
+  "wrong": [
+   {
+    "text": "Yes, because soccer and orchestra are different activities.",
+    "rationale": "Different activities do not prevent overlap; a student can do both, so P(S and O) can be greater than 0.",
+    "error_pattern": "assumes different categories can't overlap"
+   },
+   {
+    "text": "Yes, because P(S and O) must equal P(S)P(O).",
+    "rationale": "P(S and O) = P(S)P(O) is the independence condition, not a test for exclusive events, whose joint probability is 0.",
+    "error_pattern": "confuses independent with mutually exclusive"
+   },
+   {
+    "text": "No, but only if S and O are independent.",
+    "rationale": "Whether they overlap does not depend on independence; the events can occur together in either case.",
+    "error_pattern": "thinks overlap requires independence"
+   }
+  ],
+  "change_note": "Non-exclusive scenario; answer is No (opposite of seed).",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-051-v3",
+  "seed": "APSTATS-MCQ-051",
+  "difficulty": "medium",
+  "title": "Addition rule for exclusive events",
+  "stem": "A bag holds marbles of several colors. One marble is drawn at random. The probability it is red is 0.30 and the probability it is blue is 0.45. What is the probability that the marble is red or blue?",
+  "correct": {
+   "text": "0.75",
+   "rationale": "A marble cannot be both red and blue, so the events are mutually exclusive and P(red or blue) = 0.30 + 0.45 = 0.75."
+  },
+  "wrong": [
+   {
+    "text": "0.135",
+    "rationale": "This multiplies the probabilities (0.30 x 0.45), which would apply to independent events occurring together, not to 'or' for exclusive events.",
+    "error_pattern": "multiplies instead of adding"
+   },
+   {
+    "text": "0.615",
+    "rationale": "This subtracts 0.135 as if red and blue could overlap, but a marble cannot be both, so nothing is subtracted.",
+    "error_pattern": "subtracts overlap that cannot exist"
+   },
+   {
+    "text": "0.15",
+    "rationale": "This is the difference 0.45 - 0.30 and does not represent the chance of either color.",
+    "error_pattern": "subtracts probabilities"
+   }
+  ],
+  "change_note": "Numeric addition rule for exclusive events: 0.30+0.45=0.75.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-057-v1",
+  "seed": "APSTATS-MCQ-057",
+  "difficulty": "medium",
+  "title": "CLT for clinic wait times",
+  "stem": "Waiting times at a clinic have a strongly right-skewed distribution. A researcher takes many random samples of n = 64 patients and computes the sample mean wait time for each. Why is the sampling distribution of the sample mean approximately normal?",
+  "correct": {
+   "text": "By the CLT, means of large random samples are approximately normal, even when the population is skewed.",
+   "rationale": "With n = 64, which is well above 30, the CLT applies, so the sample means pile up in a roughly normal shape."
+  },
+  "wrong": [
+   {
+    "text": "Because the individual wait times themselves become normally distributed once n = 64 is reached.",
+    "rationale": "The individual wait times keep their skewed distribution regardless of sample size.",
+    "error_pattern": "thinks data become normal"
+   },
+   {
+    "text": "Because the sample mean is an unbiased estimator of the population mean wait time.",
+    "rationale": "Unbiasedness only means the center of the sampling distribution equals the population mean; it says nothing about its shape.",
+    "error_pattern": "confuses center with shape"
+   },
+   {
+    "text": "Because the 64 patients sampled are less than 10% of all patients at the clinic.",
+    "rationale": "The 10% condition supports independence and the standard-deviation formula, not a normal shape.",
+    "error_pattern": "confuses 10% condition with shape"
+   }
+  ],
+  "change_note": "Wait-time context, n=64; distractors target data-normality, unbiasedness and 10%-condition confusions.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-057-v2",
+  "seed": "APSTATS-MCQ-057",
+  "difficulty": "medium",
+  "title": "Small vs large samples from skewed population",
+  "stem": "A population of household incomes is strongly right-skewed. A statistician draws many random samples of size n = 2 and many of size n = 100, and plots the sample means from each. Which statement is correct?",
+  "correct": {
+   "text": "The means from n = 100 will look approximately normal, but the means from n = 2 will still be noticeably right-skewed.",
+   "rationale": "The CLT needs a sufficiently large sample size; with n = 2 the sampling distribution retains much of the population's skew."
+  },
+  "wrong": [
+   {
+    "text": "Both sets of sample means will look approximately normal, because every mean is an average.",
+    "rationale": "Averaging alone is not enough; with a sample as small as 2 the shape stays close to the skewed population.",
+    "error_pattern": "thinks any average is normal"
+   },
+   {
+    "text": "The n = 2 means will look more normal than the n = 100 means, because small samples contain less skew.",
+    "rationale": "Normality of the sampling distribution improves as n increases, so n = 100 is much closer to normal.",
+    "error_pattern": "reverses sample-size effect"
+   },
+   {
+    "text": "Neither set will look normal, because a skewed population cannot give a normal sampling distribution.",
+    "rationale": "The CLT says that for a large enough n, the sampling distribution of means is approximately normal for nearly any population shape.",
+    "error_pattern": "thinks skewed population blocks the CLT"
+   }
+  ],
+  "change_note": "Compares n=2 vs n=100 to test the sample-size dependence of the CLT.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-057-v3",
+  "seed": "APSTATS-MCQ-057",
+  "difficulty": "medium",
+  "title": "Shape of sampling distribution",
+  "stem": "A population of delivery times is heavily right-skewed with mean 45 minutes. Many random samples of n = 40 deliveries are taken and each sample mean is plotted in a dotplot. Which describes the dotplot and the reason?",
+  "correct": {
+   "text": "Approximately normal in shape, because the Central Limit Theorem applies to means of samples this large.",
+   "rationale": "For a sample size of 40, the sampling distribution of x-bar is approximately normal by the CLT, centered at the population mean of 45."
+  },
+  "wrong": [
+   {
+    "text": "Right-skewed like the population, because sample means keep the shape of the population.",
+    "rationale": "The shape of the sampling distribution changes with n; with n = 40 it is approximately normal, not skewed.",
+    "error_pattern": "thinks means inherit population shape"
+   },
+   {
+    "text": "Uniform between the smallest and largest delivery times, because each sample mean is equally likely.",
+    "rationale": "Sample means cluster near the population mean and are not equally likely across the range.",
+    "error_pattern": "thinks all means equally likely"
+   },
+   {
+    "text": "Left-skewed, because averaging 40 times pulls the mean away from the long right tail.",
+    "rationale": "Averaging does not produce a left skew; the means are centered near 45 and roughly symmetric.",
+    "error_pattern": "invents opposite skew"
+   }
+  ],
+  "change_note": "Delivery times; reason-and-shape question.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-061-v1",
+  "seed": "APSTATS-MCQ-061",
+  "difficulty": "medium",
+  "title": "SE of p-hat for p=0.3",
+  "stem": "Suppose 30% of all students at a university commute by bike. A random sample of n = 200 students is selected. What is the standard deviation (standard error) of the sampling distribution of the sample proportion of bike commuters?",
+  "correct": {
+   "text": "sqrt[0.3(0.7)/200] ~ 0.032",
+   "rationale": "sqrt(p(1-p)/n) = sqrt(0.21/200) = sqrt(0.00105) ~ 0.032."
+  },
+  "wrong": [
+   {
+    "text": "0.3(0.7)/200 ~ 0.0011",
+    "rationale": "This is the variance 0.00105; the square root was not taken.",
+    "error_pattern": "forgets square root"
+   },
+   {
+    "text": "sqrt[0.3/200] ~ 0.039",
+    "rationale": "This omits the factor (1 - p); sqrt(0.3/200) is about 0.039.",
+    "error_pattern": "omits 1-p"
+   },
+   {
+    "text": "sqrt[0.3(0.7)]/200 ~ 0.0023",
+    "rationale": "The division by n belongs inside the square root; sqrt(0.21)/200 is about 0.0023.",
+    "error_pattern": "divides outside the radical"
+   }
+  ],
+  "change_note": "p=0.3, n=200 -> 0.0324.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-061-v2",
+  "seed": "APSTATS-MCQ-061",
+  "difficulty": "medium",
+  "title": "SE of p-hat for p=0.55",
+  "stem": "In a large city, 55% of residents support a new park. A random sample of n = 150 residents is taken. Find the standard deviation of the sampling distribution of the sample proportion in favor.",
+  "correct": {
+   "text": "sqrt[0.55(0.45)/150] ~ 0.041",
+   "rationale": "sqrt(0.55 x 0.45 / 150) = sqrt(0.2475/150) = sqrt(0.00165) ~ 0.041."
+  },
+  "wrong": [
+   {
+    "text": "0.55(0.45)/150 ~ 0.0017",
+    "rationale": "This is the variance 0.00165; the square root is missing.",
+    "error_pattern": "forgets square root"
+   },
+   {
+    "text": "sqrt[0.55/150] ~ 0.061",
+    "rationale": "This leaves out (1 - p); sqrt(0.55/150) is about 0.061.",
+    "error_pattern": "omits 1-p"
+   },
+   {
+    "text": "sqrt[0.55(0.45)]/150 ~ 0.0033",
+    "rationale": "n must be inside the radical; sqrt(0.2475)/150 is about 0.0033.",
+    "error_pattern": "divides outside the radical"
+   }
+  ],
+  "change_note": "p=0.55, n=150 -> 0.0406.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-061-v3",
+  "seed": "APSTATS-MCQ-061",
+  "difficulty": "medium",
+  "title": "SE of p-hat for p=0.12",
+  "stem": "A factory knows that 12% of its widgets are defective. An inspector randomly selects n = 400 widgets. What is the standard error of the sample proportion of defective widgets?",
+  "correct": {
+   "text": "sqrt[0.12(0.88)/400] ~ 0.016",
+   "rationale": "sqrt(0.12 x 0.88 / 400) = sqrt(0.1056/400) = sqrt(0.000264) ~ 0.016."
+  },
+  "wrong": [
+   {
+    "text": "0.12(0.88)/400 ~ 0.0003",
+    "rationale": "This is the variance 0.000264; the square root was never taken.",
+    "error_pattern": "forgets square root"
+   },
+   {
+    "text": "sqrt[0.12/400] ~ 0.017",
+    "rationale": "This drops (1 - p); sqrt(0.12/400) is about 0.017, which is not the correct standard error.",
+    "error_pattern": "omits 1-p"
+   },
+   {
+    "text": "0.12(0.88)/sqrt(400) ~ 0.0053",
+    "rationale": "The square root applies to the whole fraction p(1-p)/n, not just to n; the correct value is about 0.016.",
+    "error_pattern": "takes square root of n only"
+   }
+  ],
+  "change_note": "p=0.12, n=400 -> 0.01625. 0.017 is close but distinct from 0.016; fine.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-071-v1",
+  "seed": "APSTATS-MCQ-071",
+  "difficulty": "medium",
+  "title": "Power and significance level",
+  "stem": "Two researchers test the same hypotheses about a population proportion using the same sample size and the same true proportion. Researcher 1 uses a significance level of alpha = 0.10 and Researcher 2 uses alpha = 0.01. Which test has greater power?",
+  "correct": {
+   "text": "Researcher 1's test, because a larger alpha makes rejecting the null hypothesis easier when it is false.",
+   "rationale": "Increasing alpha enlarges the rejection region, which raises the probability of rejecting a false null, so power is higher."
+  },
+  "wrong": [
+   {
+    "text": "Researcher 2's test, because a smaller alpha requires stronger evidence.",
+    "rationale": "Demanding stronger evidence makes it harder to reject, which lowers power.",
+    "error_pattern": "thinks stricter alpha raises power"
+   },
+   {
+    "text": "They have equal power, because both use the same hypotheses and sample size.",
+    "rationale": "Power also depends on alpha; changing it changes the rejection region and therefore the power.",
+    "error_pattern": "ignores alpha's effect on power"
+   },
+   {
+    "text": "Researcher 2's test, because a lower Type I error rate also means a lower Type II error rate.",
+    "rationale": "Lowering alpha raises the chance of a Type II error, so power falls.",
+    "error_pattern": "ignores the Type I/Type II tradeoff"
+   }
+  ],
+  "change_note": "Alpha factor of power.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-071-v2",
+  "seed": "APSTATS-MCQ-071",
+  "difficulty": "medium",
+  "title": "Power and distance from the null",
+  "stem": "Two tests of H0: p = 0.50 vs Ha: p > 0.50 use the same sample size and significance level. In one situation the true proportion is 0.55, and in the other the true proportion is 0.70. Which situation gives the test greater power?",
+  "correct": {
+   "text": "The situation with true p = 0.70, because a larger gap from the null value makes a false null easier to detect.",
+   "rationale": "The farther the true parameter lies from the hypothesized value, the greater the probability of rejecting H0."
+  },
+  "wrong": [
+   {
+    "text": "The situation with true p = 0.55, because it is closer to the null value.",
+    "rationale": "A smaller gap is harder to detect, which lowers power.",
+    "error_pattern": "reverses effect-size relationship"
+   },
+   {
+    "text": "They have the same power, because the sample size and alpha are the same.",
+    "rationale": "Power also depends on how far the true value is from the null, so these two situations differ.",
+    "error_pattern": "thinks only n and alpha matter"
+   },
+   {
+    "text": "The situation with true p = 0.55, because power equals the Type I error probability alpha.",
+    "rationale": "Power is the probability of rejecting a false null (1 minus Type II error), not alpha.",
+    "error_pattern": "confuses power with alpha"
+   }
+  ],
+  "change_note": "True-parameter distance factor of power.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-071-v3",
+  "seed": "APSTATS-MCQ-071",
+  "difficulty": "easy",
+  "title": "Meaning of power (tutoring)",
+  "stem": "A school district tests H0: a new tutoring program does not change mean reading scores against Ha: the program raises mean reading scores. In this setting, what does the power of the test measure for a particular size of improvement?",
+  "correct": {
+   "text": "The chance the test rejects H0 when the program truly raises scores by that amount.",
+   "rationale": "Power is the probability that the test correctly rejects the null hypothesis when the alternative is true for a specific effect size; it equals 1 minus beta."
+  },
+  "wrong": [
+   {
+    "text": "The chance the test rejects H0 when the program has no effect on scores.",
+    "rationale": "Rejecting a true null hypothesis is a Type I error, and its probability is alpha, not power.",
+    "error_pattern": "confuses power with Type I error"
+   },
+   {
+    "text": "The chance the test fails to reject H0 when the program truly raises scores.",
+    "rationale": "Failing to reject a false null hypothesis is a Type II error with probability beta; power is 1 minus beta.",
+    "error_pattern": "confuses power with Type II error"
+   },
+   {
+    "text": "The chance that the program truly raises reading scores, given the data.",
+    "rationale": "Power is a probability about the test's decision for a given true effect, not the probability that the alternative hypothesis is true.",
+    "error_pattern": "confuses power with P(Ha true)"
+   }
+  ],
+  "change_note": "Definition-focused power item.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-080-v1",
+  "seed": "APSTATS-MCQ-080",
+  "difficulty": "easy",
+  "title": "p=0.03 vs alpha=0.05",
+  "stem": "A test of whether a new bus route changes the proportion of on-time arrivals gives p = 0.03 with alpha = 0.05. Which conclusion is correct?",
+  "correct": {
+   "text": "Reject H0; there is convincing statistical evidence for the alternative hypothesis at the 0.05 level.",
+   "rationale": "Because p = 0.03 is less than alpha = 0.05, the result is statistically significant and the data provide convincing evidence for Ha."
+  },
+  "wrong": [
+   {
+    "text": "Fail to reject H0, because 0.03 is smaller than 0.05 and so the evidence is too weak.",
+    "rationale": "A p-value smaller than alpha is evidence against H0; it leads to rejection, not failure to reject.",
+    "error_pattern": "reverses decision rule"
+   },
+   {
+    "text": "Reject H0; the probability that H0 is true is 0.03.",
+    "rationale": "The p-value is computed assuming H0 is true; it is not the probability that H0 is true.",
+    "error_pattern": "misinterprets p-value"
+   },
+   {
+    "text": "Reject H0, which proves the alternative hypothesis is true.",
+    "rationale": "A test gives evidence, not proof; the conclusion should use language such as convincing evidence.",
+    "error_pattern": "uses proof language"
+   }
+  ],
+  "change_note": "p below alpha, reject.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-080-v2",
+  "seed": "APSTATS-MCQ-080",
+  "difficulty": "medium",
+  "title": "p=0.08 vs alpha=0.10",
+  "stem": "A researcher chooses alpha = 0.10 before testing whether a new fertilizer changes mean plant height and obtains p = 0.08. Which conclusion is correct?",
+  "correct": {
+   "text": "Reject H0, since p = 0.08 is less than the chosen significance level of 0.10.",
+   "rationale": "The decision compares p with the alpha chosen for the test; 0.08 < 0.10, so the result is significant."
+  },
+  "wrong": [
+   {
+    "text": "Fail to reject H0, since p = 0.08 is greater than the usual cutoff of 0.05.",
+    "rationale": "The cutoff is the alpha chosen for this test, 0.10, not automatically 0.05.",
+    "error_pattern": "uses default alpha instead of stated alpha"
+   },
+   {
+    "text": "Reject H0, and the probability of a Type I error in this study is exactly 0.08.",
+    "rationale": "The Type I error rate is alpha = 0.10; the p-value is not the probability of a Type I error.",
+    "error_pattern": "confuses p-value with alpha"
+   },
+   {
+    "text": "Fail to reject H0, which shows H0 is true.",
+    "rationale": "Failing to reject does not prove H0 true, and here H0 would be rejected anyway.",
+    "error_pattern": "treats failing to reject as proof"
+   }
+  ],
+  "change_note": "Alpha not 0.05; p between 0.05 and 0.10.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-080-v3",
+  "seed": "APSTATS-MCQ-080",
+  "difficulty": "medium",
+  "title": "p=0.047 vs alpha=0.01",
+  "stem": "A hospital tests whether a new protocol reduces readmission rates and uses alpha = 0.01. The test gives p = 0.047. Which conclusion is correct?",
+  "correct": {
+   "text": "Fail to reject H0; there is not convincing evidence at the 0.01 level.",
+   "rationale": "Because p = 0.047 is greater than alpha = 0.01, the evidence is not strong enough at this level."
+  },
+  "wrong": [
+   {
+    "text": "Reject H0, since p = 0.047 is below the common 0.05 cutoff.",
+    "rationale": "The cutoff for this test is alpha = 0.01, set in advance, not 0.05.",
+    "error_pattern": "uses default alpha instead of stated alpha"
+   },
+   {
+    "text": "Reject H0, since 0.047 is close to 0.01.",
+    "rationale": "Being close to alpha does not justify rejection; the rule is to reject only if p is less than alpha.",
+    "error_pattern": "treats nearness as significance"
+   },
+   {
+    "text": "Fail to reject H0, which means H0 is true with probability 1 - 0.047 = 0.953.",
+    "rationale": "The p-value does not give the probability that H0 is true, and failing to reject does not prove it.",
+    "error_pattern": "misinterprets p-value as probability"
+   }
+  ],
+  "change_note": "Opposite decision from v1/v2; stricter alpha.",
+  "check": "conceptual"
+ }
+]

@@ -1,0 +1,1082 @@
+[
+ {
+  "id": "APSTATS-MCQ-002-v1",
+  "seed": "APSTATS-MCQ-002",
+  "difficulty": "medium",
+  "title": "Comparing exam performances by z-score",
+  "stem": "Priya scored 83 on a chemistry exam whose scores have mean 74 and standard deviation 6. Marcus scored 68 on a history exam whose scores have mean 61 and standard deviation 4. Which student performed better relative to the other students who took the same exam?",
+  "correct": {
+   "text": "Marcus, because his z-score of 1.75 is higher than Priya's z-score of 1.5.",
+   "rationale": "Priya's z = (83 - 74)/6 = 1.5. Marcus's z = (68 - 61)/4 = 1.75. Standardizing puts the two exams on a common scale, and Marcus is farther above his own mean in standard-deviation units."
+  },
+  "wrong": [
+   {
+    "text": "Priya, because her raw score of 83 is higher than Marcus's raw score of 68.",
+    "rationale": "The exams have different means and standard deviations, so raw scores cannot be compared directly; 83 corresponds to z = 1.5 while 68 corresponds to z = 1.75.",
+    "error_pattern": "compares raw scores"
+   },
+   {
+    "text": "Priya, because she is 9 points above her mean while Marcus is only 7 points above his.",
+    "rationale": "Raw distances from the mean ignore the spread of each exam. Priya's 9 points is 9/6 = 1.5 SDs, while Marcus's 7 points is 7/4 = 1.75 SDs.",
+    "error_pattern": "compares raw distance from the mean ignoring SD"
+   },
+   {
+    "text": "Priya, because her score is about 1.12 times her exam's mean, compared with about 1.11 times for Marcus.",
+    "rationale": "Dividing a score by its mean is not standardizing: 83/74 is about 1.12 and 68/61 is about 1.11, but this ignores the SDs. Using z-scores, Marcus (1.75) beats Priya (1.5).",
+    "error_pattern": "divides by mean instead of standardizing"
+   }
+  ],
+  "change_note": "New context, different numbers; correct answer flips from the seed (lower raw score wins); distractors include a ratio-to-mean error.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-002-v2",
+  "seed": "APSTATS-MCQ-002",
+  "difficulty": "medium",
+  "title": "Salary relative to company pay distributions",
+  "stem": "Lena earns $52,000 at a firm where salaries have mean $45,000 and standard deviation $4,000. Omar earns $61,000 at a different firm where salaries have mean $50,000 and standard deviation $7,000. Relative to the pay at their own firms, who is paid better?",
+  "correct": {
+   "text": "Lena, because her z-score of 1.75 exceeds Omar's z-score of about 1.57.",
+   "rationale": "Lena's z = (52,000 - 45,000)/4,000 = 1.75. Omar's z = (61,000 - 50,000)/7,000 = about 1.57. Lena sits farther above her firm's mean in standard-deviation units."
+  },
+  "wrong": [
+   {
+    "text": "Omar, because $61,000 is a larger salary than $52,000.",
+    "rationale": "The firms have different pay distributions, so raw salaries are not comparable. Standardizing gives z = 1.75 for Lena and about 1.57 for Omar.",
+    "error_pattern": "compares raw values"
+   },
+   {
+    "text": "Omar, because he earns $11,000 above his firm's mean while Lena earns only $7,000 above hers.",
+    "rationale": "Dollar distances from the mean ignore each firm's spread. $7,000 is 1.75 SDs of Lena's firm; $11,000 is only about 1.57 SDs of Omar's firm.",
+    "error_pattern": "compares raw distance from the mean"
+   },
+   {
+    "text": "Omar, because his salary is 22% above his firm's mean while Lena's is only 16% above hers.",
+    "rationale": "Percent above the mean (11,000/50,000 = 22% and 7,000/45,000 = about 16%) is not a standardized comparison because it ignores SDs. Using z-scores, Lena (1.75) is higher than Omar (about 1.57).",
+    "error_pattern": "uses percent of mean instead of SD units"
+   }
+  ],
+  "change_note": "Different domain (salaries) and numbers; distractor set targets percent-of-mean confusion; z-scores are close but distinct.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-002-v3",
+  "seed": "APSTATS-MCQ-002",
+  "difficulty": "medium",
+  "title": "Which result is more unusual",
+  "stem": "Tom scored 35 on a placement test with mean 50 and standard deviation 10. Sue scored 58 on a different placement test with mean 50 and standard deviation 4. Whose result is farther from the typical score on her or his own test, measured in standard deviations?",
+  "correct": {
+   "text": "Sue's, because her z-score of 2.0 is larger in absolute value than Tom's z-score of -1.5.",
+   "rationale": "Tom's z = (35 - 50)/10 = -1.5, so he is 1.5 SDs below the mean. Sue's z = (58 - 50)/4 = 2.0, so she is 2.0 SDs above the mean. Distance from the mean in SD units is the absolute z-score, and 2.0 > 1.5."
+  },
+  "wrong": [
+   {
+    "text": "Tom's, because 35 is lower than 58.",
+    "rationale": "Which raw score is lower does not determine distance from the mean in SD units; Tom is 1.5 SDs from his mean and Sue is 2.0 SDs from hers.",
+    "error_pattern": "compares raw values"
+   },
+   {
+    "text": "Tom's, because he is 15 points from his mean while Sue is only 8 points from hers.",
+    "rationale": "Raw point distances ignore the spreads. Tom's 15 points is 1.5 SDs while Sue's 8 points is 2.0 SDs.",
+    "error_pattern": "compares raw distance ignoring SD"
+   },
+   {
+    "text": "Neither, because Tom's negative z-score of -1.5 shows he performed worse than Sue and the two cannot be compared.",
+    "rationale": "A z-score of -1.5 and one of 2.0 can be compared by magnitude: the question asks for distance from the mean, which is |z|. |-1.5| = 1.5 is smaller than |2.0| = 2.0.",
+    "error_pattern": "thinks the sign blocks comparison"
+   }
+  ],
+  "change_note": "Asks for distance from the mean (absolute z) with one negative z, a new twist on the same standardizing skill.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-009-v1",
+  "seed": "APSTATS-MCQ-009",
+  "difficulty": "medium",
+  "title": "Quadrupling n for a skewed waiting-time mean",
+  "stem": "Waiting times at a walk-in clinic are strongly right-skewed with standard deviation 12 minutes. A researcher repeatedly takes simple random samples of patients and computes the sample mean waiting time. Compare the sampling distribution of the sample mean for n = 20 patients with that for n = 80 patients.",
+  "correct": {
+   "text": "The shape is closer to normal for n = 80, and the standard error is cut in half, from about 2.7 to about 1.3 minutes.",
+   "rationale": "By the Central Limit Theorem the sampling distribution of x-bar is closer to normal for the larger sample. SE = 12/sqrt(20) is about 2.68 and 12/sqrt(80) is about 1.34, so quadrupling n halves the SE."
+  },
+  "wrong": [
+   {
+    "text": "The shape is closer to normal for n = 80, and the standard error is cut to one-fourth, from about 2.7 to about 0.7 minutes.",
+    "rationale": "The shape part is right, but SE shrinks with the square root of n, not n: 12/sqrt(80) is about 1.34, not 2.68/4 = 0.67.",
+    "error_pattern": "forgets the square root"
+   },
+   {
+    "text": "The shape is still right-skewed like the population for both sizes, and the standard error is cut in half from about 2.7 to about 1.3 minutes.",
+    "rationale": "The SE values are right but the shape claim is not: as n grows, the sampling distribution of x-bar becomes more nearly normal even though the population is skewed.",
+    "error_pattern": "ignores CLT effect on shape"
+   },
+   {
+    "text": "The shape is closer to normal for n = 80, but the standard error stays at 12 minutes for both sample sizes.",
+    "rationale": "The standard error of x-bar is sigma/sqrt(n), not sigma; it is about 2.68 minutes for n = 20 and 1.34 minutes for n = 80.",
+    "error_pattern": "confuses SE with population SD"
+   }
+  ],
+  "change_note": "Quantified version with a clinic context; includes specific SE values (12/sqrt(n)).",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-009-v2",
+  "seed": "APSTATS-MCQ-009",
+  "difficulty": "medium",
+  "title": "Quadrupling the sample size and the SE",
+  "stem": "A hospital studies lengths of stay, which are right-skewed with standard deviation 6 days. The mean stay in a random sample of 36 patients is compared with the mean stay in a random sample of 144 patients. How do the standard errors of the two sample means compare?",
+  "correct": {
+   "text": "The sample of 144 has half the standard error of the sample of 36: 0.5 days versus 1.0 days.",
+   "rationale": "SE = 6/sqrt(36) = 1.0 day and SE = 6/sqrt(144) = 0.5 day. Four times as many patients cuts the standard error by a factor of sqrt(4) = 2."
+  },
+  "wrong": [
+   {
+    "text": "The sample of 144 has one-fourth the standard error of the sample of 36: 0.25 days versus 1.0 days.",
+    "rationale": "SE falls with the square root of the sample size, so quadrupling n halves the SE. 6/sqrt(144) = 0.5, not 0.25.",
+    "error_pattern": "treats SE as proportional to 1/n"
+   },
+   {
+    "text": "The two samples have the same standard error of 6 days, since both come from the same population.",
+    "rationale": "The SE of x-bar is sigma/sqrt(n) and depends on n: it is 1.0 day for n = 36 and 0.5 day for n = 144, not the population SD of 6.",
+    "error_pattern": "SE equals population SD"
+   },
+   {
+    "text": "The sample of 144 has twice the standard error of the sample of 36, because more patients add more variation.",
+    "rationale": "More observations do not add variability to the mean; averaging more values makes x-bar more stable. SE is 0.5 day at n = 144 and 1.0 day at n = 36.",
+    "error_pattern": "thinks more data raises variability"
+   }
+  ],
+  "change_note": "Focus on quantitative effect of n on SE for a skewed population rather than shape; new context and numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-009-v3",
+  "seed": "APSTATS-MCQ-009",
+  "difficulty": "medium",
+  "title": "Sampling distribution of mean daily rainfall",
+  "stem": "Daily rainfall in a region is strongly right-skewed, with mean 3 mm and standard deviation 4 mm. Random samples of 64 days are taken and the sample mean rainfall is computed for each. Which description of the sampling distribution of the sample mean is best?",
+  "correct": {
+   "text": "Approximately normal, with mean 3 mm and standard error 0.5 mm.",
+   "rationale": "The mean of x-bar equals the population mean, 3 mm. SE = 4/sqrt(64) = 0.5 mm. With n = 64 the Central Limit Theorem makes the shape approximately normal."
+  },
+  "wrong": [
+   {
+    "text": "Right-skewed like the population, with mean 3 mm and standard error 0.5 mm.",
+    "rationale": "The center and spread are right, but with n = 64 the CLT makes the sampling distribution of x-bar approximately normal rather than skewed like the population.",
+    "error_pattern": "ignores CLT shape"
+   },
+   {
+    "text": "Approximately normal, with mean 3 mm and standard error 4 mm.",
+    "rationale": "The shape and center are right, but SE = 4/sqrt(64) = 0.5 mm; 4 mm is the spread of individual days, not of sample means.",
+    "error_pattern": "SE equals population SD"
+   },
+   {
+    "text": "Approximately normal, with mean 0.375 mm and standard error 0.5 mm.",
+    "rationale": "The mean of the sampling distribution is the population mean, 3 mm, not 3/8. Only the spread is divided by sqrt(n) (4/8 = 0.5).",
+    "error_pattern": "divides the mean by sqrt(n)"
+   }
+  ],
+  "change_note": "Asks for the full description (shape, center, spread) with computed values.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-020-v1",
+  "seed": "APSTATS-MCQ-020",
+  "difficulty": "easy",
+  "title": "z-score of a plant below the mean",
+  "stem": "The heights of seedlings in a greenhouse have mean 35 cm and standard deviation 4 cm. What is the z-score of a seedling that is 29 cm tall?",
+  "correct": {
+   "text": "-1.5",
+   "rationale": "z = (29 - 35)/4 = -6/4 = -1.5; the seedling is 1.5 SDs below the mean."
+  },
+  "wrong": [
+   {
+    "text": "1.5",
+    "rationale": "The magnitude is right but the sign is wrong: 29 is below the mean of 35, so the z-score must be negative.",
+    "error_pattern": "drops the sign"
+   },
+   {
+    "text": "-6",
+    "rationale": "This is only the raw difference 29 - 35; it was not divided by the standard deviation of 4.",
+    "error_pattern": "omits division by SD"
+   },
+   {
+    "text": "-0.17",
+    "rationale": "This divides the difference by the mean (-6/35, about -0.17) instead of by the standard deviation 4.",
+    "error_pattern": "divides by mean"
+   }
+  ],
+  "change_note": "New context; below-mean value; distractors target missing division, sign, and dividing by the mean.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-020-v2",
+  "seed": "APSTATS-MCQ-020",
+  "difficulty": "easy",
+  "title": "z-score of a delivery time",
+  "stem": "Package delivery times for a courier have mean 64 minutes and standard deviation 5 minutes. A particular delivery took 72 minutes. What is its z-score?",
+  "correct": {
+   "text": "1.6",
+   "rationale": "z = (72 - 64)/5 = 8/5 = 1.6."
+  },
+  "wrong": [
+   {
+    "text": "8",
+    "rationale": "This is the raw difference 72 - 64; it was never divided by the standard deviation 5.",
+    "error_pattern": "omits division by SD"
+   },
+   {
+    "text": "1.125",
+    "rationale": "This is 72/64, a ratio of the value to the mean, rather than (72 - 64)/5.",
+    "error_pattern": "divides value by mean"
+   },
+   {
+    "text": "14.4",
+    "rationale": "This is 72/5: the value was divided by the SD without first subtracting the mean 64.",
+    "error_pattern": "forgets to subtract the mean"
+   }
+  ],
+  "change_note": "New context and numbers; error patterns differ from seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-020-v3",
+  "seed": "APSTATS-MCQ-020",
+  "difficulty": "easy",
+  "title": "z-score of a fast run",
+  "stem": "The time for a school's students to finish a puzzle has mean 12.5 minutes and standard deviation 2.5 minutes. A student finishes in 10 minutes. Find the z-score for this student.",
+  "correct": {
+   "text": "-1.0",
+   "rationale": "z = (10 - 12.5)/2.5 = -2.5/2.5 = -1.0."
+  },
+  "wrong": [
+   {
+    "text": "1.0",
+    "rationale": "The size is correct but the student finished faster than the mean, so the z-score must be negative.",
+    "error_pattern": "drops the sign"
+   },
+   {
+    "text": "-2.5",
+    "rationale": "This is only the difference 10 - 12.5; it was not divided by the SD of 2.5.",
+    "error_pattern": "omits division by SD"
+   },
+   {
+    "text": "4.0",
+    "rationale": "This is 10/2.5: the value was divided by the SD without subtracting the mean first.",
+    "error_pattern": "forgets to subtract the mean"
+   }
+  ],
+  "change_note": "Different context; value below mean with decimal numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-024-v1",
+  "seed": "APSTATS-MCQ-024",
+  "difficulty": "easy",
+  "title": "Median of six ordered values",
+  "stem": "Six commute times (in minutes), listed in order, are 3, 5, 7, 8, 12, 15. What is the median commute time?",
+  "correct": {
+   "text": "7.5",
+   "rationale": "With n = 6 the median is the mean of the 3rd and 4th values: (7 + 8)/2 = 7.5."
+  },
+  "wrong": [
+   {
+    "text": "8.3",
+    "rationale": "This is the mean of all six values (50/6, about 8.3), not the median.",
+    "error_pattern": "gives the mean"
+   },
+   {
+    "text": "15",
+    "rationale": "This adds the two middle values (7 + 8 = 15) without dividing by 2.",
+    "error_pattern": "adds middle values instead of averaging"
+   },
+   {
+    "text": "7",
+    "rationale": "This takes only the 3rd value; with an even number of values, the median must average the two middle ones.",
+    "error_pattern": "uses lower middle value only"
+   }
+  ],
+  "change_note": "Explicit data list with an outlier-ish value so mean differs from median.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-024-v2",
+  "seed": "APSTATS-MCQ-024",
+  "difficulty": "easy",
+  "title": "Median position for 30 ordered values",
+  "stem": "A researcher has 30 test scores arranged from smallest to largest. Which description locates the median of these scores?",
+  "correct": {
+   "text": "The mean of the 15th and 16th ordered scores.",
+   "rationale": "With 30 values, the two middle positions are 15 and 16, and the median is their average."
+  },
+  "wrong": [
+   {
+    "text": "The 15th ordered score alone.",
+    "rationale": "Using only the 15th value would be right only if the count were odd; with 30 values the median averages the 15th and 16th.",
+    "error_pattern": "uses one middle value"
+   },
+   {
+    "text": "The 16th ordered score alone, since 30/2 + 1 = 16.",
+    "rationale": "The position (n + 1)/2 = 15.5 falls halfway between the 15th and 16th values, so both must be averaged.",
+    "error_pattern": "rounds up the position"
+   },
+   {
+    "text": "The mean of the 1st and 30th ordered scores.",
+    "rationale": "This is the midrange (average of min and max), which is not the median.",
+    "error_pattern": "confuses median with midrange"
+   }
+  ],
+  "change_note": "Conceptual positions for n = 30 instead of 20.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-024-v3",
+  "seed": "APSTATS-MCQ-024",
+  "difficulty": "easy",
+  "title": "Median of twelve ordered values",
+  "stem": "The monthly rainfall totals (mm) for a city, sorted from least to greatest, are 4, 6, 6, 9, 10, 12, 13, 15, 18, 21, 25, 40. What is the median?",
+  "correct": {
+   "text": "12.5",
+   "rationale": "With n = 12 the middle values are the 6th (12) and 7th (13), so the median is (12 + 13)/2 = 12.5."
+  },
+  "wrong": [
+   {
+    "text": "12",
+    "rationale": "This is only the 6th value; with 12 values the median averages the 6th and 7th.",
+    "error_pattern": "uses lower middle value only"
+   },
+   {
+    "text": "14.9",
+    "rationale": "This is the mean of all 12 values (179/12, about 14.9), pulled up by the value 40; it is not the median.",
+    "error_pattern": "gives the mean"
+   },
+   {
+    "text": "6.5",
+    "rationale": "This is the average of the positions 6 and 7, not of the values stored at those positions.",
+    "error_pattern": "averages positions instead of values"
+   }
+  ],
+  "change_note": "Longer list, skewed so mean and median differ.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-037-v1",
+  "seed": "APSTATS-MCQ-037",
+  "difficulty": "medium",
+  "title": "Simple random sample from a registry",
+  "stem": "A city council wants a simple random sample of 40 residents from a registry listing 2,000 residents. Which procedure best accomplishes this?",
+  "correct": {
+   "text": "Number the residents 1 to 2,000 and use a random number generator to draw 40 different numbers.",
+   "rationale": "Numbering every resident and drawing distinct random numbers gives each resident, and each group of 40, the same chance of selection, which defines a simple random sample."
+  },
+  "wrong": [
+   {
+    "text": "Interview the first 40 people who walk into city hall on Monday morning.",
+    "rationale": "This is a convenience sample: people at city hall on a Monday are not randomly chosen and are unlikely to represent all residents.",
+    "error_pattern": "convenience sampling"
+   },
+   {
+    "text": "Mail a survey to all residents and use the first 40 that are returned.",
+    "rationale": "Those who respond first are self-selected, so this is a voluntary response sample that is prone to bias.",
+    "error_pattern": "voluntary response"
+   },
+   {
+    "text": "Take the first 40 residents on the registry, which is sorted by last name.",
+    "rationale": "The first 40 names alphabetically are a fixed group, not randomly chosen; most residents have no chance of selection.",
+    "error_pattern": "non-random fixed block"
+   }
+  ],
+  "change_note": "City registry context; distractors cover convenience, voluntary response and fixed-block selection.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-037-v2",
+  "seed": "APSTATS-MCQ-037",
+  "difficulty": "medium",
+  "title": "Random sample of gym members",
+  "stem": "A gym has 250 members and wants feedback from a simple random sample of 25 of them. Which plan is best?",
+  "correct": {
+   "text": "Give each member an ID from 1 to 250 and have software pick 25 different IDs at random.",
+   "rationale": "Random selection from a complete numbered list gives every member and every group of 25 the same chance of being chosen, which is the definition of an SRS."
+  },
+  "wrong": [
+   {
+    "text": "Survey the 25 members who visit the gym most often.",
+    "rationale": "Frequent visitors differ systematically from other members, so this non-random choice builds in bias.",
+    "error_pattern": "selects an unrepresentative subgroup"
+   },
+   {
+    "text": "Post a sign inviting members to take a survey and use the first 25 who respond.",
+    "rationale": "Members who volunteer are self-selected, which creates voluntary response bias rather than a random sample.",
+    "error_pattern": "voluntary response"
+   },
+   {
+    "text": "Ask the 25 members who are nearest the front desk at noon on Tuesday.",
+    "rationale": "Whoever is convenient at one time and place is a convenience sample; most members have no chance of being chosen.",
+    "error_pattern": "convenience sampling"
+   }
+  ],
+  "change_note": "Gym context; different distractor wording and numbers.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-037-v3",
+  "seed": "APSTATS-MCQ-037",
+  "difficulty": "medium",
+  "title": "Random sample of seniors",
+  "stem": "A principal wants a simple random sample of 50 seniors from the 400 students in the senior class. Which method should she use?",
+  "correct": {
+   "text": "Number the seniors 1 to 400 and use a random number generator for 50 distinct numbers.",
+   "rationale": "Each senior is equally likely to be chosen, and every set of 50 seniors is equally likely, so this is a simple random sample."
+  },
+  "wrong": [
+   {
+    "text": "Select the 50 seniors who have the highest grade point averages.",
+    "rationale": "Choosing by GPA is a deliberate, non-random rule that excludes lower-GPA students and biases the sample.",
+    "error_pattern": "non-random selection by a trait"
+   },
+   {
+    "text": "Ask each of the 10 homeroom teachers to hand-pick the 5 students they prefer.",
+    "rationale": "Teachers choose by their own judgment, so students are not selected by chance and bias is likely.",
+    "error_pattern": "judgment selection"
+   },
+   {
+    "text": "Announce a pizza party and take the first 50 seniors who sign up for it.",
+    "rationale": "Students who sign up are self-selected, so this voluntary response sample is not random.",
+    "error_pattern": "voluntary response"
+   }
+  ],
+  "change_note": "Different population size; incentive-based voluntary response distractor.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-041-v1",
+  "seed": "APSTATS-MCQ-041",
+  "difficulty": "medium",
+  "title": "Confounder for ice cream and drownings",
+  "stem": "Public health data show that in months when ice cream sales are higher, more drownings occur. Which of the following is a plausible confounding variable for this association?",
+  "correct": {
+   "text": "Hot weather, which draws more people to swim and also increases ice cream purchases",
+   "rationale": "A confounder is linked to both variables. Warm weather leads to more swimming (more drownings) and to more ice cream sales, which can produce the association without either causing the other."
+  },
+  "wrong": [
+   {
+    "text": "The number of drownings reported in each month",
+    "rationale": "This is the response variable itself, not a third variable that influences both quantities.",
+    "error_pattern": "confuses response variable with confounder"
+   },
+   {
+    "text": "The correlation between the monthly ice cream sales and drownings",
+    "rationale": "The correlation is a summary of the association, not a separate variable acting on both measurements.",
+    "error_pattern": "confuses a summary statistic with a confounder"
+   },
+   {
+    "text": "The year in which the data were recorded, with no link to either quantity",
+    "rationale": "A variable with no relationship to swimming or to ice cream sales cannot create the association, so it cannot be a confounder.",
+    "error_pattern": "irrelevant variable"
+   }
+  ],
+  "change_note": "Classic confounding scenario from a different domain; distractors tied to variable-role errors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-041-v2",
+  "seed": "APSTATS-MCQ-041",
+  "difficulty": "medium",
+  "title": "Confounder for piano lessons and math scores",
+  "stem": "A school district finds that students who take piano lessons score higher on math tests than students who do not. Which is a plausible confounding variable?",
+  "correct": {
+   "text": "Family income, which could affect both lesson enrollment and math scores",
+   "rationale": "A third variable that influences both who takes lessons and how students do in math can create the observed association with no causal effect of lessons."
+  },
+  "wrong": [
+   {
+    "text": "The average math score earned by the group of students taking lessons",
+    "rationale": "This is a summary of the response variable for one group, not a separate variable influencing both lessons and scores.",
+    "error_pattern": "confuses a group statistic with a confounder"
+   },
+   {
+    "text": "The p-value from comparing the math scores of the two groups",
+    "rationale": "The p-value summarizes evidence from the data; it does not affect who takes lessons or how well students do.",
+    "error_pattern": "confuses test output with a confounder"
+   },
+   {
+    "text": "The total number of students included in the district study",
+    "rationale": "Sample size affects precision of estimates, but it does not influence both lesson-taking and math scores for individual students.",
+    "error_pattern": "confuses sample size with a confounder"
+   }
+  ],
+  "change_note": "Education context; confounder is a socio-economic third variable.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-041-v3",
+  "seed": "APSTATS-MCQ-041",
+  "difficulty": "medium",
+  "title": "Confounder for fitness trackers and BMI",
+  "stem": "An observational study finds that adults who wear fitness trackers have lower body mass index (BMI), on average, than adults who do not. Which is a plausible confounding variable?",
+  "correct": {
+   "text": "Health consciousness, causing people to wear trackers and keep a lower BMI",
+   "rationale": "A trait that affects both tracker use and BMI could explain the association even if trackers have no effect on BMI."
+  },
+  "wrong": [
+   {
+    "text": "The BMI values that were measured for the adults in the study",
+    "rationale": "BMI is the response variable being compared, not a third variable influencing both groups' tracker use and outcome.",
+    "error_pattern": "confuses response variable with confounder"
+   },
+   {
+    "text": "The number of adults who were included in the study sample group",
+    "rationale": "Sample size influences precision, but it does not drive both tracker use and BMI.",
+    "error_pattern": "confuses sample size with a confounder"
+   },
+   {
+    "text": "The test statistic used to compare BMI between the two groups",
+    "rationale": "A test statistic summarizes the data after collection and cannot influence who wears a tracker or their BMI.",
+    "error_pattern": "confuses test statistic with a confounder"
+   }
+  ],
+  "change_note": "Fitness context; same skill with new variables.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-045-v1",
+  "seed": "APSTATS-MCQ-045",
+  "difficulty": "easy",
+  "title": "Inspecting every restaurant",
+  "stem": "A city health department inspects every one of the 312 restaurants in the city. Which term best describes the way these data were collected?",
+  "correct": {
+   "text": "A census, because every restaurant in the population was included",
+   "rationale": "A census collects data from every member of the population of interest; here all 312 restaurants were inspected."
+  },
+  "wrong": [
+   {
+    "text": "A cluster sample, because restaurants are grouped by neighborhood",
+    "rationale": "A cluster sample includes only some selected clusters; here every restaurant was inspected, so nothing was sampled.",
+    "error_pattern": "confuses census with cluster sample"
+   },
+   {
+    "text": "A systematic sample, because inspectors go through restaurants in street-address order",
+    "rationale": "A systematic sample takes every kth unit; here all units are taken, so it is a census, not a sample.",
+    "error_pattern": "confuses census with systematic sample"
+   },
+   {
+    "text": "A convenience sample, because easy-to-reach restaurants were inspected",
+    "rationale": "A convenience sample takes only readily available units; here all restaurants were inspected, not only the easy ones.",
+    "error_pattern": "confuses census with convenience sample"
+   }
+  ],
+  "change_note": "Restaurant inspection context; distractors name other sampling types.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-045-v2",
+  "seed": "APSTATS-MCQ-045",
+  "difficulty": "easy",
+  "title": "Employee satisfaction survey",
+  "stem": "A company with 1,200 employees emails its satisfaction survey to every employee. What is the best name for this data collection method?",
+  "correct": {
+   "text": "A census of the company's employees",
+   "rationale": "Every employee in the population of interest was asked to participate, so it is a census, even though some may not respond."
+  },
+  "wrong": [
+   {
+    "text": "A voluntary response sample",
+    "rationale": "In a voluntary response sample, people choose whether to be included by responding to an open invitation; here the company contacts every employee, so there is no sampling.",
+    "error_pattern": "confuses census with voluntary response"
+   },
+   {
+    "text": "A stratified random sample by department",
+    "rationale": "Stratified sampling selects some units from each stratum; here all employees are contacted.",
+    "error_pattern": "confuses census with stratified sample"
+   },
+   {
+    "text": "A simple random sample of 1,200 employees",
+    "rationale": "The company has only 1,200 employees, so choosing 1,200 of them is not a random draw but everyone.",
+    "error_pattern": "confuses census with SRS"
+   }
+  ],
+  "change_note": "Workplace context; distractors include voluntary response.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-045-v3",
+  "seed": "APSTATS-MCQ-045",
+  "difficulty": "easy",
+  "title": "Weighing every giraffe",
+  "stem": "A zoo veterinarian weighs all 15 giraffes at the zoo to describe the herd. What is this called?",
+  "correct": {
+   "text": "A census of the herd",
+   "rationale": "All 15 giraffes in the population of interest were measured, so no sampling was involved."
+  },
+  "wrong": [
+   {
+    "text": "A random sample of giraffes",
+    "rationale": "A random sample uses chance to pick only some members of the population; here all 15 were measured.",
+    "error_pattern": "confuses census with random sample"
+   },
+   {
+    "text": "A convenience sample",
+    "rationale": "A convenience sample would include only easy-to-reach animals; here every giraffe was weighed.",
+    "error_pattern": "confuses census with convenience sample"
+   },
+   {
+    "text": "An experiment",
+    "rationale": "An experiment imposes treatments on subjects; simply weighing animals imposes none, so it is an observational census.",
+    "error_pattern": "confuses measurement with experiment"
+   }
+  ],
+  "change_note": "Zoo context; adds experiment-vs-census confusion.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-049-v1",
+  "seed": "APSTATS-MCQ-049",
+  "difficulty": "easy",
+  "title": "Expected winnings on a prize wheel",
+  "stem": "At a school carnival, a prize wheel pays $20 with probability 0.15, $5 with probability 0.30, and $0 otherwise. What are a player's expected winnings per spin?",
+  "correct": {
+   "text": "$4.50",
+   "rationale": "E(X) = 20(0.15) + 5(0.30) + 0(0.55) = 3.00 + 1.50 = 4.50."
+  },
+  "wrong": [
+   {
+    "text": "$8.33",
+    "rationale": "This is the unweighted mean of the three payouts, (20 + 5 + 0)/3, which ignores their probabilities.",
+    "error_pattern": "unweighted mean of values"
+   },
+   {
+    "text": "$3.00",
+    "rationale": "This counts only the $20 prize (20 x 0.15) and leaves out the $5 prize's contribution of $1.50.",
+    "error_pattern": "omits one outcome"
+   },
+   {
+    "text": "$9.00",
+    "rationale": "This multiplies the largest prize by the total probability of any win: 20 x 0.45 = 9, overstating the value of the $5 prize.",
+    "error_pattern": "applies total win probability to the top prize"
+   }
+  ],
+  "change_note": "Three-outcome game; distractors target unweighted mean and omission.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-049-v2",
+  "seed": "APSTATS-MCQ-049",
+  "difficulty": "easy",
+  "title": "Mean of a discrete random variable",
+  "stem": "The number of pets X owned by a randomly chosen student has this distribution: P(X = 0) = 0.1, P(X = 1) = 0.4, P(X = 2) = 0.3, P(X = 3) = 0.2. What is the expected value of X?",
+  "correct": {
+   "text": "1.6",
+   "rationale": "E(X) = 0(0.1) + 1(0.4) + 2(0.3) + 3(0.2) = 0 + 0.4 + 0.6 + 0.6 = 1.6."
+  },
+  "wrong": [
+   {
+    "text": "1.5",
+    "rationale": "This is the unweighted mean of the values 0, 1, 2, 3, which ignores the probabilities.",
+    "error_pattern": "unweighted mean of values"
+   },
+   {
+    "text": "0.25",
+    "rationale": "This is the average of the four probabilities (1/4), not a probability-weighted average of the values.",
+    "error_pattern": "averages probabilities"
+   },
+   {
+    "text": "1.0",
+    "rationale": "This is the most likely value (mode), not the probability-weighted mean of the distribution.",
+    "error_pattern": "reports the mode"
+   }
+  ],
+  "change_note": "Table-style discrete distribution instead of a two-outcome game.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-049-v3",
+  "seed": "APSTATS-MCQ-049",
+  "difficulty": "medium",
+  "title": "Insurer's expected profit per policy",
+  "stem": "An insurance company sells a policy for $60. With probability 0.02 it pays a claim of $2,000, and otherwise it pays nothing. What is the company's expected profit per policy, after the claim cost but including the $60 premium?",
+  "correct": {
+   "text": "$20",
+   "rationale": "Expected claim cost = 2,000(0.02) = $40, so expected profit = 60 - 40 = $20."
+  },
+  "wrong": [
+   {
+    "text": "$40",
+    "rationale": "This is the expected claim payout only; the $60 premium was not subtracted from it.",
+    "error_pattern": "reports expected payout only"
+   },
+   {
+    "text": "-$20",
+    "rationale": "The sign is reversed: expected profit is premium minus expected claim cost, 60 - 40 = +20, not 40 - 60.",
+    "error_pattern": "reverses the sign"
+   },
+   {
+    "text": "$60",
+    "rationale": "This is only the premium; the expected payout of $40 per policy was not subtracted.",
+    "error_pattern": "ignores the expected claim cost"
+   }
+  ],
+  "change_note": "Net-profit framing with premium and claim; slightly harder than seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-059-v1",
+  "seed": "APSTATS-MCQ-059",
+  "difficulty": "easy",
+  "title": "Comparing SE for two sample sizes",
+  "stem": "A population has standard deviation 14. Researchers take one random sample of 49 observations and another of 196 observations and compute each sample mean. Which sample mean has the smaller standard error, and what are the two standard errors?",
+  "correct": {
+   "text": "The sample of 196, with standard errors of 2.0 for n = 49 and 1.0 for n = 196",
+   "rationale": "SE = 14/sqrt(49) = 2.0 and SE = 14/sqrt(196) = 1.0, so the larger sample has the smaller standard error."
+  },
+  "wrong": [
+   {
+    "text": "The sample of 49, with standard errors of 1.0 for n = 49 and 2.0 for n = 196",
+    "rationale": "This reverses the effect of sample size: SE is 14/7 = 2.0 for n = 49 and 14/14 = 1.0 for n = 196.",
+    "error_pattern": "reverses direction"
+   },
+   {
+    "text": "The sample of 196, with standard errors of 0.29 for n = 49 and 0.07 for n = 196",
+    "rationale": "This divides 14 by n instead of the square root of n (14/49, 14/196). The correct SEs are 2.0 and 1.0.",
+    "error_pattern": "forgets the square root"
+   },
+   {
+    "text": "Neither; both have a standard error of 14 because they come from the same population",
+    "rationale": "The SE of the sample mean is sigma/sqrt(n), so it depends on n; it equals 14 only for n = 1.",
+    "error_pattern": "SE equals population SD"
+   }
+  ],
+  "change_note": "Quantified comparison with given sigma.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-059-v2",
+  "seed": "APSTATS-MCQ-059",
+  "difficulty": "medium",
+  "title": "Sample size needed to halve SE",
+  "stem": "A random sample of n = 30 is used to estimate a population mean. By what sample size would the standard error of the sample mean be exactly half as large?",
+  "correct": {
+   "text": "n = 120",
+   "rationale": "SE is proportional to 1/sqrt(n). Halving SE needs sqrt(n) to double, so n must quadruple: 4 x 30 = 120."
+  },
+  "wrong": [
+   {
+    "text": "n = 60",
+    "rationale": "Doubling n shrinks SE only by a factor of 1/sqrt(2), to about 71% of the original, not to half.",
+    "error_pattern": "thinks doubling n halves SE"
+   },
+   {
+    "text": "n = 15",
+    "rationale": "Cutting n in half makes SE larger, by a factor of sqrt(2), not smaller.",
+    "error_pattern": "moves n in the wrong direction"
+   },
+   {
+    "text": "n = 90",
+    "rationale": "Tripling n shrinks SE by a factor of 1/sqrt(3), to about 58% of the original, not to half.",
+    "error_pattern": "thinks tripling n halves SE"
+   }
+  ],
+  "change_note": "Asks for sample size to halve SE; requires sqrt(n) reasoning.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-059-v3",
+  "seed": "APSTATS-MCQ-059",
+  "difficulty": "easy",
+  "title": "SE of a sample mean commute time",
+  "stem": "Commute times in a district have standard deviation 10 minutes. A simple random sample of 25 students is taken. What is the standard error of the sample mean commute time?",
+  "correct": {
+   "text": "2.0 minutes",
+   "rationale": "SE = sigma/sqrt(n) = 10/sqrt(25) = 10/5 = 2.0."
+  },
+  "wrong": [
+   {
+    "text": "10 minutes",
+    "rationale": "This is the standard deviation of individual commute times, not the standard error of the mean of 25 of them.",
+    "error_pattern": "SE equals population SD"
+   },
+   {
+    "text": "0.4 minutes",
+    "rationale": "This divides sigma by n (10/25) rather than by sqrt(n) = 5.",
+    "error_pattern": "forgets the square root"
+   },
+   {
+    "text": "50 minutes",
+    "rationale": "This multiplies sigma by sqrt(n) (10 x 5) instead of dividing; SE should be smaller than sigma, not larger.",
+    "error_pattern": "multiplies instead of divides"
+   }
+  ],
+  "change_note": "Direct calculation instead of qualitative comparison.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-066-v1",
+  "seed": "APSTATS-MCQ-066",
+  "difficulty": "medium",
+  "title": "Decision with a strict alpha",
+  "stem": "A test of whether a tutoring program raises mean scores gives a p-value of 0.032. The significance level chosen before the study was alpha = 0.01. What is the appropriate decision?",
+  "correct": {
+   "text": "Fail to reject H0, because 0.032 is greater than 0.01",
+   "rationale": "The p-value exceeds the chosen alpha, so the data do not provide convincing evidence against the null hypothesis at the 0.01 level."
+  },
+  "wrong": [
+   {
+    "text": "Reject H0, because 0.032 is below the conventional 0.05 cutoff",
+    "rationale": "The decision must use the alpha chosen for the study, 0.01. Since 0.032 > 0.01, the result is not significant.",
+    "error_pattern": "uses default 0.05 instead of stated alpha"
+   },
+   {
+    "text": "Reject H0, because the p-value is greater than alpha, showing a significant result",
+    "rationale": "The inequality is reversed: significance requires p-value < alpha, and here 0.032 > 0.01.",
+    "error_pattern": "reverses the decision rule"
+   },
+   {
+    "text": "Fail to reject H0 and conclude the tutoring program has no effect",
+    "rationale": "Failing to reject H0 does not prove the program has no effect; it only means the evidence was not strong enough at alpha = 0.01.",
+    "error_pattern": "treats failure to reject as proof of H0"
+   }
+  ],
+  "change_note": "Fail-to-reject case with stricter alpha; includes use-0.05-instead-of-alpha trap.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-066-v2",
+  "seed": "APSTATS-MCQ-066",
+  "difficulty": "medium",
+  "title": "Decision and conclusion in context",
+  "stem": "A company tests H0: mu = 10 hours against Ha: mu is not 10 hours for the mean battery life of a new phone. The test gives a p-value of 0.003, and alpha = 0.05. Which conclusion is correct?",
+  "correct": {
+   "text": "Reject H0; there is convincing evidence the mean battery life differs from 10 hours.",
+   "rationale": "Since 0.003 < 0.05, the data are unlikely under H0, so we reject it and conclude the mean differs from 10 hours."
+  },
+  "wrong": [
+   {
+    "text": "Fail to reject H0, because the p-value of 0.003 is smaller than alpha",
+    "rationale": "The rule is reversed: a p-value smaller than alpha leads to rejecting H0, not failing to reject.",
+    "error_pattern": "reverses the decision rule"
+   },
+   {
+    "text": "Reject H0, because there is only a 0.3% chance that H0 is true",
+    "rationale": "The p-value is the probability of results this extreme if H0 is true, not the probability that H0 is true.",
+    "error_pattern": "misinterprets the p-value"
+   },
+   {
+    "text": "Reject H0, which proves the true mean is not exactly 10 hours",
+    "rationale": "Rejecting H0 is statistical evidence, not proof; a significance test cannot establish a conclusion with certainty.",
+    "error_pattern": "claims proof"
+   }
+  ],
+  "change_note": "Two-sided test with conclusion in context; p-value misinterpretation distractor.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-066-v3",
+  "seed": "APSTATS-MCQ-066",
+  "difficulty": "medium",
+  "title": "Decision at alpha = 0.10",
+  "stem": "A one-sample test of a population mean results in a p-value of 0.07. The researcher specified alpha = 0.10 before collecting data. What decision should be made?",
+  "correct": {
+   "text": "Reject H0, because 0.07 is less than 0.10",
+   "rationale": "The p-value is below the stated significance level of 0.10, so there is statistically significant evidence against H0."
+  },
+  "wrong": [
+   {
+    "text": "Fail to reject H0, because 0.07 is greater than the usual 0.05 cutoff",
+    "rationale": "The cutoff is the alpha stated for this study, 0.10, not 0.05; since 0.07 < 0.10 the result is significant.",
+    "error_pattern": "uses default 0.05 instead of stated alpha"
+   },
+   {
+    "text": "Reject H0 and conclude the probability H0 is true is 7%",
+    "rationale": "The p-value is the probability of data this extreme assuming H0 is true, not the probability that H0 is true.",
+    "error_pattern": "misinterprets the p-value"
+   },
+   {
+    "text": "Make no decision until the test statistic is converted to a z-score",
+    "rationale": "The p-value can be compared directly with alpha; no further conversion is needed to decide.",
+    "error_pattern": "thinks p cannot be compared directly"
+   }
+  ],
+  "change_note": "Rejection case at alpha = 0.10; avoids default-0.05 reasoning.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-076-v1",
+  "seed": "APSTATS-MCQ-076",
+  "difficulty": "medium",
+  "title": "Expected count from marginal totals",
+  "stem": "In a chi-square test of independence, one cell of the table has row total 60, column total 90, and the table total is 300. What is the expected count for that cell?",
+  "correct": {
+   "text": "18",
+   "rationale": "Expected count = (row total x column total)/table total = (60 x 90)/300 = 5400/300 = 18."
+  },
+  "wrong": [
+   {
+    "text": "36",
+    "rationale": "This divides by 150, half of the table total, instead of 300: (60 x 90)/150 = 36.",
+    "error_pattern": "wrong denominator"
+   },
+   {
+    "text": "150",
+    "rationale": "This adds the row and column totals (60 + 90) instead of multiplying them and dividing by the table total.",
+    "error_pattern": "adds the totals"
+   },
+   {
+    "text": "5,400",
+    "rationale": "This multiplies the row and column totals (60 x 90) but never divides by the table total of 300.",
+    "error_pattern": "omits division by table total"
+   }
+  ],
+  "change_note": "New numbers; different error patterns (no division, sum).",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-076-v2",
+  "seed": "APSTATS-MCQ-076",
+  "difficulty": "medium",
+  "title": "Expected count in a 2 by 3 table",
+  "stem": "A random sample of students was classified by class year and favorite study method:\nStudy method: Flash cards | Notes | Videos | Row total\nFreshman: 30 | 45 | 25 | 100\nSophomore: 40 | 55 | 45 | 140\nColumn total: 70 | 100 | 70 | table total 240\nIf class year and study method are independent, what is the expected count for freshmen who prefer videos?",
+  "correct": {
+   "text": "About 29.2",
+   "rationale": "Expected count = (row total x column total)/table total = (100 x 70)/240 = about 29.2."
+  },
+  "wrong": [
+   {
+    "text": "25",
+    "rationale": "This is the observed count for freshmen who prefer videos, not the expected count.",
+    "error_pattern": "reports the observed count"
+   },
+   {
+    "text": "About 33.3",
+    "rationale": "This is the freshman row total divided by 3 columns (100/3), which assumes equal splits across methods rather than using column totals.",
+    "error_pattern": "divides row total by number of columns"
+   },
+   {
+    "text": "35",
+    "rationale": "This is the Videos column total divided by 2 rows (70/2), which ignores that the rows have different totals.",
+    "error_pattern": "divides column total by number of rows"
+   }
+  ],
+  "change_note": "Gives a full table; asks for one expected cell; requires finding totals.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-076-v3",
+  "seed": "APSTATS-MCQ-076",
+  "difficulty": "medium",
+  "title": "Expected count when observed is given",
+  "stem": "A chi-square test of independence for 500 survey respondents focuses on one cell. The observed count in that cell is 48, its row total is 200, its column total is 150, and the table total is 500. What is the expected count for this cell?",
+  "correct": {
+   "text": "60",
+   "rationale": "Expected count = (200 x 150)/500 = 30,000/500 = 60."
+  },
+  "wrong": [
+   {
+    "text": "48",
+    "rationale": "This is the observed count in the cell, not the expected count under independence.",
+    "error_pattern": "reports the observed count"
+   },
+   {
+    "text": "350",
+    "rationale": "This adds the row and column totals (200 + 150), which is not how expected counts are computed.",
+    "error_pattern": "adds the totals"
+   },
+   {
+    "text": "0.12",
+    "rationale": "This is (200/500) x (150/500), the expected proportion; it must be multiplied by 500 to get an expected count of 60.",
+    "error_pattern": "gives the proportion instead of the count"
+   }
+  ],
+  "change_note": "Observed count distractor and proportion-vs-count error.",
+  "check": "numeric"
+ },
+ {
+  "id": "APSTATS-MCQ-092-v1",
+  "seed": "APSTATS-MCQ-092",
+  "difficulty": "easy",
+  "title": "Type I error in a drug trial",
+  "stem": "In a clinical trial, researchers test H0: the new drug has no effect on blood pressure. They conclude the drug lowers blood pressure, but in fact the drug has no effect. Which type of error did they make?",
+  "correct": {
+   "text": "Type I error, because a true null hypothesis was rejected",
+   "rationale": "Concluding the drug works when it truly has no effect means H0 (no effect) was true but rejected, which is a Type I error."
+  },
+  "wrong": [
+   {
+    "text": "Type II error, because the drug was wrongly judged effective",
+    "rationale": "Type II error is failing to reject a false null; here H0 was rejected, so it cannot be Type II.",
+    "error_pattern": "swaps Type I and Type II"
+   },
+   {
+    "text": "No error, because the conclusion followed from the sample results",
+    "rationale": "A conclusion that follows from the data can still be wrong about the population; here H0 was true and was rejected, which is an error.",
+    "error_pattern": "thinks a justified decision cannot be an error"
+   },
+   {
+    "text": "Sampling bias, because the researchers used a sample",
+    "rationale": "Taking a sample is not itself an error; the incorrect decision about H0 is called a Type I error.",
+    "error_pattern": "confuses decision error with sampling bias"
+   }
+  ],
+  "change_note": "Drug trial context; different distractor set.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-092-v2",
+  "seed": "APSTATS-MCQ-092",
+  "difficulty": "easy",
+  "title": "Identifying a Type II error",
+  "stem": "A quality inspector tests H0: mu = 500 g for the mean fill of cereal boxes. The machine has actually drifted so that the true mean is not 500 g, but the inspector fails to reject H0. What type of error is this?",
+  "correct": {
+   "text": "Type II error, because a false null hypothesis was not rejected",
+   "rationale": "H0 (mean = 500 g) is false, and the inspector failed to reject it; that is a Type II error."
+  },
+  "wrong": [
+   {
+    "text": "Type I error, because the inspector reached the wrong conclusion",
+    "rationale": "Type I error is rejecting a true null; here H0 was false and was not rejected.",
+    "error_pattern": "swaps Type I and Type II"
+   },
+   {
+    "text": "No error, because failing to reject H0 is the safe decision",
+    "rationale": "Failing to reject a false null leaves a real change undetected, which is an error even though no rejection occurred.",
+    "error_pattern": "thinks not rejecting is never an error"
+   },
+   {
+    "text": "Type I error, because the machine was not repaired",
+    "rationale": "Whether the machine is repaired is not what defines Type I; that error requires rejecting a true H0.",
+    "error_pattern": "misdefines Type I error"
+   }
+  ],
+  "change_note": "Tests recognition of Type II instead of Type I; new context.",
+  "check": "conceptual"
+ },
+ {
+  "id": "APSTATS-MCQ-092-v3",
+  "seed": "APSTATS-MCQ-092",
+  "difficulty": "medium",
+  "title": "Probability of a Type I error",
+  "stem": "A researcher tests H0 at significance level alpha = 0.05 and obtains a p-value of 0.03, so H0 is rejected. If H0 is actually true, what is the probability that this testing procedure produces a Type I error?",
+  "correct": {
+   "text": "0.05, which is the significance level alpha",
+   "rationale": "The Type I error rate of a test is alpha; when H0 is true the procedure rejects with probability alpha = 0.05."
+  },
+  "wrong": [
+   {
+    "text": "0.03, which is the observed p-value",
+    "rationale": "The p-value describes this particular sample result; the Type I error rate of the procedure is set by alpha = 0.05.",
+    "error_pattern": "confuses p-value with Type I error rate"
+   },
+   {
+    "text": "0.95, which is 1 - alpha",
+    "rationale": "1 - alpha = 0.95 is the probability of not rejecting a true H0, not of rejecting it.",
+    "error_pattern": "uses the complement of alpha"
+   },
+   {
+    "text": "0.97, which is 1 - the p-value",
+    "rationale": "1 - 0.03 is not a probability associated with a Type I error; the Type I error rate is alpha = 0.05.",
+    "error_pattern": "uses the complement of the p-value"
+   }
+  ],
+  "change_note": "Asks for the Type I error rate rather than a definition; distinguishes alpha from p-value.",
+  "check": "conceptual"
+ }
+]

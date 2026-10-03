@@ -1,0 +1,418 @@
+[
+ {
+  "key": "APSTATS-MCQ-002",
+  "topic": "1.7",
+  "stem": "Which student performed better relative to their own test's distribution, and by how many standard deviations above the mean?",
+  "stimulus": "On a nationally normed exam, scores are approximately normally distributed with mean 500 and standard deviation 100. Fatima scores 640. On a different, unrelated diagnostic test with mean 20 and standard deviation 4, Diego scores 26.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Diego, because his z-score of 1.5 is higher than Fatima's z-score of 1.4.",
+    "is_correct": true,
+    "rationale": "Fatima's z-score is (640 - 500)/100 = 1.4. Diego's z-score is (26 - 20)/4 = 1.5. Standardizing puts both scores on the same scale, and Diego's is higher."
+   },
+   {
+    "label": "B",
+    "text": "Fatima, because 640 is a higher raw score than 26.",
+    "is_correct": false,
+    "rationale": "Comparing raw scores directly ignores that the two tests have completely different means and standard deviations; raw scores from different distributions are not comparable without standardizing."
+   },
+   {
+    "label": "C",
+    "text": "Fatima, because her raw score is farther from her test's mean (140 points) than Diego's is from his (6 points).",
+    "is_correct": false,
+    "rationale": "Comparing raw point distances from the mean ignores the different scales (standard deviations) of the two tests; 140 points on a test with SD 100 is less extreme than 6 points on a test with SD 4."
+   },
+   {
+    "label": "D",
+    "text": "The two students performed identically, because both scored above their test's mean.",
+    "is_correct": false,
+    "rationale": "Both scoring above the mean does not mean the performances are equivalent; the magnitude of each score's standardized distance from the mean still needs to be compared."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-009",
+  "topic": "4.1",
+  "stem": "As the sample size n increases from 10 to 100, what happens to the shape and variability of the sampling distribution of x-bar?",
+  "stimulus": "Strongly right-skewed household incomes in a large city; random sample of n households, sample mean x-bar.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The shape becomes more skewed and the variability increases, matching the population more closely as n grows.",
+    "is_correct": false,
+    "rationale": "This reverses both effects of the Central Limit Theorem; larger samples make the sampling distribution of the mean look less like the skewed population, not more."
+   },
+   {
+    "label": "B",
+    "text": "The shape stays exactly as skewed as the population, but the variability decreases.",
+    "is_correct": false,
+    "rationale": "This ignores the Central Limit Theorem's effect on shape; as n increases, the sampling distribution of x-bar becomes more normal, not equally skewed."
+   },
+   {
+    "label": "C",
+    "text": "The shape becomes more normal and the variability (standard error) decreases.",
+    "is_correct": true,
+    "rationale": "The Central Limit Theorem states that as n increases, the sampling distribution of x-bar becomes more approximately normal regardless of population shape, and its standard error (population SD divided by the square root of n) decreases as n increases."
+   },
+   {
+    "label": "D",
+    "text": "The shape becomes more normal, but the variability stays the same regardless of n.",
+    "is_correct": false,
+    "rationale": "This correctly describes the shape change but incorrectly claims the standard error is unaffected by sample size, when in fact it decreases as n increases."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-020",
+  "topic": "1.7",
+  "stem": "What is the z-score for a student who scored 78?",
+  "stimulus": "A test has mean 70 and standard deviation 8.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "8",
+    "is_correct": false,
+    "rationale": "This subtracts the mean but does not standardize by the standard deviation."
+   },
+   {
+    "label": "B",
+    "text": "1.0",
+    "is_correct": true,
+    "rationale": "z = (78 - 70) / 8 = 1."
+   },
+   {
+    "label": "C",
+    "text": "0.8",
+    "is_correct": false,
+    "rationale": "This divides by 10 instead of 8 or treats the difference incorrectly."
+   },
+   {
+    "label": "D",
+    "text": "-1.0",
+    "is_correct": false,
+    "rationale": "The sign is wrong; 78 is above the mean."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-024",
+  "topic": "1.7",
+  "stem": "Which statement about the median is correct?",
+  "stimulus": "A data set has 20 observations ordered from least to greatest.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The median is the 10th value only.",
+    "is_correct": false,
+    "rationale": "That would be true only for an odd number of observations."
+   },
+   {
+    "label": "B",
+    "text": "The median is the average of the 10th and 11th values.",
+    "is_correct": true,
+    "rationale": "For an even number of observations, the median is the average of the two middle values."
+   },
+   {
+    "label": "C",
+    "text": "The median is the difference between the 10th and 11th values.",
+    "is_correct": false,
+    "rationale": "Median is an average, not a difference."
+   },
+   {
+    "label": "D",
+    "text": "The median is the mean of all 20 values.",
+    "is_correct": false,
+    "rationale": "That describes the mean, not the median."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-037",
+  "topic": "1.11",
+  "stem": "What is the best method?",
+  "stimulus": "A teacher wants a random sample of 30 students from a list of 300.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Choose the first 30 students in alphabetical order.",
+    "is_correct": false,
+    "rationale": "This is not random and may be biased."
+   },
+   {
+    "label": "B",
+    "text": "Choose only students who volunteer.",
+    "is_correct": false,
+    "rationale": "Volunteers create voluntary-response bias."
+   },
+   {
+    "label": "C",
+    "text": "Assign each student a number and use a random number generator to select 30 numbers.",
+    "is_correct": true,
+    "rationale": "A simple random sample gives every student an equal chance of being selected."
+   },
+   {
+    "label": "D",
+    "text": "Choose every student whose birthday is in January.",
+    "is_correct": false,
+    "rationale": "This is systematic by a nonrandom rule and may be biased."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-041",
+  "topic": "1.13",
+  "stem": "Which is a plausible confounding variable?",
+  "stimulus": "A study finds that students who sleep more also score higher on tests.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The regression slope",
+    "is_correct": false,
+    "rationale": "The slope is part of the analysis, not a lurking variable."
+   },
+   {
+    "label": "B",
+    "text": "The sample size",
+    "is_correct": false,
+    "rationale": "Sample size affects precision, not the causal mechanism in the same way."
+   },
+   {
+    "label": "C",
+    "text": "Study habits or prior preparation",
+    "is_correct": true,
+    "rationale": "A third variable could affect both sleep and test scores, producing the observed association."
+   },
+   {
+    "label": "D",
+    "text": "The p-value",
+    "is_correct": false,
+    "rationale": "The p-value is a summary of evidence, not a confounder."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-045",
+  "topic": "1.10",
+  "stem": "What is this called?",
+  "stimulus": "A principal asks every student in the school to fill out a survey.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A random sample",
+    "is_correct": false,
+    "rationale": "A random sample selects only some members of the population by chance. Here every student is asked, so nothing is sampled and the survey is a census."
+   },
+   {
+    "label": "B",
+    "text": "A stratified sample",
+    "is_correct": false,
+    "rationale": "There is no subsampling by strata here."
+   },
+   {
+    "label": "C",
+    "text": "A census",
+    "is_correct": true,
+    "rationale": "A census collects data from every member of the population of interest."
+   },
+   {
+    "label": "D",
+    "text": "A biased sample",
+    "is_correct": false,
+    "rationale": "A census may still have nonresponse issues, but it is still a census by definition."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-049",
+  "topic": "2.9",
+  "stem": "What is the expected value?",
+  "stimulus": "A game pays $10 with probability 0.2 and $0 otherwise.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "$10",
+    "is_correct": false,
+    "rationale": "This is the prize amount, not the expected value."
+   },
+   {
+    "label": "B",
+    "text": "$8",
+    "is_correct": false,
+    "rationale": "This is 10 x 0.8, which uses the wrong probability."
+   },
+   {
+    "label": "C",
+    "text": "$2",
+    "is_correct": true,
+    "rationale": "E(X) = 10(0.2) + 0(0.8) = 2."
+   },
+   {
+    "label": "D",
+    "text": "$0",
+    "is_correct": false,
+    "rationale": "There is a positive probability of winning, so the expected value is not zero."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-053",
+  "topic": "2.10",
+  "stem": "Which counting method is appropriate?",
+  "stimulus": "A club wants to choose 3 officers from 10 members, with no order.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Permutation",
+    "is_correct": false,
+    "rationale": "Permutation counts ordered arrangements, which is not needed here."
+   },
+   {
+    "label": "B",
+    "text": "Multiplication rule only",
+    "is_correct": false,
+    "rationale": "That alone does not account for choosing without order."
+   },
+   {
+    "label": "C",
+    "text": "Combination",
+    "is_correct": true,
+    "rationale": "When order does not matter, use combinations."
+   },
+   {
+    "label": "D",
+    "text": "Binomial distribution",
+    "is_correct": false,
+    "rationale": "This is a counting situation, not a binomial probability setting."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-059",
+  "topic": "4.1",
+  "stem": "Which sample has the smaller standard error?",
+  "stimulus": "Two samples are taken from the same population, one with n = 25 and one with n = 100.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The sample with n = 25.",
+    "is_correct": false,
+    "rationale": "Smaller samples have larger standard error."
+   },
+   {
+    "label": "B",
+    "text": "The sample with n = 100.",
+    "is_correct": true,
+    "rationale": "SE decreases as n increases because the denominator sqrt(n) gets larger."
+   },
+   {
+    "label": "C",
+    "text": "Both samples have the same SE.",
+    "is_correct": false,
+    "rationale": "Sample size changes the SE."
+   },
+   {
+    "label": "D",
+    "text": "Neither sample has an SE.",
+    "is_correct": false,
+    "rationale": "Every sample mean has a standard error in this context."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-066",
+  "topic": "3.6",
+  "stem": "What should the statistical decision be?",
+  "stimulus": "A test gives p-value = 0.018 and alpha = 0.05.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Fail to reject H0 because the p-value is not zero.",
+    "is_correct": false,
+    "rationale": "A p-value does not need to be zero to reject the null."
+   },
+   {
+    "label": "B",
+    "text": "Accept H0 as proven true.",
+    "is_correct": false,
+    "rationale": "We do not prove the null hypothesis true."
+   },
+   {
+    "label": "C",
+    "text": "Ignore the p-value and use the sample mean only.",
+    "is_correct": false,
+    "rationale": "Inference is based on the p-value and significance level."
+   },
+   {
+    "label": "D",
+    "text": "Reject H0; the result is statistically significant at the 0.05 level.",
+    "is_correct": true,
+    "rationale": "Since p < alpha, the evidence is strong enough to reject the null hypothesis."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-076",
+  "topic": "3.15",
+  "stem": "What is the expected count in the cell?",
+  "stimulus": "A chi-square table cell has row total 40, column total 50, and grand total 200.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "90",
+    "is_correct": false,
+    "rationale": "This adds the row and column totals instead of using the expected-count formula: 40 + 50 = 90."
+   },
+   {
+    "label": "B",
+    "text": "20",
+    "is_correct": false,
+    "rationale": "This uses half the grand total as the denominator: (40x50)/100 = 20."
+   },
+   {
+    "label": "C",
+    "text": "10",
+    "is_correct": true,
+    "rationale": "Expected count = (row total x column total) / grand total = 40x50/200 = 10."
+   },
+   {
+    "label": "D",
+    "text": "5",
+    "is_correct": false,
+    "rationale": "This uses double the grand total as the denominator: (40x50)/400 = 5."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-092",
+  "topic": "3.8",
+  "stem": "What type of error occurred?",
+  "stimulus": "A null hypothesis is rejected even though it is actually true.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Type II error",
+    "is_correct": false,
+    "rationale": "Type II error is failing to reject a false null hypothesis."
+   },
+   {
+    "label": "B",
+    "text": "Type I error",
+    "is_correct": true,
+    "rationale": "A Type I error is rejecting a true null hypothesis."
+   },
+   {
+    "label": "C",
+    "text": "Sampling error",
+    "is_correct": false,
+    "rationale": "This is a more general term, not the specific hypothesis-test error."
+   },
+   {
+    "label": "D",
+    "text": "No error",
+    "is_correct": false,
+    "rationale": "Rejecting a true null hypothesis is an error."
+   }
+  ]
+ }
+]
