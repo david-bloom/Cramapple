@@ -7,6 +7,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 Most recent entries (full reverse-chronological list follows below):
 
 - Google Sign-In Removed From Checkout; Post-Pilot Task Opened (TASK-0058) (2026-10-02): at David's direction Lovable removed the "Continue with Google" option from `/checkout` (commit `18666296`, only `checkout.index.tsx`, deletions only, not yet published). Reviewed Chrome's identity guidance against the redirect flow; improvements, layout wishes and Stripe hardening are collected in `docs/tasks/TASK-0058-POST-PILOT-CHECKOUT-AND-SIGN-IN.md`. Google branding/verification is David-owned and prepared there.
+- Stripe Live Payment Proven in Production; Refund Round Trip Verified (2026-10-02): David paid \$39.99 with Link on the live checkout, the live webhook processed it, access was granted; a \$10 partial refund kept access (PR #310 fix) and the remaining \$29.99 revoked it. Coupon and new-student paths still untested.
 - AP Biology Skill Re-vote (APPROVAL-0081) (2026-10-02): 73 topic-corrected items re-voted by four models; 69 skill cells rewritten (52 validated, 10 provisional, 7 held), 6 skills changed, 54 unchanged; 4 validated cells deliberately kept.
 - AP Biology Variants Loaded and Published (APPROVAL-0080) (2026-10-02): 24 variant MCQs loaded in 3 chunks (md5 24 of 24) and published with validated labels (Unit 1: 3, Unit 2: 21).
 - AP Biology Topic Correction (APPROVAL-0079) (2026-10-02): 73 primary topic cells replaced by three-family consensus (42 cross-unit), 21 skill cells moved to the new topic, MCQ-005 relabeled to Unit 2; 43 earlier-validated items topic-probed for the first time.
@@ -357,6 +358,12 @@ Most recent entries (full reverse-chronological list follows below):
 At David's direction (after the Google consent screen showed the Supabase project URL and the redirect flow left the page), Claude sent a tightly scoped instruction to the Lovable marketing project; Lovable commit `18666296` removed the Google button, the "or type your email" divider and the code that existed only for it. The diff was checked line by line: one file (`src/routes/checkout.index.tsx`), deletions only, signed-in handling untouched, nothing published. `TASK-0058` collects the post-pilot work (Google One Tap/FedCM with `signInWithIdToken`, step reorder and wallet layout, wallets-first email capture, a Dev-pointed frontend, Stripe hardening, email/SMTP, passkeys) and the Google Auth Platform branding checklist.
 
 **Approval state:** documentation; the Lovable edit is unpublished. **Next Owner:** David Bloom. **Next Action:** publish the Lovable project when ready; start Google branding verification; the pre-pilot items listed in `TASK-0058`.
+
+## Stripe Live Payment Proven in Production; Refund Round Trip Verified — 2026-10-02
+
+Evidence is in `docs/product/STRIPE_PRODUCTION_CUTOVER_CHECKLIST_2026_09_30.md` ("Gate D evidence, part 1"). A full-price live Link payment ($39.99, Biology, existing admin student) was processed by the live webhook on the first attempt; a $10 partial refund left the entitlement active and the remaining $29.99 refund revoked it. David refunded the whole charge. Found and fixed (Lovable `230e0670`) the email conflict that stopped the card form loading; Bank, Cash App Pay, Klarna and Amazon Pay switched off in Stripe.
+
+**Not approved / still open:** the Orly email; the new-student path (invite email, 6-digit code), which depends on Supabase email delivery (SMTP setting unverified); the $1 coupon on a live checkout; the `support@cramapple.com` alias; the go/no-go. **Next Owner:** David Bloom. **Next Action:** test a brand-new student in a private window with the `?promo=` link and a fresh email; check Supabase Auth SMTP settings.
 
 ## Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) — 2026-10-02
 
