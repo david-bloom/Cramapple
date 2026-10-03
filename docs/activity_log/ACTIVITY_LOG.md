@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology: Last 4 Orphan Items Retired (APPROVAL-0096) (2026-10-03): `APBIO-FRQ-L-028`, `APBIO-MCQ-012` (test attempts only, per the Product Owner), `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041` (latest version retired) set to `retired`; every published Biology item now has a published version (132 of 132); Biology published items 136 to 132.
+- AP Biology: 38 Items With All Versions Retired Now Marked Retired (APPROVAL-0095) (2026-10-03): 38 of the 42 Biology items that were marked published with no published version (17 FRQ, 21 MCQ) set to `retired` at item level; no student-visible change (the selector already required a published version). Biology published items 174 to 136. Four left for a decision: `APBIO-FRQ-L-028` and `APBIO-MCQ-012` (attempts), `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041` (unretired `reviewed_approved` v1).
+- AP Biology: 3 More Items Retired (APPROVAL-0092) and DECISION-0095 Recorded (2026-10-03): `APBIO-MCQ-014` (70S/80S ribosomes), `063` (signal sequence) and `025` (kidney ADH outside the pack) retired, zero attempts; Biology published items 177 to 174. `DECISION-0095` records the rule that items stay within the CED vocabulary and that breaking items are retired. 42 older Biology items are marked published with no published version (not caused by this change).
 - AP Biology: 7 Published Variants With Out-of-CED Terms Retired (APPROVAL-0091) (2026-10-03): a full-text scan of the 24 variants published under `APPROVAL-0080` found 7 using terms the CED does not name (70S/80S ribosomes, receptor-mediated endocytosis, binary fission, high-salt wash); all 7 retired (zero attempts), 17 remain published; Biology published items 184 to 177; validated serving labels unchanged.
 - Google Sign-In Removed From Checkout; Post-Pilot Task Opened (TASK-0058) (2026-10-02): at David's direction Lovable removed the "Continue with Google" option from `/checkout` (commit `18666296`, only `checkout.index.tsx`, deletions only, not yet published). Reviewed Chrome's identity guidance against the redirect flow; improvements, layout wishes and Stripe hardening are collected in `docs/tasks/TASK-0058-POST-PILOT-CHECKOUT-AND-SIGN-IN.md`. Google branding/verification is David-owned and prepared there.
 - Stripe Live Payment Proven in Production; Refund Round Trip Verified (2026-10-02): David paid \$39.99 with Link on the live checkout, the live webhook processed it, access was granted; a \$10 partial refund kept access (PR #310 fix) and the remaining \$29.99 revoked it. Coupon and new-student paths still untested.
@@ -360,6 +363,24 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## AP Biology: 38 Items With All Versions Retired Now Marked Retired (APPROVAL-0095) — 2026-10-03
+
+**Approval:** `APPROVAL-0095` ("Clean up the 42"). **Script:** `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_align_orphan_item_status.sql`. **Follows:** the 42-item finding recorded with `APPROVAL-0092`.
+
+**What was found:** the 42 Biology items marked `published` with no published version were old pipeline retirements (item rows last touched 2026-07-16 to 2026-08-13) where only the versions had been retired. The practice selector requires both the item and its version to be `published`, so none was being served, and the census already counts the state as its own bucket. No student-visible effect.
+
+**What was done:** 38 of the 42 (17 FRQ, 21 MCQ) set to `retired` at item level by a rule inside the script (all versions retired, no attempts). Verified: Biology published items 174 to 136; published versions and validated serving labels unchanged (132 and 163). **Held, not touched (4):** `APBIO-FRQ-L-028` (5 attempts) and `APBIO-MCQ-012` (1 attempt), where an item-status change might affect anything listing a student's history by item status (not checked); `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041`, each with an unretired `reviewed_approved` version 1 beside retired versions 2 and 3.
+
+**Per the Product Owner:** no rescan of other subjects' banks under `DECISION-0095`. **Update, same day:** the four held items were retired under `APPROVAL-0096` after the Product Owner confirmed the attempts were tests, not real students. Biology now has 132 published items, each with a published version. **Next Owner:** David Bloom. **Next Action:** none from this thread.
+
+## AP Biology: 3 More Items Retired (APPROVAL-0092) and DECISION-0095 Recorded — 2026-10-03
+
+**Approval:** `APPROVAL-0092` ("Retire all 3 and create a decision for stay within the CED"). **Decision:** `DECISION-0095`. **Script:** `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_retire_014_063_025.sql`.
+
+**What was done:** a read-only scan of the 41 published AP Biology seed-style MCQs found two with terms the CED does not name (`APBIO-MCQ-014`: 70S/80S ribosomes; `063`: signal sequence); with `025` (kidney ADH and aquaporin-2 physiology outside the pack, per `APPROVAL-0080`) all three were retired. This corrects the pilot's count: six of the eight pilot seeds, not five, used out-of-CED terms (`014` was missed). Verified afterwards: Biology published items 177 to 174, seed-style published MCQs 65 to 62, 17 variants and 163 validated serving labels unchanged.
+
+**Finding, not caused by this change:** 42 Biology items (20 FRQ, 22 MCQ) are marked `published` at item level while every version is `retired`. Whether any is served was not checked. **Next Owner:** David Bloom. **Next Action:** decide whether to clean up those 42 and whether to scan other subjects' published banks under `DECISION-0095`.
 
 ## AP Biology: 7 Published Variants With Out-of-CED Terms Retired (APPROVAL-0091) — 2026-10-03
 
