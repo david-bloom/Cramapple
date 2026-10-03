@@ -1,0 +1,500 @@
+[
+ {
+  "id": "apchem-mcq-003-v1",
+  "seed": "apchem-mcq-003",
+  "difficulty": "easy",
+  "title": "Planar carbonyl molecule",
+  "stem": "Four species are listed below. Which one has a trigonal planar molecular geometry around its central atom?",
+  "correct": {
+   "text": "CH₂O",
+   "rationale": "Correct. Carbon forms two C–H single bonds and one C=O double bond. A double bond counts as one region of electron density, so carbon has three regions and no lone pair, giving trigonal planar geometry."
+  },
+  "wrong": [
+   {
+    "text": "PH₃",
+    "rationale": "Phosphorus has three bonding pairs and one lone pair (four regions), so the molecular geometry is trigonal pyramidal, not trigonal planar. The lone pair is what pushes the three P–H bonds out of a plane.",
+    "error_pattern": "Ignores the central-atom lone pair when counting regions, so three attached atoms is read as trigonal planar."
+   },
+   {
+    "text": "SO₂",
+    "rationale": "Sulfur has three regions of electron density (two bonded O atoms and one lone pair), so its electron-domain geometry is trigonal planar, but the lone pair is not part of the molecular shape, which is bent.",
+    "error_pattern": "Confuses electron-domain geometry with molecular geometry and reports the three-region arrangement as the shape."
+   },
+   {
+    "text": "SiH₄",
+    "rationale": "Silicon has four bonding regions and no lone pairs, so the geometry is tetrahedral with 109.5° angles, not trigonal planar.",
+    "error_pattern": "Counts every bond to the central atom without checking the number of regions; assumes four bonded atoms are coplanar."
+   }
+  ],
+  "change_note": "New species (CH₂O, PH₃, SO₂, SiH₄), new framing as Lewis diagrams; adds a double-bond-as-one-region test and an electron-domain-vs-molecular-geometry distractor.",
+  "check": "conceptual",
+  "facts": [
+   "CH₂O: C has 3 regions (2 C–H, 1 C=O), 0 lone pairs -> trigonal planar",
+   "PH₃: P has 3 bonds + 1 lone pair -> trigonal pyramidal",
+   "SO₂: S has 2 bonded atoms + 1 lone pair -> bent (EDG trigonal planar)",
+   "SiH₄: 4 bonds, 0 lone pairs -> tetrahedral"
+  ]
+ },
+ {
+  "id": "apchem-mcq-003-v2",
+  "seed": "apchem-mcq-003",
+  "difficulty": "medium",
+  "title": "Nitrate ion shape",
+  "stem": "What is the molecular geometry of the nitrate ion, NO₃⁻?",
+  "correct": {
+   "text": "Trigonal planar",
+   "rationale": "Correct. In the best Lewis structure (three equivalent resonance forms) nitrogen has one N=O double bond and two N–O single bonds, so three regions of electron density and no lone pair. Three regions with no lone pair give trigonal planar geometry."
+  },
+  "wrong": [
+   {
+    "text": "Trigonal pyramidal",
+    "rationale": "Nitrogen in nitrate has no lone pair: every electron pair around it is a bonding pair to one of the three oxygens. Trigonal pyramidal needs three bonds plus one lone pair, as in NH₃.",
+    "error_pattern": "Assumes nitrogen always carries a lone pair, as in ammonia, and applies the NH₃ shape."
+   },
+   {
+    "text": "Tetrahedral",
+    "rationale": "The double bond is one region, not two. Counting the N=O as two regions gives four regions, which is the source of this wrong answer; correctly there are three regions, so the geometry is trigonal planar.",
+    "error_pattern": "Counts the double bond as two electron regions, giving four regions."
+   },
+   {
+    "text": "Bent",
+    "rationale": "Bent geometry belongs to the nitrite ion, NO₂⁻, which has two bonded O atoms and one lone pair on N. Nitrate has three bonded O atoms and no lone pair on N.",
+    "error_pattern": "Confuses nitrate with nitrite, whose nitrogen carries a lone pair."
+   }
+  ],
+  "change_note": "Different species (an ion), shape is named directly rather than chosen from a formula list; targets double-bond-as-one-region and nitrate/nitrite confusion.",
+  "check": "conceptual",
+  "facts": [
+   "NO₃⁻: N has 3 regions, 0 lone pairs -> trigonal planar",
+   "NH₃-type shape needs 3 bonds + 1 lone pair; NO₃⁻ N has none",
+   "Double bond = one region -> not 4 regions",
+   "NO₂⁻: N has 2 bonded O + 1 lone pair -> bent"
+  ]
+ },
+ {
+  "id": "apchem-mcq-003-v3",
+  "seed": "apchem-mcq-003",
+  "difficulty": "hard",
+  "title": "Flat 120 degree ion",
+  "stem": "Which species has a trigonal planar molecular geometry, with three identical atoms bonded to the central atom in one plane at bond angles of 120°?",
+  "correct": {
+   "text": "CO₃²⁻",
+   "rationale": "Correct. Carbonate has three equivalent resonance forms with one C=O and two C–O⁻; carbon has three regions and no lone pair, so the three O atoms lie in a plane at 120°."
+  },
+  "wrong": [
+   {
+    "text": "SO₃²⁻",
+    "rationale": "Sulfite has the same formula pattern as carbonate, but sulfur has three bonded O atoms and one lone pair (four regions), so the shape is trigonal pyramidal.",
+    "error_pattern": "Matches the XO₃ formula pattern of carbonate and ignores the lone pair on sulfur."
+   },
+   {
+    "text": "ClF₃",
+    "rationale": "Chlorine has three bonded F atoms and two lone pairs (five regions). The three F atoms lie in one plane but the shape is T-shaped with angles near 90°, not trigonal planar.",
+    "error_pattern": "Assumes three bonded atoms means trigonal planar and ignores the two lone pairs on chlorine."
+   },
+   {
+    "text": "NO₂⁻",
+    "rationale": "Nitrite has two bonded O atoms and one lone pair on N: trigonal planar electron-domain geometry but a bent molecular shape with only two atoms bonded to the central atom.",
+    "error_pattern": "Reports the electron-domain geometry of three regions as the molecular shape."
+   }
+  ],
+  "change_note": "Ion with resonance, three-atom-bonded distractors from different families (pyramidal, T-shaped, bent), stem specifies 120° and three identical atoms.",
+  "check": "conceptual",
+  "facts": [
+   "CO₃²⁻: C has 3 regions, 0 lone pairs -> trigonal planar, 120°",
+   "SO₃²⁻: S has 3 bonds + 1 lone pair -> trigonal pyramidal",
+   "ClF₃: Cl has 3 bonds + 2 lone pairs -> T-shaped (~90°)",
+   "NO₂⁻: N has 2 bonds + 1 lone pair -> bent"
+  ]
+ },
+ {
+  "id": "apchem-mcq-025-v1",
+  "seed": "apchem-mcq-025",
+  "difficulty": "easy",
+  "title": "Greatest ionic character",
+  "stem": "A student compares four bonds using Pauling electronegativities (Na = 0.93, H = 2.20, S = 2.58, N = 3.04, Cl = 3.16, O = 3.44). Which bond is predicted to have the greatest ionic character?",
+  "correct": {
+   "text": "Na–Cl",
+   "rationale": "Correct. Ionic character increases with the electronegativity difference. ΔEN: Na–Cl = 3.16 − 0.93 = 2.23; O–S = 0.86; N–Cl = 0.12; H–Cl = 0.96. Na–Cl is the largest by a wide margin."
+  },
+  "wrong": [
+   {
+    "text": "O–S",
+    "rationale": "ΔEN for O–S is 3.44 − 2.58 = 0.86, far smaller than 2.23 for Na–Cl. This answer comes from choosing the bond that contains the single most electronegative atom (O, 3.44) instead of comparing differences.",
+    "error_pattern": "Picks the bond containing the most electronegative atom rather than the largest electronegativity difference."
+   },
+   {
+    "text": "N–Cl",
+    "rationale": "ΔEN for N–Cl is 3.16 − 3.04 = 0.12, the smallest here. This answer comes from adding the electronegativities (3.04 + 3.16 = 6.20, the largest sum) instead of subtracting.",
+    "error_pattern": "Adds the two electronegativities instead of subtracting them."
+   },
+   {
+    "text": "H–Cl",
+    "rationale": "ΔEN for H–Cl is 3.16 − 2.20 = 0.96, which is the largest difference among the nonmetal–nonmetal bonds but less than 2.23 for Na–Cl. This answer comes from ignoring the metal and comparing only the nonmetal–nonmetal bonds.",
+    "error_pattern": "Excludes the metal–nonmetal bond from the comparison, assuming only nonmetal pairs are candidates."
+   }
+  ],
+  "change_note": "New elements (Na, H, S, N, Cl, O), no fluorine; same task but distractors target add-instead-of-subtract, highest-EN-atom, and metal-excluded errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-025-v2",
+  "seed": "apchem-mcq-025",
+  "difficulty": "hard",
+  "title": "Rank ionic character",
+  "stem": "Using Pauling electronegativities (K = 0.82, Si = 1.90, P = 2.19, H = 2.20, S = 2.58, Br = 2.96, Cl = 3.16), which ranking lists the bonds in order of INCREASING ionic character?",
+  "correct": {
+   "text": "P–H < S–Cl < Si–Cl < K–Br",
+   "rationale": "Correct. ΔEN values: P–H = 0.01; S–Cl = 0.58; Si–Cl = 1.26; K–Br = 2.14. Ionic character rises with ΔEN, so the increasing order is P–H, S–Cl, Si–Cl, K–Br."
+  },
+  "wrong": [
+   {
+    "text": "K–Br < Si–Cl < S–Cl < P–H",
+    "rationale": "This is the order of DEcreasing ionic character (ΔEN 2.14, 1.26, 0.58, 0.01). It results from reading 'increasing' backwards and listing the most ionic bond first.",
+    "error_pattern": "Reverses the direction of the ranking, giving decreasing instead of increasing ionic character."
+   },
+   {
+    "text": "K–Br < P–H < Si–Cl < S–Cl",
+    "rationale": "This ranks by the SUM of the electronegativities (K–Br 3.78, P–H 4.39, Si–Cl 5.06, S–Cl 5.74) instead of the difference, which makes the most ionic bond look the least ionic.",
+    "error_pattern": "Adds the electronegativities instead of subtracting them before ranking."
+   },
+   {
+    "text": "S–Cl < Si–Cl < K–Br < P–H",
+    "rationale": "This puts P–H last by treating hydrogen as a metal because it sits in Group 1. The ΔEN for P–H is only 0.01, essentially nonpolar, so it belongs first; the other three are ranked correctly by ΔEN.",
+    "error_pattern": "Treats hydrogen as a metal because of its group position and so ranks any H-containing bond as most ionic."
+   }
+  ],
+  "change_note": "Task shape changed to ranking four bonds in increasing order; different atoms (K, Si, P, H, S, Br, Cl); errors are reversed direction, sum, and H-as-metal.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-025-v3",
+  "seed": "apchem-mcq-025",
+  "difficulty": "medium",
+  "title": "Bond with most ionic character",
+  "stem": "A student is asked to predict which bond in a set will behave most like an ionic interaction. Pauling electronegativities: Li = 0.98, Be = 1.57, C = 2.55, Cl = 3.16, I = 2.66, O = 3.44, F = 3.98. Which bond has the greatest ionic character?",
+  "correct": {
+   "text": "Be–O",
+   "rationale": "Correct. ΔEN: Be–O = 3.44 − 1.57 = 1.87; Li–I = 1.68; C–F = 1.43; O–Cl = 0.28. Be–O has the largest difference, so the greatest ionic character."
+  },
+  "wrong": [
+   {
+    "text": "Li–I",
+    "rationale": "ΔEN for Li–I is 2.66 − 0.98 = 1.68, smaller than 1.87. This answer comes from choosing the bond with the lowest-electronegativity (most metallic) atom, Li, rather than computing and comparing differences.",
+    "error_pattern": "Picks the bond containing the most metallic (lowest electronegativity) atom instead of the largest difference."
+   },
+   {
+    "text": "C–F",
+    "rationale": "ΔEN for C–F is 3.98 − 2.55 = 1.43, smaller than 1.87. This answer comes from picking the bond that contains the most electronegative atom (F, 3.98) rather than the largest difference.",
+    "error_pattern": "Picks the bond containing the most electronegative atom (fluorine) instead of comparing differences."
+   },
+   {
+    "text": "O–Cl",
+    "rationale": "ΔEN for O–Cl is 3.44 − 3.16 = 0.28, nearly nonpolar. This answer comes from adding the electronegativities (3.44 + 3.16 = 6.60, the largest sum) instead of subtracting.",
+    "error_pattern": "Adds the electronegativities instead of subtracting them."
+   }
+  ],
+  "change_note": "Different atoms; correct bond is not the one with an extreme atom (not the metal with lowest EN and not the F-containing bond), so three attractive heuristics all fail.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-026-v1",
+  "seed": "apchem-mcq-026",
+  "difficulty": "medium",
+  "title": "Beyond the octet",
+  "stem": "In its best Lewis structure, which species has a central atom surrounded by more than eight electrons?",
+  "correct": {
+   "text": "XeF₂",
+   "rationale": "Correct. Xenon (8 valence electrons) forms two Xe–F bonds and keeps three lone pairs: five electron domains and 2(2) + 3(2) = 10 electrons around Xe, an expanded valence shell."
+  },
+  "wrong": [
+   {
+    "text": "PCl₃",
+    "rationale": "Phosphorus forms three single bonds and keeps one lone pair, giving exactly 8 electrons. Being in period 3 makes expansion possible, not required.",
+    "error_pattern": "Assumes a period-3 central atom must expand its valence shell."
+   },
+   {
+    "text": "BF₃",
+    "rationale": "Boron forms three bonds and has only 6 electrons, an incomplete octet. That is an exception to the octet rule in the opposite direction, not an expanded octet.",
+    "error_pattern": "Treats any exception to the octet rule as an expanded valence shell."
+   },
+   {
+    "text": "HCN",
+    "rationale": "Carbon has a single bond to H (2 electrons) and a triple bond to N (6 electrons): exactly 8. Counting the triple bond's electrons more than once would give a false total above 8.",
+    "error_pattern": "Over-counts the electrons of a multiple bond around carbon, giving more than eight."
+   }
+  ],
+  "change_note": "New species (XeF₂, PCl₃, BF₃, HCN); includes electron-deficient and multiple-bond distractors in place of CO₂ and SiCl₄.",
+  "check": "conceptual",
+  "facts": [
+   "XeF₂: 2 bonds + 3 lone pairs on Xe = 10 electrons",
+   "PCl₃: 3 bonds + 1 lone pair on P = 8 electrons",
+   "BF₃: 3 bonds on B = 6 electrons",
+   "HCN: C has 1 single + 1 triple bond = 8 electrons"
+  ]
+ },
+ {
+  "id": "apchem-mcq-026-v2",
+  "seed": "apchem-mcq-026",
+  "difficulty": "hard",
+  "title": "Electrons around iodine",
+  "stem": "In the best Lewis structure of IF₅, how many electrons surround the central iodine atom?",
+  "correct": {
+   "text": "12 electrons",
+   "rationale": "Correct. Iodine has 7 valence electrons; five I–F single bonds use 5 of them, leaving 2 (one lone pair). Around iodine: 5 bonding pairs (10 electrons) + 1 lone pair (2) = 12 electrons, an expanded valence shell."
+  },
+  "wrong": [
+   {
+    "text": "10 electrons",
+    "rationale": "This counts only the five bonding pairs (5 × 2 = 10) and leaves out iodine's lone pair, which also belongs to the electrons surrounding the central atom.",
+    "error_pattern": "Omits the lone pair when counting electrons around the central atom."
+   },
+   {
+    "text": "8 electrons",
+    "rationale": "This applies the octet rule to iodine. Iodine is in period 5, and five bonds plus a lone pair cannot fit in 8 electrons, so the octet is exceeded.",
+    "error_pattern": "Forces the octet rule on a central atom that must expand."
+   },
+   {
+    "text": "6 electrons",
+    "rationale": "This is the number of electron domains (5 bonds + 1 lone pair = 6), not the number of electrons; each domain holds 2 electrons.",
+    "error_pattern": "Reports the number of electron domains as the number of electrons."
+   }
+  ],
+  "change_note": "Task shape changed from choosing a species to counting electrons around a named central atom (IF₅, period 5).",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-026-v3",
+  "seed": "apchem-mcq-026",
+  "difficulty": "hard",
+  "title": "Ion with expanded shell",
+  "stem": "Which ion requires its central atom to hold more than eight electrons in its best Lewis structure?",
+  "correct": {
+   "text": "ICl₂⁻",
+   "rationale": "Correct. Total valence electrons: 7 + 2(7) + 1 = 22. Two I–Cl bonds use 4, leaving three lone pairs on iodine (the rest fill chlorine). Iodine then has 2(2) + 3(2) = 10 electrons."
+  },
+  "wrong": [
+   {
+    "text": "NO₃⁻",
+    "rationale": "Nitrogen has one N=O and two N–O single bonds: 4 + 2 + 2 = 8 electrons in each resonance form. Counting electrons from several resonance forms together would overstate the total.",
+    "error_pattern": "Adds electrons from different resonance forms together, exceeding eight."
+   },
+   {
+    "text": "PH₄⁺",
+    "rationale": "Phosphorus forms four P–H bonds and has no lone pair: 8 electrons. Being in period 3 does not force expansion.",
+    "error_pattern": "Assumes a period-3 central atom must expand its valence shell."
+   },
+   {
+    "text": "BF₄⁻",
+    "rationale": "Boron forms four B–F bonds and has no lone pair: 8 electrons (the extra electron of the −1 charge is already shared in the fourth bond). Treating the −1 charge as an extra lone pair on boron would give a false 10.",
+    "error_pattern": "Adds the electron from the negative charge on top of the four bonds."
+   }
+  ],
+  "change_note": "Ion-based task with a halogen central atom; distractors are resonance, period-3 and ion-charge errors.",
+  "check": "conceptual",
+  "facts": [
+   "ICl₂⁻: I has 2 bonds + 3 lone pairs = 10 electrons",
+   "NO₃⁻: N has 8 electrons",
+   "PH₄⁺: P has 4 bonds = 8 electrons",
+   "BF₄⁻: B has 4 bonds = 8 electrons"
+  ]
+ },
+ {
+  "id": "apchem-mcq-027-v1",
+  "seed": "apchem-mcq-027",
+  "difficulty": "medium",
+  "title": "Central oxygen in ozone",
+  "stem": "In one resonance contributor of ozone, O₃, the central oxygen atom forms one O=O double bond and one O–O single bond and carries one lone pair. What is the formal charge on the central oxygen atom?",
+  "correct": {
+   "text": "+1",
+   "rationale": "Correct. Central O: 6 valence electrons; 2 nonbonding electrons (one lone pair); 6 bonding electrons (double + single bond), of which half = 3 count. Formal charge = 6 − 2 − 3 = +1."
+  },
+  "wrong": [
+   {
+    "text": "−2",
+    "rationale": "This is 6 − 2 − 6: subtracting all 6 bonding electrons instead of half of them gives −2.",
+    "error_pattern": "Subtracts the full number of bonding electrons instead of half."
+   },
+   {
+    "text": "+3",
+    "rationale": "This is 6 − 3: leaving the lone-pair electrons out of the count (only the 3 bond electrons are subtracted) gives +3.",
+    "error_pattern": "Omits nonbonding (lone-pair) electrons from the formal-charge calculation."
+   },
+   {
+    "text": "−1",
+    "rationale": "−1 is the formal charge of the singly bonded terminal oxygen (6 − 6 − 1 = −1), not the central oxygen. This answer comes from assigning the terminal atom's value to the central atom.",
+    "error_pattern": "Reports the formal charge of a different atom in the structure."
+   }
+  ],
+  "change_note": "Different species (ozone), central rather than terminal atom, and the three wrong values come from different formal-charge counting errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-027-v2",
+  "seed": "apchem-mcq-027",
+  "difficulty": "easy",
+  "title": "Nitrogen in nitrate",
+  "stem": "In the Lewis structure of the nitrate ion, NO₃⁻, nitrogen forms one N=O double bond and two N–O single bonds and has no lone pairs. What is the formal charge on nitrogen?",
+  "correct": {
+   "text": "+1",
+   "rationale": "Correct. Nitrogen has 5 valence electrons, 0 nonbonding electrons, and 8 bonding electrons (double + two single bonds), of which half = 4 count. Formal charge = 5 − 0 − 4 = +1."
+  },
+  "wrong": [
+   {
+    "text": "−3",
+    "rationale": "This is 5 − 0 − 8: subtracting all 8 bonding electrons instead of half gives −3.",
+    "error_pattern": "Subtracts the full number of bonding electrons instead of half."
+   },
+   {
+    "text": "+5",
+    "rationale": "This is 5 − 0: counting only the valence electrons and ignoring the bonds gives +5.",
+    "error_pattern": "Forgets to subtract the bonding contribution."
+   },
+   {
+    "text": "−1",
+    "rationale": "−1 is the overall charge of the ion, not the formal charge on nitrogen; the formal charges on the atoms (+1 on N, −1 on each of the two single-bonded O atoms, 0 on the double-bonded O) sum to the ion's −1.",
+    "error_pattern": "Treats the charge on the whole ion as the formal charge on the central atom."
+   }
+  ],
+  "change_note": "Different species and atom (central N in an ion with no lone pairs); distractors include ion-charge-as-formal-charge.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-027-v3",
+  "seed": "apchem-mcq-027",
+  "difficulty": "hard",
+  "title": "Carbon in carbon monoxide",
+  "stem": "In the Lewis structure of carbon monoxide, CO, the atoms are joined by a triple bond and each atom has one lone pair. What is the formal charge on the carbon atom?",
+  "correct": {
+   "text": "−1",
+   "rationale": "Correct. Carbon has 4 valence electrons, 2 nonbonding electrons (one lone pair), and 6 bonding electrons (triple bond), of which half = 3 count. Formal charge = 4 − 2 − 3 = −1 (oxygen is +1, so the molecule is neutral)."
+  },
+  "wrong": [
+   {
+    "text": "+1",
+    "rationale": "+1 is the formal charge of oxygen (6 − 2 − 3 = +1), not carbon. This comes from computing the other atom's value.",
+    "error_pattern": "Reports the formal charge of the other atom."
+   },
+   {
+    "text": "0",
+    "rationale": "This assumes that because CO is neutral each atom must have formal charge zero. The formal charges are −1 and +1 and sum to zero.",
+    "error_pattern": "Assumes a neutral molecule means every atom has formal charge zero."
+   },
+   {
+    "text": "−4",
+    "rationale": "This is 4 − 2 − 6: subtracting all 6 bonding electrons instead of half gives −4.",
+    "error_pattern": "Subtracts the full number of bonding electrons instead of half."
+   }
+  ],
+  "change_note": "Diatomic with a triple bond, formal charge on carbon; sign and neutral-molecule traps.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-028-v1",
+  "seed": "apchem-mcq-028",
+  "difficulty": "medium",
+  "title": "Shape of XeF₄",
+  "stem": "What is the molecular shape of XeF₄?",
+  "correct": {
+   "text": "Square planar",
+   "rationale": "Correct. Xenon has 8 valence electrons; four Xe–F bonds use 4, leaving 4 (two lone pairs). The six electron pairs place the two lone pairs opposite each other, leaving the four F atoms in a square plane."
+  },
+  "wrong": [
+   {
+    "text": "Square pyramidal",
+    "rationale": "Square pyramidal needs five bonds and one lone pair (as in IF₅). XeF₄ has four bonds and two lone pairs, so the lone pairs sit opposite each other and the shape is square planar.",
+    "error_pattern": "Counts only one lone pair on xenon and applies the five-bond, one-lone-pair shape."
+   },
+   {
+    "text": "Seesaw",
+    "rationale": "Seesaw is the shape with four bonds and one lone pair, as in SF₄. XeF₄ has two lone pairs on xenon, which sit opposite each other and give a square planar shape.",
+    "error_pattern": "Counts only one lone pair, giving five domains and the SF₄ pattern."
+   },
+   {
+    "text": "Tetrahedral",
+    "rationale": "Tetrahedral requires four bonds and no lone pairs. XeF₄ has two lone pairs on opposite sides of xenon, so the four F atoms lie in a flat square, not a tetrahedron.",
+    "error_pattern": "Assumes four bonded atoms always form a tetrahedral shape regardless of the lone-pair positions."
+   }
+  ],
+  "change_note": "New species (XeF₄, 6 domains, two lone pairs); distractors target counting one lone pair instead of two and a tetrahedral-by-default shape. (round 2: reworded to molecular shape only: CED excludes electron-pair geometry beyond four pairs)",
+  "check": "conceptual",
+  "facts": [
+   "XeF₄: 4 bonds + 2 lone pairs = 6 domains -> octahedral EDG, square planar shape",
+   "IF₅-type: 5 bonds + 1 lone pair -> square pyramidal",
+   "SF₄-type: 4 bonds + 1 lone pair -> TBP EDG, seesaw",
+   "Square planar, not tetrahedral, for 4 bonds + 2 lone pairs"
+  ]
+ },
+ {
+  "id": "apchem-mcq-028-v2",
+  "seed": "apchem-mcq-028",
+  "difficulty": "medium",
+  "title": "Shape of BrF₃",
+  "stem": "What is the molecular shape of BrF₃?",
+  "correct": {
+   "text": "T-shaped",
+   "rationale": "Correct. Bromine has 7 valence electrons; three Br–F bonds use 3, leaving 4 (two lone pairs). The five electron pairs place both lone pairs in equatorial positions, leaving three F atoms in a T-shape."
+  },
+  "wrong": [
+   {
+    "text": "Trigonal planar",
+    "rationale": "Trigonal planar would need three bonds and no lone pairs. BrF₃ also has two lone pairs on bromine, which push the F atoms into a T with angles near 90°, not 120°.",
+    "error_pattern": "Ignores the effect of lone pairs on the molecular shape and reports the shape of the bonded atoms alone as planar."
+   },
+   {
+    "text": "Trigonal pyramidal",
+    "rationale": "This counts only one lone pair on bromine, as in NF₃. Bromine has two lone pairs, so the molecule is T-shaped.",
+    "error_pattern": "Counts one lone pair, treating the central atom like nitrogen in NF₃."
+   },
+   {
+    "text": "Seesaw",
+    "rationale": "Seesaw requires four bonds and one lone pair (as in SF₄). BrF₃ has three bonds and two lone pairs, so the shape is T-shaped.",
+    "error_pattern": "Uses six valence electrons for bromine, leaving one lone pair and the SF₄ shape."
+   }
+  ],
+  "change_note": "New species (BrF₃, five domains with two lone pairs, T-shaped); wrong answers mix different lone-pair counts. (round 2: reworded to molecular shape only: CED excludes electron-pair geometry beyond four pairs)",
+  "check": "conceptual",
+  "facts": [
+   "BrF₃: 3 bonds + 2 lone pairs = 5 domains -> TBP EDG, T-shaped",
+   "NF₃-type: 3 bonds + 1 lone pair -> tetrahedral EDG, trigonal pyramidal",
+   "SF₄-type: 4 bonds + 1 lone pair -> seesaw",
+   "Trigonal planar needs 3 domains, no lone pairs"
+  ]
+ },
+ {
+  "id": "apchem-mcq-028-v3",
+  "seed": "apchem-mcq-028",
+  "difficulty": "hard",
+  "title": "Identify molecule from shape",
+  "stem": "A molecule has a central atom with six electron domains and a square pyramidal molecular shape. Which formula could represent the molecule?",
+  "correct": {
+   "text": "IF₅",
+   "rationale": "Correct. Iodine has 7 valence electrons; five I–F bonds use 5, leaving 2 (one lone pair). Six domains give an octahedral arrangement and the single lone pair leaves a square pyramid."
+  },
+  "wrong": [
+   {
+    "text": "XeF₄",
+    "rationale": "XeF₄ has six domains (4 bonds + 2 lone pairs) but a square planar shape, since the two lone pairs sit opposite each other.",
+    "error_pattern": "Counts only one lone pair on xenon, expecting the five-bond shape."
+   },
+   {
+    "text": "SF₆",
+    "rationale": "SF₆ has six bonds and no lone pairs, so its molecular shape is octahedral, not square pyramidal.",
+    "error_pattern": "Ignores lone pairs: assumes six domains always give a square pyramidal arrangement of bonded atoms."
+   },
+   {
+    "text": "PCl₅",
+    "rationale": "PCl₅ has five domains (five bonds, no lone pairs) and is trigonal bipyramidal. It has five bonded atoms, but the question requires six domains.",
+    "error_pattern": "Equates five bonded atoms with a square pyramid and does not check the number of domains."
+   }
+  ],
+  "change_note": "Reverse task shape: given EDG domain count and shape, identify the formula; new species set (IF₅, XeF₄, SF₆, PCl₅).",
+  "check": "conceptual",
+  "facts": [
+   "IF₅: 5 bonds + 1 lone pair = 6 domains -> square pyramidal",
+   "XeF₄: 4 bonds + 2 lone pairs -> square planar",
+   "SF₆: 6 bonds -> octahedral",
+   "PCl₅: 5 domains -> trigonal bipyramidal"
+  ]
+ }
+]

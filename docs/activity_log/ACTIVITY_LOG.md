@@ -6,6 +6,20 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology Skill Re-vote (APPROVAL-0081) (2026-10-02): 73 topic-corrected items re-voted by four models; 69 skill cells rewritten (52 validated, 10 provisional, 7 held), 6 skills changed, 54 unchanged; 4 validated cells deliberately kept.
+- AP Biology Variants Loaded and Published (APPROVAL-0080) (2026-10-02): 24 variant MCQs loaded in 3 chunks (md5 24 of 24) and published with validated labels (Unit 1: 3, Unit 2: 21).
+- AP Biology Topic Correction (APPROVAL-0079) (2026-10-02): 73 primary topic cells replaced by three-family consensus (42 cross-unit), 21 skill cells moved to the new topic, MCQ-005 relabeled to Unit 2; 43 earlier-validated items topic-probed for the first time.
+- AP Statistics Variants Published (APPROVAL-0078) (2026-10-02): 131 variants published with validated labels (Unit 1: 63, Unit 2: 33, Unit 3: 35); Statistics published 293, unit-gated servable 261, stale hashes 0; one variant held as a draft.
+- AP Statistics Variants Loaded as Drafts; 8 Items Retired (APPROVAL-0077) (2026-10-02): 132 variant MCQs loaded in 12 chunks (md5 132 of 132), not yet published; 8 items on CED-removed topics retired.
+- AP Statistics Units 1-3 Pipeline v2: Repairs, Labels, Skill Cells (APPROVAL-0076) (2026-10-02): 4 MCQ rationales repaired as version 2, 8 serving labels validated, 129 skill cells written (116 validated, 1 provisional, 12 held); blind plus audit for 129 items took 7 minutes and $2.56.
+- AP Chemistry Variants Loaded and Published; Canonical Answers Filled (APPROVAL-0075) (2026-10-02): 72 variant MCQs loaded in 12 chunks (md5 72 of 72) and published with validated labels; 49 Chemistry MCQ canonical answers filled; Chemistry published 119 to 191, servable 82 to 154; MCQ grading found not to read canonical answers.
+- AP Chemistry Units 1-3 Full Pipeline Run (APPROVAL-0074) (2026-10-02): steps 1-7 from scratch in about 86 minutes, 2,040 gateway calls, $7.55 gateway list price, about 0.9M Claude tokens; 8 seeds repaired, 36 topic cells, 28-skill grid, 37 labels, 34 skill cells, 75 variant drafts (not loaded); audit recall gap and missing seed CED check found.
+- AP Biology Grid Created and 70 Live Items Relabeled for Serving (APPROVAL-0073) (2026-10-02): 22 skills x 60 topics = 1320-cell grid from the CED; Bio unit-gated servable 43 to 110 of 118; registered topic cells found wrong on about 58 items (36 across units), left unchanged for a decision; skill labels in progress.
+- Cells Validation Check Relaxed in Production for Model-Consensus Labels (APPROVAL-0072, DECISION-0085 Route 1) (2026-10-02): `validated` now needs a human or a `model_run_id` plus a decision id and timestamp; rehearsed and applied as migration `20261002164510`; no rows changed.
+- Calc AB Seed Fixes Applied (APPROVAL-0083, originally numbered 0071): `apcalcab-mcq-026` Choice C Replaced, `apcalcab-mcq-028` Units Corrected to [1, 2] (2026-10-02): rehearsed then applied on Production; servable 207 to 208.
+- Calc AB Launch-Readiness Pass, Serving-Label Repair (APPROVAL-0082, originally numbered 0069), Units 2-3 Pilot Started (2026-10-02): read-only readiness census, then relabelled 11 of 12 held/stale items on Production (servable 196 to 207); `frq-u13-003` left held; S0a audit of the 12 Unit 2-3 seeds found 0 key defects and 1 weak rationale (`026` C).
+- Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) (2026-10-02): `stripe-webhook` (partial-refund fix), `create-checkout-session`, `create-post-purchase-addon` and `create-parent-payment-link` deployed and verified (source identical to `main`, 400 probes, no data change, no charge). Production Stripe secrets re-set by David (key/webhook distinct, catalog exact match). Lovable not yet published; Gate D ($1 test) pending.
+- Stripe Functions Tranche 1 Deployed to Production (APPROVAL-0070) (2026-10-02): `stripe-webhook` v21, `get-checkout-status` v1 and `send-parent-payment-email` v1 deployed and verified (source identical to `main`, 400/405 probes, no data change, no charge). Tranche 2 and the Lovable publish remain unapproved.
 - Stripe Payment Migrations Applied to Production (APPROVAL-0069) (2026-10-02): the three TASK-0041 payment-schema migrations were applied to Production and verified (`stripe_customers`, `parent_payment_email_requests`, webhook replay columns + `claim_stripe_webhook_event`). No function, secret, or Stripe change. Next: deploy the six functions from David's Mac, then live Stripe setup.
 - Seeded-Variant Runs: Status by Subject Documented; AP Biology Pilot Closed (2026-10-01): added protocol section 10, a table of which subjects have had a variant run (AP Calculus AB partly, AP Biology Units 1-2) and which still need one (Calculus BC, Chemistry, Physics 1, Physics 2, Physics C E&M, Physics C Mechanics, Precalculus, Statistics), plus a pre-run checklist. The label probe on the final AP Biology text is prepared (`probe_items_final.json`) but needs a run from the Product Owner's laptop.
 - AP Biology Seeded-Variant Pilot: Seed Audit, 14 Variants, `APBIO-MCQ-023` Repair Approved (APPROVAL-0067) (2026-10-01): S0a found 7 of 8 Biology seeds clean and 1 defective rationale (`APBIO-MCQ-023` choice A, both models); 14 class-A variants written and content-checked by both models (3 DeepSeek-only wording defects fixed, patched items re-checked clean). The Product Owner approved the one-item Production repair, which was applied and verified.
@@ -336,6 +350,18 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Stripe Functions Tranche 2 Deployed to Production (APPROVAL-0071) — 2026-10-02
+
+**Approval:** `APPROVAL-0071`. All four functions deployed from `main` `fc2f3a6c` and verified (see the approval entry). Earlier the same day David re-set `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (Production had stored identical values for both, which was wrong) and `STRIPE_PRICE_CATALOG_JSON` (exact match to the validated JSON); a fifth event, `charge.refunded`, was added to the live webhook endpoint; the refund policy is live in the Terms; the "free until November" copy is gone.
+
+**Approval state:** Hard Gate. Not approved: the Lovable publish, the Orly email, the go/no-go. **Next Owner:** David Bloom. **Next Action:** fix the `support@cramapple.com` alias; decide when to publish the Lovable project; then Gate D (your own \$1 purchase with the live code, refund it, confirm access and revocation).
+
+## Stripe Functions Tranche 1 Deployed to Production (APPROVAL-0070) — 2026-10-02
+
+**Approval:** `APPROVAL-0070` (tranche 1). `stripe-webhook` v20→v21, `get-checkout-status` v1, `send-parent-payment-email` v1, all `verify_jwt=false`, deployed source byte-identical to `main`; invalid-request probes returned 400/405; Production data unchanged. Live publishable key already sits in the Lovable `.env` but the project is unpublished (checkout still shows "Online payment isn't switched on yet"). Refund-policy draft is in PR #309; it exposed that the Contact Us form sends nothing.
+
+**Approval state:** tranche 2 not approved. **Next Owner:** David Bloom. **Next Action:** confirm Stripe mode of Production's `STRIPE_SECRET_KEY`, the live webhook endpoint and signing secret, live price IDs, the support email and refund text; then approve tranche 2.
 
 ## Stripe Payment Migrations Applied to Production (APPROVAL-0069) — 2026-10-02
 

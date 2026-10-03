@@ -1,0 +1,482 @@
+[
+ {
+  "id": "apchem-mcq-001-v1",
+  "seed": "apchem-mcq-001",
+  "difficulty": "easy",
+  "title": "Moles of carbon dioxide",
+  "stem": "A technician collects 4.40 g of carbon dioxide (44.0 g mol⁻¹) from a fermentation vessel. How many moles of CO₂ were collected?",
+  "correct": {
+   "text": "0.100 mol",
+   "rationale": "Correct: n = m/M = 4.40 g ÷ 44.0 g mol⁻¹ = 0.100 mol. Grams cancel, leaving moles, reported to three significant figures."
+  },
+  "wrong": [
+   {
+    "text": "10.0 mol",
+    "rationale": "Inverts the ratio and divides molar mass by mass: 44.0 ÷ 4.40 = 10.0. The result is not a mole quantity because the units do not reduce to mol.",
+    "error_pattern": "Inverted n = M/m"
+   },
+   {
+    "text": "194 mol",
+    "rationale": "Multiplies mass by molar mass instead of dividing: 4.40 × 44.0 = 193.6, which rounds to 194. Multiplying gives g² mol⁻¹, not moles.",
+    "error_pattern": "Multiplied m × M"
+   },
+   {
+    "text": "0.157 mol",
+    "rationale": "Uses 28.0 g mol⁻¹ (the molar mass of CO, omitting one oxygen atom from CO₂) as the divisor: 4.40 ÷ 28.0 = 0.157. CO₂ has two oxygen atoms, so M = 12.0 + 2(16.0) = 44.0.",
+    "error_pattern": "Wrong molar mass: omitted one O atom when summing the formula"
+   }
+  ],
+  "change_note": "New substance (CO₂, 4.40 g, 44.0 g/mol), new context (fermentation vessel); the third distractor now targets an incomplete formula-mass sum instead of a doubled molar mass.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-001-v2",
+  "seed": "apchem-mcq-001",
+  "difficulty": "medium",
+  "title": "Mass of sodium chloride needed",
+  "stem": "A student needs 0.400 mol of sodium chloride (58.5 g mol⁻¹) to prepare a saline solution. What mass of NaCl should be weighed out?",
+  "correct": {
+   "text": "23.4 g",
+   "rationale": "Correct: m = nM = 0.400 mol × 58.5 g mol⁻¹ = 23.4 g. Moles cancel, leaving grams, to three significant figures."
+  },
+  "wrong": [
+   {
+    "text": "0.00684 g",
+    "rationale": "Divides moles by molar mass instead of multiplying: 0.400 ÷ 58.5 = 0.00684. This reverses the conversion direction (it treats the problem as mass-to-moles).",
+    "error_pattern": "Used n/M instead of nM"
+   },
+   {
+    "text": "146 g",
+    "rationale": "Inverts the ratio, giving molar mass divided by moles: 58.5 ÷ 0.400 = 146.25, which rounds to 146. The units come out as g mol⁻² rather than grams.",
+    "error_pattern": "Inverted M/n"
+   },
+   {
+    "text": "14.2 g",
+    "rationale": "Multiplies by only 35.5 g mol⁻¹, the atomic mass of chlorine, as if NaCl contained only the Cl: 0.400 × 35.5 = 14.2. The molar mass of NaCl is 23.0 + 35.5 = 58.5.",
+    "error_pattern": "Wrong molar mass: counted only one element of the formula"
+   }
+  ],
+  "change_note": "Task shape reversed (moles to mass instead of mass to moles); new substance, numbers and a lab-prep context.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-001-v3",
+  "seed": "apchem-mcq-001",
+  "difficulty": "hard",
+  "title": "Mass from particle count",
+  "stem": "A sealed flask contains 1.204 × 10²⁴ molecules of ammonia, NH₃ (17.0 g mol⁻¹). What is the mass of the ammonia in the flask? (Avogadro's number is 6.022 × 10²³ mol⁻¹.)",
+  "correct": {
+   "text": "34.0 g",
+   "rationale": "Correct: n = (1.204 × 10²⁴) ÷ (6.022 × 10²³ mol⁻¹) = 2.00 mol, then m = nM = 2.00 mol × 17.0 g mol⁻¹ = 34.0 g."
+  },
+  "wrong": [
+   {
+    "text": "2.00 g",
+    "rationale": "Stops after converting particles to moles and reports 2.00 (moles) as if it were grams, skipping the molar-mass step.",
+    "error_pattern": "Stopped at the mole count; omitted the n × M step"
+   },
+   {
+    "text": "8.50 g",
+    "rationale": "Converts to 2.00 mol correctly but then divides molar mass by moles (17.0 ÷ 2.00 = 8.50) instead of multiplying them.",
+    "error_pattern": "Inverted M/n in the final step"
+   },
+   {
+    "text": "2.05 × 10²⁵ g",
+    "rationale": "Multiplies the number of molecules by 17.0 directly (1.204 × 10²⁴ × 17.0 = 2.05 × 10²⁵) without dividing by Avogadro's number, so molecules are never converted to moles.",
+    "error_pattern": "Skipped the N_A conversion"
+   }
+  ],
+  "change_note": "Two-step task shape (particles → moles → grams) using Avogadro's number; new species (NH₃) and context; distractors target skipped steps and inversion.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-021-v1",
+  "seed": "apchem-mcq-021",
+  "difficulty": "easy",
+  "title": "Moles of ethanol",
+  "stem": "A sample of pure ethanol (C₂H₅OH, molar mass = 46.07 g/mol) has a mass of 23.0 g. How many moles of ethanol does the sample contain?",
+  "correct": {
+   "text": "0.499 mol",
+   "rationale": "Correct. Moles = mass ÷ molar mass = 23.0 g ÷ 46.07 g/mol = 0.499 mol."
+  },
+  "wrong": [
+   {
+    "text": "0.250 mol",
+    "rationale": "Incorrect. This divides by twice the molar mass (2 × 46.07 = 92.14), as if the sample were a dimer or the formula mass were counted twice: 23.0 ÷ 92.14 = 0.250.",
+    "error_pattern": "Doubled the molar mass"
+   },
+   {
+    "text": "2.00 mol",
+    "rationale": "Incorrect. This inverts the calculation, dividing molar mass by mass: 46.07 ÷ 23.0 = 2.00.",
+    "error_pattern": "Inverted M/m"
+   },
+   {
+    "text": "0.765 mol",
+    "rationale": "Incorrect. This divides by 30.07 g/mol, the molar mass of C₂H₆, because the oxygen atom's mass (16.00) was left out of the formula mass: 23.0 ÷ 30.07 = 0.765.",
+    "error_pattern": "Omitted the O atom from the formula mass"
+   }
+  ],
+  "change_note": "Different substance (ethanol), different numbers and a different distractor family (missing atom replaces the halved molar mass).",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-021-v2",
+  "seed": "apchem-mcq-021",
+  "difficulty": "medium",
+  "title": "Moles of aluminum atoms",
+  "stem": "A strip of pure aluminum foil (Al, molar mass = 26.98 g/mol) has a mass of 13.5 g. How many moles of aluminum atoms does the foil contain?",
+  "correct": {
+   "text": "0.500 mol",
+   "rationale": "Correct. Moles = mass ÷ molar mass = 13.5 g ÷ 26.98 g/mol = 0.500 mol."
+  },
+  "wrong": [
+   {
+    "text": "1.04 mol",
+    "rationale": "Incorrect. This divides by 13, the atomic number of Al, instead of its molar mass: 13.5 ÷ 13 = 1.04.",
+    "error_pattern": "Used atomic number as molar mass"
+   },
+   {
+    "text": "2.00 mol",
+    "rationale": "Incorrect. This inverts the calculation, dividing molar mass by mass: 26.98 ÷ 13.5 = 2.00.",
+    "error_pattern": "Inverted M/m"
+   },
+   {
+    "text": "364 mol",
+    "rationale": "Incorrect. This multiplies mass by molar mass instead of dividing: 13.5 × 26.98 = 364.",
+    "error_pattern": "Multiplied m × M"
+   }
+  ],
+  "change_note": "Monatomic element instead of a compound; new context; distractors use atomic-number confusion and multiplication.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-021-v3",
+  "seed": "apchem-mcq-021",
+  "difficulty": "medium",
+  "title": "Moles of oxygen gas",
+  "stem": "A sealed cylinder holds 8.00 g of pure oxygen gas (O₂, molar mass = 32.00 g/mol). How many moles of O₂ does the cylinder contain?",
+  "correct": {
+   "text": "0.250 mol",
+   "rationale": "Correct. Moles = mass ÷ molar mass = 8.00 g ÷ 32.00 g/mol = 0.250 mol."
+  },
+  "wrong": [
+   {
+    "text": "0.500 mol",
+    "rationale": "Incorrect. This divides by 16.00 g/mol, the molar mass of a single O atom, ignoring that O₂ is diatomic: 8.00 ÷ 16.00 = 0.500.",
+    "error_pattern": "Used atomic instead of molecular molar mass"
+   },
+   {
+    "text": "4.00 mol",
+    "rationale": "Incorrect. This inverts the calculation, dividing molar mass by mass: 32.00 ÷ 8.00 = 4.00.",
+    "error_pattern": "Inverted M/m"
+   },
+   {
+    "text": "256 mol",
+    "rationale": "Incorrect. This multiplies mass by molar mass instead of dividing: 8.00 × 32.00 = 256.",
+    "error_pattern": "Multiplied m × M"
+   }
+  ],
+  "change_note": "Diatomic gas; the key error is treating O₂ as atomic O; new numbers and context.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-022-v1",
+  "seed": "apchem-mcq-022",
+  "difficulty": "medium",
+  "title": "Configuration of Mn²⁺",
+  "stem": "What is the ground-state electron configuration of the Mn2+ ion (Mn, Z = 25, ground-state configuration [Ar]3d^5 4s^2)?",
+  "correct": {
+   "text": "[Ar]3d^5",
+   "rationale": "Correct. For transition-metal cations, the 4s electrons are removed before any 3d electrons. Mn2+ loses both 4s electrons and keeps all five 3d electrons: [Ar]3d^5.",
+   "fact": "Transition-metal cations lose 4s electrons first; Mn2+ has 5 electrons beyond [Ar]."
+  },
+  "wrong": [
+   {
+    "text": "[Ar]3d^3 4s^2",
+    "rationale": "Incorrect. This removes two electrons from the 3d subshell and leaves 4s^2, reflecting the idea that the last-filled (3d) electrons leave first. In cations, 4s electrons are removed first.",
+    "error_pattern": "Removed 3d electrons before 4s (reverse-filling-order error)",
+    "fact": "Ion removal order: 4s before 3d."
+   },
+   {
+    "text": "[Ar]3d^4 4s^1",
+    "rationale": "Incorrect. This removes one electron from each of 4s and 3d. Both 4s electrons must be removed before any 3d electron is, so Mn2+ is 3d^5 with no 4s electrons.",
+    "error_pattern": "Removed one electron from each outer subshell",
+    "fact": "Ion removal order: both 4s electrons go before any 3d."
+   },
+   {
+    "text": "[Ar]3d^5 4s^2",
+    "rationale": "Incorrect. This is the neutral Mn atom; the 2+ charge was ignored, so no electrons were removed.",
+    "error_pattern": "Ignored the ion charge",
+    "fact": "Charge 2+ means two fewer electrons than the neutral atom."
+   }
+  ],
+  "change_note": "Different ion (Mn2+, half-filled 3d result) and context; same removal-order misconception targets.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apchem-mcq-022-v2",
+  "seed": "apchem-mcq-022",
+  "difficulty": "medium",
+  "title": "Configuration of Co³⁺",
+  "stem": "In a cobalt(III) coordination compound, the metal exists as the Co3+ ion (Co, Z = 27, ground-state configuration [Ar]3d^7 4s^2). Which of the following is the ground-state electron configuration of Co3+?",
+  "correct": {
+   "text": "[Ar]3d^6",
+   "rationale": "Correct. The two 4s electrons are removed first, then one 3d electron, leaving [Ar]3d^6 (6 electrons beyond [Ar], three fewer than the neutral atom's 9).",
+   "fact": "Cation removal: 4s first, then 3d; total beyond [Ar] = 9 − 3 = 6."
+  },
+  "wrong": [
+   {
+    "text": "[Ar]3d^7",
+    "rationale": "Incorrect. This is the Co2+ configuration (only the two 4s electrons removed); Co3+ must lose one more electron, from 3d.",
+    "error_pattern": "Removed only the 4s electrons (stopped one electron early)",
+    "fact": "Co2+ = [Ar]3d^7; Co3+ loses one more."
+   },
+   {
+    "text": "[Ar]3d^4 4s^2",
+    "rationale": "Incorrect. This removes three electrons from 3d and keeps 4s^2, as if 3d electrons were lost first. In a cation the 4s electrons are removed first.",
+    "error_pattern": "Removed 3d electrons before 4s",
+    "fact": "Ion removal order: 4s before 3d."
+   },
+   {
+    "text": "[Ar]3d^5 4s^1",
+    "rationale": "Incorrect. This has the correct number of removed electrons (three) but takes only one from 4s and two from 3d; both 4s electrons must be removed before any 3d electron.",
+    "error_pattern": "Left an electron in 4s while removing 3d electrons",
+    "fact": "Both 4s electrons removed before 3d."
+   }
+  ],
+  "change_note": "Higher charge (3+) and a different metal (Co); context is a coordination compound; distractors include the under-ionized Co2+ configuration.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apchem-mcq-022-v3",
+  "seed": "apchem-mcq-022",
+  "difficulty": "hard",
+  "title": "Configuration of Ti²⁺",
+  "stem": "Titanium(II) ions are studied in a solid-state chemistry lab. Which configuration is the ground state of the Ti2+ ion (Ti, Z = 22, ground-state configuration [Ar]3d^2 4s^2)?",
+  "correct": {
+   "text": "[Ar]3d^2",
+   "rationale": "Correct. Both 4s electrons are removed first, which removes the two electrons needed for a 2+ charge, so the 3d electrons are untouched: [Ar]3d^2.",
+   "fact": "Cation removal: 4s first; Ti2+ keeps 3d^2."
+  },
+  "wrong": [
+   {
+    "text": "[Ar]4s^2",
+    "rationale": "Incorrect. This removes the two 3d electrons and keeps 4s^2, treating 3d as the subshell that fills last and therefore empties first. 4s electrons are removed first.",
+    "error_pattern": "Removed 3d electrons before 4s",
+    "fact": "Ion removal order: 4s before 3d."
+   },
+   {
+    "text": "[Ar]3d^1 4s^1",
+    "rationale": "Incorrect. This removes one electron from each subshell. Both 4s electrons are lost before any 3d electron is.",
+    "error_pattern": "Removed one electron from each outer subshell",
+    "fact": "Both 4s electrons go before any 3d."
+   },
+   {
+    "text": "[Ar]3d^4",
+    "rationale": "Incorrect. This moves the two 4s electrons into the 3d subshell instead of removing them; the ion would then have the same number of electrons as the neutral atom, so it would not be 2+.",
+    "error_pattern": "Relocated 4s electrons into 3d instead of removing them",
+    "fact": "Ionization removes electrons; total electron count drops by 2."
+   }
+  ],
+  "change_note": "Early-d metal (Ti2+) where the correct answer keeps electrons in 3d; new distractor (4s electrons moved into 3d).",
+  "check": "conceptual"
+ },
+ {
+  "id": "apchem-mcq-023-v1",
+  "seed": "apchem-mcq-023",
+  "difficulty": "medium",
+  "title": "PES: six-peak atom",
+  "stem": "A chemist records the photoelectron spectrum of a neutral gaseous atom. In order of decreasing binding energy, the six peaks have relative areas 2, 2, 6, 2, 6, and 1. Which element produced the spectrum?",
+  "correct": {
+   "text": "Potassium",
+   "rationale": "Correct. The areas sum to 2 + 2 + 6 + 2 + 6 + 1 = 19 electrons, giving 1s²2s²2p⁶3s²3p⁶4s¹ for K (Z = 19); the last peak (area 1) is the single 4s electron."
+  },
+  "wrong": [
+   {
+    "text": "Argon",
+    "rationale": "Incorrect. Summing only the first five peaks (2+2+6+2+6 = 18) and ignoring the sixth peak gives argon; the sixth peak means an additional subshell is occupied.",
+    "error_pattern": "Ignored the last (lowest-binding-energy) peak",
+    "fact": "Total electrons = sum of all peak areas = 19."
+   },
+   {
+    "text": "Calcium",
+    "rationale": "Incorrect. Calcium would have a final 4s peak of area 2 (20 electrons), but the observed last peak has area 1.",
+    "error_pattern": "Assumed the outer s peak is full (area 2)",
+    "fact": "Last peak area 1 means a single 4s electron."
+   },
+   {
+    "text": "Carbon",
+    "rationale": "Incorrect. This takes the number of peaks (six) as the atomic number; peak count equals the number of occupied subshells, not Z. Carbon would show only three peaks (2, 2, 2).",
+    "error_pattern": "Counted peaks instead of electrons",
+    "fact": "Z is the sum of peak areas, not the number of peaks."
+   }
+  ],
+  "change_note": "Larger spectrum (six peaks, Period 4), new element and phrasing; distractors add a peak-count-as-Z error and an assumed-full-subshell error.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-023-v2",
+  "seed": "apchem-mcq-023",
+  "difficulty": "medium",
+  "title": "PES: five-peak atom",
+  "stem": "The photoelectron spectrum of a neutral atom has five peaks. From highest to lowest binding energy, their relative areas are 2, 2, 6, 2, and 3. Identify the element.",
+  "correct": {
+   "text": "Phosphorus",
+   "rationale": "Correct. The areas sum to 2+2+6+2+3 = 15 electrons, matching 1s²2s²2p⁶3s²3p³ for phosphorus (Z = 15); the five peaks are 1s, 2s, 2p, 3s and 3p."
+  },
+  "wrong": [
+   {
+    "text": "Magnesium",
+    "rationale": "Incorrect. Adding only the first four peaks (2+2+6+2 = 12) and dropping the last peak gives magnesium; the fifth peak (area 3) shows 3p electrons are present.",
+    "error_pattern": "Ignored the last peak",
+    "fact": "Total electrons = 15, not 12."
+   },
+   {
+    "text": "Nitrogen",
+    "rationale": "Incorrect. Nitrogen also has five valence electrons, but its spectrum would have only three peaks (2, 2, 3). Matching only the outer-peak pattern ignores the 2p and 3s peaks seen here.",
+    "error_pattern": "Matched only the valence pattern, ignoring the other peaks",
+    "fact": "Peak list must match the whole electron configuration."
+   },
+   {
+    "text": "Boron",
+    "rationale": "Incorrect. This takes the number of peaks (five) as the atomic number; boron would show three peaks (2, 2, 1).",
+    "error_pattern": "Counted peaks instead of electrons",
+    "fact": "Z is the sum of peak areas, not the number of peaks."
+   }
+  ],
+  "change_note": "Different element and peak pattern (p-block, ending in 3p³); different distractor mix (valence-only matching).",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-023-v3",
+  "seed": "apchem-mcq-023",
+  "difficulty": "hard",
+  "title": "PES: predicting the atom",
+  "stem": "A neutral atom's photoelectron spectrum is predicted to show exactly three peaks, in the relative-area ratio 2 : 2 : 1 from highest to lowest binding energy. Which element fits this prediction?",
+  "correct": {
+   "text": "Boron",
+   "rationale": "Correct. 1s²2s²2p¹ gives three peaks (1s, 2s, 2p) with relative areas 2 : 2 : 1, a total of 5 electrons (Z = 5)."
+  },
+  "wrong": [
+   {
+    "text": "Lithium",
+    "rationale": "Incorrect. This takes the number of peaks (three) as Z; lithium (1s²2s¹) would show only two peaks, in the ratio 2 : 1.",
+    "error_pattern": "Counted peaks instead of electrons"
+   },
+   {
+    "text": "Aluminum",
+    "rationale": "Incorrect. Aluminum is in the same group (one p electron), but its spectrum would have five peaks (2, 2, 6, 2, 1), not three.",
+    "error_pattern": "Matched only the valence p¹ pattern, ignoring the number of shells/peaks"
+   },
+   {
+    "text": "Sodium",
+    "rationale": "Incorrect. A final peak of area 1 suggests one valence electron, but sodium (1s²2s²2p⁶3s¹) would show four peaks (2, 2, 6, 1).",
+    "error_pattern": "Matched only the final-peak area, ignoring the 2p peak count"
+   }
+  ],
+  "change_note": "Reversed task shape (given ratio, choose the element that would produce it) with a Period 2 atom; distractors rely on matching only the valence pattern.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-024-v1",
+  "seed": "apchem-mcq-024",
+  "difficulty": "medium",
+  "title": "Ionization energy: Be and B",
+  "stem": "The first ionization energy of beryllium (899 kJ/mol) is greater than that of boron (801 kJ/mol), even though boron has a higher nuclear charge. Which statement correctly explains this trend?",
+  "correct": {
+   "text": "Beryllium's outermost electrons are in a filled 2s subshell, while boron's outermost electron occupies the higher-energy 2p subshell, which is partly shielded by the 2s² electrons and is therefore removed more easily.",
+   "rationale": "Correct. A 2p electron is higher in energy and less penetrating than a 2s electron and is shielded by the 2s² electrons, so boron's valence electron is removed more easily despite the extra proton.",
+   "fact": "Be: 2s²; B: 2s²2p¹; the 2p electron is higher in energy and shielded by 2s."
+  },
+  "wrong": [
+   {
+    "text": "Boron has the greater nuclear charge, so its outermost electron is always held more tightly than the outermost electrons of beryllium, whatever subshell it is in.",
+    "rationale": "Incorrect. Applies the nuclear-charge trend alone and ignores subshell energy and shielding, which produce the Be-B exception.",
+    "error_pattern": "Applied nuclear charge only; ignored subshell energy and shielding",
+    "fact": "Nuclear charge is not the only factor."
+   },
+   {
+    "text": "Boron's atomic radius is larger than beryllium's, so its outermost electron is farther from the nucleus and is removed more easily than beryllium's electrons.",
+    "rationale": "Incorrect. Atomic radius decreases from beryllium to boron across the period; the exception is due to the 2p versus 2s subshell, not size.",
+    "error_pattern": "Reversed the atomic radius trend",
+    "fact": "Radius decreases left to right across a period."
+   },
+   {
+    "text": "Boron's outermost electron is shielded by the 1s electrons, but beryllium's outermost electrons are not, so beryllium's electrons feel a larger effective nuclear charge.",
+    "rationale": "Incorrect. Both atoms have a filled 1s core that shields their valence electrons; the difference is that boron's valence electron is in 2p, which is also shielded by 2s.",
+    "error_pattern": "Claimed core shielding differs between Be and B",
+    "fact": "Both Be and B have the same 1s core."
+   }
+  ],
+  "change_note": "Different period and pair (Be/B, period 2) with the same subshell-energy explanation; distractors replace the radius duplicate with a core-shielding error.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apchem-mcq-024-v2",
+  "seed": "apchem-mcq-024",
+  "difficulty": "hard",
+  "title": "Ionization energy: Zn and Ga",
+  "stem": "The first ionization energy of zinc (906 kJ/mol) is greater than that of gallium (579 kJ/mol), even though gallium has a higher nuclear charge. Which statement correctly explains this trend?",
+  "correct": {
+   "text": "Zinc's outermost electrons are in a filled 4s subshell, while gallium's outermost electron occupies the higher-energy 4p subshell, which is shielded by the 4s² electrons and is therefore removed more easily.",
+   "rationale": "Correct. Gallium's outermost (4p) electron is higher in energy, less penetrating and shielded by the 4s² electrons, so it is easier to remove than a 4s electron of zinc.",
+   "fact": "Zn: [Ar]3d¹⁰4s²; Ga: [Ar]3d¹⁰4s²4p¹; the 4p electron is higher in energy and shielded."
+  },
+  "wrong": [
+   {
+    "text": "Gallium has the greater nuclear charge, so its outermost electron is always held more tightly than the outermost electrons of zinc, whatever subshell it is in.",
+    "rationale": "Incorrect. Applies the nuclear-charge trend alone and ignores the 4p versus 4s subshell energy and shielding.",
+    "error_pattern": "Applied nuclear charge only",
+    "fact": "Nuclear charge is not the only factor."
+   },
+   {
+    "text": "Gallium's outermost electron is in a higher principal shell than zinc's outermost electrons, so it is much farther from the nucleus and is removed more easily.",
+    "rationale": "Incorrect. Both zinc's 4s and gallium's 4p valence electrons are in the n = 4 shell; the difference is subshell energy and shielding.",
+    "error_pattern": "Claimed Ga's valence electron is in a higher principal shell",
+    "fact": "Both are n = 4."
+   },
+   {
+    "text": "Zinc's 3d subshell is only partly filled, and this partial filling holds its 4s electrons more tightly than gallium's 4p electron is held.",
+    "rationale": "Incorrect. Zinc's 3d subshell is completely filled (3d¹⁰), not partly filled; the lower value for gallium comes from removing a higher-energy 4p electron.",
+    "error_pattern": "Misstated Zn's 3d occupancy as partial",
+    "fact": "Zn has a full 3d¹⁰ subshell."
+   }
+  ],
+  "change_note": "Period 4 pair (Zn/Ga) in the same subshell-energy pattern; different distractors (principal-shell error, wrong d-subshell occupancy).",
+  "check": "conceptual"
+ },
+ {
+  "id": "apchem-mcq-024-v3",
+  "seed": "apchem-mcq-024",
+  "difficulty": "hard",
+  "title": "Ionization energy: N and O",
+  "stem": "The first ionization energy of nitrogen (1402 kJ/mol) is greater than that of oxygen (1314 kJ/mol), even though oxygen has a higher nuclear charge. Which statement correctly explains this trend?",
+  "correct": {
+   "text": "Nitrogen's three 2p electrons occupy separate orbitals, while oxygen has one 2p orbital holding two electrons, and the repulsion between that pair makes an oxygen electron easier to remove.",
+   "rationale": "Correct. Both outer electrons are in the same 2p subshell; oxygen's paired electrons repel each other, which offsets the extra nuclear charge and lowers its ionization energy.",
+   "fact": "N: 2p³ (one electron per orbital); O: 2p⁴ (one orbital with a pair); pair repulsion lowers IE."
+  },
+  "wrong": [
+   {
+    "text": "Oxygen has the greater nuclear charge, so its outermost electron is always held more tightly than the outermost electrons of nitrogen, whatever the arrangement.",
+    "rationale": "Incorrect. Applies the nuclear-charge trend alone and ignores electron-electron repulsion within a doubly occupied 2p orbital.",
+    "error_pattern": "Applied nuclear charge only",
+    "fact": "Nuclear charge is not the only factor."
+   },
+   {
+    "text": "Oxygen's atomic radius is larger than nitrogen's, so its outermost electron is farther from the nucleus and is removed more easily than nitrogen's electrons.",
+    "rationale": "Incorrect. Atomic radius decreases from nitrogen to oxygen across the period, so size cannot explain the lower value for oxygen.",
+    "error_pattern": "Reversed the atomic radius trend",
+    "fact": "Radius decreases left to right across a period."
+   },
+   {
+    "text": "Oxygen's outermost electron occupies a 3p subshell, which is higher in energy and shielded by the 2p electrons, so it is removed more easily than nitrogen's.",
+    "rationale": "Incorrect. Oxygen's outermost electrons are in the 2p subshell (1s²2s²2p⁴), the same subshell as nitrogen's; none are in 3p.",
+    "error_pattern": "Placed O's valence electron in a higher shell",
+    "fact": "Both N and O fill 2p."
+   }
+  ],
+  "change_note": "Different anomaly (paired-electron repulsion, N/O) from the seed's subshell-energy explanation; same misconception targets (nuclear charge only, reversed radius). Reviewer should confirm pairing repulsion is acceptable under CED 1.7 scope (qualitative Coulombic reasoning).",
+  "check": "conceptual"
+ }
+]
