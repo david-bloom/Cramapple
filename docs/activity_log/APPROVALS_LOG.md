@@ -206,6 +206,17 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
+## APPROVAL-0102 — Retire AP Calculus AB Seed MCQ-005 (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Retire MCQ-005. This seems like such a borderline call I'd rather not get it wrong and probably the question is not written cleanly enough for the skills.")  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0101`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`):** `apcalcab-mcq-005` (derivative of e^(2x) sin x) retired: the item and both versions set to `retired`. The topic cell 2.8 written in `APPROVAL-0101` stays on its row but is moot. The reason is that the item needs both the product rule (2.8) and the chain rule (3.1), the three-family vote split three ways and the topic could only be settled by judgment.
+
+**Not done:** its 5 variants (`apcalcab-mcq-sv-005-v1` to `-v5`, all still published, none with a topic cell) were not touched; awaiting David's decision.
+
 ## APPROVAL-0101 — Topic Cells for 7 Seeds That Had None (Production)
 
 **Date:** 2026-10-03  
