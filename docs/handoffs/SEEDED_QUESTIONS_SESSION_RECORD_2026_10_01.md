@@ -19,7 +19,7 @@ This record was written on 2026-10-02. Other sessions then landed substantial wo
 ### Further update, 2026-10-03 (later the same day)
 - **Three more items retired (`APPROVAL-0092`):** `APBIO-MCQ-014` (70S/80S), `APBIO-MCQ-063` (signal sequence), `APBIO-MCQ-025` (kidney ADH outside the pack). A scan of the published seed-style MCQs found `014` and `063`. **Correction to this record:** `014` also used out-of-CED terms, so six of the eight pilot seeds (not five) were affected; I missed `014` when the five seeds were replaced.
 - **`DECISION-0095` records the CED-vocabulary rule** (and the "retire, don't repair" preference). Biology now has 174 published items, 62 seed-style MCQs and 17 published variants.
-- **Not caused by this work but found by it:** 42 Biology items (20 FRQ, 22 MCQ) are marked `published` with all versions retired. Not checked whether any is served.
+- **Not caused by this work but found by it:** 42 Biology items (20 FRQ, 22 MCQ) were marked `published` with all versions retired. **Resolved the same day (`APPROVAL-0093`):** none was being served (the selector needs a published version); 38 were set to `retired` at item level. Four were left for a decision (two with attempts, two with an unretired `reviewed_approved` version 1; see the grading notes, G8). Biology now has 136 published items. The Product Owner asked for no rescan of other subjects' banks under `DECISION-0095`.
 
 ## 1. What was asked, in order
 1. Test the seeded-item protocol on a new subject: AP Biology Units 1-2, class A seeds only, 2 variants per seed, the same two checkers as the Calc pilot (for direct comparison).

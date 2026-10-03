@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0093 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
 - APPROVAL-0092 — Retire 3 Published AP Biology Seed MCQs Outside the CED (`APBIO-MCQ-014`, `063`, `025`) (Production) — DECISION-0095
 - APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production) — DECISION-0093
 - APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production) — DECISION-0085
@@ -203,6 +204,23 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0093 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Clean up the 42", answering the written finding that 42 Biology items are marked published with no published version)  
+**Related Decision:** `DECISION-0095`; follows `APPROVAL-0092`  
+**Decision:** Approved (scope narrowed to 38 of the 42; see below)
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** run `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_align_orphan_item_status.sql`. For AP Biology items with item status `published`, no published version, no non-retired version and no attempts on any version (38 items: 17 FRQ and 21 MCQ), set the item status to `retired` to match their versions. Only `content_items.status` and `updated_at` change; versions, labels, cells and attempts are untouched.
+
+**Why it is safe:** the practice selector (`select_unit_gated_practice_items`) requires both the item and its version to be `published`, so none of the 42 was being served; `servable_items_census` already counts this state as its own bucket. The change aligns the record with reality and has no student-visible effect.
+
+**Why 38 and not 42:** the request was "Clean up the 42". Four are not plain leftovers and were left alone for the Product Owner to decide: `APBIO-FRQ-L-028` (5 attempts) and `APBIO-MCQ-012` (1 attempt), where an item-status change could affect anything that lists a student's history by item status (not checked); and `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041`, each with an unretired `reviewed_approved` version 1 beside retired versions 2 and 3 (unresolved lineage).
+
+**Not approved by this entry:** the four exceptions; any change to versions, labels or cells; any other subject (see `DECISION-0095`: no rescan of other subjects' banks was requested).
+
+**How it was used (2026-10-03):** one transaction with in-script assertions, no rehearsal. The target set was selected by rule inside the script (not a typed list) and asserted to be exactly 38 and to exclude the four held items; the script also asserted that published versions, items with a published version and validated serving labels were unchanged. Verified afterwards on Production: Biology published items 174 to 136; published versions unchanged at 132; items published with a published version unchanged at 132; validated serving labels unchanged at 163; the only items still published without a published version are exactly `APBIO-FRQ-L-028`, `APBIO-FRQ-L-038`, `APBIO-FRQ-L-041`, `APBIO-MCQ-012`; the 6 attempts on the two held items are intact. The unit-gated servable count was not re-queried (it cannot change: the selector requires a published version).
 
 ## APPROVAL-0092 — Retire 3 Published AP Biology Seed MCQs Outside the CED (`APBIO-MCQ-014`, `063`, `025`) (Production)
 

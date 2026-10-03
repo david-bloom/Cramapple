@@ -71,7 +71,7 @@ The AP Biology seeded-variant pilot found that published seeds and variants used
 
 ### Consequences
 
-- **Applied so far to AP Biology only.** Published banks in other subjects (Calc AB, Chemistry, Statistics, Physics, Precalculus) have **not** been scanned under this rule. Whether to scan them is open and is not decided here.
+- **Applied so far to AP Biology only.** Published banks in other subjects (Calc AB, Chemistry, Statistics, Physics, Precalculus) have **not** been scanned under this rule. **The Product Owner said on 2026-10-03 not to rescan them under this decision.** New items in any subject must still follow the rule.
 - The term list is not exhaustive: it contains only terms confirmed absent. The CED text extracted from the PDF has spacing problems, so an absence should be confirmed by reading the CED page before an item is retired on it.
 - FRQ and hand-drawn items were not scanned.
 - 17 AP Biology variants and 62 seed-style AP Biology MCQs remain published; this session's 16 unloaded variant drafts stay unloaded.
