@@ -206,6 +206,21 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
+## APPROVAL-0098 — Fix Two Stale Serving Labels and Restore Biology Variant 025-v3 (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Do the skill cells, and stall hashes. Restore biology 025-v3. No action on the bc MCQs")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0097`  
+**Decision:** Approved (skill cells not yet done; see below)
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):**
+- **Stale labels:** `APBIO-MCQ-088` and `apphy1-mcq-049` each carried a `stale` serving label on a retired version 1. Each was replaced by a new validated label on the published version, with the unit carried forward (`[7]` and `[3, 7]`), and the old active labels superseded. A three-family serving probe on 049 gave topic 7.4 in 6 of 6 votes and max unit 7 in 6 of 6; its required units split 3 and 3 between `[7]` and `[3, 7]`, so the previously reviewed `[3, 7]` was kept. Hash fresh on both.
+- **Biology `APBIO-MCQ-SV-025-v3`:** the aquaporin knockout variant (load SQL `scripts/content-seed/pipeline-v2-bio-u13-2026-10-02/load/restore_025v3.sql`), dropped in `APPROVAL-0079`/`0086` along with its two siblings. Only v3 is restored: both checkers (gemini-3.8-flash, deepseek-v4-pro) solved it to the key, audited all four rationales clean and rated it fully in scope (topic 2.6, Unit 2). It does not depend on the retired kidney seed. Loaded as a draft (md5 matched), approved and published with a validated label (`[2]`) and a validated primary topic cell 2.6. Keyed A; the other two 025 variants stay dropped (real errors).
+
+**Not done:** skill cells. Physics 1, Precalculus and Calculus BC have no skill grids, and about 900 published items need four-voter skill votes. Per instruction, nothing was done to Calculus BC's own MCQs.
+
+**Remaining "stale hash" count:** the roughly 50 other census mismatches are labels that were never validated (held or legacy, hash NULL), not drifted validated labels. The census counts them; it was not changed.
+
 ## APPROVAL-0097 — Load and Publish 143 AP Precalculus Units 1-3 Variants (Production)
 
 **Date:** 2026-10-03  
