@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology Skill Re-vote (APPROVAL-0081) (2026-10-02): 73 topic-corrected items re-voted by four models; 69 skill cells rewritten (52 validated, 10 provisional, 7 held), 6 skills changed, 54 unchanged; 4 validated cells deliberately kept.
 - AP Biology Variants Loaded and Published (APPROVAL-0080) (2026-10-02): 24 variant MCQs loaded in 3 chunks (md5 24 of 24) and published with validated labels (Unit 1: 3, Unit 2: 21).
 - AP Biology Topic Correction (APPROVAL-0079) (2026-10-02): 73 primary topic cells replaced by three-family consensus (42 cross-unit), 21 skill cells moved to the new topic, MCQ-005 relabeled to Unit 2; 43 earlier-validated items topic-probed for the first time.
 - AP Statistics Variants Published (APPROVAL-0078) (2026-10-02): 131 variants published with validated labels (Unit 1: 63, Unit 2: 33, Unit 3: 35); Statistics published 293, unit-gated servable 261, stale hashes 0; one variant held as a draft.

@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0081 — AP Biology Skill Re-vote on the 73 Topic-Corrected Items (Production) — DECISION-0085
 - APPROVAL-0080 — Load and Publish 24 AP Biology Units 1-2 Variants (Production) — DECISION-0085
 - APPROVAL-0079 — AP Biology Topic Correction: 73 Primary Topic Cells Replaced by Three-Family Consensus; MCQ-005 Relabeled to Unit 2 (Production) — DECISION-0085
 - APPROVAL-0078 — Publish 131 AP Statistics Units 1-3 Variants with Inherited Validated Labels (Production) — DECISION-0085
@@ -48,6 +49,19 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0081 — AP Biology Skill Re-vote on the 73 Topic-Corrected Items (Production)
+
+**Date:** 2026-10-02  
+**Approved By:** David Bloom (2026-10-02 Claude session: "Revote bio")  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0080`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `2d88ba5e-a6a3-43b8-bfae-9e5505a178a7`):** the four voters (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash) re-voted a skill for the 73 items whose topic was corrected by `APPROVAL-0079`, this time with the corrected topic as the hint (292 gateway calls). The Product Owner's rule was applied: validated at >= 3 of 4, a unique 2-of-4 plurality provisional, ties held. For 69 of the 73 items the skill cells were rewritten in place (52 validated, 10 provisional, 7 held); 2 new cells were added; 6 existing cells changed skill and 54 kept the same skill. Every topic and skill pairing is valid in the grid (all 22 skills are valid for every topic).
+
+**Judgement call recorded:** four items (`FRQ-L-026`, `FRQ-S-031`, `FRQ-S-033`, `MCQ-017`) held a validated 3-of-4 skill from the first vote and had no plurality in the single new sample. A second noisy sample is not evidence against a 3-of-4 result, so those four cells were left validated (only their topic had moved under `APPROVAL-0079`).
+
+**Not approved by this entry:** skill cells for Biology variants; re-voting the unchanged 45 items.
 
 ## APPROVAL-0080 — Load and Publish 24 AP Biology Units 1-2 Variants (Production)
 
