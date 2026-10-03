@@ -1,0 +1,418 @@
+[
+ {
+  "key": "APSTATS-MCQ-001",
+  "topic": "1.7",
+  "stem": "Which measure of center and spread is most appropriate to report for this distribution, and why?",
+  "stimulus": "A researcher records the time (in minutes) that 40 customers spend in a coffee shop. The distribution of times is strongly right-skewed, with a few customers staying much longer than typical. The five-number summary is: Min = 3, Q1 = 8, Median = 12, Q3 = 18, Max = 65.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Mean and standard deviation, because they use every data value in the distribution.",
+    "is_correct": false,
+    "rationale": "Both the mean and standard deviation are pulled toward the long right tail and the high outlier (65); they are not resistant, so 'uses every value' is not a reason to prefer them for a skewed distribution."
+   },
+   {
+    "label": "B",
+    "text": "Mean and range, because the range captures the full spread including the long visits.",
+    "is_correct": false,
+    "rationale": "The range is determined entirely by the two most extreme values, making it even more sensitive to the outlier than the standard deviation; the mean is also not resistant."
+   },
+   {
+    "label": "C",
+    "text": "Median and IQR, because they are resistant to the strong right skew and the high outlier.",
+    "is_correct": true,
+    "rationale": "The median and IQR depend only on the middle portion of the ordered data, so they are not distorted by the skew or the outlier at 65 minutes -- the standard choice for a skewed distribution."
+   },
+   {
+    "label": "D",
+    "text": "Median and standard deviation, because the median is resistant but the shape of the distribution doesn't affect measures of spread.",
+    "is_correct": false,
+    "rationale": "This mixes a resistant measure of center with a non-resistant measure of spread; shape and outliers affect standard deviation just as much as they affect the mean."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-008-CAL",
+  "topic": "2.9",
+  "stem": "What is the standard deviation of T?",
+  "stimulus": "A vending machine dispenses two independent snack items in a bundle. The number of chip bags dispensed has mean 3 and standard deviation 0.8. The number of candy bars dispensed has mean 2 and standard deviation 0.6. Let T = total number of snack items (chips + candy) dispensed in a bundle.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1.4, because standard deviations of independent random variables add directly.",
+    "is_correct": false,
+    "rationale": "Standard deviations do not add directly, even for independent random variables; it is the variances that add."
+   },
+   {
+    "label": "B",
+    "text": "0.2, because the standard deviation of a sum is the difference of the standard deviations.",
+    "is_correct": false,
+    "rationale": "This applies the wrong operation entirely; subtracting standard deviations has no statistical justification here."
+   },
+   {
+    "label": "C",
+    "text": "1.96, because the variance of T is the square of the sum of the two standard deviations.",
+    "is_correct": false,
+    "rationale": "This squares the sum of the standard deviations (0.8 + 0.6)^2 instead of summing the individual variances, a common algebra-of-variance error."
+   },
+   {
+    "label": "D",
+    "text": "1.0, because Var(T) = 0.8^2 + 0.6^2 = 0.64 + 0.36 = 1.00, so SD(T) is the square root of 1.00.",
+    "is_correct": true,
+    "rationale": "For independent random variables, variances add: Var(T) = Var(chips) + Var(candy) = 0.64 + 0.36 = 1.00, so SD(T) = sqrt(1.00) = 1.0."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-019",
+  "topic": "1.7",
+  "stem": "Which pair of summary statistics is most appropriate to describe the center and spread?",
+  "stimulus": "A set of delivery times is strongly right-skewed, with a few very long times.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Mean and standard deviation, because they use all the data values.",
+    "is_correct": false,
+    "rationale": "Using every value is not an advantage when the distribution is skewed; these measures are not resistant."
+   },
+   {
+    "label": "B",
+    "text": "Mean and range, because the range captures the overall spread.",
+    "is_correct": false,
+    "rationale": "The range is driven only by the extreme values and is extremely sensitive to outliers."
+   },
+   {
+    "label": "C",
+    "text": "Median and IQR, because they are resistant to the skew and the long right tail.",
+    "is_correct": true,
+    "rationale": "Median and IQR are resistant measures, so they are the standard choice for skewed distributions and outliers."
+   },
+   {
+    "label": "D",
+    "text": "Median and standard deviation, because the median is resistant.",
+    "is_correct": false,
+    "rationale": "This mixes a resistant center with a non-resistant spread measure."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-023",
+  "topic": "1.7",
+  "stem": "Which measure is most resistant to the outlier 40?",
+  "stimulus": "Data values are 10, 11, 12, 12, 13, 13, 15, 40.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Range",
+    "is_correct": false,
+    "rationale": "The range is entirely determined by the minimum and maximum, so it is not resistant."
+   },
+   {
+    "label": "B",
+    "text": "Standard deviation",
+    "is_correct": false,
+    "rationale": "Standard deviation is pulled by extreme values and is not resistant."
+   },
+   {
+    "label": "C",
+    "text": "IQR",
+    "is_correct": true,
+    "rationale": "IQR depends on the middle half of the ordered data and is resistant to a single extreme value."
+   },
+   {
+    "label": "D",
+    "text": "Mean",
+    "is_correct": false,
+    "rationale": "The mean is also not resistant to outliers."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-027",
+  "topic": "1.6",
+  "stem": "Which statement is most appropriate?",
+  "stimulus": "A distribution is roughly symmetric with no outliers.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The mean must be much larger than the median.",
+    "is_correct": false,
+    "rationale": "That would suggest right skew, not symmetry."
+   },
+   {
+    "label": "B",
+    "text": "The median must always be larger than the mean.",
+    "is_correct": false,
+    "rationale": "There is no such rule."
+   },
+   {
+    "label": "C",
+    "text": "The mean and median will be close to each other.",
+    "is_correct": true,
+    "rationale": "In a roughly symmetric distribution, mean and median tend to be similar."
+   },
+   {
+    "label": "D",
+    "text": "The range is always the best measure of spread.",
+    "is_correct": false,
+    "rationale": "The best measure depends on shape and outliers."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-040",
+  "topic": "1.13",
+  "stem": "How could blocking help?",
+  "stimulus": "An experiment compares two diets, but age may affect results.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Ignore age because random assignment always eliminates all variation.",
+    "is_correct": false,
+    "rationale": "Random assignment reduces confounding but does not remove all variation."
+   },
+   {
+    "label": "B",
+    "text": "Group subjects into age categories before random assignment within each age block.",
+    "is_correct": true,
+    "rationale": "Blocking controls a known source of variability by balancing it across treatments."
+   },
+   {
+    "label": "C",
+    "text": "Use convenience sampling instead.",
+    "is_correct": false,
+    "rationale": "Convenience sampling increases bias and does not block anything."
+   },
+   {
+    "label": "D",
+    "text": "Use the largest age group only.",
+    "is_correct": false,
+    "rationale": "This would discard data and does not properly block."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-044",
+  "topic": "1.13",
+  "stem": "Why is this useful?",
+  "stimulus": "A medical trial is designed so neither the subjects nor the evaluators know who receives the pill or placebo.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It guarantees the treatment works.",
+    "is_correct": false,
+    "rationale": "Blinding does not guarantee effectiveness."
+   },
+   {
+    "label": "B",
+    "text": "It helps reduce placebo effects and observer bias.",
+    "is_correct": true,
+    "rationale": "Blinding reduces the chance that expectations affect responses or measurements."
+   },
+   {
+    "label": "C",
+    "text": "It removes the need for random assignment.",
+    "is_correct": false,
+    "rationale": "Random assignment is still needed."
+   },
+   {
+    "label": "D",
+    "text": "It makes the sample larger.",
+    "is_correct": false,
+    "rationale": "Blinding does not change sample size."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-048",
+  "topic": "2.6",
+  "stem": "What is the probability of success on both stages?",
+  "stimulus": "A two-stage process has P(first success) = 0.3 and P(second success | first success) = 0.5.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.8",
+    "is_correct": false,
+    "rationale": "This adds probabilities instead of multiplying along the path."
+   },
+   {
+    "label": "B",
+    "text": "0.15",
+    "is_correct": true,
+    "rationale": "Multiply along the path: 0.3 × 0.5 = 0.15."
+   },
+   {
+    "label": "C",
+    "text": "0.35",
+    "is_correct": false,
+    "rationale": "Multiplies 0.7 (the probability the first stage does not succeed) by 0.5 instead of 0.3 by 0.5: 0.7 × 0.5 = 0.35."
+   },
+   {
+    "label": "D",
+    "text": "0.65",
+    "is_correct": false,
+    "rationale": "Treats the two probabilities as overlapping events and adds them, 0.3 + 0.5 − 0.15 = 0.65, instead of multiplying 0.3 × 0.5 = 0.15 for both stages succeeding."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-052",
+  "topic": "2.10",
+  "stem": "What features are needed for a binomial setting?",
+  "stimulus": "A basketball player makes a free throw with probability 0.7 on each attempt.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Any random experiment with numerical outcomes.",
+    "is_correct": false,
+    "rationale": "Not every random experiment is binomial."
+   },
+   {
+    "label": "B",
+    "text": "A fixed number of trials, independent trials, two outcomes per trial, and a constant success probability.",
+    "is_correct": true,
+    "rationale": "Those are the standard binomial conditions."
+   },
+   {
+    "label": "C",
+    "text": "At least three outcomes on each trial.",
+    "is_correct": false,
+    "rationale": "Binomial trials have only two outcomes."
+   },
+   {
+    "label": "D",
+    "text": "A changing success probability from trial to trial.",
+    "is_correct": false,
+    "rationale": "Constant p is required."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-058",
+  "topic": "4.2 (registered; content is a proportion CI, so 3.3)",
+  "stem": "What happens if the sample size increases and all else stays the same?",
+  "stimulus": "A 95% confidence interval for a population proportion has margin of error 0.04.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The margin of error gets larger.",
+    "is_correct": false,
+    "rationale": "That is the opposite of the sample-size effect."
+   },
+   {
+    "label": "B",
+    "text": "The margin of error stays exactly the same.",
+    "is_correct": false,
+    "rationale": "Sample size affects SE and MOE."
+   },
+   {
+    "label": "C",
+    "text": "The margin of error gets smaller.",
+    "is_correct": true,
+    "rationale": "Larger samples reduce standard error, which shrinks the margin of error."
+   },
+   {
+    "label": "D",
+    "text": "The margin of error becomes negative.",
+    "is_correct": false,
+    "rationale": "Margins of error are never negative."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-063",
+  "topic": "3.8",
+  "stem": "What is the power of the test?",
+  "stimulus": "A study has β = 0.25 for a particular test.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.25",
+    "is_correct": false,
+    "rationale": "That is β, the Type II error rate."
+   },
+   {
+    "label": "B",
+    "text": "0.75",
+    "is_correct": true,
+    "rationale": "Power = 1 - β = 0.75."
+   },
+   {
+    "label": "C",
+    "text": "0.05",
+    "is_correct": false,
+    "rationale": "That would be α in many settings, not power."
+   },
+   {
+    "label": "D",
+    "text": "0.95",
+    "is_correct": false,
+    "rationale": "This is not 1 - β here."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-074",
+  "topic": "2.6",
+  "stem": "Which formula correctly finds P(machine B | defective)?",
+  "stimulus": "A factory has three machines with different defect rates and production shares.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "P(B)P(defective)",
+    "is_correct": false,
+    "rationale": "This is not conditional probability; it omits the denominator."
+   },
+   {
+    "label": "B",
+    "text": "P(B | defective) = P(B) / P(defective | B)",
+    "is_correct": false,
+    "rationale": "That is not Bayes’ theorem."
+   },
+   {
+    "label": "C",
+    "text": "P(defective | B) + P(B)",
+    "is_correct": false,
+    "rationale": "Probabilities are not combined this way."
+   },
+   {
+    "label": "D",
+    "text": "P(defective | B)P(B) / P(defective)",
+    "is_correct": true,
+    "rationale": "Bayes’ theorem reverses the conditional probability using the defect probability in the numerator and the total defect probability in the denominator."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-081",
+  "topic": "2.9",
+  "stem": "What is the mean?",
+  "stimulus": "A random variable takes values 1, 2, and 3 with probabilities 0.2, 0.5, and 0.3.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2.1",
+    "is_correct": true,
+    "rationale": "E(X) = 1(0.2) + 2(0.5) + 3(0.3) = 2.1."
+   },
+   {
+    "label": "B",
+    "text": "2.0",
+    "is_correct": false,
+    "rationale": "This likely comes from a rough average rather than the weighted mean."
+   },
+   {
+    "label": "C",
+    "text": "0.6",
+    "is_correct": false,
+    "rationale": "This is not the correct weighted average."
+   },
+   {
+    "label": "D",
+    "text": "3.0",
+    "is_correct": false,
+    "rationale": "This is the largest outcome, not the mean."
+   }
+  ]
+ }
+]

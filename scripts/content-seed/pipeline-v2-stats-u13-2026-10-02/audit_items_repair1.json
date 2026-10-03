@@ -1,0 +1,122 @@
+[
+ {
+  "key": "APSTATS-MCQ-047",
+  "kind": "mcq",
+  "stem": "P(A) = 0.3, P(B) = 0.4, and P(A and B) = 0.12.\n\nAre A and B independent?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "No, because P(A) and P(B) are not equal."
+   },
+   {
+    "label": "B",
+    "text": "No, because the events both have probabilities less than 1."
+   },
+   {
+    "label": "C",
+    "text": "Yes, because A and B cannot both happen."
+   },
+   {
+    "label": "D",
+    "text": "Yes, because P(A)P(B) = 0.12 = P(A and B)."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Equal probabilities are not required for independence.",
+   "B": "Having probabilities less than 1 does not decide independence. Independence is checked by comparing P(A and B) with P(A)P(B): here 0.3 × 0.4 = 0.12, which equals P(A and B), so A and B are independent.",
+   "C": "That would describe mutually exclusive events, not independence.",
+   "D": "Independence holds when the joint probability equals the product of the marginal probabilities."
+  }
+ },
+ {
+  "key": "APSTATS-MCQ-080",
+  "kind": "mcq",
+  "stem": "A test reports p = 0.12 and α = 0.05.\n\nWhich conclusion is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Reject H₀ because p is less than 1."
+   },
+   {
+    "label": "B",
+    "text": "Accept H₀ as proven."
+   },
+   {
+    "label": "C",
+    "text": "Fail to reject H₀; the result is not statistically significant at the 0.05 level."
+   },
+   {
+    "label": "D",
+    "text": "The alternative hypothesis is true with probability 0.12."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The p-value is compared with α, not with 1. Here p = 0.12 is greater than α = 0.05, so there is not enough evidence to reject H₀.",
+   "B": "We do not prove the null true.",
+   "C": "Because p > α, the evidence is not strong enough to reject the null.",
+   "D": "That is a common misinterpretation of p-values."
+  }
+ },
+ {
+  "key": "APSTATS-MCQ-045",
+  "kind": "mcq",
+  "stem": "A principal asks every student in the school to fill out a survey.\n\nWhat is this called?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A random sample"
+   },
+   {
+    "label": "B",
+    "text": "A stratified sample"
+   },
+   {
+    "label": "C",
+    "text": "A census"
+   },
+   {
+    "label": "D",
+    "text": "A biased sample"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "A random sample selects only some members of the population by chance. Here every student is asked, so nothing is sampled and the survey is a census.",
+   "B": "There is no subsampling by strata here.",
+   "C": "A census collects data from every member of the population of interest.",
+   "D": "A census may still have nonresponse issues, but it is still a census by definition."
+  }
+ },
+ {
+  "key": "APSTATS-MCQ-048",
+  "kind": "mcq",
+  "stem": "A two-stage process has P(first success) = 0.3 and P(second success | first success) = 0.5.\n\nWhat is the probability of success on both stages?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.8"
+   },
+   {
+    "label": "B",
+    "text": "0.15"
+   },
+   {
+    "label": "C",
+    "text": "0.35"
+   },
+   {
+    "label": "D",
+    "text": "0.65"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This adds probabilities instead of multiplying along the path.",
+   "B": "Multiply along the path: 0.3 × 0.5 = 0.15.",
+   "C": "Multiplies 0.7 (the probability the first stage does not succeed) by 0.5 instead of 0.3 by 0.5: 0.7 × 0.5 = 0.35.",
+   "D": "Treats the two probabilities as overlapping events and adds them, 0.3 + 0.5 − 0.15 = 0.65, instead of multiplying 0.3 × 0.5 = 0.15 for both stages succeeding."
+  }
+ }
+]
