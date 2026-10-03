@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0087 — AP Physics 1: Retire 4 Course-Framework Questions; Remove the Duplicated A-D List From 32 Published Stems (Production) — DECISION-0085
 - APPROVAL-0086 — AP Physics 1 Units 1-3: Repair 4 Published MCQ Rationales, Release 1 Held Item, Create 32 Topic Cells (Production) — DECISION-0085
 - APPROVAL-0085 — Author, Load and Publish 109 New AP Calculus AB Units 2-3 Questions: 28 Seeds and 81 Variants (Production) — DECISION-0093
 - APPROVAL-0084 — Load and Publish 29 AP Calculus AB Units 2-3 Pilot Variants (Production) — DECISION-0093
@@ -198,10 +199,25 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
+## APPROVAL-0087 — AP Physics 1: Retire 4 Course-Framework Questions; Remove the Duplicated A-D List From 32 Published Stems (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Retire the 4."; "Fix #3 now")  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0086`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `29c719dc-701b-470f-9e49-fab981722d3f`):** (1) Retired (item and version status `retired`): `apphy1-mcq-np1-001`, `np1-002`, `np1-003`, `np1-006`, which ask how the AP Physics 1 course framework treats a topic or how the exam is scored rather than a physics question (`np1-006`'s keyed answer also disputed by one checker; `np1-002` had been returned to held earlier the same day). (2) 32 published MCQs whose stem repeated the A-D choices already stored as choices had that repeated list removed in a new version (stem only; choices, keys, rationales, topic cells and difficulty carried over; each embedded list was first verified to match the real choices exactly). 24 of them were validated and received a new validated, hash-fresh label with the unit unchanged; 8 were held items (`010`, `015`, `016`, `021`, `022`, `023`, `045`, `np2-003`), whose labels stay held.
+
+**Result:** Physics 1 published 117 to 113, unit-gated servable 87 to 83 (4 retired, one of which, `np1-002`, had already been returned to held; and `np1-001`, `003`, `006` were servable), validated labels 89 to 85. The census reports 8 stale hashes: the eight held items above, which are not served.
+
+**Found, not done:** 21 more published Physics 1 MCQs in Units 4-8 (`009`, `011`, `012`, `014`, `017`, `018`, `024`, `025`, `026`, `042`, `043`, `044`, `046` to `050`, `np2-001`, `np2-004`, `np2-008`, `np2-009`) have the same duplicated list. Left alone because the run is Units 1-3 only.
+
+**Not approved by this entry:** loading the 89 Physics 1 variants (authored and checked); the 21 Units 4-8 stem cleanups.
+
 ## APPROVAL-0086 — AP Physics 1 Units 1-3: Repair 4 Published MCQ Rationales, Release 1 Held Item, Create 32 Topic Cells (Production)
 
 **Date:** 2026-10-03  
-**Approved By:** David Bloom (2026-10-03 Claude session: "Keep going", continuing the Units 1-3 run in the order Biology, Calculus AB, Physics 1, Calculus BC, Precalculus)  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Keep going", continuing the Units 1-3 run in the order Biology, Calculus AB, Physics 1, Calculus BC, Precalculus; confirmed after the fact in the same session: "I approve 0086")  
 **Related Decision:** `DECISION-0085`; follows `APPROVAL-0085`  
 **Decision:** Approved
 
