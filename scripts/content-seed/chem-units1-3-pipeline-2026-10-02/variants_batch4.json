@@ -1,0 +1,521 @@
+[
+ {
+  "id": "apchem-mcq-030-v1",
+  "seed": "apchem-mcq-030",
+  "difficulty": "medium",
+  "title": "Ethanol versus dimethyl ether",
+  "stem": "Ethanol (CH3CH2OH) and dimethyl ether (CH3OCH3) are isomers, so each has a molar mass of 46 g/mol. Ethanol boils at 78°C, whereas dimethyl ether boils at -24°C. Which statement best explains this difference?",
+  "correct": {
+   "text": "Ethanol has an H atom bonded to O, so its molecules hydrogen bond to one another; the H atoms in dimethyl ether are bonded only to C.",
+   "rationale": "Correct: ethanol's O-H group lets the H of one molecule be attracted to the O of a neighboring molecule (hydrogen bonding). Dimethyl ether is polar but has no H bonded to N, O, or F, so it has only dipole-dipole forces plus London dispersion forces. Because the molar masses (and so the dispersion forces) are the same, the extra hydrogen bonding explains ethanol's much higher boiling point."
+  },
+  "wrong": [
+   {
+    "text": "Ethanol has much stronger London dispersion forces because its molecules are larger and more polarizable than those of dimethyl ether.",
+    "rationale": "Incorrect: the two compounds are isomers with identical molar mass and the same number of electrons, so their dispersion forces are comparable. Size cannot account for a 100°C difference.",
+    "error_pattern": "Attributes any boiling-point difference to molecular size/dispersion forces without checking that the molar masses are equal."
+   },
+   {
+    "text": "Dimethyl ether is nonpolar, so it has only London dispersion forces, whereas the polar ethanol also has dipole-dipole forces.",
+    "rationale": "Incorrect: the C-O-C unit of dimethyl ether is bent, so its bond dipoles do not cancel and the molecule is polar. It therefore has dipole-dipole forces as well; the real difference is that only ethanol can hydrogen bond.",
+    "error_pattern": "Assumes a molecule containing C and H with an ether oxygen must be nonpolar."
+   },
+   {
+    "text": "Every H atom in dimethyl ether can hydrogen bond, but the O-H hydrogen bonds in ethanol are considerably stronger.",
+    "rationale": "Incorrect: hydrogen bonding requires H covalently bonded to N, O, or F. The H atoms in dimethyl ether are all bonded to C, so dimethyl ether cannot act as a hydrogen-bond donor, and its molecules do not hydrogen bond with one another.",
+    "error_pattern": "Believes any H atom in a molecule that also contains O can form hydrogen bonds."
+   }
+  ],
+  "change_note": "Isomer pair of different compounds (ethanol/dimethyl ether), equal molar mass; seed used CH3F vs CH3OH with similar molar mass. Distractors target size, polarity and H-donor misconceptions.",
+  "check": "conceptual",
+  "facts": [
+   "Ethanol has O-H (H-bond donor and acceptor).",
+   "Dimethyl ether: C-O-C bent, polar, no H on O, dipole-dipole + LDF only.",
+   "Isomers have equal molar mass so LDF comparable.",
+   "H-bond donors require H bonded to N/O/F."
+  ]
+ },
+ {
+  "id": "apchem-mcq-030-v2",
+  "seed": "apchem-mcq-030",
+  "difficulty": "easy",
+  "title": "Why water boils higher than H2S",
+  "stem": "H2O has a molar mass of 18 g/mol, and H2S has a molar mass of 34 g/mol. Even so, H2O boils at 100°C while H2S boils at -60°C. Which statement best explains why H2O has the much higher boiling point?",
+  "correct": {
+   "text": "H2O molecules form hydrogen bonds with one another because H is bonded to O, whereas H2S has no H bonded to N, O, or F.",
+   "rationale": "Correct: each H2O molecule has H atoms bonded directly to O, so molecules attract each other through hydrogen bonds, which are much stronger than the dipole-dipole and London dispersion forces that are all H2S can offer (S is not N, O, or F). The strong intermolecular hydrogen bonding must be overcome in boiling, giving H2O the higher boiling point even though its dispersion forces are weaker."
+  },
+  "wrong": [
+   {
+    "text": "H2O has the stronger London dispersion forces because oxygen is more electronegative than sulfur.",
+    "rationale": "Incorrect: dispersion forces depend on the size and polarizability of the electron cloud, and sulfur's larger electron cloud makes H2S more polarizable, so H2S has the stronger dispersion forces. Electronegativity does not set dispersion strength.",
+    "error_pattern": "Confuses electronegativity with polarizability when judging London dispersion forces."
+   },
+   {
+    "text": "Boiling H2O requires breaking the O-H covalent bonds, which are stronger than the S-H bonds in H2S.",
+    "rationale": "Incorrect: boiling is a physical change in which the molecules stay intact; only intermolecular attractions are overcome, not the covalent bonds inside each molecule. Comparing bond strengths therefore does not explain boiling points.",
+    "error_pattern": "Confuses intramolecular covalent bonds with intermolecular forces."
+   },
+   {
+    "text": "H2S has the larger molar mass, so its molecules attract one another more strongly and H2S should have the higher boiling point.",
+    "rationale": "Incorrect: this contradicts the data, since H2O has the higher boiling point. Larger molar mass does strengthen dispersion forces, but the hydrogen bonding in H2O outweighs that effect, so molar mass alone is not a reliable predictor.",
+    "error_pattern": "Treats larger molar mass as always producing the higher boiling point, overriding hydrogen bonding."
+   }
+  ],
+  "change_note": "Different substances (H2O vs H2S) in which the correct-boiling-point molecule has the LOWER molar mass; seed compared similar-mass molecules. Adds intra/intermolecular and polarizability distractors.",
+  "check": "conceptual",
+  "facts": [
+   "H2O has H bonded to O: hydrogen bonding.",
+   "S is not N/O/F so H2S: dipole-dipole + LDF.",
+   "Boiling overcomes IMFs, not covalent bonds.",
+   "Larger S electron cloud gives H2S larger dispersion, but H-bonding dominates."
+  ]
+ },
+ {
+  "id": "apchem-mcq-030-v3",
+  "seed": "apchem-mcq-030",
+  "difficulty": "medium",
+  "title": "Methylamine versus ethane",
+  "stem": "Methylamine (CH3NH2, 31 g/mol) boils at -6°C, while ethane (CH3CH3, 30 g/mol) boils at -89°C. Which statement best explains why methylamine has the higher boiling point?",
+  "correct": {
+   "text": "Methylamine molecules hydrogen bond through their N-H groups, whereas ethane molecules are held together only by London dispersion forces.",
+   "rationale": "Correct: methylamine has H atoms bonded directly to N, so the N-H hydrogen of one molecule is attracted to the lone pair on N of another (hydrogen bonding), in addition to dipole-dipole and dispersion forces. Ethane is nonpolar and has only London dispersion forces. The two molar masses are nearly equal, so the hydrogen bonding accounts for the large boiling-point difference."
+  },
+  "wrong": [
+   {
+    "text": "The N-H covalent bonds in methylamine must be broken when it boils, and these are much stronger than the C-C bond in ethane.",
+    "rationale": "Incorrect: boiling does not break covalent bonds; it separates intact molecules by overcoming intermolecular forces. The covalent bond strengths inside the molecules are not what determine boiling point.",
+    "error_pattern": "Confuses intramolecular covalent bonds with intermolecular forces."
+   },
+   {
+    "text": "Methylamine has a slightly greater molar mass than ethane, so its London dispersion forces are much stronger than those of ethane.",
+    "rationale": "Incorrect: 31 g/mol versus 30 g/mol is a negligible difference (both molecules even have 18 electrons), so the dispersion forces are essentially equal and cannot explain a boiling-point difference of over 80°C.",
+    "error_pattern": "Treats any difference in molar mass as enough to explain a large property difference."
+   },
+   {
+    "text": "Ethane has C-H bonds that form hydrogen bonds, but the N-H hydrogen bonds in methylamine are considerably stronger than these.",
+    "rationale": "Incorrect: hydrogen bonding requires H bonded to N, O, or F. The C-H bonds in ethane are essentially nonpolar and cannot form hydrogen bonds, so ethane has only dispersion forces.",
+    "error_pattern": "Believes any H-containing molecule can hydrogen bond, differing only in strength."
+   }
+  ],
+  "change_note": "Nitrogen-based H-bond donor (amine) versus nonpolar alkane; seed used O-H alcohol versus fluoroalkane. Different distractor set (intra/inter, trivial mass difference, C-H H-bonds).",
+  "check": "conceptual",
+  "facts": [
+   "N-H bonds permit hydrogen bonding in CH3NH2.",
+   "Ethane nonpolar: LDF only.",
+   "Both have 18 electrons so LDF about equal.",
+   "C-H cannot H-bond; boiling does not break covalent bonds."
+  ]
+ },
+ {
+  "id": "apchem-mcq-031-v1",
+  "seed": "apchem-mcq-031",
+  "difficulty": "medium",
+  "title": "Hard, nonconducting, high melting solid",
+  "stem": "A solid is very hard and brittle and melts above 1,700°C. It does not conduct electricity as a solid, and it does not conduct electricity when molten. What type of solid is this sample most likely to be?",
+  "correct": {
+   "text": "A network solid, such as silicon carbide",
+   "rationale": "Correct: in a covalent network solid such as silicon carbide every atom is held in a continuous lattice by directional covalent bonds, so the solid is very hard and brittle and has a very high melting point. There are no ions and no delocalized electrons, so it does not conduct electricity as a solid or as a liquid."
+  },
+  "wrong": [
+   {
+    "text": "An ionic solid, such as magnesium oxide",
+    "rationale": "Incorrect: ionic solids are hard, brittle and high-melting and do not conduct as solids, but the mobile ions in the molten state conduct electricity. This sample does not conduct when molten, which rules out an ionic solid.",
+    "error_pattern": "Equates high melting point and hardness with ionic bonding and ignores the molten-state conductivity."
+   },
+   {
+    "text": "A metallic solid, such as tungsten metal",
+    "rationale": "Incorrect: metallic solids can have very high melting points, but their delocalized electrons make them conduct in the solid and molten states, and they are malleable rather than brittle. This sample is nonconducting and brittle.",
+    "error_pattern": "Equates high melting point with metallic bonding and overlooks conductivity and brittleness."
+   },
+   {
+    "text": "A molecular solid, such as solid carbon dioxide",
+    "rationale": "Incorrect: molecular solids do not conduct in either state, but they are held together by weak intermolecular forces and so are soft and melt at low temperatures. A melting point above 1,700°C is not consistent with a molecular solid.",
+    "error_pattern": "Uses nonconductivity alone to choose molecular solid and ignores hardness and melting point."
+   }
+  ],
+  "change_note": "Different property set (hard, brittle, nonconducting in both states, very high mp) leading to a network solid; seed identified a metallic solid. Distractors now target high-mp misassociations.",
+  "check": "conceptual",
+  "facts": [
+   "Network solid: continuous covalent lattice, hard, brittle, very high mp, no mobile charge in either state.",
+   "Ionic liquids conduct.",
+   "Metals conduct and are malleable.",
+   "Molecular solids have low mp."
+  ]
+ },
+ {
+  "id": "apchem-mcq-031-v2",
+  "seed": "apchem-mcq-031",
+  "difficulty": "medium",
+  "title": "Brittle solid that conducts when molten",
+  "stem": "A white crystalline solid shatters when struck with a hammer and melts at 801°C. The solid does not conduct electricity, but it conducts electricity well after it is melted. What type of solid is this sample most likely to be?",
+  "correct": {
+   "text": "An ionic solid, such as sodium chloride",
+   "rationale": "Correct: ions are fixed in the rigid lattice of an ionic solid, so there are no mobile charge carriers and the solid does not conduct. Melting frees the ions to move, so the liquid conducts. Strong Coulombic attractions between ions give a high melting point, and displacing layers of the lattice brings like charges together, so the crystal is brittle and shatters."
+  },
+  "wrong": [
+   {
+    "text": "A metallic solid, such as copper",
+    "rationale": "Incorrect: metals conduct electricity in the solid state because of delocalized valence electrons and are malleable, not brittle. This sample is nonconducting as a solid and shatters.",
+    "error_pattern": "Chooses metallic because the sample conducts in the molten state, ignoring the nonconducting solid and brittleness."
+   },
+   {
+    "text": "A covalent network solid, such as quartz",
+    "rationale": "Incorrect: network solids such as quartz are also brittle, high-melting and nonconducting as solids, but they stay nonconducting when molten because the atoms are bonded, not ionized. A sample that conducts after melting contains mobile ions.",
+    "error_pattern": "Equates brittle, nonconducting solid with network bonding and ignores the molten-state conductivity."
+   },
+   {
+    "text": "A molecular solid, such as sucrose",
+    "rationale": "Incorrect: molecular solids have weak intermolecular forces and melt at low temperatures, and the liquid contains neutral molecules that do not carry charge. A melting point of 801°C and conductivity in the liquid are both inconsistent with a molecular solid.",
+    "error_pattern": "Chooses molecular solid solely because the solid does not conduct."
+   }
+  ],
+  "change_note": "Identifies an ionic solid from conductivity-on-melting evidence with mp value; seed identified a metal from conductivity in both states and malleability.",
+  "check": "conceptual",
+  "facts": [
+   "Ionic: nonconducting solid, conducting liquid, brittle, high mp.",
+   "Metals conduct as solids.",
+   "Network solids do not conduct when molten.",
+   "Molecular solids low mp."
+  ]
+ },
+ {
+  "id": "apchem-mcq-031-v3",
+  "seed": "apchem-mcq-031",
+  "difficulty": "easy",
+  "title": "Soft low-melting nonconductor",
+  "stem": "A yellow solid is soft, melts at 119°C, and dissolves in nonpolar solvents. It does not conduct electricity as a solid or as a liquid. What type of solid is this sample most likely to be?",
+  "correct": {
+   "text": "A molecular solid, such as solid sulfur",
+   "rationale": "Correct: a molecular solid consists of discrete covalently bonded molecules held together by weak intermolecular forces. Little energy is needed to separate the molecules, so it is soft and has a low melting point. It contains neither ions nor delocalized electrons, so it does not conduct as a solid or a liquid, and nonpolar molecules dissolve in nonpolar solvents."
+  },
+  "wrong": [
+   {
+    "text": "An ionic solid, such as potassium bromide",
+    "rationale": "Incorrect: ionic solids have strong ion-ion attractions, so they are hard and brittle with high melting points, and the molten liquid conducts electricity because ions can move. A soft solid with mp 119°C that does not conduct as a liquid is not ionic.",
+    "error_pattern": "Picks ionic because the solid does not conduct, forgetting that molten ionic compounds do conduct."
+   },
+   {
+    "text": "A covalent network solid, such as diamond",
+    "rationale": "Incorrect: network solids such as diamond are nonconducting, but they are extremely hard and have very high melting points because a continuous lattice of covalent bonds must be broken. A soft solid melting at 119°C is not a network solid.",
+    "error_pattern": "Treats 'covalent' in the description as meaning network solid, without checking the hardness and melting point."
+   },
+   {
+    "text": "A metallic solid, such as lead",
+    "rationale": "Incorrect: metals have delocalized electrons that conduct electricity in both the solid and liquid states. Because this sample does not conduct in either state, it is not a metal.",
+    "error_pattern": "Chooses metallic because the solid is soft, ignoring conductivity."
+   }
+  ],
+  "change_note": "Molecular solid with low mp, softness and solubility in nonpolar solvent; seed identified a metallic solid. All distractor types of solid represented through different property mismatches.",
+  "check": "conceptual",
+  "facts": [
+   "Molecular solid: weak IMF, soft, low mp, nonconducting.",
+   "Ionic liquids conduct.",
+   "Network solids very hard, high mp.",
+   "Metals conduct."
+  ]
+ },
+ {
+  "id": "apchem-mcq-032-v1",
+  "seed": "apchem-mcq-032",
+  "difficulty": "easy",
+  "title": "Pressure of argon in a tank",
+  "stem": "A rigid 5.00 L tank holds 0.250 mol of argon gas at 47°C. What is the pressure of the gas? (R = 0.08206 L*atm/(mol*K))",
+  "correct": {
+   "text": "1.31 atm",
+   "rationale": "Correct: convert 47°C to 320 K. Then P = nRT/V = (0.250 mol)(0.08206 L*atm/(mol*K))(320 K) / 5.00 L = 6.565 / 5.00 = 1.31 atm."
+  },
+  "wrong": [
+   {
+    "text": "0.193 atm",
+    "rationale": "Incorrect: this results from using T = 47 (the Celsius value) instead of 320 K: (0.250)(0.08206)(47) / 5.00 = 0.193 atm. The ideal gas law requires kelvin.",
+    "error_pattern": "Uses the Celsius temperature directly instead of converting to kelvin."
+   },
+   {
+    "text": "5.25 atm",
+    "rationale": "Incorrect: this results from using n = 1 mol rather than 0.250 mol: (1)(0.08206)(320) / 5.00 = 5.25 atm, so the given amount of gas was ignored.",
+    "error_pattern": "Drops the mole value (uses n = 1) in the calculation."
+   },
+   {
+    "text": "32.8 atm",
+    "rationale": "Incorrect: this results from multiplying by volume instead of dividing: (0.250)(0.08206)(320)(5.00) = 32.8 atm, inverting the dependence of P on V.",
+    "error_pattern": "Multiplies by V instead of dividing by V."
+   }
+  ],
+  "change_note": "New gas (Ar), n = 0.250 mol, V = 5.00 L, T = 47C; same solve-for-P task as seed with a tank context.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-032-v2",
+  "seed": "apchem-mcq-032",
+  "difficulty": "medium",
+  "title": "Moles of gas in a flask",
+  "stem": "A 4.00 L flask contains a sample of nitrogen gas at 1.50 atm and 127°C. How many moles of nitrogen gas are in the flask? (R = 0.08206 L*atm/(mol*K))",
+  "correct": {
+   "text": "0.183 mol",
+   "rationale": "Correct: convert 127°C to 400 K. Then n = PV/RT = (1.50 atm)(4.00 L) / [(0.08206 L*atm/(mol*K))(400 K)] = 6.00 / 32.82 = 0.183 mol."
+  },
+  "wrong": [
+   {
+    "text": "0.576 mol",
+    "rationale": "Incorrect: this results from using T = 127 (the Celsius value) instead of 400 K: 6.00 / [(0.08206)(127)] = 0.576 mol. The ideal gas law requires kelvin.",
+    "error_pattern": "Uses the Celsius temperature directly instead of converting to kelvin."
+   },
+   {
+    "text": "5.47 mol",
+    "rationale": "Incorrect: this results from inverting the rearrangement, n = RT/PV: (0.08206)(400) / 6.00 = 5.47 mol, placing P and V in the denominator when solving for n.",
+    "error_pattern": "Inverts the ideal gas law rearrangement (n = RT/PV)."
+   },
+   {
+    "text": "0.0150 mol",
+    "rationale": "Incorrect: this results from leaving out the gas constant, n = PV/T: 6.00 / 400 = 0.0150 mol. R is needed to link the units of pressure and volume to moles and kelvin.",
+    "error_pattern": "Omits R from the calculation."
+   }
+  ],
+  "change_note": "Solves for n instead of P; new gas (N2), V = 4.00 L, P = 1.50 atm, T = 127C; distractors from inverted rearrangement and omitted R.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-032-v3",
+  "seed": "apchem-mcq-032",
+  "difficulty": "medium",
+  "title": "Volume of a gas sample",
+  "stem": "A flexible container holds 0.800 mol of helium gas at 2.50 atm and 25°C. What is the volume of the container? (R = 0.08206 L*atm/(mol*K))",
+  "correct": {
+   "text": "7.83 L",
+   "rationale": "Correct: convert 25°C to 298 K. Then V = nRT/P = (0.800 mol)(0.08206 L*atm/(mol*K))(298 K) / 2.50 atm = 19.56 / 2.50 = 7.83 L."
+  },
+  "wrong": [
+   {
+    "text": "0.656 L",
+    "rationale": "Incorrect: this results from using T = 25 (the Celsius value) instead of 298 K: (0.800)(0.08206)(25) / 2.50 = 0.656 L. The ideal gas law requires kelvin.",
+    "error_pattern": "Uses the Celsius temperature directly instead of converting to kelvin."
+   },
+   {
+    "text": "0.128 L",
+    "rationale": "Incorrect: this results from inverting the expression, V = P/(nRT): 2.50 / [(0.800)(0.08206)(298)] = 0.128 L, which puts nRT in the denominator.",
+    "error_pattern": "Inverts the ideal gas law rearrangement (V = P/nRT)."
+   },
+   {
+    "text": "48.9 L",
+    "rationale": "Incorrect: this results from multiplying by pressure instead of dividing: (0.800)(0.08206)(298)(2.50) = 48.9 L, which treats V as proportional to P when it is inversely proportional.",
+    "error_pattern": "Multiplies by P instead of dividing by P."
+   }
+  ],
+  "change_note": "Solves for V; new gas (He), n = 0.800 mol, P = 2.50 atm, T = 25C; flexible container instead of rigid.",
+  "check": "numeric"
+ },
+ {
+  "id": "apchem-mcq-033-v1",
+  "seed": "apchem-mcq-033",
+  "difficulty": "easy",
+  "title": "Hydrogen and carbon dioxide at one temperature",
+  "stem": "Samples of H2(g) and CO2(g) are in separate flasks at 300 K. Which statement about the molecules in the two samples is correct?",
+  "correct": {
+   "text": "The average kinetic energy is the same for both samples, and the H2 molecules move faster on average than the CO2 molecules.",
+   "rationale": "Correct: average kinetic energy depends only on absolute temperature, so it is the same for H2 and CO2 at 300 K. Since KE = 1/2 mv², the much less massive H2 molecules (2 g/mol versus 44 g/mol) must have a greater average speed to have the same average kinetic energy."
+  },
+  "wrong": [
+   {
+    "text": "The CO2 molecules have the greater average kinetic energy because they are more massive, and they move faster on average.",
+    "rationale": "Incorrect: average kinetic energy is determined by temperature alone, not by mass, so it cannot differ between the samples at the same temperature. The heavier CO2 molecules actually move more slowly on average.",
+    "error_pattern": "Believes a more massive particle has more kinetic energy at the same temperature and moves faster."
+   },
+   {
+    "text": "The average kinetic energy and the average speed are both the same for the two samples because the temperatures are the same.",
+    "rationale": "Incorrect: the average kinetic energy is the same, but KE = 1/2 mv² links speed to mass, so particles of different mass with equal KE have different speeds. Equal temperature does not mean equal speed.",
+    "error_pattern": "Assumes equal temperature implies equal molecular speed as well as equal kinetic energy."
+   },
+   {
+    "text": "The H2 molecules have the greater average kinetic energy because they move faster, so the two samples are at different temperatures.",
+    "rationale": "Incorrect: this reverses the logic. The temperatures are given as equal, so the average kinetic energies are equal; the higher speed of H2 is a consequence of its smaller mass, not a sign of greater kinetic energy.",
+    "error_pattern": "Equates greater speed with greater kinetic energy regardless of particle mass."
+   }
+  ],
+  "change_note": "Different gas pair (H2/CO2, 300 K) with a wider mass gap; distractors reworded around KE-vs-speed confusion rather than copying the seed's contradictory option.",
+  "check": "conceptual",
+  "facts": [
+   "Average KE depends only on T.",
+   "KE = 1/2 mv²: smaller mass means higher speed at equal KE.",
+   "H2 2 g/mol, CO2 44 g/mol."
+  ]
+ },
+ {
+  "id": "apchem-mcq-033-v2",
+  "seed": "apchem-mcq-033",
+  "difficulty": "hard",
+  "title": "Doubling the Kelvin temperature",
+  "stem": "A rigid container holds helium gas at 300 K. The gas is heated to 600 K. Which statement correctly describes the change in the average kinetic energy and the average speed of the helium atoms?",
+  "correct": {
+   "text": "The average kinetic energy doubles, and the average speed increases by a factor of about 1.4.",
+   "rationale": "Correct: average kinetic energy is directly proportional to Kelvin temperature, so doubling T from 300 K to 600 K doubles the average kinetic energy. Because KE = 1/2 mv² and the mass of a He atom is unchanged, speed is proportional to the square root of KE, so the average speed increases by √2, about 1.4."
+  },
+  "wrong": [
+   {
+    "text": "The average kinetic energy doubles, and the average speed also doubles.",
+    "rationale": "Incorrect: if the speed doubled, the kinetic energy (proportional to v²) would increase by a factor of 4, not 2. The average speed increases only by √2, about 1.4.",
+    "error_pattern": "Treats speed as directly proportional to Kelvin temperature, forgetting that KE depends on v squared."
+   },
+   {
+    "text": "The average kinetic energy doubles, and the average speed stays the same because the mass of each atom is unchanged.",
+    "rationale": "Incorrect: the kinetic energy increases, and with the mass fixed the only way to increase 1/2 mv² is to increase v. The speed increases by about 1.4.",
+    "error_pattern": "Thinks speed depends only on mass and not on temperature."
+   },
+   {
+    "text": "The average kinetic energy increases by a factor of about 1.4, and the average speed increases by a factor of about 1.4.",
+    "rationale": "Incorrect: the average kinetic energy is directly proportional to the Kelvin temperature, so doubling T doubles it. The factor of √2 applies to the speed, not to the kinetic energy.",
+    "error_pattern": "Applies the square-root relationship to kinetic energy instead of speed."
+   }
+  ],
+  "change_note": "Same-gas temperature-change task with quantitative proportionality (T doubled) rather than comparing two gases; seed compared He and O2 at same T.",
+  "check": "conceptual",
+  "facts": [
+   "KE ∝ T (Kelvin).",
+   "KE = 1/2 mv² so v ∝ sqrt(T) at fixed mass.",
+   "sqrt(2) ≈ 1.4."
+  ]
+ },
+ {
+  "id": "apchem-mcq-033-v3",
+  "seed": "apchem-mcq-033",
+  "difficulty": "medium",
+  "title": "Helium and argon in one vessel",
+  "stem": "A rigid vessel at 400 K contains a mixture of helium (4.0 g/mol) and argon (40 g/mol). Which statement about the gases is correct?",
+  "correct": {
+   "text": "The average kinetic energy is the same for both gases, and the helium atoms move about 3 times faster on average than the argon atoms.",
+   "rationale": "Correct: both gases are at 400 K, so their average kinetic energies are equal. With equal KE = 1/2 mv², the ratio of speeds is the square root of the inverse mass ratio: sqrt(40/4.0) = sqrt(10) ≈ 3.2, so helium atoms move about 3 times faster."
+  },
+  "wrong": [
+   {
+    "text": "The average kinetic energy is the same for both gases, and the helium atoms move about 10 times faster on average than the argon atoms.",
+    "rationale": "Incorrect: the equal kinetic energy is right, but speed is not inversely proportional to mass. Because KE = 1/2 mv², the speed ratio is the square root of the mass ratio, sqrt(10) ≈ 3.2, not 10.",
+    "error_pattern": "Takes the speed ratio equal to the mass ratio, omitting the square root."
+   },
+   {
+    "text": "The argon atoms have about 10 times the average kinetic energy of the helium atoms, and the two gases have the same average speed.",
+    "rationale": "Incorrect: average kinetic energy depends only on temperature, so the two gases have equal average kinetic energy. The speeds differ, with helium faster; they are not equal.",
+    "error_pattern": "Believes kinetic energy is proportional to mass while speed is set by the temperature."
+   },
+   {
+    "text": "Because both gases are in the same vessel at the same temperature, they have the same average kinetic energy and the same average speed.",
+    "rationale": "Incorrect: the average kinetic energy is equal, but KE = 1/2 mv² requires the lighter helium atoms to move faster than the heavier argon atoms, by a factor of about 3. Sharing a vessel makes temperatures equal, not speeds.",
+    "error_pattern": "Assumes thermal equilibrium in a shared vessel makes speeds as well as kinetic energies equal."
+   }
+  ],
+  "change_note": "Gas mixture in one vessel with a quantitative speed ratio sqrt(M_Ar/M_He) = 3.2; seed compared separate samples qualitatively.",
+  "check": "conceptual",
+  "facts": [
+   "Same T so same average KE.",
+   "v_He/v_Ar = sqrt(40/4.0) = 3.16.",
+   "Speed ratio is not 10 (no square root)."
+  ]
+ },
+ {
+  "id": "apchem-mcq-034-v1",
+  "seed": "apchem-mcq-034",
+  "difficulty": "medium",
+  "title": "Conditions for ideal carbon dioxide",
+  "stem": "A student wants carbon dioxide gas to behave as nearly like an ideal gas as possible. Which set of conditions is best, and why?",
+  "correct": {
+   "text": "450 K and 0.50 atm, because the molecules are fast and far apart, so attractions and molecular volume are negligible.",
+   "rationale": "Correct: at high temperature the molecules move so fast that attractive forces have little effect on their motion, and at low pressure the molecules are far apart so their own volume is negligible compared with the container volume. These are the two conditions under which the ideal-gas assumptions hold best."
+  },
+  "wrong": [
+   {
+    "text": "250 K and 0.50 atm, because low pressure alone is enough to make any gas behave ideally at any temperature.",
+    "rationale": "Incorrect: low pressure keeps molecular volume negligible, but at 250 K the slower molecules are affected by intermolecular attractions, so the gas deviates more than it would at 450 K.",
+    "error_pattern": "Believes pressure is the only variable controlling ideal behavior and ignores temperature."
+   },
+   {
+    "text": "450 K and 50 atm, because high temperature alone is enough to make any gas behave ideally at any pressure.",
+    "rationale": "Incorrect: high temperature minimizes the effect of attractions, but at 50 atm the molecules are forced close together, so their own volume is a significant fraction of the container volume and the gas deviates.",
+    "error_pattern": "Believes temperature is the only variable controlling ideal behavior and ignores pressure."
+   },
+   {
+    "text": "250 K and 50 atm, because the molecules collide more often, which makes the gas obey kinetic molecular theory more closely.",
+    "rationale": "Incorrect: this is the combination that gives the largest deviation from ideality. The slow molecules attract one another and, at high pressure, are crowded so that their volume is not negligible; collision frequency is not the criterion for ideal behavior.",
+    "error_pattern": "Equates frequent collisions with ideal behavior."
+   }
+  ],
+  "change_note": "Choose-the-best-conditions task with temperature/pressure combinations for CO2; seed asked which set gives the greatest deviation with reasons in the options. Correct answer here is the ideal regime (high T, low P).",
+  "check": "conceptual",
+  "facts": [
+   "Ideal: high T, low P.",
+   "Low T → attractions matter.",
+   "High P → molecular volume matters.",
+   "Collision frequency is not a deviation criterion."
+  ]
+ },
+ {
+  "id": "apchem-mcq-034-v2",
+  "seed": "apchem-mcq-034",
+  "difficulty": "hard",
+  "title": "Ammonia versus methane deviation",
+  "stem": "At 1 atm and 298 K, the measured pressure of an ammonia (NH3, 17 g/mol) sample is lower than the ideal gas law predicts by a larger percentage than for the same amount of methane (CH4, 16 g/mol) in the same container. Which statement best explains this difference?",
+  "correct": {
+   "text": "The stronger attractions between NH3 molecules pull them together, so they strike the walls less forcefully and the pressure is lower.",
+   "rationale": "Correct: NH3 molecules attract each other much more strongly than CH4 molecules because NH3 is polar and hydrogen bonds, whereas CH4 has only weak dispersion forces. Intermolecular attractions reduce the force and frequency of collisions with the walls, so the measured pressure falls below the ideal-gas prediction, and more so for NH3."
+  },
+  "wrong": [
+   {
+    "text": "NH3 molecules are much larger than CH4 molecules, so their own volume takes up more of the container and lowers the pressure.",
+    "rationale": "Incorrect: NH3 and CH4 are similar in size and mass, and at 1 atm the molecular volume is negligible. Excluded volume would push the pressure above the ideal value, not below it.",
+    "error_pattern": "Attributes a lower-than-ideal pressure to molecular volume, reversing the direction of that effect."
+   },
+   {
+    "text": "NH3 is slightly more massive than CH4, so its molecules move much more slowly and exert noticeably less pressure on the walls.",
+    "rationale": "Incorrect: 17 g/mol and 16 g/mol are almost identical, so the average speeds are nearly the same. The ideal gas law already accounts for the equal temperature, so mass cannot explain the extra deviation.",
+    "error_pattern": "Overstates a trivial molar-mass difference as the cause of nonideal behavior."
+   },
+   {
+    "text": "The attractions between NH3 molecules pull them toward the walls of the container, which increases the pressure above the ideal value.",
+    "rationale": "Incorrect: attractions pull each molecule inward toward its neighbors, reducing the force of wall collisions. That lowers the measured pressure, as observed; it does not raise it.",
+    "error_pattern": "Reverses the direction of the effect of intermolecular attractions on pressure."
+   }
+  ],
+  "change_note": "Compares two real gases (NH3/CH4) at moderate conditions focusing on the attraction effect on measured pressure; seed asked for T/P conditions of greatest deviation.",
+  "check": "conceptual",
+  "facts": [
+   "NH3 has H-bonding; CH4 only LDF.",
+   "Attractions lower the pressure relative to ideal.",
+   "Excluded volume raises pressure relative to ideal.",
+   "Molar masses 17 vs 16 are nearly equal."
+  ]
+ },
+ {
+  "id": "apchem-mcq-034-v3",
+  "seed": "apchem-mcq-034",
+  "difficulty": "hard",
+  "title": "Cooling nitrogen toward condensation",
+  "stem": "A rigid flask contains nitrogen gas that behaves nearly ideally at 300 K. When the flask is cooled to 80 K, near the boiling point of N2, the measured pressure is lower than the ideal gas law predicts. Which statement best explains why?",
+  "correct": {
+   "text": "At 80 K the slower N2 molecules attract one another noticeably, so they strike the walls less forcefully than ideal particles would.",
+   "rationale": "Correct: the ideal gas law accounts for the drop in pressure caused by the lower temperature, but it assumes no intermolecular attractions. Near the condensation point the molecules move slowly enough for their attractive (London dispersion) forces to affect their motion, which reduces wall collisions and makes the measured pressure lower than the ideal value."
+  },
+  "wrong": [
+   {
+    "text": "At 80 K the volume of the N2 molecules is no longer negligible, so the available volume is smaller and the pressure drops below ideal.",
+    "rationale": "Incorrect: molecular volume becomes important at high pressure, and the volume of the molecules is unchanged by cooling in this rigid flask. A reduction in available volume would raise the pressure above the ideal value, not lower it.",
+    "error_pattern": "Uses molecular volume to explain a lower-than-ideal pressure, reversing that effect's direction."
+   },
+   {
+    "text": "At 80 K the N2 molecules become polar and develop permanent dipoles, so strong dipole-dipole forces act between them.",
+    "rationale": "Incorrect: N2 is a nonpolar molecule at any temperature; cooling does not give it a permanent dipole. The attractions that become significant near condensation are London dispersion forces.",
+    "error_pattern": "Believes cooling makes nonpolar molecules polar."
+   },
+   {
+    "text": "At 80 K the molecules stop moving entirely, so the pressure falls to nearly zero regardless of what the ideal gas law predicts.",
+    "rationale": "Incorrect: molecular motion does not stop at 80 K because average kinetic energy remains proportional to the Kelvin temperature, so collisions and pressure continue. The ideal gas law already predicts the large drop from cooling; the question concerns the extra, smaller drop.",
+    "error_pattern": "Believes low temperature stops molecular motion rather than just reducing average kinetic energy."
+   }
+  ],
+  "change_note": "Rigid-flask cooling scenario with N2 near its boiling point and measured-vs-ideal pressure; seed asked a general which-conditions-and-why question.",
+  "check": "conceptual",
+  "facts": [
+   "Lower T slows molecules so attractions matter.",
+   "N2 nonpolar: LDF only.",
+   "Excluded volume matters at high pressure and raises P.",
+   "KE ∝ T so motion does not stop at 80 K."
+  ]
+ }
+]
