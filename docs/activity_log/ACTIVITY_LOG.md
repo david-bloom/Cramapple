@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Biology: 7 Published Variants With Out-of-CED Terms Retired (APPROVAL-0091) (2026-10-03): a full-text scan of the 24 variants published under `APPROVAL-0080` found 7 using terms the CED does not name (70S/80S ribosomes, receptor-mediated endocytosis, binary fission, high-salt wash); all 7 retired (zero attempts), 17 remain published; Biology published items 184 to 177; validated serving labels unchanged.
 - Google Sign-In Removed From Checkout; Post-Pilot Task Opened (TASK-0058) (2026-10-02): at David's direction Lovable removed the "Continue with Google" option from `/checkout` (commit `18666296`, only `checkout.index.tsx`, deletions only, not yet published). Reviewed Chrome's identity guidance against the redirect flow; improvements, layout wishes and Stripe hardening are collected in `docs/tasks/TASK-0058-POST-PILOT-CHECKOUT-AND-SIGN-IN.md`. Google branding/verification is David-owned and prepared there.
 - Stripe Live Payment Proven in Production; Refund Round Trip Verified (2026-10-02): David paid \$39.99 with Link on the live checkout, the live webhook processed it, access was granted; a \$10 partial refund kept access (PR #310 fix) and the remaining \$29.99 revoked it. Coupon and new-student paths still untested.
 - AP Biology Skill Re-vote (APPROVAL-0081) (2026-10-02): 73 topic-corrected items re-voted by four models; 69 skill cells rewritten (52 validated, 10 provisional, 7 held), 6 skills changed, 54 unchanged; 4 validated cells deliberately kept.
@@ -358,6 +359,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## AP Biology: 7 Published Variants With Out-of-CED Terms Retired (APPROVAL-0091) — 2026-10-03
+
+**Approval:** `APPROVAL-0091` (Product Owner: "some of the published ones use terms outside the CED. We should retire them. We have enough questions."). **Script:** `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_retire_out_of_ced_variants.sql`. **Follows:** `APPROVAL-0080`, and the 2026-10-01 ruling that items stay within CED vocabulary.
+
+**What was done:** a full-text scan (stimulus, stem, every choice and rationale) of all 24 published `APBIO-MCQ-SV-` variants against terms confirmed absent from the CED V.1 text found 7 matches; those 7 were retired in one transaction: `014-v1`, `014-v2`, `022-v3` (70S/80S ribosomes), `022-v1` (70S ribosomes, binary fission), `018-v1`, `018-v3` (receptor-mediated endocytosis), `023-v2` (high-salt wash). Zero attempts on all seven. `SV-005-v3` ("tripeptides") was kept on purpose. Verified: variants published 24 to 17, Biology published items 184 to 177, no published item without a published version, validated serving labels unchanged at 163.
+
+**Not done:** no replacements written; this session's 16 drafts stay unloaded; the unit-gated servable count was not re-queried. **Next Owner:** David Bloom. **Next Action:** none required; the open items are in `docs/handoffs/SEEDED_QUESTIONS_SESSION_RECORD_2026_10_01.md`.
 
 ## Google Sign-In Removed From Checkout; Post-Pilot Task Opened (TASK-0058) — 2026-10-02
 
