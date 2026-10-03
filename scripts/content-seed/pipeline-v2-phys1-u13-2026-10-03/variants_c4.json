@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphy1-mcq-np1-004-v1",
+  "seed": "apphy1-mcq-np1-004",
+  "difficulty": "medium",
+  "title": "Normal force at the bottom of a loop",
+  "stem": "A roller-coaster car moves along the inside of a vertical circular loop. At the lowest point of the loop the car is moving, so its speed is not zero. Which of the following correctly describes the normal force exerted by the track on the car at that point?",
+  "correct": {
+   "text": "Upward, with a magnitude greater than the car's weight",
+   "rationale": "At the bottom the center of the circle is above the car. The net force must point upward, so N - mg = mv^2/r, which gives N = mg + mv^2/r > mg."
+  },
+  "wrong": [
+   {
+    "text": "Upward, with a magnitude equal to the car's weight",
+    "rationale": "That holds only when the car is at rest or moving in a straight line on a flat track. The car is accelerating toward the center, so the net force is not zero and N exceeds mg.",
+    "error_pattern": "treats motion as equilibrium (flat-surface habit)"
+   },
+   {
+    "text": "Downward, with a magnitude greater than the car's weight",
+    "rationale": "The track surface is below the car at the bottom, so it can only push the car upward. A downward normal force occurs only at the top of the loop.",
+    "error_pattern": "normal force direction taken from the top-of-loop case"
+   },
+   {
+    "text": "Upward, with a magnitude less than the car's weight",
+    "rationale": "An upward net force toward the center requires the upward normal force to exceed the downward weight, since N - mg = mv^2/r is positive.",
+    "error_pattern": "believes the car feels lighter at the bottom"
+   }
+  ],
+  "change_note": "Bottom of the loop, direction and size relative to weight, instead of direction only at the top.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-np1-004-v2",
+  "seed": "apphy1-mcq-np1-004",
+  "difficulty": "hard",
+  "title": "Normal force on a motorcycle at the top",
+  "stem": "A motorcycle and rider, total mass 200 kg, ride along the inside of a vertical circular loop of radius 6 m. At the top of the loop their speed is 12 m/s. Use g = 10 m/s^2. What is the magnitude of the normal force exerted by the track at the top?",
+  "correct": {
+   "text": "2800 N",
+   "rationale": "At the top both the weight and the normal force point downward toward the center: N + mg = mv^2/r. So N = (200)(12^2/6) - (200)(10) = 4800 - 2000 = 2800 N."
+  },
+  "wrong": [
+   {
+    "text": "6800 N",
+    "rationale": "This is mv^2/r + mg = 4800 + 2000, the bottom-of-loop relation. At the top the weight helps supply the inward force, so it is subtracted: 4800 - 2000 = 2800 N.",
+    "error_pattern": "uses the bottom-of-loop equation at the top"
+   },
+   {
+    "text": "4800 N",
+    "rationale": "This is mv^2/r alone, which treats the normal force as the entire net force and ignores the weight that also points toward the center at the top.",
+    "error_pattern": "ignores gravity"
+   },
+   {
+    "text": "2000 N",
+    "rationale": "This is mg only, as if the track simply supported the weight. The motorcycle is accelerating toward the center at 24 m/s^2, so more than weight must be accounted for: N = 2800 N.",
+    "error_pattern": "ignores circular motion"
+   }
+  ],
+  "change_note": "Numerical normal-force magnitude at the top with new mass, radius and speed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-004-v3",
+  "seed": "apphy1-mcq-np1-004",
+  "difficulty": "medium",
+  "title": "Normal force beside the center of a loop",
+  "stem": "A small ball rolls along the inside of a vertical circular track. At one instant it is at the point on the right side of the track that is level with the center of the circle, and it is moving. What is the direction of the normal force exerted by the track on the ball at that instant?",
+  "correct": {
+   "text": "Horizontal, pointing to the left toward the center of the circle",
+   "rationale": "The track is on the ball's right and the normal force is perpendicular to the surface, pushing the ball toward the center. At this point that is horizontal and to the left; it supplies the centripetal force while gravity acts downward."
+  },
+  "wrong": [
+   {
+    "text": "Vertically upward, to balance the ball's weight",
+    "rationale": "The normal force is perpendicular to the surface of contact, which here is horizontal. Gravity is not balanced by it; the ball's changing direction of motion comes from the horizontal normal force.",
+    "error_pattern": "normal force assumed always upward"
+   },
+   {
+    "text": "Horizontal, pointing to the right away from the center",
+    "rationale": "The track is on the ball's right side and can only push the ball away from the track, that is, to the left. A push to the right would pull the ball into the track.",
+    "error_pattern": "reverses the direction relative to the center"
+   },
+   {
+    "text": "Tangent to the track, pointing vertically downward",
+    "rationale": "A normal force is perpendicular to the surface, not tangent to it. At this point the tangent is vertical, and the downward pull there is gravity, not the normal force.",
+    "error_pattern": "confuses normal force with tangential/gravity direction"
+   }
+  ],
+  "change_note": "Side position of the loop rather than the top; asks direction with different geometry.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-np1-005-v1",
+  "seed": "apphy1-mcq-np1-005",
+  "difficulty": "easy",
+  "title": "Pushed cabinet that does not move",
+  "stem": "A 20 kg wooden cabinet sits on a level hardwood floor. The coefficient of static friction is 0.6 and the coefficient of kinetic friction is 0.4. A person pushes horizontally with a force of 60 N, and the cabinet does not move. Use g = 10 m/s^2. What is the magnitude of the friction force on the cabinet?",
+  "correct": {
+   "text": "60 N",
+   "rationale": "The cabinet is at rest, so the net horizontal force is zero and static friction equals the 60 N push. This is less than the maximum static friction, (0.6)(200) = 120 N, consistent with f_s <= mu_s N."
+  },
+  "wrong": [
+   {
+    "text": "120 N",
+    "rationale": "This is the maximum static friction, mu_s N = (0.6)(200 N) = 120 N. Static friction only reaches that value when the cabinet is about to slip; here it matches the 60 N push.",
+    "error_pattern": "uses maximum static friction"
+   },
+   {
+    "text": "80 N",
+    "rationale": "This is the kinetic friction, mu_k N = (0.4)(200 N) = 80 N. It applies only to a sliding object, and the cabinet is not sliding.",
+    "error_pattern": "uses kinetic friction"
+   },
+   {
+    "text": "0 N",
+    "rationale": "With zero friction, the 60 N push would be unbalanced and the cabinet would accelerate, which contradicts the statement that it does not move.",
+    "error_pattern": "believes no friction acts on an object at rest"
+   }
+  ],
+  "change_note": "New object, new coefficients and applied force.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-005-v2",
+  "seed": "apphy1-mcq-np1-005",
+  "difficulty": "medium",
+  "title": "Push on a heavy appliance",
+  "stem": "A 40 kg washing machine rests on a level garage floor. The coefficient of static friction between machine and floor is 0.45, and the coefficient of kinetic friction is 0.30. A worker pushes horizontally with 90 N, and the machine stays at rest. Use g = 10 m/s^2. What is the magnitude of the friction force the floor exerts on the machine?",
+  "correct": {
+   "text": "90 N",
+   "rationale": "The machine is at rest, so the horizontal forces balance and static friction equals the 90 N push. The maximum static friction is (0.45)(400) = 180 N, so 90 N is allowed."
+  },
+  "wrong": [
+   {
+    "text": "180 N",
+    "rationale": "This is the maximum static friction, mu_s N = (0.45)(400 N) = 180 N, which would only occur if the machine were on the verge of slipping.",
+    "error_pattern": "uses maximum static friction"
+   },
+   {
+    "text": "120 N",
+    "rationale": "This is the kinetic friction, mu_k N = (0.30)(400 N) = 120 N. Kinetic friction applies only once the machine slides.",
+    "error_pattern": "uses kinetic friction"
+   },
+   {
+    "text": "400 N",
+    "rationale": "This is the normal force (and weight), N = mg = (40)(10) = 400 N. Friction is not equal to the normal force; it is set by the applied push, which is 90 N.",
+    "error_pattern": "confuses friction force with normal force"
+   }
+  ],
+  "change_note": "Heavier object with different coefficients and a normal-force distractor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-005-v3",
+  "seed": "apphy1-mcq-np1-005",
+  "difficulty": "medium",
+  "title": "Block pulled gently on a lab table",
+  "stem": "An 8 kg block is on a level lab table. The coefficient of static friction is 0.70 and the coefficient of kinetic friction is 0.50. A horizontal string pulls the block with a tension of 30 N, and the block does not move. Use g = 10 m/s^2. What is the magnitude of the static friction force on the block?",
+  "correct": {
+   "text": "30 N",
+   "rationale": "The block is in equilibrium, so static friction equals the 30 N tension. The maximum possible static friction is (0.70)(80) = 56 N, which is greater than 30 N, so the block stays at rest."
+  },
+  "wrong": [
+   {
+    "text": "56 N",
+    "rationale": "This is the maximum static friction, mu_s N = (0.70)(80 N) = 56 N. It is only reached at the verge of slipping, and the 30 N pull is smaller than it.",
+    "error_pattern": "uses maximum static friction"
+   },
+   {
+    "text": "40 N",
+    "rationale": "This is the kinetic friction, mu_k N = (0.50)(80 N) = 40 N, which applies only to a sliding block.",
+    "error_pattern": "uses kinetic friction"
+   },
+   {
+    "text": "26 N",
+    "rationale": "This is 56 N - 30 N, the unused margin of static friction. The friction force actually acting is the amount needed to balance the pull, which is 30 N.",
+    "error_pattern": "subtracts applied force from maximum friction"
+   }
+  ],
+  "change_note": "Lab-table block pulled by a string; margin-of-friction distractor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-007-v1",
+  "seed": "apphy1-mcq-np1-007",
+  "difficulty": "medium",
+  "title": "Work pulling a suitcase",
+  "stem": "A traveler pulls a suitcase 12 m along a level airport floor with a constant 50 N force on the handle, directed 35 degrees above the horizontal. Use cos(35 deg) = 0.819 and sin(35 deg) = 0.574. How much work does the pulling force do on the suitcase?",
+  "correct": {
+   "text": "491 J",
+   "rationale": "W = Fd cos(theta) = (50 N)(12 m)(0.819) = 491.4 J, about 491 J. Only the component of force along the displacement does work."
+  },
+  "wrong": [
+   {
+    "text": "600 J",
+    "rationale": "This is Fd = (50)(12) with no angle factor, as if the whole force were along the displacement.",
+    "error_pattern": "omits the angle factor"
+   },
+   {
+    "text": "344 J",
+    "rationale": "This uses sine instead of cosine: (50)(12)(0.574) = 344.4 J. The component along the displacement is F cos(theta), not F sin(theta).",
+    "error_pattern": "uses sin instead of cos"
+   },
+   {
+    "text": "733 J",
+    "rationale": "This divides by the cosine: 600/0.819 = 732.6 J. The parallel component multiplies Fd by cos(theta), which is less than 1, so the work must be less than 600 J.",
+    "error_pattern": "divides by cos instead of multiplying"
+   }
+  ],
+  "change_note": "Suitcase, new force, distance, angle; adds a divide-by-cosine error.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-007-v2",
+  "seed": "apphy1-mcq-np1-007",
+  "difficulty": "medium",
+  "title": "Work pushing a lawn mower",
+  "stem": "A person pushes a lawn mower 15 m across level grass with a constant 80 N force along the handle, which makes an angle of 30 degrees below the horizontal. Use cos(30 deg) = 0.866 and sin(30 deg) = 0.500. What is the work done on the mower by this 80 N force?",
+  "correct": {
+   "text": "1039 J",
+   "rationale": "W = Fd cos(theta) = (80 N)(15 m)(0.866) = 1039.2 J, about 1039 J. The component of the push along the displacement is 80 cos 30 degrees."
+  },
+  "wrong": [
+   {
+    "text": "1200 J",
+    "rationale": "This is Fd = (80)(15), ignoring the angle. Only the horizontal component of the push does work on the mower.",
+    "error_pattern": "omits the angle factor"
+   },
+   {
+    "text": "600 J",
+    "rationale": "This uses sine: (80)(15)(0.500) = 600 J. The vertical component, F sin(theta), is perpendicular to the displacement and does no work.",
+    "error_pattern": "uses sin instead of cos"
+   },
+   {
+    "text": "1386 J",
+    "rationale": "This divides by the cosine: 1200/0.866 = 1385.7 J. That would exceed Fd, which is impossible since only part of the force is along the displacement.",
+    "error_pattern": "divides by cos instead of multiplying"
+   }
+  ],
+  "change_note": "Push at an angle below horizontal on a lawn mower, new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-007-v3",
+  "seed": "apphy1-mcq-np1-007",
+  "difficulty": "medium",
+  "title": "Work by a rope on a crate",
+  "stem": "A rope pulls a 12 kg crate 6.5 m across a level warehouse floor. The rope exerts a constant 40 N force at 25 degrees above the horizontal. Use cos(25 deg) = 0.906 and sin(25 deg) = 0.423. How much work does the rope do on the crate?",
+  "correct": {
+   "text": "236 J",
+   "rationale": "W = Fd cos(theta) = (40 N)(6.5 m)(0.906) = 235.6 J, about 236 J. The crate's mass does not enter this calculation."
+  },
+  "wrong": [
+   {
+    "text": "260 J",
+    "rationale": "This is Fd = (40)(6.5), ignoring the angle between the rope and the floor.",
+    "error_pattern": "omits the angle factor"
+   },
+   {
+    "text": "110 J",
+    "rationale": "This uses sine: (40)(6.5)(0.423) = 110.0 J. The vertical component of the rope force does no work on a crate moving horizontally.",
+    "error_pattern": "uses sin instead of cos"
+   },
+   {
+    "text": "287 J",
+    "rationale": "This divides by the cosine: 260/0.906 = 287.0 J. The result exceeds Fd, which cannot happen because only the parallel component does work.",
+    "error_pattern": "divides by cos instead of multiplying"
+   }
+  ],
+  "change_note": "Rope on a crate with a mass given as an unneeded quantity.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-008-v1",
+  "seed": "apphy1-mcq-np1-008",
+  "difficulty": "medium",
+  "title": "Friction on two routes",
+  "stem": "A hockey puck is moved between two points on a rough horizontal surface, once along a straight line and once along a longer curved path. Kinetic friction acts on the puck the whole time. Which statement about the work done on the puck by friction is correct?",
+  "correct": {
+   "text": "The work is larger in magnitude along the longer curved path.",
+   "rationale": "Friction is nonconservative, so its work depends on the path. For constant kinetic friction the work is -f times the path length, so the longer path gives a larger magnitude."
+  },
+  "wrong": [
+   {
+    "text": "The work is the same on both paths, because the endpoints are the same.",
+    "rationale": "Equal endpoints fix the work only for conservative forces. Friction is nonconservative, and its work depends on path length.",
+    "error_pattern": "applies path independence to friction"
+   },
+   {
+    "text": "The work is zero on both paths, because the surface is horizontal.",
+    "rationale": "Horizontal motion makes the work done by gravity zero, not the work done by friction. Friction opposes the motion along the path and does negative work.",
+    "error_pattern": "confuses friction with the normal force or gravity"
+   },
+   {
+    "text": "The work is positive on both paths, because the friction force is pushing along the surface.",
+    "rationale": "Kinetic friction points opposite the puck's motion, so it does negative work on the puck.",
+    "error_pattern": "thinks friction does positive work"
+   }
+  ],
+  "change_note": "Puck on straight versus curved path; compares magnitudes instead of asking about path-dependence.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-np1-008-v2",
+  "seed": "apphy1-mcq-np1-008",
+  "difficulty": "medium",
+  "title": "Thrown ball with air resistance",
+  "stem": "A ball is thrown straight up, rises, and falls back to the height of the hand that threw it. Air resistance is not negligible. Which statement describes the net work done on the ball over the whole trip?",
+  "correct": {
+   "text": "Gravity does zero net work, and air resistance does negative net work.",
+   "rationale": "Gravity is conservative, so its net work over a closed trip back to the starting height is zero. Air resistance always opposes the motion, so it does negative work on the way up and on the way down."
+  },
+  "wrong": [
+   {
+    "text": "Both gravity and air resistance do zero net work, because the ball returns to its starting height.",
+    "rationale": "A zero net work over a round trip holds only for conservative forces. Air resistance is nonconservative and does negative work on both parts of the trip.",
+    "error_pattern": "applies closed-loop zero work to a nonconservative force"
+   },
+   {
+    "text": "Both gravity and air resistance do negative net work, because both oppose the upward motion.",
+    "rationale": "Gravity opposes the motion going up but helps going down, so the two contributions cancel, giving zero net work.",
+    "error_pattern": "counts gravity's work on the way up only"
+   },
+   {
+    "text": "Gravity does negative net work, and air resistance does zero net work.",
+    "rationale": "This reverses the two forces. The conservative force, gravity, has zero net work over a closed trip, while air resistance does negative work throughout.",
+    "error_pattern": "swaps which force is conservative"
+   }
+  ],
+  "change_note": "Gravity versus air resistance over a round trip.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-np1-008-v3",
+  "seed": "apphy1-mcq-np1-008",
+  "difficulty": "hard",
+  "title": "Crate moved up a ramp by two routes",
+  "stem": "A crate is moved from the bottom of a rough ramp to a platform at the top by two different routes: a short straight slide and a long, winding slide. Both start and end at the same two points. Which statement is correct?",
+  "correct": {
+   "text": "The work done by gravity is the same for both routes, but the work done by friction is not.",
+   "rationale": "Gravity is conservative, so its work depends only on the endpoints (the height change). Friction is nonconservative, so its work depends on how far the crate slides along each route."
+  },
+  "wrong": [
+   {
+    "text": "The work done by friction is the same for both routes, but the work done by gravity is not.",
+    "rationale": "This reverses the two forces. Gravity's work depends only on the height change, while friction's work grows with the length of the route.",
+    "error_pattern": "swaps conservative and nonconservative forces"
+   },
+   {
+    "text": "The work done by gravity and the work done by friction are both the same for both routes.",
+    "rationale": "Only the conservative force, gravity, has route-independent work. The longer route has more sliding distance and so friction does more negative work.",
+    "error_pattern": "applies path independence to friction"
+   },
+   {
+    "text": "The work done by gravity and the work done by friction both differ between the routes.",
+    "rationale": "Gravity's work is fixed by the start and end heights, so it is the same for both routes even though friction's work differs.",
+    "error_pattern": "applies path dependence to gravity"
+   }
+  ],
+  "change_note": "Ramp with two routes comparing gravity and friction.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-np1-009-v1",
+  "seed": "apphy1-mcq-np1-009",
+  "difficulty": "easy",
+  "title": "Kinetic energy change of a cart",
+  "stem": "A 1.5 kg cart speeds up from 2 m/s to 6 m/s on a track. What is the change in the cart's kinetic energy?",
+  "correct": {
+   "text": "24 J",
+   "rationale": "Delta K = (1/2)(1.5)(6^2) - (1/2)(1.5)(2^2) = 27 J - 3 J = 24 J."
+  },
+  "wrong": [
+   {
+    "text": "12 J",
+    "rationale": "This is (1/2)m(Delta v)^2 = (1/2)(1.5)(6 - 2)^2 = 12 J. The change in K is (1/2)m times the difference of the squared speeds, not the square of the speed change.",
+    "error_pattern": "squares the change in speed"
+   },
+   {
+    "text": "27 J",
+    "rationale": "This is only the final kinetic energy, (1/2)(1.5)(6^2) = 27 J; the initial kinetic energy was not subtracted.",
+    "error_pattern": "reports final K instead of the change"
+   },
+   {
+    "text": "3 J",
+    "rationale": "This is only the initial kinetic energy, (1/2)(1.5)(2^2) = 3 J, not the change.",
+    "error_pattern": "reports initial K instead of the change"
+   }
+  ],
+  "change_note": "Cart with new mass and speeds.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-009-v2",
+  "seed": "apphy1-mcq-np1-009",
+  "difficulty": "medium",
+  "title": "Car doubling its speed",
+  "stem": "A 800 kg car speeds up from 10 m/s to 20 m/s. What is the change in the car's kinetic energy?",
+  "correct": {
+   "text": "120,000 J",
+   "rationale": "Delta K = (1/2)(800)(20^2) - (1/2)(800)(10^2) = 160,000 J - 40,000 J = 120,000 J."
+  },
+  "wrong": [
+   {
+    "text": "40,000 J",
+    "rationale": "This is (1/2)m(Delta v)^2 = (1/2)(800)(20 - 10)^2 = 40,000 J. It squares the speed change instead of taking the difference of the squared speeds.",
+    "error_pattern": "squares the change in speed"
+   },
+   {
+    "text": "160,000 J",
+    "rationale": "This is only the final kinetic energy, (1/2)(800)(20^2) = 160,000 J; the initial kinetic energy was not subtracted.",
+    "error_pattern": "reports final K instead of the change"
+   },
+   {
+    "text": "90,000 J",
+    "rationale": "This is the kinetic energy at the average speed, (1/2)(800)(15^2) = 90,000 J. The change in K is the difference of the kinetic energies at 20 and 10 m/s, not the K at the mean speed.",
+    "error_pattern": "uses average speed in K formula"
+   }
+  ],
+  "change_note": "Car with larger numbers and a speed-doubling context.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-009-v3",
+  "seed": "apphy1-mcq-np1-009",
+  "difficulty": "hard",
+  "title": "Ball slowing down",
+  "stem": "A 0.50 kg ball slows from 12 m/s to 8 m/s while rolling across a rough floor. What is the change in the ball's kinetic energy?",
+  "correct": {
+   "text": "-20 J",
+   "rationale": "Delta K = (1/2)(0.50)(8^2) - (1/2)(0.50)(12^2) = 16 J - 36 J = -20 J. The negative sign shows the kinetic energy decreases."
+  },
+  "wrong": [
+   {
+    "text": "+20 J",
+    "rationale": "This has the right size but the wrong sign. The ball slows, so its final kinetic energy is less than its initial one and Delta K is negative.",
+    "error_pattern": "drops the sign of the change"
+   },
+   {
+    "text": "-4 J",
+    "rationale": "This is (1/2)m(Delta v)^2 = (1/2)(0.50)(4)^2 = 4 J with a negative sign attached. The change in K is (1/2)m times the difference of the squared speeds, which is 20 J in size.",
+    "error_pattern": "squares the change in speed"
+   },
+   {
+    "text": "+16 J",
+    "rationale": "This is only the final kinetic energy, (1/2)(0.50)(8^2) = 16 J; the initial kinetic energy was not subtracted.",
+    "error_pattern": "reports final K instead of the change"
+   }
+  ],
+  "change_note": "Decreasing speed so the sign matters.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-010-v1",
+  "seed": "apphy1-mcq-np1-010",
+  "difficulty": "easy",
+  "title": "Tractor power",
+  "stem": "A tractor pulls a plow with a constant force of 3000 N directed parallel to its motion. At one instant the tractor is moving at 2.5 m/s. What is the instantaneous power delivered by this force at that instant?",
+  "correct": {
+   "text": "7500 W",
+   "rationale": "For a constant force parallel to the velocity, P = Fv = (3000 N)(2.5 m/s) = 7500 W."
+  },
+  "wrong": [
+   {
+    "text": "1200 W",
+    "rationale": "This is F/v = 3000/2.5. Power is the product of force and speed, not their quotient.",
+    "error_pattern": "divides force by speed"
+   },
+   {
+    "text": "3002.5 W",
+    "rationale": "This adds force and speed, 3000 + 2.5, which mixes unlike quantities. Power is the product Fv.",
+    "error_pattern": "adds force and speed"
+   },
+   {
+    "text": "15000 W",
+    "rationale": "This is 2Fv = 2(3000)(2.5). The power formula P = Fv has no extra factor of 2.",
+    "error_pattern": "includes an extra factor of 2"
+   }
+  ],
+  "change_note": "Tractor with larger force and slower speed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-010-v2",
+  "seed": "apphy1-mcq-np1-010",
+  "difficulty": "medium",
+  "title": "Rower power",
+  "stem": "A rower pulls on the oars so that the force driving the boat forward is a constant 150 N, parallel to the boat's velocity. At one instant the boat moves at 1.8 m/s. What is the instantaneous power of this force at that instant?",
+  "correct": {
+   "text": "270 W",
+   "rationale": "P = Fv = (150 N)(1.8 m/s) = 270 W."
+  },
+  "wrong": [
+   {
+    "text": "135 W",
+    "rationale": "This is (1/2)Fv = (1/2)(150)(1.8). The factor of 1/2 belongs to kinetic energy, (1/2)mv^2, not to the power formula P = Fv.",
+    "error_pattern": "includes a factor 1/2 borrowed from kinetic energy"
+   },
+   {
+    "text": "486 W",
+    "rationale": "This is Fv^2 = (150)(1.8)^2 = 486. Power is force times speed, to the first power.",
+    "error_pattern": "squares the speed"
+   },
+   {
+    "text": "152 W",
+    "rationale": "This adds force and speed, 150 + 1.8 = 151.8. Power is the product Fv, not the sum.",
+    "error_pattern": "adds force and speed"
+   }
+  ],
+  "change_note": "Rowing context with a smaller force and speed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-np1-010-v3",
+  "seed": "apphy1-mcq-np1-010",
+  "difficulty": "medium",
+  "title": "Elevator cable power",
+  "stem": "A cable pulls an elevator upward with a constant 12000 N force while the elevator rises at a constant speed of 0.75 m/s. What is the instantaneous power delivered by the cable's force?",
+  "correct": {
+   "text": "9000 W",
+   "rationale": "The force and velocity are parallel, so P = Fv = (12000 N)(0.75 m/s) = 9000 W."
+  },
+  "wrong": [
+   {
+    "text": "16000 W",
+    "rationale": "This is F/v = 12000/0.75. Power is the product of force and speed, not the quotient.",
+    "error_pattern": "divides force by speed"
+   },
+   {
+    "text": "6750 W",
+    "rationale": "This is Fv^2 = (12000)(0.75)^2 = 6750. Power uses speed to the first power.",
+    "error_pattern": "squares the speed"
+   },
+   {
+    "text": "4500 W",
+    "rationale": "This is (1/2)Fv = (1/2)(12000)(0.75). The factor 1/2 comes from kinetic energy and does not appear in P = Fv.",
+    "error_pattern": "includes a factor 1/2 borrowed from kinetic energy"
+   }
+  ],
+  "change_note": "Vertical motion at constant speed with the cable force given.",
+  "check": "numeric"
+ }
+]

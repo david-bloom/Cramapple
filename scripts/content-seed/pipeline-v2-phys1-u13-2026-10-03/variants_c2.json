@@ -1,0 +1,722 @@
+[
+ {
+  "id": "apphy1-mcq-020-v1",
+  "seed": "apphy1-mcq-020",
+  "difficulty": "medium",
+  "title": "Sign of tension's work while lowering a box",
+  "stem": "A student lowers a box from a shelf to the floor at constant speed using a rope. The rope's tension does negative work on the box. Which statement explains why the work is negative?",
+  "correct": {
+   "text": "The tension points upward, opposite the box's downward displacement",
+   "rationale": "Work is F d cos(theta). The rope pulls up while the box moves down, so theta = 180 degrees and cos(theta) = -1, making the tension's work negative (-mg d, since T = mg at constant speed)."
+  },
+  "wrong": [
+   {
+    "text": "The tension is smaller than the box's weight",
+    "rationale": "At constant speed the net force is zero, so T = mg exactly; the statement is false. Even if it were true, the sign of work depends on the angle between force and displacement, not on the force's size relative to weight.",
+    "error_pattern": "compares force magnitude to weight to decide sign of work"
+   },
+   {
+    "text": "The box's speed stays constant during the descent",
+    "rationale": "Constant speed means the NET work is zero (gravity does +mgd, tension does -mgd). It does not by itself make the tension's work negative; the sign comes from the tension opposing the displacement.",
+    "error_pattern": "confuses zero net work with the sign of one force's work"
+   },
+   {
+    "text": "The downward displacement counts as the negative direction",
+    "rationale": "The sign of work is set by the relative orientation of force and displacement, not by which way displacement points in a coordinate system. Gravity also points down along the downward displacement and does positive work (+mgd).",
+    "error_pattern": "ties sign of work to displacement direction alone"
+   }
+  ],
+  "change_note": "New context (lowering a box with a rope) and a why-question; constant-speed condition added.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-020-v2",
+  "seed": "apphy1-mcq-020",
+  "difficulty": "medium",
+  "title": "Which force does negative work on a pulled cart",
+  "stem": "A cart is pulled to the right along a rough horizontal track by a rope that slants upward at an angle above the horizontal. The cart moves to the right. Which force exerted on the cart does negative work?",
+  "correct": {
+   "text": "The kinetic friction force from the track",
+   "rationale": "Kinetic friction points left, opposite the rightward displacement, so theta = 180 degrees and W = -f d is negative."
+  },
+  "wrong": [
+   {
+    "text": "The normal force from the track",
+    "rationale": "The normal force is perpendicular to the horizontal displacement, so cos(90 degrees) = 0 and it does zero work, not negative work.",
+    "error_pattern": "thinks a support force opposes motion"
+   },
+   {
+    "text": "The tension force from the rope",
+    "rationale": "The rope's pull has a component to the right, along the displacement, so the tension does positive work (F d cos(theta) with theta less than 90 degrees).",
+    "error_pattern": "assumes any force at an angle to the motion does negative work"
+   },
+   {
+    "text": "The gravitational force on the cart",
+    "rationale": "Gravity points straight down, perpendicular to the horizontal displacement, so it does zero work; it neither helps nor opposes the rightward motion.",
+    "error_pattern": "thinks gravity always does negative work"
+   }
+  ],
+  "change_note": "Different scenario: identify which of four forces does negative work (cart pulled by slanted rope).",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-020-v3",
+  "seed": "apphy1-mcq-020",
+  "difficulty": "hard",
+  "title": "Gravity's work on a ball while it falls",
+  "stem": "A ball is thrown straight up. While the ball is rising, gravity does negative work on it. Which statement correctly describes the work done by gravity on the ball while it falls from its highest point back down to the launch height?",
+  "correct": {
+   "text": "Positive, since the gravitational force and the displacement both point downward",
+   "rationale": "Over the fall the force (down) and the displacement (down) are in the same direction, so W = +mg h, equal in magnitude to the negative work done during the rise."
+  },
+  "wrong": [
+   {
+    "text": "Zero, since the ball's displacement over the full trip is zero",
+    "rationale": "The full round trip does have zero net displacement and zero net work by gravity, but the question concerns only the fall, where the displacement is downward by h and the work is +mgh.",
+    "error_pattern": "applies the whole-trip result to just the falling segment"
+   },
+   {
+    "text": "Negative, since gravity always opposes the ball's motion",
+    "rationale": "Gravity acts downward always; it opposes the motion only while the ball rises. During the fall the ball moves in the direction of the force, so the work is positive.",
+    "error_pattern": "thinks gravity always opposes motion"
+   },
+   {
+    "text": "Zero, since the ball's speed is zero at the top of its path",
+    "rationale": "Speed is zero only for an instant at the top. During the fall the ball moves down a distance h under a downward force, so the work is mgh, not zero.",
+    "error_pattern": "uses an instantaneous condition to conclude zero work over an interval"
+   }
+  ],
+  "change_note": "Reverses the question: work of gravity on the fall after being given the sign on the rise.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-027-v1",
+  "seed": "apphy1-mcq-027",
+  "difficulty": "easy",
+  "title": "Distance while a car speeds up uniformly",
+  "stem": "A car's speed increases uniformly from 0 to 18 m/s in 5.0 s. How far does the car travel during these 5.0 s?",
+  "correct": {
+   "text": "45 m",
+   "rationale": "Displacement equals the area under the velocity-time graph, a triangle: (1/2)(5.0 s)(18 m/s) = 45 m."
+  },
+  "wrong": [
+   {
+    "text": "90 m",
+    "rationale": "This uses the full rectangle 18 m/s x 5.0 s = 90 m, as if the car had been at 18 m/s the entire time.",
+    "error_pattern": "uses final speed times total time (rectangle instead of triangle)"
+   },
+   {
+    "text": "9.0 m",
+    "rationale": "The average speed is (0 + 18)/2 = 9.0 m/s; reporting this speed as a distance leaves out multiplication by the 5.0 s.",
+    "error_pattern": "reports average speed as distance"
+   },
+   {
+    "text": "3.6 m",
+    "rationale": "This is the acceleration, 18 m/s / 5.0 s = 3.6 m/s^2, which is reported as though it were a distance.",
+    "error_pattern": "reports the acceleration as the distance"
+   }
+  ],
+  "change_note": "Speeding up from rest instead of braking; new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-027-v2",
+  "seed": "apphy1-mcq-027",
+  "difficulty": "medium",
+  "title": "Distance for a sled slowing but not stopping",
+  "stem": "A sled glides over snow and its speed decreases uniformly from 9.0 m/s to 3.0 m/s in 6.0 s. How far does the sled travel in this time?",
+  "correct": {
+   "text": "36 m",
+   "rationale": "The average speed for uniform change is (9.0 + 3.0)/2 = 6.0 m/s, so the distance is 6.0 m/s x 6.0 s = 36 m (the trapezoid area under the velocity-time graph)."
+  },
+  "wrong": [
+   {
+    "text": "54 m",
+    "rationale": "This uses the initial speed for the whole interval: 9.0 m/s x 6.0 s = 54 m, ignoring that the sled slows.",
+    "error_pattern": "uses initial speed times time"
+   },
+   {
+    "text": "18 m",
+    "rationale": "This uses the final speed for the whole interval: 3.0 m/s x 6.0 s = 18 m, ignoring that the sled was faster earlier.",
+    "error_pattern": "uses final speed times time"
+   },
+   {
+    "text": "27 m",
+    "rationale": "This takes a triangle from 9.0 m/s down to zero, (1/2)(9.0)(6.0) = 27 m, ignoring that the sled still moves at 3.0 m/s at the end.",
+    "error_pattern": "treats motion as ending at zero speed (triangle only)"
+   }
+  ],
+  "change_note": "Speed does not reach zero, so the area is a trapezoid; different object and numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-027-v3",
+  "seed": "apphy1-mcq-027",
+  "difficulty": "medium",
+  "title": "Distance during a runner's acceleration",
+  "stem": "A runner speeds up uniformly from 2.0 m/s to 8.0 m/s with an acceleration of 1.5 m/s^2. How far does the runner travel while speeding up?",
+  "correct": {
+   "text": "20 m",
+   "rationale": "The time is (8.0 - 2.0)/1.5 = 4.0 s. The average speed is (2.0 + 8.0)/2 = 5.0 m/s, so the distance is 5.0 x 4.0 = 20 m."
+  },
+  "wrong": [
+   {
+    "text": "32 m",
+    "rationale": "This uses the final speed for the whole 4.0 s: 8.0 x 4.0 = 32 m.",
+    "error_pattern": "uses final speed times time"
+   },
+   {
+    "text": "8.0 m",
+    "rationale": "This uses the initial speed for the whole 4.0 s: 2.0 x 4.0 = 8.0 m.",
+    "error_pattern": "uses initial speed times time"
+   },
+   {
+    "text": "16 m",
+    "rationale": "This computes a triangle from rest, (1/2)(8.0)(4.0) = 16 m, leaving out the area from the 2.0 m/s starting speed.",
+    "error_pattern": "treats the runner as starting from rest"
+   }
+  ],
+  "change_note": "Acceleration is given instead of the time, so the time must be found first; speeds up with nonzero start.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-028-v1",
+  "seed": "apphy1-mcq-028",
+  "difficulty": "medium",
+  "title": "Stone thrown horizontally from a bridge",
+  "stem": "A stone is thrown horizontally at 12 m/s from a bridge 45 m above a river. Neglect air resistance and use g = 10 m/s^2. How far horizontally from the point of release does the stone hit the water?",
+  "correct": {
+   "text": "36 m",
+   "rationale": "Fall time: 45 = (1/2)(10)t^2 gives t = 3.0 s. Horizontal speed is constant, so the range is 12 x 3.0 = 36 m."
+  },
+  "wrong": [
+   {
+    "text": "25 m",
+    "rationale": "This uses t = sqrt(h/g) = sqrt(4.5) = 2.12 s, dropping the factor of 2 in h = (1/2)g t^2; 12 x 2.12 = 25 m.",
+    "error_pattern": "omits factor 2 in fall time"
+   },
+   {
+    "text": "45 m",
+    "rationale": "This treats the 45 m height as the horizontal distance.",
+    "error_pattern": "confuses height with range"
+   },
+   {
+    "text": "54 m",
+    "rationale": "This takes t = h/g = 4.5 s (no square root, no factor 2), giving 12 x 4.5 = 54 m.",
+    "error_pattern": "uses t = h/g"
+   }
+  ],
+  "change_note": "Thrown from a bridge with different numbers; new distractor errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-028-v2",
+  "seed": "apphy1-mcq-028",
+  "difficulty": "medium",
+  "title": "Package dropped from a level-flying drone",
+  "stem": "A drone flying level at 15 m/s, 80 m above the ground, releases a package. Neglect air resistance and use g = 10 m/s^2. How far horizontally from the release point does the package land?",
+  "correct": {
+   "text": "60 m",
+   "rationale": "Fall time: 80 = (1/2)(10)t^2 gives t = 4.0 s. The package keeps the drone's 15 m/s horizontally, so the distance is 15 x 4.0 = 60 m."
+  },
+  "wrong": [
+   {
+    "text": "42 m",
+    "rationale": "This uses t = sqrt(h/g) = sqrt(8.0) = 2.83 s, omitting the factor 2; 15 x 2.83 = 42 m.",
+    "error_pattern": "omits factor 2 in fall time"
+   },
+   {
+    "text": "80 m",
+    "rationale": "This treats the 80 m height as the horizontal distance.",
+    "error_pattern": "confuses height with range"
+   },
+   {
+    "text": "120 m",
+    "rationale": "This takes t = h/g = 8.0 s (no square root, no factor 2), giving 15 x 8.0 = 120 m.",
+    "error_pattern": "uses t = h/g"
+   }
+  ],
+  "change_note": "Package released by moving drone instead of ball rolling off ledge; larger numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-028-v3",
+  "seed": "apphy1-mcq-028",
+  "difficulty": "medium",
+  "title": "Marble rolling off a table",
+  "stem": "A marble rolls off the edge of a table 1.25 m high with a horizontal speed of 2.0 m/s. Neglect air resistance and use g = 10 m/s^2. How far from the base of the table does the marble land?",
+  "correct": {
+   "text": "1.0 m",
+   "rationale": "Fall time: 1.25 = (1/2)(10)t^2 gives t = 0.50 s. Horizontal distance is 2.0 x 0.50 = 1.0 m."
+  },
+  "wrong": [
+   {
+    "text": "0.71 m",
+    "rationale": "This uses t = sqrt(h/g) = sqrt(0.125) = 0.354 s, omitting the factor 2; 2.0 x 0.354 = 0.71 m.",
+    "error_pattern": "omits factor 2 in fall time"
+   },
+   {
+    "text": "1.25 m",
+    "rationale": "This treats the table height as the horizontal distance.",
+    "error_pattern": "confuses height with range"
+   },
+   {
+    "text": "0.25 m",
+    "rationale": "This takes t = h/g = 0.125 s (no square root, no factor 2), giving 2.0 x 0.125 = 0.25 m.",
+    "error_pattern": "uses t = h/g"
+   }
+  ],
+  "change_note": "Small-scale table-top situation with new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-029-v1",
+  "seed": "apphy1-mcq-029",
+  "difficulty": "hard",
+  "title": "Relative velocity of cars in opposite directions",
+  "stem": "On a straight north-south highway, car P travels north at 25 m/s and car Q travels south at 15 m/s. What is the velocity of Q relative to P?",
+  "correct": {
+   "text": "40 m/s south",
+   "rationale": "Taking north as positive, v_Q = -15 m/s and v_P = +25 m/s. v_Q/P = v_Q - v_P = -15 - 25 = -40 m/s, i.e. 40 m/s south."
+  },
+  "wrong": [
+   {
+    "text": "40 m/s north",
+    "rationale": "The magnitude is right but the direction is reversed; that is the velocity of P relative to Q (+25 - (-15) = +40 m/s).",
+    "error_pattern": "reverses the reference frame (gives P relative to Q)"
+   },
+   {
+    "text": "10 m/s south",
+    "rationale": "This subtracts the speeds, 25 - 15 = 10 m/s, as if the cars moved in the same direction, and keeps Q's direction.",
+    "error_pattern": "subtracts speeds for opposite-direction motion"
+   },
+   {
+    "text": "10 m/s north",
+    "rationale": "This subtracts the speeds, 25 - 15 = 10 m/s, as if the cars moved in the same direction, and keeps P's direction.",
+    "error_pattern": "subtracts speeds for opposite-direction motion, wrong direction"
+   }
+  ],
+  "change_note": "Opposite-direction motion on a highway; asks Q relative to P.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-029-v2",
+  "seed": "apphy1-mcq-029",
+  "difficulty": "medium",
+  "title": "Passenger walking in a moving train",
+  "stem": "A train moves east at 32 m/s relative to the ground. A passenger walks toward the rear of the train at 2.0 m/s relative to the train. What is the passenger's velocity relative to the ground?",
+  "correct": {
+   "text": "30 m/s east",
+   "rationale": "With east positive, v_passenger/ground = v_train/ground + v_passenger/train = +32 + (-2.0) = +30 m/s, i.e. 30 m/s east."
+  },
+  "wrong": [
+   {
+    "text": "34 m/s east",
+    "rationale": "This adds the speeds, 32 + 2.0 = 34, as if the passenger were walking toward the front.",
+    "error_pattern": "ignores that walking toward the rear is in the negative direction"
+   },
+   {
+    "text": "32 m/s east",
+    "rationale": "This reports only the train's velocity and leaves out the passenger's walking motion.",
+    "error_pattern": "ignores the passenger's motion relative to the train"
+   },
+   {
+    "text": "2.0 m/s west",
+    "rationale": "This is the passenger's velocity relative to the train, not relative to the ground.",
+    "error_pattern": "gives velocity in the wrong reference frame"
+   }
+  ],
+  "change_note": "Frame-addition (ground/train/passenger) rather than subtraction; different scenario.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-029-v3",
+  "seed": "apphy1-mcq-029",
+  "difficulty": "medium",
+  "title": "Relative velocity seen from the faster boat",
+  "stem": "Two boats move north on a straight channel. Boat X travels at 9.0 m/s and boat Y travels at 14 m/s. What is the velocity of X relative to Y?",
+  "correct": {
+   "text": "5.0 m/s south",
+   "rationale": "Taking north as positive, v_X/Y = v_X - v_Y = 9.0 - 14 = -5.0 m/s, i.e. 5.0 m/s south: Y pulls ahead, so from Y, X appears to drift backward."
+  },
+  "wrong": [
+   {
+    "text": "5.0 m/s north",
+    "rationale": "The magnitude is right but the sign is reversed; +5.0 m/s north is the velocity of Y relative to X (14 - 9.0).",
+    "error_pattern": "reverses the reference frame (gives Y relative to X)"
+   },
+   {
+    "text": "23 m/s south",
+    "rationale": "This adds the speeds, 9.0 + 14 = 23, which applies to objects moving in opposite directions, and then assigns a southward direction.",
+    "error_pattern": "adds speeds for same-direction motion"
+   },
+   {
+    "text": "23 m/s north",
+    "rationale": "This adds the speeds, 9.0 + 14 = 23, which applies to objects moving in opposite directions, and keeps the direction of motion.",
+    "error_pattern": "adds speeds for same-direction motion, wrong direction"
+   }
+  ],
+  "change_note": "Observer is the faster object, so the answer's direction differs from either object's motion.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-030-v1",
+  "seed": "apphy1-mcq-030",
+  "difficulty": "medium",
+  "title": "Bowling ball striking a pin",
+  "stem": "A bowling ball strikes a single pin that is much lighter than the ball. During the impact, how do the force of the ball on the pin and the force of the pin on the ball compare?",
+  "correct": {
+   "text": "They have equal magnitudes and opposite directions",
+   "rationale": "Newton's third law: F(ball on pin) = -F(pin on ball) at every instant, regardless of mass. The pin accelerates more only because its mass is smaller (a = F/m)."
+  },
+  "wrong": [
+   {
+    "text": "The ball's force on the pin is larger, since the ball is heavier",
+    "rationale": "Mass does not change the size of the interaction forces; they are equal. The heavier ball simply has a smaller acceleration than the pin.",
+    "error_pattern": "thinks the heavier object exerts the larger force"
+   },
+   {
+    "text": "The pin's force on the ball is larger, since the pin accelerates more",
+    "rationale": "A larger acceleration comes from the smaller mass (a = F/m) with the same force; it does not mean a larger force. Both forces are equal in magnitude.",
+    "error_pattern": "infers larger force from larger acceleration"
+   },
+   {
+    "text": "They are equal only if the two objects have equal accelerations",
+    "rationale": "Third-law forces are equal in magnitude for any pair of interacting objects, whatever their accelerations or masses.",
+    "error_pattern": "makes third-law equality depend on equal accelerations"
+   }
+  ],
+  "change_note": "Bowling collision with explicit mass mismatch (light pin) and acceleration-based distractors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-030-v2",
+  "seed": "apphy1-mcq-030",
+  "difficulty": "medium",
+  "title": "Person pushing on a wall",
+  "stem": "A person standing on a skateboard pushes horizontally on a rigid wall and rolls backward away from it. Which statement about the forces between the person and the wall is correct?",
+  "correct": {
+   "text": "The wall pushes on the person with a force equal in size to the person's push on the wall",
+   "rationale": "The two forces are a third-law pair, equal in magnitude and opposite in direction. The wall's push is the net horizontal force that accelerates the person backward."
+  },
+  "wrong": [
+   {
+    "text": "The wall exerts no force on the person because the wall does not move",
+    "rationale": "A wall that stays at rest still exerts a (normal) force; that force is what accelerates the person. Not moving only means the wall's net force is zero, not that it exerts no force.",
+    "error_pattern": "believes a stationary object cannot exert a force"
+   },
+   {
+    "text": "The person's push on the wall is larger because the person starts the interaction",
+    "rationale": "Neither object 'starts' the force; the two forces arise together and are always equal in magnitude.",
+    "error_pattern": "thinks the initiator exerts the larger force"
+   },
+   {
+    "text": "The wall's push on the person is smaller since the wall has no acceleration",
+    "rationale": "The wall does not accelerate because other forces (from the ground and building) balance the person's push on it; the interaction forces are still equal.",
+    "error_pattern": "thinks the force is smaller when the object does not accelerate"
+   }
+  ],
+  "change_note": "Contact interaction with a wall (person on skateboard) instead of a collision.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-030-v3",
+  "seed": "apphy1-mcq-030",
+  "difficulty": "medium",
+  "title": "Earth-Moon gravitational interaction",
+  "stem": "Earth exerts a gravitational force of magnitude F on the Moon. Which statement describes the gravitational force the Moon exerts on Earth?",
+  "correct": {
+   "text": "It has magnitude F and is directed toward the Moon",
+   "rationale": "The Moon-on-Earth force is the third-law partner of the Earth-on-Moon force: same magnitude F, opposite direction (toward the Moon rather than toward Earth)."
+  },
+  "wrong": [
+   {
+    "text": "It is smaller than F because the Moon has less mass",
+    "rationale": "Gravity between two bodies is G m1 m2 / r^2, which is the same for each of them; the Moon's smaller mass only makes its acceleration larger, not the force smaller.",
+    "error_pattern": "assumes the less massive body exerts the smaller force"
+   },
+   {
+    "text": "It is zero because Earth's acceleration is negligible",
+    "rationale": "Earth's acceleration is tiny only because its mass is huge (a = F/m); the force on it from the Moon is still F, and it causes ocean tides.",
+    "error_pattern": "confuses a negligible acceleration with a negligible force"
+   },
+   {
+    "text": "It has magnitude F and is directed away from the Moon",
+    "rationale": "Opposite directions in a third-law pair means each force points toward the other body (here the Moon's pull on Earth points toward the Moon); gravity is always attractive, so a push away from the Moon is wrong.",
+    "error_pattern": "reads 'opposite' as repulsive"
+   }
+  ],
+  "change_note": "Action-at-a-distance (gravity) example with Earth and Moon.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-031-v1",
+  "seed": "apphy1-mcq-031",
+  "difficulty": "medium",
+  "title": "Gravitational field at triple the radius",
+  "stem": "At the surface of a planet, a distance R from its center, the gravitational field is 8.0 N/kg. What is the field at a distance of 3R from the planet's center?",
+  "correct": {
+   "text": "0.89 N/kg",
+   "rationale": "The field varies as 1/r^2, so at 3R it is 8.0/3^2 = 8.0/9 = 0.89 N/kg."
+  },
+  "wrong": [
+   {
+    "text": "2.7 N/kg",
+    "rationale": "This scales as 1/r, 8.0/3 = 2.7, missing the square on the distance.",
+    "error_pattern": "uses inverse-linear scaling"
+   },
+   {
+    "text": "24 N/kg",
+    "rationale": "This scales the field directly with distance, 8.0 x 3 = 24.",
+    "error_pattern": "uses direct-linear scaling"
+   },
+   {
+    "text": "72 N/kg",
+    "rationale": "This multiplies by the square of the distance ratio, 8.0 x 3^2 = 72, instead of dividing.",
+    "error_pattern": "applies the square in the wrong direction"
+   }
+  ],
+  "change_note": "Numeric field values and a 3R distance instead of 2r.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-031-v2",
+  "seed": "apphy1-mcq-031",
+  "difficulty": "medium",
+  "title": "Astronaut's weight at altitude R",
+  "stem": "An astronaut weighs 800 N at Earth's surface. Her spacecraft orbits at an altitude equal to Earth's radius R above the surface. What gravitational force does Earth exert on her there?",
+  "correct": {
+   "text": "200 N",
+   "rationale": "The altitude R above the surface places her 2R from Earth's center. The force scales as 1/r^2, so F = 800/2^2 = 200 N."
+  },
+  "wrong": [
+   {
+    "text": "400 N",
+    "rationale": "This uses 800/2, an inverse-linear dependence on the distance 2R.",
+    "error_pattern": "uses inverse-linear scaling"
+   },
+   {
+    "text": "800 N",
+    "rationale": "This treats the altitude R as the distance from the center, so r = R and the force is unchanged.",
+    "error_pattern": "measures distance from the surface, not the center"
+   },
+   {
+    "text": "3200 N",
+    "rationale": "This multiplies by 2^2 = 4 instead of dividing, 800 x 4 = 3200 N.",
+    "error_pattern": "applies the square in the wrong direction"
+   }
+  ],
+  "change_note": "Altitude above the surface (distance from the center is 2R) and a force in newtons.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-031-v3",
+  "seed": "apphy1-mcq-031",
+  "difficulty": "hard",
+  "title": "Surface field of a larger planet",
+  "stem": "Planet Z has twice Earth's mass and twice Earth's radius. If g_E is the gravitational field at Earth's surface, what is the field at the surface of Planet Z?",
+  "correct": {
+   "text": "g_E / 2",
+   "rationale": "g = GM/R^2. With M doubled and R doubled the field changes by a factor 2/2^2 = 1/2, so g = g_E/2."
+  },
+  "wrong": [
+   {
+    "text": "g_E",
+    "rationale": "This assumes the doubled mass and doubled radius cancel (g depends on M/R), but the radius enters squared.",
+    "error_pattern": "treats g as proportional to M/R"
+   },
+   {
+    "text": "2 g_E",
+    "rationale": "This accounts for the doubled mass only and ignores the radius.",
+    "error_pattern": "ignores the radius dependence"
+   },
+   {
+    "text": "g_E / 4",
+    "rationale": "This accounts for the doubled radius only (1/2^2) and ignores the doubled mass.",
+    "error_pattern": "ignores the mass dependence"
+   }
+  ],
+  "change_note": "Changes both mass and radius of the planet instead of only distance; compare with Earth.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-032-v1",
+  "seed": "apphy1-mcq-032",
+  "difficulty": "hard",
+  "title": "Friction on a crate in an accelerating truck",
+  "stem": "A 50 kg crate rests on the flat bed of a truck. The coefficient of static friction between the crate and bed is 0.40. The truck speeds up from rest in the forward direction with a constant acceleration of 2.0 m/s^2, and the crate does not slide. Use g = 10 m/s^2. What is the friction force on the crate?",
+  "correct": {
+   "text": "100 N forward",
+   "rationale": "The crate accelerates with the truck, so F_net = ma = 50 x 2.0 = 100 N, and only static friction acts horizontally, so it is 100 N forward."
+  },
+  "wrong": [
+   {
+    "text": "200 N forward",
+    "rationale": "This uses the maximum static friction, mu_s N = 0.40 x 500 = 200 N; static friction only reaches that value at the verge of slipping.",
+    "error_pattern": "uses the maximum static value"
+   },
+   {
+    "text": "100 N backward",
+    "rationale": "The magnitude is right but friction must point forward: it is the only horizontal force that can accelerate the crate forward.",
+    "error_pattern": "gets the direction of static friction backward"
+   },
+   {
+    "text": "0 N",
+    "rationale": "Because the crate does not slide, one might expect no friction, but without friction it would be left behind; friction must supply ma = 100 N.",
+    "error_pattern": "thinks no friction acts if there is no sliding"
+   }
+  ],
+  "change_note": "Static friction supplying acceleration to an object that does not slip, with direction.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-032-v2",
+  "seed": "apphy1-mcq-032",
+  "difficulty": "medium",
+  "title": "Friction on a book as a board is tilted",
+  "stem": "A book rests on a flat board. The board is slowly tilted, and the book stays at rest on it. As the tilt angle increases but before the book slips, the friction force on the book",
+  "correct": {
+   "text": "increases, matching the growing weight component along the board",
+   "rationale": "At rest, the friction balances the component of weight parallel to the board, mg sin(theta), which grows with the angle; static friction adjusts to whatever is needed up to its limit."
+  },
+  "wrong": [
+   {
+    "text": "equals mu_s times the normal force at every angle",
+    "rationale": "mu_s N is only the maximum static friction, reached at the verge of slipping. Before that, friction equals mg sin(theta), which is less than mu_s N.",
+    "error_pattern": "treats the maximum as the actual static friction"
+   },
+   {
+    "text": "decreases, since the normal force on the book decreases",
+    "rationale": "The normal force does decrease (mg cos(theta)), but static friction is not mu N; it equals the parallel weight component, which increases.",
+    "error_pattern": "applies f = mu N to static friction"
+   },
+   {
+    "text": "is zero until the book begins to slide",
+    "rationale": "The book would start sliding as soon as the board tilts if friction were zero; static friction already acts and equals mg sin(theta) at each angle.",
+    "error_pattern": "ignores static friction before slipping"
+   }
+  ],
+  "change_note": "Tilting board (friction balancing a changing weight component) rather than a push on a crate.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-032-v3",
+  "seed": "apphy1-mcq-032",
+  "difficulty": "medium",
+  "title": "Friction on a cabinet that does not move",
+  "stem": "A 10 kg cabinet rests on a floor with mu_s = 0.50 and mu_k = 0.30. A mover pushes horizontally with 20 N and the cabinet stays at rest. The mover then pushes with 35 N and the cabinet still stays at rest. Use g = 10 m/s^2. What is the magnitude of the friction force during the 35 N push?",
+  "correct": {
+   "text": "35 N",
+   "rationale": "The cabinet is at rest, so the net force is zero and static friction equals the push: 35 N (still below the maximum mu_s N = 50 N)."
+  },
+  "wrong": [
+   {
+    "text": "50 N",
+    "rationale": "This is the maximum static friction, 0.50 x 100 = 50 N; the cabinet would need a push above 50 N before friction reached it.",
+    "error_pattern": "uses the maximum static value"
+   },
+   {
+    "text": "30 N",
+    "rationale": "This is kinetic friction, 0.30 x 100 = 30 N, which applies only once the cabinet slides.",
+    "error_pattern": "uses the kinetic friction formula"
+   },
+   {
+    "text": "20 N",
+    "rationale": "This keeps the friction value from the first push; static friction increases to match the larger 35 N push.",
+    "error_pattern": "assumes friction stays at its earlier value"
+   }
+  ],
+  "change_note": "Two successive pushes, both subthreshold; numeric.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-033-v1",
+  "seed": "apphy1-mcq-033",
+  "difficulty": "medium",
+  "title": "Spring force on a block pushed toward a wall",
+  "stem": "One end of an ideal horizontal spring (k = 150 N/m) is attached to a wall on the left. A block on the right end is pushed left so the spring is compressed 4.0 cm from its natural length. What force does the spring exert on the block?",
+  "correct": {
+   "text": "6.0 N to the right",
+   "rationale": "x = 4.0 cm = 0.040 m, so F = kx = 150 x 0.040 = 6.0 N. The compressed spring pushes the block back toward equilibrium, to the right."
+  },
+  "wrong": [
+   {
+    "text": "6.0 N to the left",
+    "rationale": "The magnitude is right, but the spring force is restoring: a compressed spring pushes the block away from the wall, not toward it.",
+    "error_pattern": "gets the restoring-force direction wrong"
+   },
+   {
+    "text": "600 N to the right",
+    "rationale": "This multiplies by 4.0 without converting cm to m: 150 x 4.0 = 600 N.",
+    "error_pattern": "does not convert cm to m"
+   },
+   {
+    "text": "0.12 N to the right",
+    "rationale": "This uses the elastic energy formula, (1/2)kx^2 = 0.5 x 150 x 0.040^2 = 0.12, which is an energy in joules, not a force.",
+    "error_pattern": "uses spring PE formula instead of Hooke's law"
+   }
+  ],
+  "change_note": "Compression with a wall, x given in cm.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-033-v2",
+  "seed": "apphy1-mcq-033",
+  "difficulty": "medium",
+  "title": "Finding k from a hanging mass",
+  "stem": "A 0.50 kg block hangs at rest from a vertical ideal spring and stretches the spring 0.10 m from its natural length. Use g = 10 m/s^2. What is the spring constant?",
+  "correct": {
+   "text": "50 N/m",
+   "rationale": "At rest the spring force balances the weight: kx = mg, so k = (0.50 x 10)/0.10 = 50 N/m."
+  },
+  "wrong": [
+   {
+    "text": "5.0 N/m",
+    "rationale": "This divides the mass by the stretch, 0.50/0.10 = 5.0, using m instead of the weight mg.",
+    "error_pattern": "uses mass instead of weight"
+   },
+   {
+    "text": "100 N/m",
+    "rationale": "This sets mg = (1/2)kx, giving k = 2mg/x = 100 N/m; Hooke's law has no factor of 1/2.",
+    "error_pattern": "inserts a factor 1/2 into Hooke's law"
+   },
+   {
+    "text": "500 N/m",
+    "rationale": "This uses mg = kx^2, so k = 5.0/(0.10)^2 = 500 N/m; Hooke's law is linear in x.",
+    "error_pattern": "squares the displacement"
+   }
+  ],
+  "change_note": "Reverse problem: solves for k from equilibrium of a hanging mass.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-033-v3",
+  "seed": "apphy1-mcq-033",
+  "difficulty": "medium",
+  "title": "Spring force on a hand pulling a spring",
+  "stem": "One end of an ideal horizontal spring (k = 120 N/m, natural length 0.50 m) is fixed to a wall. A hand pulls the free end until the spring's length is 0.62 m. What force does the spring exert on the hand?",
+  "correct": {
+   "text": "14 N toward the wall",
+   "rationale": "The stretch is 0.62 - 0.50 = 0.12 m, so F = 120 x 0.12 = 14 N, and the stretched spring pulls the hand back toward the wall."
+  },
+  "wrong": [
+   {
+    "text": "14 N away from the wall",
+    "rationale": "The magnitude is right but the spring force is restoring: a stretched spring pulls the hand back toward the wall.",
+    "error_pattern": "gets the restoring-force direction wrong"
+   },
+   {
+    "text": "74 N toward the wall",
+    "rationale": "This uses the full length 0.62 m as x: 120 x 0.62 = 74 N, rather than the 0.12 m stretch.",
+    "error_pattern": "uses total length instead of extension"
+   },
+   {
+    "text": "60 N toward the wall",
+    "rationale": "This uses the natural length 0.50 m as x: 120 x 0.50 = 60 N, rather than the 0.12 m stretch.",
+    "error_pattern": "uses natural length instead of extension"
+   }
+  ],
+  "change_note": "Spring defined by natural length and stretched length; force on the hand.",
+  "check": "numeric"
+ }
+]

@@ -1,0 +1,722 @@
+[
+ {
+  "id": "apphy1-mcq-034-v1",
+  "seed": "apphy1-mcq-034",
+  "difficulty": "medium",
+  "title": "Normal force at the bottom of a dip",
+  "stem": "A 1200 kg car crosses the lowest point of a dip in a road. The dip is a circular arc of radius 30 m, and the car moves at 15 m/s. Using g = 10 m/s², the normal force of the road on the car at that point is",
+  "correct": {
+   "text": "21000 N",
+   "rationale": "Take inward (toward the arc's center, which is above the car) as positive: N − mg = mv²/r, so N = mg + mv²/r = 12000 N + (1200)(15)²/30 N = 12000 N + 9000 N = 21000 N."
+  },
+  "wrong": [
+   {
+    "text": "3000 N",
+    "rationale": "Uses mg − N = mv²/r, which treats the road's push as pointing away from the center; N = 12000 − 9000 = 3000 N, but the road's push is upward, toward the center.",
+    "error_pattern": "sign_error_normal_force_outward"
+   },
+   {
+    "text": "12000 N",
+    "rationale": "Sets N = mg, as if the car were in vertical equilibrium: (1200)(10) = 12000 N. The car accelerates toward the center of the arc, so N must exceed mg.",
+    "error_pattern": "imposes_equilibrium"
+   },
+   {
+    "text": "9000 N",
+    "rationale": "Keeps only the centripetal term, N = mv²/r = (1200)(225)/30 = 9000 N, and leaves out the 12000 N needed just to balance the car's weight.",
+    "error_pattern": "omits_weight_term"
+   }
+  ],
+  "change_note": "New situation (car in a road dip) with numbers, asking for the normal force rather than choosing a radial equation.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-034-v2",
+  "seed": "apphy1-mcq-034",
+  "difficulty": "medium",
+  "title": "Radial equation at the crest of a hill",
+  "stem": "A skateboarder of mass m rolls over the top of a rounded hill whose surface is a circular arc of radius r. At the top she moves at speed v and stays in contact with the surface, which exerts a normal force N on her. Taking the direction toward the arc's center (downward) as positive, which radial equation is correct?",
+  "correct": {
+   "text": "mg − N = mv²/r",
+   "rationale": "At the crest the center of the arc is below her. Weight points toward the center (positive) and the normal force points away from it (negative), so the net inward force is mg − N = mv²/r."
+  },
+  "wrong": [
+   {
+    "text": "N − mg = mv²/r",
+    "rationale": "Uses the signs appropriate to the bottom of a dip, with the normal force counted as inward. At the crest the normal force points away from the center, so this has the wrong sign on both terms.",
+    "error_pattern": "bottom_of_dip_signs_at_crest"
+   },
+   {
+    "text": "N + mg = mv²/r",
+    "rationale": "Counts the normal force as pointing toward the center. At the crest the surface pushes upward, away from the center, so N reduces the net inward force instead of adding to it.",
+    "error_pattern": "normal_force_counted_inward"
+   },
+   {
+    "text": "N = mg",
+    "rationale": "Applies vertical equilibrium. She is moving along a curved path, so there is a nonzero inward acceleration v²/r and the vertical forces cannot balance.",
+    "error_pattern": "imposes_equilibrium"
+   }
+  ],
+  "change_note": "Different geometry (crest of a hill, inward is downward) with a symbolic equation choice.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-034-v3",
+  "seed": "apphy1-mcq-034",
+  "difficulty": "medium",
+  "title": "Bucket swung in a vertical circle",
+  "stem": "A student swings a bucket of water of mass m on a rope in a vertical circle of radius r. At the top of the circle the bucket moves at speed v and the rope exerts a tension T. Taking the direction toward the circle's center (downward) as positive, which radial equation is correct at that instant?",
+  "correct": {
+   "text": "T + mg = mv²/r",
+   "rationale": "At the top both the rope's tension and the weight point downward, toward the center, so the net inward force is T + mg = mv²/r."
+  },
+  "wrong": [
+   {
+    "text": "T − mg = mv²/r",
+    "rationale": "Treats weight as pointing away from the center, which is correct only at the bottom of the circle. At the top, weight points toward the center.",
+    "error_pattern": "bottom_of_circle_signs_at_top"
+   },
+   {
+    "text": "mg − T = mv²/r",
+    "rationale": "Treats the tension as pointing away from the center. A rope can only pull, and at the top it pulls the bucket toward the center, downward.",
+    "error_pattern": "tension_counted_outward"
+   },
+   {
+    "text": "T = mv²/r",
+    "rationale": "Leaves out gravity, as if only the rope supplied the inward force. Weight also points toward the center at the top, so it must appear in the sum.",
+    "error_pattern": "omits_weight"
+   }
+  ],
+  "change_note": "Top of a vertical circle with a rope (tension) instead of a track normal force; sign convention reversed from the seed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-035-v1",
+  "seed": "apphy1-mcq-035",
+  "difficulty": "easy",
+  "title": "Center of mass of two blocks",
+  "stem": "A 2.0 kg block sits at x = 1.0 m on a long shelf and a 3.0 kg block sits at x = 6.0 m. The x-coordinate of the center of mass of the two blocks is",
+  "correct": {
+   "text": "4.0 m",
+   "rationale": "x_cm = (2.0×1.0 + 3.0×6.0)/(2.0 + 3.0) = 20/5.0 = 4.0 m, which is closer to the heavier block."
+  },
+  "wrong": [
+   {
+    "text": "3.5 m",
+    "rationale": "The unweighted midpoint (1.0 + 6.0)/2 = 3.5 m. It ignores that the masses are unequal.",
+    "error_pattern": "unweighted_midpoint"
+   },
+   {
+    "text": "3.0 m",
+    "rationale": "Swaps the masses in the weighting: (3.0×1.0 + 2.0×6.0)/5.0 = 15/5.0 = 3.0 m, which wrongly puts the center nearer the lighter block.",
+    "error_pattern": "reversed_mass_weighting"
+   },
+   {
+    "text": "6.0 m",
+    "rationale": "Places the center on the heavier block. The center of mass lies between the two blocks, and here it is 4.0 m.",
+    "error_pattern": "center_on_heavier_mass"
+   }
+  ],
+  "change_note": "New masses and positions on a shelf; all values recomputed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-035-v2",
+  "seed": "apphy1-mcq-035",
+  "difficulty": "medium",
+  "title": "Center of mass with a negative coordinate",
+  "stem": "On a straight air track with the origin at its middle, a 4.0 kg cart is at x = −2.0 m and a 1.0 kg cart is at x = +3.0 m. The x-coordinate of the carts' center of mass is",
+  "correct": {
+   "text": "−1.0 m",
+   "rationale": "x_cm = (4.0×(−2.0) + 1.0×3.0)/(4.0 + 1.0) = (−8.0 + 3.0)/5.0 = −1.0 m."
+  },
+  "wrong": [
+   {
+    "text": "0.5 m",
+    "rationale": "The unweighted midpoint (−2.0 + 3.0)/2 = 0.5 m, which ignores the 4:1 ratio of the masses.",
+    "error_pattern": "unweighted_midpoint"
+   },
+   {
+    "text": "2.0 m",
+    "rationale": "Swaps the masses: (1.0×(−2.0) + 4.0×3.0)/5.0 = 10/5.0 = 2.0 m, which wrongly puts the center nearer the lighter cart.",
+    "error_pattern": "reversed_mass_weighting"
+   },
+   {
+    "text": "2.2 m",
+    "rationale": "Drops the negative sign of the first position: (4.0×2.0 + 1.0×3.0)/5.0 = 11/5.0 = 2.2 m. The cart at x = −2.0 m contributes −8.0 kg·m, not +8.0 kg·m.",
+    "error_pattern": "dropped_negative_coordinate"
+   }
+  ],
+  "change_note": "Includes a negative coordinate and a 4:1 mass ratio on a track.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-035-v3",
+  "seed": "apphy1-mcq-035",
+  "difficulty": "medium",
+  "title": "Center of mass of three objects",
+  "stem": "Three beads are fixed on a thin horizontal rod, with positions measured from the rod's left end: a 3.0 kg bead at 0, a 1.0 kg bead at 2.0 m, and a 2.0 kg bead at 5.0 m. Measured from the left end, the center of mass of the three beads lies at",
+  "correct": {
+   "text": "2.0 m",
+   "rationale": "x_cm = (3.0×0 + 1.0×2.0 + 2.0×5.0)/(3.0 + 1.0 + 2.0) = 12/6.0 = 2.0 m."
+  },
+  "wrong": [
+   {
+    "text": "2.3 m",
+    "rationale": "The unweighted mean of the positions, (0 + 2.0 + 5.0)/3 = 2.33 m, which ignores the masses.",
+    "error_pattern": "unweighted_mean"
+   },
+   {
+    "text": "2.5 m",
+    "rationale": "The midpoint of the two end objects, (0 + 5.0)/2 = 2.5 m, which ignores the masses and the middle object.",
+    "error_pattern": "midpoint_of_extremes"
+   },
+   {
+    "text": "4.0 m",
+    "rationale": "Divides the weighted sum by the number of objects instead of the total mass: 12/3 = 4.0 m. The denominator must be the total mass, 6.0 kg.",
+    "error_pattern": "divide_by_count_not_total_mass"
+   }
+  ],
+  "change_note": "Three objects at different positions instead of two.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-036-v1",
+  "seed": "apphy1-mcq-036",
+  "difficulty": "medium",
+  "title": "Kinetic energy after a speed increase",
+  "stem": "A freight train's speed increases from 20 m/s to 50 m/s while its mass stays the same. Its translational kinetic energy becomes",
+  "correct": {
+   "text": "6.25 times as large",
+   "rationale": "K is proportional to v². The speed ratio is 50/20 = 2.5, so K increases by 2.5² = 6.25."
+  },
+  "wrong": [
+   {
+    "text": "2.5 times as large",
+    "rationale": "Treats K as directly proportional to speed, so K scales by the speed ratio 50/20 = 2.5 and the square is missed.",
+    "error_pattern": "linear_in_speed"
+   },
+   {
+    "text": "5.0 times as large",
+    "rationale": "Multiplies the speed ratio by 2 instead of squaring it: 2 × 2.5 = 5.0.",
+    "error_pattern": "doubles_instead_of_squares"
+   },
+   {
+    "text": "3.125 times as large",
+    "rationale": "Takes the correct factor 2.5² = 6.25 and then also divides by 2 for the ½ in K = ½mv², but the ½ cancels in a ratio of two kinetic energies: 6.25/2 = 3.125.",
+    "error_pattern": "half_factor_not_cancelled"
+   }
+  ],
+  "change_note": "Ratio of two speeds that is not an integer; asks for the scale factor of K.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-036-v2",
+  "seed": "apphy1-mcq-036",
+  "difficulty": "medium",
+  "title": "Kinetic energy with mass and speed both changing",
+  "stem": "A shopping cart is loaded so that its mass doubles, and it is then pushed at half its original speed. Compared with its original translational kinetic energy, its new kinetic energy is",
+  "correct": {
+   "text": "one-half as large",
+   "rationale": "K = ½mv². With 2m and v/2: K' = ½(2m)(v/2)² = ½mv²·(2/4) = ½K."
+  },
+  "wrong": [
+   {
+    "text": "unchanged",
+    "rationale": "Treats K as proportional to mv, so the factor 2 for mass cancels the factor ½ for speed (2 × ½ = 1). Speed enters K squared, giving 2 × ¼ = ½.",
+    "error_pattern": "linear_in_speed"
+   },
+   {
+    "text": "one-fourth as large",
+    "rationale": "Applies the square to the speed (½)² = ¼ but ignores the doubled mass. Doubling m multiplies K by 2, giving ¼ × 2 = ½.",
+    "error_pattern": "ignores_mass_change"
+   },
+   {
+    "text": "twice as large",
+    "rationale": "Accounts for the doubled mass but ignores the change in speed entirely. Halving the speed multiplies K by ¼, so the net factor is 2 × ¼ = ½.",
+    "error_pattern": "ignores_speed_change"
+   }
+  ],
+  "change_note": "Both mass and speed change at once, ratio-reasoning without numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-036-v3",
+  "seed": "apphy1-mcq-036",
+  "difficulty": "hard",
+  "title": "Increase in kinetic energy of a ball",
+  "stem": "A 0.50 kg ball is thrown so that its speed increases from 4.0 m/s to 12 m/s while it is in the thrower's hand. The increase in the ball's translational kinetic energy is",
+  "correct": {
+   "text": "32 J",
+   "rationale": "ΔK = ½(0.50)(12)² − ½(0.50)(4.0)² = 36 J − 4.0 J = 32 J."
+  },
+  "wrong": [
+   {
+    "text": "16 J",
+    "rationale": "Uses ½m(Δv)² with Δv = 8.0 m/s: ½(0.50)(8.0)² = 16 J. The change in K is ½m(v² − v₀²), not ½m(v − v₀)².",
+    "error_pattern": "square_of_difference"
+   },
+   {
+    "text": "8.0 J",
+    "rationale": "Treats K as proportional to speed: the speed triples, so K goes from 4.0 J to 12 J and the increase is 8.0 J. K is proportional to v², so K increases ninefold.",
+    "error_pattern": "linear_in_speed"
+   },
+   {
+    "text": "36 J",
+    "rationale": "Reports the final kinetic energy, ½(0.50)(12)² = 36 J, instead of the change; the initial 4.0 J must be subtracted.",
+    "error_pattern": "final_value_not_change"
+   }
+  ],
+  "change_note": "Asks for the change in K for a specific mass and speeds rather than a scale factor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-037-v1",
+  "seed": "apphy1-mcq-037",
+  "difficulty": "medium",
+  "title": "Work by an angled rope on a sled",
+  "stem": "A rope pulls a sled 5.0 m across level snow with a constant 40 N force directed 53° above the horizontal displacement. (Use sin 53° = 0.80 and cos 53° = 0.60.) The work done by the rope on the sled is",
+  "correct": {
+   "text": "120 J",
+   "rationale": "W = Fd cos θ = (40 N)(5.0 m)(0.60) = 120 J."
+  },
+  "wrong": [
+   {
+    "text": "160 J",
+    "rationale": "Uses sin 53° instead of cos 53°: (40)(5.0)(0.80) = 160 J. The component along the displacement uses cosine.",
+    "error_pattern": "sin_for_cos"
+   },
+   {
+    "text": "200 J",
+    "rationale": "Ignores the angle: Fd = (40)(5.0) = 200 J. Only the component of the force along the displacement does work.",
+    "error_pattern": "ignores_angle"
+   },
+   {
+    "text": "333 J",
+    "rationale": "Divides by cos 53° instead of multiplying: (40)(5.0)/0.60 = 333 J. The parallel component is smaller than the full force, so the work must be less than 200 J.",
+    "error_pattern": "divides_by_cosine"
+   }
+  ],
+  "change_note": "Different angle (53°) with given trig values, sled and rope scenario.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-037-v2",
+  "seed": "apphy1-mcq-037",
+  "difficulty": "medium",
+  "title": "Work by a push on a lawn mower handle",
+  "stem": "A person pushes a lawn mower 12 m across level grass, applying a constant 90 N force along the handle, which makes a 60° angle below the horizontal. (Use cos 60° = 0.50 and sin 60° = 0.87.) The work done by the person's force on the mower is",
+  "correct": {
+   "text": "540 J",
+   "rationale": "The force component along the horizontal displacement is 90 cos 60° = 45 N, so W = (45 N)(12 m) = 540 J."
+  },
+  "wrong": [
+   {
+    "text": "940 J",
+    "rationale": "Uses sin 60° instead of cos 60°: (90)(12)(0.87) = 940 J (939.6 J before rounding). The component along the motion uses cosine of the angle to the displacement.",
+    "error_pattern": "sin_for_cos"
+   },
+   {
+    "text": "1080 J",
+    "rationale": "Ignores the angle: Fd = (90)(12) = 1080 J, as if the entire force acted along the displacement.",
+    "error_pattern": "ignores_angle"
+   },
+   {
+    "text": "−540 J",
+    "rationale": "Gets the magnitude right but the sign wrong, reasoning that a downward-pointing force does negative work. The horizontal component of the force points in the direction of the motion, so the work is positive.",
+    "error_pattern": "wrong_sign_from_downward_force"
+   }
+  ],
+  "change_note": "Force directed below the horizontal, adding a sign trap; lawn mower scenario.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-037-v3",
+  "seed": "apphy1-mcq-037",
+  "difficulty": "hard",
+  "title": "Work by a tow rope on a trailer",
+  "stem": "A tow rope exerts a constant 200 N force on a trailer while the trailer moves 15 m along a level road. The rope makes a 30° angle above the horizontal. (Use cos 30° = 0.87 and sin 30° = 0.50.) The work done by the rope on the trailer is",
+  "correct": {
+   "text": "2610 J",
+   "rationale": "W = Fd cos θ = (200)(15)(0.87) = 2610 J."
+  },
+  "wrong": [
+   {
+    "text": "1500 J",
+    "rationale": "Uses sin 30° instead of cos 30°: (200)(15)(0.50) = 1500 J.",
+    "error_pattern": "sin_for_cos"
+   },
+   {
+    "text": "3000 J",
+    "rationale": "Ignores the angle: Fd = (200)(15) = 3000 J.",
+    "error_pattern": "ignores_angle"
+   },
+   {
+    "text": "2271 J",
+    "rationale": "Applies cos 30° twice, once to find the force component and again to the displacement: (200)(15)(0.87)(0.87) = 2270.7 J ≈ 2271 J. The displacement is already along the road, so the cosine appears once.",
+    "error_pattern": "cosine_applied_twice"
+   }
+  ],
+  "change_note": "Third angle (30°) with a different distractor set including double application of cosine.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-038-v1",
+  "seed": "apphy1-mcq-038",
+  "difficulty": "medium",
+  "title": "Potential energy and a force in the −x direction",
+  "stem": "In one dimension, a conservative force on a particle points in the −x direction at every point in a region. As the particle moves toward larger x in that region, the potential energy associated with the force",
+  "correct": {
+   "text": "increases",
+   "rationale": "Moving in +x is moving against the force, so the force does negative work, W = −ΔU is negative, and ΔU is positive: U increases."
+  },
+  "wrong": [
+   {
+    "text": "decreases",
+    "rationale": "Assumes that a particle moving toward larger x must be moving toward lower potential energy, as if the force pointed in +x. Potential energy decreases in the direction the conservative force points, here −x.",
+    "error_pattern": "force_direction_reversed"
+   },
+   {
+    "text": "stays constant",
+    "rationale": "A constant U would mean the force is zero (the force is the negative slope of U), which contradicts the nonzero −x force.",
+    "error_pattern": "constant_requires_zero_force"
+   },
+   {
+    "text": "cannot be determined without choosing a zero of potential energy",
+    "rationale": "Choosing a zero of U adds the same constant everywhere and does not change ΔU between two points, so the direction of the change is fixed by the force direction.",
+    "error_pattern": "confuses_zero_choice_with_change"
+   }
+  ],
+  "change_note": "Force direction reversed from the seed (−x), so the correct answer changes to increases.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-038-v2",
+  "seed": "apphy1-mcq-038",
+  "difficulty": "medium",
+  "title": "Spring energy as a block moves outward",
+  "stem": "A block on a frictionless table is attached to a horizontal ideal spring that is at its natural length when the block is at x = 0. The block is pulled from x = +0.10 m to x = +0.30 m. During this motion, the elastic potential energy stored in the spring",
+  "correct": {
+   "text": "increases to 9 times its initial value",
+   "rationale": "U = ½kx², so U is proportional to x². Going from 0.10 m to 0.30 m multiplies x by 3, so U increases by 3² = 9. The spring force points back toward x = 0, against the motion."
+  },
+  "wrong": [
+   {
+    "text": "decreases because the spring is pulling the block",
+    "rationale": "Confuses the direction of the force with the direction of the motion. The spring pulls toward x = 0 while the block moves away from it, so the spring does negative work and U increases.",
+    "error_pattern": "force_direction_vs_motion_confusion"
+   },
+   {
+    "text": "increases to 3 times its initial value",
+    "rationale": "Treats U as proportional to the stretch, giving 0.30/0.10 = 3. Since U = ½kx², the factor is 3² = 9.",
+    "error_pattern": "linear_in_displacement"
+   },
+   {
+    "text": "stays zero because the spring is at x = 0 in equilibrium",
+    "rationale": "Applies the equilibrium position to the whole motion. U = ½kx² is zero only at x = 0; at x = 0.10 m it is already 0.005k joules and at 0.30 m it is 0.045k joules.",
+    "error_pattern": "zero_only_at_equilibrium_applied_everywhere"
+   }
+  ],
+  "change_note": "Spring-block system with an increase in stretch, including a quantitative ratio.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-038-v3",
+  "seed": "apphy1-mcq-038",
+  "difficulty": "medium",
+  "title": "Potential energy when moving along the force",
+  "stem": "A conservative force on a particle points in the −x direction at every point between x = 2.0 m and x = 6.0 m. The particle moves from x = 6.0 m to x = 2.0 m. During this motion, the potential energy associated with the force",
+  "correct": {
+   "text": "decreases",
+   "rationale": "The particle moves in the direction of the force (−x), so the force does positive work, and ΔU = −W is negative: U decreases."
+  },
+  "wrong": [
+   {
+    "text": "increases",
+    "rationale": "Assumes the particle moving to smaller x must be climbing in potential energy, as if the force pointed in +x. Moving along the direction of a conservative force lowers U.",
+    "error_pattern": "force_direction_reversed"
+   },
+   {
+    "text": "stays constant",
+    "rationale": "A constant U would mean the force is zero, but a nonzero −x force acts throughout the region.",
+    "error_pattern": "constant_requires_zero_force"
+   },
+   {
+    "text": "is zero at x = 2.0 m",
+    "rationale": "The location where U = 0 is chosen by the observer; the force only fixes how U changes between points, and nothing in the problem makes x = 2.0 m the zero.",
+    "error_pattern": "confuses_zero_choice_with_change"
+   }
+  ],
+  "change_note": "Particle moves with the force from 6 m to 2 m, so U decreases; different setup from seed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-039-v1",
+  "seed": "apphy1-mcq-039",
+  "difficulty": "medium",
+  "title": "Speed of a block at the bottom of a ramp",
+  "stem": "A block is released from rest at a height of 1.8 m above the bottom of a frictionless ramp. Using g = 10 m/s², its speed at the bottom of the ramp is",
+  "correct": {
+   "text": "6.0 m/s",
+   "rationale": "mgh = ½mv² gives v = √(2gh) = √(2×10×1.8) = √36 = 6.0 m/s."
+  },
+  "wrong": [
+   {
+    "text": "4.2 m/s",
+    "rationale": "Leaves out the factor of 2: v = √(gh) = √(18) = 4.2 m/s.",
+    "error_pattern": "omits_factor_of_two"
+   },
+   {
+    "text": "3.0 m/s",
+    "rationale": "Puts the ½ on the wrong side: v = √(gh/2) = √9 = 3.0 m/s.",
+    "error_pattern": "half_misplaced"
+   },
+   {
+    "text": "36 m/s",
+    "rationale": "Finds v² = 2gh = 36 correctly but forgets to take the square root and reports v² as v.",
+    "error_pattern": "forgets_square_root"
+   }
+  ],
+  "change_note": "Numeric height with a ramp; the seed was symbolic.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-039-v2",
+  "seed": "apphy1-mcq-039",
+  "difficulty": "hard",
+  "title": "Speed partway down a frictionless slope",
+  "stem": "A skier starts from rest at the top of a frictionless slope, at height 4h above the valley floor. She slides down to a point on the slope at height h above the valley floor. Her speed at that point is",
+  "correct": {
+   "text": "√(6gh)",
+   "rationale": "She has descended 4h − h = 3h, so mg(3h) = ½mv², giving v = √(6gh)."
+  },
+  "wrong": [
+   {
+    "text": "√(8gh)",
+    "rationale": "Uses the full starting height 4h as the drop: mg(4h) = ½mv² gives √(8gh). She has only descended 3h at that point.",
+    "error_pattern": "uses_starting_height_not_drop"
+   },
+   {
+    "text": "√(2gh)",
+    "rationale": "Uses h, the height of the point above the floor, as the drop: mgh = ½mv² gives √(2gh). The drop is 3h.",
+    "error_pattern": "uses_final_height_not_drop"
+   },
+   {
+    "text": "√(3gh)",
+    "rationale": "Uses the correct drop 3h but leaves out the factor of 2 from the ½ in kinetic energy: √(g·3h) = √(3gh).",
+    "error_pattern": "omits_factor_of_two"
+   }
+  ],
+  "change_note": "Partial descent with a height drop that differs from the starting height; symbolic with a nontrivial factor.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-039-v3",
+  "seed": "apphy1-mcq-039",
+  "difficulty": "hard",
+  "title": "Speed of a pushed sled at the bottom of a hill",
+  "stem": "A sled is pushed so that it has a speed of 3.0 m/s at the top of a frictionless icy slope, 2.0 m above the bottom. Using g = 10 m/s², its speed at the bottom of the slope is",
+  "correct": {
+   "text": "7.0 m/s",
+   "rationale": "½mv² = ½mv₀² + mgh gives v² = v₀² + 2gh = 9.0 + 40 = 49, so v = 7.0 m/s."
+  },
+  "wrong": [
+   {
+    "text": "9.3 m/s",
+    "rationale": "Adds the speed 3.0 m/s to the speed gained from the drop alone, √(2gh) = 6.3 m/s: 3.0 + 6.3 = 9.3 m/s. Energies add, not speeds.",
+    "error_pattern": "adds_speeds"
+   },
+   {
+    "text": "6.3 m/s",
+    "rationale": "Ignores the initial speed: v = √(2gh) = √40 = 6.3 m/s. The sled already had kinetic energy at the top.",
+    "error_pattern": "ignores_initial_kinetic_energy"
+   },
+   {
+    "text": "5.4 m/s",
+    "rationale": "Uses v² = v₀² + gh = 9.0 + 20 = 29 and v = 5.4 m/s, which leaves out the factor of 2 on the gravitational term.",
+    "error_pattern": "omits_factor_of_two"
+   }
+  ],
+  "change_note": "Nonzero initial speed so the starting kinetic energy must be included.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-040-v1",
+  "seed": "apphy1-mcq-040",
+  "difficulty": "easy",
+  "title": "Average power pulling a crate",
+  "stem": "A worker pulls a crate 12 m along a level floor in 10 s by exerting a constant 150 N horizontal force along the displacement. The average power delivered by the worker to the crate is",
+  "correct": {
+   "text": "180 W",
+   "rationale": "W = Fd = (150)(12) = 1800 J, and P_avg = W/Δt = 1800/10 = 180 W."
+  },
+  "wrong": [
+   {
+    "text": "15 W",
+    "rationale": "Divides the force by the time without using the distance: 150/10 = 15, so the 12 m displacement is missing.",
+    "error_pattern": "omits_distance"
+   },
+   {
+    "text": "1800 W",
+    "rationale": "Computes the work, Fd = 1800 J, and reports it as the power without dividing by the 10 s.",
+    "error_pattern": "omits_division_by_time"
+   },
+   {
+    "text": "18000 W",
+    "rationale": "Multiplies the work by the time instead of dividing: 1800 × 10 = 18000.",
+    "error_pattern": "multiplies_by_time"
+   }
+  ],
+  "change_note": "Horizontal work by a force rather than lifting a student; no gravity involved.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-040-v2",
+  "seed": "apphy1-mcq-040",
+  "difficulty": "medium",
+  "title": "Average power of an elevator motor",
+  "stem": "An elevator car of mass 800 kg is raised 15 m in 20 s, starting and ending at rest. Using g = 10 m/s², the average power needed to supply the car's gain in gravitational potential energy is",
+  "correct": {
+   "text": "6000 W",
+   "rationale": "ΔU = mgΔh = (800)(10)(15) = 120000 J, and P_avg = 120000/20 = 6000 W."
+  },
+  "wrong": [
+   {
+    "text": "3000 W",
+    "rationale": "Uses half the height, as in an average height of 7.5 m: (800)(10)(7.5)/20 = 3000 W. The potential energy gained depends on the full 15 m rise.",
+    "error_pattern": "uses_half_height"
+   },
+   {
+    "text": "600 W",
+    "rationale": "Leaves out g: (800)(15)/20 = 600, which uses the mass in place of the weight.",
+    "error_pattern": "mass_instead_of_weight"
+   },
+   {
+    "text": "120000 W",
+    "rationale": "Computes the energy gained, 120000 J, and reports it as the power without dividing by 20 s.",
+    "error_pattern": "omits_division_by_time"
+   }
+  ],
+  "change_note": "Elevator lifting with kilograms and a long time interval; same skill as lifting a student.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-040-v3",
+  "seed": "apphy1-mcq-040",
+  "difficulty": "medium",
+  "title": "Power at constant speed",
+  "stem": "A cyclist moves along a level road at a constant 8.0 m/s. The forward push of the road on the bike-and-rider system is a constant 40 N, balancing air resistance. The power the cyclist supplies to overcome that resistance is",
+  "correct": {
+   "text": "320 W",
+   "rationale": "P = Fv = (40 N)(8.0 m/s) = 320 W."
+  },
+  "wrong": [
+   {
+    "text": "5.0 W",
+    "rationale": "Divides the force by the speed: 40/8.0 = 5.0, instead of multiplying.",
+    "error_pattern": "divides_instead_of_multiplies"
+   },
+   {
+    "text": "48 W",
+    "rationale": "Adds the force and the speed: 40 + 8.0 = 48, instead of multiplying them.",
+    "error_pattern": "adds_instead_of_multiplies"
+   },
+   {
+    "text": "2560 W",
+    "rationale": "Uses Fv² = (40)(8.0)² = 2560. Power is force times speed, not force times speed squared.",
+    "error_pattern": "speed_squared"
+   }
+  ],
+  "change_note": "Uses P = Fv at constant speed instead of mgh/t.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-041-v1",
+  "seed": "apphy1-mcq-041",
+  "difficulty": "easy",
+  "title": "Energy of a skidding car",
+  "stem": "A car on a level road locks its brakes and skids to a stop. Most of the car's initial kinetic energy ends up as",
+  "correct": {
+   "text": "thermal energy",
+   "rationale": "Kinetic friction between the tires and the road does negative work on the car and dissipates its mechanical energy mostly as thermal energy of the tires and road."
+  },
+  "wrong": [
+   {
+    "text": "gravitational potential energy",
+    "rationale": "The road is level, so the car's height does not change and its gravitational potential energy is the same before and after.",
+    "error_pattern": "height_unchanged"
+   },
+   {
+    "text": "kinetic energy of the car",
+    "rationale": "The car comes to rest, so its final kinetic energy is zero; kinetic energy cannot be where the initial kinetic energy ends up.",
+    "error_pattern": "car_stopped_ke_zero"
+   },
+   {
+    "text": "sound energy",
+    "rationale": "The screech carries away only a small part of the energy; kinetic friction mostly converts it to thermal energy.",
+    "error_pattern": "sound_minor_fraction"
+   }
+  ],
+  "change_note": "Braking car on level ground; target energy form is thermal.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-041-v2",
+  "seed": "apphy1-mcq-041",
+  "difficulty": "medium",
+  "title": "Energy lost by a child on a slide",
+  "stem": "A child slides down a playground slide at a constant speed the whole way. The gravitational potential energy the child loses is primarily converted into",
+  "correct": {
+   "text": "thermal energy",
+   "rationale": "Friction on the slide does negative work and dissipates the lost gravitational potential energy mostly as thermal energy of the child and the slide, since the speed does not change."
+  },
+  "wrong": [
+   {
+    "text": "kinetic energy of the child",
+    "rationale": "The child's speed is constant, so the kinetic energy is unchanged and cannot account for the potential energy lost.",
+    "error_pattern": "speed_constant_ke_unchanged"
+   },
+   {
+    "text": "sound energy",
+    "rationale": "The sound of sliding carries away only a small portion; the dissipation by kinetic friction is mostly thermal.",
+    "error_pattern": "sound_minor_fraction"
+   },
+   {
+    "text": "gravitational potential energy at the bottom",
+    "rationale": "The child's gravitational potential energy is lower at the bottom, so it is not where the lost energy is stored.",
+    "error_pattern": "pe_lower_at_bottom"
+   }
+  ],
+  "change_note": "Constant speed down a slide: PE is lost with no gain in KE.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-041-v3",
+  "seed": "apphy1-mcq-041",
+  "difficulty": "medium",
+  "title": "Energy from a spring-launched block on a rough floor",
+  "stem": "A block is pressed against a compressed spring on a level rough floor, released, and slides until it comes to rest after the spring has fully relaxed and detached. Most of the spring's initial elastic potential energy ends up as",
+  "correct": {
+   "text": "thermal energy",
+   "rationale": "The spring's energy first becomes kinetic energy, and kinetic friction with the floor then dissipates it mostly as thermal energy of the block and floor."
+  },
+  "wrong": [
+   {
+    "text": "kinetic energy of the block",
+    "rationale": "The block ends at rest, so its final kinetic energy is zero.",
+    "error_pattern": "block_stopped_ke_zero"
+   },
+   {
+    "text": "gravitational potential energy",
+    "rationale": "The floor is level, so the block's height and gravitational potential energy do not change.",
+    "error_pattern": "height_unchanged"
+   },
+   {
+    "text": "elastic potential energy",
+    "rationale": "The spring has relaxed and detached, so it stores no energy at the end.",
+    "error_pattern": "spring_relaxed"
+   }
+  ],
+  "change_note": "Starts with elastic PE and ends at rest on a rough level surface.",
+  "check": "conceptual"
+ }
+]

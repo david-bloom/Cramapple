@@ -1,0 +1,722 @@
+[
+ {
+  "id": "apphy1-mcq-001-v1",
+  "seed": "apphy1-mcq-001",
+  "difficulty": "easy",
+  "title": "Sled average acceleration",
+  "stem": "A sled moving east at 5.0 m/s on a snowy slope speeds up to 15 m/s east over a time of 4.0 s. What is the sled's average acceleration?",
+  "correct": {
+   "text": "2.5 m/s² east",
+   "rationale": "Average acceleration is the change in velocity divided by the elapsed time: (15 − 5)/4.0 = 10/4.0 = 2.5 m/s², directed east because the velocity change is eastward."
+  },
+  "wrong": [
+   {
+    "text": "3.75 m/s² east",
+    "rationale": "Uses only the final velocity: 15/4.0 = 3.75 m/s². Acceleration depends on the change in velocity (15 − 5 = 10 m/s), not on the final velocity alone.",
+    "error_pattern": "uses final velocity instead of velocity change"
+   },
+   {
+    "text": "5.0 m/s² east",
+    "rationale": "Adds the two velocities instead of subtracting: (5 + 15)/4.0 = 20/4.0 = 5.0 m/s². The velocity change is 15 − 5 = 10 m/s, giving 2.5 m/s².",
+    "error_pattern": "adds velocities instead of subtracting"
+   },
+   {
+    "text": "10 m/s² east",
+    "rationale": "Finds the velocity change correctly (15 − 5 = 10 m/s) but never divides by the 4.0 s interval, so it reports the change in velocity as if it were the acceleration.",
+    "error_pattern": "omits division by time"
+   }
+  ],
+  "change_note": "New context (sled), new numbers (5.0 to 15 m/s over 4.0 s), non-integer answer; distractors are final-velocity, sum-of-velocities and no-division errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-001-v2",
+  "seed": "apphy1-mcq-001",
+  "difficulty": "medium",
+  "title": "Braking truck acceleration",
+  "stem": "A delivery truck traveling forward at 24 m/s brakes steadily, slowing to 6.0 m/s in 9.0 s while still moving forward. Taking the forward direction as positive, what is the truck's average acceleration?",
+  "correct": {
+   "text": "−2.0 m/s²",
+   "rationale": "Average acceleration = (v − v₀)/Δt = (6.0 − 24)/9.0 = −18/9.0 = −2.0 m/s². The negative sign shows the acceleration points opposite the (forward) velocity."
+  },
+  "wrong": [
+   {
+    "text": "+2.0 m/s²",
+    "rationale": "Subtracts in the wrong order, (24 − 6.0)/9.0 = +2.0 m/s². Average acceleration is final minus initial velocity, so slowing down along the positive direction gives a negative value.",
+    "error_pattern": "reverses the order of the subtraction (sign error)"
+   },
+   {
+    "text": "−3.3 m/s²",
+    "rationale": "Adds the two speeds instead of finding their difference: (24 + 6.0)/9.0 = 30/9.0 = 3.3 m/s², then attaches a negative sign because the truck slows. The velocity change is 6.0 − 24 = −18 m/s.",
+    "error_pattern": "adds speeds instead of subtracting"
+   },
+   {
+    "text": "−18 m/s²",
+    "rationale": "Computes the velocity change correctly (6.0 − 24 = −18 m/s) but does not divide by the 9.0 s, so a change in velocity is reported as an acceleration.",
+    "error_pattern": "omits division by time"
+   }
+  ],
+  "change_note": "Deceleration with a sign convention; new numbers (24 to 6.0 m/s in 9.0 s); distractors target sign reversal, adding speeds and omitting the time division.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-001-v3",
+  "seed": "apphy1-mcq-001",
+  "difficulty": "hard",
+  "title": "Ball rebounding from wall",
+  "stem": "A rubber ball moving to the right at 6.0 m/s hits a wall and rebounds, leaving the wall moving to the left at 4.0 m/s. The ball is in contact with the wall for 0.50 s. Taking right as the positive direction, what is the ball's average acceleration during the contact?",
+  "correct": {
+   "text": "−20 m/s²",
+   "rationale": "The final velocity is −4.0 m/s (leftward) and the initial velocity is +6.0 m/s. Average acceleration = (−4.0 − 6.0)/0.50 = −10/0.50 = −20 m/s², i.e. 20 m/s² directed to the left."
+  },
+  "wrong": [
+   {
+    "text": "−4.0 m/s²",
+    "rationale": "Treats both speeds as having the same sign: (4.0 − 6.0)/0.50 = −4.0 m/s². The ball reverses direction, so the final velocity must be −4.0 m/s, giving a velocity change of −10 m/s, not −2.0 m/s.",
+    "error_pattern": "ignores the direction reversal (treats speeds as same sign)"
+   },
+   {
+    "text": "+20 m/s²",
+    "rationale": "Gets the correct size, 10/0.50 = 20 m/s², but with the wrong sign. The acceleration points left (the direction of the velocity change), which is negative when right is positive.",
+    "error_pattern": "correct magnitude but wrong sign"
+   },
+   {
+    "text": "−5.0 m/s²",
+    "rationale": "Finds the velocity change correctly (−10 m/s) but multiplies by the contact time instead of dividing: −10 × 0.50 = −5.0 m/s². Dividing gives −10/0.50 = −20 m/s².",
+    "error_pattern": "multiplies by time instead of dividing"
+   }
+  ],
+  "change_note": "Velocity reversal on a collision with a wall requires careful sign handling; new numbers and context; distractors target same-sign treatment, wrong sign and multiplying by time.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-003-v1",
+  "seed": "apphy1-mcq-003",
+  "difficulty": "easy",
+  "title": "Cart net force acceleration",
+  "stem": "A 4.5 kg cart rolls on a level track while a single unbalanced horizontal force of 18 N acts on it. What is the cart's acceleration?",
+  "correct": {
+   "text": "4.0 m/s²",
+   "rationale": "Newton's second law: a = F_net/m = 18 N / 4.5 kg = 4.0 m/s²."
+  },
+  "wrong": [
+   {
+    "text": "0.25 m/s²",
+    "rationale": "Inverts Newton's second law, dividing mass by force: 4.5/18 = 0.25. Acceleration is net force divided by mass, 18/4.5 = 4.0 m/s².",
+    "error_pattern": "inverts the ratio (mass/force)"
+   },
+   {
+    "text": "13.5 m/s²",
+    "rationale": "Subtracts the mass from the force: 18 − 4.5 = 13.5. The relation is a division, a = F/m, not a subtraction.",
+    "error_pattern": "subtracts mass from force"
+   },
+   {
+    "text": "81 m/s²",
+    "rationale": "Multiplies force and mass: 18 × 4.5 = 81. Acceleration is F/m, so more mass lowers the acceleration rather than raising it.",
+    "error_pattern": "multiplies force by mass"
+   }
+  ],
+  "change_note": "New object and non-integer mass (4.5 kg, 18 N); same F/m skill with the same four-style distractors but different values.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-003-v2",
+  "seed": "apphy1-mcq-003",
+  "difficulty": "medium",
+  "title": "Pushed crate with friction",
+  "stem": "A student pushes a 3.0 kg crate across a floor with a constant horizontal force of 20 N. Friction exerts a constant 8.0 N force on the crate opposite its motion. What is the crate's acceleration?",
+  "correct": {
+   "text": "4.0 m/s²",
+   "rationale": "The net horizontal force is 20 − 8.0 = 12 N. Then a = F_net/m = 12/3.0 = 4.0 m/s²."
+  },
+  "wrong": [
+   {
+    "text": "6.7 m/s²",
+    "rationale": "Uses the applied push alone and ignores friction: 20/3.0 = 6.7 m/s². Acceleration depends on the net force, which is 12 N.",
+    "error_pattern": "ignores friction (uses applied force as net force)"
+   },
+   {
+    "text": "9.3 m/s²",
+    "rationale": "Adds friction to the push instead of subtracting it: (20 + 8.0)/3.0 = 28/3.0 = 9.3 m/s². Friction opposes the motion, so the net force is 20 − 8.0 = 12 N.",
+    "error_pattern": "adds the friction force instead of subtracting"
+   },
+   {
+    "text": "12 m/s²",
+    "rationale": "Finds the net force correctly (12 N) but forgets to divide by the 3.0 kg mass, so the net force's numerical value is reported as the acceleration.",
+    "error_pattern": "omits division by mass"
+   }
+  ],
+  "change_note": "Adds a second (friction) force so net force must be found first; new mass and forces; distractors ignore friction, add it, or skip dividing by mass.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-003-v3",
+  "seed": "apphy1-mcq-003",
+  "difficulty": "medium",
+  "title": "Skater mass from net force",
+  "stem": "A net horizontal force of 24 N causes a skater on smooth ice to accelerate at 0.40 m/s². What is the skater's mass?",
+  "correct": {
+   "text": "60 kg",
+   "rationale": "From F_net = ma, m = F_net/a = 24 N / 0.40 m/s² = 60 kg."
+  },
+  "wrong": [
+   {
+    "text": "9.6 kg",
+    "rationale": "Multiplies force and acceleration: 24 × 0.40 = 9.6. That product is not a mass; solving F = ma for m requires dividing the force by the acceleration.",
+    "error_pattern": "multiplies force by acceleration"
+   },
+   {
+    "text": "23.6 kg",
+    "rationale": "Subtracts the acceleration from the force: 24 − 0.40 = 23.6. Newton's second law relates the quantities by division, m = F/a, not subtraction.",
+    "error_pattern": "subtracts acceleration from force"
+   },
+   {
+    "text": "0.017 kg",
+    "rationale": "Inverts the ratio, a/F = 0.40/24 ≈ 0.017. Mass is force divided by acceleration (24/0.40 = 60 kg), not acceleration divided by force.",
+    "error_pattern": "inverts the ratio (acceleration/force)"
+   }
+  ],
+  "change_note": "Solves for mass instead of acceleration, in an ice-skating context with new numbers; same Newton's-second-law arithmetic skill.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-004-v1",
+  "seed": "apphy1-mcq-004",
+  "difficulty": "medium",
+  "title": "Hanging lamp third-law partner",
+  "stem": "A lamp hangs at rest from the ceiling on a chain. The chain exerts an upward force on the lamp. Which force is the Newton's-third-law partner of the chain's upward force on the lamp?",
+  "correct": {
+   "text": "the lamp's downward force on the chain",
+   "rationale": "Third-law partners are equal and opposite and act on two different objects, with the roles of the objects swapped. The chain pulls up on the lamp, so the partner is the lamp pulling down on the chain."
+  },
+  "wrong": [
+   {
+    "text": "Earth's downward gravitational force on the lamp",
+    "rationale": "This force balances the chain's pull so the lamp stays at rest, but both forces act on the lamp. Third-law partners act on different objects, so this is not the partner (the partner of Earth's pull on the lamp is the lamp's pull on Earth).",
+    "error_pattern": "confuses balanced forces on one object with a third-law pair"
+   },
+   {
+    "text": "the ceiling's upward force on the chain",
+    "rationale": "This is a force on the chain by the ceiling. Its own third-law partner is the chain's force on the ceiling. The partner of the chain's force on the lamp must involve the chain and the lamp.",
+    "error_pattern": "picks a force involving a different pair of objects"
+   },
+   {
+    "text": "the net force on the lamp, which is zero",
+    "rationale": "The net force is the vector sum of the forces on the lamp (here zero); it is not an interaction between two objects, so it cannot be a third-law partner. A zero net force does not pair with any individual force.",
+    "error_pattern": "treats the net force as a force partner"
+   }
+  ],
+  "change_note": "Changed from a book on a table to a lamp hanging from a chain; the stem asks the same partner-identification skill; distractors keep the same-object-balanced-force error and add different-pair and net-force errors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-004-v2",
+  "seed": "apphy1-mcq-004",
+  "difficulty": "medium",
+  "title": "Kicked ball third-law partner",
+  "stem": "During a kick, a soccer player's foot exerts a force on the ball. Which force is the Newton's-third-law partner of the foot's force on the ball?",
+  "correct": {
+   "text": "the ball's force on the foot",
+   "rationale": "A third-law pair consists of two forces of equal magnitude and opposite direction exerted by two objects on each other. The foot pushes on the ball, so the partner is the ball pushing back on the foot."
+  },
+  "wrong": [
+   {
+    "text": "Earth's gravitational force on the ball",
+    "rationale": "This force acts on the ball, the same object the foot pushes on. Third-law partners act on different objects, and the partner of Earth's pull on the ball is the ball's pull on Earth.",
+    "error_pattern": "picks a force on the same object"
+   },
+   {
+    "text": "the ground's friction force on the player's planted foot",
+    "rationale": "This is an interaction between the ground and the player's other foot, not between the foot and the ball, so it cannot be the partner of the foot-on-ball force.",
+    "error_pattern": "picks a force from a different interaction"
+   },
+   {
+    "text": "the player's force on the ground",
+    "rationale": "This is the partner of the ground's force on the player. It involves the player and the ground, not the foot and the ball.",
+    "error_pattern": "picks a force from a different interaction"
+   }
+  ],
+  "change_note": "Impact scenario instead of a static support scenario; same third-law pairing skill; distractors are same-object, and two different-interaction forces.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-004-v3",
+  "seed": "apphy1-mcq-004",
+  "difficulty": "hard",
+  "title": "Earth-Moon third-law partner",
+  "stem": "The Moon orbits Earth. Which force is the Newton's-third-law partner of Earth's gravitational force on the Moon?",
+  "correct": {
+   "text": "the Moon's gravitational force on Earth",
+   "rationale": "Third-law partners are equal in magnitude and opposite in direction and act on different objects. Earth pulls on the Moon, so the partner is the Moon pulling on Earth with a force of the same size."
+  },
+  "wrong": [
+   {
+    "text": "the Sun's gravitational force on the Moon",
+    "rationale": "This force acts on the Moon and comes from a different object (the Sun), so it is not an interaction between Earth and the Moon. The partner must be exerted by the Moon on Earth.",
+    "error_pattern": "picks a force from a different pair of objects"
+   },
+   {
+    "text": "an outward force on the Moon, away from Earth, that balances Earth's pull",
+    "rationale": "No such balancing outward force acts on the Moon; if one did, the net force would be zero and the Moon would move in a straight line. Also, any partner of a force on the Moon must act on Earth, not on the Moon.",
+    "error_pattern": "invents a balancing outward force on the same object"
+   },
+   {
+    "text": "Earth's gravitational force on the Sun",
+    "rationale": "This is a force on the Sun, from Earth, and it pairs with the Sun's pull on Earth. It does not involve the Moon, so it is not the partner of Earth's pull on the Moon.",
+    "error_pattern": "picks a force from a different pair of objects"
+   }
+  ],
+  "change_note": "Gravitational pair (gravity-only action at a distance, per CED); same partner-identification skill in an astronomical context.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-005-v1",
+  "seed": "apphy1-mcq-005",
+  "difficulty": "medium",
+  "title": "Sled friction on slope",
+  "stem": "A 20 kg sled slides down a snowy hill that makes a 30° angle with the horizontal. It moves at constant velocity. Use g = 10 m/s². What is the magnitude of the friction force the snow exerts on the sled?",
+  "correct": {
+   "text": "100 N",
+   "rationale": "Constant velocity means the net force along the slope is zero, so friction equals the weight's component along the slope: mg sin 30° = 20 × 10 × 0.50 = 100 N."
+  },
+  "wrong": [
+   {
+    "text": "0 N",
+    "rationale": "Treats constant velocity as meaning no force acts. Constant velocity requires zero net force, which here means friction exactly balances the 100 N downhill component of gravity, so friction is not zero.",
+    "error_pattern": "confuses zero net force with zero friction"
+   },
+   {
+    "text": "173 N",
+    "rationale": "Uses the weight component perpendicular to the slope, mg cos 30° = 200 × 0.866 = 173 N (the normal force), instead of the component along the slope, mg sin 30° = 100 N.",
+    "error_pattern": "uses cosine (perpendicular component) instead of sine"
+   },
+   {
+    "text": "200 N",
+    "rationale": "Uses the full weight, mg = 20 × 10 = 200 N, as the friction force. Only the component of the weight along the slope (100 N) must be balanced by friction.",
+    "error_pattern": "uses the whole weight instead of the component along the slope"
+   }
+  ],
+  "change_note": "Converts the seed's qualitative comparison into a quantitative incline calculation with new context (sled on snowy hill, 30°, 20 kg) while testing the same constant-velocity, balanced-forces idea.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-005-v2",
+  "seed": "apphy1-mcq-005",
+  "difficulty": "medium",
+  "title": "Box pushed up ramp",
+  "stem": "A worker pushes a box up a rough ramp at constant speed, using a force directed parallel to the ramp surface. Friction acts down the ramp. How does the magnitude of the worker's push compare with the magnitude of the component of the box's weight directed down the ramp?",
+  "correct": {
+   "text": "The push is greater than the weight component, because it must also balance friction.",
+   "rationale": "At constant velocity the net force along the ramp is zero. The push up the ramp balances both the weight component down the ramp and the friction down the ramp, so push = weight component + friction, which is greater than the weight component."
+  },
+  "wrong": [
+   {
+    "text": "The push equals the weight component, because the box moves at constant speed.",
+    "rationale": "This would be true only if friction were zero. Constant speed makes the net force zero, but friction also acts down the ramp, so the push must equal the weight component plus friction.",
+    "error_pattern": "forgets that friction also acts down the ramp"
+   },
+   {
+    "text": "The push is less than the weight component, because the box is moving up the ramp.",
+    "rationale": "Assumes that motion up the ramp means the push can be smaller. With zero net force the push must be at least as large as the weight component, and with friction present it is larger.",
+    "error_pattern": "confuses direction of motion with force sizes"
+   },
+   {
+    "text": "The push equals the friction force, because both act along the ramp.",
+    "rationale": "Equating push and friction ignores the weight component down the ramp. All three forces along the ramp balance: push = weight component + friction, so the push exceeds the friction force.",
+    "error_pattern": "ignores the weight component along the ramp"
+   }
+  ],
+  "change_note": "Reverses the situation (pushing up instead of sliding down) so the student must account for friction on the opposite side of the balance; same constant-velocity balanced-forces skill.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-005-v3",
+  "seed": "apphy1-mcq-005",
+  "difficulty": "easy",
+  "title": "Car at constant velocity",
+  "stem": "A car travels at constant velocity along a straight, level highway. The engine causes the road to exert a forward force of 900 N on the car through the driven wheels. What is the total backward resistive force (air resistance plus rolling resistance) on the car?",
+  "correct": {
+   "text": "900 N",
+   "rationale": "Constant velocity means zero net force, so the total backward resistive force equals the 900 N forward force."
+  },
+  "wrong": [
+   {
+    "text": "more than 900 N",
+    "rationale": "Assumes that the car needs an extra margin of backward force to explain why it is not speeding up. If resistance exceeded 900 N the net force would be backward and the car would slow down.",
+    "error_pattern": "thinks a larger resistance is needed to prevent acceleration"
+   },
+   {
+    "text": "less than 900 N",
+    "rationale": "Assumes the forward force must exceed resistance to keep the car moving. A forward force larger than resistance would give a nonzero net force and an acceleration, not constant velocity.",
+    "error_pattern": "thinks motion requires a net forward force"
+   },
+   {
+    "text": "0 N",
+    "rationale": "Assumes no resistance acts because the speed is constant. Resistive forces are present; it is the net force that is zero, because the 900 N forward force balances them.",
+    "error_pattern": "confuses zero net force with zero resistance"
+   }
+  ],
+  "change_note": "Level-road car at constant velocity instead of an incline; same balanced-forces idea; distractors target 'motion requires net force' and 'no resistance' beliefs.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-006-v1",
+  "seed": "apphy1-mcq-006",
+  "difficulty": "easy",
+  "title": "Crate push work",
+  "stem": "A worker pushes a crate across a warehouse floor with a constant 25 N horizontal force in the direction of the crate's motion. The crate moves 6.0 m. How much work does the worker do on the crate?",
+  "correct": {
+   "text": "150 J",
+   "rationale": "Work by a constant force along the displacement is W = Fd cos 0° = 25 × 6.0 = 150 J."
+  },
+  "wrong": [
+   {
+    "text": "31 J",
+    "rationale": "Adds force and distance: 25 + 6.0 = 31. Work is the product of force and displacement along the force, not their sum.",
+    "error_pattern": "adds force and distance"
+   },
+   {
+    "text": "4.2 J",
+    "rationale": "Divides force by distance, 25/6.0 ≈ 4.2. Work is the product Fd, not a quotient.",
+    "error_pattern": "divides force by distance"
+   },
+   {
+    "text": "1500 J",
+    "rationale": "Multiplies the correct product (150) by an extra factor of 10, as if g = 10 needed to be included. Work done by a horizontal push does not involve g: W = 25 × 6.0 = 150 J.",
+    "error_pattern": "inserts a spurious factor of g"
+   }
+  ],
+  "change_note": "New context (crate on a warehouse floor), new numbers (25 N, 6.0 m); same product-of-force-and-displacement skill; distractors sum, quotient and spurious factor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-006-v2",
+  "seed": "apphy1-mcq-006",
+  "difficulty": "medium",
+  "title": "Angled pull work",
+  "stem": "A child pulls a wagon 4.0 m along level ground with a constant 20 N force directed 60° above the horizontal. How much work does the child's pull do on the wagon?",
+  "correct": {
+   "text": "40 J",
+   "rationale": "Only the component of force along the displacement does work: W = Fd cos 60° = 20 × 4.0 × 0.50 = 40 J."
+  },
+  "wrong": [
+   {
+    "text": "80 J",
+    "rationale": "Multiplies the full force by the full distance, 20 × 4.0 = 80 J, ignoring the angle. Only the component F cos 60° = 10 N is along the motion.",
+    "error_pattern": "ignores the angle (omits the cosine)"
+   },
+   {
+    "text": "69 J",
+    "rationale": "Uses sin 60° instead of cos 60°: 20 × 4.0 × 0.866 = 69 J. That is the vertical component of the force, which is perpendicular to the displacement and does no work.",
+    "error_pattern": "uses sine instead of cosine"
+   },
+   {
+    "text": "24 J",
+    "rationale": "Adds the quantities, 20 + 4.0 = 24. Work is the product of force component and displacement, not a sum.",
+    "error_pattern": "adds force and distance"
+   }
+  ],
+  "change_note": "Adds an angle (60° above horizontal) to the seed's parallel-force case; new context and numbers; distractors target missing cosine, sine/cosine swap and adding.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-006-v3",
+  "seed": "apphy1-mcq-006",
+  "difficulty": "medium",
+  "title": "Friction work sign",
+  "stem": "A 15 N constant friction force acts on a box sliding 3.0 m across a floor, opposite to the box's motion. How much work does friction do on the box?",
+  "correct": {
+   "text": "−45 J",
+   "rationale": "The friction force is opposite the displacement, so W = Fd cos 180° = 15 × 3.0 × (−1) = −45 J."
+  },
+  "wrong": [
+   {
+    "text": "+45 J",
+    "rationale": "Gets the size right (15 × 3.0 = 45) but ignores that friction points opposite the motion, which makes the work negative (cos 180° = −1).",
+    "error_pattern": "ignores the negative sign for opposing force"
+   },
+   {
+    "text": "−5.0 J",
+    "rationale": "Divides force by distance, 15/3.0 = 5.0, and applies the negative sign. Work is the product Fd cos 180° = −45 J, not a quotient.",
+    "error_pattern": "divides force by distance"
+   },
+   {
+    "text": "−18 J",
+    "rationale": "Adds force and distance, 15 + 3.0 = 18, and applies the negative sign. Work is the product Fd cos 180° = −45 J, not a sum.",
+    "error_pattern": "adds force and distance"
+   }
+  ],
+  "change_note": "Negative work from an opposing force; new context and numbers; same work-as-force-times-displacement skill; distractors target the sign, quotient and sum errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-007-v1",
+  "seed": "apphy1-mcq-007",
+  "difficulty": "easy",
+  "title": "Tripled speed kinetic energy",
+  "stem": "A cyclist increases her speed from 4 m/s to 12 m/s with no change in mass. Her kinetic energy becomes",
+  "correct": {
+   "text": "nine times as large",
+   "rationale": "Since K = ½mv², K is proportional to v². Tripling the speed multiplies K by 3² = 9."
+  },
+  "wrong": [
+   {
+    "text": "three times as large",
+    "rationale": "Treats K as proportional to v, as if tripling the speed triples K. K = ½mv² depends on the square of the speed.",
+    "error_pattern": "treats K as proportional to speed"
+   },
+   {
+    "text": "six times as large",
+    "rationale": "Multiplies the speed ratio by the exponent, 3 × 2 = 6, instead of raising the ratio to the second power, 3² = 9.",
+    "error_pattern": "multiplies by the exponent instead of raising to the power"
+   },
+   {
+    "text": "twenty-seven times as large",
+    "rationale": "Cubes the speed ratio, 3³ = 27. The exponent in K = ½mv² is 2, not 3, so the factor is 9.",
+    "error_pattern": "uses a cube law"
+   }
+  ],
+  "change_note": "Tripled instead of doubled speed; cycling context; distractors linear, multiplication-by-exponent and cubic errors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-007-v2",
+  "seed": "apphy1-mcq-007",
+  "difficulty": "medium",
+  "title": "Halved speed kinetic energy",
+  "stem": "A runner slows from 8.0 m/s to 4.0 m/s. By what factor does the runner's kinetic energy change?",
+  "correct": {
+   "text": "It becomes one-fourth as large.",
+   "rationale": "K = ½mv² is proportional to v². Halving the speed multiplies K by (½)² = ¼."
+  },
+  "wrong": [
+   {
+    "text": "It becomes one-half as large.",
+    "rationale": "Treats K as directly proportional to speed, so halving v halves K. K depends on v², so the factor is ¼.",
+    "error_pattern": "treats K as proportional to speed"
+   },
+   {
+    "text": "It becomes one-eighth as large.",
+    "rationale": "Cubes the speed ratio, (½)³ = ⅛. The exponent in K = ½mv² is 2, so the factor is (½)² = ¼.",
+    "error_pattern": "uses a cube law"
+   },
+   {
+    "text": "It becomes one-sixteenth as large.",
+    "rationale": "Raises the speed ratio to the fourth power, (½)⁴ = 1/16. The exponent in K = ½mv² is 2, so the factor is (½)² = ¼.",
+    "error_pattern": "uses a fourth-power law"
+   }
+  ],
+  "change_note": "Speed is reduced instead of increased, with explicit values; asks for the factor; same K ∝ v² skill.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-007-v3",
+  "seed": "apphy1-mcq-007",
+  "difficulty": "medium",
+  "title": "Car kinetic energy calculation",
+  "stem": "A 1200 kg car traveling at 10 m/s has a kinetic energy of 60,000 J. The car speeds up to 15 m/s. What is its new kinetic energy?",
+  "correct": {
+   "text": "135,000 J",
+   "rationale": "K = ½mv² = ½ × 1200 × (15)² = 600 × 225 = 135,000 J."
+  },
+  "wrong": [
+   {
+    "text": "90,000 J",
+    "rationale": "Scales K by the speed ratio, 60,000 × 1.5 = 90,000 J. K is proportional to v², so the factor is 1.5² = 2.25.",
+    "error_pattern": "treats K as proportional to speed"
+   },
+   {
+    "text": "75,000 J",
+    "rationale": "Adds ½m(Δv)² to the old energy: 60,000 + ½ × 1200 × 5² = 60,000 + 15,000 = 75,000 J. The change in K is ½m(v² − v₀²) = ½m(225 − 100), not ½m(Δv)².",
+    "error_pattern": "uses (Δv)² instead of the difference of squares"
+   },
+   {
+    "text": "202,500 J",
+    "rationale": "Scales K by the cube of the speed ratio, 60,000 × 1.5³ = 202,500 J. K depends on v², so the factor is 2.25.",
+    "error_pattern": "uses a cube law"
+   }
+  ],
+  "change_note": "Quantitative version: new KE after a speed increase (10 to 15 m/s); includes the documented ΔK = ½m(Δv)² misconception from the fact pack.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-008-v1",
+  "seed": "apphy1-mcq-008",
+  "difficulty": "easy",
+  "title": "Flowerpot potential energy loss",
+  "stem": "A 3.0 kg flowerpot falls 4.0 m from a balcony railing to the patio. Use g = 10 m/s². The decrease in the pot's gravitational potential energy is",
+  "correct": {
+   "text": "120 J",
+   "rationale": "The decrease in U_g is mgΔh = 3.0 × 10 × 4.0 = 120 J."
+  },
+  "wrong": [
+   {
+    "text": "12 J",
+    "rationale": "Drops g and multiplies mass and height only: 3.0 × 4.0 = 12 J. The weight mg = 30 N must be multiplied by the height.",
+    "error_pattern": "omits g"
+   },
+   {
+    "text": "30 J",
+    "rationale": "Computes only the weight, mg = 3.0 × 10 = 30 N, and forgets to multiply by the 4.0 m height.",
+    "error_pattern": "omits the height"
+   },
+   {
+    "text": "40 J",
+    "rationale": "Drops the mass and multiplies g by the height: 10 × 4.0 = 40 J. The energy change is proportional to the mass.",
+    "error_pattern": "omits the mass"
+   }
+  ],
+  "change_note": "New object and values (3.0 kg, 4.0 m) with g stated as 10 m/s² so all arithmetic is exact; same mgΔh skill with omit-g, omit-height and omit-mass distractors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-008-v2",
+  "seed": "apphy1-mcq-008",
+  "difficulty": "medium",
+  "title": "Climber potential energy gain",
+  "stem": "A 60 kg climber ascends a cliff face, gaining 15 m in height. Use g = 10 m/s². The increase in the climber's gravitational potential energy is",
+  "correct": {
+   "text": "9000 J",
+   "rationale": "ΔU_g = mgΔh = 60 × 10 × 15 = 9000 J."
+  },
+  "wrong": [
+   {
+    "text": "900 J",
+    "rationale": "Multiplies only mass and height, 60 × 15 = 900 J, leaving out g.",
+    "error_pattern": "omits g"
+   },
+   {
+    "text": "600 J",
+    "rationale": "Computes only the weight, mg = 60 × 10 = 600 N, and does not multiply by the 15 m of height gained.",
+    "error_pattern": "omits the height"
+   },
+   {
+    "text": "150 J",
+    "rationale": "Drops the mass and multiplies g by the height: 10 × 15 = 150 J. The energy change is proportional to the climber's mass.",
+    "error_pattern": "omits the mass"
+   }
+  ],
+  "change_note": "Gain rather than loss, with a person climbing; new numbers; same product-of-three-factors skill.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-008-v3",
+  "seed": "apphy1-mcq-008",
+  "difficulty": "medium",
+  "title": "Ramp potential energy loss",
+  "stem": "A 2.0 kg block slides down a frictionless ramp that is 5.0 m long and drops 1.5 m in vertical height from top to bottom. Use g = 10 m/s². The decrease in the block's gravitational potential energy is",
+  "correct": {
+   "text": "30 J",
+   "rationale": "Only the vertical drop matters: ΔU_g = mgΔh = 2.0 × 10 × 1.5 = 30 J."
+  },
+  "wrong": [
+   {
+    "text": "100 J",
+    "rationale": "Uses the 5.0 m length of the ramp as the height: 2.0 × 10 × 5.0 = 100 J. Gravitational potential energy depends on the change in vertical height, 1.5 m.",
+    "error_pattern": "uses path length instead of vertical height"
+   },
+   {
+    "text": "3.0 J",
+    "rationale": "Leaves out g and multiplies mass by height: 2.0 × 1.5 = 3.0 J.",
+    "error_pattern": "omits g"
+   },
+   {
+    "text": "15 J",
+    "rationale": "Drops the mass and multiplies g by the vertical drop: 10 × 1.5 = 15 J. The energy change is proportional to the block's mass.",
+    "error_pattern": "omits the mass"
+   }
+  ],
+  "change_note": "Adds the ramp-length distractor (path vs. vertical height); same mgΔh skill with new values.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy1-mcq-019-v1",
+  "seed": "apphy1-mcq-019",
+  "difficulty": "medium",
+  "title": "Hammer head tightening",
+  "stem": "A loose hammer head can be tightened by banging the bottom of the handle down onto a workbench. When the handle suddenly stops, the head keeps moving down on the handle because",
+  "correct": {
+   "text": "the head's inertia keeps it moving downward at its original velocity",
+   "rationale": "An object keeps moving at constant velocity unless a net force changes its motion (Newton's first law). The handle stops, but the head tends to continue moving down, which wedges it tighter onto the handle."
+  },
+  "wrong": [
+   {
+    "text": "a downward force carried over from the handle's motion keeps acting on the head",
+    "rationale": "Forces are not stored or carried by an object; they are interactions that exist only while objects interact. The head keeps moving because of its inertia, not because a leftover force acts.",
+    "error_pattern": "believes motion requires a stored force (impetus)"
+   },
+   {
+    "text": "the head's weight increases when the handle stops",
+    "rationale": "The head's weight, mg, does not change when the handle stops, and a larger weight is not what keeps it moving. Its inertia keeps it moving.",
+    "error_pattern": "claims weight changes"
+   },
+   {
+    "text": "air pressure pushes the head down onto the handle",
+    "rationale": "Air exerts no meaningful net downward push on the head here, and nothing in the stopping of the handle creates one. The head continues downward because of inertia.",
+    "error_pattern": "invents a nonexistent force"
+   }
+  ],
+  "change_note": "New scenario (hammer head) testing Newton's first law/inertia instead of the car passenger; completion-style stem, three misconceptions (stored force, weight change, invented force).",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-019-v2",
+  "seed": "apphy1-mcq-019",
+  "difficulty": "easy",
+  "title": "Passenger pushed back in seat",
+  "stem": "When a car at rest suddenly accelerates forward, passengers feel pressed back into their seats because",
+  "correct": {
+   "text": "their inertia makes them tend to stay at rest",
+   "rationale": "Newton's first law: a body at rest tends to remain at rest unless acted on by a net force. The seat must push the passenger forward to accelerate them, which is felt as being pressed into the seat."
+  },
+  "wrong": [
+   {
+    "text": "a backward force pushes on them as the car speeds up",
+    "rationale": "No actual backward force acts on the passengers. They are not pushed back; the car and seat accelerate forward and the seat pushes them forward, while their inertia resists the change.",
+    "error_pattern": "invents a backward force"
+   },
+   {
+    "text": "their mass decreases when the car speeds up",
+    "rationale": "A person's mass does not change with the car's motion. The sensation comes from inertia, which depends on the unchanged mass.",
+    "error_pattern": "claims mass changes"
+   },
+   {
+    "text": "gravity pulls toward the rear of the car",
+    "rationale": "Gravity points toward Earth's center, not toward the rear of the car, and it does not change direction when the car accelerates.",
+    "error_pattern": "claims gravity changes direction"
+   }
+  ],
+  "change_note": "Start from rest instead of braking; opposite direction of apparent push; same inertia explanation with three misconceptions.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy1-mcq-019-v3",
+  "seed": "apphy1-mcq-019",
+  "difficulty": "medium",
+  "title": "Vase and pulled tablecloth",
+  "stem": "A tablecloth is yanked quickly out from under a vase, and the vase stays nearly in place. This happens mainly because",
+  "correct": {
+   "text": "inertia resists changes in the vase's motion, and the cloth's force is brief",
+   "rationale": "The vase tends to remain at rest (Newton's first law). The cloth exerts only a small friction force on the vase for a very short time, so the vase's velocity barely changes."
+  },
+  "wrong": [
+   {
+    "text": "the cloth exerts no force at all on the vase",
+    "rationale": "The cloth does exert a friction force on the vase while it slides underneath; that force is simply small and brief. A force of zero is not required to explain why the vase barely moves.",
+    "error_pattern": "claims no force acts"
+   },
+   {
+    "text": "gravity holds the vase to the table, so friction cannot move it",
+    "rationale": "Gravity does not prevent friction from acting; the vase would move if the friction force acted long enough. The vase stays nearly in place because of its inertia and the brief interaction.",
+    "error_pattern": "claims gravity cancels or prevents friction"
+   },
+   {
+    "text": "the vase gains extra mass while the cloth slides",
+    "rationale": "The vase's mass does not change while the cloth slides. Its inertia is the same; the small, brief force just cannot change its motion much.",
+    "error_pattern": "claims mass changes"
+   }
+  ],
+  "change_note": "Another inertia scenario (tablecloth trick); includes the nuance that friction still acts briefly; three misconceptions.",
+  "check": "conceptual"
+ }
+]
