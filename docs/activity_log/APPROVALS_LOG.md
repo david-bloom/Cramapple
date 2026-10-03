@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0092 — Retire 3 Published AP Biology Seed MCQs Outside the CED (`APBIO-MCQ-014`, `063`, `025`) (Production) — DECISION-0095
 - APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production) — DECISION-0093
 - APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production) — DECISION-0085
 - APPROVAL-0089 — AP Physics 1 Units 4-8: Remove the Duplicated A-D List From 21 Published Stems (Production) — DECISION-0085
@@ -202,6 +203,21 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0092 — Retire 3 Published AP Biology Seed MCQs Outside the CED (`APBIO-MCQ-014`, `063`, `025`) (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Retire all 3 and create a decision for stay within the CED", answering the written question "Want me to retire `014`, `063` and `025`?")  
+**Related Decision:** `DECISION-0095` (items stay within CED vocabulary); `DECISION-0093`; follows `APPROVAL-0091`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** run `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_retire_014_063_025.sql`. Three published AP Biology MCQs are retired (item and version status `retired`, the pattern of `APPROVAL-0077` and `APPROVAL-0091`): `APBIO-MCQ-014` (70S and 80S ribosomes), `APBIO-MCQ-063` (signal sequence), `APBIO-MCQ-025` (kidney ADH and aquaporin-2 physiology outside the fact pack, weak choice D rationale, as recorded in `APPROVAL-0080`). Nothing is deleted; labels, cells and review records stay as they are.
+
+**Evidence:** a read-only scan on 2026-10-03 of the 41 published AP Biology seed-style MCQs for terms confirmed absent from the CED V.1 text matched `014` and `063`. `025` was named in `APPROVAL-0080`. Zero attempts on `025` (queried); the script asserts zero attempts on all three in both attempts tables and refuses to run otherwise.
+
+**Not approved by this entry:** retiring any other item; writing replacements; scanning or retiring in any other subject; FRQ items.
+
+**How it was used (2026-10-03):** the first attempt aborted by its own safety check and applied nothing (verified: all three still published, Biology count unchanged): the check counted 42 pre-existing Biology items that are marked `published` but whose versions are all retired (20 FRQ, 22 MCQ), which the change did not cause. The check was changed to require that count to stay equal before and after, and the corrected script then committed in one transaction: 3 retired. Verified: every version of `014`, `025`, `063` is `retired` with the item `retired`; Biology published items 177 to 174; seed-style published MCQs 65 to 62; the 17 published variants and the 163 validated serving labels unchanged; the 42 pre-existing items unchanged. No rehearsal. The unit-gated servable count was not re-queried.
 
 ## APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production)
 

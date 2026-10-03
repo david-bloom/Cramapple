@@ -16,6 +16,11 @@ This record was written on 2026-10-02. Other sessions then landed substantial wo
 6. **Chemistry and Statistics now have variant runs** (`APPROVAL-0074` to `0078`); Calc AB Units 2-3 pilot started (`APPROVAL-0082`, `0083`). Protocol section 10 has the current table.
 7. **Approval numbering:** an earlier-numbered Calc AB approval was renumbered 0082/0083 because 0069/0071 were taken by the Stripe cutover. This record's `APPROVAL-0066`, `0067`, `0068` are unaffected.
 
+### Further update, 2026-10-03 (later the same day)
+- **Three more items retired (`APPROVAL-0092`):** `APBIO-MCQ-014` (70S/80S), `APBIO-MCQ-063` (signal sequence), `APBIO-MCQ-025` (kidney ADH outside the pack). A scan of the published seed-style MCQs found `014` and `063`. **Correction to this record:** `014` also used out-of-CED terms, so six of the eight pilot seeds (not five) were affected; I missed `014` when the five seeds were replaced.
+- **`DECISION-0095` records the CED-vocabulary rule** (and the "retire, don't repair" preference). Biology now has 174 published items, 62 seed-style MCQs and 17 published variants.
+- **Not caused by this work but found by it:** 42 Biology items (20 FRQ, 22 MCQ) are marked `published` with all versions retired. Not checked whether any is served.
+
 ## 1. What was asked, in order
 1. Test the seeded-item protocol on a new subject: AP Biology Units 1-2, class A seeds only, 2 variants per seed, the same two checkers as the Calc pilot (for direct comparison).
 2. Repair `apcalcab-mcq-037` and the distractor-rationale defects (TASK-0053-related) on 10 published Calc AB MCQs.
@@ -92,7 +97,7 @@ Dev (`wmgjsdkphcyhngaffbqf`) has none of these items; nothing was applied there.
 | # | Item | Owner | Note |
 |---|---|---|---|
 | 1 | Label probe on the final text (24 items) | Product Owner (laptop) | Command below. Watch `023-v1`, `023-v2`, `005-v1`, `005-v2` for Unit 1 drift. |
-| 2 | Record the "stay within CED vocabulary" ruling as a DECISION | Product Owner / next session | Currently recorded only in `APPROVAL-0068` and the protocol checklist. I did not create a decision number. |
+| 2 | ~~Record the "stay within CED vocabulary" ruling as a DECISION~~ | **Done 2026-10-03: `DECISION-0095`** | Applied so far to AP Biology only; other subjects' published banks were not scanned (open). |
 | 3 | Re-check the 24 seeded Calc variants against the repaired Calc seeds | next session | Noted since the Calc repair. |
 | 4 | ~~Seed topic relabelling by three-model consensus~~ | **Done 2026-10-02, `APPROVAL-0079`** | `APBIO-MCQ-005` is now Unit 2; this session's `005` variants still say Unit 1 / topic 1.3. |
 | 5 | ~~**Reconcile the two Biology variant sets.**~~ **Done 2026-10-03, `APPROVAL-0091`:** the 7 published variants with out-of-CED terms were retired; this session's 16 drafts stay unloaded (the bank is large enough). Original item: **Reconcile the two Biology variant sets.** Decide whether the 24 published variants that use terms outside the CED stay, are retired, or are replaced by this session's 16 drafts, and whether any of the 16 are loaded at all | Product Owner | Needs its own approval. Two DeepSeek-only scope flags (`021-v1`, `022-v1`) also need reviewer judgement if the drafts are used. |
