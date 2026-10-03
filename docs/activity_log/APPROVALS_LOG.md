@@ -206,6 +206,21 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
+## APPROVAL-0099 — Skill Grids for Physics 1 and Precalculus; Skill Cells for Units 1-3 MCQ Seeds and Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Do the skill cells", then "Do it for units 1-3", after agreeing that variants inherit the skill of their seed)  
+**Related Decision:** `DECISION-0085`, `DECISION-0088` (full sub-skill grain), `DECISION-0093`; follows `APPROVAL-0098`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):**
+- **Skill grids (reference data):** AP Physics 1 (10 skills from CED Course Framework V.1 p. 10, 430 cells) and AP Precalculus (8 skills from the CED Course Framework p. 14, 464 cells), each the full topic x skill cross-product as for Biology (the CED says any topic can pair with any skill). SQL: `scripts/content-seed/skills-u13-2026-10-03/grid_phys1.sql`, `grid_precalc.sql`. Calculus BC, Physics 2 and Physics C still have no grid (not needed here).
+- **Seed votes:** 140 published, non-variant MCQ seeds in Units 1-3 without skill cells (Calculus AB 62, Physics 1 29, Precalculus 47, Chemistry 2), four voters (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash), validated at 3 of 4, unique 2 of 4 `provisional_model`, ties no cell. The Calculus AB and Chemistry grids are restricted by topic, so 18 seeds whose first-round skill was not valid for their topic were re-voted with the choice limited to that topic's skills. Written: 131 cells (120 validated, 11 provisional). No cell (tie or split): 9 seeds.
+- **Variants:** 548 variants (504 validated, 44 provisional) took the skill of their seed on the variant's own topic, only where the pair exists in the grid: Statistics 128 of 131, Biology 17 of 18, Chemistry 69 of 72, Calculus AB 137 of 145, Physics 1 83 of 86, Precalculus 116 of 128 (before excluding 6 below). Variants of seeds that already had a skill cell (Statistics, Biology, Chemistry) copy that cell's status.
+- Verification: the hash over the 131 seed cells in Production equals the hash of the plan computed locally (`612a74cd7ec2ce95a5360ebb4f5b46c6`); rehearsed with a rollback first; 679 cells total.
+
+**Not done:** 6 variants whose topic differs from their seed or whose seed is retired (`apcalcab-mcq-sv-027-v1`, `-v2`, `APSTATS-MCQ-SV-058-v1/-v2/-v3`, `APBIO-MCQ-SV-025-v3`) need their own vote; 26 other variants wait on seeds with no skill (ties, held or none); FRQs; Units 4 and above; Calculus BC's own MCQs (per instruction); the 20 Calculus AB, 3 Physics 1 and 15 Precalculus variants with no primary topic cell.
+
 ## APPROVAL-0098 — Fix Two Stale Serving Labels and Restore Biology Variant 025-v3 (Production)
 
 **Date:** 2026-10-03  
