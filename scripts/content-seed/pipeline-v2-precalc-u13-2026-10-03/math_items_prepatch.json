@@ -143,7 +143,7 @@
   ],
   "keyed_label": "D",
   "rationales": {
-   "A": "Describes an odd-degree polynomial with a negative leading coefficient (rises left, falls right). R has even degree 4, so both ends point the same direction, and the leading term is -x^4, so both ends fall.",
+   "A": "Treats the degree as odd with a negative leading coefficient; the degree is 2 + 2 = 4, so both ends fall.",
    "B": "Reads the factor 1 − x² as if its leading term were +x², obtaining x²·x² = x⁴ with a positive coefficient; the leading term is actually −x².",
    "C": "Treats the function as odd-degree. Expanding gives R(x) = −x⁴ − 3x² + 4, whose degree is 4 (even), so the ends point the same direction.",
    "D": "Multiplying leading terms gives (−x²)(x²) = −x⁴, so R has even degree 4 and a negative leading coefficient (R(x) = −x⁴ − 3x² + 4); both ends fall."
@@ -387,6 +387,36 @@
    "B": "t = 3.5 is the last measured time, so it is within the data domain.",
    "C": "t = 2 lies inside the measured interval, so this is interpolation.",
    "D": "Both inputs lie inside the measured interval, so the comparison is based on interpolated values."
+  }
+ },
+ {
+  "key": "u13-apprecalc-mcq-005-v2",
+  "kind": "mcq",
+  "stem": "An exponential function was fit to a company's yearly revenue for the years 2016 through 2022. Which prediction from the model is the least reliable?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The revenue in the year 2040"
+   },
+   {
+    "label": "B",
+    "text": "The revenue in the year 2022"
+   },
+   {
+    "label": "C",
+    "text": "The revenue in the year 2019"
+   },
+   {
+    "label": "D",
+    "text": "The revenue halfway through 2018"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "2040 is 18 years past the last data year, 2022. Such a prediction extrapolates far beyond the data, and the exponential pattern may not continue.",
+   "B": "2022 is the last year of the data, so it is not beyond the observed domain.",
+   "C": "2019 lies between 2016 and 2022, so it is inside the data domain.",
+   "D": "Mid-2018 falls between data years 2016 and 2022, so this is interpolation."
   }
  },
  {
@@ -863,7 +893,7 @@
   ],
   "keyed_label": "C",
   "rationales": {
-   "A": "Drops the factor 2, treating the equation as e^(3x) = 14, so 3x = ln 14. Check: x = (ln 14)/3 gives 2e^(ln 14) = 28, not 14.",
+   "A": "Takes the natural log without first dividing by the coefficient 2: 3x = ln 14, so x = (ln 14)/3.",
    "B": "Multiplies ln 7 by 3 instead of dividing by 3 when solving 3x = ln 7.",
    "C": "Divide by 2 first: e^(3x) = 7. Then 3x = ln 7, so x = (ln 7)/3.",
    "D": "Removes the 3 by dividing the argument, giving ln(7/3); the 3 multiplies x in the exponent and must come out as a divisor of ln 7."
@@ -1374,7 +1404,7 @@
   "keyed_label": "C",
   "rationales": {
    "A": "These are the solutions of sin x = +1/2. The sign was lost when moving the 1 to the other side.",
-   "B": "Pairs 7*pi/6, which is a solution of sin x = -1/2, with 5*pi/6, which is a solution of sin x = +1/2. Check: sin(5*pi/6) = +1/2, so 2 sin x + 1 = 2, not 0, and 5*pi/6 is not a solution. It also omits 11*pi/6.",
+   "B": "Places the reference angle π/6 in Quadrants II and III, where cosine (not sine) is negative. sin(5π/6) = +1/2, not −1/2.",
    "C": "sin x = −1/2. Sine is negative in Quadrants III and IV, where the reference angle π/6 gives x = π + π/6 = 7π/6 and x = 2π − π/6 = 11π/6.",
    "D": "Finds the Quadrant III solution but omits the Quadrant IV solution, 11π/6, where sine is also −1/2."
   }
@@ -1703,7 +1733,7 @@
   ],
   "keyed_label": "B",
   "rationales": {
-   "A": "Uses u = 4 and u = 9 (values of x^2) and their negatives as if they were values of x. The values 4 and 9 are solutions for x^2, not x; check: q(4) = 256 - 208 + 36 = 84, not 0.",
+   "A": "These are the values u = ±4, ±9 treated as x. The solutions of x² = 4 and x² = 9 are x = ±2 and ±3.",
    "B": "Let u = x². Then u² − 13u + 36 = (u − 4)(u − 9) = 0, so x² = 4 or x² = 9, giving x = ±2 and x = ±3.",
    "C": "Takes only the positive square roots of x² = 4 and x² = 9, omitting −2 and −3.",
    "D": "Omits the positive root +3 from x² = 9."
@@ -2365,7 +2395,7 @@
   "rationales": {
    "A": "The interval is right, but the inequality is nonstrict, so x=9, where the quotient equals 0, must be included.",
    "B": "The interval is right, but x=−8 makes the denominator 0, so the expression is undefined there and −8 must be excluded.",
-   "C": "This is the solution set of (x-9)/(x+8) >= 0, with the numerator sign reversed. For (9-x)/(x+8), values with x < -8 or x > 9 give negative quotients (x = 10 gives -1/18, x = -9 gives -18). Only the single value x = 9 (quotient 0) works there, and the interval (-8, 9), where the quotient is positive, is missing.",
+   "C": "This is the solution of (x−9)/(x+8)≥0. The numerator is 9−x, not x−9, so its sign is reversed: the quotient is negative on these intervals.",
    "D": "The critical values are x=9 (quotient 0, included) and x=−8 (undefined, excluded). For −8<x<9 both 9−x and x+8 are positive, so the quotient is positive; for x<−8 and x>9 it is negative."
   }
  },
@@ -2760,6 +2790,66 @@
   }
  },
  {
+  "key": "u13-apprecalc-mcq-035-v1",
+  "kind": "mcq",
+  "stem": "No calculator is permitted.\n\nA model for a quantity is given by f(x) = 3^(x+1) − 4. To undo this model, a student swaps the roles of input and output and solves for the new output. Which formula gives the inverse function f⁻¹(x)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "log₃(x−4)+1"
+   },
+   {
+    "label": "B",
+    "text": "log₃(x+4)−1"
+   },
+   {
+    "label": "C",
+    "text": "log_(1/3)(x+4)−1"
+   },
+   {
+    "label": "D",
+    "text": "3^(x−1)+4"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Reverses both shifts with the wrong signs. Check: f(2)=23, but log₃(23−4)+1=log₃19+1≈3.68, not 2.",
+   "B": "Set y=3^(x+1)−4. Then y+4=3^(x+1), so x+1=log₃(y+4) and x=log₃(y+4)−1. Check: f(2)=27−4=23 and log₃(23+4)−1=3−1=2.",
+   "C": "Uses the reciprocal base, and log_(1/3)(u)=−log₃(u). Check: log_(1/3)(23+4)−1=−3−1=−4, not 2.",
+   "D": "This is f with both shifts' signs reversed, but it is still an exponential, so it is not the inverse. Check: applied to f(2)=23 it gives 3^22+4, not 2."
+  }
+ },
+ {
+  "key": "u13-apprecalc-mcq-035-v2",
+  "kind": "mcq",
+  "stem": "No calculator is permitted.\n\nIf f(x)=e^(x−3)+2, which formula gives f⁻¹(x)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "ln(x−2)+3"
+   },
+   {
+    "label": "B",
+    "text": "ln(x−3)+2"
+   },
+   {
+    "label": "C",
+    "text": "ln(x−2)−3"
+   },
+   {
+    "label": "D",
+    "text": "ln(x+2)−3"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Set y=e^(x−3)+2. Then y−2=e^(x−3), so x−3=ln(y−2) and x=ln(y−2)+3. Check: f(3)=e⁰+2=3 and ln(3−2)+3=3.",
+   "B": "Swaps the roles of the two shifts (the horizontal shift 3 and the vertical shift 2). Check: f(3)=3, but ln(3−3)+2 involves ln0, which is undefined.",
+   "C": "Subtracts 2 correctly inside the log but subtracts 3 outside instead of adding 3. Check: f(3)=3, but ln(3−2)−3=0−3=−3, not 3.",
+   "D": "Reverses both shifts with the wrong signs. Check: f(3)=3, but ln(3+2)−3=ln5−3≈−1.39, not 3."
+  }
+ },
+ {
   "key": "u13-apprecalc-mcq-035-v3",
   "kind": "mcq",
   "stem": "No calculator is permitted.\n\nIf f(x)=2^(3x)+1, which formula gives f⁻¹(x)?",
@@ -2817,6 +2907,36 @@
    "B": "This is g(f(x))=3(x²−3)+1=3x²−8, the composition in the opposite order.",
    "C": "Multiplies f(x) and g(x) instead of composing them.",
    "D": "(f∘g)(x)=f(g(x)), so substitute g(x)=3x+1 for x in f: (3x+1)²−3."
+  }
+ },
+ {
+  "key": "u13-apprecalc-mcq-036-v2",
+  "kind": "mcq",
+  "stem": "No calculator is permitted.\n\nTwo functions are defined by f(x) = x² − 3 and g(x) = 3x + 1. A student applies g first and then feeds that result into f. Which expression gives the composite function (f∘g)(x)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "√(x²−5)+4"
+   },
+   {
+    "label": "B",
+    "text": "√(x²−1)"
+   },
+   {
+    "label": "C",
+    "text": "√(x+4)·(x²−5)"
+   },
+   {
+    "label": "D",
+    "text": "x−1"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Substitutes g(x) into the radicand but adds the 4 outside the square root instead of inside.",
+   "B": "(f∘g)(x)=f(g(x))=√(g(x)+4)=√((x²−5)+4)=√(x²−1).",
+   "C": "Multiplies f(x) and g(x) instead of composing them.",
+   "D": "This is g(f(x))=(√(x+4))²−5=x+4−5=x−1 for x≥−4, the composition in the opposite order."
   }
  },
  {
@@ -2905,7 +3025,7 @@
   "rationales": {
    "A": "The first differences are −19.6, −15.3, −10.9, −8.6, and the second differences are 4.3, 4.4, 2.3, which are not constant.",
    "B": "The ratios of each value to the previous one are about 0.755, 0.747, 0.758, 0.749, nearly constant near 0.75, which indicates exponential decay.",
-   "C": "A linear fit does have r^2 = 0.973, but a high r^2 alone does not show that a linear model is the best description. The first differences are -19.6, -15.3, -10.9, -8.6, which are not constant (linear data would have constant differences), while the successive ratios are all near 0.75, so an exponential model is better supported.",
+   "C": "A linear fit to these values does have r²≈0.973, but a high r² does not show a linear pattern. The first differences range from −19.6 to −8.6 and the ratios are nearly constant, so an exponential model is better supported.",
    "D": "1.33 is about 1/0.75, the ratio of a value to the next one. Going from one value to the next multiplies by about 0.75, which is less than 1, so the model is decay, not growth."
   }
  },
@@ -3084,7 +3204,7 @@
   "keyed_label": "D",
   "rationales": {
    "A": "Finds 50/12 correctly but undoes the exponential e^( ) with log₁₀ instead of ln: log₁₀(50/12)/0.07≈8.9.",
-   "B": "Takes the log of both sides without handling the factor 12, writing 0.07t = ln 50, so t = ln(50)/0.07 = 55.9. But ln(12e^(0.07t)) = ln 12 + 0.07t, so the 12 must be divided out first. Check: P(55.9) = 12e^(3.913) is about 600, not 50.",
+   "B": "Takes the log without dividing by 12 first: 0.07t=ln50≈3.912, so t≈55.9.",
    "C": "Subtracts 12 instead of dividing by it: 0.07t=ln(38)≈3.638, so t≈52.0.",
    "D": "Divide by 12: e^(0.07t)=50/12, so 0.07t=ln(50/12)≈1.427 and t≈20.39, or 20.4."
   }
@@ -3114,9 +3234,9 @@
   "keyed_label": "A",
   "rationales": {
    "A": "Subtract 7.5: −2.4ln(x)=3−7.5=−4.5, so ln(x)=4.5/2.4=1.875 and x=e^1.875≈6.52, or 6.5.",
-   "B": "Makes two sign errors: adds 7.5 instead of subtracting it and also drops the negative sign on -2.4, giving ln(x) = (3 + 7.5)/2.4 = 4.375 and x = e^4.375, about 79.4.",
+   "B": "Adds 7.5 instead of subtracting: ln(x)=(3+7.5)/2.4=4.375, so x=e^4.375≈79.4.",
    "C": "Divides by 2.4 but loses the sign of the coefficient: ln(x)=(3−7.5)/2.4=−1.875, so x=e^(−1.875)≈0.153, or 0.2.",
-   "D": "Ignores the constant 7.5 and also drops the negative sign on -2.4, giving ln(x) = 3/2.4 = 1.25 and x = e^1.25, about 3.5."
+   "D": "Skips the constant 7.5: ln(x)=3/2.4=1.25, so x=e^1.25≈3.49, or 3.5."
   }
  },
  {
@@ -3653,9 +3773,9 @@
   ],
   "keyed_label": "D",
   "rationales": {
-   "A": "This chooses 100x^3 because it has the largest coefficient. Degree, not coefficient size, decides which term dominates. f(10) = 50,100 is still positive, but f(100) = -399,990,000, and the values keep getting more negative as x increases.",
+   "A": "This chooses 100x^3 because it has the largest coefficient. Degree, not coefficient size, decides which term dominates. f(10) = 50,100 is still positive, but f(100) = −399,990,000, and the negative values grow without bound.",
    "B": "This treats the function like a rational function with growing denominator. f(100) = −399,990,000, and the magnitude keeps growing for larger x, so the values do not approach 0.",
-   "C": "This reports the leading coefficient as if it were the limiting value. The leading term -5x^4 becomes arbitrarily large and negative as x increases; f(100) = -399,990,000, not about -5.",
+   "C": "This reports the leading coefficient as if it were the limiting value. The leading term −5x^4 grows without bound; f(100) = −399,990,000, not about −5.",
    "D": "The term of highest degree, −5x^4, dominates for large x, and its coefficient is negative, so f(x) approaches negative infinity. For example, f(100) = 100,000,000 − 500,000,000 + 10,000 = −399,990,000."
   }
  },
@@ -3743,7 +3863,7 @@
   ],
   "keyed_label": "B",
   "rationales": {
-   "A": "Gets x = -1 right but x = 2 wrong. The factor (x - 2) appears only in the denominator and cancels with nothing, so x = 2 is a vertical asymptote, not a hole.",
+   "A": "This swaps the roles. The factor (x − 2) appears only in the denominator and does not cancel with anything, so x = 2 is a vertical asymptote, not a hole.",
    "B": "For x ≠ −1, canceling one factor of (x + 1) gives p(x) = 1/[(x + 1)(x − 2)]. The simplified denominator is still 0 at x = −1 and at x = 2, and the numerator is 1, so both are vertical asymptotes. There is no hole because a hole requires the factor to cancel completely.",
    "C": "This removes the entire (x + 1)² as if it cancelled with the single (x + 1) in the numerator. Only one factor cancels, leaving 1/[(x + 1)(x − 2)], which is undefined with a vertical asymptote at x = −1.",
    "D": "This assumes that canceling any common factor creates a hole. Only one of the two factors of (x + 1) in the denominator cancels; the remaining (x + 1) keeps the denominator zero at x = −1 in 1/[(x + 1)(x − 2)], so it is an asymptote."
@@ -4134,7 +4254,7 @@
   "keyed_label": "A",
   "rationales": {
    "A": "First differences: 1, 15, 65, 175, 369. Second: 14, 50, 110, 194. Third: 36, 60, 84. Fourth: 24, 24. The fourth differences are the first constant ones, so the minimum degree is 4.",
-   "B": "Degree 5 is not needed. Any six points can be fit by some polynomial of degree at most 5, but the minimum degree is set by the first constant row of differences. Here the outputs equal x^4 and the fourth differences are already constant (24, 24), so degree 4 suffices.",
+   "B": "With 6 data points a polynomial of degree 5 can always pass through them, but the minimum degree is set by the first constant differences. The fourth differences are already constant (24, 24), so degree 4 is enough.",
    "C": "24 is the value of the constant fourth difference, not the degree. The degree equals the number of the difference level that is constant, which is 4.",
    "D": "The third differences are 36, 60, 84, which are not constant, so a cubic cannot fit. The constant differences first appear at the fourth level (24, 24)."
   }
