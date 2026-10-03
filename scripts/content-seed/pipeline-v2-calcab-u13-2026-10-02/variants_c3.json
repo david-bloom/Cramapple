@@ -1,0 +1,902 @@
+[
+ {
+  "id": "apcalcab-mcq-u3n-006-v1",
+  "seed": "apcalcab-mcq-u3n-006",
+  "difficulty": "medium",
+  "title": "Implicit slope with an exponential in y",
+  "stem": "A curve is defined implicitly by e^y + xy = e + 2, and the point (2, 1) lies on it. Find the slope of the tangent line to the curve at that point.",
+  "correct": {
+   "text": "−1/(e + 2)",
+   "rationale": "Differentiate both sides: e^y · dy/dx + y + x · dy/dx = 0. At (2, 1): e · dy/dx + 1 + 2 · dy/dx = 0, so (e + 2) · dy/dx = −1 and dy/dx = −1/(e + 2)."
+  },
+  "wrong": [
+   {
+    "text": "−(e + 1)/2",
+    "rationale": "This differentiates e^y as e^y without the chain-rule factor dy/dx. Then e + 1 + 2 · dy/dx = 0 gives dy/dx = −(e + 1)/2. The correct derivative of e^y is e^y · dy/dx, which gives −1/(e + 2).",
+    "error_pattern": "Omits the chain-rule factor dy/dx when differentiating e^y"
+   },
+   {
+    "text": "0",
+    "rationale": "This differentiates xy as x · dy/dx, dropping the product-rule term y. Then e · dy/dx + 2 · dy/dx = 0 gives dy/dx = 0. The term y = 1 contributes, giving −1/(e + 2).",
+    "error_pattern": "Drops the y term of the product rule for xy"
+   },
+   {
+    "text": "(e + 1)/(e + 2)",
+    "rationale": "This differentiates the constant e + 2 as e + 2 instead of 0. Then e · dy/dx + 1 + 2 · dy/dx = e + 2 gives (e + 2) · dy/dx = e + 1. Since d/dx(e + 2) = 0, the equation is (e + 2) · dy/dx + 1 = 0.",
+    "error_pattern": "Differentiates the constant on the right side as itself instead of 0"
+   }
+  ],
+  "change_note": "Different curve family (exponential in y instead of ln y), different point and constant; surface reworded as a tangent-slope request.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-006-v2",
+  "seed": "apcalcab-mcq-u3n-006",
+  "difficulty": "medium",
+  "title": "Implicit slope of a trigonometric curve",
+  "stem": "The graph of sin(xy) + y = π/2 contains the point (2, π/2). Find dy/dx at this point.",
+  "correct": {
+   "text": "−π/2",
+   "rationale": "Differentiate both sides: cos(xy) · (y + x · dy/dx) + dy/dx = 0. At (2, π/2), xy = π and cos π = −1, so −(π/2 + 2 · dy/dx) + dy/dx = 0, which gives −π/2 − dy/dx = 0 and dy/dx = −π/2."
+  },
+  "wrong": [
+   {
+    "text": "π/2",
+    "rationale": "This differentiates xy as y alone, dropping x · dy/dx from the product rule. Then cos π · (π/2) + dy/dx = 0 gives −π/2 + dy/dx = 0, so dy/dx = π/2. The inner derivative of xy is y + x · dy/dx, which gives −π/2.",
+    "error_pattern": "Differentiates xy as y, dropping x · dy/dx"
+   },
+   {
+    "text": "1",
+    "rationale": "This differentiates sin(xy) as cos(xy) with no inner-derivative factor. Then cos π + dy/dx = 0 gives −1 + dy/dx = 0, so dy/dx = 1. The chain rule requires multiplying by (y + x · dy/dx), which gives −π/2.",
+    "error_pattern": "Omits the chain-rule factor for the inner function xy"
+   },
+   {
+    "text": "−π/6",
+    "rationale": "This evaluates cos π as 1 instead of −1. Then (π/2 + 2 · dy/dx) + dy/dx = 0 gives 3 · dy/dx = −π/2, so dy/dx = −π/6. Since cos π = −1, the correct value is −π/2.",
+    "error_pattern": "Evaluates cos π as 1"
+   }
+  ],
+  "change_note": "Trigonometric implicit curve with a product inside the sine; chain rule on xy and a special-angle evaluation replace the ln y structure.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-006-v3",
+  "seed": "apcalcab-mcq-u3n-006",
+  "difficulty": "medium",
+  "title": "Implicit slope with ln x and y squared",
+  "stem": "Consider the curve y ln x + y² = 2, which passes through the point (e, 1). What is the value of dy/dx at (e, 1)?",
+  "correct": {
+   "text": "−1/(3e)",
+   "rationale": "Differentiate both sides: (dy/dx) ln x + y/x + 2y · dy/dx = 0. At (e, 1), ln e = 1: dy/dx + 1/e + 2 · dy/dx = 0, so 3 · dy/dx = −1/e and dy/dx = −1/(3e)."
+  },
+  "wrong": [
+   {
+    "text": "0",
+    "rationale": "This differentiates y ln x as (dy/dx) ln x, dropping the product-rule term y/x. Then dy/dx + 2 · dy/dx = 0 gives dy/dx = 0. The term y/x = 1/e contributes, giving −1/(3e).",
+    "error_pattern": "Drops the y/x term of the product rule"
+   },
+   {
+    "text": "−(2e + 1)/e",
+    "rationale": "This differentiates y² as 2y without the factor dy/dx. At (e, 1) that gives dy/dx + 1/e + 2 = 0, so dy/dx = −2 − 1/e = −(2e + 1)/e. The chain rule gives 2y · dy/dx, which leads to −1/(3e).",
+    "error_pattern": "Omits dy/dx when differentiating y²"
+   },
+   {
+    "text": "(2e − 1)/(3e)",
+    "rationale": "This differentiates the constant 2 on the right side as 2 instead of 0. Then 3 · dy/dx + 1/e = 2 gives dy/dx = (2 − 1/e)/3 = (2e − 1)/(3e). Since d/dx(2) = 0, the equation is 3 · dy/dx + 1/e = 0.",
+    "error_pattern": "Differentiates the constant on the right side as itself instead of 0"
+   }
+  ],
+  "change_note": "Logarithm of x with y squared (rather than ln y with xy), point at x = e so ln x = 1.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-007-v1",
+  "seed": "apcalcab-mcq-u3n-007",
+  "difficulty": "hard",
+  "title": "Vertical tangent on a quadratic curve",
+  "stem": "On the curve x² − 3xy + 4y² = 28, exactly one point in the first quadrant has a vertical tangent line. Which point is it?",
+  "correct": {
+   "text": "(8, 3)",
+   "rationale": "Implicit differentiation gives 2x − 3y − 3x · dy/dx + 8y · dy/dx = 0, so dy/dx = (3y − 2x)/(8y − 3x). The tangent is vertical where the denominator is 0 and the numerator is not, i.e. 3x = 8y. Substituting x = 8y/3 into the curve gives 64y²/9 − 8y² + 4y² = 28y²/9 = 28, so y = 3 and x = 8. The point is (8, 3)."
+  },
+  "wrong": [
+   {
+    "text": "(6, 4)",
+    "rationale": "This point is on the curve (36 − 72 + 64 = 28), but there dy/dx = (12 − 12)/(32 − 18) = 0, so the tangent is horizontal, not vertical. The vertical condition is a zero denominator, 8y − 3x = 0.",
+    "error_pattern": "Sets the numerator 3y − 2x to 0 (horizontal tangent) instead of the denominator"
+   },
+   {
+    "text": "(16, 6)",
+    "rationale": "This satisfies 3x = 8y, the vertical-tangent condition, but is not on the curve: 256 − 288 + 144 = 112, not 28. The condition must be combined with the curve's equation, which gives y = 3.",
+    "error_pattern": "Uses the vertical-tangent condition but never checks the curve equation"
+   },
+   {
+    "text": "(1, 3)",
+    "rationale": "This point is on the curve (1 − 9 + 36 = 28), but there dy/dx = (9 − 2)/(24 − 3) = 1/3, so the tangent is neither vertical nor horizontal. Lying on the curve is not enough; the denominator 8y − 3x must be 0.",
+    "error_pattern": "Picks a point on the curve without testing the tangent condition"
+   }
+  ],
+  "change_note": "Different quadratic coefficients and constant (x² − 3xy + 4y² = 28); new point set with the same three error types (horizontal, off-curve, on-curve but not vertical).",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-007-v2",
+  "seed": "apcalcab-mcq-u3n-007",
+  "difficulty": "hard",
+  "title": "Vertical tangent on a shifted ellipse",
+  "stem": "An ellipse is given by x² − 2x + 4y² − 8y = 11. At exactly one point (a, b) with a > 0 and b > 0, the tangent line to the ellipse is vertical. Which of the following is that point?",
+  "correct": {
+   "text": "(5, 1)",
+   "rationale": "Implicit differentiation gives 2x − 2 + 8y · dy/dx − 8 · dy/dx = 0, so dy/dx = (1 − x)/(4(y − 1)). The tangent is vertical where the denominator is 0 and the numerator is not, i.e. y = 1. Substituting into the curve gives x² − 2x + 4 − 8 = 11, so x² − 2x − 15 = 0 and x = 5 or x = −3. With a > 0, the point is (5, 1)."
+  },
+  "wrong": [
+   {
+    "text": "(1, 3)",
+    "rationale": "This point is on the ellipse (1 − 2 + 36 − 24 = 11), but there dy/dx = (1 − 1)/(4 · 2) = 0, so the tangent is horizontal, not vertical. The vertical condition is a zero denominator, y − 1 = 0.",
+    "error_pattern": "Sets the numerator 1 − x to 0 (horizontal tangent) instead of the denominator"
+   },
+   {
+    "text": "(1, 1)",
+    "rationale": "This point has y = 1, the vertical-tangent condition, but is not on the ellipse: 1 − 2 + 4 − 8 = −5, not 11. The condition must be combined with the curve's equation, which gives x = 5.",
+    "error_pattern": "Uses the vertical-tangent condition y = 1 but never checks the curve equation"
+   },
+   {
+    "text": "(3, 1 + √3)",
+    "rationale": "This point is on the ellipse (9 − 6 + 4(4 + 2√3) − 8 − 8√3 = 11), but there dy/dx = (1 − 3)/(4√3) = −1/(2√3), so the tangent is neither vertical nor horizontal. Lying on the curve is not enough; y − 1 must be 0.",
+    "error_pattern": "Picks a point on the curve without testing the tangent condition"
+   }
+  ],
+  "change_note": "Different surface: shifted ellipse with no xy term, so the vertical condition is y = 1 rather than a ratio of x and y; distractors are the horizontal-tangent point, an off-curve point, and an on-curve non-tangent point.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-007-v3",
+  "seed": "apcalcab-mcq-u3n-007",
+  "difficulty": "hard",
+  "title": "Horizontal tangent on a quadratic curve",
+  "stem": "A path in the first quadrant is described by 4x² − 3xy + y² = 28. At which of the following points on the path is the slope of the tangent line equal to 0?",
+  "correct": {
+   "text": "(3, 8)",
+   "rationale": "Implicit differentiation gives 8x − 3y − 3x · dy/dx + 2y · dy/dx = 0, so dy/dx = (8x − 3y)/(3x − 2y). The tangent is horizontal where the numerator is 0 and the denominator is not, i.e. 3y = 8x. Substituting y = 8x/3 into the curve gives 4x² − 8x² + 64x²/9 = 28x²/9 = 28, so x = 3 and y = 8. The point is (3, 8)."
+  },
+  "wrong": [
+   {
+    "text": "(4, 6)",
+    "rationale": "This point is on the curve (64 − 72 + 36 = 28), but there the denominator 3x − 2y = 12 − 12 = 0 and the numerator 8x − 3y = 14 is not 0, so the tangent is vertical, not horizontal. The horizontal condition is a zero numerator, 8x − 3y = 0.",
+    "error_pattern": "Sets the denominator 3x − 2y to 0 (vertical tangent) instead of the numerator"
+   },
+   {
+    "text": "(6, 16)",
+    "rationale": "This satisfies 3y = 8x, the horizontal-tangent condition, but is not on the curve: 144 − 288 + 256 = 112, not 28. The condition must be combined with the curve's equation, which gives x = 3.",
+    "error_pattern": "Uses the horizontal-tangent condition but never checks the curve equation"
+   },
+   {
+    "text": "(3, 1)",
+    "rationale": "This point is on the curve (36 − 9 + 1 = 28), but there dy/dx = (24 − 3)/(9 − 2) = 3, so the tangent is neither horizontal nor vertical. Lying on the curve is not enough; the numerator 8x − 3y must be 0.",
+    "error_pattern": "Picks a point on the curve without testing the tangent condition"
+   }
+  ],
+  "change_note": "Asks for the horizontal tangent (zero numerator) on a different quadratic curve, so the roles of numerator and denominator are reversed relative to the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-008-v1",
+  "seed": "apcalcab-mcq-u3n-008",
+  "difficulty": "easy",
+  "title": "Inverse slope from a table of values",
+  "stem": "Some values of a differentiable, invertible function f and of its derivative f′ are tabulated below.\n\nx | f(x) | f′(x)\n1 | 3 | 2\n2 | 6 | 5\n4 | 8 | 3\n6 | 13 | 9\n\nFind the slope of the graph of f⁻¹ at the point where the input is 6.",
+  "correct": {
+   "text": "1/5",
+   "rationale": "f(2) = 6, so f⁻¹(6) = 2, and (f⁻¹)′(6) = 1/f′(f⁻¹(6)) = 1/f′(2) = 1/5."
+  },
+  "wrong": [
+   {
+    "text": "5",
+    "rationale": "This is f′(2), the derivative of f rather than of f⁻¹. The derivative of the inverse is the reciprocal, 1/5.",
+    "error_pattern": "Reports f′ at the matching point without taking the reciprocal"
+   },
+   {
+    "text": "1/9",
+    "rationale": "This uses 1/f′(6) = 1/9, plugging the input 6 into f′. The formula requires f′ at f⁻¹(6) = 2, where f′(2) = 5, so the value is 1/5.",
+    "error_pattern": "Evaluates f′ at the input value instead of at f⁻¹ of the input"
+   },
+   {
+    "text": "2",
+    "rationale": "This is f⁻¹(6) = 2, the value of the inverse function itself, not its derivative. The derivative is 1/f′(2) = 1/5.",
+    "error_pattern": "Reports the inverse function value instead of its derivative"
+   }
+  ],
+  "change_note": "New table values and a different input (6); distractors changed to non-reciprocal, wrong-row, and function-value errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-008-v2",
+  "seed": "apcalcab-mcq-u3n-008",
+  "difficulty": "easy",
+  "title": "Inverse rate for a filling tank",
+  "stem": "The depth of water in a tank is g(t) centimeters at time t minutes, where g is differentiable and strictly increasing. Selected values are given.\n\nt | g(t) | g′(t)\n0 | 4 | 1/2\n3 | 10 | 2/3\n5 | 12 | 3/4\n8 | 15 | 5/4\n\nWhat is (g⁻¹)′(10)?",
+  "correct": {
+   "text": "3/2",
+   "rationale": "g(3) = 10, so g⁻¹(10) = 3, and (g⁻¹)′(10) = 1/g′(g⁻¹(10)) = 1/g′(3) = 1/(2/3) = 3/2."
+  },
+  "wrong": [
+   {
+    "text": "2/3",
+    "rationale": "This is g′(3), the derivative of g rather than of g⁻¹. The derivative of the inverse is the reciprocal, 3/2.",
+    "error_pattern": "Reports g′ at the matching point without taking the reciprocal"
+   },
+   {
+    "text": "3",
+    "rationale": "This is g⁻¹(10) = 3, the time at which the depth is 10, not the derivative of g⁻¹. The derivative is 1/g′(3) = 3/2.",
+    "error_pattern": "Reports the inverse function value instead of its derivative"
+   },
+   {
+    "text": "1/10",
+    "rationale": "This takes the reciprocal of the input value 10. The reciprocal must be of the slope g′(3) = 2/3, so the value is 3/2.",
+    "error_pattern": "Takes the reciprocal of the input value instead of the slope"
+   }
+  ],
+  "change_note": "Contextual (tank depth) with fractional derivative values, so the inverse derivative is not an integer-reciprocal.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-008-v3",
+  "seed": "apcalcab-mcq-u3n-008",
+  "difficulty": "easy",
+  "title": "Inverse slope for a decreasing function",
+  "stem": "The function h is differentiable and one-to-one, with h(1) = 8, h(2) = 5, h(3) = 2, h′(1) = −4, h′(2) = −6, and h′(3) = −8. What is (h⁻¹)′(2)?",
+  "correct": {
+   "text": "−1/8",
+   "rationale": "h(3) = 2, so h⁻¹(2) = 3, and (h⁻¹)′(2) = 1/h′(h⁻¹(2)) = 1/h′(3) = −1/8."
+  },
+  "wrong": [
+   {
+    "text": "1/8",
+    "rationale": "This takes the reciprocal of 8 but drops the negative sign, assuming the inverse must be increasing. Since h is decreasing, h⁻¹ is decreasing too: 1/h′(3) = 1/(−8) = −1/8.",
+    "error_pattern": "Drops the negative sign of h′(3) when taking the reciprocal"
+   },
+   {
+    "text": "−8",
+    "rationale": "This is h′(3), the derivative of h rather than of h⁻¹. The derivative of the inverse is the reciprocal, −1/8.",
+    "error_pattern": "Reports h′ at the matching point without taking the reciprocal"
+   },
+   {
+    "text": "−1/6",
+    "rationale": "This uses 1/h′(2) = 1/(−6), plugging the input 2 into h′. The formula requires h′ at h⁻¹(2) = 3, where h′(3) = −8, so the value is −1/8.",
+    "error_pattern": "Evaluates h′ at the input value instead of at h⁻¹ of the input"
+   }
+  ],
+  "change_note": "Decreasing function given as a list of values rather than a table, so the sign of the answer matters; one distractor targets the sign misconception.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-009-v1",
+  "seed": "apcalcab-mcq-u3n-009",
+  "difficulty": "medium",
+  "title": "Inverse derivative for a cubic polynomial",
+  "stem": "The function f(x) = x³ + 4x − 2 is one-to-one. Find (f⁻¹)′(3).",
+  "correct": {
+   "text": "1/7",
+   "rationale": "f(1) = 1 + 4 − 2 = 3, so f⁻¹(3) = 1. Since f′(x) = 3x² + 4, f′(1) = 7, and (f⁻¹)′(3) = 1/f′(1) = 1/7."
+  },
+  "wrong": [
+   {
+    "text": "1/31",
+    "rationale": "This uses 1/f′(3) = 1/(3 · 9 + 4) = 1/31, evaluating f′ at 3. The formula needs f′ at f⁻¹(3) = 1, where f′(1) = 7.",
+    "error_pattern": "Evaluates f′ at the input value instead of at f⁻¹ of the input"
+   },
+   {
+    "text": "7",
+    "rationale": "This is f′(1), the slope of f at the matching point. The slope of f⁻¹ is its reciprocal, 1/7.",
+    "error_pattern": "Reports f′ at the matching point without taking the reciprocal"
+   },
+   {
+    "text": "1/3",
+    "rationale": "This takes the reciprocal of the value f(1) = 3. The reciprocal must be of the derivative f′(1) = 7, not of the function value.",
+    "error_pattern": "Takes the reciprocal of the function value instead of the derivative"
+   }
+  ],
+  "change_note": "New cubic with different coefficients and target value.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-009-v2",
+  "seed": "apcalcab-mcq-u3n-009",
+  "difficulty": "medium",
+  "title": "Inverse derivative with an exponential function",
+  "stem": "Let f(x) = e^x + 3x, which is one-to-one. What is (f⁻¹)′(1)?",
+  "correct": {
+   "text": "1/4",
+   "rationale": "f(0) = e⁰ + 0 = 1, so f⁻¹(1) = 0. Since f′(x) = e^x + 3, f′(0) = 4, and (f⁻¹)′(1) = 1/f′(0) = 1/4."
+  },
+  "wrong": [
+   {
+    "text": "1/(e + 3)",
+    "rationale": "This uses 1/f′(1) = 1/(e + 3), evaluating f′ at 1. The formula needs f′ at f⁻¹(1) = 0, where f′(0) = 4.",
+    "error_pattern": "Evaluates f′ at the input value instead of at f⁻¹ of the input"
+   },
+   {
+    "text": "4",
+    "rationale": "This is f′(0), the slope of f at the matching point. The slope of f⁻¹ is its reciprocal, 1/4.",
+    "error_pattern": "Reports f′ at the matching point without taking the reciprocal"
+   },
+   {
+    "text": "1/3",
+    "rationale": "This evaluates e⁰ as 0, so f′(0) = 0 + 3 = 3 and the result is 1/3. Since e⁰ = 1, f′(0) = 1 + 3 = 4 and the value is 1/4.",
+    "error_pattern": "Evaluates e^0 as 0"
+   }
+  ],
+  "change_note": "Exponential-plus-linear function (not a polynomial); the matching point is found by inspection at x = 0.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-009-v3",
+  "seed": "apcalcab-mcq-u3n-009",
+  "difficulty": "medium",
+  "title": "Inverse derivative with a restricted domain",
+  "stem": "The function f(x) = x² + 3x is defined for x ≥ 0, so it is one-to-one on that domain. What is (f⁻¹)′(10)?",
+  "correct": {
+   "text": "1/7",
+   "rationale": "Solve x² + 3x = 10: (x + 5)(x − 2) = 0, and x ≥ 0 gives x = 2, so f⁻¹(10) = 2. Since f′(x) = 2x + 3, f′(2) = 7, and (f⁻¹)′(10) = 1/f′(2) = 1/7."
+  },
+  "wrong": [
+   {
+    "text": "1/23",
+    "rationale": "This uses 1/f′(10) = 1/(2 · 10 + 3) = 1/23, evaluating f′ at 10. The formula needs f′ at f⁻¹(10) = 2, where f′(2) = 7.",
+    "error_pattern": "Evaluates f′ at the input value instead of at f⁻¹ of the input"
+   },
+   {
+    "text": "7",
+    "rationale": "This is f′(2), the slope of f at the matching point. The slope of f⁻¹ is its reciprocal, 1/7.",
+    "error_pattern": "Reports f′ at the matching point without taking the reciprocal"
+   },
+   {
+    "text": "−1/7",
+    "rationale": "This uses the root x = −5 of x² + 3x = 10, which is outside the domain x ≥ 0. Then f′(−5) = −7 and 1/f′(−5) = −1/7. The domain requires x = 2, giving 1/7.",
+    "error_pattern": "Chooses the root of f(x) = 10 that lies outside the domain"
+   }
+  ],
+  "change_note": "Quadratic with a domain restriction, so locating f⁻¹(10) requires choosing the correct root; a distractor uses the extraneous root.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-010-v1",
+  "seed": "apcalcab-mcq-u3n-010",
+  "difficulty": "medium",
+  "title": "Slope of an inverse cosine curve",
+  "stem": "Find the slope of the tangent line to the graph of g(x) = cos⁻¹(3x) at x = 1/6.",
+  "correct": {
+   "text": "−2√3",
+   "rationale": "g′(x) = −3/√(1 − (3x)²). At x = 1/6: 1 − 1/4 = 3/4, so g′(1/6) = −3/√(3/4) = −3/(√3/2) = −6/√3 = −2√3."
+  },
+  "wrong": [
+   {
+    "text": "−2/√3",
+    "rationale": "This is −1/√(1 − (3x)²) = −1/(√3/2) = −2/√3 at x = 1/6, with no chain-rule factor 3 from d/dx(3x). The correct value is −2√3.",
+    "error_pattern": "Omits the chain-rule factor from the inner function 3x"
+   },
+   {
+    "text": "2√3",
+    "rationale": "This uses +3/√(1 − (3x)²), the derivative of sin⁻¹(3x), and misses the negative sign of the derivative of cos⁻¹: 3/(√3/2) = 2√3. The correct value is −2√3.",
+    "error_pattern": "Uses the sin⁻¹ derivative, dropping the minus sign of cos⁻¹"
+   },
+   {
+    "text": "−6/√5",
+    "rationale": "This uses −3/√(1 + (3x)²) = −3/√(5/4) = −6/√5, with a plus sign under the radical. The derivative of cos⁻¹ u has 1 − u² under the radical, giving −2√3.",
+    "error_pattern": "Uses 1 + u² instead of 1 − u² under the radical"
+   }
+  ],
+  "change_note": "Inverse cosine instead of inverse sine (adds the negative sign), different coefficient and evaluation point; reworded as a tangent-slope request.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-010-v2",
+  "seed": "apcalcab-mcq-u3n-010",
+  "difficulty": "medium",
+  "title": "Derivative of inverse sine with a fractional argument",
+  "stem": "Let f(x) = sin⁻¹(x/3). Evaluate f′(3/2).",
+  "correct": {
+   "text": "2/(3√3)",
+   "rationale": "f′(x) = (1/3)/√(1 − (x/3)²). At x = 3/2: (x/3)² = 1/4, so f′(3/2) = (1/3)/√(3/4) = (1/3)/(√3/2) = 2/(3√3)."
+  },
+  "wrong": [
+   {
+    "text": "2/√3",
+    "rationale": "This is 1/√(1 − (x/3)²) = 1/(√3/2) = 2/√3 at x = 3/2, with no chain-rule factor 1/3 from d/dx(x/3). The correct value is 2/(3√3).",
+    "error_pattern": "Omits the chain-rule factor from the inner function x/3"
+   },
+   {
+    "text": "2/(3√5)",
+    "rationale": "This uses (1/3)/√(1 + (x/3)²) = (1/3)/√(5/4) = 2/(3√5), with a plus sign under the radical. The derivative of sin⁻¹ u has 1 − u² under the radical, giving 2/(3√3).",
+    "error_pattern": "Uses 1 + u² instead of 1 − u² under the radical"
+   },
+   {
+    "text": "4/9",
+    "rationale": "This drops the square root: (1/3)/(1 − 1/4) = (1/3)/(3/4) = 4/9. The derivative of sin⁻¹ u has √(1 − u²) in the denominator, giving 2/(3√3).",
+    "error_pattern": "Drops the square root in the denominator"
+   }
+  ],
+  "change_note": "Fractional inner function x/3 (chain factor 1/3 instead of 2) with a different evaluation point.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-010-v3",
+  "seed": "apcalcab-mcq-u3n-010",
+  "difficulty": "medium",
+  "title": "Inverse sine of an exponential",
+  "stem": "If f(x) = sin⁻¹(e^x), what is f′(−ln 2)?",
+  "correct": {
+   "text": "1/√3",
+   "rationale": "f′(x) = e^x/√(1 − (e^x)²). At x = −ln 2, e^x = 1/2, so f′ = (1/2)/√(1 − 1/4) = (1/2)/(√3/2) = 1/√3."
+  },
+  "wrong": [
+   {
+    "text": "2/√3",
+    "rationale": "This is 1/√(1 − (e^x)²) = 1/(√3/2) = 2/√3, with no chain-rule factor e^x = 1/2 from the inner function. The correct value is 1/√3.",
+    "error_pattern": "Omits the chain-rule factor e^x from the inner function"
+   },
+   {
+    "text": "√2/2",
+    "rationale": "This writes 1 − e^x under the radical instead of 1 − (e^x)²: (1/2)/√(1 − 1/2) = (1/2)/(√2/2) = √2/2. The inside function must be squared, giving 1/√3.",
+    "error_pattern": "Does not square the inner function under the radical"
+   },
+   {
+    "text": "1/√5",
+    "rationale": "This uses (1/2)/√(1 + 1/4) = (1/2)/(√5/2) = 1/√5, with a plus sign under the radical. The derivative of sin⁻¹ u has 1 − u² under the radical, giving 1/√3.",
+    "error_pattern": "Uses 1 + u² instead of 1 − u² under the radical"
+   }
+  ],
+  "change_note": "Inner function is an exponential and the evaluation point uses a logarithm value; a new distractor targets forgetting to square the inner function.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-011-v1",
+  "seed": "apcalcab-mcq-u3n-011",
+  "difficulty": "easy",
+  "title": "Derivative of inverse tangent of an exponential",
+  "stem": "Find f′(x) when f(x) = tan⁻¹(e^x).",
+  "correct": {
+   "text": "e^x/(1 + e^(2x))",
+   "rationale": "d/dx tan⁻¹ u = u′/(1 + u²) with u = e^x, u′ = e^x, so f′(x) = e^x/(1 + (e^x)²) = e^x/(1 + e^(2x))."
+  },
+  "wrong": [
+   {
+    "text": "1/(1 + e^(2x))",
+    "rationale": "This keeps the denominator 1 + (e^x)² but omits the chain-rule factor u′ = e^x in the numerator.",
+    "error_pattern": "Omits the chain-rule factor u′"
+   },
+   {
+    "text": "e^x/(1 + e^x)",
+    "rationale": "This uses 1 + u instead of 1 + u². The denominator is 1 + (e^x)² = 1 + e^(2x).",
+    "error_pattern": "Does not square u in the denominator"
+   },
+   {
+    "text": "e^x/√(1 − e^(2x))",
+    "rationale": "This uses the derivative of sin⁻¹(e^x), not tan⁻¹(e^x). The derivative of tan⁻¹ u is u′/(1 + u²), with no radical.",
+    "error_pattern": "Uses the sin⁻¹ derivative formula"
+   }
+  ],
+  "change_note": "Inner function e^x instead of 5x (exponential rather than linear); distractors include a new error of not squaring u.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-011-v2",
+  "seed": "apcalcab-mcq-u3n-011",
+  "difficulty": "easy",
+  "title": "Derivative of inverse sine with a linear inside",
+  "stem": "If f(x) = sin⁻¹(4x), what is f′(x)?",
+  "correct": {
+   "text": "4/√(1 − 16x²)",
+   "rationale": "d/dx sin⁻¹ u = u′/√(1 − u²) with u = 4x, u′ = 4, so f′(x) = 4/√(1 − (4x)²) = 4/√(1 − 16x²)."
+  },
+  "wrong": [
+   {
+    "text": "4/(1 + 16x²)",
+    "rationale": "This uses the derivative of tan⁻¹(4x), not sin⁻¹(4x). The derivative of sin⁻¹ u has a radical, √(1 − u²), in the denominator.",
+    "error_pattern": "Uses the tan⁻¹ derivative formula"
+   },
+   {
+    "text": "1/√(1 − 16x²)",
+    "rationale": "This keeps the denominator √(1 − (4x)²) but omits the chain-rule factor u′ = 4 in the numerator.",
+    "error_pattern": "Omits the chain-rule factor u′"
+   },
+   {
+    "text": "4/√(1 − 4x²)",
+    "rationale": "This squares only x, not 4x: (4x)² = 16x², so the radicand is 1 − 16x².",
+    "error_pattern": "Squares x instead of 4x inside the radical"
+   }
+  ],
+  "change_note": "Inverse sine instead of inverse tangent; swaps the confusion between the two derivative formulas.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-011-v3",
+  "seed": "apcalcab-mcq-u3n-011",
+  "difficulty": "easy",
+  "title": "Derivative of inverse cosine",
+  "stem": "Which of the following is the derivative of y = cos⁻¹(2x)?",
+  "correct": {
+   "text": "−2/√(1 − 4x²)",
+   "rationale": "d/dx cos⁻¹ u = −u′/√(1 − u²) with u = 2x, u′ = 2, so dy/dx = −2/√(1 − (2x)²) = −2/√(1 − 4x²)."
+  },
+  "wrong": [
+   {
+    "text": "2/√(1 − 4x²)",
+    "rationale": "This is the derivative of sin⁻¹(2x); it is missing the negative sign. The derivative of cos⁻¹ u is −u′/√(1 − u²).",
+    "error_pattern": "Drops the negative sign of the cos⁻¹ derivative"
+   },
+   {
+    "text": "−1/√(1 − 4x²)",
+    "rationale": "This keeps the negative sign and the radical but omits the chain-rule factor u′ = 2 in the numerator.",
+    "error_pattern": "Omits the chain-rule factor u′"
+   },
+   {
+    "text": "−2/(1 + 4x²)",
+    "rationale": "This uses the tan⁻¹ pattern, 1 + (2x)², with a negative sign. The derivative of cos⁻¹ u has a radical, √(1 − u²), in the denominator.",
+    "error_pattern": "Uses a 1 + u² denominator instead of the radical"
+   }
+  ],
+  "change_note": "Inverse cosine (negative sign), different inner coefficient, and a mixed-formula distractor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-012-v1",
+  "seed": "apcalcab-mcq-u3n-012",
+  "difficulty": "easy",
+  "title": "Which differentiation rules apply to a quotient",
+  "stem": "Which of the following correctly identifies the rules needed to differentiate f(x) = e^(x²)/(x + 3)?",
+  "correct": {
+   "text": "Quotient Rule, with the Chain Rule for e^(x²)",
+   "rationale": "f is a quotient of e^(x²) and x + 3. The numerator e^(x²) is a composite function, so its derivative uses the chain rule: 2x e^(x²). Thus f′(x) = (2x e^(x²)(x + 3) − e^(x²))/(x + 3)²."
+  },
+  "wrong": [
+   {
+    "text": "Quotient Rule only, since e^(x²) is its own derivative",
+    "rationale": "The derivative of e^(x²) is 2x e^(x²), not e^(x²), because the exponent x² is a composite inner function. The quotient rule alone leaves out the factor 2x.",
+    "error_pattern": "Treats e^(x²) as having derivative e^(x²)"
+   },
+   {
+    "text": "Chain Rule only, with x + 3 as the inner function",
+    "rationale": "f is a ratio of two functions, not a function evaluated at x + 3, so the chain rule alone cannot differentiate it. The quotient rule is needed for the division.",
+    "error_pattern": "Applies only the chain rule to a quotient"
+   },
+   {
+    "text": "Product Rule only, writing e^(x²)(x + 3)⁻¹ as a product",
+    "rationale": "Even after rewriting as a product, the factor e^(x²) is a composite function whose derivative is 2x e^(x²), which needs the chain rule. The product rule alone is not enough.",
+    "error_pattern": "Uses the product rule without the chain rule for e^(x²)"
+   }
+  ],
+  "change_note": "Quotient of an exponential composite and a linear function; distractors target missing the chain rule, misapplying chain alone, and product-only.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-012-v2",
+  "seed": "apcalcab-mcq-u3n-012",
+  "difficulty": "easy",
+  "title": "Which differentiation rules apply to a product",
+  "stem": "A student must differentiate g(x) = (3x − 1)⁴ sin x. Which of the following correctly identifies the rules needed?",
+  "correct": {
+   "text": "Product Rule, with the Chain Rule for (3x − 1)⁴",
+   "rationale": "g is a product of (3x − 1)⁴ and sin x. The factor (3x − 1)⁴ is a composite function, so its derivative uses the chain rule: 4(3x − 1)³ · 3 = 12(3x − 1)³. Thus g′(x) = 12(3x − 1)³ sin x + (3x − 1)⁴ cos x."
+  },
+  "wrong": [
+   {
+    "text": "Product Rule only, using 4(3x − 1)³ as the derivative of the first factor",
+    "rationale": "The derivative of (3x − 1)⁴ is 4(3x − 1)³ · 3 = 12(3x − 1)³; the inner derivative 3 is required. Without the chain rule the factor 3 is lost.",
+    "error_pattern": "Applies the power rule to (3x − 1)⁴ without the inner derivative"
+   },
+   {
+    "text": "Chain Rule only, with sin x as the inner function",
+    "rationale": "g is a product of two factors, not a function evaluated at sin x, so the chain rule alone cannot differentiate it. The product rule is needed.",
+    "error_pattern": "Applies only the chain rule to a product"
+   },
+   {
+    "text": "Quotient Rule, with the Chain Rule for (3x − 1)⁴",
+    "rationale": "g is a product, not a quotient: no function is divided by another. The quotient rule does not apply, although the chain rule is needed for (3x − 1)⁴.",
+    "error_pattern": "Confuses a product with a quotient"
+   }
+  ],
+  "change_note": "Product of a power of a linear function and a trigonometric function; a distractor targets the specific lost factor of 3.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-012-v3",
+  "seed": "apcalcab-mcq-u3n-012",
+  "difficulty": "easy",
+  "title": "How many chain rules for a nested function",
+  "stem": "Which of the following correctly describes how to differentiate y = sin(e^(3x))?",
+  "correct": {
+   "text": "Chain Rule twice: sin outside, e^(3x) in the middle, 3x inside",
+   "rationale": "y is nested three levels deep. The derivative is cos(e^(3x)) · e^(3x) · 3, which applies the chain rule to sin(u) with u = e^(3x), and again to e^(3x) with inner function 3x."
+  },
+  "wrong": [
+   {
+    "text": "Chain Rule once, with e^(3x) as the inner function and e^(3x) as its derivative",
+    "rationale": "The derivative of e^(3x) is 3e^(3x), which needs a second chain-rule step for the inner function 3x. Using e^(3x) as its derivative loses the factor 3.",
+    "error_pattern": "Treats the derivative of e^(3x) as e^(3x)"
+   },
+   {
+    "text": "Product Rule, treating sin and e^(3x) as two factors",
+    "rationale": "y is sin evaluated at e^(3x), a composition, not a product of sin and e^(3x). The chain rule applies, not the product rule.",
+    "error_pattern": "Treats a composition as a product"
+   },
+   {
+    "text": "Chain Rule once, with sin as the outer function and 3x as the inner function",
+    "rationale": "The inner function of sin is e^(3x), not 3x. Skipping the e^(3x) layer gives 3cos(3x) instead of 3e^(3x) cos(e^(3x)).",
+    "error_pattern": "Skips the middle layer e^(3x) of the composition"
+   }
+  ],
+  "change_note": "Counts the layers of a three-level composition instead of identifying a product/quotient; no product or quotient structure appears in the correct answer.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-013-v1",
+  "seed": "apcalcab-mcq-u3n-013",
+  "difficulty": "medium",
+  "title": "Quotient rule with a sine composite",
+  "stem": "If f(x) = sin(3x)/x, what is f′(π/3)?",
+  "correct": {
+   "text": "−9/π",
+   "rationale": "f′(x) = (3cos(3x) · x − sin(3x) · 1)/x². At x = π/3: 3cos π · (π/3) − sin π = −π − 0 = −π, and x² = π²/9, so f′(π/3) = −π/(π²/9) = −9/π."
+  },
+  "wrong": [
+   {
+    "text": "9/π",
+    "rationale": "This reverses the quotient rule numerator to f · g′ − f′ · g, giving (0 − (−π))/(π²/9) = π/(π²/9) = 9/π. The numerator must be f′ · g − f · g′, giving −9/π.",
+    "error_pattern": "Reverses the order of subtraction in the quotient rule"
+   },
+   {
+    "text": "−3/π",
+    "rationale": "This differentiates sin(3x) as cos(3x), omitting the factor 3: (cos π · (π/3) − 0)/(π²/9) = (−π/3)/(π²/9) = −3/π. The chain rule gives 3cos(3x), so the numerator is −π.",
+    "error_pattern": "Omits the chain-rule factor 3 for sin(3x)"
+   },
+   {
+    "text": "−3",
+    "rationale": "The numerator −π is correct, but the denominator was x = π/3 instead of x² = π²/9: −π/(π/3) = −3.",
+    "error_pattern": "Divides by g instead of g² in the quotient rule"
+   }
+  ],
+  "change_note": "Trigonometric composite over x, evaluated at a special angle; different distractor set (reversed subtraction, missing chain factor, unsquared denominator).",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-013-v2",
+  "seed": "apcalcab-mcq-u3n-013",
+  "difficulty": "medium",
+  "title": "Quotient rule with a decaying exponential",
+  "stem": "Let f(x) = e^(−x)/(x² + 1). Find f′(1).",
+  "correct": {
+   "text": "−1/e",
+   "rationale": "f′(x) = (−e^(−x)(x² + 1) − e^(−x) · 2x)/(x² + 1)². At x = 1: (−2/e − 2/e)/4 = (−4/e)/4 = −1/e."
+  },
+  "wrong": [
+   {
+    "text": "0",
+    "rationale": "This differentiates e^(−x) as e^(−x), missing the chain-rule factor −1: (e^(−1) · 2 − e^(−1) · 2)/4 = 0. The correct derivative is −e^(−x), giving −1/e.",
+    "error_pattern": "Omits the chain-rule factor −1 for e^(−x)"
+   },
+   {
+    "text": "1/e",
+    "rationale": "This reverses the quotient rule numerator to f · g′ − f′ · g, giving (2/e + 2/e)/4 = 1/e. The numerator must be f′ · g − f · g′, giving −1/e.",
+    "error_pattern": "Reverses the order of subtraction in the quotient rule"
+   },
+   {
+    "text": "−2/e",
+    "rationale": "The numerator −4/e is correct, but the denominator was x² + 1 = 2 instead of (x² + 1)² = 4: (−4/e)/2 = −2/e.",
+    "error_pattern": "Divides by g instead of g² in the quotient rule"
+   }
+  ],
+  "change_note": "Decaying exponential over a quadratic; the chain-rule error here produces a different value than in the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-013-v3",
+  "seed": "apcalcab-mcq-u3n-013",
+  "difficulty": "medium",
+  "title": "Concentration rate using the quotient rule",
+  "stem": "The concentration of a medication in a patient's blood is C(t) = √(4t + 1)/t, where t is the time in hours since the dose, t > 0. What is C′(2)?",
+  "correct": {
+   "text": "−5/12",
+   "rationale": "C′(t) = ((2/√(4t + 1)) · t − √(4t + 1) · 1)/t². At t = 2: (2/3 · 2 − 3)/4 = (4/3 − 3)/4 = (−5/3)/4 = −5/12."
+  },
+  "wrong": [
+   {
+    "text": "−2/3",
+    "rationale": "This differentiates √(4t + 1) as 1/(2√(4t + 1)), omitting the chain-rule factor 4: ((1/6) · 2 − 3)/4 = (1/3 − 3)/4 = −2/3. The chain rule gives 2/√(4t + 1) = 2/3 at t = 2.",
+    "error_pattern": "Omits the chain-rule factor 4 for √(4t + 1)"
+   },
+   {
+    "text": "5/12",
+    "rationale": "This reverses the quotient rule numerator to f · g′ − f′ · g, giving (3 − 4/3)/4 = 5/12. The numerator must be f′ · g − f · g′, giving −5/12.",
+    "error_pattern": "Reverses the order of subtraction in the quotient rule"
+   },
+   {
+    "text": "−5/6",
+    "rationale": "The numerator −5/3 is correct, but the denominator was t = 2 instead of t² = 4: (−5/3)/2 = −5/6.",
+    "error_pattern": "Divides by g instead of g² in the quotient rule"
+   }
+  ],
+  "change_note": "Square-root composite in a medication-concentration context; chain factor 4 inside the root.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-014-v1",
+  "seed": "apcalcab-mcq-u3n-014",
+  "difficulty": "medium",
+  "title": "Identify the error in a product with a trig composite",
+  "stem": "A student writes: d/dx[x sin 2x] = sin 2x + x cos 2x. Which statement correctly describes the student's error?",
+  "correct": {
+   "text": "The product rule is set up correctly, but sin 2x has derivative 2cos 2x, so the second term is 2x cos 2x.",
+   "rationale": "By the product rule, d/dx[x sin 2x] = (1) sin 2x + x · (2cos 2x) = sin 2x + 2x cos 2x. The student's first term, sin 2x, was correct; the chain-rule factor 2 was missing from the second term."
+  },
+  "wrong": [
+   {
+    "text": "The derivative of x should be 0, because x is multiplied by a trigonometric function.",
+    "rationale": "The derivative of x is 1 whatever it is multiplied by, so the student's first term sin 2x was correct. The error is the missing factor 2 in the derivative of sin 2x.",
+    "error_pattern": "Claims the derivative of x is 0"
+   },
+   {
+    "text": "The Quotient Rule is required, because sin 2x is not a polynomial.",
+    "rationale": "The expression is a product, not a quotient, and the quotient rule is for division. The product rule is the correct tool, whether or not a factor is a polynomial.",
+    "error_pattern": "Confuses the product rule with the quotient rule"
+   },
+   {
+    "text": "The derivative of sin 2x is −cos 2x, so the second term should be −x cos 2x.",
+    "rationale": "The derivative of sin is cos, not −cos (the minus sign belongs to the derivative of cos). The actual error is the missing chain-rule factor 2, giving 2x cos 2x.",
+    "error_pattern": "Uses −cos as the derivative of sin"
+   }
+  ],
+  "change_note": "Error type is a missing chain-rule factor inside a correctly set-up product rule, rather than multiplying the derivatives.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-014-v2",
+  "seed": "apcalcab-mcq-u3n-014",
+  "difficulty": "medium",
+  "title": "Identify the error in a quotient derivative",
+  "stem": "A student writes: d/dx[(x² + 1)/x] = 2x/1 = 2x. Which statement correctly describes the student's error?",
+  "correct": {
+   "text": "It takes the quotient of the derivatives; the quotient rule gives (2x · x − (x² + 1))/x² = (x² − 1)/x².",
+   "rationale": "The derivative of a quotient is not the quotient of the derivatives. The quotient rule gives ((x²+1)′ · x − (x² + 1) · x′)/x² = (2x · x − (x² + 1))/x² = (x² − 1)/x²."
+  },
+  "wrong": [
+   {
+    "text": "The derivative of x² + 1 is 2x + 1, so the result should be (2x + 1)/1.",
+    "rationale": "The derivative of x² + 1 is 2x, since the derivative of the constant 1 is 0. The student's numerator derivative 2x was correct; the error was dividing derivatives instead of using the quotient rule.",
+    "error_pattern": "Claims the derivative of x² + 1 is 2x + 1"
+   },
+   {
+    "text": "The derivative of the denominator x is 0, so the result should be 2x/x² = 2/x.",
+    "rationale": "The derivative of x is 1, not 0. Also the quotient rule requires the term (x² + 1) · 1 in the numerator, which gives (x² − 1)/x².",
+    "error_pattern": "Claims the derivative of x is 0"
+   },
+   {
+    "text": "The answer should be negative because x is in the denominator, giving −2x.",
+    "rationale": "Placing a function in the denominator does not simply change the sign of a derivative. The quotient rule gives (x² − 1)/x², which is not −2x.",
+    "error_pattern": "Believes a denominator just flips the sign"
+   }
+  ],
+  "change_note": "Error type is dividing derivatives instead of applying the quotient rule; correct statement includes the correct quotient-rule result.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-014-v3",
+  "seed": "apcalcab-mcq-u3n-014",
+  "difficulty": "medium",
+  "title": "Identify the error in a chain rule derivative",
+  "stem": "A student writes: d/dx[sin(x²)] = cos(2x). Which statement correctly describes the student's error?",
+  "correct": {
+   "text": "It replaces x² by its derivative inside the cosine; the chain rule gives 2x cos(x²).",
+   "rationale": "The inside function x² must stay inside the cosine, and its derivative 2x is multiplied outside: d/dx[sin(x²)] = cos(x²) · 2x = 2x cos(x²). The student wrote cos(2x) instead."
+  },
+  "wrong": [
+   {
+    "text": "The derivative of sin should be −cos, so the answer should be −cos(2x).",
+    "rationale": "The derivative of sin u is cos u, not −cos u. The student's outside factor was correct; the error is placing the derivative 2x inside the cosine instead of multiplying by it.",
+    "error_pattern": "Uses −cos as the derivative of sin"
+   },
+   {
+    "text": "The product rule is needed on sin and x², giving x² cos x + 2x sin x.",
+    "rationale": "sin(x²) is a composition (sin evaluated at x²), not a product of sin and x², so the product rule does not apply. The chain rule gives 2x cos(x²).",
+    "error_pattern": "Treats a composition as a product"
+   },
+   {
+    "text": "The inside function should be left alone, so the derivative is cos(x²).",
+    "rationale": "The chain rule requires multiplying by the derivative of the inside function, 2x. Without it the derivative is cos(x²), which is missing a factor of 2x.",
+    "error_pattern": "Believes no inner-derivative factor is needed"
+   }
+  ],
+  "change_note": "Error type is substituting the inner derivative inside the outer function instead of multiplying by it.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-015-v1",
+  "seed": "apcalcab-mcq-u3n-015",
+  "difficulty": "hard",
+  "title": "Second derivative of a sine composite",
+  "stem": "If f(x) = sin(x²), what is f″(√(π/6))?",
+  "correct": {
+   "text": "√3 − π/3",
+   "rationale": "f′(x) = 2x cos(x²). By the product rule, f″(x) = 2cos(x²) + 2x(−sin(x²))(2x) = 2cos(x²) − 4x² sin(x²). At x² = π/6: 2(√3/2) − 4(π/6)(1/2) = √3 − π/3."
+  },
+  "wrong": [
+   {
+    "text": "√3",
+    "rationale": "This keeps only the term 2cos(x²) = √3 and omits −4x² sin(x²), the term from differentiating cos(x²). Both terms together give √3 − π/3.",
+    "error_pattern": "Drops the term from differentiating the second factor"
+   },
+   {
+    "text": "−π/3",
+    "rationale": "This differentiates only the factor cos(x²) and treats 2x as constant: −4x² sin(x²) = −4(π/6)(1/2) = −π/3. The product rule also needs the term 2cos(x²) = √3.",
+    "error_pattern": "Drops the term from differentiating the first factor"
+   },
+   {
+    "text": "√3 + π/3",
+    "rationale": "This differentiates cos(x²) as +sin(x²) · 2x, with the wrong sign: 2cos(x²) + 4x² sin(x²) = √3 + π/3. The derivative of cos u is −sin u · u′, giving √3 − π/3.",
+    "error_pattern": "Uses +sin as the derivative of cos"
+   }
+  ],
+  "change_note": "Sine composite in place of the Gaussian; special-angle evaluation with errors dropping each product-rule term and a sign error.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-015-v2",
+  "seed": "apcalcab-mcq-u3n-015",
+  "difficulty": "hard",
+  "title": "Second derivative of a logarithm",
+  "stem": "If f(x) = ln(x² + 1), what is f″(3)?",
+  "correct": {
+   "text": "−4/25",
+   "rationale": "f′(x) = 2x/(x² + 1). By the quotient rule, f″(x) = (2(x² + 1) − 2x · 2x)/(x² + 1)² = (2 − 2x²)/(x² + 1)². At x = 3: (2 − 18)/100 = −16/100 = −4/25."
+  },
+  "wrong": [
+   {
+    "text": "4/25",
+    "rationale": "This reverses the quotient rule numerator to f · g′ − f′ · g: (2x · 2x − 2(x² + 1)) = 36 − 20 = 16, so 16/100 = 4/25. The numerator must be f′ · g − f · g′, giving −16/100 = −4/25.",
+    "error_pattern": "Reverses the order of subtraction in the quotient rule"
+   },
+   {
+    "text": "1/5",
+    "rationale": "This differentiates only the numerator 2x and treats x² + 1 as constant: 2/(x² + 1) = 2/10 = 1/5. The quotient rule also needs the term from differentiating the denominator.",
+    "error_pattern": "Treats the denominator of f′ as constant"
+   },
+   {
+    "text": "−8/5",
+    "rationale": "The numerator −16 is correct, but the denominator was x² + 1 = 10 instead of (x² + 1)² = 100: −16/10 = −8/5.",
+    "error_pattern": "Divides by g instead of g² in the quotient rule"
+   }
+  ],
+  "change_note": "Logarithm of a quadratic: f′ is a quotient, so f″ needs the quotient rule instead of the product rule and chain.",
+  "check": "numeric"
+ },
+ {
+  "id": "apcalcab-mcq-u3n-015-v3",
+  "seed": "apcalcab-mcq-u3n-015",
+  "difficulty": "hard",
+  "title": "Acceleration from an exponential position function",
+  "stem": "A particle moves along a line with position s(t) = t² e^(−t) meters at time t seconds, t ≥ 0. What is the acceleration s″(3) in meters per second squared?",
+  "correct": {
+   "text": "−1/e³",
+   "rationale": "s′(t) = 2t e^(−t) − t² e^(−t) = (2t − t²)e^(−t). By the product rule, s″(t) = (2 − 2t)e^(−t) − (2t − t²)e^(−t) = (t² − 4t + 2)e^(−t). At t = 3: (9 − 12 + 2)e⁻³ = −1/e³."
+  },
+  "wrong": [
+   {
+    "text": "−4/e³",
+    "rationale": "This differentiates only the polynomial factor 2t − t² and treats e^(−t) as constant: s″ = (2 − 2t)e^(−t) = −4e⁻³ at t = 3. The product rule also needs −(2t − t²)e^(−t).",
+    "error_pattern": "Treats the exponential factor as constant in the second differentiation"
+   },
+   {
+    "text": "23/e³",
+    "rationale": "This differentiates e^(−t) as +e^(−t), missing the chain-rule factor −1, at both steps: s′ = (2t + t²)e^(−t), s″ = (t² + 4t + 2)e^(−t), which is 23e⁻³ at t = 3. The correct derivative of e^(−t) is −e^(−t).",
+    "error_pattern": "Omits the chain-rule factor −1 for e^(−t)"
+   },
+   {
+    "text": "−3/e³",
+    "rationale": "This is s′(3) = (6 − 9)e⁻³ = −3/e³, the velocity: the derivative was taken only once. Acceleration is the second derivative, which gives −1/e³.",
+    "error_pattern": "Stops after the first derivative"
+   }
+  ],
+  "change_note": "Contextual (acceleration of a particle) with t² e^(−t); product rule at both steps and a distinct set of errors, including stopping after one derivative.",
+  "check": "numeric"
+ }
+]

@@ -16,6 +16,8 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0085 — Author, Load and Publish 109 New AP Calculus AB Units 2-3 Questions: 28 Seeds and 81 Variants (Production) — DECISION-0093
+- APPROVAL-0084 — Load and Publish 29 AP Calculus AB Units 2-3 Pilot Variants (Production) — DECISION-0093
 - APPROVAL-0083 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units — DECISION-0093
 - APPROVAL-0082 — Relabel 11 Held or Stale Serving Labels on Published AP Calc AB Items (Production) and Run the Units 2-3 Seeded-Variant Pilot — DECISION-0093
 - APPROVAL-0071 — Deploy Stripe Functions to Production, Tranche 2 (`stripe-webhook` with the partial-refund fix, `create-checkout-session`, `create-post-purchase-addon`, `create-parent-payment-link`) — DECISION-0094
@@ -194,6 +196,38 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0085 — Author, Load and Publish 109 New AP Calculus AB Units 2-3 Questions: 28 Seeds and 81 Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-02/03 Claude session: "15 seeds for each of 2 and 3"; "Load and publish the 109")  
+**Related Decision:** `DECISION-0093`; follows `APPROVAL-0084`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`):** 28 new original AP Calculus AB MCQ seeds (`apcalcab-mcq-u2n-NNN`: 14 for Unit 2; `apcalcab-mcq-u3n-NNN`: 14 for Unit 3) and 81 variants (`...-vK`, 40 for Unit 2 and 41 for Unit 3) were loaded as drafts in 10 atomic chunks (md5 109 of 109 against the build manifest), then approved and published with validated, hash-fresh serving labels (54 in Unit 2, 55 in Unit 3) and validated primary topic cells. Seed units and topics come from a three-family blind check (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol, 2 samples each) at >= 5 of 6; variants inherit them. `u3n-014` takes the consensus topic 2.8 (6 of 6) rather than the intended 3.5. No skill or difficulty rows were written.
+
+**Checks behind the items:** every value and distractor verified in sympy; two-checker blind solve (keys agree on all); rationale audit with 3 stem/rationale defects patched and re-audited clean; CED scope check (all in scope); lints (no embedded option lists, length, similarity < 0.7; 3 variants reworded).
+
+**Dropped for needing later units:** seed `u3n-007` (vertical tangent on an implicit curve, topic 5.12, Unit 5) with its 3 variants; seed `u2n-002` (velocity from a position function, topic 4.2, Unit 4) with its 3 variants; variants `u2n-011-v2` (rate of change of an area), `u2n-015-v3` (particle velocity) and `u3n-015-v3` (particle acceleration), flagged Unit 4 by both or one of the checkers. The user's request was 15 seeds per unit; two seeds failed the unit check, leaving 14 and 14.
+
+**Result:** Calc AB published 308 to 417, unit-gated servable 237 to 346, stale hashes 1 (unchanged).
+
+**Not approved by this entry:** skill cells for the new items; FRQ content; Unit 1 content (not extended by decision); `025-v1`.
+
+## APPROVAL-0084 — Load and Publish 29 AP Calculus AB Units 2-3 Pilot Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-02 Claude session: "Yes to loading the 30", in answer to the offer to load and publish the pilot variants)  
+**Related Decision:** `DECISION-0093`; follows `APPROVAL-0083`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`):** the 30 AP Calculus AB variant MCQs written in the Units 2-3 seeded-variant pilot (`apcalcab-mcq-sv-<seed>-vK`, from 10 seeds) were loaded as drafts in 3 atomic chunks (md5 30 of 30 against the build manifest). 29 were then approved and published with validated, hash-fresh serving labels (14 in Unit 2, 15 in Unit 3) and 21 validated primary topic cells. Units are inherited only where the seed and variant three-family pluralities agree (at >= 4 of 6); topics only where they agree (21 of 29; the 005, 006 and two other families stay without a topic cell). `apcalcab-mcq-sv-025-v1` stays a draft because its required units were split ([1, 2] against [2]). No skill or difficulty rows were written.
+
+**Checks behind the variants (from the pilot report):** two-checker blind solve 60 of 60 matching the key, rationale audit with 5 defects patched and re-audited clean, CED scope check 60 of 60 in scope, sympy on every key and distractor.
+
+**Result:** Calc AB published 279 to 308, unit-gated servable 208 to 237, stale hashes 1.
+
+**Not approved by this entry:** the 30 new Unit 2-3 seed questions and their variants (authored 2026-10-03, not loaded); skill cells for the variants; `025-v1`.
 
 ## APPROVAL-0083 — Fix Two Live AP Calc AB Seeds in Production: `apcalcab-mcq-026` Choice C and the `apcalcab-mcq-028` Serving-Label Units
 
