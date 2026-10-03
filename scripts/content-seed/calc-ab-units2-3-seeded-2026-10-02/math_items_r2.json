@@ -1,0 +1,152 @@
+[
+ {
+  "key": "u23-006-v3",
+  "kind": "mcq",
+  "stem": "The hyperbola y = 1/x passes through the point with x-coordinate 2. Which equation describes the tangent line to the hyperbola there?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "y = 1/2 − (x − 2)/4"
+   },
+   {
+    "label": "B",
+    "text": "y = 2 − (x − 2)/4"
+   },
+   {
+    "label": "C",
+    "text": "y = 1/2 − (x − 2)/2"
+   },
+   {
+    "label": "D",
+    "text": "y = 1/2 + (x − 2)/4"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "At x = 2 the point is (2, 1/2). Since dy/dx = −1/x², the slope is −1/4, so the tangent line is y = 1/2 − (x − 2)/4.",
+   "B": "Has the correct slope −1/4 but uses 2 as the y-coordinate of the point of tangency instead of 1/2.",
+   "C": "Divides by x instead of x² when differentiating 1/x, giving slope −1/2 instead of −1/4.",
+   "D": "Has the right size of slope but loses the negative sign in dy/dx = −1/x²."
+  }
+ },
+ {
+  "key": "u23-025-v1",
+  "kind": "mcq",
+  "stem": "If f(x) = x³, which of the following limits is equal to f′(2)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "lim(h→0) [(2+h)³ − 8]/2"
+   },
+   {
+    "label": "B",
+    "text": "lim(h→0) [(2+h)³ − 8]/(2h)"
+   },
+   {
+    "label": "C",
+    "text": "lim(h→0) [(2+h)³ − h³]/h"
+   },
+   {
+    "label": "D",
+    "text": "lim(h→0) [(2+h)³ − 8]/h"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Divides by the fixed point 2 instead of the increment h. The numerator tends to 0, so this limit is 0.",
+   "B": "Divides by 2h instead of h. The limit is 6, half of f′(2) = 12.",
+   "C": "Subtracts f(h) = h³ where f(2) = 8 belongs. The quotient is (8 + 12h + 6h²)/h, which tends to +∞ as h → 0⁺ and to −∞ as h → 0⁻, so the limit does not exist.",
+   "D": "This is [f(2 + h) − f(2)]/h with f(2) = 8, the limit definition of f′(2). It equals 12."
+  }
+ },
+ {
+  "key": "u23-025-v3",
+  "kind": "mcq",
+  "stem": "The volume of a balloon is V(t) = 4t² cubic centimeters at time t seconds. Which of the following limits is equal to the instantaneous rate of change of V at t = 5?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "lim(h→0) [4(5+h)² − 4h²]/h"
+   },
+   {
+    "label": "B",
+    "text": "lim(h→0) [4(5+h)² − 100]/h"
+   },
+   {
+    "label": "C",
+    "text": "lim(h→0) [4(5+h)² − 100]/(5h)"
+   },
+   {
+    "label": "D",
+    "text": "lim(h→0) [4(5+h)² − 100]/5"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Subtracts V(h) = 4h² where V(5) = 100 belongs. The quotient is (100 + 40h)/h, which tends to +∞ as h → 0⁺ and to −∞ as h → 0⁻, so the limit does not exist.",
+   "B": "This is [V(5 + h) − V(5)]/h with V(5) = 100, the definition of V′(5). It equals 40 cubic centimeters per second.",
+   "C": "Divides by 5h instead of h. The limit is 8, one fifth of V′(5) = 40.",
+   "D": "Divides by the fixed time 5 instead of the increment h. The numerator tends to 0, so this limit is 0."
+  }
+ },
+ {
+  "key": "u23-028-v3",
+  "kind": "mcq",
+  "stem": "Let h(x) = x² for x < 1 and h(x) = x + 2 for x ≥ 1. Which of the following statements is true?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "h is continuous at x = 1 but not differentiable there because the slopes of the two pieces differ."
+   },
+   {
+    "label": "B",
+    "text": "h is continuous at x = 1 because h(1) is defined."
+   },
+   {
+    "label": "C",
+    "text": "h is not differentiable at x = 1 because h is not continuous at x = 1."
+   },
+   {
+    "label": "D",
+    "text": "h is differentiable at x = 1 because each piece is differentiable."
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "h is not continuous at x = 1 (left limit 1, h(1) = 3), so the first claim is false. Comparing the slopes of the two pieces is not the test: the jump already rules out differentiability.",
+   "B": "Continuity also requires the limit to equal h(1). The left-hand limit is 1 while h(1) = 3, so h is not continuous at 1.",
+   "C": "As x approaches 1 from the left, h(x) approaches 1, but h(1) = 3, so h has a jump at x = 1. A function that is not continuous at a point cannot be differentiable there.",
+   "D": "Each piece is differentiable on its own interval, but that says nothing about x = 1, where the two pieces do not meet (1 versus 3)."
+  }
+ },
+ {
+  "key": "u23-005-v4",
+  "kind": "mcq",
+  "stem": "Find d/dx [x² sin(3x)].",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2x sin(3x) + x² cos(3x)"
+   },
+   {
+    "label": "B",
+    "text": "2x sin(3x) + 3x² cos(3x)"
+   },
+   {
+    "label": "C",
+    "text": "2x sin(3x) − 3x² cos(3x)"
+   },
+   {
+    "label": "D",
+    "text": "6x cos(3x)"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Differentiates sin(3x) as cos(3x) and forgets the inner derivative factor 3.",
+   "B": "By the product rule with the chain rule on sin(3x): 2x sin(3x) + x²·3cos(3x) = 2x sin(3x) + 3x² cos(3x).",
+   "C": "Uses −3cos(3x) as the derivative of sin(3x): keeps the inner factor 3 but gets the sign wrong.",
+   "D": "Multiplies the derivatives of the two factors, 2x and 3cos(3x), instead of applying the product rule."
+  }
+ }
+]

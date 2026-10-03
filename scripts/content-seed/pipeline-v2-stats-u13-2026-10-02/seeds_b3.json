@@ -1,0 +1,418 @@
+[
+ {
+  "key": "APSTATS-MCQ-005-CAL",
+  "topic": "1.13",
+  "stem": "Which conclusion is appropriately supported by this study design?",
+  "stimulus": "A wellness magazine reports that people who meditate at least 20 minutes per day have lower blood pressure on average than people who do not meditate, based on a survey of 500 adults who volunteered to report their meditation habits and blood pressure.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There is an association between meditation habits and blood pressure in this sample, but causation cannot be concluded because participants were not randomly assigned to meditate or not.",
+    "is_correct": true,
+    "rationale": "This was an observational, voluntary-response study with no random assignment of the explanatory variable, so an association can be described but a causal claim is not supported."
+   },
+   {
+    "label": "B",
+    "text": "Meditating for 20 minutes a day causes lower blood pressure.",
+    "is_correct": false,
+    "rationale": "This draws a causal conclusion from an observational study with no random assignment, which cannot rule out confounding variables."
+   },
+   {
+    "label": "C",
+    "text": "Because the sample size is large (500 people), causation can be concluded even without random assignment.",
+    "is_correct": false,
+    "rationale": "A large sample size reduces sampling variability but does nothing to address confounding; only random assignment supports causal claims."
+   },
+   {
+    "label": "D",
+    "text": "No conclusion can be drawn because the study did not use a randomized experiment.",
+    "is_correct": false,
+    "rationale": "This overcorrects -- observational studies can still support conclusions about association, just not causation."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-010-CAL",
+  "topic": "3.2",
+  "stem": "Why is it inappropriate to use a normal approximation for the sampling distribution of p-hat in this situation?",
+  "stimulus": "A quality control engineer wants to use a normal approximation for the sampling distribution of the sample proportion of defective items in a random sample of size n = 40 from a manufacturing process where the true defect rate is p = 0.03.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "np = 40(0.03) = 1.2, which is less than 10, so the success-failure condition is not met and the sampling distribution of p-hat would be skewed, not approximately normal.",
+    "is_correct": true,
+    "rationale": "The success-failure condition requires both np and n(1-p) to be at least 10 (a common threshold); here np = 1.2, which fails the condition, so the normal approximation is not justified."
+   },
+   {
+    "label": "B",
+    "text": "The sample size 40 is too small to ever use a normal approximation, regardless of p.",
+    "is_correct": false,
+    "rationale": "Appropriateness depends on np and n(1-p), not on the sample size n alone; a sample of 40 could be adequate for a different value of p."
+   },
+   {
+    "label": "C",
+    "text": "The population defect rate p = 0.03 is a parameter, not a statistic, so the normal approximation does not apply to parameters.",
+    "is_correct": false,
+    "rationale": "This confuses the parameter/statistic distinction with the actual condition being checked; the success-failure condition uses p to check np and n(1-p), regardless of p being a parameter."
+   },
+   {
+    "label": "D",
+    "text": "Random sampling was not used, so no approximation is valid.",
+    "is_correct": false,
+    "rationale": "The stimulus states the sample is random; this introduces an assumption violation that isn't actually present in the scenario."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-021",
+  "topic": "1.7",
+  "stem": "How does the mean change?",
+  "stimulus": "A data set has 12 values with mean 40. One value is changed from 18 to 30.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It increases by 12.",
+    "is_correct": false,
+    "rationale": "That is the change in one data value, not the change in the mean."
+   },
+   {
+    "label": "B",
+    "text": "It does not change.",
+    "is_correct": false,
+    "rationale": "Changing a data value changes the mean unless the change is zero."
+   },
+   {
+    "label": "C",
+    "text": "It increases by 0.5.",
+    "is_correct": false,
+    "rationale": "This divides by the wrong number of values."
+   },
+   {
+    "label": "D",
+    "text": "It increases by 1.0, because the total sum increases by 12 and the data set has 12 values.",
+    "is_correct": true,
+    "rationale": "Changing one value by +12 raises the mean by 12/12 = 1."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-025",
+  "topic": "1.8",
+  "stem": "What is the upper fence for possible outliers?",
+  "stimulus": "For a data set, Q1 = 18 and Q3 = 30.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "42",
+    "is_correct": false,
+    "rationale": "This uses 1.0(IQR) instead of 1.5(IQR)."
+   },
+   {
+    "label": "B",
+    "text": "36",
+    "is_correct": false,
+    "rationale": "This mistakenly starts from Q1 instead of Q3: Q1 + 1.5(IQR) = 18 + 1.5(12) = 18 + 18 = 36."
+   },
+   {
+    "label": "C",
+    "text": "60",
+    "is_correct": false,
+    "rationale": "This doubles Q3 instead of adding 1.5×IQR to it: 2 × Q3 = 2(30) = 60."
+   },
+   {
+    "label": "D",
+    "text": "48",
+    "is_correct": true,
+    "rationale": "IQR = 12, so the upper fence is Q3 + 1.5(IQR) = 30 + 18 = 48."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-038",
+  "topic": "1.11",
+  "stem": "Why might stratified sampling be better than a simple random sample?",
+  "stimulus": "A school has freshmen, sophomores, juniors, and seniors in different proportions.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It ensures each grade level is represented in the sample.",
+    "is_correct": true,
+    "rationale": "Stratified sampling can improve representativeness when important subgroups need guaranteed representation."
+   },
+   {
+    "label": "B",
+    "text": "It guarantees no bias under any circumstance.",
+    "is_correct": false,
+    "rationale": "No sampling method guarantees zero bias."
+   },
+   {
+    "label": "C",
+    "text": "It always requires fewer people than any other method.",
+    "is_correct": false,
+    "rationale": "Sample size depends on the precision desired, not just the method."
+   },
+   {
+    "label": "D",
+    "text": "It removes the need for random selection.",
+    "is_correct": false,
+    "rationale": "Strata are typically sampled randomly within each group."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-042",
+  "topic": "1.13",
+  "stem": "What does random assignment help with most?",
+  "stimulus": "A school randomly assigns students to a new tutoring program or the old program.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Guaranteeing a perfectly equal sample size in every subgroup.",
+    "is_correct": false,
+    "rationale": "Random assignment does not guarantee equal subgroup sizes."
+   },
+   {
+    "label": "B",
+    "text": "Eliminating all measurement error.",
+    "is_correct": false,
+    "rationale": "Random assignment does not fix measurement problems."
+   },
+   {
+    "label": "C",
+    "text": "Making the study automatically double blind.",
+    "is_correct": false,
+    "rationale": "Blinding is separate from random assignment."
+   },
+   {
+    "label": "D",
+    "text": "Balancing lurking variables between the groups so a causal comparison is more credible.",
+    "is_correct": true,
+    "rationale": "Random assignment helps create comparable groups and supports causal inference."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-046",
+  "topic": "2.6",
+  "stem": "What is P(honor roll | athlete)?",
+  "stimulus": "In a class of 40 students, 10 are athletes, and 4 of those athletes are on the honor roll.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4/10 = 0.40",
+    "is_correct": true,
+    "rationale": "Conditional probability uses the athlete group as the denominator."
+   },
+   {
+    "label": "B",
+    "text": "4/40 = 0.10",
+    "is_correct": false,
+    "rationale": "This uses the whole class instead of only the athletes."
+   },
+   {
+    "label": "C",
+    "text": "10/40 = 0.25",
+    "is_correct": false,
+    "rationale": "This is P(athlete), not the conditional probability."
+   },
+   {
+    "label": "D",
+    "text": "4/6 = 0.67",
+    "is_correct": false,
+    "rationale": "This incorrectly uses the number of athletes NOT on the honor roll (10 − 4 = 6) as the denominator instead of all 10 athletes: 4/6 ≈ 0.67."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-050",
+  "topic": "2.4",
+  "stem": "What is the probability that it does not rain?",
+  "stimulus": "The probability that it rains tomorrow is 0.25.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.75",
+    "is_correct": true,
+    "rationale": "Use the complement: 1 - 0.25 = 0.75."
+   },
+   {
+    "label": "B",
+    "text": "0.25",
+    "is_correct": false,
+    "rationale": "This repeats the original probability instead of its complement."
+   },
+   {
+    "label": "C",
+    "text": "0.50",
+    "is_correct": false,
+    "rationale": "This is not the complement of 0.25."
+   },
+   {
+    "label": "D",
+    "text": "0.80",
+    "is_correct": false,
+    "rationale": "This does not sum with 0.25 to 1."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-054",
+  "topic": "2.7",
+  "stem": "What is P(A or B)?",
+  "stimulus": "P(A) = 0.6, P(B) = 0.5, and P(A and B) = 0.2.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.9",
+    "is_correct": true,
+    "rationale": "Use the addition rule: P(A or B) = 0.6 + 0.5 - 0.2 = 0.9."
+   },
+   {
+    "label": "B",
+    "text": "0.7",
+    "is_correct": false,
+    "rationale": "This subtracts too much or omits one event."
+   },
+   {
+    "label": "C",
+    "text": "1.1",
+    "is_correct": false,
+    "rationale": "This adds the probabilities without correcting for overlap."
+   },
+   {
+    "label": "D",
+    "text": "0.2",
+    "is_correct": false,
+    "rationale": "This is only the intersection."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-060",
+  "topic": "3.1",
+  "stem": "What is the main problem?",
+  "stimulus": "A new estimator consistently misses the true value by a large amount, even with large samples.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Only variability",
+    "is_correct": false,
+    "rationale": "Large random scatter is not the only issue when the estimator is consistently off target."
+   },
+   {
+    "label": "B",
+    "text": "Normality",
+    "is_correct": false,
+    "rationale": "Normality is not the central issue described here."
+   },
+   {
+    "label": "C",
+    "text": "Independence",
+    "is_correct": false,
+    "rationale": "The question is about systematic error, not dependence."
+   },
+   {
+    "label": "D",
+    "text": "Bias",
+    "is_correct": true,
+    "rationale": "If an estimator is systematically off target, the estimator is biased."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-067",
+  "topic": "3.5",
+  "stem": "Which hypotheses are correct?",
+  "stimulus": "A survey of 200 people finds 118 support a policy. The question is whether support exceeds 50%.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "H₀: p > 0.50, Hₐ: p = 0.50",
+    "is_correct": false,
+    "rationale": "Null and alternative are reversed."
+   },
+   {
+    "label": "B",
+    "text": "H₀: p = 0.50, Hₐ: p > 0.50",
+    "is_correct": true,
+    "rationale": "The claim is that support exceeds 50%, so this is a right-tailed test for a proportion."
+   },
+   {
+    "label": "C",
+    "text": "H₀: μ = 0.50, Hₐ: μ > 0.50",
+    "is_correct": false,
+    "rationale": "This uses the wrong parameter symbol."
+   },
+   {
+    "label": "D",
+    "text": "H₀: p = 118, Hₐ: p > 118",
+    "is_correct": false,
+    "rationale": "Proportions are not counts."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-078",
+  "topic": "2.10",
+  "stem": "What is P(X = 0)?",
+  "stimulus": "A binomial setting has n = 5 and p = 0.5.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0.5",
+    "is_correct": false,
+    "rationale": "That is the probability of a single success, not zero successes in five trials."
+   },
+   {
+    "label": "B",
+    "text": "0.03125",
+    "is_correct": true,
+    "rationale": "P(X = 0) = (0.5)^5 = 1/32 = 0.03125."
+   },
+   {
+    "label": "C",
+    "text": "0.15625",
+    "is_correct": false,
+    "rationale": "This is not the correct binomial calculation for zero successes."
+   },
+   {
+    "label": "D",
+    "text": "5",
+    "is_correct": false,
+    "rationale": "That is the trial count, not a probability."
+   }
+  ]
+ },
+ {
+  "key": "APSTATS-MCQ-095",
+  "topic": "3.8",
+  "stem": "Which study is most likely to have lower power?",
+  "stimulus": "Two studies test the same claim, but one uses a more stringent significance level and a smaller sample size.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The study with the smaller sample size and more stringent α.",
+    "is_correct": true,
+    "rationale": "Lower α and smaller n both tend to reduce power."
+   },
+   {
+    "label": "B",
+    "text": "The study with the larger sample size and more stringent α.",
+    "is_correct": false,
+    "rationale": "Larger n increases power, all else equal."
+   },
+   {
+    "label": "C",
+    "text": "The study with the larger sample size and larger α.",
+    "is_correct": false,
+    "rationale": "Larger α increases power."
+   },
+   {
+    "label": "D",
+    "text": "Both studies must have the same power.",
+    "is_correct": false,
+    "rationale": "Power depends on n and α, so they need not match."
+   }
+  ]
+ }
+]
