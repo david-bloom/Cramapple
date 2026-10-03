@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production) — DECISION-0093
 - APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production) — DECISION-0085
 - APPROVAL-0089 — AP Physics 1 Units 4-8: Remove the Duplicated A-D List From 21 Published Stems (Production) — DECISION-0085
 - APPROVAL-0088 — Load and Publish 89 AP Physics 1 Units 1-3 Variants (Production) — DECISION-0085
@@ -201,6 +202,21 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "some of the published ones use terms outside the CED. We should retire them. We have enough questions. No need to do anything questionable")  
+**Related Decision:** `DECISION-0093`; follows `APPROVAL-0080` (which published the 24 variants) and the 2026-10-01 ruling recorded in `APPROVAL-0068` that items stay within CED vocabulary  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** run `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_retire_out_of_ced_variants.sql`. Seven published AP Biology variants are retired (item and version status `retired`, the pattern of `APPROVAL-0077`): `APBIO-MCQ-SV-014-v1`, `014-v2` (70S, 80S ribosomes), `018-v1`, `018-v3` (receptor-mediated endocytosis), `022-v1` (70S ribosomes, binary fission), `022-v3` (70S, 80S ribosomes), `023-v2` (high-salt wash). Nothing is deleted; labels, cells and review records stay as they are.
+
+**How the seven were chosen:** a case-insensitive match of each variant's full text (stimulus, stem, every choice and rationale) against terms confirmed absent from the CED V.1 text. All 24 were scanned; 7 matched. All 7 have zero attempts (checked in `public.attempts` and `app.attempts`, and asserted again inside the script).
+
+**Not approved by this entry:** retiring any other variant. In particular `APBIO-MCQ-SV-005-v3` ("tripeptides", a generic label, not a separate concept), `APBIO-MCQ-SV-005-v1` (hydroxyl orientation; "hydroxyl" is in the CED) and the other 16 published variants stay. Writing replacements. Loading this session's 16 unloaded drafts. Any change to the seeds.
+
+**How it was used (2026-10-03):** one transaction with in-script assertions (7 published target items, 7 published versions, zero attempts, 17 variants left published); no rehearsal (a status change on 7 rows with zero attempts). Verified afterwards on Production: the seven are `retired` on both item and version; `APBIO-MCQ-SV-` variants published 24 to 17, retired 0 to 7; Biology published items 184 to 177 (exactly 7 fewer); no published item without a published version; validated serving labels unchanged at 163 (labels on the retired items were left as they were, per `APPROVAL-0077`). The unit-gated servable count was not re-queried.
 
 ## APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production)
 
