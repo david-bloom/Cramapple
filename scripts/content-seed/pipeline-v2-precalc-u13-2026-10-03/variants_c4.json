@@ -1,0 +1,902 @@
+[
+ {
+  "id": "apprecalc-mcq-034-v1",
+  "seed": "apprecalc-mcq-034",
+  "difficulty": "medium",
+  "title": "Product of logs equation, base 2",
+  "stem": "No calculator is permitted.\n\nA student combines two logarithms with the same base and then rewrites the result in exponential form. Solving log₂(x) + log₂(x − 2) = 3, which value of x is the solution?",
+  "correct": {
+   "text": "x=4",
+   "rationale": "By the product property, log₂[x(x−2)]=3, so x(x−2)=2³=8, giving x²−2x−8=0 and (x−4)(x+2)=0. The root x=−2 makes log₂(x) undefined, so it is rejected. Check x=4: log₂4+log₂2=2+1=3."
+  },
+  "wrong": [
+   {
+    "text": "x=3",
+    "rationale": "Sets x(x−2)=3 (using the right side 3 as the argument instead of 2³=8), so x²−2x−3=0 and (x−3)(x+1)=0, with x=3 valid for the domain. Check: log₂3+log₂1=log₂3≈1.585, not 3.",
+    "error_pattern": "Forgot to exponentiate the right side"
+   },
+   {
+    "text": "x=5",
+    "rationale": "Adds the arguments, x+(x−2)=2³=8, so 2x=10 and x=5, treating log₂A+log₂B as log₂(A+B). Check: log₂5+log₂3=log₂15, which is not 3.",
+    "error_pattern": "Sum of logs treated as log of sum"
+   },
+   {
+    "text": "x=−2",
+    "rationale": "Solves x²−2x−8=0 correctly to get x=4 or x=−2 but keeps the negative root. At x=−2 both log₂(−2) and log₂(−4) are undefined, so −2 is extraneous.",
+    "error_pattern": "Kept extraneous root"
+   }
+  ],
+  "change_note": "New base 2, different equation and constants; extraneous-root trap kept but the distractor errors differ.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-034-v2",
+  "seed": "apprecalc-mcq-034",
+  "difficulty": "medium",
+  "title": "Quotient of logs equation",
+  "stem": "No calculator is permitted.\n\nWhat is the solution to log₂(x+10)−log₂(x−2)=2?",
+  "correct": {
+   "text": "x=6",
+   "rationale": "The difference of logs is log₂[(x+10)/(x−2)]=2, so (x+10)/(x−2)=2²=4. Then x+10=4x−8, so 3x=18 and x=6. Check: log₂16−log₂4=4−2=2."
+  },
+  "wrong": [
+   {
+    "text": "x=14",
+    "rationale": "Sets (x+10)/(x−2)=2 (using the right side 2 as the ratio instead of 2²=4), so x+10=2x−4 and x=14. Check: log₂24−log₂12=log₂2=1, not 2.",
+    "error_pattern": "Forgot to exponentiate the right side"
+   },
+   {
+    "text": "x=4",
+    "rationale": "Sets (x+10)/(x−2)=4 correctly but distributes incorrectly, 4(x−2)=4x−2 instead of 4x−8, so x+10=4x−2 and x=4. Check: log₂14−log₂2=log₂7≈2.81, not 2.",
+    "error_pattern": "Distribution error when clearing denominator"
+   },
+   {
+    "text": "x=−14",
+    "rationale": "Inverts the ratio, (x−2)/(x+10)=4, so x−2=4x+40 and x=−14. This is outside the domain because x+10=−4 and x−2=−16 are negative.",
+    "error_pattern": "Inverted the quotient"
+   }
+  ],
+  "change_note": "Quotient (derivable from product property) instead of product; no extraneous root, so the traps are different.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-034-v3",
+  "seed": "apprecalc-mcq-034",
+  "difficulty": "hard",
+  "title": "Log equation with extraneous root",
+  "stem": "No calculator is permitted.\n\nTo solve the equation log₃(x + 1) + log₃(x + 3) = 1 for x, a student applies the product property of logarithms and rewrites it exponentially. Which choice gives the solution?",
+  "correct": {
+   "text": "x=0",
+   "rationale": "By the product property, (x+1)(x+3)=3¹=3, so x²+4x+3=3 and x(x+4)=0. The root x=−4 makes x+1=−3 negative and is rejected. Check x=0: log₃1+log₃3=0+1=1."
+  },
+  "wrong": [
+   {
+    "text": "x=−4",
+    "rationale": "This is a root of x²+4x=0 but it is extraneous: at x=−4 the arguments x+1=−3 and x+3=−1 are negative, so the logarithms are undefined.",
+    "error_pattern": "Kept extraneous root"
+   },
+   {
+    "text": "x=−1/2",
+    "rationale": "Adds the arguments, (x+1)+(x+3)=3, so 2x=−1 and x=−1/2, treating log₃A+log₃B as log₃(A+B). Check: log₃(1/2)+log₃(5/2)=log₃(5/4), which is not 1.",
+    "error_pattern": "Sum of logs treated as log of sum"
+   },
+   {
+    "text": "x=−2+√2",
+    "rationale": "Sets (x+1)(x+3)=1 (using the right side 1 as the argument instead of 3¹=3), so x²+4x+2=0 and x=−2±√2, and −2+√2≈−0.586 is in the domain. Check: the product (x+1)(x+3)=1, so the sum of logs is log₃1=0, not 1.",
+    "error_pattern": "Forgot to exponentiate the right side"
+   }
+  ],
+  "change_note": "New base, shifted arguments, key is x=0 with a quadratic that has an extraneous partner.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-035-v1",
+  "seed": "apprecalc-mcq-035",
+  "difficulty": "medium",
+  "title": "Inverse of shifted base-3 exponential",
+  "stem": "No calculator is permitted.\n\nA model for a quantity is given by f(x) = 3^(x+1) − 4. To undo this model, a student swaps the roles of input and output and solves for the new output. Which formula gives the inverse function f⁻¹(x)?",
+  "correct": {
+   "text": "log₃(x+4)−1",
+   "rationale": "Set y=3^(x+1)−4. Then y+4=3^(x+1), so x+1=log₃(y+4) and x=log₃(y+4)−1. Check: f(2)=27−4=23 and log₃(23+4)−1=3−1=2."
+  },
+  "wrong": [
+   {
+    "text": "log₃(x−4)+1",
+    "rationale": "Reverses both shifts with the wrong signs. Check: f(2)=23, but log₃(23−4)+1=log₃19+1≈3.68, not 2.",
+    "error_pattern": "Wrong signs when undoing shifts"
+   },
+   {
+    "text": "3^(x−1)+4",
+    "rationale": "This is f with both shifts' signs reversed, but it is still an exponential, so it is not the inverse. Check: applied to f(2)=23 it gives 3^22+4, not 2.",
+    "error_pattern": "Reversed signs but kept exponential form"
+   },
+   {
+    "text": "log_(1/3)(x+4)−1",
+    "rationale": "Uses the reciprocal base, and log_(1/3)(u)=−log₃(u). Check: log_(1/3)(23+4)−1=−3−1=−4, not 2.",
+    "error_pattern": "Reciprocal base"
+   }
+  ],
+  "change_note": "New base 3, shifts (+1, −4); distractor values re-derived with f(2)=23.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-035-v2",
+  "seed": "apprecalc-mcq-035",
+  "difficulty": "medium",
+  "title": "Inverse of shifted natural exponential",
+  "stem": "No calculator is permitted.\n\nIf f(x)=e^(x−3)+2, which formula gives f⁻¹(x)?",
+  "correct": {
+   "text": "ln(x−2)+3",
+   "rationale": "Set y=e^(x−3)+2. Then y−2=e^(x−3), so x−3=ln(y−2) and x=ln(y−2)+3. Check: f(3)=e⁰+2=3 and ln(3−2)+3=3."
+  },
+  "wrong": [
+   {
+    "text": "ln(x+2)−3",
+    "rationale": "Reverses both shifts with the wrong signs. Check: f(3)=3, but ln(3+2)−3=ln5−3≈−1.39, not 3.",
+    "error_pattern": "Wrong signs when undoing shifts"
+   },
+   {
+    "text": "ln(x−3)+2",
+    "rationale": "Swaps the roles of the two shifts (the horizontal shift 3 and the vertical shift 2). Check: f(3)=3, but ln(3−3)+2 involves ln0, which is undefined.",
+    "error_pattern": "Swapped horizontal and vertical shifts"
+   },
+   {
+    "text": "ln(x−2)−3",
+    "rationale": "Subtracts 2 correctly inside the log but subtracts 3 outside instead of adding 3. Check: f(3)=3, but ln(3−2)−3=0−3=−3, not 3.",
+    "error_pattern": "Wrong sign on outer shift"
+   }
+  ],
+  "change_note": "Natural-log base e and vertical shift +2, horizontal shift −3; checks use f(3)=3.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-035-v3",
+  "seed": "apprecalc-mcq-035",
+  "difficulty": "hard",
+  "title": "Inverse with exponent coefficient",
+  "stem": "No calculator is permitted.\n\nIf f(x)=2^(3x)+1, which formula gives f⁻¹(x)?",
+  "correct": {
+   "text": "(1/3)log₂(x−1)",
+   "rationale": "Set y=2^(3x)+1. Then y−1=2^(3x), so 3x=log₂(y−1) and x=(1/3)log₂(y−1). Check: f(1)=8+1=9 and (1/3)log₂(9−1)=(1/3)(3)=1."
+  },
+  "wrong": [
+   {
+    "text": "3log₂(x−1)",
+    "rationale": "Multiplies by 3 instead of dividing by 3 after taking the log. Check: 3log₂(9−1)=3(3)=9, not 1.",
+    "error_pattern": "Multiplied instead of divided by exponent coefficient"
+   },
+   {
+    "text": "log₂(x−1)−3",
+    "rationale": "Subtracts 3 instead of dividing by 3. Check: log₂(9−1)−3=3−3=0, not 1.",
+    "error_pattern": "Subtracted instead of divided"
+   },
+   {
+    "text": "(1/3)log₂(x)−1",
+    "rationale": "Subtracts 1 after taking the log instead of before. Check: (1/3)log₂9−1≈1.057−1≈0.06, not 1.",
+    "error_pattern": "Moved vertical shift outside the log"
+   }
+  ],
+  "change_note": "Exponent 3x (a coefficient on x) with a vertical shift, a harder inversion than seed's pure shifts.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-036-v1",
+  "seed": "apprecalc-mcq-036",
+  "difficulty": "medium",
+  "title": "Composition of quadratic and linear",
+  "stem": "No calculator is permitted.\n\nIf f(x)=x²−3 and g(x)=3x+1, what is (f∘g)(x)?",
+  "correct": {
+   "text": "(3x+1)²−3",
+   "rationale": "(f∘g)(x)=f(g(x)), so substitute g(x)=3x+1 for x in f: (3x+1)²−3."
+  },
+  "wrong": [
+   {
+    "text": "3(x²−3)+1",
+    "rationale": "This is g(f(x))=3(x²−3)+1=3x²−8, the composition in the opposite order.",
+    "error_pattern": "Composed in the wrong order"
+   },
+   {
+    "text": "(x²−3)(3x+1)",
+    "rationale": "Multiplies f(x) and g(x) instead of composing them.",
+    "error_pattern": "Product instead of composition"
+   },
+   {
+    "text": "9x²−2",
+    "rationale": "Substitutes correctly but squares 3x+1 as 9x²+1, dropping the middle term 6x, so (3x+1)²−3 becomes 9x²+1−3=9x²−2.",
+    "error_pattern": "Squared a binomial term by term"
+   }
+  ],
+  "change_note": "Different functions (quadratic outer, linear inner), distractors include a product and a binomial-squaring error.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-036-v2",
+  "seed": "apprecalc-mcq-036",
+  "difficulty": "medium",
+  "title": "Composition with square root",
+  "stem": "No calculator is permitted.\n\nTwo functions are defined by f(x) = x² − 3 and g(x) = 3x + 1. A student applies g first and then feeds that result into f. Which expression gives the composite function (f∘g)(x)?",
+  "correct": {
+   "text": "√(x²−1)",
+   "rationale": "(f∘g)(x)=f(g(x))=√(g(x)+4)=√((x²−5)+4)=√(x²−1)."
+  },
+  "wrong": [
+   {
+    "text": "x−1",
+    "rationale": "This is g(f(x))=(√(x+4))²−5=x+4−5=x−1 for x≥−4, the composition in the opposite order.",
+    "error_pattern": "Composed in the wrong order"
+   },
+   {
+    "text": "√(x²−5)+4",
+    "rationale": "Substitutes g(x) into the radicand but adds the 4 outside the square root instead of inside.",
+    "error_pattern": "Misplaced the constant outside the radical"
+   },
+   {
+    "text": "√(x+4)·(x²−5)",
+    "rationale": "Multiplies f(x) and g(x) instead of composing them.",
+    "error_pattern": "Product instead of composition"
+   }
+  ],
+  "change_note": "Radical outer function and quadratic inner function.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-036-v3",
+  "seed": "apprecalc-mcq-036",
+  "difficulty": "medium",
+  "title": "Evaluating a composition at a point",
+  "stem": "No calculator is permitted.\n\nIf f(x)=1/(x−2) and g(x)=2x+1, what is (f∘g)(3)?",
+  "correct": {
+   "text": "1/5",
+   "rationale": "g(3)=2(3)+1=7, then f(7)=1/(7−2)=1/5."
+  },
+  "wrong": [
+   {
+    "text": "3",
+    "rationale": "This is (g∘f)(3): f(3)=1/(3−2)=1 and g(1)=2(1)+1=3, the composition in the opposite order.",
+    "error_pattern": "Composed in the wrong order"
+   },
+   {
+    "text": "7",
+    "rationale": "This is g(3), the inner function only; the outer function f is never applied.",
+    "error_pattern": "Stopped after the inner function"
+   },
+   {
+    "text": "1/7",
+    "rationale": "Computes g(3)=7 but then takes 1/7, forgetting that f subtracts 2 in its denominator: f(7)=1/(7−2), not 1/7.",
+    "error_pattern": "Dropped the −2 when applying the outer function"
+   }
+  ],
+  "change_note": "Numeric evaluation of a composition with a rational outer function.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-037-v1",
+  "seed": "apprecalc-mcq-037",
+  "difficulty": "medium",
+  "title": "Model selection from near-linear data",
+  "stem": "Calculator use is permitted.\n\nFor x=0, 1, 2, 3, 4, a measured quantity has values 5.0, 8.1, 10.9, 14.0, 17.1. Which claim is best supported?",
+  "correct": {
+   "text": "A linear model, because the first differences are all close to 3",
+   "rationale": "The first differences are 3.1, 2.8, 3.1, 3.1, all close to 3, so the data are well modeled by a linear function with slope about 3."
+  },
+  "wrong": [
+   {
+    "text": "An exponential model, because every ratio of successive values is greater than 1",
+    "rationale": "The ratios are about 1.62, 1.35, 1.28, 1.22. They are all greater than 1, but they keep decreasing rather than staying nearly constant, so the data do not support an exponential model.",
+    "error_pattern": "Ratios above 1 taken as exponential evidence"
+   },
+   {
+    "text": "A quadratic model, because the second differences are exactly constant",
+    "rationale": "The second differences are −0.3, 0.3, 0.0, which are not equal, and they are small noise around 0 (consistent with a linear pattern).",
+    "error_pattern": "Claimed constancy that is not there"
+   },
+   {
+    "text": "No model, because the first differences are not all identical",
+    "rationale": "Measured data rarely give identical differences. The differences 3.1, 2.8, 3.1, 3.1 are nearly constant, which supports a linear model.",
+    "error_pattern": "Demanded exact constancy for real data"
+   }
+  ],
+  "change_note": "Near-linear data in place of seed's exponential data; distractors target ratio/difference misreadings.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-037-v2",
+  "seed": "apprecalc-mcq-037",
+  "difficulty": "medium",
+  "title": "Exponential decay versus linear fit",
+  "stem": "Calculator use is permitted.\n\nFor x=0, 1, 2, 3, 4, a quantity has values 80, 60.4, 45.1, 34.2, 25.6. Which claim is best supported?",
+  "correct": {
+   "text": "An exponential decay model, because successive ratios are near 0.75",
+   "rationale": "The ratios of each value to the previous one are about 0.755, 0.747, 0.758, 0.749, nearly constant near 0.75, which indicates exponential decay."
+  },
+  "wrong": [
+   {
+    "text": "A quadratic model, because the second differences are exactly constant",
+    "rationale": "The first differences are −19.6, −15.3, −10.9, −8.6, and the second differences are 4.3, 4.4, 2.3, which are not constant.",
+    "error_pattern": "Claimed constancy that is not there"
+   },
+   {
+    "text": "An exponential growth model, because the outputs are multiplied by about 1.33 each step",
+    "rationale": "1.33 is about 1/0.75, the ratio of a value to the next one. Going from one value to the next multiplies by about 0.75, which is less than 1, so the model is decay, not growth.",
+    "error_pattern": "Reciprocal confusion of growth and decay factor"
+   },
+   {
+    "text": "A linear model, because a linear regression has r² greater than 0.95",
+    "rationale": "A linear fit to these values does have r²≈0.973, but a high r² does not show a linear pattern. The first differences range from −19.6 to −8.6 and the ratios are nearly constant, so an exponential model is better supported.",
+    "error_pattern": "Used r² as evidence instead of checking differences and ratios"
+   }
+  ],
+  "change_note": "Decay data with distractors on reciprocal ratio and r² reasoning (a documented low-scoring reasoning pattern).",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-037-v3",
+  "seed": "apprecalc-mcq-037",
+  "difficulty": "medium",
+  "title": "Quadratic from constant second differences",
+  "stem": "Calculator use is permitted.\n\nA lab technician records a quantity at the whole-number inputs x = 0, 1, 2, 3, 4 and obtains 2, 5, 10, 17, 26. Based on these data, which claim is best supported?",
+  "correct": {
+   "text": "A quadratic model, because the second differences are constant",
+   "rationale": "The first differences are 3, 5, 7, 9 and the second differences are 2, 2, 2, exactly constant, which indicates a quadratic model."
+  },
+  "wrong": [
+   {
+    "text": "A linear model, because the average rate of change over [0, 4] is 6",
+    "rationale": "The average rate of change is (26−2)/4=6, but the first differences 3, 5, 7, 9 are not constant, so the data are not linear.",
+    "error_pattern": "Used one average rate instead of checking first differences"
+   },
+   {
+    "text": "An exponential model, because every ratio of successive values is greater than 1",
+    "rationale": "The ratios are 2.5, 2.0, 1.7, about 1.53. They are greater than 1 but steadily decreasing, not constant, so the data are not exponential.",
+    "error_pattern": "Ratios above 1 taken as exponential evidence"
+   },
+   {
+    "text": "No model, because the first differences are not constant",
+    "rationale": "Non-constant first differences only rule out a linear model. The second differences 2, 2, 2 are constant, so a quadratic model fits.",
+    "error_pattern": "Believed only linear patterns can be modeled"
+   }
+  ],
+  "change_note": "Exact quadratic data; distractors differ from seed's (average rate, ratios above 1).",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-038-v1",
+  "seed": "apprecalc-mcq-038",
+  "difficulty": "medium",
+  "title": "Semi-log slope with base 2",
+  "stem": "No calculator is permitted.\n\nPoints from y=ab^x lie on a line when log₂(y) is plotted against x. If the line has slope 3, what is b?",
+  "correct": {
+   "text": "8",
+   "rationale": "Since log₂(y)=log₂(a)+x·log₂(b), the slope is log₂(b)=3, so b=2³=8."
+  },
+  "wrong": [
+   {
+    "text": "3",
+    "rationale": "Uses the slope itself as b, but the slope is log₂(b), not b.",
+    "error_pattern": "Slope taken as b"
+   },
+   {
+    "text": "6",
+    "rationale": "Multiplies the base 2 by the slope 3 instead of raising 2 to the power 3.",
+    "error_pattern": "Multiplied instead of exponentiated"
+   },
+   {
+    "text": "9",
+    "rationale": "Computes 3² instead of 2³, swapping the base and the exponent.",
+    "error_pattern": "Swapped base and exponent"
+   }
+  ],
+  "change_note": "Base 2 instead of 10, whole-number slope so no calculator is needed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-038-v2",
+  "seed": "apprecalc-mcq-038",
+  "difficulty": "hard",
+  "title": "Semi-log line to exponential model",
+  "stem": "No calculator is permitted.\n\nPoints from y=ab^x lie on a line when log₁₀(y) is plotted against x. The line has y-intercept 2 and slope 0.3010. Use log₁₀2≈0.3010 to choose the best model for y.",
+  "correct": {
+   "text": "y ≈ 100(2)^x",
+   "rationale": "The line is log₁₀(y)=2+0.3010x. The intercept is log₁₀(a)=2, so a=100, and the slope is log₁₀(b)=0.3010, so b≈2. Thus y≈100(2)^x."
+  },
+  "wrong": [
+   {
+    "text": "y ≈ 2(100)^x",
+    "rationale": "Swaps the roles: uses the intercept 2 as a and 10² as b, but the intercept is log₁₀(a) so a=100, and the slope gives b≈2.",
+    "error_pattern": "Swapped a and b"
+   },
+   {
+    "text": "y ≈ 100(0.3010)^x",
+    "rationale": "Finds a=10²=100 correctly but uses the slope 0.3010 directly as b, but the slope is log₁₀(b), so b=10^0.3010≈2.",
+    "error_pattern": "Slope taken as b"
+   },
+   {
+    "text": "y ≈ 2·10^(0.3010x)",
+    "rationale": "Uses the intercept 2 directly as a, but the intercept is log₁₀(a), so a=10²=100. (The factor 10^(0.3010x)≈2^x is handled correctly.)",
+    "error_pattern": "Intercept taken as a"
+   }
+  ],
+  "change_note": "Asks for the whole model using both intercept and slope, rather than only b.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-038-v3",
+  "seed": "apprecalc-mcq-038",
+  "difficulty": "medium",
+  "title": "Semi-log with negative slope",
+  "stem": "No calculator is permitted.\n\nPoints from y=ab^x lie on a line when log₁₀(y) is plotted against x. The line has slope −0.4771. Use log₁₀3≈0.4771 to find b.",
+  "correct": {
+   "text": "1/3",
+   "rationale": "The slope is log₁₀(b)=−0.4771=−log₁₀3=log₁₀(1/3), so b=1/3 (exponential decay)."
+  },
+  "wrong": [
+   {
+    "text": "3",
+    "rationale": "Ignores the negative sign: 10^0.4771≈3 gives the reciprocal of the correct decay factor.",
+    "error_pattern": "Dropped the sign of the slope"
+   },
+   {
+    "text": "0.4771",
+    "rationale": "Uses the magnitude of the slope as b instead of raising 10 to the slope.",
+    "error_pattern": "Slope taken as b"
+   },
+   {
+    "text": "0.5229",
+    "rationale": "Treats the slope as a rate, b=1+(−0.4771)=0.5229, instead of b=10^(−0.4771).",
+    "error_pattern": "Slope used as a percent change"
+   }
+  ],
+  "change_note": "Negative slope (decay) and base from log₁₀3.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-040-v1",
+  "seed": "apprecalc-mcq-040",
+  "difficulty": "medium",
+  "title": "Solve a log regression for x",
+  "stem": "Calculator use is permitted.\n\nA logarithmic regression is y=3.2+4.1ln(x). What x gives y=15, to the nearest tenth?",
+  "correct": {
+   "text": "17.8",
+   "rationale": "Subtract: 4.1ln(x)=15−3.2=11.8, so ln(x)=11.8/4.1≈2.878 and x=e^2.878≈17.78, or 17.8 to the nearest tenth."
+  },
+  "wrong": [
+   {
+    "text": "755.2",
+    "rationale": "Finds ln(x)≈2.878 correctly but undoes ln with base 10: 10^2.878≈755.2. The inverse of ln is e^( ), not 10^( ).",
+    "error_pattern": "Undid ln with base 10"
+   },
+   {
+    "text": "38.8",
+    "rationale": "Skips subtracting 3.2 and divides 15 by 4.1 first: ln(x)=15/4.1≈3.659, so x=e^3.659≈38.8.",
+    "error_pattern": "Forgot to subtract the constant"
+   },
+   {
+    "text": "84.7",
+    "rationale": "Adds 3.2 instead of subtracting: ln(x)=(15+3.2)/4.1≈4.439, so x=e^4.439≈84.7.",
+    "error_pattern": "Added the constant instead of subtracting"
+   }
+  ],
+  "change_note": "New coefficients and target; distractors are derived from specific algebraic slips.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-040-v2",
+  "seed": "apprecalc-mcq-040",
+  "difficulty": "medium",
+  "title": "Solve exponential model for time",
+  "stem": "Calculator use is permitted.\n\nA population model is P(t)=12e^(0.07t), where t is in years. At what time t is P(t)=50, to the nearest tenth?",
+  "correct": {
+   "text": "20.4",
+   "rationale": "Divide by 12: e^(0.07t)=50/12, so 0.07t=ln(50/12)≈1.427 and t≈20.39, or 20.4."
+  },
+  "wrong": [
+   {
+    "text": "55.9",
+    "rationale": "Takes the log without dividing by 12 first: 0.07t=ln50≈3.912, so t≈55.9.",
+    "error_pattern": "Ignored the initial value"
+   },
+   {
+    "text": "52.0",
+    "rationale": "Subtracts 12 instead of dividing by it: 0.07t=ln(38)≈3.638, so t≈52.0.",
+    "error_pattern": "Subtracted the coefficient instead of dividing"
+   },
+   {
+    "text": "8.9",
+    "rationale": "Finds 50/12 correctly but undoes the exponential e^( ) with log₁₀ instead of ln: log₁₀(50/12)/0.07≈8.9.",
+    "error_pattern": "Used the wrong log base"
+   }
+  ],
+  "change_note": "Exponential model solved with ln; different structure from the seed's log regression.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-040-v3",
+  "seed": "apprecalc-mcq-040",
+  "difficulty": "medium",
+  "title": "Log model with negative coefficient",
+  "stem": "Calculator use is permitted.\n\nA model is y=7.5−2.4ln(x). What x gives y=3, to the nearest tenth?",
+  "correct": {
+   "text": "6.5",
+   "rationale": "Subtract 7.5: −2.4ln(x)=3−7.5=−4.5, so ln(x)=4.5/2.4=1.875 and x=e^1.875≈6.52, or 6.5."
+  },
+  "wrong": [
+   {
+    "text": "0.2",
+    "rationale": "Divides by 2.4 but loses the sign of the coefficient: ln(x)=(3−7.5)/2.4=−1.875, so x=e^(−1.875)≈0.153, or 0.2.",
+    "error_pattern": "Sign error with negative coefficient"
+   },
+   {
+    "text": "3.5",
+    "rationale": "Skips the constant 7.5: ln(x)=3/2.4=1.25, so x=e^1.25≈3.49, or 3.5.",
+    "error_pattern": "Forgot to subtract the constant"
+   },
+   {
+    "text": "79.4",
+    "rationale": "Adds 7.5 instead of subtracting: ln(x)=(3+7.5)/2.4=4.375, so x=e^4.375≈79.4.",
+    "error_pattern": "Added the constant instead of subtracting"
+   }
+  ],
+  "change_note": "Negative log coefficient adds a sign trap.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-041-v1",
+  "seed": "apprecalc-mcq-041",
+  "difficulty": "medium",
+  "title": "Exact sin(4π/3)",
+  "stem": "No calculator is permitted.\n\nA point P on the unit circle is found by rotating counterclockwise from (1, 0) through an angle of 4π/3 radians. What is the exact y-coordinate of P, which equals sin(4π/3)?",
+  "correct": {
+   "text": "−√3/2",
+   "rationale": "4π/3 is in quadrant III with reference angle π/3, where sine is negative: sin(4π/3)=−sin(π/3)=−√3/2."
+  },
+  "wrong": [
+   {
+    "text": "−1/2",
+    "rationale": "This is cos(4π/3)=−cos(π/3)=−1/2, the value of the wrong function (it has the correct negative sign).",
+    "error_pattern": "Used cosine instead of sine"
+   },
+   {
+    "text": "√3/2",
+    "rationale": "Uses the correct magnitude sin(π/3)=√3/2 but ignores that sine is negative in quadrant III.",
+    "error_pattern": "Sign error in quadrant III"
+   },
+   {
+    "text": "1/2",
+    "rationale": "This is cos(π/3)=1/2, the cosine reference value with the sign dropped; sin(4π/3) is neither 1/2 nor positive.",
+    "error_pattern": "Wrong function and sign"
+   }
+  ],
+  "change_note": "Sine at a quadrant III angle in place of cosine in quadrant II.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-041-v2",
+  "seed": "apprecalc-mcq-041",
+  "difficulty": "medium",
+  "title": "Exact cos(11π/6)",
+  "stem": "No calculator is permitted.\n\nUsing reference angles, evaluate cos(11π/6) exactly. Which choice gives the correct value?",
+  "correct": {
+   "text": "√3/2",
+   "rationale": "11π/6 is in quadrant IV with reference angle π/6, where cosine is positive: cos(11π/6)=cos(π/6)=√3/2."
+  },
+  "wrong": [
+   {
+    "text": "−√3/2",
+    "rationale": "Uses the correct magnitude but assigns a negative sign; cosine is positive in quadrant IV.",
+    "error_pattern": "Sign error in quadrant IV"
+   },
+   {
+    "text": "−1/2",
+    "rationale": "This is sin(11π/6)=−sin(π/6)=−1/2, the value of the wrong function.",
+    "error_pattern": "Used sine instead of cosine"
+   },
+   {
+    "text": "1/2",
+    "rationale": "Uses the sine reference value sin(π/6)=1/2 for the magnitude, but cos(π/6)=√3/2.",
+    "error_pattern": "Swapped sine and cosine reference values"
+   }
+  ],
+  "change_note": "Quadrant IV angle where the sign is positive.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-041-v3",
+  "seed": "apprecalc-mcq-041",
+  "difficulty": "medium",
+  "title": "Exact cos(−2π/3)",
+  "stem": "No calculator is permitted.\n\nA student rotates clockwise from the point (1, 0) on the unit circle through 2π/3 radians. Which choice gives the exact x-coordinate of the point reached, namely cos(−2π/3)?",
+  "correct": {
+   "text": "−1/2",
+   "rationale": "Cosine is even, so cos(−2π/3)=cos(2π/3). The angle 2π/3 is in quadrant II with reference angle π/3, so cos(2π/3)=−cos(π/3)=−1/2."
+  },
+  "wrong": [
+   {
+    "text": "1/2",
+    "rationale": "Applies the odd-function rule cos(−θ)=−cos(θ) to get −(−1/2)=1/2, but cosine is even, not odd.",
+    "error_pattern": "Treated cosine as odd"
+   },
+   {
+    "text": "−√3/2",
+    "rationale": "This is sin(−2π/3)=−sin(2π/3)=−√3/2, the value of the wrong function.",
+    "error_pattern": "Used sine instead of cosine"
+   },
+   {
+    "text": "√3/2",
+    "rationale": "This is sin(2π/3)=√3/2, the sine of the positive angle, not the cosine of −2π/3.",
+    "error_pattern": "Used sine instead of cosine, dropped sign of angle"
+   }
+  ],
+  "change_note": "Negative angle (even/odd symmetry) instead of a plain quadrant II angle.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-043-v1",
+  "seed": "apprecalc-mcq-043",
+  "difficulty": "medium",
+  "title": "Cosine with a minimum at x=0",
+  "stem": "No calculator is permitted.\n\nWhich function has midline y=2, amplitude 5, period 6, and a minimum at x=0?",
+  "correct": {
+   "text": "−5cos(πx/3)+2",
+   "rationale": "With b=2π/6=π/3 the period is 6. The reflection −5cos gives a minimum at x=0: −5+2=−3, with midline 2 and amplitude 5."
+  },
+  "wrong": [
+   {
+    "text": "5cos(πx/3)+2",
+    "rationale": "Has the right midline, amplitude and period but a maximum at x=0 (value 7), not a minimum.",
+    "error_pattern": "Missed the reflection"
+   },
+   {
+    "text": "−5cos(6x)+2",
+    "rationale": "Uses b equal to the period 6 instead of 2π/6; its period is 2π/6=π/3.",
+    "error_pattern": "Used the period as b"
+   },
+   {
+    "text": "−5cos(πx/6)+2",
+    "rationale": "Uses b=π/6, which gives period 2π/(π/6)=12, not 6.",
+    "error_pattern": "Period formula error"
+   }
+  ],
+  "change_note": "Minimum (reflected cosine) with a period of 6, requiring b=π/3.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-043-v2",
+  "seed": "apprecalc-mcq-043",
+  "difficulty": "medium",
+  "title": "Sine increasing through the midline",
+  "stem": "No calculator is permitted.\n\nWhich function has midline y=5, amplitude 2, period 4π, and is increasing as it crosses its midline at x=0?",
+  "correct": {
+   "text": "2sin(x/2)+5",
+   "rationale": "With b=1/2 the period is 2π/(1/2)=4π. At x=0, 2sin(0)+5=5 (on the midline) and sine is increasing there."
+  },
+  "wrong": [
+   {
+    "text": "2sin(2x)+5",
+    "rationale": "Uses b=2, giving period 2π/2=π rather than 4π.",
+    "error_pattern": "Inverted the period relationship"
+   },
+   {
+    "text": "2cos(x/2)+5",
+    "rationale": "Has the right midline, amplitude and period but a maximum (value 7) at x=0, not a midline crossing.",
+    "error_pattern": "Used cosine where sine is needed"
+   },
+   {
+    "text": "−2sin(x/2)+5",
+    "rationale": "Crosses the midline at x=0 but is decreasing there because of the reflection.",
+    "error_pattern": "Wrong direction at the midline"
+   }
+  ],
+  "change_note": "Midline crossing (sine) rather than an extremum, with a long period.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-043-v3",
+  "seed": "apprecalc-mcq-043",
+  "difficulty": "hard",
+  "title": "Cosine with horizontal shift",
+  "stem": "No calculator is permitted.\n\nWhich function has midline y=1, amplitude 4, period 2π, and a maximum at x=π/2?",
+  "correct": {
+   "text": "4cos(x−π/2)+1",
+   "rationale": "Shifting cosine right by π/2 moves its maximum from x=0 to x=π/2. Check: 4cos(0)+1=5 is the maximum, with midline 1 and period 2π."
+  },
+  "wrong": [
+   {
+    "text": "4cos(x+π/2)+1",
+    "rationale": "Shifts left instead of right, so the maximum is at x=−π/2. At x=π/2: 4cos(π)+1=−3, a minimum.",
+    "error_pattern": "Shifted in the wrong direction"
+   },
+   {
+    "text": "4sin(x−π/2)+1",
+    "rationale": "Equals −4cos(x)+1. At x=π/2 it is 4sin(0)+1=1, on the midline rather than at a maximum.",
+    "error_pattern": "Used the wrong parent function with the shift"
+   },
+   {
+    "text": "4cos(2(x−π/2))+1",
+    "rationale": "Has a maximum at x=π/2 (4cos(0)+1=5), but b=2 gives period π rather than 2π.",
+    "error_pattern": "Changed the period"
+   }
+  ],
+  "change_note": "Horizontal-shift matching for a maximum at a given x.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-045-v1",
+  "seed": "apprecalc-mcq-045",
+  "difficulty": "medium",
+  "title": "Evaluate sine model in radians",
+  "stem": "Calculator use is permitted.\n\nThe depth of water in a tank is modeled by H(t)=12+5sin((π/12)(t−3)), where t is in hours. What is H(8), to the nearest tenth?",
+  "correct": {
+   "text": "16.8",
+   "rationale": "H(8)=12+5sin((π/12)(5))=12+5sin(5π/12)≈12+5(0.9659)≈16.83, or 16.8 (calculator in radian mode)."
+  },
+  "wrong": [
+   {
+    "text": "16.3",
+    "rationale": "Omits the shift and evaluates sin((π/12)(8))=sin(2π/3)≈0.8660, giving 12+5(0.8660)≈16.33.",
+    "error_pattern": "Ignored the horizontal shift"
+   },
+   {
+    "text": "12.1",
+    "rationale": "Evaluates sin(1.309) with the calculator in degree mode: sin(1.309°)≈0.0228, so 12+5(0.0228)≈12.11.",
+    "error_pattern": "Calculator in degree mode"
+   },
+   {
+    "text": "7.2",
+    "rationale": "Uses the negative of the sine value: 12−5(0.9659)≈7.17.",
+    "error_pattern": "Sign error on the sine term"
+   }
+  ],
+  "change_note": "New context and constants; one distractor targets the horizontal shift.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-045-v2",
+  "seed": "apprecalc-mcq-045",
+  "difficulty": "medium",
+  "title": "Evaluate cosine model in radians",
+  "stem": "Calculator use is permitted.\n\nThe daily high of a quantity D, in appropriate units, is modeled by D(t)=6.5+2.5cos((2π/9)(t−1)), where t is in days. What is D(2), to the nearest tenth?",
+  "correct": {
+   "text": "8.4",
+   "rationale": "D(2)=6.5+2.5cos((2π/9)(1))=6.5+2.5cos(2π/9)≈6.5+2.5(0.7660)≈8.42, or 8.4 (radian mode)."
+  },
+  "wrong": [
+   {
+    "text": "8.1",
+    "rationale": "Uses sine instead of cosine: 6.5+2.5sin(2π/9)≈6.5+2.5(0.6428)≈8.11.",
+    "error_pattern": "Used sine instead of cosine"
+   },
+   {
+    "text": "6.9",
+    "rationale": "Omits the shift and evaluates cos((2π/9)(2))=cos(4π/9)≈0.1736: 6.5+2.5(0.1736)≈6.93.",
+    "error_pattern": "Ignored the horizontal shift"
+   },
+   {
+    "text": "9.0",
+    "rationale": "Evaluates cos(0.698) with the calculator in degree mode: cos(0.698°)≈0.99993, so 6.5+2.5(0.99993)≈9.00.",
+    "error_pattern": "Calculator in degree mode"
+   }
+  ],
+  "change_note": "Cosine model with period 9.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-045-v3",
+  "seed": "apprecalc-mcq-045",
+  "difficulty": "hard",
+  "title": "Sine model written with period 24",
+  "stem": "Calculator use is permitted.\n\nA temperature in °F is modeled by C(t)=40+12sin(2π(t−6)/24), where t is in hours after midnight. What is C(8), to the nearest tenth?",
+  "correct": {
+   "text": "46.0",
+   "rationale": "C(8)=40+12sin(2π(2)/24)=40+12sin(π/6)=40+12(0.5)=46.0."
+  },
+  "wrong": [
+   {
+    "text": "50.4",
+    "rationale": "Omits the shift and evaluates sin(2π(8)/24)=sin(2π/3)≈0.8660: 40+12(0.8660)≈50.39.",
+    "error_pattern": "Ignored the horizontal shift"
+   },
+   {
+    "text": "40.1",
+    "rationale": "Evaluates sin(π/6≈0.5236) in degree mode: sin(0.5236°)≈0.00914, so 40+12(0.00914)≈40.11.",
+    "error_pattern": "Calculator in degree mode"
+   },
+   {
+    "text": "34.0",
+    "rationale": "Uses the negative of the sine value: 40−12(0.5)=34.0.",
+    "error_pattern": "Sign error on the sine term"
+   }
+  ],
+  "change_note": "Argument written as 2π(t−6)/24 and an exact sine value.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-047-v1",
+  "seed": "apprecalc-mcq-047",
+  "difficulty": "medium",
+  "title": "Simplify with tan and sec identity",
+  "stem": "No calculator is permitted.\n\nWhich expression is equivalent to (sec²x−1)/tan x, where tan x is defined and nonzero?",
+  "correct": {
+   "text": "tan x",
+   "rationale": "The identity tan²x=sec²x−1 gives (sec²x−1)/tan x=tan²x/tan x=tan x."
+  },
+  "wrong": [
+   {
+    "text": "tan²x",
+    "rationale": "Uses sec²x−1=tan²x correctly but forgets to divide by tan x.",
+    "error_pattern": "Forgot to divide by tan x"
+   },
+   {
+    "text": "cot x",
+    "rationale": "Divides the wrong way, tan x/tan²x=1/tan x=cot x, instead of tan²x/tan x.",
+    "error_pattern": "Inverted the quotient"
+   },
+   {
+    "text": "1",
+    "rationale": "Treats sec²x−1 as tan x (instead of tan²x), so the ratio is tan x/tan x=1. At x=π/3 the expression is (4−1)/√3=√3, not 1.",
+    "error_pattern": "Misremembered the identity as sec²x−1=tan x"
+   }
+  ],
+  "change_note": "Tangent/secant identity (derived form) instead of sine/cosine.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-047-v2",
+  "seed": "apprecalc-mcq-047",
+  "difficulty": "easy",
+  "title": "Simplify cos x over 1−sin²x",
+  "stem": "No calculator is permitted.\n\nSimplify cos x/(1−sin²x) using a Pythagorean identity. Which choice is an equivalent expression, for cos x≠0?",
+  "correct": {
+   "text": "sec x",
+   "rationale": "Since 1−sin²x=cos²x, the expression is cos x/cos²x=1/cos x=sec x."
+  },
+  "wrong": [
+   {
+    "text": "cos x/sin²x",
+    "rationale": "Replaces 1−sin²x with sin²x; the identity gives 1−sin²x=cos²x.",
+    "error_pattern": "Misapplied the Pythagorean identity"
+   },
+   {
+    "text": "cos x",
+    "rationale": "Treats 1−sin²x as 1, dropping the sin²x part, so the quotient is cos x/1.",
+    "error_pattern": "Dropped the sin²x term"
+   },
+   {
+    "text": "1",
+    "rationale": "Treats 1−sin²x as cos x rather than cos²x, so cos x/cos x=1. At x=π/3 the expression is (1/2)/(1/4)=2, not 1.",
+    "error_pattern": "Forgot to square cosine"
+   }
+  ],
+  "change_note": "Reciprocal-function answer instead of a numerator identity.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-047-v3",
+  "seed": "apprecalc-mcq-047",
+  "difficulty": "hard",
+  "title": "Simplify sin²x over 1+cos x",
+  "stem": "No calculator is permitted.\n\nA student wants to simplify a trigonometric fraction using the Pythagorean identity. Assuming cos x ≠ −1, which expression is equivalent to sin²x/(1 + cos x)?",
+  "correct": {
+   "text": "1−cos x",
+   "rationale": "sin²x=1−cos²x=(1−cos x)(1+cos x), so sin²x/(1+cos x)=1−cos x."
+  },
+  "wrong": [
+   {
+    "text": "1+cos x",
+    "rationale": "Factors 1−cos²x=(1−cos x)(1+cos x) correctly but divides out the wrong factor, (1−cos x), leaving 1+cos x.",
+    "error_pattern": "Cancelled the wrong factor"
+   },
+   {
+    "text": "1−cos²x",
+    "rationale": "Rewrites sin²x as 1−cos²x but never divides by 1+cos x.",
+    "error_pattern": "Stopped before dividing"
+   },
+   {
+    "text": "−cos x",
+    "rationale": "Rewrites to (1−cos²x)/(1+cos x) and then cancels the 1s, leaving −cos²x/cos x=−cos x, which is not valid because the 1s are terms, not factors.",
+    "error_pattern": "Cancelled terms instead of factors"
+   }
+  ],
+  "change_note": "Quotient requires factoring the numerator after the identity.",
+  "check": "conceptual"
+ }
+]

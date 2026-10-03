@@ -1,4 +1,4 @@
--- AP Biology: set item status to 'retired' on the last 4 items marked published with no published version, 2026-10-03.   APPLIED to Production under APPROVAL-0094.
+-- AP Biology: set item status to 'retired' on the last 4 items marked published with no published version, 2026-10-03.   APPLIED to Production under APPROVAL-0096 (run while the id was still numbered APPROVAL-0094; renumbered at merge because the AP Precalculus session took 0094. The id string below is the one that ran; nothing persisted it).
 -- Why: APPROVAL-0093 aligned 38 of 42 such items and held these four. The Product Owner then ruled: "The attempts were tests- not real students. No risk to flipping.
 -- The latest label is retired. Those two should be retired." Read as: the two with test attempts (APBIO-FRQ-L-028: 5, APBIO-MCQ-012: 1) are safe to flip, and the two whose
 -- latest version is retired (APBIO-FRQ-L-038, APBIO-FRQ-L-041; their version 1 is an old unretired 'reviewed_approved') should be retired. All four are retired at item level.

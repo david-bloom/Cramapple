@@ -1,4 +1,4 @@
--- AP Biology: set item status to 'retired' on 38 items whose every version is already retired, 2026-10-03.   APPLIED to Production under APPROVAL-0093.
+-- AP Biology: set item status to 'retired' on 38 items whose every version is already retired, 2026-10-03.   APPLIED to Production under APPROVAL-0095 (run while the id was still numbered APPROVAL-0093; renumbered at merge because the AP Precalculus session took 0093. The id string below is the one that ran; nothing persisted it).
 -- Why: 42 Biology items were marked 'published' at item level while no version was published (20 FRQ + 22 MCQ; item rows last touched 2026-07-16 to 2026-08-13).
 -- The practice selector (select_unit_gated_practice_items) and the census require BOTH the item and its version to be 'published', so none of the 42 was being served;
 -- servable_items_census already counts "item published, version not published" as its own bucket. This aligns the record with reality; no student-visible change.

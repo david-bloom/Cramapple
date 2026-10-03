@@ -1,0 +1,902 @@
+[
+ {
+  "id": "apprecalc-mcq-001-v1",
+  "seed": "apprecalc-mcq-001",
+  "difficulty": "easy",
+  "title": "Average rate of change of a position function",
+  "stem": "A particle moves along a line with position s(t) = t³ − 2t meters at time t seconds. What is the average rate of change of s over the interval −1 ≤ t ≤ 2, in meters per second?",
+  "correct": {
+   "text": "1",
+   "rationale": "s(2) = 8 − 4 = 4 and s(−1) = −1 + 2 = 1, so the average rate of change is [s(2) − s(−1)]/(2 − (−1)) = (4 − 1)/3 = 1."
+  },
+  "wrong": [
+   {
+    "text": "21",
+    "rationale": "Evaluates the function at the length of the interval instead of forming the difference quotient: 2 − (−1) = 3, and s(3) = 27 − 6 = 21.",
+    "error_pattern": "evaluates function at input change"
+   },
+   {
+    "text": "−1",
+    "rationale": "Subtracts the outputs in the wrong order but divides by the interval length in the usual order: [s(−1) − s(2)]/(2 − (−1)) = (1 − 4)/3 = −1.",
+    "error_pattern": "reversed order of subtraction in numerator"
+   },
+   {
+    "text": "3",
+    "rationale": "Finds the change in output, s(2) − s(−1) = 4 − 1 = 3, and forgets to divide by the change in input, 3.",
+    "error_pattern": "omits division by input change"
+   }
+  ],
+  "change_note": "New context (position function), cubic with negative left endpoint; distractors recomputed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-001-v2",
+  "seed": "apprecalc-mcq-001",
+  "difficulty": "medium",
+  "title": "Average rate of change from a table",
+  "stem": "The population N(t) of a town, in thousands, t years after 2000 is recorded in the table: N(0) = 10, N(2) = 18, N(4) = 29, N(6) = 42. What is the average rate of change of the population from t = 2 to t = 6, in thousands of people per year?",
+  "correct": {
+   "text": "6",
+   "rationale": "The average rate of change is [N(6) − N(2)]/(6 − 2) = (42 − 18)/4 = 24/4 = 6."
+  },
+  "wrong": [
+   {
+    "text": "24",
+    "rationale": "Computes only the change in output, 42 − 18 = 24, and does not divide by the 4-year change in input.",
+    "error_pattern": "omits division by input change"
+   },
+   {
+    "text": "30",
+    "rationale": "Averages the two endpoint values, (18 + 42)/2 = 30, instead of dividing the change in output by the change in input.",
+    "error_pattern": "averages outputs"
+   },
+   {
+    "text": "3",
+    "rationale": "Divides the change in output by the sum of the inputs instead of their difference: 24/(6 + 2) = 3.",
+    "error_pattern": "adds inputs instead of subtracting"
+   }
+  ],
+  "change_note": "Function given as a table of data in a population context; different skill entry (read values, then secant slope).",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-001-v3",
+  "seed": "apprecalc-mcq-001",
+  "difficulty": "medium",
+  "title": "Average rate of change of a rational function",
+  "stem": "A 6-mile trip takes r(x) = 6/x hours when driven at a constant speed of x miles per hour. What is the average rate of change of r as the speed x increases from 2 to 6 miles per hour, in hours per (mile per hour)?",
+  "correct": {
+   "text": "−1/2",
+   "rationale": "r(2) = 3 and r(6) = 1, so the average rate of change is (1 − 3)/(6 − 2) = −2/4 = −1/2."
+  },
+  "wrong": [
+   {
+    "text": "1/2",
+    "rationale": "Subtracts the outputs in the wrong order, (r(2) − r(6)), giving (3 − 1)/(6 − 2) = 1/2 with the wrong sign.",
+    "error_pattern": "reversed order of subtraction in numerator"
+   },
+   {
+    "text": "−2",
+    "rationale": "Finds the change in output, 1 − 3 = −2, and does not divide by the change in input, 4.",
+    "error_pattern": "omits division by input change"
+   },
+   {
+    "text": "3/2",
+    "rationale": "Evaluates r at the change in input, 6 − 2 = 4: r(4) = 6/4 = 3/2.",
+    "error_pattern": "evaluates function at input change"
+   }
+  ],
+  "change_note": "Rational function in a speed/time context; non-integer answer with negative sign.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-002-v1",
+  "seed": "apprecalc-mcq-002",
+  "difficulty": "easy",
+  "title": "End behavior of an even-degree polynomial",
+  "stem": "Which statement describes the end behavior of the polynomial function P(x) = 3x⁴ − 5x³ + x?",
+  "correct": {
+   "text": "The graph rises on both the left and the right",
+   "rationale": "The leading term 3x⁴ has even degree and a positive coefficient, so P(x) → ∞ as x → −∞ and as x → ∞."
+  },
+  "wrong": [
+   {
+    "text": "The graph falls on both the left and the right",
+    "rationale": "Treats the leading coefficient 3 as if it were negative; for an even degree this is the pattern of a negative leading coefficient, not 3x⁴.",
+    "error_pattern": "wrong sign of leading coefficient"
+   },
+   {
+    "text": "The graph falls on the left and rises on the right",
+    "rationale": "This is the pattern of an odd degree with a positive leading coefficient. The degree here is 4, which is even, so both ends point the same direction.",
+    "error_pattern": "treats even degree as odd"
+   },
+   {
+    "text": "The graph rises on the left and falls on the right",
+    "rationale": "This is the pattern of an odd-degree polynomial with a negative leading coefficient; the degree here is 4 and the leading coefficient is positive.",
+    "error_pattern": "reverses odd/negative pattern"
+   }
+  ],
+  "change_note": "Even degree, positive coefficient; choices reworded in words rather than limit notation.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-002-v2",
+  "seed": "apprecalc-mcq-002",
+  "difficulty": "medium",
+  "title": "End behavior from a product of factors",
+  "stem": "The polynomial function R(x) = (1 − x²)(x² + 4) is written as a product of two factors. Which statement describes its end behavior?",
+  "correct": {
+   "text": "The graph falls on both the left and the right",
+   "rationale": "Multiplying leading terms gives (−x²)(x²) = −x⁴, so R has even degree 4 and a negative leading coefficient (R(x) = −x⁴ − 3x² + 4); both ends fall."
+  },
+  "wrong": [
+   {
+    "text": "The graph rises on both the left and the right",
+    "rationale": "Reads the factor 1 − x² as if its leading term were +x², obtaining x²·x² = x⁴ with a positive coefficient; the leading term is actually −x².",
+    "error_pattern": "ignores negative sign of leading term of a factor"
+   },
+   {
+    "text": "The graph falls on the left and rises on the right",
+    "rationale": "Treats the function as odd-degree. Expanding gives R(x) = −x⁴ − 3x² + 4, whose degree is 4 (even), so the ends point the same direction.",
+    "error_pattern": "treats even degree as odd"
+   },
+   {
+    "text": "The graph rises on the left and falls on the right",
+    "rationale": "Treats the degree as odd with a negative leading coefficient; the degree is 2 + 2 = 4, so both ends fall.",
+    "error_pattern": "miscounts degree as odd"
+   }
+  ],
+  "change_note": "End behavior must be found from factored form with a negative leading term hidden in a factor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-002-v3",
+  "seed": "apprecalc-mcq-002",
+  "difficulty": "medium",
+  "title": "End behavior of an odd-degree polynomial",
+  "stem": "Let S(x) = 4x⁷ − x⁶ + 9. Which statement correctly describes the behavior of the graph of S for inputs of very large magnitude?",
+  "correct": {
+   "text": "It falls on the left and rises on the right",
+   "rationale": "The dominant term is 4x⁷, with odd degree and positive coefficient, so S(x) → −∞ as x → −∞ and S(x) → ∞ as x → ∞."
+  },
+  "wrong": [
+   {
+    "text": "It rises on both the left and the right",
+    "rationale": "Treats the degree 7 as even, as in a positive even-degree polynomial; but 4x⁷ is negative when x is a large negative number.",
+    "error_pattern": "treats odd degree as even"
+   },
+   {
+    "text": "It falls on both the left and the right",
+    "rationale": "Uses the second term, −x⁶ (even degree, negative coefficient), as the dominant term; the term with the highest degree is 4x⁷.",
+    "error_pattern": "uses wrong term as leading term"
+   },
+   {
+    "text": "It rises on the left and falls on the right",
+    "rationale": "Reverses the pattern, as would happen for a negative leading coefficient. The leading coefficient of 4x⁷ is positive.",
+    "error_pattern": "reverses left/right pattern"
+   }
+  ],
+  "change_note": "Odd degree, positive leading coefficient, with a distracting even-degree second term.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-003-v1",
+  "seed": "apprecalc-mcq-003",
+  "difficulty": "medium",
+  "title": "Identify a hole in a rational function",
+  "stem": "Which statement describes the discontinuity of the rational function R(x) = (x² − x − 12)/(x − 4)?",
+  "correct": {
+   "text": "A hole at (4, 7)",
+   "rationale": "Factoring gives (x − 4)(x + 3)/(x − 4). The factor x − 4 cancels, leaving x + 3 for x ≠ 4, so the hole is at x = 4 with y = 4 + 3 = 7."
+  },
+  "wrong": [
+   {
+    "text": "A vertical asymptote at x = 4",
+    "rationale": "The factor x − 4 appears in both numerator and denominator and cancels, so the discontinuity is removable (a hole), not an asymptote.",
+    "error_pattern": "does not cancel common factor"
+   },
+   {
+    "text": "A hole at (4, 0)",
+    "rationale": "Substitutes x = 4 into the original numerator, 16 − 4 − 12 = 0, to get the y-coordinate; the y-coordinate of a hole comes from the simplified function x + 3, which gives 7.",
+    "error_pattern": "y-value from unsimplified numerator"
+   },
+   {
+    "text": "A hole at (−3, 0)",
+    "rationale": "Places the hole at the zero of the remaining factor x + 3. That gives the x-intercept; the hole is at the canceled factor's zero, x = 4.",
+    "error_pattern": "confuses remaining zero with canceled factor"
+   }
+  ],
+  "change_note": "Different polynomial (cancelation with x−4), question framed as describing the discontinuity.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-003-v2",
+  "seed": "apprecalc-mcq-003",
+  "difficulty": "hard",
+  "title": "Hole and asymptote together",
+  "stem": "Which statement is true about the graph of g(x) = (x² − 4)/((x − 2)(x + 5))?",
+  "correct": {
+   "text": "It has a hole at (2, 4/7) and a vertical asymptote at x = −5",
+   "rationale": "Since x² − 4 = (x − 2)(x + 2), the factor x − 2 cancels, leaving (x + 2)/(x + 5) for x ≠ 2. The hole is at x = 2 with y = (2 + 2)/(2 + 5) = 4/7, and x = −5 remains a vertical asymptote."
+  },
+  "wrong": [
+   {
+    "text": "It has a hole at (2, 0) and a vertical asymptote at x = −5",
+    "rationale": "Gets the right locations but takes the y-coordinate from the original numerator, 2² − 4 = 0; the simplified function gives (2 + 2)/(2 + 5) = 4/7.",
+    "error_pattern": "y-value from unsimplified numerator"
+   },
+   {
+    "text": "It has a vertical asymptote at x = 2 and a hole at x = −5",
+    "rationale": "Reverses the roles: the factor x − 2 cancels, so x = 2 is the hole, while x + 5 stays in the denominator, so x = −5 is the asymptote.",
+    "error_pattern": "reverses hole and asymptote roles"
+   },
+   {
+    "text": "It has vertical asymptotes at x = 2 and at x = −5",
+    "rationale": "Treats every zero of the denominator as an asymptote without checking for cancelation; x − 2 cancels with the factor in x² − 4.",
+    "error_pattern": "does not cancel common factor"
+   }
+  ],
+  "change_note": "Both a hole and a vertical asymptote in one function; requires y-value of the hole.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-003-v3",
+  "seed": "apprecalc-mcq-003",
+  "difficulty": "hard",
+  "title": "Hole in a quotient with a cubic",
+  "stem": "The function h(x) = (x³ − 8)/(x − 2) is not defined at x = 2. Which statement describes its graph near x = 2?",
+  "correct": {
+   "text": "A hole at (2, 12)",
+   "rationale": "Since x³ − 8 = (x − 2)(x² + 2x + 4), h(x) = x² + 2x + 4 for x ≠ 2, and the hole is at (2, 4 + 4 + 4) = (2, 12)."
+  },
+  "wrong": [
+   {
+    "text": "A vertical asymptote at x = 2",
+    "rationale": "The factor x − 2 divides the numerator exactly, so it cancels and the discontinuity is removable rather than an asymptote.",
+    "error_pattern": "does not cancel common factor"
+   },
+   {
+    "text": "A hole at (2, 0)",
+    "rationale": "Uses the numerator's value at x = 2, 2³ − 8 = 0, as the y-coordinate; the y-coordinate comes from the simplified expression x² + 2x + 4, which equals 12 at x = 2.",
+    "error_pattern": "y-value from unsimplified numerator"
+   },
+   {
+    "text": "A hole at (2, 4)",
+    "rationale": "Divides only the leading term, x³ ÷ x = x², and discards the rest of the quotient, 2x + 4; then evaluates x² at 2 to get 4.",
+    "error_pattern": "incomplete division"
+   }
+  ],
+  "change_note": "Difference of cubes requires polynomial division/factoring; hole y-value is not integer-trivial.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-004-v1",
+  "seed": "apprecalc-mcq-004",
+  "difficulty": "medium",
+  "title": "Crossing versus touching from multiplicities",
+  "stem": "The polynomial P(x) = (x + 2)³(x − 5)²(x − 1) has real zeros at −2, 5, and 1. At which of these zeros does the graph of P cross the x-axis rather than touch it and turn around?",
+  "correct": {
+   "text": "−2 and 1 only",
+   "rationale": "The zero −2 has multiplicity 3 (odd) and the zero 1 has multiplicity 1 (odd), so the graph crosses at both. The zero 5 has multiplicity 2 (even), so the graph touches and turns."
+  },
+  "wrong": [
+   {
+    "text": "5 only",
+    "rationale": "Reverses the parity rule: the zero 5 has even multiplicity 2, so the graph touches and turns there rather than crossing.",
+    "error_pattern": "reverses parity rule"
+   },
+   {
+    "text": "1 only",
+    "rationale": "Counts only a multiplicity of exactly 1 as a crossing. Any odd multiplicity crosses, so the zero −2 (multiplicity 3) is also a crossing.",
+    "error_pattern": "only multiplicity 1 crosses"
+   },
+   {
+    "text": "−2, 5, and 1",
+    "rationale": "Ignores multiplicity and assumes the graph crosses at every zero; at 5 (multiplicity 2) it touches and turns.",
+    "error_pattern": "ignores multiplicity"
+   }
+  ],
+  "change_note": "Factored polynomial with three zeros and multiplicity 3; asks which zeros are crossings.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-004-v2",
+  "seed": "apprecalc-mcq-004",
+  "difficulty": "medium",
+  "title": "Choose a polynomial from graph behavior",
+  "stem": "A polynomial function touches the x-axis and turns at x = 3, crosses the x-axis at x = −2, and has no other x-intercepts. Which of the following could be its equation?",
+  "correct": {
+   "text": "P(x) = (x − 3)²(x + 2)",
+   "rationale": "The factor (x − 3)² gives an even multiplicity at 3, so the graph touches and turns there; (x + 2) has multiplicity 1, so the graph crosses at −2."
+  },
+  "wrong": [
+   {
+    "text": "P(x) = (x − 3)(x + 2)²",
+    "rationale": "Swaps the multiplicities: this graph crosses at 3 (multiplicity 1) and touches at −2 (multiplicity 2).",
+    "error_pattern": "swaps multiplicities"
+   },
+   {
+    "text": "P(x) = (x + 3)²(x − 2)",
+    "rationale": "Writes the factors with the signs reversed, so the zeros are −3 and 2 instead of 3 and −2.",
+    "error_pattern": "sign error when writing factors from zeros"
+   },
+   {
+    "text": "P(x) = (x − 3)(x + 2)",
+    "rationale": "Both zeros have multiplicity 1, so the graph crosses at both 3 and −2; it does not touch and turn at 3.",
+    "error_pattern": "uses multiplicity 1 for touch zero"
+   }
+  ],
+  "change_note": "Construct an equation from described graph behavior rather than interpret a given factored form.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-004-v3",
+  "seed": "apprecalc-mcq-004",
+  "difficulty": "hard",
+  "title": "Least possible degree from behavior",
+  "stem": "The graph of a polynomial function touches the x-axis and turns at x = −1, and crosses the x-axis at x = 2 and at x = 4. What is the least possible degree of the polynomial?",
+  "correct": {
+   "text": "4",
+   "rationale": "The touch at −1 requires an even multiplicity, at least 2. Each crossing requires an odd multiplicity, at least 1. The least degree is 2 + 1 + 1 = 4."
+  },
+  "wrong": [
+   {
+    "text": "3",
+    "rationale": "Counts one for each of the three zeros, as if every zero had multiplicity 1; but a zero where the graph touches and turns needs an even multiplicity, at least 2.",
+    "error_pattern": "ignores required multiplicity"
+   },
+   {
+    "text": "5",
+    "rationale": "Assigns the touching zero an odd multiplicity of 3, giving 3 + 1 + 1 = 5; a touch needs an even multiplicity, and the least even multiplicity is 2.",
+    "error_pattern": "uses odd multiplicity for touch zero"
+   },
+   {
+    "text": "6",
+    "rationale": "Gives every zero multiplicity 2: 2 + 2 + 2 = 6. A crossing needs an odd multiplicity, and 1 is the least.",
+    "error_pattern": "uses even multiplicity for all"
+   }
+  ],
+  "change_note": "Reasoning about least degree from touch/cross behavior at three zeros.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-005-v1",
+  "seed": "apprecalc-mcq-005",
+  "difficulty": "easy",
+  "title": "Caution with a quadratic model",
+  "stem": "A quadratic function h was fit to measurements of a ball's height taken for times between t = 0.5 and t = 3.5 seconds. Which use of the model should be treated with the most caution?",
+  "correct": {
+   "text": "Estimating the height at t = 12 seconds",
+   "rationale": "t = 12 is far outside the measured interval 0.5 ≤ t ≤ 3.5. Extrapolating that far assumes the fitted pattern continues, which the data cannot support."
+  },
+  "wrong": [
+   {
+    "text": "Estimating the height at t = 2 seconds",
+    "rationale": "t = 2 lies inside the measured interval, so this is interpolation.",
+    "error_pattern": "inside data domain"
+   },
+   {
+    "text": "Evaluating the model at t = 3.5 seconds",
+    "rationale": "t = 3.5 is the last measured time, so it is within the data domain.",
+    "error_pattern": "at endpoint of data domain"
+   },
+   {
+    "text": "Comparing the model's heights at t = 1 and t = 3",
+    "rationale": "Both inputs lie inside the measured interval, so the comparison is based on interpolated values.",
+    "error_pattern": "inside data domain"
+   }
+  ],
+  "change_note": "Physical context (ball), quadratic model, non-integer domain endpoints.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-005-v2",
+  "seed": "apprecalc-mcq-005",
+  "difficulty": "easy",
+  "title": "Caution with an exponential revenue model",
+  "stem": "An exponential function was fit to a company's yearly revenue for the years 2016 through 2022. Which prediction from the model is the least reliable?",
+  "correct": {
+   "text": "The revenue in the year 2040",
+   "rationale": "2040 is 18 years past the last data year, 2022. Such a prediction extrapolates far beyond the data, and the exponential pattern may not continue."
+  },
+  "wrong": [
+   {
+    "text": "The revenue in the year 2019",
+    "rationale": "2019 lies between 2016 and 2022, so it is inside the data domain.",
+    "error_pattern": "inside data domain"
+   },
+   {
+    "text": "The revenue in the year 2022",
+    "rationale": "2022 is the last year of the data, so it is not beyond the observed domain.",
+    "error_pattern": "at endpoint of data domain"
+   },
+   {
+    "text": "The revenue halfway through 2018",
+    "rationale": "Mid-2018 falls between data years 2016 and 2022, so this is interpolation.",
+    "error_pattern": "inside data domain"
+   }
+  ],
+  "change_note": "Different function family (exponential) and a calendar-year context.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-005-v3",
+  "seed": "apprecalc-mcq-005",
+  "difficulty": "medium",
+  "title": "Evaluating a claim about model reliability",
+  "stem": "A polynomial model P(t) was fit to data collected for 5 ≤ t ≤ 25. A student claims the prediction P(40) is just as trustworthy as the prediction P(15). Which response is best?",
+  "correct": {
+   "text": "The claim is incorrect, because 40 is far outside the data interval, so the pattern may not continue there",
+   "rationale": "The input 40 is beyond the observed values 5 ≤ t ≤ 25, so P(40) is an extrapolation, while P(15) is an interpolation inside the data."
+  },
+  "wrong": [
+   {
+    "text": "The claim is correct, because a model that fits the data well fits at every input",
+    "rationale": "A good fit on the observed interval says nothing certain about inputs beyond it; P(40) is outside 5 ≤ t ≤ 25.",
+    "error_pattern": "assumes fit holds everywhere"
+   },
+   {
+    "text": "The claim is incorrect, because P(15) lies inside the data and is therefore less reliable",
+    "rationale": "Reverses the idea of reliability: interpolating inside the observed interval is more trustworthy than extrapolating beyond it.",
+    "error_pattern": "reverses interpolation/extrapolation"
+   },
+   {
+    "text": "The claim is correct, because polynomial models are valid for all real inputs",
+    "rationale": "A polynomial can be evaluated at any real input, but that does not mean it models the situation there; 40 lies outside 5 ≤ t ≤ 25.",
+    "error_pattern": "confuses defined with valid"
+   }
+  ],
+  "change_note": "Conceptual evaluation of a claim rather than choosing a prediction.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apprecalc-mcq-006-v1",
+  "seed": "apprecalc-mcq-006",
+  "difficulty": "easy",
+  "title": "Composition of linear and quadratic",
+  "stem": "Let f(x) = 3x + 2 and g(x) = x² − 1. Which expression equals (f∘g)(x)?",
+  "correct": {
+   "text": "3x² − 1",
+   "rationale": "(f∘g)(x) = f(g(x)) = 3(x² − 1) + 2 = 3x² − 3 + 2 = 3x² − 1."
+  },
+  "wrong": [
+   {
+    "text": "9x² + 12x + 3",
+    "rationale": "Computes g(f(x)) = (3x + 2)² − 1 = 9x² + 12x + 3, reversing the order of composition.",
+    "error_pattern": "reversed composition order"
+   },
+   {
+    "text": "x² + 3x + 1",
+    "rationale": "Adds the functions, (3x + 2) + (x² − 1) = x² + 3x + 1, instead of composing them.",
+    "error_pattern": "adds functions"
+   },
+   {
+    "text": "3x³ + 2x² − 3x − 2",
+    "rationale": "Multiplies the functions, (3x + 2)(x² − 1) = 3x³ + 2x² − 3x − 2, instead of composing them.",
+    "error_pattern": "multiplies functions"
+   }
+  ],
+  "change_note": "Order of composition is f∘g (seed was g∘f); different functions and distractor types.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-006-v2",
+  "seed": "apprecalc-mcq-006",
+  "difficulty": "medium",
+  "title": "Composition involving a square root",
+  "stem": "Let f(x) = √(x + 5) and g(x) = x² − 4. Which expression equals (f∘g)(x)?",
+  "correct": {
+   "text": "√(x² + 1)",
+   "rationale": "(f∘g)(x) = f(x² − 4) = √((x² − 4) + 5) = √(x² + 1)."
+  },
+  "wrong": [
+   {
+    "text": "x + 1",
+    "rationale": "Computes g(f(x)) = (√(x + 5))² − 4 = x + 1, reversing the order of composition.",
+    "error_pattern": "reversed composition order"
+   },
+   {
+    "text": "√(x² − 4) + 5",
+    "rationale": "Applies the +5 after the square root instead of inside it: √(x² − 4) + 5.",
+    "error_pattern": "places constant outside radical"
+   },
+   {
+    "text": "√(x + 5) + x² − 4",
+    "rationale": "Adds f(x) and g(x), √(x + 5) + (x² − 4), instead of composing them.",
+    "error_pattern": "adds functions"
+   }
+  ],
+  "change_note": "Radical function composition with domain-neutral expressions.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-006-v3",
+  "seed": "apprecalc-mcq-006",
+  "difficulty": "medium",
+  "title": "Evaluate a composition with an exponential",
+  "stem": "Let f(x) = 2^x and g(x) = x² − 5. What is the value of (g∘f)(3)?",
+  "correct": {
+   "text": "59",
+   "rationale": "f(3) = 2³ = 8, then g(8) = 8² − 5 = 64 − 5 = 59."
+  },
+  "wrong": [
+   {
+    "text": "16",
+    "rationale": "Computes (f∘g)(3) instead: g(3) = 9 − 5 = 4 and f(4) = 2⁴ = 16, reversing the order of composition.",
+    "error_pattern": "reversed composition order"
+   },
+   {
+    "text": "12",
+    "rationale": "Adds the function values, f(3) + g(3) = 8 + 4 = 12, instead of composing.",
+    "error_pattern": "adds function values"
+   },
+   {
+    "text": "64",
+    "rationale": "Squares f(3) = 8 to get 64 but forgets to subtract 5 in g(8) = 64 − 5.",
+    "error_pattern": "drops constant term"
+   }
+  ],
+  "change_note": "Numerical evaluation of a composition with an exponential inner function.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-007-v1",
+  "seed": "apprecalc-mcq-007",
+  "difficulty": "easy",
+  "title": "Equal-degree rational end behavior",
+  "stem": "A student is checking what happens to the rational function Q(x) = (2x² − 3x + 1)/(x² + 4) when x grows very large and positive. Comparing the leading terms of numerator and denominator, the right-end behavior of Q is closest to which of the following descriptions?",
+  "correct": {
+   "text": "Q(x) behaves like 2",
+   "rationale": "The numerator and denominator both have degree 2, so for large x the function behaves like the ratio of the leading coefficients, 2/1 = 2."
+  },
+  "wrong": [
+   {
+    "text": "Q(x) behaves like 0",
+    "rationale": "A limit of 0 would require the denominator's degree to exceed the numerator's. Here both degrees are 2.",
+    "error_pattern": "assumes denominator dominates"
+   },
+   {
+    "text": "Q(x) behaves like 1/2",
+    "rationale": "Inverts the ratio of leading coefficients, 1/2, instead of numerator over denominator, 2/1.",
+    "error_pattern": "inverts ratio"
+   },
+   {
+    "text": "Q(x) behaves like 2x²",
+    "rationale": "Keeps only the numerator's leading term 2x² and ignores the denominator x², which should divide it to leave 2.",
+    "error_pattern": "ignores denominator"
+   }
+  ],
+  "change_note": "Equal degree case (seed was slant); different coefficients.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-007-v2",
+  "seed": "apprecalc-mcq-007",
+  "difficulty": "medium",
+  "title": "Slant-type end behavior with coefficients",
+  "stem": "For R(x) = (x + 3)(2x − 1)(x − 4)/(x² + 1), the right-end behavior is closest to",
+  "correct": {
+   "text": "R(x) behaves like 2x",
+   "rationale": "The numerator has degree 3 with leading coefficient 1·2·1 = 2, and the denominator has degree 2 with leading coefficient 1. So R(x) behaves like 2x³/x² = 2x."
+  },
+  "wrong": [
+   {
+    "text": "R(x) behaves like x",
+    "rationale": "Leaves out the coefficient 2 from the factor 2x − 1, using 1 as the numerator's leading coefficient.",
+    "error_pattern": "omits a factor's coefficient"
+   },
+   {
+    "text": "R(x) behaves like 2",
+    "rationale": "Applies the equal-degree rule using only the ratio of leading coefficients, 2/1; but the numerator's degree 3 exceeds the denominator's degree 2.",
+    "error_pattern": "applies equal-degree rule"
+   },
+   {
+    "text": "R(x) behaves like 2x²",
+    "rationale": "Divides the leading term 2x³ by x instead of by x², getting 2x²; the denominator's leading term is x².",
+    "error_pattern": "divides by wrong power"
+   }
+  ],
+  "change_note": "Numerator given in factored form; the leading coefficient is not 1.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-007-v3",
+  "seed": "apprecalc-mcq-007",
+  "difficulty": "medium",
+  "title": "Denominator-dominant rational end behavior",
+  "stem": "For S(x) = (5x² + 1)/(2x³ − x), the right-end behavior is closest to",
+  "correct": {
+   "text": "S(x) approaches 0",
+   "rationale": "The denominator's degree, 3, exceeds the numerator's degree, 2, so S(x) behaves like 5x²/(2x³) = 5/(2x), which approaches 0. For example S(100) = 50001/1999900 ≈ 0.025."
+  },
+  "wrong": [
+   {
+    "text": "S(x) behaves like 5x/2",
+    "rationale": "Divides in the wrong direction: it treats 5x²/(2x³) as (5/2)x, but 5x²/(2x³) = 5/(2x).",
+    "error_pattern": "inverts degree difference"
+   },
+   {
+    "text": "S(x) approaches 5/2",
+    "rationale": "Uses the ratio of leading coefficients, 5/2, which applies only when numerator and denominator have the same degree.",
+    "error_pattern": "applies equal-degree rule"
+   },
+   {
+    "text": "S(x) increases without bound",
+    "rationale": "Reasons that positive leading coefficients make the function grow; but the denominator, of higher degree, grows faster, so S(x) → 0.",
+    "error_pattern": "numerator dominates"
+   }
+  ],
+  "change_note": "Denominator degree greater than numerator degree (horizontal asymptote y = 0).",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-008-v1",
+  "seed": "apprecalc-mcq-008",
+  "difficulty": "easy",
+  "title": "Model for percent decay",
+  "stem": "A quantity starts at 250 and decreases by 12% each period. A suitable model for the amount after t periods is",
+  "correct": {
+   "text": "250(0.88)^t",
+   "rationale": "Each period keeps 100% − 12% = 88% of the amount, so the amount is multiplied by 0.88 each period."
+  },
+  "wrong": [
+   {
+    "text": "250(0.12)^t",
+    "rationale": "Uses the percent decrease, 0.12, as the multiplier; after one period this gives 250(0.12) = 30 rather than 250(0.88) = 220.",
+    "error_pattern": "uses rate as base"
+   },
+   {
+    "text": "250(1.12)^t",
+    "rationale": "Uses the growth factor 1.12, which would model a 12% increase.",
+    "error_pattern": "growth instead of decay"
+   },
+   {
+    "text": "250 − 0.12t",
+    "rationale": "Subtracts 0.12 units per period instead of 12% of the current amount; this model is linear, not exponential.",
+    "error_pattern": "linear instead of exponential"
+   }
+  ],
+  "change_note": "Decay instead of growth; different start value and rate.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-008-v2",
+  "seed": "apprecalc-mcq-008",
+  "difficulty": "medium",
+  "title": "Model from a doubling time",
+  "stem": "A quantity starts at 40 and doubles every 3 years. A suitable model for the amount after t years is",
+  "correct": {
+   "text": "40(2)^(t/3)",
+   "rationale": "The amount doubles once every 3 years, so there are t/3 doublings after t years: 40·2^(t/3). At t = 3 this gives 80."
+  },
+  "wrong": [
+   {
+    "text": "40(2)^(3t)",
+    "rationale": "Puts the doubling time in the numerator of the exponent; at t = 1 this gives 40·2³ = 320, far more than doubling in 3 years.",
+    "error_pattern": "inverts doubling time in exponent"
+   },
+   {
+    "text": "40(2)^t",
+    "rationale": "Doubles every year instead of every 3 years; at t = 3 this gives 40·8 = 320 rather than 80.",
+    "error_pattern": "ignores doubling period"
+   },
+   {
+    "text": "40(4/3)^t",
+    "rationale": "Spreads the 100% increase evenly over 3 years as 1/3 per year; at t = 3 this gives 40(4/3)³ ≈ 94.8, not 80.",
+    "error_pattern": "divides percent growth evenly"
+   }
+  ],
+  "change_note": "Growth specified by a doubling time instead of a percent rate.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-008-v3",
+  "seed": "apprecalc-mcq-008",
+  "difficulty": "medium",
+  "title": "Exponential model from table values",
+  "stem": "The table gives values of a function f: f(0) = 12, f(1) = 18, f(2) = 27, f(3) = 40.5. Which model fits the table exactly?",
+  "correct": {
+   "text": "12(1.5)^t",
+   "rationale": "Each value is 1.5 times the previous one (18/12 = 27/18 = 40.5/27 = 1.5), and f(0) = 12, so f(t) = 12(1.5)^t."
+  },
+  "wrong": [
+   {
+    "text": "12 + 6t",
+    "rationale": "Uses the first difference, 18 − 12 = 6, as a constant rate; but the differences are 6, 9, 13.5, so the growth is not linear. This model gives 24 at t = 2, not 27.",
+    "error_pattern": "linear from first difference"
+   },
+   {
+    "text": "12(6)^t",
+    "rationale": "Uses the first difference 6 as the base of the exponential; this gives 72 at t = 1, not 18.",
+    "error_pattern": "difference used as ratio"
+   },
+   {
+    "text": "18(1.5)^t",
+    "rationale": "Uses the correct ratio 1.5 but takes the first nonzero-input value 18 as the initial value; at t = 0 this gives 18, not 12.",
+    "error_pattern": "wrong initial value"
+   }
+  ],
+  "change_note": "Model chosen from a table with common ratio rather than from a verbal rate.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-009-v1",
+  "seed": "apprecalc-mcq-009",
+  "difficulty": "easy",
+  "title": "Solve a logarithmic equation, base 3",
+  "stem": "What is the solution of log₃(x + 2) = 4?",
+  "correct": {
+   "text": "x = 79",
+   "rationale": "Rewrite in exponential form: x + 2 = 3⁴ = 81, so x = 79."
+  },
+  "wrong": [
+   {
+    "text": "x = 2",
+    "rationale": "Sets x + 2 equal to the exponent 4 instead of 3⁴, giving x = 4 − 2 = 2.",
+    "error_pattern": "uses exponent instead of power"
+   },
+   {
+    "text": "x = 83",
+    "rationale": "Rewrites correctly as x + 2 = 81 but adds 2 instead of subtracting it: x = 81 + 2 = 83.",
+    "error_pattern": "wrong sign when isolating x"
+   },
+   {
+    "text": "x = 10",
+    "rationale": "Multiplies the base and the exponent, 3·4 = 12, instead of raising 3 to the 4th power, so x + 2 = 12 and x = 10.",
+    "error_pattern": "multiplies base and exponent"
+   }
+  ],
+  "change_note": "Base 3, argument x+2, larger answer.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-009-v2",
+  "seed": "apprecalc-mcq-009",
+  "difficulty": "medium",
+  "title": "Logarithmic equation with a coefficient inside",
+  "stem": "What is the solution of log₅(2x) = 2?",
+  "correct": {
+   "text": "x = 25/2",
+   "rationale": "Rewrite in exponential form: 2x = 5² = 25, so x = 25/2."
+  },
+  "wrong": [
+   {
+    "text": "x = 25",
+    "rationale": "Rewrites correctly as 2x = 25 but forgets to divide by 2.",
+    "error_pattern": "omits division by coefficient"
+   },
+   {
+    "text": "x = 5",
+    "rationale": "Computes 5² as 5·2 = 10, then divides by 2: x = 10/2 = 5.",
+    "error_pattern": "multiplies base and exponent"
+   },
+   {
+    "text": "x = 1",
+    "rationale": "Sets 2x equal to the exponent 2 instead of 5², giving x = 1.",
+    "error_pattern": "uses exponent instead of power"
+   }
+  ],
+  "change_note": "Coefficient on x inside the log; base 5.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-009-v3",
+  "seed": "apprecalc-mcq-009",
+  "difficulty": "hard",
+  "title": "Logarithmic equation requiring a product and a rejection",
+  "stem": "What is the solution of log₄(x) + log₄(x − 6) = 2?",
+  "correct": {
+   "text": "x = 8",
+   "rationale": "By the product property, log₄(x(x − 6)) = 2, so x(x − 6) = 4² = 16. Then x² − 6x − 16 = 0, (x − 8)(x + 2) = 0, so x = 8 or x = −2. Since x = −2 makes log₄(x) undefined, only x = 8 works. Check: log₄ 8 + log₄ 2 = 3/2 + 1/2 = 2."
+  },
+  "wrong": [
+   {
+    "text": "x = 8 or x = −2",
+    "rationale": "Solves the quadratic correctly but does not reject x = −2, for which log₄(−2) is not defined.",
+    "error_pattern": "fails to reject extraneous solution"
+   },
+   {
+    "text": "x = 11",
+    "rationale": "Adds the arguments instead of multiplying them: x + (x − 6) = 16, so 2x − 6 = 16 and x = 11.",
+    "error_pattern": "adds arguments instead of multiplying"
+   },
+   {
+    "text": "x = 3 + √11",
+    "rationale": "Uses the product property but sets the argument equal to the exponent 2: x² − 6x = 2, so x = 3 ± √11, taking the positive root.",
+    "error_pattern": "uses exponent instead of power"
+   }
+  ],
+  "change_note": "Two logs combined by the product property and an extraneous root, a new situation relative to the single-log seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-011-v1",
+  "seed": "apprecalc-mcq-011",
+  "difficulty": "medium",
+  "title": "Solve an exponential equation in base 3",
+  "stem": "If 3^(4x + 2) = 20, then x equals",
+  "correct": {
+   "text": "(log₃20 − 2)/4",
+   "rationale": "Taking log base 3 gives 4x + 2 = log₃20. Subtract 2 and then divide by 4: x = (log₃20 − 2)/4."
+  },
+  "wrong": [
+   {
+    "text": "(log₃20 + 2)/4",
+    "rationale": "Adds 2 instead of subtracting it when isolating 4x.",
+    "error_pattern": "wrong sign when isolating x"
+   },
+   {
+    "text": "(log₃20)/4 − 2",
+    "rationale": "Subtracts 2 from the right side but divides only log₃20 by 4, not the whole expression log₃20 − 2.",
+    "error_pattern": "divides only one term"
+   },
+   {
+    "text": "log₃5 − 2",
+    "rationale": "Divides the argument by 4, giving log₃(20/4) = log₃5, and then subtracts 2; coefficients on x cannot be removed by dividing the argument.",
+    "error_pattern": "divides argument by coefficient"
+   }
+  ],
+  "change_note": "Base 3 with exponent 4x+2; different constants.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-011-v2",
+  "seed": "apprecalc-mcq-011",
+  "difficulty": "medium",
+  "title": "Solve with a shift in the exponent",
+  "stem": "If 7^(x − 4) = 30, then x equals",
+  "correct": {
+   "text": "4 + log₇30",
+   "rationale": "Taking log base 7 gives x − 4 = log₇30, so x = 4 + log₇30."
+  },
+  "wrong": [
+   {
+    "text": "log₇30 − 4",
+    "rationale": "Subtracts 4 instead of adding it when isolating x.",
+    "error_pattern": "wrong sign when isolating x"
+   },
+   {
+    "text": "4 log₇30",
+    "rationale": "Multiplies by 4 instead of adding 4 to both sides.",
+    "error_pattern": "multiplies instead of adds"
+   },
+   {
+    "text": "log₇34",
+    "rationale": "Adds 4 to the argument, 30 + 4 = 34, instead of adding 4 to the logarithm.",
+    "error_pattern": "adds inside the log"
+   }
+  ],
+  "change_note": "Shift in the exponent with coefficient 1 on x; base 7.",
+  "check": "numeric"
+ },
+ {
+  "id": "apprecalc-mcq-011-v3",
+  "seed": "apprecalc-mcq-011",
+  "difficulty": "hard",
+  "title": "Exponential equation with a coefficient and natural log",
+  "stem": "If 2e^(3x) = 14, then x equals",
+  "correct": {
+   "text": "(ln 7)/3",
+   "rationale": "Divide by 2 first: e^(3x) = 7. Then 3x = ln 7, so x = (ln 7)/3."
+  },
+  "wrong": [
+   {
+    "text": "(ln 14)/3",
+    "rationale": "Takes the natural log without first dividing by the coefficient 2: 3x = ln 14, so x = (ln 14)/3.",
+    "error_pattern": "skips dividing by coefficient"
+   },
+   {
+    "text": "ln(7/3)",
+    "rationale": "Removes the 3 by dividing the argument, giving ln(7/3); the 3 multiplies x in the exponent and must come out as a divisor of ln 7.",
+    "error_pattern": "divides argument by coefficient"
+   },
+   {
+    "text": "3 ln 7",
+    "rationale": "Multiplies ln 7 by 3 instead of dividing by 3 when solving 3x = ln 7.",
+    "error_pattern": "multiplies instead of divides"
+   }
+  ],
+  "change_note": "Natural log base and a coefficient in front of the exponential, requiring a first division.",
+  "check": "numeric"
+ }
+]

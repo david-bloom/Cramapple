@@ -16,9 +16,12 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
-- APPROVAL-0094 — Set Item Status to `retired` on the Last 4 AP Biology Items Published With No Published Version (Production)
-- APPROVAL-0093 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
+- APPROVAL-0096 — Set Item Status to `retired` on the Last 4 AP Biology Items Published With No Published Version (Production)
+- APPROVAL-0095 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
 - APPROVAL-0092 — Retire 3 Published AP Biology Seed MCQs Outside the CED (`APBIO-MCQ-014`, `063`, `025`) (Production) — DECISION-0095
+
+- APPROVAL-0094 — AP Precalculus: Fix 3 Defective MCQs (`033`, `np2-003`, `np2-004`) and Retire `010` (Production) — DECISION-0085
+- APPROVAL-0093 — AP Precalculus Units 1-3: Correct 15 Items' Rationales, Remove the Duplicated A-D List From 22 Stems, Validate 23 Provisional Labels, Create 45 Topic Cells (Production) — DECISION-0085
 - APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production) — DECISION-0093
 - APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production) — DECISION-0085
 - APPROVAL-0089 — AP Physics 1 Units 4-8: Remove the Duplicated A-D List From 21 Published Stems (Production) — DECISION-0085
@@ -206,12 +209,14 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
-## APPROVAL-0094 — Set Item Status to `retired` on the Last 4 AP Biology Items Published With No Published Version (Production)
+## APPROVAL-0096 — Set Item Status to `retired` on the Last 4 AP Biology Items Published With No Published Version (Production)
 
 **Date:** 2026-10-03  
 **Approved By:** David Bloom (2026-10-03 Claude session: "The attempts were tests- not real students. No risk to flipping. The latest label is retired. Those two should be retired.")  
-**Related Decision:** `DECISION-0095`; follows `APPROVAL-0093`, which held these four  
+**Related Decision:** `DECISION-0095`; follows `APPROVAL-0095`, which held these four  
 **Decision:** Approved
+
+**Numbering note:** this approval was recorded as `APPROVAL-0094` while the work was in progress and renumbered to `APPROVAL-0096` at merge because the AP Precalculus session had already taken `APPROVAL-0094` on `main`. Nothing in Production carries the old number: the script wrote no approval id to any table.
 
 **Approved scope (Production `pcntajvbdfqhbeewmdry`):** run `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_retire_last_four_orphan_items.sql`. Set the item status to `retired` on `APBIO-FRQ-L-028` (5 attempts) and `APBIO-MCQ-012` (1 attempt), which the Product Owner confirmed are test attempts and not real students, and on `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041`, whose latest version is retired (their version 1 is an old `reviewed_approved` that is left as it is). Only `content_items.status` and `updated_at` change; versions, labels, cells and attempts are untouched.
 
@@ -221,12 +226,14 @@ Most recent entries (full chronological list follows below):
 
 **How it was used (2026-10-03):** one transaction with in-script assertions, no rehearsal. The script asserted exactly 4 published targets, none with a published version, the newest version of each retired, and that these were the only Biology items in that state; after the update it asserted published items fell by exactly 4 and that published versions, validated serving labels and the attempts on the targets did not change. Verified afterwards on Production: all four `retired`; Biology published items 136 to 132; every published Biology item has a published version (132 of 132); published versions 132; validated serving labels 163; the 6 attempts intact; `APBIO-FRQ-L-038` versions untouched (1 `reviewed_approved`, 2 and 3 `retired`).
 
-## APPROVAL-0093 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
+## APPROVAL-0095 — Set Item Status to `retired` on 38 AP Biology Items Whose Every Version Is Already Retired (Production)
 
 **Date:** 2026-10-03  
 **Approved By:** David Bloom (2026-10-03 Claude session: "Clean up the 42", answering the written finding that 42 Biology items are marked published with no published version)  
 **Related Decision:** `DECISION-0095`; follows `APPROVAL-0092`  
 **Decision:** Approved (scope narrowed to 38 of the 42; see below)
+
+**Numbering note:** this approval was recorded as `APPROVAL-0093` while the work was in progress and renumbered to `APPROVAL-0095` at merge because the AP Precalculus session had already taken `APPROVAL-0093` on `main`. Nothing in Production carries the old number: the script wrote no approval id to any table.
 
 **Approved scope (Production `pcntajvbdfqhbeewmdry`):** run `scripts/content-seed/reviewer-qa-remediation/20261003_apbio_align_orphan_item_status.sql`. For AP Biology items with item status `published`, no published version, no non-retired version and no attempts on any version (38 items: 17 FRQ and 21 MCQ), set the item status to `retired` to match their versions. Only `content_items.status` and `updated_at` change; versions, labels, cells and attempts are untouched.
 
@@ -252,6 +259,36 @@ Most recent entries (full chronological list follows below):
 **Not approved by this entry:** retiring any other item; writing replacements; scanning or retiring in any other subject; FRQ items.
 
 **How it was used (2026-10-03):** the first attempt aborted by its own safety check and applied nothing (verified: all three still published, Biology count unchanged): the check counted 42 pre-existing Biology items that are marked `published` but whose versions are all retired (20 FRQ, 22 MCQ), which the change did not cause. The check was changed to require that count to stay equal before and after, and the corrected script then committed in one transaction: 3 retired. Verified: every version of `014`, `025`, `063` is `retired` with the item `retired`; Biology published items 177 to 174; seed-style published MCQs 65 to 62; the 17 published variants and the 163 validated serving labels unchanged; the 42 pre-existing items unchanged. No rehearsal. The unit-gated servable count was not re-queried.
+
+## APPROVAL-0094 — AP Precalculus: Fix 3 Defective MCQs (`033`, `np2-003`, `np2-004`) and Retire `010` (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Can these be fixed? If not retire them", about the four items held for a decision)  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0093`  
+**Decision:** Approved
+
+**Numbering:** the Production notes for this change name it `APPROVAL-0092`; renumbered `0094` because `0092` was taken by the AP Biology retirement on another branch.
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `5522b532-5e50-41f2-99a2-10144bd4e8db`):** (1) `apprecalc-mcq-np2-004` had two correct answers (A and C both equivalent to log_5(25x^3)): choice C was replaced by the non-equivalent `3*log base 5 of (25x)` and the B/C/D rationales rewritten. (2) `apprecalc-mcq-np2-003` stated a constant ratio of exactly 1.2 alongside r-squared = 0.999: the stem now says the ratios are approximately 1.2 (rounding). (3) `apprecalc-mcq-033` had choice C typed `5·6^x−1`: retyped as `5·6^(x−1)`, the duplicated A-D list removed from the stem, and all four rationales replaced with verified ones (checked at x = 1). All three keys are unchanged; each was re-audited by two models (keys agree, one defensible answer, in scope, rationales accurate) and received a validated, hash-fresh label (Unit 2, three-family topic consensus 6 of 6) and a topic cell. (4) `apprecalc-mcq-010` (inverse of 3e^(2x), an initial value other than 1 that the CED restricts for topic 2.10, with one-line rationales) was retired.
+
+**Not approved by this entry:** variants for these four seeds; the Precalculus variants (authored, not loaded).
+
+## APPROVAL-0093 — AP Precalculus Units 1-3: Correct 15 Items' Rationales, Remove the Duplicated A-D List From 22 Stems, Validate 23 Provisional Labels, Create 45 Topic Cells (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Go to precalc", continuing the Units 1-3 run)  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0090`  
+**Decision:** Approved
+
+**Numbering:** the Production notes for this change name it `APPROVAL-0091`; renumbered `0093` because `0091` was taken by the AP Biology variant retirement.
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `5522b532-5e50-41f2-99a2-10144bd4e8db`):** the 53 AP Precalculus Units 1-3 MCQs (27 validated, 26 provisional) were blind-solved, audited and CED-scope-checked by two models and probed by three families. 26 items received new versions: 25 wrong-answer rationales on 15 items were rewritten (drafted by an agent, every number checked in code, re-audited clean by two models) and the duplicated A-D list was removed from 22 stems (choices and keys unchanged). 34 new validated, hash-fresh serving labels were written: 23 provisional items validated on a three-family consensus at >= 5 of 6 on the unit, and 11 repaired items carried forward. 45 validated primary topic cells were created (agreement >= 5 of 6).
+
+**Held and then handled by `APPROVAL-0094`:** `033`, `np2-003`, `np2-004`, `010`.
+
+**Result:** Precalculus unit-gated servable 53 to 78 (after both approvals), topic-known 0 to 47, published 117 to 116 (`010` retired). The census still reports 13 stale hashes, not investigated (the MCQs in scope were refreshed, so they are most likely FRQs).
+
+**Not approved by this entry:** the 147 Precalculus variants (authored and linted, not loaded); skill cells; FRQ content.
 
 ## APPROVAL-0091 — Retire 7 Published AP Biology Variants That Use Terms Outside the CED (Production)
 
