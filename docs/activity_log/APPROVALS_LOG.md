@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0104 — Calculus BC Units 1-3: Skill Grid, Mirror Cells From Calculus AB, Native MCQ Topics and Skills (Production) — DECISION-0085
 - APPROVAL-0103 — Skill Cells for the 6 Tagged Seeds and Their Variants (Production) — DECISION-0085
 - APPROVAL-0102 — Retire AP Calculus AB Seed MCQ-005 and Its 5 Variants (Production) — DECISION-0085
 - APPROVAL-0101 — Topic Cells for 7 Seeds That Had None (Production) — DECISION-0085
@@ -214,6 +215,23 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0104 — Calculus BC Units 1-3: Skill Grid, Mirror Cells From Calculus AB, Native MCQ Topics and Skills (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Finish calc BC"; this reverses the earlier "No action on the bc MCQs")  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0103`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, BC pack `3778d753-273a-403d-8f02-55dc64ec6a27`):**
+- **Skill grid:** the 23 Calculus AB skills (shared mathematical practices) and 404 cells copied for the 81 topics BC shares with AB (same code, title and unit). The 30 BC-only topics (Unit 6.12/6.13 and Units 9-10 and a few others) have no grid cells yet.
+- **Mirrors (the 283 AB copies of `APPROVAL-0090`):** the 5 mirrors of the Calculus AB items retired in `APPROVAL-0102` retired too (`apcalcbc-mcq-ab-` copies of `mcq-005` and its variants); 15 mirrors without a topic took the topic of their AB twin; 263 skill cells copied from the AB twin (181 validated, 82 provisional), only where the twin's topic matched and the pair exists in the BC grid. 15 mirrors whose twin had no skill were voted directly (below).
+- **BC's own 66 MCQs:** a three-family serving vote on all 66 (6 votes each). The 16 labelled Units 1-3 got validated primary topic cells: 14 at 5 of 6 or better; `apcalcbc-mcq-002` (3.5, the derivative of x^x needs logarithmic differentiation) and `apcalcbc-mcq-024` (3.6, a second derivative written as a limit) tied 3-3 and were decided by Claude reading the item (source `ced_text_tiebreak`, reversible).
+- **Four-voter skill votes** (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash, limited to the skills the grid allows for the topic) on those 16 plus the 15 mirrors: 23 skill cells written (18 validated, 5 provisional). 8 split 2-2 and got no cell.
+
+**Result:** BC Units 1-3: 294 published MCQs, 286 with a topic cell and a skill cell. Without a skill: 8 (`apcalcbc-mcq-ab-u1v-012-v2`, `-u1v-029-v2`, `-u1v-029-v3`, `-u2n-012-v1`, `-u2n-012-v3`, `apcalcbc-mcq-002`, `-060`, `-np1-002`).
+
+**Not done:** the 33 labelled native MCQs in Units 4-10 and the 22 held ones (two held items, `-003` and `-025`, probe into topic 3.4 but stay held); `apcalcbc-mcq-np1-001` (label says Unit 5, the vote says topic 1.16 - the label is unchanged); FRQs; skill cells for the BC-only topics.
 
 ## APPROVAL-0103 — Skill Cells for the 6 Tagged Seeds and Their Variants (Production)
 
