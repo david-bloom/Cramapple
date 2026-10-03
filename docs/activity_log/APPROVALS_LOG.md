@@ -206,6 +206,20 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
+## APPROVAL-0100 — Skill Votes for 6 Variants; Topic Cells for 32 Topic-Less Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "vote on the 6 variants, and fill in the missing topic cells for the 38")  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0099`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):**
+- **Topic cells for the 38 variants with no primary topic** (Calculus AB 20, Physics 1 3, Precalculus 15): 32 validated primary topic cells. 15 inherit the topic of their seed (all Calculus AB). For the 23 whose seed has no topic, a three-family serving vote (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol, 2 samples each) accepted a topic at 5 of 6, or at 4 of 6 when it equals the plurality pooled across the seed's variants: 17 accepted. **6 left without a cell** because the vote split: `apcalcab-mcq-sv-005-v1` to `-v4` (3.1 / 2.8 / 3.5), `apprecalc-mcq-sv-015-v2` (3.1 vs 3.2), `apprecalc-mcq-sv-037-v3` (1.4 vs 2.6). The seeds of these 23 (`apcalcab-mcq-005`, `apphy1-mcq-np1-008`, `apprecalc-mcq-015/027/031/037/040`) still have no topic cell themselves.
+- **Skill cells:** the four-voter vote (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash) was run on the 6 variants that could not inherit (`apcalcab-mcq-sv-027-v1/-v2`, `APSTATS-MCQ-SV-058-v1/-v2/-v3`, `APBIO-MCQ-SV-025-v3`) and on the 32 newly topic-filled variants, restricted to the skills the grid allows for the topic (Calculus AB, Statistics). Written: 34 cells (31 validated, 3 provisional). **No cell (2-2 split): 4** (`apcalcab-mcq-u1v-012-v1/-v2/-v3`: 1.C vs 1.E; `apprecalc-mcq-sv-031-v1`: 2.A vs 3.A).
+- Verification: rehearsed with a rollback; after commit the hash over the 34 skill rows and the 32 topic rows in Production equals the hash of the plan computed locally. SQL and votes: `scripts/content-seed/skills-u13-2026-10-03/`.
+
+**Not done:** the 6 split variants above; skill cells for the 26 variants whose seed has none; the 13 variants of the held seeds; FRQs; Units 4 and above; Calculus BC.
+
 ## APPROVAL-0099 — Skill Grids for Physics 1 and Precalculus; Skill Cells for Units 1-3 MCQ Seeds and Variants (Production)
 
 **Date:** 2026-10-03  
