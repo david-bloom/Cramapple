@@ -202,7 +202,7 @@ Most recent entries (full chronological list follows below):
 ## APPROVAL-0087 — AP Physics 1: Retire 4 Course-Framework Questions; Remove the Duplicated A-D List From 32 Published Stems (Production)
 
 **Date:** 2026-10-03  
-**Approved By:** David Bloom (2026-10-03 Claude session: "Retire the 4."; "Fix #3 now")  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Retire the 4."; "Fix #3 now"; confirmed after the fact in the same session: "I approve 0087")  
 **Related Decision:** `DECISION-0085`; follows `APPROVAL-0086`  
 **Decision:** Approved
 
