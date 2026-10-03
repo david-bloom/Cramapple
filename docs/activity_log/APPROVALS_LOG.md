@@ -16,6 +16,9 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production) — DECISION-0085
+- APPROVAL-0089 — AP Physics 1 Units 4-8: Remove the Duplicated A-D List From 21 Published Stems (Production) — DECISION-0085
+- APPROVAL-0088 — Load and Publish 89 AP Physics 1 Units 1-3 Variants (Production) — DECISION-0085
 - APPROVAL-0087 — AP Physics 1: Retire 4 Course-Framework Questions; Remove the Duplicated A-D List From 32 Published Stems (Production) — DECISION-0085
 - APPROVAL-0086 — AP Physics 1 Units 1-3: Repair 4 Published MCQ Rationales, Release 1 Held Item, Create 32 Topic Cells (Production) — DECISION-0085
 - APPROVAL-0085 — Author, Load and Publish 109 New AP Calculus AB Units 2-3 Questions: 28 Seeds and 81 Variants (Production) — DECISION-0093
@@ -198,6 +201,47 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0090 — Mirror 283 AP Calculus AB Units 1-3 MCQs Into AP Calculus BC (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Option 1 for BC", choosing to mirror AB into BC; "I approve 0090")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0089`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, BC pack `3778d753-273a-403d-8f02-55dc64ec6a27`, source AB pack `826c8cf1-bc1b-4f2a-bd33-61a758e1487d`):** every published, validated, hash-fresh AP Calculus AB MCQ in Units 1-3 with no image (283 items: 118 in Unit 1, 83 in Unit 2, 82 in Unit 3) was copied inside the database into the BC pack as a new item (`apcalcbc-mcq-ab-<ab suffix>`), with stem, choices, keys and rationales identical to the source (verified in-transaction), a provenance note in `prompt_json`, a validated hash-fresh serving label with the AB unit and required units, and a validated primary topic cell where the AB item has one (263 of 283). BC's Units 1-3 CED content is the same as AB's (BC taxonomy has the same 32 topic codes). Rehearsed with a rollback, then applied.
+
+**Why:** BC had 13 validated Units 1-3 MCQs of its own; the AB pack now has 283 checked ones, produced through the two-checker, sympy-verified process. The same question text now appears in both course packs.
+
+**Result:** Calc BC published 130 to 413, unit-gated servable 45 to 328, topic-known 3 to 266, stale hashes 4 (unchanged, native BC items).
+
+**Not done:** BC's own 13 validated, 3 provisional and 22 held MCQs were not touched (the 22 held look like Units 4-10 content and were not probed); skill cells; FRQ content; BC-only content (Units 9-10).
+
+## APPROVAL-0089 — AP Physics 1 Units 4-8: Remove the Duplicated A-D List From 21 Published Stems (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Fix the faulty stems in units 4-8")  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0087`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `29c719dc-701b-470f-9e49-fab981722d3f`):** the 21 published Physics 1 MCQs in Units 4-8 whose stem repeated the A-D choices already stored as choices had the repeated list removed in a new version (stem only; choices, keys, rationales, topic cells and difficulty carried over; each list was verified to match the real choices). 20 were validated and received a new validated, hash-fresh label with the unit unchanged; 1 was held. With `APPROVAL-0087`, no published Physics 1 MCQ stem now repeats its choices.
+
+**Note:** `APPROVAL-0087` had also cleaned 8 held items that belong to Units 4-7 (`010`, `015`, `016`, `021`, `022`, `023`, `045`, `np2-003`), outside the Units 1-3 scope of that run; recorded here for completeness.
+
+## APPROVAL-0088 — Load and Publish 89 AP Physics 1 Units 1-3 Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "I APPOROVE 0088")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0087`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `29c719dc-701b-470f-9e49-fab981722d3f`):** 89 AP Physics 1 variant MCQs (keys `apphy1-mcq-sv-<seed>-vK`, from 30 seeds) were loaded as drafts in 9 atomic chunks (md5 89 of 89 against the build manifest), then approved and published with validated, hash-fresh serving labels (12 in Unit 1, 36 in Unit 2, 41 in Unit 3) and 86 validated primary topic cells (the 3 variants of `np1-008` have none, as their seed has none). Unit and topic are inherited from the validated seed; no variant is above its seed's unit.
+
+**Checks behind the variants:** every numeric value and distractor recomputed in python; two-checker blind solve (keys agree on all), rationale audit with 11 variants patched and re-audited clean, CED scope check (all in scope); 6 variants of `np1-001`/`np1-002` dropped before checking (course-framework seeds) and `020-v2` dropped for a physics error (kinetic friction on a rolling cart).
+
+**Result:** Physics 1 published 113 to 202, unit-gated servable 83 to 172, stale hashes 9 (held items whose stems were cleaned).
+
+**Not approved by this entry:** skill cells or a skill grid for Physics 1; new Physics 1 seed questions; FRQ content.
 
 ## APPROVAL-0087 — AP Physics 1: Retire 4 Course-Framework Questions; Remove the Duplicated A-D List From 32 Published Stems (Production)
 
