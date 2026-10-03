@@ -206,6 +206,19 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
 
+## APPROVAL-0101 — Topic Cells for 4 Seeds That Had None (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "tag those seeds with topics")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0100`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** the 7 published seeds whose variants had no topic to inherit were voted (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol, 2 samples each). 4 validated primary topic cells written, accepted at 4 of 6 or better and agreeing with the plurality pooled with the votes on their variants: `apphy1-mcq-np1-008` 3.2 (6 of 6), `apprecalc-mcq-031` 1.2, `apprecalc-mcq-037` 2.6, `apprecalc-mcq-040` 2.13.
+
+**Left without a topic (the vote does not settle it):** `apcalcab-mcq-005` (3.1, 2.8 and 3.5, two votes each; its variants split the same way), `apprecalc-mcq-027` (1.13 vs 1.4, three votes each), `apprecalc-mcq-015` (the seed leans 3.2 but its variants lean 3.1). These need a person's tiebreak.
+
+**Not done:** variants of these seeds were not changed (the 6 split variants and the skill cells for them still wait); no skill cells were written for the 4 seeds.
+
 ## APPROVAL-0100 — Skill Votes for 6 Variants; Topic Cells for 32 Topic-Less Variants (Production)
 
 **Date:** 2026-10-03  
