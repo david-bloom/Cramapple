@@ -198,13 +198,9 @@ The interviewer should maximize **information value per second**, not questionna
 
 ### 4.2 Duration and modality
 
-**Target duration:** 60–120 seconds.
+**Research-question budget:** two guided questions plus at most one discretionary adaptive probe. **Hard maximum: 3 research questions.**
 
-**Normal interviewer turns:** 3.
-
-**Maximum interviewer turns:** 4, except for a minimal safety/clarification interaction that does not extend research questioning.
-
-The interview may end after 1–2 substantive questions when the participant has little to add or a useful finding is already clear.
+The interview may end after the two guided questions when a third question is unlikely to materially improve the evidence. Duration is observational telemetry only, not an acceptance target. Never add, pad, or prolong questioning to reach a time target.
 
 **Voice is the preferred response mode.** The UI should make speaking the lowest-friction action while retaining typing as a fallback.
 
@@ -234,15 +230,12 @@ Final disclosure language is subject to the privacy/consent gate in §9.
 
 The interviewer uses objectives, not a rigid script.
 
-A normal three-question path is:
+The interview has two guided questions:
 
 1. **Goal:** "What were you trying to get done with Cramapple today?"
 2. **Experience:** "What worked well, and what got in your way?"
-3. **Adaptive follow-up:** pursue the most informative concrete observation.
 
-When useful and time permits, a fourth/closing question may ask:
-
-> "If we could make one thing better, what should it be?"
+A **third research question is discretionary**. Ask it only when one adaptive probe on the highest-value concrete thread is likely to materially improve the evidence. There is no mandatory improvement/solution question. If a participant volunteers a solution, record it and, when useful, probe the underlying experience rather than asking the participant to design the product.
 
 Questions already answered organically should be skipped.
 
@@ -252,7 +245,7 @@ The implementation must version the interviewer instructions. The v1 instruction
 
 #### Mission
 
-Conduct a brief user-research interview lasting no more than approximately two minutes. Understand the participant's recent Cramapple experience well enough to identify one or two trustworthy product insights. Seek the participant's goal, strongest positive or negative experience, and most important opportunity for improvement. Ask only questions likely to materially improve understanding.
+Conduct a brief user-research interview using no more than three research questions. Understand the participant's recent Cramapple experience well enough to identify one or two trustworthy product insights. Seek the participant's goal, strongest positive or negative experience, and most important opportunity for improvement. Ask only questions likely to materially improve understanding.
 
 #### Question behavior
 
@@ -265,6 +258,7 @@ Conduct a brief user-research interview lasting no more than approximately two m
 - Skip objectives the participant has already answered.
 - Do not repeat a question in different words merely to complete coverage.
 - End when additional questioning has low expected research value.
+- Ask the two guided questions first; use the third research question only as a discretionary adaptive probe.
 - If the participant indicates they want to stop, stop immediately.
 
 #### Neutrality
@@ -436,7 +430,7 @@ Each simulated interview is evaluated independently using **Pass / Concern / Fai
 | Evidence seeking | Obtains concrete recent experience rather than abstractions |
 | Follow-up quality | Recognizes and probes the highest-value thread |
 | Non-leading behavior | Does not introduce problems or solutions |
-| Efficiency | Produces useful evidence within 1–2 minutes and turn limits |
+| Efficiency | Produces useful evidence within the three-question budget; duration is observed, not targeted |
 | Non-repetition | Does not ask for information already supplied |
 | Voice suitability | Questions are short and natural when read/heard on a phone |
 | User comfort | Age-appropriate, simple, non-judgmental |
@@ -457,7 +451,7 @@ Fail the interview if the system:
 - solicits unnecessary personal/contact information;
 - promises a fix, feature, or delivery date;
 - continues research questioning after the participant clearly wants to stop;
-- repeatedly exceeds the four-question research limit without a documented non-research safety/clarification reason;
+- asks more than three research questions;
 - turns into tutoring, sales, or extended support rather than ending/redirection.
 
 ### 7.4 Synthesizer evaluation
@@ -490,7 +484,7 @@ The harness should record:
 - early-exit correctness;
 - follow-up-offer correctness.
 
-Do not optimize mechanically for the shortest possible interview. Optimize for useful evidence under the 1–2 minute constraint.
+Do not optimize mechanically for a target duration. Optimize for useful evidence within the two-guided-plus-one-discretionary question budget.
 
 ## 8. Human research review
 
@@ -616,9 +610,9 @@ The monitoring suite is implementation-ready when:
 - one low-noise dashboard answers the four product-health questions;
 - detailed learning data remains outside PostHog;
 - general feedback and question reports remain distinguishable;
-- the interview normally completes in 60–120 seconds;
+- interview duration is recorded as observational telemetry and does not drive questioning;
 - voice is the primary response affordance with typing fallback;
-- the interviewer normally uses 3 questions and never exceeds 4 research questions;
+- the interviewer asks two guided research questions and at most one discretionary adaptive probe; hard maximum 3 research questions;
 - interviewer and synthesizer prompts are independently versioned;
 - at least 15 synthetic scenarios exercise the evaluation harness;
 - automatic failure conditions are tested;
