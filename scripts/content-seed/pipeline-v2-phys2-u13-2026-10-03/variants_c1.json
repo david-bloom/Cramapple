@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphy2-mcq-002-v1",
+  "seed": "apphy2-mcq-002",
+  "difficulty": "easy",
+  "title": "Gas compressed in a water bath",
+  "stem": "A sample of ideal gas in a cylinder is slowly compressed by a piston while the cylinder sits in a large water bath that keeps the gas at a constant temperature. What is the change in the gas's internal energy during the compression?",
+  "correct": {
+   "text": "Zero",
+   "rationale": "The internal energy of an ideal gas depends only on its temperature (U = 3/2 nRT). The temperature is constant, so ΔU = 0 even though work is done on the gas and energy leaves it as heat."
+  },
+  "wrong": [
+   {
+    "text": "Positive, because the piston does work on the gas",
+    "rationale": "Work done on the gas does raise ΔU only when no energy leaves as heat. Here the bath removes exactly as much energy as the work adds (Q = −W), so ΔU = Q + W = 0.",
+    "error_pattern": "treats work done on the gas as the whole internal-energy change (ignores heat Q)"
+   },
+   {
+    "text": "Negative, because the gas gives energy to the water",
+    "rationale": "The gas does release energy as heat, but the piston supplies an equal amount as work. The two cancel, and with constant temperature ΔU stays at zero.",
+    "error_pattern": "counts only the heat released and ignores the work done on the gas"
+   },
+   {
+    "text": "Equal to the work done on the gas",
+    "rationale": "That would require Q = 0, which is an adiabatic process. In this isothermal compression heat flows out to the bath, so ΔU = 0 while W is nonzero.",
+    "error_pattern": "confuses isothermal with adiabatic (sets Q = 0)"
+   }
+  ],
+  "change_note": "Compression instead of expansion, new context (water bath); same isothermal ΔU = 0 idea; distractors are work-only, heat-only and adiabatic confusions.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-002-v2",
+  "seed": "apphy2-mcq-002",
+  "difficulty": "medium",
+  "title": "Heat absorbed in isothermal expansion",
+  "stem": "A sample of 2.0 mol of a monatomic ideal gas at 300 K expands slowly at constant temperature. During the expansion the gas does 1200 J of work on its surroundings. How much energy does the gas absorb as heat?",
+  "correct": {
+   "text": "1200 J absorbed",
+   "rationale": "Temperature is constant, so ΔU = 0. By the first law ΔU = Q + W with W = −1200 J (work done on the gas is negative when the gas expands), so Q = +1200 J: the gas absorbs 1200 J."
+  },
+  "wrong": [
+   {
+    "text": "0 J, because the temperature does not change",
+    "rationale": "A constant temperature means ΔU = 0, not Q = 0. Q = 0 is the adiabatic case. Here the gas must absorb 1200 J to replace the energy it gives up as work.",
+    "error_pattern": "equates constant temperature with no heat transfer"
+   },
+   {
+    "text": "1200 J released",
+    "rationale": "This takes the work done on the gas as +1200 J. The gas does the work, so W = −1200 J, and Q = ΔU − W = +1200 J, meaning energy flows in, not out.",
+    "error_pattern": "sign error on W in ΔU = Q + W"
+   },
+   {
+    "text": "7500 J absorbed",
+    "rationale": "This evaluates 3/2 nRT = 1.5 × 2.0 × 8.31 × 300 ≈ 7500 J, the total internal energy, rather than a change. The internal energy does not change here, so Q equals the work done by the gas, 1200 J.",
+    "error_pattern": "uses the internal energy U instead of its change"
+   }
+  ],
+  "change_note": "Quantitative first-law version: new numbers (2.0 mol, 300 K, 1200 J); asks for Q given ΔU = 0.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-002-v3",
+  "seed": "apphy2-mcq-002",
+  "difficulty": "hard",
+  "title": "Internal energy change when expanding at constant pressure",
+  "stem": "A monatomic ideal gas expands slowly at a constant pressure of 1.0 × 10⁵ Pa from 0.020 m³ to 0.060 m³. What is the change in the gas's internal energy?",
+  "correct": {
+   "text": "+6000 J",
+   "rationale": "For a monatomic ideal gas U = 3/2 nRT = 3/2 PV, so at constant pressure ΔU = 3/2 PΔV = 1.5 × (1.0 × 10⁵)(0.040) = 6000 J. The temperature triples, so internal energy rises."
+  },
+  "wrong": [
+   {
+    "text": "+4000 J",
+    "rationale": "This is the work done by the gas, PΔV = (1.0 × 10⁵)(0.040) = 4000 J. Internal energy for a monatomic gas is 3/2 PV, so ΔU is 1.5 times that work.",
+    "error_pattern": "uses PΔV (work) as the internal-energy change"
+   },
+   {
+    "text": "+10000 J",
+    "rationale": "This is the heat absorbed, Q = ΔU + W = 6000 + 4000 = 10000 J, not the change in internal energy. ΔU is only the 6000 J part that raises the temperature.",
+    "error_pattern": "reports heat input Q as ΔU"
+   },
+   {
+    "text": "0 J, because the gas is ideal",
+    "rationale": "Only an isothermal process leaves an ideal gas's internal energy unchanged. Here PV triples, so T triples and ΔU = 3/2 nRΔT is positive.",
+    "error_pattern": "overgeneralizes ΔU = 0 from the isothermal case to every ideal-gas process"
+   }
+  ],
+  "change_note": "Isobaric rather than isothermal; tests that U of an ideal gas tracks temperature (U = 3/2 PV); numbers new.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-003-v1",
+  "seed": "apphy2-mcq-003",
+  "difficulty": "easy",
+  "title": "Cooling coffee",
+  "stem": "A cup of hot coffee left on a table cools to room temperature, and the room air warms by a tiny amount. Energy never flows spontaneously the other way, from the cooler air into the hotter coffee. What best explains this?",
+  "correct": {
+   "text": "The reverse flow would lower the combined entropy of the coffee and the air",
+   "rationale": "The second law says the entropy of an isolated system does not decrease. Energy spreading from hot to cold raises the combined entropy; energy flowing the other way would concentrate it and lower the total, so it does not happen spontaneously."
+  },
+  "wrong": [
+   {
+    "text": "The reverse flow would fail to conserve the total energy",
+    "rationale": "Energy would be conserved in either direction: what the coffee gains the air loses. Conservation of energy does not pick a direction; the entropy change does.",
+    "error_pattern": "attributes the direction of heat flow to energy conservation"
+   },
+   {
+    "text": "The coffee's own entropy can never decrease, and cooling lowers it",
+    "rationale": "The coffee is not isolated. Its entropy does decrease as it loses energy, and that is allowed because the entropy of the air rises by more. Only the total must not decrease.",
+    "error_pattern": "applies the entropy law to each object instead of to the whole system"
+   },
+   {
+    "text": "Energy can spread out only in processes that are fully reversible",
+    "rationale": "Entropy increases most clearly in irreversible processes such as heat flow across a temperature difference. Total entropy stays constant only when every process is reversible.",
+    "error_pattern": "reverses the role of reversibility in the second law"
+   }
+  ],
+  "change_note": "New context (coffee in room air); same conceptual explanation (entropy increase gives direction of spontaneous heat flow); distractors from energy-conservation and per-object entropy misconceptions.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-003-v2",
+  "seed": "apphy2-mcq-003",
+  "difficulty": "medium",
+  "title": "Two blocks reaching equilibrium",
+  "stem": "A copper block at 80°C and a copper block at 20°C are placed in contact inside a sealed, insulated box and left until their temperatures match. Which statement about the entropy of the two blocks together is correct?",
+  "correct": {
+   "text": "It increased and is largest once the temperatures are equal",
+   "rationale": "The box is isolated, so total entropy cannot decrease. Energy spreads from the hot block to the cold block until they are at the same temperature, which is the state of maximum entropy."
+  },
+  "wrong": [
+   {
+    "text": "It stayed constant, because the total energy is conserved",
+    "rationale": "The total energy is constant, but entropy is a different quantity. Spreading energy across a temperature difference is irreversible, so the entropy rises.",
+    "error_pattern": "confuses conservation of energy with conservation of entropy"
+   },
+   {
+    "text": "It decreased, because the energy is now spread evenly",
+    "rationale": "Even spreading is the more probable, higher-entropy state. Entropy measures the tendency of energy to disperse, so a more dispersed distribution means more entropy.",
+    "error_pattern": "treats an evenly spread state as more ordered, hence lower entropy"
+   },
+   {
+    "text": "It decreased in the hot block, so the total must have decreased",
+    "rationale": "The hot block's entropy does fall, but the cold block's entropy rises by a larger amount. The total for the isolated pair increases.",
+    "error_pattern": "assumes a decrease in one part forces a decrease in the whole"
+   }
+  ],
+  "change_note": "Isolated-system equilibrium version; asks for the whole-system entropy at equilibrium rather than the reason for direction.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-003-v3",
+  "seed": "apphy2-mcq-003",
+  "difficulty": "hard",
+  "title": "Freezer making ice",
+  "stem": "Water in a tray at 15°C freezes into ice in a household freezer. The water's entropy decreases as it loses energy. Which statement is consistent with the second law of thermodynamics?",
+  "correct": {
+   "text": "The freezer's surroundings gain entropy by at least as much as the water loses",
+   "rationale": "The water and tray are not an isolated system. Energy leaving the water enters the room, and the room's entropy gain is at least as large as the water's loss, so the total entropy does not decrease."
+  },
+  "wrong": [
+   {
+    "text": "The process is impossible, because no system's entropy can ever decrease",
+    "rationale": "Only an isolated system's entropy cannot decrease. A system that exchanges energy with its surroundings can lose entropy if the surroundings gain at least as much.",
+    "error_pattern": "applies the second law to every system, not only to isolated ones"
+   },
+   {
+    "text": "The water's entropy stays constant, because freezing is reversible",
+    "rationale": "Freezing in a freezer is driven by a temperature difference and is not reversible. The water's entropy does decrease, and the room's rises by more.",
+    "error_pattern": "assumes a phase change keeps entropy constant"
+   },
+   {
+    "text": "The total entropy drops, because the freezer does work to remove energy",
+    "rationale": "The electrical work does not reduce total entropy. The freezer releases more energy to the room than it removes, and the room's entropy increase outweighs the water's decrease.",
+    "error_pattern": "believes work input permits a net decrease of total entropy"
+   }
+  ],
+  "change_note": "Closed-system entropy decrease with compensating surroundings; same second-law concept at higher reasoning demand.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-004-v1",
+  "seed": "apphy2-mcq-004",
+  "difficulty": "easy",
+  "title": "Field from force on negative test charge",
+  "stem": "A small test charge of −3.0 nC is placed at point P and feels an electric force of 9.0 × 10⁻⁶ N pointing west. What are the magnitude and direction of the electric field at P?",
+  "correct": {
+   "text": "3.0 × 10³ N/C, east",
+   "rationale": "The field is the force per unit charge, E = F/|q| = 9.0 × 10⁻⁶ / 3.0 × 10⁻⁹ = 3.0 × 10³ N/C. The field points the way a positive charge would be pushed, which is opposite to the force on this negative charge, so it points east."
+  },
+  "wrong": [
+   {
+    "text": "3.0 × 10³ N/C, west",
+    "rationale": "The magnitude is right, but the field direction is defined by the force on a positive test charge. This test charge is negative, so the field is opposite to the force it feels.",
+    "error_pattern": "gives the force direction on a negative test charge as the field direction"
+   },
+   {
+    "text": "2.7 × 10⁻¹⁴ N/C, east",
+    "rationale": "This multiplies the force by the charge, 9.0 × 10⁻⁶ × 3.0 × 10⁻⁹. The field is the force divided by the charge.",
+    "error_pattern": "multiplies F by q instead of dividing"
+   },
+   {
+    "text": "3.3 × 10⁻⁴ N/C, east",
+    "rationale": "This divides the charge by the force, 3.0 × 10⁻⁹ / 9.0 × 10⁻⁶, inverting the ratio. The field is force divided by charge, which gives 3.0 × 10³ N/C.",
+    "error_pattern": "inverts the ratio q/F"
+   }
+  ],
+  "change_note": "Negative test charge with force given; new numbers; asks for magnitude and direction of E.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-004-v2",
+  "seed": "apphy2-mcq-004",
+  "difficulty": "medium",
+  "title": "Force on a charge in a downward field",
+  "stem": "In a region of uniform electric field of magnitude 400 N/C pointing straight up, a particle with charge −5.0 μC is placed at rest. What force does the field exert on the particle?",
+  "correct": {
+   "text": "2.0 × 10⁻³ N, downward",
+   "rationale": "The force on a charge is F = qE, so |F| = (5.0 × 10⁻⁶)(400) = 2.0 × 10⁻³ N. The field direction is the force direction on a positive charge, so a negative charge is pushed the opposite way, downward."
+  },
+  "wrong": [
+   {
+    "text": "2.0 × 10⁻³ N, upward",
+    "rationale": "The magnitude is right, but a negative charge is pushed opposite to the field. The upward direction would apply to a positive charge.",
+    "error_pattern": "ignores the sign of the charge when finding force direction"
+   },
+   {
+    "text": "8.0 × 10⁷ N, downward",
+    "rationale": "This divides the field by the charge, 400 / 5.0 × 10⁻⁶. Force is the product of charge and field.",
+    "error_pattern": "divides E by q instead of multiplying"
+   },
+   {
+    "text": "Zero, since the field acts only on positive charges",
+    "rationale": "An electric field exerts a force on any charge. The force on a negative charge has the same magnitude as on a positive one but points opposite to the field.",
+    "error_pattern": "believes only positive charges feel an electric force"
+   }
+  ],
+  "change_note": "Reverse direction of the definition: field given, find force on a negative charge; new numbers and orientation.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-004-v3",
+  "seed": "apphy2-mcq-004",
+  "difficulty": "hard",
+  "title": "Net field between opposite charges",
+  "stem": "A +4.0 μC point charge and a −4.0 μC point charge sit 0.40 m apart on a horizontal line, with the positive charge on the left. What is the electric field at the midpoint between them? Use k = 9.0 × 10⁹ N·m²/C².",
+  "correct": {
+   "text": "1.8 × 10⁶ N/C, pointing right",
+   "rationale": "Each charge is 0.20 m from the midpoint and produces a field of kq/r² = (9.0 × 10⁹)(4.0 × 10⁻⁶)/(0.20)² = 9.0 × 10⁵ N/C. The field points away from the positive charge and toward the negative one, both rightward, so the fields add to 1.8 × 10⁶ N/C."
+  },
+  "wrong": [
+   {
+    "text": "Zero, because the charges have equal magnitudes",
+    "rationale": "Cancellation happens for equal charges of the same sign. With opposite signs the individual fields at the midpoint point the same way, so they add.",
+    "error_pattern": "applies the like-charge cancellation result to opposite charges"
+   },
+   {
+    "text": "9.0 × 10⁵ N/C, pointing right",
+    "rationale": "This is the field of only one of the two charges. Both charges contribute at the midpoint, and their equal rightward fields sum to twice this value.",
+    "error_pattern": "includes only one charge in the superposition"
+   },
+   {
+    "text": "1.8 × 10⁶ N/C, pointing left",
+    "rationale": "The magnitude is right, but the direction is reversed. The field points away from the positive charge on the left, so it points right toward the negative charge.",
+    "error_pattern": "reverses field direction (field toward positive charge)"
+   }
+  ],
+  "change_note": "Opposite-sign superposition at a midpoint with numbers; hard because the like-charge cancellation habit must be overridden.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-005-v1",
+  "seed": "apphy2-mcq-005",
+  "difficulty": "easy",
+  "title": "Negative charge moved along the field",
+  "stem": "An electron is moved a short distance in the same direction as a uniform electric field, by an external agent that moves it slowly. The electric potential energy of the electron-field system will",
+  "correct": {
+   "text": "increase",
+   "rationale": "The field pushes the electron opposite to the field direction. Moving it along the field is moving it against that electric force, so an external agent does positive work and the electric potential energy rises."
+  },
+  "wrong": [
+   {
+    "text": "decrease",
+    "rationale": "A decrease would happen if the electron moved in the direction of the electric force on it. That force is opposite to the field for a negative charge, so moving with the field does the reverse.",
+    "error_pattern": "applies the positive-charge rule to a negative charge"
+   },
+   {
+    "text": "stay the same, because the field is uniform",
+    "rationale": "A uniform field gives a constant force, but a constant force still does work over a displacement. Work against it stores energy, so the potential energy changes.",
+    "error_pattern": "thinks a uniform field means no change in potential energy"
+   },
+   {
+    "text": "depend on the electron's mass as well as the displacement",
+    "rationale": "The change in electric potential energy equals −qE·d for the displacement and does not involve mass. Mass matters only for the electron's motion, not for its potential energy.",
+    "error_pattern": "brings mass into an electric-energy calculation"
+   }
+  ],
+  "change_note": "Negative charge moved along the field (sign flip of the seed's positive charge against the field); tests the same work-and-PE sign reasoning.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-005-v2",
+  "seed": "apphy2-mcq-005",
+  "difficulty": "medium",
+  "title": "Proton moved against a field",
+  "stem": "A proton is pushed slowly a distance of 0.050 m opposite to the direction of a uniform electric field of magnitude 2.0 × 10³ N/C. By how much does the proton's electric potential energy change? (e = 1.6 × 10⁻¹⁹ C)",
+  "correct": {
+   "text": "+1.6 × 10⁻¹⁷ J",
+   "rationale": "The field pushes the proton along the field, so moving it opposite to the field requires positive work: ΔU = qEd = (1.6 × 10⁻¹⁹)(2.0 × 10³)(0.050) = 1.6 × 10⁻¹⁷ J, an increase."
+  },
+  "wrong": [
+   {
+    "text": "−1.6 × 10⁻¹⁷ J",
+    "rationale": "The size is right but the sign is wrong. Moving a positive charge against the field pushes it against the electric force, which raises the potential energy.",
+    "error_pattern": "sign error: treats motion against the field as lowering PE"
+   },
+   {
+    "text": "+1.0 × 10² J",
+    "rationale": "This is E·d = 2.0 × 10³ × 0.050 = 100, the potential difference in volts, labeled as joules. Multiplying by the proton's charge of 1.6 × 10⁻¹⁹ C is needed to get energy.",
+    "error_pattern": "omits the charge factor (confuses ΔV with ΔU)"
+   },
+   {
+    "text": "+6.4 × 10⁻¹⁵ J",
+    "rationale": "This divides by the distance, qE/d, instead of multiplying by it. Work is force times distance, qE × d.",
+    "error_pattern": "divides by d instead of multiplying"
+   }
+  ],
+  "change_note": "Quantitative version with a proton and new numbers (0.050 m, 2.0 × 10³ N/C).",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-005-v3",
+  "seed": "apphy2-mcq-005",
+  "difficulty": "hard",
+  "title": "Separating a proton and an electron",
+  "stem": "A proton and an electron are held 1.0 nm apart and then slowly pulled to 2.0 nm apart. What is the change in the electric potential energy of the pair? Use k = 8.99 × 10⁹ N·m²/C² and e = 1.6 × 10⁻¹⁹ C.",
+  "correct": {
+   "text": "+1.2 × 10⁻¹⁹ J",
+   "rationale": "The pair energy is U = −ke²/r. At 1.0 nm it is −2.3 × 10⁻¹⁹ J and at 2.0 nm it is −1.15 × 10⁻¹⁹ J. Final minus initial is +1.2 × 10⁻¹⁹ J: the energy rises because opposite charges are pulled apart against attraction."
+  },
+  "wrong": [
+   {
+    "text": "−1.2 × 10⁻¹⁹ J",
+    "rationale": "The potential energy gets less negative, not more. Its magnitude shrinks, but the value increases, so the change is positive. A positive amount of work is done pulling the attracting charges apart.",
+    "error_pattern": "reads a smaller magnitude of U as a decrease"
+   },
+   {
+    "text": "−2.3 × 10⁻¹⁹ J",
+    "rationale": "This is the initial potential energy at 1.0 nm, not the change. The change is the final value (−1.15 × 10⁻¹⁹ J) minus the initial one.",
+    "error_pattern": "reports the initial energy as the change"
+   },
+   {
+    "text": "+2.3 × 10⁻¹⁹ J",
+    "rationale": "This is ke²/Δr with Δr = 1.0 nm, which treats the change in separation as the distance in the formula. Potential energy depends on r itself, so the difference U(2.0 nm) − U(1.0 nm) must be taken.",
+    "error_pattern": "uses the change in separation as r in U = kq₁q₂/r"
+   }
+  ],
+  "change_note": "Two-point-charge PE with opposite signs; hard because U is negative and the change must be signed correctly.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-006-v1",
+  "seed": "apphy2-mcq-006",
+  "difficulty": "easy",
+  "title": "Two equal negative charges",
+  "stem": "Two identical negative point charges are placed one directly above the other on a vertical line. At the midpoint between them, the electric field is",
+  "correct": {
+   "text": "zero",
+   "rationale": "Each charge produces a field of the same magnitude at the midpoint, directed toward that charge because the charges are negative. The two fields point in opposite directions and cancel, so the net field is zero."
+  },
+  "wrong": [
+   {
+    "text": "directed toward the upper charge",
+    "rationale": "The upper charge's field does point toward it, but the lower charge's field of equal size points toward the lower charge. The two cancel rather than one winning.",
+    "error_pattern": "includes only one charge's field"
+   },
+   {
+    "text": "directed away from both charges, toward the sides",
+    "rationale": "Fields of negative charges point toward the charges, and at the midpoint they point along the vertical line, not sideways. They also cancel there.",
+    "error_pattern": "applies the positive-charge rule (away from charge) to negative charges"
+   },
+   {
+    "text": "twice the field of a single charge, directed upward",
+    "rationale": "This adds the magnitudes as if both fields pointed the same way. They point toward opposite charges, so they subtract to zero.",
+    "error_pattern": "adds magnitudes without accounting for direction"
+   }
+  ],
+  "change_note": "Negative charges on a vertical line; same symmetric-superposition cancellation idea with a changed sign and orientation.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-006-v2",
+  "seed": "apphy2-mcq-006",
+  "difficulty": "medium",
+  "title": "Zero-field point between unequal charges",
+  "stem": "A +Q point charge and a +4Q point charge are fixed 0.90 m apart on a line. At what distance from the +Q charge, between the two charges, is the net electric field zero?",
+  "correct": {
+   "text": "0.30 m",
+   "rationale": "Between like charges the fields point in opposite directions. Setting kQ/x² = k(4Q)/(0.90 − x)² gives (0.90 − x) = 2x, so x = 0.30 m, closer to the smaller charge."
+  },
+  "wrong": [
+   {
+    "text": "0.45 m",
+    "rationale": "The midpoint would work only for equal charges. With +4Q on one side, its field at the midpoint is four times stronger and the net field is not zero there.",
+    "error_pattern": "assumes the zero-field point is at the midpoint"
+   },
+   {
+    "text": "0.18 m",
+    "rationale": "This makes the field vary as 1/r, giving x/(0.90 − x) = 1/4. The field falls as 1/r², so the distance ratio is 1 : 2, not 1 : 4.",
+    "error_pattern": "uses an inverse (not inverse-square) dependence on distance"
+   },
+   {
+    "text": "0.60 m",
+    "rationale": "A point 0.60 m from the +Q charge is only 0.30 m from the +4Q charge, where the stronger charge's field is far larger. The null point has to lie nearer the weaker charge.",
+    "error_pattern": "places the null point nearer the stronger charge"
+   }
+  ],
+  "change_note": "Unequal like charges: locate zero-field point; extends the seed's cancellation idea quantitatively.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-006-v3",
+  "seed": "apphy2-mcq-006",
+  "difficulty": "hard",
+  "title": "Field on the perpendicular bisector",
+  "stem": "Two identical +2.0 μC point charges lie on the x-axis at x = −0.30 m and x = +0.30 m. What is the net electric field at the point (0, +0.40 m)? Use k = 9.0 × 10⁹ N·m²/C².",
+  "correct": {
+   "text": "1.2 × 10⁵ N/C, pointing in the +y direction",
+   "rationale": "Each charge is 0.50 m away and produces kq/r² = 7.2 × 10⁴ N/C. The x components cancel by symmetry. Each y component is 7.2 × 10⁴ × (0.40/0.50) = 5.76 × 10⁴ N/C, so the net field is 1.15 × 10⁵ ≈ 1.2 × 10⁵ N/C along +y."
+  },
+  "wrong": [
+   {
+    "text": "Zero, because the charges are identical",
+    "rationale": "Symmetry cancels only the components along the x-axis. The y components both point away from the charges, upward, and add.",
+    "error_pattern": "applies midpoint cancellation to a point off the line"
+   },
+   {
+    "text": "1.4 × 10⁵ N/C, pointing in the +y direction",
+    "rationale": "This adds the two full magnitudes, 2 × 7.2 × 10⁴. The fields are not parallel at this point, so only their y components, which are 0.80 of each magnitude, add.",
+    "error_pattern": "adds magnitudes instead of components"
+   },
+   {
+    "text": "8.6 × 10⁴ N/C, pointing in the +y direction",
+    "rationale": "This uses the factor 0.30/0.50 (the x-over-hypotenuse ratio) for the y component. The y component uses 0.40/0.50, giving 1.15 × 10⁵ N/C.",
+    "error_pattern": "uses the wrong trigonometric ratio for the component"
+   }
+  ],
+  "change_note": "Off-axis superposition of two identical charges; hard because cancellation is only partial.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-007-v1",
+  "seed": "apphy2-mcq-007",
+  "difficulty": "easy",
+  "title": "Two resistors in parallel",
+  "stem": "Two resistors, 4.0 Ω and 12 Ω, are connected in parallel. What is their equivalent resistance?",
+  "correct": {
+   "text": "3.0 Ω",
+   "rationale": "For parallel resistors 1/R = 1/4.0 + 1/12 = 3/12 + 1/12 = 4/12, so R = 3.0 Ω. This is less than the smaller resistor, as expected when a second path is added."
+  },
+  "wrong": [
+   {
+    "text": "8.0 Ω",
+    "rationale": "This averages the two resistances. Parallel combinations are found with reciprocals, and the result must be smaller than either resistor.",
+    "error_pattern": "averages the resistances"
+   },
+   {
+    "text": "16 Ω",
+    "rationale": "This is the series sum. In parallel the charge can take either branch, so the equivalent resistance is less than 4.0 Ω.",
+    "error_pattern": "adds resistances as if in series"
+   },
+   {
+    "text": "48 Ω",
+    "rationale": "This multiplies the resistances. The product over the sum, 48/16, would give the answer; the product alone has the wrong units and size.",
+    "error_pattern": "multiplies resistances without dividing by their sum"
+   }
+  ],
+  "change_note": "New values (4.0 Ω and 12 Ω); same two-resistor parallel equivalent; distractors are averaging, series sum and product.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-007-v2",
+  "seed": "apphy2-mcq-007",
+  "difficulty": "medium",
+  "title": "Three parallel resistors",
+  "stem": "Three resistors of 10 Ω, 15 Ω and 30 Ω are connected in parallel across a battery. What is their equivalent resistance?",
+  "correct": {
+   "text": "5.0 Ω",
+   "rationale": "1/R = 1/10 + 1/15 + 1/30 = 3/30 + 2/30 + 1/30 = 6/30, so R = 5.0 Ω, smaller than every individual resistor."
+  },
+  "wrong": [
+   {
+    "text": "55 Ω",
+    "rationale": "This adds the three resistances, which gives the series combination. Parallel branches give a smaller equivalent resistance than any single resistor.",
+    "error_pattern": "adds resistances as if in series"
+   },
+   {
+    "text": "0.20 Ω",
+    "rationale": "The sum of reciprocals is 6/30 = 0.20 S, but that is the reciprocal of the resistance. It must be inverted to get 5.0 Ω.",
+    "error_pattern": "forgets to invert the sum of reciprocals"
+   },
+   {
+    "text": "18 Ω",
+    "rationale": "This averages the three resistances (55/3 ≈ 18). A parallel combination is not an average, and it must be below the smallest resistor, 10 Ω.",
+    "error_pattern": "averages the resistances"
+   }
+  ],
+  "change_note": "Three resistors in parallel with a clean reciprocal sum; extends the same skill.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-007-v3",
+  "seed": "apphy2-mcq-007",
+  "difficulty": "hard",
+  "title": "Series-parallel network",
+  "stem": "A 6.0 Ω resistor is connected in series with a parallel pair made of a 6.0 Ω resistor and a 3.0 Ω resistor. What is the equivalent resistance of the whole network?",
+  "correct": {
+   "text": "8.0 Ω",
+   "rationale": "The parallel pair gives 1/R = 1/6.0 + 1/3.0 = 1/2.0, so R = 2.0 Ω. This is in series with the 6.0 Ω resistor, so R_eq = 6.0 + 2.0 = 8.0 Ω."
+  },
+  "wrong": [
+   {
+    "text": "15 Ω",
+    "rationale": "This adds all three resistors as if they were in series. The two resistors in the pair share the current between two paths, so their combined resistance is lower.",
+    "error_pattern": "treats the parallel pair as series"
+   },
+   {
+    "text": "1.5 Ω",
+    "rationale": "This puts all three resistors in parallel: 1/6 + 1/6 + 1/3 = 2/3. The 6.0 Ω resistor is in series with the pair, not parallel to it.",
+    "error_pattern": "treats the series resistor as parallel"
+   },
+   {
+    "text": "10.5 Ω",
+    "rationale": "This averages the pair as 4.5 Ω and adds 6.0 Ω. The pair's equivalent resistance comes from reciprocals and is 2.0 Ω.",
+    "error_pattern": "averages the parallel resistances before adding in series"
+   }
+  ],
+  "change_note": "Compound series-parallel network; asks for equivalent resistance as in the seed but needs both rules.",
+  "check": "numeric"
+ }
+]

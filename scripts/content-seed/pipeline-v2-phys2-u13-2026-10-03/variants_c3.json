@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphy2-mcq-025-v1",
+  "seed": "apphy2-mcq-025",
+  "difficulty": "medium",
+  "title": "Zero potential at a dipole midpoint",
+  "stem": "Two point charges, +4.0 nC and −4.0 nC, are fixed 0.20 m apart in vacuum. Taking the potential to be zero at infinite distance, what are the electric potential and the electric field at the point midway between them?",
+  "correct": {
+   "text": "V = 0; E ≈ 7.2×10³ N/C toward the negative charge",
+   "rationale": "Each charge is 0.10 m away. Potential is a scalar, so the +359.6 V and −359.6 V contributions sum to zero. The field is a vector: each charge contributes kq/r² ≈ 3.6×10³ N/C, and both point toward the negative charge, so they add to ≈ 7.2×10³ N/C. Zero potential here does not mean zero field."
+  },
+  "wrong": [
+   {
+    "text": "V = 0; E = 0",
+    "rationale": "Correctly cancels the potentials, but then carries the cancellation over to the field. The two fields point the same way at the midpoint (away from the positive charge and toward the negative charge), so they add rather than cancel.",
+    "error_pattern": "zero potential implies zero field"
+   },
+   {
+    "text": "V ≈ 7.2×10² V; E = 0",
+    "rationale": "Swaps the rules for the two quantities: it adds the potential magnitudes as if potentials were vectors, and cancels the fields as if they were scalars. Potentials add with sign (giving 0 here) and the fields add as vectors (giving a nonzero total).",
+    "error_pattern": "treats potential as a vector and field as a scalar"
+   },
+   {
+    "text": "V = 0; E ≈ 7.2×10³ N/C toward the positive charge",
+    "rationale": "The magnitudes are right, but the direction is reversed. The field of a positive charge points away from it and the field of a negative charge points toward it, so at the midpoint the net field points toward the negative charge.",
+    "error_pattern": "reverses field direction between positive and negative sources"
+   }
+  ],
+  "change_note": "New context: opposite charges, midpoint, new numbers and a quantitative field; same idea that V = 0 at a point does not force E = 0.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-025-v2",
+  "seed": "apphy2-mcq-025",
+  "difficulty": "hard",
+  "title": "Field where the potential crosses zero",
+  "stem": "In a region where the electric field is uniform and points along the x-axis, the potential is +20 V at x = 3.0 cm and −20 V at x = 5.0 cm. What is the electric field at x = 4.0 cm, where the potential is zero?",
+  "correct": {
+   "text": "2.0×10³ V/m in the +x direction",
+   "rationale": "The field magnitude is the potential difference divided by the separation: 40 V / 0.020 m = 2.0×10³ V/m. The field points toward decreasing potential, which is +x here. The zero value of potential at x = 4.0 cm plays no role."
+  },
+  "wrong": [
+   {
+    "text": "0 V/m",
+    "rationale": "Treats the zero value of the potential at x = 4.0 cm as if it meant no field. The field depends on how fast the potential changes with position (40 V over 2.0 cm), not on the potential value at the point.",
+    "error_pattern": "zero potential implies zero field"
+   },
+   {
+    "text": "2.0×10³ V/m in the −x direction",
+    "rationale": "The magnitude is right but the direction is wrong. Electric field vectors point toward decreasing potential, and the potential falls from +20 V to −20 V as x increases, so the field points in +x.",
+    "error_pattern": "field points toward increasing potential"
+   },
+   {
+    "text": "1.0×10³ V/m in the +x direction",
+    "rationale": "Divides a single potential value (20 V) by the 2.0 cm separation instead of using the full potential difference of 40 V between the points. The field magnitude is |ΔV|/Δr = 40 V / 0.020 m.",
+    "error_pattern": "uses a potential value instead of the potential difference"
+   }
+  ],
+  "change_note": "New context: field read from a potential-vs-position description; same concept that V = 0 at a point leaves E set by the spatial change of V.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-025-v3",
+  "seed": "apphy2-mcq-025",
+  "difficulty": "hard",
+  "title": "Zero potential between unequal charges",
+  "stem": "A +6.0 nC point charge is fixed at x = 0 and a −2.0 nC point charge is fixed at x = 0.40 m. Taking the potential to be zero at infinite distance, at what position between the charges is the potential zero, and what is the electric field there?",
+  "correct": {
+   "text": "x = 0.30 m; E ≈ 2.4×10³ N/C toward +x",
+   "rationale": "Setting 6.0/x = 2.0/(0.40 − x) gives x = 0.30 m. There the +6.0 nC charge (0.30 m away) contributes ≈ 6.0×10² N/C toward +x and the −2.0 nC charge (0.10 m away) contributes ≈ 1.8×10³ N/C toward +x. The fields add to ≈ 2.4×10³ N/C, so zero potential does not give zero field."
+  },
+  "wrong": [
+   {
+    "text": "x = 0.30 m; E = 0",
+    "rationale": "Finds the zero-potential point correctly but concludes that the field vanishes there. The two fields both point toward +x at this location and add; zero potential only means the scalar contributions cancel.",
+    "error_pattern": "zero potential implies zero field"
+   },
+   {
+    "text": "x = 0.20 m; E ≈ 1.8×10³ N/C toward +x",
+    "rationale": "Assumes the zero-potential point is the midpoint. The charges differ in magnitude, so the potentials 6.0/x and 2.0/(0.40 − x) cancel only where the point is closer to the smaller charge, at x = 0.30 m. At the midpoint V is not zero.",
+    "error_pattern": "assumes the zero-potential point is the midpoint"
+   },
+   {
+    "text": "x = 0.30 m; E ≈ 1.2×10³ N/C toward −x",
+    "rationale": "Finds x = 0.30 m but subtracts the two field magnitudes as if the fields opposed each other. Between a positive and a negative charge both fields point from the positive toward the negative charge (+x), so they add.",
+    "error_pattern": "subtracts field contributions that point the same way"
+   }
+  ],
+  "change_note": "New context: unequal charges, zero-potential position must be located first; same concept that V = 0 does not force E = 0.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-026-v1",
+  "seed": "apphy2-mcq-026",
+  "difficulty": "easy",
+  "title": "Proton accelerated through 500 V",
+  "stem": "A proton starts from rest and is accelerated by the electric force alone through a potential difference of magnitude 500 V. How much kinetic energy does it gain?",
+  "correct": {
+   "text": "8.0×10⁻¹⁷ J",
+   "rationale": "The proton moves toward lower potential, so its potential energy falls by |q|ΔV = (1.6×10⁻¹⁹ C)(500 V) = 8.0×10⁻¹⁷ J. By conservation of energy that is the kinetic energy gained."
+  },
+  "wrong": [
+   {
+    "text": "4.0×10⁻¹⁷ J",
+    "rationale": "Puts a factor of 1/2 into the answer, carried over from K = ½mv². The energy gained equals the full change in electric potential energy, |q|ΔV.",
+    "error_pattern": "inserts the ½ from the kinetic-energy formula"
+   },
+   {
+    "text": "1.6×10⁻¹⁶ J",
+    "rationale": "Includes an extra factor of 2. The electric potential energy lost is |q|ΔV = 8.0×10⁻¹⁷ J, and nothing doubles it.",
+    "error_pattern": "adds an unnecessary factor of two"
+   },
+   {
+    "text": "1.6×10⁻¹⁹ J",
+    "rationale": "Uses the proton's charge alone and never multiplies by the 500 V. The energy gained is charge times potential difference, which is 500 eV.",
+    "error_pattern": "omits the potential difference from q·ΔV"
+   }
+  ],
+  "change_note": "New particle (proton) and new voltage; same work-energy relation ΔK = |q|ΔV.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-026-v2",
+  "seed": "apphy2-mcq-026",
+  "difficulty": "medium",
+  "title": "Electron speed after 250 V",
+  "stem": "An electron starts from rest and is accelerated by the electric force alone through a potential difference of magnitude 250 V. Using e = 1.60×10⁻¹⁹ C and m = 9.11×10⁻³¹ kg, what is its final speed?",
+  "correct": {
+   "text": "9.4×10⁶ m/s",
+   "rationale": "The kinetic energy gained is eΔV = 4.0×10⁻¹⁷ J. Setting ½mv² = eΔV gives v = √(2eΔV/m) = √(8.0×10⁻¹⁷ / 9.11×10⁻³¹) ≈ 9.4×10⁶ m/s."
+  },
+  "wrong": [
+   {
+    "text": "6.6×10⁶ m/s",
+    "rationale": "Sets eΔV = mv², dropping the ½ from the kinetic-energy expression. That gives √(eΔV/m) instead of √(2eΔV/m).",
+    "error_pattern": "drops the ½ in K = ½mv²"
+   },
+   {
+    "text": "4.7×10⁶ m/s",
+    "rationale": "Applies the factor of ½ twice, once in K = ½mv² and again to the energy gained, giving √(eΔV/2m). The energy gained is the full eΔV.",
+    "error_pattern": "applies the ½ twice"
+   },
+   {
+    "text": "1.3×10⁷ m/s",
+    "rationale": "Takes the kinetic energy to be 2eΔV, giving v = √(4eΔV/m). The energy gained is eΔV, with no extra factor of two.",
+    "error_pattern": "adds an unnecessary factor of two to the energy"
+   }
+  ],
+  "change_note": "New task: convert the energy gain eΔV into a speed with new voltage; same relation ΔK = |q|ΔV.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-026-v3",
+  "seed": "apphy2-mcq-026",
+  "difficulty": "hard",
+  "title": "Electron moving to higher potential",
+  "stem": "An electron is released from rest at a point where the electric potential is +40 V. With only the electric force acting, it moves to a point where the potential is +140 V. What are the change in the electron's electric potential energy and its final kinetic energy?",
+  "correct": {
+   "text": "ΔU = −1.6×10⁻¹⁷ J; K = +1.6×10⁻¹⁷ J",
+   "rationale": "ΔV = 140 − 40 = +100 V and q = −e, so ΔU = qΔV = −1.6×10⁻¹⁷ J. Negative charges lose potential energy by moving to higher potential. Conservation of energy gives K = −ΔU = +1.6×10⁻¹⁷ J."
+  },
+  "wrong": [
+   {
+    "text": "ΔU = +1.6×10⁻¹⁷ J; K = +1.6×10⁻¹⁷ J",
+    "rationale": "Uses a positive charge in ΔU = qΔV. The electron's charge is −e, so ΔU is negative here. Potential energy and kinetic energy cannot both increase when only the electric force acts.",
+    "error_pattern": "ignores the electron's negative charge sign in ΔU = qΔV"
+   },
+   {
+    "text": "ΔU = −1.6×10⁻¹⁷ J; K = −1.6×10⁻¹⁷ J",
+    "rationale": "Gets ΔU right but sets K equal to ΔU. Kinetic energy gained is ΔK = −ΔU, and an electron starting from rest cannot end with negative kinetic energy.",
+    "error_pattern": "equates the kinetic energy with the potential-energy change"
+   },
+   {
+    "text": "ΔU = −2.2×10⁻¹⁷ J; K = +2.2×10⁻¹⁷ J",
+    "rationale": "Uses the final potential (140 V) instead of the potential difference. Only the change, 140 − 40 = 100 V, enters ΔU = qΔV.",
+    "error_pattern": "uses the final potential instead of the potential difference"
+   }
+  ],
+  "change_note": "New context: electron moving to higher potential from nonzero starting potential, requiring the sign of q·ΔV; same skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-027-v1",
+  "seed": "apphy2-mcq-027",
+  "difficulty": "easy",
+  "title": "Current tripled in a resistor",
+  "stem": "The current through a fixed resistor is tripled. The power dissipated in the resistor becomes",
+  "correct": {
+   "text": "nine times as great",
+   "rationale": "For fixed R, P = I²R, so tripling the current multiplies the power by 3² = 9."
+  },
+  "wrong": [
+   {
+    "text": "three times as great",
+    "rationale": "Treats power as proportional to current. With R fixed, P = I²R depends on the square of the current.",
+    "error_pattern": "treats P as proportional to I"
+   },
+   {
+    "text": "six times as great",
+    "rationale": "Multiplies the factor 3 by 2 instead of squaring it. The dependence is I², so the factor is 3² = 9.",
+    "error_pattern": "confuses squaring with multiplying by two"
+   },
+   {
+    "text": "unchanged",
+    "rationale": "Assumes the resistor's power is fixed because its resistance is fixed. The power P = I²R changes when the current changes.",
+    "error_pattern": "assumes fixed resistance means fixed power"
+   }
+  ],
+  "change_note": "New variable held (current instead of voltage) and factor 3; same P = I²R = V²/R dependence at fixed R.",
+  "check": "factor"
+ },
+ {
+  "id": "apphy2-mcq-027-v2",
+  "seed": "apphy2-mcq-027",
+  "difficulty": "medium",
+  "title": "Heater on a lower voltage",
+  "stem": "A heating element of fixed resistance dissipates 360 W when connected to a 120 V source. How much power does it dissipate when connected to a 60 V source?",
+  "correct": {
+   "text": "90 W",
+   "rationale": "R = V²/P = (120)²/360 = 40 Ω. At 60 V, P = V²/R = 3600/40 = 90 W. Halving the voltage cuts the power to one quarter."
+  },
+  "wrong": [
+   {
+    "text": "180 W",
+    "rationale": "Treats power as proportional to voltage, so halving V halves P. With fixed R, P = V²/R depends on the square of V.",
+    "error_pattern": "treats P as proportional to V"
+   },
+   {
+    "text": "360 W",
+    "rationale": "Assumes the 360 W rating is fixed for the device. The power depends on the voltage applied across the fixed resistance.",
+    "error_pattern": "treats rated power as independent of applied voltage"
+   },
+   {
+    "text": "1440 W",
+    "rationale": "Multiplies by 4 instead of dividing by 4, as if power rose when the voltage fell. At fixed R, lowering V lowers P by the square of the ratio.",
+    "error_pattern": "inverts the voltage-squared dependence"
+   }
+  ],
+  "change_note": "New context: heater, numbers 360 W / 120 V / 60 V, requires scaling from a given power; same V²/R relationship.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-027-v3",
+  "seed": "apphy2-mcq-027",
+  "difficulty": "hard",
+  "title": "Series resistors power comparison",
+  "stem": "A 12 Ω resistor and a 4.0 Ω resistor are connected in series to an ideal battery. Which resistor dissipates more power, and by what factor?",
+  "correct": {
+   "text": "The 12 Ω resistor, three times as much as the 4.0 Ω resistor",
+   "rationale": "In series the same current I passes through both, so P = I²R makes power proportional to resistance: 12/4.0 = 3."
+  },
+  "wrong": [
+   {
+    "text": "The 4.0 Ω resistor, three times as much as the 12 Ω resistor",
+    "rationale": "Uses P = V²/R as if both resistors had the same voltage across them, which is true only in parallel. In series the current is shared, and P = I²R gives more power to the larger resistance.",
+    "error_pattern": "applies the equal-voltage (parallel) relation to a series circuit"
+   },
+   {
+    "text": "The 12 Ω resistor, nine times as much as the 4.0 Ω resistor",
+    "rationale": "Squares the resistance ratio. With the same current, P = I²R is proportional to R itself, not R², so the ratio is 3, not 9.",
+    "error_pattern": "squares the resistance ratio instead of the current"
+   },
+   {
+    "text": "Both dissipate equal power, since they carry the same current",
+    "rationale": "The currents are equal, but power is I²R, so the resistor with the larger resistance dissipates more.",
+    "error_pattern": "assumes equal current means equal power"
+   }
+  ],
+  "change_note": "New two-resistor series comparison; same power relations P = I²R and P = V²/R chosen according to what is held fixed.",
+  "check": "factor"
+ },
+ {
+  "id": "apphy2-mcq-028-v1",
+  "seed": "apphy2-mcq-028",
+  "difficulty": "easy",
+  "title": "Loop rule for an unknown resistor",
+  "stem": "A single series loop contains a 15 V ideal battery, a 4.0 Ω resistor, and a second resistor R. The current in the loop is 2.0 A. Applying the loop rule, what is R?",
+  "correct": {
+   "text": "3.5 Ω",
+   "rationale": "Traversing from the battery's negative to positive terminal gives +15 V; each resistor gives −IR. So 15 − (2.0)(4.0) − (2.0)R = 0, and R = 7.0/2.0 = 3.5 Ω."
+  },
+  "wrong": [
+   {
+    "text": "11.5 Ω",
+    "rationale": "Adds the 8.0 V drop across the 4.0 Ω resistor to the emf: (15 + 8.0)/2.0 = 11.5 Ω. The resistors are potential drops, so they enter with the opposite sign to the battery's rise.",
+    "error_pattern": "gives resistor drops the same sign as the emf"
+   },
+   {
+    "text": "7.5 Ω",
+    "rationale": "Applies the loop rule to the battery and R alone, 15/2.0, ignoring the potential drop across the 4.0 Ω resistor in the same loop.",
+    "error_pattern": "omits a resistor's potential drop from the loop equation"
+   },
+   {
+    "text": "5.5 Ω",
+    "rationale": "Subtracts the resistance (4.0) from the emf as if it were a voltage, (15 − 4.0)/2.0. The drop across the 4.0 Ω resistor is IR = 8.0 V.",
+    "error_pattern": "subtracts a resistance instead of a potential drop"
+   }
+  ],
+  "change_note": "New numbers and an unknown-resistor task; same loop-rule sign convention (rise through battery from − to +, drops through resistors).",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-028-v2",
+  "seed": "apphy2-mcq-028",
+  "difficulty": "medium",
+  "title": "Two opposing batteries",
+  "stem": "A 12 V ideal battery and a 5.0 V ideal battery are connected in series with a 7.0 Ω resistor in a single loop. The batteries are oriented so that their positive terminals are joined to each other. What is the current in the loop?",
+  "correct": {
+   "text": "1.0 A",
+   "rationale": "Going around the loop, one battery is traversed from − to + (+12 V) and the other from + to − (−5.0 V). The loop rule gives 12 − 5.0 − I(7.0) = 0, so I = 1.0 A."
+  },
+  "wrong": [
+   {
+    "text": "2.4 A",
+    "rationale": "Adds the two emfs, (12 + 5.0)/7.0. Because the positive terminals face each other, the batteries oppose, and the second battery is a potential drop for the loop traversal.",
+    "error_pattern": "adds emfs of opposing batteries"
+   },
+   {
+    "text": "1.7 A",
+    "rationale": "Uses only the 12 V battery, 12/7.0, and ignores the opposing 5.0 V battery. Its potential change must appear in the loop equation.",
+    "error_pattern": "ignores one battery in the loop"
+   },
+   {
+    "text": "0 A",
+    "rationale": "Assumes opposing batteries cancel completely. They cancel only if their emfs are equal; here a net 7.0 V remains to drive current through the resistor.",
+    "error_pattern": "assumes opposing batteries always cancel"
+   }
+  ],
+  "change_note": "New context: two batteries in opposition; same sign convention for battery terms in a loop equation.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-028-v3",
+  "seed": "apphy2-mcq-028",
+  "difficulty": "hard",
+  "title": "Potential partway around a loop",
+  "stem": "A 24 V ideal battery, a 10 Ω resistor, and a 30 Ω resistor form a single series loop carrying 0.60 A. The battery's negative terminal is defined as 0 V. Point P lies between the two resistors, reached by going from the negative terminal through the battery to its positive terminal and then through the 10 Ω resistor. What is the electric potential at P?",
+  "correct": {
+   "text": "18 V",
+   "rationale": "Passing through the battery from − to + raises the potential to +24 V. Through the 10 Ω resistor in the direction of current it drops by IR = (0.60)(10) = 6.0 V, so V_P = 24 − 6.0 = 18 V."
+  },
+  "wrong": [
+   {
+    "text": "6.0 V",
+    "rationale": "Reports the potential drop across the 10 Ω resistor as if it were the potential at P. The potential at P is the 24 V starting level minus that drop.",
+    "error_pattern": "reports a potential drop as a potential"
+   },
+   {
+    "text": "12 V",
+    "rationale": "Assumes the potential halfway around the loop is half the emf. The drops are proportional to the resistances (6.0 V and 18 V), so P sits at 24 − 6.0 = 18 V.",
+    "error_pattern": "assumes equal potential steps between elements"
+   },
+   {
+    "text": "30 V",
+    "rationale": "Adds the 6.0 V resistor drop to the battery's 24 V. Moving through a resistor along the current direction lowers the potential.",
+    "error_pattern": "gives a resistor a potential rise"
+   }
+  ],
+  "change_note": "New task: track potential at a point in a loop; same loop-rule sign convention for battery rise and resistor drop.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-029-v1",
+  "seed": "apphy2-mcq-029",
+  "difficulty": "easy",
+  "title": "Current into a three-wire junction",
+  "stem": "Three wires meet at a junction. Currents of 4.5 A and 2.5 A leave the junction through two of the wires. What is the current in the third wire, which carries charge into the junction?",
+  "correct": {
+   "text": "7.0 A",
+   "rationale": "Charge cannot accumulate at the junction, so the current in equals the total current out: 4.5 + 2.5 = 7.0 A."
+  },
+  "wrong": [
+   {
+    "text": "2.0 A",
+    "rationale": "Subtracts the two outgoing currents. Both leave the junction, so they both count toward the total that must be supplied by the incoming wire.",
+    "error_pattern": "subtracts currents that are both leaving"
+   },
+   {
+    "text": "3.5 A",
+    "rationale": "Averages the two outgoing currents. The junction rule is a sum of currents, and the incoming current must equal the total outflow.",
+    "error_pattern": "averages currents instead of summing"
+   },
+   {
+    "text": "4.5 A",
+    "rationale": "Matches only the larger outgoing current and leaves out the 2.5 A that also leaves. The incoming current must supply both.",
+    "error_pattern": "counts only one of the currents"
+   }
+  ],
+  "change_note": "New context: one inflow and two known outflows with different numbers; same junction rule ΣI_in = ΣI_out.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-029-v2",
+  "seed": "apphy2-mcq-029",
+  "difficulty": "medium",
+  "title": "Four-wire junction",
+  "stem": "At a node in a circuit board, four leads are joined. Leads delivering 3.0 A and 1.2 A bring charge in, and another lead removes 2.5 A. The last lead carries charge away from the node. What current does the last lead carry?",
+  "correct": {
+   "text": "1.7 A",
+   "rationale": "Total in is 3.0 + 1.2 = 4.2 A. Total out must equal this, so the last lead carries 4.2 − 2.5 = 1.7 A away from the node."
+  },
+  "wrong": [
+   {
+    "text": "6.7 A",
+    "rationale": "Adds all three known currents without regard to direction. Currents entering and leaving appear on opposite sides of ΣI_in = ΣI_out.",
+    "error_pattern": "adds all currents regardless of direction"
+   },
+   {
+    "text": "0.7 A",
+    "rationale": "Treats the 1.2 A as leaving the node, computing 3.0 − 1.2 − 2.5. The 1.2 A is delivered to the node and belongs on the incoming side.",
+    "error_pattern": "assigns an incoming current to the outgoing side"
+   },
+   {
+    "text": "4.2 A",
+    "rationale": "Equates the unknown with the total incoming current and forgets that 2.5 A already leaves through another lead. Only the remainder leaves through the last lead.",
+    "error_pattern": "ignores an existing outgoing current"
+   }
+  ],
+  "change_note": "New context: circuit-board node with two inflows and two outflows; same junction rule.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-029-v3",
+  "seed": "apphy2-mcq-029",
+  "difficulty": "hard",
+  "title": "Battery current into parallel branches",
+  "stem": "A 12 V ideal battery is connected across three resistors in parallel: 4.0 Ω, 6.0 Ω, and 12 Ω. What current does the battery supply?",
+  "correct": {
+   "text": "6.0 A",
+   "rationale": "Each branch has 12 V across it, so the branch currents are 3.0 A, 2.0 A, and 1.0 A. The current from the battery splits at the junction, so by the junction rule it equals the sum, 6.0 A."
+  },
+  "wrong": [
+   {
+    "text": "2.0 A",
+    "rationale": "Averages the three branch currents. The battery current must supply all three branches, so it equals their sum.",
+    "error_pattern": "averages branch currents instead of summing"
+   },
+   {
+    "text": "3.0 A",
+    "rationale": "Takes only the largest branch current. The battery also feeds the 6.0 Ω and 12 Ω branches.",
+    "error_pattern": "counts only one branch"
+   },
+   {
+    "text": "0.55 A",
+    "rationale": "Adds the resistances as if they were in series, 12/22. For parallel branches each resistor sees the full 12 V and the currents add at the junction.",
+    "error_pattern": "treats parallel resistors as series"
+   }
+  ],
+  "change_note": "New context: junction rule applied to branch currents from Ohm's law; same junction-rule skill.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-030-v1",
+  "seed": "apphy2-mcq-030",
+  "difficulty": "easy",
+  "title": "Instant after closing the switch",
+  "stem": "A 12 V ideal battery, a 2.0 kΩ resistor, and an uncharged capacitor are connected in series, and the switch is closed at t = 0. What is the current in the circuit immediately after the switch closes?",
+  "correct": {
+   "text": "6.0 mA",
+   "rationale": "An uncharged capacitor has no potential difference across it and acts like a wire at t = 0, so the whole 12 V appears across the resistor: I = 12 V / 2000 Ω = 6.0 mA."
+  },
+  "wrong": [
+   {
+    "text": "0 mA",
+    "rationale": "Applies the long-time behavior (capacitor blocks current) to the first instant. An uncharged capacitor passes charge freely at t = 0.",
+    "error_pattern": "applies the steady-state rule at t = 0"
+   },
+   {
+    "text": "3.8 mA",
+    "rationale": "Applies the 63% time-constant fraction, which describes how the capacitor's charge rises, to the current. At t = 0 the full 12 V is across the resistor.",
+    "error_pattern": "applies the 63% charging fraction to the initial current"
+   },
+   {
+    "text": "1.7×10² A",
+    "rationale": "Inverts Ohm's law, computing R/V = 2000/12. The current is V/R = 12/2000 A.",
+    "error_pattern": "inverts Ohm's law"
+   }
+  ],
+  "change_note": "New numbers and the opposite time limit (t = 0 rather than long time); same RC-circuit initial/final-state reasoning.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-030-v2",
+  "seed": "apphy2-mcq-030",
+  "difficulty": "medium",
+  "title": "Capacitor voltage at steady state",
+  "stem": "A 12 V ideal battery is connected in series with a 4.0 Ω resistor. That resistor leads to a parallel combination of an 8.0 Ω resistor and an initially uncharged capacitor. After a very long time, what is the potential difference across the capacitor?",
+  "correct": {
+   "text": "8.0 V",
+   "rationale": "At steady state the capacitor carries no current, so the circuit is a 12 V battery driving the 4.0 Ω and 8.0 Ω resistors in series: I = 12/12 = 1.0 A. The capacitor is in parallel with the 8.0 Ω resistor, so its potential difference is (1.0)(8.0) = 8.0 V."
+  },
+  "wrong": [
+   {
+    "text": "12 V",
+    "rationale": "Assumes the capacitor charges to the full battery emf. A capacitor in parallel with a resistor reaches only the potential difference across that resistor, because the series 4.0 Ω resistor still carries current and drops 4.0 V.",
+    "error_pattern": "assumes the capacitor reaches the full emf"
+   },
+   {
+    "text": "4.0 V",
+    "rationale": "Reports the drop across the 4.0 Ω resistor. The capacitor is in parallel with the 8.0 Ω resistor, not the 4.0 Ω resistor.",
+    "error_pattern": "uses the wrong element's potential difference"
+   },
+   {
+    "text": "0 V",
+    "rationale": "Treats the capacitor as a wire, which describes only its behavior at t = 0 when it is uncharged. After a long time it holds charge and acts as an open circuit.",
+    "error_pattern": "applies initial uncharged behavior at long times"
+   }
+  ],
+  "change_note": "New circuit with extra resistors; same long-time capacitor-as-open-circuit reasoning, asked via the capacitor's potential difference.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-030-v3",
+  "seed": "apphy2-mcq-030",
+  "difficulty": "hard",
+  "title": "Charge after one time constant",
+  "stem": "A 4.0 μF capacitor, initially uncharged, is connected in series with a 5.0 kΩ resistor and a 12 V ideal battery at t = 0. About how much charge is on the capacitor at t = 20 ms?",
+  "correct": {
+   "text": "30 μC",
+   "rationale": "The time constant is τ = RC = (5.0×10³ Ω)(4.0×10⁻⁶ F) = 20 ms, so t = τ. The final charge is CV = 48 μC, and a charging capacitor reaches about 63% of that after one time constant: ≈ 30 μC."
+  },
+  "wrong": [
+   {
+    "text": "18 μC",
+    "rationale": "Uses 37% of the final charge, which is the fraction remaining on a discharging capacitor after one time constant. For a charging capacitor 63% has been gained.",
+    "error_pattern": "uses the discharging fraction for a charging capacitor"
+   },
+   {
+    "text": "48 μC",
+    "rationale": "Treats one time constant as the time to charge fully. A charging capacitor only approaches its final charge CV after a time much longer than τ.",
+    "error_pattern": "treats τ as the time to fully charge"
+   },
+   {
+    "text": "24 μC",
+    "rationale": "Assumes the capacitor is half charged at one time constant. The time constant corresponds to about 63% of the final charge, not 50%.",
+    "error_pattern": "assumes half charge at one time constant"
+   }
+  ],
+  "change_note": "New numbers; requires computing τ and the final charge and applying the 63% meaning of τ; same RC-circuit time-behavior concept.",
+  "check": "numeric"
+ }
+]
