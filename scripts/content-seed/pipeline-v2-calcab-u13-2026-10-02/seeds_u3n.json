@@ -1,0 +1,452 @@
+[
+ {
+  "key": "apcalcab-mcq-u3n-001",
+  "topic": "3.1",
+  "difficulty": "easy",
+  "title": "Chain rule on a power of a quadratic",
+  "stem": "If f(x) = (3x² − 5)⁴, what is f′(x)?",
+  "correct": {
+   "text": "24x(3x² − 5)³",
+   "rationale": "Outer function u⁴ has derivative 4u³ and inner function 3x² − 5 has derivative 6x, so f′(x) = 4(3x² − 5)³ · 6x = 24x(3x² − 5)³."
+  },
+  "wrong": [
+   {
+    "text": "4(3x² − 5)³",
+    "rationale": "This applies the power rule to the outer function but omits the inner derivative 6x; the chain rule requires the factor 6x, giving 24x(3x² − 5)³.",
+    "error_pattern": "forgets inner derivative"
+   },
+   {
+    "text": "864x³",
+    "rationale": "This replaces the inside by its derivative, 4(6x)³ = 4 · 216x³ = 864x³. The inner function 3x² − 5 must stay inside the power, and 6x appears only as a multiplier.",
+    "error_pattern": "differentiates inside the power"
+   },
+   {
+    "text": "24x(3x² − 5)⁴",
+    "rationale": "The coefficient 24x is correct, but the exponent was not lowered: the power rule turns the exponent 4 into 3, so the factor is (3x² − 5)³.",
+    "error_pattern": "does not lower exponent"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-002",
+  "topic": "3.1",
+  "difficulty": "medium",
+  "title": "Tangent slope of an exponential composite",
+  "stem": "The curve y = e^(3x² − x) passes through the point (1, e²). What is the slope of the tangent line to the curve at x = 1?",
+  "correct": {
+   "text": "5e²",
+   "rationale": "dy/dx = e^(3x² − x) · (6x − 1). At x = 1 the exponent is 2 and 6x − 1 = 5, so the slope is 5e²."
+  },
+  "wrong": [
+   {
+    "text": "e²",
+    "rationale": "This is e^(3x² − x) evaluated at x = 1 with no inner derivative; the chain rule multiplies by 6x − 1 = 5, so the slope is 5e², not e².",
+    "error_pattern": "forgets inner derivative"
+   },
+   {
+    "text": "2e²",
+    "rationale": "This uses (3x² − x) · e^(3x² − x) = 2 · e² at x = 1, treating e^u like a product u · e^u. The derivative of e^u is e^u · u′, where u′ = 6x − 1 = 5.",
+    "error_pattern": "u·e^u instead of e^u·u′"
+   },
+   {
+    "text": "5e⁵",
+    "rationale": "This writes e^(u′) = e^(6x − 1) = e⁵ and also multiplies by 5. The exponent must stay u = 3x² − x = 2, and u′ = 5 appears only as a multiplier, giving 5e².",
+    "error_pattern": "moves u′ into the exponent"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-003",
+  "topic": "3.1",
+  "difficulty": "medium",
+  "title": "Chain rule from a table of values",
+  "stem": "The table gives values of the differentiable functions f and g.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n2 | 6 | 4 | 3 | −2\n3 | 1 | 5 | 7 | 0\n\nLet h(x) = f(g(x)). What is h′(2)?",
+  "correct": {
+   "text": "−10",
+   "rationale": "h′(x) = f′(g(x)) · g′(x). Since g(2) = 3, h′(2) = f′(3) · g′(2) = 5 · (−2) = −10."
+  },
+  "wrong": [
+   {
+    "text": "−8",
+    "rationale": "This uses f′(2) · g′(2) = 4 · (−2) = −8, evaluating f′ at x = 2. The outer derivative must be evaluated at the inner value g(2) = 3, so f′(3) = 5 is needed.",
+    "error_pattern": "evaluates f′ at x instead of g(x)"
+   },
+   {
+    "text": "5",
+    "rationale": "This is f′(g(2)) = f′(3) = 5 only; it omits the factor g′(2) = −2 required by the chain rule.",
+    "error_pattern": "forgets inner derivative"
+   },
+   {
+    "text": "15",
+    "rationale": "This multiplies f′(3) = 5 by g(2) = 3, using the value of g instead of its derivative. The chain rule needs g′(2) = −2, giving −10.",
+    "error_pattern": "uses g(2) in place of g′(2)"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-004",
+  "topic": "3.1",
+  "difficulty": "hard",
+  "title": "Three-layer composite derivative",
+  "stem": "If f(x) = √(ln(x² + 1)) for x > 0, what is f′(x)?",
+  "correct": {
+   "text": "x/((x² + 1)√(ln(x² + 1)))",
+   "rationale": "Differentiate layer by layer: (1/(2√(ln(x² + 1)))) · (1/(x² + 1)) · 2x = 2x/(2(x² + 1)√(ln(x² + 1))) = x/((x² + 1)√(ln(x² + 1)))."
+  },
+  "wrong": [
+   {
+    "text": "1/(2(x² + 1)√(ln(x² + 1)))",
+    "rationale": "This applies the square-root and logarithm layers but omits the innermost derivative 2x of x² + 1. Including it gives x/((x² + 1)√(ln(x² + 1))).",
+    "error_pattern": "omits innermost derivative"
+   },
+   {
+    "text": "x/√(ln(x² + 1))",
+    "rationale": "This keeps the factor 2x from the inner function and the 1/2 from the square root but omits the derivative of ln u, which is u′/u = 2x/(x² + 1). The factor 1/(x² + 1) is missing.",
+    "error_pattern": "skips the ln layer"
+   },
+   {
+    "text": "2x/((x² + 1)√(ln(x² + 1)))",
+    "rationale": "This drops the factor 1/2 that comes from differentiating the square root: d/du √u = 1/(2√u). With it, the 2x in the numerator cancels to x.",
+    "error_pattern": "drops the 1/2 from the square root"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-005",
+  "topic": "3.2",
+  "difficulty": "easy",
+  "title": "Implicit slope with a product term",
+  "stem": "The curve x²y = 12 passes through the point (2, 3). What is dy/dx at (2, 3)?",
+  "correct": {
+   "text": "−3",
+   "rationale": "Differentiate both sides with the product rule: 2xy + x² · dy/dx = 0. At (2, 3): 12 + 4 · dy/dx = 0, so dy/dx = −3."
+  },
+  "wrong": [
+   {
+    "text": "3",
+    "rationale": "This moves 2xy across with the wrong sign (x² · dy/dx = 2xy), giving 12/4 = 3. The equation 2xy + x² · dy/dx = 0 gives x² · dy/dx = −2xy = −12, so dy/dx = −3.",
+    "error_pattern": "sign error when isolating dy/dx"
+   },
+   {
+    "text": "−1",
+    "rationale": "This differentiates x²y as 2x + x² · dy/dx, leaving out the factor y in the term 2xy. Then 4 + 4 · dy/dx = 0 gives −1. The product rule gives 2xy = 12 at the point, so dy/dx = −3.",
+    "error_pattern": "drops y in product rule"
+   },
+   {
+    "text": "−12",
+    "rationale": "This stops at x² · dy/dx = −12 (the value of −2xy at the point) without dividing by x² = 4. Dividing gives dy/dx = −3.",
+    "error_pattern": "does not finish solving for dy/dx"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-006",
+  "topic": "3.2",
+  "difficulty": "medium",
+  "title": "Implicit slope with a logarithm of y",
+  "stem": "The curve xy + ln y = 2 passes through the point (2, 1). What is dy/dx at (2, 1)?",
+  "correct": {
+   "text": "−1/3",
+   "rationale": "Differentiate both sides: y + x · dy/dx + (1/y) · dy/dx = 0. At (2, 1): 1 + 2 · dy/dx + dy/dx = 0, so 3 · dy/dx = −1 and dy/dx = −1/3."
+  },
+  "wrong": [
+   {
+    "text": "−1",
+    "rationale": "This differentiates ln y as 1/y without the factor dy/dx. Then 1 + 2 · dy/dx + 1 = 0 gives dy/dx = −1. The chain rule requires (1/y) · dy/dx, which gives −1/3.",
+    "error_pattern": "omits dy/dx when differentiating ln y"
+   },
+   {
+    "text": "0",
+    "rationale": "This differentiates xy as x · dy/dx, dropping the term y from the product rule. Then 2 · dy/dx + dy/dx = 0 gives 0. The product rule term y = 1 contributes, giving dy/dx = −1/3.",
+    "error_pattern": "drops y in product rule"
+   },
+   {
+    "text": "1/3",
+    "rationale": "This writes the derivative of the constant 2 as 2 instead of 0: 1 + 3 · dy/dx = 2, giving 1/3. Since d/dx(2) = 0, the equation is 1 + 3 · dy/dx = 0 and dy/dx = −1/3.",
+    "error_pattern": "derivative of constant not zero"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-007",
+  "topic": "3.2",
+  "difficulty": "hard",
+  "title": "Vertical tangent on an implicit curve",
+  "stem": "The point (a, b) with a > 0 and b > 0 lies on the curve x² − xy + y² = 3, and the tangent line to the curve at (a, b) is vertical. Which of the following is (a, b)?",
+  "correct": {
+   "text": "(2, 1)",
+   "rationale": "Implicit differentiation gives 2x − y − x · dy/dx + 2y · dy/dx = 0, so dy/dx = (y − 2x)/(2y − x). The tangent is vertical where the denominator is 0 and the numerator is not, i.e. x = 2y. Substituting into the curve gives 4y² − 2y² + y² = 3y² = 3, so y = 1 and x = 2 in the first quadrant. The point is (2, 1)."
+  },
+  "wrong": [
+   {
+    "text": "(1, 2)",
+    "rationale": "This point is on the curve (1 − 2 + 4 = 3), but there y = 2x, so the numerator y − 2x is 0 and dy/dx = 0: the tangent is horizontal, not vertical. The vertical condition is a zero denominator, 2y − x = 0.",
+    "error_pattern": "swaps horizontal and vertical condition"
+   },
+   {
+    "text": "(4, 2)",
+    "rationale": "This satisfies x = 2y, the vertical-tangent condition, but is not on the curve: 16 − 8 + 4 = 12, not 3. The condition must be combined with the curve's equation, which gives y = 1.",
+    "error_pattern": "does not substitute into the curve"
+   },
+   {
+    "text": "(√3, √3)",
+    "rationale": "This point is on the curve (3 − 3 + 3 = 3), but there dy/dx = (√3 − 2√3)/(2√3 − √3) = −1, so the tangent is not vertical.",
+    "error_pattern": "guesses a symmetric point"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-008",
+  "topic": "3.3",
+  "difficulty": "easy",
+  "title": "Inverse derivative from a table",
+  "stem": "The function f is differentiable and one-to-one. Selected values are given in the table.\n\nx | f(x) | f′(x)\n1 | 2 | 3\n2 | 5 | 4\n3 | 8 | 6\n5 | 9 | 7\n\nWhat is (f⁻¹)′(5)?",
+  "correct": {
+   "text": "1/4",
+   "rationale": "f(2) = 5, so f⁻¹(5) = 2, and (f⁻¹)′(5) = 1/f′(f⁻¹(5)) = 1/f′(2) = 1/4."
+  },
+  "wrong": [
+   {
+    "text": "4",
+    "rationale": "This is f′(2), the derivative of f rather than of f⁻¹. The derivative of the inverse is the reciprocal, 1/4.",
+    "error_pattern": "uses f′ instead of its reciprocal"
+   },
+   {
+    "text": "1/7",
+    "rationale": "This uses 1/f′(5) = 1/7, plugging 5 into f′. The formula requires f′ at f⁻¹(5) = 2, so the value is 1/f′(2) = 1/4.",
+    "error_pattern": "evaluates f′ at a instead of f⁻¹(a)"
+   },
+   {
+    "text": "1/5",
+    "rationale": "This takes the reciprocal of 5 itself. The reciprocal must be of the slope f′(2) = 4, not of the input value 5.",
+    "error_pattern": "reciprocal of the input value"
+   }
+  ],
+  "practice": "3 Justification",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-009",
+  "topic": "3.3",
+  "difficulty": "medium",
+  "title": "Inverse derivative for a cubic",
+  "stem": "Let f(x) = x³ + 2x + 1, which is one-to-one. What is (f⁻¹)′(4)?",
+  "correct": {
+   "text": "1/5",
+   "rationale": "f(1) = 1 + 2 + 1 = 4, so f⁻¹(4) = 1. Since f′(x) = 3x² + 2, f′(1) = 5, and (f⁻¹)′(4) = 1/f′(1) = 1/5."
+  },
+  "wrong": [
+   {
+    "text": "5",
+    "rationale": "This is f′(1), the slope of f at the matching point. The slope of f⁻¹ is its reciprocal, 1/5.",
+    "error_pattern": "uses f′ instead of its reciprocal"
+   },
+   {
+    "text": "1/50",
+    "rationale": "This uses 1/f′(4) = 1/(3 · 16 + 2) = 1/50, evaluating f′ at 4. The formula needs f′ at f⁻¹(4) = 1, where f′(1) = 5.",
+    "error_pattern": "evaluates f′ at a instead of f⁻¹(a)"
+   },
+   {
+    "text": "1/4",
+    "rationale": "This takes the reciprocal of the value f(1) = 4. The reciprocal must be of the derivative f′(1) = 5, not of the function value.",
+    "error_pattern": "reciprocal of the value, not the derivative"
+   }
+  ],
+  "practice": "3 Justification",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-010",
+  "topic": "3.4",
+  "difficulty": "medium",
+  "title": "Derivative of inverse sine with a chain factor",
+  "stem": "If f(x) = sin⁻¹(2x), what is f′(1/4)?",
+  "correct": {
+   "text": "4/√3",
+   "rationale": "f′(x) = 2/√(1 − (2x)²). At x = 1/4: 1 − 1/4 = 3/4, so f′(1/4) = 2/√(3/4) = 2/(√3/2) = 4/√3."
+  },
+  "wrong": [
+   {
+    "text": "2/√3",
+    "rationale": "This is 1/√(1 − (2x)²) = 1/(√3/2) = 2/√3 at x = 1/4, with no chain-rule factor 2 from d/dx(2x). The correct value is 4/√3.",
+    "error_pattern": "forgets inner derivative"
+   },
+   {
+    "text": "8/3",
+    "rationale": "This drops the square root: 2/(1 − 4x²) = 2/(3/4) = 8/3. The derivative of sin⁻¹ u has √(1 − u²) in the denominator, giving 4/√3.",
+    "error_pattern": "omits the radical"
+   },
+   {
+    "text": "4/√5",
+    "rationale": "This uses 2/√(1 + 4x²) = 2/√(5/4) = 4/√5, with a plus sign under the radical. The derivative of sin⁻¹ u has 1 − u² under the radical, giving 4/√3.",
+    "error_pattern": "sign error under radical"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-011",
+  "topic": "3.4",
+  "difficulty": "easy",
+  "title": "Derivative of inverse tangent",
+  "stem": "If f(x) = tan⁻¹(5x), what is f′(x)?",
+  "correct": {
+   "text": "5/(1 + 25x²)",
+   "rationale": "d/dx tan⁻¹ u = u′/(1 + u²) with u = 5x, u′ = 5, so f′(x) = 5/(1 + 25x²)."
+  },
+  "wrong": [
+   {
+    "text": "1/(1 + 25x²)",
+    "rationale": "This keeps the denominator 1 + (5x)² but omits the chain-rule factor u′ = 5 in the numerator.",
+    "error_pattern": "forgets inner derivative"
+   },
+   {
+    "text": "5/(1 + 5x²)",
+    "rationale": "This squares only x, not 5x: (5x)² = 25x², so the denominator is 1 + 25x².",
+    "error_pattern": "squares only part of the argument"
+   },
+   {
+    "text": "5/√(1 − 25x²)",
+    "rationale": "This uses the derivative of sin⁻¹(5x), not tan⁻¹(5x). The derivative of tan⁻¹ u has u′/(1 + u²), with no radical.",
+    "error_pattern": "confuses with inverse sine derivative"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-012",
+  "topic": "3.5",
+  "difficulty": "easy",
+  "title": "Which differentiation rules apply",
+  "stem": "Which of the following correctly identifies the rules needed to differentiate f(x) = x² ln(5x + 1)?",
+  "correct": {
+   "text": "Product Rule, with the Chain Rule for ln(5x + 1)",
+   "rationale": "f is a product of x² and ln(5x + 1). The factor ln(5x + 1) is a composite function, so its derivative uses the chain rule: 5/(5x + 1). Thus f′(x) = 2x ln(5x + 1) + 5x²/(5x + 1)."
+  },
+  "wrong": [
+   {
+    "text": "Product Rule only",
+    "rationale": "The product rule is needed, but ln(5x + 1) is a composite function whose derivative is 5/(5x + 1), not 1/(5x + 1). Without the chain rule the factor 5 is lost.",
+    "error_pattern": "omits chain rule on the composite factor"
+   },
+   {
+    "text": "Quotient Rule, with the Chain Rule for ln(5x + 1)",
+    "rationale": "f is a product, not a quotient: no function is divided by another. The quotient rule does not apply, although the chain rule is needed for ln(5x + 1).",
+    "error_pattern": "misclassifies product as quotient"
+   },
+   {
+    "text": "Chain Rule only, with x² as the inner function",
+    "rationale": "The expression is a product of x² and ln(5x + 1), not a function evaluated at x². The chain rule alone does not account for both factors; the product rule is needed.",
+    "error_pattern": "misidentifies the structure"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "conceptual"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-013",
+  "topic": "3.5",
+  "difficulty": "medium",
+  "title": "Quotient rule with an exponential composite",
+  "stem": "If f(x) = e^(2x)/(x + 1), what is f′(1)?",
+  "correct": {
+   "text": "3e²/4",
+   "rationale": "f′(x) = (2e^(2x)(x + 1) − e^(2x) · 1)/(x + 1)². At x = 1: (2e² · 2 − e²)/4 = 3e²/4."
+  },
+  "wrong": [
+   {
+    "text": "−3e²/4",
+    "rationale": "This reverses the quotient rule numerator to f · g′ − f′ · g, giving (e² − 4e²)/4 = −3e²/4. The numerator must be f′ · g − f · g′.",
+    "error_pattern": "quotient rule numerator reversed"
+   },
+   {
+    "text": "e²/4",
+    "rationale": "This differentiates e^(2x) as e^(2x), omitting the factor 2: (e² · 2 − e²)/4 = e²/4. The chain rule gives 2e^(2x), so the numerator is 4e² − e² = 3e².",
+    "error_pattern": "forgets inner derivative"
+   },
+   {
+    "text": "3e²/2",
+    "rationale": "The numerator 3e² is correct, but the denominator was (x + 1) = 2 instead of (x + 1)² = 4.",
+    "error_pattern": "denominator not squared"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-014",
+  "topic": "3.5",
+  "difficulty": "medium",
+  "title": "Identify the error in a product derivative",
+  "stem": "A student writes: d/dx[x² e^(3x)] = (2x)(3e^(3x)) = 6x e^(3x). Which statement correctly describes the student's error?",
+  "correct": {
+   "text": "It multiplies the derivatives; the product rule gives 2x·e^(3x) + x²·3e^(3x).",
+   "rationale": "The student multiplied the derivatives of the two factors. The product rule gives (x²)′ e^(3x) + x² (e^(3x))′ = 2x e^(3x) + 3x² e^(3x). Both derivatives used, 2x and 3e^(3x), were correct."
+  },
+  "wrong": [
+   {
+    "text": "The chain rule should not be used, since d/dx[e^(3x)] = e^(3x).",
+    "rationale": "The chain rule is needed: d/dx[e^(3x)] = 3e^(3x). The student's factor 3e^(3x) was correct; the product structure was wrong.",
+    "error_pattern": "denies the chain rule on e^(3x)"
+   },
+   {
+    "text": "The derivative of x² should be x, not 2x.",
+    "rationale": "The power rule gives d/dx[x²] = 2x, so the student's factor 2x was correct. The error was combining the factors by multiplication rather than the product rule.",
+    "error_pattern": "misremembers power rule"
+   },
+   {
+    "text": "The Quotient Rule is required because e^(3x) is not a polynomial.",
+    "rationale": "The expression is a product, not a quotient, and the quotient rule is for division. The product rule is the correct tool, whether or not a factor is a polynomial.",
+    "error_pattern": "misclassifies product as quotient"
+   }
+  ],
+  "practice": "3 Justification",
+  "check": "conceptual"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-015",
+  "topic": "3.6",
+  "difficulty": "hard",
+  "title": "Second derivative of a Gaussian",
+  "stem": "If f(x) = e^(−x²), what is f″(1)?",
+  "correct": {
+   "text": "2/e",
+   "rationale": "f′(x) = −2x e^(−x²). By the product rule, f″(x) = −2e^(−x²) + (−2x)(−2x)e^(−x²) = (4x² − 2)e^(−x²). At x = 1: 2e⁻¹ = 2/e."
+  },
+  "wrong": [
+   {
+    "text": "−2/e",
+    "rationale": "This differentiates only the factor −2x and treats e^(−x²) as constant: f″ = −2e^(−x²), which is −2/e at x = 1. The product rule also needs −2x · (−2x)e^(−x²).",
+    "error_pattern": "ignores the product rule in the second derivative"
+   },
+   {
+    "text": "−4/e",
+    "rationale": "This differentiates e^(−x²) as e^(−x²) without the chain-rule factor −2x: f″ = −2e^(−x²) − 2x e^(−x²) = −4/e at x = 1. The correct second term is +4x² e^(−x²).",
+    "error_pattern": "forgets inner derivative in second step"
+   },
+   {
+    "text": "4/e",
+    "rationale": "This keeps only the term 4x² e^(−x²) = 4/e at x = 1 and omits −2e^(−x²), the term from differentiating −2x. Adding both terms gives 2/e.",
+    "error_pattern": "drops one product-rule term"
+   }
+  ],
+  "practice": "1 Implementing Mathematical Processes",
+  "check": "numeric"
+ }
+]

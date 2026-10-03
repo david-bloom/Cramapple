@@ -1,0 +1,1022 @@
+[
+ {
+  "key": "apcalcab-mcq-u2n-001",
+  "kind": "mcq",
+  "stem": "Let f(x) = x² − 3x. What is the average rate of change of f over the interval [1, 4]?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−1"
+   },
+   {
+    "label": "B",
+    "text": "2"
+   },
+   {
+    "label": "C",
+    "text": "6"
+   },
+   {
+    "label": "D",
+    "text": "5"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "−1 is the instantaneous rate f′(1) = 2(1) − 3 = −1 at the left endpoint, not the average rate over [1, 4], which is 2.",
+   "B": "f(4) = 16 − 12 = 4 and f(1) = 1 − 3 = −2, so the average rate of change is (4 − (−2))/(4 − 1) = 6/3 = 2.",
+   "C": "6 is the change in f, f(4) − f(1) = 4 − (−2) = 6, but it was not divided by the change in x, 4 − 1 = 3; the average rate is 6/3 = 2.",
+   "D": "5 is the instantaneous rate f′(4) = 2(4) − 3 = 5 at the right endpoint, not the average rate over [1, 4], which is 2."
+  },
+  "topic": "2.1",
+  "difficulty": "easy",
+  "title": "Average rate on an interval",
+  "practice": "2 Connecting Representations"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-002",
+  "kind": "mcq",
+  "stem": "A particle moves along a line so that its position at time t seconds is s(t) = t³ − 6t meters. What is the instantaneous rate of change of its position (its velocity) at t = 2 seconds?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "6 m/s"
+   },
+   {
+    "label": "B",
+    "text": "0 m/s"
+   },
+   {
+    "label": "C",
+    "text": "−2 m/s"
+   },
+   {
+    "label": "D",
+    "text": "−4 m/s"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The instantaneous rate of change is s′(2). Since s′(t) = 3t² − 6, s′(2) = 3(4) − 6 = 6 m/s. This is also the slope of the tangent line to the graph of s at t = 2.",
+   "B": "0 comes from differentiating t³ as 3t instead of 3t² (giving 3(2) − 6 = 0). The power rule gives 3t², so s′(2) = 12 − 6 = 6.",
+   "C": "−2 is the average rate of change over [0, 2]: (s(2) − s(0))/(2 − 0) = (−4 − 0)/2 = −2. The question asks for the instantaneous rate at t = 2, which is s′(2) = 6.",
+   "D": "−4 is the position s(2) = 8 − 12 = −4 meters, not a rate of change. The velocity is s′(2) = 6 m/s."
+  },
+  "topic": "2.1",
+  "difficulty": "medium",
+  "title": "Instantaneous velocity from position",
+  "practice": "2 Connecting Representations"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-003",
+  "kind": "mcq",
+  "stem": "Evaluate lim(h→0) [√(9 + h) − 3] / h.",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/6"
+   },
+   {
+    "label": "B",
+    "text": "1/3"
+   },
+   {
+    "label": "C",
+    "text": "6"
+   },
+   {
+    "label": "D",
+    "text": "0"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "This limit is the definition of f′(9) for f(x) = √x, since f(9 + h) − f(9) = √(9 + h) − 3. Because f′(x) = 1/(2√x), f′(9) = 1/(2·3) = 1/6.",
+   "B": "1/3 comes from using the derivative of √x as 1/√x, forgetting the factor 1/2. The correct derivative is 1/(2√x), so the limit is 1/(2·3) = 1/6.",
+   "C": "6 comes from inverting the derivative, 2√9 = 6. The derivative of √x at 9 is 1/(2√9) = 1/6, not its reciprocal.",
+   "D": "Substituting h = 0 gives 0/0, which is indeterminate rather than 0. The limit is the derivative of √x at x = 9, namely 1/6."
+  },
+  "topic": "2.2",
+  "difficulty": "medium",
+  "title": "Limit as a derivative",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-004",
+  "kind": "mcq",
+  "stem": "Selected values of a differentiable function f are given in the table.\n\nx:    0   2    5    6\nf(x): 3   7   16   18\n\nUsing the two table values closest to x = 4 on either side, what is the best estimate of f′(4)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "9"
+   },
+   {
+    "label": "B",
+    "text": "2"
+   },
+   {
+    "label": "C",
+    "text": "9/7"
+   },
+   {
+    "label": "D",
+    "text": "3"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "9 is the change f(5) − f(2) = 16 − 7 = 9, but the slope requires dividing by 5 − 2 = 3, giving 3.",
+   "B": "2 is the slope over [5, 6], (18 − 16)/(6 − 5) = 2. That interval does not contain x = 4; the closest points on either side are x = 2 and x = 5, giving 3.",
+   "C": "9/7 divides f(5) − f(2) = 9 by 5 + 2 = 7. The change in x is 5 − 2 = 3, so the estimate is 9/3 = 3.",
+   "D": "The closest table values on either side of x = 4 are x = 2 and x = 5, so f′(4) ≈ (f(5) − f(2))/(5 − 2) = (16 − 7)/3 = 3."
+  },
+  "topic": "2.3",
+  "difficulty": "easy",
+  "title": "Estimate derivative from table",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-005",
+  "kind": "mcq",
+  "stem": "Let f(x) = x² for x ≤ 2, and f(x) = 3x − 2 for x > 2. Which statement about f at x = 2 is true?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "f is not continuous at x = 2 because the slopes of the pieces differ."
+   },
+   {
+    "label": "B",
+    "text": "f is continuous at x = 2 but not differentiable there."
+   },
+   {
+    "label": "C",
+    "text": "f is differentiable at x = 2 because each piece is a polynomial."
+   },
+   {
+    "label": "D",
+    "text": "f is differentiable at x = 2 because f is continuous there."
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Continuity concerns function values, not slopes. The left limit is 4, the right limit is 4, and f(2) = 4, so f is continuous at 2; the differing slopes only prevent differentiability.",
+   "B": "Both pieces equal 4 at x = 2 (2² = 4 and 3(2) − 2 = 4), so f is continuous. The left slope is 2x = 4 while the right slope is 3, so the one-sided derivatives differ and f′(2) does not exist.",
+   "C": "Each piece is differentiable on its own domain, but at the join the left derivative is 4 and the right derivative is 3. They are unequal, so f is not differentiable at 2.",
+   "D": "f is continuous at 2, but continuity does not imply differentiability. The one-sided slopes are 4 (left) and 3 (right), so f′(2) does not exist."
+  },
+  "topic": "2.4",
+  "difficulty": "medium",
+  "title": "Differentiability at a corner",
+  "practice": "3 Justification"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-006",
+  "kind": "mcq",
+  "stem": "If f(x) = 3/x², which of the following is f′(x)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−3/x³"
+   },
+   {
+    "label": "B",
+    "text": "6/x³"
+   },
+   {
+    "label": "C",
+    "text": "−6/x³"
+   },
+   {
+    "label": "D",
+    "text": "−6/x"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This lowers the exponent to −3 but never multiplies by the exponent −2. The power rule gives 3(−2)x⁻³ = −6/x³.",
+   "B": "This loses the negative sign from the exponent −2. The power rule gives 3(−2)x⁻³ = −6/x³.",
+   "C": "Rewrite f(x) = 3x⁻². Then f′(x) = 3(−2)x⁻³ = −6x⁻³ = −6/x³.",
+   "D": "This adds 1 to the exponent (−2 + 1 = −1) instead of subtracting 1. The new exponent is −3, so f′(x) = −6/x³."
+  },
+  "topic": "2.5",
+  "difficulty": "easy",
+  "title": "Power rule with negative exponent",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-007",
+  "kind": "mcq",
+  "stem": "For x > 0, let f(x) = x^(3/2) − 12x^(1/2). At what value of x does the graph of f have a horizontal tangent line?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x = 4"
+   },
+   {
+    "label": "B",
+    "text": "x = 8"
+   },
+   {
+    "label": "C",
+    "text": "x = 12"
+   },
+   {
+    "label": "D",
+    "text": "x = 6"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "f′(x) = (3/2)x^(1/2) − 6x^(−1/2). Setting this to 0: (3/2)√x = 6/√x, so (3/2)x = 6 and x = 4.",
+   "B": "This uses the derivative of 12x^(1/2) as 12x^(−1/2) (missing the factor 1/2). Then (3/2)√x = 12/√x gives x = 8, but the correct term is 6x^(−1/2), which gives x = 4.",
+   "C": "This solves f(x) = 0 (x^(3/2) = 12x^(1/2) gives x = 12) rather than f′(x) = 0. A horizontal tangent requires f′(x) = 0, which gives x = 4.",
+   "D": "This differentiates x^(3/2) as x^(1/2) (missing the factor 3/2). Then √x = 6/√x gives x = 6, but the correct first term is (3/2)x^(1/2), which gives x = 4."
+  },
+  "topic": "2.5",
+  "difficulty": "hard",
+  "title": "Horizontal tangent with fractional powers",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-008",
+  "kind": "mcq",
+  "stem": "Let f be a differentiable function with f′(2) = 4, and let g(x) = 2f(x) − 3x. What is g′(2)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "11"
+   },
+   {
+    "label": "B",
+    "text": "2"
+   },
+   {
+    "label": "C",
+    "text": "5"
+   },
+   {
+    "label": "D",
+    "text": "1"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This adds instead of subtracting, 2(4) + 3 = 11. The difference rule gives 2f′(2) − 3 = 5.",
+   "B": "This differentiates 3x as 3x, giving 2(4) − 3(2) = 2. The derivative of 3x is the constant 3, so g′(2) = 8 − 3 = 5.",
+   "C": "g′(x) = 2f′(x) − 3, so g′(2) = 2(4) − 3 = 5.",
+   "D": "This drops the constant multiple 2 on f, giving 4 − 3 = 1. The constant multiple rule gives 2f′(2) = 8, so g′(2) = 8 − 3 = 5."
+  },
+  "topic": "2.6",
+  "difficulty": "easy",
+  "title": "Constant multiple and difference rule",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-009",
+  "kind": "mcq",
+  "stem": "If f(x) = 4e^x − 2cos x, what is f′(π/2)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2πe^(π/2 − 1)"
+   },
+   {
+    "label": "B",
+    "text": "4e^(π/2) − 2"
+   },
+   {
+    "label": "C",
+    "text": "4e^(π/2) + 2"
+   },
+   {
+    "label": "D",
+    "text": "4e^(π/2)"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This applies the power rule to e^x as if the exponent were the variable, 4·(π/2)·e^(π/2 − 1). The derivative of e^x is e^x, so the first term is 4e^(π/2).",
+   "B": "This uses (cos x)′ = sin x instead of −sin x. The correct derivative is 4e^x − 2(−sin x) = 4e^x + 2sin x, giving 4e^(π/2) + 2.",
+   "C": "f′(x) = 4e^x + 2sin x, so f′(π/2) = 4e^(π/2) + 2sin(π/2) = 4e^(π/2) + 2.",
+   "D": "This uses (cos x)′ = −cos x, so the cosine term becomes +2cos(π/2) = 0. The derivative of cos x is −sin x, so that term contributes +2sin(π/2) = 2 and f′(π/2) = 4e^(π/2) + 2."
+  },
+  "topic": "2.7",
+  "difficulty": "easy",
+  "title": "Derivative of e^x and cos x",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-010",
+  "kind": "mcq",
+  "stem": "Let g(x) = 5 ln x − 2/x for x > 0. What is g′(2)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7/2"
+   },
+   {
+    "label": "B",
+    "text": "2"
+   },
+   {
+    "label": "C",
+    "text": "5/2"
+   },
+   {
+    "label": "D",
+    "text": "3"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This differentiates −2x⁻¹ as +2x⁻¹ without lowering the exponent, giving 5/2 + 2/2 = 7/2. The power rule gives +2x⁻² = 2/4 at x = 2, so g′(2) = 3.",
+   "B": "This uses −2/x² for the derivative of −2/x, giving 5/2 − 2/4 = 2. But d/dx(−2x⁻¹) = +2x⁻², so the term is +2/4 and g′(2) = 3.",
+   "C": "This differentiates 5 ln x correctly as 5/x = 5/2 but treats −2/x as having derivative 0. The second term contributes +2/x² = 1/2, so g′(2) = 3.",
+   "D": "g′(x) = 5/x + 2/x² (since −2/x = −2x⁻¹ has derivative +2x⁻²). Then g′(2) = 5/2 + 2/4 = 5/2 + 1/2 = 3."
+  },
+  "topic": "2.7",
+  "difficulty": "medium",
+  "title": "Derivative with ln x and a reciprocal",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-011",
+  "kind": "mcq",
+  "stem": "Let f(x) = (x² + 1)(3x − 2). What is f′(2)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "31"
+   },
+   {
+    "label": "B",
+    "text": "16"
+   },
+   {
+    "label": "C",
+    "text": "12"
+   },
+   {
+    "label": "D",
+    "text": "1"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "By the product rule, f′(x) = 2x(3x − 2) + (x² + 1)(3). At x = 2: 4(4) + 5(3) = 16 + 15 = 31.",
+   "B": "This keeps only u′v = 4·4 = 16 and omits the second term uv′ = 5·3 = 15. The product rule requires both terms, so f′(2) = 31.",
+   "C": "This multiplies the derivatives of the factors, (2x)(3) = 12 at x = 2. The product rule is u′v + uv′ = 31, not u′v′.",
+   "D": "This subtracts the terms, u′v − uv′ = 16 − 15 = 1, which is a quotient-rule-style sign. The product rule adds them: 16 + 15 = 31."
+  },
+  "topic": "2.8",
+  "difficulty": "easy",
+  "title": "Product rule at a point",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-012",
+  "kind": "mcq",
+  "stem": "Let h(x) = x²·f(x), where f(3) = 2 and f′(3) = −1. A student writes h′(3) = (2·3)(−1) = −6. Which statement correctly identifies the student's error and gives the correct value of h′(3)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The student differentiated x² when only f should be differentiated; h′(3) = 9·(−1) = −9."
+   },
+   {
+    "label": "B",
+    "text": "The student made only a sign error; the correct value is h′(3) = 6."
+   },
+   {
+    "label": "C",
+    "text": "The student omitted f′ from the work; the correct value is h′(3) = 2·3·2 = 12."
+   },
+   {
+    "label": "D",
+    "text": "The student multiplied the derivatives of the factors; the product rule gives h′(3) = 2·3·2 + 9·(−1) = 3."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Both factors must be differentiated, with one term for each. The correct value is 6·2 + 9·(−1) = 3, not −9.",
+   "B": "The error is not a sign slip: −6 is (x²)′·f′(3), the product of derivatives, which is not the product rule. The correct value is 12 − 9 = 3, not 6.",
+   "C": "The student did use f′(3) = −1. The real error is multiplying the derivatives; the product rule has two terms, 6·2 and 9·(−1), and the second term cannot be dropped, so h′(3) = 12 − 9 = 3.",
+   "D": "h′(x) = 2x·f(x) + x²·f′(x), so h′(3) = 6·2 + 9·(−1) = 12 − 9 = 3. The student computed (x²)′·f′ = 6·(−1), which is not the product rule."
+  },
+  "topic": "2.8",
+  "difficulty": "medium",
+  "title": "Identify product rule error",
+  "practice": "3 Justification"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-013",
+  "kind": "mcq",
+  "stem": "If f(x) = (2x + 1)/(x − 3), what is f′(4)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "11"
+   },
+   {
+    "label": "B",
+    "text": "−7"
+   },
+   {
+    "label": "C",
+    "text": "2"
+   },
+   {
+    "label": "D",
+    "text": "7"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This adds the terms in the numerator, 2(x − 3) + (2x + 1) = 4x − 5 = 11 at x = 4, using a product-rule sign. The quotient rule subtracts, giving −7.",
+   "B": "f′(x) = [2(x − 3) − (2x + 1)(1)]/(x − 3)² = −7/(x − 3)². At x = 4, f′(4) = −7/1 = −7.",
+   "C": "This divides the derivatives, 2/1 = 2, as if (u/v)′ = u′/v′. The quotient rule gives [u′v − uv′]/v² = −7.",
+   "D": "This reverses the numerator, (2x + 1) − 2(x − 3) = 7, instead of (low)(d high) − (high)(d low) = 2(x − 3) − (2x + 1) = −7. At x = 4 the correct value is −7."
+  },
+  "topic": "2.9",
+  "difficulty": "medium",
+  "title": "Quotient rule at a point",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-014",
+  "kind": "mcq",
+  "stem": "At which values of x does the graph of y = x/(x² + 4) have a horizontal tangent line?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There are no such values of x."
+   },
+   {
+    "label": "B",
+    "text": "x = −2 and x = 2"
+   },
+   {
+    "label": "C",
+    "text": "x = 0 only"
+   },
+   {
+    "label": "D",
+    "text": "x = 2 only"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This results from adding the numerator terms, (x² + 4) + 2x² = 3x² + 4, which is never 0. The quotient rule subtracts, giving 4 − x² = 0 at x = ±2, so such points exist.",
+   "B": "y′ = [(x² + 4)(1) − x(2x)]/(x² + 4)² = (4 − x²)/(x² + 4)². Setting the numerator 4 − x² = 0 gives x = ±2.",
+   "C": "x = 0 is where y = 0 (the numerator of y), not where y′ = 0. At x = 0, y′ = 4/16 = 1/4, so the tangent is not horizontal.",
+   "D": "4 − x² = 0 has two solutions, x = 2 and x = −2; the negative root was dropped. Both give y′ = 0."
+  },
+  "topic": "2.9",
+  "difficulty": "hard",
+  "title": "Horizontal tangents of a rational function",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u2n-015",
+  "kind": "mcq",
+  "stem": "If f(x) = sec x + cot x, what is f′(π/4)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0"
+   },
+   {
+    "label": "B",
+    "text": "√2 + 2"
+   },
+   {
+    "label": "C",
+    "text": "√2 − 2"
+   },
+   {
+    "label": "D",
+    "text": "−√2 − 2"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This uses (sec x)′ = sec² x, giving 2 − 2 = 0. The derivative of sec x is sec x tan x, which equals √2 at π/4, so f′(π/4) = √2 − 2.",
+   "B": "This uses (cot x)′ = +csc² x. The correct derivative is −csc² x, so f′(π/4) = √2 − 2.",
+   "C": "f′(x) = sec x tan x − csc² x. At π/4: sec = √2, tan = 1, csc² = 2, so f′(π/4) = √2·1 − 2 = √2 − 2.",
+   "D": "This uses (sec x)′ = −sec x tan x, a sign pattern borrowed from cos and csc. The derivative of sec x is +sec x tan x, so f′(π/4) = √2 − 2."
+  },
+  "topic": "2.10",
+  "difficulty": "hard",
+  "title": "Derivatives of sec x and cot x",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-001",
+  "kind": "mcq",
+  "stem": "If f(x) = (3x² − 5)⁴, what is f′(x)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "24x(3x² − 5)⁴"
+   },
+   {
+    "label": "B",
+    "text": "864x³"
+   },
+   {
+    "label": "C",
+    "text": "24x(3x² − 5)³"
+   },
+   {
+    "label": "D",
+    "text": "4(3x² − 5)³"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The coefficient 24x is correct, but the exponent was not lowered: the power rule turns the exponent 4 into 3, so the factor is (3x² − 5)³.",
+   "B": "This replaces the inside by its derivative, 4(6x)³ = 4 · 216x³ = 864x³. The inner function 3x² − 5 must stay inside the power, and 6x appears only as a multiplier.",
+   "C": "Outer function u⁴ has derivative 4u³ and inner function 3x² − 5 has derivative 6x, so f′(x) = 4(3x² − 5)³ · 6x = 24x(3x² − 5)³.",
+   "D": "This applies the power rule to the outer function but omits the inner derivative 6x; the chain rule requires the factor 6x, giving 24x(3x² − 5)³."
+  },
+  "topic": "3.1",
+  "difficulty": "easy",
+  "title": "Chain rule on a power of a quadratic",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-002",
+  "kind": "mcq",
+  "stem": "The curve y = e^(3x² − x) passes through the point (1, e²). What is the slope of the tangent line to the curve at x = 1?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5e⁵"
+   },
+   {
+    "label": "B",
+    "text": "2e²"
+   },
+   {
+    "label": "C",
+    "text": "e²"
+   },
+   {
+    "label": "D",
+    "text": "5e²"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This writes e^(u′) = e^(6x − 1) = e⁵ and also multiplies by 5. The exponent must stay u = 3x² − x = 2, and u′ = 5 appears only as a multiplier, giving 5e².",
+   "B": "This uses (3x² − x) · e^(3x² − x) = 2 · e² at x = 1, treating e^u like a product u · e^u. The derivative of e^u is e^u · u′, where u′ = 6x − 1 = 5.",
+   "C": "This is e^(3x² − x) evaluated at x = 1 with no inner derivative; the chain rule multiplies by 6x − 1 = 5, so the slope is 5e², not e².",
+   "D": "dy/dx = e^(3x² − x) · (6x − 1). At x = 1 the exponent is 2 and 6x − 1 = 5, so the slope is 5e²."
+  },
+  "topic": "3.1",
+  "difficulty": "medium",
+  "title": "Tangent slope of an exponential composite",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-003",
+  "kind": "mcq",
+  "stem": "The table gives values of the differentiable functions f and g.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n2 | 6 | 4 | 3 | −2\n3 | 1 | 5 | 7 | 0\n\nLet h(x) = f(g(x)). What is h′(2)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−8"
+   },
+   {
+    "label": "B",
+    "text": "5"
+   },
+   {
+    "label": "C",
+    "text": "−10"
+   },
+   {
+    "label": "D",
+    "text": "15"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This uses f′(2) · g′(2) = 4 · (−2) = −8, evaluating f′ at x = 2. The outer derivative must be evaluated at the inner value g(2) = 3, so f′(3) = 5 is needed.",
+   "B": "This is f′(g(2)) = f′(3) = 5 only; it omits the factor g′(2) = −2 required by the chain rule.",
+   "C": "h′(x) = f′(g(x)) · g′(x). Since g(2) = 3, h′(2) = f′(3) · g′(2) = 5 · (−2) = −10.",
+   "D": "This multiplies f′(3) = 5 by g(2) = 3, using the value of g instead of its derivative. The chain rule needs g′(2) = −2, giving −10."
+  },
+  "topic": "3.1",
+  "difficulty": "medium",
+  "title": "Chain rule from a table of values",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-004",
+  "kind": "mcq",
+  "stem": "If f(x) = √(ln(x² + 1)) for x > 0, what is f′(x)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x/((x² + 1)√(ln(x² + 1)))"
+   },
+   {
+    "label": "B",
+    "text": "1/(2(x² + 1)√(ln(x² + 1)))"
+   },
+   {
+    "label": "C",
+    "text": "2x/((x² + 1)√(ln(x² + 1)))"
+   },
+   {
+    "label": "D",
+    "text": "x/√(ln(x² + 1))"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Differentiate layer by layer: (1/(2√(ln(x² + 1)))) · (1/(x² + 1)) · 2x = 2x/(2(x² + 1)√(ln(x² + 1))) = x/((x² + 1)√(ln(x² + 1))).",
+   "B": "This applies the square-root and logarithm layers but omits the innermost derivative 2x of x² + 1. Including it gives x/((x² + 1)√(ln(x² + 1))).",
+   "C": "This drops the factor 1/2 that comes from differentiating the square root: d/du √u = 1/(2√u). With it, the 2x in the numerator cancels to x.",
+   "D": "This keeps the factor 2x from the inner function and the 1/2 from the square root but omits the derivative of ln u, which is u′/u = 2x/(x² + 1). The factor 1/(x² + 1) is missing."
+  },
+  "topic": "3.1",
+  "difficulty": "hard",
+  "title": "Three-layer composite derivative",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-005",
+  "kind": "mcq",
+  "stem": "The curve x²y = 12 passes through the point (2, 3). What is dy/dx at (2, 3)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−12"
+   },
+   {
+    "label": "B",
+    "text": "−3"
+   },
+   {
+    "label": "C",
+    "text": "−1"
+   },
+   {
+    "label": "D",
+    "text": "3"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This stops at x² · dy/dx = −12 (the value of −2xy at the point) without dividing by x² = 4. Dividing gives dy/dx = −3.",
+   "B": "Differentiate both sides with the product rule: 2xy + x² · dy/dx = 0. At (2, 3): 12 + 4 · dy/dx = 0, so dy/dx = −3.",
+   "C": "This differentiates x²y as 2x + x² · dy/dx, leaving out the factor y in the term 2xy. Then 4 + 4 · dy/dx = 0 gives −1. The product rule gives 2xy = 12 at the point, so dy/dx = −3.",
+   "D": "This moves 2xy across with the wrong sign (x² · dy/dx = 2xy), giving 12/4 = 3. The equation 2xy + x² · dy/dx = 0 gives x² · dy/dx = −2xy = −12, so dy/dx = −3."
+  },
+  "topic": "3.2",
+  "difficulty": "easy",
+  "title": "Implicit slope with a product term",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-006",
+  "kind": "mcq",
+  "stem": "The curve xy + ln y = 2 passes through the point (2, 1). What is dy/dx at (2, 1)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/3"
+   },
+   {
+    "label": "B",
+    "text": "−1/3"
+   },
+   {
+    "label": "C",
+    "text": "0"
+   },
+   {
+    "label": "D",
+    "text": "−1"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This writes the derivative of the constant 2 as 2 instead of 0: 1 + 3 · dy/dx = 2, giving 1/3. Since d/dx(2) = 0, the equation is 1 + 3 · dy/dx = 0 and dy/dx = −1/3.",
+   "B": "Differentiate both sides: y + x · dy/dx + (1/y) · dy/dx = 0. At (2, 1): 1 + 2 · dy/dx + dy/dx = 0, so 3 · dy/dx = −1 and dy/dx = −1/3.",
+   "C": "This differentiates xy as x · dy/dx, dropping the term y from the product rule. Then 2 · dy/dx + dy/dx = 0 gives 0. The product rule term y = 1 contributes, giving dy/dx = −1/3.",
+   "D": "This differentiates ln y as 1/y without the factor dy/dx. Then 1 + 2 · dy/dx + 1 = 0 gives dy/dx = −1. The chain rule requires (1/y) · dy/dx, which gives −1/3."
+  },
+  "topic": "3.2",
+  "difficulty": "medium",
+  "title": "Implicit slope with a logarithm of y",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-007",
+  "kind": "mcq",
+  "stem": "The point (a, b) with a > 0 and b > 0 lies on the curve x² − xy + y² = 3, and the tangent line to the curve at (a, b) is vertical. Which of the following is (a, b)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "(√3, √3)"
+   },
+   {
+    "label": "B",
+    "text": "(4, 2)"
+   },
+   {
+    "label": "C",
+    "text": "(2, 1)"
+   },
+   {
+    "label": "D",
+    "text": "(1, 2)"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This point is on the curve (3 − 3 + 3 = 3), but there dy/dx = (√3 − 2√3)/(2√3 − √3) = −1, so the tangent is not vertical.",
+   "B": "This satisfies x = 2y, the vertical-tangent condition, but is not on the curve: 16 − 8 + 4 = 12, not 3. The condition must be combined with the curve's equation, which gives y = 1.",
+   "C": "Implicit differentiation gives 2x − y − x · dy/dx + 2y · dy/dx = 0, so dy/dx = (y − 2x)/(2y − x). The tangent is vertical where the denominator is 0 and the numerator is not, i.e. x = 2y. Substituting into the curve gives 4y² − 2y² + y² = 3y² = 3, so y = 1 and x = 2 in the first quadrant. The point is (2, 1).",
+   "D": "This point is on the curve (1 − 2 + 4 = 3), but there y = 2x, so the numerator y − 2x is 0 and dy/dx = 0: the tangent is horizontal, not vertical. The vertical condition is a zero denominator, 2y − x = 0."
+  },
+  "topic": "3.2",
+  "difficulty": "hard",
+  "title": "Vertical tangent on an implicit curve",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-008",
+  "kind": "mcq",
+  "stem": "The function f is differentiable and one-to-one. Selected values are given in the table.\n\nx | f(x) | f′(x)\n1 | 2 | 3\n2 | 5 | 4\n3 | 8 | 6\n5 | 9 | 7\n\nWhat is (f⁻¹)′(5)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/5"
+   },
+   {
+    "label": "B",
+    "text": "4"
+   },
+   {
+    "label": "C",
+    "text": "1/4"
+   },
+   {
+    "label": "D",
+    "text": "1/7"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This takes the reciprocal of 5 itself. The reciprocal must be of the slope f′(2) = 4, not of the input value 5.",
+   "B": "This is f′(2), the derivative of f rather than of f⁻¹. The derivative of the inverse is the reciprocal, 1/4.",
+   "C": "f(2) = 5, so f⁻¹(5) = 2, and (f⁻¹)′(5) = 1/f′(f⁻¹(5)) = 1/f′(2) = 1/4.",
+   "D": "This uses 1/f′(5) = 1/7, plugging 5 into f′. The formula requires f′ at f⁻¹(5) = 2, so the value is 1/f′(2) = 1/4."
+  },
+  "topic": "3.3",
+  "difficulty": "easy",
+  "title": "Inverse derivative from a table",
+  "practice": "3 Justification"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-009",
+  "kind": "mcq",
+  "stem": "Let f(x) = x³ + 2x + 1, which is one-to-one. What is (f⁻¹)′(4)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1/50"
+   },
+   {
+    "label": "B",
+    "text": "1/5"
+   },
+   {
+    "label": "C",
+    "text": "5"
+   },
+   {
+    "label": "D",
+    "text": "1/4"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This uses 1/f′(4) = 1/(3 · 16 + 2) = 1/50, evaluating f′ at 4. The formula needs f′ at f⁻¹(4) = 1, where f′(1) = 5.",
+   "B": "f(1) = 1 + 2 + 1 = 4, so f⁻¹(4) = 1. Since f′(x) = 3x² + 2, f′(1) = 5, and (f⁻¹)′(4) = 1/f′(1) = 1/5.",
+   "C": "This is f′(1), the slope of f at the matching point. The slope of f⁻¹ is its reciprocal, 1/5.",
+   "D": "This takes the reciprocal of the value f(1) = 4. The reciprocal must be of the derivative f′(1) = 5, not of the function value."
+  },
+  "topic": "3.3",
+  "difficulty": "medium",
+  "title": "Inverse derivative for a cubic",
+  "practice": "3 Justification"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-010",
+  "kind": "mcq",
+  "stem": "If f(x) = sin⁻¹(2x), what is f′(1/4)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2/√3"
+   },
+   {
+    "label": "B",
+    "text": "4/√3"
+   },
+   {
+    "label": "C",
+    "text": "4/√5"
+   },
+   {
+    "label": "D",
+    "text": "8/3"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This is 1/√(1 − (2x)²) = 1/(√3/2) = 2/√3 at x = 1/4, with no chain-rule factor 2 from d/dx(2x). The correct value is 4/√3.",
+   "B": "f′(x) = 2/√(1 − (2x)²). At x = 1/4: 1 − 1/4 = 3/4, so f′(1/4) = 2/√(3/4) = 2/(√3/2) = 4/√3.",
+   "C": "This uses 2/√(1 + 4x²) = 2/√(5/4) = 4/√5, with a plus sign under the radical. The derivative of sin⁻¹ u has 1 − u² under the radical, giving 4/√3.",
+   "D": "This drops the square root: 2/(1 − 4x²) = 2/(3/4) = 8/3. The derivative of sin⁻¹ u has √(1 − u²) in the denominator, giving 4/√3."
+  },
+  "topic": "3.4",
+  "difficulty": "medium",
+  "title": "Derivative of inverse sine with a chain factor",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-011",
+  "kind": "mcq",
+  "stem": "If f(x) = tan⁻¹(5x), what is f′(x)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "5/√(1 − 25x²)"
+   },
+   {
+    "label": "B",
+    "text": "1/(1 + 25x²)"
+   },
+   {
+    "label": "C",
+    "text": "5/(1 + 5x²)"
+   },
+   {
+    "label": "D",
+    "text": "5/(1 + 25x²)"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This uses the derivative of sin⁻¹(5x), not tan⁻¹(5x). The derivative of tan⁻¹ u has u′/(1 + u²), with no radical.",
+   "B": "This keeps the denominator 1 + (5x)² but omits the chain-rule factor u′ = 5 in the numerator.",
+   "C": "This squares only x, not 5x: (5x)² = 25x², so the denominator is 1 + 25x².",
+   "D": "d/dx tan⁻¹ u = u′/(1 + u²) with u = 5x, u′ = 5, so f′(x) = 5/(1 + 25x²)."
+  },
+  "topic": "3.4",
+  "difficulty": "easy",
+  "title": "Derivative of inverse tangent",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-012",
+  "kind": "mcq",
+  "stem": "Which of the following correctly identifies the rules needed to differentiate f(x) = x² ln(5x + 1)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Quotient Rule, with the Chain Rule for ln(5x + 1)"
+   },
+   {
+    "label": "B",
+    "text": "Product Rule, with the Chain Rule for ln(5x + 1)"
+   },
+   {
+    "label": "C",
+    "text": "Chain Rule only, with x² as the inner function"
+   },
+   {
+    "label": "D",
+    "text": "Product Rule only"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "f is a product, not a quotient: no function is divided by another. The quotient rule does not apply, although the chain rule is needed for ln(5x + 1).",
+   "B": "f is a product of x² and ln(5x + 1). The factor ln(5x + 1) is a composite function, so its derivative uses the chain rule: 5/(5x + 1). Thus f′(x) = 2x ln(5x + 1) + 5x²/(5x + 1).",
+   "C": "The expression is a product of x² and ln(5x + 1), not a function evaluated at x². The chain rule alone does not account for both factors; the product rule is needed.",
+   "D": "The product rule is needed, but ln(5x + 1) is a composite function whose derivative is 5/(5x + 1), not 1/(5x + 1). Without the chain rule the factor 5 is lost."
+  },
+  "topic": "3.5",
+  "difficulty": "easy",
+  "title": "Which differentiation rules apply",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-013",
+  "kind": "mcq",
+  "stem": "If f(x) = e^(2x)/(x + 1), what is f′(1)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3e²/4"
+   },
+   {
+    "label": "B",
+    "text": "3e²/2"
+   },
+   {
+    "label": "C",
+    "text": "−3e²/4"
+   },
+   {
+    "label": "D",
+    "text": "e²/4"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "f′(x) = (2e^(2x)(x + 1) − e^(2x) · 1)/(x + 1)². At x = 1: (2e² · 2 − e²)/4 = 3e²/4.",
+   "B": "The numerator 3e² is correct, but the denominator was (x + 1) = 2 instead of (x + 1)² = 4.",
+   "C": "This reverses the quotient rule numerator to f · g′ − f′ · g, giving (e² − 4e²)/4 = −3e²/4. The numerator must be f′ · g − f · g′.",
+   "D": "This differentiates e^(2x) as e^(2x), omitting the factor 2: (e² · 2 − e²)/4 = e²/4. The chain rule gives 2e^(2x), so the numerator is 4e² − e² = 3e²."
+  },
+  "topic": "3.5",
+  "difficulty": "medium",
+  "title": "Quotient rule with an exponential composite",
+  "practice": "1 Implementing Mathematical Processes"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-014",
+  "kind": "mcq",
+  "stem": "A student writes: d/dx[x² e^(3x)] = (2x)(3e^(3x)) = 6x e^(3x). Which statement correctly describes the student's error?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The Quotient Rule is required because e^(3x) is not a polynomial."
+   },
+   {
+    "label": "B",
+    "text": "The derivative of x² should be x, not 2x."
+   },
+   {
+    "label": "C",
+    "text": "The chain rule should not be used, since d/dx[e^(3x)] = e^(3x)."
+   },
+   {
+    "label": "D",
+    "text": "It multiplies the derivatives; the product rule gives 2x·e^(3x) + x²·3e^(3x)."
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The expression is a product, not a quotient, and the quotient rule is for division. The product rule is the correct tool, whether or not a factor is a polynomial.",
+   "B": "The power rule gives d/dx[x²] = 2x, so the student's factor 2x was correct. The error was combining the factors by multiplication rather than the product rule.",
+   "C": "The chain rule is needed: d/dx[e^(3x)] = 3e^(3x). The student's factor 3e^(3x) was correct; the product structure was wrong.",
+   "D": "The student multiplied the derivatives of the two factors. The product rule gives (x²)′ e^(3x) + x² (e^(3x))′ = 2x e^(3x) + 3x² e^(3x). Both derivatives used, 2x and 3e^(3x), were correct."
+  },
+  "topic": "3.5",
+  "difficulty": "medium",
+  "title": "Identify the error in a product derivative",
+  "practice": "3 Justification"
+ },
+ {
+  "key": "apcalcab-mcq-u3n-015",
+  "kind": "mcq",
+  "stem": "If f(x) = e^(−x²), what is f″(1)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2/e"
+   },
+   {
+    "label": "B",
+    "text": "4/e"
+   },
+   {
+    "label": "C",
+    "text": "−2/e"
+   },
+   {
+    "label": "D",
+    "text": "−4/e"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "f′(x) = −2x e^(−x²). By the product rule, f″(x) = −2e^(−x²) + (−2x)(−2x)e^(−x²) = (4x² − 2)e^(−x²). At x = 1: 2e⁻¹ = 2/e.",
+   "B": "This keeps only the term 4x² e^(−x²) = 4/e at x = 1 and omits −2e^(−x²), the term from differentiating −2x. Adding both terms gives 2/e.",
+   "C": "This differentiates only the factor −2x and treats e^(−x²) as constant: f″ = −2e^(−x²), which is −2/e at x = 1. The product rule also needs −2x · (−2x)e^(−x²).",
+   "D": "This differentiates e^(−x²) as e^(−x²) without the chain-rule factor −2x: f″ = −2e^(−x²) − 2x e^(−x²) = −4/e at x = 1. The correct second term is +4x² e^(−x²)."
+  },
+  "topic": "3.6",
+  "difficulty": "hard",
+  "title": "Second derivative of a Gaussian",
+  "practice": "1 Implementing Mathematical Processes"
+ }
+]
