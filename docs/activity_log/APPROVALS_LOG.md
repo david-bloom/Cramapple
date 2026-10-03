@@ -16,6 +16,9 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0107 — AP Physics 2 Skill Grid and Skill Cells for Units 9-11 (Production) — DECISION-0085
+- APPROVAL-0106 — Load and Publish 50 AP Physics 2 Units 9-11 Variants (Production) — DECISION-0085
+- APPROVAL-0105 — AP Physics 2 Units 9-11: Repair 9 Seed MCQs, Remove the Duplicated A-D List From 9 More, Create 18 Topic Cells (Production) — DECISION-0085
 - APPROVAL-0104 — Calculus BC Units 1-3: Skill Grid, Mirror Cells From Calculus AB, Native MCQ Topics and Skills (Production) — DECISION-0085
 - APPROVAL-0103 — Skill Cells for the 6 Tagged Seeds and Their Variants (Production) — DECISION-0085
 - APPROVAL-0102 — Retire AP Calculus AB Seed MCQ-005 and Its 5 Variants (Production) — DECISION-0085
@@ -215,6 +218,43 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0107 — AP Physics 2 Skill Grid and Skill Cells for Units 9-11 (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Physics 2")  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0106`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** skill grid for AP Physics 2 (taxonomy `b3e41b93-95d8-40c6-bef5-98cc99111915`): the 10 science-practice skills of the Physics 2 CED (Course Framework V.1, p. 10, identical to Physics 1) x the 46 registered topics = 460 cells (`scripts/content-seed/skills-u13-2026-10-03/grid_phys2.sql`). Four-voter skill vote (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash) on the 18 Units 9-11 seeds: all 18 validated (16 at 4 of 4, `003` and `026` at 3 of 4). The 50 published variants inherited their seed's skill: 18 + 50 = 68 validated skill cells. Rehearsed with a rollback.
+
+**Not done:** skill cells for the other 20 Physics 2 MCQs (Units 12-15) and held `001`; FRQs.
+
+## APPROVAL-0106 — Load and Publish 50 AP Physics 2 Units 9-11 Variants (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Physics 2")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0105`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `f584ab0d-114a-4520-9649-42e3e9a2fd22`):** 54 variants (3 per seed, keys `apphy2-mcq-sv-<seed>-vK`) were authored by Claude with every number recomputed, then checked by two blind solvers, a rationale audit and a CED scope and topic check. **50 kept** (6 had rationales patched), **4 dropped**: `005-v1` and `005-v2` (both checkers placed them in topic 10.7, the seed is 10.4), `029-v3` (parallel-resistor currents, topic 11.5 rather than 11.7) and `030-v3` (charge at t equal to the time constant; the CED treats RC time behaviour qualitatively). The 50 were loaded as drafts in 5 atomic chunks (md5 50 of 50 against the build manifest), then approved and published with validated, hash-fresh serving labels (unit and required units from the seed: 9, 10 or 11) and 50 validated primary topic cells inherited from the seed. Correct-answer letters randomized once (A 11, B 13, C 14, D 12). Rehearsed with a rollback.
+
+**Result:** Physics 2 published MCQs 40 to 90.
+
+**Not done:** variants for Units 12-15; the dropped four.
+
+## APPROVAL-0105 — AP Physics 2 Units 9-11: Repair 9 Seed MCQs, Remove the Duplicated A-D List From 9 More, Create 18 Topic Cells (Production)
+
+**Date:** 2026-10-03  
+**Approved By:** David Bloom (2026-10-03 Claude session: "Physics 2")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0104`  
+**Decision:** Approved
+
+**Scope note:** Physics 2 numbers its units 9-15 (no Fluids unit), so "Units 1-3" means registry units 9 Thermodynamics, 10 Electric Force, Field, and Potential, and 11 Electric Circuits (the same units the Physics 2 FRQ batch used).
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `f584ab0d-114a-4520-9649-42e3e9a2fd22`):** the 18 published MCQs in those units (`apphy2-mcq-002` to `009`, `021` to `030`) were audited with two blind checkers (gemini-3.8-flash, deepseek-v4-pro), a rationale audit, a CED scope check and a six-vote topic probe, with every computational key recomputed in python. 18 new versions were created, each published with the validated serving label carried forward hash-fresh: **9 repairs** with the key unchanged (`002`, `003`, `004`, `005`, `006`, `009`, `025`, `026`, `030`: weak or false rationales, an out-of-CED distractor "an inductor" in `009`, missing geometry in `006`, a sign error in `026`) and **9 strip-only versions** (`007`, `008`, `021` to `024`, `027` to `029`) that remove the duplicated A-D list from the stem. 18 validated primary topic cells (source `apphy2_u13_topic_2026_10_03`); `007` is topic 11.5 (parallel resistors) after reading the item against the fact pack and both checkers agreeing, although the six-vote probe leaned 11.2. Rehearsed with a rollback; the hash over the 18 new versions matched the expected hashes.
+
+**Not done:** held `apphy2-mcq-001` (sound, unit 9, topic 9.2; held since 2026-08-08 only because a labelling model call failed) and held `apphy2-mcq-019` (sound, but Unit 15); the other 20 Physics 2 MCQs in Units 12-15.
 
 ## APPROVAL-0104 — Calculus BC Units 1-3: Skill Grid, Mirror Cells From Calculus AB, Native MCQ Topics and Skills (Production)
 

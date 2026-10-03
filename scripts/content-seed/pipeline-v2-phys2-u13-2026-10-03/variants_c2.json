@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphy2-mcq-008-v1",
+  "seed": "apphy2-mcq-008",
+  "difficulty": "easy",
+  "title": "Heating coil resistance",
+  "stem": "A heating coil plugged into a 120 V outlet carries a steady 5.0 A current. What is the resistance of the coil?",
+  "correct": {
+    "text": "24 Ω",
+    "rationale": "Ohm's law gives R = ΔV/I = 120 V / 5.0 A = 24 Ω."
+  },
+  "wrong": [
+    {
+      "text": "0.042 Ω",
+      "rationale": "Divides current by voltage, 5.0/120 = 0.042, which is the inverse of the resistance. Resistance is the potential difference divided by the current: 120/5.0 = 24 Ω.",
+      "error_pattern": "inverts Ohm's law (I/V instead of V/I)"
+    },
+    {
+      "text": "115 Ω",
+      "rationale": "Subtracts the current from the voltage, 120 − 5.0 = 115. Ohm's law relates the quantities by division, not subtraction, so R = 120/5.0 = 24 Ω.",
+      "error_pattern": "subtracts instead of dividing"
+    },
+    {
+      "text": "600 Ω",
+      "rationale": "Multiplies voltage by current, 120 × 5.0 = 600. That product is the power in watts (P = IΔV), not the resistance.",
+      "error_pattern": "multiplies V and I (confuses resistance with power)"
+    }
+  ],
+  "change_note": "New context (heating coil), new numbers (120 V, 5.0 A); same unknown (R) and same skill, distractors are inverted ratio, subtraction and product.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-008-v2",
+  "seed": "apphy2-mcq-008",
+  "difficulty": "medium",
+  "title": "Current through a resistor",
+  "stem": "A 45 Ω resistor is connected across the terminals of an ideal 9.0 V battery. What is the current in the resistor?",
+  "correct": {
+    "text": "0.20 A",
+    "rationale": "Ohm's law gives I = ΔV/R = 9.0 V / 45 Ω = 0.20 A."
+  },
+  "wrong": [
+    {
+      "text": "5.0 A",
+      "rationale": "Divides resistance by voltage, 45/9.0 = 5.0, which is the inverse of the current. Current is the potential difference divided by the resistance: 9.0/45 = 0.20 A.",
+      "error_pattern": "inverts Ohm's law (R/V instead of V/R)"
+    },
+    {
+      "text": "36 A",
+      "rationale": "Subtracts the voltage from the resistance, 45 − 9.0 = 36. Ohm's law uses a ratio, not a difference, so I = 9.0/45 = 0.20 A.",
+      "error_pattern": "subtracts instead of dividing"
+    },
+    {
+      "text": "405 A",
+      "rationale": "Multiplies voltage by resistance, 9.0 × 45 = 405. Solving ΔV = IR for I requires dividing both sides by R, so I = ΔV/R = 0.20 A; the product of voltage and resistance has no meaning as a current.",
+      "error_pattern": "multiplies V and R instead of dividing"
+    }
+  ],
+  "change_note": "Unknown switches to current, battery-and-resistor context, new numbers (9.0 V, 45 Ω); distractors invert, subtract or multiply.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-008-v3",
+  "seed": "apphy2-mcq-008",
+  "difficulty": "hard",
+  "title": "Ohmic resistor at higher voltage",
+  "stem": "An ohmic resistor carries 0.30 A when the potential difference across it is 1.5 V. What current does it carry when the potential difference across it is raised to 6.0 V?",
+  "correct": {
+    "text": "1.2 A",
+    "rationale": "An ohmic resistor has constant resistance, R = 1.5 V / 0.30 A = 5.0 Ω. At 6.0 V the current is I = 6.0/5.0 = 1.2 A, so current is directly proportional to potential difference."
+  },
+  "wrong": [
+    {
+      "text": "0.075 A",
+      "rationale": "Treats current as inversely proportional to voltage, 0.30 × 1.5/6.0 = 0.075 A. For an ohmic resistor I = ΔV/R, so a larger potential difference gives a larger current.",
+      "error_pattern": "treats current as inversely proportional to voltage"
+    },
+    {
+      "text": "0.30 A",
+      "rationale": "Assumes the current stays fixed when the voltage changes. With constant resistance, quadrupling the potential difference quadruples the current.",
+      "error_pattern": "believes current is set by the resistor alone and ignores the voltage change"
+    },
+    {
+      "text": "4.8 A",
+      "rationale": "Adds the 4.5 V increase to the old current as if the quantities add: 0.30 + 4.5 = 4.8. Current scales by the same factor as the voltage (6.0/1.5 = 4), giving 1.2 A.",
+      "error_pattern": "uses additive instead of proportional reasoning"
+    }
+  ],
+  "change_note": "Proportional reasoning with an ohmic resistor instead of a single-step R = V/I; new values (0.30 A, 1.5 V to 6.0 V); distractors inverse, unchanged and additive.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-009-v1",
+  "seed": "apphy2-mcq-009",
+  "difficulty": "easy",
+  "title": "Initial current into capacitor",
+  "stem": "A 12 V battery, a 400 Ω resistor, a switch and an uncharged 50 μF capacitor are connected in series. Just after the switch is closed, what is the current in the circuit?",
+  "correct": {
+    "text": "30 mA",
+    "rationale": "An uncharged capacitor has zero potential difference across it, so at this instant it acts like a wire and the full 12 V appears across the resistor: I = 12 V / 400 Ω = 0.030 A = 30 mA."
+  },
+  "wrong": [
+    {
+      "text": "0 mA",
+      "rationale": "Treats the capacitor as a gap in the circuit. That describes the capacitor after a long time, when it is fully charged and the current has stopped, not the first instant.",
+      "error_pattern": "applies the steady-state open-circuit behavior to the initial instant"
+    },
+    {
+      "text": "15 mA",
+      "rationale": "Assumes the capacitor takes half of the battery voltage at the start. An uncharged capacitor has no potential difference across it, so the resistor gets all 12 V.",
+      "error_pattern": "assumes the capacitor already holds part of the voltage"
+    },
+    {
+      "text": "Very large, because nothing in the circuit limits the current",
+      "rationale": "Correctly sees the capacitor offers no opposition, but forgets that the resistor is still in series with it. The 400 Ω resistor limits the current to 12/400 = 30 mA.",
+      "error_pattern": "treats the capacitor as a short and drops the series resistor"
+    }
+  ],
+  "change_note": "Numerical initial-current version with new values (12 V, 400 Ω, 50 μF); same idea that an uncharged capacitor acts like a wire at t = 0.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-009-v2",
+  "seed": "apphy2-mcq-009",
+  "difficulty": "medium",
+  "title": "Resistor voltage after long time",
+  "stem": "An uncharged capacitor in series with a resistor is connected to an ideal 9.0 V battery. After a time much longer than the time constant, what is the potential difference across the resistor?",
+  "correct": {
+    "text": "0 V",
+    "rationale": "After a long time the capacitor is fully charged and carries no current. With zero current, the resistor has ΔV = IR = 0, and the capacitor holds all 9.0 V."
+  },
+  "wrong": [
+    {
+      "text": "9.0 V",
+      "rationale": "This is the resistor's voltage at the first instant, when the uncharged capacitor acts like a wire. After a long time the current has dropped to zero, so the resistor no longer has a potential difference.",
+      "error_pattern": "uses the initial-state behavior for the long-time state"
+    },
+    {
+      "text": "4.5 V",
+      "rationale": "Splits the battery voltage equally between the two elements, as if they shared it for every time. The split changes with time and ends with the capacitor at 9.0 V and the resistor at 0 V.",
+      "error_pattern": "assumes the battery voltage divides equally between resistor and capacitor"
+    },
+    {
+      "text": "18 V",
+      "rationale": "Adds the capacitor's final 9.0 V to the original 9.0 V across the resistor. The loop rule requires the two potential differences to sum to the battery's 9.0 V, so they can never total 18 V.",
+      "error_pattern": "adds initial and final voltages, violating the loop rule"
+    }
+  ],
+  "change_note": "Asks the long-time rather than initial state; new context and values (9.0 V); same topic and same use of initial versus steady-state capacitor behavior.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-009-v3",
+  "seed": "apphy2-mcq-009",
+  "difficulty": "hard",
+  "title": "Discharge current at start",
+  "stem": "A 50 μF capacitor charged to 20 V is connected at t = 0 across a 2.0 kΩ resistor. What is the current in the resistor immediately after the connection is made?",
+  "correct": {
+    "text": "10 mA",
+    "rationale": "At t = 0 the capacitor still has its full 20 V, so it acts like a 20 V source across the resistor: I = 20 V / 2.0 kΩ = 10 mA."
+  },
+  "wrong": [
+    {
+      "text": "0 mA",
+      "rationale": "Treats the charged capacitor as an open circuit that blocks current. A capacitor behaves that way only in the steady state of charging; here its stored potential difference drives current through the resistor.",
+      "error_pattern": "treats a charged capacitor as an open circuit"
+    },
+    {
+      "text": "6.3 mA",
+      "rationale": "Applies the 63% charging fraction to the initial current. The time-constant percentages describe how charge changes over one time constant, not the current at t = 0, which is the maximum value of 10 mA.",
+      "error_pattern": "misapplies the 63% time-constant fraction to the initial instant"
+    },
+    {
+      "text": "3.7 mA",
+      "rationale": "Applies the 37% discharge fraction to the initial current. That fraction is the value reached after one time constant, not the value at t = 0, when the current is the full 10 mA.",
+      "error_pattern": "misapplies the 37% time-constant fraction to the initial instant"
+    }
+  ],
+  "change_note": "Discharging direction instead of charging; the capacitor acts like a source at t = 0; new values (20 V, 2.0 kΩ); distractors target open-circuit and time-constant percentage misuse.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-021-v1",
+  "seed": "apphy2-mcq-021",
+  "difficulty": "easy",
+  "title": "Tripling gas in a rigid tank",
+  "stem": "Extra helium is pumped into a rigid sealed tank held at constant temperature until it contains three times as many atoms as before. The gas pressure becomes",
+  "correct": {
+    "text": "three times the original",
+    "rationale": "With V and T fixed, PV = Nk_BT shows P is directly proportional to N, so tripling N triples the pressure."
+  },
+  "wrong": [
+    {
+      "text": "one-third of the original",
+      "rationale": "Takes pressure to be inversely proportional to the number of atoms. At fixed volume and temperature, more atoms means more wall collisions, so the pressure rises.",
+      "error_pattern": "inverts the proportionality between pressure and number of atoms"
+    },
+    {
+      "text": "nine times the original",
+      "rationale": "Squares the factor of three. The ideal gas law is linear in N, so the pressure changes by exactly the factor 3.",
+      "error_pattern": "squares the proportionality factor"
+    },
+    {
+      "text": "unchanged, because the tank volume does not change",
+      "rationale": "Assumes pressure depends only on volume. Pressure also depends on how many atoms strike the walls, so adding atoms at fixed V and T raises it.",
+      "error_pattern": "believes fixed volume means fixed pressure"
+    }
+  ],
+  "change_note": "New context (helium tank), tripling instead of doubling; distractors inverse, squared and volume-only reasoning.",
+  "check": "factor"
+ },
+ {
+  "id": "apphy2-mcq-021-v2",
+  "seed": "apphy2-mcq-021",
+  "difficulty": "medium",
+  "title": "Heating a sealed gas sample",
+  "stem": "A sealed rigid flask of ideal gas at 27 °C has a pressure of 2.0 atm. The flask is heated to 177 °C. What is the new pressure?",
+  "correct": {
+    "text": "3.0 atm",
+    "rationale": "At constant V and N, P is proportional to the kelvin temperature. T rises from 300 K to 450 K, so P = 2.0 atm × 450/300 = 3.0 atm."
+  },
+  "wrong": [
+    {
+      "text": "13 atm",
+      "rationale": "Uses the Celsius temperatures in the ratio: 2.0 × 177/27 = 13. The ideal gas law requires absolute (kelvin) temperature.",
+      "error_pattern": "uses Celsius instead of kelvin"
+    },
+    {
+      "text": "1.3 atm",
+      "rationale": "Inverts the temperature ratio, 2.0 × 300/450 = 1.3. Heating a fixed amount of gas in a rigid flask increases the pressure, it does not decrease it.",
+      "error_pattern": "inverts the pressure-temperature proportionality"
+    },
+    {
+      "text": "4.5 atm",
+      "rationale": "Squares the temperature ratio, 2.0 × (450/300)² = 4.5. Pressure is directly proportional to T, not to T².",
+      "error_pattern": "squares the temperature ratio"
+    }
+  ],
+  "change_note": "Temperature instead of molecule count is varied, with a Celsius-to-kelvin conversion; same PV = Nk_BT proportional reasoning.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-021-v3",
+  "seed": "apphy2-mcq-021",
+  "difficulty": "hard",
+  "title": "Compressing a leaking gas",
+  "stem": "A gas sample is compressed to one-third of its original volume at constant temperature while half of its molecules leak out through a valve. The final pressure compared with the original pressure is",
+  "correct": {
+    "text": "1.5 times as large",
+    "rationale": "P = Nk_BT/V, so P scales with N/V at fixed T. The factor is (1/2)/(1/3) = 1.5."
+  },
+  "wrong": [
+    {
+      "text": "3.0 times as large",
+      "rationale": "Accounts for the compression (factor 3) but forgets that half the molecules left. Losing half the molecules cuts the pressure by half, giving 3 × 1/2 = 1.5.",
+      "error_pattern": "ignores the change in number of molecules"
+    },
+    {
+      "text": "6.0 times as large",
+      "rationale": "Treats the loss of half the molecules as if it doubled the pressure, 3 × 2 = 6. Removing molecules reduces the number of wall collisions, so it lowers the pressure.",
+      "error_pattern": "reverses the effect of removing molecules"
+    },
+    {
+      "text": "one-sixth as large",
+      "rationale": "Multiplies N and V factors instead of dividing: (1/2)(1/3) = 1/6. Pressure is proportional to N divided by V, so a smaller volume raises it.",
+      "error_pattern": "treats pressure as proportional to N times V"
+    }
+  ],
+  "change_note": "Two simultaneous changes (N and V) at constant T instead of a single change; same proportional reasoning from PV = Nk_BT.",
+  "check": "factor"
+ },
+ {
+  "id": "apphy2-mcq-022-v1",
+  "seed": "apphy2-mcq-022",
+  "difficulty": "easy",
+  "title": "Doubled temperature difference",
+  "stem": "Two identical copper bars have the same length and cross-section. One bar has a 40 K temperature difference between its ends and the other has an 80 K difference. How does the steady conduction rate in the second bar compare with that in the first?",
+  "correct": {
+    "text": "twice as large",
+    "rationale": "The conduction rate kAΔT/L is directly proportional to ΔT when k, A and L are equal, so doubling ΔT doubles the rate."
+  },
+  "wrong": [
+    {
+      "text": "half as large",
+      "rationale": "Reverses the dependence, as if a larger temperature difference slowed the transfer. Energy flows faster when the temperature difference is larger.",
+      "error_pattern": "inverts the dependence on temperature difference"
+    },
+    {
+      "text": "the same, because the bars are made of the same copper",
+      "rationale": "Notes that k is equal but ignores that ΔT differs. The rate depends on ΔT as well as on k, so the two rates are not equal.",
+      "error_pattern": "attributes the rate to the material alone"
+    },
+    {
+      "text": "four times as large",
+      "rationale": "Squares the factor of two. Conduction rate is linear in ΔT, not quadratic.",
+      "error_pattern": "squares the proportionality factor"
+    }
+  ],
+  "change_note": "Temperature difference varied instead of conductivity; copper bars context and new numbers (40 K and 80 K).",
+  "check": "factor"
+ },
+ {
+  "id": "apphy2-mcq-022-v2",
+  "seed": "apphy2-mcq-022",
+  "difficulty": "medium",
+  "title": "Thicker glass pane",
+  "stem": "A window pane loses thermal energy by conduction at a steady rate. It is replaced by a pane of the same glass and area that is twice as thick, with the same temperatures on its two faces. The new conduction rate is",
+  "correct": {
+    "text": "half as large as before",
+    "rationale": "Rate = kAΔT/L, so the rate is inversely proportional to thickness L. Doubling L halves the rate."
+  },
+  "wrong": [
+    {
+      "text": "twice as large as before",
+      "rationale": "Treats thickness as if it were directly proportional to the rate, the way area is. Thickness is in the denominator, so more thickness slows the conduction.",
+      "error_pattern": "places thickness in the numerator"
+    },
+    {
+      "text": "unchanged, because the glass and temperatures are the same",
+      "rationale": "Overlooks that the rate also depends on the length of the conduction path. Material and temperature difference match, but the thickness differs.",
+      "error_pattern": "ignores geometry dependence"
+    },
+    {
+      "text": "one-fourth as large as before",
+      "rationale": "Squares the effect of thickness. The dependence on L is inverse to the first power, giving a factor of 1/2.",
+      "error_pattern": "squares the proportionality factor"
+    }
+  ],
+  "change_note": "Thickness (L, inverse dependence) instead of conductivity; window context.",
+  "check": "factor"
+ },
+ {
+  "id": "apphy2-mcq-022-v3",
+  "seed": "apphy2-mcq-022",
+  "difficulty": "hard",
+  "title": "Comparing two rods",
+  "stem": "Rod X has thermal conductivity k, cross-sectional area A and length L. Rod Y has thermal conductivity 3k, cross-sectional area A/2 and length 3L. Both have the same temperature difference between their ends. The steady conduction rate in Y compared with X is",
+  "correct": {
+    "text": "half as large",
+    "rationale": "Rate is proportional to kA/L. For Y this is (3k)(A/2)/(3L) = (1/2)(kA/L), which is half the rate in X."
+  },
+  "wrong": [
+    {
+      "text": "the same",
+      "rationale": "Cancels the factor 3 in k against the factor 3 in L but forgets to include the halved area, which still halves the rate.",
+      "error_pattern": "drops one of the factors"
+    },
+    {
+      "text": "twice as large",
+      "rationale": "Inverts the overall ratio, 2 instead of 1/2. Greater length and smaller area both lower the rate, and together they outweigh the extra conductivity.",
+      "error_pattern": "inverts the overall ratio"
+    },
+    {
+      "text": "4.5 times as large",
+      "rationale": "Multiplies by the length factor instead of dividing: 3 × 3 × 1/2 = 4.5. Length is in the denominator of kAΔT/L.",
+      "error_pattern": "places length in the numerator"
+    }
+  ],
+  "change_note": "Three geometry and material factors change at once; same kAΔT/L proportional reasoning.",
+  "check": "factor"
+ },
+ {
+  "id": "apphy2-mcq-023-v1",
+  "seed": "apphy2-mcq-023",
+  "difficulty": "easy",
+  "title": "Ice melting in warm water",
+  "stem": "An ice cube is dropped into warm water inside a perfectly insulated container. The system eventually reaches a uniform temperature with the ice melted. Over the whole process, the total entropy of the contents",
+  "correct": {
+    "text": "increases",
+    "rationale": "The system is isolated and goes irreversibly toward thermal equilibrium, where entropy is greatest. Energy spreads from the warm water into the ice, so total entropy increases."
+  },
+  "wrong": [
+    {
+      "text": "decreases, because the ice becomes liquid water at a single temperature",
+      "rationale": "Equates uniformity with order. Reaching a uniform temperature is the maximum-entropy state, and the isolated system's total entropy cannot decrease.",
+      "error_pattern": "equates uniform state with lower entropy"
+    },
+    {
+      "text": "stays constant, because the total energy is conserved",
+      "rationale": "Confuses conservation of energy with conservation of entropy. Energy is conserved here, but entropy is not conserved in an irreversible process; it increases.",
+      "error_pattern": "confuses conservation of energy with constant entropy"
+    },
+    {
+      "text": "decreases for the water and increases for the ice, so the total is zero",
+      "rationale": "Treats entropy changes as always canceling. The spreading of energy raises the ice's entropy by more than it lowers the warm water's, so the total is positive.",
+      "error_pattern": "assumes entropy changes of the parts cancel"
+    }
+  ],
+  "change_note": "Thermal equilibration of ice and water instead of mixing of gases; same idea that isolated systems move toward higher entropy.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-023-v2",
+  "seed": "apphy2-mcq-023",
+  "difficulty": "medium",
+  "title": "Freezer and the second law",
+  "stem": "Water placed in a running freezer turns to ice, so the water's own entropy decreases. Which statement best explains why this does not violate the second law of thermodynamics?",
+  "correct": {
+    "text": "The water is not isolated; energy leaves it and raises the entropy of the surroundings by at least as much",
+    "rationale": "The second law applies to the total entropy of an isolated system. The water plus the freezer's surroundings together do not decrease in entropy, so a local decrease is allowed."
+  },
+  "wrong": [
+    {
+      "text": "Entropy only changes for gases, so the water's entropy cannot really change",
+      "rationale": "Entropy is a property of any system's configuration, including liquids and solids. It does change when water freezes.",
+      "error_pattern": "believes entropy applies only to gases"
+    },
+    {
+      "text": "Freezing removes the water's energy, so the energy is destroyed and entropy no longer matters",
+      "rationale": "Energy is not destroyed; it is transferred to the surroundings. That transfer is what makes the entropy of the surroundings rise.",
+      "error_pattern": "believes energy transfer out of a system destroys energy"
+    },
+    {
+      "text": "Entropy of any object can never decrease, so the water must actually gain entropy as it freezes",
+      "rationale": "The law restricts isolated systems, not every individual object. A non-isolated object can lose entropy when energy leaves it.",
+      "error_pattern": "applies the second law to a single non-isolated object"
+    }
+  ],
+  "change_note": "Local entropy decrease in a non-isolated system, as opposed to a spontaneous mixing process; same second-law qualitative reasoning.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-023-v3",
+  "seed": "apphy2-mcq-023",
+  "difficulty": "hard",
+  "title": "Free expansion of a gas",
+  "stem": "A gas fills the left half of an insulated rigid box, and the right half is a vacuum. A partition is removed and the gas spreads through the whole box with no energy entering or leaving. Which statement about this process is correct?",
+  "correct": {
+    "text": "The entropy rises with no heat flow, and the gas will not spontaneously return to one half",
+    "rationale": "The molecules can occupy many more arrangements after expanding, so entropy rises in this irreversible process. Entropy can increase without heat flow."
+  },
+  "wrong": [
+    {
+      "text": "The entropy stays constant because no thermal energy is transferred into or out of the gas",
+      "rationale": "Links entropy change only to energy transfer. Entropy also increases when energy or matter spreads out, as here, without any heat flow.",
+      "error_pattern": "assumes entropy changes only when thermal energy is transferred"
+    },
+    {
+      "text": "The entropy decreases because the gas ends up at a lower pressure than it began with",
+      "rationale": "Confuses lower pressure with lower disorder. The gas has more accessible arrangements and the isolated system's entropy can only increase or stay equal.",
+      "error_pattern": "equates lower pressure with lower entropy"
+    },
+    {
+      "text": "The entropy increases only if the gas does work on something while it expands",
+      "rationale": "No work is needed. The expansion into the vacuum raises entropy even though the gas does no work and the system is isolated.",
+      "error_pattern": "believes entropy increase requires work done"
+    }
+  ],
+  "change_note": "Free expansion in an isolated box instead of mixing two gases; entropy increase without heat flow plus irreversibility.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphy2-mcq-024-v1",
+  "seed": "apphy2-mcq-024",
+  "difficulty": "easy",
+  "title": "Charged ball touches neutral ball",
+  "stem": "Two identical metal balls on insulating stands carry charges of −8.0 nC and 0. The balls are touched together and then separated. What are the final charges on the two balls?",
+  "correct": {
+    "text": "−4.0 nC on each ball",
+    "rationale": "Net charge is conserved at −8.0 nC. Identical conductors in contact reach the same potential, so each ball ends up with half the total, −4.0 nC."
+  },
+  "wrong": [
+    {
+      "text": "−8.0 nC and 0, unchanged",
+      "rationale": "Assumes touching does nothing. The balls form one conductor while touching, so electrons move until the charge is shared equally.",
+      "error_pattern": "believes no charge moves on contact"
+    },
+    {
+      "text": "−8.0 nC on each ball",
+      "rationale": "Copies the charge onto the second ball, which would make the total −16 nC and violate conservation of charge.",
+      "error_pattern": "duplicates the charge instead of dividing it"
+    },
+    {
+      "text": "−4.0 nC and +4.0 nC",
+      "rationale": "Has the neutral ball become oppositely charged. Contact between conductors shares charge of the same sign; the neutral ball cannot gain positive charge without a source for it, and the total would be 0 rather than −8.0 nC.",
+      "error_pattern": "thinks the neutral object acquires opposite charge"
+    }
+  ],
+  "change_note": "Negative charge on a metal ball touching a neutral one, new numbers (−8.0 nC); distractors no transfer, duplication and induced opposite charge.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-024-v2",
+  "seed": "apphy2-mcq-024",
+  "difficulty": "medium",
+  "title": "Opposite charges on contact",
+  "stem": "Two identical conducting spheres carry +9.0 nC and −3.0 nC. They are touched together and then separated. What is the charge on each sphere afterward?",
+  "correct": {
+    "text": "+3.0 nC on each sphere",
+    "rationale": "The total charge is +9.0 + (−3.0) = +6.0 nC and is conserved. Identical spheres share it equally, giving +3.0 nC each."
+  },
+  "wrong": [
+    {
+      "text": "+6.0 nC on each sphere",
+      "rationale": "Uses the net charge (+6.0 nC) as the charge on each sphere. That would make the total +12 nC, which violates charge conservation; the net must be divided between them.",
+      "error_pattern": "assigns the total charge to each object"
+    },
+    {
+      "text": "0 on each sphere",
+      "rationale": "Assumes the opposite charges cancel completely. They cancel only if the magnitudes are equal; here +9.0 nC outweighs −3.0 nC, so +6.0 nC net remains.",
+      "error_pattern": "assumes opposite charges always cancel completely"
+    },
+    {
+      "text": "+4.5 nC and −1.5 nC",
+      "rationale": "Halves each charge separately and leaves them on their own spheres. Charges mix in contact, and the final charges are equal because the spheres are identical.",
+      "error_pattern": "halves each charge instead of pooling the total"
+    }
+  ],
+  "change_note": "Unlike charges of unequal magnitude, requiring the sign of the net charge; new values (+9.0 and −3.0 nC).",
+  "check": "numeric"
+ },
+ {
+  "id": "apphy2-mcq-024-v3",
+  "seed": "apphy2-mcq-024",
+  "difficulty": "hard",
+  "title": "Sequential contacts with three spheres",
+  "stem": "Three identical conducting spheres X, Y and Z carry +12 nC, 0 and 0. X touches Y and they are separated. Then Y touches Z and they are separated. What are the final charges on X, Y and Z, in that order?",
+  "correct": {
+    "text": "+6.0 nC, +3.0 nC, +3.0 nC",
+    "rationale": "First contact: X and Y share +12 nC, each keeping +6.0 nC. Second contact: Y and Z share Y's +6.0 nC, each ending with +3.0 nC. X stays at +6.0 nC, and the total is still +12 nC."
+  },
+  "wrong": [
+    {
+      "text": "+4.0 nC each",
+      "rationale": "Divides the charge equally among all three spheres, as if all touched at once. The contacts happen in sequence, and X never touches Z.",
+      "error_pattern": "treats sequential contacts as a simultaneous three-way share"
+    },
+    {
+      "text": "+6.0 nC, +6.0 nC, 0",
+      "rationale": "Stops after the first contact. The second contact lets Y share its +6.0 nC with Z, so Z does not stay neutral.",
+      "error_pattern": "ignores the second contact"
+    },
+    {
+      "text": "+6.0 nC, +6.0 nC, +6.0 nC",
+      "rationale": "Copies Y's charge onto Z instead of dividing it, making the total +18 nC and violating conservation of charge.",
+      "error_pattern": "duplicates the charge instead of dividing it"
+    }
+  ],
+  "change_note": "Two sequential contacts among three identical spheres, requiring repeated conservation and equal sharing.",
+  "check": "numeric"
+ }
+]
