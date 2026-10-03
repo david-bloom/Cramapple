@@ -105,6 +105,81 @@ Text is optional. Store the feedback record and safe contextual identifiers in S
 
 Content feedback and product feedback must remain distinguishable in reporting.
 
+## 3.5 Phase A execution checkpoint — 2026-10-03
+
+Phase A was executed through the safe, non-Production-change boundary.
+
+### Verified current state
+
+| Signal / surface | Classification | Evidence / disposition |
+| --- | --- | --- |
+| `checkout_started` | **Working** | Present in active PostHog recent taxonomy; Production growth outbox shows 41 rows, 40 delivered. |
+| `checkout_expired` | **Working** | Present in active PostHog recent taxonomy; Production outbox 25/25 delivered. |
+| `purchase_completed` | **Working** | Present in active PostHog recent taxonomy; Production outbox 3 rows, 2 delivered. |
+| `purchase_refunded` | **Working** | Present in active PostHog recent taxonomy; Production outbox 1/1 delivered. |
+| `trial_started` | **Working but legacy/non-core for current funnel** | Present in PostHog and Production outbox; last Production outbox row observed 2026-09-23. Do not make this a required step in the current paid funnel without a current product decision. |
+| `landing_view` | **Exists but not currently observed** | Defined in both Lovable PostHog wrappers but absent from active PostHog recent taxonomy. Requires call-site/key/delivery reconciliation. |
+| `signup_started` | **Remove from canonical current funnel unless redefined** | `/signup` now redirects to the single-page `/checkout`; signup is no longer a stable standalone funnel step. Do not preserve an obsolete step just for analytics continuity. |
+| `checkout_viewed` | **Exists but not currently observed** | Active call site on marketing `/checkout`; absent from active PostHog recent taxonomy. This is the highest-value frontend instrumentation gap because it distinguishes checkout arrival from checkout-session creation. |
+| `payment_processing_viewed` | **Exists but not currently observed** | Active call site in `PaymentResult`; absent from recent taxonomy. Useful for payment-state diagnosis, not required in the primary funnel. |
+| `payment_confirmed` | **Exists but not currently observed** | Active call site in `PaymentResult`; server `purchase_completed` remains authoritative for purchase. Treat frontend event as diagnostic only. |
+| `first_response_graded` | **Exists but broken/inactive for monitoring** | Development outbox contains one historical undelivered row; no recent Production/PostHog event observed. Requires backend call-site reconciliation before inclusion. |
+| meaningful study start | **Missing canonical signal** | Do not invent a PostHog event until current Supabase session/attempt data is checked for a reliable derivation. |
+| return on later day | **Missing canonical signal** | No recent `returned_day_2` / `returned_day_7` delivery observed. Prefer a simple later-day return definition over scheduled-event complexity if existing learning data can answer it. |
+
+### Delivery findings
+
+Production `app.growth_event_outbox` is functioning for the current checkout/payment events. At the audit point it contained 73 rows across the five recent event types, with 71 delivered and two undelivered. This confirms the server-side outbox → PostHog path is materially working, while individual undelivered rows still require operational follow-up.
+
+Development is different: its observed growth-event rows were all undelivered (0 delivered across the inspected event types). That is an environment/configuration gap, not evidence that Production delivery is broken.
+
+The current Lovable frontend configuration deliberately disables PostHog autocapture, pageviews, pageleave, and session recording. Both current Lovable projects initialize the explicit-event wrapper globally except excluded auth routes. However, frontend-defined events with confirmed call sites such as `checkout_viewed` are absent from the active PostHog recent taxonomy. The likely fault domain is therefore frontend key/runtime delivery rather than missing wrapper code; this must be verified in Development before changing Production configuration.
+
+Both current Lovable roots also load Microsoft Clarity globally. No Clarity account/configuration conclusion is made here. Because student surfaces may involve minors, its actual recording behavior remains a privacy-review item and is not part of Phase A implementation.
+
+### Canonical v1 event dictionary after reconciliation
+
+**Primary funnel, target state:**
+
+```text
+landing_view
+→ checkout_viewed
+→ checkout_started
+→ purchase_completed
+→ study_started OR a documented Supabase-derived equivalent
+→ first_response_graded
+→ returned_later OR a documented Supabase-derived equivalent
+```
+
+Rules:
+
+- `purchase_completed` is the authoritative purchase event; `payment_confirmed` is diagnostic only.
+- Do not restore `signup_started` as a canonical step while signup is structurally folded into checkout.
+- `checkout_expired`, `purchase_refunded`, and checkout/payment errors are health/diagnostic events, not required funnel steps.
+- Do not add a new `study_started` or return event until existing Supabase data is checked for a simpler reliable derivation.
+- Do not add more frontend events merely because helper functions already exist.
+
+### PostHog artifact created
+
+Created one pinned dashboard: **Cramapple — Conversion & Product Health**.
+
+The first saved tile is **Checkout → Purchase (verified events)**, a 30-day funnel using only `checkout_started` and `purchase_completed`. At creation it returned 18 starting persons and 1 converting person. Because Cramapple traffic is small and historical/test traffic may affect the sample, this number is a monitoring baseline, not a product-performance conclusion.
+
+The dashboard intentionally remains sparse until missing acquisition/study/return signals are repaired and verified.
+
+### Phase A remaining implementation boundary
+
+Completing Phase A now requires changes to live-connected systems:
+
+1. verify/fix the Development frontend PostHog key/runtime path so `checkout_viewed` and `landing_view` can be observed;
+2. verify the exact active `landing_view` call site or add one at the canonical marketing landing surface;
+3. reconcile `first_response_graded` backend emission;
+4. decide whether study-start and later-day return are derived from Supabase or emitted as coarse events;
+5. test the resulting path end to end in Development;
+6. only after Development evidence, seek the required Production/configuration approval before changing Production instrumentation.
+
+No Production Lovable, Supabase, secrets, or deployment changes were made in this checkpoint.
+
 ## 4. AI Research Interview v1
 
 ### 4.1 Product objective
