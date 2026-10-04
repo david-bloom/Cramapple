@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Checkout User Testing Opened (TASK-0060) (2026-10-04): wallet behaviour confirmed by browser (Chrome Google Pay, Safari Apple Pay, Firefox card only); live $39.99 Google Pay purchase succeeded but the return-page "Start Studying" button was silent because Supabase returned 429 on the OTP request; fix prompts drafted for Lovable.
 - AP Physics C (Mechanics and E&M) Units 1-3 Pipeline (APPROVAL-0108 to 0113) (2026-10-04): 41 seeds repaired or cleaned and topic-tagged, 104 variants published (43 + 61), two skill grids built, 141 skill cells written. Mechanics MCQs 42 to 85, E&M 48 to 109. All AP subjects now have the Units 1-3 pipeline applied.
 - AP Physics 2 Units 9-11 Pipeline (APPROVAL-0105 to 0107) (2026-10-03): 18 seeds repaired or cleaned and topic-tagged, 50 variants published, skill grid built, 68 skill cells written; Physics 2 MCQs now 92.
 - Calculus BC Units 1-3 Finished (APPROVAL-0104) (2026-10-03): BC skill grid built; 263 skill cells copied from the AB twins, 16 native topics and 23 skill cells voted; 286 of 294 BC Units 1-3 MCQs now have topic and skill.
@@ -368,6 +369,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Checkout User Testing Opened (TASK-0060) — 2026-10-04
+
+**Task:** `docs/tasks/TASK-0060-USER-TESTING-CHECKOUT.md`. **No approvals used; no code, Production data or Stripe settings changed.** Read-only checks on Production (`pcntajvbdfqhbeewmdry`) and the Lovable frontend source (project `61dd6602`).
+
+**Found:** Express Checkout shows only the wallets a browser supports (Chrome Google Pay, Safari Apple Pay, Firefox none), so device detection is not needed. David's live $39.99 Google Pay purchase was recorded `paid` with an active entitlement ~2 s later, but the return page's "Start Studying Now" did nothing: the webhook's invite email used Supabase's one-email-per-minute allowance, so the page's `signInWithOtp` call returned 429 twice (19:31:48, 19:31:56), and the idle-state button never shows its error. Also: no spinner while a wallet payment completes, and an empty "Express Checkout" heading in Firefox.
+
+**Next:** David sent fix prompt P1 (Express Checkout loading/empty state) to Lovable; P2 (silent-error and 429 handling, spinners) and P3 (promo before wallets) are drafted in the task file.
+
 
 ## Units 1-3 Skill and Topic Cleanup, Biology 025-v3, MCQ-005 Retired (APPROVAL-0098 to 0103) — 2026-10-03
 
