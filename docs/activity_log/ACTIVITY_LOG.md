@@ -6,8 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- AP Physics C (Mechanics and E&M) Units 1-3 Pipeline (APPROVAL-0108 to 0113) (2026-10-04): 41 seeds repaired or cleaned and topic-tagged, 104 variants published (43 + 61), two skill grids built, 141 skill cells written. Mechanics MCQs 41 to 84, E&M 48 to 109. All AP subjects now have the Units 1-3 pipeline applied.
-- AP Physics 2 Units 9-11 Pipeline (APPROVAL-0105 to 0107) (2026-10-03): 18 seeds repaired or cleaned and topic-tagged, 50 variants published, skill grid built, 68 skill cells written; Physics 2 MCQs 40 to 90.
+- AP Physics C (Mechanics and E&M) Units 1-3 Pipeline (APPROVAL-0108 to 0113) (2026-10-04): 41 seeds repaired or cleaned and topic-tagged, 104 variants published (43 + 61), two skill grids built, 141 skill cells written. Mechanics MCQs 42 to 85, E&M 48 to 109. All AP subjects now have the Units 1-3 pipeline applied.
+- AP Physics 2 Units 9-11 Pipeline (APPROVAL-0105 to 0107) (2026-10-03): 18 seeds repaired or cleaned and topic-tagged, 50 variants published, skill grid built, 68 skill cells written; Physics 2 MCQs now 92.
 - Calculus BC Units 1-3 Finished (APPROVAL-0104) (2026-10-03): BC skill grid built; 263 skill cells copied from the AB twins, 16 native topics and 23 skill cells voted; 286 of 294 BC Units 1-3 MCQs now have topic and skill.
 - Units 1-3 Skill and Topic Cleanup, Biology 025-v3, MCQ-005 Retired (APPROVAL-0098 to 0103) (2026-10-03): two stale labels re-issued; Biology `025-v3` restored; Physics 1 and Precalculus skill grids built; 679 + 66 skill cells and 36 topic cells written; `apcalcab-mcq-005` and its 5 variants retired. See the entry below.
 - AP Biology: Last 4 Orphan Items Retired (APPROVAL-0096) (2026-10-03): `APBIO-FRQ-L-028`, `APBIO-MCQ-012` (test attempts only, per the Product Owner), `APBIO-FRQ-L-038` and `APBIO-FRQ-L-041` (latest version retired) set to `retired`; every published Biology item now has a published version (132 of 132); Biology published items 136 to 132.

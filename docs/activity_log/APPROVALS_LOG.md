@@ -282,7 +282,7 @@ Most recent entries (full chronological list follows below):
 
 **Approved scope (Production, pack `ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9`):** 51 variants authored (3 per seed, all numbers and calculus recomputed in sympy), checked by two blind solvers, a rationale audit and a CED scope check. **43 kept** (9 patched), **8 dropped**: `002-v1`, `002-v2` (both checkers: topic 1.3, the seed is 1.2), `022-v1`, `022-v2`, `022-v3` (1.2, the seed is 1.3), `029-v1` (spring-oscillation context needing Unit 7), `029-v2`, `029-v3` (3.3 vs the seed's 3.4, plus rationale defects). Seeds `022` and `029` therefore have no variants. The 43 were loaded as drafts in 5 atomic chunks (md5 43 of 43), then approved and published with validated, hash-fresh serving labels and 43 validated primary topic cells inherited from the seed. Letters randomized once. Rehearsed with a rollback.
 
-**Result:** Mechanics published MCQs 41 to 84.
+**Result:** Mechanics published MCQs 42 to 85.
 
 ## APPROVAL-0108 — AP Physics C: Mechanics Units 1-3: Repair 8 Seed MCQs, Remove the Duplicated A-D List From 9 More, Create 17 Topic Cells (Production)
 
@@ -315,7 +315,7 @@ Most recent entries (full chronological list follows below):
 
 **Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `f584ab0d-114a-4520-9649-42e3e9a2fd22`):** 54 variants (3 per seed, keys `apphy2-mcq-sv-<seed>-vK`) were authored by Claude with every number recomputed, then checked by two blind solvers, a rationale audit and a CED scope and topic check. **50 kept** (6 had rationales patched), **4 dropped**: `005-v1` and `005-v2` (both checkers placed them in topic 10.7, the seed is 10.4), `029-v3` (parallel-resistor currents, topic 11.5 rather than 11.7) and `030-v3` (charge at t equal to the time constant; the CED treats RC time behaviour qualitatively). The 50 were loaded as drafts in 5 atomic chunks (md5 50 of 50 against the build manifest), then approved and published with validated, hash-fresh serving labels (unit and required units from the seed: 9, 10 or 11) and 50 validated primary topic cells inherited from the seed. Correct-answer letters randomized once (A 11, B 13, C 14, D 12). Rehearsed with a rollback.
 
-**Result:** Physics 2 published MCQs 40 to 90.
+**Result:** Physics 2 published MCQs now 92 (the 50 new variants on top of the 42 existing; the earlier "40" excluded two held items).
 
 **Not done:** variants for Units 12-15; the dropped four.
 
