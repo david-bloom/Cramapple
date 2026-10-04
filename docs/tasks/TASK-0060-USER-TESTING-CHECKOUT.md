@@ -1,6 +1,6 @@
 # TASK-0060 — User Testing, Starting With Checkout
 
-**Status:** In Progress (opened 2026-10-04). **Tier:** Hard-Gate for anything that touches payments, Production function deploys, Lovable publish, or secrets.
+**Status:** Substantially complete as of 2026-10-04 (session close); the remaining checks are listed under "Still to test" and need a signed-in session or a real inbox, so David runs them. Handoff: `docs/handoffs/SESSION_CLOSE_2026_10_04_CHECKOUT_USER_TESTING.md`. **Tier:** Hard-Gate for anything that touches payments, Production function deploys, Lovable publish, or secrets.
 **Owner:** Claude. **Product Owner:** David Bloom.
 **Area:** Checkout UX, return page, wallets, sign-in after purchase.
 **Related:** `TASK-0058` (post-pilot checkout list; items A0, A, B, C, E overlap), `TASK-0041`, `DECISION-0090`, `DECISION-0094`,
@@ -71,6 +71,35 @@ calculates correctly in the order summary and recalculates as subjects are added
 Google Pay renders in a normal, signed-in Chrome window and does not render in an anonymous Chrome window (expected: no signed-in Google account).
 Apple Pay renders in Safari, including an anonymous Safari window. Nothing renders in Firefox (expected).
 
+### E7. Third live purchase and the redesigned post-purchase flow (2026-10-04, ~21:55 UTC)
+- **Verified (Production logs and DB):** Physics 1, $1 promo, paid, entitlement active. The invite link was opened on an **iPhone** at 21:56:25 and worked (the account confirmed and signed in, then redirected to `/welcome`, which did not exist, so even that success landed on a 404). The **same link** opened on a **Mac** 79 s later returned "One-time token not found" and `#error=otp_expired`, which is the error David saw. David confirmed he did not use the code first, so the cause is a single-use link opened on two devices, not a code and not a mail scanner. A real inbox received the invite within seconds, which closes most of F10.
+- **F11:** the emailed link is single-use and device-bound (PKCE links also need the same browser); `/welcome` did not exist. **F12:** the post-purchase add-on card ("Add another AP subject / Complete your 2-subject bundle for $30.00") read as a bundle purchase to a one-subject buyer. **F13:** the **Confirm sign up** template (sent to an *unconfirmed* student who asks for a code) was still link-only; its `?code=` link is a PKCE code that the marketing home page never exchanges.
+- **Product Owner decisions (David, chat):** remove the post-purchase upsell; the return page says "Welcome to Cramapple. Check your email for the 6-digit code to get started." with an inline code box; a signed-in returning student goes straight to the hub; a new student lands on the hub with a dismissible welcome banner; every student email carries the 6-digit code; the link in those emails is a plain link to `/welcome`, never Supabase's one-time link.
+- **Built:** P5 (return page, `CodeSignIn`, `/welcome` with three states: session in hash, error in hash, plain), P6 (hub welcome banner in the App project), P8 (login page copy and 429 handling). **Supabase templates (David, Production auth config):** Invite user and Magic Link or OTP carry `{{ .Token }}`; **Confirm sign up** was told to carry it too (its state is not verified by Claude, see "Still to test").
+
+### E8. Student hub 400: "We couldn't load your home right now" (2026-10-04, ~22:27 UTC)
+- **Observed:** after signing in, picking a subject failed. **Verified:** the Production API returned HTTP 400 for `student_course_positions?select=unit_id,source,topic_code,topic_source`. The public view listed six columns; migration `20260927211703` added `topic_code` and `topic_source` to `app.student_course_positions` but not to the view.
+- **Fixed under `APPROVAL-0120`** (David approved it in chat as "0118"; renumbered because another PR claimed 0118 first): the view was recreated with the two columns, same options and grants, rehearsed in a rolled-back transaction, applied and verified (the same request went from 400 "column does not exist" to 401 "permission denied" for an anonymous caller). A read-only scan of 17 public mirror views found no other view producing API errors; `topic_explainers` and `topic_point_briefs` omit `topic_code`, `status` and `source_note` and need a deliberate look before student topic pages launch.
+
+### E9. Parent pay: wrong price and a link too long for SMS (2026-10-04)
+- **Observed:** the "Ask a parent to pay" modal showed $39.99 with a $38.99 coupon applied (the real parent page was correctly $1.00), and the link was Stripe's ~450-character hosted URL.
+- **Fixed under `APPROVAL-0119`:** table `app.parent_payment_links` (8-character code, service role only), new public function `resolve-parent-link`, and `create-parent-payment-link` / `send-parent-payment-email` now return and use `cramapple.com/p/<code>`. Tested in Dev (12 cases, including that a code can never reach a student session), then live in Production with no payment. Frontend (P7): modal price line from Stripe's real total, charged amount after creation, short link in copy/share/SMS, and the `/p/<code>` page.
+
+### E10. Final end-to-end QA (Claude, live site, ~23:35 UTC, no payment details entered)
+| Check | Result |
+|---|---|
+| Student checkout with `?promo=FRIENDSSPECIAL` and an email | Total $1.00, discount line −$38.99, sticky total $1.00 |
+| "Ask a parent to pay" modal before creating | "Your parent pays $1.00 on a secure page." |
+| Create payment link | "Your parent will pay $1.00." (the server's charged amount) |
+| What Copy Payment Link puts on the clipboard | `https://cramapple.com/p/<8 chars>` (32 characters) |
+| Open the short link | Redirects to `checkout.cramapple.com/c/pay/cs_live_…` with the `#` fragment; page shows Pay Cramapple $1.00, AP Biology $39.99, FRIENDSSPECIAL −$38.99, Total due $1.00 |
+| Unknown short code `/p/abcdefgh` | "This payment link has expired" |
+| `/welcome` plain and with the old `#error=…otp_expired` hash | Code-entry page; "Let's get you in" page with no raw error and the hash cleared |
+| Earlier checks (E6) | Intro copy, payment order, picker limit, promo guard, phone-width sticky bar all pass |
+Test data left behind: unpaid live sessions (expire on their own) and no Supabase rows (test rows deleted).
+
+**Could not be verified by Claude** (needs a signed-in session, a real inbox or a wallet): the hub banner and the post-login hub load after the view fix; the login page's code step and cooldown; the return page's code box after a real purchase; Confirm sign up template content; Check 3; the wallet row appearing in place in Chrome and Safari without a shift; a real parent email through Loops.
+
 ### Review findings from reading the published source (Verified)
 - **F7:** after P4 the picker no longer disabled tiles at three picks, so a fourth click was silently ignored by the reducer. Fixed by P4b.
 - **F8:** after P4 the wallet slot appeared only once a session was being created, so the card and parent buttons were pushed down
@@ -115,7 +144,7 @@ failure on top (the invite email and the code email collide on the one-email-per
    treat it as a convenience, not proof, unless the student confirms it.
 Not recommended: signing the buyer in on payment alone.
 
-## F10 (open until a real-inbox test): no confirmation email arrived on the second live purchase
+## F10 (largely closed 2026-10-04): no confirmation email arrived on the second live purchase
 
 **Observed (David, 2026-10-04):** no confirmation email after the $1 purchase `cs_live_a1g1…` (E5).
 **Explained (David, chat):** the checkout used a placeholder address, not a real inbox, and David had forgotten. So the missing
@@ -133,38 +162,44 @@ purchase has been tested.
 `cramapple.com` sender is the goal); (2) buy with an inbox David controls (the $1 `?promo=` link), check inbox and spam, and
 confirm both the invite email and a 6-digit code email arrive; (3) F10 closes when both arrive in the inbox.
 
+**Update (E7):** the third live purchase used a real inbox and the invite email arrived within seconds, so custom SMTP delivers. What remains is confirming that the code emails (Invite, Magic Link, Confirm sign up) land in the inbox and not in spam, covered by "Still to test" items 1, 3 and 4.
+
 ## Fix prompts to Lovable
 
-| # | Covers | State |
-|---|---|---|
-| P1 | F1: Express Checkout loading and empty state (spinner, `onReady` → `availablePaymentMethods`, hide block when empty, 4 s fallback) | Published. Source read: matches. |
-| P2 | F2 + F3: render errors in the idle state; 429 → "we just emailed you a link" with 60 s countdown; spinners for wallet confirm and return page; no auto-resend | Published. Source read: matches. |
-| P3 | Promo control above wallets and visible before a session exists; typed-but-unapplied code blocks wallets, card and Place order | Published. Source read: matches. Wallet-bypass hazard (cutover checklist line 171) closed and browser-tested (E6). |
-| P3b | Guard no longer depends on the promo panel being open; panel reopens; pending message suppressed for a `?promo=` code about to auto-apply | Published. Diff read: correct. Leftover: message can flash ~1 s after a valid email. |
-| P4 | F6 remove-coupon fix; preload Stripe.js; no-upsell intro copy and selection summary; thin sticky bar; payment order wallet, card, parent with buttons disabled-with-reason until steps 1 and 2 | Published (David). Diff read: matches. Browser-tested, see E6. |
-| P4b | F7 picker disabled at 3; F8 wallet slot reserved from first paint | Published (David), Lovable head `a605ff12`. Diff read: matches. Browser-tested, see E6. |
+| # | Project | Covers | State |
+|---|---|---|---|
+| P1 | Marketing `61dd6602` | F1 Express Checkout loading and empty state | Published, verified |
+| P2 | Marketing | F2/F3 silent Start Studying button (429), spinners | Published, verified (superseded in part by P5) |
+| P3, P3b | Marketing | Promo above wallets; typed-but-unapplied code blocks payment | Published, browser-tested (E6) |
+| P4, P4b | Marketing | Remove-coupon fix, no-upsell copy, thin sticky bar, wallet, card, parent order, wallet slot from first paint, picker limit | Published, browser-tested (E6) |
+| P5 | Marketing | Remove upsell; return-page welcome and code box; `/welcome` (commit `28a5cc1b`) | Published; `/welcome` verified live (E10); return page awaits a real purchase |
+| P6 | App `56cae479` | Dismissible hub welcome banner on `?welcome=1` (commit `7193c3b2`) | Built, diff read; **publish and behavior unverified** (needs sign-in) |
+| P7 | Marketing | Parent modal price, short link, `/p/<code>` (commit `0e177df2`) | Published, verified live end to end (E10) |
+| P8 | Marketing | Login page: remove "sign-in link" copy, 429 handling, resend cooldown (commit `1ee055f3`) | Built, diff read; **publish unverified** |
 
-## Test status
+Known leftover: the return page's rate-limit notice (`AUTH_EMAIL_RATE_LIMIT_NOTICE` in `StartStudying.tsx`) still says "a link"; the login page has its own "a code" wording.
 
-**Done and passing (E1, E3, E6):** wallet availability by browser; coupon apply/remove and multi-subject recalculation; intro copy; payment order and
-disabled-with-reason buttons; picker limit; promo guard; phone-width sticky bar; card form opens; live purchases E2 and E5 reached `paid` with access.
-F1, F3 (checkout side), F6, F7 are confirmed fixed.
+## Still to test (David; none blocks the others)
 
-**Still to test (none blocks the others):**
-1. **Check 3:** type a code, fill the email, wait over 4 s, clear the field; do the wallets come back in Chrome? (Needs a Chrome window with Google Pay.)
-2. **Wallet row appears in place** with no layout shift in normal Chrome (Google Pay) and Safari (Apple Pay). David confirmed the payment order but not the absence of a shift.
-3. **Firefox:** no brief flash of the wallet placeholder before the page hydrates (the page is server-rendered).
-4. **Brand-new real-inbox purchase** (the $1 `?promo=` link, an inbox David controls): the invite email and a 6-digit code email both arrive and are not in spam; clicking Start Studying immediately shows the 429 notice with a countdown, then works after the wait. Closes F10 and the F2 check.
-5. **"Ask a parent to pay"** from step 3 and from the sticky bar: the drawer opens, and the payment link and its waiting state behave as before.
-6. Phone width on a real device (the emulated 375 px check passed).
+1. **Real-inbox purchase, end to end** (the $1 `?promo=` link, an inbox David controls, a *new* email): the invite email shows the 6-digit code in the subject and body; the return page says "Check your email for the 6-digit code" and accepts it; you land on the hub with the welcome banner; dismiss it and reload (it must not return).
+2. **Hub load after the view fix:** sign in, pick a subject, confirm the home loads (the request that returned 400 now resolves its columns). Also confirm the hub banner and that the hub no longer bounces to a bare `/home`.
+3. **Login code path (confirmed account):** `cramapple.com/login`, request a code; the email shows only the code; enter it. Press "Resend" within 60 s: a countdown, not an error.
+4. **Confirm sign up template (unconfirmed account):** on the return page of a new purchase wait 60 s and press "Email me a new code"; the email must show a code, not "Confirm your email address" with a link.
+5. **Second purchase while signed in:** the return page goes straight to the hub, no banner, no code.
+6. **Real parent email:** "Send Parent Email" delivers the short link (Loops `checkoutUrl` now carries it) and a real parent payment completes and unlocks the student.
+7. **Check 3 and the wallet row in place** (Chrome with Google Pay, Safari with Apple Pay): wallets return after a typed code is cleared; the buttons do not move when the wallet row appears. Firefox: no flash of the wallet placeholder before the page hydrates.
+8. **"Ask a parent to pay" waiting panel:** its old "Start Studying Now" button still sends a second email (the 429 problem); approval to switch it to the code box is still pending from David.
 
 ## Ideas parked (not decided)
 
 - **QR / "continue on your phone" for desktop buyers** (same pattern as `capture_pairing_tokens`; needs a small backend piece), or "text me the link".
 - **Venmo:** US-only, via PayPal, new async webhook paths; `TASK-0058` E pins methods to card and wallets. Not for the pilot.
+- **Student hub redesign (`TASK-0048`, "Planned — not started", `O17`):** `app.cramapple.com/home` still has the old design; David noticed this during testing. Decision pending: start it now or after the pilot.
+- **F9 layers 1 and 2** (Google sign-in at checkout; wallet email as proof) are decided but not built; layer 3 (one email with the code) is built through the three templates.
+- **Dormant:** `create-post-purchase-addon` and `/checkout/add-on` remain deployed but nothing links to them; decide whether to remove.
+- **Safety net (optional):** send a visitor with `?code=` on the home page to `/welcome` for old Confirm-sign-up emails already in inboxes.
 - Placeholder caption such as "Available after you add your email" if the empty grey wallet box looks broken to a student.
 
 ## Done when
 
-F1–F8 are re-tested on the live site (F1, F3, F6, F7 done; the rest are in the list above), F10 is resolved (email delivers to a real inbox), F9's layers are built in the order above, the new-student path (pay, return page, get in)
-works first time, and each Lovable publish and any Production change has David's approval recorded.
+Every item under "Still to test" passes on the live site, the Confirm sign up template carries the code, the hub banner is published and seen, and the hub redesign (`TASK-0048`) is scheduled or deferred by David. Production changes made under this task: `APPROVAL-0119` (parent short links) and `APPROVAL-0120` (student course positions view).

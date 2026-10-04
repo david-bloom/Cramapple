@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) (2026-10-04): final end-to-end QA on the live site passes; remaining checks need a signed-in session or a real inbox; handoff written.
 - Six-Criteria Re-run; Calc AB Canonicals; Difficulty Inheritance (2026-10-04): re-ran the six servability criteria on Production (no subject six-of-six: criterion 5 failed for MCQ everywhere after about 1,300 variants were published without difficulty, and criterion 4 failed for 20 Calc AB FRQs). Wrote the 20 canonicals with label carry-forward (APPROVAL-0116). Rated 31 seeds and had 1,011 variants and BC copies inherit, plus 1 FRQ variant (DECISION-0096, APPROVAL-0117). Every published item now has a difficulty band (FRQ 572/572, MCQ 1,718/1,718). PRs #327, #328 merged. Handoff: `docs/handoffs/SESSION_CLOSE_2026_10_04_SIX_CRITERIA_CANONICALS_DIFFICULTY.md`. **Next Owner:** David Bloom. **Next Action:** none blocking; optional provenance columns for seed links.
 - Parent Payment Short Links Live in Production (APPROVAL-0119) (2026-10-04): `cramapple.com/p/<code>` resolves to the live Stripe URL; new table, new function, two function changes, tested in Dev then verified live without payment.
 - Student Home 400 Fixed: `student_course_positions` View Refreshed (APPROVAL-0120) (2026-10-04): the view lacked `topic_code` and `topic_source`, so every subject load failed; recreated in Production and verified, plus a view-drift check.
@@ -375,6 +376,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) — 2026-10-04
+
+**Task and handoff:** `docs/tasks/TASK-0060-USER-TESTING-CHECKOUT.md` (E1–E10, F1–F13); `docs/handoffs/SESSION_CLOSE_2026_10_04_CHECKOUT_USER_TESTING.md`. **Production changes by Claude:** `APPROVAL-0119` (parent short links: table, `resolve-parent-link`, two function changes) and `APPROVAL-0120` (recreated `public.student_course_positions`), each rehearsed and verified without taking a payment. Lovable prompts P1–P8 reviewed by reading their commits; David publishes.
+
+**Result:** the checkout (wallets, promo, picker, sticky bar), the post-purchase flow (return page code box, `/welcome`, login copy), and the parent-pay path (price, short link, redirect to Stripe at $1.00) all pass on the live site; the student home view bug that blocked every subject load is fixed.
+
+**Still open (needs David):** a real-inbox purchase test, the Confirm sign up template, publishing and verifying the login fix and hub banner, the "Ask a parent to pay" panel's old Start Studying button, and the `TASK-0048` hub redesign decision. Details in the handoff.
+
 
 ## Parent Payment Short Links Live in Production (APPROVAL-0119) — 2026-10-04
 
