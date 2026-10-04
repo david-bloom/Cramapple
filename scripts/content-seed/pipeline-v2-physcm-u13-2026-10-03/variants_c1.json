@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphycm-mcq-001-v1",
+  "seed": "apphycm-mcq-001",
+  "difficulty": "easy",
+  "title": "Sled acceleration from a cubic velocity",
+  "stem": "A sled slides down a snowy hill with velocity v(t) = 2t³ in SI units. What is its acceleration at t = 2.0 s?",
+  "correct": {
+   "text": "24 m/s²",
+   "rationale": "The acceleration is the time derivative of the velocity: a = dv/dt = 6t². At t = 2.0 s, a = 6(2.0)² = 24 m/s²."
+  },
+  "wrong": [
+   {
+    "text": "16 m/s²",
+    "rationale": "This is the velocity, v(2.0) = 2(2.0)³ = 16 m/s, not the acceleration. Acceleration requires differentiating v(t) before substituting the time.",
+    "error_pattern": "evaluates v(t) instead of dv/dt"
+   },
+   {
+    "text": "12 m/s²",
+    "rationale": "Differentiating 2t³ gives 6t², not 6t. Lowering the exponent by two instead of one produces 6(2.0) = 12, which is not dv/dt.",
+    "error_pattern": "wrong exponent after differentiating (lowers the power by two)"
+   },
+   {
+    "text": "48 m/s²",
+    "rationale": "Multiplying by the exponent without lowering it gives 6t³ = 6(2.0)³ = 48. The power rule also reduces the exponent by one, so dv/dt = 6t².",
+    "error_pattern": "wrong exponent after differentiating (power not lowered)"
+   }
+  ],
+  "change_note": "New context and a cubic velocity with a different time; same dv/dt power-rule skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-001-v2",
+  "seed": "apphycm-mcq-001",
+  "difficulty": "medium",
+  "title": "Cart acceleration from a quadratic velocity",
+  "stem": "A cart's velocity along a straight track is v(t) = 20 + 6t − t² in SI units. What is the cart's acceleration at t = 4.0 s?",
+  "correct": {
+   "text": "−2.0 m/s²",
+   "rationale": "a = dv/dt = 6 − 2t. At t = 4.0 s, a = 6 − 8.0 = −2.0 m/s², so the cart is slowing down at that instant."
+  },
+  "wrong": [
+   {
+    "text": "+2.0 m/s²",
+    "rationale": "(v(4.0) − v(0))/4.0 = (28 − 20)/4.0 = +2.0 m/s² is the average acceleration over the first 4.0 s. Here the acceleration changes with time, so the instantaneous value at t = 4.0 s must come from dv/dt, which is negative.",
+    "error_pattern": "uses the average acceleration (constant-acceleration reasoning) when acceleration varies"
+   },
+   {
+    "text": "6.0 m/s²",
+    "rationale": "Differentiating only the 6t term gives 6. The −t² term contributes −2t, which is −8.0 m/s² at t = 4.0 s, so the full derivative is 6 − 8.0 = −2.0 m/s².",
+    "error_pattern": "drops a term when differentiating"
+   },
+   {
+    "text": "28 m/s²",
+    "rationale": "This is the velocity, v(4.0) = 20 + 24 − 16 = 28 m/s, not the acceleration. Acceleration is the derivative of v(t).",
+    "error_pattern": "evaluates v(t) instead of dv/dt"
+   }
+  ],
+  "change_note": "Polynomial with constant, linear and quadratic terms and a negative result; same dv/dt skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-001-v3",
+  "seed": "apphycm-mcq-001",
+  "difficulty": "hard",
+  "title": "Probe acceleration with symbolic constants",
+  "stem": "A probe moves along a straight line with velocity v(t) = bt³ − ct, where b and c are positive constants. What is its acceleration at time t = T?",
+  "correct": {
+   "text": "3bT² − c",
+   "rationale": "a = dv/dt = 3bt² − c. Evaluating at t = T gives 3bT² − c."
+  },
+  "wrong": [
+   {
+    "text": "bT² − c",
+    "rationale": "Differentiating bt³ gives 3bt², not bt². Dropping the exponent multiplier loses the factor of 3.",
+    "error_pattern": "drops the exponent multiplier in the power rule"
+   },
+   {
+    "text": "3bT³ − c",
+    "rationale": "The factor 3 is correct, but the exponent must drop by one: d(bt³)/dt = 3bt², so the first term is 3bT², not 3bT³.",
+    "error_pattern": "wrong exponent after differentiating (power not lowered)"
+   },
+   {
+    "text": "3bT² − cT",
+    "rationale": "The derivative of ct with respect to t is the constant c. Keeping the factor t, as in −cT, means the linear term was not differentiated.",
+    "error_pattern": "does not differentiate the linear term"
+   }
+  ],
+  "change_note": "Symbolic constants and two terms; same dv/dt power-rule skill as the seed.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-002-v1",
+  "seed": "apphycm-mcq-002",
+  "difficulty": "easy",
+  "title": "Skater displacement from linear speed",
+  "stem": "A skater's speed along a straight rink is v(t) = 4t in SI units. How far does the skater travel from t = 0 to t = 3.0 s?",
+  "correct": {
+   "text": "18 m",
+   "rationale": "Displacement is the time integral of velocity: ∫₀³ 4t dt = 2t² evaluated from 0 to 3.0 s, which is 18 m."
+  },
+  "wrong": [
+   {
+    "text": "12 m",
+    "rationale": "This is the final speed, v(3.0) = 12 m/s. It has the units of speed and is not the integral of the speed over the interval.",
+    "error_pattern": "uses the final velocity as the displacement"
+   },
+   {
+    "text": "36 m",
+    "rationale": "Integrating 4t gives 2t², not 4t². Dropping the factor 1/2 from the power rule doubles the displacement to 4(3.0)² = 36 m.",
+    "error_pattern": "drops the 1/2 factor when integrating"
+   },
+   {
+    "text": "4 m",
+    "rationale": "The number 4 is the derivative dv/dt, the (constant) acceleration. Differentiating instead of integrating does not give a displacement.",
+    "error_pattern": "differentiates instead of integrating"
+   }
+  ],
+  "change_note": "Linear speed in a skating context with numbers; same integrate-velocity skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-002-v2",
+  "seed": "apphycm-mcq-002",
+  "difficulty": "medium",
+  "title": "Displacement over a later time interval",
+  "stem": "A particle's velocity along a line is v(t) = 2t + 3t² in SI units. What is its displacement from t = 1.0 s to t = 3.0 s?",
+  "correct": {
+   "text": "34 m",
+   "rationale": "Displacement = ∫₁³ (2t + 3t²) dt = [t² + t³] from 1.0 to 3.0 = (9 + 27) − (1 + 1) = 34 m."
+  },
+  "wrong": [
+   {
+    "text": "36 m",
+    "rationale": "This is the displacement from t = 0 to t = 3.0 s, (9 + 27) − 0. The integral must be evaluated from the lower limit t = 1.0 s, which subtracts (1 + 1) = 2 m.",
+    "error_pattern": "ignores the lower limit of integration"
+   },
+   {
+    "text": "28 m",
+    "rationale": "This is v(3.0) − v(1.0) = 33 − 5 = 28, a change in velocity (in m/s), not the integral of the velocity.",
+    "error_pattern": "takes the change in velocity as the displacement"
+   },
+   {
+    "text": "38 m",
+    "rationale": "(v(1.0) + v(3.0))/2 × 2.0 s = 19 × 2.0 = 38 m treats the velocity as changing at a constant rate. The acceleration 2 + 6t is not constant here, so the endpoint average is not the average velocity.",
+    "error_pattern": "applies the constant-acceleration average-velocity formula to a varying acceleration"
+   }
+  ],
+  "change_note": "Nonzero lower limit and a quadratic velocity; same integrate-velocity skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-002-v3",
+  "seed": "apphycm-mcq-002",
+  "difficulty": "hard",
+  "title": "Distance traveled until the puck stops",
+  "stem": "A puck slides along the x-axis starting from x = 0 at t = 0, with velocity v(t) = 12 − 3t² in SI units. How far from its starting point is the puck when it first comes momentarily to rest?",
+  "correct": {
+   "text": "16 m",
+   "rationale": "The puck is at rest when 12 − 3t² = 0, so t = 2.0 s. Then x = ∫₀² (12 − 3t²) dt = [12t − t³] from 0 to 2.0 = 24 − 8 = 16 m."
+  },
+  "wrong": [
+   {
+    "text": "24 m",
+    "rationale": "12 m/s × 2.0 s = 24 m treats the initial speed as constant. The speed drops as t² grows, so the puck covers less distance, 24 − 8 = 16 m.",
+    "error_pattern": "treats the velocity as constant at its initial value"
+   },
+   {
+    "text": "12 m",
+    "rationale": "Integrating −3t² gives −t³, not −3t³/2. A wrong power-rule denominator produces 24 − 12 = 12 m instead of 24 − 8 = 16 m.",
+    "error_pattern": "wrong power-rule denominator when integrating"
+   },
+   {
+    "text": "0 m",
+    "rationale": "Integrating −3t² to −3t³ instead of −t³ leaves out the division by 3 and gives 24 − 24 = 0 m. The correct integral of −3t² is −t³, so the puck has moved 24 − 8 = 16 m.",
+    "error_pattern": "drops the division by the new exponent when integrating"
+   }
+  ],
+  "change_note": "Needs the stopping time first, then a two-term integral; same integrate-velocity skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-003-v1",
+  "seed": "apphycm-mcq-003",
+  "difficulty": "easy",
+  "title": "Work by a force that grows with position",
+  "stem": "A variable force F(x) = 4.0x, with F in newtons and x in meters, acts on a block along a straight line. How much work does this force do as the block moves from x = 0 to x = 3.0 m?",
+  "correct": {
+   "text": "18 J",
+   "rationale": "W = ∫₀³ 4.0x dx = 2.0x² evaluated from 0 to 3.0 m = 18 J."
+  },
+  "wrong": [
+   {
+    "text": "12 J",
+    "rationale": "This is the force at the endpoint, F(3.0) = 12 N. Work is the integral of force over the displacement, not the force value.",
+    "error_pattern": "mistakes the endpoint force for the work"
+   },
+   {
+    "text": "36 J",
+    "rationale": "F(3.0) × 3.0 m = 36 J treats the force as constant at its largest value. The force grows from zero, so the integral picks up a factor 1/2 and gives 18 J.",
+    "error_pattern": "treats a variable force as constant (misses the 1/2 factor)"
+   },
+   {
+    "text": "6.0 J",
+    "rationale": "½(4.0)(3.0) = 6.0 uses the slope 4.0 N/m as if it were the height of the force triangle. The height is F(3.0) = 12 N, so the area is ½(12)(3.0) = 18 J.",
+    "error_pattern": "uses the force-versus-position slope as the triangle height"
+   }
+  ],
+  "change_note": "New numbers with units and a linear force; same W = ∫F dx skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-003-v2",
+  "seed": "apphycm-mcq-003",
+  "difficulty": "medium",
+  "title": "Work by a quadratic force over a later interval",
+  "stem": "A force F(x) = 3.0x², with F in newtons and x in meters, acts along a line. How much work does it do as an object moves from x = 1.0 m to x = 2.0 m?",
+  "correct": {
+   "text": "7.0 J",
+   "rationale": "W = ∫₁² 3.0x² dx = [x³] from 1.0 to 2.0 m = 8.0 − 1.0 = 7.0 J."
+  },
+  "wrong": [
+   {
+    "text": "8.0 J",
+    "rationale": "This is the work from x = 0 to x = 2.0 m. The integral must start at x = 1.0 m, so x³ at the lower limit (1.0 J) is subtracted.",
+    "error_pattern": "ignores the lower limit of integration"
+   },
+   {
+    "text": "12 J",
+    "rationale": "F(2.0) × 1.0 m = 12 J treats the force as constant at its endpoint value over the 1.0 m interval. The force rises from 3.0 N to 12 N, so the integral must be used.",
+    "error_pattern": "treats a variable force as constant"
+   },
+   {
+    "text": "10.5 J",
+    "rationale": "Integrating 3.0x² gives x³, not 1.5x³. Using a denominator of 2 instead of 3 gives 1.5 × (8.0 − 1.0) = 10.5 J.",
+    "error_pattern": "wrong power-rule denominator when integrating"
+   }
+  ],
+  "change_note": "Quadratic force and a nonzero lower limit; same W = ∫F dx skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-003-v3",
+  "seed": "apphycm-mcq-003",
+  "difficulty": "hard",
+  "title": "Net work when the force changes sign",
+  "stem": "A force F(x) = 12 − 3.0x, with F in newtons and x in meters, acts along the x-axis on an object that moves from x = 0 to x = 6.0 m. How much net work does this force do on the object?",
+  "correct": {
+   "text": "18 J",
+   "rationale": "W = ∫₀⁶ (12 − 3.0x) dx = [12x − 1.5x²] from 0 to 6.0 m = 72 − 54 = 18 J. The force reverses direction at x = 4.0 m, and the integral counts that later region as negative work."
+  },
+  "wrong": [
+   {
+    "text": "24 J",
+    "rationale": "This is the work from x = 0 to x = 4.0 m, where the force is positive. Beyond x = 4.0 m the force points the other way and removes 6 J, so the net is 24 − 6 = 18 J.",
+    "error_pattern": "stops integrating where the force changes sign and ignores the negative work"
+   },
+   {
+    "text": "30 J",
+    "rationale": "Adding the sizes of the two regions, 24 J + 6 J, treats the work beyond x = 4.0 m as positive. The force there is opposite the displacement, so that region subtracts 6 J.",
+    "error_pattern": "adds the magnitudes of areas of opposite sign"
+   },
+   {
+    "text": "72 J",
+    "rationale": "12 N × 6.0 m uses the initial force as if it stayed constant. The force falls to −6 N at x = 6.0 m, so the integral must be used and gives 18 J.",
+    "error_pattern": "treats a variable force as constant at its initial value"
+   }
+  ],
+  "change_note": "Force that changes sign over the interval, so signed area matters; same W = ∫F dx skill as the seed (somewhat more demanding).",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-006-v1",
+  "seed": "apphycm-mcq-006",
+  "difficulty": "easy",
+  "title": "Force on a bead from a quadratic potential energy",
+  "stem": "A bead slides along a wire (the x-axis) with potential energy U(x) = 5.0x², where U is in joules and x is in meters. What is the force on the bead at x = 2.0 m?",
+  "correct": {
+   "text": "−20 N",
+   "rationale": "F = −dU/dx = −10x. At x = 2.0 m, F = −20 N, pointing back toward the origin."
+  },
+  "wrong": [
+   {
+    "text": "−10 N",
+    "rationale": "U(2.0) = 20 J, so −U/x = −10 N, but this divides U by x instead of differentiating. The same value also results from dropping the exponent multiplier (differentiating 5.0x² to 5.0x). The correct derivative is 10x, giving −20 N.",
+    "error_pattern": "divides U by x instead of differentiating"
+   },
+   {
+    "text": "−40 N",
+    "rationale": "Multiplying by the exponent without lowering it gives −10x² = −40 N. The power rule also reduces the exponent by one, so dU/dx = 10x.",
+    "error_pattern": "wrong exponent after differentiating (power not lowered)"
+   },
+   {
+    "text": "−4.0 N",
+    "rationale": "Differentiating x² to 2x and then leaving out the coefficient 5.0 gives −2x = −4.0 N. The coefficient multiplies the derivative: dU/dx = 5.0 × 2x = 10x.",
+    "error_pattern": "drops the coefficient when differentiating"
+   }
+  ],
+  "change_note": "Quadratic U with a different coefficient and numeric evaluation; same F = -dU/dx skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-006-v2",
+  "seed": "apphycm-mcq-006",
+  "difficulty": "medium",
+  "title": "Force from a quartic potential energy",
+  "stem": "A bead on a straight wire has potential energy U(x) = x⁴ − 4x in SI units. At x = 2.0 m, the force on the bead along the wire is",
+  "correct": {
+   "text": "−28 N",
+   "rationale": "F = −dU/dx = −(4x³ − 4). At x = 2.0 m, F = −(32 − 4) = −28 N."
+  },
+  "wrong": [
+   {
+    "text": "+28 N",
+    "rationale": "The magnitude is right, but the force is the negative of the slope. The slope dU/dx is +28 J/m here, so F = −28 N, directed toward smaller x.",
+    "error_pattern": "drops the minus sign in F = −dU/dx"
+   },
+   {
+    "text": "−60 N",
+    "rationale": "Differentiating x⁴ gives 4x³, not 4x⁴. With the exponent not lowered, −(4x⁴ − 4) = −(64 − 4) = −60 N.",
+    "error_pattern": "wrong exponent after differentiating (power not lowered)"
+   },
+   {
+    "text": "−4.0 N",
+    "rationale": "−U/x = −(16 − 8)/2.0 = −4.0 N divides the potential energy by x instead of taking the derivative. The two agree only when U is proportional to x.",
+    "error_pattern": "divides U by x instead of differentiating"
+   }
+  ],
+  "change_note": "Quartic U with a linear term and a sign-only distractor; same F = −dU/dx skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-006-v3",
+  "seed": "apphycm-mcq-006",
+  "difficulty": "hard",
+  "title": "Force from an inverse-distance potential energy",
+  "stem": "A particle moves along a radial line under a conservative force with potential energy U(r) = −A/r, where A is a positive constant and r > 0 is the distance from the origin. What are the magnitude and direction of the force on the particle?",
+  "correct": {
+   "text": "A/r², toward the origin",
+   "rationale": "F_r = −dU/dr = −d(−A r⁻¹)/dr = −A/r². The radial component is negative, so the force has magnitude A/r² and points toward the origin."
+  },
+  "wrong": [
+   {
+    "text": "A/r, toward the origin",
+    "rationale": "Differentiating r⁻¹ gives −r⁻², not −r⁻¹. Keeping the exponent unchanged gives a 1/r force, which is not the derivative of the 1/r potential.",
+    "error_pattern": "wrong exponent after differentiating (power not lowered)"
+   },
+   {
+    "text": "2A/r³, toward the origin",
+    "rationale": "This is the magnitude of the second derivative, d²U/dr². The force is the first derivative of U with respect to r, with a minus sign.",
+    "error_pattern": "differentiates twice"
+   },
+   {
+    "text": "Zero, because U is negative",
+    "rationale": "The sign of U does not set the force; the slope does. Here dU/dr = A/r² is nonzero everywhere, so the force is nonzero everywhere.",
+    "error_pattern": "believes a negative potential energy means no force"
+   }
+  ],
+  "change_note": "Inverse-distance potential with direction in the answer; same F = −dU/dx skill as the seed (derivative of a power with a negative exponent).",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-007-v1",
+  "seed": "apphycm-mcq-007",
+  "difficulty": "easy",
+  "title": "Energy delivered by a winch",
+  "stem": "A winch delivers power P(t) = 6t, with P in watts and t in seconds. How much energy does it deliver from t = 0 to t = 4.0 s?",
+  "correct": {
+   "text": "48 J",
+   "rationale": "Energy is the time integral of power: ∫₀⁴ 6t dt = 3t² evaluated from 0 to 4.0 s = 48 J."
+  },
+  "wrong": [
+   {
+    "text": "24 J",
+    "rationale": "This is the instantaneous power at the end, P(4.0) = 24 W. Power is a rate, so its value at one instant is not the energy delivered over the interval.",
+    "error_pattern": "treats the final power as the energy"
+   },
+   {
+    "text": "96 J",
+    "rationale": "P(4.0) × 4.0 s = 96 J treats the power as constant at its final value. The power grows from zero, which introduces a factor 1/2, giving 48 J.",
+    "error_pattern": "treats variable power as constant"
+   },
+   {
+    "text": "6.0 J",
+    "rationale": "The number 6 is the derivative dP/dt. Differentiating instead of integrating does not give the energy.",
+    "error_pattern": "differentiates instead of integrating"
+   }
+  ],
+  "change_note": "Linear power function in a new context; same E = ∫P dt skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-007-v2",
+  "seed": "apphycm-mcq-007",
+  "difficulty": "medium",
+  "title": "Energy from a motor over a later interval",
+  "stem": "A motor's power output is P(t) = 3t² + 4, with P in watts and t in seconds. How much energy does it deliver from t = 1.0 s to t = 3.0 s?",
+  "correct": {
+   "text": "34 J",
+   "rationale": "E = ∫₁³ (3t² + 4) dt = [t³ + 4t] from 1.0 to 3.0 s = (27 + 12) − (1 + 4) = 34 J."
+  },
+  "wrong": [
+   {
+    "text": "39 J",
+    "rationale": "This is the energy from t = 0 to t = 3.0 s. The integral must begin at t = 1.0 s, so the value 1 + 4 = 5 J at the lower limit is subtracted.",
+    "error_pattern": "ignores the lower limit of integration"
+   },
+   {
+    "text": "38 J",
+    "rationale": "The average of the endpoint powers, (7 + 31)/2 = 19 W, times 2.0 s gives 38 J. The power is not linear in time, so the endpoint average is not the average power.",
+    "error_pattern": "applies the average of the endpoint values to a nonlinear function"
+   },
+   {
+    "text": "26 J",
+    "rationale": "Integrating only the 3t² term gives t³ and 27 − 1 = 26 J. The constant 4 W also contributes 4 × 2.0 s = 8 J, giving 34 J.",
+    "error_pattern": "omits the constant term when integrating"
+   }
+  ],
+  "change_note": "Quadratic power with a constant term and a nonzero lower limit; same E = ∫P dt skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-007-v3",
+  "seed": "apphycm-mcq-007",
+  "difficulty": "hard",
+  "title": "Energy from a pulse of power",
+  "stem": "A motor's power output is P(t) = P₀(t/T)(1 − t/T) for 0 ≤ t ≤ T, where P₀ and T are positive constants. How much energy does it deliver during this interval?",
+  "correct": {
+   "text": "P₀T/6",
+   "rationale": "E = ∫₀ᵀ P₀(t/T − t²/T²) dt = P₀(T/2 − T/3) = P₀T/6."
+  },
+  "wrong": [
+   {
+    "text": "P₀T/2",
+    "rationale": "This integrates only the P₀t/T term, which gives P₀T/2. The −P₀t²/T² term subtracts P₀T/3.",
+    "error_pattern": "omits the second term when integrating"
+   },
+   {
+    "text": "P₀T/4",
+    "rationale": "The maximum power is P₀/4, reached at t = T/2. Multiplying the peak power by T treats the power as constant at its maximum, which overestimates the energy.",
+    "error_pattern": "treats variable power as constant at its peak"
+   },
+   {
+    "text": "5P₀T/6",
+    "rationale": "Adding P₀T/2 and P₀T/3 uses the wrong sign on the second term. The factor (1 − t/T) subtracts, so the result is P₀T/2 − P₀T/3 = P₀T/6.",
+    "error_pattern": "sign error when combining integrated terms"
+   }
+  ],
+  "change_note": "Symbolic polynomial pulse; same E = ∫P dt skill as the seed.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-008-v1",
+  "seed": "apphycm-mcq-008",
+  "difficulty": "easy",
+  "title": "Marble in a bowl",
+  "stem": "A marble rests at the bottom of a smooth bowl. Treat its gravitational potential energy as a function of horizontal position. The equilibrium at the bottom is stable because the potential energy there has",
+  "correct": {
+   "text": "a local minimum, so a displaced marble is pushed back toward the bottom",
+   "rationale": "At a local minimum of U, any small displacement raises the potential energy, and the force F = −dU/dx points back toward the equilibrium position. That restoring force is what makes the equilibrium stable."
+  },
+  "wrong": [
+   {
+    "text": "a local maximum, so a displaced marble is pushed back toward the bottom",
+    "rationale": "The restoring behavior is correct, but it comes from a minimum. Near a maximum of U, a displacement lowers U and the force points away from equilibrium.",
+    "error_pattern": "names the wrong feature of U for a restoring force"
+   },
+   {
+    "text": "a local maximum, so a displaced marble speeds up away from the bottom",
+    "rationale": "A local maximum describes unstable equilibrium. The bottom of the bowl is a minimum: a displaced marble loses kinetic energy as it climbs and is pushed back.",
+    "error_pattern": "confuses stable equilibrium with unstable equilibrium"
+   },
+   {
+    "text": "a value of zero, so no force acts on a displaced marble",
+    "rationale": "The value of U depends on where the zero of potential energy is chosen. Equilibrium is set by the slope of U being zero, and stability by the sign of the curvature, not by the value of U.",
+    "error_pattern": "confuses the value of U with its slope"
+   }
+  ],
+  "change_note": "Physical bowl context and conceptual wording; same stable-equilibrium-is-a-minimum-of-U concept as the seed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycm-mcq-008-v2",
+  "seed": "apphycm-mcq-008",
+  "difficulty": "medium",
+  "title": "Stable point of a cubic potential",
+  "stem": "A marble rolls on a track where its potential energy is U(x) = x³ − 3x² in SI units. Which of these positions is a stable equilibrium?",
+  "correct": {
+   "text": "x = +2.0 m",
+   "rationale": "dU/dx = 3x² − 6x = 3x(x − 2) = 0 gives x = 0 and x = +2.0 m. The curvature d²U/dx² = 6x − 6 is +6 J/m² at x = +2.0 m, a local minimum, so that equilibrium is stable."
+  },
+  "wrong": [
+   {
+    "text": "x = 0",
+    "rationale": "The slope is zero here, but d²U/dx² = 6x − 6 = −6 J/m² is negative, so this is a local maximum and the equilibrium is unstable.",
+    "error_pattern": "confuses a maximum with a minimum"
+   },
+   {
+    "text": "x = +1.0 m",
+    "rationale": "Here d²U/dx² = 0, but the slope dU/dx = −3 J/m is not zero, so a force acts and the marble is not in equilibrium. The curvature alone does not locate equilibria.",
+    "error_pattern": "uses zero curvature instead of zero slope"
+   },
+   {
+    "text": "x = +3.0 m, where U = 0",
+    "rationale": "At x = 3.0 m the slope dU/dx = 9 J/m is not zero, so a force acts and the marble is not in equilibrium there. The value of U is irrelevant.",
+    "error_pattern": "picks the point where U is zero"
+   }
+  ],
+  "change_note": "Cubic potential requiring slope and curvature tests; same stable-equals-minimum concept as the seed.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-008-v3",
+  "seed": "apphycm-mcq-008",
+  "difficulty": "hard",
+  "title": "Equilibria from a force function",
+  "stem": "A particle moving along the x-axis feels a net force F(x) = 3x − x³ (F in newtons, x in meters), which comes from a conservative potential energy. Which statement about its equilibrium positions is correct?",
+  "correct": {
+   "text": "x = 0 is unstable; x = ±√3 m are stable",
+   "rationale": "F = 0 at x = 0 and x = ±√3. Since F = −dU/dx, stability requires d²U/dx² = −dF/dx > 0. Here dF/dx = 3 − 3x², which is +3 at x = 0 (maximum of U, unstable) and −6 at x = ±√3 (minima of U, stable)."
+  },
+  "wrong": [
+   {
+    "text": "x = 0 is stable; x = ±√3 m are unstable",
+    "rationale": "This reverses the result. At x = 0, a small positive x gives a positive force that pushes the particle farther away, so it is unstable; at ±√3 the force opposes displacement.",
+    "error_pattern": "reverses stable and unstable"
+   },
+   {
+    "text": "All three positions are stable, because the net force is zero at each",
+    "rationale": "A zero net force only makes a point an equilibrium. Stability requires that the force points back toward the point for small displacements, and that fails at x = 0.",
+    "error_pattern": "assumes every equilibrium is stable"
+   },
+   {
+    "text": "x = 0 is the only equilibrium position, and it is unstable",
+    "rationale": "F = x(3 − x²) also vanishes at x = ±√3, so there are three equilibrium positions, not one.",
+    "error_pattern": "finds only the root of the linear factor"
+   }
+  ],
+  "change_note": "Equilibrium type determined from a force function (sign of dF/dx); same stable-equals-minimum-of-U concept as the seed, with one extra step.",
+  "check": "symbolic"
+ }
+]

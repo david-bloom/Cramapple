@@ -1,0 +1,512 @@
+[
+ {
+  "key": "apphycm-mcq-001",
+  "kind": "mcq",
+  "stem": "If v(t)=3t² in SI units, the acceleration at t=2 s is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3 m/s²"
+   },
+   {
+    "label": "B",
+    "text": "6 m/s²"
+   },
+   {
+    "label": "C",
+    "text": "12 m/s²"
+   },
+   {
+    "label": "D",
+    "text": "24 m/s²"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Reads the coefficient 3 in v(t)=3t² as the acceleration itself, as if v were proportional to t, instead of differentiating v(t) with respect to time.",
+   "B": "Mistakenly differentiates v(t)=3t² using an incomplete power rule (dropping the exponent multiplier), computing dv/dt=3t instead of the correct 6t, then evaluates 3(2)=6 m/s² at the correct time t=2 s.",
+   "C": "dv/dt=6t, evaluated at t=2 s gives 12 m/s².",
+   "D": "Multiplies 6t by t again instead of substituting t=2, giving 6t²=6(2)²=24."
+  }
+ },
+ {
+  "key": "apphycm-mcq-002",
+  "kind": "mcq",
+  "stem": "The displacement from t=0 to T for v(t)=kt is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "kT"
+   },
+   {
+    "label": "B",
+    "text": "kT²"
+   },
+   {
+    "label": "C",
+    "text": "kT²/2"
+   },
+   {
+    "label": "D",
+    "text": "k/T"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Gives the final velocity v(T)=kT, which has units of speed rather than displacement; displacement requires integrating the linearly increasing velocity over the interval.",
+   "B": "Integrates kt dt to kT² but drops the 1/2 factor that comes from the power rule.",
+   "C": "integrating kt gives kT²/2",
+   "D": "Divides the constant k by T, a quantity with units of acceleration per unit time, instead of integrating the velocity over the interval; it is not a displacement."
+  }
+ },
+ {
+  "key": "apphycm-mcq-003",
+  "kind": "mcq",
+  "stem": "A force F(x)=ax acts in one dimension. The work from 0 to L is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "aL"
+   },
+   {
+    "label": "B",
+    "text": "aL²"
+   },
+   {
+    "label": "C",
+    "text": "aL²/2"
+   },
+   {
+    "label": "D",
+    "text": "a/L"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Mistakes the endpoint force value F(L)=aL for the work itself, without multiplying by the displacement.",
+   "B": "Multiplies the endpoint force F(L)=aL by the full distance L as if the force were constant, missing the 1/2 factor from integrating the linearly increasing force.",
+   "C": "the integral of ax dx is aL²/2",
+   "D": "Divides the force gradient a by L instead of integrating the force over the displacement; integrating ax always produces a term proportional to L², never a/L."
+  }
+ },
+ {
+  "key": "apphycm-mcq-006",
+  "kind": "mcq",
+  "stem": "A particle moves in one dimension under a conservative force with potential energy U(x). The force on the particle is given by which of the following?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "dU/dx"
+   },
+   {
+    "label": "B",
+    "text": "-dU/dx"
+   },
+   {
+    "label": "C",
+    "text": "-U/x"
+   },
+   {
+    "label": "D",
+    "text": "+d^2U/dx^2"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Drops the negative sign, forgetting that force opposes (rather than follows) the direction of increasing potential energy.",
+   "B": "force is the negative potential gradient",
+   "C": "Divides U by x instead of differentiating; -U/x equals -dU/dx only when U is directly proportional to x, so it is wrong for a general potential energy function.",
+   "D": "This differentiates U twice. The second derivative is the curvature (stiffness) of the potential well and equals minus the rate of change of the force with position; it is not the force itself, which is −dU/dx."
+  }
+ },
+ {
+  "key": "apphycm-mcq-007",
+  "kind": "mcq",
+  "stem": "A power law P(t)=ct² delivers energy from 0 to T equal to",
+  "choices": [
+   {
+    "label": "A",
+    "text": "cT²"
+   },
+   {
+    "label": "B",
+    "text": "cT³/2"
+   },
+   {
+    "label": "C",
+    "text": "cT³/3"
+   },
+   {
+    "label": "D",
+    "text": "2cT"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Evaluates the power at time T and treats that instantaneous value as the total energy, without integrating over the interval.",
+   "B": "Integrates ct² correctly in form but uses the wrong power-rule denominator, writing t³/2 instead of t³/3.",
+   "C": "energy is the time integral of power",
+   "D": "Differentiates P(t)=ct² instead of integrating it, computing d/dt(ct²)=2ct and evaluating at T."
+  }
+ },
+ {
+  "key": "apphycm-mcq-008",
+  "kind": "mcq",
+  "stem": "At a stable equilibrium x₀, U(x) has",
+  "choices": [
+   {
+    "label": "A",
+    "text": "a local minimum"
+   },
+   {
+    "label": "B",
+    "text": "a local maximum"
+   },
+   {
+    "label": "C",
+    "text": "an infinite slope"
+   },
+   {
+    "label": "D",
+    "text": "no derivative"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "small displacements raise potential energy",
+   "B": "Confuses stable equilibrium with unstable equilibrium, where the potential sits at a local maximum instead.",
+   "C": "Assumes equilibrium requires the slope to blow up rather than vanish, misreading dU/dx=0 as an undefined or infinite condition.",
+   "D": "Assumes equilibrium points must be non-smooth kinks in U(x) rather than smooth minima where dU/dx=0."
+  }
+ },
+ {
+  "key": "apphycm-mcq-017",
+  "kind": "mcq",
+  "stem": "If x(t)=At³-Bt, velocity is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3At²-B"
+   },
+   {
+    "label": "B",
+    "text": "At²-B"
+   },
+   {
+    "label": "C",
+    "text": "3At-B"
+   },
+   {
+    "label": "D",
+    "text": "A t³"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "differentiate position with respect to time",
+   "B": "Drops the coefficient 3 that the power rule brings down from At³, reducing the exponent without multiplying by it.",
+   "C": "Reduces the exponent on At³ by one too many, an off-by-one power-rule slip giving t instead of t².",
+   "D": "Gives only the cubic term At³ and drops the −Bt term; no derivative has been taken, so this is not a velocity expression at all."
+  }
+ },
+ {
+  "key": "apphycm-mcq-018",
+  "kind": "mcq",
+  "stem": "A force F(x)=F₀e^{-x/L} acts along the direction of displacement, with L a positive constant. The work done as the object moves from x=0 to x→∞ is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "F₀/L"
+   },
+   {
+    "label": "B",
+    "text": "F₀L"
+   },
+   {
+    "label": "C",
+    "text": "zero"
+   },
+   {
+    "label": "D",
+    "text": "infinite"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Inverts the decay length, dividing by L instead of multiplying, as if the integral shrank rather than scaled by the decay length.",
+   "B": "The integral ∫₀^∞ F₀e^{-x/L}dx = F₀L converges because L>0 makes the exponential decay (not grow) as x increases.",
+   "C": "Assumes the force decaying to zero as x→∞ means the enclosed area (work) also vanishes, rather than converging to a finite nonzero value.",
+   "D": "Assumes an infinite integration limit must always produce infinite work, missing that the exponential integrand decays fast enough to converge."
+  }
+ },
+ {
+  "key": "apphycm-mcq-021",
+  "kind": "mcq",
+  "stem": "For x(t)=Ct⁴, acceleration is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4Ct³"
+   },
+   {
+    "label": "B",
+    "text": "12Ct²"
+   },
+   {
+    "label": "C",
+    "text": "24Ct"
+   },
+   {
+    "label": "D",
+    "text": "Ct²"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This is the first derivative, velocity, rather than acceleration.",
+   "B": "Two time derivatives give v=4Ct³ and a=12Ct².",
+   "C": "This differentiates a third time, one differentiation too many: d³x/dt³ = 24Ct.",
+   "D": "This reduces the exponent without applying the power-rule coefficients."
+  }
+ },
+ {
+  "key": "apphycm-mcq-022",
+  "kind": "mcq",
+  "stem": "The signed area under a velocity-versus-time graph equals",
+  "choices": [
+   {
+    "label": "A",
+    "text": "acceleration"
+   },
+   {
+    "label": "B",
+    "text": "displacement"
+   },
+   {
+    "label": "C",
+    "text": "distance traveled"
+   },
+   {
+    "label": "D",
+    "text": "change in velocity"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Acceleration is the slope of velocity versus time, not its area.",
+   "B": "The time integral of velocity is the signed change in position.",
+   "C": "Distance traveled adds all areas as positive, but signed velocity-time area gives displacement.",
+   "D": "Change in velocity comes from integrating acceleration, not velocity."
+  }
+ },
+ {
+  "key": "apphycm-mcq-024",
+  "kind": "mcq",
+  "stem": "For U(x)=(1/2)kx² with k>0, x=0 is stable because",
+  "choices": [
+   {
+    "label": "A",
+    "text": "U has a local minimum"
+   },
+   {
+    "label": "B",
+    "text": "U has a local maximum"
+   },
+   {
+    "label": "C",
+    "text": "force is constant"
+   },
+   {
+    "label": "D",
+    "text": "energy is negative"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The potential has positive curvature and a local minimum at equilibrium.",
+   "B": "A local maximum corresponds to unstable equilibrium.",
+   "C": "The force -kx varies with position and is not constant.",
+   "D": "The chosen potential is nonnegative and energy sign is not the stability criterion."
+  }
+ },
+ {
+  "key": "apphycm-mcq-025",
+  "kind": "mcq",
+  "stem": "For m dv/dt=-bv, the characteristic decay time is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "b/m"
+   },
+   {
+    "label": "B",
+    "text": "m/b"
+   },
+   {
+    "label": "C",
+    "text": "m/(2b)"
+   },
+   {
+    "label": "D",
+    "text": "(m/b) ln 2"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This is the decay rate with units of inverse time, not the time constant.",
+   "B": "The solution e^{-bt/m} has time constant τ=m/b.",
+   "C": "This confuses the velocity-decay time with the faster decay time of kinetic energy.",
+   "D": "This is the half-life, not the characteristic velocity-decay time m/b."
+  }
+ },
+ {
+  "key": "apphycm-mcq-026",
+  "kind": "mcq",
+  "stem": "A particle in uniform circular motion has",
+  "choices": [
+   {
+    "label": "A",
+    "text": "zero acceleration"
+   },
+   {
+    "label": "B",
+    "text": "constant velocity vector"
+   },
+   {
+    "label": "C",
+    "text": "inward acceleration v²/r"
+   },
+   {
+    "label": "D",
+    "text": "outward net force"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This confuses constant speed with zero acceleration.",
+   "B": "The velocity vector rotates continuously and is not constant.",
+   "C": "Its changing velocity direction requires inward acceleration v²/r.",
+   "D": "The net force is inward; an outward force is not required in an inertial frame."
+  }
+ },
+ {
+  "key": "apphycm-mcq-027",
+  "kind": "mcq",
+  "stem": "The work done from x=a to x=b by F(x) is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "∫ₐᵇF(x)dx"
+   },
+   {
+    "label": "B",
+    "text": "F(b)(b-a)"
+   },
+   {
+    "label": "C",
+    "text": "(1/2)[F(a)+F(b)](b-a) always"
+   },
+   {
+    "label": "D",
+    "text": "∫F(t)dt"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Mechanical work along x is the position integral of force over the path.",
+   "B": "This assumes the final force acts constantly over the entire displacement.",
+   "C": "Averaging the endpoint forces is not valid for every F(x); it equals the integral only in special cases such as a force that is linear in position, so the word 'always' makes this false.",
+   "D": "A time integral of force is impulse, not work."
+  }
+ },
+ {
+  "key": "apphycm-mcq-028",
+  "kind": "mcq",
+  "stem": "For U(x)=Ax³, the force is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3Ax²"
+   },
+   {
+    "label": "B",
+    "text": "-3Ax²"
+   },
+   {
+    "label": "C",
+    "text": "-Ax²"
+   },
+   {
+    "label": "D",
+    "text": "-(A/3)x²"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This takes the derivative but omits the required negative sign.",
+   "B": "The negative spatial derivative gives F=-dU/dx=-3Ax².",
+   "C": "This keeps the negative sign but omits the power-rule factor three.",
+   "D": "This divides by the exponent instead of multiplying by it when differentiating Ax³."
+  }
+ },
+ {
+  "key": "apphycm-mcq-029",
+  "kind": "mcq",
+  "stem": "At a one-dimensional classical turning point with total energy E,",
+  "choices": [
+   {
+    "label": "A",
+    "text": "U=0 always"
+   },
+   {
+    "label": "B",
+    "text": "U=E and speed is zero"
+   },
+   {
+    "label": "C",
+    "text": "force must be zero"
+   },
+   {
+    "label": "D",
+    "text": "kinetic energy is maximum"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Potential zero depends on reference choice and is not the turning criterion.",
+   "B": "At a turning point K=0, so total energy equals potential energy.",
+   "C": "Force can be nonzero at a turning point and reverse the motion.",
+   "D": "Kinetic energy is zero rather than maximum at the turning point."
+  }
+ },
+ {
+  "key": "apphycm-mcq-030",
+  "kind": "mcq",
+  "stem": "A force F acts on a particle with velocity v. Instantaneous power is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "F·v"
+   },
+   {
+    "label": "B",
+    "text": "F×v"
+   },
+   {
+    "label": "C",
+    "text": "Fv regardless of direction"
+   },
+   {
+    "label": "D",
+    "text": "F·a"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Instantaneous mechanical power is the scalar product F·v.",
+   "B": "A cross product gives a vector and does not represent energy-transfer rate.",
+   "C": "This ignores the angle between force and velocity; only the parallel force component contributes to power.",
+   "D": "Power is the rate of work, F·v; the product of force and acceleration F·a does not have units of power and is not the rate of energy transfer."
+  }
+ }
+]

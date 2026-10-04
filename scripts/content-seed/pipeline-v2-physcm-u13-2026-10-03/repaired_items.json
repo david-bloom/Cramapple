@@ -1,0 +1,250 @@
+{
+ "apphycm-mcq-001": {
+  "keyed": "C",
+  "old_md5": "5b07a99805cd15f260e0b6e218f5dda1",
+  "stem": "If v(t)=3t² in SI units, the acceleration at t=2 s is",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "3 m/s²",
+    "is_correct": false,
+    "rationale": "Reads the coefficient 3 in v(t)=3t² as the acceleration itself, as if v were proportional to t, instead of differentiating v(t) with respect to time."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "6 m/s²",
+    "is_correct": false,
+    "rationale": "Mistakenly differentiates v(t)=3t² using an incomplete power rule (dropping the exponent multiplier), computing dv/dt=3t instead of the correct 6t, then evaluates 3(2)=6 m/s² at the correct time t=2 s."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "12 m/s²",
+    "is_correct": true,
+    "rationale": "dv/dt=6t, evaluated at t=2 s gives 12 m/s²."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "24 m/s²",
+    "is_correct": false,
+    "rationale": "Multiplies 6t by t again instead of substituting t=2, giving 6t²=6(2)²=24."
+   }
+  ]
+ },
+ "apphycm-mcq-002": {
+  "keyed": "C",
+  "old_md5": "a08cf565ac09f6d055507e9ed5cab28f",
+  "stem": "The displacement from t=0 to T for v(t)=kt is",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "kT",
+    "is_correct": false,
+    "rationale": "Gives the final velocity v(T)=kT, which has units of speed rather than displacement; displacement requires integrating the linearly increasing velocity over the interval."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "kT²",
+    "is_correct": false,
+    "rationale": "Integrates kt dt to kT² but drops the 1/2 factor that comes from the power rule."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "kT²/2",
+    "is_correct": true,
+    "rationale": "integrating kt gives kT²/2"
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "k/T",
+    "is_correct": false,
+    "rationale": "Divides the constant k by T, a quantity with units of acceleration per unit time, instead of integrating the velocity over the interval; it is not a displacement."
+   }
+  ]
+ },
+ "apphycm-mcq-003": {
+  "keyed": "C",
+  "old_md5": "8e20232b84f3bf51c5a60dd1d0861da4",
+  "stem": "A force F(x)=ax acts in one dimension. The work from 0 to L is",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "aL",
+    "is_correct": false,
+    "rationale": "Mistakes the endpoint force value F(L)=aL for the work itself, without multiplying by the displacement."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "aL²",
+    "is_correct": false,
+    "rationale": "Multiplies the endpoint force F(L)=aL by the full distance L as if the force were constant, missing the 1/2 factor from integrating the linearly increasing force."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "aL²/2",
+    "is_correct": true,
+    "rationale": "the integral of ax dx is aL²/2"
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "a/L",
+    "is_correct": false,
+    "rationale": "Divides the force gradient a by L instead of integrating the force over the displacement; integrating ax always produces a term proportional to L², never a/L."
+   }
+  ]
+ },
+ "apphycm-mcq-006": {
+  "keyed": "B",
+  "old_md5": "289cd937cfafea3f34fb3e8b93247de8",
+  "stem": "A particle moves in one dimension under a conservative force with potential energy U(x). The force on the particle is given by which of the following?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "dU/dx",
+    "is_correct": false,
+    "rationale": "Drops the negative sign, forgetting that force opposes (rather than follows) the direction of increasing potential energy."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "-dU/dx",
+    "is_correct": true,
+    "rationale": "force is the negative potential gradient"
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "-U/x",
+    "is_correct": false,
+    "rationale": "Divides U by x instead of differentiating; -U/x equals -dU/dx only when U is directly proportional to x, so it is wrong for a general potential energy function."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "+d^2U/dx^2",
+    "is_correct": false,
+    "rationale": "This differentiates U twice. The second derivative is the curvature (stiffness) of the potential well and equals minus the rate of change of the force with position; it is not the force itself, which is −dU/dx."
+   }
+  ]
+ },
+ "apphycm-mcq-017": {
+  "keyed": "A",
+  "old_md5": "48a043436c3537193317b494ee0599f6",
+  "stem": "If x(t)=At³-Bt, velocity is",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "3At²-B",
+    "is_correct": true,
+    "rationale": "differentiate position with respect to time"
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "At²-B",
+    "is_correct": false,
+    "rationale": "Drops the coefficient 3 that the power rule brings down from At³, reducing the exponent without multiplying by it."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "3At-B",
+    "is_correct": false,
+    "rationale": "Reduces the exponent on At³ by one too many, an off-by-one power-rule slip giving t instead of t²."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "A t³",
+    "is_correct": false,
+    "rationale": "Gives only the cubic term At³ and drops the −Bt term; no derivative has been taken, so this is not a velocity expression at all."
+   }
+  ]
+ },
+ "apphycm-mcq-021": {
+  "keyed": "B",
+  "old_md5": "7f52f8887434c49a0815c157e0960fec",
+  "stem": "For x(t)=Ct⁴, acceleration is",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "4Ct³",
+    "is_correct": false,
+    "rationale": "This is the first derivative, velocity, rather than acceleration."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "12Ct²",
+    "is_correct": true,
+    "rationale": "Two time derivatives give v=4Ct³ and a=12Ct²."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "24Ct",
+    "is_correct": false,
+    "rationale": "This differentiates a third time, one differentiation too many: d³x/dt³ = 24Ct."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Ct²",
+    "is_correct": false,
+    "rationale": "This reduces the exponent without applying the power-rule coefficients."
+   }
+  ]
+ },
+ "apphycm-mcq-027": {
+  "keyed": "A",
+  "old_md5": "deea4065b29de0e965ae9ce78856a0e4",
+  "stem": "The work done from x=a to x=b by F(x) is",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "∫ₐᵇF(x)dx",
+    "is_correct": true,
+    "rationale": "Mechanical work along x is the position integral of force over the path."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "F(b)(b-a)",
+    "is_correct": false,
+    "rationale": "This assumes the final force acts constantly over the entire displacement."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "(1/2)[F(a)+F(b)](b-a) always",
+    "is_correct": false,
+    "rationale": "Averaging the endpoint forces is not valid for every F(x); it equals the integral only in special cases such as a force that is linear in position, so the word 'always' makes this false."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "∫F(t)dt",
+    "is_correct": false,
+    "rationale": "A time integral of force is impulse, not work."
+   }
+  ]
+ },
+ "apphycm-mcq-030": {
+  "keyed": "A",
+  "old_md5": "26791f35060e2a91dd7e461fc70c0263",
+  "stem": "A force F acts on a particle with velocity v. Instantaneous power is",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "F·v",
+    "is_correct": true,
+    "rationale": "Instantaneous mechanical power is the scalar product F·v."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "F×v",
+    "is_correct": false,
+    "rationale": "A cross product gives a vector and does not represent energy-transfer rate."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Fv regardless of direction",
+    "is_correct": false,
+    "rationale": "This ignores the angle between force and velocity; only the parallel force component contributes to power."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "F·a",
+    "is_correct": false,
+    "rationale": "Power is the rate of work, F·v; the product of force and acceleration F·a does not have units of power and is not the rate of energy transfer."
+   }
+  ]
+ }
+}

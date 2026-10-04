@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphycem-mcq-009-v1",
+  "seed": "apphycem-mcq-009",
+  "difficulty": "easy",
+  "title": "Field inside a charged metal sphere",
+  "stem": "A solid copper sphere is given a net positive charge and then left alone until all charge motion has stopped. What is the electric field at a point inside the copper, well below its surface?",
+  "correct": {
+   "text": "Zero",
+   "rationale": "In electrostatic equilibrium the free charges have rearranged until the net field inside the conducting material vanishes. Any nonzero field would still push free charges, so the charge would not be at rest."
+  },
+  "wrong": [
+   {
+    "text": "Equal to the field just outside the surface",
+    "rationale": "The field just outside is nonzero (it is perpendicular to the surface and proportional to the local surface charge density). Inside the metal the field is zero, so the two are not equal.",
+    "error_pattern": "assumes the field is continuous across the surface of a conductor"
+   },
+   {
+    "text": "Directed radially outward and growing with distance from the center",
+    "rationale": "This is the pattern for charge spread through the volume of an insulator. In a conductor the excess charge sits on the surface and the field inside the metal is zero.",
+    "error_pattern": "applies the uniformly charged insulating sphere to a conductor"
+   },
+   {
+    "text": "Nonzero, because the excess charge repels itself",
+    "rationale": "The repulsion is exactly why the excess charge moves to the surface. Once it is at rest, the forces on the free charges inside balance and the net field in the metal is zero.",
+    "error_pattern": "thinks excess charge in a conductor still produces a net field in the material"
+   }
+  ],
+  "change_note": "New context (solid copper sphere, point inside the metal); same E = 0 in a conductor at equilibrium; distractors are continuity-across-surface, insulator pattern and self-repulsion.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-009-v2",
+  "seed": "apphycem-mcq-009",
+  "difficulty": "medium",
+  "title": "Neutral metal slab in an external field",
+  "stem": "A neutral solid metal slab is placed in a uniform external electric field of magnitude 4.0 × 10³ N/C directed along +x. After the charges in the slab finish rearranging, what is the magnitude of the net electric field within the metal of the slab?",
+  "correct": {
+   "text": "0 N/C",
+   "rationale": "The induced surface charges create a field inside the slab of magnitude 4.0 × 10³ N/C pointing opposite to the external field. The net field inside the metal is 4.0 × 10³ − 4.0 × 10³ = 0 N/C, which is what allows the free charges to stay at rest."
+  },
+  "wrong": [
+   {
+    "text": "2.0 × 10³ N/C",
+    "rationale": "The charges do not stop at partial cancellation. They keep moving until the induced field equals the external field, so half the external value is not an equilibrium result.",
+    "error_pattern": "assumes the induced field only partly cancels the external field"
+   },
+   {
+    "text": "4.0 × 10³ N/C",
+    "rationale": "This would mean the metal has no effect on the field. The free charges respond to the external field and rearrange until it is fully canceled inside the metal.",
+    "error_pattern": "treats the conductor as transparent to an external field"
+   },
+   {
+    "text": "8.0 × 10³ N/C",
+    "rationale": "This adds the induced field to the external field. The induced charges are arranged so that their field inside the metal opposes the external field, giving cancellation instead of doubling.",
+    "error_pattern": "adds the induced field instead of subtracting it"
+   }
+  ],
+  "change_note": "Quantitative external-field version with a neutral slab and induced charges; same E = 0 inside a conductor in equilibrium.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-009-v3",
+  "seed": "apphycem-mcq-009",
+  "difficulty": "hard",
+  "title": "Potential at the center of a charged conductor",
+  "stem": "A solid conducting sphere of radius 0.30 m carries a net charge of +6.0 nC and is in electrostatic equilibrium. Taking V = 0 infinitely far away, what is the electric potential at the center of the sphere? (k = 9.0 × 10⁹ N·m²/C²)",
+  "correct": {
+   "text": "180 V",
+   "rationale": "The field is zero everywhere inside the metal, so the potential has no change from the surface to the center. The center is at the surface potential kQ/R = (9.0 × 10⁹)(6.0 × 10⁻⁹)/0.30 = 180 V."
+  },
+  "wrong": [
+   {
+    "text": "0 V",
+    "rationale": "A zero field does not mean zero potential. Potential only stays constant where the field is zero; its value is fixed by matching the surface value kQ/R, which is 180 V.",
+    "error_pattern": "confuses zero field with zero potential"
+   },
+   {
+    "text": "360 V",
+    "rationale": "This evaluates kQ/r at r = R/2 as if the potential kept rising toward the center like a point-charge potential. Inside the conductor the potential is constant at its surface value.",
+    "error_pattern": "applies V = kQ/r inside the conductor"
+   },
+   {
+    "text": "Infinite",
+    "rationale": "V = kQ/r diverges only at the location of a point charge. Here the charge sits on the surface, the field inside is zero, and the potential at the center is the finite surface value.",
+    "error_pattern": "applies the point-charge formula at r = 0"
+   }
+  ],
+  "change_note": "Moves from the field to its consequence, an equipotential conductor, with new numbers (R = 0.30 m, Q = 6.0 nC); looser than the seed's direct E = 0 recall but still the conductor-equilibrium idea.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-021-v1",
+  "seed": "apphycem-mcq-021",
+  "difficulty": "easy",
+  "title": "Halving the separation",
+  "stem": "Two point charges are held fixed in place. If the distance between them is cut to one-half of its original value, the magnitude of the electric force between them becomes",
+  "correct": {
+   "text": "four times as large",
+   "rationale": "Coulomb's law gives F = k|q₁q₂|/r². Replacing r with r/2 multiplies the force by 1/(1/2)² = 4."
+  },
+  "wrong": [
+   {
+    "text": "twice as large",
+    "rationale": "This uses a 1/r dependence. The force varies as 1/r², so halving the distance gives a factor of 4, not 2.",
+    "error_pattern": "uses inverse-linear instead of inverse-square scaling"
+   },
+   {
+    "text": "one-half as large",
+    "rationale": "This treats the force as proportional to r. The force grows when the charges move closer together.",
+    "error_pattern": "uses direct proportionality to the separation"
+   },
+   {
+    "text": "one-fourth as large",
+    "rationale": "This applies the 1/r² factor in the wrong direction. A smaller r gives a larger force, so the factor is 4, not 1/4.",
+    "error_pattern": "inverts the direction of the change"
+   }
+  ],
+  "change_note": "Halving instead of tripling; the same inverse-square scaling idea with a different factor.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-021-v2",
+  "seed": "apphycem-mcq-021",
+  "difficulty": "medium",
+  "title": "Force between two small charged spheres",
+  "stem": "Two small spheres carry charges of +3.0 μC and +5.0 μC and are 0.30 m apart. What is the magnitude of the electric force each sphere exerts on the other? (k = 9.0 × 10⁹ N·m²/C²)",
+  "correct": {
+   "text": "1.5 N",
+   "rationale": "F = k q₁q₂/r² = (9.0 × 10⁹)(3.0 × 10⁻⁶)(5.0 × 10⁻⁶)/(0.30)² = 0.135/0.090 = 1.5 N. By Newton's third law, each sphere feels this same magnitude."
+  },
+  "wrong": [
+   {
+    "text": "0.45 N",
+    "rationale": "This divides by r instead of r². Coulomb's force depends on the square of the separation, so the denominator is (0.30)² = 0.090 m².",
+    "error_pattern": "forgets to square the separation"
+   },
+   {
+    "text": "17 N",
+    "rationale": "This squares the already squared separation, effectively dividing by (0.090)² = 0.0081 m⁴. The denominator should be r² = (0.30)² = 0.090 m² only once.",
+    "error_pattern": "squares the separation twice"
+   },
+   {
+    "text": "3.0 N",
+    "rationale": "This adds the two force magnitudes, 1.5 N on each sphere. The pair of forces are equal and opposite, and the question asks for the magnitude of one of them.",
+    "error_pattern": "adds the forces on the two charges"
+   }
+  ],
+  "change_note": "Quantitative Coulomb's-law calculation with new charges and distance (not a ratio); same force-versus-separation relation.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-021-v3",
+  "seed": "apphycem-mcq-021",
+  "difficulty": "hard",
+  "title": "Combined change of charge and separation",
+  "stem": "Two fixed point charges repel each other with a force of magnitude 12 N when they are 0.20 m apart. One charge is then doubled and the separation is increased to 0.60 m. What is the new force magnitude?",
+  "correct": {
+   "text": "2.7 N",
+   "rationale": "F is proportional to q₁q₂/r². Doubling one charge multiplies F by 2, and tripling the separation multiplies it by 1/9. The new force is 12 × 2/9 ≈ 2.7 N."
+  },
+  "wrong": [
+   {
+    "text": "1.3 N",
+    "rationale": "This applies only the factor of 1/9 from the larger separation and forgets that doubling one charge doubles the force: 12/9 ≈ 1.3 N.",
+    "error_pattern": "ignores the change in charge"
+   },
+   {
+    "text": "8.0 N",
+    "rationale": "This treats the separation factor as 1/3, giving 12 × 2/3 = 8.0 N. The force varies with the square of the separation, so tripling it gives a factor of 1/9.",
+    "error_pattern": "uses 1/r instead of 1/r²"
+   },
+   {
+    "text": "216 N",
+    "rationale": "This multiplies by 9 instead of dividing by it: 12 × 2 × 9 = 216 N. A larger separation weakens the force.",
+    "error_pattern": "inverts the separation factor"
+   }
+  ],
+  "change_note": "Two simultaneous changes (one charge and the separation) with a starting force given in newtons; same Coulomb scaling, a step beyond the one-variable seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-022-v1",
+  "seed": "apphycem-mcq-022",
+  "difficulty": "easy",
+  "title": "Field east of a positive charge",
+  "stem": "A small object carrying a positive charge sits at the origin. At a point P located due east of it, the electric field due to this object points",
+  "correct": {
+   "text": "east, away from the object",
+   "rationale": "The field points in the direction of the force on a positive test charge. A positive test charge at P is repelled by the positive object, so the force and the field point away from it, to the east."
+  },
+  "wrong": [
+   {
+    "text": "west, toward the object",
+    "rationale": "This is the field direction for a negative source charge. A positive source repels a positive test charge, so the field points away from it.",
+    "error_pattern": "reverses the field direction for a positive source"
+   },
+   {
+    "text": "north, perpendicular to the line joining P and the object",
+    "rationale": "A field that circles around a source describes the magnetic field of a current. The electric field of a point charge is along the line joining the charge and the point.",
+    "error_pattern": "confuses the electric field with the circulating magnetic field pattern"
+   },
+   {
+    "text": "west or east, depending on the sign of the test charge used",
+    "rationale": "The field is defined as force per unit positive charge and belongs to the source. It does not change direction when a negative test charge is used (only the force does).",
+    "error_pattern": "thinks the field direction depends on the test charge"
+   }
+  ],
+  "change_note": "Positive source and east direction instead of a negative source; the only variant of this seed using a direction-only distinction.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-022-v2",
+  "seed": "apphycem-mcq-022",
+  "difficulty": "medium",
+  "title": "Field magnitude near a negative charge",
+  "stem": "A point charge of −4.0 nC sits at the origin. What are the magnitude and direction of the electric field at a point 0.20 m from the charge? (k = 9.0 × 10⁹ N·m²/C²)",
+  "correct": {
+   "text": "900 N/C, toward the charge",
+   "rationale": "E = k|q|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.20)² = 900 N/C. The source is negative, so the field points toward it."
+  },
+  "wrong": [
+   {
+    "text": "180 N/C, toward the charge",
+    "rationale": "This divides by r instead of r²: (9.0 × 10⁹)(4.0 × 10⁻⁹)/0.20 = 180 N/C. The field of a point charge falls off as 1/r².",
+    "error_pattern": "uses 1/r instead of 1/r²"
+   },
+   {
+    "text": "3600 N/C, toward the charge",
+    "rationale": "This uses r = 0.10 m, half the distance, in k|q|/r². The given distance of 0.20 m yields 900 N/C.",
+    "error_pattern": "halves the distance when substituting"
+   },
+   {
+    "text": "1.1 × 10⁴ N/C, toward the charge",
+    "rationale": "This uses q/(ε₀r²) and leaves out the 4π, which is 4π times too large. The correct form is q/(4πε₀r²) = kq/r².",
+    "error_pattern": "omits the 4π when using ε₀"
+   }
+  ],
+  "change_note": "Asks for magnitude and direction with numbers (−4.0 nC, 0.20 m); distractors differ in magnitude, not sign.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-022-v3",
+  "seed": "apphycem-mcq-022",
+  "difficulty": "hard",
+  "title": "Field between opposite charges",
+  "stem": "A charge of +2.0 μC is at x = 0 and a charge of −2.0 μC is at x = 0.40 m. What are the magnitude and direction of the net electric field at x = 0.20 m? (k = 9.0 × 10⁹ N·m²/C²)",
+  "correct": {
+   "text": "9.0 × 10⁵ N/C, toward the negative charge",
+   "rationale": "Each charge produces a field of k|q|/r² = (9.0 × 10⁹)(2.0 × 10⁻⁶)/(0.20)² = 4.5 × 10⁵ N/C at the midpoint. The positive charge pushes the field away from itself and the negative charge pulls it toward itself, so both point in +x and add: 9.0 × 10⁵ N/C."
+  },
+  "wrong": [
+   {
+    "text": "0 N/C",
+    "rationale": "The fields cancel at the midpoint only when the two charges have the same sign. For opposite charges the two fields point the same way and add.",
+    "error_pattern": "treats the midpoint like the like-charge case"
+   },
+   {
+    "text": "4.5 × 10⁵ N/C, toward the negative charge",
+    "rationale": "This counts only one of the two charges. Both charges contribute a 4.5 × 10⁵ N/C field in the same direction.",
+    "error_pattern": "includes only one source charge"
+   },
+   {
+    "text": "2.2 × 10⁵ N/C, toward the negative charge",
+    "rationale": "This uses the full 0.40 m separation as the distance from each charge to the point. Each charge is only 0.20 m from the midpoint.",
+    "error_pattern": "uses the separation instead of the distance to the point"
+   }
+  ],
+  "change_note": "Superposition of two opposite charges at a midpoint, with magnitude and direction; applies the direction rule for each source and adds.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-023-v1",
+  "seed": "apphycem-mcq-023",
+  "difficulty": "easy",
+  "title": "Charge on a uniformly charged rod",
+  "stem": "A thin rod of length 0.40 m carries charge distributed uniformly along its length with linear density λ = 5.0 nC/m. What is the total charge on the rod?",
+  "correct": {
+   "text": "2.0 nC",
+   "rationale": "The charge element is dq = λ dx. For constant λ, integrating over the length gives Q = λL = (5.0 nC/m)(0.40 m) = 2.0 nC."
+  },
+  "wrong": [
+   {
+    "text": "5.0 nC",
+    "rationale": "This reports λ as if it were a charge. λ is charge per length, so it must be multiplied by the 0.40 m length.",
+    "error_pattern": "forgets to multiply the density by the length"
+   },
+   {
+    "text": "12.5 nC",
+    "rationale": "This divides λ by L: 5.0/0.40 = 12.5. Charge is found by multiplying linear density by length, not dividing.",
+    "error_pattern": "divides density by length instead of multiplying"
+   },
+   {
+    "text": "1.0 nC",
+    "rationale": "This multiplies λ by half the length. The charge is spread over the whole 0.40 m, so L is used in full.",
+    "error_pattern": "uses half the length"
+   }
+  ],
+  "change_note": "Uniform rod with total charge from dq = λ dx, a simpler quantitative use of the same line-charge element.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-023-v2",
+  "seed": "apphycem-mcq-023",
+  "difficulty": "medium",
+  "title": "Charge on a rod with a linear density ramp",
+  "stem": "A rod lies along the x-axis from x = 0 to x = 0.50 m. Its linear charge density increases with position as λ(x) = ax, where a = 4.0 μC/m². What is the total charge on the rod?",
+  "correct": {
+   "text": "0.50 μC",
+   "rationale": "With dq = λ dx = ax dx, Q = ∫₀^L ax dx = aL²/2 = (4.0 μC/m²)(0.50 m)²/2 = 0.50 μC."
+  },
+  "wrong": [
+   {
+    "text": "1.0 μC",
+    "rationale": "This multiplies the largest density, λ(L) = 2.0 μC/m, by the full length. The density is smaller along most of the rod, so this overestimates the charge.",
+    "error_pattern": "uses the maximum density as if uniform"
+   },
+   {
+    "text": "0.17 μC",
+    "rationale": "This integrates ∫ax·x dx = aL³/3, introducing an extra factor of x. The charge element is λ dx, which is ax dx.",
+    "error_pattern": "inserts an extra position factor in the integrand"
+   },
+   {
+    "text": "0.25 μC",
+    "rationale": "This evaluates aL²/4. The integral of x dx from 0 to L is L²/2, not L²/4.",
+    "error_pattern": "makes an error in the integral of x"
+   }
+  ],
+  "change_note": "Nonuniform linear density with an integral for the total charge; the same idea dq = λ ds with the density varying in position.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-023-v3",
+  "seed": "apphycem-mcq-023",
+  "difficulty": "hard",
+  "title": "Charge on a nonuniform arc",
+  "stem": "A thin arc of radius 0.30 m spans the angles from θ = −π/2 to θ = +π/2 about the x-axis. Its linear charge density is λ(θ) = λ₀ cos θ with λ₀ = 5.0 nC/m. What is the total charge on the arc?",
+  "correct": {
+   "text": "3.0 nC",
+   "rationale": "The arc length element is ds = R dθ, so dq = λ ds = λ₀ cos θ R dθ. Then Q = λ₀R ∫ cos θ dθ from −π/2 to π/2 = 2λ₀R = 2(5.0 nC/m)(0.30 m) = 3.0 nC."
+  },
+  "wrong": [
+   {
+    "text": "4.7 nC",
+    "rationale": "This treats the density as the uniform value λ₀ over a half circle of length πR, giving πλ₀R. The density falls to zero at the ends of the arc.",
+    "error_pattern": "ignores the angular dependence of λ"
+   },
+   {
+    "text": "0 nC",
+    "rationale": "This takes the integral of cos θ over a symmetric range to cancel. Cosine is even about θ = 0 and the density is positive across the arc, so the contributions add.",
+    "error_pattern": "assumes symmetric limits cancel (confuses cos with sin)"
+   },
+   {
+    "text": "1.5 nC",
+    "rationale": "This evaluates λ₀R and leaves out the integral over θ, so it does not add up the charge along the arc.",
+    "error_pattern": "skips the integration over the arc"
+   }
+  ],
+  "change_note": "Circular arc with ds = R dθ and an angle-dependent density; same charge-element-from-density skill used on an arc, one of the CED's listed geometries.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-024-v1",
+  "seed": "apphycem-mcq-024",
+  "difficulty": "easy",
+  "title": "Flux through a tilted plane",
+  "stem": "A uniform electric field of magnitude 200 N/C passes through a flat surface of area 0.50 m². The normal to the surface makes an angle of 60° with the field. What is the electric flux through the surface?",
+  "correct": {
+   "text": "50 N·m²/C",
+   "rationale": "For uniform E and flat A, Φ = EA cos θ = (200)(0.50)(cos 60°) = (100)(0.50) = 50 N·m²/C."
+  },
+  "wrong": [
+   {
+    "text": "87 N·m²/C",
+    "rationale": "This uses sin 60° ≈ 0.87 where cos 60° = 0.50 belongs. The angle is measured between the field and the normal, which pairs with the cosine.",
+    "error_pattern": "uses sine instead of cosine of the angle to the normal"
+   },
+   {
+    "text": "100 N·m²/C",
+    "rationale": "This is EA with no angle factor, correct only when the normal is parallel to the field. At 60° only part of the field passes through the surface.",
+    "error_pattern": "ignores the angle between the field and the normal"
+   },
+   {
+    "text": "200 N·m²/C",
+    "rationale": "This divides EA by cos θ: 100/0.50 = 200. The angle factor multiplies EA.",
+    "error_pattern": "divides by cos θ instead of multiplying"
+   }
+  ],
+  "change_note": "Numeric flux at 60° with new values; same Φ = EA cos θ.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-024-v2",
+  "seed": "apphycem-mcq-024",
+  "difficulty": "medium",
+  "title": "Flux through a loop parallel to the field",
+  "stem": "A square loop of side 0.10 m is placed in a uniform electric field of magnitude 5.0 × 10³ N/C so that the plane of the loop is parallel to the field lines. What is the electric flux through the loop?",
+  "correct": {
+   "text": "0",
+   "rationale": "If the plane is parallel to the field, the normal is perpendicular to E, so θ = 90° and Φ = EA cos 90° = 0. The field lines skim along the surface without passing through it."
+  },
+  "wrong": [
+   {
+    "text": "50 N·m²/C",
+    "rationale": "This is EA = (5.0 × 10³)(0.010) with the angle taken as 0°. That is the flux when the plane is perpendicular to the field, not parallel.",
+    "error_pattern": "confuses the plane being parallel with the normal being parallel to the field"
+   },
+   {
+    "text": "25 N·m²/C",
+    "rationale": "This takes half of EA as an average between the extremes. Flux depends on cos θ, which is exactly zero when the plane is parallel to the field.",
+    "error_pattern": "splits EA by a made-up factor of one-half"
+   },
+   {
+    "text": "5.0 × 10⁵ N·m²/C",
+    "rationale": "This computes E/A instead of EA. Flux is the field times the area.",
+    "error_pattern": "divides E by A"
+   }
+  ],
+  "change_note": "Loop whose plane is parallel to the field (θ = 90° to the normal); same flux relation Φ = EA cos θ in a limiting orientation.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-024-v3",
+  "seed": "apphycem-mcq-024",
+  "difficulty": "hard",
+  "title": "Flux from field components",
+  "stem": "A uniform electric field has components Eₓ = 300 N/C and E_y = 400 N/C. A flat surface of area 0.20 m² lies in the xz-plane, with its area vector pointing along +y. What is the electric flux through the surface?",
+  "correct": {
+   "text": "80 N·m²/C",
+   "rationale": "Flux is the dot product of E and the area vector. With the area vector along +y, only the y-component contributes: Φ = E_y A = (400)(0.20) = 80 N·m²/C. This is EA cos θ with E = 500 N/C and cos θ = 0.8."
+  },
+  "wrong": [
+   {
+    "text": "100 N·m²/C",
+    "rationale": "This multiplies the full field magnitude, 500 N/C, by the area. That drops the angle between E and the normal, which has cos θ = 0.8.",
+    "error_pattern": "uses the field magnitude with no angle factor"
+   },
+   {
+    "text": "60 N·m²/C",
+    "rationale": "This uses Eₓ, the component parallel to the surface, in place of the component along the normal.",
+    "error_pattern": "uses the in-plane component instead of the normal component"
+   },
+   {
+    "text": "140 N·m²/C",
+    "rationale": "This adds the two components, 300 + 400 = 700, and multiplies by A. Only the component along the normal passes through the surface.",
+    "error_pattern": "adds the components"
+   }
+  ],
+  "change_note": "Components version: flux as E·A with a tilted field and an axis-aligned surface; same Φ = EA cos θ with the angle given implicitly.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-025-v1",
+  "seed": "apphycem-mcq-025",
+  "difficulty": "easy",
+  "title": "Net flux with charges inside and outside",
+  "stem": "A spherical Gaussian surface encloses a +3.0 nC point charge. A second point charge of +5.0 nC lies outside the sphere. What is the net electric flux through the sphere? (ε₀ = 8.85 × 10⁻¹² C²/(N·m²))",
+  "correct": {
+   "text": "3.4 × 10² N·m²/C",
+   "rationale": "By Gauss's law, Φ = q_enc/ε₀ = (3.0 × 10⁻⁹)/(8.85 × 10⁻¹²) ≈ 3.4 × 10² N·m²/C. The outside charge makes field lines that enter and leave the sphere, which adds nothing to the net flux."
+  },
+  "wrong": [
+   {
+    "text": "9.0 × 10² N·m²/C",
+    "rationale": "This uses the total of both charges, 8.0 nC. Only the enclosed charge counts in Gauss's law.",
+    "error_pattern": "includes the charge outside the surface"
+   },
+   {
+    "text": "5.6 × 10² N·m²/C",
+    "rationale": "This uses only the outside charge. The outside charge contributes zero net flux, while the enclosed 3.0 nC sets the flux.",
+    "error_pattern": "uses the outside charge instead of the enclosed charge"
+   },
+   {
+    "text": "2.3 × 10² N·m²/C",
+    "rationale": "This uses the difference, 5.0 − 3.0 = 2.0 nC, treating the outside charge as removing flux. Outside charges add and remove the same flux, so the net effect is zero.",
+    "error_pattern": "subtracts the outside charge from the enclosed charge"
+   }
+  ],
+  "change_note": "Quantitative Gauss's-law flux with an enclosed and an outside charge; same idea that outside charges give zero net flux.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-025-v2",
+  "seed": "apphycem-mcq-025",
+  "difficulty": "medium",
+  "title": "Point charge near a cube",
+  "stem": "A point charge sits just outside one face of an imaginary closed cube, not touching it. What is the total electric flux through the entire surface of the cube due to this outside charge?",
+  "correct": {
+   "text": "Zero, because each field line entering the cube also leaves it",
+   "rationale": "Gauss's law gives Φ = q_enc/ε₀, and no charge is enclosed. The flux is negative through the near face (field lines entering) and positive through the far faces (leaving), and these exactly cancel."
+  },
+  "wrong": [
+   {
+    "text": "Negative, because the field is strongest at the nearest face",
+    "rationale": "The inward flux through the near face is largest, but the lines that enter must exit through the other faces. The outward flux through those faces cancels it completely.",
+    "error_pattern": "counts only the strongest face and ignores flux leaving elsewhere"
+   },
+   {
+    "text": "q/ε₀, because the charge’s field passes through the surface",
+    "rationale": "The q/ε₀ result applies to a charge enclosed by the surface. A charge outside is not part of q_enc.",
+    "error_pattern": "uses Gauss's law with a charge that is not enclosed"
+   },
+   {
+    "text": "Positive, because the field at the near face points into the cube",
+    "rationale": "Field lines pointing into the cube give negative flux through that face, and the same lines give positive flux when they leave. The total is zero rather than positive.",
+    "error_pattern": "reads a single face's flux as the total"
+   }
+  ],
+  "change_note": "Charge outside a cube instead of a general statement about contributions; same zero net flux from outside charge, with the face-by-face flux explained.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-025-v3",
+  "seed": "apphycem-mcq-025",
+  "difficulty": "hard",
+  "title": "Adding a charge outside a closed surface",
+  "stem": "A charge +Q lies inside a closed surface. A charge −Q is then placed just outside the surface. Compared with the situation before the second charge was added, which statement is correct?",
+  "correct": {
+   "text": "The net flux is unchanged, but the field at points on the surface changes",
+   "rationale": "Net flux depends only on the enclosed charge, which is still +Q. The new charge still adds its own field at every point on the surface, so the local field changes."
+  },
+  "wrong": [
+   {
+    "text": "The net flux becomes zero because the total charge is zero",
+    "rationale": "Gauss's law uses charge enclosed by the surface, not the total in the region. The enclosed charge is still +Q.",
+    "error_pattern": "uses total charge instead of enclosed charge"
+   },
+   {
+    "text": "The net flux and the field at every surface point are both unchanged",
+    "rationale": "Net flux is unchanged, but the field at surface points is the vector sum from all charges, and the new charge adds to it. Flux and local field are not the same quantity.",
+    "error_pattern": "believes unchanged flux means unchanged local field"
+   },
+   {
+    "text": "The net flux becomes negative because the new charge is negative",
+    "rationale": "The negative charge sends flux inward through the part of the surface near it, but the same lines exit elsewhere, so the outside charge adds zero net flux. The net remains +Q/ε₀.",
+    "error_pattern": "counts the outside charge's inward flux without its outward part"
+   }
+  ],
+  "change_note": "Adds a charge outside to a surface that encloses a charge; asks which quantities change (local field changes, net flux does not).",
+  "check": "conceptual"
+ }
+]

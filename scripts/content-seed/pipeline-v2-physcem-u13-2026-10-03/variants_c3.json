@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphycem-mcq-026-v1",
+  "seed": "apphycem-mcq-026",
+  "difficulty": "easy",
+  "title": "Pulling opposite charges apart",
+  "stem": "A positive point charge and a negative point charge of equal magnitude are held a short distance apart. An external agent slowly pulls them farther apart. How does the electric potential energy of the two-charge system change?",
+  "correct": {
+   "text": "It increases (becomes less negative)",
+   "rationale": "For opposite charges U = kq₁q₂/r is negative. Increasing r moves U toward zero from below, so U rises. Equivalently, the agent does positive work against the attractive force."
+  },
+  "wrong": [
+   {
+    "text": "It decreases, because the charges move away from each other",
+    "rationale": "Moving apart lowers U only for charges that repel. These charges attract, so separating them takes work from the agent and raises U.",
+    "error_pattern": "applies the like-charge (repulsion) rule to an attracting pair"
+   },
+   {
+    "text": "It stays constant, because the charge magnitudes do not change",
+    "rationale": "U = kq₁q₂/r depends on the separation r as well as on the charges. With r changing, U changes.",
+    "error_pattern": "thinks potential energy depends only on the charge magnitudes"
+   },
+   {
+    "text": "It decreases, because the attractive force does negative work",
+    "rationale": "The attractive force does negative work as the charges separate, and ΔU = −W_field, so a negative W_field means U increases.",
+    "error_pattern": "sign confusion between work done by the field and the change in potential energy"
+   }
+  ],
+  "change_note": "Opposite charges pulled apart instead of like charges pushed together; same U = kq₁q₂/r direction-of-change idea. Direction-only variant for this seed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-026-v2",
+  "seed": "apphycem-mcq-026",
+  "difficulty": "medium",
+  "title": "Energy change for an attracting pair",
+  "stem": "A +3.0 μC point charge and a −2.0 μC point charge are initially 0.30 m apart. They are moved until they are 0.10 m apart. What is the change in the electric potential energy of the pair?",
+  "correct": {
+   "text": "−0.36 J",
+   "rationale": "ΔU = kq₁q₂(1/r_f − 1/r_i) = (9.0×10⁹)(−6.0×10⁻¹²)(10 − 3.33) ≈ −0.36 J. The attracting pair moves closer, so U becomes more negative."
+  },
+  "wrong": [
+   {
+    "text": "−0.54 J",
+    "rationale": "This is only the final energy U_f = kq₁q₂/r_f. The change subtracts the initial energy of −0.18 J, which gives −0.36 J.",
+    "error_pattern": "reports the final energy instead of the change"
+   },
+   {
+    "text": "−4.8 J",
+    "rationale": "This uses a 1/r² dependence, the form of the force. The potential energy of a pair varies as 1/r.",
+    "error_pattern": "uses 1/r² for potential energy"
+   },
+   {
+    "text": "−0.27 J",
+    "rationale": "This divides by the 0.20 m displacement. U depends on the separation at each end of the motion, so U_i is subtracted from U_f.",
+    "error_pattern": "uses the displacement in place of the separations"
+   }
+  ],
+  "change_note": "Quantitative change in U for an opposite-charge pair with new charges and distances.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-026-v3",
+  "seed": "apphycem-mcq-026",
+  "difficulty": "hard",
+  "title": "Total energy of three fixed charges",
+  "stem": "Three point charges are fixed on a line: +2.0 μC at x = 0, −1.0 μC at x = 0.10 m, and +2.0 μC at x = 0.20 m. What is the total electric potential energy of this three-charge system, taking zero energy when the charges are infinitely far apart?",
+  "correct": {
+   "text": "−0.18 J",
+   "rationale": "Sum over the three pairs: U = (9.0×10⁹)[(2.0)(2.0)/0.20 + 2(2.0)(−1.0)/0.10]×10⁻¹² = (9.0×10⁹)(2.0×10⁻¹¹ − 4.0×10⁻¹¹) = −0.18 J."
+  },
+  "wrong": [
+   {
+    "text": "−0.36 J",
+    "rationale": "This counts only the two attracting pairs (−0.36 J) and omits the repelling pair of the two positive charges, which contributes +0.18 J.",
+    "error_pattern": "omits one pair of the system"
+   },
+   {
+    "text": "+0.54 J",
+    "rationale": "This adds the magnitudes of all three pair terms and ignores that the pairs with the negative charge contribute negative energy.",
+    "error_pattern": "ignores the signs of the charges in the pair sum"
+   },
+   {
+    "text": "−0.09 J",
+    "rationale": "This halves the sum as if every pair were counted twice. In U = Σ kq_iq_j/r_ij each pair appears once, so the total is −0.18 J.",
+    "error_pattern": "double-counting correction applied to a sum over distinct pairs"
+   }
+  ],
+  "change_note": "Three-charge system energy by summing distinct pair terms; new charges and geometry.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-027-v1",
+  "seed": "apphycem-mcq-027",
+  "difficulty": "easy",
+  "title": "Potential near a small charged sphere",
+  "stem": "Take the electric potential to be zero infinitely far away. What is the electric potential 0.30 m from an isolated point charge of +5.0 nC?",
+  "correct": {
+   "text": "150 V",
+   "rationale": "V = kq/r = (9.0×10⁹)(5.0×10⁻⁹)/0.30 = 150 V."
+  },
+  "wrong": [
+   {
+    "text": "500 V",
+    "rationale": "The value kq/r² = 500 is the point-charge field magnitude in N/C. The potential falls off as 1/r, not 1/r².",
+    "error_pattern": "uses the field expression kq/r² for the potential"
+   },
+   {
+    "text": "45 V",
+    "rationale": "kq = 45 V·m has units of volt-meters. Dividing by r = 0.30 m is required and gives 150 V.",
+    "error_pattern": "forgets to divide by the distance"
+   },
+   {
+    "text": "75 V",
+    "rationale": "This inserts a factor of ½ borrowed from energy expressions. The point-charge potential V = kq/r has no such factor.",
+    "error_pattern": "inserts a factor of ½ from energy formulas"
+   }
+  ],
+  "change_note": "Numerical point-charge potential; new charge and distance; distractors are field formula, missing r and spurious ½.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-027-v2",
+  "seed": "apphycem-mcq-027",
+  "difficulty": "medium",
+  "title": "Scaling potential with distance",
+  "stem": "At a distance of 0.10 m from a point charge, the electric potential is −120 V (zero at infinity). What is the potential at 0.40 m from the same charge?",
+  "correct": {
+   "text": "−30 V",
+   "rationale": "For a point charge V = kq/r, so V is inversely proportional to r. Quadrupling the distance divides V by 4, giving −30 V."
+  },
+  "wrong": [
+   {
+    "text": "−7.5 V",
+    "rationale": "This divides by 4² = 16, the scaling of the field. The potential scales as 1/r, so the factor is 4.",
+    "error_pattern": "applies inverse-square scaling to the potential"
+   },
+   {
+    "text": "−480 V",
+    "rationale": "This multiplies by 4, as if V were proportional to r. Moving away from a point charge brings the potential closer to zero.",
+    "error_pattern": "treats V as proportional to distance"
+   },
+   {
+    "text": "−60 V",
+    "rationale": "This divides by 2 = √4. V = kq/r changes by the full factor of the distance ratio, 4.",
+    "error_pattern": "scales as the square root of the distance ratio"
+   }
+  ],
+  "change_note": "Ratio reasoning from V = kq/r with a negative charge; no formula recall needed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-027-v3",
+  "seed": "apphycem-mcq-027",
+  "difficulty": "hard",
+  "title": "Potential difference from integrating the field",
+  "stem": "A fixed point charge of +2.0 nC produces the radial field E = kq/r² directed outward. Evaluating ΔV = −∫E dr along a radial path, how much higher is the potential at r = 0.10 m than at r = 0.40 m?",
+  "correct": {
+   "text": "135 V",
+   "rationale": "V(a) − V(b) = kq(1/a − 1/b) = (18 V·m)(10 − 2.5) m⁻¹ = 135 V. The inner point is at the higher potential because the charge is positive."
+  },
+  "wrong": [
+   {
+    "text": "60 V",
+    "rationale": "This is kq/Δr = 18/0.30. Integrating 1/r² gives a difference of reciprocals, not the reciprocal of the displacement.",
+    "error_pattern": "uses the displacement in place of the integral of 1/r²"
+   },
+   {
+    "text": "1.7 × 10³ V",
+    "rationale": "This is kq(1/a² − 1/b²) ≈ 1690, a difference of field values in N/C. The potential difference comes from integrating the field, which leaves 1/r terms.",
+    "error_pattern": "uses the field expression in place of its integral"
+   },
+   {
+    "text": "180 V",
+    "rationale": "This is kq/a, the potential at 0.10 m alone. The potential at 0.40 m is 45 V, not zero, so it must be subtracted.",
+    "error_pattern": "treats the outer point as zero potential"
+   }
+  ],
+  "change_note": "Derive potential difference by integrating the point-charge field between two radii.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-028-v1",
+  "seed": "apphycem-mcq-028",
+  "difficulty": "easy",
+  "title": "Negative grain released in a field",
+  "stem": "A small grain carrying a negative charge is released from rest in a region with a static electric field, and no other forces act on it. As the grain speeds up, it moves toward points of",
+  "correct": {
+   "text": "higher potential and lower potential energy",
+   "rationale": "The force on a negative charge points opposite the field, which is toward higher potential. With q < 0, U = qV falls as V rises, and U must fall as kinetic energy grows."
+  },
+  "wrong": [
+   {
+    "text": "lower potential and lower potential energy",
+    "rationale": "Lower potential is where a positive charge heads. A negative charge is pushed opposite the field, toward higher potential.",
+    "error_pattern": "applies the positive-charge rule to a negative charge"
+   },
+   {
+    "text": "higher potential and higher potential energy",
+    "rationale": "The grain does gain potential on the way, but U = qV with q < 0 means U decreases as V increases. A speeding-up particle also loses potential energy.",
+    "error_pattern": "assumes U rises whenever V rises, ignoring the sign of q"
+   },
+   {
+    "text": "lower potential and higher potential energy",
+    "rationale": "A particle released from rest only speeds up if its potential energy falls. Moving to higher U would require outside work.",
+    "error_pattern": "ignores energy conservation when the charge speeds up"
+   }
+  ],
+  "change_note": "Negative charge released from rest; key requires combining sign of q, U = qV and energy conservation. Direction-only variant for this seed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-028-v2",
+  "seed": "apphycem-mcq-028",
+  "difficulty": "medium",
+  "title": "Energy change between two potentials",
+  "stem": "A +3.0 μC charge is moved by an external agent from point A, where the electric potential is +50 V, to point B, where the potential is +20 V. What is the change in the charge's electric potential energy?",
+  "correct": {
+   "text": "−9.0 × 10⁻⁵ J",
+   "rationale": "ΔU = qΔV = (3.0×10⁻⁶ C)(20 V − 50 V) = −9.0×10⁻⁵ J. A positive charge moved to lower potential loses potential energy."
+  },
+  "wrong": [
+   {
+    "text": "−1.5 × 10⁻⁴ J",
+    "rationale": "This is qV_A, using the starting potential alone. The energy change needs the potential difference V_B − V_A.",
+    "error_pattern": "uses one potential in place of the potential difference"
+   },
+   {
+    "text": "+6.0 × 10⁻⁵ J",
+    "rationale": "This is qV_B, using the final potential alone. ΔU = q(V_B − V_A), which is −9.0×10⁻⁵ J.",
+    "error_pattern": "uses the final potential in place of the potential difference"
+   },
+   {
+    "text": "+2.1 × 10⁻⁴ J",
+    "rationale": "This is q(V_A + V_B). Potential energy changes with the difference of the potentials, not their sum.",
+    "error_pattern": "adds the two potentials"
+   }
+  ],
+  "change_note": "Quantitative ΔU = qΔV for a positive charge moved between two potentials; new values.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-028-v3",
+  "seed": "apphycem-mcq-028",
+  "difficulty": "hard",
+  "title": "Speed gained by a negative particle",
+  "stem": "A particle with charge −2.0 μC and mass 3.0×10⁻⁴ kg is released from rest at point P, where the electric potential is +100 V. Only the static electric field acts on it. What is its speed when it reaches point Q, where the potential is +400 V?",
+  "correct": {
+   "text": "2.0 m/s",
+   "rationale": "ΔU = qΔV = (−2.0×10⁻⁶)(300) = −6.0×10⁻⁴ J, so the kinetic energy gained is 6.0×10⁻⁴ J. From ½mv² = 6.0×10⁻⁴ J, v = 2.0 m/s."
+  },
+  "wrong": [
+   {
+    "text": "1.4 m/s",
+    "rationale": "This uses KE = mv², dropping the factor ½, which gives √2 ≈ 1.4 m/s. The kinetic energy is ½mv².",
+    "error_pattern": "drops the factor of ½ in kinetic energy"
+   },
+   {
+    "text": "2.3 m/s",
+    "rationale": "This uses the potential at Q (400 V) as if it were the potential difference, giving 8.0×10⁻⁴ J. The energy change depends on 400 V − 100 V = 300 V.",
+    "error_pattern": "uses a single potential in place of the difference"
+   },
+   {
+    "text": "Zero; the particle stays at rest",
+    "rationale": "This assumes negative charges can only move toward lower potential, which would be uphill. A negative charge moves toward higher potential, so its potential energy falls and it accelerates.",
+    "error_pattern": "believes negative charges move toward lower potential"
+   }
+  ],
+  "change_note": "Energy conservation combining ΔU = qΔV for a negative charge with kinetic energy.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-029-v1",
+  "seed": "apphycem-mcq-029",
+  "difficulty": "easy",
+  "title": "Why the surface field is perpendicular",
+  "stem": "A charged solid metal object sits in electrostatic equilibrium. Why must the electric field just outside its surface be perpendicular to the surface?",
+  "correct": {
+   "text": "A component along the surface would push charges along it, so equilibrium allows none",
+   "rationale": "Free charges in the conductor feel the force qE. If the field had a part along the surface, charges would move, contradicting equilibrium. The surface is therefore an equipotential."
+  },
+  "wrong": [
+   {
+    "text": "Excess charge spreads uniformly over any conductor, and uniform charge gives only a perpendicular field",
+    "rationale": "The charge is not uniform on a non-spherical conductor, since it concentrates at points. The field is perpendicular because of the equilibrium condition, not because of uniformity.",
+    "error_pattern": "assumes excess charge is uniformly distributed on every conductor"
+   },
+   {
+    "text": "A steady surface current cancels any part of the field along the surface",
+    "rationale": "In electrostatic equilibrium there is no current. The parallel component is zero because charges would otherwise flow.",
+    "error_pattern": "believes equilibrium involves a steady surface current"
+   },
+   {
+    "text": "Electric field lines always cross every surface at right angles",
+    "rationale": "Field lines cross arbitrary surfaces at all angles. Only for a conductor's surface, an equipotential, must they be perpendicular.",
+    "error_pattern": "overgeneralizes perpendicularity to any surface"
+   }
+  ],
+  "change_note": "Asks for the reason for the perpendicular surface field rather than its direction; same conductor-in-equilibrium concept.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-029-v2",
+  "seed": "apphycem-mcq-029",
+  "difficulty": "medium",
+  "title": "Neutral sphere in a uniform field",
+  "stem": "An uncharged metal sphere is placed in a uniform electric field that points in the +x direction and is allowed to reach electrostatic equilibrium. At the point on the sphere's surface farthest in the −x direction, the electric field just outside the surface is",
+  "correct": {
+   "text": "Perpendicular to the surface, pointing toward the sphere (+x)",
+   "rationale": "Electrons shift toward the −x side, leaving negative induced charge there. Field lines end on negative charge, so the field just outside points into the surface, along +x, perpendicular to it."
+  },
+  "wrong": [
+   {
+    "text": "Zero, because the field inside the metal is zero",
+    "rationale": "The interior field is zero, but induced charge sits on the surface at this point. The field just outside is not zero where there is surface charge.",
+    "error_pattern": "applies the zero interior field to points just outside the conductor"
+   },
+   {
+    "text": "Tangent to the surface, pointing along +y",
+    "rationale": "A part of the field along the surface would move the induced charges, so none exists in equilibrium. The field is perpendicular.",
+    "error_pattern": "believes the surface field can be tangent"
+   },
+   {
+    "text": "Perpendicular to the surface, pointing away from the sphere (−x)",
+    "rationale": "Away from the sphere would mean positive charge on this side. The induced charge on the −x side is negative, so the field points inward.",
+    "error_pattern": "assumes the induced charge on the facing side is positive"
+   }
+  ],
+  "change_note": "New configuration (neutral conductor in an external field) requiring perpendicular direction plus induced-charge sign. Contains the one direction-based distractor for this seed.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-029-v3",
+  "seed": "apphycem-mcq-029",
+  "difficulty": "hard",
+  "title": "Field at a tip and a flat face",
+  "stem": "A charged conductor in electrostatic equilibrium has a broad flat face and a sharp pointed tip. Which statement about the electric field just outside its surface is correct?",
+  "correct": {
+   "text": "Perpendicular everywhere, and stronger at the tip than at the flat face",
+   "rationale": "Charge density is higher at sharp points, and the field just outside is larger where the surface charge density is larger. The field is perpendicular because the surface is an equipotential."
+  },
+  "wrong": [
+   {
+    "text": "Perpendicular everywhere, and equal at the tip and the flat face because the surface is at one potential",
+    "rationale": "One potential means no tangential field, not equal magnitude. The surface charge density, and so the field strength, varies with curvature.",
+    "error_pattern": "equates an equipotential surface with a uniform field strength"
+   },
+   {
+    "text": "Perpendicular everywhere, and stronger at the flat face because it holds more total charge",
+    "rationale": "The flat face may hold more total charge, but the field depends on charge per area. The density is greater at the tip.",
+    "error_pattern": "uses total charge instead of charge density"
+   },
+   {
+    "text": "Perpendicular at the flat face but tilted along the surface near the tip",
+    "rationale": "A tilted field would have a tangential part that moves charges. The field is perpendicular at the tip too.",
+    "error_pattern": "believes the field bends tangent near a sharp point"
+   }
+  ],
+  "change_note": "Combines perpendicular direction with the charge-density-at-points property of conductors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-030-v1",
+  "seed": "apphycem-mcq-030",
+  "difficulty": "easy",
+  "title": "Dielectric in an isolated capacitor",
+  "stem": "A parallel-plate capacitor is charged by a battery, which is then disconnected. A dielectric with κ = 4 is slipped in to fill the space between the plates completely. The energy stored in the capacitor becomes",
+  "correct": {
+   "text": "one-fourth of its original value",
+   "rationale": "With the battery gone the charge Q stays fixed while C becomes 4C. The energy U = Q²/(2C) is therefore divided by 4."
+  },
+  "wrong": [
+   {
+    "text": "four times its original value",
+    "rationale": "This applies the fixed-voltage result. With the battery disconnected the charge is fixed, not the voltage, and the voltage drops.",
+    "error_pattern": "uses the battery-connected (fixed V) condition"
+   },
+   {
+    "text": "unchanged",
+    "rationale": "Energy is not conserved here because the dielectric is pulled in by the field and the field does work. The stored energy drops.",
+    "error_pattern": "assumes the stored energy cannot change without a battery"
+   },
+   {
+    "text": "one-sixteenth of its original value",
+    "rationale": "This applies the factor κ twice. The energy at fixed Q changes by the single factor 1/κ.",
+    "error_pattern": "squares the dielectric constant"
+   }
+  ],
+  "change_note": "Disconnected (fixed-charge) counterpart of the seed's battery-connected case; same stored-energy-with-dielectric concept.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-030-v2",
+  "seed": "apphycem-mcq-030",
+  "difficulty": "medium",
+  "title": "Energy with a dielectric on a battery",
+  "stem": "A 2.0 μF parallel-plate capacitor is connected to a 6.0 V battery and stays connected. A dielectric with κ = 2.5 is then inserted to fill the gap completely. What is the energy stored in the capacitor after insertion?",
+  "correct": {
+   "text": "90 μJ",
+   "rationale": "The voltage stays 6.0 V and C becomes 2.5 × 2.0 = 5.0 μF. U = ½CV² = ½(5.0×10⁻⁶)(6.0)² = 9.0×10⁻⁵ J = 90 μJ."
+  },
+  "wrong": [
+   {
+    "text": "14 μJ",
+    "rationale": "This divides the original 36 μJ by κ, the fixed-charge result. The battery holds the voltage fixed, so the energy rises.",
+    "error_pattern": "uses the fixed-charge result"
+   },
+   {
+    "text": "36 μJ",
+    "rationale": "This is the original energy ½(2.0 μF)(6.0 V)². The capacitance grows by κ at the same voltage, so the energy grows too.",
+    "error_pattern": "assumes constant voltage means constant energy"
+   },
+   {
+    "text": "225 μJ",
+    "rationale": "This multiplies the original 36 μJ by κ² = 6.25. With V fixed, U = ½CV² grows only by the factor κ.",
+    "error_pattern": "squares the dielectric constant"
+   }
+  ],
+  "change_note": "Quantitative battery-connected case with new C, V and κ.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-030-v3",
+  "seed": "apphycem-mcq-030",
+  "difficulty": "hard",
+  "title": "Energy change after removing the battery",
+  "stem": "A 4.0 μF parallel-plate capacitor is charged to 100 V by a battery, and the battery is then removed. A dielectric with κ = 4 is inserted to fill the gap completely. By how much does the stored energy change?",
+  "correct": {
+   "text": "Decreases by 15 mJ",
+   "rationale": "Initially U = ½CV² = 20 mJ. With Q fixed and C becoming 16 μF, U = Q²/(2C) falls to 5.0 mJ. The change is −15 mJ."
+  },
+  "wrong": [
+   {
+    "text": "Increases by 60 mJ",
+    "rationale": "This is the change if the capacitor stayed connected at 100 V, where U would rise to 80 mJ. Without the battery the charge is fixed, not the voltage.",
+    "error_pattern": "uses the fixed-voltage condition"
+   },
+   {
+    "text": "Decreases by 5.0 mJ",
+    "rationale": "5.0 mJ is the final energy, not the change. The change subtracts it from the initial 20 mJ.",
+    "error_pattern": "reports the final value instead of the change"
+   },
+   {
+    "text": "Decreases by 19 mJ",
+    "rationale": "This uses the factor 1/κ² for the energy, giving 1.25 mJ. At fixed charge the energy changes by 1/κ, leaving 5.0 mJ.",
+    "error_pattern": "squares the dielectric constant"
+   }
+  ],
+  "change_note": "Change in energy for a dielectric inserted at fixed charge, with a fixed-voltage trap.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-001-v1",
+  "seed": "apphycem-mcq-np1-001",
+  "difficulty": "easy",
+  "title": "Field of a long charged wire",
+  "stem": "A very long straight wire carries a uniform linear charge density of +4.0 nC/m. Using Gauss's law, what is the magnitude of the electric field 0.20 m from the wire?",
+  "correct": {
+   "text": "360 N/C",
+   "rationale": "A cylindrical Gaussian surface gives E(2πrL) = λL/ε₀, so E = λ/(2πε₀r) = 2kλ/r = 2(9.0×10⁹)(4.0×10⁻⁹)/0.20 = 360 N/C."
+  },
+  "wrong": [
+   {
+    "text": "180 N/C",
+    "rationale": "This is kλ/r, which drops the factor 2. The cylinder's lateral area is 2πrL, so the field is 2kλ/r.",
+    "error_pattern": "uses a 4π geometry factor from the sphere"
+   },
+   {
+    "text": "900 N/C",
+    "rationale": "This is kλ/r², the point-charge dependence. For a long wire the field falls as 1/r.",
+    "error_pattern": "applies point-charge 1/r² dependence"
+   },
+   {
+    "text": "1800 N/C",
+    "rationale": "This is 2kλ/r². The factor 2 is correct but the field of a line falls off as 1/r, not 1/r².",
+    "error_pattern": "keeps 1/r² in the line-charge result"
+   }
+  ],
+  "change_note": "New numbers and numeric evaluation of the infinite-line Gauss's-law result.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-001-v2",
+  "seed": "apphycem-mcq-np1-001",
+  "difficulty": "medium",
+  "title": "Inside a uniformly charged cylinder",
+  "stem": "A very long solid cylinder of radius 0.10 m carries a uniform volume charge density of +5.0 μC/m³. What is the electric field magnitude at a point inside the cylinder, 0.040 m from its axis?",
+  "correct": {
+   "text": "1.1 × 10⁴ N/C",
+   "rationale": "Take a coaxial Gaussian cylinder of radius r < R. The enclosed charge is ρπr²L, so E(2πrL) = ρπr²L/ε₀ and E = ρr/(2ε₀) = (5.0×10⁻⁶)(0.040)/(2×8.85×10⁻¹²) ≈ 1.1×10⁴ N/C."
+  },
+  "wrong": [
+   {
+    "text": "7.1 × 10⁴ N/C",
+    "rationale": "This counts the charge of the whole cylinder, ρπR²L, inside a Gaussian surface of radius 0.040 m. Only the charge within that radius is enclosed.",
+    "error_pattern": "uses the full radius R instead of r for the enclosed charge"
+   },
+   {
+    "text": "7.5 × 10³ N/C",
+    "rationale": "This is ρr/(3ε₀), the result for a sphere (area 4πr², volume 4πr³/3). A long cylinder needs the lateral area 2πrL and volume πr²L.",
+    "error_pattern": "applies spherical geometry to a cylinder"
+   },
+   {
+    "text": "4.5 × 10³ N/C",
+    "rationale": "This divides by the area 2πRL of the cylinder's outer surface instead of the Gaussian surface's own area 2πrL.",
+    "error_pattern": "uses the cylinder's radius R for the Gaussian area"
+   }
+  ],
+  "change_note": "Gauss's law inside a uniformly charged long cylinder; same cylindrical-symmetry skill with volume density.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-001-v3",
+  "seed": "apphycem-mcq-np1-001",
+  "difficulty": "hard",
+  "title": "Wire inside a charged shell",
+  "stem": "A very long straight wire with uniform linear charge density +6.0 nC/m lies along the axis of a long thin cylindrical shell of radius 0.20 m. The shell carries a uniform charge of −12 nC per meter of length. What are the magnitude and direction of the electric field at 0.50 m from the axis?",
+  "correct": {
+   "text": "216 N/C, directed toward the axis",
+   "rationale": "At r = 0.50 m the Gaussian cylinder encloses both charges: λ_net = +6.0 − 12 = −6.0 nC/m. E = 2k|λ_net|/r = 2(9.0×10⁹)(6.0×10⁻⁹)/0.50 = 216 N/C, inward because the net charge is negative."
+  },
+  "wrong": [
+   {
+    "text": "216 N/C, directed away from the axis",
+    "rationale": "The magnitude is right, but the net enclosed charge is negative, so the field points inward.",
+    "error_pattern": "gives the direction of the wire's charge instead of the net charge"
+   },
+   {
+    "text": "432 N/C, directed toward the axis",
+    "rationale": "This uses only the shell's −12 nC/m. The Gaussian surface also encloses the wire's +6.0 nC/m.",
+    "error_pattern": "leaves out part of the enclosed charge"
+   },
+   {
+    "text": "648 N/C, directed away from the axis",
+    "rationale": "This adds the magnitudes 6.0 + 12 = 18 nC/m. The charges have opposite signs and partly cancel.",
+    "error_pattern": "adds magnitudes of enclosed charges instead of signed values"
+   }
+  ],
+  "change_note": "Gauss's law for a line charge plus coaxial shell, outside both; new geometry. Direction-only distractor for this seed.",
+  "check": "numeric"
+ }
+]

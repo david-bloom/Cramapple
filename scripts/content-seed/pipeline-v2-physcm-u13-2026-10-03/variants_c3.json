@@ -1,0 +1,452 @@
+[
+ {
+  "id": "apphycm-mcq-026-v1",
+  "seed": "apphycm-mcq-026",
+  "difficulty": "easy",
+  "title": "Car on a circular track",
+  "stem": "A car travels at a constant speed of 20 m/s around a flat circular track of radius 50 m. What is the car's acceleration?",
+  "correct": {
+   "text": "8.0 m/s² directed toward the center of the track",
+   "rationale": "The velocity direction changes continuously, so there is an acceleration of magnitude v²/r = (20 m/s)²/(50 m) = 8.0 m/s², directed toward the center."
+  },
+  "wrong": [
+   {
+    "text": "0 m/s², because the speed is constant",
+    "rationale": "Constant speed does not mean zero acceleration. The velocity vector keeps changing direction, which requires the inward acceleration v²/r = 8.0 m/s².",
+    "error_pattern": "equates constant speed with zero acceleration"
+   },
+   {
+    "text": "0.40 m/s² directed toward the center of the track",
+    "rationale": "This divides the speed by the radius (v/r) instead of using v²/r. The correct magnitude is (20)²/50 = 8.0 m/s².",
+    "error_pattern": "uses v/r instead of v²/r"
+   },
+   {
+    "text": "8.0 m/s² directed away from the center of the track",
+    "rationale": "The magnitude v²/r = 8.0 m/s² is right, but the acceleration of a body in uniform circular motion points inward, toward the center, not outward.",
+    "error_pattern": "outward (centrifugal) direction for the acceleration"
+   }
+  ],
+  "change_note": "New context (car on a flat track) with numbers; same uniform-circular-motion acceleration idea; distractors are zero-acceleration, v/r and outward-direction errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-026-v2",
+  "seed": "apphycm-mcq-026",
+  "difficulty": "medium",
+  "title": "Ball on a string, speed doubled",
+  "stem": "A ball on a light string moves at constant speed in a horizontal circle of fixed radius on a frictionless table, and the string tension is the only horizontal force on the ball. The ball is then set moving at twice the original speed in a circle of the same radius. How does the string tension compare with its original value?",
+  "correct": {
+   "text": "It is 4 times as large",
+   "rationale": "The tension is the net force, which supplies the centripetal acceleration: T = mv²/r. With r fixed, doubling v multiplies the tension by 2² = 4."
+  },
+  "wrong": [
+   {
+    "text": "It is 2 times as large",
+    "rationale": "This treats the required inward force as proportional to v. Because T = mv²/r, it is proportional to v², so doubling the speed gives a factor of 4, not 2.",
+    "error_pattern": "treats centripetal force as proportional to v rather than v²"
+   },
+   {
+    "text": "It is unchanged, because the speed is still constant",
+    "rationale": "Constant speed does not mean no net force. The ball always accelerates inward at v²/r, and a larger v requires a larger inward force, so the tension increases.",
+    "error_pattern": "equates constant speed with unchanged or zero net force"
+   },
+   {
+    "text": "It is one-fourth as large",
+    "rationale": "This inverts the dependence on speed. The required inward force grows as v², so doubling the speed increases the tension by a factor of 4.",
+    "error_pattern": "inverts the v² dependence"
+   }
+  ],
+  "change_note": "Conceptual proportional reasoning about a=v²/r and F=mv²/r with doubled speed; new context (ball on string).",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycm-mcq-026-v3",
+  "seed": "apphycm-mcq-026",
+  "difficulty": "hard",
+  "title": "Hammer-throw ball",
+  "stem": "In a hammer throw, a 4.0 kg ball moves in a horizontal circle of radius 1.5 m with a constant period of 0.50 s. Neglect gravity's effect on the circle. What is the magnitude of the net force on the ball?",
+  "correct": {
+   "text": "950 N, directed toward the center",
+   "rationale": "The speed is v = 2πr/T ≈ 18.8 m/s. The net force is the centripetal force F = mv²/r = (4.0)(18.8)²/1.5 ≈ 950 N, directed inward."
+  },
+  "wrong": [
+   {
+    "text": "75 N, directed toward the center",
+    "rationale": "This is mv, the product of mass and speed, which is not a force. The centripetal force needs v²/r: mv²/r ≈ 950 N.",
+    "error_pattern": "uses mv instead of mv²/r"
+   },
+   {
+    "text": "470 N, directed toward the center",
+    "rationale": "This uses 4π²r/T instead of 4π²r/T², leaving the period unsquared. With a = 4π²r/T² the net force is 4.0 × 4π² × 1.5/0.25 ≈ 950 N.",
+    "error_pattern": "forgets to square the period"
+   },
+   {
+    "text": "2100 N, directed toward the center",
+    "rationale": "This multiplies mv² by the radius (mv²r ≈ 2132 N) instead of dividing by it. The centripetal force is mv²/r ≈ 950 N.",
+    "error_pattern": "multiplies by r instead of dividing"
+   }
+  ],
+  "change_note": "Multi-step: v=2πr/T then F=mv²/r with new numbers; same uniform-circular-motion acceleration/net-force concept.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-027-v1",
+  "seed": "apphycm-mcq-027",
+  "difficulty": "easy",
+  "title": "Work by a quadratic force",
+  "stem": "A variable force F(x) = 3.0x² (F in newtons, x in meters) acts on a crate along the x-axis. How much work does this force do on the crate from x = 1.0 m to x = 3.0 m?",
+  "correct": {
+   "text": "26 J",
+   "rationale": "W = ∫F dx from 1.0 to 3.0 = [x³] = 27 − 1 = 26 J."
+  },
+  "wrong": [
+   {
+    "text": "54 J",
+    "rationale": "This multiplies the final force F(3.0) = 27 N by the full 2.0 m displacement. The force is not constant, so the work must be the integral, which is 26 J.",
+    "error_pattern": "uses the final force as if constant over the displacement"
+   },
+   {
+    "text": "30 J",
+    "rationale": "This averages the force at the two endpoints, (3 + 27)/2, and multiplies by 2.0 m. That shortcut is exact only for a force that is linear in x; F = 3x² is not, so the integral gives 26 J.",
+    "error_pattern": "endpoint-average shortcut for a nonlinear force"
+   },
+   {
+    "text": "27 J",
+    "rationale": "This evaluates the antiderivative x³ only at the upper limit and forgets to subtract its value at the lower limit (1). The definite integral is 27 − 1 = 26 J.",
+    "error_pattern": "drops the lower-limit term of the definite integral"
+   }
+  ],
+  "change_note": "New force function and limits; same W = ∫F(x)dx idea; distractors mirror the seed's constant-force and endpoint-average errors plus a dropped lower limit.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-027-v2",
+  "seed": "apphycm-mcq-027",
+  "difficulty": "medium",
+  "title": "Work by a force that reverses sign",
+  "stem": "A force F(x) = 8.0 − 2.0x (F in newtons, x in meters) acts on an object along the x-axis. How much net work does it do as the object moves from x = 0 to x = 6.0 m?",
+  "correct": {
+   "text": "12 J",
+   "rationale": "W = ∫(8.0 − 2.0x) dx from 0 to 6.0 = [8.0x − x²] = 48 − 36 = 12 J. The force reverses at x = 4.0 m, so part of the path contributes negative work."
+  },
+  "wrong": [
+   {
+    "text": "16 J",
+    "rationale": "This stops at x = 4.0 m, where the force becomes zero, and ignores the region from 4.0 m to 6.0 m. The force there points opposite to the motion and does −4 J of work, so the net work is 12 J.",
+    "error_pattern": "ignores the negative-work region"
+   },
+   {
+    "text": "20 J",
+    "rationale": "This adds the magnitudes of the two areas (16 J + 4 J). Work done where the force opposes the motion is negative and must be subtracted, giving 16 − 4 = 12 J.",
+    "error_pattern": "adds areas without regard to sign"
+   },
+   {
+    "text": "−24 J",
+    "rationale": "This multiplies the final force F(6.0) = −4.0 N by the full 6.0 m. The force changes along the path, so the work is the integral, 12 J.",
+    "error_pattern": "uses the final force as if constant over the displacement"
+   }
+  ],
+  "change_note": "Linear force that changes sign; signed-area integral; new numbers and function.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-027-v3",
+  "seed": "apphycm-mcq-027",
+  "difficulty": "hard",
+  "title": "Work by an exponentially decaying force",
+  "stem": "A force F(x) = 20e^(−0.50x) (F in newtons, x in meters) acts on an object along the x-axis. How much work does it do from x = 0 to x = 2.0 m?",
+  "correct": {
+   "text": "25.3 J",
+   "rationale": "W = ∫20e^(−0.50x) dx from 0 to 2.0 = (20/0.50)(1 − e^(−1.0)) = 40(0.632) ≈ 25.3 J."
+  },
+  "wrong": [
+   {
+    "text": "14.7 J",
+    "rationale": "This multiplies the final force F(2.0) = 20e^(−1) ≈ 7.36 N by the 2.0 m displacement. The force decays along the path, so the work is the integral, about 25.3 J.",
+    "error_pattern": "uses the final force as if constant over the displacement"
+   },
+   {
+    "text": "12.6 J",
+    "rationale": "This integrates without dividing by the coefficient 0.50 in the exponent: 20(1 − e^(−1)) ≈ 12.6 J. The antiderivative of e^(−0.50x) is −2.0e^(−0.50x), so the correct result is twice as large.",
+    "error_pattern": "drops the chain-rule factor when integrating the exponential"
+   },
+   {
+    "text": "27.4 J",
+    "rationale": "This averages the endpoint forces, (20 + 7.36)/2, and multiplies by 2.0 m. For a nonlinear force that over-estimates the integral, which is about 25.3 J.",
+    "error_pattern": "endpoint-average shortcut for a nonlinear force"
+   }
+  ],
+  "change_note": "Exponential force with chain-rule factor; same W = ∫F(x)dx idea; hardest of the three.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-028-v1",
+  "seed": "apphycm-mcq-028",
+  "difficulty": "easy",
+  "title": "Force from a quartic potential",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = bx⁴, where b is a positive constant. The x-component of the force on the particle is",
+  "correct": {
+   "text": "−4bx³",
+   "rationale": "The force is the negative derivative of the potential energy: F = −dU/dx = −4bx³."
+  },
+  "wrong": [
+   {
+    "text": "−bx³",
+    "rationale": "This lowers the power correctly but forgets the power-rule factor of 4 that comes down when differentiating x⁴.",
+    "error_pattern": "drops the power-rule factor"
+   },
+   {
+    "text": "−4bx⁴",
+    "rationale": "This brings down the factor 4 but leaves the exponent unchanged. Differentiating x⁴ gives x³.",
+    "error_pattern": "wrong exponent after differentiating"
+   },
+   {
+    "text": "−(b/5)x⁵",
+    "rationale": "This integrates U(x) instead of differentiating it. The force is the negative derivative of U, not its antiderivative.",
+    "error_pattern": "integrates instead of differentiating"
+   }
+  ],
+  "change_note": "New potential (quartic) and symbolic constant; same F = −dU/dx; no sign-only distractor in this variant.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-028-v2",
+  "seed": "apphycm-mcq-028",
+  "difficulty": "medium",
+  "title": "Force at a point from a cubic potential",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = 3.0x² − 2.0x³ (U in joules, x in meters). What is the x-component of the force on the particle at x = 2.0 m?",
+  "correct": {
+   "text": "+12 N",
+   "rationale": "F = −dU/dx = −(6.0x − 6.0x²) = −(12 − 24) = +12 N, directed along +x."
+  },
+  "wrong": [
+   {
+    "text": "−12 N",
+    "rationale": "This is dU/dx, the slope of U, without the minus sign. The force is the negative of the slope, so F = +12 N.",
+    "error_pattern": "omits the minus sign in F = −dU/dx"
+   },
+   {
+    "text": "−4.0 N",
+    "rationale": "This is the value of U at x = 2.0 m (12 − 16 = −4.0 J) reported as a force. The force comes from the derivative of U, not from U itself.",
+    "error_pattern": "reports the potential energy value instead of its derivative"
+   },
+   {
+    "text": "0 N",
+    "rationale": "This differentiates the cubic term as 3x², dropping its coefficient 2.0, giving 6.0x − 3.0x² = 0 at x = 2.0 m. The correct derivative of 2.0x³ is 6.0x², so F = +12 N.",
+    "error_pattern": "drops the coefficient when differentiating the cubic term"
+   }
+  ],
+  "change_note": "Numeric evaluation of F = −dU/dx at a point; this is the one variant of the seed with a sign-only distractor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-028-v3",
+  "seed": "apphycm-mcq-028",
+  "difficulty": "hard",
+  "title": "Force from an inverse-square potential",
+  "stem": "A particle moves along the positive x-axis with potential energy U(x) = 4.0/x² (U in joules, x in meters). What is the force on the particle at x = 0.50 m?",
+  "correct": {
+   "text": "64 N in the +x direction",
+   "rationale": "F = −dU/dx = −d(4.0x⁻²)/dx = +8.0x⁻³ = 8.0/(0.50)³ = 64 N. The positive sign means the force pushes the particle toward larger x, where U is lower."
+  },
+  "wrong": [
+   {
+    "text": "32 N in the +x direction",
+    "rationale": "This forgets the power-rule factor of 2 from x⁻², giving 4.0/x³. Differentiating 4.0x⁻² gives 8.0x⁻³, so the force is 64 N.",
+    "error_pattern": "drops the power-rule factor"
+   },
+   {
+    "text": "16 N in the +x direction",
+    "rationale": "This is the value of U at x = 0.50 m (4.0/0.25 = 16 J) used as a force. The force is the negative derivative of U, not U itself.",
+    "error_pattern": "reports the potential energy value instead of its derivative"
+   },
+   {
+    "text": "128 N in the +x direction",
+    "rationale": "This brings down the factor 2 but leaves the exponent as −4 (8.0/x⁴). Differentiating x⁻² lowers the exponent to −3, so the force is 8.0/x³ = 64 N.",
+    "error_pattern": "wrong exponent after differentiating"
+   }
+  ],
+  "change_note": "Negative power of x, so exponent and sign handling are harder; same F = −dU/dx idea.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-029-v1",
+  "seed": "apphycm-mcq-029",
+  "difficulty": "easy",
+  "title": "Block at the end of its oscillation",
+  "stem": "A block on a frictionless horizontal spring oscillates with amplitude 0.20 m. At the instant the block reaches x = +0.20 m, the end of its motion, which statement is correct?",
+  "correct": {
+   "text": "Its speed is zero and its potential energy equals the total energy",
+   "rationale": "At the end of its motion the block momentarily stops, so its kinetic energy is zero and all of the mechanical energy is spring potential energy: U = E."
+  },
+  "wrong": [
+   {
+    "text": "Its speed is maximum and its potential energy is zero",
+    "rationale": "That describes the equilibrium position x = 0. At x = +0.20 m the block is momentarily at rest and the spring potential energy is at its maximum, equal to the total energy.",
+    "error_pattern": "confuses the turning point with the equilibrium position"
+   },
+   {
+    "text": "The net force on it is zero",
+    "rationale": "The spring force −kx has its largest magnitude at x = 0.20 m. The block is only momentarily at rest, and this force reverses its motion.",
+    "error_pattern": "assumes zero speed means zero net force"
+   },
+   {
+    "text": "Its kinetic energy equals its potential energy",
+    "rationale": "The kinetic energy is zero here while the potential energy equals the total energy, which is not zero. The two are equal only at an intermediate position.",
+    "error_pattern": "splits the energy evenly at the extreme"
+   }
+  ],
+  "change_note": "Spring-block turning point instead of a general potential; same K = 0, U = E idea.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycm-mcq-029-v2",
+  "seed": "apphycm-mcq-029",
+  "difficulty": "medium",
+  "title": "Turning points in a parabolic well",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = 2.0x² (U in joules, x in meters) and total mechanical energy 8.0 J. At which positions are its turning points?",
+  "correct": {
+   "text": "x = ±2.0 m",
+   "rationale": "At a turning point the kinetic energy is zero, so U = E: 2.0x² = 8.0 gives x² = 4.0 and x = ±2.0 m."
+  },
+  "wrong": [
+   {
+    "text": "x = ±4.0 m",
+    "rationale": "This solves 2.0x = 8.0, treating U as linear in x. The potential energy is 2.0x², so x² = 4.0 and x = ±2.0 m.",
+    "error_pattern": "drops the square when solving U(x) = E"
+   },
+   {
+    "text": "x = ±2.8 m",
+    "rationale": "This sets x² = 8.0, ignoring the factor 2.0 in U(x) = 2.0x² (or reading it as a spring constant in ½kx²). Solving 2.0x² = 8.0 gives x = ±2.0 m.",
+    "error_pattern": "ignores the coefficient in U(x)"
+   },
+   {
+    "text": "There are no turning points, because the force at x = ±2.0 m is not zero",
+    "rationale": "A turning point does not require zero force. The force F = −4.0x is −8.0 N at x = +2.0 m, and it is this nonzero force that reverses the particle's motion there.",
+    "error_pattern": "assumes force must be zero at a turning point"
+   }
+  ],
+  "change_note": "Numeric turning points from U(x) = E for a new potential and energy.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-029-v3",
+  "seed": "apphycm-mcq-029",
+  "difficulty": "hard",
+  "title": "Allowed region in a double-well potential",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = 0.50(x² − 4.0)² (U in joules, x in meters). Its total mechanical energy is 4.5 J, and it is observed at x = +2.0 m. Within what range of positions is its motion confined?",
+  "correct": {
+   "text": "1.00 m ≤ x ≤ 2.65 m",
+   "rationale": "Motion is allowed only where K = E − U ≥ 0, that is U ≤ 4.5 J. This requires |x² − 4.0| ≤ 3.0, so 1.0 ≤ x² ≤ 7.0. The region around x = 0 has U > E and cannot be crossed, so a particle at x = +2.0 m stays between x = 1.00 m and x = 2.65 m."
+  },
+  "wrong": [
+   {
+    "text": "−2.65 m ≤ x ≤ 2.65 m",
+    "rationale": "This treats only the outer turning points as limits. Between x = −1.0 m and x = +1.0 m the potential energy exceeds 4.5 J (it is 8.0 J at x = 0), so the particle cannot cross that barrier.",
+    "error_pattern": "ignores the inner turning points where U exceeds E"
+   },
+   {
+    "text": "1.00 m ≤ x ≤ 7.00 m",
+    "rationale": "This reads the limits of x² (1.0 and 7.0) as limits of x. The turning points are the square roots, x = 1.00 m and x = 2.65 m.",
+    "error_pattern": "reports x² values as positions"
+   },
+   {
+    "text": "1.00 m ≤ x ≤ 2.00 m",
+    "rationale": "This treats the starting point x = 2.0 m as a turning point. There U = 0 and the kinetic energy is 4.5 J, the maximum, so the particle keeps moving to x = 2.65 m before turning around.",
+    "error_pattern": "treats the observation point as a turning point"
+   }
+  ],
+  "change_note": "Non-monotonic potential: requires U <= E, barrier reasoning and the correct connected region; same turning-point idea.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-030-v1",
+  "seed": "apphycm-mcq-030",
+  "difficulty": "easy",
+  "title": "Rope pulling a crate at an angle",
+  "stem": "A rope pulls a crate with a constant force of 50 N directed 60° above the horizontal. The crate moves horizontally at a constant 4.0 m/s. What power does the rope's force deliver to the crate?",
+  "correct": {
+   "text": "100 W",
+   "rationale": "Power is the dot product P = F·v = Fv cos θ = (50)(4.0)cos 60° = 100 W."
+  },
+  "wrong": [
+   {
+    "text": "200 W",
+    "rationale": "This is Fv with no angle. Only the component of the force parallel to the velocity delivers power, so the cosine factor is needed: 100 W.",
+    "error_pattern": "ignores the angle between force and velocity"
+   },
+   {
+    "text": "170 W",
+    "rationale": "This uses sin 60° instead of cos 60°. The angle is measured from the horizontal motion, so the parallel component is F cos 60°, giving 100 W.",
+    "error_pattern": "uses sine instead of cosine"
+   },
+   {
+    "text": "6.3 W",
+    "rationale": "This divides the parallel force component by the speed (25 N ÷ 4.0 m/s ≈ 6.3 W) instead of multiplying. Power is P = F·v = 25 N × 4.0 m/s = 100 W.",
+    "error_pattern": "divides instead of multiplies"
+   }
+  ],
+  "change_note": "Numeric P = Fv cos θ with an angle between F and v; new context.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-030-v2",
+  "seed": "apphycm-mcq-030",
+  "difficulty": "medium",
+  "title": "Power from a work function",
+  "stem": "The total work done on a cart by the net force is W(t) = 2.0t³ joules, where t is in seconds. What is the instantaneous power delivered to the cart at t = 2.0 s?",
+  "correct": {
+   "text": "24 W",
+   "rationale": "Instantaneous power is the time derivative of work: P = dW/dt = 6.0t². At t = 2.0 s, P = 6.0(4.0) = 24 W."
+  },
+  "wrong": [
+   {
+    "text": "8.0 W",
+    "rationale": "This is the average power over the first 2.0 s, W/t = 16 J/2.0 s. Instantaneous power is the derivative dW/dt, which is 24 W at this instant.",
+    "error_pattern": "uses average power instead of the derivative"
+   },
+   {
+    "text": "16 W",
+    "rationale": "This is the work done so far, 16 J, reported as a power. Power is the rate of change of work, dW/dt = 24 W.",
+    "error_pattern": "reports W instead of dW/dt"
+   },
+   {
+    "text": "12 W",
+    "rationale": "This differentiates 2.0t³ as 3t², dropping the coefficient 2.0. The derivative is 6.0t², giving 24 W.",
+    "error_pattern": "drops the coefficient when differentiating"
+   }
+  ],
+  "change_note": "Calculus definition P = dW/dt of instantaneous power from a function; new context.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-030-v3",
+  "seed": "apphycm-mcq-030",
+  "difficulty": "hard",
+  "title": "Power from a time-dependent force",
+  "stem": "A 2.0 kg cart starts from rest on a frictionless track. A force along the track, F = 8.0t newtons (t in seconds), is the only horizontal force on it. What power does this force deliver at t = 1.5 s?",
+  "correct": {
+   "text": "54 W",
+   "rationale": "a = F/m = 4.0t, so v = ∫a dt = 2.0t². At t = 1.5 s, v = 4.5 m/s and F = 12 N, so P = Fv = 54 W."
+  },
+  "wrong": [
+   {
+    "text": "108 W",
+    "rationale": "This uses the constant-acceleration formula v = at with the final acceleration (6.0 m/s²), giving v = 9.0 m/s. The acceleration grows with time, so v must be found by integrating: v = 4.5 m/s and P = 54 W.",
+    "error_pattern": "applies constant-acceleration formulas when acceleration varies"
+   },
+   {
+    "text": "72 W",
+    "rationale": "This multiplies force by acceleration (12 N × 6.0 m/s²), which is not a rate of energy transfer. Power is F·v, with v = 4.5 m/s, giving 54 W.",
+    "error_pattern": "uses F·a instead of F·v"
+   },
+   {
+    "text": "13.5 W",
+    "rationale": "This is the average power over the first 1.5 s: the work is ∫Fv dt = 4.0t⁴ = 20.25 J, and 20.25 J ÷ 1.5 s = 13.5 W. The question asks for the instantaneous power, 54 W.",
+    "error_pattern": "uses average power instead of instantaneous power"
+   }
+  ],
+  "change_note": "Variable force: integrate a to get v, then P = F·v; distractors are constant-acceleration, F·a and average-power errors.",
+  "check": "numeric"
+ }
+]

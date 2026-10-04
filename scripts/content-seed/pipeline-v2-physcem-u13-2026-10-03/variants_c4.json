@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphycem-mcq-np1-002-v1",
+  "seed": "apphycem-mcq-np1-002",
+  "difficulty": "easy",
+  "title": "Charge enclosed by a coaxial Gaussian cylinder",
+  "stem": "A very long straight thin rod carries a uniform linear charge density λ = 3.0 nC/m. A cylindrical Gaussian surface of radius 0.40 m is coaxial with the rod and has a length of 0.50 m. What is the charge enclosed by this Gaussian surface?",
+  "correct": {
+   "text": "1.5 nC",
+   "rationale": "The enclosed charge is the linear density times the length of rod inside the surface: q_enc = λL = (3.0 nC/m)(0.50 m) = 1.5 nC. The radius of the Gaussian cylinder does not change how much rod it contains."
+  },
+  "wrong": [
+   {
+    "text": "3.8 nC",
+    "rationale": "This multiplies λ by the curved area 2πrL = 1.26 m², but λ is charge per unit length, not per unit area. The enclosed charge is λL = 1.5 nC.",
+    "error_pattern": "treats a line charge density as a surface charge density (uses the lateral area)"
+   },
+   {
+    "text": "3.0 nC",
+    "rationale": "This uses the number λ = 3.0 nC/m as if it were a charge. A charge requires multiplying λ by the 0.50 m of rod enclosed, giving 1.5 nC.",
+    "error_pattern": "uses the density itself as the enclosed charge (omits the length)"
+   },
+   {
+    "text": "0 nC",
+    "rationale": "Charge does not need to lie on the Gaussian surface to count. The rod passes through the cylinder, and the 0.50 m of it inside carries 1.5 nC.",
+    "error_pattern": "believes only charge located on the Gaussian surface is enclosed"
+   }
+  ],
+  "change_note": "New geometry (cylindrical symmetry, line charge) and numbers; same task of finding q_enc for a Gaussian surface. Distractors: lateral-area, density-as-charge, charge-on-surface confusions.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-002-v2",
+  "seed": "apphycem-mcq-np1-002",
+  "difficulty": "medium",
+  "title": "Charge inside a uniformly charged ball",
+  "stem": "A solid insulating sphere of radius 0.10 m carries a total charge of +8.0 µC spread uniformly through its volume. A concentric spherical Gaussian surface has radius 0.050 m. What charge does this Gaussian surface enclose?",
+  "correct": {
+   "text": "1.0 µC",
+   "rationale": "With uniform volume density the enclosed charge is proportional to the enclosed volume: q_enc = Q(r/R)³ = (8.0 µC)(0.050/0.10)³ = 1.0 µC."
+  },
+  "wrong": [
+   {
+    "text": "4.0 µC",
+    "rationale": "This scales the charge by r/R, as if charge were proportional to radius. Volume grows as r³, so the enclosed fraction is (1/2)³, not 1/2.",
+    "error_pattern": "scales enclosed charge linearly with radius"
+   },
+   {
+    "text": "2.0 µC",
+    "rationale": "This scales by (r/R)², the ratio of surface areas. Charge is spread through the volume, so the enclosed fraction is (r/R)³ = 1/8.",
+    "error_pattern": "scales enclosed charge with area instead of volume"
+   },
+   {
+    "text": "8.0 µC",
+    "rationale": "This is the whole charge of the sphere. The Gaussian surface lies inside the sphere, so it encloses only the charge within radius 0.050 m.",
+    "error_pattern": "uses the total charge regardless of the Gaussian-surface radius"
+   }
+  ],
+  "change_note": "Gaussian surface inside a uniform solid sphere (seed had r > R for a thin shell); q_enc from volume ratio with new numbers.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-002-v3",
+  "seed": "apphycem-mcq-np1-002",
+  "difficulty": "hard",
+  "title": "Enclosed charge between a sphere and a shell",
+  "stem": "A solid insulating sphere of radius 0.10 m has a uniform volume charge density ρ = 3.0 µC/m³. It is surrounded by a concentric thin spherical shell of radius 0.30 m that carries a charge of −9.0 nC. A spherical Gaussian surface of radius 0.20 m is concentric with both. What charge does the Gaussian surface enclose?",
+  "correct": {
+   "text": "12.6 nC",
+   "rationale": "Only the solid sphere lies inside radius 0.20 m. Its charge is ρ(4/3)πR³ = (3.0 µC/m³)(4/3)π(0.10 m)³ ≈ 12.6 nC, using the sphere's own radius R because the density is zero in the gap outside it. The shell at 0.30 m is outside the Gaussian surface."
+  },
+  "wrong": [
+   {
+    "text": "101 nC",
+    "rationale": "This uses the Gaussian radius 0.20 m in place of the sphere's radius 0.10 m, so it counts charge in a volume that is not charged: ρ(4/3)π(0.20 m)³ ≈ 101 nC.",
+    "error_pattern": "uses the Gaussian-surface radius instead of the charged object's radius"
+   },
+   {
+    "text": "3.6 nC",
+    "rationale": "This adds the shell's −9.0 nC to the sphere's 12.6 nC. The shell lies at 0.30 m, outside the 0.20 m Gaussian surface, so it is not enclosed.",
+    "error_pattern": "includes charge located outside the Gaussian surface"
+   },
+   {
+    "text": "88 nC",
+    "rationale": "This fills the whole region from 0.10 m to 0.20 m with charge density ρ, but the gap between the sphere and the shell carries no charge.",
+    "error_pattern": "assumes the charge density extends through the empty region"
+   }
+  ],
+  "change_note": "Two-object configuration with a shell outside the Gaussian surface; q_enc needs the sphere's radius R, not r. Distractors from the documented r-versus-R and outside-charge errors.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-003-v1",
+  "seed": "apphycem-mcq-np1-003",
+  "difficulty": "easy",
+  "title": "Field from a potential function",
+  "stem": "Along the x-axis the electric potential is V(x) = 40 − 8.0x², with V in volts and x in meters. What is the x-component of the electric field at x = 2.0 m?",
+  "correct": {
+   "text": "+32 V/m",
+   "rationale": "E_x = −dV/dx = −(−16x) = 16x. At x = 2.0 m this is +32 V/m, positive because the potential is decreasing as x increases."
+  },
+  "wrong": [
+   {
+    "text": "+8.0 V/m",
+    "rationale": "V(2.0 m) = 40 − 8.0(4.0) = 8.0 V. That is the potential, not the field. The field is the negative derivative of V, 16x = 32 V/m.",
+    "error_pattern": "confuses the value of the potential with the field"
+   },
+   {
+    "text": "+16 V/m",
+    "rationale": "This differentiates 8.0x² as 8.0x, leaving 16 at x = 2.0 m. The derivative of x² is 2x, so −dV/dx = 16x = 32 V/m.",
+    "error_pattern": "differentiation error on the power of x"
+   },
+   {
+    "text": "+4.0 V/m",
+    "rationale": "This divides V(2.0 m) = 8.0 V by x = 2.0 m. The field is the slope −dV/dx, not the potential divided by position.",
+    "error_pattern": "applies E = V/x instead of E = −dV/dx"
+   }
+  ],
+  "change_note": "Given V(x) as a function rather than a qualitative sign statement; numerical E_x = −dV/dx. Distractors avoid sign-only contrasts.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-003-v2",
+  "seed": "apphycem-mcq-np1-003",
+  "difficulty": "medium",
+  "title": "Field from a piecewise potential",
+  "stem": "The electric potential along the x-axis is constant at 10 V for x < 2.0 m, decreases linearly to 4.0 V between x = 2.0 m and x = 5.0 m, and is constant at 4.0 V for x > 5.0 m. What is the electric field in the region 2.0 m < x < 5.0 m?",
+  "correct": {
+   "text": "2.0 V/m in the +x direction",
+   "rationale": "In this region E_x = −ΔV/Δx = −(4.0 V − 10 V)/(5.0 m − 2.0 m) = +2.0 V/m. The field points in +x, the direction in which the potential falls."
+  },
+  "wrong": [
+   {
+    "text": "6.0 V/m in the +x direction",
+    "rationale": "This is the total potential drop 6.0 V with no division by the 3.0 m distance. The field is the slope of the potential, 6.0 V/3.0 m.",
+    "error_pattern": "uses ΔV instead of the gradient ΔV/Δx"
+   },
+   {
+    "text": "0.50 V/m in the +x direction",
+    "rationale": "This inverts the slope, Δx/ΔV = 3.0/6.0. The field is ΔV/Δx = 2.0 V/m.",
+    "error_pattern": "inverts the ratio Δx/ΔV"
+   },
+   {
+    "text": "Zero, because V is nonzero there",
+    "rationale": "The field depends on how the potential changes with position, not on its size. V falls by 6.0 V across the region, so E_x = 2.0 V/m, not zero.",
+    "error_pattern": "believes the field is zero wherever the potential is nonzero (or vice versa)"
+   }
+  ],
+  "change_note": "Piecewise-linear potential with new numbers; asks for the field in the sloped region. No sign-only distractor.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-003-v3",
+  "seed": "apphycem-mcq-np1-003",
+  "difficulty": "hard",
+  "title": "Potential difference from a field",
+  "stem": "In a region of the x-axis the electric field component is E_x = 3.0x², with E_x in V/m and x in meters. What is the potential difference V(2.0 m) − V(0)?",
+  "correct": {
+   "text": "−8.0 V",
+   "rationale": "ΔV = −∫E_x dx from 0 to 2.0 m = −∫3.0x² dx = −[x³] from 0 to 2.0 m = −8.0 V. The potential decreases along the direction of the field."
+  },
+  "wrong": [
+   {
+    "text": "+8.0 V",
+    "rationale": "This has the correct magnitude but omits the minus sign in ΔV = −∫E·dr. The potential falls in the direction the field points, so V(2.0 m) is lower than V(0).",
+    "error_pattern": "drops the negative sign in ΔV = −∫E·dr"
+   },
+   {
+    "text": "−24 V",
+    "rationale": "This multiplies the field at the endpoint, 3.0(2.0)² = 12 V/m, by the 2.0 m distance. The field is not constant, so the integral must be used; it gives −8.0 V.",
+    "error_pattern": "treats a varying field as constant at its endpoint value"
+   },
+   {
+    "text": "−12 V",
+    "rationale": "This differentiates E_x, getting 6.0x = 12 at x = 2.0 m. The potential difference requires integrating the field, which gives −8.0 V.",
+    "error_pattern": "differentiates instead of integrating"
+   }
+  ],
+  "change_note": "Inverse direction (V from E by integration, with a non-uniform field). One sign-only distractor (drop of the minus sign), the only one in this seed's variants.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-004-v1",
+  "seed": "apphycem-mcq-np1-004",
+  "difficulty": "easy",
+  "title": "Midpoint of two equal positive charges",
+  "stem": "Two identical point charges of +2.0 µC are fixed 0.60 m apart in vacuum. Take V = 0 at infinity. What are the magnitude of the electric field and the electric potential at the midpoint between them?",
+  "correct": {
+   "text": "E = 0; V = 1.2×10⁵ V",
+   "rationale": "The two fields have equal magnitude and opposite directions, so they cancel: E = 0. Potential is a scalar, so the two positive contributions add: V = 2(9.0×10⁹)(2.0×10⁻⁶)/(0.30) = 1.2×10⁵ V."
+  },
+  "wrong": [
+   {
+    "text": "E = 0; V = 0",
+    "rationale": "The fields cancel as vectors, but potentials do not cancel here. Both charges are positive, so each adds +6.0×10⁴ V and V = 1.2×10⁵ V.",
+    "error_pattern": "assumes the potential vanishes wherever the field vanishes"
+   },
+   {
+    "text": "E = 4.0×10⁵ N/C; V = 1.2×10⁵ V",
+    "rationale": "This adds the two field magnitudes of 2.0×10⁵ N/C as scalars. Fields are vectors; at the midpoint they point in opposite directions and cancel.",
+    "error_pattern": "adds electric field magnitudes as scalars"
+   },
+   {
+    "text": "E = 0; V = 6.0×10⁴ V",
+    "rationale": "The field is correctly zero, but this counts the potential of only one charge. Both charges contribute 6.0×10⁴ V, so V = 1.2×10⁵ V.",
+    "error_pattern": "includes the potential of only one of the two charges"
+   }
+  ],
+  "change_note": "Like charges (field zero, potential nonzero) rather than the seed's opposite charges; numeric values for E and V.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-004-v2",
+  "seed": "apphycem-mcq-np1-004",
+  "difficulty": "medium",
+  "title": "Midpoint of unequal opposite charges",
+  "stem": "A charge of +6.0 nC and a charge of −2.0 nC are fixed 0.40 m apart in vacuum. Take V = 0 at infinity. What are the magnitude and direction of the electric field, and the electric potential, at the midpoint of the line joining them?",
+  "correct": {
+   "text": "1.8×10³ N/C toward the −2.0 nC charge; 1.8×10² V",
+   "rationale": "Both fields point toward the −2.0 nC charge (away from the positive, toward the negative), so they add: 1350 + 450 = 1.8×10³ N/C. The potentials add as signed scalars: (9.0×10⁹)(6.0 − 2.0)×10⁻⁹/0.20 = 1.8×10² V."
+  },
+  "wrong": [
+   {
+    "text": "9.0×10² N/C toward the −2.0 nC charge; 1.8×10² V",
+    "rationale": "The potential is right, but the fields were subtracted (1350 − 450). Both point the same way at the midpoint, so they add to 1.8×10³ N/C.",
+    "error_pattern": "subtracts field magnitudes that point in the same direction"
+   },
+   {
+    "text": "1.8×10³ N/C toward the −2.0 nC charge; 3.6×10² V",
+    "rationale": "The field is right, but the potentials were added as magnitudes. The negative charge contributes a negative potential, so V = 180 V, not 360 V.",
+    "error_pattern": "ignores the sign of a charge when adding potentials"
+   },
+   {
+    "text": "9.0×10² N/C toward the −2.0 nC charge; 3.6×10² V",
+    "rationale": "This applies the scalar rule to the field (subtracting) and the vector-style magnitude rule to the potential (adding magnitudes). The reverse is correct: fields add as vectors, potentials add as signed scalars.",
+    "error_pattern": "swaps the superposition rules for field and potential"
+   }
+  ],
+  "change_note": "Unequal opposite charges, both quantities nonzero, computed numerically; distractors mix up vector and scalar superposition.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-004-v3",
+  "seed": "apphycem-mcq-np1-004",
+  "difficulty": "hard",
+  "title": "Zero-field point and its potential",
+  "stem": "Two positive point charges, +1.0 µC and +9.0 µC, are fixed 0.80 m apart on the x-axis in vacuum. Take V = 0 at infinity. At the point between them where the net electric field is zero, what are its distance from the +1.0 µC charge and the electric potential there?",
+  "correct": {
+   "text": "0.20 m; 1.8×10⁵ V",
+   "rationale": "Setting k(1.0)/x² = k(9.0)/(0.80 − x)² gives 0.80 − x = 3x, so x = 0.20 m. There V = k(1.0×10⁻⁶/0.20 + 9.0×10⁻⁶/0.60) = 9.0×10⁹(2.0×10⁻⁵) = 1.8×10⁵ V, nonzero because both terms are positive."
+  },
+  "wrong": [
+   {
+    "text": "0.20 m; 0",
+    "rationale": "The location is right, but a vanishing field does not mean a vanishing potential. Both positive charges contribute positive potential, so V = 1.8×10⁵ V.",
+    "error_pattern": "assumes the potential vanishes wherever the field vanishes"
+   },
+   {
+    "text": "0.20 m; 4.5×10⁴ V",
+    "rationale": "This is the potential of the nearer +1.0 µC charge alone. The +9.0 µC charge also contributes, and the two scalars add to 1.8×10⁵ V.",
+    "error_pattern": "includes the potential of only one charge"
+   },
+   {
+    "text": "0.080 m; 2.25×10⁵ V",
+    "rationale": "This places the zero-field point using a 1/r dependence of the field, which gives x/(0.80 − x) = 1/9. The field falls as 1/r², giving x = 0.20 m.",
+    "error_pattern": "uses a 1/r instead of 1/r² dependence for the field"
+   }
+  ],
+  "change_note": "Field-zero location between unequal positive charges plus the potential at that point; distractors: E = 0 implies V = 0, one-charge potential, 1/r field law.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-006-v1",
+  "seed": "apphycem-mcq-np1-006",
+  "difficulty": "easy",
+  "title": "Field inside a uniformly charged ball versus surface",
+  "stem": "A solid insulating sphere of radius R carries charge distributed uniformly throughout its volume. The electric field magnitude at the surface of the sphere is E_s. What is the field magnitude at a distance R/3 from the center?",
+  "correct": {
+   "text": "E_s/3",
+   "rationale": "Inside, Gauss's law gives E = ρr/(3ε₀), proportional to r. At r = R/3 the field is one third of its value at r = R."
+  },
+  "wrong": [
+   {
+    "text": "E_s/9",
+    "rationale": "This makes the field proportional to r², but the enclosed charge falls as r³ while the Gaussian area falls only as r², so E is proportional to r.",
+    "error_pattern": "assumes the interior field is proportional to r²"
+   },
+   {
+    "text": "3E_s",
+    "rationale": "This treats the field as proportional to 1/r. That is the behavior outside the sphere; inside, E increases with r from zero at the center.",
+    "error_pattern": "uses the outside 1/r dependence inside the charged volume"
+   },
+   {
+    "text": "9E_s",
+    "rationale": "This uses the outside 1/r² dependence, which would make the field larger closer to the center. Inside a uniform sphere the field decreases toward the center.",
+    "error_pattern": "applies the point-charge 1/r² law inside the charge distribution"
+   }
+  ],
+  "change_note": "Ratio form of the interior field of a uniform sphere (proportionality to r) with new fraction; qualitative-quantitative rather than a closed formula with ρ.",
+  "check": "ratio"
+ },
+ {
+  "id": "apphycem-mcq-np1-006-v2",
+  "seed": "apphycem-mcq-np1-006",
+  "difficulty": "medium",
+  "title": "Field inside a long charged cylinder",
+  "stem": "A long solid insulating cylinder of radius 0.040 m carries a uniform volume charge density ρ = 3.0 µC/m³. Far from its ends, what is the electric field magnitude at a distance of 0.020 m from its axis? (ε₀ = 8.85×10⁻¹² C²/N·m²)",
+  "correct": {
+   "text": "3.4×10³ N/C",
+   "rationale": "Use a coaxial cylinder of radius r and length L: E(2πrL) = ρπr²L/ε₀, so E = ρr/(2ε₀) = (3.0×10⁻⁶)(0.020)/(2 × 8.85×10⁻¹²) ≈ 3.4×10³ N/C."
+  },
+  "wrong": [
+   {
+    "text": "2.3×10³ N/C",
+    "rationale": "This uses ρr/(3ε₀), the interior result for a sphere. For a cylinder the enclosed charge is ρπr²L and the Gaussian area is 2πrL, giving ρr/(2ε₀).",
+    "error_pattern": "applies the spherical-symmetry result to a cylinder"
+   },
+   {
+    "text": "6.8×10³ N/C",
+    "rationale": "This is ρr/ε₀, which drops the factor 2 in the denominator. The ratio of enclosed charge ρπr²L to lateral area 2πrL is ρr/2.",
+    "error_pattern": "omits the factor from the cylindrical Gaussian area (uses πr² or similar)"
+   },
+   {
+    "text": "1.36×10⁴ N/C",
+    "rationale": "This uses the outside formula ρR²/(2ε₀r) with r = 0.020 m. The point is inside the cylinder, where only the charge within r is enclosed.",
+    "error_pattern": "uses the field formula for outside the charge distribution"
+   }
+  ],
+  "change_note": "Cylindrical symmetry (inside) in place of spherical, numeric; distractors use the spherical result, a dropped factor, and the exterior formula.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-006-v3",
+  "seed": "apphycem-mcq-np1-006",
+  "difficulty": "hard",
+  "title": "Field in a sphere with non-uniform charge density",
+  "stem": "A solid insulating sphere of radius R = 0.20 m has a volume charge density that increases linearly with distance from the center, ρ(r) = ρ₀(r/R), where ρ₀ = 8.0 µC/m³. What is the electric field magnitude at r = 0.10 m? (ε₀ = 8.85×10⁻¹² C²/N·m²)",
+  "correct": {
+   "text": "1.1×10⁴ N/C",
+   "rationale": "q_enc = ∫ρ(r′)4πr′² dr′ from 0 to r = (4πρ₀/R)∫r′³dr′ = πρ₀r⁴/R. Gauss's law gives E = q_enc/(4πε₀r²) = ρ₀r²/(4ε₀R) = (8.0×10⁻⁶)(0.010)/(4 × 8.85×10⁻¹² × 0.20) ≈ 1.1×10⁴ N/C."
+  },
+  "wrong": [
+   {
+    "text": "1.5×10⁴ N/C",
+    "rationale": "This takes the density at r as uniform inside radius r, q_enc = ρ(r)(4/3)πr³. The density changes with radius, so the enclosed charge must be integrated; it is πρ₀r⁴/R.",
+    "error_pattern": "treats the density as uniform at its local value instead of integrating"
+   },
+   {
+    "text": "3.0×10⁴ N/C",
+    "rationale": "This uses ρ₀ as a uniform density throughout, giving ρ₀r/(3ε₀). The density at the center is zero, and it is only ρ₀/2 at r = R/2.",
+    "error_pattern": "uses the maximum density as a uniform density"
+   },
+   {
+    "text": "4.5×10⁴ N/C",
+    "rationale": "This integrates r′³ as r⁴ instead of r⁴/4, so the enclosed charge is four times too large. The correct integral gives ρ₀r²/(4ε₀R).",
+    "error_pattern": "integration error (drops the 1/4 from ∫r³dr)"
+   }
+  ],
+  "change_note": "Non-uniform density requiring ∫ρ dV for q_enc, then Gauss's law inside a sphere (harder than the seed's uniform case, same concept).",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-009-v1",
+  "seed": "apphycem-mcq-np1-009",
+  "difficulty": "easy",
+  "title": "Where excess charge sits on a conductor",
+  "stem": "A solid copper sphere is given an excess charge and then left isolated until all charges are at rest. Where is the excess charge located?",
+  "correct": {
+   "text": "Entirely on the outer surface",
+   "rationale": "In equilibrium the field inside the metal is zero, so Gauss's law gives zero enclosed charge for any Gaussian surface inside the conductor. The excess charge therefore sits on the outer surface."
+  },
+  "wrong": [
+   {
+    "text": "Spread uniformly throughout the volume",
+    "rationale": "A uniform volume distribution would produce a nonzero field inside. In equilibrium the field in the metal must be zero, which requires the excess charge to be on the surface.",
+    "error_pattern": "believes excess charge distributes through the volume like an insulator"
+   },
+   {
+    "text": "Concentrated at the center of the sphere",
+    "rationale": "Charge at the center would create a field throughout the metal. Free charges repel each other and move to the outer surface until the interior field is zero.",
+    "error_pattern": "believes excess charge collects at the center"
+   },
+   {
+    "text": "Half on the surface and half in the interior",
+    "rationale": "Any excess charge in the interior would produce a nonzero field inside the conductor. All of the excess charge ends up on the surface.",
+    "error_pattern": "splits the excess charge between surface and interior"
+   }
+  ],
+  "change_note": "Same conductor-equilibrium concept (E = 0 inside) probed through where excess charge resides; no sign pair.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-np1-009-v2",
+  "seed": "apphycem-mcq-np1-009",
+  "difficulty": "medium",
+  "title": "Induced charges on a shell with a cavity",
+  "stem": "A neutral, thick conducting spherical shell has a +5.0 nC point charge at the center of its hollow cavity. The system is in electrostatic equilibrium. What charge is on the shell's inner surface and what charge is on its outer surface?",
+  "correct": {
+   "text": "Inner surface −5.0 nC; outer surface +5.0 nC",
+   "rationale": "The field inside the conducting material is zero, so a Gaussian surface within the metal must enclose zero net charge. The inner surface carries −5.0 nC to cancel the central +5.0 nC, and charge neutrality of the shell puts +5.0 nC on the outer surface."
+  },
+  "wrong": [
+   {
+    "text": "Inner surface 0; outer surface 0",
+    "rationale": "The shell is neutral overall, but the central charge induces separation. Zero field in the metal requires −5.0 nC on the inner surface, which leaves +5.0 nC on the outer surface.",
+    "error_pattern": "assumes a neutral conductor stays uncharged everywhere"
+   },
+   {
+    "text": "Inner surface 0; outer surface +5.0 nC",
+    "rationale": "This puts the charge on the outer surface without a matching induced charge inside. A Gaussian surface inside the metal would then enclose +5.0 nC, giving a nonzero field in the conductor.",
+    "error_pattern": "ignores the induced charge on the inner surface"
+   },
+   {
+    "text": "Inner surface −5.0 nC; outer surface 0",
+    "rationale": "The inner surface charge is right, but the shell is neutral, so its total charge must stay zero. The outer surface must carry +5.0 nC.",
+    "error_pattern": "violates conservation of charge for the neutral shell"
+   }
+  ],
+  "change_note": "Cavity with enclosed charge: induced inner/outer surface charges from E = 0 in the conductor and Gauss's law (new context, same concept).",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-np1-009-v3",
+  "seed": "apphycem-mcq-np1-009",
+  "difficulty": "hard",
+  "title": "Fields around a charged shell holding a charge",
+  "stem": "A point charge of +5.0 nC sits at the center of a thick conducting spherical shell with inner radius 0.10 m and outer radius 0.20 m. The shell carries a net charge of −3.0 nC and is in electrostatic equilibrium. What are the electric field magnitudes at r = 0.15 m (inside the conducting material) and at r = 0.30 m, with the direction at r = 0.30 m?",
+  "correct": {
+   "text": "At 0.15 m: 0; at 0.30 m: 2.0×10² N/C radially outward",
+   "rationale": "The field inside the conducting material is zero. Outside, only the net enclosed charge +5.0 − 3.0 = +2.0 nC matters: E = (9.0×10⁹)(2.0×10⁻⁹)/(0.30)² = 2.0×10² N/C, directed outward."
+  },
+  "wrong": [
+   {
+    "text": "At 0.15 m: 0; at 0.30 m: 5.0×10² N/C radially outward",
+    "rationale": "The interior value is right, but this counts only the central +5.0 nC. The shell's −3.0 nC is inside the Gaussian surface at 0.30 m, so the enclosed charge is +2.0 nC.",
+    "error_pattern": "omits the shell's charge in the exterior field"
+   },
+   {
+    "text": "At 0.15 m: 2.0×10³ N/C; at 0.30 m: 2.0×10² N/C, both radially outward",
+    "rationale": "The 0.30 m value is right, but a point inside the conducting material cannot have a field. The shell's inner surface carries −5.0 nC that cancels the central charge's field there.",
+    "error_pattern": "ignores the induced charge when finding the field in the metal"
+   },
+   {
+    "text": "At 0.15 m: 0; at 0.30 m: 0",
+    "rationale": "The interior value is right, but the conductor does not shield the region outside it from the net enclosed charge. With +2.0 nC enclosed, the field at 0.30 m is 2.0×10² N/C.",
+    "error_pattern": "believes a conducting shell cancels the field everywhere outside it"
+   }
+  ],
+  "change_note": "Concentric conductor with enclosed charge and net shell charge: zero field in the metal, exterior field from net charge; distractors from shielding misconceptions.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-010-v1",
+  "seed": "apphycem-mcq-np1-010",
+  "difficulty": "easy",
+  "title": "Flux through two opposite faces of a cube",
+  "stem": "A point charge of +9.0 nC is at the center of a cube. What is the electric flux through two opposite faces of the cube taken together? (ε₀ = 8.85×10⁻¹² C²/N·m²)",
+  "correct": {
+   "text": "3.4×10² N·m²/C",
+   "rationale": "The total flux through the cube is q/ε₀ = 1.0×10³ N·m²/C. By symmetry each of the six faces gets one sixth, so two faces carry one third: ≈ 3.4×10² N·m²/C."
+  },
+  "wrong": [
+   {
+    "text": "1.0×10³ N·m²/C",
+    "rationale": "This is the total flux through all six faces, q/ε₀. Two faces carry only 2/6 of it.",
+    "error_pattern": "uses the total flux for a part of the surface"
+   },
+   {
+    "text": "1.7×10² N·m²/C",
+    "rationale": "This is the flux through a single face, q/(6ε₀). The question asks about two faces, which doubles it.",
+    "error_pattern": "gives the flux through one face instead of two"
+   },
+   {
+    "text": "5.1×10² N·m²/C",
+    "rationale": "This is half the total flux, which would be the share of three faces. Two of six faces carry one third.",
+    "error_pattern": "assigns half of the flux to two of the six faces"
+   }
+  ],
+  "change_note": "Two faces rather than one, with a numeric charge; requires the same symmetry share of q/ε₀.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-010-v2",
+  "seed": "apphycem-mcq-np1-010",
+  "difficulty": "medium",
+  "title": "Charge from flux through one cube face",
+  "stem": "A point charge is at the center of a cube. The electric flux through one face of the cube is 150 N·m²/C. What is the value of the charge? (ε₀ = 8.85×10⁻¹² C²/N·m²)",
+  "correct": {
+   "text": "8.0 nC",
+   "rationale": "By symmetry the total flux through the cube is six times the flux through one face, 900 N·m²/C. Gauss's law gives q = ε₀Φ_total = (8.85×10⁻¹²)(900) ≈ 8.0 nC."
+  },
+  "wrong": [
+   {
+    "text": "1.3 nC",
+    "rationale": "This applies Gauss's law to the single face, q = ε₀Φ. Gauss's law uses the flux through the whole closed surface, which is six times larger.",
+    "error_pattern": "applies Gauss's law to one face instead of the closed surface"
+   },
+   {
+    "text": "0.22 nC",
+    "rationale": "This divides the face flux by 6 instead of multiplying. The total flux is larger than the flux through one face.",
+    "error_pattern": "divides by the number of faces instead of multiplying"
+   },
+   {
+    "text": "17 nC",
+    "rationale": "This uses Φ = q/(4πε₀), giving q = 4πε₀Φ for the face flux. Gauss's law has Φ_total = q/ε₀ with no factor of 4π.",
+    "error_pattern": "uses a 4πε₀ in Gauss's law (confuses it with Coulomb's constant)"
+   }
+  ],
+  "change_note": "Inverse problem (charge from face flux) in place of flux from charge; same symmetry share.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-np1-010-v3",
+  "seed": "apphycem-mcq-np1-010",
+  "difficulty": "hard",
+  "title": "Flux through a dome with the charge on its base",
+  "stem": "An imaginary hemispherical dome of radius 0.30 m rests on a flat circular base. A +5.0 nC point charge is at the center of the base, so the field is radial. What is the electric flux through the curved dome alone? (ε₀ = 8.85×10⁻¹² C²/N·m²)",
+  "correct": {
+   "text": "2.8×10² N·m²/C",
+   "rationale": "The field is radial and lies in the plane of the base, so the base carries no flux. By symmetry the dome gets half of the total q/ε₀: q/(2ε₀) = (5.0×10⁻⁹)/(2 × 8.85×10⁻¹²) ≈ 2.8×10² N·m²/C."
+  },
+  "wrong": [
+   {
+    "text": "5.6×10² N·m²/C",
+    "rationale": "This is the full q/ε₀. The charge sits at the center of the base, so only half of the field lines cross the dome and the other half go into the opposite half-space.",
+    "error_pattern": "treats the charge as fully enclosed by the dome"
+   },
+   {
+    "text": "0",
+    "rationale": "The charge lies on the base rather than strictly inside the dome, but the question concerns the flux through the dome alone, and the field lines do cross it. By symmetry it carries q/(2ε₀).",
+    "error_pattern": "thinks no flux counts unless the charge is strictly enclosed"
+   },
+   {
+    "text": "45 N·m²/C",
+    "rationale": "This is q/(4πε₀) = kq. Flux through a closed surface is q/ε₀; this expression has the extra 4π that belongs to Coulomb's constant.",
+    "error_pattern": "uses kq in place of q/ε₀ for flux"
+   }
+  ],
+  "change_note": "Half-space symmetry: charge at the center of the base of a dome; flux through the dome is q/(2ε₀). Same symmetry-share-of-q/ε₀ idea in a new geometry.",
+  "check": "numeric"
+ }
+]

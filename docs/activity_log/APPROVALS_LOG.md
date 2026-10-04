@@ -16,6 +16,12 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0113 — AP Physics C: Electricity and Magnetism Skill Grid and Skill Cells for Units 8-10 (Production) — DECISION-0085
+- APPROVAL-0112 — Load and Publish 61 AP Physics C: Electricity and Magnetism Units 8-10 Variants (Production) — DECISION-0085
+- APPROVAL-0111 — AP Physics C: Electricity and Magnetism Units 8-10: Repair 8 Seed MCQs, Remove the Duplicated A-D List From 11 More, Create 24 Topic Cells (Production) — DECISION-0085
+- APPROVAL-0110 — AP Physics C: Mechanics Skill Grid and Skill Cells for Units 1-3 (Production) — DECISION-0085
+- APPROVAL-0109 — Load and Publish 43 AP Physics C: Mechanics Units 1-3 Variants (Production) — DECISION-0085
+- APPROVAL-0108 — AP Physics C: Mechanics Units 1-3: Repair 8 Seed MCQs, Remove the Duplicated A-D List From 9 More, Create 17 Topic Cells (Production) — DECISION-0085
 - APPROVAL-0107 — AP Physics 2 Skill Grid and Skill Cells for Units 9-11 (Production) — DECISION-0085
 - APPROVAL-0106 — Load and Publish 50 AP Physics 2 Units 9-11 Variants (Production) — DECISION-0085
 - APPROVAL-0105 — AP Physics 2 Units 9-11: Repair 9 Seed MCQs, Remove the Duplicated A-D List From 9 More, Create 18 Topic Cells (Production) — DECISION-0085
@@ -218,6 +224,76 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0113 — AP Physics C: Electricity and Magnetism Skill Grid and Skill Cells for Units 8-10 (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-03/04 Claude session: "Let's get them done.", the two remaining Physics C courses)  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0112`  
+**Decision:** Approved
+
+**Approved scope (Production):** skill grid (taxonomy `ef9618c9-de85-4941-8837-4dce4c755e62`): the 10 science-practice skills of the E&M course description (Course Framework V.1, p. 10, identical to Physics 1 and 2) x 31 topics = 310 cells. Four-voter skill vote on the 24 seeds: 23 written (22 validated, `026` provisional at 2 of 4) and `np1-006` left without a cell (2-2 split). 58 of the 61 variants inherited their seed's skill (55 validated, 3 provisional); the 3 variants of `np1-006` have none. 23 + 58 = 81 skill cells. Rehearsed with a rollback.
+
+**Not done:** Units 11-13, held items, FRQs.
+
+## APPROVAL-0112 — Load and Publish 61 AP Physics C: Electricity and Magnetism Units 8-10 Variants (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-03/04 Claude session: "Let's get them done.", the two remaining Physics C courses)  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0111`  
+**Decision:** Approved
+
+**Approved scope (Production, pack `841a88cc-773c-44e5-97fa-6504f8667689`):** 72 variants authored, checked by two blind solvers, rationale audit and CED scope check (no gradient/curl/divergence notation). **61 kept** (10 patched, 14 edits), **11 dropped**: all variants of seeds `002` and `023` (Gemini placed them in 8.2, DeepSeek in 8.4 or 8.6) and `028` (9.1/9.2/9.3 split), plus `np1-010-v1` (equal flux across cube faces is outside the CED's spherical, cylindrical and planar Gauss-law limit) and `np1-010-v3` (landed in 8.5). Loaded as drafts in 7 chunks (md5 61 of 61), approved and published with validated, hash-fresh labels and 61 validated topic cells inherited from the seed. Rehearsed with a rollback. The first load run was interrupted after all 7 chunks had committed; it was resumed from the hash check without reloading.
+
+**Result:** E&M published MCQs 48 to 109.
+
+**Open:** `np1-010-v2` (kept) uses the same cube-face symmetry as the dropped `np1-010-v1` and as the live seed `np1-010`; a decision on the seed is needed.
+
+## APPROVAL-0111 — AP Physics C: Electricity and Magnetism Units 8-10: Repair 8 Seed MCQs, Remove the Duplicated A-D List From 11 More, Create 24 Topic Cells (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-03/04 Claude session: "Let's get them done.", the two remaining Physics C courses)  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0110`  
+**Decision:** Approved
+
+**Scope note:** this course numbers its units 8-13, so "Units 1-3" means registry units 8 (Electric Charges, Fields, and Gauss's Law), 9 (Electric Potential) and 10 (Conductors and Capacitors).
+
+**Approved scope (Production, pack `841a88cc-773c-44e5-97fa-6504f8667689`):** the 24 published MCQs with a validated label in those units were audited as above (every key verified in sympy/mpmath; the cube-face flux integrated numerically). 19 new versions with the validated label carried forward: **8 repairs** (`005` and `006` recast from 3-D gradient/curl notation, which is outside the CED, to the 1-D relation E_x = -dV/dx; `007`, `027`, `030`, `np1-001`, `np1-006`, `np1-010` false or contrived rationales) and **11 strip-only** versions. 24 validated primary topic cells (source `apphycem_u13_topic_2026_10_04` family): 23 at 5 of 6 or better and `028` at 9.2 on a 4-to-2 plurality over 9.3 (same unit either way). Rehearsed with a rollback.
+
+**Recommended, not done:** retire held `apphycem-mcq-019` (differential Gauss's law and the Dirac delta are outside the CED and the stem gives away the answer); fix the rationale of held `np1-005` before any release; held `003` is sound and is a release candidate; `016` is Unit 13.
+
+## APPROVAL-0110 — AP Physics C: Mechanics Skill Grid and Skill Cells for Units 1-3 (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-03/04 Claude session: "Let's get them done.", the two remaining Physics C courses)  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0109`  
+**Decision:** Approved
+
+**Approved scope (Production):** skill grid for AP Physics C: Mechanics (taxonomy `d77d7801-441d-49bb-a2cf-a02f6bff407d`): the 10 science-practice skills (the same Course Framework V.1 list verified in the Physics 1, Physics 2 and Physics C: E&M course descriptions; the Mechanics PDF was too large to fetch, so its identity with that list is inferred) x 41 topics = 410 cells. Four-voter skill vote on the 17 seeds: all validated (14 at 4 of 4, 3 at 3 of 4); the 43 published variants inherited their seed's skill: 17 + 43 = 60 validated skill cells. Rehearsed with the same transaction guards (17 and 43 rows).
+
+**Not done:** held items, Units 4-7, FRQs.
+
+## APPROVAL-0109 — Load and Publish 43 AP Physics C: Mechanics Units 1-3 Variants (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-03/04 Claude session: "Let's get them done.", the two remaining Physics C courses)  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0108`  
+**Decision:** Approved
+
+**Approved scope (Production, pack `ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9`):** 51 variants authored (3 per seed, all numbers and calculus recomputed in sympy), checked by two blind solvers, a rationale audit and a CED scope check. **43 kept** (9 patched), **8 dropped**: `002-v1`, `002-v2` (both checkers: topic 1.3, the seed is 1.2), `022-v1`, `022-v2`, `022-v3` (1.2, the seed is 1.3), `029-v1` (spring-oscillation context needing Unit 7), `029-v2`, `029-v3` (3.3 vs the seed's 3.4, plus rationale defects). Seeds `022` and `029` therefore have no variants. The 43 were loaded as drafts in 5 atomic chunks (md5 43 of 43), then approved and published with validated, hash-fresh serving labels and 43 validated primary topic cells inherited from the seed. Letters randomized once. Rehearsed with a rollback.
+
+**Result:** Mechanics published MCQs 41 to 84.
+
+## APPROVAL-0108 — AP Physics C: Mechanics Units 1-3: Repair 8 Seed MCQs, Remove the Duplicated A-D List From 9 More, Create 17 Topic Cells (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-03/04 Claude session: "Let's get them done.", the two remaining Physics C courses)  
+**Related Decision:** `DECISION-0085`, `DECISION-0088`, `DECISION-0093`; follows `APPROVAL-0107`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `ab92fc0f-7bab-4ea2-a1bc-7f03130ab7a9`):** the 17 published MCQs with a validated label in Units 1-3 (Kinematics, Force and Translational Dynamics, Work, Energy, and Power) were audited (two blind checkers, rationale audit, CED scope check, six-vote topic probe, sympy recomputation of every key). 17 new versions with the validated label carried forward hash-fresh: **8 repairs** (`001`, `002`, `003`, `006`, `017`, `021`, `027`, `030`; false or self-contradictory rationales, the unit "in SI units" added to the stem of `001`) and **9 strip-only** versions (`007`, `008`, `018`, `022`, `024`, `025`, `026`, `028`, `029`). 17 validated primary topic cells (source `apphycm_u13_topic_2026_10_03`); `029` is 3.4 (turning point, K plus U) after reading the item although the vote was 4 of 6. Rehearsed with a rollback; hash over the 17 new versions matched. No retirements.
+
+**Not done:** 7 held MCQs (`012`, `019`, `020`, `023`, `031`, `034`, `040`; `023` and `031` probe into Units 1-3 and are sound but stay held), `005` (label says Unit 7), Units 4-7.
 
 ## APPROVAL-0107 — AP Physics 2 Skill Grid and Skill Cells for Units 9-11 (Production)
 

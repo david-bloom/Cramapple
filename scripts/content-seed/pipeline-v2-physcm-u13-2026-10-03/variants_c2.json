@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphycm-mcq-017-v1",
+  "seed": "apphycm-mcq-017",
+  "difficulty": "easy",
+  "title": "Velocity from a cubic position function",
+  "stem": "A cart moves along a straight track with position x(t) = 2t³ − 5t, where x is in meters and t is in seconds. What is the cart's velocity at t = 2.0 s?",
+  "correct": {
+   "text": "19 m/s",
+   "rationale": "Velocity is the time derivative of position: v = dx/dt = 6t² − 5. At t = 2.0 s this gives 6(4) − 5 = 19 m/s."
+  },
+  "wrong": [
+   {
+    "text": "3 m/s",
+    "rationale": "Differentiating 2t³ gives 6t², not 2t². Dropping the exponent multiplier produces 2t² − 5, which equals 3 at t = 2.0 s.",
+    "error_pattern": "drops the exponent multiplier when differentiating a power"
+   },
+   {
+    "text": "14 m/s",
+    "rationale": "The cubic term is differentiated correctly to 6t², but the linear term −5t must also be differentiated to give −5. Leaving −5t in place gives 24 − 10 = 14, which is not the velocity.",
+    "error_pattern": "differentiates only the highest-power term"
+   },
+   {
+    "text": "6 m/s",
+    "rationale": "This is the numerical value of the position, x(2.0) = 16 − 10 = 6 m. Velocity requires differentiating x(t) before substituting the time.",
+    "error_pattern": "substitutes into x(t) instead of dx/dt"
+   }
+  ],
+  "change_note": "New polynomial and numeric evaluation at a given time; same velocity-as-derivative idea as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-017-v2",
+  "seed": "apphycm-mcq-017",
+  "difficulty": "medium",
+  "title": "Velocity from a quartic with a quadratic term",
+  "stem": "A particle moves along a line with position x(t) = Bt⁴ − Ct², where B and C are positive constants. Which expression gives its velocity v(t)?",
+  "correct": {
+   "text": "4Bt³ − 2Ct",
+   "rationale": "Velocity is v = dx/dt. Applying the power rule to each term gives 4Bt³ for the quartic term and −2Ct for the quadratic term."
+  },
+  "wrong": [
+   {
+    "text": "Bt³ − Ct",
+    "rationale": "This lowers each exponent by one but omits the multipliers 4 and 2 that the power rule brings down.",
+    "error_pattern": "drops the exponent multiplier when differentiating a power"
+   },
+   {
+    "text": "12Bt² − 2C",
+    "rationale": "This is the second derivative of x(t), which is the acceleration, not the velocity.",
+    "error_pattern": "differentiates twice (gives acceleration instead of velocity)"
+   },
+   {
+    "text": "4Bt³ − Ct",
+    "rationale": "The quartic term is differentiated correctly, but the quadratic term must give −2Ct. The multiplier 2 from the exponent was left out.",
+    "error_pattern": "applies the power rule correctly to one term only"
+   }
+  ],
+  "change_note": "Symbolic velocity from a two-term polynomial in new letters; same differentiation skill as the seed.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-017-v3",
+  "seed": "apphycm-mcq-017",
+  "difficulty": "hard",
+  "title": "When a particle is momentarily at rest",
+  "stem": "A particle moves along a line with position x(t) = 3t² − t³, where x is in meters and t is in seconds. At what time after t = 0 is the particle momentarily at rest?",
+  "correct": {
+   "text": "t = 2 s",
+   "rationale": "Velocity is v = dx/dt = 6t − 3t² = 3t(2 − t). It is zero at t = 0 and at t = 2 s, so the later instant of rest is t = 2 s."
+  },
+  "wrong": [
+   {
+    "text": "t = 3 s",
+    "rationale": "At t = 3 s the position x = 3(9) − 27 is zero, but the particle is moving there with v = 6(3) − 3(9) = −9 m/s. Being at the origin does not mean being at rest.",
+    "error_pattern": "sets position to zero instead of velocity"
+   },
+   {
+    "text": "t = 1 s",
+    "rationale": "At t = 1 s the acceleration a = 6 − 6t is zero, which is where the velocity is largest (v = 3 m/s), not zero.",
+    "error_pattern": "sets acceleration to zero instead of velocity"
+   },
+   {
+    "text": "t = 6 s",
+    "rationale": "This comes from differentiating t³ as t² instead of 3t². The resulting v = 6t − t² would vanish at 6 s, but the actual velocity at 6 s is 36 − 108 = −72 m/s.",
+    "error_pattern": "drops the exponent multiplier when differentiating a power"
+   }
+  ],
+  "change_note": "Uses the velocity derivative to find a rest time instead of evaluating it; same differentiation skill, harder setup.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-021-v1",
+  "seed": "apphycm-mcq-021",
+  "difficulty": "easy",
+  "title": "Acceleration of a cubic position",
+  "stem": "A sled moves along a straight line with position x(t) = 2t³, where x is in meters and t is in seconds. What is its acceleration at t = 3.0 s?",
+  "correct": {
+   "text": "36 m/s²",
+   "rationale": "Acceleration is the second time derivative of position: v = dx/dt = 6t² and a = dv/dt = 12t. At t = 3.0 s, a = 36 m/s²."
+  },
+  "wrong": [
+   {
+    "text": "54 m/s²",
+    "rationale": "This is the velocity 6t² evaluated at 3.0 s (54 m/s). Acceleration requires a second differentiation.",
+    "error_pattern": "stops after one derivative (velocity instead of acceleration)"
+   },
+   {
+    "text": "18 m/s²",
+    "rationale": "The first derivative 6t² is correct, but its derivative is 12t, not 6t. Dropping the multiplier 2 gives 6(3) = 18, which is half the true value.",
+    "error_pattern": "drops the exponent multiplier on the second derivative"
+   },
+   {
+    "text": "12 m/s²",
+    "rationale": "The expression a = 12t is correct, but 12 is only its coefficient. The time t = 3.0 s must be substituted to get 36 m/s².",
+    "error_pattern": "reports the coefficient without substituting the time"
+   }
+  ],
+  "change_note": "Cubic position with numeric evaluation; same second-derivative idea as the seed's quartic.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-021-v2",
+  "seed": "apphycm-mcq-021",
+  "difficulty": "medium",
+  "title": "Acceleration of a fifth-power position with a linear term",
+  "stem": "A particle's position along a line is x(t) = Dt⁵ − Et, where D and E are positive constants. Which expression gives its acceleration a(t)?",
+  "correct": {
+   "text": "20Dt³",
+   "rationale": "Differentiating once gives v = 5Dt⁴ − E. Differentiating again gives a = 20Dt³, because the constant −E has zero derivative."
+  },
+  "wrong": [
+   {
+    "text": "5Dt⁴ − E",
+    "rationale": "This is the velocity, the first derivative of x(t). Acceleration needs a second derivative.",
+    "error_pattern": "stops after one derivative (velocity instead of acceleration)"
+   },
+   {
+    "text": "20Dt³ − E",
+    "rationale": "The term −E belongs to the velocity. It is a constant, so it disappears in the second derivative and does not appear in the acceleration.",
+    "error_pattern": "carries a constant term through the second derivative"
+   },
+   {
+    "text": "5Dt³",
+    "rationale": "The first derivative 5Dt⁴ is correct, but the second step must bring down the exponent 4 to give 20Dt³. Omitting that multiplier gives 5Dt³.",
+    "error_pattern": "drops the exponent multiplier on the second derivative"
+   }
+  ],
+  "change_note": "Symbolic acceleration from a two-term polynomial with a leftover linear term; same second-derivative skill as the seed.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-021-v3",
+  "seed": "apphycm-mcq-021",
+  "difficulty": "hard",
+  "title": "Acceleration of an exponentially decaying position",
+  "stem": "A damped slider has position x(t) = A e^(−bt), where A and b are positive constants. Which expression gives its acceleration a(t)?",
+  "correct": {
+   "text": "A b² e^(−bt)",
+   "rationale": "The velocity is v = dx/dt = −A b e^(−bt). Differentiating again brings out another factor of −b, so a = (−b)(−A b e^(−bt)) = A b² e^(−bt)."
+  },
+  "wrong": [
+   {
+    "text": "−A b e^(−bt)",
+    "rationale": "This is the velocity, the first derivative of x(t). The acceleration is the derivative of this expression.",
+    "error_pattern": "stops after one derivative (velocity instead of acceleration)"
+   },
+   {
+    "text": "−A b² e^(−bt)",
+    "rationale": "The chain rule brings out a factor of −b at each differentiation, so the two negative signs multiply to a positive result. Keeping a single minus sign gives the wrong direction for the acceleration.",
+    "error_pattern": "sign error from the chain rule on the second derivative"
+   },
+   {
+    "text": "A e^(−bt)/b²",
+    "rationale": "This is what integrating twice would give. Acceleration comes from differentiating twice, which multiplies by b² instead of dividing.",
+    "error_pattern": "integrates instead of differentiating"
+   }
+  ],
+  "change_note": "Exponential position instead of a power; same second-derivative skill. Contains the only sign-only distractor for this seed.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-022-v1",
+  "seed": "apphycm-mcq-022",
+  "difficulty": "easy",
+  "title": "Displacement of a cart that reverses",
+  "stem": "A cart moves along a straight track. Its velocity is +4.0 m/s for the first 3.0 s and then −2.0 m/s for the next 2.0 s. What is the cart's displacement during the full 5.0 s?",
+  "correct": {
+   "text": "8.0 m",
+   "rationale": "Displacement is the signed area under the velocity-time graph: (+4.0)(3.0) + (−2.0)(2.0) = 12 − 4 = 8.0 m."
+  },
+  "wrong": [
+   {
+    "text": "16 m",
+    "rationale": "This is the total distance traveled, 12 + 4, which counts the backward motion as positive. Displacement subtracts the backward part.",
+    "error_pattern": "adds all areas as positive (distance instead of displacement)"
+   },
+   {
+    "text": "12 m",
+    "rationale": "This is only the area of the first 3.0 s. The backward motion in the last 2.0 s reduces the displacement by 4 m.",
+    "error_pattern": "ignores the negative-velocity segment"
+   },
+   {
+    "text": "2.0 m",
+    "rationale": "This adds the two velocity values, 4.0 + (−2.0), but displacement requires multiplying each velocity by the time it lasts and then summing.",
+    "error_pattern": "adds velocities instead of finding areas"
+   }
+  ],
+  "change_note": "Piecewise velocity with a reversal; signed area gives displacement, same skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-022-v2",
+  "seed": "apphycm-mcq-022",
+  "difficulty": "medium",
+  "title": "Displacement from a linear velocity function",
+  "stem": "A runner's velocity along a straight path is v(t) = 8 − 2t, where v is in m/s and t is in seconds. What is the runner's displacement from t = 0 to t = 6.0 s?",
+  "correct": {
+   "text": "12 m",
+   "rationale": "Displacement is the integral of velocity: ∫₀⁶ (8 − 2t) dt = 8(6) − 6² = 48 − 36 = 12 m."
+  },
+  "wrong": [
+   {
+    "text": "20 m",
+    "rationale": "This is the distance traveled: 16 m forward until the runner stops at t = 4 s plus 4 m backward afterward. Displacement subtracts the backward part, giving 12 m.",
+    "error_pattern": "adds all areas as positive (distance instead of displacement)"
+   },
+   {
+    "text": "48 m",
+    "rationale": "This is the initial velocity times the elapsed time, 8 × 6. It ignores that the velocity decreases and even reverses during the interval.",
+    "error_pattern": "treats the initial velocity as constant"
+   },
+   {
+    "text": "−4 m",
+    "rationale": "This is the final velocity v(6) = −4 m/s with a length unit attached. Displacement comes from integrating the velocity, not from reading its end value.",
+    "error_pattern": "reads the final velocity instead of integrating"
+   }
+  ],
+  "change_note": "Linear v(t) with a direction reversal, integrated over an interval; same displacement-from-velocity-area skill as the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-022-v3",
+  "seed": "apphycm-mcq-022",
+  "difficulty": "hard",
+  "title": "Displacement from an acceleration function and an initial velocity",
+  "stem": "A probe moves along a line with acceleration a(t) = 6t, where a is in m/s² and t is in seconds. Its velocity at t = 0 is −10 m/s. What is its displacement from t = 0 to t = 4.0 s?",
+  "correct": {
+   "text": "24 m",
+   "rationale": "Integrating the acceleration gives v(t) = −10 + 3t². Integrating the velocity gives Δx = ∫₀⁴ (−10 + 3t²) dt = −40 + 64 = 24 m."
+  },
+  "wrong": [
+   {
+    "text": "64 m",
+    "rationale": "This integrates only the 3t² part of the velocity. The initial velocity of −10 m/s is also part of v(t) and contributes −40 m.",
+    "error_pattern": "omits the integration constant (initial velocity)"
+   },
+   {
+    "text": "152 m",
+    "rationale": "This uses the constant-acceleration formula with the final acceleration, −10(4) + ½(24)(4²). The acceleration here grows with time, so those formulas do not apply.",
+    "error_pattern": "uses constant-acceleration formulas when acceleration varies"
+   },
+   {
+    "text": "56 m",
+    "rationale": "This averages the initial and final velocities, (−10 + 38)/2, and multiplies by the time. The average of endpoints equals the average velocity only when acceleration is constant.",
+    "error_pattern": "averages endpoint velocities when acceleration varies"
+   }
+  ],
+  "change_note": "Acceleration function plus initial velocity, integrated twice; the displacement is the area under the velocity graph, as in the seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-018-v1",
+  "seed": "apphycm-mcq-018",
+  "difficulty": "easy",
+  "title": "Work by a force that grows as x squared",
+  "stem": "A force F(x) = 4x² acts along the direction of motion, with F in newtons and x in meters. How much work does it do on an object that moves from x = 0 to x = 3.0 m?",
+  "correct": {
+   "text": "36 J",
+   "rationale": "Work is W = ∫F dx = ∫₀³ 4x² dx = (4/3)(3³) = 36 J."
+  },
+  "wrong": [
+   {
+    "text": "108 J",
+    "rationale": "This multiplies the final force F(3) = 36 N by the distance 3 m, as if the force were constant. The force grows from zero, so the work is smaller.",
+    "error_pattern": "treats a varying force as constant at its final value"
+   },
+   {
+    "text": "24 J",
+    "rationale": "This differentiates the force instead of integrating it: dF/dx = 8x, which equals 24 at x = 3.0 m. Work is the integral of the force over distance.",
+    "error_pattern": "differentiates instead of integrating"
+   },
+   {
+    "text": "54 J",
+    "rationale": "Integrating x² gives x³/3, not x³/2. Dividing by the old exponent instead of the new one gives 4(27)/2 = 54.",
+    "error_pattern": "wrong exponent in the antiderivative"
+   }
+  ],
+  "change_note": "Power-law force F = 4x² with numeric limits; same work-as-integral idea as the seed's exponential force.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-018-v2",
+  "seed": "apphycm-mcq-018",
+  "difficulty": "medium",
+  "title": "Work by a force that falls to zero at the end",
+  "stem": "A force along +x is F(x) = F₀(1 − x²/L²) for 0 ≤ x ≤ L, where F₀ and L are positive constants. Which expression gives the work done by this force as an object moves from x = 0 to x = L?",
+  "correct": {
+   "text": "2F₀L/3",
+   "rationale": "W = ∫₀ᴸ F₀(1 − x²/L²) dx = F₀[x − x³/(3L²)] from 0 to L = F₀(L − L/3) = 2F₀L/3."
+  },
+  "wrong": [
+   {
+    "text": "F₀L",
+    "rationale": "This uses the initial force F₀ as if it stayed constant over the distance L. The force actually drops to zero at x = L, so the work is smaller.",
+    "error_pattern": "treats a varying force as constant at its initial value"
+   },
+   {
+    "text": "F₀L/3",
+    "rationale": "This is the size of the integral of the x²/L² term alone. That term is subtracted from F₀L, so the result is F₀L − F₀L/3, not F₀L/3.",
+    "error_pattern": "integrates only part of the force expression"
+   },
+   {
+    "text": "Zero",
+    "rationale": "The force at x = L is zero, but work depends on the force at every point along the path. The force is positive over the whole interval, so the work is positive.",
+    "error_pattern": "uses the end-point force instead of integrating"
+   }
+  ],
+  "change_note": "Different variable force (polynomial that decreases to zero) with symbolic limits; same line-integral skill.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-018-v3",
+  "seed": "apphycm-mcq-018",
+  "difficulty": "hard",
+  "title": "Work by an inverse-cube force over an infinite path",
+  "stem": "A force F(x) = F₀L³/(x + L)³ acts along the direction of motion, where F₀ and L are positive constants. Which expression gives the work done as the object moves from x = 0 to x → ∞?",
+  "correct": {
+   "text": "F₀L/2",
+   "rationale": "W = ∫₀^∞ F₀L³(x + L)⁻³ dx = F₀L³[−1/(2(x + L)²)] from 0 to ∞ = 0 + F₀L³/(2L²) = F₀L/2."
+  },
+  "wrong": [
+   {
+    "text": "F₀L",
+    "rationale": "The antiderivative of (x + L)⁻³ is −1/(2(x + L)²). Leaving out the factor of 1/2 from the power rule doubles the result.",
+    "error_pattern": "wrong coefficient after integrating a negative power"
+   },
+   {
+    "text": "Infinite",
+    "rationale": "An infinite upper limit does not guarantee an infinite integral. The force falls off as 1/x³, which is fast enough for the area to converge to a finite value.",
+    "error_pattern": "assumes an infinite limit always gives infinite work"
+   },
+   {
+    "text": "F₀L/8",
+    "rationale": "This evaluates the antiderivative at x = L instead of x = 0 for the lower limit: F₀L³/(2(2L)²) = F₀L/8. The lower limit of the path is x = 0.",
+    "error_pattern": "substitutes the wrong value at a limit of integration"
+   }
+  ],
+  "change_note": "Inverse-power force with an infinite upper limit; convergent-integral work, same skill as the seed but a different function and answer.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-024-v1",
+  "seed": "apphycm-mcq-024",
+  "difficulty": "easy",
+  "title": "Equilibrium at a potential-energy maximum",
+  "stem": "A particle has potential energy U(x) = −(1/2)cx², where c is a positive constant. The particle is placed at rest at x = 0. The equilibrium there is",
+  "correct": {
+   "text": "unstable, because U has a local maximum there",
+   "rationale": "The force is F = −dU/dx = cx, which is zero at x = 0, so this is an equilibrium. U has a local maximum at x = 0, so a small displacement produces a force pointing away from the origin."
+  },
+  "wrong": [
+   {
+    "text": "stable, because the net force is zero there",
+    "rationale": "Zero net force defines an equilibrium point but does not make it stable. Here F = cx points away from x = 0 on both sides, so any small displacement grows.",
+    "error_pattern": "treats zero net force as sufficient for stability"
+   },
+   {
+    "text": "stable, because U has a local maximum there",
+    "rationale": "A local maximum of U is the signature of unstable equilibrium. A stable equilibrium needs a local minimum, where the force pushes back toward the point.",
+    "error_pattern": "confuses a potential maximum with stable equilibrium"
+   },
+   {
+    "text": "unstable, because the net force there is nonzero",
+    "rationale": "The net force F = cx is exactly zero at x = 0, which is why it is an equilibrium point. The instability comes from the shape of U, not from a nonzero force.",
+    "error_pattern": "misreads the force at the equilibrium point"
+   }
+  ],
+  "change_note": "Inverted parabola instead of the seed's upward parabola; stability from local maximum versus minimum of U(x), same skill.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycm-mcq-024-v2",
+  "seed": "apphycm-mcq-024",
+  "difficulty": "medium",
+  "title": "Locating a stable equilibrium from U(x)",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = x³ − 12x, where U is in joules and x is in meters. At which position is there a stable equilibrium?",
+  "correct": {
+   "text": "x = +2.0 m",
+   "rationale": "The force is F = −dU/dx = 12 − 3x², which is zero at x = ±2.0 m. The second derivative U″ = 6x is positive at x = +2.0 m, so U has a local minimum there and the equilibrium is stable."
+  },
+  "wrong": [
+   {
+    "text": "x = −2.0 m",
+    "rationale": "The force is also zero at x = −2.0 m, but U″ = 6x is negative there, so U has a local maximum and the equilibrium is unstable.",
+    "error_pattern": "chooses the maximum instead of the minimum (reversed curvature test)"
+   },
+   {
+    "text": "x = 0",
+    "rationale": "The force at x = 0 is F = 12 N, not zero, so x = 0 is not an equilibrium. It is the point where U″ = 0, an inflection point of U.",
+    "error_pattern": "uses where the second derivative is zero as the equilibrium"
+   },
+   {
+    "text": "x = 3.46 m",
+    "rationale": "U is zero at x = √12 ≈ 3.46 m, but equilibrium requires zero force, not zero potential energy. The force there is 12 − 36 = −24 N.",
+    "error_pattern": "sets U to zero instead of the force"
+   }
+  ],
+  "change_note": "Cubic U(x) with two equilibria; derivative test selects the stable one, same skill as the seed. Contains the only sign-only distractor for this seed.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-024-v3",
+  "seed": "apphycm-mcq-024",
+  "difficulty": "hard",
+  "title": "Stability of an equilibrium in an inverse-power potential",
+  "stem": "A particle moves along the positive x-axis with potential energy U(x) = A/x² − B/x, where A and B are positive constants. Which statement correctly gives its equilibrium position and stability?",
+  "correct": {
+   "text": "x = 2A/B, stable because U has a local minimum there",
+   "rationale": "The force is F = −dU/dx = 2A/x³ − B/x², which is zero at x = 2A/B. At that point U″ = 6A/x⁴ − 2B/x³ = B/x³ > 0, so U has a local minimum and the equilibrium is stable."
+  },
+  "wrong": [
+   {
+    "text": "x = A/B, stable because U has a local minimum there",
+    "rationale": "This results from differentiating A/x² as −A/x³ instead of −2A/x³. The force is not zero at x = A/B, so U has no extremum there.",
+    "error_pattern": "drops the exponent multiplier when differentiating a power"
+   },
+   {
+    "text": "x = 2A/B, unstable because U is negative there",
+    "rationale": "The equilibrium position is correct, and U there equals −B²/(4A), which is negative. The sign of U does not decide stability; the positive curvature U″ = B/x³ does, and it makes this a minimum.",
+    "error_pattern": "uses the sign of U instead of its curvature to judge stability"
+   },
+   {
+    "text": "x = B/(2A), stable because U has a local minimum there",
+    "rationale": "This inverts the ratio found by setting F = 0. The force vanishes at x = 2A/B, so no extremum of U exists at x = B/(2A).",
+    "error_pattern": "inverts the algebra when solving for the equilibrium"
+   }
+  ],
+  "change_note": "Two-term inverse-power potential requiring both the equilibrium location and the curvature test; same stability criterion as the seed.",
+  "check": "symbolic"
+ },
+ {
+  "id": "apphycm-mcq-025-v1",
+  "seed": "apphycm-mcq-025",
+  "difficulty": "easy",
+  "title": "Time constant for a sliding block with drag",
+  "stem": "A 2.0 kg block slides on a surface where the only horizontal force is a resistive force F = −bv with b = 0.50 kg/s. How long does it take for the block's speed to fall to 1/e of its initial value?",
+  "correct": {
+   "text": "4.0 s",
+   "rationale": "Newton's second law gives m dv/dt = −bv, so v = v₀e^(−bt/m). The speed is v₀/e when bt/m = 1, so t = m/b = 2.0/0.50 = 4.0 s."
+  },
+  "wrong": [
+   {
+    "text": "0.25 s",
+    "rationale": "This is b/m, the decay rate, which has units of 1/s. The time for the speed to fall to 1/e is its inverse, m/b.",
+    "error_pattern": "inverts the time constant (rate instead of time)"
+   },
+   {
+    "text": "2.8 s",
+    "rationale": "This is the half-life, (m/b) ln 2. It is the time for the speed to drop to one half of its initial value, not to 1/e.",
+    "error_pattern": "confuses half-life with the time constant"
+   },
+   {
+    "text": "1.0 s",
+    "rationale": "This multiplies m and b. The time constant is their ratio m/b, which also has the correct unit of seconds.",
+    "error_pattern": "multiplies instead of dividing the parameters"
+   }
+  ],
+  "change_note": "Numeric time constant for a block with F = −bv; same decay-time skill as the seed's symbolic form.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-025-v2",
+  "seed": "apphycm-mcq-025",
+  "difficulty": "medium",
+  "title": "Speed of a decelerating cart at a later time",
+  "stem": "A 3.0 kg cart moves with initial speed 12 m/s. The only horizontal force on it is a resistive force F = −bv, with b = 1.5 kg/s. What is the cart's speed 4.0 s later?",
+  "correct": {
+   "text": "1.6 m/s",
+   "rationale": "From m dv/dt = −bv, v = v₀e^(−bt/m). Here bt/m = (1.5)(4.0)/3.0 = 2.0, so v = 12e⁻² ≈ 1.6 m/s."
+  },
+  "wrong": [
+   {
+    "text": "3.0 m/s",
+    "rationale": "This treats the 2.0 s time constant as a half-life, so the speed would halve every 2.0 s. The speed actually falls by a factor of e per time constant: 12e⁻² ≈ 1.6 m/s, not 12/4.",
+    "error_pattern": "confuses time constant with half-life"
+   },
+   {
+    "text": "0.030 m/s",
+    "rationale": "This uses e^(−bt) without dividing by the mass, giving 12e⁻⁶. The decay exponent is bt/m, so the mass must appear.",
+    "error_pattern": "omits the mass from the exponent"
+   },
+   {
+    "text": "0 m/s, the cart has stopped",
+    "rationale": "This applies a constant-deceleration formula using the initial deceleration of 6 m/s², which would stop the cart at 2.0 s. The resistive force shrinks as the speed falls, so the cart is still moving at 4.0 s.",
+    "error_pattern": "uses constant-acceleration formulas when acceleration varies"
+   }
+  ],
+  "change_note": "Evaluates the exponential speed at a given time instead of the symbolic time constant; same F = −bv dynamics.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycm-mcq-025-v3",
+  "seed": "apphycm-mcq-025",
+  "difficulty": "hard",
+  "title": "Total distance traveled with linear drag",
+  "stem": "A 5.0 kg sled moves with initial speed 8.0 m/s. The only horizontal force on it is a resistive force F = −bv, with b = 2.0 kg/s. What is the total distance the sled travels from t = 0 as t → ∞?",
+  "correct": {
+   "text": "20 m",
+   "rationale": "The speed is v = v₀e^(−bt/m). Integrating, the distance is ∫₀^∞ v₀e^(−bt/m) dt = v₀m/b = (8.0)(5.0)/2.0 = 20 m."
+  },
+  "wrong": [
+   {
+    "text": "12.6 m",
+    "rationale": "This is the distance traveled during the first time constant only, v₀(m/b)(1 − 1/e) ≈ 12.6 m. The sled keeps moving afterward, and the total includes all later time.",
+    "error_pattern": "integrates over one time constant only"
+   },
+   {
+    "text": "3.2 m",
+    "rationale": "This is v₀b/m, with the ratio of the parameters inverted. The total distance is v₀m/b, which has units of length.",
+    "error_pattern": "inverts the time constant when computing distance"
+   },
+   {
+    "text": "Infinite",
+    "rationale": "The speed approaches zero but never reaches it, yet the distance stays finite. The speed decays exponentially, so the area under the speed-time curve converges to 20 m.",
+    "error_pattern": "assumes motion that never fully stops covers infinite distance"
+   }
+  ],
+  "change_note": "Integrates the exponential speed to a total stopping distance; same F = −bv model, harder multi-step reasoning than the seed (see report).",
+  "check": "numeric"
+ }
+]

@@ -1,0 +1,302 @@
+[
+ {
+  "key": "u13-apphycem-mcq-001-v3",
+  "kind": "mcq",
+  "stem": "A closed surface encloses a +4.0 μC charge at its center. A +4.0 μC charge sits outside the surface. The inside charge is moved to a spot near the surface (still inside), and the outside charge is moved closer to the surface (still outside). What happens to the net electric flux through the surface?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It stays the same only if the inside charge returns to the center"
+   },
+   {
+    "label": "B",
+    "text": "It increases, because the field at the surface is stronger"
+   },
+   {
+    "label": "C",
+    "text": "It stays the same"
+   },
+   {
+    "label": "D",
+    "text": "It decreases, because part of the surface is now closer to the charge"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Gauss's law holds for any charge position inside the surface. Symmetry is only needed to pull E out of the integral for calculation, not for the net flux to equal Q_enc/ε₀.",
+   "B": "Net flux depends only on the enclosed charge, not on the field strength at the surface. Moving the charges makes the field stronger at some points of the surface and weaker at others, and the external charge's field lines enter and leave, so its net contribution stays zero.",
+   "C": "Net flux is Q_enc/ε₀, and Q_enc is still +4.0 μC. Moving charges changes how the flux is distributed over the surface and changes the field there, but not the net flux.",
+   "D": "Part of the surface now has a larger flux per area, but the surface elsewhere has smaller flux, and the net total remains Q_enc/ε₀."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-005-v3",
+  "kind": "mcq",
+  "stem": "The potential along the x-axis consists of straight-line segments: V = 10 V at x = 0, V = 2 V at x = 0.20 m, and V = 11 V at x = 0.50 m. Which choice gives E_x in each segment?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "+10 V/m for 0 < x < 0.20 m, then +22 V/m for 0.20 m < x < 0.50 m"
+   },
+   {
+    "label": "B",
+    "text": "+40 V/m for 0 < x < 0.20 m, then −30 V/m for 0.20 m < x < 0.50 m"
+   },
+   {
+    "label": "C",
+    "text": "−2 V/m throughout"
+   },
+   {
+    "label": "D",
+    "text": "+30 V/m for 0 < x < 0.20 m, then −40 V/m for 0.20 m < x < 0.50 m"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "These are the ratios V/x at the segment ends (2/0.20 and 11/0.50). The field is the negative of the slope of V in each segment, −ΔV/Δx, not the ratio of V to position.",
+   "B": "Each segment's field is −ΔV/Δx. First segment: −(2 − 10)/0.20 = +40 V/m. Second segment: −(11 − 2)/0.30 = −30 V/m.",
+   "C": "This uses only the net change from x = 0 to x = 0.50 m, −(11 − 10)/0.50. The potential has different slopes in the two segments, so the field differs between them.",
+   "D": "This pairs the magnitudes with the wrong segments. The steep 8 V drop over 0.20 m gives +40 V/m in the first segment; the 9 V rise over 0.30 m has slope +30 V/m, so the field is −30 V/m in the second."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-006-v3",
+  "kind": "mcq",
+  "stem": "A smooth potential V(x) has a local maximum at x = 1.0 m and a local minimum at x = 3.0 m, with no other stationary points between them. Which statement about E_x is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "E_x is zero at both points and negative between them"
+   },
+   {
+    "label": "B",
+    "text": "E_x is most positive at x = 1.0 m and most negative at x = 3.0 m"
+   },
+   {
+    "label": "C",
+    "text": "E_x is nonzero at both points because V is not zero there"
+   },
+   {
+    "label": "D",
+    "text": "E_x is zero at both points and positive between them"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "V falls with increasing x between the two points, so dV/dx is negative and E_x = −dV/dx is positive there. The field points from high to low potential.",
+   "B": "This gives the field the same shape as V. The field is the negative derivative of V, which is zero at both extremes.",
+   "C": "Whether V is zero has no bearing on E. At both extremes the slope of V is zero, so E_x = 0.",
+   "D": "At a maximum and a minimum dV/dx = 0, so E_x = 0 at both. Between them V decreases with x, so dV/dx < 0 and E_x = −dV/dx > 0."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-007-v3",
+  "kind": "mcq",
+  "stem": "Capacitor 1 has circular plates of radius R separated by d. Capacitor 2 has circular plates of radius 2R separated by 3d. Both are vacuum-filled. What is C₂/C₁, neglecting edge effects?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4/3"
+   },
+   {
+    "label": "B",
+    "text": "2/3"
+   },
+   {
+    "label": "C",
+    "text": "12"
+   },
+   {
+    "label": "D",
+    "text": "1/12"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "C = ε₀A/d with A = πr². Doubling the radius makes the area 4 times larger and tripling the separation divides by 3, so C₂/C₁ = 4/3.",
+   "B": "This scales the area with the radius (factor 2) instead of its square (factor 4). Area is πr², so the area factor is 4 and C₂/C₁ = 4/3.",
+   "C": "This multiplies by both the area factor 4 and the separation factor 3. The separation is in the denominator, so it divides: C₂/C₁ = 4/3.",
+   "D": "This inverts both factors, as if C were proportional to 1/(A·d) with the area also in the denominator. Capacitance is proportional to A/d, so C₂/C₁ = 4/3."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-025-v2",
+  "kind": "mcq",
+  "stem": "A positive point charge sits just outside one face of an imaginary closed cube, not touching it. What is the total electric flux through the entire surface of the cube due to this outside charge?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Negative, because the field is strongest at the nearest face"
+   },
+   {
+    "label": "B",
+    "text": "q/ε₀, because the charge’s field passes through the surface"
+   },
+   {
+    "label": "C",
+    "text": "Zero, because each field line entering the cube also leaves it"
+   },
+   {
+    "label": "D",
+    "text": "Positive, because the field at the near face points into the cube"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The inward flux through the near face is largest, but the lines that enter must exit through the other faces. The outward flux through those faces cancels it completely.",
+   "B": "The q/ε₀ result applies to a charge enclosed by the surface. A charge outside is not part of q_enc.",
+   "C": "Gauss's law gives Φ = q_enc/ε₀, and no charge is enclosed. The flux is negative through the near face (field lines entering) and positive through the far faces (leaving), and these exactly cancel.",
+   "D": "Field lines pointing into the cube give negative flux through that face, and the same lines give positive flux when they leave. The total is zero rather than positive."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-025-v3",
+  "kind": "mcq",
+  "stem": "A charge +Q lies inside a closed surface. A charge −Q is then placed just outside the surface. Compared with the situation before the second charge was added, which statement is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The net flux becomes zero because the total charge is zero"
+   },
+   {
+    "label": "B",
+    "text": "The net flux and the field at every surface point are both unchanged"
+   },
+   {
+    "label": "C",
+    "text": "The net flux is unchanged, but the field at points on the surface changes"
+   },
+   {
+    "label": "D",
+    "text": "The net flux becomes negative because the new charge is negative"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Gauss's law uses charge enclosed by the surface, not the total in the region. The enclosed charge is still +Q.",
+   "B": "Net flux is unchanged, but the field at surface points is the vector sum from all charges, and the new charge adds to it. Flux and local field are not the same quantity.",
+   "C": "Net flux depends only on the enclosed charge, which is still +Q. The new charge still adds its own field at every point on the surface, so the local field changes.",
+   "D": "Near the outside −Q the field points toward it, so the flux is outward through the part of the surface nearest that charge and inward elsewhere, and these cancel. The outside charge adds zero net flux, so the net remains +Q/ε₀."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-029-v1",
+  "kind": "mcq",
+  "stem": "A charged solid metal object sits in electrostatic equilibrium. Why must the electric field just outside its surface be perpendicular to the surface?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Electric field lines always cross every surface at right angles"
+   },
+   {
+    "label": "B",
+    "text": "Excess charge spreads uniformly over any conductor, and uniform charge gives only a perpendicular field"
+   },
+   {
+    "label": "C",
+    "text": "A steady surface current cancels any part of the field along the surface"
+   },
+   {
+    "label": "D",
+    "text": "A component along the surface would push charges along it, so equilibrium allows none"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Field lines cross an arbitrary surface at all angles. They are perpendicular only to an equipotential surface, such as a conductor's surface in electrostatic equilibrium.",
+   "B": "The charge is not uniform on a non-spherical conductor, since it concentrates at points. The field is perpendicular because of the equilibrium condition, not because of uniformity.",
+   "C": "In electrostatic equilibrium there is no current. The parallel component is zero because charges would otherwise flow.",
+   "D": "Free charges in the conductor feel the force qE. If the field had a part along the surface, charges would move, contradicting equilibrium. The surface is therefore an equipotential."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-030-v1",
+  "kind": "mcq",
+  "stem": "A parallel-plate capacitor is charged by a battery, which is then disconnected. A dielectric with κ = 4 is slipped in to fill the space between the plates completely. The energy stored in the capacitor becomes",
+  "choices": [
+   {
+    "label": "A",
+    "text": "one-sixteenth of its original value"
+   },
+   {
+    "label": "B",
+    "text": "unchanged"
+   },
+   {
+    "label": "C",
+    "text": "one-fourth of its original value"
+   },
+   {
+    "label": "D",
+    "text": "four times its original value"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This applies the factor κ twice. The energy at fixed Q changes by the single factor 1/κ.",
+   "B": "The stored energy does change. Total energy is conserved, but the field does positive work pulling the dielectric in, so the energy stored in the capacitor drops (U = Q²/2C with C larger and Q fixed).",
+   "C": "With the battery gone the charge Q stays fixed while C becomes 4C. The energy U = Q²/(2C) is therefore divided by 4.",
+   "D": "This applies the fixed-voltage result. With the battery disconnected the charge is fixed, not the voltage, and the voltage drops."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-np1-003-v2",
+  "kind": "mcq",
+  "stem": "The electric potential along the x-axis is constant at 10 V for x < 2.0 m, decreases linearly to 4.0 V between x = 2.0 m and x = 5.0 m, and is constant at 4.0 V for x > 5.0 m. What is the electric field in the region 2.0 m < x < 5.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Zero, because V is nonzero there"
+   },
+   {
+    "label": "B",
+    "text": "6.0 V/m in the +x direction"
+   },
+   {
+    "label": "C",
+    "text": "0.50 V/m in the +x direction"
+   },
+   {
+    "label": "D",
+    "text": "2.0 V/m in the +x direction"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The field depends on how the potential changes with position, not on its size. V falls by 6.0 V across the region, so E_x = 2.0 V/m, not zero.",
+   "B": "This is the total potential drop 6.0 V with no division by the 3.0 m distance. The field magnitude is the slope's magnitude, 6.0 V/3.0 m = 2.0 V/m.",
+   "C": "This inverts the slope, using Δx/ΔV = 3.0/6.0 instead of |ΔV|/Δx. The field magnitude is 6.0 V/3.0 m = 2.0 V/m.",
+   "D": "In this region E_x = −ΔV/Δx = −(4.0 V − 10 V)/(5.0 m − 2.0 m) = +2.0 V/m. The field points in +x, the direction in which the potential falls."
+  }
+ },
+ {
+  "key": "u13-apphycem-mcq-np1-006-v1",
+  "kind": "mcq",
+  "stem": "A solid insulating sphere of radius R carries charge distributed uniformly throughout its volume. The electric field magnitude at the surface of the sphere is E_s. What is the field magnitude at a distance R/3 from the center?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3E_s"
+   },
+   {
+    "label": "B",
+    "text": "E_s/3"
+   },
+   {
+    "label": "C",
+    "text": "E_s/9"
+   },
+   {
+    "label": "D",
+    "text": "9E_s"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This treats the field as proportional to 1/r (as for a long line charge). Inside a uniformly charged sphere, E increases with r from zero at the center.",
+   "B": "Inside, Gauss's law gives E = ρr/(3ε₀), proportional to r. At r = R/3 the field is one third of its value at r = R.",
+   "C": "This makes the field proportional to r², but the enclosed charge falls as r³ while the Gaussian area falls only as r², so E is proportional to r.",
+   "D": "This uses the outside 1/r² dependence, which would make the field larger closer to the center. Inside a uniform sphere the field decreases toward the center."
+  }
+ }
+]
