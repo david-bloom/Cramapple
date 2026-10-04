@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0119 — Parent Payment Short Links: New Table, New `resolve-parent-link` Function, Two Function Changes (Production)
 - APPROVAL-0117 — Difficulty Bands for 1,042 Published MCQs: 31 Seeds Rated, Variants and BC Copies Inherit (Production) — DECISION-0096
 - APPROVAL-0116 — AP Calculus AB: Canonical Answers for 20 Unit 1 FRQs, With Serving-Label Carry-Forward (Production)
 - APPROVAL-0115 — Release Four Held MCQs to Validated Serving Labels (Production) — DECISION-0085
@@ -88,6 +89,28 @@ Most recent entries (full chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older entries to `docs/activity_log/archive/APPROVALS_LOG-<range>.md` and update this index to point at the archive. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## APPROVAL-0119 — Parent Payment Short Links: New Table, New `resolve-parent-link` Function, Two Function Changes (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-04 Claude session: "I approve 0119")  
+**Related Task:** `TASK-0060`; PR for the code: `claude/parent-short-link`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** (1) migration `20261004231126_parent_payment_short_links.sql` creating `app.parent_payment_links` (an 8-character code to a Stripe Checkout Session id; row-level security forced; `anon` and `authenticated` have no access; service role only); (2) deploy the new public function `resolve-parent-link` (`verify_jwt` false); (3) deploy the changed `create-parent-payment-link` (returns `short_url`, `amount_total`, `currency`; falls back to the long URL if a code cannot be stored) and `send-parent-payment-email` (sends the short link when one exists).
+
+**Why:** the parent payment link is Stripe's hosted-checkout URL (about 450 characters with a long encrypted fragment), too long for SMS, and the parent modal showed the pre-promo price. The short link is `cramapple.com/p/<code>`; the code names only a session that anyone holding its Stripe URL can already pay.
+
+**Tested first:** Dev (Stripe test mode): create, resolve (URL byte-identical, fragment intact), case and whitespace normalisation, unknown and malformed codes (404), wrong method (405), anon table access refused, a code mapped to a *student* session resolves to `expired`, a code mapped to a missing session resolves to `expired`, three creates give three distinct codes. 10 Deno unit tests for the helper; all three functions type-check.
+
+**Production rehearsal and result:** the migration was rehearsed in a rolled-back transaction, applied, and verified (RLS forced, anon and authenticated no `SELECT`, service role can write, one policy). Then a live check with no payment and a made-up student email: create returned a `cs_live_` session, a short URL and `amount_total` 3999; resolve returned `open` with a URL identical to Stripe's (fragment kept); with the live promo `amount_total` was 100; unknown and malformed codes returned 404; anon access to the table returned 401. The two test rows were deleted; the two unpaid live sessions expire on their own.
+
+**Rollback:** redeploy `create-parent-payment-link` and `send-parent-payment-email` from `main`, remove `resolve-parent-link`, then drop `app.parent_payment_links`.
+
+**Not covered:** a real send through `send-parent-payment-email` (it would email via Loops; code type-checked, no template change needed in Loops since the `checkoutUrl` property now carries the short link). The Lovable frontend (`/p/<code>` page and modal price fix) is built and reviewed but is published by David.
+
+**Not approved by this entry:** any other function or table change.
+
 
 ## APPROVAL-0081 — AP Biology Skill Re-vote on the 73 Topic-Corrected Items (Production)
 

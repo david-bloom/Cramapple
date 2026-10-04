@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Parent Payment Short Links Live in Production (APPROVAL-0119) (2026-10-04): `cramapple.com/p/<code>` resolves to the live Stripe URL; new table, new function, two function changes, tested in Dev then verified live without payment.
 - TASK-0060: F9 Decided (Layered Sign-In, Email Code as Fallback) and F10 Email Delivery Logged (2026-10-04): David chose Google sign-in, then wallet email, then one-email-with-code, always keeping the email code as the fallback; the missing confirmation email was a placeholder address, custom SMTP is enabled in Production, real-inbox delivery still to test.
 - Checkout User Testing: P1–P4b Logged (TASK-0060) (2026-10-04): six Lovable fix prompts reviewed by reading the diffs; second live purchase ($1 promo) verified paid with access; remove-coupon bug root-caused; open question on why a paid buyer must verify email before entering the app.
 - Checkout User Testing Opened (TASK-0060) (2026-10-04): wallet behaviour confirmed by browser (Chrome Google Pay, Safari Apple Pay, Firefox card only); live $39.99 Google Pay purchase succeeded but the return-page "Start Studying" button was silent because Supabase returned 429 on the OTP request; fix prompts drafted for Lovable.
@@ -371,6 +372,17 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Parent Payment Short Links Live in Production (APPROVAL-0119) — 2026-10-04
+
+**Approval:** `APPROVAL-0119` (David Bloom, chat). **Migration:** `supabase/migrations/20261004231126_parent_payment_short_links.sql`. **Task:** `TASK-0060`.
+
+**Why:** the "Ask a parent to pay" link was Stripe's long hosted-checkout URL, unusable in SMS, and the parent modal showed the pre-promo price.
+
+**Done:** Dev first (Stripe test mode, 12 cases including that a code can never reach a student session), then Production: migration rehearsed in a rolled-back transaction and applied; `resolve-parent-link` (new, public), `create-parent-payment-link` and `send-parent-payment-email` deployed. Live verification without payment: a `cs_live_` link resolves to an identical Stripe URL with its fragment, the promo case returns `amount_total` 100, malformed and unknown codes return 404, and anon cannot read the table.
+
+**Open:** David publishes the Lovable frontend (`/p/<code>` page, modal price fix, short link in copy/share/SMS); the PR for the code is still to be reviewed and merged. A real email send through Loops has not been exercised.
+
 
 ## TASK-0060: F9 Decided and F10 Email Delivery Logged — 2026-10-04
 
