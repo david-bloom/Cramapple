@@ -7,6 +7,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 Most recent entries (full reverse-chronological list follows below):
 
 - Student Home 400 Fixed: `student_course_positions` View Refreshed (APPROVAL-0120) (2026-10-04): the view lacked `topic_code` and `topic_source`, so every subject load failed; recreated in Production and verified, plus a view-drift check.
+- TASK-0060: Browser Test Results After P4/P4b (2026-10-04): intro copy, payment order, picker limit, promo guard, coupon maths and wallet availability by browser all pass; Check 3, the in-place wallet row, the Firefox hydration flash and a real-inbox purchase remain.
 - TASK-0060: F9 Decided (Layered Sign-In, Email Code as Fallback) and F10 Email Delivery Logged (2026-10-04): David chose Google sign-in, then wallet email, then one-email-with-code, always keeping the email code as the fallback; the missing confirmation email was a placeholder address, custom SMTP is enabled in Production, real-inbox delivery still to test.
 - Checkout User Testing: P1–P4b Logged (TASK-0060) (2026-10-04): six Lovable fix prompts reviewed by reading the diffs; second live purchase ($1 promo) verified paid with access; remove-coupon bug root-caused; open question on why a paid buyer must verify email before entering the app.
 - Checkout User Testing Opened (TASK-0060) (2026-10-04): wallet behaviour confirmed by browser (Chrome Google Pay, Safari Apple Pay, Firefox card only); live $39.99 Google Pay purchase succeeded but the return-page "Start Studying" button was silent because Supabase returned 429 on the OTP request; fix prompts drafted for Lovable.
@@ -382,6 +383,15 @@ Most recent entries (full reverse-chronological list follows below):
 **Done:** rehearsed in a rolled-back transaction, applied, verified (8 columns, options and grants unchanged, migration recorded, the app's request now resolves its columns). A read-only check of the 17 public mirror views found no other view producing errors; `topic_explainers` and `topic_point_briefs` omit `topic_code`, `status` and `source_note` and are flagged for a deliberate look.
 
 **Open:** David retries picking a subject while signed in; the hub's behavior on a bare `/home` after login (subject picker) is expected.
+
+
+## TASK-0060: Browser Test Results After P4/P4b — 2026-10-04
+
+**Task:** `docs/tasks/TASK-0060-USER-TESTING-CHECKOUT.md` (E6, Test status). **No code, Production data or settings changed;** the only side effect was one unpaid Stripe session for a made-up address, which expires on its own.
+
+**Passed:** intro copy, payment order, picker limit, promo guard and phone-width sticky bar (Claude, built-in browser); the same plus a $38.99 coupon on multi-subject orders, apply/remove, Google Pay in a signed-in Chrome window, Apple Pay in Safari including anonymous, and no wallets in Firefox (David). F1, F3, F6 and F7 are confirmed fixed.
+
+**Remaining:** Check 3 (wallets return after a typed code is cleared), the wallet row appearing in place with no shift in Chrome and Safari, the Firefox hydration flash, a real-inbox purchase to close F10, and the "Ask a parent to pay" drawer from step 3.
 
 
 ## TASK-0060: F9 Decided and F10 Email Delivery Logged — 2026-10-04
