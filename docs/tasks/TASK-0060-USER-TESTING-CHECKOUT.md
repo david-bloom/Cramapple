@@ -53,14 +53,31 @@ Evidence labels: **Observed** (David saw it), **Verified** (read in code, Lovabl
 - Verified (Production): session `cs_live_a1g1…` `completed` / `paid`, `amount_total` 100, `amount_discount` 3899, one active paid
   entitlement, written ~2 s after the session was created. The webhook created the account at 20:50:11 (invited, **email not
   confirmed, never signed in**).
-- Not reported: what the return page's Start Studying showed. **Open question F9 (below):** why a paid buyer cannot go straight in.
+- Not reported: what the return page's Start Studying showed. **F9 (below, decided):** why a paid buyer cannot go straight in. **F10 (below):** no confirmation email arrived.
 
 ### Review findings from reading the published source (Verified)
 - **F7:** after P4 the picker no longer disabled tiles at three picks, so a fourth click was silently ignored by the reducer. Fixed by P4b.
 - **F8:** after P4 the wallet slot appeared only once a session was being created, so the card and parent buttons were pushed down
   ~48 px in Chrome and Safari. Fixed by P4b.
 
-## F9 (open): must a paid buyer verify their email before entering the app?
+## F9 (DECIDED 2026-10-04): must a paid buyer verify their email before entering the app?
+
+**Product Owner decision (David, chat, 2026-10-04): layered, with the email code as the fallback.** Keep the rule that payment alone
+never signs a device in (`DECISION-0090`). Remove the friction by layering the three options below, and always keep the email code
+as the fallback underneath, because it is the only path that works for every buyer:
+1. **Google sign-in at checkout** (`TASK-0058` A) where the buyer uses it: verified email, no code.
+2. **Else the wallet's email as proof** (`TASK-0058` C), only when it is a Google Pay email that matches the typed checkout email
+   (an Apple Pay relay address does not count unless the student confirms it).
+3. **Else one email instead of two:** the purchase email carries the 6-digit code as well as the link, and the return page shows the
+   code box immediately with no second send.
+
+Suggested build order, cheapest first: (3) the one-email path (a Supabase Auth template change, Hard Gate, David approves), then
+(1) Google (needs David's Google Cloud branding and verification, which can take days), then (2) the wallet path last (it needs
+session creation and the webhook to stop stamping the typed email, `TASK-0058` C). Each layer needs its own approval and a Dev test first.
+
+**Delivery comes first (see F10).** None of the layers helps if Supabase cannot deliver email to real recipients.
+
+**Original analysis and the options considered (kept for the record):**
 
 **Today (`DECISION-0090`, spec §12.2/§12.4):** payment clearing never signs the device in. A buyer who is not already signed in must
 prove the email with a 6-digit code (`signInWithOtp` with `shouldCreateUser: false`, then `verifyOtp`) before "Start Studying Now"
@@ -81,6 +98,24 @@ failure on top (the invite email and the code email collide on the one-email-per
 3. **Wallet email as proof** (`TASK-0058` C). Google Pay returns a verified account email; Apple Pay's can be a relay address, so
    treat it as a convenience, not proof, unless the student confirms it.
 Not recommended: signing the buyer in on payment alone.
+
+## F10 (open, launch risk): no confirmation email arrived on the second live purchase
+
+**Observed (David, 2026-10-04):** no confirmation email after the $1 purchase `cs_live_a1g1…` (E5).
+
+**Verified (Production auth logs, 20:50 UTC):** Supabase accepted the invite (`POST /auth/v1/invite` returned 200, `user_invited`
+logged at 20:50:11), so nothing failed in Cramapple's code. Twelve seconds later the page's code request returned 429 ("only after
+48 seconds"), which P2 now handles with a countdown. The address used on this purchase (and on the earlier one) looks like a
+placeholder, not a real inbox.
+
+**Why this is a launch risk:** until a custom SMTP provider is configured, Supabase's built-in email service delivers only to
+addresses of the project's own team members, with a very low send limit. If Production has no custom SMTP, real students would
+receive neither the invite nor the sign-in code (`TASK-0058` F lists custom SMTP as unverified).
+**Not verified:** whether Production has custom SMTP enabled. Claude cannot read the Auth config.
+
+**Next steps (David):** (1) open Supabase Production → Authentication → Emails → SMTP Settings and note whether custom SMTP is
+enabled and which sender domain it uses; (2) re-test a purchase with an inbox David controls, checking spam; (3) if custom SMTP
+is off, set it up before the pilot goes to real students (sender on a verified `cramapple.com` domain, Hard Gate).
 
 ## Fix prompts to Lovable
 
@@ -114,5 +149,5 @@ Done (Observed): wallet availability by browser (E1); promo apply/remove display
 
 ## Done when
 
-F1–F8 are re-tested on the live site, F9 is decided and its chosen path implemented, the new-student path (pay, return page, get in)
+F1–F8 are re-tested on the live site, F10 is resolved (email delivers to a real inbox), F9's layers are built in the order above, the new-student path (pay, return page, get in)
 works first time, and each Lovable publish and any Production change has David's approval recorded.
