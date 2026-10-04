@@ -75,7 +75,7 @@ Suggested build order, cheapest first: (3) the one-email path (a Supabase Auth t
 (1) Google (needs David's Google Cloud branding and verification, which can take days), then (2) the wallet path last (it needs
 session creation and the webhook to stop stamping the typed email, `TASK-0058` C). Each layer needs its own approval and a Dev test first.
 
-**Delivery comes first (see F10).** None of the layers helps if Supabase cannot deliver email to real recipients (unverified, see F10).
+**Delivery comes first (see F10).** None of the layers helps if Supabase cannot deliver email to real recipients (custom SMTP is on; real-inbox delivery still to test, see F10).
 
 **Original analysis and the options considered (kept for the record):**
 
@@ -99,7 +99,7 @@ failure on top (the invite email and the code email collide on the one-email-per
    treat it as a convenience, not proof, unless the student confirms it.
 Not recommended: signing the buyer in on payment alone.
 
-## F10 (open, unverified launch risk): no confirmation email arrived on the second live purchase
+## F10 (open until a real-inbox test): no confirmation email arrived on the second live purchase
 
 **Observed (David, 2026-10-04):** no confirmation email after the $1 purchase `cs_live_a1g1…` (E5).
 **Explained (David, chat):** the checkout used a placeholder address, not a real inbox, and David had forgotten. So the missing
@@ -109,14 +109,13 @@ email is almost certainly that, **not** a delivery failure.
 logged at 20:50:11), so nothing failed in Cramapple's code. Twelve seconds later the page's code request returned 429 ("only after
 48 seconds"), which P2 now handles with a countdown.
 
-**Still open, not demonstrated:** until a custom SMTP provider is configured, Supabase's built-in email service delivers only to
-addresses of the project's own team members, with a very low send limit. If Production has no custom SMTP, real students would
-receive neither the invite nor the sign-in code (`TASK-0058` F lists custom SMTP as unverified). Whether Production has custom
-SMTP enabled is **not verified**; Claude cannot read the Auth config, and no real-inbox purchase has been tested yet.
+**Observed (David, 2026-10-04): custom SMTP is enabled in Production.** So the built-in-service limit (team members only) does not
+apply. Not yet known: the sender domain, and whether mail actually reaches a real student inbox (and not spam). No real-inbox
+purchase has been tested.
 
-**Next steps (David):** (1) open Supabase Production → Authentication → Emails → SMTP Settings and note whether custom SMTP is
-enabled and which sender domain it uses; (2) re-test a purchase with an inbox David controls, checking spam; (3) if custom SMTP
-is off, set it up before the pilot goes to real students (sender on a verified `cramapple.com` domain, Hard Gate).
+**Next steps (David):** (1) note the sender address and domain in Authentication → Emails → SMTP Settings (a verified
+`cramapple.com` sender is the goal); (2) buy with an inbox David controls (the $1 `?promo=` link), check inbox and spam, and
+confirm both the invite email and a 6-digit code email arrive; (3) F10 closes when both arrive in the inbox.
 
 ## Fix prompts to Lovable
 
