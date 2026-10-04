@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0117 — Difficulty Bands for 1,042 Published MCQs: 31 Seeds Rated, Variants and BC Copies Inherit (Production) — DECISION-0096
 - APPROVAL-0116 — AP Calculus AB: Canonical Answers for 20 Unit 1 FRQs, With Serving-Label Carry-Forward (Production)
 - APPROVAL-0115 — Release Four Held MCQs to Validated Serving Labels (Production) — DECISION-0085
 - APPROVAL-0114 — Retire AP Physics C: E&M Held MCQ-019, Seed np1-010 and Its Variant -v2 (Production) — DECISION-0085
@@ -227,6 +228,23 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0117 — Difficulty Bands for 1,042 Published MCQs (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (DECISION-0096 instruction, 2026-10-04 Claude session: "let's add it and apply to the variants")  
+**Related Decision:** `DECISION-0096`  
+**Decision:** Approved
+
+**Scope (Production `pcntajvbdfqhbeewmdry`), migration `20261004130000_mcq_seed_difficulty_inheritance.sql`:**
+
+1. **31 seeds rated** (28 Calc AB Unit 2–3 originals, 3 Precalculus items): `calibrated_judgement`, two blind raters (Claude and an independent fresh-context rater) on the Calc AB rubric. 22 agreed (confidence `medium`). The 9 adjacent disagreements were resolved upward per the rubric (confidence `low`): `u2n-005`, `u2n-008`, `u2n-012`, `u3n-008`, `u3n-009`, `u3n-013`, `u3n-014`, `apprecalc-mcq-np2-003`, `np2-004`. Seed bands: 2 Easy, 20 Medium, 9 Hard.
+2. **733 variants inherit their seed's band** (basis `translated`, `source_value` = seed key, seed's confidence).
+3. **278 Calc BC copies inherit from their AB item.**
+
+**How it was used:** a rolled-back rehearsal on Production gave the same counts, then the change was applied in one transaction with postconditions (1,042 rows written, 0 published MCQs left without a band). Recount after commit: every subject's published MCQs have a band (Biology 58/58 … Statistics 224/224). All 1,042 rows: 284 Easy, 606 Medium, 152 Hard. Rollback: delete rows with `proposal_run = 'mcq-seed-difficulty-2026-10-04'`.
+
+**FRQ extension (same day):** `apcalcab-frq-u1v-001-v2` inherited Medium from its seed `apcalcab-frq-u1n-001` (migration `20261004140000`, one row). After it, every published item in all 10 subjects has a band: FRQ 572 of 572, MCQ 1,718 of 1,718.
 
 ## APPROVAL-0116 — AP Calculus AB: Canonical Answers for 20 Unit 1 FRQs, With Serving-Label Carry-Forward (Production)
 

@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0096 — MCQ and FRQ Variants Inherit Their Seed's Difficulty Band; an Unrated Seed Is Rated First and Applied to Its Variants
 - DECISION-0095 — Items Stay Within the Subject's CED Vocabulary; a Mechanism Supplied in the Stem Does Not Bring a Term In Scope; Published Items That Break It Are Retired, Not Repaired
 - DECISION-0094 — Launch Shape Revised: $1 Pilot Coupon (10 Friends) Before a 50%-Off Public Launch; Parent-Pay Live; Strangers May Pay Full Price; Supersedes DECISION-0091
 - DECISION-0093 — Seeded Generation and Checker Policy for AP Calc AB Content; Human Review Waived for the Unit 1 Batch and the Seeded Variants
@@ -47,6 +48,33 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0096 — MCQ Variants Inherit Their Seed's Difficulty Band
+
+**Date:** 2026-10-04
+**Decision Owner:** David Bloom
+**Status:** Approved ("new MCQs should inherit the level of difficulty from the seed question. If seed does not have a level of difficulty, let's add it and apply to the variants.")
+**Related:** 2026-10-04 six-criteria re-run (`docs/product/SUBJECT_SERVABILITY_CRITERIA.md`); APPROVAL-0117; migration `20261004130000`
+**Area:** Content / difficulty
+
+### Context
+
+The 2026-10-04 re-run found criterion 5 (difficulty) failing for MCQ in every subject: about 1,040 MCQ variants
+were published from 2026-09-30 without a `content_item_difficulty` row.
+
+### Decided
+
+1. An MCQ variant takes its seed's difficulty band. A Calc BC item that is a copy of an AB item takes the AB item's band.
+2. If the seed has no band, the seed is rated first and the band is then applied to its variants.
+3. Going forward, publishing an MCQ variant includes writing its inherited difficulty row.
+
+### Notes
+
+- Seed links are not stored in the database (seeded-item protocol §7). They are resolved from the content keys,
+  which match every batch manifest: `-sv-<n>-vK` → `-<n>`; `-u<U>v-<n>-vK` → `-u<U>n-<n>`; `-u<U>n-<n>-vK` → `-u<U>n-<n>`;
+  `apcalcbc-mcq-ab-<rest>` → `apcalcab-mcq-<rest>`.
+- Variants that already had their own difficulty row were not changed.
+- **Extended to FRQ variants** (David Bloom, 2026-10-04: "yes, apply the same rule to FRQ variants"). The one unrated FRQ variant, `apcalcab-frq-u1v-001-v2`, inherited Medium from `apcalcab-frq-u1n-001` (migration `20261004140000`).
 
 ## DECISION-0095 — Items Stay Within the Subject's CED Vocabulary; a Mechanism Supplied in the Stem Does Not Bring a Term In Scope; Published Items That Break It Are Retired, Not Repaired
 
