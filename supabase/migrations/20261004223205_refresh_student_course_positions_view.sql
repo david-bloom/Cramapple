@@ -1,4 +1,4 @@
--- APPROVAL-0118: expose the topic-level columns through public.student_course_positions.
+-- APPROVAL-0120: expose the topic-level columns through public.student_course_positions.
 --
 -- 20260927211703_student_course_positions_topic_level.sql added topic_code and
 -- topic_source to app.student_course_positions but did not recreate the public

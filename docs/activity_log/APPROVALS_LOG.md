@@ -16,7 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
-- APPROVAL-0118 — Recreate `public.student_course_positions` With `topic_code` and `topic_source` So the Student Home Loads (Production)
+- APPROVAL-0120 — Recreate `public.student_course_positions` With `topic_code` and `topic_source` So the Student Home Loads (Production)
 - APPROVAL-0117 — Difficulty Bands for 1,042 Published MCQs: 31 Seeds Rated, Variants and BC Copies Inherit (Production) — DECISION-0096
 - APPROVAL-0116 — AP Calculus AB: Canonical Answers for 20 Unit 1 FRQs, With Serving-Label Carry-Forward (Production)
 - APPROVAL-0115 — Release Four Held MCQs to Validated Serving Labels (Production) — DECISION-0085
@@ -90,10 +90,11 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
-## APPROVAL-0118 — Recreate `public.student_course_positions` With `topic_code` and `topic_source` So the Student Home Loads (Production)
+## APPROVAL-0120 — Recreate `public.student_course_positions` With `topic_code` and `topic_source` So the Student Home Loads (Production)
 
 **Date:** 2026-10-04  
 **Approved By:** David Bloom (2026-10-04 Claude session: "I approve APPROVAL-0118, include the view check")  
+**Numbering note:** David approved this in chat as "APPROVAL-0118"; it is recorded as `APPROVAL-0120` because another session's PR (#330, Four Released Seeds variants) had already claimed 0118.  
 **Related Task:** `TASK-0060` (user testing); follows the topic-level migration `20260927211703_student_course_positions_topic_level.sql`  
 **Decision:** Approved
 
