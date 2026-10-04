@@ -1,0 +1,542 @@
+[
+ {
+  "id": "apphycem-mcq-001-v1",
+  "seed": "apphycem-mcq-001",
+  "difficulty": "easy",
+  "title": "Flux through a cube around a point charge",
+  "stem": "A point charge of +3.0 nC sits at the center of a closed cube with 0.10 m edges. What is the net electric flux through the entire surface of the cube?",
+  "correct": {
+   "text": "3.4 × 10² N·m²/C",
+   "rationale": "By Gauss's law the net flux through any closed surface is Q_enc/ε₀ = (3.0 × 10⁻⁹ C)/(8.85 × 10⁻¹² C²/N·m²) ≈ 3.4 × 10² N·m²/C. The edge length does not enter."
+  },
+  "wrong": [
+   {
+    "text": "2.7 × 10⁻²⁰ N·m²/C",
+    "rationale": "This multiplies Q by ε₀. Gauss's law divides the enclosed charge by ε₀, so the flux is about 3.4 × 10² N·m²/C.",
+    "error_pattern": "inverts Q_enc/ε₀ into Q_enc·ε₀"
+   },
+   {
+    "text": "27 N·m²/C",
+    "rationale": "This is kQ with k = 9.0 × 10⁹ N·m²/C², which omits the factor 4π. Since 1/ε₀ = 4πk, the flux is Q/ε₀ = 4πkQ, about 3.4 × 10² N·m²/C.",
+    "error_pattern": "uses kQ instead of Q/ε₀ (drops the factor 4π)"
+   },
+   {
+    "text": "56 N·m²/C",
+    "rationale": "This divides the total flux by the six faces of the cube. That is the flux through one face; the question asks for the whole closed surface, whose flux is Q/ε₀ ≈ 3.4 × 10² N·m²/C.",
+    "error_pattern": "reports flux through one face instead of the whole closed surface"
+   }
+  ],
+  "change_note": "New geometry (cube) and a numeric flux from Q_enc/ε₀; seed was a symbolic statement of Gauss's law; distractors are inverted ratio, kQ, and per-face flux.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-001-v2",
+  "seed": "apphycem-mcq-001",
+  "difficulty": "medium",
+  "title": "Net flux with charges inside and outside",
+  "stem": "A closed surface encloses a +5.0 μC charge and a −2.0 μC charge. A +6.0 μC charge lies just outside the surface. What is the net electric flux through the surface?",
+  "correct": {
+   "text": "3.4 × 10⁵ N·m²/C",
+   "rationale": "Only enclosed charge counts: Q_enc = +5.0 μC − 2.0 μC = +3.0 μC, so Φ = Q_enc/ε₀ = 3.0 × 10⁻⁶/8.85 × 10⁻¹² ≈ 3.4 × 10⁵ N·m²/C. The outside charge produces field lines that enter and leave the surface, with zero net flux."
+  },
+  "wrong": [
+   {
+    "text": "1.0 × 10⁶ N·m²/C",
+    "rationale": "This adds the outside charge: (5.0 − 2.0 + 6.0) μC = 9.0 μC. The outside charge contributes zero net flux, so Q_enc = 3.0 μC and Φ ≈ 3.4 × 10⁵ N·m²/C.",
+    "error_pattern": "includes charge outside the surface in Q_enc"
+   },
+   {
+    "text": "7.9 × 10⁵ N·m²/C",
+    "rationale": "This adds the magnitudes (5.0 + 2.0) μC = 7.0 μC. Charge is a signed quantity, so the negative charge subtracts: Q_enc = 3.0 μC and Φ ≈ 3.4 × 10⁵ N·m²/C.",
+    "error_pattern": "adds magnitudes of enclosed charges and ignores sign"
+   },
+   {
+    "text": "5.6 × 10⁵ N·m²/C",
+    "rationale": "This counts only the +5.0 μC charge and leaves out the enclosed −2.0 μC charge. Every enclosed charge counts, so Q_enc = 3.0 μC and Φ ≈ 3.4 × 10⁵ N·m²/C.",
+    "error_pattern": "counts only the positive enclosed charge"
+   }
+  ],
+  "change_note": "Several enclosed charges of mixed sign plus an outside charge; numbers all new; distractors include outside charge, magnitude sum and omitted charge.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-001-v3",
+  "seed": "apphycem-mcq-001",
+  "difficulty": "hard",
+  "title": "Moving charges around a Gaussian surface",
+  "stem": "A closed surface encloses a +4.0 μC charge at its center. A +4.0 μC charge sits outside the surface. The inside charge is moved to a spot near the surface (still inside), and the outside charge is moved closer to the surface (still outside). What happens to the net electric flux through the surface?",
+  "correct": {
+   "text": "It stays the same",
+   "rationale": "Net flux is Q_enc/ε₀, and Q_enc is still +4.0 μC. Moving charges changes how the flux is distributed over the surface and changes the field there, but not the net flux."
+  },
+  "wrong": [
+   {
+    "text": "It increases, because the field at the surface is stronger",
+    "rationale": "The field at the surface does get stronger, but net flux depends on the enclosed charge, not on field strength. The external charge's field lines enter and leave, so its net contribution stays zero.",
+    "error_pattern": "confuses field strength at the surface with net flux"
+   },
+   {
+    "text": "It stays the same only if the inside charge returns to the center",
+    "rationale": "Gauss's law holds for any charge position inside the surface. Symmetry is only needed to pull E out of the integral for calculation, not for the net flux to equal Q_enc/ε₀.",
+    "error_pattern": "believes Gauss's law requires symmetric charge placement"
+   },
+   {
+    "text": "It decreases, because part of the surface is now closer to the charge",
+    "rationale": "Part of the surface now has a larger flux per area, but the surface elsewhere has smaller flux, and the net total remains Q_enc/ε₀.",
+    "error_pattern": "assumes net flux changes with distance to the charge"
+   }
+  ],
+  "change_note": "Conceptual: flux depends only on enclosed charge, tested by moving inside and outside charges; distractors are field-strength confusion, symmetry requirement and distance dependence.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-002-v1",
+  "seed": "apphycem-mcq-002",
+  "difficulty": "easy",
+  "title": "Charge in a uniformly charged sphere",
+  "stem": "A sphere has a uniform volume charge density ρ₀ = 2.0 μC/m³ inside it. What charge lies within a concentric sphere of radius r = 0.10 m inside the charged region?",
+  "correct": {
+   "text": "8.4 nC",
+   "rationale": "For uniform density Q = ∫ρ₀ 4πr′² dr′ from 0 to r = (4/3)πr³ρ₀ = (4/3)π(0.10 m)³(2.0 × 10⁻⁶ C/m³) ≈ 8.4 × 10⁻⁹ C."
+  },
+  "wrong": [
+   {
+    "text": "250 nC",
+    "rationale": "This multiplies ρ₀ by the surface area 4πr². Charge needs a volume, so the shell element must be integrated: Q = (4/3)πr³ρ₀ ≈ 8.4 nC.",
+    "error_pattern": "uses surface area instead of volume"
+   },
+   {
+    "text": "25 nC",
+    "rationale": "This is 4πr³ρ₀, which leaves out the 1/3 produced by integrating r′² from 0 to r. The correct result is (4/3)πr³ρ₀ ≈ 8.4 nC.",
+    "error_pattern": "drops the 1/3 from integrating r′²"
+   },
+   {
+    "text": "2.0 nC",
+    "rationale": "This is ρ₀r³, with no geometric factor. Enclosed charge is the density integrated over the sphere's volume, (4/3)πr³ρ₀ ≈ 8.4 nC.",
+    "error_pattern": "omits the geometric factor of the volume"
+   }
+  ],
+  "change_note": "Evaluates the volume integral for the simplest case (uniform density) with new numbers; seed asked for the integral setup symbolically.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-002-v2",
+  "seed": "apphycem-mcq-002",
+  "difficulty": "medium",
+  "title": "Charge enclosed with a density that grows with radius",
+  "stem": "A spherically symmetric charge distribution has volume charge density ρ(r) = αr, with α = 3.0 × 10⁻⁴ C/m⁴, for r from 0 to 0.50 m. What charge lies within r = 0.20 m?",
+  "correct": {
+   "text": "1.5 μC",
+   "rationale": "Q = ∫₀ʳ (αr′)(4πr′²) dr′ = 4πα∫r′³ dr′ = παr⁴ = π(3.0 × 10⁻⁴)(0.20)⁴ ≈ 1.5 × 10⁻⁶ C."
+  },
+  "wrong": [
+   {
+    "text": "2.0 μC",
+    "rationale": "This multiplies the density at the edge, αr, by the volume (4/3)πr³. The density is not uniform; it is zero at the center, so the integral is needed: Q = παr⁴ ≈ 1.5 μC.",
+    "error_pattern": "applies the edge density to the whole volume"
+   },
+   {
+    "text": "6.0 μC",
+    "rationale": "This is 4παr⁴: the integral of r′³ was taken as r⁴ instead of r⁴/4. The correct antiderivative gives Q = παr⁴ ≈ 1.5 μC.",
+    "error_pattern": "forgets the 1/4 from integrating r′³"
+   },
+   {
+    "text": "1.0 μC",
+    "rationale": "This takes half the edge density as the average density, giving (2/3)παr⁴. For ρ ∝ r the volume-weighted average is larger because more volume lies at large r; integrating gives Q = παr⁴ ≈ 1.5 μC.",
+    "error_pattern": "uses the linear average of the density over r"
+   }
+  ],
+  "change_note": "Density depends on r (ρ = αr) so the full spherical-shell integral is required; numbers new.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-002-v3",
+  "seed": "apphycem-mcq-002",
+  "difficulty": "hard",
+  "title": "Charge enclosed within a hollow charged region",
+  "stem": "A spherical region has zero charge density for r < 0.10 m and a uniform density ρ = 4.0 μC/m³ for 0.10 m < r < 0.30 m. What charge lies within a concentric sphere of radius 0.20 m?",
+  "correct": {
+   "text": "1.2 × 10² nC",
+   "rationale": "Only the part from 0.10 m to 0.20 m carries charge: Q = ∫ρ4πr′² dr′ from 0.10 to 0.20 = (4/3)πρ(0.20³ − 0.10³) ≈ 1.17 × 10⁻⁷ C ≈ 1.2 × 10² nC."
+  },
+  "wrong": [
+   {
+    "text": "1.3 × 10² nC",
+    "rationale": "This is (4/3)πρ(0.20 m)³, as if the charge started at the center. The empty core (r < 0.10 m) contributes nothing, so the lower limit of the integral is 0.10 m: Q ≈ 1.2 × 10² nC.",
+    "error_pattern": "integrates from zero and ignores the empty core"
+   },
+   {
+    "text": "17 nC",
+    "rationale": "This is (4/3)πρ(0.20 − 0.10)³. Volume is not proportional to the cube of the thickness; the volume of a shell is the difference of the cubes of the outer and inner radii: Q ≈ 1.2 × 10² nC.",
+    "error_pattern": "cubes the shell thickness instead of subtracting the cubes of the radii"
+   },
+   {
+    "text": "5.0 × 10² nC",
+    "rationale": "This is (4/3)πρ(0.20² − 0.10²), which uses r² limits. Integrating 4πr′² gives (4/3)π r′³ at the limits, so r³ must be used: Q ≈ 1.2 × 10² nC.",
+    "error_pattern": "uses r² instead of r³ at the limits"
+   }
+  ],
+  "change_note": "Piecewise density with an empty core: requires choosing correct limits for the volume integral.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-005-v1",
+  "seed": "apphycem-mcq-005",
+  "difficulty": "easy",
+  "title": "Field from a linear potential",
+  "stem": "In one region the electric potential is V(x) = (5.0 V/m)x + 2.0 V. What is the x-component of the electric field at x = 1.0 m?",
+  "correct": {
+   "text": "−5.0 V/m",
+   "rationale": "E_x = −dV/dx = −5.0 V/m, because the field points toward decreasing potential and V increases with x here."
+  },
+  "wrong": [
+   {
+    "text": "+5.0 V/m",
+    "rationale": "This is the slope of V without the minus sign. The field points toward lower potential, so E_x = −dV/dx = −5.0 V/m.",
+    "error_pattern": "drops the negative sign in E_x = −dV/dx"
+   },
+   {
+    "text": "7.0 V/m",
+    "rationale": "This is the value of the potential at x = 1.0 m, V = 5.0 + 2.0 = 7.0 V. The field depends on the slope of V, not its value, so E_x = −5.0 V/m.",
+    "error_pattern": "reads the potential value as the field"
+   },
+   {
+    "text": "2.0 V/m",
+    "rationale": "This takes the constant term of the formula as the field. A constant added to V does not affect E; only the slope matters, so E_x = −5.0 V/m.",
+    "error_pattern": "treats the additive constant in V as the field"
+   }
+  ],
+  "change_note": "Linear potential with a constant offset, new numbers; one sign-only distractor allowed and used.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-005-v2",
+  "seed": "apphycem-mcq-005",
+  "difficulty": "medium",
+  "title": "Field from a quadratic potential",
+  "stem": "The electric potential along the x-axis is V(x) = 3.0x² − 4.0x, with V in volts and x in meters. What is E_x at x = 2.0 m?",
+  "correct": {
+   "text": "−8.0 V/m",
+   "rationale": "E_x = −dV/dx = −(6.0x − 4.0) = −(12.0 − 4.0) = −8.0 V/m at x = 2.0 m."
+  },
+  "wrong": [
+   {
+    "text": "−4.0 V/m",
+    "rationale": "This uses the value V(2.0 m) = 4.0 V with a minus sign. The field is the negative derivative of V, not the negative of V itself: E_x = −8.0 V/m.",
+    "error_pattern": "uses E = −V rather than the derivative"
+   },
+   {
+    "text": "−2.0 V/m",
+    "rationale": "This is −V/x = −4.0/2.0, a ratio rather than a derivative. For a nonlinear V(x) the field is −dV/dx = −8.0 V/m.",
+    "error_pattern": "uses −V/x in place of −dV/dx"
+   },
+   {
+    "text": "−12.0 V/m",
+    "rationale": "This differentiates only the 3.0x² term and drops the −4.0x term's contribution of −4.0. The full derivative is 6.0x − 4.0 = 8.0, so E_x = −8.0 V/m.",
+    "error_pattern": "drops the linear term when differentiating"
+   }
+  ],
+  "change_note": "Nonlinear V(x) evaluated at a point; distractors are E=-V, -V/x and a differentiation slip (no sign-only distractor).",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-005-v3",
+  "seed": "apphycem-mcq-005",
+  "difficulty": "hard",
+  "title": "Field in each region of a potential profile",
+  "stem": "The potential along the x-axis consists of straight-line segments: V = 10 V at x = 0, V = 2 V at x = 0.20 m, and V = 11 V at x = 0.50 m. Which choice gives E_x in each segment?",
+  "correct": {
+   "text": "+40 V/m for 0 < x < 0.20 m, then −30 V/m for 0.20 m < x < 0.50 m",
+   "rationale": "Each segment's field is −ΔV/Δx. First segment: −(2 − 10)/0.20 = +40 V/m. Second segment: −(11 − 2)/0.30 = −30 V/m."
+  },
+  "wrong": [
+   {
+    "text": "+30 V/m for 0 < x < 0.20 m, then −40 V/m for 0.20 m < x < 0.50 m",
+    "rationale": "This pairs the slopes with the wrong segments. The steep 8 V drop over 0.20 m gives 40 V/m in the first segment; the 9 V rise over 0.30 m gives 30 V/m in the second.",
+    "error_pattern": "swaps the slope magnitudes between segments"
+   },
+   {
+    "text": "+10 V/m for 0 < x < 0.20 m, then +22 V/m for 0.20 m < x < 0.50 m",
+    "rationale": "These are the ratios V/x at the segment ends (2/0.20 and 11/0.50). The field is the slope of V in each segment, −ΔV/Δx, not the ratio of V to position.",
+    "error_pattern": "divides V by x instead of using the slope"
+   },
+   {
+    "text": "−2 V/m throughout",
+    "rationale": "This uses only the net change from x = 0 to x = 0.50 m, −(11 − 10)/0.50. The potential has different slopes in the two segments, so the field differs between them.",
+    "error_pattern": "averages the slope over the whole interval"
+   }
+  ],
+  "change_note": "Piecewise-linear V(x) given by values: reads slopes in two segments, both signs required.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-006-v1",
+  "seed": "apphycem-mcq-006",
+  "difficulty": "easy",
+  "title": "Field where the potential is constant",
+  "stem": "In a certain region of space the electric potential has the same value, 8.0 V, at every point. What is the electric field in that region?",
+  "correct": {
+   "text": "Zero",
+   "rationale": "Field is related to the rate of change of V with position, E_x = −dV/dx. A constant potential has zero derivative everywhere, so E is zero even though V is not zero."
+  },
+  "wrong": [
+   {
+    "text": "8.0 V/m in the direction of increasing x",
+    "rationale": "This sets the field equal to the potential value. E depends on how V changes with position, not on V itself, and V does not change here.",
+    "error_pattern": "equates the field with the potential value"
+   },
+   {
+    "text": "Nonzero and directed toward the lower-potential side",
+    "rationale": "Direction toward lower potential applies only where V changes. With V constant there is no lower side, so no field exists.",
+    "error_pattern": "assumes a field must point somewhere whenever V is nonzero"
+   },
+   {
+    "text": "−(8.0 V)/x, falling off with position",
+    "rationale": "This treats the field as −V/x. The field is the negative derivative of V, which is zero when V does not vary.",
+    "error_pattern": "uses −V/x in place of −dV/dx"
+   }
+  ],
+  "change_note": "Constant potential region (equipotential), new context; same E = −dV/dx = 0 idea.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-006-v2",
+  "seed": "apphycem-mcq-006",
+  "difficulty": "medium",
+  "title": "Locating zero field from a potential function",
+  "stem": "The potential along the x-axis is V(x) = 4.0x² − 16x + 12, with V in volts and x in meters. At what position is E_x equal to zero?",
+  "correct": {
+   "text": "x = 2.0 m",
+   "rationale": "E_x = −dV/dx = −(8.0x − 16). This is zero when 8.0x = 16, so x = 2.0 m, the minimum of V."
+  },
+  "wrong": [
+   {
+    "text": "x = 1.0 m",
+    "rationale": "This is the smaller root of V(x) = 0 (4x² − 16x + 12 = 0). The field is zero where dV/dx = 0, not where V = 0.",
+    "error_pattern": "sets V = 0 instead of dV/dx = 0"
+   },
+   {
+    "text": "x = 4.0 m",
+    "rationale": "This sets 4.0x − 16 = 0, forgetting the factor of 2 produced by differentiating 4.0x². The derivative is 8.0x − 16, which vanishes at x = 2.0 m.",
+    "error_pattern": "differentiates x² incorrectly"
+   },
+   {
+    "text": "x = 0",
+    "rationale": "This assumes the field vanishes at the origin. At x = 0, dV/dx = −16 V/m, so E_x = +16 V/m there.",
+    "error_pattern": "assumes zero field at the origin"
+   }
+  ],
+  "change_note": "Solve dV/dx = 0 for a quadratic V; distractors from V=0 roots and derivative slip.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-006-v3",
+  "seed": "apphycem-mcq-006",
+  "difficulty": "hard",
+  "title": "Field between a maximum and a minimum of V",
+  "stem": "A smooth potential V(x) has a local maximum at x = 1.0 m and a local minimum at x = 3.0 m. Which statement about E_x is correct?",
+  "correct": {
+   "text": "E_x is zero at both points and positive between them",
+   "rationale": "At a maximum and a minimum dV/dx = 0, so E_x = 0 at both. Between them V decreases with x, so dV/dx < 0 and E_x = −dV/dx > 0."
+  },
+  "wrong": [
+   {
+    "text": "E_x is zero at both points and negative between them",
+    "rationale": "V falls with increasing x between the two points, so dV/dx is negative and E_x = −dV/dx is positive there. The field points from high to low potential.",
+    "error_pattern": "reverses the direction of the field relative to the potential drop"
+   },
+   {
+    "text": "E_x is most positive at x = 1.0 m and most negative at x = 3.0 m",
+    "rationale": "This gives the field the same shape as V. The field is the negative derivative of V, which is zero at both extremes.",
+    "error_pattern": "assumes the field graph has the same shape as the potential graph"
+   },
+   {
+    "text": "E_x is nonzero at both points because V is not zero there",
+    "rationale": "Whether V is zero has no bearing on E. At both extremes the slope of V is zero, so E_x = 0.",
+    "error_pattern": "confuses V = 0 with dV/dx = 0"
+   }
+  ],
+  "change_note": "Graph-reading conceptual item with a maximum and a minimum of V; one sign/direction-only distractor allowed and used.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-007-v1",
+  "seed": "apphycem-mcq-007",
+  "difficulty": "easy",
+  "title": "Pulling capacitor plates apart",
+  "stem": "The plates of a parallel-plate capacitor, with nothing between them, are pulled apart until their separation is three times the original value. The plate area is unchanged. The capacitance becomes",
+  "correct": {
+   "text": "one-third of its original value",
+   "rationale": "For a parallel-plate capacitor C = ε₀A/d, so C is inversely proportional to d. Tripling d with A fixed makes C one-third of its original value."
+  },
+  "wrong": [
+   {
+    "text": "three times its original value",
+    "rationale": "This treats C as proportional to d. In C = ε₀A/d the separation is in the denominator, so greater separation lowers C.",
+    "error_pattern": "reverses the dependence on plate separation"
+   },
+   {
+    "text": "one-ninth of its original value",
+    "rationale": "This treats C as proportional to 1/d². Capacitance varies as 1/d, so tripling d reduces C by a factor of 3, not 9.",
+    "error_pattern": "squares the separation dependence"
+   },
+   {
+    "text": "unchanged, since the area is the same",
+    "rationale": "Area is one factor, but C = ε₀A/d also depends on separation. Changing d changes C.",
+    "error_pattern": "assumes capacitance depends only on plate area"
+   }
+  ],
+  "change_note": "Qualitative scaling of C = ε₀A/d with separation (vacuum); different from seed's formula-recall question.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-007-v2",
+  "seed": "apphycem-mcq-007",
+  "difficulty": "medium",
+  "title": "Capacitance of rectangular plates",
+  "stem": "A parallel-plate capacitor has rectangular plates 0.040 m by 0.050 m separated by 1.0 mm of vacuum. Neglecting edge effects, what is its capacitance?",
+  "correct": {
+   "text": "18 pF",
+   "rationale": "C = ε₀A/d = (8.85 × 10⁻¹² F/m)(0.040 m × 0.050 m)/(1.0 × 10⁻³ m) ≈ 1.8 × 10⁻¹¹ F = 18 pF."
+  },
+  "wrong": [
+   {
+    "text": "0.018 pF",
+    "rationale": "This uses d = 1.0 (millimeters entered as meters) in the denominator. The separation must be 1.0 × 10⁻³ m, giving C ≈ 18 pF.",
+    "error_pattern": "unit slip: millimeters used as meters"
+   },
+   {
+    "text": "4.4 pF",
+    "rationale": "This is ε₀d/A, with the area and separation interchanged. Capacitance is proportional to A/d, so C = ε₀A/d ≈ 18 pF.",
+    "error_pattern": "inverts the ratio to ε₀d/A"
+   },
+   {
+    "text": "350 pF",
+    "rationale": "This uses a single side length (0.040 m) in place of the area. Area is 0.040 × 0.050 = 2.0 × 10⁻³ m², giving C ≈ 18 pF.",
+    "error_pattern": "uses a length instead of the plate area"
+   }
+  ],
+  "change_note": "Numeric calculation with a unit conversion; distractors: unit slip, inverted ratio, length for area.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-007-v3",
+  "seed": "apphycem-mcq-007",
+  "difficulty": "hard",
+  "title": "Comparing two parallel-plate capacitors",
+  "stem": "Capacitor 1 has circular plates of radius R separated by d. Capacitor 2 has circular plates of radius 2R separated by 3d. Both are vacuum-filled. What is C₂/C₁, neglecting edge effects?",
+  "correct": {
+   "text": "4/3",
+   "rationale": "C = ε₀A/d with A = πr². Doubling the radius makes the area 4 times larger and tripling the separation divides by 3, so C₂/C₁ = 4/3."
+  },
+  "wrong": [
+   {
+    "text": "12",
+    "rationale": "This multiplies by both the area factor 4 and the separation factor 3. The separation is in the denominator, so it divides: C₂/C₁ = 4/3.",
+    "error_pattern": "puts the separation factor in the numerator"
+   },
+   {
+    "text": "2/3",
+    "rationale": "This scales the area with the radius (factor 2) instead of its square (factor 4). Area is πr², so the area factor is 4 and C₂/C₁ = 4/3.",
+    "error_pattern": "scales area linearly with radius"
+   },
+   {
+    "text": "1/12",
+    "rationale": "This inverts both factors, as if C were proportional to d/A. Capacitance is proportional to A/d, so C₂/C₁ = 4/3.",
+    "error_pattern": "inverts the whole ratio"
+   }
+  ],
+  "change_note": "Two-factor scaling of C = ε₀A/d with circular plates (area ∝ r²).",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-008-v1",
+  "seed": "apphycem-mcq-008",
+  "difficulty": "easy",
+  "title": "Energy in a charged capacitor",
+  "stem": "A 10 μF capacitor is charged until the potential difference across it is 6.0 V. How much energy is stored in the capacitor?",
+  "correct": {
+   "text": "180 μJ",
+   "rationale": "U = ½C(ΔV)² = ½(10 × 10⁻⁶ F)(6.0 V)² = 1.8 × 10⁻⁴ J = 180 μJ."
+  },
+  "wrong": [
+   {
+    "text": "360 μJ",
+    "rationale": "This is C(ΔV)², missing the factor ½. Charging a capacitor takes energy ½C(ΔV)² because the voltage rises gradually from zero as charge is added.",
+    "error_pattern": "omits the factor of 1/2"
+   },
+   {
+    "text": "30 μJ",
+    "rationale": "This is ½CΔV, with the voltage to the first power. Energy depends on the square of the potential difference, U = ½C(ΔV)², which gives 180 μJ.",
+    "error_pattern": "forgets to square the voltage"
+   },
+   {
+    "text": "60 μJ",
+    "rationale": "This is Q = CΔV = 60 μC, a charge rather than an energy. The energy is ½QΔV = ½C(ΔV)² = 180 μJ.",
+    "error_pattern": "reports the stored charge as the energy"
+   }
+  ],
+  "change_note": "Numeric U = ½C(ΔV)² with new values; the seed asked for the formula.",
+  "check": "numeric"
+ },
+ {
+  "id": "apphycem-mcq-008-v2",
+  "seed": "apphycem-mcq-008",
+  "difficulty": "medium",
+  "title": "Stored energy when plates are separated",
+  "stem": "A parallel-plate capacitor is charged to charge Q and then disconnected from the battery. The plates are slowly pulled apart until their separation is twice the original value. The energy stored in the capacitor is now",
+  "correct": {
+   "text": "twice its original value",
+   "rationale": "Q is fixed and C = ε₀A/d is halved, so ΔV = Q/C doubles. Then U = ½QΔV doubles. The extra energy comes from the work done pulling the plates apart."
+  },
+  "wrong": [
+   {
+    "text": "unchanged, because the charge is fixed",
+    "rationale": "Fixed Q does not mean fixed energy: U = ½QΔV and ΔV doubles when C halves, so U doubles.",
+    "error_pattern": "assumes constant charge means constant energy"
+   },
+   {
+    "text": "half its original value",
+    "rationale": "This holds ΔV fixed and halves C in U = ½C(ΔV)². The capacitor is disconnected, so Q is what stays fixed and ΔV rises. U = Q²/(2C) doubles.",
+    "error_pattern": "applies fixed voltage to an isolated capacitor"
+   },
+   {
+    "text": "four times its original value",
+    "rationale": "This doubles ΔV in ½C(ΔV)² without also halving C. With C halved and ΔV doubled, U = ½(C/2)(2ΔV)² = 2 × the original.",
+    "error_pattern": "doubles ΔV but forgets that C changed"
+   }
+  ],
+  "change_note": "Conceptual ratio reasoning with U = ½QΔV at fixed Q; distractors are fixed-V and partial-substitution errors.",
+  "check": "conceptual"
+ },
+ {
+  "id": "apphycem-mcq-008-v3",
+  "seed": "apphycem-mcq-008",
+  "difficulty": "hard",
+  "title": "Energy to charge a capacitor further",
+  "stem": "A 4.0 μF capacitor already has a potential difference of 2.0 V across it. How much additional energy must be supplied to charge it until the potential difference is 5.0 V?",
+  "correct": {
+   "text": "42 μJ",
+   "rationale": "The added energy is U₂ − U₁ = ½C(V₂² − V₁²) = ½(4.0 × 10⁻⁶ F)(25 − 4) V² = 4.2 × 10⁻⁵ J = 42 μJ."
+  },
+  "wrong": [
+   {
+    "text": "18 μJ",
+    "rationale": "This is ½C(V₂ − V₁)², the energy as if the capacitor were charged from zero to the 3.0 V difference. Energy is quadratic in V, so the difference of the squares must be used: 42 μJ.",
+    "error_pattern": "squares the voltage change instead of differencing the squares"
+   },
+   {
+    "text": "50 μJ",
+    "rationale": "This is the total energy ½CV₂² at 5.0 V, including the 8 μJ already stored at 2.0 V. The question asks for the additional energy: 42 μJ.",
+    "error_pattern": "gives the final stored energy instead of the change"
+   },
+   {
+    "text": "12 μJ",
+    "rationale": "This is CΔV = 12 μC, the added charge, reported as energy. The added energy is ½C(V₂² − V₁²) = 42 μJ.",
+    "error_pattern": "reports the added charge as the added energy"
+   }
+  ],
+  "change_note": "Energy difference between two states of a capacitor (U quadratic in V); numeric.",
+  "check": "numeric"
+ }
+]

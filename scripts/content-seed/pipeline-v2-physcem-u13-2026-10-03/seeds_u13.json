@@ -1,0 +1,794 @@
+[
+ {
+  "key": "apphycem-mcq-001",
+  "stem": "Gauss's law states the electric flux through a closed surface is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Q_enclosed/ε₀",
+    "rationale": "closed-surface flux depends on enclosed charge",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "ε₀Q_enclosed",
+    "rationale": "This mistakes ε₀ for a multiplier on the enclosed charge rather than the divisor Gauss's law requires.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "Q_total outside/ε₀",
+    "rationale": "This confuses charge outside the surface with enclosed charge, which contributes zero net flux.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "always zero",
+    "rationale": "This overgeneralizes the special zero-net-enclosed-charge case (or the magnetic-flux identity) into a universal rule.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.6",
+  "item_id": "0adbe5c1-17c3-45bb-ac3d-7b4131f3028d"
+ },
+ {
+  "key": "apphycem-mcq-002",
+  "stem": "For a spherically symmetric volume charge density, the charge enclosed within radius R is…",
+  "choices": [
+   {
+    "label": "A",
+    "text": "∫₀ᴿρ(r)4πr²dr",
+    "rationale": "integrate density over spherical volume elements",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "ρ(R)R",
+    "rationale": "This evaluates the density only at the outer radius and scales it linearly by R instead of integrating over the volume.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "∫ρ dr only",
+    "rationale": "This drops the 4πr² spherical-shell area factor, treating the volume element as just dr.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "4πR²/ρ",
+    "rationale": "This inverts the relationship, dividing a surface area by density instead of integrating density over volume.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.6",
+  "item_id": "7c44284d-0f37-4471-adb3-458dd476c446"
+ },
+ {
+  "key": "apphycem-mcq-005",
+  "stem": "For electrostatics in one dimension, the x-component of the electric field is related to the electric potential V(x) by",
+  "choices": [
+   {
+    "label": "A",
+    "text": "E_x = dV/dx",
+    "rationale": "This drops the negative sign: the field points toward decreasing potential, so E_x = -dV/dx.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "E_x = -dV/dx",
+    "rationale": "The field component is the negative derivative of the potential with respect to position.",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "E_x = -V/x",
+    "rationale": "This treats the field as the ratio of V to position, which would equal -dV/dx only if V were linear in x and zero at x = 0; in general the field is the derivative of V, not a ratio.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "E_x = ∫V dt",
+    "rationale": "This substitutes a time integral for the spatial gradient, conflating a static field relation with time dependence.",
+    "is_correct": false
+   }
+  ],
+  "unit": 9,
+  "topic": "9.2",
+  "item_id": "ac3d12a7-5519-4f46-983b-b128da218dd8"
+ },
+ {
+  "key": "apphycem-mcq-006",
+  "stem": "At a point on the x-axis where the electric potential V(x) has a stationary point (dV/dx = 0), which statement must be true?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The field component E_x is zero there.",
+    "rationale": "Since E_x = -dV/dx, a stationary point of V, where dV/dx = 0, has E_x = 0.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "The potential V must equal zero there.",
+    "rationale": "This confuses a vanishing slope of V with the value of V itself being zero; V can have any value at a maximum or minimum.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "An infinite charge must be located there.",
+    "rationale": "A stationary point requires only that the slope of V vanish, not an infinite charge source.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "The field component E_x must be nonzero there.",
+    "rationale": "This reverses the relation E_x = -dV/dx: a zero slope of V gives a zero field component, not a nonzero one.",
+    "is_correct": false
+   }
+  ],
+  "unit": 9,
+  "topic": "9.2",
+  "item_id": "c979ee83-79d9-402a-ba93-70588b5f836c"
+ },
+ {
+  "key": "apphycem-mcq-007",
+  "stem": "Capacitance of parallel plates neglecting edges is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "εA/d",
+    "rationale": "C=Q/ΔV=εA/d.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "εd/A",
+    "rationale": "This swaps the positions of A and d in the formula.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "Ad/ε",
+    "rationale": "This puts ε in the denominator and both A and d in the numerator; capacitance increases with plate area and decreases with plate separation, so A and d cannot both appear in the numerator.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "d/(εA)",
+    "rationale": "This takes the reciprocal of the correct capacitance expression.",
+    "is_correct": false
+   }
+  ],
+  "unit": 10,
+  "topic": "10.3",
+  "item_id": "0e3b84c1-0c3a-4dfc-ba02-678c45f2d5f0"
+ },
+ {
+  "key": "apphycem-mcq-008",
+  "stem": "Energy stored in a capacitor is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "CV²",
+    "rationale": "This drops the factor of one-half that comes from integrating V dq up to charge Q.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "CV²/2",
+    "rationale": "integrating V dq gives one-half CV²",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "C/V²",
+    "rationale": "This divides by V² instead of multiplying, inverting the voltage dependence.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "2C/V",
+    "rationale": "This misplaces the factor of 2 as a coefficient of C divided by V rather than one-half CV².",
+    "is_correct": false
+   }
+  ],
+  "unit": 10,
+  "topic": "10.3",
+  "item_id": "8a9d4d4b-5590-4077-8cd4-18d7ed4b8d5b"
+ },
+ {
+  "key": "apphycem-mcq-009",
+  "stem": "In electrostatic equilibrium, within the conducting material of a conductor, E is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "maximum",
+    "rationale": "This reverses the actual physics, assuming free charge concentrates the field rather than canceling it in equilibrium.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "zero",
+    "rationale": "Free charges rearrange until the field within the conducting material vanishes.",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "nonzero but uniform throughout",
+    "rationale": "This mistakes electrostatic equilibrium for merely uniform field conditions; equilibrium in a conductor specifically requires E to vanish everywhere within the conducting material, not merely be constant.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "time varying",
+    "rationale": "This assumes electrostatic equilibrium implies an oscillating field rather than a static zero field.",
+    "is_correct": false
+   }
+  ],
+  "unit": 10,
+  "topic": "10.1",
+  "item_id": "47dafcfd-9894-463a-8f7e-54ad04ef28f4"
+ },
+ {
+  "key": "apphycem-mcq-021",
+  "stem": "Two point charges remain fixed while their separation triples. The force magnitude becomes",
+  "choices": [
+   {
+    "label": "A",
+    "text": "three times",
+    "rationale": "This applies direct rather than inverse distance scaling.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "one-third",
+    "rationale": "This uses inverse-linear scaling and misses the square.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "one-ninth",
+    "rationale": "Coulomb force varies as 1/r², so tripling r divides force by nine.",
+    "is_correct": true
+   },
+   {
+    "label": "D",
+    "text": "one-twenty-seventh",
+    "rationale": "This incorrectly uses an inverse-cube relation.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.1",
+  "item_id": "f5d6353a-ae8d-4845-aa46-433759089cc1"
+ },
+ {
+  "key": "apphycem-mcq-022",
+  "stem": "The electric field due to an isolated negative point charge points",
+  "choices": [
+   {
+    "label": "A",
+    "text": "radially outward",
+    "rationale": "This is the direction for a positive source charge.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "radially inward",
+    "rationale": "The field points in the force direction on a positive test charge, toward a negative source.",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "tangent to circles",
+    "rationale": "This confuses electric point-charge geometry with magnetic field around a current.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "its direction depends on the sign of the test charge",
+    "rationale": "Electric-field direction is a property of the source charge and does not depend on the sign of a test charge.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.3",
+  "item_id": "f2dbbf4e-201f-4172-964d-2c2c37c35a1b"
+ },
+ {
+  "key": "apphycem-mcq-023",
+  "stem": "For a line charge λ(s), the differential charge element is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "λ ds",
+    "rationale": "Linear density times differential length gives dq=λ ds.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "λ dA",
+    "rationale": "This uses an area element appropriate to surface charge density.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "λ dV",
+    "rationale": "This uses a volume element appropriate to volume charge density.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "(dλ/ds)ds",
+    "rationale": "The linear charge density already gives charge per unit length, so dq = λ(s)ds; differentiating λ is not required.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.4",
+  "item_id": "50200712-b656-4ba6-8ec8-535d14b4aeea"
+ },
+ {
+  "key": "apphycem-mcq-024",
+  "stem": "Uniform E crosses flat area A whose normal makes angle θ with E. Electric flux is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "EA sinθ",
+    "rationale": "This uses the angle with the surface rather than the stated angle with its normal.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "EA cosθ",
+    "rationale": "Flux is the dot product EA cosθ using the surface normal.",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "EA/ cosθ",
+    "rationale": "This divides by the projection factor instead of multiplying.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "EA",
+    "rationale": "This ignores the angle between the electric field and the surface normal; only the normal component contributes to flux.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.5",
+  "item_id": "d6d46cfb-5dfa-43dd-a1a8-4e97e95ec17b"
+ },
+ {
+  "key": "apphycem-mcq-025",
+  "stem": "Charges outside a closed Gaussian surface contribute to",
+  "choices": [
+   {
+    "label": "A",
+    "text": "net enclosed charge",
+    "rationale": "This incorrectly counts external charge as enclosed.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "local field but zero net flux contribution",
+    "rationale": "External charges can affect E locally, but their field lines enter and leave with zero net closed-surface flux.",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "neither field nor flux anywhere",
+    "rationale": "This ignores the electric field from external sources.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "nonzero net flux but no enclosed charge",
+    "rationale": "An external charge's field lines enter and leave a closed surface with zero net flux contribution.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.6",
+  "item_id": "1612b41d-7a18-4557-be51-bcb7abe846df"
+ },
+ {
+  "key": "apphycem-mcq-026",
+  "stem": "Two positive point charges are brought closer together. Their electric potential energy",
+  "choices": [
+   {
+    "label": "A",
+    "text": "decreases",
+    "rationale": "This reverses the inverse-distance dependence for positive U.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "increases",
+    "rationale": "For like charges U=kq₁q₂/r is positive and increases as separation decreases.",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "stays zero",
+    "rationale": "This assumes a zero reference means all separations have zero energy.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "becomes negative",
+    "rationale": "Negative potential energy applies to opposite-sign charges.",
+    "is_correct": false
+   }
+  ],
+  "unit": 9,
+  "topic": "9.1",
+  "item_id": "f23e1a19-be59-4505-baf0-f53c5ef7dd32"
+ },
+ {
+  "key": "apphycem-mcq-027",
+  "stem": "With V(∞)=0, point-charge potential is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "kq/r",
+    "rationale": "Integrating the point-charge field from infinity gives V=kq/r.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "kq/r²",
+    "rationale": "This has the 1/r² dependence of the point-charge field magnitude k|q|/r², not the 1/r dependence of the potential.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "kq/(2r)",
+    "rationale": "This incorrectly introduces a factor of one-half from energy formulas.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "-kq/r",
+    "rationale": "This incorrectly retains a negative sign; the potential is kq/r and its sign is determined by q.",
+    "is_correct": false
+   }
+  ],
+  "unit": 9,
+  "topic": "9.2",
+  "item_id": "672b2774-ee5d-4683-9117-fecd7f72e15f"
+ },
+ {
+  "key": "apphycem-mcq-029",
+  "stem": "In electrostatic equilibrium, the electric field just outside a conductor is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "tangent to the surface",
+    "rationale": "This would drive free charges along the surface and violate equilibrium.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "normal to the surface",
+    "rationale": "Any tangential field would move surface charge, so equilibrium field is normal.",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "zero for every charged conductor",
+    "rationale": "Interior field is zero, but exterior normal field can be nonzero.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "parallel to surface current",
+    "rationale": "Electrostatic equilibrium has no sustained surface current.",
+    "is_correct": false
+   }
+  ],
+  "unit": 10,
+  "topic": "10.1",
+  "item_id": "288ef89a-f424-45a3-844f-6730640f7c4e"
+ },
+ {
+  "key": "apphycem-mcq-030",
+  "stem": "A dielectric with κ>1 fully fills a capacitor that remains connected to an ideal battery. Stored energy",
+  "choices": [
+   {
+    "label": "A",
+    "text": "becomes 1/κ as large",
+    "rationale": "This uses the fixed-charge result instead of the fixed-voltage condition.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "is unchanged",
+    "rationale": "This ignores the capacitance increase while voltage is held fixed.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "becomes κ times as large",
+    "rationale": "At fixed V, C increases by κ and U=(1/2)CV² increases by κ.",
+    "is_correct": true
+   },
+   {
+    "label": "D",
+    "text": "increases by κ²",
+    "rationale": "With the voltage held fixed by the battery, U = (1/2)CV² changes only through C, which increases by κ, so the stored energy increases by κ; the charge on the plates also increases by κ, but that is already reflected in the factor κ and does not produce an additional κ².",
+    "is_correct": false
+   }
+  ],
+  "unit": 10,
+  "topic": "10.4",
+  "item_id": "51569438-5f3c-4718-b450-a925338c54ca"
+ },
+ {
+  "key": "apphycem-mcq-np1-001",
+  "stem": "An infinitely long, uniformly charged wire has linear charge density lambda > 0. Using Gauss's law with a cylindrical Gaussian surface of length L, which expression correctly gives the electric field magnitude at a perpendicular distance r from the wire?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "lambda/(2*pi*epsilon_0*r)",
+    "rationale": "The Gaussian surface's curved lateral area is 2*pi*r*L, and the enclosed charge is lambda*L; solving E*(2*pi*r*L)=lambda*L/epsilon_0 gives E=lambda/(2*pi*epsilon_0*r).",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "lambda/(4*pi*epsilon_0*r^2)",
+    "rationale": "This uses the 1/r² dependence of a spherically symmetric (point-charge) field, which does not apply to a long cylindrical charge distribution, whose field falls off as 1/r.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "lambda*L/(2*pi*epsilon_0*r)",
+    "rationale": "This leaves the length L in the answer; the enclosed charge λL and the lateral area 2πrL both contain L, so it cancels and the field cannot depend on the arbitrary length of the Gaussian cylinder.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "lambda/(pi*epsilon_0*r^2)",
+    "rationale": "This has the wrong r-dependence (1/r² instead of 1/r) and the wrong numerical factor; the lateral area of the cylinder is 2πrL, giving E = λ/(2πε₀r).",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.6",
+  "item_id": "b274bffc-a2cd-40e7-b8fa-117f0a406de0"
+ },
+ {
+  "key": "apphycem-mcq-np1-002",
+  "stem": "A thin spherical shell of radius R carries total charge +Q uniformly distributed on its surface. Using a spherical Gaussian surface of radius r, where r > R, what is the correct enclosed charge q_enc to use in Gauss's law?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Q",
+    "rationale": "Since r > R, the entire charged shell (all of charge Q, physically located at radius R) lies inside the Gaussian surface, regardless of how much larger r is than R.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "Q*(r/R)",
+    "rationale": "This incorrectly scales the enclosed charge with the Gaussian surface's radius, as though charge were spread out to fill the larger radius -- a documented misconception.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "Q*(R/r)",
+    "rationale": "This incorrectly scales the enclosed charge inversely with the Gaussian radius; the physical charge does not change based on where the imaginary Gaussian surface is drawn.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "0",
+    "rationale": "This incorrectly assumes no charge is enclosed, but the shell's charge lies entirely within any Gaussian surface of radius r > R.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.6",
+  "item_id": "ea5b2011-36f4-4b57-8703-8030868c4e65"
+ },
+ {
+  "key": "apphycem-mcq-np1-003",
+  "stem": "In a region of space, the electric potential decreases as x increases (dV/dx < 0 everywhere in this region). What can be concluded about the electric field component E_x in this region?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "E_x is positive (the field points in the +x direction)",
+    "rationale": "Since E_x = -dV/dx, and dV/dx is negative, E_x = -(negative) = positive.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "E_x is negative (the field points in the -x direction)",
+    "rationale": "This drops the negative sign in E_x=-dV/dx, incorrectly keeping the same sign as dV/dx instead of flipping it.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "E_x is zero",
+    "rationale": "A nonzero (negative) spatial rate of change in potential corresponds to a nonzero field component, not zero.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "E_x cannot be determined without more information",
+    "rationale": "The relationship E_x=-dV/dx directly determines the sign of E_x from the sign of dV/dx alone.",
+    "is_correct": false
+   }
+  ],
+  "unit": 9,
+  "topic": "9.2",
+  "item_id": "2e447d18-3dd7-4c78-9c94-c8d1f6e8175a"
+ },
+ {
+  "key": "apphycem-mcq-np1-004",
+  "stem": "A charge +Q is fixed at one location, and a charge -Q of equal magnitude is fixed a distance away. At the midpoint between them, which statement is correct? (Use the standard convention V=0 at infinity.)",
+  "choices": [
+   {
+    "label": "A",
+    "text": "The electric field is nonzero, but the electric potential is zero",
+    "rationale": "At the midpoint, both charges' field contributions point in the same direction (from + toward -) and add, giving a nonzero field; but the potential contributions are equal in magnitude and opposite in sign (+kQ/r and -kQ/r), summing to exactly zero.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "The electric field is zero, but the electric potential is nonzero",
+    "rationale": "This reverses the correct result -- the field components add (same direction) rather than cancel, and the potential terms cancel (opposite signs) rather than add.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "Both the electric field and electric potential are zero",
+    "rationale": "The field does not cancel here, since both contributions point in the same direction at the midpoint.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "Both the electric field and electric potential are nonzero",
+    "rationale": "The potential does cancel exactly, since the two equal-and-opposite charges are equidistant from the midpoint.",
+    "is_correct": false
+   }
+  ],
+  "unit": 9,
+  "topic": "9.2",
+  "item_id": "bcc12efb-7c37-4625-945d-9452d42d6d4d"
+ },
+ {
+  "key": "apphycem-mcq-np1-006",
+  "stem": "A solid insulating sphere of radius R has uniform volume charge density rho. What is the electric field magnitude at a distance r = R/2 from the center (inside the sphere)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "rho*R/(6*epsilon_0)",
+    "rationale": "Inside a uniformly charged sphere, E(r)=rho*r/(3*epsilon_0). At r=R/2, this gives rho*(R/2)/(3*epsilon_0)=rho*R/(6*epsilon_0).",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "rho*R/(3*epsilon_0)",
+    "rationale": "This uses r=R (the surface value) instead of the requested interior point r=R/2.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "rho*R/(12*epsilon_0)",
+    "rationale": "This is half the correct value, as if the factor of 1/2 from r = R/2 were applied a second time to ρr/(3ε₀).",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "rho*R/(2*epsilon_0)",
+    "rationale": "This omits the factor of 1/3: Gauss's law gives E(4πr²) = ρ(4/3)πr³/ε₀, so E = ρr/(3ε₀), not ρr/ε₀; the incorrect form ρr/ε₀ evaluates to ρR/(2ε₀) at r = R/2.",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.6",
+  "item_id": "3a83f707-c52f-4301-bbce-4bf041548138"
+ },
+ {
+  "key": "apphycem-mcq-np1-009",
+  "stem": "A charged conductor is in electrostatic equilibrium. Which statement correctly describes the electric field at a point just inside the conductor's surface, and at a point just outside its surface? (Assume the point in question lies on a region of the surface where the local surface charge density is nonzero.)",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Zero just inside; nonzero and perpendicular to the surface just outside",
+    "rationale": "In electrostatic equilibrium, the field inside a conductor is always zero, and just outside a charged conductor's surface the field is nonzero and perpendicular to the surface.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "Nonzero just inside; zero just outside",
+    "rationale": "This reverses the correct relationship -- the field is zero inside a conductor in equilibrium, not outside it.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "Zero at both locations",
+    "rationale": "The field just outside a charged conductor's surface is nonzero.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "Nonzero and parallel to the surface at both locations",
+    "rationale": "The field inside a conductor in equilibrium is zero, not nonzero and parallel to the surface.",
+    "is_correct": false
+   }
+  ],
+  "unit": 10,
+  "topic": "10.1",
+  "item_id": "21800abf-c627-4f74-b05d-bce7c8f28f88"
+ },
+ {
+  "key": "apphycem-mcq-np1-010",
+  "stem": "A point charge +Q sits at the exact center of a cubical Gaussian surface. What is the electric flux through one face of the cube?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Q/(6*epsilon_0)",
+    "rationale": "By Gauss's law the total flux through the cube is Q/epsilon_0; by symmetry, the six identical faces each receive an equal share, giving Q/(6*epsilon_0) per face.",
+    "is_correct": true
+   },
+   {
+    "label": "B",
+    "text": "Q/epsilon_0",
+    "rationale": "This is the TOTAL flux through the entire cube, not the flux through just one face.",
+    "is_correct": false
+   },
+   {
+    "label": "C",
+    "text": "Q/(4*pi*epsilon_0)",
+    "rationale": "This is the flux through a portion of the surface that subtends one steradian (the total flux divided by 4π), not the flux through one face of the cube; a cube face subtends 4π/6 steradians as seen from the center.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "Q/(24*epsilon_0)",
+    "rationale": "This divides by an incorrect number of faces (24 instead of 6).",
+    "is_correct": false
+   }
+  ],
+  "unit": 8,
+  "topic": "8.6",
+  "item_id": "3d7aefd8-9099-4b09-abbc-dff9cb74e1c1"
+ },
+ {
+  "key": "apphycem-mcq-028",
+  "stem": "A positive charge is released from rest and acted on only by a static electric field. It tends toward",
+  "choices": [
+   {
+    "label": "A",
+    "text": "higher potential and higher U",
+    "rationale": "This sends the charge uphill in potential energy without external work.",
+    "is_correct": false
+   },
+   {
+    "label": "B",
+    "text": "lower potential and lower U",
+    "rationale": "For q>0, U=qV, so electric force accelerates it toward lower V and lower U.",
+    "is_correct": true
+   },
+   {
+    "label": "C",
+    "text": "higher potential and lower U",
+    "rationale": "For positive charge, higher V means higher, not lower, potential energy.",
+    "is_correct": false
+   },
+   {
+    "label": "D",
+    "text": "unchanged kinetic energy always",
+    "rationale": "A potential-energy decrease generally appears as increased kinetic energy.",
+    "is_correct": false
+   }
+  ],
+  "unit": 9,
+  "topic": "9.2",
+  "item_id": "b6cfbb53-60bf-4d55-9565-54929b1feb8f"
+ }
+]

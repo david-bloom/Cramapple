@@ -1,0 +1,1532 @@
+[
+ {
+  "key": "u13-apphycm-mcq-001-v1",
+  "kind": "mcq",
+  "stem": "A sled slides down a snowy hill with velocity v(t) = 2t³ in SI units. What is its acceleration at t = 2.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "24 m/s²"
+   },
+   {
+    "label": "B",
+    "text": "16 m/s²"
+   },
+   {
+    "label": "C",
+    "text": "12 m/s²"
+   },
+   {
+    "label": "D",
+    "text": "48 m/s²"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The acceleration is the time derivative of the velocity: a = dv/dt = 6t². At t = 2.0 s, a = 6(2.0)² = 24 m/s².",
+   "B": "This is the velocity, v(2.0) = 2(2.0)³ = 16 m/s, not the acceleration. Acceleration requires differentiating v(t) before substituting the time.",
+   "C": "Differentiating 2t³ gives 6t², not 6t. Lowering the exponent by two instead of one produces 6(2.0) = 12, which is not dv/dt.",
+   "D": "Multiplying by the exponent without lowering it gives 6t³ = 6(2.0)³ = 48. The power rule also reduces the exponent by one, so dv/dt = 6t²."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-001-v2",
+  "kind": "mcq",
+  "stem": "A cart's velocity along a straight track is v(t) = 20 + 6t − t² in SI units. What is the cart's acceleration at t = 4.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "+2.0 m/s²"
+   },
+   {
+    "label": "B",
+    "text": "6.0 m/s²"
+   },
+   {
+    "label": "C",
+    "text": "−2.0 m/s²"
+   },
+   {
+    "label": "D",
+    "text": "28 m/s²"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "(v(4.0) − v(0))/4.0 = (28 − 20)/4.0 = +2.0 m/s² is the average acceleration over the first 4.0 s. Here the acceleration changes with time, so the instantaneous value at t = 4.0 s must come from dv/dt, which is negative.",
+   "B": "Differentiating only the 6t term gives 6. The −t² term contributes −2t, which is −8.0 m/s² at t = 4.0 s, so the full derivative is 6 − 8.0 = −2.0 m/s².",
+   "C": "a = dv/dt = 6 − 2t. At t = 4.0 s, a = 6 − 8.0 = −2.0 m/s², so the cart is slowing down at that instant.",
+   "D": "This is the velocity, v(4.0) = 20 + 24 − 16 = 28 m/s, not the acceleration. Acceleration is the derivative of v(t)."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-001-v3",
+  "kind": "mcq",
+  "stem": "A probe moves along a straight line with velocity v(t) = bt³ − ct, where b and c are positive constants. What is its acceleration at time t = T?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3bT² − c"
+   },
+   {
+    "label": "B",
+    "text": "3bT³ − c"
+   },
+   {
+    "label": "C",
+    "text": "bT² − c"
+   },
+   {
+    "label": "D",
+    "text": "3bT² − cT"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "a = dv/dt = 3bt² − c. Evaluating at t = T gives 3bT² − c.",
+   "B": "The factor 3 is correct, but the exponent must drop by one: d(bt³)/dt = 3bt², so the first term is 3bT², not 3bT³.",
+   "C": "Differentiating bt³ gives 3bt², not bt². Dropping the exponent multiplier loses the factor of 3.",
+   "D": "The derivative of ct with respect to t is the constant c. Keeping the factor t, as in −cT, means the linear term was not differentiated."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-002-v1",
+  "kind": "mcq",
+  "stem": "A skater's speed along a straight rink is v(t) = 4t in SI units. How far does the skater travel from t = 0 to t = 3.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4 m"
+   },
+   {
+    "label": "B",
+    "text": "18 m"
+   },
+   {
+    "label": "C",
+    "text": "12 m"
+   },
+   {
+    "label": "D",
+    "text": "36 m"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "The number 4 is the derivative dv/dt, the (constant) acceleration. Differentiating instead of integrating does not give a displacement.",
+   "B": "Displacement is the time integral of velocity: ∫₀³ 4t dt = 2t² evaluated from 0 to 3.0 s, which is 18 m.",
+   "C": "This is the final speed, v(3.0) = 12 m/s. It has the units of speed and is not the integral of the speed over the interval.",
+   "D": "Integrating 4t gives 2t², not 4t². Dropping the factor 1/2 from the power rule doubles the displacement to 4(3.0)² = 36 m."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-002-v2",
+  "kind": "mcq",
+  "stem": "A particle's velocity along a line is v(t) = 2t + 3t² in SI units. What is its displacement from t = 1.0 s to t = 3.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "36 m"
+   },
+   {
+    "label": "B",
+    "text": "34 m"
+   },
+   {
+    "label": "C",
+    "text": "28 m"
+   },
+   {
+    "label": "D",
+    "text": "38 m"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This is the displacement from t = 0 to t = 3.0 s, (9 + 27) − 0. The integral must be evaluated from the lower limit t = 1.0 s, which subtracts (1 + 1) = 2 m.",
+   "B": "Displacement = ∫₁³ (2t + 3t²) dt = [t² + t³] from 1.0 to 3.0 = (9 + 27) − (1 + 1) = 34 m.",
+   "C": "This is v(3.0) − v(1.0) = 33 − 5 = 28, a change in velocity (in m/s), not the integral of the velocity.",
+   "D": "(v(1.0) + v(3.0))/2 × 2.0 s = 19 × 2.0 = 38 m treats the velocity as changing at a constant rate. The acceleration 2 + 6t is not constant here, so the endpoint average is not the average velocity."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-002-v3",
+  "kind": "mcq",
+  "stem": "A puck slides along the x-axis starting from x = 0 at t = 0, with velocity v(t) = 12 − 3t² in SI units. How far from its starting point is the puck when it first comes momentarily to rest?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "24 m"
+   },
+   {
+    "label": "B",
+    "text": "16 m"
+   },
+   {
+    "label": "C",
+    "text": "0 m"
+   },
+   {
+    "label": "D",
+    "text": "12 m"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "12 m/s × 2.0 s = 24 m treats the initial speed as constant. The speed drops as t² grows, so the puck covers less distance, 24 − 8 = 16 m.",
+   "B": "The puck is at rest when 12 − 3t² = 0, so t = 2.0 s. Then x = ∫₀² (12 − 3t²) dt = [12t − t³] from 0 to 2.0 = 24 − 8 = 16 m.",
+   "C": "Integrating −3t² to −3t³ instead of −t³ leaves out the division by 3 and gives 24 − 24 = 0 m. The correct integral of −3t² is −t³, so the puck has moved 24 − 8 = 16 m.",
+   "D": "Integrating −3t² gives −t³, not −3t³/2. A wrong power-rule denominator produces 24 − 12 = 12 m instead of 24 − 8 = 16 m."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-003-v1",
+  "kind": "mcq",
+  "stem": "A variable force F(x) = 4.0x, with F in newtons and x in meters, acts on a block along a straight line. How much work does this force do as the block moves from x = 0 to x = 3.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "36 J"
+   },
+   {
+    "label": "B",
+    "text": "12 J"
+   },
+   {
+    "label": "C",
+    "text": "18 J"
+   },
+   {
+    "label": "D",
+    "text": "6.0 J"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "F(3.0) × 3.0 m = 36 J treats the force as constant at its largest value. The force grows from zero, so the integral picks up a factor 1/2 and gives 18 J.",
+   "B": "This is the force at the endpoint, F(3.0) = 12 N. Work is the integral of force over the displacement, not the force value.",
+   "C": "W = ∫₀³ 4.0x dx = 2.0x² evaluated from 0 to 3.0 m = 18 J.",
+   "D": "½(4.0)(3.0) = 6.0 uses the slope 4.0 N/m as if it were the height of the force triangle. The height is F(3.0) = 12 N, so the area is ½(12)(3.0) = 18 J."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-003-v2",
+  "kind": "mcq",
+  "stem": "A force F(x) = 3.0x², with F in newtons and x in meters, acts along a line. How much work does it do as an object moves from x = 1.0 m to x = 2.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "7.0 J"
+   },
+   {
+    "label": "B",
+    "text": "8.0 J"
+   },
+   {
+    "label": "C",
+    "text": "10.5 J"
+   },
+   {
+    "label": "D",
+    "text": "12 J"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "W = ∫₁² 3.0x² dx = [x³] from 1.0 to 2.0 m = 8.0 − 1.0 = 7.0 J.",
+   "B": "This is the work from x = 0 to x = 2.0 m. The integral must start at x = 1.0 m, so x³ at the lower limit (1.0 J) is subtracted.",
+   "C": "Integrating 3.0x² gives x³, not 1.5x³. Using a denominator of 2 instead of 3 gives 1.5 × (8.0 − 1.0) = 10.5 J.",
+   "D": "F(2.0) × 1.0 m = 12 J treats the force as constant at its endpoint value over the 1.0 m interval. The force rises from 3.0 N to 12 N, so the integral must be used."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-003-v3",
+  "kind": "mcq",
+  "stem": "A force F(x) = 12 − 3.0x, with F in newtons and x in meters, acts along the x-axis on an object that moves from x = 0 to x = 6.0 m. How much net work does this force do on the object?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "24 J"
+   },
+   {
+    "label": "B",
+    "text": "72 J"
+   },
+   {
+    "label": "C",
+    "text": "30 J"
+   },
+   {
+    "label": "D",
+    "text": "18 J"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This is the work from x = 0 to x = 4.0 m, where the force is positive. Beyond x = 4.0 m the force points the other way and removes 6 J, so the net is 24 − 6 = 18 J.",
+   "B": "12 N × 6.0 m uses the initial force as if it stayed constant. The force falls to −6 N at x = 6.0 m, so the integral must be used and gives 18 J.",
+   "C": "Adding the sizes of the two regions, 24 J + 6 J, treats the work beyond x = 4.0 m as positive. The force there is opposite the displacement, so that region subtracts 6 J.",
+   "D": "W = ∫₀⁶ (12 − 3.0x) dx = [12x − 1.5x²] from 0 to 6.0 m = 72 − 54 = 18 J. The force reverses direction at x = 4.0 m, and the integral counts that later region as negative work."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-006-v1",
+  "kind": "mcq",
+  "stem": "A bead slides along a wire (the x-axis) with potential energy U(x) = 5.0x², where U is in joules and x is in meters. What is the force on the bead at x = 2.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−10 N"
+   },
+   {
+    "label": "B",
+    "text": "−20 N"
+   },
+   {
+    "label": "C",
+    "text": "−4.0 N"
+   },
+   {
+    "label": "D",
+    "text": "−40 N"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "U(2.0) = 20 J, so −U/x = −10 N, but this divides U by x instead of differentiating. The same value also results from dropping the exponent multiplier (differentiating 5.0x² to 5.0x). The correct derivative is 10x, giving −20 N.",
+   "B": "F = −dU/dx = −10x. At x = 2.0 m, F = −20 N, pointing back toward the origin.",
+   "C": "Differentiating x² to 2x and then leaving out the coefficient 5.0 gives −2x = −4.0 N. The coefficient multiplies the derivative: dU/dx = 5.0 × 2x = 10x.",
+   "D": "Multiplying by the exponent without lowering it gives −10x² = −40 N. The power rule also reduces the exponent by one, so dU/dx = 10x."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-006-v2",
+  "kind": "mcq",
+  "stem": "A bead on a straight wire has potential energy U(x) = x⁴ − 4x in SI units. At x = 2.0 m, the force on the bead along the wire is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−28 N"
+   },
+   {
+    "label": "B",
+    "text": "−4.0 N"
+   },
+   {
+    "label": "C",
+    "text": "−60 N"
+   },
+   {
+    "label": "D",
+    "text": "+28 N"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "F = −dU/dx = −(4x³ − 4). At x = 2.0 m, F = −(32 − 4) = −28 N.",
+   "B": "−U/x = −(16 − 8)/2.0 = −4.0 N divides the potential energy by x instead of taking the derivative. The two agree only when U is proportional to x.",
+   "C": "Differentiating x⁴ gives 4x³, not 4x⁴. With the exponent not lowered, −(4x⁴ − 4) = −(64 − 4) = −60 N.",
+   "D": "The magnitude is right, but the force is the negative of the slope. The slope dU/dx is +28 J/m here, so F = −28 N, directed toward smaller x."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-006-v3",
+  "kind": "mcq",
+  "stem": "A particle moves along a radial line under a conservative force with potential energy U(r) = −A/r, where A is a positive constant and r > 0 is the distance from the origin. What are the magnitude and direction of the force on the particle?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A/r², toward the origin"
+   },
+   {
+    "label": "B",
+    "text": "Zero, because U is negative"
+   },
+   {
+    "label": "C",
+    "text": "A/r, toward the origin"
+   },
+   {
+    "label": "D",
+    "text": "2A/r³, toward the origin"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "F_r = −dU/dr = −d(−A r⁻¹)/dr = −A/r². The radial component is negative, so the force has magnitude A/r² and points toward the origin.",
+   "B": "The sign of U does not set the force; the slope does. Here dU/dr = A/r² is nonzero everywhere, so the force is nonzero everywhere.",
+   "C": "Differentiating r⁻¹ gives −r⁻², not −r⁻¹. Keeping the exponent unchanged gives a 1/r force, which is not the derivative of the 1/r potential.",
+   "D": "This is the magnitude of the second derivative, d²U/dr². The force is the first derivative of U with respect to r, with a minus sign."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-007-v1",
+  "kind": "mcq",
+  "stem": "A winch delivers power P(t) = 6t, with P in watts and t in seconds. How much energy does it deliver from t = 0 to t = 4.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "6.0 J"
+   },
+   {
+    "label": "B",
+    "text": "24 J"
+   },
+   {
+    "label": "C",
+    "text": "96 J"
+   },
+   {
+    "label": "D",
+    "text": "48 J"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "The number 6 is the derivative dP/dt. Differentiating instead of integrating does not give the energy.",
+   "B": "This is the instantaneous power at the end, P(4.0) = 24 W. Power is a rate, so its value at one instant is not the energy delivered over the interval.",
+   "C": "P(4.0) × 4.0 s = 96 J treats the power as constant at its final value. The power grows from zero, which introduces a factor 1/2, giving 48 J.",
+   "D": "Energy is the time integral of power: ∫₀⁴ 6t dt = 3t² evaluated from 0 to 4.0 s = 48 J."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-007-v2",
+  "kind": "mcq",
+  "stem": "A motor's power output is P(t) = 3t² + 4, with P in watts and t in seconds. How much energy does it deliver from t = 1.0 s to t = 3.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "26 J"
+   },
+   {
+    "label": "B",
+    "text": "34 J"
+   },
+   {
+    "label": "C",
+    "text": "38 J"
+   },
+   {
+    "label": "D",
+    "text": "39 J"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Integrating only the 3t² term gives t³ and 27 − 1 = 26 J. The constant 4 W also contributes 4 × 2.0 s = 8 J, giving 34 J.",
+   "B": "E = ∫₁³ (3t² + 4) dt = [t³ + 4t] from 1.0 to 3.0 s = (27 + 12) − (1 + 4) = 34 J.",
+   "C": "The average of the endpoint powers, (7 + 31)/2 = 19 W, times 2.0 s gives 38 J. The power is not linear in time, so the endpoint average is not the average power.",
+   "D": "This is the energy from t = 0 to t = 3.0 s. The integral must begin at t = 1.0 s, so the value 1 + 4 = 5 J at the lower limit is subtracted."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-007-v3",
+  "kind": "mcq",
+  "stem": "A motor's power output is P(t) = P₀(t/T)(1 − t/T) for 0 ≤ t ≤ T, where P₀ and T are positive constants. How much energy does it deliver during this interval?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "P₀T/2"
+   },
+   {
+    "label": "B",
+    "text": "P₀T/6"
+   },
+   {
+    "label": "C",
+    "text": "P₀T/4"
+   },
+   {
+    "label": "D",
+    "text": "5P₀T/6"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This integrates only the P₀t/T term, which gives P₀T/2. The −P₀t²/T² term subtracts P₀T/3.",
+   "B": "E = ∫₀ᵀ P₀(t/T − t²/T²) dt = P₀(T/2 − T/3) = P₀T/6.",
+   "C": "The maximum power is P₀/4, reached at t = T/2. Multiplying the peak power by T treats the power as constant at its maximum, which overestimates the energy.",
+   "D": "Adding P₀T/2 and P₀T/3 uses the wrong sign on the second term. The factor (1 − t/T) subtracts, so the result is P₀T/2 − P₀T/3 = P₀T/6."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-008-v1",
+  "kind": "mcq",
+  "stem": "A marble rests at the bottom of a smooth bowl. Treat its gravitational potential energy as a function of horizontal position. The equilibrium at the bottom is stable because the potential energy there has",
+  "choices": [
+   {
+    "label": "A",
+    "text": "a local maximum, so a displaced marble is pushed back toward the bottom"
+   },
+   {
+    "label": "B",
+    "text": "a local minimum, so a displaced marble is pushed back toward the bottom"
+   },
+   {
+    "label": "C",
+    "text": "a value of zero, so no force acts on a displaced marble"
+   },
+   {
+    "label": "D",
+    "text": "a local maximum, so a displaced marble speeds up away from the bottom"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "The restoring behavior is correct, but it comes from a minimum. Near a maximum of U, a displacement lowers U and the force points away from equilibrium.",
+   "B": "At a local minimum of U, any small displacement raises the potential energy, and the force F = −dU/dx points back toward the equilibrium position. That restoring force is what makes the equilibrium stable.",
+   "C": "The value of U depends on where the zero of potential energy is chosen. Equilibrium is set by the slope of U being zero, and stability by the sign of the curvature, not by the value of U.",
+   "D": "A local maximum describes unstable equilibrium. The bottom of the bowl is a minimum: a displaced marble loses kinetic energy as it climbs and is pushed back."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-008-v2",
+  "kind": "mcq",
+  "stem": "A marble rolls on a track where its potential energy is U(x) = x³ − 3x² in SI units. Which of these positions is a stable equilibrium?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x = +1.0 m"
+   },
+   {
+    "label": "B",
+    "text": "x = +3.0 m, where U = 0"
+   },
+   {
+    "label": "C",
+    "text": "x = 0"
+   },
+   {
+    "label": "D",
+    "text": "x = +2.0 m"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Here d²U/dx² = 0, but the slope dU/dx = −3 J/m is not zero, so a force acts and the marble is not in equilibrium. The curvature alone does not locate equilibria.",
+   "B": "At x = 3.0 m the slope dU/dx = 9 J/m is not zero, so a force acts and the marble is not in equilibrium there. The value of U is irrelevant.",
+   "C": "The slope is zero here, but d²U/dx² = 6x − 6 = −6 J/m² is negative, so this is a local maximum and the equilibrium is unstable.",
+   "D": "dU/dx = 3x² − 6x = 3x(x − 2) = 0 gives x = 0 and x = +2.0 m. The curvature d²U/dx² = 6x − 6 is +6 J/m² at x = +2.0 m, a local minimum, so that equilibrium is stable."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-008-v3",
+  "kind": "mcq",
+  "stem": "A particle moving along the x-axis feels a net force F(x) = 3x − x³ (F in newtons, x in meters), which comes from a conservative potential energy. Which statement about its equilibrium positions is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x = 0 is stable; x = ±√3 m are unstable"
+   },
+   {
+    "label": "B",
+    "text": "All three positions are stable, because the net force is zero at each"
+   },
+   {
+    "label": "C",
+    "text": "x = 0 is unstable; x = ±√3 m are stable"
+   },
+   {
+    "label": "D",
+    "text": "x = 0 is the only equilibrium position, and it is unstable"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This reverses the result. At x = 0, a small positive x gives a positive force that pushes the particle farther away, so it is unstable; at ±√3 the force opposes displacement.",
+   "B": "A zero net force only makes a point an equilibrium. Stability requires that the force points back toward the point for small displacements, and that fails at x = 0.",
+   "C": "F = 0 at x = 0 and x = ±√3. Since F = −dU/dx, stability requires d²U/dx² = −dF/dx > 0. Here dF/dx = 3 − 3x², which is +3 at x = 0 (maximum of U, unstable) and −6 at x = ±√3 (minima of U, stable).",
+   "D": "F = x(3 − x²) also vanishes at x = ±√3, so there are three equilibrium positions, not one."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-017-v1",
+  "kind": "mcq",
+  "stem": "A cart moves along a straight track with position x(t) = 2t³ − 5t, where x is in meters and t is in seconds. What is the cart's velocity at t = 2.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "19 m/s"
+   },
+   {
+    "label": "B",
+    "text": "6 m/s"
+   },
+   {
+    "label": "C",
+    "text": "14 m/s"
+   },
+   {
+    "label": "D",
+    "text": "3 m/s"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Velocity is the time derivative of position: v = dx/dt = 6t² − 5. At t = 2.0 s this gives 6(4) − 5 = 19 m/s.",
+   "B": "This is the numerical value of the position, x(2.0) = 16 − 10 = 6 m. Velocity requires differentiating x(t) before substituting the time.",
+   "C": "The cubic term is differentiated correctly to 6t², but the linear term −5t must also be differentiated to give −5. Leaving −5t in place gives 24 − 10 = 14, which is not the velocity.",
+   "D": "Differentiating 2t³ gives 6t², not 2t². Dropping the exponent multiplier produces 2t² − 5, which equals 3 at t = 2.0 s."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-017-v2",
+  "kind": "mcq",
+  "stem": "A particle moves along a line with position x(t) = Bt⁴ − Ct², where B and C are positive constants. Which expression gives its velocity v(t)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "4Bt³ − 2Ct"
+   },
+   {
+    "label": "B",
+    "text": "4Bt³ − Ct"
+   },
+   {
+    "label": "C",
+    "text": "Bt³ − Ct"
+   },
+   {
+    "label": "D",
+    "text": "12Bt² − 2C"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Velocity is v = dx/dt. Applying the power rule to each term gives 4Bt³ for the quartic term and −2Ct for the quadratic term.",
+   "B": "The quartic term is differentiated correctly, but the quadratic term must give −2Ct. The multiplier 2 from the exponent was left out.",
+   "C": "This lowers each exponent by one but omits the multipliers 4 and 2 that the power rule brings down.",
+   "D": "This is the second derivative of x(t), which is the acceleration, not the velocity."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-017-v3",
+  "kind": "mcq",
+  "stem": "A particle moves along a line with position x(t) = 3t² − t³, where x is in meters and t is in seconds. At what time after t = 0 is the particle momentarily at rest?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "t = 1 s"
+   },
+   {
+    "label": "B",
+    "text": "t = 6 s"
+   },
+   {
+    "label": "C",
+    "text": "t = 3 s"
+   },
+   {
+    "label": "D",
+    "text": "t = 2 s"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "At t = 1 s the acceleration a = 6 − 6t is zero, which is where the velocity is largest (v = 3 m/s), not zero.",
+   "B": "This comes from differentiating t³ as t² instead of 3t². The resulting v = 6t − t² would vanish at 6 s, but the actual velocity at 6 s is 36 − 108 = −72 m/s.",
+   "C": "At t = 3 s the position x = 3(9) − 27 is zero, but the particle is moving there with v = 6(3) − 3(9) = −9 m/s. Being at the origin does not mean being at rest.",
+   "D": "Velocity is v = dx/dt = 6t − 3t² = 3t(2 − t). It is zero at t = 0 and at t = 2 s, so the later instant of rest is t = 2 s."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-021-v1",
+  "kind": "mcq",
+  "stem": "A sled moves along a straight line with position x(t) = 2t³, where x is in meters and t is in seconds. What is its acceleration at t = 3.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "18 m/s²"
+   },
+   {
+    "label": "B",
+    "text": "12 m/s²"
+   },
+   {
+    "label": "C",
+    "text": "36 m/s²"
+   },
+   {
+    "label": "D",
+    "text": "54 m/s²"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "The first derivative 6t² is correct, but its derivative is 12t, not 6t. Dropping the multiplier 2 gives 6(3) = 18, which is half the true value.",
+   "B": "The expression a = 12t is correct, but 12 is only its coefficient. The time t = 3.0 s must be substituted to get 36 m/s².",
+   "C": "Acceleration is the second time derivative of position: v = dx/dt = 6t² and a = dv/dt = 12t. At t = 3.0 s, a = 36 m/s².",
+   "D": "This is the velocity 6t² evaluated at 3.0 s (54 m/s). Acceleration requires a second differentiation."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-021-v2",
+  "kind": "mcq",
+  "stem": "A particle's position along a line is x(t) = Dt⁵ − Et, where D and E are positive constants. Which expression gives its acceleration a(t)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "20Dt³"
+   },
+   {
+    "label": "B",
+    "text": "5Dt⁴ − E"
+   },
+   {
+    "label": "C",
+    "text": "5Dt³"
+   },
+   {
+    "label": "D",
+    "text": "20Dt³ − E"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Differentiating once gives v = 5Dt⁴ − E. Differentiating again gives a = 20Dt³, because the constant −E has zero derivative.",
+   "B": "This is the velocity, the first derivative of x(t). Acceleration needs a second derivative.",
+   "C": "The first derivative 5Dt⁴ is correct, but the second step must bring down the exponent 4 to give 20Dt³. Omitting that multiplier gives 5Dt³.",
+   "D": "The term −E belongs to the velocity. It is a constant, so it disappears in the second derivative and does not appear in the acceleration."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-021-v3",
+  "kind": "mcq",
+  "stem": "A damped slider has position x(t) = A e^(−bt), where A and b are positive constants. Which expression gives its acceleration a(t)?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "A b² e^(−bt)"
+   },
+   {
+    "label": "B",
+    "text": "−A b² e^(−bt)"
+   },
+   {
+    "label": "C",
+    "text": "−A b e^(−bt)"
+   },
+   {
+    "label": "D",
+    "text": "A e^(−bt)/b²"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The velocity is v = dx/dt = −A b e^(−bt). Differentiating again brings out another factor of −b, so a = (−b)(−A b e^(−bt)) = A b² e^(−bt).",
+   "B": "The chain rule brings out a factor of −b at each differentiation, so the two negative signs multiply to a positive result. Keeping a single minus sign gives the wrong direction for the acceleration.",
+   "C": "This is the velocity, the first derivative of x(t). The acceleration is the derivative of this expression.",
+   "D": "This is what integrating twice would give. Acceleration comes from differentiating twice, which multiplies by b² instead of dividing."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-022-v1",
+  "kind": "mcq",
+  "stem": "A cart moves along a straight track. Its velocity is +4.0 m/s for the first 3.0 s and then −2.0 m/s for the next 2.0 s. What is the cart's displacement during the full 5.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "8.0 m"
+   },
+   {
+    "label": "B",
+    "text": "2.0 m"
+   },
+   {
+    "label": "C",
+    "text": "12 m"
+   },
+   {
+    "label": "D",
+    "text": "16 m"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Displacement is the signed area under the velocity-time graph: (+4.0)(3.0) + (−2.0)(2.0) = 12 − 4 = 8.0 m.",
+   "B": "This adds the two velocity values, 4.0 + (−2.0), but displacement requires multiplying each velocity by the time it lasts and then summing.",
+   "C": "This is only the area of the first 3.0 s. The backward motion in the last 2.0 s reduces the displacement by 4 m.",
+   "D": "This is the total distance traveled, 12 + 4, which counts the backward motion as positive. Displacement subtracts the backward part."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-022-v2",
+  "kind": "mcq",
+  "stem": "A runner's velocity along a straight path is v(t) = 8 − 2t, where v is in m/s and t is in seconds. What is the runner's displacement from t = 0 to t = 6.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "12 m"
+   },
+   {
+    "label": "B",
+    "text": "20 m"
+   },
+   {
+    "label": "C",
+    "text": "48 m"
+   },
+   {
+    "label": "D",
+    "text": "−4 m"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Displacement is the integral of velocity: ∫₀⁶ (8 − 2t) dt = 8(6) − 6² = 48 − 36 = 12 m.",
+   "B": "This is the distance traveled: 16 m forward until the runner stops at t = 4 s plus 4 m backward afterward. Displacement subtracts the backward part, giving 12 m.",
+   "C": "This is the initial velocity times the elapsed time, 8 × 6. It ignores that the velocity decreases and even reverses during the interval.",
+   "D": "This is the final velocity v(6) = −4 m/s with a length unit attached. Displacement comes from integrating the velocity, not from reading its end value."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-022-v3",
+  "kind": "mcq",
+  "stem": "A probe moves along a line with acceleration a(t) = 6t, where a is in m/s² and t is in seconds. Its velocity at t = 0 is −10 m/s. What is its displacement from t = 0 to t = 4.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "56 m"
+   },
+   {
+    "label": "B",
+    "text": "152 m"
+   },
+   {
+    "label": "C",
+    "text": "64 m"
+   },
+   {
+    "label": "D",
+    "text": "24 m"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This averages the initial and final velocities, (−10 + 38)/2, and multiplies by the time. The average of endpoints equals the average velocity only when acceleration is constant.",
+   "B": "This uses the constant-acceleration formula with the final acceleration, −10(4) + ½(24)(4²). The acceleration here grows with time, so those formulas do not apply.",
+   "C": "This integrates only the 3t² part of the velocity. The initial velocity of −10 m/s is also part of v(t) and contributes −40 m.",
+   "D": "Integrating the acceleration gives v(t) = −10 + 3t². Integrating the velocity gives Δx = ∫₀⁴ (−10 + 3t²) dt = −40 + 64 = 24 m."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-018-v1",
+  "kind": "mcq",
+  "stem": "A force F(x) = 4x² acts along the direction of motion, with F in newtons and x in meters. How much work does it do on an object that moves from x = 0 to x = 3.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "36 J"
+   },
+   {
+    "label": "B",
+    "text": "24 J"
+   },
+   {
+    "label": "C",
+    "text": "54 J"
+   },
+   {
+    "label": "D",
+    "text": "108 J"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Work is W = ∫F dx = ∫₀³ 4x² dx = (4/3)(3³) = 36 J.",
+   "B": "This differentiates the force instead of integrating it: dF/dx = 8x, which equals 24 at x = 3.0 m. Work is the integral of the force over distance.",
+   "C": "Integrating x² gives x³/3, not x³/2. Dividing by the old exponent instead of the new one gives 4(27)/2 = 54.",
+   "D": "This multiplies the final force F(3) = 36 N by the distance 3 m, as if the force were constant. The force grows from zero, so the work is smaller."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-018-v2",
+  "kind": "mcq",
+  "stem": "A force along +x is F(x) = F₀(1 − x²/L²) for 0 ≤ x ≤ L, where F₀ and L are positive constants. Which expression gives the work done by this force as an object moves from x = 0 to x = L?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "F₀L/3"
+   },
+   {
+    "label": "B",
+    "text": "F₀L"
+   },
+   {
+    "label": "C",
+    "text": "Zero"
+   },
+   {
+    "label": "D",
+    "text": "2F₀L/3"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This is the size of the integral of the x²/L² term alone. That term is subtracted from F₀L, so the result is F₀L − F₀L/3, not F₀L/3.",
+   "B": "This uses the initial force F₀ as if it stayed constant over the distance L. The force actually drops to zero at x = L, so the work is smaller.",
+   "C": "The force at x = L is zero, but work depends on the force at every point along the path. The force is positive over the whole interval, so the work is positive.",
+   "D": "W = ∫₀ᴸ F₀(1 − x²/L²) dx = F₀[x − x³/(3L²)] from 0 to L = F₀(L − L/3) = 2F₀L/3."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-018-v3",
+  "kind": "mcq",
+  "stem": "A force F(x) = F₀L³/(x + L)³ acts along the direction of motion, where F₀ and L are positive constants. Which expression gives the work done as the object moves from x = 0 to x → ∞?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "F₀L/8"
+   },
+   {
+    "label": "B",
+    "text": "F₀L/2"
+   },
+   {
+    "label": "C",
+    "text": "F₀L"
+   },
+   {
+    "label": "D",
+    "text": "Infinite"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This evaluates the antiderivative at x = L instead of x = 0 for the lower limit: F₀L³/(2(2L)²) = F₀L/8. The lower limit of the path is x = 0.",
+   "B": "W = ∫₀^∞ F₀L³(x + L)⁻³ dx = F₀L³[−1/(2(x + L)²)] from 0 to ∞ = 0 + F₀L³/(2L²) = F₀L/2.",
+   "C": "The antiderivative of (x + L)⁻³ is −1/(2(x + L)²). Leaving out the factor of 1/2 from the power rule doubles the result.",
+   "D": "An infinite upper limit does not guarantee an infinite integral. The force falls off as 1/x³, which is fast enough for the area to converge to a finite value."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-024-v1",
+  "kind": "mcq",
+  "stem": "A particle has potential energy U(x) = −(1/2)cx², where c is a positive constant. The particle is placed at rest at x = 0. The equilibrium there is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "unstable, because U has a local maximum there"
+   },
+   {
+    "label": "B",
+    "text": "stable, because U has a local maximum there"
+   },
+   {
+    "label": "C",
+    "text": "stable, because the net force is zero there"
+   },
+   {
+    "label": "D",
+    "text": "unstable, because the net force there is nonzero"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The force is F = −dU/dx = cx, which is zero at x = 0, so this is an equilibrium. U has a local maximum at x = 0, so a small displacement produces a force pointing away from the origin.",
+   "B": "A local maximum of U is the signature of unstable equilibrium. A stable equilibrium needs a local minimum, where the force pushes back toward the point.",
+   "C": "Zero net force defines an equilibrium point but does not make it stable. Here F = cx points away from x = 0 on both sides, so any small displacement grows.",
+   "D": "The net force F = cx is exactly zero at x = 0, which is why it is an equilibrium point. The instability comes from the shape of U, not from a nonzero force."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-024-v2",
+  "kind": "mcq",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = x³ − 12x, where U is in joules and x is in meters. At which position is there a stable equilibrium?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x = −2.0 m"
+   },
+   {
+    "label": "B",
+    "text": "x = +2.0 m"
+   },
+   {
+    "label": "C",
+    "text": "x = 0"
+   },
+   {
+    "label": "D",
+    "text": "x = 3.46 m"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "The force is also zero at x = −2.0 m, but U″ = 6x is negative there, so U has a local maximum and the equilibrium is unstable.",
+   "B": "The force is F = −dU/dx = 12 − 3x², which is zero at x = ±2.0 m. The second derivative U″ = 6x is positive at x = +2.0 m, so U has a local minimum there and the equilibrium is stable.",
+   "C": "The force at x = 0 is F = 12 N, not zero, so x = 0 is not an equilibrium. It is the point where U″ = 0, an inflection point of U.",
+   "D": "U is zero at x = √12 ≈ 3.46 m, but equilibrium requires zero force, not zero potential energy. The force there is 12 − 36 = −24 N."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-024-v3",
+  "kind": "mcq",
+  "stem": "A particle moves along the positive x-axis with potential energy U(x) = A/x² − B/x, where A and B are positive constants. Which statement correctly gives its equilibrium position and stability?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "x = A/B, stable because U has a local minimum there"
+   },
+   {
+    "label": "B",
+    "text": "x = 2A/B, stable because U has a local minimum there"
+   },
+   {
+    "label": "C",
+    "text": "x = B/(2A), stable because U has a local minimum there"
+   },
+   {
+    "label": "D",
+    "text": "x = 2A/B, unstable because U is negative there"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This results from differentiating A/x² as −A/x³ instead of −2A/x³. The force is not zero at x = A/B, so U has no extremum there.",
+   "B": "The force is F = −dU/dx = 2A/x³ − B/x², which is zero at x = 2A/B. At that point U″ = 6A/x⁴ − 2B/x³ = B/x³ > 0, so U has a local minimum and the equilibrium is stable.",
+   "C": "This inverts the ratio found by setting F = 0. The force vanishes at x = 2A/B, so no extremum of U exists at x = B/(2A).",
+   "D": "The equilibrium position is correct, and U there equals −B²/(4A), which is negative. The sign of U does not decide stability; the positive curvature U″ = B/x³ does, and it makes this a minimum."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-025-v1",
+  "kind": "mcq",
+  "stem": "A 2.0 kg block slides on a surface where the only horizontal force is a resistive force F = −bv with b = 0.50 kg/s. How long does it take for the block's speed to fall to 1/e of its initial value?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1.0 s"
+   },
+   {
+    "label": "B",
+    "text": "2.8 s"
+   },
+   {
+    "label": "C",
+    "text": "4.0 s"
+   },
+   {
+    "label": "D",
+    "text": "0.25 s"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This multiplies m and b. The time constant is their ratio m/b, which also has the correct unit of seconds.",
+   "B": "This is the half-life, (m/b) ln 2. It is the time for the speed to drop to one half of its initial value, not to 1/e.",
+   "C": "Newton's second law gives m dv/dt = −bv, so v = v₀e^(−bt/m). The speed is v₀/e when bt/m = 1, so t = m/b = 2.0/0.50 = 4.0 s.",
+   "D": "This is b/m, the decay rate, which has units of 1/s. The time for the speed to fall to 1/e is its inverse, m/b."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-025-v2",
+  "kind": "mcq",
+  "stem": "A 3.0 kg cart moves with initial speed 12 m/s. The only horizontal force on it is a resistive force F = −bv, with b = 1.5 kg/s. What is the cart's speed 4.0 s later?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3.0 m/s"
+   },
+   {
+    "label": "B",
+    "text": "0 m/s, the cart has stopped"
+   },
+   {
+    "label": "C",
+    "text": "1.6 m/s"
+   },
+   {
+    "label": "D",
+    "text": "0.030 m/s"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This treats the 2.0 s time constant as a half-life, so the speed would halve every 2.0 s. The speed actually falls by a factor of e per time constant: 12e⁻² ≈ 1.6 m/s, not 12/4.",
+   "B": "This applies a constant-deceleration formula using the initial deceleration of 6 m/s², which would stop the cart at 2.0 s. The resistive force shrinks as the speed falls, so the cart is still moving at 4.0 s.",
+   "C": "From m dv/dt = −bv, v = v₀e^(−bt/m). Here bt/m = (1.5)(4.0)/3.0 = 2.0, so v = 12e⁻² ≈ 1.6 m/s.",
+   "D": "This uses e^(−bt) without dividing by the mass, giving 12e⁻⁶. The decay exponent is bt/m, so the mass must appear."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-025-v3",
+  "kind": "mcq",
+  "stem": "A 5.0 kg sled moves with initial speed 8.0 m/s. The only horizontal force on it is a resistive force F = −bv, with b = 2.0 kg/s. What is the total distance the sled travels from t = 0 as t → ∞?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "3.2 m"
+   },
+   {
+    "label": "B",
+    "text": "Infinite"
+   },
+   {
+    "label": "C",
+    "text": "12.6 m"
+   },
+   {
+    "label": "D",
+    "text": "20 m"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This is v₀b/m, with the ratio of the parameters inverted. The total distance is v₀m/b, which has units of length.",
+   "B": "The speed approaches zero but never reaches it, yet the distance stays finite. The speed decays exponentially, so the area under the speed-time curve converges to 20 m.",
+   "C": "This is the distance traveled during the first time constant only, v₀(m/b)(1 − 1/e) ≈ 12.6 m. The sled keeps moving afterward, and the total includes all later time.",
+   "D": "The speed is v = v₀e^(−bt/m). Integrating, the distance is ∫₀^∞ v₀e^(−bt/m) dt = v₀m/b = (8.0)(5.0)/2.0 = 20 m."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-026-v1",
+  "kind": "mcq",
+  "stem": "A car travels at a constant speed of 20 m/s around a flat circular track of radius 50 m. What is the car's acceleration?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0 m/s², because the speed is constant"
+   },
+   {
+    "label": "B",
+    "text": "8.0 m/s² directed away from the center of the track"
+   },
+   {
+    "label": "C",
+    "text": "0.40 m/s² directed toward the center of the track"
+   },
+   {
+    "label": "D",
+    "text": "8.0 m/s² directed toward the center of the track"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Constant speed does not mean zero acceleration. The velocity vector keeps changing direction, which requires the inward acceleration v²/r = 8.0 m/s².",
+   "B": "The magnitude v²/r = 8.0 m/s² is right, but the acceleration of a body in uniform circular motion points inward, toward the center, not outward.",
+   "C": "This divides the speed by the radius (v/r) instead of using v²/r. The correct magnitude is (20)²/50 = 8.0 m/s².",
+   "D": "The velocity direction changes continuously, so there is an acceleration of magnitude v²/r = (20 m/s)²/(50 m) = 8.0 m/s², directed toward the center."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-026-v2",
+  "kind": "mcq",
+  "stem": "A ball on a light string moves at constant speed in a horizontal circle of fixed radius on a frictionless table, and the string tension is the only horizontal force on the ball. The ball is then set moving at twice the original speed in a circle of the same radius. How does the string tension compare with its original value?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "It is 2 times as large"
+   },
+   {
+    "label": "B",
+    "text": "It is unchanged, because the speed is still constant"
+   },
+   {
+    "label": "C",
+    "text": "It is 4 times as large"
+   },
+   {
+    "label": "D",
+    "text": "It is one-fourth as large"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This treats the required inward force as proportional to v. Because T = mv²/r, it is proportional to v², so doubling the speed gives a factor of 4, not 2.",
+   "B": "Constant speed does not mean no net force. The ball always accelerates inward at v²/r, and a larger v requires a larger inward force, so the tension increases.",
+   "C": "The tension is the net force, which supplies the centripetal acceleration: T = mv²/r. With r fixed, doubling v multiplies the tension by 2² = 4.",
+   "D": "This inverts the dependence on speed. The required inward force grows as v², so doubling the speed increases the tension by a factor of 4."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-026-v3",
+  "kind": "mcq",
+  "stem": "In a hammer throw, a 4.0 kg ball moves in a horizontal circle of radius 1.5 m with a constant period of 0.50 s. Neglect gravity's effect on the circle. What is the magnitude of the net force on the ball?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "470 N, directed toward the center"
+   },
+   {
+    "label": "B",
+    "text": "75 N, directed toward the center"
+   },
+   {
+    "label": "C",
+    "text": "950 N, directed toward the center"
+   },
+   {
+    "label": "D",
+    "text": "2100 N, directed toward the center"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This uses 4π²r/T instead of 4π²r/T², leaving the period unsquared. With a = 4π²r/T² the net force is 4.0 × 4π² × 1.5/0.25 ≈ 950 N.",
+   "B": "This is mv, the product of mass and speed, which is not a force. The centripetal force needs v²/r: mv²/r ≈ 950 N.",
+   "C": "The speed is v = 2πr/T ≈ 18.8 m/s. The net force is the centripetal force F = mv²/r = (4.0)(18.8)²/1.5 ≈ 950 N, directed inward.",
+   "D": "This multiplies mv² by the radius (mv²r ≈ 2132 N) instead of dividing by it. The centripetal force is mv²/r ≈ 950 N."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-027-v1",
+  "kind": "mcq",
+  "stem": "A variable force F(x) = 3.0x² (F in newtons, x in meters) acts on a crate along the x-axis. How much work does this force do on the crate from x = 1.0 m to x = 3.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "54 J"
+   },
+   {
+    "label": "B",
+    "text": "26 J"
+   },
+   {
+    "label": "C",
+    "text": "27 J"
+   },
+   {
+    "label": "D",
+    "text": "30 J"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "This multiplies the final force F(3.0) = 27 N by the full 2.0 m displacement. The force is not constant, so the work must be the integral, which is 26 J.",
+   "B": "W = ∫F dx from 1.0 to 3.0 = [x³] = 27 − 1 = 26 J.",
+   "C": "This evaluates the antiderivative x³ only at the upper limit and forgets to subtract its value at the lower limit (1). The definite integral is 27 − 1 = 26 J.",
+   "D": "This averages the force at the two endpoints, (3 + 27)/2, and multiplies by 2.0 m. That shortcut is exact only for a force that is linear in x; F = 3x² is not, so the integral gives 26 J."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-027-v2",
+  "kind": "mcq",
+  "stem": "A force F(x) = 8.0 − 2.0x (F in newtons, x in meters) acts on an object along the x-axis. How much net work does it do as the object moves from x = 0 to x = 6.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "20 J"
+   },
+   {
+    "label": "B",
+    "text": "−24 J"
+   },
+   {
+    "label": "C",
+    "text": "16 J"
+   },
+   {
+    "label": "D",
+    "text": "12 J"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This adds the magnitudes of the two areas (16 J + 4 J). Work done where the force opposes the motion is negative and must be subtracted, giving 16 − 4 = 12 J.",
+   "B": "This multiplies the final force F(6.0) = −4.0 N by the full 6.0 m. The force changes along the path, so the work is the integral, 12 J.",
+   "C": "This stops at x = 4.0 m, where the force becomes zero, and ignores the region from 4.0 m to 6.0 m. The force there points opposite to the motion and does −4 J of work, so the net work is 12 J.",
+   "D": "W = ∫(8.0 − 2.0x) dx from 0 to 6.0 = [8.0x − x²] = 48 − 36 = 12 J. The force reverses at x = 4.0 m, so part of the path contributes negative work."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-027-v3",
+  "kind": "mcq",
+  "stem": "A force F(x) = 20e^(−0.50x) (F in newtons, x in meters) acts on an object along the x-axis. How much work does it do from x = 0 to x = 2.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "25.3 J"
+   },
+   {
+    "label": "B",
+    "text": "14.7 J"
+   },
+   {
+    "label": "C",
+    "text": "27.4 J"
+   },
+   {
+    "label": "D",
+    "text": "12.6 J"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "W = ∫20e^(−0.50x) dx from 0 to 2.0 = (20/0.50)(1 − e^(−1.0)) = 40(0.632) ≈ 25.3 J.",
+   "B": "This multiplies the final force F(2.0) = 20e^(−1) ≈ 7.36 N by the 2.0 m displacement. The force decays along the path, so the work is the integral, about 25.3 J.",
+   "C": "This averages the endpoint forces, (20 + 7.36)/2, and multiplies by 2.0 m. For a nonlinear force that over-estimates the integral, which is about 25.3 J.",
+   "D": "This integrates without dividing by the coefficient 0.50 in the exponent: 20(1 − e^(−1)) ≈ 12.6 J. The antiderivative of e^(−0.50x) is −2.0e^(−0.50x), so the correct result is twice as large."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-028-v1",
+  "kind": "mcq",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = bx⁴, where b is a positive constant. The x-component of the force on the particle is",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−4bx³"
+   },
+   {
+    "label": "B",
+    "text": "−bx³"
+   },
+   {
+    "label": "C",
+    "text": "−(b/5)x⁵"
+   },
+   {
+    "label": "D",
+    "text": "−4bx⁴"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "The force is the negative derivative of the potential energy: F = −dU/dx = −4bx³.",
+   "B": "This lowers the power correctly but forgets the power-rule factor of 4 that comes down when differentiating x⁴.",
+   "C": "This integrates U(x) instead of differentiating it. The force is the negative derivative of U, not its antiderivative.",
+   "D": "This brings down the factor 4 but leaves the exponent unchanged. Differentiating x⁴ gives x³."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-028-v2",
+  "kind": "mcq",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = 3.0x² − 2.0x³ (U in joules, x in meters). What is the x-component of the force on the particle at x = 2.0 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "−4.0 N"
+   },
+   {
+    "label": "B",
+    "text": "−12 N"
+   },
+   {
+    "label": "C",
+    "text": "+12 N"
+   },
+   {
+    "label": "D",
+    "text": "0 N"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "This is the value of U at x = 2.0 m (12 − 16 = −4.0 J) reported as a force. The force comes from the derivative of U, not from U itself.",
+   "B": "This is dU/dx, the slope of U, without the minus sign. The force is the negative of the slope, so F = +12 N.",
+   "C": "F = −dU/dx = −(6.0x − 6.0x²) = −(12 − 24) = +12 N, directed along +x.",
+   "D": "This differentiates the cubic term as 3x², dropping its coefficient 2.0, giving 6.0x − 3.0x² = 0 at x = 2.0 m. The correct derivative of 2.0x³ is 6.0x², so F = +12 N."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-028-v3",
+  "kind": "mcq",
+  "stem": "A particle moves along the positive x-axis with potential energy U(x) = 4.0/x² (U in joules, x in meters). What is the force on the particle at x = 0.50 m?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "32 N in the +x direction"
+   },
+   {
+    "label": "B",
+    "text": "128 N in the +x direction"
+   },
+   {
+    "label": "C",
+    "text": "16 N in the +x direction"
+   },
+   {
+    "label": "D",
+    "text": "64 N in the +x direction"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This forgets the power-rule factor of 2 from x⁻², giving 4.0/x³. Differentiating 4.0x⁻² gives 8.0x⁻³, so the force is 64 N.",
+   "B": "This brings down the factor 2 but leaves the exponent as −4 (8.0/x⁴). Differentiating x⁻² lowers the exponent to −3, so the force is 8.0/x³ = 64 N.",
+   "C": "This is the value of U at x = 0.50 m (4.0/0.25 = 16 J) used as a force. The force is the negative derivative of U, not U itself.",
+   "D": "F = −dU/dx = −d(4.0x⁻²)/dx = +8.0x⁻³ = 8.0/(0.50)³ = 64 N. The positive sign means the force pushes the particle toward larger x, where U is lower."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-029-v1",
+  "kind": "mcq",
+  "stem": "A block on a frictionless horizontal spring oscillates with amplitude 0.20 m. At the instant the block reaches x = +0.20 m, the end of its motion, which statement is correct?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "Its speed is zero and its potential energy equals the total energy"
+   },
+   {
+    "label": "B",
+    "text": "Its kinetic energy equals its potential energy"
+   },
+   {
+    "label": "C",
+    "text": "The net force on it is zero"
+   },
+   {
+    "label": "D",
+    "text": "Its speed is maximum and its potential energy is zero"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "At the end of its motion the block momentarily stops, so its kinetic energy is zero and all of the mechanical energy is spring potential energy: U = E.",
+   "B": "The kinetic energy is zero here while the potential energy equals the total energy, which is not zero. The two are equal only at an intermediate position.",
+   "C": "The spring force −kx has its largest magnitude at x = 0.20 m. The block is only momentarily at rest, and this force reverses its motion.",
+   "D": "That describes the equilibrium position x = 0. At x = +0.20 m the block is momentarily at rest and the spring potential energy is at its maximum, equal to the total energy."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-029-v2",
+  "kind": "mcq",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = 2.0x² (U in joules, x in meters) and total mechanical energy 8.0 J. At which positions are its turning points?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "There are no turning points, because the force at x = ±2.0 m is not zero"
+   },
+   {
+    "label": "B",
+    "text": "x = ±2.8 m"
+   },
+   {
+    "label": "C",
+    "text": "x = ±4.0 m"
+   },
+   {
+    "label": "D",
+    "text": "x = ±2.0 m"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "A turning point does not require zero force. The force F = −4.0x is −8.0 N at x = +2.0 m, and it is this nonzero force that reverses the particle's motion there.",
+   "B": "This sets x² = 8.0, ignoring the factor 2.0 in U(x) = 2.0x² (or reading it as a spring constant in ½kx²). Solving 2.0x² = 8.0 gives x = ±2.0 m.",
+   "C": "This solves 2.0x = 8.0, treating U as linear in x. The potential energy is 2.0x², so x² = 4.0 and x = ±2.0 m.",
+   "D": "At a turning point the kinetic energy is zero, so U = E: 2.0x² = 8.0 gives x² = 4.0 and x = ±2.0 m."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-029-v3",
+  "kind": "mcq",
+  "stem": "A particle moves along the x-axis with potential energy U(x) = 0.50(x² − 4.0)² (U in joules, x in meters). Its total mechanical energy is 4.5 J, and it is observed at x = +2.0 m. Within what range of positions is its motion confined?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "1.00 m ≤ x ≤ 2.65 m"
+   },
+   {
+    "label": "B",
+    "text": "1.00 m ≤ x ≤ 2.00 m"
+   },
+   {
+    "label": "C",
+    "text": "1.00 m ≤ x ≤ 7.00 m"
+   },
+   {
+    "label": "D",
+    "text": "−2.65 m ≤ x ≤ 2.65 m"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Motion is allowed only where K = E − U ≥ 0, that is U ≤ 4.5 J. This requires |x² − 4.0| ≤ 3.0, so 1.0 ≤ x² ≤ 7.0. The region around x = 0 has U > E and cannot be crossed, so a particle at x = +2.0 m stays between x = 1.00 m and x = 2.65 m.",
+   "B": "This treats the starting point x = 2.0 m as a turning point. There U = 0 and the kinetic energy is 4.5 J, the maximum, so the particle keeps moving to x = 2.65 m before turning around.",
+   "C": "This reads the limits of x² (1.0 and 7.0) as limits of x. The turning points are the square roots, x = 1.00 m and x = 2.65 m.",
+   "D": "This treats only the outer turning points as limits. Between x = −1.0 m and x = +1.0 m the potential energy exceeds 4.5 J (it is 8.0 J at x = 0), so the particle cannot cross that barrier."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-030-v1",
+  "kind": "mcq",
+  "stem": "A rope pulls a crate with a constant force of 50 N directed 60° above the horizontal. The crate moves horizontally at a constant 4.0 m/s. What power does the rope's force deliver to the crate?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "100 W"
+   },
+   {
+    "label": "B",
+    "text": "6.3 W"
+   },
+   {
+    "label": "C",
+    "text": "170 W"
+   },
+   {
+    "label": "D",
+    "text": "200 W"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Power is the dot product P = F·v = Fv cos θ = (50)(4.0)cos 60° = 100 W.",
+   "B": "This divides the parallel force component by the speed (25 N ÷ 4.0 m/s ≈ 6.3 W) instead of multiplying. Power is P = F·v = 25 N × 4.0 m/s = 100 W.",
+   "C": "This uses sin 60° instead of cos 60°. The angle is measured from the horizontal motion, so the parallel component is F cos 60°, giving 100 W.",
+   "D": "This is Fv with no angle. Only the component of the force parallel to the velocity delivers power, so the cosine factor is needed: 100 W."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-030-v2",
+  "kind": "mcq",
+  "stem": "The total work done on a cart by the net force is W(t) = 2.0t³ joules, where t is in seconds. What is the instantaneous power delivered to the cart at t = 2.0 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "16 W"
+   },
+   {
+    "label": "B",
+    "text": "12 W"
+   },
+   {
+    "label": "C",
+    "text": "8.0 W"
+   },
+   {
+    "label": "D",
+    "text": "24 W"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This is the work done so far, 16 J, reported as a power. Power is the rate of change of work, dW/dt = 24 W.",
+   "B": "This differentiates 2.0t³ as 3t², dropping the coefficient 2.0. The derivative is 6.0t², giving 24 W.",
+   "C": "This is the average power over the first 2.0 s, W/t = 16 J/2.0 s. Instantaneous power is the derivative dW/dt, which is 24 W at this instant.",
+   "D": "Instantaneous power is the time derivative of work: P = dW/dt = 6.0t². At t = 2.0 s, P = 6.0(4.0) = 24 W."
+  }
+ },
+ {
+  "key": "u13-apphycm-mcq-030-v3",
+  "kind": "mcq",
+  "stem": "A 2.0 kg cart starts from rest on a frictionless track. A force along the track, F = 8.0t newtons (t in seconds), is the only horizontal force on it. What power does this force deliver at t = 1.5 s?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "108 W"
+   },
+   {
+    "label": "B",
+    "text": "13.5 W"
+   },
+   {
+    "label": "C",
+    "text": "72 W"
+   },
+   {
+    "label": "D",
+    "text": "54 W"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "This uses the constant-acceleration formula v = at with the final acceleration (6.0 m/s²), giving v = 9.0 m/s. The acceleration grows with time, so v must be found by integrating: v = 4.5 m/s and P = 54 W.",
+   "B": "This is the average power over the first 1.5 s: the work is ∫Fv dt = 4.0t⁴ = 20.25 J, and 20.25 J ÷ 1.5 s = 13.5 W. The question asks for the instantaneous power, 54 W.",
+   "C": "This multiplies force by acceleration (12 N × 6.0 m/s²), which is not a rate of energy transfer. Power is F·v, with v = 4.5 m/s, giving 54 W.",
+   "D": "a = F/m = 4.0t, so v = ∫a dt = 2.0t². At t = 1.5 s, v = 4.5 m/s and F = 12 N, so P = Fv = 54 W."
+  }
+ }
+]

@@ -1,0 +1,185 @@
+== apphycm-mcq-001 (REPAIR)
+--- old
++++ new
+@@ -1,6 +1 @@
+-If v(t)=3t², the acceleration at t=2 s is
+-
+-A. 3 m/s²
+-B. 6 m/s²
+-C. 12 m/s²
+-D. 24 m/s²
++If v(t)=3t² in SI units, the acceleration at t=2 s is
+  choice A changed:
+   - 3 m/s² | Mistakes the leading coefficient 3 in v(t)=3t² for the acceleration itself, as in the x=½at² form.
+   + 3 m/s² | Reads the coefficient 3 in v(t)=3t² as the acceleration itself, as if v were proportional to t, instead of differentiating v(t) with respect to time.
+== apphycm-mcq-002 (REPAIR)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. kT
+-B. kT²
+-C. kT²/2
+-D. k/T
+  choice A changed:
+   - kT | Uses the final velocity v(T)=kT times T instead of integrating the linearly increasing velocity, skipping the 1/2 averaging factor.
+   + kT | Gives the final velocity v(T)=kT, which has units of speed rather than displacement; displacement requires integrating the linearly increasing velocity over the interval.
+  choice D changed:
+   - k/T | Divides the acceleration constant k by T instead of integrating velocity over time, confusing acceleration units with displacement.
+   + k/T | Divides the constant k by T, a quantity with units of acceleration per unit time, instead of integrating the velocity over the interval; it is not a displacement.
+== apphycm-mcq-003 (REPAIR)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. aL
+-B. aL²
+-C. aL²/2
+-D. a/L
+  choice D changed:
+   - a/L | Divides the force gradient a by L, confusing the differential relationship dF/dx=a with the work integral.
+   + a/L | Divides the force gradient a by L instead of integrating the force over the displacement; integrating ax always produces a term proportional to L², never a/L.
+== apphycm-mcq-006 (REPAIR)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. dU/dx
+-B. -dU/dx
+-C. -U/x
+-D. +d^2U/dx^2
+  choice C changed:
+   - -U/x | This has the correct sign but treats the relationship as simple division rather than differentiation, as though U were directly proportional to x -- it agrees with -dU/dx only in that special case.
+   + -U/x | Divides U by x instead of differentiating; -U/x equals -dU/dx only when U is directly proportional to x, so it is wrong for a general potential energy function.
+  choice D changed:
+   - +d^2U/dx^2 | This differentiates U twice and drops the sign. The second derivative describes how steeply the force itself changes with position (related to the stiffness of the potential well), not the force.
+   + +d^2U/dx^2 | This differentiates U twice. The second derivative is the curvature (stiffness) of the potential well and equals minus the rate of change of the force with position; it is not the force itself, which is −dU/dx.
+== apphycm-mcq-007 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. cT²
+-B. cT³/2
+-C. cT³/3
+-D. 2cT
+== apphycm-mcq-008 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. a local minimum
+-B. a local maximum
+-C. an infinite slope
+-D. no derivative
+== apphycm-mcq-017 (REPAIR)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. 3At²-B
+-B. At²-B
+-C. 3At-B
+-D. A t³
+  choice D changed:
+   - A t³ | Forgets to differentiate the At³ term at all and drops the -Bt term entirely, leaving the position expression unchanged.
+   + A t³ | Gives only the cubic term At³ and drops the −Bt term; no derivative has been taken, so this is not a velocity expression at all.
+== apphycm-mcq-018 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. F₀/L
+-B. F₀L
+-C. zero
+-D. infinite
+== apphycm-mcq-021 (REPAIR)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. 4Ct³
+-B. 12Ct²
+-C. 24Ct
+-D. Ct²
+  choice C changed:
+   - 24Ct | This takes a third derivative and therefore gives jerk.
+   + 24Ct | This differentiates a third time, one differentiation too many: d³x/dt³ = 24Ct.
+== apphycm-mcq-022 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. acceleration
+-B. displacement
+-C. distance traveled
+-D. change in velocity
+== apphycm-mcq-024 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. U has a local minimum
+-B. U has a local maximum
+-C. force is constant
+-D. energy is negative
+== apphycm-mcq-025 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. b/m
+-B. m/b
+-C. m/(2b)
+-D. (m/b) ln 2
+== apphycm-mcq-026 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. zero acceleration
+-B. constant velocity vector
+-C. inward acceleration v²/r
+-D. outward net force
+== apphycm-mcq-027 (REPAIR)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. ∫ₐᵇF(x)dx
+-B. F(b)(b-a)
+-C. (1/2)[F(a)+F(b)](b-a) always
+-D. ∫F(t)dt
+  choice C changed:
+   - (1/2)[F(a)+F(b)](b-a) always | Endpoint averaging is exact only when force varies linearly with position.
+   + (1/2)[F(a)+F(b)](b-a) always | Averaging the endpoint forces is not valid for every F(x); it equals the integral only in special cases such as a force that is linear in position, so the word 'always' makes this false.
+== apphycm-mcq-028 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. 3Ax²
+-B. -3Ax²
+-C. -Ax²
+-D. -(A/3)x²
+== apphycm-mcq-029 (strip-only)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. U=0 always
+-B. U=E and speed is zero
+-C. force must be zero
+-D. kinetic energy is maximum
+== apphycm-mcq-030 (REPAIR)
+--- old
++++ new
+@@ -2,5 +1,0 @@
+-
+-A. F·v
+-B. F×v
+-C. Fv regardless of direction
+-D. F·a
+  choice D changed:
+   - F·a | Instantaneous power depends on velocity, not acceleration.
+   + F·a | Power is the rate of work, F·v; the product of force and acceleration F·a does not have units of power and is not the rate of energy transfer.
