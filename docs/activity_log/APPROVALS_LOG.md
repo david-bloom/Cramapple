@@ -244,7 +244,7 @@ Most recent entries (full chronological list follows below):
 
 **How it was used:** a rolled-back rehearsal on Production gave the same counts, then the change was applied in one transaction with postconditions (1,042 rows written, 0 published MCQs left without a band). Recount after commit: every subject's published MCQs have a band (Biology 58/58 … Statistics 224/224). All 1,042 rows: 284 Easy, 606 Medium, 152 Hard. Rollback: delete rows with `proposal_run = 'mcq-seed-difficulty-2026-10-04'`.
 
-**Left out:** FRQ variant `apcalcab-frq-u1v-001-v2` (no band; FRQs not in scope).
+**FRQ extension (same day):** `apcalcab-frq-u1v-001-v2` inherited Medium from its seed `apcalcab-frq-u1n-001` (migration `20261004140000`, one row). After it, every published item in all 10 subjects has a band: FRQ 572 of 572, MCQ 1,718 of 1,718.
 
 ## APPROVAL-0116 — AP Calculus AB: Canonical Answers for 20 Unit 1 FRQs, With Serving-Label Carry-Forward (Production)
 

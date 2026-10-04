@@ -6,7 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
-- DECISION-0096 — MCQ Variants Inherit Their Seed's Difficulty Band; an Unrated Seed Is Rated First and Applied to Its Variants
+- DECISION-0096 — MCQ and FRQ Variants Inherit Their Seed's Difficulty Band; an Unrated Seed Is Rated First and Applied to Its Variants
 - DECISION-0095 — Items Stay Within the Subject's CED Vocabulary; a Mechanism Supplied in the Stem Does Not Bring a Term In Scope; Published Items That Break It Are Retired, Not Repaired
 - DECISION-0094 — Launch Shape Revised: $1 Pilot Coupon (10 Friends) Before a 50%-Off Public Launch; Parent-Pay Live; Strangers May Pay Full Price; Supersedes DECISION-0091
 - DECISION-0093 — Seeded Generation and Checker Policy for AP Calc AB Content; Human Review Waived for the Unit 1 Batch and the Seeded Variants
@@ -74,7 +74,7 @@ were published from 2026-09-30 without a `content_item_difficulty` row.
   which match every batch manifest: `-sv-<n>-vK` → `-<n>`; `-u<U>v-<n>-vK` → `-u<U>n-<n>`; `-u<U>n-<n>-vK` → `-u<U>n-<n>`;
   `apcalcbc-mcq-ab-<rest>` → `apcalcab-mcq-<rest>`.
 - Variants that already had their own difficulty row were not changed.
-- FRQ variants are not covered by this decision. One Calc AB FRQ variant (`apcalcab-frq-u1v-001-v2`) has no band.
+- **Extended to FRQ variants** (David Bloom, 2026-10-04: "yes, apply the same rule to FRQ variants"). The one unrated FRQ variant, `apcalcab-frq-u1v-001-v2`, inherited Medium from `apcalcab-frq-u1n-001` (migration `20261004140000`).
 
 ## DECISION-0095 — Items Stay Within the Subject's CED Vocabulary; a Mechanism Supplied in the Stem Does Not Bring a Term In Scope; Published Items That Break It Are Retired, Not Repaired
 

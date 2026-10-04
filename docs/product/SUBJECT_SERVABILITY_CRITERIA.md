@@ -264,7 +264,7 @@ APPROVAL-0075). Criterion 4 fails for 20 Calc AB FRQs.
   reads `canonical_answer_1` only on the privileged QA path), but Open Hand would have nothing to reveal.
   All 20 carry fresh, human-validated serving labels, so a canonical write marks them stale through
   `tg_content_versions_taxonomy_stale` unless the labels are carried forward in the same transaction.
-- **Criterion 5 — MCQ closed 2026-10-04 (DECISION-0096, APPROVAL-0117, migration `20261004130000`):** 31 seeds rated, 733 variants and 278 BC copies inherit their seed's band; every published MCQ in all 10 subjects now has a band. Remaining: one Calc AB FRQ variant (`apcalcab-frq-u1v-001-v2`). Original finding: serving does not read difficulty, so no student path was affected; it was a checklist gap.
+- **Criterion 5 — MCQ closed 2026-10-04 (DECISION-0096, APPROVAL-0117, migration `20261004130000`):** 31 seeds rated, 733 variants and 278 BC copies inherit their seed's band; every published MCQ in all 10 subjects now has a band. The one FRQ variant without a band (`apcalcab-frq-u1v-001-v2`) inherited its seed's band the same day (migration `20261004140000`). **Criterion 5 now holds for every published item in all 10 subjects (FRQ 572/572, MCQ 1,718/1,718).** Original finding: serving does not read difficulty, so no student path was affected; it was a checklist gap.
 - **Criterion 3:** much higher than 2026-09-28 (Biology FRQ 9 → 72, Statistics MCQ 16 → 216); the remaining
   gap is mostly FRQ labels in Calc BC, Chemistry, Precalculus and the Physics subjects.
 - **Hygiene, not served:** 2 to 23 items per subject are `published` at item level with no published
