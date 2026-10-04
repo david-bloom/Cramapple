@@ -44,6 +44,7 @@ const ALLOWED_PROPERTY_KEYS = new Set([
   "stripe_event_type",
   "amount_discount",
   "is_referred",
+  "environment",
 ]);
 
 export function sanitizeGrowthProperties(
@@ -76,6 +77,13 @@ export async function recordGrowthEvent(
   input: RecordGrowthEventInput,
 ) {
   const properties = sanitizeGrowthProperties(input.properties);
+  // Fail closed to development for unknown runtimes so test traffic cannot be
+  // mislabeled as Production. Supabase project refs are public identifiers.
+  const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+  const environment = supabaseUrl.includes("pcntajvbdfqhbeewmdry")
+    ? "production"
+    : "development";
+  const eventProperties = { ...properties, environment };
   const { data: inserted, error } = await service.schema("app")
     .from("growth_event_outbox")
     .upsert({
@@ -84,7 +92,7 @@ export async function recordGrowthEvent(
       free_score_check_id: input.freeScoreCheckId ?? null,
       source: input.source,
       dedupe_key: input.dedupeKey,
-      properties,
+      properties: eventProperties,
     }, { onConflict: "dedupe_key", ignoreDuplicates: true })
     .select("id, delivered_at, delivery_attempts")
     .maybeSingle();
@@ -112,7 +120,7 @@ export async function recordGrowthEvent(
         api_key: projectKey,
         event: input.eventName,
         properties: {
-          ...properties,
+          ...eventProperties,
           distinct_id: input.userId ?? `anonymous:${input.dedupeKey}`,
           $process_person_profile: false,
         },
