@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Checkout User Testing: P1–P4b Logged (TASK-0060) (2026-10-04): six Lovable fix prompts reviewed by reading the diffs; second live purchase ($1 promo) verified paid with access; remove-coupon bug root-caused; open question on why a paid buyer must verify email before entering the app.
 - Checkout User Testing Opened (TASK-0060) (2026-10-04): wallet behaviour confirmed by browser (Chrome Google Pay, Safari Apple Pay, Firefox card only); live $39.99 Google Pay purchase succeeded but the return-page "Start Studying" button was silent because Supabase returned 429 on the OTP request; fix prompts drafted for Lovable.
 - AP Physics C (Mechanics and E&M) Units 1-3 Pipeline (APPROVAL-0108 to 0113) (2026-10-04): 41 seeds repaired or cleaned and topic-tagged, 104 variants published (43 + 61), two skill grids built, 141 skill cells written. Mechanics MCQs 42 to 85, E&M 48 to 109. All AP subjects now have the Units 1-3 pipeline applied.
 - AP Physics 2 Units 9-11 Pipeline (APPROVAL-0105 to 0107) (2026-10-03): 18 seeds repaired or cleaned and topic-tagged, 50 variants published, skill grid built, 68 skill cells written; Physics 2 MCQs now 92.
@@ -369,6 +370,17 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Checkout User Testing: P1–P4b Logged (TASK-0060) — 2026-10-04
+
+**Task:** `docs/tasks/TASK-0060-USER-TESTING-CHECKOUT.md`. **No approvals used; no code, Production data or Stripe settings changed.** Read-only checks on Production (`pcntajvbdfqhbeewmdry`) and the Lovable frontend source (project `61dd6602`); the Lovable edits were sent at David's direction and published by David.
+
+**Fix prompts:** P1 (Express Checkout loading/empty state), P2 (429 handling on Start Studying, spinners), P3 and P3b (promo control above wallets, typed-but-unapplied code blocks payment), P4 (remove-coupon bug, no-upsell copy, thin sticky bar, payment order wallet / card / parent) and P4b (picker limit, wallet slot from first paint). Each diff was read before David tested; P1 to P3b are published, P4 and P4b are built (Lovable head `a605ff12`) with publish not yet confirmed.
+
+**Found:** removing a coupon left no payment option because the auto-session effect skips a key it already attempted (and re-applied a removed `?promo=` code on link visits); the P4 review found the picker had lost its 3-pick signal and the wallet row would shift the buttons. A second live purchase ($1 promo, Biology, 20:50 UTC) was verified paid with an active entitlement; its account is invited, unconfirmed, never signed in.
+
+**Open:** why a paid buyer must verify email with a code before entering the app (`DECISION-0090`) and three ways to remove the friction without dropping the check; recorded as F9 in the task for David's decision. Browser tests for P4/P4b are listed in the task and not yet run.
+
 
 ## Checkout User Testing Opened (TASK-0060) — 2026-10-04
 
