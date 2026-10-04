@@ -20,6 +20,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0120 — Recreate `public.student_course_positions` With `topic_code` and `topic_source` So the Student Home Loads (Production)
 - APPROVAL-0117 — Difficulty Bands for 1,042 Published MCQs: 31 Seeds Rated, Variants and BC Copies Inherit (Production) — DECISION-0096
 - APPROVAL-0116 — AP Calculus AB: Canonical Answers for 20 Unit 1 FRQs, With Serving-Label Carry-Forward (Production)
+- APPROVAL-0118 — Variants for the Four Released Seeds: 9 Published (Production) — DECISION-0085
 - APPROVAL-0115 — Release Four Held MCQs to Validated Serving Labels (Production) — DECISION-0085
 - APPROVAL-0114 — Retire AP Physics C: E&M Held MCQ-019, Seed np1-010 and Its Variant -v2 (Production) — DECISION-0085
 - APPROVAL-0113 — AP Physics C: Electricity and Magnetism Skill Grid and Skill Cells for Units 8-10 (Production) — DECISION-0085
@@ -314,6 +315,16 @@ version `20261004120000`; its `statements` entry references the file and MD5
 
 **Verification before apply:** every value re-derived and checked numerically; an independent review in a fresh
 context passed 20 of 20 (no math or rubric errors; two wording notes applied).
+## APPROVAL-0118 — Variants for the Four Released Seeds: 9 Published (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-04 Claude session: "Yes, write variants for those four")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0115` (numbered 0118 because 0116 and 0117 were taken on `main` by other sessions)  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** 12 variants authored (3 per seed, all numbers recomputed) for `apphycem-mcq-003`, `apphycm-mcq-023`, `apphycm-mcq-031` and `apphy2-mcq-001`, checked by two blind solvers, a rationale audit and a CED scope check. **9 kept** (no patches): `apphycem-mcq-sv-003-v1..3`, `apphycm-mcq-sv-031-v1..3`, `apphy2-mcq-sv-001-v1..3`. **3 dropped**: all variants of `apphycm-mcq-023` (Gemini placed them in topic 2.5, DeepSeek in 2.2, the seed's topic, so the both-checkers rule dropped them; the seed itself sits between 2.2 and 2.5). The 9 were loaded as drafts in one atomic chunk (md5 9 of 9), then approved and published with validated, hash-fresh serving labels (units {8}, {1,2}, {9}) and 9 validated primary topic cells (8.6, 2.5, 9.2) inherited from the seeds, plus 9 validated skill cells inherited from the seeds (3.B, 3.B, 2.D). The 9 variants also inherited their seed's difficulty band (all Easy, confidence high; basis `translated`, `proposal_run` `mcq-seed-difficulty-2026-10-04-heldfour`, per `DECISION-0096`) so that every published MCQ keeps a band. Rehearsed with a rollback.
+
+**Result:** E&M 3 variants, Mechanics 3, Physics 2 3 added (published MCQs now: Physics 2 95, Mechanics 88, E&M 109).
 
 ## APPROVAL-0115 — Release Four Held MCQs to Validated Serving Labels (Production)
 
