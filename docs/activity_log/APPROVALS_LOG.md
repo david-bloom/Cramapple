@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0115 — Release Four Held MCQs to Validated Serving Labels (Production) — DECISION-0085
 - APPROVAL-0114 — Retire AP Physics C: E&M Held MCQ-019, Seed np1-010 and Its Variant -v2 (Production) — DECISION-0085
 - APPROVAL-0113 — AP Physics C: Electricity and Magnetism Skill Grid and Skill Cells for Units 8-10 (Production) — DECISION-0085
 - APPROVAL-0112 — Load and Publish 61 AP Physics C: Electricity and Magnetism Units 8-10 Variants (Production) — DECISION-0085
@@ -225,6 +226,17 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0115 — Release Four Held MCQs to Validated Serving Labels (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-04 Claude session: "Release the four held items", then "Apply it and publish them")  
+**Related Decision:** `DECISION-0085`, `DECISION-0093`; follows `APPROVAL-0114`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`):** four published MCQs whose serving labels had been `held` since failed labelling model calls (source `vercel_ai_gateway_two_model_serving_lane`) were read, probed (six votes on topic and unit; every key sound) and released: `apphycem-mcq-003` (E&M, unit 8, topic 8.6, skill 3.B at 4 of 4), `apphycm-mcq-023` (Mechanics, unit 2, required units {2}, topic 2.2 on a 4-of-6 plurality and the free-body-diagram reading, no skill cell because the four voters split 2-2), `apphycm-mcq-031` (Mechanics, unit 2, required units {1,2}, topic 2.5, skill 3.B at 4 of 4) and `apphy2-mcq-001` (Physics 2, unit 9, topic 9.2, skill 2.D at 4 of 4). Each now has a validated, hash-fresh serving label, a validated primary topic cell and (except `023`) a validated skill cell. `023`, `031` and `apphy2-mcq-001` also got a new strip-only version removing the duplicated A-D list from the stem (choices, keys and rationales unchanged); `003` had no list and kept its version. Rehearsed with a rollback; the hash over the three new versions matched.
+
+**Not done:** variants for these four seeds; held E&M `np1-005` (rationale fix needed) and `016` (Unit 13); the other held items in Mechanics (`012`, `019`, `020`, `034`, `040`, units 4-7) and Physics 2 (`019`, Unit 15).
 
 ## APPROVAL-0114 — Retire AP Physics C: E&M Held MCQ-019, Seed np1-010 and Its Variant -v2 (Production)
 
