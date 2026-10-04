@@ -6,6 +6,7 @@ import {
   loadPriceCatalog,
   type PriceCatalog,
 } from "../_shared/stripe-catalog.ts";
+import { generateShortCode, shortLinkUrl } from "../_shared/parent-short-link.ts";
 
 type Mode = "single" | "bundle_2" | "bundle_3";
 const MODES = new Set<Mode>(["single", "bundle_2", "bundle_3"]);
@@ -150,10 +151,31 @@ Deno.serve(async (req) => {
       },
     });
 
+    // Short link (TASK-0060): cramapple.com/p/<code> resolves to this session's
+    // live Stripe URL. If storing the code fails the long URL still works, so a
+    // failure here must never block the parent from paying.
+    let shortUrl: string | null = null;
+    for (let attempt = 0; attempt < 5 && !shortUrl; attempt++) {
+      const code = generateShortCode();
+      const { error: insertError } = await service.schema("app")
+        .from("parent_payment_links")
+        .insert({ code, checkout_session_id: session.id });
+      if (!insertError) {
+        shortUrl = shortLinkUrl(APP_BASE_URL, code);
+      } else if (insertError.code !== "23505") {
+        console.error("create-parent-payment-link short_link_failed", insertError);
+        break;
+      }
+    }
+
     return respond({
       status: "ok",
       session_id: session.id,
       url: session.url,
+      short_url: shortUrl,
+      // What the parent will actually pay, discounts included (minor units).
+      amount_total: session.amount_total ?? null,
+      currency: session.currency ?? null,
     });
   } catch (error) {
     console.error("create-parent-payment-link stripe_error", error);
