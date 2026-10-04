@@ -230,3 +230,44 @@ for both Day-1 subjects.
 closeout state as the 8-subject slice above). No zero-or-low result went undiagnosed. This closes the
 Biology/Statistics half of TASK-0046's required slicing — all 10 subjects now have a live-verified
 six-criteria record in this doc dated 2026-09-28 or later.
+
+**Six-criteria re-run, all 10 subjects, 2026-10-04 (Claude, read-only against Production
+`pcntajvbdfqhbeewmdry`).** Re-run because about 1,300 MCQ variants (2026-09-30 to 2026-10-04) and 20 Calc AB
+FRQs (2026-09-30) were published after the 2026-09-28 records above. Same method as TASK-0046: criterion 6
+first; each published item's latest published version; criterion 3 requires `validated`, not superseded,
+and `validated_against_taxo_hash = app.taxonomy_relevant_hash(version)`. Criterion 2 for FRQ = at least one
+`frq_criteria` row with points > 0, learner-facing text and evidence requirements; for MCQ = exactly one
+`is_correct` choice. Criterion 5 = a `content_item_difficulty` row with `difficulty` and `basis` set.
+
+**Result: no subject is six-of-six.** Criteria 1, 2 and 6 hold everywhere. Criterion 5 now fails for MCQ in
+every subject, because the new variants were published without difficulty rows (the approvals say so, e.g.
+APPROVAL-0075). Criterion 4 fails for 20 Calc AB FRQs.
+
+| Subject | C1 published (FRQ / MCQ) | C2 | C3 validated label (FRQ / MCQ) | C4 canonical (FRQ) | C5 difficulty (FRQ / MCQ) | C6 |
+| --- | --- | --- | --- | --- | --- | --- |
+| AP Biology | 75 / 58 | Pass | 72 / 57 | 71/75 (4 hand-drawn, never served) | 75 / **40 of 58** | Pass |
+| AP Statistics | 69 / 224 | Pass | 65 / 216 | 69/69 | 69 / **93 of 224** | Pass |
+| AP Calculus AB | 82 / 329 | Pass | 42 / 299 | **62/82** | **81 of 82** / **174 of 329** | Pass |
+| AP Calculus BC | 64 / 344 | Pass | 18 / 305 | 64/64 | 64 / **66 of 344** | Pass |
+| AP Chemistry | 51 / 140 | Pass | 23 / 131 | 51/51 | 51 / **68 of 140** | Pass |
+| AP Precalculus | 64 / 195 | Pass | 26 / 195 | 64/64 | 64 / **49 of 195** | Pass |
+| AP Physics 1 | 54 / 148 | Pass | 33 / 140 | 54/54 | 54 / **59 of 148** | Pass |
+| AP Physics 2 | 28 / 90 | Pass | 12 / 89 | 28/28 | 28 / **40 of 90** | Pass |
+| AP Physics C: E&M | 49 / 106 | Pass | 31 / 104 | 49/49 | 49 / **46 of 106** | Pass |
+| AP Physics C: Mechanics | 36 / 84 | Pass | 17 / 78 | 36/36 | 36 / **41 of 84** | Pass |
+
+- **Criterion 6:** exactly one published, non-retired `exam_pack_versions` row per subject; the IDs are
+  unchanged from 2026-09-28.
+- **Criterion 4, Calc AB — closed 2026-10-04 (APPROVAL-0116, migration `20261004120000`):** canonicals written for all 20 and their validated labels carried forward; 0 published Calc AB FRQs now lack a canonical. Original finding: the 20 FRQs without a canonical were `apcalcab-frq-u1n-001..005` and
+  `apcalcab-frq-u1v-001..005-v1..v3`, all published 2026-09-30, all `targeted_drill`. 8 of them were in a live
+  `select_practice_frqs` call. Grading is not affected (FRQs are graded against `frq_criteria`; `evaluate-attempt`
+  reads `canonical_answer_1` only on the privileged QA path), but Open Hand would have nothing to reveal.
+  All 20 carry fresh, human-validated serving labels, so a canonical write marks them stale through
+  `tg_content_versions_taxonomy_stale` unless the labels are carried forward in the same transaction.
+- **Criterion 5:** serving does not read difficulty, so no student path is affected; it is a checklist gap.
+- **Criterion 3:** much higher than 2026-09-28 (Biology FRQ 9 → 72, Statistics MCQ 16 → 216); the remaining
+  gap is mostly FRQ labels in Calc BC, Chemistry, Precalculus and the Physics subjects.
+- **Hygiene, not served:** 2 to 23 items per subject are `published` at item level with no published
+  version (Statistics 23, Physics 2 11, Physics 1 and C: Mechanics 7, C: E&M 6, Chemistry 4, Precalculus 3,
+  Calc AB and BC 2). Selectors join on a published version, so none is served. Biology's 42 were cleaned up
+  under APPROVAL-0093; `DECISION-0095` chose not to rescan the other subjects.
