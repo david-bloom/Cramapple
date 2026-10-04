@@ -29,7 +29,7 @@ begin;
 select pg_advisory_xact_lock(hashtext('cramapple-calcab-u1-canonicals-20261004'));
 
 create temporary table approval (ref text) on commit drop;
-insert into approval values ('PENDING');
+insert into approval values ('APPROVAL-0116');
 do $$ begin
   if (select ref from approval) = 'PENDING' then
     raise exception 'label carry-forward is not approved: set the Product Owner approval reference';

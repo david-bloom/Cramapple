@@ -258,7 +258,7 @@ APPROVAL-0075). Criterion 4 fails for 20 Calc AB FRQs.
 
 - **Criterion 6:** exactly one published, non-retired `exam_pack_versions` row per subject; the IDs are
   unchanged from 2026-09-28.
-- **Criterion 4, Calc AB:** the 20 FRQs without a canonical are `apcalcab-frq-u1n-001..005` and
+- **Criterion 4, Calc AB — closed 2026-10-04 (APPROVAL-0116, migration `20261004120000`):** canonicals written for all 20 and their validated labels carried forward; 0 published Calc AB FRQs now lack a canonical. Original finding: the 20 FRQs without a canonical were `apcalcab-frq-u1n-001..005` and
   `apcalcab-frq-u1v-001..005-v1..v3`, all published 2026-09-30, all `targeted_drill`. 8 of them were in a live
   `select_practice_frqs` call. Grading is not affected (FRQs are graded against `frq_criteria`; `evaluate-attempt`
   reads `canonical_answer_1` only on the privileged QA path), but Open Hand would have nothing to reveal.
