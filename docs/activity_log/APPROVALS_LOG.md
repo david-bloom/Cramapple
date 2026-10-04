@@ -16,6 +16,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0074 — AP Chemistry Units 1-3 Full Pipeline Run: Repair 8 Published MCQs, Create Topic Cells and the Skill Grid, Relabel 37 Items, Write 34 Skill Cells (Production) — DECISION-0085
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
+- APPROVAL-0114 — Retire AP Physics C: E&M Held MCQ-019, Seed np1-010 and Its Variant -v2 (Production) — DECISION-0085
 - APPROVAL-0113 — AP Physics C: Electricity and Magnetism Skill Grid and Skill Cells for Units 8-10 (Production) — DECISION-0085
 - APPROVAL-0112 — Load and Publish 61 AP Physics C: Electricity and Magnetism Units 8-10 Variants (Production) — DECISION-0085
 - APPROVAL-0111 — AP Physics C: Electricity and Magnetism Units 8-10: Repair 8 Seed MCQs, Remove the Duplicated A-D List From 11 More, Create 24 Topic Cells (Production) — DECISION-0085
@@ -224,6 +225,19 @@ Most recent entries (full chronological list follows below):
 **How it was used:** rolled-back rehearsal on Production (positive: AI-validated accepted; negative: validated with no decision id, validated with no human and no model run, and a non-validated row with a full record were all rejected), then applied via `apply_migration`; recorded version `20261002164510`; the constraint definition was re-read afterwards. No rows were changed. Existing human validations are unaffected (the new rule is a superset).
 
 **Not approved by this entry:** writing any validated skill label (each subject's Phase B needs its own gate under `TASK-0050`); changing `DECISION-0085`'s roster or its agreement-tier recording rule (the tier must still be recorded on every row).
+
+## APPROVAL-0114 — Retire AP Physics C: E&M Held MCQ-019, Seed np1-010 and Its Variant -v2 (Production)
+
+**Date:** 2026-10-04  
+**Approved By:** David Bloom (2026-10-04 Claude session: "Retire held E&M 019. Retire Seed np1-010 and its published variant -v2")  
+**Related Decision:** `DECISION-0085`; follows `APPROVAL-0113`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`, pack `841a88cc-773c-44e5-97fa-6504f8667689`):** three items retired (item and published versions set to `retired`): `apphycem-mcq-019` (held; uses the differential form of Gauss's law and the Dirac delta, outside the CED, and the stem gives away the answer), `apphycem-mcq-np1-010` and its published variant `apphycem-mcq-sv-np1-010-v2` (both rely on equal flux through the faces of a cube, outside the fact pack's spherical, cylindrical and planar Gauss-law limit; the other two variants had already been dropped).
+
+**Result:** E&M published MCQs 109 to 106.
+
+**Not done:** held E&M `003` (sound), `np1-005` (rationale fix needed) and `016` (Unit 13) were not touched.
 
 ## APPROVAL-0113 — AP Physics C: Electricity and Magnetism Skill Grid and Skill Cells for Units 8-10 (Production)
 
