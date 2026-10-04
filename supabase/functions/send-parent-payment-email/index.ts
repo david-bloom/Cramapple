@@ -1,6 +1,7 @@
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
+import { shortLinkUrl } from "../_shared/parent-short-link.ts";
 
 const LOOPS_API_BASE = "https://app.loops.so/api/v1";
 const MAX_SENDS_PER_SESSION_PER_HOUR = 5;
@@ -74,6 +75,18 @@ Deno.serve(async (req) => {
     return respond({ error: "email_provider_unavailable" }, { status: 503 });
   }
 
+  // Prefer the short link (TASK-0060); the long Stripe URL is the fallback.
+  let checkoutUrl: string = session.url;
+  const appBaseUrl = Deno.env.get("APP_BASE_URL");
+  if (appBaseUrl) {
+    const { data: linkRow } = await service.schema("app")
+      .from("parent_payment_links")
+      .select("code")
+      .eq("checkout_session_id", sessionId)
+      .maybeSingle();
+    if (linkRow?.code) checkoutUrl = shortLinkUrl(appBaseUrl, linkRow.code);
+  }
+
   const studentName = metadata.student_name ?? "your student";
   const subjectCount = (metadata.subject_ids ?? "").split(",").filter(Boolean).length;
 
@@ -89,7 +102,7 @@ Deno.serve(async (req) => {
         email: parentEmail,
         eventName: "parent_payment_link_requested",
         eventProperties: {
-          checkoutUrl: session.url,
+          checkoutUrl,
           studentName,
           subjectCount,
         },
