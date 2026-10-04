@@ -55,6 +55,22 @@ Evidence labels: **Observed** (David saw it), **Verified** (read in code, Lovabl
   confirmed, never signed in**).
 - Not reported: what the return page's Start Studying showed. **F9 (below, decided):** why a paid buyer cannot go straight in. **F10 (below):** no confirmation email arrived.
 
+### E6. Browser tests after P4/P4b were published (2026-10-04)
+
+**Claude, built-in Chromium pane on the live site (Verified; no payment details entered):**
+- Intro copy: `?subject=biology` shows "Pick your subject"; `?subjects=biology,statistics` shows "Pick your two subjects". No tier price list and no "N of 3 picked" line; the selection line reads "1 subject · $39.99" / "2 subjects · $69.99".
+- Payment area before an email: Express Checkout slot as a static grey placeholder with no spinner, then "Pay with card" and "Ask a parent to pay", both disabled with "Add your email".
+- Picker limit: at three picks the other seven tiles disable and the selected three stay clickable; a fourth click is ignored; deselecting re-enables all.
+- Promo guard: typing an unapplied code hides the whole payment area (`display: none`, so the `hidden` attribute does win over the grid class), disables Place order, shows "Apply your promo code, or clear the field, to continue.", and clicking the panel toggle does not collapse it.
+- Sticky bar at 375 px: one 64 px row (total, Place order, "Ask a parent to pay"), no horizontal scroll, last page content clear of the bar.
+- With a made-up email (no payment): the buttons enabled, the slot showed a spinner while the session was created and held the buttons still while Stripe loaded; Stripe reported no wallets in this pane about 3.3 s after the session started (inside the 4 s timeout) and the slot collapsed, moving the buttons up 100 px (the shift accepted for "hint says wallet, Stripe says none"). "Pay with card" opened the card form (Stripe card frame, 289 px). Place order stayed disabled ("1 step left").
+- Side effects: one unpaid Stripe session for the made-up address, which expires on its own; no Supabase row, account or payment (rows are written by the webhook).
+
+**David, real browsers (Observed):** intro copy, payment order, picker limit and promo guard are all correct. A $38.99 discount coupon on a multi-subject order
+calculates correctly in the order summary and recalculates as subjects are added or removed; applying and removing coupons works (F6 confirmed fixed).
+Google Pay renders in a normal, signed-in Chrome window and does not render in an anonymous Chrome window (expected: no signed-in Google account).
+Apple Pay renders in Safari, including an anonymous Safari window. Nothing renders in Firefox (expected).
+
 ### Review findings from reading the published source (Verified)
 - **F7:** after P4 the picker no longer disabled tiles at three picks, so a fourth click was silently ignored by the reducer. Fixed by P4b.
 - **F8:** after P4 the wallet slot appeared only once a session was being created, so the card and parent buttons were pushed down
@@ -123,23 +139,24 @@ confirm both the invite email and a 6-digit code email arrive; (3) F10 closes wh
 |---|---|---|
 | P1 | F1: Express Checkout loading and empty state (spinner, `onReady` → `availablePaymentMethods`, hide block when empty, 4 s fallback) | Published. Source read: matches. |
 | P2 | F2 + F3: render errors in the idle state; 429 → "we just emailed you a link" with 60 s countdown; spinners for wallet confirm and return page; no auto-resend | Published. Source read: matches. |
-| P3 | Promo control above wallets and visible before a session exists; typed-but-unapplied code blocks wallets, card and Place order | Published. Source read: matches. Wallet-bypass hazard (cutover checklist line 171) closed in code, not yet browser-tested. |
+| P3 | Promo control above wallets and visible before a session exists; typed-but-unapplied code blocks wallets, card and Place order | Published. Source read: matches. Wallet-bypass hazard (cutover checklist line 171) closed and browser-tested (E6). |
 | P3b | Guard no longer depends on the promo panel being open; panel reopens; pending message suppressed for a `?promo=` code about to auto-apply | Published. Diff read: correct. Leftover: message can flash ~1 s after a valid email. |
-| P4 | F6 remove-coupon fix; preload Stripe.js; no-upsell intro copy and selection summary; thin sticky bar; payment order wallet, card, parent with buttons disabled-with-reason until steps 1 and 2 | Built (diff read: matches). Publish not confirmed. |
-| P4b | F7 picker disabled at 3; F8 wallet slot reserved from first paint | Built, Lovable head `a605ff12` at 20:44:50 UTC, diff read: matches. David reported the publish did not take; not confirmed since. |
+| P4 | F6 remove-coupon fix; preload Stripe.js; no-upsell intro copy and selection summary; thin sticky bar; payment order wallet, card, parent with buttons disabled-with-reason until steps 1 and 2 | Published (David). Diff read: matches. Browser-tested, see E6. |
+| P4b | F7 picker disabled at 3; F8 wallet slot reserved from first paint | Published (David), Lovable head `a605ff12`. Diff read: matches. Browser-tested, see E6. |
 
 ## Test status
 
-Done (Observed): wallet availability by browser (E1); promo apply/remove display (E3); live purchases E2 and E5 reached `paid` with access.
-**Not yet tested after P4/P4b are live:**
-1. Remove coupon, plain link and `?promo=<code>` link: payment options return and Remove stays removed.
-2. Promo guard (Check 1): type a code, do not apply, try to collapse the panel; wallets, card and Place order stay blocked.
-3. Check 3: type a code, fill email, wait over 4 s, clear the field; do wallets come back in Chrome?
-4. Chrome and Safari: wallet placeholder from first paint, no layout shift, becomes the wallet row in place.
-5. Firefox: no placeholder after load, no gap; watch for a brief flash before hydration (page is server-rendered).
-6. Picker: pick three, others disable; deselect one, they re-enable.
-7. Intro copy for `?subject=` and `?subjects=` URLs; sticky bar thin and clear of content at phone width.
-8. Brand-new email purchase, click Start Studying immediately: a visible message with countdown (not silence), a working way in, and a working code after 60 s.
+**Done and passing (E1, E3, E6):** wallet availability by browser; coupon apply/remove and multi-subject recalculation; intro copy; payment order and
+disabled-with-reason buttons; picker limit; promo guard; phone-width sticky bar; card form opens; live purchases E2 and E5 reached `paid` with access.
+F1, F3 (checkout side), F6, F7 are confirmed fixed.
+
+**Still to test (none blocks the others):**
+1. **Check 3:** type a code, fill the email, wait over 4 s, clear the field; do the wallets come back in Chrome? (Needs a Chrome window with Google Pay.)
+2. **Wallet row appears in place** with no layout shift in normal Chrome (Google Pay) and Safari (Apple Pay). David confirmed the payment order but not the absence of a shift.
+3. **Firefox:** no brief flash of the wallet placeholder before the page hydrates (the page is server-rendered).
+4. **Brand-new real-inbox purchase** (the $1 `?promo=` link, an inbox David controls): the invite email and a 6-digit code email both arrive and are not in spam; clicking Start Studying immediately shows the 429 notice with a countdown, then works after the wait. Closes F10 and the F2 check.
+5. **"Ask a parent to pay"** from step 3 and from the sticky bar: the drawer opens, and the payment link and its waiting state behave as before.
+6. Phone width on a real device (the emulated 375 px check passed).
 
 ## Ideas parked (not decided)
 
@@ -149,5 +166,5 @@ Done (Observed): wallet availability by browser (E1); promo apply/remove display
 
 ## Done when
 
-F1–F8 are re-tested on the live site, F10 is resolved (email delivers to a real inbox), F9's layers are built in the order above, the new-student path (pay, return page, get in)
+F1–F8 are re-tested on the live site (F1, F3, F6, F7 done; the rest are in the list above), F10 is resolved (email delivers to a real inbox), F9's layers are built in the order above, the new-student path (pay, return page, get in)
 works first time, and each Lovable publish and any Production change has David's approval recorded.
