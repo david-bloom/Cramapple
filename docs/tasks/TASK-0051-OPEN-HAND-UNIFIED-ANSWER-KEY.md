@@ -2,6 +2,8 @@
 
 **Status:** Blocked (independent QA, 2026-09-29) — any signed-in user can read MCQ answer keys directly
 
+> **Update 2026-10-05 — OWNER OVERRIDE (`DECISION-0097` / `APPROVAL-0121`).** David overrode this gate. `public.get_open_hand_item` is now live in Production (ledger version `20260929034129`), verified with no rows written: anon refused, unentitled refused, staff served without an exclusion, `anon`/`public` cannot execute, `mcq_choices.is_correct`/`.rationale` still not selectable. Still open and still owned: fresh independent QA, F3, the excluded-item serving gap, the staff live path, and the per-load exclusion count (TASK-0052).
+>
 > **Update 2026-09-30:** F1 is fixed in Development and Production by TASK-0056 (`APPROVAL-0063`/`0064`; guard clean on both). F2 (`.limit(1)`) is deployed to Production (`evaluate-attempt` v70). F3 (Dev `open-hand-item` v9) is still open. Status stays Blocked until a **fresh** independent QA re-runs TASK-0051 + TASK-0056.
 through PostgREST (`content_item_versions.canonical_answer_1/2`, `.explanation`, `.item_package_payload`;
 live in Production too), so "the RPC is the only path to a key" is false and the scoring exclusion can be

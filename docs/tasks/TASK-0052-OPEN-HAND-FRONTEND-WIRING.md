@@ -1,6 +1,6 @@
 # TASK-0052 — Wire Open Hand to Live Data (Frontend, Lovable)
 
-**Status:** Not started. **Blocked on TASK-0051** — do not begin wiring before the backend gate lands.
+**Status:** In progress (2026-10-05) — unblocked by owner override `DECISION-0097`; build instruction sent to Lovable `56cae479` with the plate loop ON by default and the `?loop=` override removed. Publish follows Claude's diff review.
 **Tier:** Hard-Gate (it is the change that first exposes real answer keys to real students)
 **Owner:** TBD — frontend/Lovable
 **Product Owner:** David Bloom
