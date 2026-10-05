@@ -1,6 +1,8 @@
 # TASK-0052 — Wire Open Hand to Live Data (Frontend, Lovable)
 
 **Status:** In progress (2026-10-05) — unblocked by owner override `DECISION-0097`; build instruction sent to Lovable `56cae479` with the plate loop ON by default and the `?loop=` override removed. Publish follows Claude's diff review.
+
+> **Build 2026-10-05 — Lovable commit `450e107d` (not yet published).** Claude reviewed the full diff. `open-hand-item` removed from `src` (test-enforced); one `get_open_hand_item` call per item, only after the student taps "Show the worked answer" under the consent line; Next never wraps, with an end state; RPC errors mapped (entitlement → "This subject isn't unlocked on your account", not-accessible → skip, other → retry); Practice drops `open_hand_excluded` items and shows "You've seen the worked answer for this one, so it won't be scored" on a 409; plate loop on unless `VITE_PLATE_LOOP=off`, with the `?loop=` override and its stored key gone. `runtime-context-client.ts` now surfaces the JSON `error` code from function errors (needed for the 409), which changes the error string every function caller sees. Lovable reports 63 files / 543 tests passing and a clean typecheck. **Known regressions:** the reference pane and deep dive render empty placeholders in Open Hand (the RPC carries no reference content), and FRQs without criteria or a credited answer are skipped. **Not verified live:** the signed-in loop end to end, the 409 path, and the entitlement and not-accessible states.
 **Tier:** Hard-Gate (it is the change that first exposes real answer keys to real students)
 **Owner:** TBD — frontend/Lovable
 **Product Owner:** David Bloom
