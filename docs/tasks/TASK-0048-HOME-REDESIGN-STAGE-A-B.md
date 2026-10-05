@@ -6,7 +6,7 @@ Design artifact `https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh` ("CramApple 
 **Owner:** unassigned (backend workstreams: Claude/Codex; frontend: Lovable, "New Cramapple App" `56cae479`)
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Planned — not started
+**Status:** Built in Lovable Dev preview (commit `08a042ca`), NOT published; awaiting David's review and visual QA with a signed-in test account
 **Priority:** High — closes `O17` (`ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`), the largest open gap
 in `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`
 **Created Date:** 2026-09-27
@@ -139,3 +139,41 @@ scope for this task, see below — don't touch it, don't redesign it here).
 - Every color/spacing/type value traces to `project/ds/cramapple/tokens.json`.
 - `deno check` / typecheck and full test suites clean on every touched file, same bar as every other
   workstream this repo has shipped this week.
+
+
+## Progress — 2026-10-04 (Claude session)
+
+**Workstreams 1–3 (backend): live.** Verified read-only on Dev (`wmgjsdkphcyhngaffbqf`) and Production
+(`pcntajvbdfqhbeewmdry`): `public.get_home_start_queue(uuid, int)` exists in both;
+`app.student_course_positions.topic_code` / `topic_source` exist in both. Pulse/independence are computed
+in `home-snapshot.ts` (frontend server function), not in SQL. **One gap found and closed:** Dev's
+`public.student_course_positions` view still listed six columns (Production had been fixed by
+`APPROVAL-0120`), so the Dev preview's Home would have returned HTTP 400. Applied the identical
+`20261004223205_refresh_student_course_positions_view.sql` SQL to **Dev only** (idempotent
+`create or replace view`; verified 8 columns, `security_invoker`/`security_barrier` on, `authenticated`
+has SELECT). No Production change.
+
+**Workstreams 4–6 (frontend, Lovable `56cae479`, commit `08a042ca`, Dev preview, not published):**
+`HomeStageANew` / `HomeStageBBuilding` were built but unmounted; `HomeSnapshotView` rendered legacy
+`TopicHome` for everyone. Now `selectHomeStage` routes `new` -> Stage A, `building_signal` -> Stage B,
+`personalized` -> `TopicHome` unchanged (verified: no diff). New-stage wrapper keeps the top context bar,
+welcome banner, live-session Resume strip and Log out. Gaps fixed against the artboards: Stage A hardcoded
+"about 8 questions" replaced with `RECOMMEND_MIN_ATTEMPTS`/`RECOMMEND_MIN_ITEMS`; Stage A "Start practice"
+once a position is saved (it previously dead-ended: stage stays `new` until an attempt); Stage A
+"While you're here" explainers; Stage B "Your best N minutes" hero with Start practice; Stage B queue shows
+topic titles when resolvable; curriculum legend. Lovable reported 545/545 tests, typecheck and build pass.
+
+**QA so far: code-level only.** I could not sign in, so no authenticated visual/viewport QA was done.
+Open findings for review:
+1. Stage A's exam gauge is a decorative SVG with a hardcoded arc (not data-driven) — looks like progress
+   but is not; consider a plain countdown or removing the arc.
+2. Stage selection means the redesign is only seen with 0–2 graded attempts; at 3 attempts across 2 items
+   the student gets the legacy `TopicHome` (Personalized/`Main.dc.html` is out of scope). Product call.
+3. Stage B "Start practice" is disabled with no explanation when no course position is saved.
+4. Stage B shows two "Next best action" eyebrows (hero and Worth revisiting); legend text "Evidence label
+   shown when supported" is awkward.
+5. Stage B queue titles only resolve for topics in the saved unit's guides; others fall back to "Topic x.y".
+6. Not built (by design): 6-question diagnostic, cross-subject panel, mobile board.
+
+**Next:** David signs in to the Lovable Dev preview, walks Stage A (new account) and Stage B (account with
+1–2 graded attempts) at desktop and 390px, then decides on publish (Production publish remains a hard gate).
