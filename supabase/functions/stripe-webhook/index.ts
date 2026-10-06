@@ -414,13 +414,6 @@ async function handleCheckoutSessionCompleted(
     },
   });
 
-  await enqueuePaymentEmail(service, userId, {
-    sessionId: session.id,
-    purchaseType,
-    subjects: mode === "unlimited" ? "All AP subjects" : metadata.subject_ids ?? "",
-    amountTotal: session.amount_total ?? 0,
-    currency: session.currency ?? "usd",
-  });
   return userId;
 }
 
@@ -469,6 +462,18 @@ async function handleCheckoutSessionEvent(
         .eq("id", session.id);
       if (error) throw error;
     }
+    // Fulfilled access must be visible before independent notification work.
+    // A queue failure can retry this webhook without hiding the paid order.
+    const metadata = session.metadata ?? {};
+    await enqueuePaymentEmail(service, userId, {
+      sessionId: session.id,
+      purchaseType: metadata.purchase_type ?? metadata.purchaser_type ?? "",
+      subjects: metadata.mode === "unlimited"
+        ? "All AP subjects"
+        : metadata.subject_ids ?? "",
+      amountTotal: session.amount_total ?? 0,
+      currency: session.currency ?? "usd",
+    });
     return;
   }
 
