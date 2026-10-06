@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Close: Open Hand Live — 91 Teaching Items in Production, Plate Loop for All Subjects Built (2026-10-06): student-session-items deployed; teaching items hidden from student reads (RLS) and the attempt trigger re-enabled (APPROVAL-0124); 91 checked Units 1–3 teaching items live for Bio, Stats, Chem and Calc AB (APPROVAL-0125); Lovable all-subjects plate loop with the diagnostic removed is built but not yet published. **Next Owner:** David. **Next Action:** publish the Lovable build and do a signed-in check.
 - TASK-0065 Checker Pilot (AP Biology) (2026-10-06): supplementary checks for generated Open Hand teaching items (named-trap audit, lint, CED-text topic probe) proven on a pilot (4 of 4 planted defects caught); reconciled with APPROVAL-0123 / PR #340 (pilot's 603-topic scope withdrawn, per-item habit-line check retired); run on the 91 drafts: lint 2 fail, named-trap 38 blocked (25 only on fact-vs-action fix lines), Biology topic probe 21/21; nothing written to any database
 - Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) (2026-10-04): `/home` was rendering legacy `TopicHome` for everyone because the built Stage A/B components were unmounted; Lovable commit `08a042ca` now routes by `experienceStage`; Dev `public.student_course_positions` view refreshed; NOT published; code-level QA only, six findings in the task file.
 - Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) (2026-10-04): final end-to-end QA on the live site passes; remaining checks need a signed-in session or a real inbox; handoff written.
@@ -378,6 +379,40 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Session Close: Open Hand Live — 91 Teaching Items in Production, Plate Loop for All Subjects Built — 2026-10-06
+
+**Tasks:** TASK-0064, TASK-0065. **Approvals:** APPROVAL-0124, APPROVAL-0125. **PRs:** #340, #347, #349, #350 (all merged).
+**Handoff:** `docs/handoffs/SESSION_CLOSE_2026_10_06_OPEN_HAND_LIVE.md`.
+
+### Summary
+- **Serving.** David deployed `student-session-items` with the teaching filter (Production v33, Development v21).
+- **Database (Development and Production).** RLS on `content_item_versions` now hides active teaching items from student
+  reads. This closes the legacy `/session` MCQ and `/session/mcq` client reads, which Fable had missed. The attempt
+  trigger is re-enabled in Production.
+- **attempt-response.** The 409 mapping for refused teaching-item attempts is merged but not deployed.
+- **QA.** Fable re-checked the build. The three earlier blockers are fixed; Fable's new double-rationale finding is
+  fixed and published.
+- **Plate loop.** It went live for Statistics first (published). Then, at David's request, Lovable built a version
+  with the loop on for every subject and every diagnostic/session entry retired. That build is **not yet published.**
+- **Teaching items.** The outside checkers (Gemini 3.8 Flash, DeepSeek V4 Pro) ran on 91 Units 1–3 items. Every key
+  was confirmed; 4 rationale errors were fixed; the 15 C3/lint-blocked items were rewritten.
+- **Production load.** All 91 are loaded (Bio 21, Stats 29, Chem 21, Calc AB 20) and verified: content hashes match,
+  Open Hand serves them, they are hidden from students, and scoring never serves them.
+
+### Pending decisions
+- Whether the Statistics skill rail should also move off `/session` into Practice (David).
+
+### Open risks / blockers
+- Biology Unit 1 Practice has only 4 items, all on topic 1.7. Chemistry U1 and Physics C Mechanics U1 are also thin.
+- The live app has not had a human signed-in walkthrough.
+- The `attempt-response` 409 is undeployed. Low risk: it is a backstop.
+- Resume opens Practice at the start, not at the student's last topic.
+
+### Next required action
+- David publishes the Lovable all-subjects / no-diagnostic build (edit `edt-660b7fa5`) and does the signed-in check:
+  a non-Statistics "Start" button opens a worked example or Practice, and `/session/setup` lands on Home.
+- Then he deploys `attempt-response` via the CLI (Development, then Production).
 
 ## TASK-0065 Checker Pilot (AP Biology) — 2026-10-06
 
