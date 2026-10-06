@@ -158,3 +158,39 @@ Record: `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`.
 - **Open for David:** should a `Fix:` line have to be an action, which means rewriting 25 items' fixes, or may
   it state the correct fact?
 - These results feed the patch loop (step 3 of the handoff above). They clear nothing on their own.
+
+## Generate-and-select pipeline replaces hand-patching — 2026-10-06 (David)
+
+David asked why reviewed questions kept failing new checks, and asked for "a way to add questions without
+needing to edit them using at least 4 models and multiple sessions".
+
+**Diagnosis.** The rules were applied after the items were written: the named-trap and action-fix rules
+caused 25 of the 38 blocks. Earlier reviews checked other things. Single model calls are noisy. Every
+hand patch needed a full re-check. Two sessions also worked to different specs.
+
+**Decision (David, 2026-10-06).**
+1. Build a generate-and-select pipeline. No item is ever edited.
+2. Regenerate all 38 topics that C3 blocked.
+3. Hold PR #348 (the 25 hand-patched items; now a draft) and discard the 13 unchecked rewrites.
+
+**Pipeline:** `scripts/vercel-gateway-check/teaching_pipeline/` (`README.md`).
+- **One rubric** (`rubric.mjs`, 10 rules plus a deterministic lint). Both the author and the checkers
+  are prompted with it.
+- **Authors:** two per round, Claude Opus 5.5 and GPT-6.1, stateless. The correct answer's position is
+  randomized.
+- **Checkers:** four families, never the author's own: OpenAI, Google, DeepSeek, Moonshot, Anthropic,
+  minus the author. Each does a blind solve, then a rubric audit with the CED fact pack and the unit's
+  topic list.
+- **Variance and selection:** a checker that flags is re-sampled once, and only a repeated flag counts.
+  The first clean candidate is accepted. After 2 rounds with none, the topic is escalated to a human.
+- **Controls and sessions:** six planted-defect controls run before any generation, and the batch is
+  void if one is accepted. Per-topic lock files let sessions on one machine share a batch; separate
+  machines use `--shard`.
+
+**Smoke test:**
+- All 6 controls were caught at the expected stage, by all four checkers. The one exception: the
+  false-fact control was caught by Gemini under the accuracy rule and by the other three under other rules.
+- Biology 1.1 was accepted on its first candidate.
+- My spot check of that accepted item found rationales longer than the design's one to three sentences.
+  A `concise` rule was added to the rubric and lint (60 words per rationale, 25 per fix) before the
+  pilot. The human spot-check stays required.
