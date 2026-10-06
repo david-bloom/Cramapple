@@ -46,6 +46,7 @@ import {
   applyItemPackageFallback,
   type AssetMetadata,
   annotateOpenHandExclusions,
+  dropTeachingItems,
   buildRenderItem,
   buildResolvedCells,
   indexAssets,
@@ -801,10 +802,16 @@ export async function handleStudentSessionItems(
     // already seen in Open Hand. Deliberately a MARK, not a filter: dropping
     // them would make an excluded item look like one that does not exist, and
     // the client needs to show the student why it cannot be scored.
+    // TASK-0064. Open Hand teaching items are never scored: remove them from
+    // every served list before anything else sees them.
+    const teachingFiltered = await dropTeachingItems(service, delivered.items);
+    if (teachingFiltered.failed) {
+      return respond({ error: "teaching_item_check_failed" }, { status: 500 });
+    }
     const annotatedItems = await annotateOpenHandExclusions(
       service,
       user.id,
-      delivered.items,
+      teachingFiltered.items,
     );
 
     return respond({

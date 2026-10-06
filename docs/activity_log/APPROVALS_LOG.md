@@ -17,6 +17,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
 - APPROVAL-0119 — Parent Payment Short Links: New Table, New `resolve-parent-link` Function, Two Function Changes (Production)
+- APPROVAL-0122 — TASK-0064 Open Hand Teaching Pool to Production: Migration, Selector Exclusions, 95 Spare Designations
 - APPROVAL-0121 — Ship Open Hand and the Plate-Loop Practice Template to Production (Owner Override of the TASK-0051 Gate); Archive One Account's Stale Sessions; Publish the App — DECISION-0097
 - APPROVAL-0120 — Recreate `public.student_course_positions` With `topic_code` and `topic_source` So the Student Home Loads (Production)
 - APPROVAL-0117 — Difficulty Bands for 1,042 Published MCQs: 31 Seeds Rated, Variants and BC Copies Inherit (Production) — DECISION-0096
@@ -133,6 +134,37 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other view change; any app-side change.
 
+
+## APPROVAL-0122 — TASK-0064 Open Hand Teaching Pool to Production: Migration, Selector Exclusions, 95 Spare Designations
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "execute task 0064", after choosing "Auto-pick a teaching pool" and then "Generate + spare")  
+**Related Task:** `TASK-0064`  
+**Decision:** Approved
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry`), all done 2026-10-06:**
+1. Migration `20261006004005_open_hand_teaching_pool` adds three things: the table
+   `app.open_hand_teaching_items`, the RPC `public.get_open_hand_teaching_item`, and the trigger
+   `trg_refuse_attempt_on_teaching_item` on `app.attempts`.
+2. Migration `20261006005950_exclude_teaching_items_from_selectors` removes teaching items from the
+   four SQL selectors behind `/session`.
+3. Designation of 95 spare teaching items, one per topic with at least 5 published MCQs and a fully
+   explained item. Per subject: Calc AB 12, Calc BC 24, Chemistry 7, Physics 1 10, Physics 2 4,
+   Physics C E&M 4, Physics C Mech 4, Precalculus 14, Statistics 14, Biology 2.
+4. Lovable build of the show-everything Open Hand on the teaching RPC. The plate loop stays OFF;
+   publishing and turning the plate loop on are David's separate steps.
+
+**Verified:** the selectors served normally before designation. After it, 0 teaching items were
+served in 30 random sessions per subject across all 10 subjects. The RPC refuses unentitled users,
+returns a full key for a designated topic, and returns null for a topic with no item. Details are on
+TASK-0064.
+
+**Known gap, owned:** the `student-session-items` deploy that carries `dropTeachingItems` is not done;
+this sandbox cannot reach the Supabase Management API. Until it is deployed, the plate loop must stay
+OFF, because its Practice template uses the `cell_scoped` path, which the SQL selectors do not cover.
+
+**Not approved by this entry:** turning the plate loop on; releasing or re-designating items; content
+generation.
 
 ## APPROVAL-0121 — Ship Open Hand and the Plate-Loop Practice Template to Production (Owner Override of the TASK-0051 Gate); Archive One Account's Stale Sessions; Publish the App
 

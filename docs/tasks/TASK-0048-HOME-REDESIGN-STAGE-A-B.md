@@ -6,7 +6,7 @@ Design artifact `https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh` ("CramApple 
 **Owner:** unassigned (backend workstreams: Claude/Codex; frontend: Lovable, "New Cramapple App" `56cae479`)
 **Product Owner:** David Bloom
 **Tier:** Standard
-**Status:** Built in Lovable Dev preview (commit `08a042ca`), NOT published; awaiting David's review and visual QA with a signed-in test account
+**Status:** Published 2026-10-05 (Stage A/B mount `08a042ca` rode along with the `450e107d` publish under `APPROVAL-0121`). Stage A/B show only for `new` and `building_signal` students; `personalized` students keep `TopicHome`. Signed-in visual QA still owed; findings below remain open
 **Priority:** High — closes `O17` (`ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`), the largest open gap
 in `LAUNCH_PLAN_STUDENT_HUB_2026_09_26.md`
 **Created Date:** 2026-09-27

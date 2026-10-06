@@ -45,6 +45,8 @@ type Spec = {
   // content_item_topic_resolution_status_gate.integration.sql, since a
   // mock can't exercise a SQL-level WHERE clause.
   topicResolution?: Row[];
+  // TASK-0064 -- active app.open_hand_teaching_items rows (content_item_id).
+  teachingItems?: Row[];
   // Phase 2 (cell_scoped mode) -- app.content_items parent rows (content_key/
   // title/frq_form/practice_format) and app.content_item_versions rows
   // (id/content_item_id/stem/...) the two-query cell_scoped selector reads.
@@ -63,6 +65,7 @@ function tableBuilder(single: any, list: any[]): any {
   b.select = chain;
   b.eq = chain;
   b.in = chain;
+  b.is = chain;
   b.order = chain;
   b.maybeSingle = () => Promise.resolve({ data: single ?? null, error: null });
   // Awaiting the builder (…select().in().order()) resolves to the list result.
@@ -91,6 +94,7 @@ function makeService(spec: Spec) {
     ],
     content_item_topic_resolution: spec.topicResolution ?? [],
     content_items: spec.cellScopedParents ?? [],
+    open_hand_teaching_items: spec.teachingItems ?? [],
   };
   const appSchema = {
     from: (t: string) =>
@@ -636,6 +640,33 @@ Deno.test("cell_scoped mode serves every published MCQ for the pack, not just MA
   // An item the resolution view has no row for still serves -- absent, not
   // fabricated (see buildResolvedCells).
   assertEquals(items[1].cell, null);
+});
+
+Deno.test("cell_scoped mode never serves an Open Hand teaching item (TASK-0064)", async () => {
+  const parents = Array.from({ length: 3 }, (_, i) => cellScopedParent(i + 1));
+  const versions = Array.from({ length: 3 }, (_, i) => cellScopedVersion(i + 1));
+  const choices = Array.from({ length: 3 }, (_, i) => ({
+    content_item_version_id: `cv${i + 1}`,
+    choice_key: "A",
+    choice_text: "a safe choice",
+  }));
+  const teachingId = versions[1].content_item_id as string;
+
+  const { status, json } = await call(
+    {
+      session: ACTIVE_SESSION,
+      cellScopedParents: parents,
+      cellScopedVersions: versions,
+      choices,
+      teachingItems: [{ content_item_id: teachingId }],
+    },
+    { learning_session_id: SESSION_ID, mode: "cell_scoped" },
+  );
+
+  assertEquals(status, 200);
+  const items = (json.result as Record<string, unknown>).items as Array<Record<string, unknown>>;
+  assertEquals(items.length, 2);
+  assertFalse(items.some((i) => i.content_item_id === teachingId));
 });
 
 Deno.test("cell_scoped mode still honors an explicit smaller limit", async () => {

@@ -1,6 +1,6 @@
 # TASK-0064 — Open Hand Teaching Pool: Show Everything, Never Scored
 
-**Status:** Planned — awaiting go-ahead to build in Development  
+**Status:** In progress — Production backend LIVE and 95 spare items designated (2026-10-06, `APPROVAL-0122`); Lovable front end in build; plate loop stays OFF until the serving function is deployed
 **Tier:** Hard-Gate (schema, serving-path and Production changes)  
 **Owner:** Claude (backend + Lovable wiring); content generation → content-pipeline owner  
 **Product Owner:** David Bloom  
@@ -28,7 +28,7 @@ The gate existed because every disclosed key removes that item from the student'
 | Physics 1 / 2 / C:EM / C:Mech | 16 / 15 / 10 / 10 | 119 / 72 / 87 / 65 | 10 / 4 / 4 / 4 |
 | Precalculus | 33 | 194 | 14 |
 
-About 97 of 214 topics can spare one question. In Biology, one Open Hand view from the scored pool
+About 95 of 214 topics can spare one question (the 2026-10-06 designation count; an earlier rough estimate said 97). In Biology, one Open Hand view from the scored pool
 leaves a topic with too few MCQs to meet `DECISION-0074`'s 2-correct-MCQ mastery bar.
 
 ## Decision (David, 2026-10-06): generate plus spare
@@ -84,3 +84,111 @@ distractor carries why it tempts plus a one-line fix (pedagogy rule). Validated 
 - [ ] Desktop and 390px walkthrough by David in the preview before the plate loop is turned on.
 - [ ] Fresh independent QA (Fable) of Open Hand plus the serving exclusions.
 - [ ] Production: migration, function deploys and designation applied on David's explicit approval.
+
+## Progress — 2026-10-06
+
+**Development (`wmgjsdkphcyhngaffbqf`), applied and verified:**
+- Migration `20261006004005_open_hand_teaching_pool.sql` adds three things: the table
+  `app.open_hand_teaching_items`, the RPC `public.get_open_hand_teaching_item(subject_key, topic_code)`,
+  and a backstop trigger `trg_refuse_attempt_on_teaching_item` on `app.attempts`. The file name
+  matches Development's recorded version.
+- Verified with every write rolled back:
+  - anonymous call → `not_authenticated`
+  - unentitled user → `open_hand:entitlement_required`
+  - entitled student → full key returned (4 choices, `is_correct` present, topic title)
+  - topic with no teaching item → `null`
+  - inserting an attempt on a teaching item → refused `open_hand_item_not_scorable`
+- Development content fails the 25-character rationale bar, so the real selection returns nothing
+  there. Three Statistics items (topics 1.5, 1.6, 1.9) are designated as **Dev test fixtures**, marked
+  in `note`.
+
+**Serving filter (repo, not yet deployed):** `dropTeachingItems` is in
+`_shared/student-item-delivery.ts`, and `student-session-items` calls it before the exclusion
+annotation. It covers every serving mode because every mode funnels through that one point. It
+fails closed with a 500 if the lookup errors. Tests: shared delivery 46/46 (3 new), serving 32/32
+(1 new: cell_scoped never serves a teaching item). Typecheck shows no new errors. Run locally with
+stand-ins for `deno.land`, `jsr:` and `esm.sh`, which this sandbox cannot reach.
+
+**Grading:** `evaluate-attempt` is not changed. The trigger blocks any attempt on a teaching item at
+the database, so grading never sees one. A by-hand redeploy of that function (24 files, ~8.8k lines)
+was judged riskier than the trigger.
+
+**Production selection (read-only dry run, 2026-10-06):** 95 items (earlier "97" was a rough estimate; the per-subject counts below sum to 95), one per eligible topic, from
+`scripts/task0064/select_spare_teaching_items.sql`. The query is deterministic: re-run it at apply
+time and review the output then. Per subject:
+
+| Subject | Spare items |
+|---|---|
+| Calc AB | 12 |
+| Calc BC | 24 |
+| Chemistry | 7 |
+| Physics 1 | 10 |
+| Physics 2 | 4 |
+| Physics C: E&M | 4 |
+| Physics C: Mech | 4 |
+| Precalculus | 14 |
+| Statistics | 14 |
+| Biology | 2 |
+
+**Blocker for end-to-end testing:** the Lovable app, preview included, talks to **Production**
+Supabase. Open Hand cannot be exercised against Development. Production order, each step on David's
+approval:
+1. Apply the migration. It is inert with zero designations: the trigger matches nothing and the RPC
+   returns null.
+2. Deploy `student-session-items` with the filter. This must happen BEFORE any designation, or live
+   students could be served a teaching item that the trigger then refuses on submit.
+3. Designate the spare items (95).
+4. Lovable switches Open Hand to the teaching RPC and David reviews in the preview with the plate
+   loop still off.
+
+**Edge deploy:** this sandbox cannot reach the Supabase Management API. Deploy from a machine with the
+Supabase CLI:
+`supabase functions deploy student-session-items --project-ref <ref>`, Development first.
+
+## Production — executed 2026-10-06 (`APPROVAL-0122`)
+
+David: "execute task 0064". Changed from the plan above, with a reason: the live `/session` path picks
+items only through four SQL selectors, so step 2 was done in SQL, not by an edge deploy:
+
+1. **`20261006004005_open_hand_teaching_pool`** applied to Production with `execute_sql`. Ledger row
+   recorded at the file's version.
+2. **`20261006005950_exclude_teaching_items_from_selectors`** applied to Development, then Production.
+   It adds `and not app.content_item_is_teaching(ci.id)` to four selectors:
+   `select_unit_gated_practice_items`, `select_ordinary_combined_practice_items`,
+   `select_biology_practice_items` and `select_confirm_transfer_item`. Each function's current
+   definition is edited in place after one anchor line that must occur exactly once, so nothing else
+   is retyped. All four are verified patched in both environments.
+3. **95 spare items designated** in Production by the deterministic query:
+
+   | Subject | Items |
+   |---|---|
+   | Calc AB | 12 |
+   | Calc BC | 24 |
+   | Chemistry | 7 |
+   | Physics 1 | 10 |
+   | Physics 2 | 4 |
+   | Physics C: E&M | 4 |
+   | Physics C: Mech | 4 |
+   | Precalculus | 14 |
+   | Statistics | 14 |
+   | Biology | 2 |
+
+**Verified in Production:**
+- Before designation, the selectors still served normally (50 rows each for Biology, Statistics and
+  Chemistry).
+- After designation, 30 random sessions per subject across all 10 subjects served **0** teaching
+  items. The distinct-served counts equal the pack size minus the designated items: Development,
+  Statistics 203 − 3 = 200; Production, Biology 58 − 2 = 56.
+- `get_open_hand_teaching_item`: an unentitled user is refused. Biology 2.7 returns 4 choices with 1
+  correct, topic "Tonicity and Osmoregulation", unit 2. Chemistry 2.3 returns null because the topic
+  has no item.
+- The attempt trigger is live; it was verified refusing in Development.
+
+**Still required before the plate loop is turned on:** deploy `student-session-items`, which carries
+`dropTeachingItems`, from a machine with the Supabase CLI. Its `cell_scoped` mode, used only by the
+Practice template inside the plate loop, reads `content_items` directly and is not covered by the SQL
+selectors. Until then a teaching item could appear in that template, and the trigger would refuse the
+attempt.
+
+**Release path:** to return a spare item to scoring, set `released_at = now()`. Do this when a
+generated teaching item for that topic is published.
