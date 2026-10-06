@@ -192,3 +192,32 @@ attempt.
 
 **Release path:** to return a spare item to scoring, set `released_at = now()`. Do this when a
 generated teaching item for that topic is published.
+
+## Independent QA and containment — 2026-10-06
+
+Fable's independent QA (`docs/qa/QA_STUDENT_HUB_OPEN_HAND_PRACTICE_2026_10_06.md`) found that the
+invariant "teaching items are excluded from all scored practice" does **not** hold in Production.
+Two other serving paths read published MCQs directly, and the SQL selector patch does not cover them:
+- `student-session-items` `cell_scoped` mode, used by today's `/session` for the AP Statistics pilot.
+  The deployed v32 has no `dropTeachingItems`.
+- A client-side published-MCQ read in the app. It is the fallback used whenever
+  `select_unit_gated_practice_items` returns 0, which it does for every `targeted_drill` MCQ request
+  (re-verified: Biology 0 vs 25 with a null format, Statistics 0 vs 50).
+
+My earlier statement that the four SQL selectors cover every path students can reach today was wrong.
+
+**Containment, ~01:35 UTC:** disabled `trg_refuse_attempt_on_teaching_item` in Production
+(`alter table app.attempts disable trigger …`). Before that, a student served a teaching item would
+get a generic 500 on submit with no way forward. With the trigger disabled, such an item is graded
+normally. This is harmless while Open Hand is unreachable (plate loop OFF), because no student can
+have seen a teaching item's key. Production postgres logs showed **no** refused attempt between
+designation and containment.
+
+**Re-enable the trigger only after all of these:**
+1. `student-session-items` is deployed with `dropTeachingItems`.
+2. The client fallback read is removed, or excludes teaching items.
+3. `attempt-response` maps the trigger error to a 409 `open_hand_item_not_scorable`.
+
+The QA's other blockers also have to be fixed before the plate loop is turned on: the Practice
+result never reveals the correct answer, and a Unit 1 Biology student hits Open Hand with no
+question and no Next.
