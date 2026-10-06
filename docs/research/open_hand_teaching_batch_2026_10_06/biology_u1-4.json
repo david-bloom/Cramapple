@@ -47,19 +47,19 @@
         "choice_key": "A",
         "choice_text": "A protein with many cysteine residues, because proteins contain nitrogen and sulfur.",
         "is_correct": false,
-        "rationale": "Tempting because proteins do contain N and some S. But this sample has phosphorus and no sulfur, and proteins do not have phosphate in their backbone. Fix: phosphorus plus nitrogen points to nucleic acids."
+        "rationale": "Tempting because proteins do contain N and some S. But this sample has phosphorus and no sulfur, and proteins do not have phosphate in their backbone. Fix: when an analysis shows both N and P but no S, choose a nucleic acid over a protein."
       },
       {
         "choice_key": "B",
         "choice_text": "A triglyceride, because fats are rich in carbon and hydrogen and store energy.",
         "is_correct": false,
-        "rationale": "Tempting because C, H and O dominate fats. But a triglyceride has no nitrogen or phosphorus. Fix: N and P together signal nucleotides."
+        "rationale": "Tempting because C, H and O dominate fats. But a triglyceride has no nitrogen or phosphorus. Fix: check for N and P before you choose a lipid; triglycerides contain only C, H and O."
       },
       {
         "choice_key": "C",
         "choice_text": "A cellulose chain, because it is a large polymer built from many repeating subunits and its monomers are joined into long chains by covalent bonds.",
         "is_correct": false,
-        "rationale": "Tempting because cellulose is a polymer. But carbohydrates contain only C, H and O, so N and P rule it out. Fix: check which elements the molecule class actually contains."
+        "rationale": "Tempting because cellulose is a polymer. But carbohydrates contain only C, H and O, so N and P rule it out. Fix: list the elements each molecule class contains and match them to the analysis; cellulose has only C, H and O."
       },
       {
         "choice_key": "D",
@@ -173,7 +173,7 @@
         "choice_key": "D",
         "choice_text": "Fat 2 is more likely to be solid, because it has more hydrogen atoms bonded to its carbons.",
         "is_correct": false,
-        "rationale": "Tempting if you reverse saturation. But a double bond means fewer hydrogens, and Fat 2 is the unsaturated one. Fix: saturated means filled with hydrogen, with straight chains; unsaturated chains are kinked."
+        "rationale": "Tempting if you reverse saturation. But a double bond means fewer hydrogens, and Fat 2 is the unsaturated one. Fix: count the double bonds in each chain, and predict that the fat with none (more hydrogen, straight chains) packs into a solid."
       }
     ],
     "verification": "Explainer: saturated = single bonds, tight straight packing, solid; unsaturated = kinks, liquid. Fat 1 saturated.",
@@ -197,7 +197,7 @@
         "choice_key": "B",
         "choice_text": "5'-UACGGC-3'",
         "is_correct": false,
-        "rationale": "Tempting if you swap in uracil as the partner for adenine. But U pairs with A only in RNA, and this is a DNA strand, which uses thymine. Fix: DNA is A-T and C-G."
+        "rationale": "Tempting if you swap in uracil as the partner for adenine. But U pairs with A only in RNA, and this is a DNA strand, which uses thymine. Fix: pair A with T, never U, when you write a DNA strand."
       },
       {
         "choice_key": "C",
@@ -443,7 +443,7 @@
         "choice_key": "A",
         "choice_text": "Sodium ions flow out of the cell, because open channels pump ions out to keep the inside low.",
         "is_correct": false,
-        "rationale": "Tempting if you picture the channel as a pump. But a channel only provides a path, and ions follow the gradient, which here points inward. Fix: channels do not set the direction."
+        "rationale": "Tempting if you picture the channel as a pump. But a channel only provides a path, and ions follow the gradient, which here points inward. Fix: find the side with the higher concentration and predict flow through the open channel toward the lower side."
       },
       {
         "choice_key": "B",
@@ -455,13 +455,13 @@
         "choice_key": "C",
         "choice_text": "Sodium ions flow in, but only because ATP is used to power the channel, since a protein is involved.",
         "is_correct": false,
-        "rationale": "Tempting if you call any protein-assisted movement active transport. But a channel does not use ATP; diffusion down the gradient supplies the energy. Fix: protein-assisted is not the same as active."
+        "rationale": "Tempting if you call any protein-assisted movement active transport. But a channel does not use ATP; diffusion down the gradient supplies the energy. Fix: decide active or passive from the gradient direction, not from whether a protein is involved."
       },
       {
         "choice_key": "D",
         "choice_text": "Sodium ions cannot cross at all, because charged ions are blocked by the membrane.",
         "is_correct": false,
-        "rationale": "Tempting because the bilayer blocks charged ions on its own. But channel proteins provide a route for specific ions. Fix: blocked without a protein, passable with one."
+        "rationale": "Tempting because the bilayer blocks charged ions on its own. But channel proteins provide a route for specific ions. Fix: when an ion crosses a membrane, look for the channel or carrier protein that lets it through."
       }
     ],
     "verification": "Explainer: facilitated diffusion is high to low, never uses ATP; ions need channels. Gradient inward. Seed (aquaporin lysis timing) differs.",
@@ -587,7 +587,7 @@
         "choice_key": "A",
         "choice_text": "It supplies 35 kJ/mol of energy to the substrate so the reaction can start and then the substrate has enough energy to react without help.",
         "is_correct": false,
-        "rationale": "Tempting because 75 minus 40 is 35 and it looks like a donated amount. But enzymes do not add energy; they provide an easier path. Fix: lower the barrier, do not fill it."
+        "rationale": "Tempting because 75 minus 40 is 35 and it looks like a donated amount. But enzymes do not add energy; they provide an easier path. Fix: describe the enzyme as lowering the barrier from 75 to 40 kJ/mol, never as adding energy."
       },
       {
         "choice_key": "B",
@@ -599,13 +599,13 @@
         "choice_key": "C",
         "choice_text": "It makes the reaction release 65 kJ/mol overall, because the barrier is 35 kJ/mol lower.",
         "is_correct": false,
-        "rationale": "Tempting if you add the barrier reduction to the energy released. But the overall energy change depends only on reactants and products. Fix: catalysts do not change energy released."
+        "rationale": "Tempting if you add the barrier reduction to the energy released. But the overall energy change depends only on reactants and products. Fix: keep the energy released (30 kJ/mol) separate from the activation energy, the only value the enzyme changes."
       },
       {
         "choice_key": "D",
         "choice_text": "It is used up in the reaction as it permanently joins the substrate.",
         "is_correct": false,
-        "rationale": "Tempting because the enzyme binds the substrate. But the enzyme is released unchanged after catalysis and can be reused. Fix: binding is temporary."
+        "rationale": "Tempting because the enzyme binds the substrate. But the enzyme is released unchanged after catalysis and can be reused. Fix: describe enzyme binding as temporary, with the enzyme unchanged and reusable after the reaction."
       }
     ],
     "verification": "Ea 75 -> 40; delta E -30 unchanged (35 reduction; 30+35=65 as the slip). Explainer: enzymes lower Ea.",
@@ -695,13 +695,13 @@
         "choice_key": "A",
         "choice_text": "Oxygen and glucose",
         "is_correct": false,
-        "rationale": "Tempting because these are the best-known photosynthesis products. But oxygen comes from splitting water and is released, and glucose is made in the Calvin cycle, not the light reactions. Fix: track where each product is made."
+        "rationale": "Tempting because these are the best-known photosynthesis products. But oxygen comes from splitting water and is released, and glucose is made in the Calvin cycle, not the light reactions. Fix: list what the light reactions make, then pick the products the Calvin cycle uses in the stroma."
       },
       {
         "choice_key": "B",
         "choice_text": "Carbon dioxide and water",
         "is_correct": false,
-        "rationale": "Tempting because both are involved in photosynthesis. But they are inputs, not products of the light reactions. Fix: water is split in the light reactions and CO2 is used in the Calvin cycle."
+        "rationale": "Tempting because both are involved in photosynthesis. But they are inputs, not products of the light reactions. Fix: sort each molecule into input or product before you answer; water and CO2 are inputs."
       },
       {
         "choice_key": "C",
@@ -713,7 +713,7 @@
         "choice_key": "D",
         "choice_text": "NADH and FADH2",
         "is_correct": false,
-        "rationale": "Tempting because these are electron carriers. But NADH and FADH2 are produced in cellular respiration. Fix: photosynthesis carries electrons with NADPH."
+        "rationale": "Tempting because these are electron carriers. But NADH and FADH2 are produced in cellular respiration. Fix: look for NADPH in photosynthesis, and save NADH and FADH2 for cellular respiration."
       }
     ],
     "verification": "Explainer: light reactions in thylakoid make ATP + NADPH; Calvin cycle in stroma. ",
@@ -731,19 +731,19 @@
         "choice_key": "A",
         "choice_text": "Oxygen binds directly to ADP and phosphate to form ATP.",
         "is_correct": false,
-        "rationale": "Tempting because oxygen is linked with energy release. But oxygen does not make ATP directly; ATP synthase does. Fix: oxygen's role is final electron acceptor."
+        "rationale": "Tempting because oxygen is linked with energy release. But oxygen does not make ATP directly; ATP synthase does. Fix: trace oxygen to the end of the electron transport chain, where it accepts electrons, not to ATP synthase."
       },
       {
         "choice_key": "B",
         "choice_text": "Oxygen is required to split glucose during glycolysis in the mitochondria in order to feed the later steps.",
         "is_correct": false,
-        "rationale": "Tempting because oxygen is called a respiration requirement. But glycolysis occurs in the cytosol and does not need oxygen. Fix: use oxygen at the end of the electron transport chain."
+        "rationale": "Tempting because oxygen is called a respiration requirement. But glycolysis occurs in the cytosol and does not need oxygen. Fix: place glycolysis in the cytosol, where it runs without oxygen, before you link oxygen to ATP production."
       },
       {
         "choice_key": "C",
         "choice_text": "Oxygen supplies the protons that are pumped across the inner mitochondrial membrane.",
         "is_correct": false,
-        "rationale": "Tempting because the gradient is made of protons. But the pumped protons come from the matrix side, and oxygen instead accepts electrons. Fix: oxygen accepts electrons, which lets the chain keep pumping."
+        "rationale": "Tempting because the gradient is made of protons. But the pumped protons come from the matrix side, and oxygen instead accepts electrons. Fix: give oxygen the job of accepting electrons at the end of the chain, and look elsewhere for the pumped protons."
       },
       {
         "choice_key": "D",

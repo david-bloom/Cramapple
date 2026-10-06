@@ -161,7 +161,7 @@
     "choice_key": "B",
     "choice_text": "11/3",
     "is_correct": false,
-    "rationale": "Tempting if you treat f(x)^2 as -4 by squaring only the number and dropping the sign. But the square of -2 is +4. Fix: the limit of f^2 is (limit of f)^2 = 4."
+    "rationale": "Tempting if you treat f(x)^2 as -4 by squaring only the number and dropping the sign. But the square of -2 is +4. Fix: square the limit of f before you add: (-2)^2 = 4, not -4."
    },
    {
     "choice_key": "C",
@@ -203,7 +203,7 @@
     "choice_key": "C",
     "choice_text": "10/3",
     "is_correct": false,
-    "rationale": "Tempting if you factor the denominator as (x - 5)(x - 2), a sign slip on the 10. Check by expanding: that gives x^2 - 7x + 10, not x^2 - 3x - 10. Fix: the correct factors are (x - 5)(x + 2)."
+    "rationale": "Tempting if you factor the denominator as (x - 5)(x - 2), a sign slip on the 10. Check by expanding: that gives x^2 - 7x + 10, not x^2 - 3x - 10. Fix: expand your factors to check them before you cancel; x^2 - 3x - 10 = (x - 5)(x + 2)."
    },
    {
     "choice_key": "D",
@@ -233,7 +233,7 @@
     "choice_key": "B",
     "choice_text": "Rationalize the numerator, then get 1/4 by replacing sqrt(x) + 4 with just sqrt(16).",
     "is_correct": false,
-    "rationale": "Tempting because the conjugate method is right, but dropping the +4 gives 1/sqrt(x) = 1/4. Fix: the denominator after rationalizing is sqrt(x) + 4 = 8, so the limit is 1/8."
+    "rationale": "Tempting because the conjugate method is right, but dropping the +4 gives 1/sqrt(x) = 1/4. Fix: keep the whole factor sqrt(x) + 4 after rationalizing, and substitute x = 16 into all of it."
    },
    {
     "choice_key": "C",
@@ -245,7 +245,7 @@
     "choice_key": "D",
     "choice_text": "Conclude the limit does not exist, because the denominator equals 0 at x = 16.",
     "is_correct": false,
-    "rationale": "Tempting because a zero denominator looks like a vertical asymptote. But the numerator is also 0, so this is an indeterminate form that can have a finite limit. Fix: simplify first, then decide."
+    "rationale": "Tempting because a zero denominator looks like a vertical asymptote. But the numerator is also 0, so this is an indeterminate form that can have a finite limit. Fix: when substitution gives 0/0, rewrite the expression (factor or rationalize) and substitute again before deciding."
    }
   ],
   "verification": "Sympy: limit((sqrt(x)-4)/(x-16),x,16)=1/8; (sqrt(x)-4)/(x-16)=1/(sqrt(x)+4); slip values 1/4 (dropped +4), 0 (numerator only).",
@@ -593,7 +593,7 @@
     "choice_key": "B",
     "choice_text": "4 m/s",
     "is_correct": false,
-    "rationale": "Tempting because s(2) = 8 - 4 = 4 is the first number you compute. But that is the position, not a rate. Fix: velocity is the derivative of s, not s itself."
+    "rationale": "Tempting because s(2) = 8 - 4 = 4 is the first number you compute. But that is the position, not a rate. Fix: differentiate s(t) first, then substitute t = 2."
    },
    {
     "choice_key": "C",
@@ -605,7 +605,7 @@
     "choice_key": "D",
     "choice_text": "12 m/s",
     "is_correct": false,
-    "rationale": "Tempting if you differentiate t^3 to 3t^2 and forget the -2t term. But every term must be differentiated. Fix: s'(t) = 3t^2 - 2, so s'(2) = 10."
+    "rationale": "Tempting if you differentiate t^3 to 3t^2 and forget the -2t term. But every term must be differentiated. Fix: differentiate every term, including -2t, before you substitute t = 2."
    }
   ],
   "verification": "Sympy: diff(t**3-2*t,t).subs(t,2)=10; s(2)=4; (s(3)-s(2))/1=17; 3*t**2 at 2 = 12 (dropped -2).",
@@ -815,7 +815,7 @@
     "choice_key": "C",
     "choice_text": "The powder is a pure compound whose formula changes with the size of the sample.",
     "is_correct": false,
-    "rationale": "Tempting if you try to keep the pure-substance idea — but a compound has one fixed ratio no matter how much you take. Fix: a ratio that changes means the proportions are variable, so it is a mixture."
+    "rationale": "Tempting if you try to keep the pure-substance idea — but a compound has one fixed ratio no matter how much you take. Fix: compute the X:Y mass ratio for each sample, and call the powder a mixture if the ratio changes."
    },
    {
     "choice_key": "D",
@@ -1001,7 +1001,7 @@
     "choice_key": "D",
     "choice_text": "Br–Br",
     "is_correct": false,
-    "rationale": "Tempting if you think a large atom pulls electrons harder — but both atoms have identical electronegativity, so the pull is equal. Fix: equal electronegativity means a nonpolar bond with no partial charges."
+    "rationale": "Tempting if you think a large atom pulls electrons harder — but both atoms have identical electronegativity, so the pull is equal. Fix: check that the two atoms differ in electronegativity before you assign any partial charge."
    }
   ],
   "verification": "Delta EN: H-Cl 0.96, O-H 1.24 (negative on O, first), C-H 0.35 (negative on C, first), Br-Br 0 (python). Only H-Cl has delta-negative on the second atom. Seed ranked ionic character of four bonds; this item assigns polarity direction.",
@@ -1091,7 +1091,7 @@
     "choice_key": "A",
     "choice_text": "Fe and C",
     "is_correct": false,
-    "rationale": "Tempting because steel is the most familiar alloy — but carbon (77 pm) is much smaller than iron (126 pm), so it sits in gaps and gives an interstitial alloy. Fix: compare radii; very different sizes mean interstitial."
+    "rationale": "Tempting because steel is the most familiar alloy — but carbon (77 pm) is much smaller than iron (126 pm), so it sits in gaps and gives an interstitial alloy. Fix: compare the two radii, and rule out a pair in which one atom is much smaller than the other."
    },
    {
     "choice_key": "B",
@@ -1103,7 +1103,7 @@
     "choice_key": "C",
     "choice_text": "Pd and H",
     "is_correct": false,
-    "rationale": "Tempting because palladium is a metal and an alloy sounds like a metal mix — but H (53 pm) is far smaller than Pd (137 pm) and fits between the atoms. Fix: a size gap this large indicates interstitial placement."
+    "rationale": "Tempting because palladium is a metal and an alloy sounds like a metal mix — but H (53 pm) is far smaller than Pd (137 pm) and fits between the atoms. Fix: compare the two radii before calling a pair substitutional; pick a pair whose radii are close."
    },
    {
     "choice_key": "D",
@@ -1169,13 +1169,13 @@
     "choice_key": "B",
     "choice_text": "One bond is a double bond and the other a single bond, and the molecule rapidly switches between the two.",
     "is_correct": false,
-    "rationale": "Tempting if you treat the drawn forms as real snapshots — but resonance forms are not interconverting structures. Fix: the molecule is a single averaged structure with identical bonds."
+    "rationale": "Tempting if you treat the drawn forms as real snapshots — but resonance forms are not interconverting structures. Fix: draw both resonance forms, then describe the real molecule as their average, with two identical bonds."
    },
    {
     "choice_key": "C",
     "choice_text": "Both bonds are single bonds, because the double bond is only a drawing convention that is not used in real molecules.",
     "is_correct": false,
-    "rationale": "Tempting if you dismiss resonance as pretend — but the measured bond lengths are shorter than single-bond lengths. Fix: the averaged bonds have partial double-bond character."
+    "rationale": "Tempting if you dismiss resonance as pretend — but the measured bond lengths are shorter than single-bond lengths. Fix: count the bonds across both resonance forms and share the double bond equally between the two positions."
    },
    {
     "choice_key": "D",
@@ -1241,13 +1241,13 @@
     "choice_key": "B",
     "choice_text": "It is a solid, because its molar volume is much greater than that of a typical liquid.",
     "is_correct": false,
-    "rationale": "Tempting if you link solid with large volume — but solids and liquids have similar molar volumes because particles touch in both. Fix: the large molar volume belongs to gases."
+    "rationale": "Tempting if you link solid with large volume — but solids and liquids have similar molar volumes because particles touch in both. Fix: check whether a property actually separates solids from liquids before you use it; save large molar volume for gases."
    },
    {
     "choice_key": "C",
     "choice_text": "It is a gas-like phase, because its particles are not locked in a regular crystal pattern.",
     "is_correct": false,
-    "rationale": "Tempting if you think no pattern means free movement — but glass particles are as close together as in a crystal. Fix: gas particles are far apart and move independently; that is not the case here."
+    "rationale": "Tempting if you think no pattern means free movement — but glass particles are as close together as in a crystal. Fix: check particle spacing before you call anything gas-like; glass particles touch, as in a solid."
    },
    {
     "choice_key": "D",
@@ -1289,7 +1289,7 @@
     "choice_key": "D",
     "choice_text": "The ideal gas law ignores molar mass, which becomes important only at high pressure.",
     "is_correct": false,
-    "rationale": "Tempting if you think a missing variable explains the gap — but molar mass is not what the ideal gas law neglects. Fix: the ideal model neglects particle volume and attractions."
+    "rationale": "Tempting if you think a missing variable explains the gap — but molar mass is not what the ideal gas law neglects. Fix: explain a deviation from ideal behavior with particle volume or attractions, the two things the ideal model ignores."
    }
   ],
   "verification": "Explainer: at very high pressure particle volume becomes significant -> measured volume exceeds ideal. Seed was an attractions-at-low-T comparison of NH3 and CH4; this item uses the particle-volume mechanism at high P.",
@@ -1523,19 +1523,19 @@
     "choice_key": "A",
     "choice_text": "A protein with many cysteine residues, because proteins contain nitrogen and sulfur.",
     "is_correct": false,
-    "rationale": "Tempting because proteins do contain N and some S. But this sample has phosphorus and no sulfur, and proteins do not have phosphate in their backbone. Fix: phosphorus plus nitrogen points to nucleic acids."
+    "rationale": "Tempting because proteins do contain N and some S. But this sample has phosphorus and no sulfur, and proteins do not have phosphate in their backbone. Fix: when an analysis shows both N and P but no S, choose a nucleic acid over a protein."
    },
    {
     "choice_key": "B",
     "choice_text": "A triglyceride, because fats are rich in carbon and hydrogen and store energy.",
     "is_correct": false,
-    "rationale": "Tempting because C, H and O dominate fats. But a triglyceride has no nitrogen or phosphorus. Fix: N and P together signal nucleotides."
+    "rationale": "Tempting because C, H and O dominate fats. But a triglyceride has no nitrogen or phosphorus. Fix: check for N and P before you choose a lipid; triglycerides contain only C, H and O."
    },
    {
     "choice_key": "C",
     "choice_text": "A cellulose chain, because it is a large polymer built from many repeating subunits and its monomers are joined into long chains by covalent bonds.",
     "is_correct": false,
-    "rationale": "Tempting because cellulose is a polymer. But carbohydrates contain only C, H and O, so N and P rule it out. Fix: check which elements the molecule class actually contains."
+    "rationale": "Tempting because cellulose is a polymer. But carbohydrates contain only C, H and O, so N and P rule it out. Fix: list the elements each molecule class contains and match them to the analysis; cellulose has only C, H and O."
    },
    {
     "choice_key": "D",
@@ -1649,7 +1649,7 @@
     "choice_key": "D",
     "choice_text": "Fat 2 is more likely to be solid, because it has more hydrogen atoms bonded to its carbons.",
     "is_correct": false,
-    "rationale": "Tempting if you reverse saturation. But a double bond means fewer hydrogens, and Fat 2 is the unsaturated one. Fix: saturated means filled with hydrogen, with straight chains; unsaturated chains are kinked."
+    "rationale": "Tempting if you reverse saturation. But a double bond means fewer hydrogens, and Fat 2 is the unsaturated one. Fix: count the double bonds in each chain, and predict that the fat with none (more hydrogen, straight chains) packs into a solid."
    }
   ],
   "verification": "Explainer: saturated = single bonds, tight straight packing, solid; unsaturated = kinks, liquid. Fat 1 saturated.",
@@ -1673,7 +1673,7 @@
     "choice_key": "B",
     "choice_text": "5'-UACGGC-3'",
     "is_correct": false,
-    "rationale": "Tempting if you swap in uracil as the partner for adenine. But U pairs with A only in RNA, and this is a DNA strand, which uses thymine. Fix: DNA is A-T and C-G."
+    "rationale": "Tempting if you swap in uracil as the partner for adenine. But U pairs with A only in RNA, and this is a DNA strand, which uses thymine. Fix: pair A with T, never U, when you write a DNA strand."
    },
    {
     "choice_key": "C",
@@ -1919,7 +1919,7 @@
     "choice_key": "A",
     "choice_text": "Sodium ions flow out of the cell, because open channels pump ions out to keep the inside low.",
     "is_correct": false,
-    "rationale": "Tempting if you picture the channel as a pump. But a channel only provides a path, and ions follow the gradient, which here points inward. Fix: channels do not set the direction."
+    "rationale": "Tempting if you picture the channel as a pump. But a channel only provides a path, and ions follow the gradient, which here points inward. Fix: find the side with the higher concentration and predict flow through the open channel toward the lower side."
    },
    {
     "choice_key": "B",
@@ -1931,13 +1931,13 @@
     "choice_key": "C",
     "choice_text": "Sodium ions flow in, but only because ATP is used to power the channel, since a protein is involved.",
     "is_correct": false,
-    "rationale": "Tempting if you call any protein-assisted movement active transport. But a channel does not use ATP; diffusion down the gradient supplies the energy. Fix: protein-assisted is not the same as active."
+    "rationale": "Tempting if you call any protein-assisted movement active transport. But a channel does not use ATP; diffusion down the gradient supplies the energy. Fix: decide active or passive from the gradient direction, not from whether a protein is involved."
    },
    {
     "choice_key": "D",
     "choice_text": "Sodium ions cannot cross at all, because charged ions are blocked by the membrane.",
     "is_correct": false,
-    "rationale": "Tempting because the bilayer blocks charged ions on its own. But channel proteins provide a route for specific ions. Fix: blocked without a protein, passable with one."
+    "rationale": "Tempting because the bilayer blocks charged ions on its own. But channel proteins provide a route for specific ions. Fix: when an ion crosses a membrane, look for the channel or carrier protein that lets it through."
    }
   ],
   "verification": "Explainer: facilitated diffusion is high to low, never uses ATP; ions need channels. Gradient inward. Seed (aquaporin lysis timing) differs.",
@@ -2063,7 +2063,7 @@
     "choice_key": "A",
     "choice_text": "It supplies 35 kJ/mol of energy to the substrate so the reaction can start and then the substrate has enough energy to react without help.",
     "is_correct": false,
-    "rationale": "Tempting because 75 minus 40 is 35 and it looks like a donated amount. But enzymes do not add energy; they provide an easier path. Fix: lower the barrier, do not fill it."
+    "rationale": "Tempting because 75 minus 40 is 35 and it looks like a donated amount. But enzymes do not add energy; they provide an easier path. Fix: describe the enzyme as lowering the barrier from 75 to 40 kJ/mol, never as adding energy."
    },
    {
     "choice_key": "B",
@@ -2075,13 +2075,13 @@
     "choice_key": "C",
     "choice_text": "It makes the reaction release 65 kJ/mol overall, because the barrier is 35 kJ/mol lower.",
     "is_correct": false,
-    "rationale": "Tempting if you add the barrier reduction to the energy released. But the overall energy change depends only on reactants and products. Fix: catalysts do not change energy released."
+    "rationale": "Tempting if you add the barrier reduction to the energy released. But the overall energy change depends only on reactants and products. Fix: keep the energy released (30 kJ/mol) separate from the activation energy, the only value the enzyme changes."
    },
    {
     "choice_key": "D",
     "choice_text": "It is used up in the reaction as it permanently joins the substrate.",
     "is_correct": false,
-    "rationale": "Tempting because the enzyme binds the substrate. But the enzyme is released unchanged after catalysis and can be reused. Fix: binding is temporary."
+    "rationale": "Tempting because the enzyme binds the substrate. But the enzyme is released unchanged after catalysis and can be reused. Fix: describe enzyme binding as temporary, with the enzyme unchanged and reusable after the reaction."
    }
   ],
   "verification": "Ea 75 -> 40; delta E -30 unchanged (35 reduction; 30+35=65 as the slip). Explainer: enzymes lower Ea.",
@@ -2171,13 +2171,13 @@
     "choice_key": "A",
     "choice_text": "Oxygen and glucose",
     "is_correct": false,
-    "rationale": "Tempting because these are the best-known photosynthesis products. But oxygen comes from splitting water and is released, and glucose is made in the Calvin cycle, not the light reactions. Fix: track where each product is made."
+    "rationale": "Tempting because these are the best-known photosynthesis products. But oxygen comes from splitting water and is released, and glucose is made in the Calvin cycle, not the light reactions. Fix: list what the light reactions make, then pick the products the Calvin cycle uses in the stroma."
    },
    {
     "choice_key": "B",
     "choice_text": "Carbon dioxide and water",
     "is_correct": false,
-    "rationale": "Tempting because both are involved in photosynthesis. But they are inputs, not products of the light reactions. Fix: water is split in the light reactions and CO2 is used in the Calvin cycle."
+    "rationale": "Tempting because both are involved in photosynthesis. But they are inputs, not products of the light reactions. Fix: sort each molecule into input or product before you answer; water and CO2 are inputs."
    },
    {
     "choice_key": "C",
@@ -2189,7 +2189,7 @@
     "choice_key": "D",
     "choice_text": "NADH and FADH2",
     "is_correct": false,
-    "rationale": "Tempting because these are electron carriers. But NADH and FADH2 are produced in cellular respiration. Fix: photosynthesis carries electrons with NADPH."
+    "rationale": "Tempting because these are electron carriers. But NADH and FADH2 are produced in cellular respiration. Fix: look for NADPH in photosynthesis, and save NADH and FADH2 for cellular respiration."
    }
   ],
   "verification": "Explainer: light reactions in thylakoid make ATP + NADPH; Calvin cycle in stroma. ",
@@ -2207,19 +2207,19 @@
     "choice_key": "A",
     "choice_text": "Oxygen binds directly to ADP and phosphate to form ATP.",
     "is_correct": false,
-    "rationale": "Tempting because oxygen is linked with energy release. But oxygen does not make ATP directly; ATP synthase does. Fix: oxygen's role is final electron acceptor."
+    "rationale": "Tempting because oxygen is linked with energy release. But oxygen does not make ATP directly; ATP synthase does. Fix: trace oxygen to the end of the electron transport chain, where it accepts electrons, not to ATP synthase."
    },
    {
     "choice_key": "B",
     "choice_text": "Oxygen is required to split glucose during glycolysis in the mitochondria in order to feed the later steps.",
     "is_correct": false,
-    "rationale": "Tempting because oxygen is called a respiration requirement. But glycolysis occurs in the cytosol and does not need oxygen. Fix: use oxygen at the end of the electron transport chain."
+    "rationale": "Tempting because oxygen is called a respiration requirement. But glycolysis occurs in the cytosol and does not need oxygen. Fix: place glycolysis in the cytosol, where it runs without oxygen, before you link oxygen to ATP production."
    },
    {
     "choice_key": "C",
     "choice_text": "Oxygen supplies the protons that are pumped across the inner mitochondrial membrane.",
     "is_correct": false,
-    "rationale": "Tempting because the gradient is made of protons. But the pumped protons come from the matrix side, and oxygen instead accepts electrons. Fix: oxygen accepts electrons, which lets the chain keep pumping."
+    "rationale": "Tempting because the gradient is made of protons. But the pumped protons come from the matrix side, and oxygen instead accepts electrons. Fix: give oxygen the job of accepting electrons at the end of the chain, and look elsewhere for the pumped protons."
    },
    {
     "choice_key": "D",
@@ -2285,7 +2285,7 @@
     "choice_key": "B",
     "choice_text": "Quantitative continuous, because area codes fall anywhere along a number line between 200 and 999 like measurements do.",
     "is_correct": false,
-    "rationale": "Tempting because numbers can be placed on a number line — but a code of 415 is not 'more' than 212 in any measurable sense. Fix: a continuous variable measures a quantity; labels written as numbers do not."
+    "rationale": "Tempting because numbers can be placed on a number line — but a code of 415 is not 'more' than 212 in any measurable sense. Fix: ask whether the number measures an amount; if it is a label, classify the variable as categorical."
    },
    {
     "choice_key": "C",
@@ -2435,13 +2435,13 @@
     "choice_key": "C",
     "choice_text": "88.5",
     "is_correct": false,
-    "rationale": "Tempting because 88.5 is the fence you just computed — but the fence is a cutoff, not a data value. Fix: the whisker ends at an actual data point inside the fence."
+    "rationale": "Tempting because 88.5 is the fence you just computed — but the fence is a cutoff, not a data value. Fix: end the whisker at the largest actual data value inside the fence, not at the fence itself."
    },
    {
     "choice_key": "D",
     "choice_text": "60",
     "is_correct": false,
-    "rationale": "Tempting because the box ends at Q3 — but the whisker continues beyond the box to the largest non-outlier. Fix: Q3 is the end of the box, not the whisker."
+    "rationale": "Tempting because the box ends at Q3 — but the whisker continues beyond the box to the largest non-outlier. Fix: compute the upper fence, Q3 + 1.5 × IQR, then extend the whisker past Q3 to the largest value inside it."
    }
   ],
   "verification": "IQR=19; upper fence=88.5; lower fence=12.5; 12 < 12.5? True; 90>88.5? True; largest value <= fence = 67",
@@ -2507,7 +2507,7 @@
     "choice_key": "C",
     "choice_text": "It is a retrospective observational study, because the researchers are looking at coffee habits and blood pressure of adults.",
     "is_correct": false,
-    "rationale": "Tempting because it is observational — but retrospective studies examine past records, while this one collects data going forward. Fix: forward-looking data collection is prospective."
+    "rationale": "Tempting because it is observational — but retrospective studies examine past records, while this one collects data going forward. Fix: check whether data are collected going forward or looked up from the past before you call a study retrospective."
    },
    {
     "choice_key": "D",
@@ -2567,13 +2567,13 @@
     "choice_key": "A",
     "choice_text": "More Art Club members than Chess Club members prefer online meetings.",
     "is_correct": false,
-    "rationale": "Tempting because 75% looks bigger than 40% — but the chart hides the club sizes, so counts cannot be compared. Fix: compare proportions, or find the group totals first."
+    "rationale": "Tempting because 75% looks bigger than 40% — but the chart hides the club sizes, so counts cannot be compared. Fix: compare percents as percents, and find each group's total before you compare counts."
    },
    {
     "choice_key": "B",
     "choice_text": "The two clubs have the same number of members, because each bar is the same total height.",
     "is_correct": false,
-    "rationale": "Tempting because every bar reaches 100% — but each bar is scaled to its own group. Fix: equal bar heights say nothing about group size."
+    "rationale": "Tempting because every bar reaches 100% — but each bar is scaled to its own group. Fix: read each bar as 100% of its own group, and look for the group counts before you compare sizes."
    },
    {
     "choice_key": "C",
@@ -2681,7 +2681,7 @@
     "choice_key": "B",
     "choice_text": "5/3, about 1.67",
     "is_correct": false,
-    "rationale": "Tempting if you compare red marbles with blue ones — but a probability can never exceed 1. Fix: if your answer is above 1, the denominator is wrong."
+    "rationale": "Tempting if you compare red marbles with blue ones — but a probability can never exceed 1. Fix: check that every probability is between 0 and 1, and divide by the total number of marbles."
    },
    {
     "choice_key": "C",
@@ -2795,7 +2795,7 @@
     "choice_key": "C",
     "choice_text": "95%",
     "is_correct": false,
-    "rationale": "Tempting because 95% is the empirical-rule number for 2 SD — but that is the area between 300 and 700. Fix: ask which region the question wants."
+    "rationale": "Tempting because 95% is the empirical-rule number for 2 SD — but that is the area between 300 and 700. Fix: shade the region the question asks about (above 700) before you read off a percent."
    },
    {
     "choice_key": "D",
@@ -2819,7 +2819,7 @@
     "choice_key": "A",
     "choice_text": "Right-skewed like the population, centered near 40, with standard deviation about 3.",
     "is_correct": false,
-    "rationale": "Tempting because the population is skewed — but with n = 64 the sample means pile up symmetrically. Fix: the CLT makes the shape approximately normal for large n."
+    "rationale": "Tempting because the population is skewed — but with n = 64 the sample means pile up symmetrically. Fix: for a large sample size, describe the distribution of sample means as approximately normal, whatever the population's shape."
    },
    {
     "choice_key": "B",
@@ -2837,7 +2837,7 @@
     "choice_key": "D",
     "choice_text": "Approximately normal, centered near 40, with standard deviation about 0.375.",
     "is_correct": false,
-    "rationale": "Tempting if you divide 24 by 64 — but the standard deviation of the mean uses √n, not n. Fix: 24/√64 = 3."
+    "rationale": "Tempting if you divide 24 by 64 — but the standard deviation of the mean uses √n, not n. Fix: divide σ by √n, not by n: 24/√64 = 3."
    }
   ],
   "verification": "sigma/sqrt(n)=3.000; sigma/n=0.375; n>=30 so CLT applies",
@@ -2933,7 +2933,7 @@
     "choice_key": "B",
     "choice_text": "H₀: p = 0.22 versus Hₐ: p > 0.22, where p is the true proportion of underfilled bottles.",
     "is_correct": false,
-    "rationale": "Tempting if you notice the sample result is above 22% (40/150 ≈ 0.27) — but the direction must come from the research question, not the data. Fix: 'different from' means two-sided."
+    "rationale": "Tempting if you notice the sample result is above 22% (40/150 ≈ 0.27) — but the direction must come from the research question, not the data. Fix: use ≠ in Hₐ whenever the claim is that the proportion is 'different from' a value."
    },
    {
     "choice_key": "C",
@@ -2945,7 +2945,7 @@
     "choice_key": "D",
     "choice_text": "H₀: p = 0.27 versus Hₐ: p ≠ 0.27, where p is the true proportion of underfilled bottles.",
     "is_correct": false,
-    "rationale": "Tempting if you put the sample proportion into the null — but the null value is the claimed 0.22, not the observed 0.27. Fix: the sample result is used later in the test statistic."
+    "rationale": "Tempting if you put the sample proportion into the null — but the null value is the claimed 0.22, not the observed 0.27. Fix: write the hypotheses with the claimed value, 0.22, and save the sample result for the test statistic."
    }
   ],
   "verification": "40/150=0.2667; claim p0=0.22; 'differs' implies two-sided.",
