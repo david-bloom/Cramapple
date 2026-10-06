@@ -1,6 +1,12 @@
 import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { isPayerNotLearner } from "./addon-checkout.ts";
 import {
+  emailFirstName,
+  emailFooter,
+  emailSubjects,
+  emailUrl,
+} from "./email-template-data.ts";
+import {
   requireEmailConfig,
   sendLoopsTransactional,
 } from "./loops-transactional.ts";
@@ -13,6 +19,7 @@ export function buildPaymentEmail(input: {
   amountTotal: number;
   currency: string;
   studyUrl: string;
+  firstName?: unknown;
 }) {
   return {
     dedupe_key: `payment:${input.sessionId}`,
@@ -21,10 +28,13 @@ export function buildPaymentEmail(input: {
       : "LOOPS_PURCHASE_TRANSACTIONAL_ID",
     recipient_email: input.email,
     data_variables: {
-      subjects: input.subjects,
+      subjects: emailSubjects(input.subjects),
       amountTotal: input.amountTotal,
       currency: input.currency,
       studyUrl: input.studyUrl,
+      appUrl: emailUrl(input.studyUrl),
+      firstName: emailFirstName(input.firstName),
+      ...emailFooter(),
     },
   };
 }
@@ -48,6 +58,7 @@ export async function enqueuePaymentEmail(
   const message = buildPaymentEmail({
     ...input,
     email: data.user.email,
+    firstName: data.user.user_metadata?.first_name,
     studyUrl: requireEmailConfig("TRANSACTIONAL_STUDY_URL"),
   });
   const { error: insertError } = await service.schema("app")

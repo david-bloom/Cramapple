@@ -2,6 +2,7 @@ import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
 import { shortLinkUrl } from "../_shared/parent-short-link.ts";
+import { parentRequestVariables } from "../_shared/email-template-data.ts";
 import {
   requireEmailConfig,
   sendLoopsTransactional,
@@ -100,9 +101,6 @@ Deno.serve(async (req) => {
 
   const studentName = metadata.student_name?.trim().split(/\s+/)[0] ||
     "your student";
-  const subjectCount =
-    (metadata.subject_ids ?? "").split(",").filter(Boolean).length;
-
   let sendStatus = "failed";
   try {
     await sendLoopsTransactional({
@@ -110,17 +108,15 @@ Deno.serve(async (req) => {
         "LOOPS_PARENT_REQUEST_TRANSACTIONAL_ID",
       ),
       email: parentEmail,
-      dataVariables: {
+      dataVariables: parentRequestVariables({
         checkoutUrl,
         studentName,
-        subjectCount,
         subjects: metadata.subject_ids ?? "",
         amountTotal: session.amount_total ?? 0,
         currency: session.currency ?? "usd",
-        expiresAt: session.expires_at
-          ? new Date(session.expires_at * 1000).toISOString()
-          : "",
-      },
+        expiresAt: session.expires_at ?? 0,
+        parentEmail,
+      }),
     }, crypto.randomUUID());
     sendStatus = "sent";
     return respond({ status: "ok" });
