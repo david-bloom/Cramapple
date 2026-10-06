@@ -221,3 +221,24 @@ designation and containment.
 The QA's other blockers also have to be fixed before the plate loop is turned on: the Practice
 result never reveals the correct answer, and a Unit 1 Biology student hits Open Hand with no
 question and no Next.
+
+## QA fix round — 2026-10-06
+
+**Backend (live in Development and Production):** migration
+`20261006081339_practice_feedback_and_teaching_topics.sql` adds two read-only RPCs.
+- `get_graded_mcq_feedback(p_attempt_id)` returns the picked choice, the score, and every choice with
+  `is_correct` and its rationale. It answers only for the caller's own MCQ attempt and only after a
+  submitted response and a grading result exist. Otherwise it raises `feedback:not_found` /
+  `feedback:not_graded`. Production check: the owner gets picked=A, 0/1, 4 choices; a non-owner gets
+  `feedback:not_found`.
+- `get_open_hand_teaching_topics(p_subject_key)` returns the topic codes that have a teaching item.
+  It is entitlement-scoped and takes the raw `subjects.subject_key`. Production: Biology has 2.7 and
+  4.3; Statistics has 14 topics.
+
+**Product Owner decisions (David):**
+- Remove the "x of 4 explanations read" counter and its caption from Open Hand. Everything is
+  visible on load, so there is nothing to track.
+- Do not block re-serving an item after its post-grade answer reveal in Practice.
+
+**Frontend:** Fable's corrected prompt (sections A–H) was sent to Lovable as a build-only round.
+The plate loop stays OFF, and the build is not published until David reviews it.
