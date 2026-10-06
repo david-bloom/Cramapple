@@ -155,6 +155,8 @@ Record: `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`.
   - Lint: 2 fail (Calculus AB 1.11 and 1.13 use `!=`).
   - C3: 38 blocked. 13 for an unnamed temptation. 25 only because a `Fix:` line states a fact rather than an action.
   - Biology topic probe: 21 of 21 pass.
-- **Open for David:** should a `Fix:` line have to be an action, which means rewriting 25 items' fixes, or may
-  it state the correct fact?
+- **David (2026-10-06): fix lines must be actions.** I rewrote 44 fix lines across the 25 items,
+  in both copies of each item. On re-check, all 25 clear lint, C3 and `open_hand_teaching_check.mjs`.
+  Two single-checker flags were adjudicated: one as variance, one as a wrong flag on ozone's octet.
+  Still open: 13 items with an unnamed temptation (7 of them also have fact-style fixes).
 - These results feed the patch loop (step 3 of the handoff above). They clear nothing on their own.
