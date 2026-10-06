@@ -64,8 +64,8 @@ const HABITS = z.object({
     issue: z.string(),
   })),
   pairs_with_item: z.boolean().describe('True if the habits are the ones this specific question exercises or punishes'),
-  brief_core_covered: z.boolean().describe("True if the earned lines include the brief's core scoring move and the lost lines include its common point loss, in substance"),
-  verdict: z.enum(['pass', 'fail']).describe('fail if any line has a false field, or pairs_with_item or brief_core_covered is false'),
+  brief_shares_a_move: z.boolean().describe("True if no line contradicts the point brief and at least one line (earned or lost) shares, in substance, a scoring move, answer move or point loss named in the brief. A single question need not cover every move in the brief."),
+  verdict: z.enum(['pass', 'fail']).describe('fail if any line has a false field, or pairs_with_item or brief_shares_a_move is false'),
   notes: z.string(),
 });
 
@@ -89,7 +89,7 @@ function habitsPrompt(it) {
   const brief = b ? `Topic ${it.topic_code} ${b.title}\nHow points are earned: ${b.how_points_are_earned}\nAnswer move: ${b.answer_move}\nCommon point loss: ${b.common_point_loss}` : `Topic ${it.topic_code} (no point brief on file)`;
   return `${ROLE}
 
-Every teaching question carries two lists of exactly three short lines: "How points are earned" and "How points are lost". House rules: each line is a habit (something the student does, or fails to do, when answering), not a fact about the subject; each is one short line making a single point (a phrase such as "Skipping the gradient direction." is fine) with no hedging; the lines are about this topic and consistent with the topic's point brief below; and they are the habits this particular question exercises.
+Every teaching question carries two lists of exactly three short lines: "How points are earned" and "How points are lost". House rules: each line is a habit (something the student does, or fails to do, when answering), not a fact about the subject; each is one short line making a single point (a phrase such as "Skipping the gradient direction." is fine) with no hedging; the lines are about this topic, do not contradict the topic's point brief below, and share at least one of its moves (the brief covers the whole topic, so one question need not cover every move in it); and they are the habits this particular question exercises or punishes.
 
 Topic point brief:
 ${brief}
@@ -128,7 +128,7 @@ async function callModel(model, prompt, schema) {
 // The verdict is recomputed from the per-field booleans so a model cannot pass an item it flagged.
 function derivedVerdict(pass, o) {
   if (pass === 'trap') return o.keyed.explains_why_it_earns_the_point && o.distractors.length >= 3 && o.distractors.every((d) => d.names_why_it_tempts && d.fix_present && d.fix_is_specific && d.fix_is_one_line) ? 'pass' : 'fail';
-  return o.pairs_with_item && o.brief_core_covered && o.lines.length === 6 && o.lines.every((l) => l.is_habit && l.one_line_no_hedge && l.consistent_with_brief) ? 'pass' : 'fail';
+  return o.pairs_with_item && o.brief_shares_a_move && o.lines.length === 6 && o.lines.every((l) => l.is_habit && l.one_line_no_hedge && l.consistent_with_brief) ? 'pass' : 'fail';
 }
 
 const items = JSON.parse(fs.readFileSync(itemsPath, 'utf8')).filter((i) => !only || i.key === only);

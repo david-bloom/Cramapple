@@ -50,7 +50,7 @@ The clean items were not clean. The checkers found real authoring defects that I
 
 1. **C6 has two blocking rules that pull against each other.** "Pairs with this item" (every line is a habit this question exercises) and "covers the brief's core" (the earned/lost lines include the topic brief's main move and main loss). A brief is topic-level and lists 3-4 moves; one MCQ exercises one or two. Round 2's three remaining C6 blocks are all DeepSeek on "brief core". Recommendation: keep "pairs with item" blocking; soften brief coverage to "does not contradict the brief and shares at least one of its moves".
 2. **The topic probe sees titles only.** 2.5 Membrane Transport vs 2.8 Mechanisms of Transport is a CED overlap (EK 2.5.A.3 and EK 2.8.A.1 both cover active transport). Recommendation: pass each topic's EK lines from the fact pack to the probe, or allow the runbook's `ced_text_tiebreak` for designated-topic items. Until then, 2.5 is dropped from the pilot.
-3. **Scope is larger than the task says.** Production has 61 Biology topic point briefs (60 topics in the taxonomy); TASK-0065's "27 Biology topics" counts topics that have MCQs. If every briefed topic gets a teaching item, the ~214 total is an undercount.
+3. **Scope is larger than the task says.** Production has 60 published Biology topic point briefs; TASK-0065's "27 Biology topics" counts topics that have MCQs. If every briefed topic gets a teaching item, the ~214 total is an undercount.
 4. **C3 is not fully deterministic on borderline rationales.** 1.1's distractor D passed C3 in round 2 while the identical text in X4 failed. Union-of-flags plus re-audit after patching (runbook §3) covers this; it is the reason to keep the union rule.
 
 ## Cost and volume
@@ -60,3 +60,32 @@ The clean items were not clean. The checkers found real authoring defects that I
 ## Files
 
 `build_items.py` (items + controls), `items.json`, `controls.json`, `briefs.json` (verbatim from Production `app.topic_point_briefs`), `lint.py`, `run_checks.sh`, `analyze.py`, `analysis.json`, `out_*`, `round1/`.
+
+## Round 3 — David's decisions applied (2026-10-06)
+
+David accepted all three recommendations. Changes:
+1. **C6:** "covers the brief's core" became `brief_shares_a_move`: no line contradicts the brief and at least one line shares one of its moves. "Pairs with this item" stays blocking.
+2. **C5:** `apbio_seeded_label_probe.mjs` now prints each topic's CED learning objectives and essential knowledge under its title when the taxonomy carries a `ced` field (`taxonomy_ced.json`, extracted from `docs/product/AP_BIOLOGY_CED_FACT_PACK.md`, all 60 topics). Taxonomies without `ced` behave as before. `ced_text_tiebreak` (runbook §6) remains the fallback.
+3. **Scope:** see the task record. Every topic with a published point brief gets a teaching item, which is 603 topics.
+
+Items are unchanged from round 2 except 2.5, whose stem now says X is **uncharged** (DeepSeek's correct round-2 C2 finding). That is a second patch, beyond the one-patch-loop policy, so **2.5 is not publish-eligible from this pilot**. It was rerun only to test the CED-text probe. Round 2 is archived in `round2/`.
+
+| Item | Round 3 | Notes |
+|---|---|---|
+| 1.1 water | **pass** | |
+| 2.5 transport | C6 | topic votes now **6/6 for 2.5** (round 2: 2/6). Both checkers: earned line "Link active transport to an energy requirement" is not exercised by this question. A valid flag; not eligible anyway |
+| 3.1 enzymes | **pass** | |
+| 5.3 Mendel | **pass** | |
+| 7.5 Hardy-Weinberg | **pass** | |
+| X1 (C3 control) | **C3 caught** | |
+| X2 (C6 control) | **C6 caught** | the softened rule still fails facts-not-habits |
+| X3 (C5 control) | **C5 caught** | 0/6 for 7.5 (votes 7.2 ×4, 7.1 ×2) |
+| X4 (C2 control) | **C2 caught** | |
+
+**Controls: 4 of 4 caught, in all three rounds. Clean items: 4 of 5 pass (2.5 excluded by policy). Topic votes are unanimous (6/6) on every clean item.**
+
+One note on noise: X4 (a copy of 1.1 with one false rationale) failed C6 "not paired with item" on DeepSeek, while 1.1's identical habit lines passed. That is the same single-call variance seen on C3 in round 2. The union-of-flags rule absorbs it by blocking. In a full run, a C6-only block where the other checker passes should get a second DeepSeek sample before an item is dropped.
+
+### Readiness for the full batch
+
+The checker suite is ready for the Biology and Statistics batch. Volume: about 18 calls per item per round. 603 topics × about 1.5 rounds is about 16k calls; Biology + Statistics (115 topics) is about 3k.

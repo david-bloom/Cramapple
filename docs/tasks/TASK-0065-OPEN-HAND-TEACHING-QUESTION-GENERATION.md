@@ -1,6 +1,6 @@
 # TASK-0065 — Generate Open Hand Teaching Questions (One per Topic, Never Scored)
 
-**Status:** In progress — checker pilot (Biology) done 2026-10-06; two checker-policy questions open before the full batch  
+**Status:** In progress — checker suite proven on a Biology pilot (2026-10-06); ready for the Biology + Statistics batch  
 **Tier:** Standard for authoring in Development; Hard-Gate for Production publish and designation  
 **Owner:** Claude (named by David, 2026-10-06)  
 **Product Owner:** David Bloom  
@@ -67,5 +67,19 @@ pilot's `lint.py`. Nothing written to any database.
 - After one patch round, 2 of 5 clean items pass (3.1, 7.5). The checkers found real defects in the
   rest. 2.5 is dropped because of a 2.5/2.8 topic overlap.
 - Open before the full batch: (1) C6 "brief core covered" vs "pairs with item", which pull against
-  each other; (2) give the topic probe the CED text, not just titles; (3) scope: Production has 61
-  Biology topic briefs, not 27.
+  each other; (2) give the topic probe the CED text, not just titles; (3) scope: Production has 60
+  published Biology topic briefs, not 27.
+
+**David's decisions (2026-10-06), applied, then rerun (round 3):**
+1. C6: "pairs with this item" stays blocking. Brief coverage softened to "does not contradict the
+   brief and shares at least one of its moves".
+2. C5: the topic probe now sees each topic's CED learning objectives and essential knowledge, not
+   only titles. `ced_text_tiebreak` remains the fallback.
+3. **Scope revised:** one teaching item per topic with a **published point brief**, 603 topics
+   (Production, 2026-10-06). That replaces the ~214 count of topics with MCQs. C6 needs the brief,
+   so a topic without one waits for its brief. Briefed topics by subject: Biology 60, Statistics 55,
+   Chemistry 91, Calculus AB 81, Calculus BC 111, Precalculus 58, Physics 1 43, Physics 2 46,
+   Physics C Mechanics 41, Physics C E&M 17. Priority order unchanged.
+
+Round 3: 4 of 4 controls caught (in every round); 4 of 5 clean items pass. 2.5 is excluded because
+it had a second patch. Topic votes are 6/6 on every clean item.

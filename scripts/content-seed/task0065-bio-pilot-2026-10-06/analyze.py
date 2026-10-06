@@ -23,7 +23,7 @@ for r in rows("out_c3c6/results.jsonl"):
     if not r["ok"]: R[r["key"]][chk].append((r["model"], False, "call failed")); continue
     o = r["object"]
     if chk == "C3": note = "; ".join([f'{d["label"]}: {d["issue"]}' for d in o["distractors"] if d["issue"].strip()] + ([f'keyed: {o["keyed"]["issue"]}'] if o["keyed"]["issue"].strip() else []))
-    else: note = "; ".join([f'{l["list"]}[{l["index"]}]: {l["issue"]}' for l in o["lines"] if l["issue"].strip()] + ([] if o["pairs_with_item"] else ["not paired with item"]) + ([] if o["brief_core_covered"] else ["brief core not covered"]))
+    else: note = "; ".join([f'{l["list"]}[{l["index"]}]: {l["issue"]}' for l in o["lines"] if l["issue"].strip()] + ([] if o["pairs_with_item"] else ["not paired with item"]) + ([] if o["brief_shares_a_move"] else ["shares no move with brief"]))
     R[r["key"]][chk].append((r["model"], r["derived_verdict"] == "pass", note))
 for r in rows("out_c4/results.jsonl"):
     o = r.get("result") or {}

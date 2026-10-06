@@ -27,7 +27,7 @@ clean = [
       ["Trace the property back to water's polarity.", "Name hydrogen bonds between molecules as the cause.", "Match each property to its own mechanism."],
       ["Blaming covalent bonds inside the molecule.", "Explaining one water property with another.", "Citing a property with no molecular cause."]),
   mcq("t65-bio-2.5", "2.5", 2,
-      "A substance X is at 5 mM outside a cell and 20 mM inside it. Over the next hour, the concentration of X inside the cell rises to 30 mM while the concentration outside stays at 5 mM. Which conclusion is best supported by these data?",
+      "An uncharged substance X is at 5 mM outside a cell and 20 mM inside it. Over the next hour, the concentration of X inside the cell rises to 30 mM while the concentration outside stays at 5 mM. Which conclusion is best supported by these data?",
       ["X entered by passive transport, because it moved into the cell.",
        "X entered by active transport, because it moved from lower to higher concentration.",
        "X entered by passive transport, because the membrane is selectively permeable to X.",
@@ -74,6 +74,10 @@ clean = [
       ["Taking the square root of the wrong frequency.", "Forgetting the 2 in 2pq.", "Treating the dominant phenotype as all heterozygotes."]),
 ]
 by = {i["key"]: i for i in clean}
+# Second patch (round 3): 2.5's stem now says X is uncharged, so no electrochemical gradient can
+# drive it (DeepSeek, round 2 C2). Beyond the one-patch-loop policy: 2.5 is NOT publish-eligible
+# from this pilot even if it passes; it is rerun only to test the CED-text topic probe.
+SECOND_PATCH = {"t65-bio-2.5"}
 controls, expected = [], {}
 
 # X1: C3 control -- same enzyme item, but distractor rationales give no reason they tempt and a

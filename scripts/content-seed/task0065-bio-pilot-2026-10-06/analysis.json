@@ -24,15 +24,15 @@
     "flags": ""
    },
    "C6": {
-    "pass": false,
-    "flags": "deepseek-v4-pro: not paired with item; brief core not covered"
+    "pass": true,
+    "flags": ""
    },
    "C5": {
     "pass": true,
     "flags": "6/6 for 1.1; votes [('1.1', 6)]"
    }
   },
-  "publishable": false
+  "publishable": true
  },
  "t65-bio-2.5": {
   "designated_topic": "2.5",
@@ -47,8 +47,8 @@
     "flags": ""
    },
    "C2": {
-    "pass": false,
-    "flags": "deepseek-v4-pro: key judged wrong; B: The rationale states that passive transport only produces net movement from higher to lower concentration. This is false for charged solutes: passive transport moves ions down their electrochemical gradient, which can be inward even when the ion is more concentrated inside. The item does not specify that X is uncharged or give membrane potential, so the data do not strictly prove active transport.; D: The rationale claims the concentration gradient data already settle passive vs active transport, but that is not true unless X is uncharged and membrane potential is irrelevant. Without knowing the charge of X or the membrane potential, the data are insufficient. | other: The item does not state whether X is uncharged or whether membrane potential is negligible. For ions, passive transport can occur against a concentration gradient if driven by an electrical gradient, so concentration data alone do not establish active transport.; The observed rise in intracellular concentration could in principle reflect intracellular synthesis or release rather than entry, since no direct flux measurement is given; the item assumes the concentration change is due to membrane transport."
+    "pass": true,
+    "flags": ""
    },
    "C3": {
     "pass": true,
@@ -60,11 +60,11 @@
    },
    "C6": {
     "pass": false,
-    "flags": "gemini-3.8-flash: earned[0]: none; earned[1]: none; earned[2]: This habit is not exercised by this question, as neither the stem nor any of the choices involve energy requirements or ATP.; lost[0]: none; lost[1]: none; lost[2]: none; not paired with item"
+    "flags": "gemini-3.8-flash: earned[0]: none; earned[1]: none; earned[2]: This habit is not exercised by this question, as neither the prompt nor any answer choice involves an energy requirement or ATP.; lost[0]: none; lost[1]: none; lost[2]: none; not paired with item || deepseek-v4-pro: not paired with item"
    },
    "C5": {
-    "pass": false,
-    "flags": "2/6 for 2.5; votes [('2.8', 4), ('2.5', 2)]"
+    "pass": true,
+    "flags": "6/6 for 2.5; votes [('2.5', 6)]"
    }
   },
   "publishable": false
@@ -129,15 +129,15 @@
     "flags": ""
    },
    "C6": {
-    "pass": false,
-    "flags": "deepseek-v4-pro: brief core not covered"
+    "pass": true,
+    "flags": ""
    },
    "C5": {
     "pass": true,
     "flags": "6/6 for 5.3; votes [('5.3', 6)]"
    }
   },
-  "publishable": false
+  "publishable": true
  },
  "t65-bio-7.5": {
   "designated_topic": "7.5",
@@ -192,7 +192,7 @@
    },
    "C3": {
     "pass": false,
-    "flags": "deepseek-v4-pro: A: Rationale does not name the specific error or misreading that makes the choice tempting; it only says why it is wrong. The fix is generic review advice, not a concrete next action for this error.; B: Rationale does not name why the choice tempts; it only says why it is wrong. The fix is generic review advice.; C: Rationale does not name why the choice tempts; it only says why it is wrong. The fix is generic review advice rather than a specific action for this error.; keyed: Rationale just states that D is correct; it does not explain the reasoning (complementary active site binding lowers activation energy) that makes it correct. || gemini-3.8-flash: A: Fails to explain why a student would be tempted by this choice, and the fix is generic advice rather than a concrete action.; B: Fails to explain why a student would be tempted by this choice, and the fix is generic advice rather than a concrete action.; C: Fails to explain why a student would be tempted by this choice, and the fix is generic advice rather than a concrete action.; keyed: The rationale simply asserts that the choice is correct instead of explaining the underlying biological reasoning."
+    "flags": "gemini-3.8-flash: A: Does not state why the choice tempts students; fix is generic ('review enzyme function').; B: Does not state why the choice tempts students; fix is generic ('review enzyme function').; C: Does not state why the choice tempts students; fix is generic ('review enzyme specificity').; keyed: Restates that the choice is correct rather than explaining why it earns the point. || deepseek-v4-pro: A: Rationale does not name the misconception that enzymes supply energy; fix is generic advice.; B: Rationale does not name the misconception about temperature; fix is generic advice.; C: Rationale does not name why binding any similar-sized molecule tempts; fix is generic advice.; keyed: Keyed rationale only states the choice is correct; it does not explain that complementary active site binding lowers activation energy."
    },
    "C4": {
     "pass": true,
@@ -235,7 +235,7 @@
    },
    "C6": {
     "pass": false,
-    "flags": "gemini-3.8-flash: earned[0]: States a biological fact rather than a student habit or action.; earned[1]: States a historical fact rather than a student habit or action.; earned[2]: States a factual property of a Punnett square rather than a student habit.; lost[0]: States an enzyme biology fact completely unrelated to Mendelian genetics, not a student habit.; lost[1]: States a biological fact about polygenic traits rather than a student mistake or habit.; lost[2]: States a biological fact rather than a student mistake or habit.; not paired with item; brief core not covered || deepseek-v4-pro: earned[0]: States a subject fact, not something the student does when answering.; earned[1]: States a historical fact, not a student habit.; earned[2]: States a fact about a Punnett square, not a student habit.; lost[0]: Not about Mendelian genetics and states a fact, not a student habit.; lost[1]: Off-topic fact about polygenic traits, not a student habit.; lost[2]: States a fact about flower color, not a student habit.; not paired with item; brief core not covered"
+    "flags": "gemini-3.8-flash: earned[0]: States a biological fact rather than a student habit or action.; earned[1]: States a historical/biological fact rather than a student habit or action.; earned[2]: States a factual property of a Punnett square rather than a student habit or action.; lost[0]: Irrelevant fact about enzyme denaturation rather than a student habit or relevant genetics topic.; lost[1]: States a biological fact rather than a student habit or action.; lost[2]: States a biological fact rather than a student habit or action.; not paired with item; shares no move with brief || deepseek-v4-pro: earned[0]: States a fact about dominance, not a habit the student performs while answering.; earned[1]: States a historical fact, not a habit the student performs while answering.; earned[2]: States a fact about Punnett square size, not a habit the student performs while answering.; lost[0]: States an unrelated fact about enzymes, not a habit that loses points, and is not about Mendelian genetics.; lost[1]: States a fact about polygenic traits, not a habit that loses points; not within the Mendelian genetics brief.; lost[2]: States a correct fact about the trait, not a habit that loses points; does not name a point loss.; not paired with item; shares no move with brief"
    },
    "C5": {
     "pass": true,
@@ -270,11 +270,11 @@
    },
    "C6": {
     "pass": false,
-    "flags": "gemini-3.8-flash: earned[0]: Line addresses natural selection rather than Topic 7.5 Hardy-Weinberg Equilibrium.; earned[1]: Line addresses natural selection rather than Topic 7.5 Hardy-Weinberg Equilibrium.; earned[2]: Line does not address Hardy-Weinberg equations or expected genotype frequencies from the brief.; lost[0]: Line addresses natural selection misconceptions rather than Hardy-Weinberg calculation errors.; lost[1]: Line addresses natural selection rather than Hardy-Weinberg calculation errors.; lost[2]: Line addresses general evolution misconceptions rather than Hardy-Weinberg equilibrium point losses.; brief core not covered || deepseek-v4-pro: earned[0]: Names heritable variation, which is natural selection reasoning, not a Hardy-Weinberg equilibrium scoring move.; earned[1]: Links survival to reproduction; not the brief's p+q=1 / p^2+2pq+q^2=1 calculations.; earned[2]: Describes allele frequency change, an evolutionary outcome, not Hardy-Weinberg expected genotype frequencies.; lost[0]: Not the brief's common point loss; the brief requires square-root errors or forgetting the 2pq heterozygote.; lost[1]: Ignoring heritability is not a listed Hardy-Weinberg common point loss.; lost[2]: Compressing evolution into one generation is not a listed Hardy-Weinberg common point loss.; not paired with item; brief core not covered"
+    "flags": "gemini-3.8-flash: earned[0]: Not about Topic 7.5 Hardy-Weinberg Equilibrium; addresses natural selection instead.; earned[1]: Not about Topic 7.5 Hardy-Weinberg Equilibrium; addresses natural selection instead.; earned[2]: Not about Topic 7.5 Hardy-Weinberg Equilibrium; addresses general evolutionary change rather than Hardy-Weinberg analysis.; lost[0]: Not about Topic 7.5 Hardy-Weinberg Equilibrium; targets a Lamarckian misconception under natural selection.; lost[1]: Not about Topic 7.5 Hardy-Weinberg Equilibrium; addresses natural selection requirements.; lost[2]: Not about Topic 7.5 Hardy-Weinberg Equilibrium; addresses timescale misconceptions in natural selection.; shares no move with brief || deepseek-v4-pro: earned[0]: Not a Hardy-Weinberg move: the brief requires using p + q = 1 and p^2 + 2pq + q^2 = 1 and interpreting observed vs expected frequencies, not naming heritable variation.; earned[1]: Natural-selection reasoning; not among the H-W scoring moves or answer moves in the brief.; earned[2]: Mentions allele frequency but does not use the H-W equations or compare observed/expected genotype frequencies as the brief requires.; lost[0]: Not the brief's common point loss (square root of wrong frequency / forgetting 2pq); it is a natural-selection misconception.; lost[1]: Not a listed H-W point loss; the brief focuses on genotype frequency calculation errors.; lost[2]: Not a listed H-W move; the brief focuses on equation use and expected frequencies.; shares no move with brief"
    },
    "C5": {
     "pass": false,
-    "flags": "0/6 for 7.5; votes [('7.2', 5), ('7.1', 1)]"
+    "flags": "0/6 for 7.5; votes [('7.2', 4), ('7.1', 2)]"
    }
   },
   "publishable": false
@@ -293,11 +293,11 @@
    },
    "C2": {
     "pass": false,
-    "flags": "gemini-3.8-flash: D: The rationale falsely states that 'water is densest as a solid, which is why ice sinks to the bottom of lakes in winter.' In fact, water is densest as a liquid at approximately 4 \u00b0C; solid water (ice) is less dense than liquid water, which is why ice floats at the top of lakes rather than sinking. || deepseek-v4-pro: D: The rationale incorrectly states that water is densest as a solid and that ice sinks to the bottom of lakes in winter. In fact, ice is less dense than liquid water and floats; water is densest as a liquid near 4\u00b0C."
+    "flags": "gemini-3.8-flash: D: The rationale incorrectly claims that 'water is densest as a solid, which is why ice sinks to the bottom of lakes in winter.' In reality, liquid water is denser than solid water (reaching maximum density at approximately 4 \u00b0C), which is why ice floats rather than sinks. || deepseek-v4-pro: D: Water is not densest as a solid; ice is less dense than liquid water and floats, not sinks."
    },
    "C3": {
     "pass": false,
-    "flags": "gemini-3.8-flash: D: Does not explain why a student would think density traps heat, and the fix is generic advice (\"explain the property the question names\") rather than a specific strategy for distinguishing density from specific heat. || deepseek-v4-pro: D: Does not name the specific misreading that density explains specific heat; it only says density is another familiar water property."
+    "flags": "gemini-3.8-flash: D: Rationale does not explain the specific misconception that leads students to think molecular packing traps heat, and the fix is generic advice rather than a concrete strategy for this error."
    },
    "C4": {
     "pass": true,
@@ -305,7 +305,7 @@
    },
    "C6": {
     "pass": false,
-    "flags": "deepseek-v4-pro: earned[0]: Polarity is not directly required by any answer choice.; earned[2]: Does not include the biological consequence step required by the brief.; not paired with item; brief core not covered"
+    "flags": "deepseek-v4-pro: earned[0]: OK; earned[1]: OK; earned[2]: OK; lost[0]: OK; lost[1]: OK; lost[2]: OK; not paired with item"
    },
    "C5": {
     "pass": true,

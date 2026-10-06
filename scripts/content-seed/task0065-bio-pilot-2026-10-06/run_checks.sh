@@ -8,7 +8,7 @@ node subject_audit_check.mjs $P/items.json $P/out_c1c2 --models=$M > $P/log_c1c2
 node teaching_item_check.mjs $P/items.json $P/out_c3c6 --models=$M --briefs=$P/briefs.json > $P/log_c3c6.txt 2>&1 &
 FACT_PACK_FILE=../../docs/product/AP_BIOLOGY_CED_FACT_PACK.md node subject_ced_check.mjs $P/ced_items.json $P/out_c4 --models=$M > $P/log_c4.txt 2>&1 &
 for m in deepseek/deepseek-v4-pro google/gemini-3.8-flash openai/gpt-6.1-sol; do
-  node apbio_seeded_label_probe.mjs $P/items.json $P/out_c5_${m//\//_} --model=$m --keys=$(cat $P/keys.txt) --samples=2 --taxonomy=$P/taxonomy.json > $P/log_c5_${m//\//_}.txt 2>&1 &
+  node apbio_seeded_label_probe.mjs $P/items.json $P/out_c5_${m//\//_} --model=$m --keys=$(cat $P/keys.txt) --samples=2 --taxonomy=$P/taxonomy_ced.json > $P/log_c5_${m//\//_}.txt 2>&1 &
 done
 wait
 echo ALL DONE
