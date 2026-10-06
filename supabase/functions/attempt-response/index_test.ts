@@ -220,7 +220,9 @@ Deno.test("get_manual_grading_context: a student caller is refused, never querie
   assertEquals(tablesQueried, ["audit_events"]);
 });
 
-Deno.test("create_attempt accepts a served NULL-format MCQ in a targeted-drill session", async () => {
+function createAttemptFixture(
+  attemptInsertError: { message: string } | null = null,
+) {
   const ids = {
     user: crypto.randomUUID(),
     session: crypto.randomUUID(),
@@ -272,10 +274,11 @@ Deno.test("create_attempt accepts a served NULL-format MCQ in a targeted-drill s
           });
         }
         if (table === "attempts" && insertValue) {
-          return Promise.resolve({
-            data: { id: ids.attempt, ...insertValue },
-            error: null,
-          });
+          return Promise.resolve(
+            attemptInsertError
+              ? { data: null, error: attemptInsertError }
+              : { data: { id: ids.attempt, ...insertValue }, error: null },
+          );
         }
         throw new Error(`unexpected maybeSingle table: ${table}`);
       },
@@ -304,7 +307,11 @@ Deno.test("create_attempt accepts a served NULL-format MCQ in a targeted-drill s
       attempt_mode: "mcq",
     }),
   });
+  return { ids, service, req, tablesQueried };
+}
 
+Deno.test("create_attempt accepts a served NULL-format MCQ in a targeted-drill session", async () => {
+  const { ids, service, req, tablesQueried } = createAttemptFixture();
   const res = await handleAttemptResponse(req, {
     service,
     requireProfile: fakeAuth({ id: ids.user }, "student"),
@@ -320,4 +327,26 @@ Deno.test("create_attempt accepts a served NULL-format MCQ in a targeted-drill s
     "attempts",
     "audit_events",
   ]);
+});
+
+Deno.test("create_attempt maps the teaching-item trigger refusal to 409 open_hand_item_not_scorable", async () => {
+  const { ids, service, req } = createAttemptFixture({
+    message: "open_hand_item_not_scorable",
+  });
+  const res = await handleAttemptResponse(req, {
+    service,
+    requireProfile: fakeAuth({ id: ids.user }, "student"),
+  });
+  assertEquals(res.status, 409);
+  assertEquals(await res.json(), { error: "open_hand_item_not_scorable" });
+});
+
+Deno.test("create_attempt still returns 500 for any other insert failure", async () => {
+  const { ids, service, req } = createAttemptFixture({ message: "boom" });
+  const res = await handleAttemptResponse(req, {
+    service,
+    requireProfile: fakeAuth({ id: ids.user }, "student"),
+  });
+  assertEquals(res.status, 500);
+  assertEquals(await res.json(), { error: "attempt_create_failed" });
 });

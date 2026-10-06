@@ -1,0 +1,1514 @@
+[
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.1",
+    "topic_title": "Using the Mean Value Theorem",
+    "seed_used": true,
+    "stem": "The function f(x) = x^3 is continuous on [0, 3] and differentiable on (0, 3). Which value of c in (0, 3) does the Mean Value Theorem guarantee, so that f'(c) equals the average rate of change of f on [0, 3]?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "3/2",
+        "is_correct": false,
+        "rationale": "Tempting if you assume the guaranteed point is the midpoint of the interval. But the theorem only promises some c where the slope matches, and it is not generally the midpoint. Fix: solve f'(c) = average rate for c."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "sqrt(3)",
+        "is_correct": true,
+        "rationale": "The average rate of change is (27 - 0)/3 = 9. Setting f'(c) = 3c^2 = 9 gives c^2 = 3, and c = sqrt(3) (about 1.73) lies inside (0, 3), so it is the guaranteed value."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "3",
+        "is_correct": false,
+        "rationale": "Tempting if you solve c^2 = 9 after forgetting the factor 3 in f'(x) = 3x^2. But 3 is an endpoint, not inside the open interval (0, 3). Fix: set 3c^2 = 9, so c^2 = 3, and check that c is inside (0, 3)."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "9",
+        "is_correct": false,
+        "rationale": "Tempting if you report the average rate of change itself as c. But 9 is the slope f'(c) must equal, not the x-value, and it is outside (0, 3). Fix: the average rate is the target for f'(c); solve for c."
+      }
+    ],
+    "verification": "sympy: avg=(f(3)-f(0))/3=9; solve(3c^2-9)=[-sqrt3,sqrt3]; only sqrt3 in (0,3). Slip values: midpoint 3/2; 3c^2=27 slip gives 3; avg 9.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.2",
+    "topic_title": "Extreme Value Theorem, Global Versus Local Extrema, and Critical Points",
+    "seed_used": true,
+    "stem": "Let f(x) = x^(2/3)(x - 5) for all real x. Which list gives all critical numbers of f?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "x = 2 only",
+        "is_correct": false,
+        "rationale": "Tempting if you only look for where f'(x) = 0. But a critical number is also any x in the domain where f' is undefined, and f'(0) is undefined while f(0) exists. Fix: check both f' = 0 and f' undefined."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "x = 0 only",
+        "is_correct": false,
+        "rationale": "Tempting because the undefined derivative is the eye-catching feature. But f'(2) = 0 as well, so x = 2 is also critical. Fix: solve the numerator of f' for zeros and the denominator for undefined points."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "x = 0, x = 2, and x = 5",
+        "is_correct": false,
+        "rationale": "Tempting if you add the zero of f itself (f(5) = 0). But zeros of f are not critical numbers unless f' = 0 or is undefined there, and f'(5) = 5^(2/3) is nonzero. Fix: test f', not f."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "x = 0 and x = 2",
+        "is_correct": true,
+        "rationale": "f'(x) = (5/3)(x - 2)/x^(1/3). It equals 0 at x = 2 and is undefined at x = 0, where f is still defined, so both are critical numbers."
+      }
+    ],
+    "verification": "sympy: f' = (5/3)(x-2)/x^(1/3) verified (f'*3x^(1/3) - 5(x-2) = 0); zeros: x=2; undefined at x=0 which is in domain of f; f'(5)!=0.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.3",
+    "topic_title": "Determining Intervals on Which a Function Is Increasing or Decreasing",
+    "seed_used": false,
+    "stem": "Let f(x) = x^3 - 6x^2 + 9x + 1. On which interval(s) of x is f increasing?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "x < 1 and x > 3",
+        "is_correct": true,
+        "rationale": "f'(x) = 3(x - 1)(x - 3) is positive when x < 1 or x > 3, so f is increasing on those x-intervals."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "1 < x < 3",
+        "is_correct": false,
+        "rationale": "Tempting if you mix up the sign of f'. But on (1, 3), f'(x) < 0 (for example f'(2) = -3), so f is decreasing there. Fix: test a point in each interval of the sign chart for f'."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "x < 5",
+        "is_correct": false,
+        "rationale": "Tempting if you use the local maximum value f(1) = 5 as a boundary. But increasing and decreasing intervals are stated in x-values, and 5 is a y-value. Fix: use the x-values where f' changes sign (1 and 3)."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "x < 2",
+        "is_correct": false,
+        "rationale": "Tempting if you find where f'' is negative (f''(x) = 6x - 12 < 0 for x < 2). But the sign of f'' describes concavity, not whether f rises. Fix: use the sign of f'."
+      }
+    ],
+    "verification": "sympy: f'=3(x-1)(x-3); f(1)=5,f(3)=1; f''=6x-12 zero at 2.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.4",
+    "topic_title": "Using the First Derivative Test",
+    "seed_used": true,
+    "stem": "A function f is differentiable for all x, with f'(x) = (x - 2)^2 (x + 1)(x - 4). At which x-value does f have a local minimum?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "x = -1",
+        "is_correct": false,
+        "rationale": "Tempting because f'(-1) = 0. But f' changes from positive to negative at x = -1 (f'(-2) > 0, f'(0) < 0), which gives a local maximum. Fix: read the direction of the sign change."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "x = 2",
+        "is_correct": false,
+        "rationale": "Tempting because f'(2) = 0. But (x - 2)^2 never changes sign, so f' stays negative on both sides of 2 and there is no extremum. Fix: a zero of f' needs a sign change to be an extremum."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "x = 4",
+        "is_correct": true,
+        "rationale": "f' changes from negative to positive at x = 4 (f'(3) < 0 and f'(5) > 0), so f has a local minimum there by the First Derivative Test."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "x = -1 and x = 4",
+        "is_correct": false,
+        "rationale": "Tempting if you treat every sign change as a minimum. But only a change from negative to positive is a minimum; at x = -1 the change is positive to negative, a maximum. Fix: check the direction at each point."
+      }
+    ],
+    "verification": "sympy sign of f' at -2,0,3,5 = +,-,-,+ ; so max at -1, none at 2, min at 4.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.5",
+    "topic_title": "Using the Candidates Test to Determine Absolute Extrema",
+    "seed_used": true,
+    "stem": "Let f(x) = x^3 - 3x^2 - 9x + 5 on the closed interval [-2, 6]. What is the absolute maximum value of f on this interval?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "10",
+        "is_correct": false,
+        "rationale": "Tempting if you stop at the critical number x = -1, which is a local maximum. But absolute extrema on a closed interval must also be compared with the endpoint values, and f(6) = 59 is larger. Fix: build the full candidates table."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "6",
+        "is_correct": false,
+        "rationale": "Tempting because the maximum happens at x = 6. But the question asks for the maximum value of f, which is the y-value 59. Fix: report f(6), not the input 6."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "59",
+        "is_correct": true,
+        "rationale": "The candidates are the endpoints and critical numbers: f(-2) = 3, f(-1) = 10, f(3) = -22, f(6) = 59. The largest of these, 59 at the endpoint x = 6, is the absolute maximum."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "-22",
+        "is_correct": false,
+        "rationale": "Tempting if you grab the value at the other critical number x = 3. But f(3) = -22 is the absolute minimum, the smallest candidate. Fix: pick the largest f-value for a maximum."
+      }
+    ],
+    "verification": "sympy: f'=3(x-3)(x+1); f(-2)=3,f(-1)=10,f(3)=-22,f(6)=59.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.6",
+    "topic_title": "Determining Concavity",
+    "seed_used": true,
+    "stem": "A function f has first derivative f'(x) = x^3 - 6x^2 + 9x. On which interval is the graph of f concave down?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "1 < x < 3",
+        "is_correct": true,
+        "rationale": "f''(x) = 3x^2 - 12x + 9 = 3(x - 1)(x - 3), which is negative exactly when 1 < x < 3, so f is concave down there."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "x < 1 and x > 3",
+        "is_correct": false,
+        "rationale": "Tempting if you flip the sign chart. But f'' is positive outside [1, 3] (for example f''(0) = 9), which means concave up there. Fix: test a point in each interval of f''."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "x > 0",
+        "is_correct": false,
+        "rationale": "Tempting if you use the sign of f' (f'(x) = x(x - 3)^2 is nonnegative for x > 0). But the sign of f' tells you where f increases, not its concavity. Fix: differentiate again and use f''."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0 < x < 3",
+        "is_correct": false,
+        "rationale": "Tempting if you use the zeros of f' (x = 0 and x = 3) as the boundaries. But concavity changes where f'' = 0 (x = 1 and x = 3), not where f' = 0. Fix: solve f''(x) = 0."
+      }
+    ],
+    "verification": "sympy: f''=3x^2-12x+9=3(x-1)(x-3); f''(2)<0; f'=x(x-3)^2.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.7",
+    "topic_title": "Using the Second Derivative Test",
+    "seed_used": false,
+    "stem": "Let f(x) = x^4 - 4x^3. Which conclusion is justified by the Second Derivative Test?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "f has a local maximum at x = 0, because f'(0) = 0 and f''(0) = 0 is not positive.",
+        "is_correct": false,
+        "rationale": "Tempting if you treat f''(0) = 0 as if it meant 'not a minimum, so a maximum'. But f''(c) = 0 makes the Second Derivative Test inconclusive. Fix: only f''(c) < 0 gives a maximum; with 0 use another test."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "f has local minima at both x = 0 and x = 3, because f'' is not negative at either one.",
+        "is_correct": false,
+        "rationale": "Tempting if you read 'not negative' as enough. But the test needs f''(c) > 0 strictly, and at x = 0 the test says nothing. Fix: use the First Derivative Test when f''(c) = 0."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "f has a local maximum at x = 3, because f''(3) = 36 is a large positive value.",
+        "is_correct": false,
+        "rationale": "Tempting if you picture a large positive value as a high peak. But f''(c) > 0 means the graph is concave up at c, so the critical point is a minimum. Fix: positive f'' means minimum, negative means maximum."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "f has a local minimum at x = 3, because f'(3) = 0 and f''(3) = 36 > 0.",
+        "is_correct": true,
+        "rationale": "f'(x) = 4x^2(x - 3) is 0 at x = 3, and f''(x) = 12x^2 - 24x gives f''(3) = 36 > 0. A positive second derivative at a critical number means a local minimum."
+      }
+    ],
+    "verification": "sympy: f'=4x^2(x-3); f''=12x^2-24x; f''(0)=0, f''(3)=36.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.8",
+    "topic_title": "Sketching Graphs of Functions and Their Derivatives",
+    "seed_used": false,
+    "stem": "The graph of the derivative f' is the straight line y = 2x - 4. Which description of the graph of f is supported by this information?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "f increases for x < 2 and decreases for x > 2, is concave down everywhere, and has a local maximum at x = 2.",
+        "is_correct": false,
+        "rationale": "Tempting if you read the rising line f' as 'f goes up then turns over'. But f' < 0 to the left of 2 means f is decreasing there, and an upward-sloping f' means concave up. Fix: sign of f' gives direction, slope of f' gives concavity."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "f decreases for x < 2 and increases for x > 2, is concave up everywhere, and has a local minimum at x = 2.",
+        "is_correct": true,
+        "rationale": "f' is negative for x < 2 and positive for x > 2, so f decreases then increases with a minimum at x = 2. Since f' has slope 2 (so f'' = 2 > 0), f is concave up everywhere."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "f decreases for x < 2 and increases for x > 2, but is concave down everywhere.",
+        "is_correct": false,
+        "rationale": "Tempting because the direction is right and a minimum can look like a corner. But f' is increasing (slope 2), so f'' > 0 and f is concave up. Fix: concavity comes from whether f' is increasing or decreasing."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "f is the straight line y = 2x - 4.",
+        "is_correct": false,
+        "rationale": "Tempting if you treat the given graph as the graph of f. But the line is f', so f is its antiderivative, a parabola such as x^2 - 4x + C. Fix: ask whether a given graph shows values, slopes, or changes in slope."
+      }
+    ],
+    "verification": "sympy: f'=2x-4 zero at 2, f''=2>0; example f=x^2-4x.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.9",
+    "topic_title": "Connecting a Function, Its First Derivative, and Its Second Derivative",
+    "seed_used": false,
+    "stem": "A twice-differentiable function f has f'(1) = 4, f'(2) = 1, f'(3) = -2, and f'(4) = -5. Assume f'' keeps the same sign on [1, 4]. Which statement must be true?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "f is concave down on [1, 4] and has a local maximum at some x between 2 and 3.",
+        "is_correct": true,
+        "rationale": "f' keeps decreasing (4, 1, -2, -5), so f'' < 0 and f is concave down. Also f' is positive at 2 and negative at 3, so f' crosses zero there going from positive to negative, giving a local maximum."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "f is concave up on [1, 4], because f' is positive at the start of the interval.",
+        "is_correct": false,
+        "rationale": "Tempting if you use the sign of f' to judge concavity. But concavity depends on whether f' is increasing or decreasing, and these values are decreasing. Fix: compare successive f' values to find the sign of f''."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "f is decreasing on all of [1, 4], because f'' is negative.",
+        "is_correct": false,
+        "rationale": "Tempting if you read a negative f'' as meaning f goes down. But f' is positive at x = 1 and x = 2, so f is increasing there. Fix: f'' < 0 says the slopes are falling; f's direction comes from the sign of f'."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "f has a local minimum at some x between 2 and 3, because f' changes sign there.",
+        "is_correct": false,
+        "rationale": "Tempting because any sign change feels like an extremum. But f' changes from positive to negative, which is a local maximum. Fix: positive to negative on f' means maximum on f."
+      }
+    ],
+    "verification": "Reasoning: values of f' decrease so f''<0; IVT on f' between x=2 (1) and x=3 (-2) gives zero with + to - sign change. Concrete check: f'=6-... example f'(x)=7-3x fits table (4,1,-2,-5) via sympy.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.10",
+    "topic_title": "Introduction to Optimization Problems",
+    "seed_used": false,
+    "stem": "A farmer has 120 meters of fencing and wants to enclose a rectangular pen using a long straight wall as one side, so fencing is needed on only the other three sides. Let x be the length, in meters, of each side perpendicular to the wall. Which function, with its domain, gives the area of the pen?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A(x) = x(120 - x), for 0 < x < 120",
+        "is_correct": false,
+        "rationale": "Tempting if you count only one side of length x. But there are two perpendicular sides, so the parallel side is 120 - 2x. Fix: write the constraint 2x + (parallel side) = 120."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A(x) = x(60 - x), for 0 < x < 60",
+        "is_correct": false,
+        "rationale": "Tempting if you treat 120 as the full perimeter of a four-sided rectangle (2x + 2y = 120). But the wall replaces one side, so only three sides use fence. Fix: match the constraint to the sides actually fenced."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A(x) = 120 - 2x, for 0 < x < 60",
+        "is_correct": false,
+        "rationale": "Tempting if you stop after finding the parallel side. But 120 - 2x is a length, not an area; the area multiplies it by x. Fix: the objective is (width)(length)."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A(x) = x(120 - 2x), for 0 < x < 60",
+        "is_correct": true,
+        "rationale": "The two perpendicular sides use 2x meters, so the side parallel to the wall is 120 - 2x. Area is x(120 - 2x), and both lengths must be positive, so 0 < x < 60."
+      }
+    ],
+    "verification": "sympy: y=120-2x, A=120x-2x^2, A'=0 at x=30 (domain 0<x<60 from y>0).",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.11",
+    "topic_title": "Solving Optimization Problems",
+    "seed_used": true,
+    "stem": "An open-top box is made from a 12-inch by 12-inch square sheet of cardboard by cutting a square of side x inches from each corner and folding up the sides. What is the greatest possible volume of the box?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "2 cubic inches",
+        "is_correct": false,
+        "rationale": "Tempting if you stop at the critical number x = 2. But x is the cut size; the question asks for the volume. Fix: substitute x = 2 back into V(x) to get the requested quantity."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "108 cubic inches",
+        "is_correct": false,
+        "rationale": "Tempting if you guess that the middle cut x = 3 is best. But V(3) = 108 is not the largest value; V(2) = 128 is. Fix: solve V'(x) = 0 and test the candidates rather than guessing."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "128 cubic inches",
+        "is_correct": true,
+        "rationale": "V(x) = x(12 - 2x)^2 on 0 < x < 6. V'(x) = (12 - 2x)(12 - 6x) = 0 at x = 2 (x = 6 gives V = 0). Since V' changes from positive to negative at x = 2, V(2) = 2·64 = 128 is the maximum."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "256 cubic inches",
+        "is_correct": false,
+        "rationale": "Tempting if you write the base as (12 - x) instead of (12 - 2x), forgetting that a square is cut from both ends of each side. Then x = 4 looks best with volume 256. Fix: each side loses 2x."
+      }
+    ],
+    "verification": "sympy: V=x(12-2x)^2; V'=0 at x=2,6; V(2)=128, V(6)=0, V''(2)<0; V(3)=108; slip V=x(12-x)^2 gives 256 at x=4.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 5,
+    "topic_code": "5.12",
+    "topic_title": "Exploring Behaviors of Implicit Relations",
+    "seed_used": false,
+    "stem": "The curve x^2 + xy + y^2 = 7 passes through the point (2, 1). What is the slope of the tangent line to the curve at (2, 1)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "-1",
+        "is_correct": false,
+        "rationale": "Tempting if you differentiate xy as just x(dy/dx), skipping the product rule's y term. That gives dy/dx = -2x/(x + 2y) = -1. Fix: d/dx[xy] = y + x(dy/dx)."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "-5/4",
+        "is_correct": true,
+        "rationale": "Differentiating implicitly gives 2x + y + x(dy/dx) + 2y(dy/dx) = 0, so dy/dx = -(2x + y)/(x + 2y). At (2, 1) this is -5/4."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "-5/2",
+        "is_correct": false,
+        "rationale": "Tempting if you forget the chain-rule factor on y^2 (writing 2y instead of 2y(dy/dx)). Then dy/dx = -(2x + y)/x = -5/2. Fix: every derivative of a y-term carries dy/dx."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "5/4",
+        "is_correct": false,
+        "rationale": "Tempting if you lose the minus sign when moving the 2x + y terms to the other side. But 2x + y is on the same side as the dy/dx terms until you move it, so dy/dx = -(2x + y)/(x + 2y). Fix: track the sign when isolating dy/dx."
+      }
+    ],
+    "verification": "sympy: (2,1) satisfies; dy/dx=-(2x+y)/(x+2y)=-5/4; slips -2x/(x+2y)=-1, -(2x+y)/x=-5/2.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.1",
+    "topic_title": "Exploring Accumulations of Change",
+    "seed_used": false,
+    "stem": "Water leaks out of a tank at a rate of r(t) = 3t^2 liters per minute, for 0 <= t <= 4 minutes. How many liters leak out during these 4 minutes?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "48 liters",
+        "is_correct": false,
+        "rationale": "Tempting if you read off the rate at t = 4, r(4) = 48. But that is liters per minute at one instant, not the total over the interval. Fix: accumulate the rate by integrating over [0, 4]."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "192 liters",
+        "is_correct": false,
+        "rationale": "Tempting if you multiply the final rate by the elapsed time (48 × 4), as if the rate were constant. But the rate grows from 0, so the total is less. Fix: integrate the changing rate."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "64 liters",
+        "is_correct": true,
+        "rationale": "The total amount leaked is the accumulation of the rate over the interval: the integral from 0 to 4 of 3t^2 dt = t^3 evaluated from 0 to 4 = 64 liters."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "24 liters",
+        "is_correct": false,
+        "rationale": "Tempting if you differentiate the rate instead of integrating it (r'(4) = 24). But the derivative of a rate is how fast the rate changes, not the total amount. Fix: total change is the integral of the rate."
+      }
+    ],
+    "verification": "sympy: integrate(3t^2,(t,0,4))=64; r(4)=48; 48*4=192; r'(4)=24.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.2",
+    "topic_title": "Approximating Areas with Riemann Sums",
+    "seed_used": true,
+    "stem": "A car's velocity v(t), in meters per second, is recorded at these times: t = 0, 2, 5, 9 seconds with v(t) = 3, 5, 4, 6. What is the left Riemann sum approximation of the distance traveled from t = 0 to t = 9 using the three subintervals determined by the table?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "37",
+        "is_correct": true,
+        "rationale": "Each subinterval uses its left endpoint's velocity times its own width: 3(2) + 5(3) + 4(4) = 6 + 15 + 16 = 37."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "46",
+        "is_correct": false,
+        "rationale": "Tempting if you use the right endpoint's height on each piece: 5(2) + 4(3) + 6(4) = 46. But a left sum uses the value at the left end of each subinterval. Fix: pick heights at the left endpoints."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "36",
+        "is_correct": false,
+        "rationale": "Tempting if you give every subinterval the same width of 3 (since 9/3 = 3). But the table's subintervals have widths 2, 3 and 4. Fix: use each subinterval's own width, from the t-values."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "41.5",
+        "is_correct": false,
+        "rationale": "Tempting if you average the two endpoint velocities on each piece. That is the trapezoidal sum, not a left Riemann sum. Fix: for a left sum use only the left height."
+      }
+    ],
+    "verification": "python: left=3*2+5*3+4*4=37; right=46; equal width 3 -> (3+5+4)*3=36; trapezoid=8+13.5+20=41.5",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.3",
+    "topic_title": "Riemann Sums, Summation Notation, and Definite Integral Notation",
+    "seed_used": false,
+    "stem": "Which definite integral equals the limit as n approaches infinity of the sum from i = 1 to n of (3 + 2i/n)^2 · (2/n)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "the integral from 0 to 2 of x^2 dx",
+        "is_correct": false,
+        "rationale": "Tempting if you take the bounds from the width 2/n, reading the 2 as the upper limit and starting at 0. But the sample points start at 3, so the interval is [3, 5]. Fix: find a from the first sample point and b from the last."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "the integral from 3 to 5 of x^2 dx",
+        "is_correct": true,
+        "rationale": "Here the width is 2/n, so the interval has length 2, and the sample points 3 + 2i/n run from just after 3 up to 5. The function being sampled is x^2, so the limit is the integral from 3 to 5 of x^2 dx."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "the integral from 3 to 5 of 2x^2 dx",
+        "is_correct": false,
+        "rationale": "Tempting if you carry the factor 2 from 2/n into the integrand. But 2/n is the width dx, not part of the function. Fix: the sum is f(x_i)·dx with dx = 2/n, so f(x) = x^2 only."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "the integral from 3 to 5 of (3 + 2x)^2 dx",
+        "is_correct": false,
+        "rationale": "Tempting if you copy the whole sample-point expression into the integrand. But 3 + 2i/n is already the x-value, so the function is x^2. Fix: replace the whole expression 3 + 2i/n with x, giving x^2."
+      }
+    ],
+    "verification": "sympy: sum limit = 98/3 = integral 3..5 of x^2; 0..2 of x^2 = 8/3; 3..5 of 2x^2 = 196/3; 3..5 (3+2x)^2 differs.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.4",
+    "topic_title": "The Fundamental Theorem of Calculus and Accumulation Functions",
+    "seed_used": true,
+    "stem": "Let G(x) = the integral from 3 to x^2 of (t^2 + 4) dt. What is G'(2)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "20",
+        "is_correct": false,
+        "rationale": "Tempting if you evaluate the integrand at the upper limit but forget the chain-rule factor 2x from differentiating x^2. Fix: G'(x) = f(upper limit) × (upper limit)'."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "32",
+        "is_correct": false,
+        "rationale": "Tempting if you plug x (not x^2) into the integrand, getting (x^2 + 4)(2x) = 8 · 4. But the integrand must be evaluated at the upper limit x^2, giving x^4 + 4. Fix: replace t by the upper limit."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "52",
+        "is_correct": false,
+        "rationale": "Tempting if you evaluate the integrand at the lower limit 3, getting 13, then multiply by 2x = 4. But the derivative uses the variable upper limit, not the constant lower limit. Fix: the lower limit only matters through a constant that differentiates to zero."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "80",
+        "is_correct": true,
+        "rationale": "By the Fundamental Theorem with the chain rule, G'(x) = ((x^2)^2 + 4)·2x = (x^4 + 4)(2x). At x = 2 this is (16 + 4)(4) = 80."
+      }
+    ],
+    "verification": "sympy: G'(x)=(x^4+4)(2x); G'(2)=80; slips 20, 32, 52 computed.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.5",
+    "topic_title": "Interpreting the Behavior of Accumulation Functions",
+    "seed_used": true,
+    "stem": "For x > 0, let F(x) = the integral from 0 to x of (t^3 - 3t) dt. On which interval is the graph of F concave up?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "x > sqrt(3)",
+        "is_correct": false,
+        "rationale": "Tempting if you find where the integrand is positive (x^3 - 3x > 0 for x > sqrt(3)). That tells you F is increasing, not concave up. Fix: concavity depends on the sign of F'' = the derivative of the integrand."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "x > 1",
+        "is_correct": true,
+        "rationale": "F'(x) = x^3 - 3x by the Fundamental Theorem, so F''(x) = 3x^2 - 3. This is positive when x > 1 (for x > 0), so F is concave up there."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "0 < x < 1",
+        "is_correct": false,
+        "rationale": "Tempting if you reverse the sign of F''. But F''(x) = 3x^2 - 3 is negative on (0, 1) and positive after 1. Fix: test a point, such as F''(2) = 9 > 0."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "0 < x < sqrt(3)",
+        "is_correct": false,
+        "rationale": "Tempting if you use where the integrand is negative (F is decreasing there). But decreasing is not the same as concave up. Fix: use F'' = f'(x), not the sign of f."
+      }
+    ],
+    "verification": "sympy: F'=x^3-3x; F''=3x^2-3 >0 for x>1; integrand zero at sqrt3.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.6",
+    "topic_title": "Applying Properties of Definite Integrals",
+    "seed_used": true,
+    "stem": "Suppose f is continuous, the integral from 1 to 5 of f(x) dx = 10, and the integral from 3 to 5 of f(x) dx = 4. What is the integral from 3 to 1 of (2f(x) + 1) dx?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "14",
+        "is_correct": false,
+        "rationale": "Tempting if you correctly find 2(6) + 2 but forget that the bounds run from 3 down to 1. Fix: swapping the limits of integration flips the sign of the whole integral."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "-11",
+        "is_correct": false,
+        "rationale": "Tempting if you treat the constant 1 as contributing just 1 to the integral. But the integral of 1 over an interval equals its width, so it contributes 3 - 1 = 2 (or -2 in reverse). Fix: the integral of a constant is constant × width."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "-10",
+        "is_correct": false,
+        "rationale": "Tempting if you flip the sign on the f part but not on the constant part: 2(-6) + 2. But reversing the bounds flips the sign of the entire integral. Fix: negate the whole result."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "-14",
+        "is_correct": true,
+        "rationale": "The integral from 1 to 3 of f is 10 - 4 = 6. Then the integral from 1 to 3 of (2f + 1) is 2(6) + 2 = 14, and reversing the bounds (3 to 1) changes the sign, giving -14."
+      }
+    ],
+    "verification": "python: int_1^3 f=10-4=6; int_1^3(2f+1)=12+2=14; reversed -> -14; slips 14, -11, -10.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.7",
+    "topic_title": "The Fundamental Theorem of Calculus and Definite Integrals",
+    "seed_used": false,
+    "stem": "A particle moves along a line with velocity v(t) = t^2 - 4t meters per second. What is the change in the particle's position from t = 0 to t = 3 seconds?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "-9 meters",
+        "is_correct": true,
+        "rationale": "By the Fundamental Theorem, the change in position is the integral from 0 to 3 of (t^2 - 4t) dt = [t^3/3 - 2t^2] from 0 to 3 = (9 - 18) - 0 = -9 meters. The negative sign means the net movement is in the negative direction."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "9 meters",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract in the wrong order, F(0) - F(3), or drop the negative sign. But a definite integral is F(upper) - F(lower), and signed change can be negative. Fix: compute F(3) - F(0) and keep the sign."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "-3 meters",
+        "is_correct": false,
+        "rationale": "Tempting if you evaluate the velocity at t = 3 (v(3) = -3). That is the velocity at one instant in meters per second, not the change in position. Fix: integrate velocity over the interval."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "-27 meters",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate -4t as -4t^2 (forgetting to divide by 2). That gives t^3/3 - 4t^2 and -27. Fix: the antiderivative of -4t is -2t^2."
+      }
+    ],
+    "verification": "sympy: integrate(t^2-4t,(t,0,3))=-9; v(3)=-3; wrong antiderivative t^3/3-4t^2 at 3 = -27.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.8",
+    "topic_title": "Finding Antiderivatives and Indefinite Integrals",
+    "seed_used": false,
+    "stem": "Find the indefinite integral of 4x^3 - 2/x^2 + 5 with respect to x.",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "x^4 + 2/x + 5x",
+        "is_correct": false,
+        "rationale": "Tempting because the three terms are all correct. But an indefinite integral represents a whole family of antiderivatives, so the constant is required. Fix: add + C."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "x^4 - 2/x + 5x + C",
+        "is_correct": false,
+        "rationale": "Tempting if you lose the sign from the power rule: integrating x^(-2) gives -x^(-1), and the coefficient -2 times -1 is +2. Fix: differentiate your answer to check; the derivative of -2/x is +2/x^2, not -2/x^2."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "x^4 + 2/x + 5x + C",
+        "is_correct": true,
+        "rationale": "Write -2/x^2 as -2x^(-2). Its antiderivative is -2x^(-1)/(-1) = 2/x. Together with x^4 and 5x, and the constant C required for an indefinite integral, the result differentiates back to 4x^3 - 2/x^2 + 5."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "x^4 + 2/x + 5 + C",
+        "is_correct": false,
+        "rationale": "Tempting if you treat the constant 5 as if it stayed 5. But the antiderivative of a constant k is kx. Fix: the integral of 5 is 5x."
+      }
+    ],
+    "verification": "sympy: derivative of x^4+2/x+5x = 4x^3-2/x^2+5; wrong signed version does not match.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.9",
+    "topic_title": "Integrating Using Substitution",
+    "seed_used": true,
+    "stem": "Evaluate the integral from 0 to 1 of x(x^2 + 3)^3 dx.",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "175/4",
+        "is_correct": false,
+        "rationale": "Tempting if you forget the factor 1/2 that comes from x dx = du/2. Then you get (1/4)(175) = 175/4. Fix: du = 2x dx, so x dx = (1/2) du."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "1/8",
+        "is_correct": false,
+        "rationale": "Tempting if you rewrite in u but keep the old x-bounds 0 and 1 for u. Then you evaluate (1/8)(u^4) from 0 to 1 = 1/8. Fix: change the bounds to u(0) = 3 and u(1) = 4, or switch back to x before plugging in."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "175/8",
+        "is_correct": true,
+        "rationale": "Let u = x^2 + 3, so du = 2x dx and x dx = du/2. The bounds become u = 3 and u = 4, so the integral is (1/2) times the integral from 3 to 4 of u^3 du = (1/2)(1/4)(4^4 - 3^4) = (1/8)(175) = 175/8."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "175/2",
+        "is_correct": false,
+        "rationale": "Tempting if you remember the 1/2 but forget the 1/4 from the power rule for u^3. Then you get (1/2)(256 - 81) = 175/2. Fix: the antiderivative of u^3 is u^4/4."
+      }
+    ],
+    "verification": "sympy: integrate(x(x^2+3)^3,(x,0,1))=175/8; slips 175/4, 1/8, 175/2.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.10",
+    "topic_title": "Integrating Functions Using Long Division and Completing the Square",
+    "seed_used": false,
+    "stem": "Find the indefinite integral of (x^2 + 1)/(x + 1) for x > -1.",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "x^2/2 - x + 2 ln(x + 1) + C",
+        "is_correct": true,
+        "rationale": "Long division gives (x^2 + 1)/(x + 1) = x - 1 + 2/(x + 1). Integrating term by term gives x^2/2 - x + 2 ln(x + 1) + C."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "x^2/2 - x + C",
+        "is_correct": false,
+        "rationale": "Tempting if you divide correctly but drop the remainder term 2/(x + 1). But the remainder is part of the integrand and integrates to 2 ln(x + 1). Fix: write quotient + remainder/divisor and integrate every piece."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "x^2/2 - x + 2/(x + 1) + C",
+        "is_correct": false,
+        "rationale": "Tempting if you keep the remainder term but do not integrate it. But 2/(x + 1) must be integrated into 2 ln(x + 1); differentiating your answer would not return the integrand. Fix: integrate all pieces."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "x^2/2 + x + 2 ln(x + 1) + C",
+        "is_correct": false,
+        "rationale": "Tempting if you slip in the division and write the quotient as x + 1. But (x + 1)(x + 1) + 0 = x^2 + 2x + 1, not x^2 + 1; the quotient is x - 1 with remainder 2. Fix: multiply back to check."
+      }
+    ],
+    "verification": "sympy: div(x^2+1,x+1)=(x-1, 2); derivative of key = (x^2+1)/(x+1); each distractor's derivative differs.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 6,
+    "topic_code": "6.14",
+    "topic_title": "Selecting Techniques for Antidifferentiation",
+    "seed_used": false,
+    "stem": "Which of the following integrals can be evaluated by substitution with u = x^2 + 1, leaving only u in the new integral?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "the integral of (x^2 + 1)/x dx",
+        "is_correct": false,
+        "rationale": "Tempting because x^2 + 1 appears in the numerator. But there is no x dx factor to pair with du, and the expression simplifies to x + 1/x, which you can integrate directly. Fix: simplify the rational expression first."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "the integral of (x^2 + 1)^3 dx",
+        "is_correct": false,
+        "rationale": "Tempting because the inside function is x^2 + 1. But there is no factor of x to supply du = 2x dx, so u cannot replace everything. Fix: expand (x^2 + 1)^3 and integrate term by term."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "the integral of (x^2 + 1)/(x + 1) dx",
+        "is_correct": false,
+        "rationale": "Tempting because x^2 + 1 appears again. But the denominator x + 1 is not a multiple of du = 2x dx, so substitution will not work. Fix: use long division first."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "the integral of x/(x^2 + 1)^3 dx",
+        "is_correct": true,
+        "rationale": "With u = x^2 + 1, du = 2x dx, so x dx = du/2 and the integral becomes (1/2) times the integral of u^(-3) du, with no x left."
+      }
+    ],
+    "verification": "sympy: with u=x^2+1, x/(x^2+1)^3 dx = (1/2)u^-3 du; antiderivative -1/(4(x^2+1)^2) differentiates back. Others have no x dx factor.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 7,
+    "topic_code": "7.1",
+    "topic_title": "Modeling Situations with Differential Equations",
+    "seed_used": false,
+    "stem": "Hot coffee cools in a room kept at 20 degrees Celsius. The rate at which the coffee's temperature T (in degrees Celsius) changes with time t is proportional to the difference between T and the room temperature. Which differential equation models this, where k is a constant?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "dT/dt = kT",
+        "is_correct": false,
+        "rationale": "Tempting if you forget that the room temperature matters. But the rate depends on the difference T - 20, not on T alone. Fix: model the quantity that controls the rate."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "dT/dt = k(T - 20)",
+        "is_correct": true,
+        "rationale": "The rate dT/dt is proportional to the temperature difference T - 20, so dT/dt = k(T - 20)."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "T = k(T - 20)",
+        "is_correct": false,
+        "rationale": "Tempting if you write a formula for T instead of its rate. But the situation describes how fast T changes, so the left side must be dT/dt. Fix: put the rate of change on the left."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "dT/dt = k(t - 20)",
+        "is_correct": false,
+        "rationale": "Tempting if you mix up the variables t and T. But the rate depends on the temperature T, not on the time t. Fix: use T inside the proportional expression."
+      }
+    ],
+    "verification": "Modeling statement from the CED: rate proportional to (T - 20) gives dT/dt = k(T-20); no computation.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 7,
+    "topic_code": "7.2",
+    "topic_title": "Verifying Solutions for Differential Equations",
+    "seed_used": false,
+    "stem": "Which function is a solution of the differential equation dy/dx = y - x?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "y = x + 1 + 3e^x",
+        "is_correct": true,
+        "rationale": "For y = x + 1 + 3e^x, dy/dx = 1 + 3e^x. Also y - x = 1 + 3e^x. The two sides match, so it is a solution."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "y = x + 3e^x",
+        "is_correct": false,
+        "rationale": "Tempting because it looks similar to the solution. But dy/dx = 1 + 3e^x while y - x = 3e^x, which are not equal. Fix: substitute both y and x into the right side and compare with dy/dx."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "y = x^2/2",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate the right side as if y - x depended only on x and ignored y. But dy/dx = x while y - x = x^2/2 - x, which do not match. Fix: y appears on the right, so check by substitution."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "y = 3e^x + 1",
+        "is_correct": false,
+        "rationale": "Tempting because it has the right ingredients. But dy/dx = 3e^x while y - x = 3e^x + 1 - x, which do not match. Fix: compute dy/dx and y - x separately and check equality for all x."
+      }
+    ],
+    "verification": "sympy: for each candidate computed diff(y,x)-(y-x): key simplifies to 0, the other three do not.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 7,
+    "topic_code": "7.3",
+    "topic_title": "Sketching Slope Fields",
+    "seed_used": false,
+    "stem": "A slope field is drawn for dy/dx = 2x - y. What is the slope of the line segment drawn at the point (3, 4)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "-2",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract in the wrong order, computing y - 2x. But the equation is 2x - y, so the sign matters. Fix: substitute exactly into 2x - y."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "-1",
+        "is_correct": false,
+        "rationale": "Tempting if you use the wrong formula, x - y. But the coefficient on x is 2, so 2(3) - 4 = 2. Fix: copy the expression from the differential equation exactly."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "5",
+        "is_correct": false,
+        "rationale": "Tempting if you swap the coordinates and use x = 4, y = 3. But in the point (3, 4) the x-coordinate comes first. Fix: x = 3, y = 4."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "2",
+        "is_correct": true,
+        "rationale": "At (3, 4), x = 3 and y = 4, so dy/dx = 2(3) - 4 = 2. The segment rises to the right with slope 2."
+      }
+    ],
+    "verification": "python: 2*3-4=2; swapped 2*4-3=5; reversed order 4-6=-2; x-y=-1.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 7,
+    "topic_code": "7.4",
+    "topic_title": "Reasoning Using Slope Fields",
+    "seed_used": false,
+    "stem": "A solution y(x) of dy/dx = y(4 - y) satisfies y(0) = 1. What is the limit of y(x) as x approaches infinity?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "infinity",
+        "is_correct": false,
+        "rationale": "Tempting if you notice y is increasing and assume it increases forever. But the slope shrinks to 0 as y approaches 4, which is a horizontal barrier. Fix: look for where dy/dx = 0."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "1",
+        "is_correct": false,
+        "rationale": "Tempting if you read the starting value as where the solution stays. But the slope at y = 1 is 3, not 0, so y moves away from 1. Fix: the limit is where dy/dx = 0 and the solution is heading, not the initial value."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "4",
+        "is_correct": true,
+        "rationale": "At y = 1 the slope is 1(3) = 3 > 0, so y increases. The slope is 0 at y = 4 and positive for 0 < y < 4, so the solution cannot cross y = 4 and levels off at it. The limit is 4."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "2",
+        "is_correct": false,
+        "rationale": "Tempting if you find the value of y where the slope is largest (y = 2) and treat it as where the solution settles. But the slope there is 4, not 0. Fix: set dy/dx = 0 to find equilibrium values."
+      }
+    ],
+    "verification": "sympy: y(4-y) at y=1 is 3>0; zeros y=0,4; max of slope at y=2 (slope 4). Solution trapped in (0,4), increasing -> 4.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 7,
+    "topic_code": "7.6",
+    "topic_title": "Finding General Solutions Using Separation of Variables",
+    "seed_used": false,
+    "stem": "Which expression is the general solution of dy/dx = x/y^2, where y is not 0?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "y = ((3/2)x^2)^(1/3) + C",
+        "is_correct": false,
+        "rationale": "Tempting if you take the cube root and then add the constant outside. But the constant must be added at the integration step, before solving for y. Fix: include + C when you integrate, then solve."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "y = ((3/2)x^2 + C)^(1/3)",
+        "is_correct": true,
+        "rationale": "Separate: y^2 dy = x dx. Integrate: y^3/3 = x^2/2 + C1, so y^3 = (3/2)x^2 + C with C = 3C1, and y = ((3/2)x^2 + C)^(1/3)."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "y = (x^2/2 + C)^(1/3)",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate y^2 dy as y^3 and forget the division by 3. Then you lose the factor 3/2. Fix: the integral of y^2 is y^3/3."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "y = (3/2)x^2 + C",
+        "is_correct": false,
+        "rationale": "Tempting if you stop at y^3 = (3/2)x^2 + C and forget to take the cube root. Fix: solve for y after integrating."
+      }
+    ],
+    "verification": "sympy: substituted each candidate into dy/dx - x/y^2; only key gives 0.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 7,
+    "topic_code": "7.7",
+    "topic_title": "Finding Particular Solutions Using Initial Conditions and Separation of Variables",
+    "seed_used": true,
+    "stem": "Solve the differential equation dy/dx = x/y with the initial condition y(1) = 2.",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "y = sqrt(x^2 + 1)",
+        "is_correct": false,
+        "rationale": "Tempting if you substitute y(1) = 2 into y^2/2 as if it were y/2 or lose the squares. Then the constant comes out wrong. Fix: put x = 1 and y = 2 into y^2/2 = x^2/2 + C and solve for C."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "y = sqrt(x^2 + 4)",
+        "is_correct": false,
+        "rationale": "Tempting if you set the constant equal to y(1)^2 = 4 without using the x-value. But C has to account for x = 1 as well. Fix: substitute both coordinates, 4/2 = 1/2 + C."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "y = sqrt(x^2 + 3)",
+        "is_correct": true,
+        "rationale": "Separate: y dy = x dx, so y^2/2 = x^2/2 + C. Using y(1) = 2: 2 = 1/2 + C, so C = 3/2. Then y^2 = x^2 + 3, and since y(1) = 2 is positive, y = sqrt(x^2 + 3)."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "y = -sqrt(x^2 + 3)",
+        "is_correct": false,
+        "rationale": "Tempting if you take the square root and choose the negative branch. But y(1) = 2 is positive, so the solution must be the positive branch. Fix: pick the sign that matches the initial condition."
+      }
+    ],
+    "verification": "sympy: y=sqrt(x^2+3): y'=x/y and y(1)=2; negative branch gives y(1)=-2.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 7,
+    "topic_code": "7.8",
+    "topic_title": "Exponential Models with Differential Equations",
+    "seed_used": false,
+    "stem": "A radioactive sample has mass M(t) grams after t hours, with dM/dt = -kM for a constant k > 0. Initially M(0) = 80 and after 3 hours M(3) = 10. What is M(1)?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "40 grams",
+        "is_correct": true,
+        "rationale": "The solution is M(t) = 80e^(-kt). Then M(3) = 80e^(-3k) = 10 gives e^(-3k) = 1/8, so e^(-k) = 1/2. Therefore M(1) = 80(1/2) = 40."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "170/3 grams",
+        "is_correct": false,
+        "rationale": "Tempting if you assume the mass falls by the same amount each hour (a linear model: 70/3 per hour). But dM/dt = -kM means the mass falls by the same fraction each hour. Fix: use M(t) = 80e^(-kt)."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "10 grams",
+        "is_correct": false,
+        "rationale": "Tempting if you reuse the value given at t = 3. But the question asks for t = 1, when more mass remains. Fix: find k, then evaluate at t = 1."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "70 grams",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract the 10 grams lost in a single hour's guess (80 - 10). But the loss in the first hour is a fraction of 80, not 10. Fix: solve for e^(-k) from M(3) first."
+      }
+    ],
+    "verification": "sympy: k=ln2; 80e^(-3k)=10, 80e^(-k)=40; linear model 170/3.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.1",
+    "topic_title": "Finding the Average Value of a Function on an Interval",
+    "seed_used": true,
+    "stem": "What is the average value of f(x) = x^3 on the interval [1, 3]?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "13",
+        "is_correct": false,
+        "rationale": "Tempting if you compute the slope between endpoints, (27 - 1)/2 = 13. That is the average rate of change of f, not the average value of f. Fix: use (1/(b - a)) times the integral of f."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "10",
+        "is_correct": true,
+        "rationale": "The average value is (1/(3 - 1)) times the integral from 1 to 3 of x^3 dx = (1/2)[x^4/4] from 1 to 3 = (1/2)(81/4 - 1/4) = (1/2)(20) = 10."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "20",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate but forget to divide by the interval length 2. Fix: average value = integral divided by (b - a)."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "14",
+        "is_correct": false,
+        "rationale": "Tempting if you average the endpoint values, (1 + 27)/2 = 14. But f is not linear, so the endpoints do not give the average. Fix: integrate f over the interval."
+      }
+    ],
+    "verification": "sympy: integrate(x^3,(x,1,3))=20, avg=10; slips 13, 20, 14.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.2",
+    "topic_title": "Connecting Position, Velocity, and Acceleration Using Integrals",
+    "seed_used": false,
+    "stem": "A particle moves along a line with velocity v(t) = 2t - 6 meters per second for 0 <= t <= 5. What is the total distance the particle travels?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "-5 meters",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate v directly: that gives displacement, which is -5. But distance counts movement in both directions as positive. Fix: integrate speed |v|, splitting where v = 0."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "5 meters",
+        "is_correct": false,
+        "rationale": "Tempting if you take the absolute value of the displacement. But the particle goes back and forth, so the distance is more than the size of the net change. Fix: add the absolute value of each leg."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "9 meters",
+        "is_correct": false,
+        "rationale": "Tempting if you stop at the turning point t = 3 and only count the first leg. But the particle keeps moving until t = 5. Fix: include the leg from t = 3 to t = 5 as well."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "13 meters",
+        "is_correct": true,
+        "rationale": "The velocity changes sign at t = 3. The distance is the integral of |v|: from 0 to 3 the integral of (6 - 2t) is 9, and from 3 to 5 the integral of (2t - 6) is 4. The total is 9 + 4 = 13."
+      }
+    ],
+    "verification": "sympy: displacement = integrate(2t-6,(0,5)) = -5; distance = 9 + 4 = 13.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.3",
+    "topic_title": "Using Accumulation Functions and Definite Integrals in Applied Contexts",
+    "seed_used": false,
+    "stem": "A tank initially holds 50 gallons of water. Water flows in at a rate of R(t) = 12 - 3t gallons per minute for 0 <= t <= 4 minutes. How much water is in the tank at t = 4 minutes?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "24 gallons",
+        "is_correct": false,
+        "rationale": "Tempting if you compute the integral, 24, and forget the 50 gallons already in the tank. But the integral is only the change. Fix: final amount = initial amount + accumulated change."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "74 gallons",
+        "is_correct": true,
+        "rationale": "The amount at t = 4 is the initial amount plus the accumulated change: 50 + the integral from 0 to 4 of (12 - 3t) dt = 50 + (48 - 24) = 74 gallons."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "74 gallons per minute",
+        "is_correct": false,
+        "rationale": "Tempting if you get the right number but keep the rate's units. But the amount in the tank is measured in gallons, not gallons per minute. Fix: attach the units of the accumulated quantity."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "98 gallons",
+        "is_correct": false,
+        "rationale": "Tempting if you treat the inflow as constant at 12 gallons per minute for 4 minutes. But the rate drops by 3 each minute, so less water flows in. Fix: integrate the changing rate 12 - 3t."
+      }
+    ],
+    "verification": "sympy: 50+integrate(12-3t,(t,0,4))=74; integral alone 24; constant-rate slip 50+48=98.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.4",
+    "topic_title": "Finding the Area Between Curves Expressed as Functions of x",
+    "seed_used": true,
+    "stem": "What is the area of the region enclosed by the graphs of y = x^2 and y = 2x + 3?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "-32/3",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract bottom minus top. But area must be positive, and the line is the upper curve, so use top minus bottom. Fix: check which graph is above before subtracting."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "9",
+        "is_correct": false,
+        "rationale": "Tempting if you start the integral at x = 0 instead of the intersection x = -1. But the region extends left to the intersection point. Fix: solve for both intersection points and use them as the bounds."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "20",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate only the upper curve 2x + 3 over [-1, 3]. That is the area under the line, not between the curves. Fix: subtract the lower curve."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "32/3",
+        "is_correct": true,
+        "rationale": "The graphs meet where x^2 = 2x + 3, so x = -1 and x = 3. On [-1, 3] the line is above the parabola, so the area is the integral from -1 to 3 of (2x + 3 - x^2) dx = [x^2 + 3x - x^3/3] from -1 to 3 = 9 - (-5/3) = 32/3."
+      }
+    ],
+    "verification": "sympy: intersections -1,3; integrate(2x+3-x^2,(x,-1,3))=32/3; slips 9, 20.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.5",
+    "topic_title": "Finding the Area Between Curves Expressed as Functions of y",
+    "seed_used": false,
+    "stem": "What is the area of the region bounded by the curves x = y^2 and x = y + 2?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "9/2",
+        "is_correct": true,
+        "rationale": "Integrate with respect to y. The curves meet where y^2 = y + 2, so y = -1 and y = 2. The right curve is x = y + 2 and the left curve is x = y^2, so the area is the integral from -1 to 2 of (y + 2 - y^2) dy = [y^2/2 + 2y - y^3/3] from -1 to 2 = 10/3 + 7/6 = 9/2."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "-9/2",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract in the wrong order, left minus right. But with horizontal slices the area is right minus left. Fix: label the right and left curves before subtracting."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "15/2",
+        "is_correct": false,
+        "rationale": "Tempting if you use the x-values of the intersection points (x = 1 and x = 4) as the y-limits. But the limits for dy must be y-values, -1 and 2. Fix: solve for y at the intersections."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "6",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate y as y instead of y^2/2, giving y^2 + 2y - y^3/3 evaluated from -1 to 2. Fix: the antiderivative of y is y^2/2."
+      }
+    ],
+    "verification": "sympy: intersections y=-1,2; integrate(y+2-y^2,(y,-1,2))=9/2; slips 15/2, 6.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.6",
+    "topic_title": "Finding the Area Between Curves That Intersect at More Than Two Points",
+    "seed_used": false,
+    "stem": "What is the total area enclosed between the graphs of y = x^3 and y = 4x?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "0",
+        "is_correct": false,
+        "rationale": "Tempting if you use a single integral of 4x - x^3 from -2 to 2. But the upper and lower curves switch at x = 0, so the positive and negative parts cancel. Fix: split at every intersection and use top minus bottom on each piece."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "4",
+        "is_correct": false,
+        "rationale": "Tempting if you find only one of the two regions. But the graphs enclose a region on both sides of x = 0. Fix: find every intersection and add every area."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "8",
+        "is_correct": true,
+        "rationale": "The graphs intersect at x = -2, 0, and 2. On [0, 2] the line 4x is above x^3, and on [-2, 0] the cubic is above the line, so the area is two separate integrals. By symmetry each equals 4, giving 8."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "16",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate only the line 4x over [0, 2] and double it, forgetting to subtract x^3. Fix: area between curves is top minus bottom, not the top curve alone."
+      }
+    ],
+    "verification": "sympy: roots -2,0,2; 2*integrate(4x-x^3,(0,2))=8; single integral over [-2,2] = 0; 2*integrate(4x,(0,2))=16.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.7",
+    "topic_title": "Volumes with Cross Sections: Squares and Rectangles",
+    "seed_used": false,
+    "stem": "The base of a solid is the region between the graph of y = 4 - x^2 and the x-axis. Cross sections perpendicular to the x-axis are squares whose sides lie in the base. What is the volume of the solid?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "32/3",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate the side length 4 - x^2 itself. But volume adds up areas, and the area of a square is the side squared. Fix: integrate (side)^2."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "256/15",
+        "is_correct": false,
+        "rationale": "Tempting if you use bounds from 0 to 2 only. But the base extends from x = -2 to x = 2. Fix: use the x-intercepts of the base region as the bounds."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "512/15",
+        "is_correct": true,
+        "rationale": "At each x the side of the square is 4 - x^2, so the cross-sectional area is (4 - x^2)^2. The volume is the integral from -2 to 2 of (4 - x^2)^2 dx = 512/15."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "1024/9",
+        "is_correct": false,
+        "rationale": "Tempting if you square the result of integrating the side, (32/3)^2. But the area formula must be applied inside the integral at each x. Fix: square first, then integrate."
+      }
+    ],
+    "verification": "sympy: integrate((4-x^2)^2,(x,-2,2))=512/15; slips 32/3, 256/15, (32/3)^2=1024/9.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.8",
+    "topic_title": "Volumes with Cross Sections: Triangles and Semicircles",
+    "seed_used": false,
+    "stem": "The base of a solid is the region between the graph of y = sqrt(x) and the x-axis for 0 <= x <= 4. Cross sections perpendicular to the x-axis are semicircles whose diameters lie in the base. What is the volume of the solid?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "pi",
+        "is_correct": true,
+        "rationale": "The diameter at x is sqrt(x), so the radius is sqrt(x)/2 and the area of a semicircle is (1/2)(pi)(sqrt(x)/2)^2 = (pi/8)x. The volume is the integral from 0 to 4 of (pi/8)x dx = (pi/8)(8) = pi."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "2 pi",
+        "is_correct": false,
+        "rationale": "Tempting if you use the area of a full circle, pi r^2, instead of a semicircle. Fix: the cross section is half a circle, so multiply by 1/2."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "4 pi",
+        "is_correct": false,
+        "rationale": "Tempting if you use the diameter sqrt(x) as the radius. Then the semicircle area becomes (pi/2)x. Fix: the base length is the diameter, so the radius is half of it."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "4 pi/3",
+        "is_correct": false,
+        "rationale": "Tempting if you use the radius in the area formula without squaring it, (pi/2)(sqrt(x)/2). Fix: the semicircle's area is (pi/2) r^2, with r squared."
+      }
+    ],
+    "verification": "sympy: V=integral_0^4 (pi/2)(sqrt(x)/2)^2 dx = pi; slips 2pi, 4pi, 4pi/3.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.9",
+    "topic_title": "Volume with Disc Method: Revolving Around the x- or y-Axis",
+    "seed_used": true,
+    "stem": "The region bounded by y = x^2, the x-axis, and the line x = 2 is revolved about the x-axis. What is the volume of the resulting solid?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "8 pi/3",
+        "is_correct": false,
+        "rationale": "Tempting if you use the radius x^2 as if it were x, so you square only the x. Fix: the radius is the whole function, x^2, so square it to get x^4."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "32/5",
+        "is_correct": false,
+        "rationale": "Tempting if you set up the integral correctly but leave out the factor of pi from the area of a disc. Fix: volume = pi times the integral of r^2."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "32 pi",
+        "is_correct": false,
+        "rationale": "Tempting if you integrate x^4 as x^5 and forget to divide by 5. Fix: the antiderivative of x^4 is x^5/5."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "32 pi/5",
+        "is_correct": true,
+        "rationale": "Each disc has radius x^2, so its area is pi(x^2)^2 = pi x^4. The volume is pi times the integral from 0 to 2 of x^4 dx = pi(32/5) = 32 pi/5."
+      }
+    ],
+    "verification": "sympy: pi*integrate(x^4,(0,2))=32pi/5; slips 8pi/3, 32/5, 32pi.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.10",
+    "topic_title": "Volume with Disc Method: Revolving Around Other Axes",
+    "seed_used": false,
+    "stem": "The region bounded by y = x^2, the line y = 9, and the y-axis (for x >= 0) is revolved about the line y = 9. What is the volume of the resulting solid?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "243 pi/5",
+        "is_correct": false,
+        "rationale": "Tempting if you use the curve's height x^2 as the radius, as if revolving about the x-axis. But the axis is y = 9, so the radius is 9 - x^2. Fix: radius = distance to the axis."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "648 pi/5",
+        "is_correct": true,
+        "rationale": "The axis is y = 9, so the radius of each disc is the distance from the curve to the axis, 9 - x^2. The volume is pi times the integral from 0 to 3 of (9 - x^2)^2 dx = pi(243 - 162 + 243/5) = 648 pi/5."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "18 pi",
+        "is_correct": false,
+        "rationale": "Tempting if you use the correct radius 9 - x^2 but forget to square it. Fix: the area of a disc is pi r^2."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "972 pi/5",
+        "is_correct": false,
+        "rationale": "Tempting if you square each term of 9 - x^2 separately, getting 81 - x^4. But (9 - x^2)^2 = 81 - 18x^2 + x^4. Fix: square the whole radius before integrating."
+      }
+    ],
+    "verification": "sympy: pi*integrate((9-x^2)^2,(x,0,3))=648pi/5; slips 243pi/5, 18pi, 972pi/5.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.11",
+    "topic_title": "Volume with Washer Method: Revolving Around the x- or y-Axis",
+    "seed_used": true,
+    "stem": "The region between y = x^2 and y = 2x is revolved about the x-axis. What is the volume of the resulting solid?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "64 pi/15",
+        "is_correct": true,
+        "rationale": "The curves meet at x = 0 and x = 2, and 2x is farther from the x-axis than x^2. Each washer has outer radius 2x and inner radius x^2, so V = pi times the integral from 0 to 2 of (4x^2 - x^4) dx = pi(32/3 - 32/5) = 64 pi/15."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "-64 pi/15",
+        "is_correct": false,
+        "rationale": "Tempting if you reverse the inner and outer radii. But the outer radius is the larger distance from the axis, 2x on this interval. Fix: label outer and inner before subtracting."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "16 pi/15",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract the radii first and then square, (2x - x^2)^2. But the washer's area is pi(R^2 - r^2), not pi(R - r)^2. Fix: square each radius, then subtract."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "4 pi/3",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract the radii and never square them, pi times the integral of (2x - x^2). That is not an area of a washer. Fix: use pi(R^2 - r^2)."
+      }
+    ],
+    "verification": "sympy: pi*integrate(4x^2-x^4,(0,2))=64pi/15; slips -64pi/15, 16pi/15, 4pi/3.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 8,
+    "topic_code": "8.12",
+    "topic_title": "Volume with Washer Method: Revolving Around Other Axes",
+    "seed_used": false,
+    "stem": "The region between y = x^2 and y = 2x is revolved about the horizontal line y = -1. What is the volume of the resulting solid?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "64 pi/15",
+        "is_correct": false,
+        "rationale": "Tempting if you measure the radii from the x-axis, using 2x and x^2. But the axis of rotation is y = -1, so each radius grows by 1. Fix: radius = distance to the line of rotation."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "8 pi/5",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract 1 instead of adding it, using 2x - 1 and x^2 - 1. But the axis is below the region, so the distances are y - (-1) = y + 1. Fix: draw the axis and measure toward it."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "-104 pi/15",
+        "is_correct": false,
+        "rationale": "Tempting if you swap the inner and outer radii. The outer radius is the farther curve from the axis, 2x + 1. Fix: label outer and inner before you subtract."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "104 pi/15",
+        "is_correct": true,
+        "rationale": "The line y = -1 lies below the region, so distances are measured from it: the outer radius is 2x - (-1) = 2x + 1 and the inner radius is x^2 + 1. Then V = pi times the integral from 0 to 2 of ((2x + 1)^2 - (x^2 + 1)^2) dx = 104 pi/15."
+      }
+    ],
+    "verification": "sympy: pi*integrate((2x+1)^2-(x^2+1)^2,(0,2))=104pi/15; slips 64pi/15, 8pi/5, -104pi/15.",
+    "author_flags": ""
+  }
+]
