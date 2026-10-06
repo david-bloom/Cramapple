@@ -1,6 +1,6 @@
 # TASK-0064 — Open Hand Teaching Pool: Show Everything, Never Scored
 
-**Status:** Planned — awaiting go-ahead to build in Development  
+**Status:** In progress — Development backend built and verified (2026-10-06); edge-function deploy and Lovable front end pending  
 **Tier:** Hard-Gate (schema, serving-path and Production changes)  
 **Owner:** Claude (backend + Lovable wiring); content generation → content-pipeline owner  
 **Product Owner:** David Bloom  
@@ -84,3 +84,63 @@ distractor carries why it tempts plus a one-line fix (pedagogy rule). Validated 
 - [ ] Desktop and 390px walkthrough by David in the preview before the plate loop is turned on.
 - [ ] Fresh independent QA (Fable) of Open Hand plus the serving exclusions.
 - [ ] Production: migration, function deploys and designation applied on David's explicit approval.
+
+## Progress — 2026-10-06
+
+**Development (`wmgjsdkphcyhngaffbqf`), applied and verified:**
+- Migration `20261006004005_open_hand_teaching_pool.sql` adds three things: the table
+  `app.open_hand_teaching_items`, the RPC `public.get_open_hand_teaching_item(subject_key, topic_code)`,
+  and a backstop trigger `trg_refuse_attempt_on_teaching_item` on `app.attempts`. The file name
+  matches Development's recorded version.
+- Verified with every write rolled back:
+  - anonymous call → `not_authenticated`
+  - unentitled user → `open_hand:entitlement_required`
+  - entitled student → full key returned (4 choices, `is_correct` present, topic title)
+  - topic with no teaching item → `null`
+  - inserting an attempt on a teaching item → refused `open_hand_item_not_scorable`
+- Development content fails the 25-character rationale bar, so the real selection returns nothing
+  there. Three Statistics items (topics 1.5, 1.6, 1.9) are designated as **Dev test fixtures**, marked
+  in `note`.
+
+**Serving filter (repo, not yet deployed):** `dropTeachingItems` is in
+`_shared/student-item-delivery.ts`, and `student-session-items` calls it before the exclusion
+annotation. It covers every serving mode because every mode funnels through that one point. It
+fails closed with a 500 if the lookup errors. Tests: shared delivery 46/46 (3 new), serving 32/32
+(1 new: cell_scoped never serves a teaching item). Typecheck shows no new errors. Run locally with
+stand-ins for `deno.land`, `jsr:` and `esm.sh`, which this sandbox cannot reach.
+
+**Grading:** `evaluate-attempt` is not changed. The trigger blocks any attempt on a teaching item at
+the database, so grading never sees one. A by-hand redeploy of that function (24 files, ~8.8k lines)
+was judged riskier than the trigger.
+
+**Production selection (read-only dry run, 2026-10-06):** 97 items, one per eligible topic, from
+`scripts/task0064/select_spare_teaching_items.sql`. The query is deterministic: re-run it at apply
+time and review the output then. Per subject:
+
+| Subject | Spare items |
+|---|---|
+| Calc AB | 12 |
+| Calc BC | 24 |
+| Chemistry | 7 |
+| Physics 1 | 10 |
+| Physics 2 | 4 |
+| Physics C: E&M | 4 |
+| Physics C: Mech | 4 |
+| Precalculus | 14 |
+| Statistics | 14 |
+| Biology | 2 |
+
+**Blocker for end-to-end testing:** the Lovable app, preview included, talks to **Production**
+Supabase. Open Hand cannot be exercised against Development. Production order, each step on David's
+approval:
+1. Apply the migration. It is inert with zero designations: the trigger matches nothing and the RPC
+   returns null.
+2. Deploy `student-session-items` with the filter. This must happen BEFORE any designation, or live
+   students could be served a teaching item that the trigger then refuses on submit.
+3. Designate the 97 spare items.
+4. Lovable switches Open Hand to the teaching RPC and David reviews in the preview with the plate
+   loop still off.
+
+**Edge deploy:** this sandbox cannot reach the Supabase Management API. Deploy from a machine with the
+Supabase CLI:
+`supabase functions deploy student-session-items --project-ref <ref>`, Development first.

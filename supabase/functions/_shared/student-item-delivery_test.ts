@@ -13,6 +13,7 @@ import {
   applyItemPackageFallback,
   type AssetMetadata,
   annotateOpenHandExclusions,
+  dropTeachingItems,
   buildRenderItem,
   buildResolvedCells,
   derivePackageChoices,
@@ -774,4 +775,71 @@ Deno.test("authored question_parts replace criteria text and are labelled prompt
     { part_key: "part-a", prompt_text: "Approximate T'(4).", points_possible: 2 },
   ]);
   assertFalse(JSON.stringify(item).includes("-4.5"));
+});
+
+// TASK-0064 — teaching items are filtered out of every served list.
+function teachingService(
+  rows: Array<{ content_item_id: string }> | null,
+  error: unknown = null,
+) {
+  const calls: Array<Record<string, unknown>> = [];
+  const service = {
+    schema: () => ({
+      from: (table: string) => {
+        const state: Record<string, unknown> = { table };
+        const chain = {
+          select: (cols: string) => {
+            state.select = cols;
+            return chain;
+          },
+          in: (col: string, vals: unknown[]) => {
+            state[`in:${col}`] = vals;
+            return chain;
+          },
+          is: (col: string, val: unknown) => {
+            state[`is:${col}`] = val;
+            calls.push(state);
+            return Promise.resolve({ data: rows, error });
+          },
+        };
+        return chain;
+      },
+    }),
+  };
+  return { service, calls };
+}
+
+Deno.test("dropTeachingItems removes active teaching items, by item id", async () => {
+  const a = { ...buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", [])!, content_item_id: "item-a" };
+  const b = { ...a, content_item_id: "item-b" };
+  const { service, calls } = teachingService([{ content_item_id: "item-b" }]);
+
+  // deno-lint-ignore no-explicit-any
+  const out = await dropTeachingItems(service as any, [a, b]);
+
+  assertEquals(out.items.map((i) => i.content_item_id), ["item-a"]);
+  assertEquals(out.dropped, 1);
+  assertEquals(out.failed, false);
+  assertEquals(calls[0]["table"], "open_hand_teaching_items");
+  assertEquals(calls[0]["in:content_item_id"], ["item-a", "item-b"]);
+  assertEquals(calls[0]["is:released_at"], null);
+});
+
+Deno.test("dropTeachingItems fails CLOSED when the lookup errors", async () => {
+  const a = { ...buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", [])!, content_item_id: "item-a" };
+  const { service } = teachingService(null, { message: "boom" });
+
+  // deno-lint-ignore no-explicit-any
+  const out = await dropTeachingItems(service as any, [a]);
+
+  assertEquals(out.items, []);
+  assertEquals(out.failed, true);
+});
+
+Deno.test("dropTeachingItems does not query for an empty queue", async () => {
+  const { service, calls } = teachingService([]);
+  // deno-lint-ignore no-explicit-any
+  const out = await dropTeachingItems(service as any, []);
+  assertEquals(out.items, []);
+  assertEquals(calls.length, 0);
 });

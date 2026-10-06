@@ -686,3 +686,40 @@ export async function annotateOpenHandExclusions(
     excluded.has(i.content_item_id) ? { ...i, open_hand_excluded: true } : i
   );
 }
+
+/**
+ * TASK-0064. Remove Open Hand teaching items from a served list. A teaching
+ * item is reserved for Open Hand, shown there with its full key, and never
+ * scored, so it must never appear in a scored practice list. Unlike
+ * annotateOpenHandExclusions this is a FILTER, not a mark: the item is not this
+ * student's to attempt at all.
+ *
+ * Fails CLOSED on a lookup error: returns no items rather than risk serving a
+ * teaching item whose key may already be public. The database trigger
+ * trg_refuse_attempt_on_teaching_item is the backstop either way.
+ */
+export async function dropTeachingItems(
+  // deno-lint-ignore no-explicit-any
+  service: any,
+  items: RenderItem[],
+): Promise<{ items: RenderItem[]; dropped: number; failed: boolean }> {
+  if (!items.length) return { items, dropped: 0, failed: false };
+
+  const itemIds = [...new Set(items.map((i) => i.content_item_id))];
+  const { data, error } = await service.schema("app")
+    .from("open_hand_teaching_items")
+    .select("content_item_id")
+    .in("content_item_id", itemIds)
+    .is("released_at", null);
+
+  if (error) return { items: [], dropped: items.length, failed: true };
+
+  const teaching = new Set(
+    ((data ?? []) as Array<{ content_item_id: string }>)
+      .map((r) => r.content_item_id),
+  );
+  if (!teaching.size) return { items, dropped: 0, failed: false };
+
+  const kept = items.filter((i) => !teaching.has(i.content_item_id));
+  return { items: kept, dropped: items.length - kept.length, failed: false };
+}
