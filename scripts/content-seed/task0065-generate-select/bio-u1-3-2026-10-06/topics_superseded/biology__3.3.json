@@ -1,0 +1,5073 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy"
+ },
+ "status": "escalated",
+ "candidates": [
+  {
+   "id": "biology__3.3#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25509,
+    "inputTokenDetails": {
+     "noCacheTokens": 25509,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1979,
+    "outputTokenDetails": {
+     "textTokens": 877,
+     "reasoningTokens": 1102
+    },
+    "totalTokens": 27488,
+    "raw": {
+     "input_tokens": 25509,
+     "output_tokens": 1979,
+     "output_tokens_details": {
+      "thinking_tokens": 1102
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 1102,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "stem": "In a cell, joining glutamate and ammonia to form glutamine requires an input of energy and does not proceed on its own. An enzyme couples this reaction to ATP hydrolysis: it first transfers a phosphate group from ATP to glutamate, and then ammonia reacts with the phosphorylated glutamate. Which statement best explains how ATP makes glutamine synthesis possible?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Transferring ATP's phosphate to glutamate forms a less stable, more reactive intermediate. Because ATP hydrolysis releases more energy than glutamine synthesis requires, the coupled process releases energy overall and proceeds.",
+      "is_correct": true,
+      "rationale": "Energy coupling works through a shared intermediate. The phosphate transfer links the energy-releasing hydrolysis of ATP directly to the energy-requiring synthesis. Because the energy released exceeds the energy required, the combined two-step process is energy-releasing overall. This answer names the work being done and the coupling mechanism, not just ATP as energy."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "ATP lowers the activation energy of the reaction, so glutamate and ammonia can react without any additional energy input.",
+      "is_correct": false,
+      "rationale": "This confuses ATP with an enzyme. Lowering activation energy speeds up a reaction but does not change whether the overall reaction releases or requires energy. Catalysis alone cannot make an energy-requiring reaction proceed. Fix: Ask whether the explanation changes the overall energy balance of the reaction or only how fast it reaches that outcome.</br>"
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "ATP is hydrolyzed elsewhere in the cytoplasm, and the reactants absorb the heat released to power glutamine formation.",
+      "is_correct": false,
+      "rationale": "This treats ATP as a general fuel whose released heat can drive chemical work. Heat that spreads through the cell cannot be harnessed to build specific bonds. Coupling requires a direct chemical link, here the phosphate transferred to glutamate. Fix: Check whether the explanation names a shared intermediate that physically connects ATP hydrolysis to the energy-requiring reaction."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Forming ATP from ADP and inorganic phosphate releases energy, and that energy is transferred to glutamate and ammonia.",
+      "is_correct": false,
+      "rationale": "This reverses the direction of the ATP reaction. Making ATP from ADP and phosphate requires energy input. Only ATP hydrolysis to ADP and phosphate releases energy that can be coupled to cellular work. Fix: Before reasoning about energy, check whether the step named consumes ATP or produces it; only consuming ATP can power work."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 355,
+         "inputTokenDetails": {
+          "noCacheTokens": 355,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 71,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 45
+         },
+         "totalTokens": 426,
+         "raw": {
+          "input_tokens": 355,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 71,
+          "output_tokens_details": {
+           "reasoning_tokens": 45
+          },
+          "total_tokens": 426
+         },
+         "reasoningTokens": 45,
+         "cachedInputTokens": 0
+        },
+        "ms": 4344,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 422,
+         "inputTokenDetails": {
+          "noCacheTokens": 422,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 202,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 172
+         },
+         "totalTokens": 624,
+         "raw": {
+          "thoughtsTokenCount": 172,
+          "promptTokenCount": 422,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 624,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 422
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 172,
+         "cachedInputTokens": 0
+        },
+        "ms": 3886,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 483,
+         "inputTokenDetails": {
+          "noCacheTokens": 227,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 1873,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 1847
+         },
+         "totalTokens": 2356,
+         "raw": {
+          "prompt_tokens": 483,
+          "completion_tokens": 1873,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 227,
+          "total_tokens": 2356,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1847
+          }
+         },
+         "reasoningTokens": 1847,
+         "cachedInputTokens": 256
+        },
+        "ms": 20256,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 525,
+         "inputTokenDetails": {
+          "noCacheTokens": 397,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 211,
+         "outputTokenDetails": {
+          "textTokens": 28,
+          "reasoningTokens": 183
+         },
+         "totalTokens": 736,
+         "raw": {
+          "prompt_tokens": 525,
+          "completion_tokens": 211,
+          "total_tokens": 736,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 183,
+           "accepted_prediction_tokens": 111,
+           "rejected_prediction_tokens": 186,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 183,
+         "cachedInputTokens": 128
+        },
+        "ms": 2474,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The item requires the specific glutamate-to-glutamine synthesis mechanism, including a phosphorylated glutamate intermediate and its increased reactivity. These details are not in the supplied CED fact pack; supplying the mechanism in the stem does not bring them into scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D's rationale incorrectly claims that only ATP hydrolysis to ADP and phosphate can release energy for cellular work, and its Fix incorrectly says that only consuming ATP can power work. Other energy sources, including electrochemical gradients, can power cellular work; ATP hydrolysis to AMP and pyrophosphate can also support coupling."
+          },
+          "concise": {
+           "pass": false,
+           "issue": "A's rationale contains four sentences. Each wrong-choice rationale also contains four sentences when its Fix sentence is included. All exceed the three-sentence maximum."
+          },
+          "style": {
+           "pass": false,
+           "issue": "B's rationale ends with a stray literal HTML tag, </br>, which is not clean, student-facing teacher prose."
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16475,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16472
+         },
+         "outputTokens": 907,
+         "outputTokenDetails": {
+          "textTokens": 391,
+          "reasoningTokens": 516
+         },
+         "totalTokens": 17382,
+         "raw": {
+          "input_tokens": 16475,
+          "input_tokens_details": {
+           "cache_write_tokens": 16472,
+           "cached_tokens": 0
+          },
+          "output_tokens": 907,
+          "output_tokens_details": {
+           "reasoning_tokens": 516
+          },
+          "total_tokens": 17382
+         },
+         "reasoningTokens": 516,
+         "cachedInputTokens": 0
+        },
+        "ms": 19058,
+        "flags": [
+         "ced_scope: The item requires the specific glutamate-to-glutamine synthesis mechanism, including a phosphorylated glutamate intermediate and its increased reactivity. These details are not in the supplied CED fact pack; supplying the mechanism in the stem does not bring them into scope.",
+         "accurate: D's rationale incorrectly claims that only ATP hydrolysis to ADP and phosphate can release energy for cellular work, and its Fix incorrectly says that only consuming ATP can power work. Other energy sources, including electrochemical gradients, can power cellular work; ATP hydrolysis to AMP and pyrophosphate can also support coupling.",
+         "concise: A's rationale contains four sentences. Each wrong-choice rationale also contains four sentences when its Fix sentence is included. All exceed the three-sentence maximum.",
+         "style: B's rationale ends with a stray literal HTML tag, </br>, which is not clean, student-facing teacher prose."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The glutamate-to-glutamine synthesis mechanism, phosphorylated glutamate intermediate, and its increased reactivity are not included in the supplied CED fact pack. Supplying the mechanism in the stem does not bring these specific biochemical concepts into scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "B's claim that catalysis cannot make an energy-requiring reaction 'proceed' is too absolute: such reactions can have some forward reaction; catalysis does not change equilibrium or make them thermodynamically favorable. D's statements that 'Only ATP hydrolysis' releases usable energy and 'only consuming ATP can power work' incorrectly exclude other energy sources, such as ion gradients and other energy-releasing reactions."
+          },
+          "concise": {
+           "pass": false,
+           "issue": "All four rationales contain four sentences. A exceeds the three-sentence limit, and B, C, and D each have three explanatory sentences plus a Fix sentence."
+          },
+          "style": {
+           "pass": false,
+           "issue": "B's rationale ends with the stray HTML tag '</br>', which is not plain student-facing prose."
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16475,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16472,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 843,
+         "outputTokenDetails": {
+          "textTokens": 407,
+          "reasoningTokens": 436
+         },
+         "totalTokens": 17318,
+         "raw": {
+          "input_tokens": 16475,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16472
+          },
+          "output_tokens": 843,
+          "output_tokens_details": {
+           "reasoning_tokens": 436
+          },
+          "total_tokens": 17318
+         },
+         "reasoningTokens": 436,
+         "cachedInputTokens": 16472
+        },
+        "ms": 17195,
+        "flags": [
+         "ced_scope: The glutamate-to-glutamine synthesis mechanism, phosphorylated glutamate intermediate, and its increased reactivity are not included in the supplied CED fact pack. Supplying the mechanism in the stem does not bring these specific biochemical concepts into scope.",
+         "accurate: B's claim that catalysis cannot make an energy-requiring reaction 'proceed' is too absolute: such reactions can have some forward reaction; catalysis does not change equilibrium or make them thermodynamically favorable. D's statements that 'Only ATP hydrolysis' releases usable energy and 'only consuming ATP can power work' incorrectly exclude other energy sources, such as ion gradients and other energy-releasing reactions.",
+         "concise: All four rationales contain four sentences. A exceeds the three-sentence limit, and B, C, and D each have three explanatory sentences plus a Fix sentence.",
+         "style: B's rationale ends with the stray HTML tag '</br>', which is not plain student-facing prose."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice A requires the concept of a phosphorylated/reactive intermediate, which is not present in the CED fact pack; providing the mechanism in the stem does not bring an out-of-scope term into scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice A rationale contains four sentences, exceeding the limit of one to three sentences."
+          },
+          "style": {
+           "pass": false,
+           "issue": "Choice B rationale contains raw HTML markup ('</br>')."
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17809,
+         "inputTokenDetails": {
+          "noCacheTokens": 17809,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 12751,
+         "outputTokenDetails": {
+          "textTokens": 332,
+          "reasoningTokens": 12419
+         },
+         "totalTokens": 30560,
+         "raw": {
+          "thoughtsTokenCount": 12419,
+          "promptTokenCount": 17809,
+          "candidatesTokenCount": 332,
+          "totalTokenCount": 30560,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17809
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 332
+           }
+          ]
+         },
+         "reasoningTokens": 12419,
+         "cachedInputTokens": 0
+        },
+        "ms": 92546,
+        "flags": [
+         "ced_scope: Choice A requires the concept of a phosphorylated/reactive intermediate, which is not present in the CED fact pack; providing the mechanism in the stem does not bring an out-of-scope term into scope.",
+         "concise: Choice A rationale contains four sentences, exceeding the limit of one to three sentences.",
+         "style: Choice B rationale contains raw HTML markup ('</br>')."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choice B rationale does not end with the Fix sentence because it terminates with an extraneous </br> tag."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice A rationale contains four sentences, exceeding the limit of three sentences."
+          },
+          "style": {
+           "pass": false,
+           "issue": "Choice B rationale contains an extraneous HTML markup tag (</br>)."
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17809,
+         "inputTokenDetails": {
+          "noCacheTokens": 17809,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 5903,
+         "outputTokenDetails": {
+          "textTokens": 311,
+          "reasoningTokens": 5592
+         },
+         "totalTokens": 23712,
+         "raw": {
+          "thoughtsTokenCount": 5592,
+          "promptTokenCount": 17809,
+          "candidatesTokenCount": 311,
+          "totalTokenCount": 23712,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17809
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 311
+           }
+          ]
+         },
+         "reasoningTokens": 5592,
+         "cachedInputTokens": 0
+        },
+        "ms": 43424,
+        "flags": [
+         "named_trap: Choice B rationale does not end with the Fix sentence because it terminates with an extraneous </br> tag.",
+         "concise: Choice A rationale contains four sentences, exceeding the limit of three sentences.",
+         "style: Choice B rationale contains an extraneous HTML markup tag (</br>)."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The question requires ATP hydrolysis energetics and energy coupling through a phosphorylated shared intermediate. The 3.3 CED fact pack does not include ATP hydrolysis, phosphorylation, shared-intermediate coupling, or energy-release comparisons; ATP appears only as an example in 2.8.A.1. Choice A's rationale relies on that out-of-scope content."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "The correct choice's rationale is four sentences (the final sentence 'This answer names...' is additional); explanations must be one to three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16662,
+         "inputTokenDetails": {
+          "noCacheTokens": 15382,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 9076,
+         "outputTokenDetails": {
+          "textTokens": 320,
+          "reasoningTokens": 8756
+         },
+         "totalTokens": 25738,
+         "raw": {
+          "prompt_tokens": 16662,
+          "completion_tokens": 9076,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15382,
+          "total_tokens": 25738,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8756
+          }
+         },
+         "reasoningTokens": 8756,
+         "cachedInputTokens": 1280
+        },
+        "ms": 91858,
+        "flags": [
+         "ced_scope: The question requires ATP hydrolysis energetics and energy coupling through a phosphorylated shared intermediate. The 3.3 CED fact pack does not include ATP hydrolysis, phosphorylation, shared-intermediate coupling, or energy-release comparisons; ATP appears only as an example in 2.8.A.1. Choice A's rationale relies on that out-of-scope content.",
+         "concise: The correct choice's rationale is four sentences (the final sentence 'This answer names...' is additional); explanations must be one to three sentences."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Stem and choice A require ATP hydrolysis and phosphorylation as prior concepts, which are not in the verified CED fact pack for topic 3.3 or earlier units; the stem supplies the mechanism, but that does not bring those out-of-scope terms into scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice A's rationale has four sentences, exceeding the one-to-three sentence limit for explanations."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16662,
+         "inputTokenDetails": {
+          "noCacheTokens": 22,
+          "cacheReadTokens": 16640
+         },
+         "outputTokens": 16936,
+         "outputTokenDetails": {
+          "textTokens": 291,
+          "reasoningTokens": 16645
+         },
+         "totalTokens": 33598,
+         "raw": {
+          "prompt_tokens": 16662,
+          "completion_tokens": 16936,
+          "prompt_cache_hit_tokens": 16640,
+          "prompt_cache_miss_tokens": 22,
+          "total_tokens": 33598,
+          "prompt_tokens_details": {
+           "cached_tokens": 16640
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 16645
+          }
+         },
+         "reasoningTokens": 16645,
+         "cachedInputTokens": 16640
+        },
+        "ms": 167727,
+        "flags": [
+         "ced_scope: Stem and choice A require ATP hydrolysis and phosphorylation as prior concepts, which are not in the verified CED fact pack for topic 3.3 or earlier units; the stem supplies the mechanism, but that does not bring those out-of-scope terms into scope.",
+         "concise: Choice A's rationale has four sentences, exceeding the one-to-three sentence limit for explanations."
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "A: the keyed rationale is 4 sentences, exceeding the 1-3 sentence limit (it is within the 60-word cap at ~52 words). Deleting the final meta sentence ('This answer names the work being done...') would bring it into compliance without losing the reasoning."
+          },
+          "style": {
+           "pass": false,
+           "issue": "B: the rationale ends with a raw '</br>' HTML tag that would be visible to students, breaking plain-text presentation. Voice, letter-reference, and symbol checks otherwise pass."
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17169,
+         "inputTokenDetails": {
+          "noCacheTokens": 16593,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 9563,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 9344
+         },
+         "totalTokens": 26732,
+         "raw": {
+          "prompt_tokens": 17169,
+          "completion_tokens": 9563,
+          "total_tokens": 26732,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 9344,
+           "accepted_prediction_tokens": 5706,
+           "rejected_prediction_tokens": 5862,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 9344,
+         "cachedInputTokens": 576
+        },
+        "ms": 65331,
+        "flags": [
+         "concise: A: the keyed rationale is 4 sentences, exceeding the 1-3 sentence limit (it is within the 60-word cap at ~52 words). Deleting the final meta sentence ('This answer names the work being done...') would bring it into compliance without losing the reasoning.",
+         "style: B: the rationale ends with a raw '</br>' HTML tag that would be visible to students, breaking plain-text presentation. Voice, letter-reference, and symbol checks otherwise pass."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice A's rationale is four sentences, exceeding the one-to-three-sentence limit for explanations (it is within the 60-word cap at about 52 words, but the sentence cap is still violated). The final sentence ('This answer names the work being done and the coupling mechanism, not just ATP as energy.') could be cut to comply."
+          },
+          "style": {
+           "pass": false,
+           "issue": "Choice B's rationale ends with a stray HTML artifact '</br>' after its Fix sentence; this markup would surface in student-facing text and is not plain teacher-voice presentation."
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17169,
+         "inputTokenDetails": {
+          "noCacheTokens": 17,
+          "cacheReadTokens": 17152
+         },
+         "outputTokens": 6839,
+         "outputTokenDetails": {
+          "textTokens": 320,
+          "reasoningTokens": 6519
+         },
+         "totalTokens": 24008,
+         "raw": {
+          "prompt_tokens": 17169,
+          "completion_tokens": 6839,
+          "total_tokens": 24008,
+          "prompt_tokens_details": {
+           "cached_tokens": 17152,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6519,
+           "accepted_prediction_tokens": 4343,
+           "rejected_prediction_tokens": 3142,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 6519,
+         "cachedInputTokens": 17152
+        },
+        "ms": 37125,
+        "flags": [
+         "concise: Choice A's rationale is four sentences, exceeding the one-to-three-sentence limit for explanations (it is within the 60-word cap at about 52 words, but the sentence cap is still violated). The final sentence ('This answer names the work being done and the coupling mechanism, not just ATP as energy.') could be cut to comply.",
+         "style: Choice B's rationale ends with a stray HTML artifact '</br>' after its Fix sentence; this markup would surface in student-facing text and is not plain teacher-voice presentation."
+        ]
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__3.3#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15782,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15779
+    },
+    "outputTokens": 799,
+    "outputTokenDetails": {
+     "textTokens": 420,
+     "reasoningTokens": 379
+    },
+    "totalTokens": 16581,
+    "raw": {
+     "input_tokens": 15782,
+     "input_tokens_details": {
+      "cache_write_tokens": 15779,
+      "cached_tokens": 0
+     },
+     "output_tokens": 799,
+     "output_tokens_details": {
+      "reasoning_tokens": 379
+     },
+     "total_tokens": 16581
+    },
+    "reasoningTokens": 379,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "stem": "A cell uses a membrane pump to move an uncharged solute from a region of lower solute concentration to a region of higher solute concentration. The pump uses ATP during transport. Which explanation best connects ATP use to the work performed by the pump?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "ATP is energy, so its presence alone allows the pump to move the solute against its concentration gradient without ATP undergoing a reaction.",
+      "is_correct": false,
+      "rationale": "Energy-label trap: ATP is a molecule, not energy itself, and its presence alone does not explain how transport work is powered. Fix: Identify the reaction involving ATP and explain how that reaction is connected to the energy-requiring work."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "ATP hydrolysis creates new energy that the pump uses to move the solute against its concentration gradient.",
+      "is_correct": false,
+      "rationale": "Energy-creation misconception: ATP hydrolysis releases energy available for cellular work; it does not create energy, which would violate conservation of energy. Fix: Check whether your explanation describes energy being transferred or transformed rather than created."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "ATP hydrolysis anywhere in the cell automatically powers the pump, even when the hydrolysis reaction is not coupled to transport.",
+      "is_correct": false,
+      "rationale": "Uncoupled-reactions trap: An energy-releasing reaction does not automatically power every energy-requiring process in the same cell. The pump needs a functional connection between ATP hydrolysis and transport. Fix: Ask how the energy-releasing reaction is coupled to the specific work being performed."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The pump couples energy-releasing ATP hydrolysis to the energy-requiring movement of the solute against its concentration gradient.",
+      "is_correct": true,
+      "rationale": "Moving the solute from lower to higher concentration requires energy input. Coupling this movement to ATP hydrolysis allows energy released by that reaction to support the transport work, rather than merely occurring independently."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 746,
+         "inputTokenDetails": {
+          "noCacheTokens": 746,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 776,
+         "raw": {
+          "input_tokens": 746,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2093,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 393,
+         "inputTokenDetails": {
+          "noCacheTokens": 393,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 265,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 235
+         },
+         "totalTokens": 658,
+         "raw": {
+          "thoughtsTokenCount": 235,
+          "promptTokenCount": 393,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 658,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 393
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 235,
+         "cachedInputTokens": 0
+        },
+        "ms": 3991,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 451,
+         "inputTokenDetails": {
+          "noCacheTokens": 195,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 300,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 274
+         },
+         "totalTokens": 751,
+         "raw": {
+          "prompt_tokens": 451,
+          "completion_tokens": 300,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 195,
+          "total_tokens": 751,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 274
+          }
+         },
+         "reasoningTokens": 274,
+         "cachedInputTokens": 256
+        },
+        "ms": 4418,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 485,
+         "inputTokenDetails": {
+          "noCacheTokens": 357,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 230,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 210
+         },
+         "totalTokens": 715,
+         "raw": {
+          "prompt_tokens": 485,
+          "completion_tokens": 230,
+          "total_tokens": 715,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 210,
+           "accepted_prediction_tokens": 117,
+           "rejected_prediction_tokens": 219,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 210,
+         "cachedInputTokens": 128
+        },
+        "ms": 2233,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27143,
+         "inputTokenDetails": {
+          "noCacheTokens": 27143,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 1009,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 797
+         },
+         "totalTokens": 28152,
+         "raw": {
+          "input_tokens": 27143,
+          "output_tokens": 1009,
+          "output_tokens_details": {
+           "thinking_tokens": 797
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 797,
+         "cachedInputTokens": 0
+        },
+        "ms": 15974,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17704,
+         "inputTokenDetails": {
+          "noCacheTokens": 17704,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1943,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1681
+         },
+         "totalTokens": 19647,
+         "raw": {
+          "thoughtsTokenCount": 1681,
+          "promptTokenCount": 17704,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19647,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17704
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1681,
+         "cachedInputTokens": 0
+        },
+        "ms": 13646,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16552,
+         "inputTokenDetails": {
+          "noCacheTokens": 15272,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 9261,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 9042
+         },
+         "totalTokens": 25813,
+         "raw": {
+          "prompt_tokens": 16552,
+          "completion_tokens": 9261,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15272,
+          "total_tokens": 25813,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 9042
+          }
+         },
+         "reasoningTokens": 9042,
+         "cachedInputTokens": 1280
+        },
+        "ms": 95930,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17049,
+         "inputTokenDetails": {
+          "noCacheTokens": 16473,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 6251,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 6035
+         },
+         "totalTokens": 23300,
+         "raw": {
+          "prompt_tokens": 17049,
+          "completion_tokens": 6251,
+          "total_tokens": 23300,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6035,
+           "accepted_prediction_tokens": 3948,
+           "rejected_prediction_tokens": 2958,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 6035,
+         "cachedInputTokens": 576
+        },
+        "ms": 36106,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "veto",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "Although the focus is cellular energy, selecting D requires knowledge of ATP hydrolysis and reaction coupling that is not established in the supplied content for 3.3 or earlier units."
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choices B–D and their rationales require ATP hydrolysis and its functional coupling to cellular work. The fact pack includes ATP-dependent active transport but does not include these reaction-coupling concepts."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16370,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16367
+         },
+         "outputTokens": 528,
+         "outputTokenDetails": {
+          "textTokens": 296,
+          "reasoningTokens": 232
+         },
+         "totalTokens": 16898,
+         "raw": {
+          "input_tokens": 16370,
+          "input_tokens_details": {
+           "cache_write_tokens": 16367,
+           "cached_tokens": 0
+          },
+          "output_tokens": 528,
+          "output_tokens_details": {
+           "reasoning_tokens": 232
+          },
+          "total_tokens": 16898
+         },
+         "reasoningTokens": 232,
+         "cachedInputTokens": 0
+        },
+        "ms": 14741,
+        "flags": [
+         "on_topic: Although the focus is cellular energy, selecting D requires knowledge of ATP hydrolysis and reaction coupling that is not established in the supplied content for 3.3 or earlier units.",
+         "ced_scope: Choices B–D and their rationales require ATP hydrolysis and its functional coupling to cellular work. The fact pack includes ATP-dependent active transport but does not include these reaction-coupling concepts."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question targets cellular energy, but answering it requires ATP hydrolysis and reaction coupling, which are not established in the supplied content for topic 3.3 or earlier units."
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choices B–D and their rationales require ATP hydrolysis and coupling an energy-releasing reaction to cellular work. The authoritative fact pack includes ATP use in active transport but does not establish these required concepts."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16370,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16367,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 542,
+         "outputTokenDetails": {
+          "textTokens": 298,
+          "reasoningTokens": 244
+         },
+         "totalTokens": 16912,
+         "raw": {
+          "input_tokens": 16370,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16367
+          },
+          "output_tokens": 542,
+          "output_tokens_details": {
+           "reasoning_tokens": 244
+          },
+          "total_tokens": 16912
+         },
+         "reasoningTokens": 244,
+         "cachedInputTokens": 16367
+        },
+        "ms": 15016,
+        "flags": [
+         "on_topic: The question targets cellular energy, but answering it requires ATP hydrolysis and reaction coupling, which are not established in the supplied content for topic 3.3 or earlier units.",
+         "ced_scope: Choices B–D and their rationales require ATP hydrolysis and coupling an energy-releasing reaction to cellular work. The authoritative fact pack includes ATP use in active transport but does not establish these required concepts."
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "biology__3.3#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25530,
+    "inputTokenDetails": {
+     "noCacheTokens": 25530,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1612,
+    "outputTokenDetails": {
+     "textTokens": 863,
+     "reasoningTokens": 749
+    },
+    "totalTokens": 27142,
+    "raw": {
+     "input_tokens": 25530,
+     "output_tokens": 1612,
+     "output_tokens_details": {
+      "thinking_tokens": 749
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 749,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "stem": "Cells make the amino acid glutamine by joining glutamate and ammonia, a reaction that requires an input of energy and does not proceed on its own. In cells, an enzyme first transfers a phosphate group from ATP to glutamate, forming a phosphorylated glutamate intermediate. This intermediate then reacts with ammonia to form glutamine, releasing the phosphate. Which statement best explains how ATP makes glutamine synthesis possible?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "ATP acts as a catalyst that lowers the activation energy of the reaction between glutamate and ammonia without being changed.",
+      "is_correct": false,
+      "rationale": "This confuses ATP with an enzyme. Catalysts speed reactions but cannot make an energy-requiring reaction proceed. ATP is also consumed: it loses a phosphate and becomes ADP. Fix: Ask whether the molecule is chemically changed by the reaction; if it is used up, it is an energy source, not a catalyst.\n"
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "ATP hydrolysis releases heat, which glutamate and ammonia absorb to gain the energy needed to bond together.",
+      "is_correct": false,
+      "rationale": "This reflects the misconception that ATP powers reactions by heating them. Heat released into the cell spreads out and cannot drive a specific energy-requiring reaction. Coupling works through direct phosphate transfer to a reactant. Fix: Check whether ATP's phosphate is physically transferred to a reactant, since that transfer, not heat, links the two reactions."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Transferring ATP's phosphate to glutamate creates a less stable, higher-energy intermediate, and the combined process of ATP hydrolysis plus glutamine formation releases energy overall.",
+      "is_correct": true,
+      "rationale": "This answer names the energy-requiring step and the coupling mechanism. Phosphate transfer links ATP hydrolysis to the synthesis through a shared intermediate. The intermediate is more reactive than glutamate, so its reaction with ammonia can proceed. Because ATP hydrolysis releases more energy than the synthesis requires, the coupled process releases energy overall."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Coupling with ATP changes glutamine synthesis so that joining glutamate and ammonia releases energy by itself.",
+      "is_correct": false,
+      "rationale": "This mistakes the coupled process for the single reaction. Joining glutamate and ammonia still requires energy. Only the combined set of reactions, including ATP hydrolysis, releases energy overall. Fix: Compare the energy change of the synthesis alone with the energy change of the full coupled process before stating which one releases energy."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 352,
+         "inputTokenDetails": {
+          "noCacheTokens": 352,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 63,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 37
+         },
+         "totalTokens": 415,
+         "raw": {
+          "input_tokens": 352,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 63,
+          "output_tokens_details": {
+           "reasoning_tokens": 37
+          },
+          "total_tokens": 415
+         },
+         "reasoningTokens": 37,
+         "cachedInputTokens": 0
+        },
+        "ms": 9400,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 424,
+         "inputTokenDetails": {
+          "noCacheTokens": 424,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 297,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 267
+         },
+         "totalTokens": 721,
+         "raw": {
+          "thoughtsTokenCount": 267,
+          "promptTokenCount": 424,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 721,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 424
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 267,
+         "cachedInputTokens": 0
+        },
+        "ms": 3948,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 483,
+         "inputTokenDetails": {
+          "noCacheTokens": 227,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 715,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 689
+         },
+         "totalTokens": 1198,
+         "raw": {
+          "prompt_tokens": 483,
+          "completion_tokens": 715,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 227,
+          "total_tokens": 1198,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 689
+          }
+         },
+         "reasoningTokens": 689,
+         "cachedInputTokens": 256
+        },
+        "ms": 8007,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 522,
+         "inputTokenDetails": {
+          "noCacheTokens": 394,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 269,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 249
+         },
+         "totalTokens": 791,
+         "raw": {
+          "prompt_tokens": 522,
+          "completion_tokens": 269,
+          "total_tokens": 791,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 249,
+           "accepted_prediction_tokens": 143,
+           "rejected_prediction_tokens": 232,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 249,
+         "cachedInputTokens": 128
+        },
+        "ms": 2290,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The supplied fact pack does not include glutamate/glutamine synthesis or ATP coupling through a phosphorylated, higher-energy intermediate. Choice C requires these mechanistic and energetic concepts; supplying part of the mechanism in the stem does not bring them into scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A's Fix incorrectly implies that any molecule consumed in a reaction is an energy source; consumed reactants need not supply energy. A also overstates that catalysts cannot make energy-requiring reactions proceed: catalysts do not change thermodynamic favorability, but can accelerate such reactions toward equilibrium."
+          },
+          "concise": {
+           "pass": false,
+           "issue": "C's rationale contains four sentences, exceeding the three-sentence maximum, although it remains below 60 words."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16474,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16471
+         },
+         "outputTokens": 818,
+         "outputTokenDetails": {
+          "textTokens": 350,
+          "reasoningTokens": 468
+         },
+         "totalTokens": 17292,
+         "raw": {
+          "input_tokens": 16474,
+          "input_tokens_details": {
+           "cache_write_tokens": 16471,
+           "cached_tokens": 0
+          },
+          "output_tokens": 818,
+          "output_tokens_details": {
+           "reasoning_tokens": 468
+          },
+          "total_tokens": 17292
+         },
+         "reasoningTokens": 468,
+         "cachedInputTokens": 0
+        },
+        "ms": 16799,
+        "flags": [
+         "ced_scope: The supplied fact pack does not include glutamate/glutamine synthesis or ATP coupling through a phosphorylated, higher-energy intermediate. Choice C requires these mechanistic and energetic concepts; supplying part of the mechanism in the stem does not bring them into scope.",
+         "accurate: A's Fix incorrectly implies that any molecule consumed in a reaction is an energy source; consumed reactants need not supply energy. A also overstates that catalysts cannot make energy-requiring reactions proceed: catalysts do not change thermodynamic favorability, but can accelerate such reactions toward equilibrium.",
+         "concise: C's rationale contains four sentences, exceeding the three-sentence maximum, although it remains below 60 words."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The item requires the specific glutamate-to-glutamine synthesis mechanism and the energetics of a phosphorylated glutamate intermediate. These are not included in the supplied CED fact pack; supplying the mechanism in the stem does not bring them into scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A's rationale incorrectly says catalysts cannot make an energy-requiring reaction proceed: catalysts can accelerate such reactions but cannot change their thermodynamic favorability. A's Fix also incorrectly implies that any molecule consumed in a reaction is an energy source; consumption establishes that it is a reactant, not necessarily an energy source."
+          },
+          "concise": {
+           "pass": false,
+           "issue": "C's rationale contains four sentences, exceeding the three-sentence maximum."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16474,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16471,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 864,
+         "outputTokenDetails": {
+          "textTokens": 348,
+          "reasoningTokens": 516
+         },
+         "totalTokens": 17338,
+         "raw": {
+          "input_tokens": 16474,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16471
+          },
+          "output_tokens": 864,
+          "output_tokens_details": {
+           "reasoning_tokens": 516
+          },
+          "total_tokens": 17338
+         },
+         "reasoningTokens": 516,
+         "cachedInputTokens": 16471
+        },
+        "ms": 18460,
+        "flags": [
+         "ced_scope: The item requires the specific glutamate-to-glutamine synthesis mechanism and the energetics of a phosphorylated glutamate intermediate. These are not included in the supplied CED fact pack; supplying the mechanism in the stem does not bring them into scope.",
+         "accurate: A's rationale incorrectly says catalysts cannot make an energy-requiring reaction proceed: catalysts can accelerate such reactions but cannot change their thermodynamic favorability. A's Fix also incorrectly implies that any molecule consumed in a reaction is an energy source; consumption establishes that it is a reactant, not necessarily an energy source.",
+         "concise: C's rationale contains four sentences, exceeding the three-sentence maximum."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice C's rationale has four sentences, exceeding the maximum of three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17811,
+         "inputTokenDetails": {
+          "noCacheTokens": 17811,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 6132,
+         "outputTokenDetails": {
+          "textTokens": 278,
+          "reasoningTokens": 5854
+         },
+         "totalTokens": 23943,
+         "raw": {
+          "thoughtsTokenCount": 5854,
+          "promptTokenCount": 17811,
+          "candidatesTokenCount": 278,
+          "totalTokenCount": 23943,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17811
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 278
+           }
+          ]
+         },
+         "reasoningTokens": 5854,
+         "cachedInputTokens": 0
+        },
+        "ms": 40275,
+        "flags": [
+         "concise: Choice C's rationale has four sentences, exceeding the maximum of three sentences."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "The rationale for choice C contains four sentences, exceeding the maximum limit of three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17811,
+         "inputTokenDetails": {
+          "noCacheTokens": 5618,
+          "cacheReadTokens": 12193
+         },
+         "outputTokens": 4169,
+         "outputTokenDetails": {
+          "textTokens": 279,
+          "reasoningTokens": 3890
+         },
+         "totalTokens": 21980,
+         "raw": {
+          "cachedContentTokenCount": 12193,
+          "thoughtsTokenCount": 3890,
+          "promptTokenCount": 17811,
+          "candidatesTokenCount": 279,
+          "totalTokenCount": 21980,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17811
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12193
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 279
+           }
+          ]
+         },
+         "reasoningTokens": 3890,
+         "cachedInputTokens": 12193
+        },
+        "ms": 27516,
+        "flags": [
+         "concise: The rationale for choice C contains four sentences, exceeding the maximum limit of three sentences."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question requires understanding ATP hydrolysis and phosphate-transfer energy coupling, which is not specified in the CED content for 3.3; a student who studied only 3.3 and earlier units cannot evaluate the correct mechanism."
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "ATP hydrolysis releasing energy and coupling via phosphate transfer are not in the CED fact pack for 3.3 or earlier topics; ATP appears only in active transport and later respiration/photosynthesis contexts, not as an energy-coupling mechanism."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice C's correct-answer rationale is four sentences, exceeding the one-to-three-sentence limit for rationales."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16665,
+         "inputTokenDetails": {
+          "noCacheTokens": 15513,
+          "cacheReadTokens": 1152
+         },
+         "outputTokens": 8643,
+         "outputTokenDetails": {
+          "textTokens": 335,
+          "reasoningTokens": 8308
+         },
+         "totalTokens": 25308,
+         "raw": {
+          "prompt_tokens": 16665,
+          "completion_tokens": 8643,
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 15513,
+          "total_tokens": 25308,
+          "prompt_tokens_details": {
+           "cached_tokens": 1152
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8308
+          }
+         },
+         "reasoningTokens": 8308,
+         "cachedInputTokens": 1152
+        },
+        "ms": 83902,
+        "flags": [
+         "on_topic: The question requires understanding ATP hydrolysis and phosphate-transfer energy coupling, which is not specified in the CED content for 3.3; a student who studied only 3.3 and earlier units cannot evaluate the correct mechanism.",
+         "ced_scope: ATP hydrolysis releasing energy and coupling via phosphate transfer are not in the CED fact pack for 3.3 or earlier topics; ATP appears only in active transport and later respiration/photosynthesis contexts, not as an energy-coupling mechanism.",
+         "concise: Choice C's correct-answer rationale is four sentences, exceeding the one-to-three-sentence limit for rationales."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The question relies on ATP phosphorylation coupling, exergonic/endergonic reasoning, and a 'less stable, higher-energy intermediate' not stated in the CED fact pack for 3.3; choice C and its rationale are out of scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice C's rationale contains four sentences, exceeding the one-to-three sentence limit."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16665,
+         "inputTokenDetails": {
+          "noCacheTokens": 25,
+          "cacheReadTokens": 16640
+         },
+         "outputTokens": 8583,
+         "outputTokenDetails": {
+          "textTokens": 286,
+          "reasoningTokens": 8297
+         },
+         "totalTokens": 25248,
+         "raw": {
+          "prompt_tokens": 16665,
+          "completion_tokens": 8583,
+          "prompt_cache_hit_tokens": 16640,
+          "prompt_cache_miss_tokens": 25,
+          "total_tokens": 25248,
+          "prompt_tokens_details": {
+           "cached_tokens": 16640
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8297
+          }
+         },
+         "reasoningTokens": 8297,
+         "cachedInputTokens": 16640
+        },
+        "ms": 82840,
+        "flags": [
+         "ced_scope: The question relies on ATP phosphorylation coupling, exergonic/endergonic reasoning, and a 'less stable, higher-energy intermediate' not stated in the CED fact pack for 3.3; choice C and its rationale are out of scope.",
+         "concise: Choice C's rationale contains four sentences, exceeding the one-to-three sentence limit."
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The question requires the concept that ATP hydrolysis releases energy that can be coupled to drive an energy-requiring reaction via a phosphorylated intermediate; this coupling concept appears nowhere in the fact pack (2.8.A.1 says only that ATP is required for active transport; 3.4/3.5 cover ATP synthesis, not hydrolysis-driven coupling). The stem supplying the phosphate-transfer mechanism does not bring it into scope. Rationale A also uses the term ADP, which appears nowhere in the fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "C: the correct choice's rationale is four sentences, exceeding the one-to-three-sentence limit (word count of about 52 is fine)."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17170,
+         "inputTokenDetails": {
+          "noCacheTokens": 16786,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 6736,
+         "outputTokenDetails": {
+          "textTokens": 351,
+          "reasoningTokens": 6385
+         },
+         "totalTokens": 23906,
+         "raw": {
+          "prompt_tokens": 17170,
+          "completion_tokens": 6736,
+          "total_tokens": 23906,
+          "prompt_tokens_details": {
+           "cached_tokens": 384,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6385,
+           "accepted_prediction_tokens": 4123,
+           "rejected_prediction_tokens": 3713,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 6385,
+         "cachedInputTokens": 384
+        },
+        "ms": 39512,
+        "flags": [
+         "ced_scope: The question requires the concept that ATP hydrolysis releases energy that can be coupled to drive an energy-requiring reaction via a phosphorylated intermediate; this coupling concept appears nowhere in the fact pack (2.8.A.1 says only that ATP is required for active transport; 3.4/3.5 cover ATP synthesis, not hydrolysis-driven coupling). The stem supplying the phosphate-transfer mechanism does not bring it into scope. Rationale A also uses the term ADP, which appears nowhere in the fact pack.",
+         "concise: C: the correct choice's rationale is four sentences, exceeding the one-to-three-sentence limit (word count of about 52 is fine)."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "C: the correct choice's rationale is four sentences (This answer names... / Phosphate transfer links... / The intermediate is more reactive... / Because ATP hydrolysis releases more energy...), exceeding the one-to-three-sentence limit, even though its ~52 words are within the 60-word cap."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17170,
+         "inputTokenDetails": {
+          "noCacheTokens": 16722,
+          "cacheReadTokens": 448
+         },
+         "outputTokens": 4596,
+         "outputTokenDetails": {
+          "textTokens": 235,
+          "reasoningTokens": 4361
+         },
+         "totalTokens": 21766,
+         "raw": {
+          "prompt_tokens": 17170,
+          "completion_tokens": 4596,
+          "total_tokens": 21766,
+          "prompt_tokens_details": {
+           "cached_tokens": 448,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4361,
+           "accepted_prediction_tokens": 2985,
+           "rejected_prediction_tokens": 1845,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 4361,
+         "cachedInputTokens": 448
+        },
+        "ms": 24372,
+        "flags": [
+         "concise: C: the correct choice's rationale is four sentences (This answer names... / Phosphate transfer links... / The intermediate is more reactive... / Because ATP hydrolysis releases more energy...), exceeding the one-to-three-sentence limit, even though its ~52 words are within the 60-word cap."
+        ]
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__3.3#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15792,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15789
+    },
+    "outputTokens": 938,
+    "outputTokenDetails": {
+     "textTokens": 425,
+     "reasoningTokens": 513
+    },
+    "totalTokens": 16730,
+    "raw": {
+     "input_tokens": 15792,
+     "input_tokens_details": {
+      "cache_write_tokens": 15789,
+      "cached_tokens": 0
+     },
+     "output_tokens": 938,
+     "output_tokens_details": {
+      "reasoning_tokens": 513
+     },
+     "total_tokens": 16730
+    },
+    "reasoningTokens": 513,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "stem": "A cell uses an ATP-powered membrane pump to move an uncharged solute from a region of lower concentration to a region of higher concentration. Which explanation best connects ATP to the work performed by the pump?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "ATP hydrolysis creates new energy that the pump uses to move the solute against its concentration gradient.",
+      "is_correct": false,
+      "rationale": "Energy-creation misconception: ATP hydrolysis does not create energy, because energy is conserved. Coupling transfers energy from an energy-releasing reaction to the work of transport. Fix: Check whether your explanation describes energy being transferred or incorrectly being created."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The presence of ATP supplies energy to the pump even if ATP does not undergo any chemical reaction.",
+      "is_correct": false,
+      "rationale": "ATP-as-energy-label misconception: Merely having ATP nearby does not explain how energy reaches the transport process. This ATP-powered pump requires ATP hydrolysis coupled to its work, not simply the presence of ATP. Fix: Identify the ATP reaction and explicitly connect it to the energy-requiring process."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "ATP hydrolysis is coupled to solute transport, so energy released by hydrolysis drives movement against the concentration gradient.",
+      "is_correct": true,
+      "rationale": "Moving the solute against its concentration gradient requires energy input. Coupling this work to energy-releasing ATP hydrolysis makes the otherwise unfavorable transport possible; identifying both the work and the coupled energy source explains ATP’s role."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Moving the solute against its concentration gradient releases energy that the pump uses to synthesize ATP.",
+      "is_correct": false,
+      "rationale": "Reversed-coupling misconception: Moving this solute against its concentration gradient requires energy rather than releasing it. The explanation reverses the roles of ATP hydrolysis and transport: hydrolysis supplies energy, while uphill transport uses it. Fix: Mark which process requires energy and which releases energy before deciding the direction of coupling."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 711,
+         "inputTokenDetails": {
+          "noCacheTokens": 711,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 741,
+         "raw": {
+          "input_tokens": 711,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2374,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 371,
+         "inputTokenDetails": {
+          "noCacheTokens": 371,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 198,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 168
+         },
+         "totalTokens": 569,
+         "raw": {
+          "thoughtsTokenCount": 168,
+          "promptTokenCount": 371,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 569,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 371
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 168,
+         "cachedInputTokens": 0
+        },
+        "ms": 2894,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 429,
+         "inputTokenDetails": {
+          "noCacheTokens": 173,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 230,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 204
+         },
+         "totalTokens": 659,
+         "raw": {
+          "prompt_tokens": 429,
+          "completion_tokens": 230,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 173,
+          "total_tokens": 659,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 204
+          }
+         },
+         "reasoningTokens": 204,
+         "cachedInputTokens": 256
+        },
+        "ms": 4302,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 461,
+         "inputTokenDetails": {
+          "noCacheTokens": 333,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 136,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 116
+         },
+         "totalTokens": 597,
+         "raw": {
+          "prompt_tokens": 461,
+          "completion_tokens": 136,
+          "total_tokens": 597,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 116,
+           "accepted_prediction_tokens": 83,
+           "rejected_prediction_tokens": 73,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 116,
+         "cachedInputTokens": 128
+        },
+        "ms": 1190,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The item asks how ATP powers a pump moving a solute against its gradient. That is ATP-driven active transport, which EK 2.8.A.1 covers directly (metabolic energy such as ATP is required for active transport). Topic 3.3's EKs cover energy input, the thermodynamic laws, sequential pathways and conserved pathways; they do not address ATP hydrolysis coupled to membrane transport. Only the first-law idea in choice A touches 3.3."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27205,
+         "inputTokenDetails": {
+          "noCacheTokens": 27205,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 951,
+         "outputTokenDetails": {
+          "textTokens": 366,
+          "reasoningTokens": 585
+         },
+         "totalTokens": 28156,
+         "raw": {
+          "input_tokens": 27205,
+          "output_tokens": 951,
+          "output_tokens_details": {
+           "thinking_tokens": 585
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 585,
+         "cachedInputTokens": 0
+        },
+        "ms": 13253,
+        "flags": [
+         "topic 2.8",
+         "on_topic: The item asks how ATP powers a pump moving a solute against its gradient. That is ATP-driven active transport, which EK 2.8.A.1 covers directly (metabolic energy such as ATP is required for active transport). Topic 3.3's EKs cover energy input, the thermodynamic laws, sequential pathways and conserved pathways; they do not address ATP hydrolysis coupled to membrane transport. Only the first-law idea in choice A touches 3.3."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27205,
+         "inputTokenDetails": {
+          "noCacheTokens": 27205,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 885,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 673
+         },
+         "totalTokens": 28090,
+         "raw": {
+          "input_tokens": 27205,
+          "output_tokens": 885,
+          "output_tokens_details": {
+           "thinking_tokens": 673
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 673,
+         "cachedInputTokens": 0
+        },
+        "ms": 12942,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17718,
+         "inputTokenDetails": {
+          "noCacheTokens": 17718,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3189,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 2927
+         },
+         "totalTokens": 20907,
+         "raw": {
+          "thoughtsTokenCount": 2927,
+          "promptTokenCount": 17718,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 20907,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17718
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 2927,
+         "cachedInputTokens": 0
+        },
+        "ms": 18657,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16565,
+         "inputTokenDetails": {
+          "noCacheTokens": 15285,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 6403,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6184
+         },
+         "totalTokens": 22968,
+         "raw": {
+          "prompt_tokens": 16565,
+          "completion_tokens": 6403,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15285,
+          "total_tokens": 22968,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6184
+          }
+         },
+         "reasoningTokens": 6184,
+         "cachedInputTokens": 1280
+        },
+        "ms": 65046,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17066,
+         "inputTokenDetails": {
+          "noCacheTokens": 16682,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 2551,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 2424
+         },
+         "totalTokens": 19617,
+         "raw": {
+          "prompt_tokens": 17066,
+          "completion_tokens": 2551,
+          "total_tokens": 19617,
+          "prompt_tokens_details": {
+           "cached_tokens": 384,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2424,
+           "accepted_prediction_tokens": 1582,
+           "rejected_prediction_tokens": 1322,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2424,
+         "cachedInputTokens": 384
+        },
+        "ms": 17615,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "veto",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choices B and C and their rationales require ATP hydrolysis and its energetic coupling to cellular work. The fact pack includes ATP-dependent active transport (2.8) and energy input/conservation (3.3), but does not specify ATP hydrolysis or reaction coupling."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16375,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16372
+         },
+         "outputTokens": 679,
+         "outputTokenDetails": {
+          "textTokens": 276,
+          "reasoningTokens": 403
+         },
+         "totalTokens": 17054,
+         "raw": {
+          "input_tokens": 16375,
+          "input_tokens_details": {
+           "cache_write_tokens": 16372,
+           "cached_tokens": 0
+          },
+          "output_tokens": 679,
+          "output_tokens_details": {
+           "reasoning_tokens": 403
+          },
+          "total_tokens": 17054
+         },
+         "reasoningTokens": 403,
+         "cachedInputTokens": 0
+        },
+        "ms": 22020,
+        "flags": [
+         "ced_scope: Choices B and C and their rationales require ATP hydrolysis and its energetic coupling to cellular work. The fact pack includes ATP-dependent active transport (2.8) and energy input/conservation (3.3), but does not specify ATP hydrolysis or reaction coupling."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice C and the rationales require ATP hydrolysis as an energy-releasing reaction coupled to cellular work. The supplied fact pack includes ATP-dependent active transport and general energy requirements, but does not include this reaction-coupling mechanism."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16375,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16372,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 639,
+         "outputTokenDetails": {
+          "textTokens": 268,
+          "reasoningTokens": 371
+         },
+         "totalTokens": 17014,
+         "raw": {
+          "input_tokens": 16375,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16372
+          },
+          "output_tokens": 639,
+          "output_tokens_details": {
+           "reasoning_tokens": 371
+          },
+          "total_tokens": 17014
+         },
+         "reasoningTokens": 371,
+         "cachedInputTokens": 16372
+        },
+        "ms": 16391,
+        "flags": [
+         "ced_scope: Choice C and the rationales require ATP hydrolysis as an energy-releasing reaction coupled to cellular work. The supplied fact pack includes ATP-dependent active transport and general energy requirements, but does not include this reaction-coupling mechanism."
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "biology__3.3#r3-anthropic",
+   "round": 3,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25530,
+    "inputTokenDetails": {
+     "noCacheTokens": 25530,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1589,
+    "outputTokenDetails": {
+     "textTokens": 836,
+     "reasoningTokens": 753
+    },
+    "totalTokens": 27119,
+    "raw": {
+     "input_tokens": 25530,
+     "output_tokens": 1589,
+     "output_tokens_details": {
+      "thinking_tokens": 753
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 753,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "stem": "A cell joins two molecules, X and Y, into the product XY. On its own, this reaction does not proceed because it requires an input of energy. In the cell, ATP first transfers one of its phosphate groups to X, forming a phosphorylated intermediate (X–P) and ADP. X–P then reacts with Y to form XY and release inorganic phosphate. Which statement best explains how ATP makes the formation of XY possible?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Phosphate transfer from ATP makes X a more reactive, higher-energy intermediate, coupling the energy-releasing hydrolysis of ATP to the energy-requiring formation of XY so the overall process releases energy.",
+      "is_correct": true,
+      "rationale": "ATP hydrolysis releases more energy than forming XY requires. Because the phosphate is transferred directly to X, that energy goes into a reactive intermediate instead of escaping. The two reactions are linked through a shared intermediate, so the combined process releases energy overall and XY forms."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "ATP acts as a catalyst that lowers the activation energy of the reaction between X and Y, allowing XY to form faster without changing the energy required.",
+      "is_correct": false,
+      "rationale": "This confuses energy coupling with enzyme catalysis. A catalyst only speeds a reaction that can already proceed and is not used up. ATP is consumed and converted to ADP and phosphate, and it changes the overall energy balance so that an energy-requiring reaction can proceed. Fix: Ask whether the molecule is used up; if it is consumed, it is supplying energy rather than catalyzing."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Breaking ATP releases heat, which X and Y absorb so they collide with enough energy to bond and form XY.",
+      "is_correct": false,
+      "rationale": "This treats ATP as a general heat source. Heat released into the cell spreads out and cannot be directed into a specific reaction. In the stem, the energy is delivered by transferring a phosphate group directly to X. Fix: Trace where the phosphate group goes in the stem, and check whether a reactant is directly phosphorylated."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The phosphate from ATP becomes a permanent part of XY, and the energy stored in that phosphate is what holds X and Y together.",
+      "is_correct": false,
+      "rationale": "This misreads the pathway. The stem states that inorganic phosphate is released when X–P reacts with Y, so the phosphate is not part of the product. Its role is temporary: it makes X reactive. Fix: Compare the reactants and products at each step, and check whether the phosphate appears in the final product."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 379,
+         "inputTokenDetails": {
+          "noCacheTokens": 379,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 87,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 61
+         },
+         "totalTokens": 466,
+         "raw": {
+          "input_tokens": 379,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 87,
+          "output_tokens_details": {
+           "reasoning_tokens": 61
+          },
+          "total_tokens": 466
+         },
+         "reasoningTokens": 61,
+         "cachedInputTokens": 0
+        },
+        "ms": 3764,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 460,
+         "inputTokenDetails": {
+          "noCacheTokens": 460,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 186,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 156
+         },
+         "totalTokens": 646,
+         "raw": {
+          "thoughtsTokenCount": 156,
+          "promptTokenCount": 460,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 646,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 460
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 156,
+         "cachedInputTokens": 0
+        },
+        "ms": 12988,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 519,
+         "inputTokenDetails": {
+          "noCacheTokens": 263,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 764,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 738
+         },
+         "totalTokens": 1283,
+         "raw": {
+          "prompt_tokens": 519,
+          "completion_tokens": 764,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 263,
+          "total_tokens": 1283,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 738
+          }
+         },
+         "reasoningTokens": 738,
+         "cachedInputTokens": 256
+        },
+        "ms": 8815,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 543,
+         "inputTokenDetails": {
+          "noCacheTokens": 415,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 96,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 76
+         },
+         "totalTokens": 639,
+         "raw": {
+          "prompt_tokens": 543,
+          "completion_tokens": 96,
+          "total_tokens": 639,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 76,
+           "accepted_prediction_tokens": 52,
+           "rejected_prediction_tokens": 77,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 76,
+         "cachedInputTokens": 128
+        },
+        "ms": 1333,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice A and its rationale require ATP hydrolysis–driven energy coupling through a higher-energy phosphorylated intermediate. The supplied fact pack covers energy requirements and sequential metabolic pathways but does not include this coupling mechanism. Supplying the mechanism in the stem does not establish CED scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "B's Fix incorrectly implies that any molecule consumed in a reaction supplies energy. Consumption distinguishes a reactant from a catalyst, but consumed reactants can participate in energy-requiring reactions without supplying energy. The fix should separately check whether the molecule is regenerated and whether its reaction releases energy."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16504,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16501
+         },
+         "outputTokens": 733,
+         "outputTokenDetails": {
+          "textTokens": 333,
+          "reasoningTokens": 400
+         },
+         "totalTokens": 17237,
+         "raw": {
+          "input_tokens": 16504,
+          "input_tokens_details": {
+           "cache_write_tokens": 16501,
+           "cached_tokens": 0
+          },
+          "output_tokens": 733,
+          "output_tokens_details": {
+           "reasoning_tokens": 400
+          },
+          "total_tokens": 17237
+         },
+         "reasoningTokens": 400,
+         "cachedInputTokens": 0
+        },
+        "ms": 17870,
+        "flags": [
+         "ced_scope: Choice A and its rationale require ATP hydrolysis–driven energy coupling through a higher-energy phosphorylated intermediate. The supplied fact pack covers energy requirements and sequential metabolic pathways but does not include this coupling mechanism. Supplying the mechanism in the stem does not establish CED scope.",
+         "accurate: B's Fix incorrectly implies that any molecule consumed in a reaction supplies energy. Consumption distinguishes a reactant from a catalyst, but consumed reactants can participate in energy-requiring reactions without supplying energy. The fix should separately check whether the molecule is regenerated and whether its reaction releases energy."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The item requires ATP-hydrolysis energy coupling through phosphate transfer and a higher-energy phosphorylated intermediate. These mechanistic concepts are not included in the supplied CED fact pack; supplying the mechanism in the stem does not establish scope."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "B's Fix incorrectly implies that any consumed molecule supplies energy. Consumption distinguishes a reactant from a net catalyst, but consumed reactants can participate in energy-requiring reactions without supplying energy. Check consumption and the reaction's energy balance separately."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16504,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16501,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 665,
+         "outputTokenDetails": {
+          "textTokens": 315,
+          "reasoningTokens": 350
+         },
+         "totalTokens": 17169,
+         "raw": {
+          "input_tokens": 16504,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16501
+          },
+          "output_tokens": 665,
+          "output_tokens_details": {
+           "reasoning_tokens": 350
+          },
+          "total_tokens": 17169
+         },
+         "reasoningTokens": 350,
+         "cachedInputTokens": 16501
+        },
+        "ms": 22611,
+        "flags": [
+         "ced_scope: The item requires ATP-hydrolysis energy coupling through phosphate transfer and a higher-energy phosphorylated intermediate. These mechanistic concepts are not included in the supplied CED fact pack; supplying the mechanism in the stem does not establish scope.",
+         "accurate: B's Fix incorrectly implies that any consumed molecule supplies energy. Consumption distinguishes a reactant from a net catalyst, but consumed reactants can participate in energy-requiring reactions without supplying energy. Check consumption and the reaction's energy balance separately."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17850,
+         "inputTokenDetails": {
+          "noCacheTokens": 17850,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1734,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1472
+         },
+         "totalTokens": 19584,
+         "raw": {
+          "thoughtsTokenCount": 1472,
+          "promptTokenCount": 17850,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19584,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17850
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1472,
+         "cachedInputTokens": 0
+        },
+        "ms": 11482,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice A and its rationale require knowing that ATP hydrolysis releases energy and that phosphate-transfer coupling drives an endergonic reaction. The supplied CED fact pack for 3.3 contains only general energy-input/thermodynamics statements and does not include ATP hydrolysis, ADP, inorganic phosphate, or energy coupling."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16703,
+         "inputTokenDetails": {
+          "noCacheTokens": 14271,
+          "cacheReadTokens": 2432
+         },
+         "outputTokens": 14845,
+         "outputTokenDetails": {
+          "textTokens": 280,
+          "reasoningTokens": 14565
+         },
+         "totalTokens": 31548,
+         "raw": {
+          "prompt_tokens": 16703,
+          "completion_tokens": 14845,
+          "prompt_cache_hit_tokens": 2432,
+          "prompt_cache_miss_tokens": 14271,
+          "total_tokens": 31548,
+          "prompt_tokens_details": {
+           "cached_tokens": 2432
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 14565
+          }
+         },
+         "reasoningTokens": 14565,
+         "cachedInputTokens": 2432
+        },
+        "ms": 148778,
+        "flags": [
+         "ced_scope: Choice A and its rationale require knowing that ATP hydrolysis releases energy and that phosphate-transfer coupling drives an endergonic reaction. The supplied CED fact pack for 3.3 contains only general energy-input/thermodynamics statements and does not include ATP hydrolysis, ADP, inorganic phosphate, or energy coupling."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16703,
+         "inputTokenDetails": {
+          "noCacheTokens": 63,
+          "cacheReadTokens": 16640
+         },
+         "outputTokens": 14754,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 14535
+         },
+         "totalTokens": 31457,
+         "raw": {
+          "prompt_tokens": 16703,
+          "completion_tokens": 14754,
+          "prompt_cache_hit_tokens": 16640,
+          "prompt_cache_miss_tokens": 63,
+          "total_tokens": 31457,
+          "prompt_tokens_details": {
+           "cached_tokens": 16640
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 14535
+          }
+         },
+         "reasoningTokens": 14535,
+         "cachedInputTokens": 16640
+        },
+        "ms": 145136,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17190,
+         "inputTokenDetails": {
+          "noCacheTokens": 16742,
+          "cacheReadTokens": 448
+         },
+         "outputTokens": 3989,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 3862
+         },
+         "totalTokens": 21179,
+         "raw": {
+          "prompt_tokens": 17190,
+          "completion_tokens": 3989,
+          "total_tokens": 21179,
+          "prompt_tokens_details": {
+           "cached_tokens": 448,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3862,
+           "accepted_prediction_tokens": 2620,
+           "rejected_prediction_tokens": 1484,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 3862,
+         "cachedInputTokens": 448
+        },
+        "ms": 24179,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__3.3#r3-openai",
+   "round": 3,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15792,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 15789,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 784,
+    "outputTokenDetails": {
+     "textTokens": 427,
+     "reasoningTokens": 357
+    },
+    "totalTokens": 16576,
+    "raw": {
+     "input_tokens": 15792,
+     "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 15789
+     },
+     "output_tokens": 784,
+     "output_tokens_details": {
+      "reasoning_tokens": 357
+     },
+     "total_tokens": 16576
+    },
+    "reasoningTokens": 357,
+    "cachedInputTokens": 15789
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "stem": "A membrane pump moves an uncharged solute from a region of lower concentration to a region of higher concentration. During each transport cycle, the pump converts ATP to ADP and inorganic phosphate. Which explanation best connects ATP use to the work performed by the pump?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The presence of ATP supplies energy for transport, even if the ATP remains chemically unchanged.",
+      "is_correct": false,
+      "rationale": "ATP-as-energy trap: ATP is a molecule, not energy itself. Its presence alone does not explain how energy is transferred to the pump; the explanation must connect an ATP reaction to transport work. Fix: Identify the chemical change involving ATP and connect it to the energy-requiring process."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "ATP hydrolysis creates new energy that the pump uses to move the solute against its concentration gradient.",
+      "is_correct": false,
+      "rationale": "Energy-creation trap: ATP hydrolysis does not create energy, because energy is conserved. It releases chemical energy that can be transferred to cellular work through coupling. Fix: Check whether your explanation describes energy transfer or transformation rather than energy creation."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "ATP hydrolysis elsewhere in the cell drives the pump even without any coupling between hydrolysis and transport.",
+      "is_correct": false,
+      "rationale": "Uncoupled-reactions trap: An energy-releasing reaction does not automatically power every energy-requiring process in the cell. Energy must be transferred through a coupled mechanism that connects the releasing reaction to the work. Fix: Trace how energy from the releasing reaction reaches the specific process requiring energy input."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The pump couples energy-releasing ATP hydrolysis to changes in its shape that move the solute against its concentration gradient.",
+      "is_correct": true,
+      "rationale": "Moving the solute against its concentration gradient requires energy input. Coupling ATP hydrolysis to the pump’s shape changes connects an energy-releasing reaction to the energy-requiring transport process, making that work possible."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 734,
+         "inputTokenDetails": {
+          "noCacheTokens": 734,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 764,
+         "raw": {
+          "input_tokens": 734,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1924,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 382,
+         "inputTokenDetails": {
+          "noCacheTokens": 382,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 188,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 158
+         },
+         "totalTokens": 570,
+         "raw": {
+          "thoughtsTokenCount": 158,
+          "promptTokenCount": 382,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 570,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 382
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 158,
+         "cachedInputTokens": 0
+        },
+        "ms": 3919,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 440,
+         "inputTokenDetails": {
+          "noCacheTokens": 184,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 377,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 357
+         },
+         "totalTokens": 817,
+         "raw": {
+          "prompt_tokens": 440,
+          "completion_tokens": 377,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 184,
+          "total_tokens": 817,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 357
+          }
+         },
+         "reasoningTokens": 357,
+         "cachedInputTokens": 256
+        },
+        "ms": 5283,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 474,
+         "inputTokenDetails": {
+          "noCacheTokens": 346,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 187,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 162
+         },
+         "totalTokens": 661,
+         "raw": {
+          "prompt_tokens": 474,
+          "completion_tokens": 187,
+          "total_tokens": 661,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 162,
+           "accepted_prediction_tokens": 109,
+           "rejected_prediction_tokens": 122,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 162,
+         "cachedInputTokens": 128
+        },
+        "ms": 2235,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The scenario is an ATP-driven pump moving a solute against its concentration gradient, and the keyed answer rests on ATP hydrolysis powering pump shape changes. That is the content of 2.8 Mechanisms of Transport (metabolic energy such as ATP is required for active transport), not 3.3 Cellular Energy. Only choice B's energy-conservation point draws on 3.3."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27196,
+         "inputTokenDetails": {
+          "noCacheTokens": 27196,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 1095,
+         "outputTokenDetails": {
+          "textTokens": 342,
+          "reasoningTokens": 753
+         },
+         "totalTokens": 28291,
+         "raw": {
+          "input_tokens": 27196,
+          "output_tokens": 1095,
+          "output_tokens_details": {
+           "thinking_tokens": 753
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 753,
+         "cachedInputTokens": 0
+        },
+        "ms": 11522,
+        "flags": [
+         "topic 2.8",
+         "on_topic: The scenario is an ATP-driven pump moving a solute against its concentration gradient, and the keyed answer rests on ATP hydrolysis powering pump shape changes. That is the content of 2.8 Mechanisms of Transport (metabolic energy such as ATP is required for active transport), not 3.3 Cellular Energy. Only choice B's energy-conservation point draws on 3.3."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27196,
+         "inputTokenDetails": {
+          "noCacheTokens": 27196,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 1126,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 914
+         },
+         "totalTokens": 28322,
+         "raw": {
+          "input_tokens": 27196,
+          "output_tokens": 1126,
+          "output_tokens_details": {
+           "thinking_tokens": 914
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 914,
+         "cachedInputTokens": 0
+        },
+        "ms": 13082,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17727,
+         "inputTokenDetails": {
+          "noCacheTokens": 17727,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2979,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 2717
+         },
+         "totalTokens": 20706,
+         "raw": {
+          "thoughtsTokenCount": 2717,
+          "promptTokenCount": 17727,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 20706,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17727
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 2717,
+         "cachedInputTokens": 0
+        },
+        "ms": 19356,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice D requires out-of-scope energy coupling and ATP hydrolysis energetics (energy-releasing reaction) plus pump conformational shape changes; these are not stated in the CED fact pack, which only says ATP is required for active transport (2.8)."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16574,
+         "inputTokenDetails": {
+          "noCacheTokens": 14142,
+          "cacheReadTokens": 2432
+         },
+         "outputTokens": 13744,
+         "outputTokenDetails": {
+          "textTokens": 271,
+          "reasoningTokens": 13473
+         },
+         "totalTokens": 30318,
+         "raw": {
+          "prompt_tokens": 16574,
+          "completion_tokens": 13744,
+          "prompt_cache_hit_tokens": 2432,
+          "prompt_cache_miss_tokens": 14142,
+          "total_tokens": 30318,
+          "prompt_tokens_details": {
+           "cached_tokens": 2432
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 13473
+          }
+         },
+         "reasoningTokens": 13473,
+         "cachedInputTokens": 2432
+        },
+        "ms": 141814,
+        "flags": [
+         "ced_scope: Choice D requires out-of-scope energy coupling and ATP hydrolysis energetics (energy-releasing reaction) plus pump conformational shape changes; these are not stated in the CED fact pack, which only says ATP is required for active transport (2.8)."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question requires understanding of energy coupling between ATP hydrolysis and transport work, which is not taught in topic 3.3; a student who studied only 3.3 and earlier units would not have learned this concept."
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Correct choice D and distractor C depend on energy coupling, and choices B and D depend on ATP hydrolysis being energy-releasing; these concepts/terms are not present in the CED fact pack for topic 3.3 or earlier topics."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16574,
+         "inputTokenDetails": {
+          "noCacheTokens": 62,
+          "cacheReadTokens": 16512
+         },
+         "outputTokens": 14513,
+         "outputTokenDetails": {
+          "textTokens": 312,
+          "reasoningTokens": 14201
+         },
+         "totalTokens": 31087,
+         "raw": {
+          "prompt_tokens": 16574,
+          "completion_tokens": 14513,
+          "prompt_cache_hit_tokens": 16512,
+          "prompt_cache_miss_tokens": 62,
+          "total_tokens": 31087,
+          "prompt_tokens_details": {
+           "cached_tokens": 16512
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 14201
+          }
+         },
+         "reasoningTokens": 14201,
+         "cachedInputTokens": 16512
+        },
+        "ms": 150275,
+        "flags": [
+         "on_topic: The question requires understanding of energy coupling between ATP hydrolysis and transport work, which is not taught in topic 3.3; a student who studied only 3.3 and earlier units would not have learned this concept.",
+         "ced_scope: Correct choice D and distractor C depend on energy coupling, and choices B and D depend on ATP hydrolysis being energy-releasing; these concepts/terms are not present in the CED fact pack for topic 3.3 or earlier topics."
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17066,
+         "inputTokenDetails": {
+          "noCacheTokens": 17002,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 3964,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 3837
+         },
+         "totalTokens": 21030,
+         "raw": {
+          "prompt_tokens": 17066,
+          "completion_tokens": 3964,
+          "total_tokens": 21030,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3837,
+           "accepted_prediction_tokens": 2487,
+           "rejected_prediction_tokens": 1941,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 3837,
+         "cachedInputTokens": 64
+        },
+        "ms": 29268,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  }
+ ],
+ "accepted_at": "2026-10-06T15:37:06.866Z"
+}

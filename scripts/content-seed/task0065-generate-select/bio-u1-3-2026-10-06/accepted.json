@@ -310,6 +310,50 @@
  {
   "subject_key": "biology",
   "unit_number": 2,
+  "topic_code": "2.10",
+  "topic_title": "Origins of Cell Compartmentalization",
+  "stem": "Mitochondria and chloroplasts are each surrounded by two membranes. Which statement best explains their evolutionary origin and accurately compares compartmentalization in prokaryotic and eukaryotic cells?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Mitochondria and chloroplasts evolved solely from membrane folds within ancestral host cells. Prokaryotes typically have specialized internal regions without membrane-bound organelles, whereas eukaryotic internal membranes partition specialized regions.",
+    "is_correct": false,
+    "rationale": "The membrane-folding trap substitutes development of the host's own membranes for endosymbiotic origin. Mitochondria and chloroplasts evolved from formerly free-living prokaryotes, not solely from host membrane folds. Fix: Check whether the explanation identifies a formerly free-living prokaryote as the ancestor of each organelle."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Mitochondria and chloroplasts evolved from free-living prokaryotes through endosymbiosis. Prokaryotes lack all specialized internal organization, whereas eukaryotic internal membranes partition specialized regions.",
+    "is_correct": false,
+    "rationale": "The unorganized-prokaryote trap equates lacking membrane-bound organelles with lacking internal organization. Prokaryotes typically lack those organelles but still have specialized internal regions. Fix: Separate two questions: does the cell have specialized internal regions, and are those regions enclosed by membranes?"
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Mitochondria and chloroplasts evolved from free-living prokaryotes through endosymbiosis. Prokaryotes typically contain membrane-bound mitochondria and chloroplasts, whereas eukaryotic internal membranes partition specialized regions.",
+    "is_correct": false,
+    "rationale": "The ancestor–organelle trap confuses prokaryotic ancestors with the organelles that evolved from them. A prokaryotic origin does not mean prokaryotes typically contain mitochondria or chloroplasts; they typically lack membrane-bound organelles. Fix: Distinguish the ancestral free-living cell from the organelle it became inside a host cell."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Mitochondria and chloroplasts evolved from free-living prokaryotes through endosymbiosis. Prokaryotes typically have specialized internal regions without membrane-bound organelles, whereas eukaryotic internal membranes partition specialized regions.",
+    "is_correct": true,
+    "rationale": "Endosymbiosis explains how formerly free-living prokaryotes became organelles within host cells; double membranes are consistent with this origin. The comparison distinguishes internal organization from membrane-bound compartmentalization: prokaryotes have specialized regions, while eukaryotes partition regions with internal membranes."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "biology__2.10#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "bio-u1-3-2026-10-06"
+  }
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
   "topic_code": "2.2",
   "topic_title": "Cell Size",
   "stem": "A cube-shaped cell grows from a side length of 10 µm to a side length of 20 µm. For a cube, surface area = 6s² and volume = s³. Which statement correctly describes how this growth changes the cell's surface area-to-volume ratio and its exchange with the environment?",
@@ -693,6 +737,50 @@
   ],
   "provenance": {
    "candidate_id": "biology__3.2#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "bio-u1-3-2026-10-06"
+  }
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy",
+  "stem": "A cell joins two small molecules to form a larger molecule. Under the cell’s conditions, this reaction requires energy input. ATP hydrolysis releases enough energy to supply that input. Which explanation best describes how ATP can support the formation of the larger molecule?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "ATP’s presence supplies the needed energy even if ATP does not undergo a reaction coupled to molecule formation.",
+    "is_correct": false,
+    "rationale": "The “ATP is energy” trap treats ATP’s presence as sufficient to power work. Energy stored in ATP must be made available through a coupled process; merely having ATP nearby does not drive molecule formation. Fix: Identify what happens to ATP and explain how that change is linked to the work."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The cell couples ATP formation to molecule formation because making ATP releases the energy needed to build the larger molecule.",
+    "is_correct": false,
+    "rationale": "The reversed-energy-flow trap confuses ATP formation with ATP hydrolysis. Forming ATP from ADP and phosphate requires energy input, so it cannot serve as the energy-releasing partner described here. Fix: Check whether the proposed ATP reaction requires energy or releases energy before assigning it a role in coupling."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "ATP hydrolysis creates new energy, which the cell uses to form the larger molecule.",
+    "is_correct": false,
+    "rationale": "The energy-creation trap mistakes energy release for energy creation. ATP hydrolysis makes energy available for coupled work, but it does not create energy; cellular processes obey conservation of energy. Fix: Trace the energy from its stored source to the cellular work instead of describing it as newly created."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The cell couples ATP hydrolysis to molecule formation, so the energy-releasing process drives the energy-requiring process.",
+    "is_correct": true,
+    "rationale": "Forming the larger molecule is the work that requires energy. Coupling that reaction to ATP hydrolysis links energy release to the work, allowing the combined process to proceed rather than leaving the energy-requiring reaction unsupported."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "biology__3.3#r1-openai",
    "author": "openai/gpt-6.1-sol",
    "checkers": [
     "anthropic/claude-opus-5.5",
