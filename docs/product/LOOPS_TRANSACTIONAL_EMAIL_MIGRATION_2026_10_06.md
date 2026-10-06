@@ -4,6 +4,7 @@ STATUS: CURRENT - backend built; Development foundation deployed; live cutover p
 DATE: 2026-10-06
 OWNER: David Bloom
 BRANCH: codex/loops-transactional-email
+PR: https://github.com/david-bloom/Cramapple/pull/341 (draft)
 RELATED TASK: TASK-0060
 TIER: Hard-Gate (Auth, payment notifications, deployment)
 

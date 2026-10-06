@@ -11,7 +11,7 @@
 **2026-10-06 follow-on, David-authorized:** consolidate transactional templates and
 delivery in Loops. Plan and execution evidence:
 `docs/product/LOOPS_TRANSACTIONAL_EMAIL_MIGRATION_2026_10_06.md`.
-Branch: `codex/loops-transactional-email`. Backend built; new handlers and queue
+Branch: `codex/loops-transactional-email`; draft PR #341. Backend built; new handlers and queue
 deployed in Development only. Designs/published IDs, inbox QA and live cutover
 remain pending. This does not close the checkout checks below.
 
