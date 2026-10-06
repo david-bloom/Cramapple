@@ -529,9 +529,15 @@ All topics roll up to Big Idea 2 (Energetics).
 **3.3 Cellular Energy**
 - **LO 3.3.A** Describe the role of energy in living organisms.
   - EK 3.3.A.1 — All living systems require energy input.
-  - EK 3.3.A.2 — Ordered systems are consistent with the 1st/2nd laws of
-    thermodynamics; energy input must exceed loss. *Exclusion: Gibbs free
-    energy equation not required.*
+  - EK 3.3.A.2 — Life requires a highly ordered system and does not violate
+    the first and second laws of thermodynamics. (i) Energy input must exceed
+    energy loss to maintain order and to power cellular processes. (ii)
+    Cellular processes that release energy may be coupled with cellular
+    processes that require energy. (iii) Significant loss of order or energy
+    flow results in death. *Exclusion: students need the concept of energy,
+    but the Gibbs free energy equation is beyond the scope of the exam.*
+    *(Sub-points i-iii restored verbatim from CED p. 63 on 2026-10-06; the
+    earlier paraphrase dropped (ii) energy coupling. TASK-0065.)*
   - EK 3.3.A.3 — Metabolic pathways are sequential; a product is typically the
     next step's reactant.
 - **LO 3.3.B** Explain how conserved processes support common ancestry.

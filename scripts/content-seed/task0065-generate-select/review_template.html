@@ -1,0 +1,59 @@
+<title>Biology Teaching Items Review</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column of question cards under a sticky topic index; Cramapple tokens (orange/square/no motion). */
+:root{
+  --bg:#fbfaf8; --paper:#ffffff; --ink:#16202a; --muted:#5b6670; --rule:#e4e0da;
+  --orange:#ca3500; --orange-ground:#f54900; --blue:#1f56a8; --blue-soft:#e8eef8; --maroon:#8a2f3f; --maroon-soft:#f6eaec;
+  --display:"Bungee",Impact,"Arial Black",sans-serif; --body:"Source Serif 4",Georgia,serif; --ui:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14181d; --paper:#1c2128; --ink:#ece8e2; --muted:#a3acb5; --rule:#323942;
+  --orange:#ff7a3d; --orange-ground:#f54900; --blue:#8fb2ec; --blue-soft:#1d2b40; --maroon:#e48a9b; --maroon-soft:#3a2229; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14181d; --paper:#1c2128; --ink:#ece8e2; --muted:#a3acb5; --rule:#323942;
+  --orange:#ff7a3d; --orange-ground:#f54900; --blue:#8fb2ec; --blue-soft:#1d2b40; --maroon:#e48a9b; --maroon-soft:#3a2229; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+.mast{background:var(--orange-ground);color:#fff;padding-block:28px 22px;padding-inline:16px}
+.mast .in{max-width:860px;margin:0 auto}
+.mast h1{font-family:var(--display);font-weight:400;font-size:clamp(26px,5vw,38px);line-height:1.1;margin:0 0 8px;text-wrap:balance}
+.mast p{margin:0;max-width:65ch;font-size:16px}
+.summary{display:flex;flex-wrap:wrap;gap:8px 24px;margin:20px 0 4px;font-size:15px;color:var(--muted)}
+.summary b{color:var(--ink);font-variant-numeric:tabular-nums}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--rule);padding-block:10px;display:flex;flex-wrap:wrap;gap:6px;z-index:2}
+nav a{font-family:var(--ui);font-weight:600;font-size:13px;color:var(--orange);text-decoration:none;border:1px solid var(--rule);padding:3px 8px;font-variant-numeric:tabular-nums}
+nav a:hover,nav a:focus-visible{border-color:var(--orange);outline:none}
+.pending{border:1px solid var(--rule);background:var(--paper);padding:14px 16px;margin:20px 0}
+.pending h3{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pending ul{margin:0;padding-left:18px}
+article{background:var(--paper);border:1px solid var(--rule);margin-top:24px;padding:20px 20px 8px;scroll-margin-top:64px}
+article header{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.code{font-family:var(--display);color:var(--orange);font-size:20px;font-variant-numeric:tabular-nums}
+h2{margin:0;font-size:20px;font-weight:700;text-wrap:balance}
+.meta{margin:4px 0 14px;font-size:13px;color:var(--muted)}
+.stem{font-family:var(--body);font-size:18px;line-height:1.55;max-width:65ch;margin:0 0 14px}
+.choices{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.choices li{border-left:3px solid var(--maroon);background:var(--maroon-soft);padding:10px 12px;min-width:0}
+.choices li.key{border-left-color:var(--blue);background:var(--blue-soft)}
+.opt{display:flex;gap:10px;align-items:baseline}
+.letter{font-family:var(--display);font-size:15px;min-width:1.2em}
+.otext{flex:1;min-width:0;font-weight:600}
+.tag{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--maroon);white-space:nowrap}
+.key .tag{color:var(--blue)}
+.rat{margin:6px 0 0 calc(1.2em + 10px);font-family:var(--body);font-size:15px;color:var(--ink);max-width:65ch}
+.fix{font-family:var(--ui);color:var(--orange)}
+footer{margin-top:32px;font-size:13px;color:var(--muted)}
+@media (max-width:480px){.rat{margin-left:0}.stem{font-size:17px}}
+</style>
+<div class="mast"><div class="in">
+<h1>Biology Teaching Items Review</h1>
+<p>Open Hand questions for AP Biology units 1–3, made by the no-edit pipeline. Every item below passed four independent model families and its own family's veto. None was edited by hand. This page is for your spot-check before anything is loaded.</p>
+</div></div>
+<div class="wrap">
+<div class="summary"><span><b>%%COUNT%%</b> of <b>%%TOTAL%%</b> topics accepted</span><span>Correct answers in blue · traps in maroon · each trap ends in an action fix</span></div>
+<nav aria-label="Topics">%%TOC%%</nav>
+<section class="pending"><h3>Not yet accepted</h3><ul>%%PENDING%%</ul></section>
+%%CARDS%%
+<footer>Batch bio-u1-3-2026-10-06 · TASK-0065 · generated 2026-10-06. Nothing on this page is loaded to any database.</footer>
+</div>
