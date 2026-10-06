@@ -157,6 +157,21 @@ this implementation does not silently remove receipts or invent that policy.
 
 ## Morning handoff
 
+### QA follow-up (2026-10-06)
+
+Joint Astra/Sol checkout QA identified a pending webhook ordering issue: payment
+notification enqueue could fail before anonymous checkout ownership was backfilled.
+The enqueue now runs after persisted ownership, so its retry cannot hide otherwise
+fulfilled access. This is a source fix in PR #341, not a Production deployment.
+
+The same QA identifies a remaining email-flow release blocker: an existing,
+signed-out buyer receives no automatic auth code from the existing-user webhook
+branch, while the current frontend says a code was sent and starts a cooldown.
+Moving providers does not fix that contract. Resolve first-code state and the
+new buyer's invite-plus-confirmation duplication before cutover. Auth codes must
+not be persisted in the payment notification queue. Detailed checkout QA is
+on branch codex/checkout-qa-friction in docs/qa/CHECKOUT_FLOW_QA_2026_10_06.md.
+
 David supplies the six designs in the handoff table. Implementation continues on
 this branch: publish those templates in Loops, configure the environment-specific
 IDs and secrets, activate and test the Development Auth hook, deploy the changed

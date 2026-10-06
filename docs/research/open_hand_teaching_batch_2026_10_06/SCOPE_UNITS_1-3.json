@@ -1,0 +1,3278 @@
+[
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.1",
+  "topic_title": "Introducing Calculus: Can Change Occur at an Instant?",
+  "seed_used": false,
+  "stem": "A runner's distance from the start is s(t) meters, where t is in seconds. Which statement best describes the runner's speed at exactly t = 5?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It is the value that the average speeds (s(5 + h) - s(5))/h approach as the time interval h gets smaller and smaller.",
+    "is_correct": true,
+    "rationale": "Earns the point: an instant has no width, so the instantaneous rate is defined as the value approached by average rates over shrinking intervals around t = 5."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It is the average speed over the whole run so far, s(5)/5.",
+    "is_correct": false,
+    "rationale": "Tempting because average speed is the rate you can compute directly from two measurements. But that is the rate over [0, 5], not at one instant. Fix: shrink the interval around t = 5 and look at where the average speeds settle."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It is (s(5) - s(5))/(5 - 5), which equals 0 because no time passes at an instant.",
+    "is_correct": false,
+    "rationale": "Tempting because at one instant neither distance nor time changes. But this is 0/0, which is undefined, not 0. Fix: never divide by a zero-width interval; use a limit of average rates instead."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is s(5), the runner's position at t = 5.",
+    "is_correct": false,
+    "rationale": "Tempting because s(5) is the one number the function gives at t = 5. But position is a distance, not a rate of change. Fix: speed measures how fast s changes, so it comes from average rates of s over intervals, not from s(5) itself."
+   }
+  ],
+  "verification": "Conceptual item resting on the brief: instantaneous rate = value approached by average rates over smaller intervals; direct quotient has zero change in x (0/0).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Defining Limits and Using Limit Notation",
+  "seed_used": true,
+  "stem": "Let f be a function. Which statement is the correct reading of the notation lim as x→4+ of f(x) = 9?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "When x = 4, f(x) equals 9.",
+    "is_correct": false,
+    "rationale": "Tempting because limit notation looks like evaluating f at 4. But a limit describes approach behavior and does not need f(4) to be 9 or even to exist. Fix: read it as 'approaches', not 'equals'."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "As x gets close to 4 through values greater than 4, f(x) gets close to 9.",
+    "is_correct": true,
+    "rationale": "Earns the point: the plus sign marks a right-hand approach (x > 4), and the limit value 9 describes what f(x) approaches, without saying anything about f(4)."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "As x gets close to 4 through values less than 4, f(x) gets close to 9.",
+    "is_correct": false,
+    "rationale": "Tempting if you ignore or misread the direction marker. But the + means x approaches 4 from the right (larger values), and the - would mean from the left. Fix: always check the sign on the 4."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "As x gets close to 9, f(x) gets close to 4 from the right.",
+    "is_correct": false,
+    "rationale": "Tempting because the two numbers 4 and 9 appear together and the roles are easy to swap. But the number under the arrow is the input approached, and the value after the equals sign is the output approached. Fix: input goes under 'lim', output goes after '='."
+   }
+  ],
+  "verification": "Notation fact from the brief: x→c+ is a right-hand approach; limit value is the output approached; f(c) is not part of the claim.",
+  "author_flags": "Seed was a piecewise-limit evaluation; this item tests reading one-sided notation instead."
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Estimating Limit Values from Graphs",
+  "seed_used": true,
+  "stem": "The graph of p consists of the line y = x + 2 for x < 3, a single filled point at (3, 5), and the curve y = x^2 - 7 for x > 3. What is the limit as x→3 of p(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "5, because the graph has a filled point at (3, 5) and the left branch also heads to 5.",
+    "is_correct": false,
+    "rationale": "Tempting because the filled point and the left branch agree on 5. But a limit must match from both sides, and the right branch heads to 2. Fix: trace both sides toward x = 3 before looking at the point."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "2, because the right branch gives the value the graph is approaching.",
+    "is_correct": false,
+    "rationale": "Tempting if you follow only one branch. But a limit uses both sides, and the left branch approaches 5, not 2. Fix: check the left-hand and right-hand limits and compare them."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit does not exist, because p(x) approaches 5 from the left but approaches 2 from the right.",
+    "is_correct": true,
+    "rationale": "Earns the point: the two one-sided limits are 5 (from x + 2) and 2 (from x^2 - 7). A two-sided limit exists only when they agree, and the filled point does not change that."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "7/2, because the limit is the average of the two one-sided values.",
+    "is_correct": false,
+    "rationale": "Tempting because the two sides disagree and splitting the difference feels like a compromise. But limits are never averaged; if the sides differ, the limit does not exist. Fix: unequal one-sided limits mean DNE."
+   }
+  ],
+  "verification": "Sympy: 3+2 = 5 (left); 3**2-7 = 2 (right). 5 != 2 so the two-sided limit does not exist; average 7/2 is the named slip.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.4",
+  "topic_title": "Estimating Limit Values from Tables",
+  "seed_used": true,
+  "stem": "The table gives values of f near x = 2. The value of f at x = 2 is 9.\n\nx = 1.9: f(x) = 3.61\nx = 1.99: f(x) = 3.960\nx = 1.999: f(x) = 3.996\nx = 2.001: f(x) = 4.004\nx = 2.01: f(x) = 4.040\nx = 2.1: f(x) = 4.410\n\nWhich is the best estimate of the limit as x→2 of f(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "9",
+    "is_correct": false,
+    "rationale": "Tempting because 9 is the one value given at x = 2 itself. But a limit describes what nearby values approach, not f(2). Fix: look at the entries on both sides and ignore the value at the point."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "4.410",
+    "is_correct": false,
+    "rationale": "Tempting because it is the largest entry and sits at the end of the table. But one entry is not a trend; the values keep falling toward 4 as x nears 2. Fix: use the entries closest to x = 2, not the farthest."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "4.004",
+    "is_correct": false,
+    "rationale": "Tempting because it is the closest entry on the right. But a single entry is only a sample; the values from the left approach 4 from below too, and 4 is what both sides settle at. Fix: describe the trend from both sides, then state the number they approach."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "4",
+    "is_correct": true,
+    "rationale": "Earns the point: values from both sides move toward 4 as x gets closer to 2 (3.61, 3.960, 3.996 and 4.410, 4.040, 4.004), so 4 is the trend. The entry at x = 2 is not part of the limit."
+   }
+  ],
+  "verification": "Table generated from f(x)=x^2 (sympy: 1.9**2=3.61, 1.99**2=3.9601, 1.999**2=3.996001, 2.001**2=4.004001, 2.01**2=4.0401, 2.1**2=4.41), limit 4; f(2) overridden to 9 for the stem.",
+  "author_flags": "Table values rounded to 3 decimals."
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Determining Limits Using Algebraic Properties of Limits",
+  "seed_used": true,
+  "stem": "Suppose that as x→4, the limit of f(x) is -2 and the limit of g(x) is 5. What is the limit as x→4 of (f(x)^2 + 3g(x)) / (g(x) + f(x))?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "19/3",
+    "is_correct": true,
+    "rationale": "Earns the point: the limit properties give numerator (-2)^2 + 3(5) = 19 and denominator 5 + (-2) = 3, and the quotient property applies because the denominator's limit is not 0."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "11/3",
+    "is_correct": false,
+    "rationale": "Tempting if you treat f(x)^2 as -4 by squaring only the number and dropping the sign. But the square of -2 is +4. Fix: the limit of f^2 is (limit of f)^2 = 4."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "19/7",
+    "is_correct": false,
+    "rationale": "Tempting if you subtract instead of add in the denominator, as if f contributed +2. But the denominator's limit is 5 + (-2) = 3. Fix: substitute the signed limit values, then combine."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It cannot be determined because f and g are not given as formulas.",
+    "is_correct": false,
+    "rationale": "Tempting because we usually evaluate limits from expressions. But the limit properties only need the limit values of f and g, which are given. Fix: combine component limits with sum, product, and quotient properties."
+   }
+  ],
+  "verification": "Arithmetic check (sympy Rational): (4+15)/3=19/3; (-4+15)/3=11/3; (4+15)/(5+2)=19/7. Quotient property valid since 3 != 0.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.6",
+  "topic_title": "Determining Limits Using Algebraic Manipulation",
+  "seed_used": true,
+  "stem": "What is the limit as x→5 of (x^2 - 25)/(x^2 - 3x - 10)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting because the numerator equals 0 at x = 5. But the denominator also equals 0, giving 0/0, which tells you to rewrite the expression, not that the limit is 0. Fix: factor and cancel first."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "10/7",
+    "is_correct": true,
+    "rationale": "Earns the point: factor to (x - 5)(x + 5) / ((x - 5)(x + 2)), cancel the common factor x - 5, and substitute x = 5 into (x + 5)/(x + 2) to get 10/7."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "10/3",
+    "is_correct": false,
+    "rationale": "Tempting if you factor the denominator as (x - 5)(x - 2), a sign slip on the 10. Check by expanding: that gives x^2 - 7x + 10, not x^2 - 3x - 10. Fix: the correct factors are (x - 5)(x + 2)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The limit does not exist, because the denominator is 0 at x = 5.",
+    "is_correct": false,
+    "rationale": "Tempting because division by zero looks fatal. But a zero denominator with a zero numerator is 0/0, and here the common factor cancels leaving a finite value. Fix: factor and cancel, then re-evaluate."
+   }
+  ],
+  "verification": "Sympy: limit((x**2-25)/(x**2-3*x-10),x,5)=10/7; factor(x**2-3*x-10)=(x-5)*(x+2); wrong factoring (x-5)(x-2) would give 10/3.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Selecting Procedures for Determining Limits",
+  "seed_used": true,
+  "stem": "A student evaluates the limit as x→16 of (sqrt(x) - 4)/(x - 16). Direct substitution gives 0/0. Which choice names an appropriate next step and the correct limit?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Substitute x = 16 directly and conclude the limit is 0, since the numerator is 0.",
+    "is_correct": false,
+    "rationale": "Tempting because the numerator vanishes. But the denominator vanishes too, so substitution is blocked at 0/0. Fix: when you get 0/0, choose a rewriting method (factor, conjugate) before concluding."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Rationalize the numerator, then get 1/4 by replacing sqrt(x) + 4 with just sqrt(16).",
+    "is_correct": false,
+    "rationale": "Tempting because the conjugate method is right, but dropping the +4 gives 1/sqrt(x) = 1/4. Fix: the denominator after rationalizing is sqrt(x) + 4 = 8, so the limit is 1/8."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Rationalize by multiplying top and bottom by sqrt(x) + 4, cancel x - 16, and get 1/8.",
+    "is_correct": true,
+    "rationale": "Earns the point: the square root is the obstacle, so rewrite with its conjugate. The expression becomes 1/(sqrt(x) + 4), whose value at x = 16 is 1/8."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Conclude the limit does not exist, because the denominator equals 0 at x = 16.",
+    "is_correct": false,
+    "rationale": "Tempting because a zero denominator looks like a vertical asymptote. But the numerator is also 0, so this is an indeterminate form that can have a finite limit. Fix: simplify first, then decide."
+   }
+  ],
+  "verification": "Sympy: limit((sqrt(x)-4)/(x-16),x,16)=1/8; (sqrt(x)-4)/(x-16)=1/(sqrt(x)+4); slip values 1/4 (dropped +4), 0 (numerator only).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.8",
+  "topic_title": "Determining Limits Using the Squeeze Theorem",
+  "seed_used": true,
+  "stem": "A function g satisfies 5 - 4(x - 2)^2 <= g(x) <= 5 + (x - 2)^2 for all x. What is the limit as x→2 of g(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting because the (x - 2)^2 terms go to 0 and are easy to focus on. But those terms are added to or subtracted from 5, so the bounds approach 5, not 0. Fix: evaluate each whole bound, not just the extra term."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "10",
+    "is_correct": false,
+    "rationale": "Tempting if you add the two outside limits, 5 + 5. But the theorem says the middle function takes the same value the outer limits share. Fix: when the outer limits agree on L, the limit of g is L."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It cannot be determined, because the lower and upper bounds are different functions.",
+    "is_correct": false,
+    "rationale": "Tempting because the bounds are not identical. But the theorem only needs their limits to match at x = 2, and both are 5. Fix: compare the limits of the bounds, not the formulas."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "5",
+    "is_correct": true,
+    "rationale": "Earns the point: both bounding functions approach 5 as x approaches 2, so g(x), squeezed between them, also approaches 5 by the Squeeze Theorem."
+   }
+  ],
+  "verification": "Sympy: limit(5-4*(x-2)**2,x,2)=5; limit(5+(x-2)**2,x,2)=5; Squeeze Theorem gives 5.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "topic_title": "Connecting Multiple Representations of Limits",
+  "seed_used": false,
+  "stem": "A table shows f(2.9) = 6.8, f(2.99) = 6.98, f(2.999) = 6.998, f(3.001) = 7.002, f(3.01) = 7.02, and f(3.1) = 7.2. Also f(3) = 1. Which statement matches this information?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The limit as x→3 of f(x) is 7, so the graph of f approaches a height of 7 near x = 3, with the point at x = 3 sitting at height 1.",
+    "is_correct": true,
+    "rationale": "Earns the point: the table shows f(x) approaching 7 from both sides, which is the limit statement. The separate value f(3) = 1 only tells you where the single plotted point is."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The limit as x→3 of f(x) is 1, so the graph passes through (3, 1) with nothing special happening.",
+    "is_correct": false,
+    "rationale": "Tempting because 1 is the value at x = 3. But the limit follows the nearby values, which head to 7. Fix: match the table to approach behavior, not to f(3)."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit as x→3 of f(x) does not exist, because f(3) differs from the nearby values.",
+    "is_correct": false,
+    "rationale": "Tempting because f(3) = 1 clashes with the table. But a limit can exist even when the point at x = 3 is displaced; both sides approach 7. Fix: existence depends on left and right approach, not on f(3)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The limit as x→7 of f(x) is 3, because the table pairs 3 with 7.",
+    "is_correct": false,
+    "rationale": "Tempting because the numbers 3 and 7 appear together. But the input approached is x = 3 and the output approached is 7, so the arrow goes x→3. Fix: write 'as x approaches (input), f(x) approaches (output)'."
+   }
+  ],
+  "verification": "Conceptual item from brief: convert table to 'as x approaches 3, f(x) approaches 7'. Table built from f(x)=2x+1 with f(3) set to 1.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.10",
+  "topic_title": "Exploring Types of Discontinuities",
+  "seed_used": true,
+  "stem": "Let f(x) = x + 3 for x < 2 and f(x) = 10 - x^2 for x >= 2. What kind of discontinuity does f have at x = 2?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "A removable discontinuity, because both one-sided limits are finite and f(2) is defined.",
+    "is_correct": false,
+    "rationale": "Tempting because everything involved is finite. But removable requires the two sides to approach the same number, and 5 does not equal 6. Fix: compare the one-sided limits before naming the type."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "A jump discontinuity, because both one-sided limits exist but are different (5 from the left, 6 from the right).",
+    "is_correct": true,
+    "rationale": "Earns the point: the left limit is 2 + 3 = 5 and the right limit is 10 - 4 = 6. Finite one-sided limits that disagree make a jump."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "An infinite discontinuity, because the function changes behavior at x = 2.",
+    "is_correct": false,
+    "rationale": "Tempting because the formula changes at x = 2. But an infinite discontinuity needs unbounded growth, and here both sides stay near 5 and 6. Fix: check whether values grow without bound."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "No discontinuity, because f(2) = 6 is defined.",
+    "is_correct": false,
+    "rationale": "Tempting because f(2) exists. But continuity also needs the limit to exist and equal f(2), and the two-sided limit does not exist. Fix: apply the full check: f(2), limit, and equality."
+   }
+  ],
+  "verification": "Sympy: left limit of x+3 at 2 = 5; right limit/value of 10-x**2 at 2 = 6; unequal finite limits = jump.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.11",
+  "topic_title": "Defining Continuity at a Point",
+  "seed_used": true,
+  "stem": "Let g(x) = (x^2 - 16)/(x - 4) for x != 4, and g(4) = 6. Which statement about g at x = 4 is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "g is continuous at x = 4, because g(4) is defined and the limit exists.",
+    "is_correct": false,
+    "rationale": "Tempting because two of the three conditions hold. But continuity also needs the limit to equal the function value. Fix: finish the checklist: value exists, limit exists, they are equal."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "g is continuous at x = 4, because the graph is a connected line with no gap away from 4.",
+    "is_correct": false,
+    "rationale": "Tempting because the graph looks like a line. But continuity at a point is checked by conditions, and the point at x = 4 sits at height 6, off the line. Fix: verify the equality, do not judge by appearance."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "g is not continuous at x = 4, because the limit is 8 but g(4) = 6.",
+    "is_correct": true,
+    "rationale": "Earns the point: the limit exists and equals 8 after canceling x - 4, but continuity requires the limit to equal g(4). Since 8 differs from 6, one condition fails."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "g is not continuous at x = 4, because the limit does not exist when the denominator is 0.",
+    "is_correct": false,
+    "rationale": "Tempting because x - 4 is zero at x = 4. But the factor cancels and the limit is 8, a finite number. Fix: simplify before concluding; the discontinuity comes from 8 not equaling 6."
+   }
+  ],
+  "verification": "Sympy: limit((x**2-16)/(x-4),x,4)=8; g(4)=6; 8 != 6 so not continuous.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.12",
+  "topic_title": "Confirming Continuity over an Interval",
+  "seed_used": true,
+  "stem": "Let f(x) = (x + 2)/(x^2 - 4x - 5). On which interval is f continuous?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "[0, 5]",
+    "is_correct": false,
+    "rationale": "Tempting because 5 is a nice endpoint and the rest of the interval looks fine. But f is undefined at x = 5, so it cannot be continuous on an interval that includes 5. Fix: test every excluded value against the interval, endpoints included."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "[-2, 3]",
+    "is_correct": false,
+    "rationale": "Tempting because the endpoints -2 and 3 are not problem values. But x = -1 lies inside the interval and makes the denominator 0. Fix: check interior points, not just endpoints."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "All real numbers, because f is a rational function.",
+    "is_correct": false,
+    "rationale": "Tempting because rational functions are continuous where they are defined. But they are not defined where the denominator is 0. Fix: continuity is on the domain, so remove x = 5 and x = -1."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "[0, 4]",
+    "is_correct": true,
+    "rationale": "Earns the point: the denominator factors as (x - 5)(x + 1), so f fails only at x = 5 and x = -1. The interval [0, 4] avoids both."
+   }
+  ],
+  "verification": "Sympy: factor(x**2-4*x-5)=(x-5)*(x+1); discontinuities at x=5, x=-1 only; [0,4] contains neither.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.13",
+  "topic_title": "Removing Discontinuities",
+  "seed_used": true,
+  "stem": "Let f(x) = (x^2 + x - 12)/(x - 3) for x != 3, and f(3) = k. For what value of k is f continuous at x = 3?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "7",
+    "is_correct": true,
+    "rationale": "Earns the point: factor x^2 + x - 12 = (x + 4)(x - 3), cancel x - 3, and the limit is 3 + 4 = 7. Setting k equal to that limit removes the discontinuity."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting because the numerator is 0 at x = 3. But 0/0 is indeterminate and the limit comes from the simplified expression, which is 7. Fix: find the limit first, then set k equal to it."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "3",
+    "is_correct": false,
+    "rationale": "Tempting because the problem is happening at x = 3 and k = 3 feels natural. But k is an output value and must match the limiting output, not the input. Fix: set k = the limit of f as x→3."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "-4",
+    "is_correct": false,
+    "rationale": "Tempting because the other factor, x + 4, is zero at x = -4. But after canceling x - 3 you substitute x = 3 into x + 4, not solve x + 4 = 0. Fix: evaluate the simplified function at x = 3."
+   }
+  ],
+  "verification": "Sympy: factor(x**2+x-12)=(x+4)*(x-3); limit((x**2+x-12)/(x-3),x,3)=7.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.14",
+  "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+  "seed_used": true,
+  "stem": "Which statement is correct about f(x) = (x - 3)/(x - 1) near x = 1?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The limit as x→1+ of f(x) is +infinity, so x = 1 is a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Tempting because a small positive denominator suggests large positive values. But the numerator is negative near x = 1, so the quotient is large and negative. Fix: track the sign of the numerator as well."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The limit as x→1+ of f(x) is -infinity, so x = 1 is a vertical asymptote.",
+    "is_correct": true,
+    "rationale": "Earns the point: just to the right of 1 the numerator is near -2 and the denominator is a small positive number, so the quotient decreases without bound. That infinite limit gives a vertical asymptote at x = 1."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit as x→1+ of f(x) is 0, because x - 1 gets close to 0.",
+    "is_correct": false,
+    "rationale": "Tempting because x - 1 approaches 0. But it is in the denominator, so dividing -2 by a tiny number makes the size grow. Fix: a nonzero numerator over a zero-approaching denominator is unbounded."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The limit does not exist, so there is no vertical asymptote at x = 1.",
+    "is_correct": false,
+    "rationale": "Tempting because infinite limits are often described as 'does not exist'. But the function still grows without bound, and that behavior is what defines a vertical asymptote. Fix: write the infinite limit and name x = c as the asymptote."
+   }
+  ],
+  "verification": "Sympy: limit((x-3)/(x-1),x,1,'+') = -oo.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.15",
+  "topic_title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+  "seed_used": true,
+  "stem": "What is the horizontal asymptote of f(x) = (6x^2 + 1)/(3x^2 - 5x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "y = 0",
+    "is_correct": false,
+    "rationale": "Tempting if you think the denominator's extra -5x term makes it grow faster. But both parts have degree 2, so the leading terms 6x^2 and 3x^2 control the end behavior. Fix: compare the highest powers, not the number of terms."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "y = -1/5",
+    "is_correct": false,
+    "rationale": "Tempting because the lowest-degree terms 1 and -5x look like they set the ratio. But for large x the highest powers dominate. Fix: use leading coefficients for end behavior."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "y = 2",
+    "is_correct": true,
+    "rationale": "Earns the point: the numerator and denominator have the same degree, so the limit as x→infinity is the ratio of leading coefficients, 6/3 = 2. That limit names the horizontal asymptote y = 2."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "x = 5/3",
+    "is_correct": false,
+    "rationale": "Tempting because 3x^2 - 5x = 0 at x = 5/3 and a zero denominator feels like an asymptote. But that is a vertical line, and a horizontal asymptote has the form y = L. Fix: limits at infinity give y = L; zeros of the denominator give vertical lines."
+   }
+  ],
+  "verification": "Sympy: limit((6*x**2+1)/(3*x**2-5*x),x,oo)=2; denominator zeros x=0, x=5/3 (vertical).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.16",
+  "topic_title": "Working with the Intermediate Value Theorem",
+  "seed_used": true,
+  "stem": "The function f is continuous on [2, 8], with f(2) = 3 and f(8) = 11. Which conclusion is guaranteed?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "There is at least one c in (2, 8) with f(c) = 1.",
+    "is_correct": false,
+    "rationale": "Tempting because 1 is a small, convenient number near 3. But 1 is not between 3 and 11, so the theorem says nothing about it. Fix: the target must lie between the endpoint values."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "There is at least one c in (2, 8) with f(c) = 12.",
+    "is_correct": false,
+    "rationale": "Tempting because 12 is just above 11 and feels close. But it lies outside [3, 11], so f may never reach it. Fix: check the target against both endpoint values."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "No value is guaranteed, because f is not known to be differentiable.",
+    "is_correct": false,
+    "rationale": "Tempting because many theorems require differentiability. But IVT needs only continuity on the closed interval, which is given. Fix: match the theorem to its actual conditions."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "There is at least one c in (2, 8) with f(c) = 7.",
+    "is_correct": true,
+    "rationale": "Earns the point: f is continuous on [2, 8] and 7 lies strictly between f(2) = 3 and f(8) = 11, so the Intermediate Value Theorem guarantees such a c."
+   }
+  ],
+  "verification": "IVT conditions: continuous on [2,8]; 3 < 7 < 11. 1 and 12 are outside [3,11].",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Defining Average and Instantaneous Rates of Change at a Point",
+  "seed_used": true,
+  "stem": "A particle's position is s(t) = t^3 - 2t meters, with t in seconds. What is the instantaneous velocity at t = 2?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "10 m/s",
+    "is_correct": true,
+    "rationale": "Earns the point: the instantaneous rate is the limit of (s(2 + h) - s(2))/h as h→0, which equals s'(2) = 3(2)^2 - 2 = 10."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "4 m/s",
+    "is_correct": false,
+    "rationale": "Tempting because s(2) = 8 - 4 = 4 is the first number you compute. But that is the position, not a rate. Fix: velocity is the derivative of s, not s itself."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "17 m/s",
+    "is_correct": false,
+    "rationale": "Tempting because the average rate over [2, 3] is (21 - 4)/1 = 17, a quick secant slope. But that covers a full second, not an instant. Fix: for a rate at one point, take the limit as the interval shrinks."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "12 m/s",
+    "is_correct": false,
+    "rationale": "Tempting if you differentiate t^3 to 3t^2 and forget the -2t term. But every term must be differentiated. Fix: s'(t) = 3t^2 - 2, so s'(2) = 10."
+   }
+  ],
+  "verification": "Sympy: diff(t**3-2*t,t).subs(t,2)=10; s(2)=4; (s(3)-s(2))/1=17; 3*t**2 at 2 = 12 (dropped -2).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point",
+  "seed_used": true,
+  "stem": "The population P(t), in thousands, of a colony is recorded at selected times t in hours.\n\nt = 0: P = 110\nt = 2: P = 130\nt = 5: P = 190\nt = 6: P = 214\nt = 10: P = 300\n\nUsing the two table values closest to t = 5.5, what is the best estimate of P'(5.5)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "20 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because it uses t = 2 and t = 5, which are nearby entries: (190 - 130)/3 = 20. But both lie on the same side of 5.5. Fix: choose the closest values on both sides of the target."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "24 thousand per hour",
+    "is_correct": true,
+    "rationale": "Earns the point: the closest values on either side of 5.5 are at t = 5 and t = 6, so the estimate is (214 - 190)/(6 - 5) = 24 thousand per hour."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "19 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because the endpoints t = 0 and t = 10 are easy to find: (300 - 110)/10 = 19. But they are far from 5.5 and give a global average. Fix: use the nearest entries around the point."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "21.5 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because t = 6 and t = 10 are the next entries after the target: (300 - 214)/4 = 21.5. But the interval is wide and one-sided. Fix: use t = 5 and t = 6 on either side of 5.5."
+   }
+  ],
+  "verification": "Arithmetic (Rational): (214-190)/1=24; (190-130)/3=20; (300-110)/10=19; (300-214)/4=43/2=21.5.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.6",
+  "topic_title": "Derivative Rules: Constant, Sum, Difference, and Constant Multiple",
+  "seed_used": true,
+  "stem": "Let g(x) = 3x^4 - 5x^2 + 2x - 11. What is g'(2)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "67",
+    "is_correct": false,
+    "rationale": "Tempting if you treat -11 as a term that keeps its value in the derivative, giving 78 - 11. But the derivative of a constant is 0. Fix: drop the constant when differentiating."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "118",
+    "is_correct": false,
+    "rationale": "Tempting if the sign on the -5x^2 term flips to +10x during differentiation: 96 + 20 + 2 = 118. Fix: keep every sign; the derivative of -5x^2 is -10x."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "78",
+    "is_correct": true,
+    "rationale": "Earns the point: differentiate term by term to get g'(x) = 12x^3 - 10x + 2, where the constant -11 contributes 0. Then g'(2) = 96 - 20 + 2 = 78."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "21",
+    "is_correct": false,
+    "rationale": "Tempting because evaluating at x = 2 is the first step many students take: g(2) = 48 - 20 + 4 - 11 = 21. But that is the function value, not the derivative. Fix: differentiate first, then substitute."
+   }
+  ],
+  "verification": "Sympy: diff(3*x**4-5*x**2+2*x-11,x).subs(x,2)=78; slips 67 (constant kept), 118 (sign flip), 21 (g(2)).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "Calculating Higher-Order Derivatives",
+  "seed_used": true,
+  "stem": "Let f(x) = x^4 - 3x^3 + 2x. What is f''(2)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "-2",
+    "is_correct": false,
+    "rationale": "Tempting because f'(2) = 32 - 36 + 2 = -2 is the first thing you find. But that is only the first derivative. Fix: differentiate twice before substituting."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "30",
+    "is_correct": false,
+    "rationale": "Tempting if you go one derivative too far: f'''(x) = 24x - 18, so f'''(2) = 30. Fix: label each derivative and stop at f''."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting if you substitute x = 2 into f' first, getting the number -2, and then differentiate it. But the derivative of a constant is 0, and you have lost the function. Fix: differentiate twice, then substitute."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "12",
+    "is_correct": true,
+    "rationale": "Earns the point: f'(x) = 4x^3 - 9x^2 + 2, so f''(x) = 12x^2 - 18x, and f''(2) = 48 - 36 = 12."
+   }
+  ],
+  "verification": "Sympy: diff(f,x,2).subs(x,2)=12; diff(f,x).subs(x,2)=-2; diff(f,x,3).subs(x,2)=30.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Mass Spectra of Elements",
+  "seed_used": false,
+  "stem": "A mass spectrum of a sample of element Z shows exactly two peaks: one at mass 69.0 u with a relative abundance of 60.0%, and one at mass 71.0 u with a relative abundance of 40.0%. The peaks come from singly charged monatomic ions. What is the average atomic mass of Z?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "70.0 u",
+    "is_correct": false,
+    "rationale": "Tempting if you average the two peak masses, (69.0 + 71.0)/2 — but that treats both isotopes as equally common. Fix: multiply each mass by its fractional abundance before adding."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "69.8 u",
+    "is_correct": true,
+    "rationale": "Each peak's mass is weighted by its fractional abundance: 0.600(69.0) + 0.400(71.0) = 69.8 u. The sample is mostly the lighter isotope, so the average sits closer to 69 than to 71."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "70.2 u",
+    "is_correct": false,
+    "rationale": "Tempting if you pair 69.0 with 40.0% and 71.0 with 60.0% — but each isotope's mass goes with its own peak's abundance. Fix: match each peak's height to the mass at that same peak."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "69.0 u",
+    "is_correct": false,
+    "rationale": "Tempting if you report the tallest peak as the element's mass — but the average atomic mass includes every isotope's contribution. Fix: add the weighted contributions from all peaks."
+   }
+  ],
+  "verification": "0.600*69.0+0.400*71.0=69.8 (python). Simple mean 70.0; swapped abundances 0.4*69+0.6*71=70.2; tallest peak 69.0.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Elemental Composition of Pure Substances",
+  "seed_used": false,
+  "stem": "Analysis of a pure hydrocarbon shows 85.7% carbon and 14.3% hydrogen by mass. Its molar mass is 56 g/mol. What is its molecular formula? (Use C = 12 g/mol and H = 1 g/mol.)",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "CH2",
+    "is_correct": false,
+    "rationale": "Tempting if you stop once the mole ratio is simplified — but that gives only the empirical formula. Fix: divide the molar mass by the empirical formula mass and scale by that whole number."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "C4H2",
+    "is_correct": false,
+    "rationale": "Tempting if you find the multiplier 4 but apply it only to carbon — but the multiplier scales every subscript. Fix: multiply both subscripts of CH2 by 4."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "C14H28",
+    "is_correct": false,
+    "rationale": "Tempting if you multiply by the empirical formula mass (14) instead of dividing the molar mass by it — but that gives a molar mass of 196 g/mol. Fix: the multiplier is 56 / 14 = 4."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "C4H8",
+    "is_correct": true,
+    "rationale": "In 100 g there are about 7.14 mol C and 14.3 mol H, a 1 : 2 ratio, so the empirical formula is CH2 (mass 14). Since 56/14 = 4, multiply the subscripts by 4 to get C4H8."
+   }
+  ],
+  "verification": "sympy/python: 85.7/12.011=7.14 mol C, 14.3/1.008=14.19 mol H, ratio 1.99 -> CH2 (14); 56/14=4 -> C4H8. C4H2 and C14H28 are slips; C14H28 mass 196.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.4",
+  "topic_title": "Composition of Mixtures",
+  "seed_used": false,
+  "stem": "A uniform-looking white powder is analyzed in three independent samples. Sample 1 contains 3.00 g of element X and 2.00 g of element Y. Sample 2 contains 4.89 g of X and 3.00 g of Y. Sample 3 contains 2.76 g of X and 2.00 g of Y. Which conclusion do these data best support?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The powder is a mixture, because the X-to-Y mass ratio (1.50, 1.63, 1.38) changes from sample to sample.",
+    "is_correct": true,
+    "rationale": "A pure substance has the same elemental mass ratio in every sample. These ratios differ, so the particle types are present in varying proportions, which is what defines a mixture."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The powder is a pure substance, because it looks uniform throughout.",
+    "is_correct": false,
+    "rationale": "Tempting if you trust appearance — but a homogeneous mixture can look just as uniform as a compound. Fix: test purity by checking whether the composition ratio is constant across samples."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The powder is a pure compound whose formula changes with the size of the sample.",
+    "is_correct": false,
+    "rationale": "Tempting if you try to keep the pure-substance idea — but a compound has one fixed ratio no matter how much you take. Fix: a ratio that changes means the proportions are variable, so it is a mixture."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The powder is a pure substance, because it contains only two elements.",
+    "is_correct": false,
+    "rationale": "Tempting if you think two elements means one compound — but two elements can be present in several compounds or as separate substances. Fix: look at whether the ratio stays constant, not at how many elements appear."
+   }
+  ],
+  "verification": "3.00/2.00=1.50, 4.89/3.00=1.63, 2.76/2.00=1.38 (python). Ratios vary -> mixture (brief: constant ratio supports pure substance, changing ratio supports mixture).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Atomic Structure and Electron Configuration",
+  "seed_used": true,
+  "stem": "Selenium has atomic number 34. Which is its ground-state electron configuration?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "[Ar] 4s2 3d8 4p6",
+    "is_correct": false,
+    "rationale": "Tempting if you fill 4p before 3d is full — but 3d lies below 4p in energy. Fix: complete 3d (10 electrons) before putting any electrons in 4p."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "[Ar] 4s2 3d10 4p6",
+    "is_correct": false,
+    "rationale": "Tempting if you complete the p subshell by habit — but this has 36 electrons, which is krypton. Fix: add up the electrons and match them to Z = 34."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "[Ar] 4s2 3d10 4p4",
+    "is_correct": true,
+    "rationale": "Argon accounts for 18 electrons, and 16 more fill in order of increasing energy: 4s (2), then 3d (10), then 4p (4). That totals 34 electrons."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "[Ar] 3d10 4p6",
+    "is_correct": false,
+    "rationale": "Tempting if you believe 3d fills before 4s — but 4s fills first and is part of the configuration. This version also leaves out the 4s electrons. Fix: follow the order 4s, 3d, 4p."
+   }
+  ],
+  "verification": "Electron count: 18+2+10+4=34 (python); distractors have 34 (3d8 4p6 wrong order), 36, and 34-with-4s-skipped (3d10 4p6=16). Seed was an ion configuration (Mn2+); this item is a neutral p-block atom.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.6",
+  "topic_title": "Photoelectron Spectroscopy",
+  "seed_used": true,
+  "stem": "The photoelectron spectrum of a neutral atom shows four peaks. Moving from the highest binding energy to the lowest, their relative heights are 2 : 2 : 6 : 2. Which element is this?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Magnesium",
+    "is_correct": true,
+    "rationale": "Peak heights are proportional to electron counts, so the subshells hold 2, 2, 6 and 2 electrons: 1s2 2s2 2p6 3s2. That is 12 electrons, which is magnesium."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Beryllium",
+    "is_correct": false,
+    "rationale": "Tempting if you take four peaks to mean atomic number 4 — but the number of peaks counts subshells, not electrons. Fix: add the peak heights to get the electron total."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Neon",
+    "is_correct": false,
+    "rationale": "Tempting if you stop at the large 2p peak because it completes a noble-gas pattern — but there is a fourth peak. Fix: include every peak; the extra 2 electrons are in 3s."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Sodium",
+    "is_correct": false,
+    "rationale": "Tempting if you assume the smallest peak holds a single electron — but here its height is 2 like the 1s peak. Fix: read each height as the actual electron count: 2 + 2 + 6 + 2 = 12."
+   }
+  ],
+  "verification": "Sum 2+2+6+2=12 electrons -> Mg (Z=12) (python). Be=4, Ne=10, Na=11 distractors. Seed was a 3-peak 2:2:1 spectrum (boron); this item is a 4-peak spectrum.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Periodic Trends",
+  "seed_used": true,
+  "stem": "Na+ and Mg2+ both have the electron configuration 1s2 2s2 2p6. Which statement correctly compares their radii and gives the reason?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Mg2+ is larger, because magnesium has more protons and neutrons, so its nucleus takes up more space.",
+    "is_correct": false,
+    "rationale": "Tempting if you link more particles with more size — but the nucleus is tiny compared with the electron cloud, and more protons pull electrons in. Fix: compare the attraction on the outer electrons, not the nuclear mass."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Na+ is larger, because it has an extra electron shell compared with Mg2+.",
+    "is_correct": false,
+    "rationale": "Tempting from the usual down-the-group trend — but both ions have electrons in n = 1 and n = 2 only. Fix: count occupied shells; equal shells means nuclear charge decides."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The ions are the same size, because identical electron configurations mean identical shielding and therefore identical radii.",
+    "is_correct": false,
+    "rationale": "Tempting because the shielding is indeed identical — but the nuclear charge differs. Fix: Coulomb's law depends on the nuclear charge as well as shielding and distance."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Na+ is larger, because its 11 protons attract the same 10 electrons less strongly than the 12 protons of Mg2+ do.",
+    "is_correct": true,
+    "rationale": "The two ions have the same number of electrons and the same shielding, so the difference comes from nuclear charge. Mg2+ has the larger effective nuclear charge, pulling the electrons closer."
+   }
+  ],
+  "verification": "Isoelectronic ions: 10 electrons each; Z=11 vs 12 -> higher Zeff for Mg2+ -> smaller radius (Coulomb's law). Seed was N vs O first ionization energy; this item is ionic radius of an isoelectronic pair.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.8",
+  "topic_title": "Valence Electrons and Ionic Compounds",
+  "seed_used": false,
+  "stem": "Strontium is in Group 2 and nitrogen is in Group 15. Based on their valence electrons, what is the formula of the ionic compound they form?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "SrN",
+    "is_correct": false,
+    "rationale": "Tempting if you assume one atom of each element — but the charges are 2+ and 3-, which do not cancel. Fix: choose subscripts so total positive charge equals total negative charge."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Sr3N2",
+    "is_correct": true,
+    "rationale": "Strontium loses its 2 valence electrons to form Sr2+, and nitrogen gains 3 to complete its octet as N3-. Three Sr2+ (+6) balance two N3- (-6), giving Sr3N2."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Sr2N3",
+    "is_correct": false,
+    "rationale": "Tempting if you criss-cross the charges but put the subscripts on the wrong ions — but 2 Sr2+ (+4) and 3 N3- (-9) do not cancel. Fix: the 3 from N3- becomes the Sr subscript, and the 2 from Sr2+ becomes the N subscript."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Sr3N",
+    "is_correct": false,
+    "rationale": "Tempting if you treat strontium as 1+ like a Group 1 metal — but Group 2 atoms have two valence electrons to lose. Fix: use the group number to get Sr2+, then balance against N3-."
+   }
+  ],
+  "verification": "Sr: 2 valence e- -> Sr2+; N: 5 valence e- -> N3-; 3(+2)+2(-3)=0 (python check). Sr2N3 charge = +4-9 !=0; SrN = -1; Sr3N=+3.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Types of Chemical Bonds",
+  "seed_used": true,
+  "stem": "Pauling electronegativities: H 2.20, C 2.55, Cl 3.16, Br 2.96, O 3.44. Which bond is polar covalent with the partial negative charge on the atom written second?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "O–H",
+    "is_correct": false,
+    "rationale": "Tempting because O–H is the classic polar bond — but O is written first, so the partial negative charge sits on the first atom. Fix: put the delta-negative on the more electronegative atom wherever it is written."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "C–H",
+    "is_correct": false,
+    "rationale": "Tempting if you read the bond as polar with the negative end on H, or call it polar at all — but C (2.55) is slightly more electronegative and the 0.35 difference is small enough to treat as effectively nonpolar. Fix: compare values before assigning charges."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "H–Cl",
+    "is_correct": true,
+    "rationale": "Cl (3.16) is more electronegative than H (2.20), so the shared pair is pulled toward Cl, the second atom. The difference is large enough to make a clearly polar bond, though like every polar bond it has some ionic character."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Br–Br",
+    "is_correct": false,
+    "rationale": "Tempting if you think a large atom pulls electrons harder — but both atoms have identical electronegativity, so the pull is equal. Fix: equal electronegativity means a nonpolar bond with no partial charges."
+   }
+  ],
+  "verification": "Delta EN: H-Cl 0.96, O-H 1.24 (negative on O, first), C-H 0.35 (negative on C, first), Br-Br 0 (python). Only H-Cl has delta-negative on the second atom. Seed ranked ionic character of four bonds; this item assigns polarity direction.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.2",
+  "topic_title": "Intramolecular Force and Potential Energy",
+  "seed_used": false,
+  "stem": "For a diatomic molecule AB, the potential energy is lowest at an internuclear distance of 140 pm, where it equals -390 kJ/mol. At 300 pm the potential energy is -25 kJ/mol, and it approaches 0 as the atoms move infinitely far apart. How much energy is needed to separate one mole of AB molecules into widely separated atoms, starting at equilibrium?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "390 kJ",
+    "is_correct": true,
+    "rationale": "The energy needed equals the well depth, measured from the minimum up to the zero level at infinite separation. That is 0 - (-390) = 390 kJ per mole."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "140 kJ",
+    "is_correct": false,
+    "rationale": "Tempting if you read the distance of the minimum as an energy — but 140 pm is the bond length, not the bond energy. Fix: bond length is the x-value at the minimum; bond energy is the depth of the well."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "365 kJ",
+    "is_correct": false,
+    "rationale": "Tempting if you measure from the 300 pm point (-25) instead of from zero — but the atoms are still attracted at 300 pm. Fix: complete separation means going to zero potential energy at infinite distance."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "-390 kJ",
+    "is_correct": false,
+    "rationale": "Tempting if you copy the potential energy at the minimum — but energy required to pull atoms apart is a positive input. Fix: report the well depth as a positive amount of energy."
+   }
+  ],
+  "verification": "0-(-390)=390; -25-(-390)=365; min distance 140 (python).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Structure of Ionic Solids",
+  "seed_used": false,
+  "stem": "A crystal of sodium chloride shatters when struck sharply with a hammer, whereas a piece of copper just bends. Which explanation for the sodium chloride behavior is best?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The ionic bonds are weak, so a small force separates the ions.",
+    "is_correct": false,
+    "rationale": "Tempting because brittle things seem weak — but ionic solids have strong Coulombic attractions and high melting points. Fix: brittleness comes from repulsion after displacement, not from weak attraction."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Sodium chloride is made of separate NaCl molecules that are held together only by weak forces and slip apart.",
+    "is_correct": false,
+    "rationale": "Tempting if you picture ionic solids as discrete molecules — but they are one extended lattice with no separate NaCl units. Fix: describe the solid as a continuous array of alternating ions."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The delocalized electrons cannot flow when struck, so the lattice cracks.",
+    "is_correct": false,
+    "rationale": "Tempting if you mix up ionic and metallic solids — but ionic solids have no sea of delocalized electrons; the electrons stay on the ions. Fix: reserve delocalized electrons for metals."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The blow shifts one layer of ions so that like charges end up next to each other, and the resulting repulsion splits the crystal.",
+    "is_correct": true,
+    "rationale": "The ions sit in a repeating alternating array that is stable only because opposite charges are neighbors. Sliding a layer by even one ion position brings like charges together and the crystal cleaves."
+   }
+  ],
+  "verification": "Brief/explainer: ionic solid is a repeating array maximizing attraction and minimizing repulsion; AP excludes naming specific lattices. No numbers.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.4",
+  "topic_title": "Structure of Metals and Alloys",
+  "seed_used": false,
+  "stem": "Approximate atomic radii (pm): Cu 128, Zn 134, Fe 126, Pd 137, W 139, C 77, H 53. Which pair of elements would most likely form a substitutional alloy?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Fe and C",
+    "is_correct": false,
+    "rationale": "Tempting because steel is the most familiar alloy — but carbon (77 pm) is much smaller than iron (126 pm), so it sits in gaps and gives an interstitial alloy. Fix: compare radii; very different sizes mean interstitial."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Cu and Zn",
+    "is_correct": true,
+    "rationale": "The two atoms have comparable radii (128 and 134 pm), so zinc atoms can replace copper atoms at lattice sites. That is the signature of a substitutional alloy such as brass."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Pd and H",
+    "is_correct": false,
+    "rationale": "Tempting because palladium is a metal and an alloy sounds like a metal mix — but H (53 pm) is far smaller than Pd (137 pm) and fits between the atoms. Fix: a size gap this large indicates interstitial placement."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "W and C",
+    "is_correct": false,
+    "rationale": "Tempting if you assume any metal plus another element substitutes for it — but C (77 pm) is much smaller than W (139 pm), so it occupies interstitial sites. Fix: ask whether the atoms are similar enough in size to swap places."
+   }
+  ],
+  "verification": "Radius ratios: Zn/Cu 1.05, C/Fe 0.61, H/Pd 0.39, C/W 0.55 (python). Comparable radii -> substitutional.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.5",
+  "topic_title": "Lewis Diagrams",
+  "seed_used": true,
+  "stem": "How many valence electrons must appear in the Lewis diagram of the phosphate ion, PO4^3-?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "29",
+    "is_correct": false,
+    "rationale": "Tempting if you total only the atoms' valence electrons — but the ion carries extra electrons from its negative charge. Fix: add one electron for each unit of negative charge."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "26",
+    "is_correct": false,
+    "rationale": "Tempting if you subtract for the charge, as you would for a cation — but a 3- ion has gained electrons. Fix: anions add electrons, cations remove them."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "32",
+    "is_correct": true,
+    "rationale": "Phosphorus contributes 5 and four oxygens contribute 4 x 6 = 24, giving 29. The 3- charge adds 3 more electrons, for a total of 32."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "40",
+    "is_correct": false,
+    "rationale": "Tempting if you multiply 8 electrons by 5 atoms — but octets are a goal for distribution, not the electron supply. Fix: count valence electrons from group numbers and charge first, then arrange them."
+   }
+  ],
+  "verification": "P 5 + 4x6=24 + 3 charge = 32; 29, 26, and 5x8=40 are the slips (python). Seed asked electrons around iodine in IF5; this item asks the total for a polyatomic ion.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.6",
+  "topic_title": "Resonance and Formal Charge",
+  "seed_used": true,
+  "stem": "Ozone, O3, has a bent structure with two equivalent resonance forms: O=O–O and O–O=O (lone pairs omitted). Which statement describes the two O–O bonds in a real ozone molecule?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "They are identical in length and strength, intermediate between a single bond and a double bond.",
+    "is_correct": true,
+    "rationale": "When equivalent Lewis diagrams can be drawn, the real molecule is one averaged structure. Neither diagram is correct alone, so both bonds are the same, between single and double."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "One bond is a double bond and the other a single bond, and the molecule rapidly switches between the two.",
+    "is_correct": false,
+    "rationale": "Tempting if you treat the drawn forms as real snapshots — but resonance forms are not interconverting structures. Fix: the molecule is a single averaged structure with identical bonds."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Both bonds are single bonds, because the double bond is only a drawing convention that is not used in real molecules.",
+    "is_correct": false,
+    "rationale": "Tempting if you dismiss resonance as pretend — but the measured bond lengths are shorter than single-bond lengths. Fix: the averaged bonds have partial double-bond character."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Both bonds are full double bonds, because each oxygen needs to form two bonds to complete its octet.",
+    "is_correct": false,
+    "rationale": "Tempting if you want every atom to reach an octet through double bonds — but the central oxygen would then have too many electrons. Fix: share the one extra bond over the two positions, giving bonds midway between single and double."
+   }
+  ],
+  "verification": "Equivalent resonance set -> averaged structure with identical bonds (bond order 1.5) per the topic brief. No numbers. Seed was nitrate formal charge on N; this item is resonance bond character in ozone.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.2",
+  "topic_title": "Properties of Solids",
+  "seed_used": true,
+  "stem": "Graphite and diamond are both network solids of pure carbon, yet graphite is soft and slippery while diamond is extremely hard. Which explanation is best?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The covalent bonds between carbon atoms in graphite are much weaker than those in diamond.",
+    "is_correct": false,
+    "rationale": "Tempting because soft usually suggests weak bonds — but the bonds within a graphite layer are very strong. Fix: look for the weak interaction between layers, not within them."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "In graphite, carbon atoms form strongly bonded layers, but the layers are held together only by weak forces and slide over one another; diamond is bonded covalently in all three dimensions.",
+    "is_correct": true,
+    "rationale": "Graphite's softness comes from the weak attractions between layers, not from weak bonds inside a layer. Diamond has no weak planes because every atom is covalently bonded in a three-dimensional network."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Graphite is a metallic solid, so its atoms slide freely through a sea of electrons.",
+    "is_correct": false,
+    "rationale": "Tempting because graphite conducts electricity — but it is not a metal, and its carbon atoms are covalently bonded in layers. Fix: use the layered structure, not the word metallic, to explain softness."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Graphite is a molecular solid made of separate C molecules held by weak intermolecular forces.",
+    "is_correct": false,
+    "rationale": "Tempting because weak forces do matter — but graphite is covalently bonded in extended sheets, not made of small molecules. Fix: name covalent layers plus weak forces between them."
+   }
+  ],
+  "verification": "Brief/explainer fact: graphite is the documented exception among covalent network solids (covalent within layers, weak forces between layers). Seed classified an unknown solid by properties; this item explains an exception.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Solids, Liquids, and Gases",
+  "seed_used": false,
+  "stem": "Window glass has particles arranged irregularly with no long-range repeating pattern, yet it holds a fixed shape. Which statement about glass is best supported at the particle level?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It is a liquid, because its particles are arranged irregularly.",
+    "is_correct": false,
+    "rationale": "Tempting if you equate disorder with the liquid phase — but liquid particles also move past one another, which glass particles do not. Fix: judge the phase by spacing and motion, not by regularity alone."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It is a solid, because its molar volume is much greater than that of a typical liquid.",
+    "is_correct": false,
+    "rationale": "Tempting if you link solid with large volume — but solids and liquids have similar molar volumes because particles touch in both. Fix: the large molar volume belongs to gases."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It is a gas-like phase, because its particles are not locked in a regular crystal pattern.",
+    "is_correct": false,
+    "rationale": "Tempting if you think no pattern means free movement — but glass particles are as close together as in a crystal. Fix: gas particles are far apart and move independently; that is not the case here."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is a solid, because its particles are in close contact and only vibrate about fixed positions, even though they lack a repeating arrangement.",
+    "is_correct": true,
+    "rationale": "Phase is set by particle spacing and motion. Amorphous solids such as glass are still solids; they just lack the long-range order of crystals."
+   }
+  ],
+  "verification": "Explainer: crystalline vs amorphous both solids by spacing/motion; solid and liquid molar volumes similar. Phase-diagram reading is excluded and not used.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "Deviation from Ideal Gas Law",
+  "seed_used": true,
+  "stem": "At 300 K and 500 atm, 1.00 mol of nitrogen gas occupies a larger volume than the ideal gas law predicts. Which explanation is best?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Attractions between molecules grow stronger at high pressure and hold them together, which increases the volume.",
+    "is_correct": false,
+    "rationale": "Tempting because attractions are the usual cause of deviation — but attractions pull molecules together and would lower the volume or pressure. Fix: tie attractions to low temperature, and particle size to very high pressure."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "At high pressure the molecules slow down, so they take up more room.",
+    "is_correct": false,
+    "rationale": "Tempting if you link slower motion with more volume — but the molecules' speed depends on temperature, which is constant here. Fix: use particle volume to explain the extra volume."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "At this high pressure the molecules are packed so closely that their own volume is a significant part of the container, leaving less free space than the ideal gas law assumes.",
+    "is_correct": true,
+    "rationale": "The ideal gas law treats particles as points with no volume. When they are forced together, their actual volume adds to the measured volume."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The ideal gas law ignores molar mass, which becomes important only at high pressure.",
+    "is_correct": false,
+    "rationale": "Tempting if you think a missing variable explains the gap — but molar mass is not what the ideal gas law neglects. Fix: the ideal model neglects particle volume and attractions."
+   }
+  ],
+  "verification": "Explainer: at very high pressure particle volume becomes significant -> measured volume exceeds ideal. Seed was an attractions-at-low-T comparison of NH3 and CH4; this item uses the particle-volume mechanism at high P.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.7",
+  "topic_title": "Solutions and Mixtures",
+  "seed_used": true,
+  "stem": "A student dissolves 5.85 g of NaCl (molar mass 58.5 g/mol) in water and adds water until the total volume of the solution is 250.0 mL. What is the molarity of the NaCl solution?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "4.00 x 10^-4 M",
+    "is_correct": false,
+    "rationale": "Tempting if you divide moles by 250.0 without converting mL to L — but molarity needs liters. Fix: convert 250.0 mL to 0.2500 L first."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0.400 M",
+    "is_correct": true,
+    "rationale": "5.85 g / 58.5 g/mol = 0.100 mol. Dividing by 0.2500 L of final solution gives 0.400 mol/L."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "23.4 M",
+    "is_correct": false,
+    "rationale": "Tempting if you divide grams by liters — but molarity uses moles of solute. Fix: convert mass to moles with the molar mass before dividing by volume."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0.800 M",
+    "is_correct": false,
+    "rationale": "Tempting if you count Na+ and Cl- separately (0.200 mol of ions) — but the question asks for the molarity of NaCl as a solute. Fix: use moles of NaCl formula units, 0.100 mol."
+   }
+  ],
+  "verification": "n=5.85/58.5=0.100 mol; M=0.100/0.2500=0.400; 0.100/250=4.00e-4; 5.85/0.250=23.4; 0.200/0.250=0.800 (python). Seed was a dilution (M1V1) problem; this is mass-to-molarity.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.8",
+  "topic_title": "Representations of Solutions",
+  "seed_used": false,
+  "stem": "Particulate diagram 1 shows 8 dissolved solute particles inside a box that represents 100 mL of solution. Diagram 2 shows 16 dissolved solute particles of the same solute inside a box that represents 200 mL of solution. How do the two solution concentrations compare?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "They are equal, because both have 0.08 solute particles per mL.",
+    "is_correct": true,
+    "rationale": "Concentration depends on particles per volume, not on the total drawn. 8/100 and 16/200 are the same ratio, so the solutions have the same concentration."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Solution 2 is more concentrated, because it has twice as many solute particles.",
+    "is_correct": false,
+    "rationale": "Tempting if you simply count particles — but the boxes represent different volumes. Fix: divide the particle count by the volume each box represents."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Solution 1 is more concentrated, because its box is smaller, so the particles look more crowded.",
+    "is_correct": false,
+    "rationale": "Tempting if you compare the look of the boxes — but the labeled volumes matter, not the drawing size. Fix: compare particles per mL: 0.08 for both."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "They cannot be compared, because the diagrams show different numbers of particles.",
+    "is_correct": false,
+    "rationale": "Tempting if you think different counts block comparison — but you are given the volumes, so you can compute particles per unit volume. Fix: check that you have counts and volumes, then compare ratios."
+   }
+  ],
+  "verification": "8/100=0.08; 16/200=0.08 (python). Equal-volume check is the topic's common point loss.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.9",
+  "topic_title": "Separation of Solutions and Mixtures",
+  "seed_used": true,
+  "stem": "In paper chromatography, a mixture of two dyes is spotted on polar paper (the stationary phase) and a solvent (the mobile phase) moves up the paper. After the run, dye X has traveled 6.0 cm and dye Y has traveled 2.0 cm. Which statement best explains the separation?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Dye X is attracted to the paper more strongly than dye Y, so the paper pulls it farther along.",
+    "is_correct": false,
+    "rationale": "Tempting if you think attraction pulls a dye forward — but attraction to the stationary paper holds a dye back. Fix: stronger attraction to the stationary phase means shorter travel."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Dye Y consists of larger particles that were caught in the pores of the paper, as in filtration.",
+    "is_correct": false,
+    "rationale": "Tempting because separation sounds like filtering — but dissolved dyes are far smaller than the pores and are separated by differing attractions. Fix: use interaction strength, not particle trapping."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Dye Y has no attraction to the solvent and dye X has no attraction to the paper, so each stays in one phase.",
+    "is_correct": false,
+    "rationale": "Tempting if you treat attractions as all-or-nothing — but each dye distributes between both phases to different degrees. Fix: compare how strongly each interacts with the paper relative to the solvent."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Dye Y interacts more strongly with the paper than dye X does, so it is held back and moves less far with the solvent.",
+    "is_correct": true,
+    "rationale": "Chromatography separates by differences in interaction strength with the stationary and mobile phases. The component more strongly attracted to the paper spends more time stuck to it and travels less."
+   }
+  ],
+  "verification": "Explainer: chromatography separates by differential interaction with stationary vs mobile phase; filtration cannot separate dissolved solutes. Seed was filtration of CuSO4(aq); this item is chromatography.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.11",
+  "topic_title": "Spectroscopy and the Electromagnetic Spectrum",
+  "seed_used": false,
+  "stem": "A sample of HCl gas absorbs infrared radiation at a wavelength of 3.4 micrometers. This absorption is most directly evidence for which change in the molecules?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "An electron moving to a higher energy level",
+    "is_correct": false,
+    "rationale": "Tempting because all absorption seems to involve electrons — but electronic transitions need the larger energies of UV or visible light. Fix: match infrared to vibrations, not electronic transitions."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "A change in the rotation of the molecule",
+    "is_correct": false,
+    "rationale": "Tempting because rotation is also a molecular motion — but rotational transitions need the lower-energy microwave region. Fix: microwave goes with rotation; infrared goes with vibration."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "A change in the vibration of the H–Cl bond",
+    "is_correct": true,
+    "rationale": "Infrared photons carry the energy that matches molecular vibrational transitions such as bond stretching and bending. Absorption in this region therefore points to a vibrational change."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The removal of an electron from the molecule",
+    "is_correct": false,
+    "rationale": "Tempting if you think any absorbed light can ionize — but ionization requires far more energy than infrared photons carry. Fix: infrared photons only have enough energy for vibrational changes."
+   }
+  ],
+  "verification": "Explainer: microwave -> rotational, IR -> vibrational, UV/vis -> electronic (increasing energy). No numbers needed.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.12",
+  "topic_title": "Properties of Photons",
+  "seed_used": true,
+  "stem": "A photon of light has a wavelength of 6.00 x 10^-7 m. Using h = 6.63 x 10^-34 J·s and c = 3.00 x 10^8 m/s, what is the energy of this photon?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "3.32 x 10^-19 J",
+    "is_correct": true,
+    "rationale": "First find the frequency, v = c/lambda = 5.00 x 10^14 s^-1. Then E = hv = (6.63 x 10^-34)(5.00 x 10^14) = 3.32 x 10^-19 J."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "3.98 x 10^-40 J",
+    "is_correct": false,
+    "rationale": "Tempting if you put the wavelength straight into E = hv — but v in that equation is frequency, not wavelength. Fix: convert wavelength to frequency with c = lambda v first."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "1.19 x 10^-31 J",
+    "is_correct": false,
+    "rationale": "Tempting if you multiply h, c and lambda together — but energy goes as hc divided by wavelength, so shorter wavelength means more energy. Fix: use E = hc/lambda."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "3.32 x 10^-28 J",
+    "is_correct": false,
+    "rationale": "Tempting if you use 600 in nanometers directly in E = hc/lambda — but c is in m/s, so wavelength must be in meters. Fix: convert 600 nm to 6.00 x 10^-7 m."
+   }
+  ],
+  "verification": "v=3.00e8/6.00e-7=5.00e14; E=6.63e-34*5.00e14=3.315e-19 J; h*lambda=3.98e-40; h*c*lambda=1.19e-31; h*c/600=3.32e-28 (python). Seed compared two photons qualitatively; this item computes a photon energy from wavelength.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.1",
+  "topic_title": "Structure of Water and Hydrogen Bonding",
+  "seed_used": false,
+  "stem": "A shallow pond and the sand beside it receive the same sunlight for an hour. The sand heats up by many degrees, but the pond water warms only slightly. Which statement best explains why the water changes temperature so little?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Water molecules are nonpolar, so they pass sunlight through without absorbing much of it and only a small fraction of the incoming heat is taken in by the pond.",
+    "is_correct": false,
+    "rationale": "Tempting if you link water's behavior to light transmission rather than to structure. But water is polar, and its temperature stability comes from hydrogen bonding. Fix: connect polarity to hydrogen bonds to heat absorption."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Heat absorbed by the water is first used to break some of the many hydrogen bonds between polar water molecules, so less of it raises the molecules' motion and temperature.",
+    "is_correct": true,
+    "rationale": "Water's polarity lets each molecule hydrogen-bond to its neighbors, and breaking those bonds absorbs energy. That is the high specific heat that keeps aquatic environments thermally stable."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Cohesion pulls the water molecules together at the surface, which blocks heat from entering the pond.",
+    "is_correct": false,
+    "rationale": "Tempting because cohesion is the best-known hydrogen-bond property. But cohesion explains surface tension, not resistance to temperature change. Fix: match the property to the observation; temperature stability is specific heat."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Evaporation removes all of the absorbed heat immediately, so the pond cannot warm at all.",
+    "is_correct": false,
+    "rationale": "Tempting because evaporative cooling is real. But the pond did warm slightly, and evaporation does not remove all heat. Fix: the main reason is that hydrogen bonds absorb energy as they break, giving water a high specific heat."
+   }
+  ],
+  "verification": "Brief/explainer: hydrogen bonds absorb energy when broken -> high specific heat -> thermal stability.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Elements of Life",
+  "seed_used": false,
+  "stem": "A chemical analysis of an unknown biological polymer finds carbon, hydrogen, oxygen, nitrogen, and phosphorus, but no sulfur. Which molecule is most consistent with this composition?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "A protein with many cysteine residues, because proteins contain nitrogen and sulfur.",
+    "is_correct": false,
+    "rationale": "Tempting because proteins do contain N and some S. But this sample has phosphorus and no sulfur, and proteins do not have phosphate in their backbone. Fix: phosphorus plus nitrogen points to nucleic acids."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "A triglyceride, because fats are rich in carbon and hydrogen and store energy.",
+    "is_correct": false,
+    "rationale": "Tempting because C, H and O dominate fats. But a triglyceride has no nitrogen or phosphorus. Fix: N and P together signal nucleotides."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "A cellulose chain, because it is a large polymer built from many repeating subunits and its monomers are joined into long chains by covalent bonds.",
+    "is_correct": false,
+    "rationale": "Tempting because cellulose is a polymer. But carbohydrates contain only C, H and O, so N and P rule it out. Fix: check which elements the molecule class actually contains."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "A DNA strand, because nitrogen is in its nucleotide bases and phosphorus is in the phosphate groups of its backbone.",
+    "is_correct": true,
+    "rationale": "Nucleotides contain nitrogen in their bases and phosphorus in the sugar-phosphate backbone, and DNA has no sulfur. That combination of N and P without S points to a nucleic acid."
+   }
+  ],
+  "verification": "Explainer: N in nucleic acids and amino acids; P in nucleic acids and phospholipids; S in some amino acid side chains. Sample has N+P, no S; none of the other options contains both. Avoided phospholipids as an option.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Introduction to Macromolecules",
+  "seed_used": true,
+  "stem": "A cell links 50 amino acids into one polypeptide chain by forming peptide bonds. Which statement correctly describes the water involved?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Forty-nine water molecules are released, one for each peptide bond formed by dehydration synthesis.",
+    "is_correct": true,
+    "rationale": "Joining 50 monomers in a chain forms 49 bonds, and each dehydration synthesis reaction removes one water molecule. So 49 waters are released."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Fifty water molecules are released, one for each amino acid added.",
+    "is_correct": false,
+    "rationale": "Tempting if you count monomers instead of bonds. But a chain of 50 has only 49 links between subunits. Fix: water released equals bonds formed, which is monomers minus one."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Forty-nine water molecules are consumed, because building a polymer requires adding water.",
+    "is_correct": false,
+    "rationale": "Tempting if you mix up the two reactions. Adding water is hydrolysis, which breaks polymers. Fix: dehydration synthesis removes water as it builds; hydrolysis adds water as it breaks."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "No water is involved, because peptide bonds form by simply joining two monomers directly, which makes dehydration synthesis seem to be a simple joining reaction.",
+    "is_correct": false,
+    "rationale": "Tempting because the bond seems to just connect two molecules. But each covalent bond formed between monomers releases an H and an OH as water. Fix: remember 'dehydration' means water is removed."
+   }
+  ],
+  "verification": "50 monomers -> 49 bonds -> 49 H2O released (dehydration synthesis). Seed (isomer shape/transport) tests a different idea.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.4",
+  "topic_title": "Carbohydrates",
+  "seed_used": false,
+  "stem": "A potato plant stores glucose in its tubers as starch, while its cell walls contain cellulose, also a polymer of glucose. Which statement best explains why these two carbohydrates serve different functions?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Cellulose is built from a different monosaccharide than starch, so the two polymers cannot share a monomer.",
+    "is_correct": false,
+    "rationale": "Tempting if you assume different functions require different building blocks. But both polymers are made of glucose, as the stem states. Fix: ask how the same subunits are linked and organized."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Carbohydrates function only as energy sources, so cellulose must be used as stored fuel like starch for the whole plant, including the cell walls.",
+    "is_correct": false,
+    "rationale": "Tempting because sugars are usually linked with energy. But carbohydrates also provide structural support, as cellulose does in plant cell walls. Fix: do not limit carbohydrates to energy; link structure to function."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The same glucose subunits are joined in different arrangements, with branched, accessible starch suited to storage and linear cellulose suited to rigid support.",
+    "is_correct": true,
+    "rationale": "Bond arrangement and branching pattern determine function even when the monomer is identical. Branched starch is readily broken down for energy, while linear cellulose forms rigid structural fibers."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Starch is a carbohydrate made by dehydration synthesis, while cellulose forms by hydrolysis, which gives it its different role.",
+    "is_correct": false,
+    "rationale": "Tempting because both reactions appear in macromolecule topics. But polymers of either kind are built by dehydration synthesis, and hydrolysis breaks bonds. Fix: the difference is in bond arrangement and branching, not in the type of reaction."
+   }
+  ],
+  "verification": "Explainer: bond arrangement and branching, not specific sugar, determine storage vs structural function.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Lipids",
+  "seed_used": false,
+  "stem": "A scientist compares two fats at 4 degrees C. Every fatty acid in Fat 1 has only single carbon-carbon bonds. Every fatty acid in Fat 2 has two carbon-carbon double bonds. Which prediction is best supported by the structure of the fatty acids?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Fat 2 is more likely to be solid, because double bonds are stronger and hold the molecules together.",
+    "is_correct": false,
+    "rationale": "Tempting because double bonds sound more rigid. But the key effect is the kink they put in the chain, which prevents tight packing. Fix: ask how the shape of the chain affects packing."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Fat 1 is more likely to be solid, because its straight chains pack tightly together.",
+    "is_correct": true,
+    "rationale": "Saturated chains have only single bonds and stay straight, so they pack closely and the fat is solid at lower temperatures. The double bonds in Fat 2 introduce kinks that keep it loosely packed."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Both fats are equally likely to be solid, because both are made of carbon and hydrogen.",
+    "is_correct": false,
+    "rationale": "Tempting because both are lipids with similar elements. But identical elements do not mean identical shape; saturation changes packing and melting behavior. Fix: compare single versus double bonds, not just composition."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Fat 2 is more likely to be solid, because it has more hydrogen atoms bonded to its carbons.",
+    "is_correct": false,
+    "rationale": "Tempting if you reverse saturation. But a double bond means fewer hydrogens, and Fat 2 is the unsaturated one. Fix: saturated means filled with hydrogen, with straight chains; unsaturated chains are kinked."
+   }
+  ],
+  "verification": "Explainer: saturated = single bonds, tight straight packing, solid; unsaturated = kinks, liquid. Fat 1 saturated.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.6",
+  "topic_title": "Nucleic Acids",
+  "seed_used": true,
+  "stem": "One strand of a DNA segment is written 5'-ATGCCG-3'. Which is the sequence of the complementary DNA strand, written 5' to 3'?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "5'-TACGGC-3'",
+    "is_correct": false,
+    "rationale": "Tempting if you pair the bases correctly but write them in the same left-to-right order. But the strands run antiparallel, so that reads 3' to 5'. Fix: reverse the complement to read 5' to 3'."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "5'-UACGGC-3'",
+    "is_correct": false,
+    "rationale": "Tempting if you swap in uracil as the partner for adenine. But U pairs with A only in RNA, and this is a DNA strand, which uses thymine. Fix: DNA is A-T and C-G."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "5'-GCCGTA-3'",
+    "is_correct": false,
+    "rationale": "Tempting if you only reverse the original strand. But reversing does not substitute complementary bases. Fix: both complement each base and reverse the direction."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "5'-CGGCAT-3'",
+    "is_correct": true,
+    "rationale": "Pairing A-T and C-G gives 3'-TACGGC-5', because the strands are antiparallel. Reading that strand in its own 5' to 3' direction gives 5'-CGGCAT-3'."
+   }
+  ],
+  "verification": "Complement of ATGCCG = TACGGC (3'->5'); reversed = CGGCAT (5'->3'). Checked by hand and in script. Seed is about transcription/translation direction; different task.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Proteins",
+  "seed_used": true,
+  "stem": "A reducing chemical breaks the disulfide bridges between cysteine side chains in a single-chain enzyme. The amino acid sequence is unchanged, but the enzyme loses its activity. Which level of protein structure is directly altered?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Tertiary structure, because disulfide bridges between R groups help hold the polypeptide in its overall three-dimensional shape.",
+    "is_correct": true,
+    "rationale": "Tertiary structure is the overall 3D shape held by R-group interactions, including disulfide bridges. Breaking them changes the shape of the active site while the sequence stays the same."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Primary structure, because breaking the bridges changes the order of amino acids so that the whole chain rearranges.",
+    "is_correct": false,
+    "rationale": "Tempting because the cysteines are part of the sequence. But the sequence stays the same here; only interactions between side chains are broken. Fix: primary structure changes only if the order of amino acids changes."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Secondary structure, because disulfide bridges are the main bonds in alpha helices.",
+    "is_correct": false,
+    "rationale": "Tempting because helices are a familiar structure. But secondary structure forms from hydrogen bonds between backbone atoms, not R-group bridges. Fix: backbone hydrogen bonds are secondary; R-group interactions are tertiary."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Quaternary structure, because the bridges hold several polypeptide chains together.",
+    "is_correct": false,
+    "rationale": "Tempting because disulfide bridges can link chains in some proteins. But this enzyme has a single chain, so it has no quaternary structure. Fix: quaternary needs multiple polypeptides."
+   }
+  ],
+  "verification": "Explainer: tertiary driven by R-group interactions incl disulfide; secondary by backbone H bonds; quaternary only multi-chain. Seed (charged interface/dimer) different scenario and answer.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Cell Structure and Function",
+  "seed_used": true,
+  "stem": "A white blood cell engulfs a bacterium into a vesicle and destroys it. Which organelle most directly carries out the destruction of the engulfed material?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Smooth ER, because it detoxifies harmful substances in the cell and keeps the cell safe from toxins that enter.",
+    "is_correct": false,
+    "rationale": "Tempting because destroying a bacterium sounds like detoxification. But smooth ER handles lipid synthesis and detoxification of chemicals, not digestion of engulfed cells. Fix: match digestion to lysosomes."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Rough ER, because its ribosomes make proteins that attack the bacterium.",
+    "is_correct": false,
+    "rationale": "Tempting because enzymes are proteins and rough ER makes proteins. But the ER builds proteins; it does not digest the vesicle's contents. Fix: separate making proteins from breaking down material."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Lysosome, because it fuses with the vesicle and its hydrolytic enzymes digest the contents.",
+    "is_correct": true,
+    "rationale": "Lysosomes contain hydrolytic enzymes that digest material. Their structure, an enclosed compartment of digestive enzymes, lets them break down the bacterium without harming the rest of the cell."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Mitochondrion, because it supplies the large amount of ATP needed for the response.",
+    "is_correct": false,
+    "rationale": "Tempting because every cell activity needs energy. But the question asks which organelle destroys the material, and mitochondria make ATP rather than digest. Fix: ask what the structure does, not what powers it."
+   }
+  ],
+  "verification": "Explainer: lysosomes' hydrolytic enzymes digest material. Seed asks about rough ER/Golgi in a protein-secreting cell; different structure and answer.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.2",
+  "topic_title": "Cell Size",
+  "seed_used": false,
+  "stem": "Two cube-shaped cells are compared. Cell P has sides of 2 micrometers and Cell Q has sides of 4 micrometers. Which statement correctly compares their surface area-to-volume ratios?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Both surface area and volume double, so the ratio is the same in both cells.",
+    "is_correct": false,
+    "rationale": "Tempting if you assume everything scales with length. But area scales with the square and volume with the cube of side length. Fix: square for area, cube for volume."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Cell Q's surface area is 4 times greater and its volume is 8 times greater, so its ratio is half that of Cell P.",
+    "is_correct": true,
+    "rationale": "Doubling the side length multiplies surface area by 4 (24 to 96) and volume by 8 (8 to 64). The ratio falls from 3 to 1.5, so Cell Q has less membrane per unit of volume for exchange."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Cell Q's surface area is 8 times greater and its volume is 4 times greater, so its ratio is twice that of Cell P.",
+    "is_correct": false,
+    "rationale": "Tempting if you swap the exponents. But surface area is a squared quantity and volume is a cubed quantity. Fix: area goes with 2, volume with 3."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Cell Q's surface area increases 4-fold and volume 8-fold, so its ratio is higher because 8 is greater than 4.",
+    "is_correct": false,
+    "rationale": "Tempting if you read the larger number as the ratio. But surface area-to-volume is surface area divided by volume, 4 over 8, which is smaller. Fix: put surface area on top and volume on the bottom."
+   }
+  ],
+  "verification": "Computed: side 2: SA=6*4=24, V=8, ratio 3; side 4: SA=96, V=64, ratio 1.5.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Plasma Membrane",
+  "seed_used": true,
+  "stem": "Phospholipids are placed in water and spontaneously form a closed bilayer sphere. Which description of the arrangement is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The hydrophobic tails face the water on both surfaces, and the heads face each other in the middle so the water-loving side stays in the middle of the bilayer.",
+    "is_correct": false,
+    "rationale": "Tempting if you reverse the polarity of the two ends. But the phosphate head is hydrophilic, and nonpolar tails avoid water. Fix: hydrophilic toward water, hydrophobic away."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "All heads and tails mix evenly throughout the sphere because the molecules move freely.",
+    "is_correct": false,
+    "rationale": "Tempting because the membrane is fluid. But movement within the membrane does not change the orientation, which is set by hydrophilic and hydrophobic parts. Fix: molecules drift, but the head-out, tail-in order stays."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The heads of the outer layer face the tails of the inner layer so the layers stick together.",
+    "is_correct": false,
+    "rationale": "Tempting if you think layers must attract each other. But hydrophobic tails group together to avoid water, and heads contact water on each side. Fix: tails meet tails in the center."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The hydrophilic phosphate heads face the water on both the outer and inner surfaces, and the hydrophobic fatty-acid tails face each other inside the bilayer.",
+    "is_correct": true,
+    "rationale": "Each phospholipid is amphipathic, so its polar head faces the water and its nonpolar tails are tucked away from it. In a bilayer this puts the tails in the middle, facing each other."
+   }
+  ],
+  "verification": "Explainer: heads face aqueous environments, tails face the interior. Seed concerns R groups of a channel protein; different molecule.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.4",
+  "topic_title": "Membrane Permeability",
+  "seed_used": false,
+  "stem": "A cell is in a solution containing equal amounts of four substances, and no transport proteins for any of them are present in the membrane. Which substance would cross the phospholipid bilayer most readily?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "N2, because it is small and nonpolar and can dissolve in the hydrophobic interior of the bilayer.",
+    "is_correct": true,
+    "rationale": "Small nonpolar molecules such as N2, O2 and CO2 pass freely through the hydrophobic tail region. Without transport proteins, nothing else listed crosses as readily."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Na+, because it is a very small ion.",
+    "is_correct": false,
+    "rationale": "Tempting if you only consider size. But a charged particle is blocked by the hydrophobic tails regardless of size. Fix: check polarity and charge, not just size."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Glucose, because the cell constantly needs it for energy and the cell would take it in as quickly as it needs.",
+    "is_correct": false,
+    "rationale": "Tempting because need seems to explain movement. But crossing depends on a molecule's properties, and glucose is large and polar, so it requires a transport protein. Fix: properties, not need, determine passage."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "K+, because it is moving toward a region of the cell where potassium is abundant.",
+    "is_correct": false,
+    "rationale": "Tempting if you assume direction decides crossing. But K+ is charged and cannot dissolve in the tails, so it needs a channel in any direction. Fix: charged substances need proteins."
+   }
+  ],
+  "verification": "Explainer: small nonpolar cross freely; charged/hydrophilic need proteins.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.5",
+  "topic_title": "Membrane Transport",
+  "seed_used": true,
+  "stem": "The concentration of an ion is 140 mM inside a cell and 4 mM outside. A membrane protein moves the ion into the cell. Which statement best describes this movement?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It is passive transport, because a membrane protein is involved and proteins lower the energy needed.",
+    "is_correct": false,
+    "rationale": "Tempting if you assume any protein makes transport passive. But direction matters: moving up a gradient costs energy no matter which protein helps. Fix: first find the gradient direction."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It is facilitated diffusion, because ions are charged and charged particles always use channels.",
+    "is_correct": false,
+    "rationale": "Tempting because charged ions do need proteins to cross. But facilitated diffusion only moves substances down their gradient, and here the ion moves up it. Fix: channels explain how, gradient direction explains energy."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It is active transport, because the ion moves from low to high concentration, which requires energy input, typically from ATP.",
+    "is_correct": true,
+    "rationale": "Net movement against the concentration gradient is active transport. The cell must supply energy, usually ATP, to move the ion toward the side where it is already more concentrated."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is endocytosis, because transport against a gradient is always done in vesicles.",
+    "is_correct": false,
+    "rationale": "Tempting because endocytosis also uses energy. But endocytosis moves bulk material in vesicles, and here a single protein moves one ion. Fix: pumps move individual ions against gradients; vesicles move large particles."
+   }
+  ],
+  "verification": "Gradient: outside 4 mM -> inside 140 mM is low->high = active. Seed on LDL endocytosis is a bulk-transport item.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.6",
+  "topic_title": "Facilitated Diffusion",
+  "seed_used": true,
+  "stem": "Sodium ion concentration is 145 mM outside a neuron and 12 mM inside. Sodium channels in the membrane open. Which statement correctly describes what happens?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Sodium ions flow out of the cell, because open channels pump ions out to keep the inside low.",
+    "is_correct": false,
+    "rationale": "Tempting if you picture the channel as a pump. But a channel only provides a path, and ions follow the gradient, which here points inward. Fix: channels do not set the direction."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Sodium ions flow into the cell through the channels down their concentration gradient, with no direct ATP use.",
+    "is_correct": true,
+    "rationale": "Open channels give a path through the hydrophobic bilayer, and the gradient provides the driving force. Because this is facilitated diffusion, movement is from high to low and needs no ATP."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Sodium ions flow in, but only because ATP is used to power the channel, since a protein is involved.",
+    "is_correct": false,
+    "rationale": "Tempting if you call any protein-assisted movement active transport. But a channel does not use ATP; diffusion down the gradient supplies the energy. Fix: protein-assisted is not the same as active."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Sodium ions cannot cross at all, because charged ions are blocked by the membrane.",
+    "is_correct": false,
+    "rationale": "Tempting because the bilayer blocks charged ions on its own. But channel proteins provide a route for specific ions. Fix: blocked without a protein, passable with one."
+   }
+  ],
+  "verification": "Explainer: facilitated diffusion is high to low, never uses ATP; ions need channels. Gradient inward. Seed (aquaporin lysis timing) differs.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.8",
+  "topic_title": "Mechanisms of Transport",
+  "seed_used": true,
+  "stem": "A poison stops a nerve cell's ATP production but does not damage its membrane proteins. Which is the most direct consequence for the cell's Na+/K+ pumps and ion gradients?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Nothing changes, because ion movement across membranes is entirely passive because pumps are not needed to hold ions at different levels across a membrane.",
+    "is_correct": false,
+    "rationale": "Tempting because much ion movement is passive. But maintaining the gradients requires active transport by the pump, which depends on ATP. Fix: passive movement uses gradients, active transport builds them."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The pumps keep working at the same rate, because the proteins themselves are undamaged.",
+    "is_correct": false,
+    "rationale": "Tempting because the poison leaves the proteins intact. But the pump needs ATP to operate, not just an intact structure. Fix: an undamaged pump still needs its energy supply."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The pumps reverse direction and move Na+ in and K+ out by facilitated diffusion.",
+    "is_correct": false,
+    "rationale": "Tempting because ions would move down their gradients without ATP. But the pumps do not reverse; they simply stop, and any leaking happens through other pathways. Fix: no ATP means the pump halts."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The pumps stop moving Na+ out and K+ in against their gradients, so the gradients and membrane potential gradually dissipate.",
+    "is_correct": true,
+    "rationale": "The Na+/K+ pump is an ATPase that needs a steady supply of ATP to move ions against their gradients. Without ATP the pump fails, and the gradients and membrane potential it maintains cannot be sustained."
+   }
+  ],
+  "verification": "Explainer: pump requires ATP; if ATP stops, pump fails and membrane potential cannot be maintained. Seed on exocytosis toxin differs.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.9",
+  "topic_title": "Cell Compartmentalization",
+  "seed_used": false,
+  "stem": "Lysosomes maintain an acidic interior and contain digestive enzymes. Which statement best explains the advantage of keeping these in a membrane-bound compartment?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The membrane isolates the acidic conditions and digestive enzymes, so they do not interfere with or damage reactions elsewhere in the cell.",
+    "is_correct": true,
+    "rationale": "Compartmentalization lets a cell maintain conditions such as low pH and high enzyme concentration that would disrupt other reactions if free in the cytosol. Separation makes the process efficient and safer."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The membrane supplies extra ATP that makes the digestive enzymes work faster.",
+    "is_correct": false,
+    "rationale": "Tempting because membranes are linked with energy in many topics. But a membrane does not generate ATP for enzymes. Fix: the benefit of compartments is isolation of conditions."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The membrane removes the need for any transport, since everything needed is already inside because the enzymes and acid are already contained inside.",
+    "is_correct": false,
+    "rationale": "Tempting because enclosed spaces seem self-sufficient. But compartments still need transport across their membranes to bring materials in and out. Fix: separation requires regulated exchange, not no exchange."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Enzymes cannot function at all unless they are surrounded by a membrane.",
+    "is_correct": false,
+    "rationale": "Tempting because membranes are important in cells. But many enzymes work freely in the cytosol. Fix: the compartment is advantageous for isolating specific conditions, not required for all enzymes."
+   }
+  ],
+  "verification": "Explainer: compartments minimize competing reactions and maintain distinct pH/enzyme conditions.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.10",
+  "topic_title": "Origins of Cell Compartmentalization",
+  "seed_used": true,
+  "stem": "Which observation most directly supports the hypothesis that mitochondria descended from free-living bacteria, rather than having always been made entirely from the host cell's own genes?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Mitochondria produce ATP, which prokaryotes also produce.",
+    "is_correct": false,
+    "rationale": "Tempting because both make ATP. But shared function does not show common origin, since many structures share functions. Fix: look for structural or genetic evidence of ancestry."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Mitochondria are enclosed by membranes, like the nucleus and other organelles and so they must have originated as separate organisms from the host.",
+    "is_correct": false,
+    "rationale": "Tempting because membranes appear in the theory. But all eukaryotic organelles have membranes, so this does not single out mitochondria. Fix: pick evidence unique to a prokaryote, such as its own DNA."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Mitochondria contain their own circular DNA and ribosomes that resemble those of bacteria, and they divide in a way similar to binary fission.",
+    "is_correct": true,
+    "rationale": "Bacterial-like genetic material, ribosomes and division are evidence of a prokaryotic ancestry for the organelle. These are features expected if mitochondria began as separate organisms."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Mitochondria are found in almost every eukaryotic cell, which shows they are very ancient.",
+    "is_correct": false,
+    "rationale": "Tempting because widespread features seem old. But being common does not show origin as a separate organism. Fix: the evidence must show prokaryote-like traits."
+   }
+  ],
+  "verification": "Explainer: own circular DNA, own ribosomes, binary-fission-like division are evidence. Seed's answer (double membrane) not used as the key.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Enzymes",
+  "seed_used": false,
+  "stem": "An uncatalyzed reaction has an activation energy of 75 kJ/mol and releases 30 kJ/mol overall. An enzyme lowers the activation energy to 40 kJ/mol. What does the enzyme change?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It supplies 35 kJ/mol of energy to the substrate so the reaction can start and then the substrate has enough energy to react without help.",
+    "is_correct": false,
+    "rationale": "Tempting because 75 minus 40 is 35 and it looks like a donated amount. But enzymes do not add energy; they provide an easier path. Fix: lower the barrier, do not fill it."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It lowers the energy barrier to 40 kJ/mol, and the reaction still releases 30 kJ/mol overall.",
+    "is_correct": true,
+    "rationale": "Enzymes speed reactions by lowering activation energy, not by changing the reactants' or products' energy. The reaction therefore reaches the same overall 30 kJ/mol release, only faster."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It makes the reaction release 65 kJ/mol overall, because the barrier is 35 kJ/mol lower.",
+    "is_correct": false,
+    "rationale": "Tempting if you add the barrier reduction to the energy released. But the overall energy change depends only on reactants and products. Fix: catalysts do not change energy released."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is used up in the reaction as it permanently joins the substrate.",
+    "is_correct": false,
+    "rationale": "Tempting because the enzyme binds the substrate. But the enzyme is released unchanged after catalysis and can be reused. Fix: binding is temporary."
+   }
+  ],
+  "verification": "Ea 75 -> 40; delta E -30 unchanged (35 reduction; 30+35=65 as the slip). Explainer: enzymes lower Ea.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.2",
+  "topic_title": "Environmental Impacts on Enzyme Function",
+  "seed_used": false,
+  "stem": "An enzyme has an optimum pH of 7. At pH 2 its activity falls to nearly zero. When the pH is returned to 7, its activity returns. Which statement best explains these results?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The acid broke the peptide bonds, permanently destroying the amino acid sequence.",
+    "is_correct": false,
+    "rationale": "Tempting because acid sounds destructive. But breaking peptide bonds would be irreversible, and activity returned. Fix: denaturation affects shape, not the sequence."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The acid acted as a competitive inhibitor by binding permanently in the active site, and the pH change blocked substrate from fitting.",
+    "is_correct": false,
+    "rationale": "Tempting because inhibition also lowers activity. But H+ here changed the shape, and competitive inhibitors bind reversibly in the active site. Fix: low pH acts on enzyme structure."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The enzyme ran out of substrate at pH 2, and fresh substrate appeared at pH 7.",
+    "is_correct": false,
+    "rationale": "Tempting if you focus on reaction rate alone. But the stem gives no change in substrate and the pH shows the effect on structure. Fix: connect the data trend to the molecular cause."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Low pH disrupted hydrogen bonds and other interactions that hold the enzyme's shape, changing the active site, and the shape was restored when conditions returned to normal.",
+    "is_correct": true,
+    "rationale": "Outside its optimum range, changes in pH disrupt the interactions that maintain the 3D shape, which alters the active site. Because the denaturation was reversible, the enzyme refolded when pH returned to 7."
+   }
+  ],
+  "verification": "Explainer: pH disrupts H bonds -> denaturation, sometimes reversible.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy",
+  "seed_used": true,
+  "stem": "The reaction glucose + phosphate to glucose-6-phosphate does not occur spontaneously. A cell couples it to ATP hydrolysis and the reaction proceeds. Why does coupling make the reaction possible?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The energy released by ATP hydrolysis is used to drive the energy-requiring reaction, so the combined process can proceed.",
+    "is_correct": true,
+    "rationale": "Energy coupling links an energy-releasing reaction (ATP to ADP and phosphate) to one that needs energy input. The released energy drives the second reaction, which is how cells run processes that would not occur alone."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "ATP acts as an enzyme that lowers the activation energy of the glucose reaction.",
+    "is_correct": false,
+    "rationale": "Tempting because ATP is involved in nearly every cellular process. But ATP is an energy source, not a catalyst. Fix: an enzyme speeds a reaction; ATP supplies energy through coupling."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "ATP stores its energy in a form that is later released as heat, which speeds the reaction in the cell and gives the reaction an extra push forward.",
+    "is_correct": false,
+    "rationale": "Tempting because heat speeds many reactions. But the cell uses ATP to transfer usable energy, not to heat the reaction. Fix: ATP's energy is coupled to the reaction."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "ATP is simply energy itself, so it adds a quantity of energy to the glucose.",
+    "is_correct": false,
+    "rationale": "Tempting because ATP is called the energy currency. But ATP is a molecule, and its energy is released and transferred via hydrolysis and phosphate transfer. Fix: explain how the phosphate transfer supports the process."
+   }
+  ],
+  "verification": "Explainer: ATP hydrolysis releases energy, coupling drives endergonic reactions. Seed on apoptosis differs entirely.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.4",
+  "topic_title": "Photosynthesis",
+  "seed_used": false,
+  "stem": "Light strikes the thylakoid membranes of a chloroplast. Which pair of products of the light reactions is used in the stroma to build sugar?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Oxygen and glucose",
+    "is_correct": false,
+    "rationale": "Tempting because these are the best-known photosynthesis products. But oxygen comes from splitting water and is released, and glucose is made in the Calvin cycle, not the light reactions. Fix: track where each product is made."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Carbon dioxide and water",
+    "is_correct": false,
+    "rationale": "Tempting because both are involved in photosynthesis. But they are inputs, not products of the light reactions. Fix: water is split in the light reactions and CO2 is used in the Calvin cycle."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "ATP and NADPH",
+    "is_correct": true,
+    "rationale": "The light reactions use light energy and electron transport to produce ATP (by chemiosmosis) and NADPH. The Calvin cycle in the stroma uses both to build sugar from carbon dioxide."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "NADH and FADH2",
+    "is_correct": false,
+    "rationale": "Tempting because these are electron carriers. But NADH and FADH2 are produced in cellular respiration. Fix: photosynthesis carries electrons with NADPH."
+   }
+  ],
+  "verification": "Explainer: light reactions in thylakoid make ATP + NADPH; Calvin cycle in stroma. ",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.5",
+  "topic_title": "Cellular Respiration",
+  "seed_used": false,
+  "stem": "When oxygen is removed from isolated mitochondria that are supplied with NADH, ATP production by ATP synthase quickly falls. Which statement best explains this result?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Oxygen binds directly to ADP and phosphate to form ATP.",
+    "is_correct": false,
+    "rationale": "Tempting because oxygen is linked with energy release. But oxygen does not make ATP directly; ATP synthase does. Fix: oxygen's role is final electron acceptor."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Oxygen is required to split glucose during glycolysis in the mitochondria in order to feed the later steps.",
+    "is_correct": false,
+    "rationale": "Tempting because oxygen is called a respiration requirement. But glycolysis occurs in the cytosol and does not need oxygen. Fix: use oxygen at the end of the electron transport chain."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Oxygen supplies the protons that are pumped across the inner mitochondrial membrane.",
+    "is_correct": false,
+    "rationale": "Tempting because the gradient is made of protons. But the pumped protons come from the matrix side, and oxygen instead accepts electrons. Fix: oxygen accepts electrons, which lets the chain keep pumping."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Oxygen is the final electron acceptor, so without it electron flow stops and the proton gradient used by ATP synthase is no longer maintained.",
+    "is_correct": true,
+    "rationale": "Electrons from NADH pass along the electron transport chain to oxygen, which forms water. Without oxygen the chain backs up, protons are no longer pumped, and chemiosmosis cannot drive ATP synthase."
+   }
+  ],
+  "verification": "Explainer: O2 final electron acceptor; ETC builds proton gradient; chemiosmosis through ATP synthase.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.1",
+  "topic_title": "Introducing Statistics: What Can We Learn from Data?",
+  "seed_used": true,
+  "stem": "A free-response question describes a school that wants to know whether students who sleep more tend to earn higher quiz scores, and then supplies a table of sleep hours and quiz scores for 30 students. Which first move best reflects how statistics is used to answer a real question?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Begin computing the mean and standard deviation of both variables right away, since the table already holds everything needed.",
+    "is_correct": false,
+    "rationale": "Tempting if you think statistics is just calculating numbers from a table — but numbers with no question behind them cannot be interpreted. Fix: name the question first, then choose calculations that help answer it."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Restate the investigative question in the context of sleep and quiz scores, and keep tying each calculation back to that question.",
+    "is_correct": true,
+    "rationale": "This earns the point because every statistical tool is a way to answer the real-world question despite variability in the data. Opening with the question keeps later numbers connected to what the school actually wants to learn."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Ignore the school setting, because context is only decoration and the numbers alone answer the question.",
+    "is_correct": false,
+    "rationale": "Tempting because the context does not change any arithmetic — but later free-response answers are graded on connecting results back to the situation. Fix: treat the context as part of the answer, not decoration."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Decide which procedure to use from the sample size of 30, and read the question only after the calculations are done.",
+    "is_correct": false,
+    "rationale": "Tempting because sample size matters for conditions — but the type of data and the question determine the method, not n alone. Fix: read the question first so the method and conclusion fit what is being asked."
+   }
+  ],
+  "verification": "Rests on the topic explainer: Topic 1.1 is a habit of treating data as evidence for a stated real-world question; no numeric computation.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Variables",
+  "seed_used": true,
+  "stem": "A marketing team records the three-digit area code of each customer's phone number (for example 212, 415, 305) for 500 customers. How should the variable 'area code' be classified?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Quantitative discrete, because area codes are whole numbers, and whole-number values that can be counted are discrete.",
+    "is_correct": false,
+    "rationale": "Tempting because the values look like counts — but they are identifiers, not amounts of anything. Fix: ask whether adding or averaging the values makes sense; if not, the variable is categorical."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Quantitative continuous, because area codes fall anywhere along a number line between 200 and 999 like measurements do.",
+    "is_correct": false,
+    "rationale": "Tempting because numbers can be placed on a number line — but a code of 415 is not 'more' than 212 in any measurable sense. Fix: a continuous variable measures a quantity; labels written as numbers do not."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Quantitative, because the codes are written as numbers and can be sorted from smallest to largest in a list.",
+    "is_correct": false,
+    "rationale": "Tempting because sorting is possible with digits — but being sortable does not make a value a measurement. Fix: classify by what the value means, not by whether it looks like a number."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Categorical, because each code is a label that places a customer in a group, and arithmetic on the codes has no meaning.",
+    "is_correct": true,
+    "rationale": "This earns the point because a variable is categorical when its values name groups, even if the labels are written with digits. Adding or averaging area codes would produce a number with no real-world meaning."
+   }
+  ],
+  "verification": "Definition: categorical variables place individuals in groups/labels; numeric-looking identifiers are categorical (explainer: using a mean on a categorical variable is a category error).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Tabular Representation and Summary Statistics for One Categorical Variable",
+  "seed_used": false,
+  "stem": "A survey of 80 students records each student's favorite pet type: dog 32, cat 24, fish 16, other 8. What is the relative frequency of students who chose cat?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0.30",
+    "is_correct": true,
+    "rationale": "This earns the point because a relative frequency divides a category's count by the total number of observations: 24/80 = 0.30. The relative frequencies for all categories then sum to 1."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0.75",
+    "is_correct": false,
+    "rationale": "Tempting if you divide the cat count by the largest category (24/32) — but a proportion of the whole must use the grand total. Fix: divide by the total 80, not by another category's count."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "6.00",
+    "is_correct": false,
+    "rationale": "Tempting if you divide the count by the number of categories (24/4) — but that does not give a proportion and the results would not sum to 1. Fix: divide by the total number of students, 80."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0.43",
+    "is_correct": false,
+    "rationale": "Tempting if you divide by only part of the table, such as dog plus cat (24/56) — but the denominator must include every category. Fix: use the full total of 80."
+   }
+  ],
+  "verification": "24/80=0.3; 24/32=0.75; 24/4=6.0; 24/(32+24)=0.4286",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.4",
+  "topic_title": "Graphical Representations for One Categorical Variable",
+  "seed_used": true,
+  "stem": "Two bar charts show favorite music genre. For 200 freshmen, the vertical axis is in counts, and the pop bar has height 60. For 50 seniors, the vertical axis is in percent of seniors, and the pop bar has height 40. Which comparison is valid?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "A larger share of freshmen prefer pop, because the freshman bar (60) is taller than the senior bar (40).",
+    "is_correct": false,
+    "rationale": "Tempting because the bar heights look comparable — but one axis is counts and the other is percent. Fix: put both on the same scale before comparing heights."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The same share of each grade prefers pop, because both bars show the pop category.",
+    "is_correct": false,
+    "rationale": "Tempting because both bars represent one genre — but the bars measure different things. Fix: compute 60/200 = 30% and compare it with 40%."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "A larger share of seniors than freshmen prefer pop: 40% of seniors versus 30% of freshmen.",
+    "is_correct": true,
+    "rationale": "This earns the point because the groups have different sizes, so each bar must be converted to the same scale. 60 of 200 freshmen is 30%, which is less than the 40% of seniors."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "No comparison is possible, because the two grades have different numbers of students.",
+    "is_correct": false,
+    "rationale": "Tempting because unequal group sizes seem to block a fair comparison — but converting counts to percents is exactly how unequal groups are compared. Fix: use relative frequencies."
+   }
+  ],
+  "verification": "60/200=0.3; 40% seniors; 0.40>0.30. Seniors count 20 vs freshmen 60.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Graphical Representations for One Quantitative Variable",
+  "seed_used": true,
+  "stem": "A histogram of 25 exam scores has bins of width 20 starting at 50. The tallest bar covers scores from 70 up to but not including 90 and has a height of 11. A student claims that at least two students scored exactly 85. What can be concluded?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The claim is confirmed, because the tall bar shows that many students earned exactly the same score within that bin.",
+    "is_correct": false,
+    "rationale": "Tempting because tall bars look like frequent values — but a bar's height counts everything in the bin, not one repeated score. Fix: remember the bin can hold 11 different scores."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The claim is false, because the histogram shows that the 11 scores in the tallest bar are spread across the whole interval.",
+    "is_correct": false,
+    "rationale": "Tempting because the bar covers a wide interval — but the picture does not reveal how the 11 scores are distributed inside it. Fix: do not infer exact values from a binned graph."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The histogram cannot confirm or refute the claim, because it shows only how many scores fall in 70 to 89; a dotplot or stemplot of the same data would show each value.",
+    "is_correct": true,
+    "rationale": "This earns the point because a histogram groups values into bins and hides the individual values inside them. A dotplot or stemplot keeps every data value, so it could settle the claim."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The claim can be checked only by redrawing the data as a bar chart, which shows each exact score.",
+    "is_correct": false,
+    "rationale": "Tempting because bar charts also have bars — but bar charts display categorical variables, and scores are quantitative. Fix: use a dotplot or stemplot to see individual quantitative values."
+   }
+  ],
+  "verification": "Concept from the explainer: histograms bin values and conceal sub-bin structure; dotplots/stemplots preserve individual values. No numeric computation.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.8",
+  "topic_title": "Graphical Representations of Summary Statistics for One Quantitative Variable",
+  "seed_used": true,
+  "stem": "An ordered data set of 11 values is 12, 38, 41, 44, 47, 50, 53, 56, 60, 67, 90, with Q1 = 41 and Q3 = 60. Using the 1.5 × IQR rule for outliers, where does the upper whisker of the boxplot end?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "67",
+    "is_correct": true,
+    "rationale": "This earns the point because the upper fence is 60 + 1.5(19) = 88.5, so 90 is an outlier and is plotted as a separate point. The whisker stops at the largest value that is not an outlier, 67."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "90",
+    "is_correct": false,
+    "rationale": "Tempting because whiskers often run to the maximum — but 90 is above the upper fence of 88.5, so it is an outlier. Fix: draw the whisker to the largest non-outlier and plot outliers separately."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "88.5",
+    "is_correct": false,
+    "rationale": "Tempting because 88.5 is the fence you just computed — but the fence is a cutoff, not a data value. Fix: the whisker ends at an actual data point inside the fence."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "60",
+    "is_correct": false,
+    "rationale": "Tempting because the box ends at Q3 — but the whisker continues beyond the box to the largest non-outlier. Fix: Q3 is the end of the box, not the whisker."
+   }
+  ],
+  "verification": "IQR=19; upper fence=88.5; lower fence=12.5; 12 < 12.5? True; 90>88.5? True; largest value <= fence = 67",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "topic_title": "Comparisons of the Distributions for One Quantitative Variable",
+  "seed_used": true,
+  "stem": "Maya scored 78 on a test with mean 70 and standard deviation 4. Jon scored 84 on a different test with mean 75 and standard deviation 9. Who performed better relative to the classmates who took the same test?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Jon, because his raw score of 84 is higher than 78.",
+    "is_correct": false,
+    "rationale": "Tempting because 84 is the bigger number — but the tests have different means and spreads. Fix: convert each score to a z-score before comparing."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Jon, because he is 9 points above his mean while Maya is only 8 above hers.",
+    "is_correct": false,
+    "rationale": "Tempting because 9 is more than 8 — but a point of distance means different things when the SDs differ (9 versus 4). Fix: divide the distance by the SD."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Neither, because scores from different tests can be compared only if the tests have the same mean.",
+    "is_correct": false,
+    "rationale": "Tempting because different tests seem incomparable — but z-scores put both on a common scale. Fix: standardize, then compare."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Maya, because her z-score of 2.0 is higher than Jon's z-score of 1.0.",
+    "is_correct": true,
+    "rationale": "This earns the point because z = (x − mean)/SD measures how many standard deviations a score is above its own mean. Maya's 2.0 beats Jon's 1.0, so she stands out more among her own test takers."
+   }
+  ],
+  "verification": "zM=(78-70)/4=2.0; zJ=(84-75)/9=1.0",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.10",
+  "topic_title": "The Investigative Question Revisited and Data Collection",
+  "seed_used": true,
+  "stem": "Researchers follow 500 adults for ten years. Each person reports weekly coffee consumption, and researchers record blood pressure each year. Nobody is told how much coffee to drink. Which statement best describes this study?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It is an experiment, because the same people were measured repeatedly over ten years.",
+    "is_correct": false,
+    "rationale": "Tempting because tracking over time feels like active research — but measuring is not the same as imposing a treatment. Fix: ask whether researchers assigned the explanatory variable."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It is a prospective observational study, because researchers followed people forward in time without assigning any treatment.",
+    "is_correct": true,
+    "rationale": "This earns the point because an experiment requires researchers to impose a treatment, and here people chose their own coffee habits. Following subjects forward and recording data makes it prospective observational, so it cannot support a cause-and-effect conclusion."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It is a retrospective observational study, because the researchers are looking at coffee habits and blood pressure of adults.",
+    "is_correct": false,
+    "rationale": "Tempting because it is observational — but retrospective studies examine past records, while this one collects data going forward. Fix: forward-looking data collection is prospective."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is an experiment, because the researchers measured blood pressure themselves.",
+    "is_correct": false,
+    "rationale": "Tempting because researchers took the measurements — but experiments are defined by assigned treatments, not by who records the data. Fix: look for random assignment of a treatment."
+   }
+  ],
+  "verification": "Definition (explainer): observational vs experimental turns on whether a treatment was imposed; forward-in-time collection is prospective.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.12",
+  "topic_title": "Potential Problems with Sampling",
+  "seed_used": true,
+  "stem": "A teacher has a numbered roster of 350 students (001 to 350) and wants a simple random sample of 20 students using a random number generator. Which procedure is complete and correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Generate 20 random numbers with the generator and choose those students from the roster.",
+    "is_correct": false,
+    "rationale": "Tempting because it sounds like the whole idea — but it gives no number range and no rule for repeats, so it cannot be carried out exactly. Fix: state the range and what to do with repeats."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Generate three-digit numbers from 001 to 350, skip any repeated number, and continue until 20 different students are chosen.",
+    "is_correct": true,
+    "rationale": "This earns the point because it states the range, handles repeats, and maps each number to one student on the labeled list. Skipping repeats keeps every group of 20 students equally likely."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Generate numbers from 001 to 350 and keep every number produced, even if a student appears twice, until 20 numbers are used.",
+    "is_correct": false,
+    "rationale": "Tempting because it looks random — but repeats leave fewer than 20 different students. Fix: ignore repeats so 20 distinct students are selected."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Pick a random starting student from 1 to 17 and then take every 17th student on the roster.",
+    "is_correct": false,
+    "rationale": "Tempting because it uses randomness and gives about 20 students — but this is a systematic sample, and not every group of 20 is possible. Fix: use random numbers for each selection."
+   }
+  ],
+  "verification": "350/20=17.5, systematic sampling is not an SRS; explainer states a full description needs range, repeat handling, and mapping to list.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Tabular and Graphical Representations for the Distributions of Two Categorical Variables",
+  "seed_used": false,
+  "stem": "A segmented bar chart shows, for each of two clubs, the percent of members who prefer online meetings: 40% of Chess Club members and 75% of Art Club members. Which statement can be made from the chart alone?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "More Art Club members than Chess Club members prefer online meetings.",
+    "is_correct": false,
+    "rationale": "Tempting because 75% looks bigger than 40% — but the chart hides the club sizes, so counts cannot be compared. Fix: compare proportions, or find the group totals first."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The two clubs have the same number of members, because each bar is the same total height.",
+    "is_correct": false,
+    "rationale": "Tempting because every bar reaches 100% — but each bar is scaled to its own group. Fix: equal bar heights say nothing about group size."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Art Club has more members than Chess Club, because a larger share prefers online meetings.",
+    "is_correct": false,
+    "rationale": "Tempting because a bigger percentage seems to mean a bigger group — but a percentage tells only what share, not how many. Fix: use a table or side-by-side counts for group sizes."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "A greater proportion of Art Club members than Chess Club members prefer online meetings.",
+    "is_correct": true,
+    "rationale": "This earns the point because a segmented bar chart shows each group's own percentages, so proportions can be compared across groups. 75% is greater than 40%."
+   }
+  ],
+  "verification": "Concept from the explainer: segmented bars hide group totals behind percentages. No computation.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.2",
+  "topic_title": "Summary Statistics for Two Categorical Variables",
+  "seed_used": true,
+  "stem": "A school asks 200 students whether they favor an earlier start time. Among 80 juniors, 20 say yes and 60 say no. Among 120 seniors, 60 say yes and 60 say no. Among seniors, what proportion favor the earlier start?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0.50",
+    "is_correct": true,
+    "rationale": "This earns the point because a conditional relative frequency divides by the total of the group named in the question: 60/120 = 0.50. Conditioning on seniors makes 120 the denominator."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0.30",
+    "is_correct": false,
+    "rationale": "Tempting if you divide by the grand total (60/200) — but that is a joint relative frequency, not the proportion within seniors. Fix: divide by the number of seniors."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "0.75",
+    "is_correct": false,
+    "rationale": "Tempting if you divide by the number of yes responses (60/80) — but that gives the share of yes responses who are seniors, the reverse of what was asked. Fix: the group in the condition supplies the denominator."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0.40",
+    "is_correct": false,
+    "rationale": "Tempting if you use the overall proportion saying yes (80/200) — but that is a marginal relative frequency for all students. Fix: restrict to the seniors' row."
+   }
+  ],
+  "verification": "yes total=20+60=80; seniors 60/120=0.50; joint 60/200=0.30; 60/80=0.75; marginal 80/200=0.40",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Probabilities Using Simulation",
+  "seed_used": false,
+  "stem": "A basketball player makes 70% of her free throws. A student wants to estimate by simulation the probability that she makes at least 3 of her next 4 free throws, using a random digit table with digits 0 to 9. Which design is valid?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Let digits 1 to 7 be a made shot and 8 and 9 a miss, skipping 0; one trial is four digits.",
+    "is_correct": false,
+    "rationale": "Tempting because 7 digits seem to match 70% — but with 0 skipped only 9 digits are in play, so a make has probability 7/9, about 78%. Fix: use all 10 digits and assign exactly 7 of them to a make."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Let digits 0 to 6 be a made shot and 7 to 9 a miss; one trial is a single digit; record the percent of made shots.",
+    "is_correct": false,
+    "rationale": "Tempting because the digit assignment is right — but a trial must model all four shots and record whether at least three were made. Fix: one trial equals one complete set of four shots."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Let digits 0 to 6 be a made shot and 7 to 9 a miss; one trial is four digits; record whether at least three are made; repeat for many trials.",
+    "is_correct": true,
+    "rationale": "This earns the point because 7 of 10 digits give a 70% chance per shot, one trial models the four shots, and the recorded result is the event of interest. Many repeated trials let the relative frequency approach the true probability."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Let digits 0 to 6 be a made shot, use four digits, but run only four trials and report that proportion.",
+    "is_correct": false,
+    "rationale": "Tempting because the design looks right — but four trials give a very unstable estimate. Fix: repeat many trials, since the long-run relative frequency settles near the true probability."
+   }
+  ],
+  "verification": "Digit design: 7/10 digits=0.70; digits 1-7 vs 1-9 gives 7/9=0.778; other distractors violate trial definition / many-trials requirement.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.4",
+  "topic_title": "Introduction to Probability",
+  "seed_used": true,
+  "stem": "A bag holds 5 red, 3 blue, and 4 green marbles, and one marble is drawn at random. What is the probability that it is red?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "5/7, about 0.71",
+    "is_correct": false,
+    "rationale": "Tempting if you compare red marbles with the non-red ones (5 to 7) — but probability divides by all outcomes, not just the others. Fix: put the total number of marbles, 12, in the denominator."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "5/3, about 1.67",
+    "is_correct": false,
+    "rationale": "Tempting if you compare red marbles with blue ones — but a probability can never exceed 1. Fix: if your answer is above 1, the denominator is wrong."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "5/12, about 0.42",
+    "is_correct": true,
+    "rationale": "This earns the point because with equally likely outcomes, probability is favorable outcomes over total outcomes: 5 red out of 12 marbles. The answer must lie between 0 and 1."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "1/3, about 0.33",
+    "is_correct": false,
+    "rationale": "Tempting if you treat the three colors as equally likely — but the colors have different counts, so the outcomes are not equally likely by color. Fix: count marbles, not colors."
+   }
+  ],
+  "verification": "5/12=0.4167; 5/7=0.7143; 5/3=1.6667; 1/3=0.3333",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.5",
+  "topic_title": "Mutually Exclusive Events",
+  "seed_used": true,
+  "stem": "A fair six-sided die is rolled once. Let A be the event that the roll is even, and B the event that the roll is greater than 4. What is P(A or B)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "4/6",
+    "is_correct": true,
+    "rationale": "This earns the point because the events share the outcome 6, so they are not mutually exclusive. P(A or B) = 3/6 + 2/6 − 1/6 = 4/6, which matches counting the outcomes 2, 4, 5, 6."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "5/6",
+    "is_correct": false,
+    "rationale": "Tempting if you simply add 3/6 and 2/6 — but that double-counts the roll 6. Fix: subtract P(A and B) unless the events are mutually exclusive."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "1/6",
+    "is_correct": false,
+    "rationale": "Tempting if you multiply P(A) and P(B) — but a product is not the probability of 'or' and the events are not shown to be independent in that way. Fix: use the addition rule for 'or'."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "1",
+    "is_correct": false,
+    "rationale": "Tempting if you add all three of 3/6, 2/6, and 1/6 — but the overlap is subtracted, not added. Fix: P(A or B) = P(A) + P(B) − P(A and B)."
+   }
+  ],
+  "verification": "Outcomes {2,4,6} U {5,6} = {2,4,5,6}: 4/6=0.6667; 3/6+2/6=0.8333; (3/6)(2/6)=0.1667; 3/6+2/6+1/6=1.0000",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.8",
+  "topic_title": "Introduction to Random Variables and Probability Distributions",
+  "seed_used": false,
+  "stem": "The random variable X is the number of late arrivals in a day. The distribution is P(X=0) = 0.15, P(X=1) = 0.30, P(X=3) = 0.20, and P(X=4) = 0.10. The probability for X = 2 is not listed. What is P(X < 3)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0.90",
+    "is_correct": false,
+    "rationale": "Tempting if you include the boundary value 3 — but P(X < 3) excludes X = 3 and that would be P(X ≤ 3). Fix: decide whether the endpoint belongs before adding."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0.45",
+    "is_correct": false,
+    "rationale": "Tempting if you add only the probabilities that are listed (0.15 + 0.30) — but P(X=2) is missing and belongs in the total. Fix: recover it by subtracting the known probabilities from 1."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "0.80",
+    "is_correct": false,
+    "rationale": "Tempting if you compute 1 − P(X=3) — but that includes X = 4, which is not below 3. Fix: add only the values 0, 1, and 2."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0.70",
+    "is_correct": true,
+    "rationale": "This earns the point because probabilities sum to 1, so P(X=2) = 1 − 0.75 = 0.25. Then P(X < 3) = 0.15 + 0.30 + 0.25 = 0.70, which excludes X = 3."
+   }
+  ],
+  "verification": "P(2)=1-(0.15+0.30+0.20+0.10)=0.25; P(X<3)=0.70; P(X<=3)=0.90; 0.15+0.30=0.45; 1-0.20=0.80",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.11",
+  "topic_title": "The Normal Distribution",
+  "seed_used": false,
+  "stem": "SAT-style scores in a large population are approximately normal with mean 500 and standard deviation 100. Approximately what percent of scores are above 700?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "5%",
+    "is_correct": false,
+    "rationale": "Tempting because 5% is the area outside 2 SD — but that counts both tails. Fix: split the outside area in half for one tail."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "2.5%",
+    "is_correct": true,
+    "rationale": "This earns the point because 700 is 2 standard deviations above the mean, and the empirical rule says 95% fall within 2 SD. The remaining 5% splits evenly between the two tails, leaving 2.5% above 700."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "95%",
+    "is_correct": false,
+    "rationale": "Tempting because 95% is the empirical-rule number for 2 SD — but that is the area between 300 and 700. Fix: ask which region the question wants."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "16%",
+    "is_correct": false,
+    "rationale": "Tempting if you use the 68% rule — but 700 is 2 SD, not 1 SD, above the mean. Fix: compute z = (700 − 500)/100 = 2 first."
+   }
+  ],
+  "verification": "z=(700-500)/100=2; empirical 95% within 2SD; upper tail=(1-0.95)/2=0.025; 1SD tail=(1-.68)/2=0.16",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.12",
+  "topic_title": "Sampling Distributions and the Central Limit Theorem",
+  "seed_used": false,
+  "stem": "A population is strongly right-skewed with mean 40 and standard deviation 24. Many random samples of size 64 are taken, the mean of each sample is computed, and the sample means are plotted. Which description of the plot is best?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Right-skewed like the population, centered near 40, with standard deviation about 3.",
+    "is_correct": false,
+    "rationale": "Tempting because the population is skewed — but with n = 64 the sample means pile up symmetrically. Fix: the CLT makes the shape approximately normal for large n."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Approximately normal, centered near 40, with standard deviation about 3.",
+    "is_correct": true,
+    "rationale": "This earns the point because the sample size of 64 is large enough for the Central Limit Theorem, so the sampling distribution of the mean is approximately normal. Its center is 40 and its spread is 24/√64 = 3."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Approximately normal, centered near 40, with standard deviation about 24.",
+    "is_correct": false,
+    "rationale": "Tempting because the population SD is 24 — but averages vary less than individual values. Fix: divide σ by √n."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Approximately normal, centered near 40, with standard deviation about 0.375.",
+    "is_correct": false,
+    "rationale": "Tempting if you divide 24 by 64 — but the standard deviation of the mean uses √n, not n. Fix: 24/√64 = 3."
+   }
+  ],
+  "verification": "sigma/sqrt(n)=3.000; sigma/n=0.375; n>=30 so CLT applies",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Estimators",
+  "seed_used": true,
+  "stem": "The true proportion of voters who support a measure is p = 0.50. A pollster takes one random sample of 200 voters and gets a sample proportion of 0.44. Which statement is best?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The sample proportion is a biased estimator, because the result of 0.44 does not equal the true value of 0.50.",
+    "is_correct": false,
+    "rationale": "Tempting because the estimate missed the target — but bias is about the long-run center, not one miss. Fix: judge bias by the mean of the sampling distribution."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The sampling method must be flawed, because a properly done random sample should give a result of exactly 0.50.",
+    "is_correct": false,
+    "rationale": "Tempting because random sampling feels like it should reproduce the population — but random samples vary. Fix: expect sample-to-sample variability around p."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The sample proportion is biased low, and taking a larger random sample of 400 voters would remove that bias.",
+    "is_correct": false,
+    "rationale": "Tempting because larger samples help — but larger n reduces variability, not bias, and a single 0.44 does not show bias. Fix: bias comes from the method, spread comes from n."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "This is consistent with an unbiased estimator, because unbiased means the center of all possible sample proportions is p, not that every sample hits p.",
+    "is_correct": true,
+    "rationale": "This earns the point because bias describes the sampling distribution over many samples. One sample falling 0.06 below p is ordinary sampling variability and says nothing against unbiasedness."
+   }
+  ],
+  "verification": "Concept from explainer: unbiasedness is a property of the sampling distribution; mu_phat = p. No computation (0.50-0.44=0.06).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Constructing a Confidence Interval for a Population Proportion",
+  "seed_used": true,
+  "stem": "A city planner wants to estimate the proportion of residents who support a new bus line with a 95% confidence interval and a margin of error of no more than 0.03. There is no earlier estimate of the proportion. What is the smallest sample size that guarantees this margin of error? (Use z* = 1.96.)",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "1068",
+    "is_correct": true,
+    "rationale": "This earns the point because with no prior estimate you use p̂ = 0.5, the worst case. n ≥ 1.96²(0.5)(0.5)/0.03² ≈ 1067.1, and you round up to 1068 to keep the margin of error at or below 0.03."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "1067",
+    "is_correct": false,
+    "rationale": "Tempting because 1067.1 rounds to 1067 in ordinary rounding — but 1067 would give a margin of error slightly above 0.03. Fix: always round sample size up."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "752",
+    "is_correct": false,
+    "rationale": "Tempting if you use z* = 1.645 from a 90% interval — but the problem asks for 95% confidence, so z* = 1.96. Fix: match z* to the confidence level."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "4269",
+    "is_correct": false,
+    "rationale": "Tempting if you leave out the p̂(1 − p̂) factor and compute (1.96/0.03)² — but that factor equals 0.25 in the worst case. Fix: include 0.5 × 0.5 in the numerator."
+   }
+  ],
+  "verification": "n=1.96^2*.25/.03^2=1067.11 ->1068; 1.645: 751.67; no phat: 4268.44",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.5",
+  "topic_title": "Setting Up a Test for a Population Proportion",
+  "seed_used": true,
+  "stem": "A bottling company claims that 22% of its bottles are underfilled. An inspector suspects the true proportion is different from 22%. In a random sample of 150 bottles, 40 are underfilled. Which pair of hypotheses should the inspector test?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "H₀: p̂ = 0.22 versus Hₐ: p̂ ≠ 0.22, where p̂ is the proportion underfilled in the sample.",
+    "is_correct": false,
+    "rationale": "Tempting because p̂ is the symbol attached to the sample — but hypotheses are about the fixed population parameter. Fix: write p, not p̂."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "H₀: p = 0.22 versus Hₐ: p > 0.22, where p is the true proportion of underfilled bottles.",
+    "is_correct": false,
+    "rationale": "Tempting if you notice the sample result is above 22% (40/150 ≈ 0.27) — but the direction must come from the research question, not the data. Fix: 'different from' means two-sided."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "H₀: p = 0.22 versus Hₐ: p ≠ 0.22, where p is the true proportion of all bottles that are underfilled.",
+    "is_correct": true,
+    "rationale": "This earns the point because hypotheses describe the population proportion p, the null value comes from the claim, and 'different from' calls for a two-sided alternative."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "H₀: p = 0.27 versus Hₐ: p ≠ 0.27, where p is the true proportion of underfilled bottles.",
+    "is_correct": false,
+    "rationale": "Tempting if you put the sample proportion into the null — but the null value is the claimed 0.22, not the observed 0.27. Fix: the sample result is used later in the test statistic."
+   }
+  ],
+  "verification": "40/150=0.2667; claim p0=0.22; 'differs' implies two-sided.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "p-Values",
+  "seed_used": true,
+  "stem": "A significance test of H₀: p = 0.30 versus Hₐ: p > 0.30 produces a p-value of 0.03. Which interpretation of the p-value is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "There is a 3% chance that the null hypothesis H₀ is true, given the sample result.",
+    "is_correct": false,
+    "rationale": "Tempting because a small number seems to describe the null — but H₀ is a fixed claim, not a random event with a probability. Fix: the p-value is a probability about data, given H₀."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "There is a 97% chance that the alternative hypothesis Hₐ is true, given the sample result.",
+    "is_correct": false,
+    "rationale": "Tempting if you subtract the p-value from 1 — but that is not a probability of the alternative. Fix: a p-value says how surprising the data are if H₀ holds."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "If the true proportion were 0.30, there would be a 3% chance of getting a sample proportion at least as large as the one observed.",
+    "is_correct": true,
+    "rationale": "This earns the point because a p-value is computed assuming H₀ is true and measures how unusual the sample result is under that assumption."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The sample proportion is 3 percentage points above the hypothesized value of 0.30.",
+    "is_correct": false,
+    "rationale": "Tempting because 0.03 sounds like a distance from 0.30 — but the p-value is a probability, not a difference in proportions. Fix: keep probabilities and proportions apart."
+   }
+  ],
+  "verification": "Definition-based; p-value = P(result at least as extreme | H0 true). No computation.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.7",
+  "topic_title": "Carrying Out a Test for a Population Proportion",
+  "seed_used": false,
+  "stem": "A company claims that 30% of customers renew. In a random sample of 150 customers, 60 renew (p̂ = 0.40). For a one-sample z-test of H₀: p = 0.30, what is the test statistic?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "z ≈ 2.67",
+    "is_correct": true,
+    "rationale": "This earns the point because the standard error under H₀ uses p₀: √(0.30 × 0.70/150) ≈ 0.0374. Then z = (0.40 − 0.30)/0.0374 ≈ 2.67."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "z = 2.50",
+    "is_correct": false,
+    "rationale": "Tempting if you put p̂ under the radical, giving √(0.40 × 0.60/150) = 0.04 — but a test assumes H₀ is true. Fix: use p₀ in the standard error."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "z ≈ 0.22",
+    "is_correct": false,
+    "rationale": "Tempting if you forget to divide the variance by n — but the standard error must include n. Fix: √(p₀(1 − p₀)/n), not √(p₀(1 − p₀))."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "z ≈ 71.4",
+    "is_correct": false,
+    "rationale": "Tempting if you divide by p₀(1 − p₀)/n and forget the square root — but that is a variance, not a standard error. Fix: take the square root."
+   }
+  ],
+  "verification": "SE0=0.03742; z=2.673; SE(phat)=0.0400->z=2.50; no n: 0.218; no sqrt: 71.4",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.9",
+  "topic_title": "Sampling Distributions for the Difference Between Sample Proportions",
+  "seed_used": false,
+  "stem": "In population 1, p₁ = 0.60, and in population 2, p₂ = 0.50. Independent random samples of sizes n₁ = 100 and n₂ = 150 are taken. What is the standard deviation of the sampling distribution of p̂₁ − p̂₂?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0.0271",
+    "is_correct": false,
+    "rationale": "Tempting because the statistic is a difference — but variances add even when the statistics are subtracted. Fix: use a plus sign inside the square root."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0.0898",
+    "is_correct": false,
+    "rationale": "Tempting if you add the two separate standard deviations (0.0490 + 0.0408) — but standard deviations do not add; variances do. Fix: add the variances, then take one square root."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "0.0041",
+    "is_correct": false,
+    "rationale": "Tempting if you stop at the sum of the two variances — but that value is the variance. Fix: take the square root to get the standard deviation."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0.0638",
+    "is_correct": true,
+    "rationale": "This earns the point because independent variances add: √(0.60(0.40)/100 + 0.50(0.50)/150) = √0.004067 ≈ 0.0638."
+   }
+  ],
+  "verification": "var=0.004067; sd=0.0638; subtract var sqrt=0.0271; add SDs=0.0898",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.10",
+  "topic_title": "Constructing a Confidence Interval for the Difference Between Two Population Proportions",
+  "seed_used": false,
+  "stem": "In a random sample of 100 customers using app A, 80 are satisfied. In an independent random sample of 100 customers using app B, 50 are satisfied. Which is the 95% confidence interval for p_A − p_B?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "(0.168, 0.432)",
+    "is_correct": false,
+    "rationale": "Tempting if you pool the two samples into one proportion of 0.65 — but pooling assumes p_A = p_B, which an interval does not assume. Fix: keep each sample's own p̂ in the standard error."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "(0.174, 0.426)",
+    "is_correct": true,
+    "rationale": "This earns the point because the interval uses each sample's own proportion: SE = √(0.8(0.2)/100 + 0.5(0.5)/100) ≈ 0.0640, so 0.30 ± 1.96(0.0640) gives about (0.174, 0.426)."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "(0.195, 0.405)",
+    "is_correct": false,
+    "rationale": "Tempting if you use z* = 1.645 — but that critical value belongs to 90% confidence. Fix: use 1.96 for 95%."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "(0.292, 0.308)",
+    "is_correct": false,
+    "rationale": "Tempting if you skip the square root and multiply 1.96 by 0.0041 — but that is a variance, not a standard error. Fix: take the square root before multiplying by z*."
+   }
+  ],
+  "verification": "SE=0.06403; CI=(0.174,0.426); pooled pc=0.65: (0.168,0.432); z=1.645: (0.195,0.405); no sqrt: (0.292,0.308)",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.11",
+  "topic_title": "Justifying a Claim Based on a Confidence Interval for the Difference Between Two Population Proportions",
+  "seed_used": false,
+  "stem": "A 95% confidence interval for p₁ − p₂, the difference in renewal rates between new app users and old app users, is (−0.02, 0.14). Which conclusion is best supported?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "There is convincing evidence that p₁ is greater than p₂, because most of the interval is positive.",
+    "is_correct": false,
+    "rationale": "Tempting because the interval leans positive — but any interval containing 0 allows equal proportions. Fix: check whether 0 is inside, not which side has more area."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "There is not convincing evidence of a difference in renewal rates, because 0 is a plausible value for p₁ − p₂.",
+    "is_correct": true,
+    "rationale": "This earns the point because an interval that contains 0 leaves 'no difference' plausible. The decision depends on whether 0 is inside the interval, not on how much of the interval is positive."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "There is convincing evidence that the two proportions are equal, because 0 is in the interval.",
+    "is_correct": false,
+    "rationale": "Tempting because 0 is a plausible value — but plausible does not mean proven. Fix: say 'not convincing evidence of a difference', never that the proportions are equal."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "There is a 95% chance that p₁ − p₂ is between −0.02 and 0.14.",
+    "is_correct": false,
+    "rationale": "Tempting because the interval has a 95% label — but the parameter is fixed, so the 95% describes the method. Fix: say 'we are 95% confident' and then use the interval to answer the claim."
+   }
+  ],
+  "verification": "Interval contains 0 (-0.02<0<0.14): fail to find convincing evidence of difference. No computation.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.12",
+  "topic_title": "Setting Up a Test for the Difference Between Two Population Proportions",
+  "seed_used": false,
+  "stem": "Sample 1 has n₁ = 80 and 48 successes; sample 2 has n₂ = 120 and 60 successes. For a test of H₀: p₁ = p₂, which value of the combined proportion p̂_c belongs in the standard error?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0.55",
+    "is_correct": false,
+    "rationale": "Tempting if you average 0.60 and 0.50 — but the samples have different sizes, so each should count in proportion to n. Fix: total successes divided by total sample size."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0.60",
+    "is_correct": false,
+    "rationale": "Tempting if you use only sample 1's proportion — but the pooled estimate uses both samples. Fix: combine the successes and the sample sizes."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "0.10",
+    "is_correct": false,
+    "rationale": "Tempting if you use the difference p̂₁ − p̂₂ — but that is the numerator of the test statistic, not the common proportion. Fix: pooled p̂ comes from adding counts."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0.54",
+    "is_correct": true,
+    "rationale": "This earns the point because under H₀ both samples share one proportion, estimated by combining all successes over all observations: (48 + 60)/(80 + 120) = 108/200 = 0.54."
+   }
+  ],
+  "verification": "pc=108/200=0.54; mean of phats=0.55; phat1=0.60; diff=0.10",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.13",
+  "topic_title": "Carrying Out a Test for the Difference Between Two Population Proportions",
+  "seed_used": false,
+  "stem": "A random sample of 60 teens includes 45 who own a smartwatch (p̂₁ = 0.75). An independent random sample of 140 adults includes 70 who own one (p̂₂ = 0.50). For H₀: p₁ = p₂ versus Hₐ: p₁ > p₂, what is the test statistic?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "z ≈ 3.28",
+    "is_correct": true,
+    "rationale": "This earns the point because a test uses the pooled proportion p̂_c = 115/200 = 0.575. SE = √(0.575(0.425)(1/60 + 1/140)) ≈ 0.0763, so z = 0.25/0.0763 ≈ 3.28."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "z ≈ 3.57",
+    "is_correct": false,
+    "rationale": "Tempting if you reuse the confidence interval's standard error with each sample's own p̂ — but a test assumes p₁ = p₂. Fix: pool the samples under H₀."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "z ≈ 7.15",
+    "is_correct": false,
+    "rationale": "Tempting if you pool but use 1/(n₁ + n₂) in place of 1/n₁ + 1/n₂ — but each sample contributes its own sample size. Fix: use (1/n₁ + 1/n₂)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "z ≈ −3.28",
+    "is_correct": false,
+    "rationale": "Tempting if you subtract in the wrong order — but Hₐ: p₁ > p₂ is supported by a positive difference p̂₁ − p̂₂. Fix: subtract in the same order as the hypotheses."
+   }
+  ],
+  "verification": "pc=0.575; SE pooled=0.07628; z=3.277; unpooled SE=0.07008; z=3.568; wrong (n1+n2): z=7.152",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.14",
+  "topic_title": "Setting Up a Chi-Square Test for Homogeneity or Independence",
+  "seed_used": false,
+  "stem": "A researcher randomly selects 300 adults from one city and records each person's age group (18–34, 35–54, 55 and over) and preferred news source (TV, online, print). The counts are displayed in a table. Which chi-square test applies, and why?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "A test of homogeneity, because the table compares news source across the three age groups.",
+    "is_correct": false,
+    "rationale": "Tempting because the table looks like three groups side by side — but homogeneity needs separate samples from each population. Fix: look at how the data were collected, not at the table's shape."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "A two-sample z-test for proportions, because age groups are being compared.",
+    "is_correct": false,
+    "rationale": "Tempting because proportions are being compared — but there are more than two groups and more than two categories. Fix: use a chi-square test when a table has more than two rows or columns."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "A test of independence, because one random sample was classified on two categorical variables.",
+    "is_correct": true,
+    "rationale": "This earns the point because homogeneity versus independence depends on the study design. One sample, cross-classified by two variables, calls for independence."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "A test of homogeneity, because chi-square tests with three rows always test whether distributions are the same.",
+    "is_correct": false,
+    "rationale": "Tempting because the arithmetic of the two tests is identical — but the name must match the design. Fix: one sample with two variables means independence."
+   }
+  ],
+  "verification": "Explainer: independence = one sample, two categorical variables; homogeneity = separate samples per population or treatment.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.15",
+  "topic_title": "Carrying Out a Chi-Square Test for Homogeneity or Independence",
+  "seed_used": true,
+  "stem": "A random sample of 100 people is classified by two categorical variables. The observed counts are: row 1 has 30 and 20; row 2 has 10 and 40. The expected counts are 20 and 30 in row 1, and 20 and 30 in row 2. What is the chi-square test statistic?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "20.83",
+    "is_correct": false,
+    "rationale": "Tempting if you divide by the observed counts — but the denominator is the expected count. Fix: divide each squared difference by E."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "400",
+    "is_correct": false,
+    "rationale": "Tempting if you add the squared differences and stop — but each must be scaled by its expected count. Fix: divide each (O − E)² by E before summing."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "16.67",
+    "is_correct": true,
+    "rationale": "This earns the point because χ² sums (observed − expected)²/expected over every cell: 100/20 + 100/30 + 100/20 + 100/30 ≈ 16.67."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "1.67",
+    "is_correct": false,
+    "rationale": "Tempting if you forget to square the differences — but squaring is what keeps the terms from canceling and weights large gaps. Fix: use (O − E)²/E."
+   }
+  ],
+  "verification": "Expected=[[20.0, 30.0], [20.0, 30.0]]; chi2=16.6667; /obs=20.8333; no div=400.0; no square=1.667",
+  "author_flags": ""
+ }
+]

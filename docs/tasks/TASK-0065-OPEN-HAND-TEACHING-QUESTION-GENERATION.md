@@ -1,8 +1,8 @@
 # TASK-0065 — Generate Open Hand Teaching Questions (One per Topic, Never Scored)
 
-**Status:** Open — owner to be named by David  
+**Status:** In progress — drafts done; outside checkers ready to run (paused 2026-10-06)  
 **Tier:** Standard for authoring in Development; Hard-Gate for Production publish and designation  
-**Owner:** content pipeline (to be confirmed)  
+**Owner:** Claude session (authoring); outside-family checkers via AI Gateway  
 **Product Owner:** David Bloom  
 **Date opened:** 2026-10-06  
 **Parent:** `TASK-0064` (teaching pool), `DECISION-0087` ("reserved teaching pool")
@@ -52,3 +52,91 @@ has a generated item. Priority order:
 - [ ] After designation, each topic's RPC call returns the generated item, and the released spare is
       served again by the selectors.
 - [ ] 0 generated teaching items are served by any scored selector (same 30-seed check as TASK-0064).
+
+## Scope decision — 2026-10-06 (David)
+
+"Do bio, stats, chemistry and calc AB." Other subjects wait until they have real students; the QA-round
+frontend routes a topic with no worked example to Practice and finds the nearest worked example.
+
+Gap measured in Production against published topic point briefs (the topics a student can land on):
+Biology 58, Statistics 41, Chemistry 84, Calc AB 69, for **252 items**. The earlier "~214 for every subject"
+estimate undercounted, because it used topics with scored content rather than every brief.
+
+Batch directory: `docs/research/open_hand_teaching_batch_2026_10_06/` (`AUTHORING_SPEC.md`,
+`FACT_PACK_QUERY.sql`). Habit lines come from each topic's point brief on screen, so items carry stem,
+choices and per-choice rationales only.
+
+**Blocked:** the two outside-family checker stages (DECISION-0093). `ai-gateway.vercel.sh` is denied by
+this environment's network policy, and no `AI_GATEWAY_API_KEY` is set. No item is loaded until both
+checkers have cleared it.
+
+### Finding: live topic-guide defects (AP Calculus AB) — 2026-10-06
+
+While authoring, the Calc AB agent found two published explainers whose mini example uses a point that is
+not on the curve. Re-checked in Production:
+- **4.4:** `x^2 + 3xy = 20` at (2, 4) gives 4 + 24 = 28, not 20.
+- **4.5:** `2xy + ln(y) = 8` at (1, 4) gives 8 + ln 4 ≈ 9.39, not 8.
+
+Students see these in the topic guide and the deep dive. The teaching items do not reuse them. The fix
+(pick points on each curve) is a separate content repair and needs David's approval to edit published
+guides. 4.6 was also flagged, but it is a deliberate wrong-slope scenario, not a defect.
+
+## Scope and checkers — 2026-10-06 (APPROVAL-0123)
+
+- **Units 1–3 only** for the four subjects: Biology 21, Statistics 29, Chemistry 21, Calc AB 20, for
+  **91 items**. The later-unit drafts stay in the batch directory but are out of scope.
+- **Checkers:** Gemini 3.8 and DeepSeek 5. Their exact gateway IDs and smoke tests are recorded at batch start.
+- **Still blocked:** `ai-gateway.vercel.sh` is denied by this environment's network policy, and no
+  `AI_GATEWAY_API_KEY` is set.
+- **Explainer repair (4.4/4.5):** approved. Migration `20261006100000_repair_calc_ab_4_4_4_5_explainer_examples`.
+
+## Session handoff — 2026-10-06 (end of day)
+
+**Done.**
+- All 252 gap items are drafted and pass the structure self-check. The 91 in scope are in
+  `docs/research/open_hand_teaching_batch_2026_10_06/SCOPE_UNITS_1-3.json`.
+- The Calc AB 4.4/4.5 explainer repair is applied and verified in both Development and Production.
+- The checker script is written: `scripts/vercel-gateway-check/open_hand_teaching_check.mjs`. It runs a
+  blind solve plus a fact-pack audit per item per model, writes a union-of-flags report, can resume a
+  partial run, and refuses Anthropic models.
+- **Checker slate.** David chose DeepSeek V4 Pro because DeepSeek 5 is not on the gateway roster.
+  - `google/gemini-3.8-flash`
+  - `deepseek/deepseek-v4-pro`
+- **Gateway unblocked.** David added `ai-gateway.vercel.sh` to the allowed domains and set
+  `AI_GATEWAY_API_KEY` in the environment. A one-line test call to Gemini 3.8 through the `ai` SDK
+  returned OK.
+- **Env vars needed.** Node's fetch must go through the agent proxy, or every call gets a 403:
+  `NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt`.
+
+**Not done yet, in order.**
+1. **Smoke test** (AQP §3.2 rule 4), on four items (one per subject: Calc AB 1.1, Chem 1.2, Bio 1.1,
+   Stats 1.1), both models. The first attempt failed with a 403 before the proxy fix and was not re-run.
+   ```
+   cd scripts/vercel-gateway-check
+   NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt \
+     node open_hand_teaching_check.mjs <smoke4.json> <out_dir> \
+     --models=google/gemini-3.8-flash,deepseek/deepseek-v4-pro
+   ```
+   Build `smoke4.json` by picking those four items from `SCOPE_UNITS_1-3.json`. The script skips items
+   that already have a row in `results.jsonl`, so use a fresh output directory.
+2. **Full run** on `SCOPE_UNITS_1-3.json` into `docs/research/open_hand_teaching_batch_2026_10_06/check_run_1/`.
+3. **Verify every union flag** by hand, or with sympy for numeric items. Apply one patch loop, then
+   re-check every patched item with both models.
+4. **Record the results.** Model IDs, smoke results and cost go in a batch README, this file and
+   APPROVAL-0123.
+5. **Load in Development** as drafts. Insert `app.open_hand_teaching_items` rows (`source='generated'`)
+   and release the matching spare rows.
+6. **Production** only on David's approval (Hard-Gate).
+
+**Supabase MCP note.** Multi-statement writes, `apply_migration`, and UPDATEs that concatenate
+`source_note` hang at 60 seconds. Use single, simple statements.
+
+**Other open items outside this task, all before the plate loop goes ON.**
+- ~~David deploys `student-session-items` with the CLI.~~ **Done 2026-10-06:** Production v33, Development v21. All six
+  deployed files are byte-identical to this branch (checked via the Supabase MCP); `verify_jwt` stays on.
+- David gives the go-ahead on the attempt-response 409 mapping.
+- Fable does a signed-in walkthrough of the published Lovable build.
+- Re-enable `trg_refuse_attempt_on_teaching_item`.
+- David reviews and merges PR #340.
+- Next Lovable round: change the copy "↻ Revisit — the point is still available next attempt." to
+  "Revisit this one."

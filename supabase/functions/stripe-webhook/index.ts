@@ -462,7 +462,8 @@ async function handleCheckoutSessionEvent(
         .eq("id", session.id);
       if (error) throw error;
     }
-    // Fulfillment must be visible before independent notification work can fail.
+    // Fulfilled access must be visible before independent notification work.
+    // A queue failure can retry this webhook without hiding the paid order.
     const metadata = session.metadata ?? {};
     await enqueuePaymentEmail(service, userId, {
       sessionId: session.id,
