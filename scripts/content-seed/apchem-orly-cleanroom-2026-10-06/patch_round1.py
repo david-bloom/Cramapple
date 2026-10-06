@@ -32,3 +32,4 @@ for batch, items in P.items():
     print(batch, 'patched', list(items))
 # Round 2 (after the CED check): apchem-mcq-orly-f3-v1 stem "A chemist weighs out 2.00 mol of barium nitrate, Ba(NO₃)₂."
 # -> "A chemist measures out a sample of barium nitrate, Ba(NO₃)₂, that contains 2.00 mol of the compound." Applied in place; re-audited (out_audit_r2).
+# Round 3 (pre-load): apchem-mcq-orly-f7-v1 rationale 'the gauge reading is already the pressure of the gas' -> 'the measured pressure is already the pressure of the gas' (stem now says pressure sensor). Re-audited (out_audit_r3).
