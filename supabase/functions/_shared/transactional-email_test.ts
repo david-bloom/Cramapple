@@ -21,6 +21,7 @@ const env = {
   LOOPS_SIGNUP_TRANSACTIONAL_ID: "signup-id",
   LOOPS_INVITE_TRANSACTIONAL_ID: "invite-id",
   LOOPS_MAGICLINK_TRANSACTIONAL_ID: "login-id",
+  TRANSACTIONAL_MAILING_ADDRESS: "Test business address",
 };
 
 async function withEmailTest(run: () => Promise<void>) {
@@ -77,6 +78,10 @@ Deno.test("auth routes all three actions to configured templates with plain welc
           dataVariables: {
             token: "123456",
             welcomeUrl: env.AUTH_EMAIL_WELCOME_URL,
+            emailAddress: "s@example.com",
+            expiryText: "Use this code soon. Request a new code if it expires.",
+            mailingAddress: env.TRANSACTIONAL_MAILING_ADDRESS,
+            ...(action === "invite" ? { firstName: "there" } : {}),
           },
         },
       );
@@ -162,26 +167,27 @@ Deno.test("transactional client rejects HTTP errors, missing credentials and net
     );
   }));
 
-Deno.test("parent payment confirmation is addressed to student and dedupes by checkout session", () => {
-  const input = {
-    sessionId: "cs_test",
-    email: "student@example.com",
-    purchaseType: "parent_share",
-    subjects: "biology",
-    amountTotal: 100,
-    currency: "usd",
-    studyUrl: "https://example.com/home",
-  };
-  const parent = buildPaymentEmail(input);
-  assertEquals(parent.template_env, "LOOPS_PARENT_PAID_TRANSACTIONAL_ID");
-  assertEquals(parent.recipient_email, "student@example.com");
-  assertEquals(parent.dedupe_key, "payment:cs_test");
-  assertEquals(
-    buildPaymentEmail({ ...input, purchaseType: "student_direct" })
-      .template_env,
-    "LOOPS_PURCHASE_TRANSACTIONAL_ID",
-  );
-});
+Deno.test("parent payment confirmation is addressed to student and dedupes by checkout session", () =>
+  withEmailTest(async () => {
+    const input = {
+      sessionId: "cs_test",
+      email: "student@example.com",
+      purchaseType: "parent_share",
+      subjects: "biology",
+      amountTotal: 100,
+      currency: "usd",
+      studyUrl: "https://example.com/home",
+    };
+    const parent = buildPaymentEmail(input);
+    assertEquals(parent.template_env, "LOOPS_PARENT_PAID_TRANSACTIONAL_ID");
+    assertEquals(parent.recipient_email, "student@example.com");
+    assertEquals(parent.dedupe_key, "payment:cs_test");
+    assertEquals(
+      buildPaymentEmail({ ...input, purchaseType: "student_direct" })
+        .template_env,
+      "LOOPS_PURCHASE_TRANSACTIONAL_ID",
+    );
+  }));
 
 Deno.test("disabled payment queue makes no database or Auth calls", async () => {
   const old = Deno.env.get("LOOPS_PAYMENT_EMAILS_ENABLED");

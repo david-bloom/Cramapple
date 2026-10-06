@@ -65,7 +65,16 @@ Auth and payment transactional sends do not add recipients to a marketing audien
 
 ## Configuration
 
+2026-10-06 implementation continuation: six core templates now have matching
+backend/import-variable contract tests in `email-template-data_test.ts`.
+Use the current manifest/README, not the original minimal data table above, when
+publishing these designs. Receipt/refund/reminder/expiry triggers remain pending.
+The supplied invite is adapted to verification-only copy because invite dispatch
+can precede paid grants; direct purchase confirmation omits unverified expiry and
+separate-receipt promises. Originals are retained unchanged.
+
 - Existing LOOPS_SECRET_KEY: server-only Loops API credential.
+- TRANSACTIONAL_MAILING_ADDRESS: actual business footer address; required before activation.
 - SEND_EMAIL_HOOK_SECRET: generated Supabase Standard Webhooks secret.
 - AUTH_EMAIL_WELCOME_URL: environment-specific plain /welcome URL.
 - TRANSACTIONAL_STUDY_URL: environment-specific student hub URL.

@@ -1,6 +1,6 @@
 # Transactional Email Design Import
 
-STATUS: CURRENT - supplied designs preserved and adapted; Loops import blocked, no cutover
+STATUS: CURRENT - core backend template contracts implemented and tested; Loops import blocked, no cutover
 DATE: 2026-10-06
 OWNER: David Bloom (design); Codex (integration)
 RELATED: TASK-0060; Loops PR #341; checkout QA PR #343; ordering fix PR #342
@@ -38,30 +38,66 @@ Normalization is deliberately limited:
   verification stays in Supabase; no template is installed in Supabase.
 - Sign-in's one-time clickable link becomes a plain `welcomeUrl` / Open Cramapple
   action, preserving the established code-first experience.
-- The invite-only Go conditional becomes always-visible `paymentContext` text.
-  Supply a truthful direct/parent purchase sentence, not a boolean or raw HTML.
-- Fixed one-hour expiry copy becomes `expiryText`; set from verified auth
-  configuration, never change Supabase expiry merely to satisfy a design note.
+- Auth invite copy now asks for verification without promising paid access.
+  Supabase can send an invite before entitlements exist, and editable metadata
+  cannot substantiate purchase claims. Purchased-subject/parent-payment blocks
+  are omitted from the adapted invite, not from the preserved original.
+- Fixed one-hour expiry copy becomes `expiryText`; the backend supplies neutral
+  expiry guidance rather than an unverified duration. Supabase expiry is unchanged.
 - `[Mailing address]` becomes required `mailingAddress`, pending the real address.
+- Adapted 07 supports settled direct purchases using purchased `subjects`, rather
+  than inventing all-account subject holdings, an access-end date, or a separate
+  receipt delivery promise. Original subjects-added design remains in `source/`.
 
 ## Template Readiness and Backend Gaps
 
 | Design | Intended use | Binding or missing contract |
 | --- | --- | --- |
-| 01 Welcome verification | Paid new-student invite | LOOPS_INVITE_TRANSACTIONAL_ID; hook currently sends only token/welcomeUrl. Add safe firstName, emailAddress, verified purchased subjects, truthful paymentContext, expiryText and mailingAddress. Never infer access from editable user metadata. |
-| 02 Sign-in code | Requested existing-account login | LOOPS_MAGICLINK_TRANSACTIONAL_ID; add emailAddress, expiryText and mailingAddress. Existing signed-out purchase must actually orchestrate its first code; a template cannot do this. |
-| 03 Email confirmation | Signup or unconfirmed-account confirmation | LOOPS_SIGNUP_TRANSACTIONAL_ID; add emailAddress, expiryText and mailingAddress. Confirm resend action mapping with controlled accounts. |
-| 04 Parent request | Parent recipient only | Existing code sends amountTotal (cents), checkoutUrl and expiresAt; design needs formatted amount, paymentUrl, expiresOn, parentEmail and mailingAddress. Preserve safe short links and actual discounted total. |
-| 05 Parent paid | Student access notification | Existing queue sends subjects/studyUrl; design needs firstName, appUrl and mailingAddress. Suppress overlap with paid-new-student invite according to the first-code contract. |
+| 01 Welcome verification | New-student invite | LOOPS_INVITE_TRANSACTIONAL_ID; implemented token, welcomeUrl, firstName (safe personalization only), emailAddress, neutral expiryText and mailingAddress. No paid-access claims from metadata. |
+| 02 Sign-in code | Requested existing-account login | LOOPS_MAGICLINK_TRANSACTIONAL_ID; implemented emailAddress, expiryText and mailingAddress. Existing signed-out purchase must actually orchestrate its first code; this remains separate from template wiring. |
+| 03 Email confirmation | Signup or unconfirmed-account confirmation | LOOPS_SIGNUP_TRANSACTIONAL_ID; implemented emailAddress, expiryText and mailingAddress. Confirm resend action mapping with controlled accounts before activation. |
+| 04 Parent request | Parent recipient only | Implemented formatted USD amount, paymentUrl, explicit UTC expiresOn, parentEmail and mailingAddress. Preserves short-link preference and actual discounted session total. |
+| 05 Parent paid | Student access notification | Implemented firstName, readable subjects, appUrl and mailingAddress. Recipient remains the Auth student, never the parent payer. Invite/confirmation overlap remains a release blocker. |
 | 06 Receipt | Actual payer, distinct from student | No dedicated payer receipt trigger yet. Needs verified date, receipt number, payment method or non-card fallback, line items, total, receiptUrl and mailingAddress. Never assign student access from payer identity. |
-| 07 Subjects added | Student after additional settled subjects | Existing purchase mapping is generic and lacks newSubject/allSubjects/accessThrough. Derive entitlement expiry from policy/data; do not invent a date or promise a separate receipt before its trigger exists. |
+| 07 Subjects added / purchase complete | Student after settled direct purchase | LOOPS_PURCHASE_TRANSACTIONAL_ID; adapted design and backend now agree on firstName, purchased subjects, appUrl and mailingAddress. No invented expiry, all-account holdings or receipt-send claim. |
 | 08 Parent reminder | Parent, unpaid and unexpired request | No scheduler/trigger implemented. Source proposes one reminder, but timing and eligibility remain owner decisions; recheck settlement/expiry immediately before delivery. |
 | 09 Link expired | Student recovery | No dedicated trigger/context-preserving recovery links implemented. The parent variant described in a comment is not a supplied standalone design or an authorized extra send. |
 | 10 Refund | Payer after successful refund | No dedicated Loops refund trigger yet. Needs refund-specific amount/status, original payment details, truthful accessChange and receipt URL. Support partial/multiple refunds and non-card methods. Timing copy needs verification. |
 
 `manifest.json` lists variables actually used, not merely variables named in
 source comments. All IDs remain null until imported and checked; do not point
-current backend environment variables at these richer contracts yet.
+current backend environment variables at these richer contracts until import,
+provider discovery/render verification and Development configuration are complete.
+
+## Implementation Authorized While Manual QA Is Deferred
+
+David instructed Codex to proceed with implementation because he cannot run
+morning checklist steps 4-6 now. Those manual acceptance checks remain pending;
+they are not a prerequisite to writing and testing the code, and are not marked
+passed by delegation.
+
+Implemented shared template-data builders, safe bounded personalization, escaped
+text, HTTPS-only links without URL credentials, USD minor-unit formatting, and
+required footer configuration. Contract tests read the actual import manifest
+and cover all variables for the six wired templates. Codes are still generated
+and verified by Supabase and are not written to the payment queue.
+
+Includes PR #342's notification ordering correction: student ownership backfill
+precedes independent email work. Queue-failure injection after actual grants
+remains a separate fixture test, not established by type-checking.
+
+Checkout F1 source remediation: add-on requests now validate the bearer with
+`requireAuthedUser` and require the source order's student ID to match before
+any customer/Stripe lookup. A mocked full-handler test rejects missing/invalid
+tokens and wrong-account requests without Stripe calls. The route is not newly
+promoted or published; no saved-card payment was attempted. Production deployment
+is still outstanding, so do not describe the live endpoint as remediated.
+
+Required new server config: `TRANSACTIONAL_MAILING_ADDRESS`. Missing footer
+configuration fails before provider delivery; never deploy/activate the richer
+contracts without it. Existing SMTP/Auth configuration and Stripe receipts are
+unchanged. New templates/IDs must not be switched while old queued ambiguous
+deliveries are awaiting reconciliation.
 
 ## Import Evidence and Blocker
 
@@ -83,6 +119,13 @@ originals match Downloads byte-for-byte; adapted variable manifests match their
 MJML; no Supabase Go syntax, script elements, magic-link placeholders or literal
 mailing-address placeholders remain in adapted files. `git diff --check` passes.
 This is structural validation only, not client rendering or provider delivery QA.
+
+Implementation continuation verification: 49 focused backend tests pass (including
+the mocked full add-on handler, nine new template/ownership tests and the existing
+payment/auth/retry tests). All five changed function entrypoints type-check, and
+all ten updated MJML files validate. No test recipient addresses were used in
+provider calls; tests intercept fetch and use example.com fixtures. The frontend
+preview pass is separately reviewed/recorded before any publish.
 
 Codex: import the ten designs; inspect variable discovery and final rendered
 HTML; supply safe backend data contracts; resolve first-code/duplicate-message
