@@ -17,6 +17,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0073 — AP Biology: Widen the Skill-Grid Practice Bound, Create the 22-Skill x 60-Topic CED Grid, Relabel 70 Live Items for Unit Serving, Label Skills by Model Consensus (DECISION-0085) — DECISION-0085
 - APPROVAL-0072 — Relax `content_item_cells_validation_check` in Production So Model-Consensus Skill Labels Can Be `validated` (DECISION-0085 Route 1) — DECISION-0085
 - APPROVAL-0119 — Parent Payment Short Links: New Table, New `resolve-parent-link` Function, Two Function Changes (Production)
+- APPROVAL-0121 — Ship Open Hand and the Plate-Loop Practice Template to Production (Owner Override of the TASK-0051 Gate); Archive One Account's Stale Sessions; Publish the App — DECISION-0097
 - APPROVAL-0120 — Recreate `public.student_course_positions` With `topic_code` and `topic_source` So the Student Home Loads (Production)
 - APPROVAL-0117 — Difficulty Bands for 1,042 Published MCQs: 31 Seeds Rated, Variants and BC Copies Inherit (Production) — DECISION-0096
 - APPROVAL-0116 — AP Calculus AB: Canonical Answers for 20 Unit 1 FRQs, With Serving-Label Carry-Forward (Production)
@@ -132,6 +133,26 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other view change; any app-side change.
 
+
+## APPROVAL-0121 — Ship Open Hand and the Plate-Loop Practice Template to Production (Owner Override of the TASK-0051 Gate); Archive One Account's Stale Sessions; Publish the App
+
+**Date:** 2026-10-05  
+**Approved By:** David Bloom (2026-10-05 Claude session: "yes archive them and open the task. I authorize you to ship open hand and the new practice template to production, override task 051. Instruct lovable to publish the new practice template and hub design")  
+**Related Task:** `TASK-0051`, `TASK-0052`, `TASK-0048`, `TASK-0063`  
+**Decision:** Approved — owner override (`DECISION-0097`)
+
+**Approved scope (Production `pcntajvbdfqhbeewmdry` and Lovable app `56cae479`):**
+
+1. Archive the 82 `app.learning_sessions` rows on retired exam-pack versions still marked `active` for David's own account (`f5a26c6b…`). **Done 2026-10-05 ~23:41 UTC**; 0 active remain on that account.
+2. Create `public.get_open_hand_item(uuid, uuid)` in Production from `supabase/migrations/20260929034129_open_hand_entitlement_scoped_contract.sql` (function half; the table half was already present from `20260929130754`). **Done 2026-10-05.** Applied with `execute_sql` after `apply_migration` timed out twice with nothing applied; ledger row recorded at the file's own version `20260929034129`, so no rename is needed.
+3. Instruct Lovable to implement `TASK-0052` (RPC-direct Open Hand, `open-hand-item` path deleted, per-item consent, no wrap-around, 409/excluded handling) and to turn the plate loop ON by default with the `?loop=` override removed and `VITE_PLATE_LOOP=off` as the kill switch.
+4. Publish the app (which also carries the built TASK-0048 Stage A/B Home) after Claude reviews the Lovable diff. **Publish triggered 2026-10-05** at Lovable commit `450e107d` (deployment `3da2d165…`), after David chose "publish everything" knowing it also ships the Oct 4 Privacy Policy/Terms rewrites, feedback widget, PostHog server fallback, login fix and hub welcome banner if those were not already live.
+
+**Production verification of item 2 (no rows written):** anonymous call → `not_authenticated`; unentitled user → `open_hand:entitlement_required`; staff user → key returned (4 choices, `is_correct` present) with `exclusion_recorded=false`; `open_hand_scoring_exclusions` 0 rows; `execute` granted to `authenticated` and `service_role` only (not `anon`/`public`); `authenticated` and `anon` still cannot select `mcq_choices.is_correct` or `.rationale`.
+
+**Risk accepted by the owner (named, not waived silently):** TASK-0051 was Blocked pending a fresh independent QA that has not run; QA finding F3 (an unreviewed `open-hand-item` v9 deployed in Development only) remains open; the excluded-item serving gap (an excluded item can still be served and only meets the `409` on submit) remains open; the staff live path and the per-load exclusion count were not exercised end to end in Production.
+
+**Not approved by this entry:** deploying any `open-hand-item` edge function to Production; changes to `evaluate-attempt`, entitlements, pricing or auth; archiving other accounts' sessions (that is `TASK-0063`).
 
 ## APPROVAL-0081 — AP Biology Skill Re-vote on the 73 Topic-Corrected Items (Production)
 

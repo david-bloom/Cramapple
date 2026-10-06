@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0097 — Owner Override: Open Hand and the Plate-Loop Practice Template Ship to Production Without the Fresh QA TASK-0051 Required; the Plate Loop Becomes the Default Practice Entry
 - DECISION-0096 — MCQ and FRQ Variants Inherit Their Seed's Difficulty Band; an Unrated Seed Is Rated First and Applied to Its Variants
 - DECISION-0095 — Items Stay Within the Subject's CED Vocabulary; a Mechanism Supplied in the Stem Does Not Bring a Term In Scope; Published Items That Break It Are Retired, Not Repaired
 - DECISION-0094 — Launch Shape Revised: $1 Pilot Coupon (10 Friends) Before a 50%-Off Public Launch; Parent-Pay Live; Strangers May Pay Full Price; Supersedes DECISION-0091
@@ -48,6 +49,30 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0097 — Owner Override: Open Hand and the Plate-Loop Practice Template Ship to Production Without the Fresh Independent QA TASK-0051 Required; the Plate Loop Becomes the Default Practice Entry
+
+**Date:** 2026-10-05  
+**Decided By:** David Bloom  
+**Related:** `TASK-0051`, `TASK-0052`, `DECISION-0086`, `DECISION-0087`, `APPROVAL-0121`
+
+### Context
+
+David logged in on 2026-10-05 and got neither the redesigned student hub nor Open Hand. Read-only checks found: Production had never received `public.get_open_hand_item` (TASK-0051 Blocked pending fresh QA); the live Open Hand screen still called the superseded `open-hand-item` batch edge function, which does not exist in Production; and the plate loop was off by default behind a student-reachable `?loop=` URL switch.
+
+### Decision
+
+1. TASK-0051's gate is overridden by the owner. The RPC ships to Production now; the fresh independent QA becomes a follow-up, not a precondition.
+2. TASK-0052 is executed now: the front end calls the RPC directly, one item at a time, and `open-hand-item` is deleted from the app (DECISION-0086 D2 as amended on TASK-0052).
+3. The plate loop (Open Hand → Practice plate) is the default "Start practice" path for every student. The `?loop=` override is removed; `VITE_PLATE_LOOP=off` is the kill switch; `/session` stays in the codebase as the fallback.
+
+### Amendment 2026-10-06
+
+Point 3 is reversed for now: after seeing the live screen, David turned the plate loop OFF by default (`5b269ac1`, published). The plate loop returns as the default only after the fixes and checks listed on TASK-0052 pass his review.
+
+### Consequences
+
+The open TASK-0051 items (fresh QA, F3, excluded-item serving, staff live path, per-load exclusion count) remain open and owned. Rollback for the front end is the kill switch or a Lovable revert; rollback for the backend is dropping the function, which no other caller depends on.
 
 ## DECISION-0096 — MCQ Variants Inherit Their Seed's Difficulty Band
 
