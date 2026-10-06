@@ -1,0 +1,146 @@
+[
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Determining Limits Using Algebraic Properties of Limits",
+  "seed_used": true,
+  "stem": "Suppose that as x→4, the limit of f(x) is -2 and the limit of g(x) is 5. What is the limit as x→4 of (f(x)^2 + 3g(x)) / (g(x) + f(x))?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "19/3",
+    "is_correct": true,
+    "rationale": "Earns the point: the limit properties give numerator (-2)^2 + 3(5) = 19 and denominator 5 + (-2) = 3, and the quotient property applies because the denominator's limit is not 0."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "11/3",
+    "is_correct": false,
+    "rationale": "Tempting if you read (-2)^2 as -(2^2), squaring the 2 and keeping the minus sign outside, which puts -4 + 15 = 11 on top. But the square of -2 is +4. Fix: square the limit of f before you add: (-2)^2 = 4, not -4."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "19/7",
+    "is_correct": false,
+    "rationale": "Tempting if you subtract instead of add in the denominator, as if f contributed +2. But the denominator's limit is 5 + (-2) = 3. Fix: substitute the signed limit values, then combine."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It cannot be determined because f and g are not given as formulas.",
+    "is_correct": false,
+    "rationale": "Tempting because we usually evaluate limits from expressions. But the limit properties only need the limit values of f and g, which are given. Fix: combine component limits with sum, product, and quotient properties."
+   }
+  ],
+  "verification": "Arithmetic check (sympy Rational): (4+15)/3=19/3; (-4+15)/3=11/3; (4+15)/(5+2)=19/7. Quotient property valid since 3 != 0.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Graphical Representations for One Quantitative Variable",
+  "seed_used": true,
+  "stem": "A histogram of 25 exam scores has bins of width 20 starting at 50. The tallest bar covers scores from 70 up to but not including 90 and has a height of 11. A student claims that at least two students scored exactly 85. What can be concluded?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The claim is confirmed, because the tall bar shows that many students earned exactly the same score within that bin.",
+    "is_correct": false,
+    "rationale": "Tempting because tall bars look like frequent values — but a bar's height counts every score in the bin, and those 11 scores could all be different values from 70 to 89. Fix: read a bar's height as the count for its whole interval, not for one exact score."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The claim is false, because the histogram shows that the 11 scores in the tallest bar are spread across the whole interval.",
+    "is_correct": false,
+    "rationale": "Tempting because the bar covers a wide interval — but the picture does not reveal how the 11 scores are distributed inside it. Fix: do not infer exact values from a binned graph."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The histogram cannot confirm or refute the claim, because it shows only how many scores fall in 70 to 89; a dotplot or stemplot of the same data would show each value.",
+    "is_correct": true,
+    "rationale": "This earns the point because a histogram groups values into bins and hides the individual values inside them. A dotplot or stemplot keeps every data value, so it could settle the claim."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The claim can be checked only by redrawing the data as a bar chart, which shows each exact score.",
+    "is_correct": false,
+    "rationale": "Tempting because bar charts also have bars — but bar charts display categorical variables, and scores are quantitative. Fix: use a dotplot or stemplot to see individual quantitative values."
+   }
+  ],
+  "verification": "Concept from the explainer: histograms bin values and conceal sub-bin structure; dotplots/stemplots preserve individual values. No numeric computation.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.14",
+  "topic_title": "Setting Up a Chi-Square Test for Homogeneity or Independence",
+  "seed_used": false,
+  "stem": "A researcher randomly selects 300 adults from one city and records each person's age group (18–34, 35–54, 55 and over) and preferred news source (TV, online, print). The counts are displayed in a table. Which chi-square test applies, and why?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "A test of homogeneity, because the table compares news source across the three age groups.",
+    "is_correct": false,
+    "rationale": "Tempting because the table looks like three groups side by side — but homogeneity is for data collected as separate random samples (or randomly assigned treatment groups), one per group being compared, and here there was one sample. Fix: look at how the data were collected, not at the table's shape."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "A two-sample z-test for proportions, because age groups are being compared.",
+    "is_correct": false,
+    "rationale": "Tempting because proportions are being compared — but there are more than two groups and more than two categories. Fix: use a chi-square test when a table has more than two rows or columns."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "A test of independence, because one random sample was classified on two categorical variables.",
+    "is_correct": true,
+    "rationale": "This earns the point because homogeneity versus independence depends on the study design. One sample, cross-classified by two variables, calls for independence."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "A test of homogeneity, because chi-square tests with three rows always test whether distributions are the same.",
+    "is_correct": false,
+    "rationale": "Tempting because the arithmetic of the two tests is identical — but the name must match the design. Fix: one sample with two variables means independence."
+   }
+  ],
+  "verification": "Explainer: independence = one sample, two categorical variables; homogeneity = separate samples per population or treatment.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.15",
+  "topic_title": "Carrying Out a Chi-Square Test for Homogeneity or Independence",
+  "seed_used": true,
+  "stem": "A random sample of 100 people is classified by two categorical variables. The observed counts are: row 1 has 30 and 20; row 2 has 10 and 40. The expected counts are 20 and 30 in row 1, and 20 and 30 in row 2. What is the chi-square test statistic?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "20.83",
+    "is_correct": false,
+    "rationale": "Tempting if you divide by the observed counts — but the denominator is the expected count. Fix: divide each squared difference by E."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "400",
+    "is_correct": false,
+    "rationale": "Tempting if you add the squared differences and stop — but each must be scaled by its expected count. Fix: divide each (O − E)² by E before summing."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "16.67",
+    "is_correct": true,
+    "rationale": "This earns the point because χ² sums (observed − expected)²/expected over every cell: 100/20 + 100/30 + 100/20 + 100/30 ≈ 16.67."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "1.67",
+    "is_correct": false,
+    "rationale": "Tempting if you use the size of each gap, |O − E|, without squaring it: 10/20 + 10/30 + 10/20 + 10/30 ≈ 1.67. But the statistic squares each difference first. Fix: use (O − E)²/E for every cell."
+   }
+  ],
+  "verification": "Expected=[[20.0, 30.0], [20.0, 30.0]]; chi2=16.6667; /obs=20.8333; no div=400.0; no square=1.667",
+  "author_flags": ""
+ }
+]

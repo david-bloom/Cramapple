@@ -1,0 +1,542 @@
+[
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.2",
+    "topic_title": "Defining Limits and Using Limit Notation",
+    "seed_used": true,
+    "stem": "Let f be a function. Which statement is the correct reading of the notation lim as x→4+ of f(x) = 9?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "When x = 4, f(x) equals 9.",
+        "is_correct": false,
+        "rationale": "Tempting because limit notation looks like evaluating f at 4. But a limit describes approach behavior and does not need f(4) to be 9 or even to exist. Fix: read it as 'approaches', not 'equals'."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "As x gets close to 4 through values greater than 4, f(x) gets close to 9.",
+        "is_correct": true,
+        "rationale": "Earns the point: the plus sign marks a right-hand approach (x > 4), and the limit value 9 describes what f(x) approaches, without saying anything about f(4)."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "As x gets close to 4 through values less than 4, f(x) gets close to 9.",
+        "is_correct": false,
+        "rationale": "Tempting if you ignore or misread the direction marker. But the + means x approaches 4 from the right (larger values), and the - would mean from the left. Fix: always check the sign on the 4."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "As x gets close to 9, f(x) gets close to 4 from the right.",
+        "is_correct": false,
+        "rationale": "Tempting because the two numbers 4 and 9 appear together and the roles are easy to swap. But the number under the arrow is the input approached, and the value after the equals sign is the output approached. Fix: input goes under 'lim', output goes after '='."
+      }
+    ],
+    "verification": "Notation fact from the brief: x→c+ is a right-hand approach; limit value is the output approached; f(c) is not part of the claim.",
+    "author_flags": "Seed was a piecewise-limit evaluation; this item tests reading one-sided notation instead."
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.11",
+    "topic_title": "Defining Continuity at a Point",
+    "seed_used": true,
+    "stem": "Let g(x) = (x^2 - 16)/(x - 4) for x != 4, and g(4) = 6. Which statement about g at x = 4 is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "g is continuous at x = 4, because g(4) is defined and the limit exists.",
+        "is_correct": false,
+        "rationale": "Tempting because two of the three conditions hold. But continuity also needs the limit to equal the function value. Fix: finish the checklist: value exists, limit exists, they are equal."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "g is continuous at x = 4, because the graph is a connected line with no gap away from 4.",
+        "is_correct": false,
+        "rationale": "Tempting because the graph looks like a line. But continuity at a point is checked by conditions, and the point at x = 4 sits at height 6, off the line. Fix: verify the equality, do not judge by appearance."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "g is not continuous at x = 4, because the limit is 8 but g(4) = 6.",
+        "is_correct": true,
+        "rationale": "Earns the point: the limit exists and equals 8 after canceling x - 4, but continuity requires the limit to equal g(4). Since 8 differs from 6, one condition fails."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "g is not continuous at x = 4, because the limit does not exist when the denominator is 0.",
+        "is_correct": false,
+        "rationale": "Tempting because x - 4 is zero at x = 4. But the factor cancels and the limit is 8, a finite number. Fix: simplify before concluding; the discontinuity comes from 8 not equaling 6."
+      }
+    ],
+    "verification": "Sympy: limit((x**2-16)/(x-4),x,4)=8; g(4)=6; 8 != 6 so not continuous.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.12",
+    "topic_title": "Confirming Continuity over an Interval",
+    "seed_used": true,
+    "stem": "Let f(x) = (x + 2)/(x^2 - 4x - 5). On which interval is f continuous?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "[0, 5]",
+        "is_correct": false,
+        "rationale": "Tempting because 5 is a nice endpoint and the rest of the interval looks fine. But f is undefined at x = 5, so it cannot be continuous on an interval that includes 5. Fix: test every excluded value against the interval, endpoints included."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "[-2, 3]",
+        "is_correct": false,
+        "rationale": "Tempting because the endpoints -2 and 3 are not problem values. But x = -1 lies inside the interval and makes the denominator 0. Fix: check interior points, not just endpoints."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "All real numbers, because f is a rational function.",
+        "is_correct": false,
+        "rationale": "Tempting because rational functions are continuous where they are defined. But they are not defined where the denominator is 0. Fix: continuity is on the domain, so remove x = 5 and x = -1."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "[0, 4]",
+        "is_correct": true,
+        "rationale": "Earns the point: the denominator factors as (x - 5)(x + 1), so f fails only at x = 5 and x = -1. The interval [0, 4] avoids both."
+      }
+    ],
+    "verification": "Sympy: factor(x**2-4*x-5)=(x-5)*(x+1); discontinuities at x=5, x=-1 only; [0,4] contains neither.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.13",
+    "topic_title": "Removing Discontinuities",
+    "seed_used": true,
+    "stem": "Let f(x) = (x^2 + x - 12)/(x - 3) for x != 3, and f(3) = k. For what value of k is f continuous at x = 3?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "7",
+        "is_correct": true,
+        "rationale": "Earns the point: factor x^2 + x - 12 = (x + 4)(x - 3), cancel x - 3, and the limit is 3 + 4 = 7. Setting k equal to that limit removes the discontinuity."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "0",
+        "is_correct": false,
+        "rationale": "Tempting because the numerator is 0 at x = 3. But 0/0 is indeterminate and the limit comes from the simplified expression, which is 7. Fix: find the limit first, then set k equal to it."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "3",
+        "is_correct": false,
+        "rationale": "Tempting because the problem is happening at x = 3 and k = 3 feels natural. But k is an output value and must match the limiting output, not the input. Fix: set k = the limit of f as x→3."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "-4",
+        "is_correct": false,
+        "rationale": "Tempting because the other factor, x + 4, is zero at x = -4. But after canceling x - 3 you substitute x = 3 into x + 4, not solve x + 4 = 0. Fix: evaluate the simplified function at x = 3."
+      }
+    ],
+    "verification": "Sympy: factor(x**2+x-12)=(x+4)*(x-3); limit((x**2+x-12)/(x-3),x,3)=7.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.16",
+    "topic_title": "Working with the Intermediate Value Theorem",
+    "seed_used": true,
+    "stem": "The function f is continuous on [2, 8], with f(2) = 3 and f(8) = 11. Which conclusion is guaranteed?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "There is at least one c in (2, 8) with f(c) = 1.",
+        "is_correct": false,
+        "rationale": "Tempting because 1 is a small, convenient number near 3. But 1 is not between 3 and 11, so the theorem says nothing about it. Fix: the target must lie between the endpoint values."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "There is at least one c in (2, 8) with f(c) = 12.",
+        "is_correct": false,
+        "rationale": "Tempting because 12 is just above 11 and feels close. But it lies outside [3, 11], so f may never reach it. Fix: check the target against both endpoint values."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "No value is guaranteed, because f is not known to be differentiable.",
+        "is_correct": false,
+        "rationale": "Tempting because many theorems require differentiability. But IVT needs only continuity on the closed interval, which is given. Fix: match the theorem to its actual conditions."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "There is at least one c in (2, 8) with f(c) = 7.",
+        "is_correct": true,
+        "rationale": "Earns the point: f is continuous on [2, 8] and 7 lies strictly between f(2) = 3 and f(8) = 11, so the Intermediate Value Theorem guarantees such a c."
+      }
+    ],
+    "verification": "IVT conditions: continuous on [2,8]; 3 < 7 < 11. 1 and 12 are outside [3,11].",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.1",
+    "topic_title": "Structure of Water and Hydrogen Bonding",
+    "seed_used": false,
+    "stem": "A shallow pond and the sand beside it receive the same sunlight for an hour. The sand heats up by many degrees, but the pond water warms only slightly. Which statement best explains why the water changes temperature so little?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Water molecules are nonpolar, so they pass sunlight through without absorbing much of it and only a small fraction of the incoming heat is taken in by the pond.",
+        "is_correct": false,
+        "rationale": "Tempting if you link water's behavior to light transmission rather than to structure. But water is polar, and its temperature stability comes from hydrogen bonding. Fix: connect polarity to hydrogen bonds to heat absorption."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Heat absorbed by the water is first used to break some of the many hydrogen bonds between polar water molecules, so less of it raises the molecules' motion and temperature.",
+        "is_correct": true,
+        "rationale": "Water's polarity lets each molecule hydrogen-bond to its neighbors, and breaking those bonds absorbs energy. That is the high specific heat that keeps aquatic environments thermally stable."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Cohesion pulls the water molecules together at the surface, which blocks heat from entering the pond.",
+        "is_correct": false,
+        "rationale": "Tempting because cohesion is the best-known hydrogen-bond property. But cohesion explains surface tension, not resistance to temperature change. Fix: match the property to the observation; temperature stability is specific heat."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Evaporation removes all of the absorbed heat immediately, so the pond cannot warm at all.",
+        "is_correct": false,
+        "rationale": "Tempting because evaporative cooling is real. But the pond did warm slightly, and evaporation does not remove all heat. Fix: the main reason is that hydrogen bonds absorb energy as they break, giving water a high specific heat."
+      }
+    ],
+    "verification": "Brief/explainer: hydrogen bonds absorb energy when broken -> high specific heat -> thermal stability.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.4",
+    "topic_title": "Carbohydrates",
+    "seed_used": false,
+    "stem": "A potato plant stores glucose in its tubers as starch, while its cell walls contain cellulose, also a polymer of glucose. Which statement best explains why these two carbohydrates serve different functions?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Cellulose is built from a different monosaccharide than starch, so the two polymers cannot share a monomer.",
+        "is_correct": false,
+        "rationale": "Tempting if you assume different functions require different building blocks. But both polymers are made of glucose, as the stem states. Fix: ask how the same subunits are linked and organized."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Carbohydrates function only as energy sources, so cellulose must be used as stored fuel like starch for the whole plant, including the cell walls.",
+        "is_correct": false,
+        "rationale": "Tempting because sugars are usually linked with energy. But carbohydrates also provide structural support, as cellulose does in plant cell walls. Fix: do not limit carbohydrates to energy; link structure to function."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The same glucose subunits are joined in different arrangements, with branched, accessible starch suited to storage and linear cellulose suited to rigid support.",
+        "is_correct": true,
+        "rationale": "Bond arrangement and branching pattern determine function even when the monomer is identical. Branched starch is readily broken down for energy, while linear cellulose forms rigid structural fibers."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Starch is a carbohydrate made by dehydration synthesis, while cellulose forms by hydrolysis, which gives it its different role.",
+        "is_correct": false,
+        "rationale": "Tempting because both reactions appear in macromolecule topics. But polymers of either kind are built by dehydration synthesis, and hydrolysis breaks bonds. Fix: the difference is in bond arrangement and branching, not in the type of reaction."
+      }
+    ],
+    "verification": "Explainer: bond arrangement and branching, not specific sugar, determine storage vs structural function.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.7",
+    "topic_title": "Proteins",
+    "seed_used": true,
+    "stem": "A reducing chemical breaks the disulfide bridges between cysteine side chains in a single-chain enzyme. The amino acid sequence is unchanged, but the enzyme loses its activity. Which level of protein structure is directly altered?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Tertiary structure, because disulfide bridges between R groups help hold the polypeptide in its overall three-dimensional shape.",
+        "is_correct": true,
+        "rationale": "Tertiary structure is the overall 3D shape held by R-group interactions, including disulfide bridges. Breaking them changes the shape of the active site while the sequence stays the same."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Primary structure, because breaking the bridges changes the order of amino acids so that the whole chain rearranges.",
+        "is_correct": false,
+        "rationale": "Tempting because the cysteines are part of the sequence. But the sequence stays the same here; only interactions between side chains are broken. Fix: primary structure changes only if the order of amino acids changes."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Secondary structure, because disulfide bridges are the main bonds in alpha helices.",
+        "is_correct": false,
+        "rationale": "Tempting because helices are a familiar structure. But secondary structure forms from hydrogen bonds between backbone atoms, not R-group bridges. Fix: backbone hydrogen bonds are secondary; R-group interactions are tertiary."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Quaternary structure, because the bridges hold several polypeptide chains together.",
+        "is_correct": false,
+        "rationale": "Tempting because disulfide bridges can link chains in some proteins. But this enzyme has a single chain, so it has no quaternary structure. Fix: quaternary needs multiple polypeptides."
+      }
+    ],
+    "verification": "Explainer: tertiary driven by R-group interactions incl disulfide; secondary by backbone H bonds; quaternary only multi-chain. Seed (charged interface/dimer) different scenario and answer.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.9",
+    "topic_title": "Cell Compartmentalization",
+    "seed_used": false,
+    "stem": "Lysosomes maintain an acidic interior and contain digestive enzymes. Which statement best explains the advantage of keeping these in a membrane-bound compartment?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The membrane isolates the acidic conditions and digestive enzymes, so they do not interfere with or damage reactions elsewhere in the cell.",
+        "is_correct": true,
+        "rationale": "Compartmentalization lets a cell maintain conditions such as low pH and high enzyme concentration that would disrupt other reactions if free in the cytosol. Separation makes the process efficient and safer."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The membrane supplies extra ATP that makes the digestive enzymes work faster.",
+        "is_correct": false,
+        "rationale": "Tempting because membranes are linked with energy in many topics. But a membrane does not generate ATP for enzymes. Fix: the benefit of compartments is isolation of conditions."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The membrane removes the need for any transport, since everything needed is already inside because the enzymes and acid are already contained inside.",
+        "is_correct": false,
+        "rationale": "Tempting because enclosed spaces seem self-sufficient. But compartments still need transport across their membranes to bring materials in and out. Fix: separation requires regulated exchange, not no exchange."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Enzymes cannot function at all unless they are surrounded by a membrane.",
+        "is_correct": false,
+        "rationale": "Tempting because membranes are important in cells. But many enzymes work freely in the cytosol. Fix: the compartment is advantageous for isolating specific conditions, not required for all enzymes."
+      }
+    ],
+    "verification": "Explainer: compartments minimize competing reactions and maintain distinct pH/enzyme conditions.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.2",
+    "topic_title": "Environmental Impacts on Enzyme Function",
+    "seed_used": false,
+    "stem": "An enzyme has an optimum pH of 7. At pH 2 its activity falls to nearly zero. When the pH is returned to 7, its activity returns. Which statement best explains these results?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The acid broke the peptide bonds, permanently destroying the amino acid sequence.",
+        "is_correct": false,
+        "rationale": "Tempting because acid sounds destructive. But breaking peptide bonds would be irreversible, and activity returned. Fix: denaturation affects shape, not the sequence."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The acid acted as a competitive inhibitor by binding permanently in the active site, and the pH change blocked substrate from fitting.",
+        "is_correct": false,
+        "rationale": "Tempting because inhibition also lowers activity. But H+ here changed the shape, and competitive inhibitors bind reversibly in the active site. Fix: low pH acts on enzyme structure."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The enzyme ran out of substrate at pH 2, and fresh substrate appeared at pH 7.",
+        "is_correct": false,
+        "rationale": "Tempting if you focus on reaction rate alone. But the stem gives no change in substrate and the pH shows the effect on structure. Fix: connect the data trend to the molecular cause."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Low pH disrupted hydrogen bonds and other interactions that hold the enzyme's shape, changing the active site, and the shape was restored when conditions returned to normal.",
+        "is_correct": true,
+        "rationale": "Outside its optimum range, changes in pH disrupt the interactions that maintain the 3D shape, which alters the active site. Because the denaturation was reversible, the enzyme refolded when pH returned to 7."
+      }
+    ],
+    "verification": "Explainer: pH disrupts H bonds -> denaturation, sometimes reversible.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "seed_used": true,
+    "stem": "The reaction glucose + phosphate to glucose-6-phosphate does not occur spontaneously. A cell couples it to ATP hydrolysis and the reaction proceeds. Why does coupling make the reaction possible?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The energy released by ATP hydrolysis is used to drive the energy-requiring reaction, so the combined process can proceed.",
+        "is_correct": true,
+        "rationale": "Energy coupling links an energy-releasing reaction (ATP to ADP and phosphate) to one that needs energy input. The released energy drives the second reaction, which is how cells run processes that would not occur alone."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "ATP acts as an enzyme that lowers the activation energy of the glucose reaction.",
+        "is_correct": false,
+        "rationale": "Tempting because ATP is involved in nearly every cellular process. But ATP is an energy source, not a catalyst. Fix: an enzyme speeds a reaction; ATP supplies energy through coupling."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "ATP stores its energy in a form that is later released as heat, which speeds the reaction in the cell and gives the reaction an extra push forward.",
+        "is_correct": false,
+        "rationale": "Tempting because heat speeds many reactions. But the cell uses ATP to transfer usable energy, not to heat the reaction. Fix: ATP's energy is coupled to the reaction."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "ATP is simply energy itself, so it adds a quantity of energy to the glucose.",
+        "is_correct": false,
+        "rationale": "Tempting because ATP is called the energy currency. But ATP is a molecule, and its energy is released and transferred via hydrolysis and phosphate transfer. Fix: explain how the phosphate transfer supports the process."
+      }
+    ],
+    "verification": "Explainer: ATP hydrolysis releases energy, coupling drives endergonic reactions. Seed on apoptosis differs entirely.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 1,
+    "topic_code": "1.12",
+    "topic_title": "Potential Problems with Sampling",
+    "seed_used": true,
+    "stem": "A teacher has a numbered roster of 350 students (001 to 350) and wants a simple random sample of 20 students using a random number generator. Which procedure is complete and correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Generate 20 random numbers with the generator and choose those students from the roster.",
+        "is_correct": false,
+        "rationale": "Tempting because it sounds like the whole idea — but it gives no number range and no rule for repeats, so it cannot be carried out exactly. Fix: state the range and what to do with repeats."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Generate three-digit numbers from 001 to 350, skip any repeated number, and continue until 20 different students are chosen.",
+        "is_correct": true,
+        "rationale": "This earns the point because it states the range, handles repeats, and maps each number to one student on the labeled list. Skipping repeats keeps every group of 20 students equally likely."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Generate numbers from 001 to 350 and keep every number produced, even if a student appears twice, until 20 numbers are used.",
+        "is_correct": false,
+        "rationale": "Tempting because it looks random — but repeats leave fewer than 20 different students. Fix: ignore repeats so 20 distinct students are selected."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Pick a random starting student from 1 to 17 and then take every 17th student on the roster.",
+        "is_correct": false,
+        "rationale": "Tempting because it uses randomness and gives about 20 students — but this is a systematic sample, and not every group of 20 is possible. Fix: use random numbers for each selection."
+      }
+    ],
+    "verification": "350/20=17.5, systematic sampling is not an SRS; explainer states a full description needs range, repeat handling, and mapping to list.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Probabilities Using Simulation",
+    "seed_used": false,
+    "stem": "A basketball player makes 70% of her free throws. A student wants to estimate by simulation the probability that she makes at least 3 of her next 4 free throws, using a random digit table with digits 0 to 9. Which design is valid?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Let digits 1 to 7 be a made shot and 8 and 9 a miss, skipping 0; one trial is four digits.",
+        "is_correct": false,
+        "rationale": "Tempting because 7 digits seem to match 70% — but with 0 skipped only 9 digits are in play, so a make has probability 7/9, about 78%. Fix: use all 10 digits and assign exactly 7 of them to a make."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Let digits 0 to 6 be a made shot and 7 to 9 a miss; one trial is a single digit; record the percent of made shots.",
+        "is_correct": false,
+        "rationale": "Tempting because the digit assignment is right — but a trial must model all four shots and record whether at least three were made. Fix: one trial equals one complete set of four shots."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Let digits 0 to 6 be a made shot and 7 to 9 a miss; one trial is four digits; record whether at least three are made; repeat for many trials.",
+        "is_correct": true,
+        "rationale": "This earns the point because 7 of 10 digits give a 70% chance per shot, one trial models the four shots, and the recorded result is the event of interest. Many repeated trials let the relative frequency approach the true probability."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Let digits 0 to 6 be a made shot, use four digits, but run only four trials and report that proportion.",
+        "is_correct": false,
+        "rationale": "Tempting because the design looks right — but four trials give a very unstable estimate. Fix: repeat many trials, since the long-run relative frequency settles near the true probability."
+      }
+    ],
+    "verification": "Digit design: 7/10 digits=0.70; digits 1-7 vs 1-9 gives 7/9=0.778; other distractors violate trial definition / many-trials requirement.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.6",
+    "topic_title": "p-Values",
+    "seed_used": true,
+    "stem": "A significance test of H₀: p = 0.30 versus Hₐ: p > 0.30 produces a p-value of 0.03. Which interpretation of the p-value is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "There is a 3% chance that the null hypothesis H₀ is true, given the sample result.",
+        "is_correct": false,
+        "rationale": "Tempting because a small number seems to describe the null — but H₀ is a fixed claim, not a random event with a probability. Fix: the p-value is a probability about data, given H₀."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "There is a 97% chance that the alternative hypothesis Hₐ is true, given the sample result.",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract the p-value from 1 — but that is not a probability of the alternative. Fix: a p-value says how surprising the data are if H₀ holds."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "If the true proportion were 0.30, there would be a 3% chance of getting a sample proportion at least as large as the one observed.",
+        "is_correct": true,
+        "rationale": "This earns the point because a p-value is computed assuming H₀ is true and measures how unusual the sample result is under that assumption."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The sample proportion is 3 percentage points above the hypothesized value of 0.30.",
+        "is_correct": false,
+        "rationale": "Tempting because 0.03 sounds like a distance from 0.30 — but the p-value is a probability, not a difference in proportions. Fix: keep probabilities and proportions apart."
+      }
+    ],
+    "verification": "Definition-based; p-value = P(result at least as extreme | H0 true). No computation.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.14",
+    "topic_title": "Setting Up a Chi-Square Test for Homogeneity or Independence",
+    "seed_used": false,
+    "stem": "A researcher randomly selects 300 adults from one city and records each person's age group (18–34, 35–54, 55 and over) and preferred news source (TV, online, print). The counts are displayed in a table. Which chi-square test applies, and why?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "A test of homogeneity, because the table compares news source across the three age groups.",
+        "is_correct": false,
+        "rationale": "Tempting because the table looks like three groups side by side — but homogeneity is for data collected as separate random samples (or randomly assigned treatment groups), one per group being compared, and here there was one sample. Fix: look at how the data were collected, not at the table's shape."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A two-sample z-test for proportions, because age groups are being compared.",
+        "is_correct": false,
+        "rationale": "Tempting because proportions are being compared — but there are more than two groups and more than two categories. Fix: use a chi-square test when a table has more than two rows or columns."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A test of independence, because one random sample was classified on two categorical variables.",
+        "is_correct": true,
+        "rationale": "This earns the point because homogeneity versus independence depends on the study design. One sample, cross-classified by two variables, calls for independence."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "A test of homogeneity, because chi-square tests with three rows always test whether distributions are the same.",
+        "is_correct": false,
+        "rationale": "Tempting because the arithmetic of the two tests is identical — but the name must match the design. Fix: one sample with two variables means independence."
+      }
+    ],
+    "verification": "Explainer: independence = one sample, two categorical variables; homogeneity = separate samples per population or treatment.",
+    "author_flags": ""
+  }
+]

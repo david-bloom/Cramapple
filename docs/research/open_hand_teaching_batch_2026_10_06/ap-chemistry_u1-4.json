@@ -95,7 +95,7 @@
     "choice_key": "C",
     "choice_text": "The powder is a pure compound whose formula changes with the size of the sample.",
     "is_correct": false,
-    "rationale": "Tempting if you try to keep the pure-substance idea — but a compound has one fixed ratio no matter how much you take. Fix: a ratio that changes means the proportions are variable, so it is a mixture."
+    "rationale": "Tempting if you try to keep the pure-substance idea — but a compound has one fixed ratio no matter how much you take. Fix: compute the X:Y mass ratio for each sample, and call the powder a mixture if the ratio changes."
    },
    {
     "choice_key": "D",
@@ -281,7 +281,7 @@
     "choice_key": "D",
     "choice_text": "Br–Br",
     "is_correct": false,
-    "rationale": "Tempting if you think a large atom pulls electrons harder — but both atoms have identical electronegativity, so the pull is equal. Fix: equal electronegativity means a nonpolar bond with no partial charges."
+    "rationale": "Tempting if you think a large atom pulls electrons harder — but both atoms have identical electronegativity, so the pull is equal. Fix: check that the two atoms differ in electronegativity before you assign any partial charge."
    }
   ],
   "verification": "Delta EN: H-Cl 0.96, O-H 1.24 (negative on O, first), C-H 0.35 (negative on C, first), Br-Br 0 (python). Only H-Cl has delta-negative on the second atom. Seed ranked ionic character of four bonds; this item assigns polarity direction.",
@@ -371,7 +371,7 @@
     "choice_key": "A",
     "choice_text": "Fe and C",
     "is_correct": false,
-    "rationale": "Tempting because steel is the most familiar alloy — but carbon (77 pm) is much smaller than iron (126 pm), so it sits in gaps and gives an interstitial alloy. Fix: compare radii; very different sizes mean interstitial."
+    "rationale": "Tempting because steel is the most familiar alloy — but carbon (77 pm) is much smaller than iron (126 pm), so it sits in gaps and gives an interstitial alloy. Fix: compare the two radii, and rule out a pair in which one atom is much smaller than the other."
    },
    {
     "choice_key": "B",
@@ -383,7 +383,7 @@
     "choice_key": "C",
     "choice_text": "Pd and H",
     "is_correct": false,
-    "rationale": "Tempting because palladium is a metal and an alloy sounds like a metal mix — but H (53 pm) is far smaller than Pd (137 pm) and fits between the atoms. Fix: a size gap this large indicates interstitial placement."
+    "rationale": "Tempting because palladium is a metal and an alloy sounds like a metal mix — but H (53 pm) is far smaller than Pd (137 pm) and fits between the atoms. Fix: compare the two radii before calling a pair substitutional; pick a pair whose radii are close."
    },
    {
     "choice_key": "D",
@@ -449,13 +449,13 @@
     "choice_key": "B",
     "choice_text": "One bond is a double bond and the other a single bond, and the molecule rapidly switches between the two.",
     "is_correct": false,
-    "rationale": "Tempting if you treat the drawn forms as real snapshots — but resonance forms are not interconverting structures. Fix: the molecule is a single averaged structure with identical bonds."
+    "rationale": "Tempting if you treat the drawn forms as real snapshots — but resonance forms are not interconverting structures. Fix: draw both resonance forms, then describe the real molecule as their average, with two identical bonds."
    },
    {
     "choice_key": "C",
     "choice_text": "Both bonds are single bonds, because the double bond is only a drawing convention that is not used in real molecules.",
     "is_correct": false,
-    "rationale": "Tempting if you dismiss resonance as pretend — but the measured bond lengths are shorter than single-bond lengths. Fix: the averaged bonds have partial double-bond character."
+    "rationale": "Tempting if you dismiss resonance as pretend — but the measured bond lengths are shorter than single-bond lengths. Fix: count the bonds across both resonance forms and share the double bond equally between the two positions."
    },
    {
     "choice_key": "D",
@@ -521,13 +521,13 @@
     "choice_key": "B",
     "choice_text": "It is a solid, because its molar volume is much greater than that of a typical liquid.",
     "is_correct": false,
-    "rationale": "Tempting if you link solid with large volume — but solids and liquids have similar molar volumes because particles touch in both. Fix: the large molar volume belongs to gases."
+    "rationale": "Tempting if you link solid with large volume — but solids and liquids have similar molar volumes because particles touch in both. Fix: check whether a property actually separates solids from liquids before you use it; save large molar volume for gases."
    },
    {
     "choice_key": "C",
     "choice_text": "It is a gas-like phase, because its particles are not locked in a regular crystal pattern.",
     "is_correct": false,
-    "rationale": "Tempting if you think no pattern means free movement — but glass particles are as close together as in a crystal. Fix: gas particles are far apart and move independently; that is not the case here."
+    "rationale": "Tempting if you think no pattern means free movement — but glass particles are as close together as in a crystal. Fix: check particle spacing before you call anything gas-like; glass particles touch, as in a solid."
    },
    {
     "choice_key": "D",
@@ -569,7 +569,7 @@
     "choice_key": "D",
     "choice_text": "The ideal gas law ignores molar mass, which becomes important only at high pressure.",
     "is_correct": false,
-    "rationale": "Tempting if you think a missing variable explains the gap — but molar mass is not what the ideal gas law neglects. Fix: the ideal model neglects particle volume and attractions."
+    "rationale": "Tempting if you think a missing variable explains the gap — but molar mass is not what the ideal gas law neglects. Fix: explain a deviation from ideal behavior with particle volume or attractions, the two things the ideal model ignores."
    }
   ],
   "verification": "Explainer: at very high pressure particle volume becomes significant -> measured volume exceeds ideal. Seed was an attractions-at-low-T comparison of NH3 and CH4; this item uses the particle-volume mechanism at high P.",

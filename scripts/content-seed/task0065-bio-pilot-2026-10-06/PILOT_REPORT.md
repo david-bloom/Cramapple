@@ -128,3 +128,26 @@ them without extracting that text from the CEDs first. They stay on #340's singl
 
 Calls: 182 (C3) + 126 (C5) + 4 (regression). These results are inputs to #340's patch loop. They do not clear any
 item on their own.
+
+## Fix lines rewritten as actions (2026-10-06)
+
+David: "Fix lines must be actions; rewrite the 25." `patch_fix_lines.py` reviewed every fix line in the 25 items
+blocked only on fact-style fixes and rewrote **44** of them as instructions, changing only the text after `Fix: `.
+Each old fix was asserted before replacement. Fix lines that already gave an action were left alone. The same edit
+went into `SCOPE_UNITS_1-3.json` and each item's subject file (`biology_u1-4.json`, `ap-statistics.json`,
+`ap-chemistry_u1-4.json`, `ap-calculus-ab_u1-4.json`), which held identical copies. This counts as the items' one patch round.
+
+**Re-check of all 25 patched items, both models:**
+- Lint: 0 fail.
+- C3: 24 pass. Biology 3.1 D was flagged once by DeepSeek for its temptation sentence, which was not changed and
+  which both checkers passed in round 1. Two further DeepSeek samples both passed. Recorded as single-call variance.
+- `open_hand_teaching_check.mjs` (#340's blind solve + fact-pack audit): 24 clean. Chemistry 2.6 D was flagged by DeepSeek
+  ("the central O obeys the octet in O=O=O"). **Adjudicated false:** neutral ozone has 18 valence electrons, so
+  with two double bonds the remaining pair must sit on an oxygen, giving it 10. The rationale is correct. Gemini
+  passed it. That rationale sentence was not part of this patch.
+
+**Result: all 25 clear on L, C3 and #340's solve and audit checks** (two flags adjudicated above). Outputs:
+`patched25.json`, `patched25_c3/`, `patched25_c3_resample2/`, `patched25_c3_resample3/`, `patched25_solve_audit/`.
+
+**Still open:** the 13 items blocked for an unnamed temptation. 7 of them also have fact-style fix lines, and both
+need rewriting in the same patch. Nothing has been loaded to any database.

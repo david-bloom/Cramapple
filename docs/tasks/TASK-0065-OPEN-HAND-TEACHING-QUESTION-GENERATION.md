@@ -1,6 +1,6 @@
 # TASK-0065 — Generate Open Hand Teaching Questions (One per Topic, Never Scored)
 
-**Status:** In progress — drafts done; outside checkers ready to run (paused 2026-10-06)  
+**Status:** Units 1–3 done — 91 items live in Production (2026-10-06, APPROVAL-0125). Units 4+ not started.  
 **Tier:** Standard for authoring in Development; Hard-Gate for Production publish and designation  
 **Owner:** Claude session (authoring); outside-family checkers via AI Gateway  
 **Product Owner:** David Bloom  
@@ -155,11 +155,17 @@ Record: `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`.
   - Lint: 2 fail (Calculus AB 1.11 and 1.13 use `!=`).
   - C3: 38 blocked. 13 for an unnamed temptation. 25 only because a `Fix:` line states a fact rather than an action.
   - Biology topic probe: 21 of 21 pass.
-- **Open for David:** should a `Fix:` line have to be an action, which means rewriting 25 items' fixes, or may
-  it state the correct fact?
+- **David (2026-10-06): fix lines must be actions.** I rewrote 44 fix lines across the 25 items,
+  in both copies of each item. On re-check, all 25 clear lint, C3 and `open_hand_teaching_check.mjs`.
+  Two single-checker flags were adjudicated: one as variance, one as a wrong flag on ozone's octet.
+  Still open: 13 items with an unnamed temptation (7 of them also have fact-style fixes).
 - These results feed the patch loop (step 3 of the handoff above). They clear nothing on their own.
 
 ## Generate-and-select pipeline replaces hand-patching — 2026-10-06 (David)
+
+> **Superseded for Units 1–3; see "Reconciliation" at the end of this file.** The pipeline stays as the route for
+> Units 4 and later. Items 2–3 of the decision below did not happen: #348 was merged, and the 15 blocked items were
+> fixed, checked and loaded.
 
 David asked why reviewed questions kept failing new checks, and asked for "a way to add questions without
 needing to edit them using at least 4 models and multiple sessions".
@@ -213,3 +219,47 @@ hand patch needed a full re-check. Two sessions also worked to different specs.
 - **Lint additions from the pilot:** stray HTML, and more than three sentences in an explanation.
 - **Next:** the accepted items need the per-subject human spot-check before any Development load.
   Statistics, Chemistry and Calculus AB (70 topics) have not been run.
+## Checker run on all 91 — 2026-10-06 (`open_hand_teaching_check.mjs`)
+Results are in `docs/research/open_hand_teaching_batch_2026_10_06/CHECK_RESULTS.md`.
+- The smoke test and canary passed: both models caught 4 of 4 planted wrong keys.
+- Full run: 182/182 calls succeeded. Every blind solve matched its key, and neither model disputed a key.
+- 13 items were flagged. 4 were real rationale errors (Calc AB 1.5 B; Stats 1.5 A, 3.14 A, 3.15 D). I fixed them on
+  top of #348's action fix lines. The other 9 were verified as non-defects (scope supported by the published briefs;
+  calculator use allowed in Statistics, keys recomputed).
+- The 4 fixes re-check clean on this checker and pass lint. On C3, 3 pass. Stats 3.14 still fails, but on choice
+  D, which is outside my edits.
+
+**Open before loading:** the 13 C3 temptation-blocked items and the 2 lint failures from #345/#348.
+
+## Loaded to Production — 2026-10-06 (APPROVAL-0125)
+- **Batch 1:** the 76 items that cleared every stage.
+- **Batch 2:** the 15 C3/lint-blocked items, after the `fix15/` rewrite. All 15 now pass lint, C3 and the
+  solve/audit checks on both checkers. The one DeepSeek scope flag, on Bio 3.3, was adjudicated: the published brief
+  covers energy coupling.
+- **Live:** Bio 21, Stats 29, Chem 21, Calc AB 20 = 91. Every Units 1–3 gap topic in the four subjects now has a
+  worked example.
+- **Verified:** content hashes match; Open Hand serves the new items; students cannot read them directly; scoring
+  never serves them.
+- `SCOPE_UNITS_1-3.json` now holds the final text of all 91, with the fix15 rewrites merged in.
+- **Follow-up:** add energy coupling and ATP hydrolysis to the 3.3 entry of `AP_BIOLOGY_CED_FACT_PACK.md`, so the
+  checker stops flagging it.
+
+## Reconciliation of the two Units 1–3 tracks — 2026-10-06 (merge of PR #351)
+Two sessions worked TASK-0065 Units 1–3 in parallel with different plans. This records what actually happened, so
+the file states one plan.
+
+- **Live:** the hand-patch track. PR #348 was merged, not held. The 13 temptation-blocked items plus the 2 lint
+  failures were rewritten in `fix15/` and checked (lint, C3 and solve/audit on both checkers). All 91 Units 1–3
+  items were loaded to Production under APPROVAL-0125.
+- **Not loaded:** the generate-and-select Biology pilot's 18 accepted items
+  (`scripts/content-seed/task0065-generate-select/bio-u1-3-2026-10-06/`). They must not be loaded for Units 1–3.
+  Every one of those topics already has a live generated teaching item, and a second active row per topic would be
+  shadowed (`get_open_hand_teaching_item` picks the earliest designated `generated` row).
+  If David prefers a pipeline item for a topic, release the live row first (`released_at = now()`), then load the
+  replacement. One active generated row per topic.
+- **Kept:** the pipeline itself (`scripts/vercel-gateway-check/teaching_pipeline/`) is the route for Units 4 and
+  later. It generates without edits and runs four checker families plus an own-family veto.
+- **Still open for David, common to both tracks:** Biology 2.10 and 3.3. The published topic point briefs require
+  content (circular organelle DNA and binary fission; ATP coupling) that `AP_BIOLOGY_CED_FACT_PACK.md` omits.
+  Decide which source is right. If it is the briefs, add that content to the fact pack.
+
