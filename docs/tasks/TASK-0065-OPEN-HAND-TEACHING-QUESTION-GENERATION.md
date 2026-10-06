@@ -194,3 +194,22 @@ hand patch needed a full re-check. Two sessions also worked to different specs.
 - My spot check of that accepted item found rationales longer than the design's one to three sentences.
   A `concise` rule was added to the rubric and lint (60 words per rationale, 25 per fix) before the
   pilot. The human spot-check stays required.
+
+**Biology pilot (units 1–3, 21 topics), batch `scripts/content-seed/task0065-generate-select/bio-u1-3-2026-10-06/`:**
+- **Controls:** 6 of 6 caught.
+- **First pass:** 21 of 21 accepted from 38 candidates, with 17 rejected at the audit. Every Claude
+  rejection came from GPT-6.1 alone, and GPT never checked GPT-written items, so the bar depended on
+  the author.
+- **Veto added:** the author's own family can reject but never approve, so every accepted item has
+  passed all five families. Applied to the 21, it vetoed 3 GPT-written items (1.5, 2.10, 3.3).
+  Their regeneration rounds were also rejected.
+- **Result:** 18 accepted (12 GPT-authored, 6 Claude), 3 escalated, 0 edited. 0 failed calls out of about 600.
+- **Escalated, for David:**
+  - 2.10 and 3.3: the topic point brief students see requires content the Biology CED fact pack lacks
+    (circular organelle DNA and binary fission for 2.10; ATP coupling for 3.3). No item can satisfy
+    both. Decide which source is right.
+  - 1.5 Lipids: its content overlaps 2.3 (phospholipid orientation), and GPT consistently places
+    lipid-structure items in 2.3.
+- **Lint additions from the pilot:** stray HTML, and more than three sentences in an explanation.
+- **Next:** the accepted items need the per-subject human spot-check before any Development load.
+  Statistics, Chemistry and Calculus AB (70 topics) have not been run.

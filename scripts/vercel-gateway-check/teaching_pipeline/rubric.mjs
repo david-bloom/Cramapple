@@ -13,7 +13,7 @@ export const RUBRIC_RULES = [
   ['keyed_rationale', 'The correct choice\'s rationale explains WHY it earns the point (the reasoning), never just that it is correct.'],
   ['named_trap', 'Every wrong choice is a named trap. Its rationale (a) names the specific error, misreading or misconception that makes a student pick it, (b) says briefly why it is wrong, and (c) ends with exactly one sentence that starts "Fix: " (it may sit in the same paragraph) and tells the student a concrete ACTION to take next time ("check...", "compute...", "ask whether..."). A fix that only states a fact or the right answer fails. Generic advice ("review the topic", "read carefully") fails.'],
   ['accurate', 'Every statement in every rationale is factually and mathematically correct.'],
-  ['concise', 'Explanations are one to three sentences. The correct choice\'s rationale is at most 60 words. Each wrong choice\'s rationale is at most 60 words before its Fix sentence, and the Fix sentence is at most 25 words.'],
+  ['concise', 'Each rationale explains in one to three sentences, not counting a wrong choice\'s final Fix sentence. The correct choice\'s rationale is at most 60 words. Each wrong choice\'s rationale is at most 60 words before its Fix sentence, and the Fix sentence is at most 25 words.'],
   ['style', 'Plain, calm teacher voice: no emoji, no exclamation marks, no "Great job" or "Oops". Rationales never refer to other choices by letter. Use proper symbols (for example ≠, ≤, √) rather than programmer notation such as != or <=.'],
 ];
 export const RUBRIC_TEXT = RUBRIC_RULES.map(([k, t], i) => `${i + 1}. [${k}] ${t}`).join('\n');
@@ -58,6 +58,9 @@ export function lint(item) {
     const fixAt = r.search(/\b(Fix|Next time):/);
     const body = fixAt >= 0 ? r.slice(0, fixAt) : r;
     if (words(body) > 60) f.push(`rationale ${c.choice_key} over 60 words (${words(body)})`);
+    // Approximate sentence count (ignores common abbreviations); the rubric allows one to three before the Fix.
+    const sentences = body.replace(/\b(e\.g|i\.e|etc|vs|approx|Fig|ca)\./gi, '$1').split(/(?<=[.?!])\s+(?=[A-Z0-9(])/).filter((x) => x.trim()).length;
+    if (sentences > 3) f.push(`rationale ${c.choice_key} has ${sentences} sentences before any Fix (max 3)`);
     if (fixAt >= 0 && words(r.slice(fixAt)) > 26) f.push(`Fix line ${c.choice_key} over 25 words`);
     if (!c.is_correct) {
       const fixes = r.match(/\b(Fix|Next time):/g) || [];
@@ -67,6 +70,7 @@ export function lint(item) {
   }
   const text = [stem, ...ch.map((c) => `${c.choice_text} ${c.rationale}`)].join(' ');
   if (EMOJI.test(text)) f.push('emoji present');
+  if (/<\/?[a-z][^>]*>|&[a-z]+;/i.test(text)) f.push('HTML markup or entity present');
   if (/!=|<=|>=/.test(text)) f.push('programmer notation (!=, <=, >=) instead of a symbol');
   if (/!/.test(text.replace(/!=/g, ''))) f.push('exclamation mark present');
   if (/\bcalculator\b/i.test(text)) f.push('calculator reference');

@@ -1,0 +1,1644 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.6",
+  "topic_title": "Nucleic Acids"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__1.6#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25195,
+    "inputTokenDetails": {
+     "noCacheTokens": 25195,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 915,
+    "outputTokenDetails": {
+     "textTokens": 584,
+     "reasoningTokens": 331
+    },
+    "totalTokens": 26110,
+    "raw": {
+     "input_tokens": 25195,
+     "output_tokens": 915,
+     "output_tokens_details": {
+      "thinking_tokens": 331
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 331,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.6",
+    "topic_title": "Nucleic Acids",
+    "stem": "One strand of a DNA double helix has the sequence 5'-ATGCCA-3'. Which sequence correctly represents the complementary DNA strand written in the 5' to 3' direction?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "5'-TACGGT-3'",
+      "is_correct": false,
+      "rationale": "This is the parallel-strand error. The bases are correctly complementary, but they are labeled as if both strands ran in the same direction. DNA strands are antiparallel, so the base pairing with the original 5' end sits at the complementary strand's 3' end. Fix: Write the complement under the original with opposite end labels, then reverse it to read 5' to 3'."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "5'-UGGCAU-3'",
+      "is_correct": false,
+      "rationale": "This mixes DNA and RNA by pairing A with uracil. Uracil occurs in RNA, and the question asks for the complementary DNA strand, which pairs A with thymine. Fix: Ask whether the product is DNA or RNA before choosing T or U as A's partner."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "5'-TGGCAT-3'",
+      "is_correct": true,
+      "rationale": "In DNA, A pairs with T and C pairs with G, and the two strands are antiparallel. Pairing base by base gives 3'-TACGGT-5'. Reading that strand from its 5' end gives 5'-TGGCAT-3'. The complementary sequence lets either strand serve as a template for copying the stored information."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "5'-ACCGTA-3'",
+      "is_correct": false,
+      "rationale": "This is the original sequence written backward without pairing any bases. Reversing the order deals with antiparallel direction but ignores complementarity. Every A should become T and every C should become G. Fix: Replace each base with its pairing partner first, then reverse the order to read the new strand 5' to 3'."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 252,
+         "inputTokenDetails": {
+          "noCacheTokens": 252,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 59,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 33
+         },
+         "totalTokens": 311,
+         "raw": {
+          "input_tokens": 252,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 59,
+          "output_tokens_details": {
+           "reasoning_tokens": 33
+          },
+          "total_tokens": 311
+         },
+         "reasoningTokens": 33,
+         "cachedInputTokens": 0
+        },
+        "ms": 2697,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 330,
+         "inputTokenDetails": {
+          "noCacheTokens": 330,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 267,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 237
+         },
+         "totalTokens": 597,
+         "raw": {
+          "thoughtsTokenCount": 237,
+          "promptTokenCount": 330,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 597,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 330
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 237,
+         "cachedInputTokens": 0
+        },
+        "ms": 4663,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 391,
+         "inputTokenDetails": {
+          "noCacheTokens": 135,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 552,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 532
+         },
+         "totalTokens": 943,
+         "raw": {
+          "prompt_tokens": 391,
+          "completion_tokens": 552,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 135,
+          "total_tokens": 943,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 532
+          }
+         },
+         "reasoningTokens": 532,
+         "cachedInputTokens": 256
+        },
+        "ms": 7087,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 414,
+         "inputTokenDetails": {
+          "noCacheTokens": 286,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 460,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 440
+         },
+         "totalTokens": 874,
+         "raw": {
+          "prompt_tokens": 414,
+          "completion_tokens": 460,
+          "total_tokens": 874,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 440,
+           "accepted_prediction_tokens": 260,
+           "rejected_prediction_tokens": 337,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 440,
+         "cachedInputTokens": 128
+        },
+        "ms": 4510,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Rationales A, C, and D each contain four sentences, exceeding the three-sentence maximum. For A and D, the Fix sentence counts toward this limit."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16198,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16195
+         },
+         "outputTokens": 397,
+         "outputTokenDetails": {
+          "textTokens": 256,
+          "reasoningTokens": 141
+         },
+         "totalTokens": 16595,
+         "raw": {
+          "input_tokens": 16198,
+          "input_tokens_details": {
+           "cache_write_tokens": 16195,
+           "cached_tokens": 0
+          },
+          "output_tokens": 397,
+          "output_tokens_details": {
+           "reasoning_tokens": 141
+          },
+          "total_tokens": 16595
+         },
+         "reasoningTokens": 141,
+         "cachedInputTokens": 0
+        },
+        "ms": 9724,
+        "flags": [
+         "concise: Rationales A, C, and D each contain four sentences, exceeding the three-sentence maximum. For A and D, the Fix sentence counts toward this limit."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Rationales A, C, and D each contain four sentences, exceeding the three-sentence maximum. For A and D, the count includes the Fix sentence."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16198,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16195,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 459,
+         "outputTokenDetails": {
+          "textTokens": 255,
+          "reasoningTokens": 204
+         },
+         "totalTokens": 16657,
+         "raw": {
+          "input_tokens": 16198,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16195
+          },
+          "output_tokens": 459,
+          "output_tokens_details": {
+           "reasoning_tokens": 204
+          },
+          "total_tokens": 16657
+         },
+         "reasoningTokens": 204,
+         "cachedInputTokens": 16195
+        },
+        "ms": 10444,
+        "flags": [
+         "concise: Rationales A, C, and D each contain four sentences, exceeding the three-sentence maximum. For A and D, the count includes the Fix sentence."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice C's rationale has four sentences, exceeding the maximum limit of three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17522,
+         "inputTokenDetails": {
+          "noCacheTokens": 17522,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2620,
+         "outputTokenDetails": {
+          "textTokens": 279,
+          "reasoningTokens": 2341
+         },
+         "totalTokens": 20142,
+         "raw": {
+          "thoughtsTokenCount": 2341,
+          "promptTokenCount": 17522,
+          "candidatesTokenCount": 279,
+          "totalTokenCount": 20142,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17522
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 279
+           }
+          ]
+         },
+         "reasoningTokens": 2341,
+         "cachedInputTokens": 0
+        },
+        "ms": 18683,
+        "flags": [
+         "concise: Choice C's rationale has four sentences, exceeding the maximum limit of three sentences."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice C's rationale has four sentences, exceeding the requirement that explanations be one to three sentences (Choices A and D also contain four sentences total including the Fix sentence)."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17522,
+         "inputTokenDetails": {
+          "noCacheTokens": 5331,
+          "cacheReadTokens": 12191
+         },
+         "outputTokens": 3366,
+         "outputTokenDetails": {
+          "textTokens": 296,
+          "reasoningTokens": 3070
+         },
+         "totalTokens": 20888,
+         "raw": {
+          "cachedContentTokenCount": 12191,
+          "thoughtsTokenCount": 3070,
+          "promptTokenCount": 17522,
+          "candidatesTokenCount": 296,
+          "totalTokenCount": 20888,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17522
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12191
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 296
+           }
+          ]
+         },
+         "reasoningTokens": 3070,
+         "cachedInputTokens": 12191
+        },
+        "ms": 23115,
+        "flags": [
+         "concise: Choice C's rationale has four sentences, exceeding the requirement that explanations be one to three sentences (Choices A and D also contain four sentences total including the Fix sentence)."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Correct choice C rationale is four sentences; explanations must be one to three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16370,
+         "inputTokenDetails": {
+          "noCacheTokens": 15090,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 8334,
+         "outputTokenDetails": {
+          "textTokens": 235,
+          "reasoningTokens": 8099
+         },
+         "totalTokens": 24704,
+         "raw": {
+          "prompt_tokens": 16370,
+          "completion_tokens": 8334,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15090,
+          "total_tokens": 24704,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8099
+          }
+         },
+         "reasoningTokens": 8099,
+         "cachedInputTokens": 1280
+        },
+        "ms": 81386,
+        "flags": [
+         "concise: Correct choice C rationale is four sentences; explanations must be one to three sentences."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "The correct choice C's rationale has four sentences, exceeding the one-to-three sentence limit."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16370,
+         "inputTokenDetails": {
+          "noCacheTokens": 114,
+          "cacheReadTokens": 16256
+         },
+         "outputTokens": 8147,
+         "outputTokenDetails": {
+          "textTokens": 237,
+          "reasoningTokens": 7910
+         },
+         "totalTokens": 24517,
+         "raw": {
+          "prompt_tokens": 16370,
+          "completion_tokens": 8147,
+          "prompt_cache_hit_tokens": 16256,
+          "prompt_cache_miss_tokens": 114,
+          "total_tokens": 24517,
+          "prompt_tokens_details": {
+           "cached_tokens": 16256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7910
+          }
+         },
+         "reasoningTokens": 7910,
+         "cachedInputTokens": 16256
+        },
+        "ms": 78690,
+        "flags": [
+         "concise: The correct choice C's rationale has four sentences, exceeding the one-to-three sentence limit."
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "C: The correct rationale is four sentences (\"In DNA... antiparallel.\" / \"Pairing base by base...\" / \"Reading that strand...\" / \"The complementary sequence lets either strand serve as a template...\"), exceeding the three-sentence limit for explanations. Word count (47) is fine; the final template sentence could be cut or merged to comply."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16875,
+         "inputTokenDetails": {
+          "noCacheTokens": 16491,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 4605,
+         "outputTokenDetails": {
+          "textTokens": 205,
+          "reasoningTokens": 4400
+         },
+         "totalTokens": 21480,
+         "raw": {
+          "prompt_tokens": 16875,
+          "completion_tokens": 4605,
+          "total_tokens": 21480,
+          "prompt_tokens_details": {
+           "cached_tokens": 384,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4400,
+           "accepted_prediction_tokens": 2921,
+           "rejected_prediction_tokens": 2128,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 4400,
+         "cachedInputTokens": 384
+        },
+        "ms": 34038,
+        "flags": [
+         "concise: C: The correct rationale is four sentences (\"In DNA... antiparallel.\" / \"Pairing base by base...\" / \"Reading that strand...\" / \"The complementary sequence lets either strand serve as a template...\"), exceeding the three-sentence limit for explanations. Word count (47) is fine; the final template sentence could be cut or merged to comply."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice C's rationale is four sentences, exceeding the one-to-three-sentence limit (the final sentence about serving as a template could be cut or merged)."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16875,
+         "inputTokenDetails": {
+          "noCacheTokens": 43,
+          "cacheReadTokens": 16832
+         },
+         "outputTokens": 3744,
+         "outputTokenDetails": {
+          "textTokens": 204,
+          "reasoningTokens": 3540
+         },
+         "totalTokens": 20619,
+         "raw": {
+          "prompt_tokens": 16875,
+          "completion_tokens": 3744,
+          "total_tokens": 20619,
+          "prompt_tokens_details": {
+           "cached_tokens": 16832,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3540,
+           "accepted_prediction_tokens": 2483,
+           "rejected_prediction_tokens": 1297,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 3540,
+         "cachedInputTokens": 16832
+        },
+        "ms": 21950,
+        "flags": [
+         "concise: Choice C's rationale is four sentences, exceeding the one-to-three-sentence limit (the final sentence about serving as a template could be cut or merged)."
+        ]
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__1.6#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15634,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15631
+    },
+    "outputTokens": 684,
+    "outputTokenDetails": {
+     "textTokens": 403,
+     "reasoningTokens": 281
+    },
+    "totalTokens": 16318,
+    "raw": {
+     "input_tokens": 15634,
+     "input_tokens_details": {
+      "cache_write_tokens": 15631,
+      "cached_tokens": 0
+     },
+     "output_tokens": 684,
+     "output_tokens_details": {
+      "reasoning_tokens": 281
+     },
+     "total_tokens": 16318
+    },
+    "reasoningTokens": 281,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.6",
+    "topic_title": "Nucleic Acids",
+    "stem": "Two DNA strands have the sequences 5′-ATGC-3′ and 5′-AGTC-3′. Which statement best explains how these strands store information and how each can guide formation of a complementary DNA strand?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The strands store different sequence information because their base orders differ; A–T and C–G pairing determines each complementary sequence.",
+      "is_correct": true,
+      "rationale": "DNA stores information in the order of its nucleotide bases, not simply in which bases are present. Specific complementary pairing allows each strand’s base sequence to determine the sequence of a partner strand, supporting information copying."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The strands store the same sequence information because they contain equal numbers of each base; A–T and C–G pairing determines each complementary sequence.",
+      "is_correct": false,
+      "rationale": "Base-count trap: Equal base counts do not mean equal sequence information because the bases occur in different orders. Fix: Compare the bases position by position rather than comparing only their totals."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The strands store different sequence information in the order of their sugars and phosphates; A–T and C–G pairing determines each complementary sequence.",
+      "is_correct": false,
+      "rationale": "Backbone-as-code trap: DNA has a repeating sugar–phosphate backbone; the variable base sequence stores the information. Fix: Identify which nucleotide component varies along each strand, then compare the order of that component."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The strands store different sequence information because their base orders differ; pairing identical bases determines each complementary sequence.",
+      "is_correct": false,
+      "rationale": "Identical-base pairing trap: Complementary DNA bases are not identical; A pairs with T, and C pairs with G. Fix: Write the partner base beneath each original base using A–T and C–G pairs."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 727,
+         "inputTokenDetails": {
+          "noCacheTokens": 727,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 757,
+         "raw": {
+          "input_tokens": 727,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2191,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 403,
+         "inputTokenDetails": {
+          "noCacheTokens": 403,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 362,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 332
+         },
+         "totalTokens": 765,
+         "raw": {
+          "thoughtsTokenCount": 332,
+          "promptTokenCount": 403,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 765,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 403
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 332,
+         "cachedInputTokens": 0
+        },
+        "ms": 4763,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 463,
+         "inputTokenDetails": {
+          "noCacheTokens": 207,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 900,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 880
+         },
+         "totalTokens": 1363,
+         "raw": {
+          "prompt_tokens": 463,
+          "completion_tokens": 900,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 207,
+          "total_tokens": 1363,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 880
+          }
+         },
+         "reasoningTokens": 880,
+         "cachedInputTokens": 256
+        },
+        "ms": 10495,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 486,
+         "inputTokenDetails": {
+          "noCacheTokens": 358,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 90,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 70
+         },
+         "totalTokens": 576,
+         "raw": {
+          "prompt_tokens": 486,
+          "completion_tokens": 90,
+          "total_tokens": 576,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 70,
+           "accepted_prediction_tokens": 46,
+           "rejected_prediction_tokens": 83,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 70,
+         "cachedInputTokens": 128
+        },
+        "ms": 1846,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 26695,
+         "inputTokenDetails": {
+          "noCacheTokens": 26695,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 524,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 312
+         },
+         "totalTokens": 27219,
+         "raw": {
+          "input_tokens": 26695,
+          "output_tokens": 524,
+          "output_tokens_details": {
+           "thinking_tokens": 312
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 312,
+         "cachedInputTokens": 0
+        },
+        "ms": 8175,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17488,
+         "inputTokenDetails": {
+          "noCacheTokens": 17488,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1247,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 985
+         },
+         "totalTokens": 18735,
+         "raw": {
+          "thoughtsTokenCount": 985,
+          "promptTokenCount": 17488,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 18735,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17488
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 985,
+         "cachedInputTokens": 0
+        },
+        "ms": 10869,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16329,
+         "inputTokenDetails": {
+          "noCacheTokens": 15049,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 2869,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 2650
+         },
+         "totalTokens": 19198,
+         "raw": {
+          "prompt_tokens": 16329,
+          "completion_tokens": 2869,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15049,
+          "total_tokens": 19198,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2650
+          }
+         },
+         "reasoningTokens": 2650,
+         "cachedInputTokens": 1280
+        },
+        "ms": 30174,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16830,
+         "inputTokenDetails": {
+          "noCacheTokens": 16766,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2729,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 2602
+         },
+         "totalTokens": 19559,
+         "raw": {
+          "prompt_tokens": 16830,
+          "completion_tokens": 2729,
+          "total_tokens": 19559,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2602,
+           "accepted_prediction_tokens": 1769,
+           "rejected_prediction_tokens": 1108,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2602,
+         "cachedInputTokens": 64
+        },
+        "ms": 22134,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16165,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16162
+         },
+         "outputTokens": 276,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 54
+         },
+         "totalTokens": 16441,
+         "raw": {
+          "input_tokens": 16165,
+          "input_tokens_details": {
+           "cache_write_tokens": 16162,
+           "cached_tokens": 0
+          },
+          "output_tokens": 276,
+          "output_tokens_details": {
+           "reasoning_tokens": 54
+          },
+          "total_tokens": 16441
+         },
+         "reasoningTokens": 54,
+         "cachedInputTokens": 0
+        },
+        "ms": 7704,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__1.6#r1-openai",
+ "accepted_at": "2026-10-06T15:20:43.079Z"
+}

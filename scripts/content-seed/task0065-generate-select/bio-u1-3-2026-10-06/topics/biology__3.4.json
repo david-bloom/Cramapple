@@ -1,0 +1,1466 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.4",
+  "topic_title": "Photosynthesis"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__3.4#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25516,
+    "inputTokenDetails": {
+     "noCacheTokens": 25516,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1402,
+    "outputTokenDetails": {
+     "textTokens": 725,
+     "reasoningTokens": 677
+    },
+    "totalTokens": 26918,
+    "raw": {
+     "input_tokens": 25516,
+     "output_tokens": 1402,
+     "output_tokens_details": {
+      "thinking_tokens": 677
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 677,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Photosynthesis",
+    "stem": "Isolated chloroplasts are placed in a buffer that contains water but no CO₂ and are then illuminated with bright light. Which outcome is expected during the first few minutes of illumination?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "No O₂ is released, because the O₂ produced in photosynthesis comes from the oxygen atoms in CO₂.",
+      "is_correct": false,
+      "rationale": "This trap assumes O₂ comes from CO₂ because both molecules contain oxygen. In fact O₂ is released when water is split to replace electrons lost at photosystem II, so O₂ release continues without CO₂. Fix: Trace each product to its stage and ask which input molecule is split in the thylakoid to release O₂."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Sugar is still produced in the stroma, because light supplies the energy the Calvin cycle needs to build carbohydrates.",
+      "is_correct": false,
+      "rationale": "This trap confuses an energy source with a carbon source. Light reactions supply ATP and NADPH, but the Calvin cycle needs CO₂ as the carbon atoms of the sugar, so no carbohydrate forms without it. Fix: For any product, list both the energy input and the matter input, and check that each is present."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "ATP and NADPH production stops immediately, because the light reactions need CO₂ as their source of electrons.",
+      "is_correct": false,
+      "rationale": "This trap assigns CO₂ a role in the light reactions. The electrons that flow from photosystem II through the ETC to reduce NADP⁺ at photosystem I come from water, not CO₂, so ATP and NADPH still form in light. Fix: Ask which molecule donates electrons to photosystem II before deciding whether a missing input halts the light reactions."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Water is split and O₂ is released at the thylakoids, but no sugar is produced in the stroma.",
+      "is_correct": true,
+      "rationale": "The light reactions in the thylakoid membranes need only light and water. Water splitting replaces electrons lost at photosystem II and releases O₂, and the light reactions also make ATP and NADPH. The Calvin cycle in the stroma builds carbohydrate from CO₂, so without CO₂ no sugar is made even though ATP and NADPH are available."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 302,
+         "inputTokenDetails": {
+          "noCacheTokens": 302,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 233,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 207
+         },
+         "totalTokens": 535,
+         "raw": {
+          "input_tokens": 302,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 233,
+          "output_tokens_details": {
+           "reasoning_tokens": 207
+          },
+          "total_tokens": 535
+         },
+         "reasoningTokens": 207,
+         "cachedInputTokens": 0
+        },
+        "ms": 8781,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 380,
+         "inputTokenDetails": {
+          "noCacheTokens": 380,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 335,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 305
+         },
+         "totalTokens": 715,
+         "raw": {
+          "thoughtsTokenCount": 305,
+          "promptTokenCount": 380,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 715,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 380
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 305,
+         "cachedInputTokens": 0
+        },
+        "ms": 5234,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 441,
+         "inputTokenDetails": {
+          "noCacheTokens": 185,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 1102,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 1082
+         },
+         "totalTokens": 1543,
+         "raw": {
+          "prompt_tokens": 441,
+          "completion_tokens": 1102,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 185,
+          "total_tokens": 1543,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1082
+          }
+         },
+         "reasoningTokens": 1082,
+         "cachedInputTokens": 256
+        },
+        "ms": 13537,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 464,
+         "inputTokenDetails": {
+          "noCacheTokens": 400,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2652,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 2632
+         },
+         "totalTokens": 3116,
+         "raw": {
+          "prompt_tokens": 464,
+          "completion_tokens": 2652,
+          "total_tokens": 3116,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2632,
+           "accepted_prediction_tokens": 1533,
+           "rejected_prediction_tokens": 1821,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2632,
+         "cachedInputTokens": 64
+        },
+        "ms": 16129,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": false,
+           "issue": "D is intended, but its absolute claim that no sugar is produced during the first few minutes is not guaranteed. A CO₂-free external buffer does not establish that the chloroplasts lack internal CO₂ or previously fixed carbon that could support transient sugar production."
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D's rationale incorrectly says light reactions need 'only light and water'; ATP and NADPH production also requires ADP, inorganic phosphate, and NADP⁺, along with functioning photosynthetic machinery. B and D also overstate the immediate absence of carbohydrate production: removing external CO₂ prevents sustained carbon fixation but does not exclude transient production from internal CO₂ or previously fixed carbon."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16436,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16433
+         },
+         "outputTokens": 726,
+         "outputTokenDetails": {
+          "textTokens": 349,
+          "reasoningTokens": 377
+         },
+         "totalTokens": 17162,
+         "raw": {
+          "input_tokens": 16436,
+          "input_tokens_details": {
+           "cache_write_tokens": 16433,
+           "cached_tokens": 0
+          },
+          "output_tokens": 726,
+          "output_tokens_details": {
+           "reasoning_tokens": 377
+          },
+          "total_tokens": 17162
+         },
+         "reasoningTokens": 377,
+         "cachedInputTokens": 0
+        },
+        "ms": 15473,
+        "flags": [
+         "one_answer: D is intended, but its absolute claim that no sugar is produced during the first few minutes is not guaranteed. A CO₂-free external buffer does not establish that the chloroplasts lack internal CO₂ or previously fixed carbon that could support transient sugar production.",
+         "accurate: D's rationale incorrectly says light reactions need 'only light and water'; ATP and NADPH production also requires ADP, inorganic phosphate, and NADP⁺, along with functioning photosynthetic machinery. B and D also overstate the immediate absence of carbohydrate production: removing external CO₂ prevents sustained carbon fixation but does not exclude transient production from internal CO₂ or previously fixed carbon."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D's rationale incorrectly states that light reactions 'need only light and water.' Producing ATP and NADPH also requires ADP, inorganic phosphate, and NADP⁺, along with functional photosynthetic machinery. Replace this claim with 'The light reactions do not directly require CO₂.'"
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16436,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16433,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 575,
+         "outputTokenDetails": {
+          "textTokens": 280,
+          "reasoningTokens": 295
+         },
+         "totalTokens": 17011,
+         "raw": {
+          "input_tokens": 16436,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16433
+          },
+          "output_tokens": 575,
+          "output_tokens_details": {
+           "reasoning_tokens": 295
+          },
+          "total_tokens": 17011
+         },
+         "reasoningTokens": 295,
+         "cachedInputTokens": 16433
+        },
+        "ms": 11133,
+        "flags": [
+         "accurate: D's rationale incorrectly states that light reactions 'need only light and water.' Producing ATP and NADPH also requires ADP, inorganic phosphate, and NADP⁺, along with functional photosynthetic machinery. Replace this claim with 'The light reactions do not directly require CO₂.'"
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17775,
+         "inputTokenDetails": {
+          "noCacheTokens": 17775,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1701,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1439
+         },
+         "totalTokens": 19476,
+         "raw": {
+          "thoughtsTokenCount": 1439,
+          "promptTokenCount": 17775,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19476,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17775
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1439,
+         "cachedInputTokens": 0
+        },
+        "ms": 11890,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale states that the light reactions need only light and water; they also require NADP⁺ and ADP/Pi to produce NADPH and ATP. Revise to say they do not require CO₂ and can proceed when light and water are available."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16639,
+         "inputTokenDetails": {
+          "noCacheTokens": 15359,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 9172,
+         "outputTokenDetails": {
+          "textTokens": 272,
+          "reasoningTokens": 8900
+         },
+         "totalTokens": 25811,
+         "raw": {
+          "prompt_tokens": 16639,
+          "completion_tokens": 9172,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15359,
+          "total_tokens": 25811,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8900
+          }
+         },
+         "reasoningTokens": 8900,
+         "cachedInputTokens": 1280
+        },
+        "ms": 95318,
+        "flags": [
+         "accurate: Choice D's rationale states that the light reactions need only light and water; they also require NADP⁺ and ADP/Pi to produce NADPH and ATP. Revise to say they do not require CO₂ and can proceed when light and water are available."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D rationale states 'The light reactions ... need only light and water,' but the light reactions also require NADP⁺ and ADP plus inorganic phosphate to produce NADPH and ATP."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16639,
+         "inputTokenDetails": {
+          "noCacheTokens": 127,
+          "cacheReadTokens": 16512
+         },
+         "outputTokens": 10196,
+         "outputTokenDetails": {
+          "textTokens": 256,
+          "reasoningTokens": 9940
+         },
+         "totalTokens": 26835,
+         "raw": {
+          "prompt_tokens": 16639,
+          "completion_tokens": 10196,
+          "prompt_cache_hit_tokens": 16512,
+          "prompt_cache_miss_tokens": 127,
+          "total_tokens": 26835,
+          "prompt_tokens_details": {
+           "cached_tokens": 16512
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 9940
+          }
+         },
+         "reasoningTokens": 9940,
+         "cachedInputTokens": 16512
+        },
+        "ms": 101597,
+        "flags": [
+         "accurate: Choice D rationale states 'The light reactions ... need only light and water,' but the light reactions also require NADP⁺ and ADP plus inorganic phosphate to produce NADPH and ATP."
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17119,
+         "inputTokenDetails": {
+          "noCacheTokens": 17055,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2370,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 2243
+         },
+         "totalTokens": 19489,
+         "raw": {
+          "prompt_tokens": 17119,
+          "completion_tokens": 2370,
+          "total_tokens": 19489,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2243,
+           "accepted_prediction_tokens": 1448,
+           "rejected_prediction_tokens": 1315,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2243,
+         "cachedInputTokens": 64
+        },
+        "ms": 15075,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__3.4#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15787,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15784
+    },
+    "outputTokens": 713,
+    "outputTokenDetails": {
+     "textTokens": 503,
+     "reasoningTokens": 210
+    },
+    "totalTokens": 16500,
+    "raw": {
+     "input_tokens": 15787,
+     "input_tokens_details": {
+      "cache_write_tokens": 15784,
+      "cached_tokens": 0
+     },
+     "output_tokens": 713,
+     "output_tokens_details": {
+      "reasoning_tokens": 210
+     },
+     "total_tokens": 16500
+    },
+    "reasoningTokens": 210,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.4",
+    "topic_title": "Photosynthesis",
+    "stem": "A student is building a model of photosynthesis in an illuminated chloroplast. Which statement correctly connects the locations, inputs, products, and energy transfer of the two major stages?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Light reactions in the stroma use light energy to produce ATP and NADPH, releasing O₂ from water. The Calvin cycle at the thylakoid membranes uses ATP and NADPH to build carbohydrates from CO₂.",
+      "is_correct": false,
+      "rationale": "Location-swap error: this reverses the sites of the two stages; light reactions occur at thylakoid membranes, while the Calvin cycle occurs in the stroma. Fix: Draw a chloroplast and place each stage beside its correct compartment before connecting their products."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Light reactions at the thylakoid membranes use light energy to produce ATP and NADPH. The Calvin cycle in the stroma uses ATP and NADPH to build carbohydrates from CO₂, releasing O₂ from CO₂.",
+      "is_correct": false,
+      "rationale": "Oxygen-source confusion: this treats carbon fixation as the source of released oxygen, but photosynthetic O₂ comes from water splitting during the light reactions. Fix: Trace water to oxygen release and CO₂ to carbohydrate production separately in your model."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Light reactions at the thylakoid membranes use light energy to produce ATP and NADPH, releasing O₂ from water. The Calvin cycle in the stroma uses ATP and NADPH to build carbohydrates from CO₂.",
+      "is_correct": true,
+      "rationale": "This links energy capture to carbon fixation: the light reactions convert light energy into chemical energy in ATP and NADPH, which power carbohydrate production in the Calvin cycle. It also correctly assigns oxygen release to water splitting rather than carbon fixation."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Light reactions at the thylakoid membranes use light energy to build carbohydrates from CO₂, releasing O₂ from water. The Calvin cycle in the stroma produces the ATP and NADPH needed by the light reactions.",
+      "is_correct": false,
+      "rationale": "Stage-product reversal: this assigns carbohydrate production to the light reactions and ATP/NADPH production to the Calvin cycle, reversing their roles and energy dependency. Fix: Draw arrows carrying ATP and NADPH from the light reactions to the Calvin cycle, then identify where CO₂ enters."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 871,
+         "inputTokenDetails": {
+          "noCacheTokens": 871,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 901,
+         "raw": {
+          "input_tokens": 871,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3085,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 457,
+         "inputTokenDetails": {
+          "noCacheTokens": 457,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 307,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 277
+         },
+         "totalTokens": 764,
+         "raw": {
+          "thoughtsTokenCount": 277,
+          "promptTokenCount": 457,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 764,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 457
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 277,
+         "cachedInputTokens": 0
+        },
+        "ms": 4117,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 525,
+         "inputTokenDetails": {
+          "noCacheTokens": 269,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 408,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 388
+         },
+         "totalTokens": 933,
+         "raw": {
+          "prompt_tokens": 525,
+          "completion_tokens": 408,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 269,
+          "total_tokens": 933,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 388
+          }
+         },
+         "reasoningTokens": 388,
+         "cachedInputTokens": 256
+        },
+        "ms": 4812,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 548,
+         "inputTokenDetails": {
+          "noCacheTokens": 420,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 150,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 130
+         },
+         "totalTokens": 698,
+         "raw": {
+          "prompt_tokens": 548,
+          "completion_tokens": 150,
+          "total_tokens": 698,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 130,
+           "accepted_prediction_tokens": 93,
+           "rejected_prediction_tokens": 75,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 130,
+         "cachedInputTokens": 128
+        },
+        "ms": 1423,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27320,
+         "inputTokenDetails": {
+          "noCacheTokens": 27320,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 413,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 201
+         },
+         "totalTokens": 27733,
+         "raw": {
+          "input_tokens": 27320,
+          "output_tokens": 413,
+          "output_tokens_details": {
+           "thinking_tokens": 201
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 201,
+         "cachedInputTokens": 0
+        },
+        "ms": 6750,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17781,
+         "inputTokenDetails": {
+          "noCacheTokens": 17781,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1728,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1466
+         },
+         "totalTokens": 19509,
+         "raw": {
+          "thoughtsTokenCount": 1466,
+          "promptTokenCount": 17781,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19509,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17781
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1466,
+         "cachedInputTokens": 0
+        },
+        "ms": 13634,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16642,
+         "inputTokenDetails": {
+          "noCacheTokens": 15362,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 7036,
+         "outputTokenDetails": {
+          "textTokens": 179,
+          "reasoningTokens": 6857
+         },
+         "totalTokens": 23678,
+         "raw": {
+          "prompt_tokens": 16642,
+          "completion_tokens": 7036,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15362,
+          "total_tokens": 23678,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6857
+          }
+         },
+         "reasoningTokens": 6857,
+         "cachedInputTokens": 1280
+        },
+        "ms": 64290,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17124,
+         "inputTokenDetails": {
+          "noCacheTokens": 16548,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 3042,
+         "outputTokenDetails": {
+          "textTokens": 217,
+          "reasoningTokens": 2825
+         },
+         "totalTokens": 20166,
+         "raw": {
+          "prompt_tokens": 17124,
+          "completion_tokens": 3042,
+          "total_tokens": 20166,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2825,
+           "accepted_prediction_tokens": 2083,
+           "rejected_prediction_tokens": 791,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2825,
+         "cachedInputTokens": 576
+        },
+        "ms": 17087,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16452,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16449
+         },
+         "outputTokens": 292,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 70
+         },
+         "totalTokens": 16744,
+         "raw": {
+          "input_tokens": 16452,
+          "input_tokens_details": {
+           "cache_write_tokens": 16449,
+           "cached_tokens": 0
+          },
+          "output_tokens": 292,
+          "output_tokens_details": {
+           "reasoning_tokens": 70
+          },
+          "total_tokens": 16744
+         },
+         "reasoningTokens": 70,
+         "cachedInputTokens": 0
+        },
+        "ms": 10246,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__3.4#r1-openai",
+ "accepted_at": "2026-10-06T15:36:27.126Z"
+}

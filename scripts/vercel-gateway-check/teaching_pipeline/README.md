@@ -26,7 +26,8 @@ regenerated, never repaired.
 | Rubric audit | The same 4 checkers judge every rubric rule and name the topic the item tests, with the full CED fact pack and the unit's topic list. Biology topics also carry their CED learning objectives and essential knowledge. |
 | Checker families | Five families: OpenAI, Google, DeepSeek, Moonshot, Anthropic. Every candidate is checked by the **four that did not write it**. |
 | Noise control | A checker that flags is re-sampled once. The candidate is rejected only if the re-sample flags too. |
-| Accept | The first candidate that passes lint, all 4 solves and all 4 audits is accepted. |
+| Veto | After the four pass, the **author's own family** audits too. It can reject but never approve, so every accepted item has passed all five families. Added after the Biology pilot: the strictest checker (GPT-6.1) never saw GPT-written candidates, so the bar depended on who wrote the item. |
+| Accept | The first candidate that passes lint, all 4 solves, all 4 audits and the veto is accepted. |
 | Escalate | If a topic has no accepted candidate after `--rounds` rounds (default 2, so 4 candidates), it is escalated to a human, never patched. |
 | Controls | `controls.json` holds 6 planted-defect items (lint, wrong key, fact-style fixes, missing traps, false fact, wrong topic). They run before any generation. **If any control is accepted, the batch is void and nothing is generated.** |
 
@@ -36,6 +37,12 @@ Run from `scripts/content-seed/task0065-generate-select/`:
 
 ```bash
 node ../../vercel-gateway-check/teaching_pipeline/run.mjs run --batch=<batch-dir> --subject=biology --session=<your-name>
+```
+
+For a batch accepted before the veto existed, apply it. Vetoed topics reopen for the next `run`:
+
+```bash
+node ../../vercel-gateway-check/teaching_pipeline/run.mjs veto --batch=<batch-dir>
 ```
 
 Then report:

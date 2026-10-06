@@ -1,0 +1,594 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.1",
+  "topic_title": "Structure of Water and Hydrogen Bonding"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__1.1#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25072,
+    "inputTokenDetails": {
+     "noCacheTokens": 25072,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1762,
+    "outputTokenDetails": {
+     "textTokens": 1053,
+     "reasoningTokens": 709
+    },
+    "totalTokens": 26834,
+    "raw": {
+     "input_tokens": 25072,
+     "output_tokens": 1762,
+     "output_tokens_details": {
+      "thinking_tokens": 709
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 709,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.1",
+    "topic_title": "Structure of Water and Hydrogen Bonding",
+    "stem": "During a long run, a person's sweat evaporates from the skin, and the skin cools. Which explanation best connects the structure of water to this cooling effect that occurs as the sweat evaporates?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Evaporation breaks the covalent O–H bonds inside each water molecule. Breaking these strong bonds absorbs heat from the skin, which cools the body.",
+      "is_correct": false,
+      "rationale": "Error: confusing the covalent bonds within a water molecule with the hydrogen bonds between water molecules. When water evaporates, it stays H2O. Only the attractions between molecules are broken. The covalent O–H bonds are not broken, and water vapor is still intact water molecules.\nFix: When a phase change is involved, ask whether the molecule itself is destroyed or only separated from its neighbors; if it is only separated, the bonds being broken are hydrogen bonds between molecules."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Water has a high specific heat, so the sweat absorbs a large amount of heat from the skin while its own temperature barely changes, which cools the body.",
+      "is_correct": false,
+      "rationale": "Error: naming the wrong property. Specific heat describes how much heat raises the temperature of liquid water. The stem asks about cooling caused by evaporation, which is a change from liquid to gas. That is explained by heat of vaporization, the energy needed to break hydrogen bonds so molecules can escape. This choice also never explains how polarity or hydrogen bonding produces the property it names.\nFix: Check whether the process involves a temperature change (specific heat) or a change from liquid to gas (heat of vaporization) before choosing the property."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Because water molecules are polar, they form only weak, few attractions to one another, so they escape from the skin easily and quickly carry heat away.",
+      "is_correct": false,
+      "rationale": "Error: reversing the role of hydrogen bonding. Polarity causes water molecules to hydrogen bond strongly and extensively with each other. Weak attractions would mean less energy is absorbed per molecule that escapes, which would give less cooling, not more. Water cools so well precisely because breaking many hydrogen bonds takes a lot of heat.\nFix: Trace the chain in order (polar molecule, then hydrogen bonds form, then energy needed to break them) and ask whether stronger or weaker attraction would require more heat to evaporate."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The polar O–H bonds let water molecules form hydrogen bonds with one another. A large amount of heat from the skin must be absorbed to break these hydrogen bonds as liquid sweat becomes vapor, so evaporation removes heat from the body.",
+      "is_correct": true,
+      "rationale": "This answer completes the full three-step chain. First, oxygen pulls shared electrons more strongly than hydrogen, so water is polar. Second, that polarity lets neighboring water molecules form hydrogen bonds. Third, a molecule can only leave the liquid as vapor if its hydrogen bonds are broken, which takes a lot of energy. That is why water has a high heat of vaporization. The energy comes from the skin, so each gram of sweat that evaporates carries a large amount of heat away. This evaporative cooling helps maintain body temperature."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 354,
+         "inputTokenDetails": {
+          "noCacheTokens": 354,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 66,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 40
+         },
+         "totalTokens": 420,
+         "raw": {
+          "input_tokens": 354,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 66,
+          "output_tokens_details": {
+           "reasoning_tokens": 40
+          },
+          "total_tokens": 420
+         },
+         "reasoningTokens": 40,
+         "cachedInputTokens": 0
+        },
+        "ms": 9061,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 431,
+         "inputTokenDetails": {
+          "noCacheTokens": 431,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 300,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 270
+         },
+         "totalTokens": 731,
+         "raw": {
+          "thoughtsTokenCount": 270,
+          "promptTokenCount": 431,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 731,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 431
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 270,
+         "cachedInputTokens": 0
+        },
+        "ms": 4136,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 491,
+         "inputTokenDetails": {
+          "noCacheTokens": 235,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 1015,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 989
+         },
+         "totalTokens": 1506,
+         "raw": {
+          "prompt_tokens": 491,
+          "completion_tokens": 1015,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 235,
+          "total_tokens": 1506,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 989
+          }
+         },
+         "reasoningTokens": 989,
+         "cachedInputTokens": 256
+        },
+        "ms": 13753,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 517,
+         "inputTokenDetails": {
+          "noCacheTokens": 453,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 250,
+         "outputTokenDetails": {
+          "textTokens": 24,
+          "reasoningTokens": 226
+         },
+         "totalTokens": 767,
+         "raw": {
+          "prompt_tokens": 517,
+          "completion_tokens": 250,
+          "total_tokens": 767,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 226,
+           "accepted_prediction_tokens": 150,
+           "rejected_prediction_tokens": 147,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 226,
+         "cachedInputTokens": 64
+        },
+        "ms": 19287,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16330,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16327
+         },
+         "outputTokens": 423,
+         "outputTokenDetails": {
+          "textTokens": 203,
+          "reasoningTokens": 220
+         },
+         "totalTokens": 16753,
+         "raw": {
+          "input_tokens": 16330,
+          "input_tokens_details": {
+           "cache_write_tokens": 16327,
+           "cached_tokens": 0
+          },
+          "output_tokens": 423,
+          "output_tokens_details": {
+           "reasoning_tokens": 220
+          },
+          "total_tokens": 16753
+         },
+         "reasoningTokens": 220,
+         "cachedInputTokens": 0
+        },
+        "ms": 14244,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17590,
+         "inputTokenDetails": {
+          "noCacheTokens": 17590,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1411,
+         "outputTokenDetails": {
+          "textTokens": 239,
+          "reasoningTokens": 1172
+         },
+         "totalTokens": 19001,
+         "raw": {
+          "thoughtsTokenCount": 1172,
+          "promptTokenCount": 17590,
+          "candidatesTokenCount": 239,
+          "totalTokenCount": 19001,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17590
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 239
+           }
+          ]
+         },
+         "reasoningTokens": 1172,
+         "cachedInputTokens": 0
+        },
+        "ms": 11520,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16485,
+         "inputTokenDetails": {
+          "noCacheTokens": 15333,
+          "cacheReadTokens": 1152
+         },
+         "outputTokens": 5942,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 5815
+         },
+         "totalTokens": 22427,
+         "raw": {
+          "prompt_tokens": 16485,
+          "completion_tokens": 5942,
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 15333,
+          "total_tokens": 22427,
+          "prompt_tokens_details": {
+           "cached_tokens": 1152
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5815
+          }
+         },
+         "reasoningTokens": 5815,
+         "cachedInputTokens": 1152
+        },
+        "ms": 57766,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17011,
+         "inputTokenDetails": {
+          "noCacheTokens": 17011,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 1703,
+         "outputTokenDetails": {
+          "textTokens": 122,
+          "reasoningTokens": 1581
+         },
+         "totalTokens": 18714,
+         "raw": {
+          "prompt_tokens": 17011,
+          "completion_tokens": 1703,
+          "total_tokens": 18714,
+          "prompt_tokens_details": {
+           "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1581
+          }
+         },
+         "reasoningTokens": 1581,
+         "cachedInputTokens": 0
+        },
+        "ms": 34406,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done"
+   }
+  }
+ ],
+ "accepted_id": "biology__1.1#r1-anthropic",
+ "accepted_at": "2026-10-06T15:08:51.034Z"
+}

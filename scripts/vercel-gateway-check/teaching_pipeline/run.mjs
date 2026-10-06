@@ -8,6 +8,9 @@
 // sees the other or any earlier candidate). Each candidate goes through: lint -> blind solve by 4 checkers ->
 // rubric audit by the same 4 checkers. The 4 checkers are the five checker families minus the author's own.
 // A checker that flags is re-sampled once; the candidate is rejected only if the re-sample flags again.
+// Veto: the author's own family then audits too. It can reject (a repeated flag) but never approve, so every
+// accepted item has passed all five families while no item is accepted on its own family's say-so.
+// (Added after the Biology pilot showed the strictest checker, GPT-6.1, never saw GPT-authored candidates.)
 // The first candidate that passes everything is accepted. After --rounds rounds with none, the topic is
 // escalated to a human. Planted-defect controls run first; if any control is accepted the batch is void.
 import { generateObject, generateText } from 'ai';
@@ -169,8 +172,34 @@ export async function evaluate(it, authorFamily, tag = '') {
   models.forEach((m, i) => { ev.audit[m] = audits[i]; });
   ev.stage = 'audit';
   if (audits.some((s) => !s.pass)) return ev;
+  const own = CHECKERS[authorFamily];
+  if (own) {
+    const v = await stage(own, auditPrompt(it), AUDIT_SCHEMA, (o) => auditFlags(it, o), `${tag} veto`);
+    ev.veto = { [own]: v }; ev.stage = 'veto';
+    if (!v.pass) return ev;
+  }
   ev.verdict = 'accepted'; ev.stage = 'done';
   return ev;
+}
+
+// Apply the veto stage to items a batch already accepted (for batches run before the veto existed).
+// A vetoed topic is reopened, so the next run generates a fresh round for it.
+async function cmdVeto() {
+  const batch = path.resolve(arg('batch')); CALL_LOG = path.join(batch, 'calls.jsonl');
+  const dir = path.join(batch, 'topics');
+  for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json'))) {
+    const p = path.join(dir, f); const st = readJson(p);
+    if (st.status !== 'accepted') continue;
+    const c = st.candidates.find((x) => x.id === st.accepted_id);
+    if (c.eval.veto) continue;
+    const own = CHECKERS[c.author_family];
+    const v = await stage(own, auditPrompt(c.item), AUDIT_SCHEMA, (o) => auditFlags(c.item, o), `${c.id} veto`);
+    c.eval.veto = { [own]: v };
+    if (!v.pass) { c.eval.verdict = 'rejected'; c.eval.stage = 'veto'; st.status = 'open'; delete st.accepted_id; }
+    writeJson(p, st);
+    console.log(`veto ${c.id}: ${v.pass ? 'kept' : 'VETOED: ' + v.samples.at(-1).flags.join(' || ').slice(0, 200)}`);
+  }
+  cmdReport();
 }
 
 // ---- candidate assembly: deterministic random key position ----
@@ -284,4 +313,5 @@ function cmdReport() {
 const cmd = process.argv[2];
 if (cmd === 'run') await cmdRun();
 else if (cmd === 'report') cmdReport();
+else if (cmd === 'veto') await cmdVeto();
 else if (cmd) { console.error('usage: node run.mjs run|report --batch=<dir> ...'); process.exit(2); }
