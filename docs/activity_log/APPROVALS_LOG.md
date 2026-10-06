@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0123 — Repair Calc AB Explainers 4.4/4.5; TASK-0065 Units 1-3 Scope; Checkers Gemini 3.8 + DeepSeek 5
 - APPROVAL-0081 — AP Biology Skill Re-vote on the 73 Topic-Corrected Items (Production) — DECISION-0085
 - APPROVAL-0080 — Load and Publish 24 AP Biology Units 1-2 Variants (Production) — DECISION-0085
 - APPROVAL-0079 — AP Biology Topic Correction: 73 Primary Topic Cells Replaced by Three-Family Consensus; MCQ-005 Relabeled to Unit 2 (Production) — DECISION-0085
@@ -134,6 +135,27 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other view change; any app-side change.
 
+
+## APPROVAL-0123 — Repair Calc AB Topic Explainers 4.4 and 4.5; TASK-0065 Scope and Checker Slate
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "I approve the repair of calc ab 4.4 and 4.5 / Limit this work to units 1-3 for all 4 subjects. / Outside checkers are Gemini 3.8 and DeepSeek 5")  
+**Related Task:** `TASK-0065`  
+**Decision:** Approved
+
+**Approved scope:**
+1. **Explainer repair** (Development, then Production), migration
+   `20261006100000_repair_calc_ab_4_4_4_5_explainer_examples`. In 4.4 the curve's constant becomes 28,
+   so (2, 4) lies on `x^2 + 3xy = 28`. In 4.5 the snapshot point becomes (4, 1), which lies on
+   `2xy + ln(y) = 8`. The 4.5 point-attaining answer is updated to match.
+   **Done 2026-10-06** in Development and Production, with ledger rows in both. Verified by reading back
+   the published rows. The source_note was not changed: those writes stalled in the database tool. This entry
+   is the provenance record.
+2. **TASK-0065 scope:** Units 1–3 only for AP Biology, AP Statistics, AP Chemistry and AP Calculus AB, which
+   is 91 items. The drafts for later units stay in the batch directory and are not checked or loaded.
+3. **Checker slate (DECISION-0093):** Google Gemini 3.8 and DeepSeek 5. Both are outside the Anthropic
+   author family and from different families from each other. Exact gateway model IDs are recorded at batch
+   start, after the live roster check and the smoke test required by AQP §3.2 rule 4.
 
 ## APPROVAL-0122 — TASK-0064 Open Hand Teaching Pool to Production: Migration, Selector Exclusions, 95 Spare Designations
 

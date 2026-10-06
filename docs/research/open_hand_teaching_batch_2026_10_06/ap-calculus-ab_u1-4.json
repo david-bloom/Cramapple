@@ -1,0 +1,974 @@
+[
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.1",
+  "topic_title": "Introducing Calculus: Can Change Occur at an Instant?",
+  "seed_used": false,
+  "stem": "A runner's distance from the start is s(t) meters, where t is in seconds. Which statement best describes the runner's speed at exactly t = 5?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It is the value that the average speeds (s(5 + h) - s(5))/h approach as the time interval h gets smaller and smaller.",
+    "is_correct": true,
+    "rationale": "Earns the point: an instant has no width, so the instantaneous rate is defined as the value approached by average rates over shrinking intervals around t = 5."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It is the average speed over the whole run so far, s(5)/5.",
+    "is_correct": false,
+    "rationale": "Tempting because average speed is the rate you can compute directly from two measurements. But that is the rate over [0, 5], not at one instant. Fix: shrink the interval around t = 5 and look at where the average speeds settle."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It is (s(5) - s(5))/(5 - 5), which equals 0 because no time passes at an instant.",
+    "is_correct": false,
+    "rationale": "Tempting because at one instant neither distance nor time changes. But this is 0/0, which is undefined, not 0. Fix: never divide by a zero-width interval; use a limit of average rates instead."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is s(5), the runner's position at t = 5.",
+    "is_correct": false,
+    "rationale": "Tempting because s(5) is the one number the function gives at t = 5. But position is a distance, not a rate of change. Fix: speed measures how fast s changes, so it comes from average rates of s over intervals, not from s(5) itself."
+   }
+  ],
+  "verification": "Conceptual item resting on the brief: instantaneous rate = value approached by average rates over smaller intervals; direct quotient has zero change in x (0/0).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Defining Limits and Using Limit Notation",
+  "seed_used": true,
+  "stem": "Let f be a function. Which statement is the correct reading of the notation lim as x→4+ of f(x) = 9?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "When x = 4, f(x) equals 9.",
+    "is_correct": false,
+    "rationale": "Tempting because limit notation looks like evaluating f at 4. But a limit describes approach behavior and does not need f(4) to be 9 or even to exist. Fix: read it as 'approaches', not 'equals'."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "As x gets close to 4 through values greater than 4, f(x) gets close to 9.",
+    "is_correct": true,
+    "rationale": "Earns the point: the plus sign marks a right-hand approach (x > 4), and the limit value 9 describes what f(x) approaches, without saying anything about f(4)."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "As x gets close to 4 through values less than 4, f(x) gets close to 9.",
+    "is_correct": false,
+    "rationale": "Tempting if you ignore or misread the direction marker. But the + means x approaches 4 from the right (larger values), and the - would mean from the left. Fix: always check the sign on the 4."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "As x gets close to 9, f(x) gets close to 4 from the right.",
+    "is_correct": false,
+    "rationale": "Tempting because the two numbers 4 and 9 appear together and the roles are easy to swap. But the number under the arrow is the input approached, and the value after the equals sign is the output approached. Fix: input goes under 'lim', output goes after '='."
+   }
+  ],
+  "verification": "Notation fact from the brief: x→c+ is a right-hand approach; limit value is the output approached; f(c) is not part of the claim.",
+  "author_flags": "Seed was a piecewise-limit evaluation; this item tests reading one-sided notation instead."
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Estimating Limit Values from Graphs",
+  "seed_used": true,
+  "stem": "The graph of p consists of the line y = x + 2 for x < 3, a single filled point at (3, 5), and the curve y = x^2 - 7 for x > 3. What is the limit as x→3 of p(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "5, because the graph has a filled point at (3, 5) and the left branch also heads to 5.",
+    "is_correct": false,
+    "rationale": "Tempting because the filled point and the left branch agree on 5. But a limit must match from both sides, and the right branch heads to 2. Fix: trace both sides toward x = 3 before looking at the point."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "2, because the right branch gives the value the graph is approaching.",
+    "is_correct": false,
+    "rationale": "Tempting if you follow only one branch. But a limit uses both sides, and the left branch approaches 5, not 2. Fix: check the left-hand and right-hand limits and compare them."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit does not exist, because p(x) approaches 5 from the left but approaches 2 from the right.",
+    "is_correct": true,
+    "rationale": "Earns the point: the two one-sided limits are 5 (from x + 2) and 2 (from x^2 - 7). A two-sided limit exists only when they agree, and the filled point does not change that."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "7/2, because the limit is the average of the two one-sided values.",
+    "is_correct": false,
+    "rationale": "Tempting because the two sides disagree and splitting the difference feels like a compromise. But limits are never averaged; if the sides differ, the limit does not exist. Fix: unequal one-sided limits mean DNE."
+   }
+  ],
+  "verification": "Sympy: 3+2 = 5 (left); 3**2-7 = 2 (right). 5 != 2 so the two-sided limit does not exist; average 7/2 is the named slip.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.4",
+  "topic_title": "Estimating Limit Values from Tables",
+  "seed_used": true,
+  "stem": "The table gives values of f near x = 2. The value of f at x = 2 is 9.\n\nx = 1.9: f(x) = 3.61\nx = 1.99: f(x) = 3.960\nx = 1.999: f(x) = 3.996\nx = 2.001: f(x) = 4.004\nx = 2.01: f(x) = 4.040\nx = 2.1: f(x) = 4.410\n\nWhich is the best estimate of the limit as x→2 of f(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "9",
+    "is_correct": false,
+    "rationale": "Tempting because 9 is the one value given at x = 2 itself. But a limit describes what nearby values approach, not f(2). Fix: look at the entries on both sides and ignore the value at the point."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "4.410",
+    "is_correct": false,
+    "rationale": "Tempting because it is the largest entry and sits at the end of the table. But one entry is not a trend; the values keep falling toward 4 as x nears 2. Fix: use the entries closest to x = 2, not the farthest."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "4.004",
+    "is_correct": false,
+    "rationale": "Tempting because it is the closest entry on the right. But a single entry is only a sample; the values from the left approach 4 from below too, and 4 is what both sides settle at. Fix: describe the trend from both sides, then state the number they approach."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "4",
+    "is_correct": true,
+    "rationale": "Earns the point: values from both sides move toward 4 as x gets closer to 2 (3.61, 3.960, 3.996 and 4.410, 4.040, 4.004), so 4 is the trend. The entry at x = 2 is not part of the limit."
+   }
+  ],
+  "verification": "Table generated from f(x)=x^2 (sympy: 1.9**2=3.61, 1.99**2=3.9601, 1.999**2=3.996001, 2.001**2=4.004001, 2.01**2=4.0401, 2.1**2=4.41), limit 4; f(2) overridden to 9 for the stem.",
+  "author_flags": "Table values rounded to 3 decimals."
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Determining Limits Using Algebraic Properties of Limits",
+  "seed_used": true,
+  "stem": "Suppose that as x→4, the limit of f(x) is -2 and the limit of g(x) is 5. What is the limit as x→4 of (f(x)^2 + 3g(x)) / (g(x) + f(x))?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "19/3",
+    "is_correct": true,
+    "rationale": "Earns the point: the limit properties give numerator (-2)^2 + 3(5) = 19 and denominator 5 + (-2) = 3, and the quotient property applies because the denominator's limit is not 0."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "11/3",
+    "is_correct": false,
+    "rationale": "Tempting if you treat f(x)^2 as -4 by squaring only the number and dropping the sign. But the square of -2 is +4. Fix: the limit of f^2 is (limit of f)^2 = 4."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "19/7",
+    "is_correct": false,
+    "rationale": "Tempting if you subtract instead of add in the denominator, as if f contributed +2. But the denominator's limit is 5 + (-2) = 3. Fix: substitute the signed limit values, then combine."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It cannot be determined because f and g are not given as formulas.",
+    "is_correct": false,
+    "rationale": "Tempting because we usually evaluate limits from expressions. But the limit properties only need the limit values of f and g, which are given. Fix: combine component limits with sum, product, and quotient properties."
+   }
+  ],
+  "verification": "Arithmetic check (sympy Rational): (4+15)/3=19/3; (-4+15)/3=11/3; (4+15)/(5+2)=19/7. Quotient property valid since 3 != 0.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.6",
+  "topic_title": "Determining Limits Using Algebraic Manipulation",
+  "seed_used": true,
+  "stem": "What is the limit as x→5 of (x^2 - 25)/(x^2 - 3x - 10)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting because the numerator equals 0 at x = 5. But the denominator also equals 0, giving 0/0, which tells you to rewrite the expression, not that the limit is 0. Fix: factor and cancel first."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "10/7",
+    "is_correct": true,
+    "rationale": "Earns the point: factor to (x - 5)(x + 5) / ((x - 5)(x + 2)), cancel the common factor x - 5, and substitute x = 5 into (x + 5)/(x + 2) to get 10/7."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "10/3",
+    "is_correct": false,
+    "rationale": "Tempting if you factor the denominator as (x - 5)(x - 2), a sign slip on the 10. Check by expanding: that gives x^2 - 7x + 10, not x^2 - 3x - 10. Fix: the correct factors are (x - 5)(x + 2)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The limit does not exist, because the denominator is 0 at x = 5.",
+    "is_correct": false,
+    "rationale": "Tempting because division by zero looks fatal. But a zero denominator with a zero numerator is 0/0, and here the common factor cancels leaving a finite value. Fix: factor and cancel, then re-evaluate."
+   }
+  ],
+  "verification": "Sympy: limit((x**2-25)/(x**2-3*x-10),x,5)=10/7; factor(x**2-3*x-10)=(x-5)*(x+2); wrong factoring (x-5)(x-2) would give 10/3.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Selecting Procedures for Determining Limits",
+  "seed_used": true,
+  "stem": "A student evaluates the limit as x→16 of (sqrt(x) - 4)/(x - 16). Direct substitution gives 0/0. Which choice names an appropriate next step and the correct limit?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Substitute x = 16 directly and conclude the limit is 0, since the numerator is 0.",
+    "is_correct": false,
+    "rationale": "Tempting because the numerator vanishes. But the denominator vanishes too, so substitution is blocked at 0/0. Fix: when you get 0/0, choose a rewriting method (factor, conjugate) before concluding."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Rationalize the numerator, then get 1/4 by replacing sqrt(x) + 4 with just sqrt(16).",
+    "is_correct": false,
+    "rationale": "Tempting because the conjugate method is right, but dropping the +4 gives 1/sqrt(x) = 1/4. Fix: the denominator after rationalizing is sqrt(x) + 4 = 8, so the limit is 1/8."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Rationalize by multiplying top and bottom by sqrt(x) + 4, cancel x - 16, and get 1/8.",
+    "is_correct": true,
+    "rationale": "Earns the point: the square root is the obstacle, so rewrite with its conjugate. The expression becomes 1/(sqrt(x) + 4), whose value at x = 16 is 1/8."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Conclude the limit does not exist, because the denominator equals 0 at x = 16.",
+    "is_correct": false,
+    "rationale": "Tempting because a zero denominator looks like a vertical asymptote. But the numerator is also 0, so this is an indeterminate form that can have a finite limit. Fix: simplify first, then decide."
+   }
+  ],
+  "verification": "Sympy: limit((sqrt(x)-4)/(x-16),x,16)=1/8; (sqrt(x)-4)/(x-16)=1/(sqrt(x)+4); slip values 1/4 (dropped +4), 0 (numerator only).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.8",
+  "topic_title": "Determining Limits Using the Squeeze Theorem",
+  "seed_used": true,
+  "stem": "A function g satisfies 5 - 4(x - 2)^2 <= g(x) <= 5 + (x - 2)^2 for all x. What is the limit as x→2 of g(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting because the (x - 2)^2 terms go to 0 and are easy to focus on. But those terms are added to or subtracted from 5, so the bounds approach 5, not 0. Fix: evaluate each whole bound, not just the extra term."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "10",
+    "is_correct": false,
+    "rationale": "Tempting if you add the two outside limits, 5 + 5. But the theorem says the middle function takes the same value the outer limits share. Fix: when the outer limits agree on L, the limit of g is L."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It cannot be determined, because the lower and upper bounds are different functions.",
+    "is_correct": false,
+    "rationale": "Tempting because the bounds are not identical. But the theorem only needs their limits to match at x = 2, and both are 5. Fix: compare the limits of the bounds, not the formulas."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "5",
+    "is_correct": true,
+    "rationale": "Earns the point: both bounding functions approach 5 as x approaches 2, so g(x), squeezed between them, also approaches 5 by the Squeeze Theorem."
+   }
+  ],
+  "verification": "Sympy: limit(5-4*(x-2)**2,x,2)=5; limit(5+(x-2)**2,x,2)=5; Squeeze Theorem gives 5.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "topic_title": "Connecting Multiple Representations of Limits",
+  "seed_used": false,
+  "stem": "A table shows f(2.9) = 6.8, f(2.99) = 6.98, f(2.999) = 6.998, f(3.001) = 7.002, f(3.01) = 7.02, and f(3.1) = 7.2. Also f(3) = 1. Which statement matches this information?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The limit as x→3 of f(x) is 7, so the graph of f approaches a height of 7 near x = 3, with the point at x = 3 sitting at height 1.",
+    "is_correct": true,
+    "rationale": "Earns the point: the table shows f(x) approaching 7 from both sides, which is the limit statement. The separate value f(3) = 1 only tells you where the single plotted point is."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The limit as x→3 of f(x) is 1, so the graph passes through (3, 1) with nothing special happening.",
+    "is_correct": false,
+    "rationale": "Tempting because 1 is the value at x = 3. But the limit follows the nearby values, which head to 7. Fix: match the table to approach behavior, not to f(3)."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit as x→3 of f(x) does not exist, because f(3) differs from the nearby values.",
+    "is_correct": false,
+    "rationale": "Tempting because f(3) = 1 clashes with the table. But a limit can exist even when the point at x = 3 is displaced; both sides approach 7. Fix: existence depends on left and right approach, not on f(3)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The limit as x→7 of f(x) is 3, because the table pairs 3 with 7.",
+    "is_correct": false,
+    "rationale": "Tempting because the numbers 3 and 7 appear together. But the input approached is x = 3 and the output approached is 7, so the arrow goes x→3. Fix: write 'as x approaches (input), f(x) approaches (output)'."
+   }
+  ],
+  "verification": "Conceptual item from brief: convert table to 'as x approaches 3, f(x) approaches 7'. Table built from f(x)=2x+1 with f(3) set to 1.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.10",
+  "topic_title": "Exploring Types of Discontinuities",
+  "seed_used": true,
+  "stem": "Let f(x) = x + 3 for x < 2 and f(x) = 10 - x^2 for x >= 2. What kind of discontinuity does f have at x = 2?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "A removable discontinuity, because both one-sided limits are finite and f(2) is defined.",
+    "is_correct": false,
+    "rationale": "Tempting because everything involved is finite. But removable requires the two sides to approach the same number, and 5 does not equal 6. Fix: compare the one-sided limits before naming the type."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "A jump discontinuity, because both one-sided limits exist but are different (5 from the left, 6 from the right).",
+    "is_correct": true,
+    "rationale": "Earns the point: the left limit is 2 + 3 = 5 and the right limit is 10 - 4 = 6. Finite one-sided limits that disagree make a jump."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "An infinite discontinuity, because the function changes behavior at x = 2.",
+    "is_correct": false,
+    "rationale": "Tempting because the formula changes at x = 2. But an infinite discontinuity needs unbounded growth, and here both sides stay near 5 and 6. Fix: check whether values grow without bound."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "No discontinuity, because f(2) = 6 is defined.",
+    "is_correct": false,
+    "rationale": "Tempting because f(2) exists. But continuity also needs the limit to exist and equal f(2), and the two-sided limit does not exist. Fix: apply the full check: f(2), limit, and equality."
+   }
+  ],
+  "verification": "Sympy: left limit of x+3 at 2 = 5; right limit/value of 10-x**2 at 2 = 6; unequal finite limits = jump.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.11",
+  "topic_title": "Defining Continuity at a Point",
+  "seed_used": true,
+  "stem": "Let g(x) = (x^2 - 16)/(x - 4) for x != 4, and g(4) = 6. Which statement about g at x = 4 is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "g is continuous at x = 4, because g(4) is defined and the limit exists.",
+    "is_correct": false,
+    "rationale": "Tempting because two of the three conditions hold. But continuity also needs the limit to equal the function value. Fix: finish the checklist: value exists, limit exists, they are equal."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "g is continuous at x = 4, because the graph is a connected line with no gap away from 4.",
+    "is_correct": false,
+    "rationale": "Tempting because the graph looks like a line. But continuity at a point is checked by conditions, and the point at x = 4 sits at height 6, off the line. Fix: verify the equality, do not judge by appearance."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "g is not continuous at x = 4, because the limit is 8 but g(4) = 6.",
+    "is_correct": true,
+    "rationale": "Earns the point: the limit exists and equals 8 after canceling x - 4, but continuity requires the limit to equal g(4). Since 8 differs from 6, one condition fails."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "g is not continuous at x = 4, because the limit does not exist when the denominator is 0.",
+    "is_correct": false,
+    "rationale": "Tempting because x - 4 is zero at x = 4. But the factor cancels and the limit is 8, a finite number. Fix: simplify before concluding; the discontinuity comes from 8 not equaling 6."
+   }
+  ],
+  "verification": "Sympy: limit((x**2-16)/(x-4),x,4)=8; g(4)=6; 8 != 6 so not continuous.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.12",
+  "topic_title": "Confirming Continuity over an Interval",
+  "seed_used": true,
+  "stem": "Let f(x) = (x + 2)/(x^2 - 4x - 5). On which interval is f continuous?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "[0, 5]",
+    "is_correct": false,
+    "rationale": "Tempting because 5 is a nice endpoint and the rest of the interval looks fine. But f is undefined at x = 5, so it cannot be continuous on an interval that includes 5. Fix: test every excluded value against the interval, endpoints included."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "[-2, 3]",
+    "is_correct": false,
+    "rationale": "Tempting because the endpoints -2 and 3 are not problem values. But x = -1 lies inside the interval and makes the denominator 0. Fix: check interior points, not just endpoints."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "All real numbers, because f is a rational function.",
+    "is_correct": false,
+    "rationale": "Tempting because rational functions are continuous where they are defined. But they are not defined where the denominator is 0. Fix: continuity is on the domain, so remove x = 5 and x = -1."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "[0, 4]",
+    "is_correct": true,
+    "rationale": "Earns the point: the denominator factors as (x - 5)(x + 1), so f fails only at x = 5 and x = -1. The interval [0, 4] avoids both."
+   }
+  ],
+  "verification": "Sympy: factor(x**2-4*x-5)=(x-5)*(x+1); discontinuities at x=5, x=-1 only; [0,4] contains neither.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.13",
+  "topic_title": "Removing Discontinuities",
+  "seed_used": true,
+  "stem": "Let f(x) = (x^2 + x - 12)/(x - 3) for x != 3, and f(3) = k. For what value of k is f continuous at x = 3?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "7",
+    "is_correct": true,
+    "rationale": "Earns the point: factor x^2 + x - 12 = (x + 4)(x - 3), cancel x - 3, and the limit is 3 + 4 = 7. Setting k equal to that limit removes the discontinuity."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting because the numerator is 0 at x = 3. But 0/0 is indeterminate and the limit comes from the simplified expression, which is 7. Fix: find the limit first, then set k equal to it."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "3",
+    "is_correct": false,
+    "rationale": "Tempting because the problem is happening at x = 3 and k = 3 feels natural. But k is an output value and must match the limiting output, not the input. Fix: set k = the limit of f as x→3."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "-4",
+    "is_correct": false,
+    "rationale": "Tempting because the other factor, x + 4, is zero at x = -4. But after canceling x - 3 you substitute x = 3 into x + 4, not solve x + 4 = 0. Fix: evaluate the simplified function at x = 3."
+   }
+  ],
+  "verification": "Sympy: factor(x**2+x-12)=(x+4)*(x-3); limit((x**2+x-12)/(x-3),x,3)=7.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.14",
+  "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+  "seed_used": true,
+  "stem": "Which statement is correct about f(x) = (x - 3)/(x - 1) near x = 1?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The limit as x→1+ of f(x) is +infinity, so x = 1 is a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Tempting because a small positive denominator suggests large positive values. But the numerator is negative near x = 1, so the quotient is large and negative. Fix: track the sign of the numerator as well."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The limit as x→1+ of f(x) is -infinity, so x = 1 is a vertical asymptote.",
+    "is_correct": true,
+    "rationale": "Earns the point: just to the right of 1 the numerator is near -2 and the denominator is a small positive number, so the quotient decreases without bound. That infinite limit gives a vertical asymptote at x = 1."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit as x→1+ of f(x) is 0, because x - 1 gets close to 0.",
+    "is_correct": false,
+    "rationale": "Tempting because x - 1 approaches 0. But it is in the denominator, so dividing -2 by a tiny number makes the size grow. Fix: a nonzero numerator over a zero-approaching denominator is unbounded."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The limit does not exist, so there is no vertical asymptote at x = 1.",
+    "is_correct": false,
+    "rationale": "Tempting because infinite limits are often described as 'does not exist'. But the function still grows without bound, and that behavior is what defines a vertical asymptote. Fix: write the infinite limit and name x = c as the asymptote."
+   }
+  ],
+  "verification": "Sympy: limit((x-3)/(x-1),x,1,'+') = -oo.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.15",
+  "topic_title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+  "seed_used": true,
+  "stem": "What is the horizontal asymptote of f(x) = (6x^2 + 1)/(3x^2 - 5x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "y = 0",
+    "is_correct": false,
+    "rationale": "Tempting if you think the denominator's extra -5x term makes it grow faster. But both parts have degree 2, so the leading terms 6x^2 and 3x^2 control the end behavior. Fix: compare the highest powers, not the number of terms."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "y = -1/5",
+    "is_correct": false,
+    "rationale": "Tempting because the lowest-degree terms 1 and -5x look like they set the ratio. But for large x the highest powers dominate. Fix: use leading coefficients for end behavior."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "y = 2",
+    "is_correct": true,
+    "rationale": "Earns the point: the numerator and denominator have the same degree, so the limit as x→infinity is the ratio of leading coefficients, 6/3 = 2. That limit names the horizontal asymptote y = 2."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "x = 5/3",
+    "is_correct": false,
+    "rationale": "Tempting because 3x^2 - 5x = 0 at x = 5/3 and a zero denominator feels like an asymptote. But that is a vertical line, and a horizontal asymptote has the form y = L. Fix: limits at infinity give y = L; zeros of the denominator give vertical lines."
+   }
+  ],
+  "verification": "Sympy: limit((6*x**2+1)/(3*x**2-5*x),x,oo)=2; denominator zeros x=0, x=5/3 (vertical).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.16",
+  "topic_title": "Working with the Intermediate Value Theorem",
+  "seed_used": true,
+  "stem": "The function f is continuous on [2, 8], with f(2) = 3 and f(8) = 11. Which conclusion is guaranteed?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "There is at least one c in (2, 8) with f(c) = 1.",
+    "is_correct": false,
+    "rationale": "Tempting because 1 is a small, convenient number near 3. But 1 is not between 3 and 11, so the theorem says nothing about it. Fix: the target must lie between the endpoint values."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "There is at least one c in (2, 8) with f(c) = 12.",
+    "is_correct": false,
+    "rationale": "Tempting because 12 is just above 11 and feels close. But it lies outside [3, 11], so f may never reach it. Fix: check the target against both endpoint values."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "No value is guaranteed, because f is not known to be differentiable.",
+    "is_correct": false,
+    "rationale": "Tempting because many theorems require differentiability. But IVT needs only continuity on the closed interval, which is given. Fix: match the theorem to its actual conditions."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "There is at least one c in (2, 8) with f(c) = 7.",
+    "is_correct": true,
+    "rationale": "Earns the point: f is continuous on [2, 8] and 7 lies strictly between f(2) = 3 and f(8) = 11, so the Intermediate Value Theorem guarantees such a c."
+   }
+  ],
+  "verification": "IVT conditions: continuous on [2,8]; 3 < 7 < 11. 1 and 12 are outside [3,11].",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Defining Average and Instantaneous Rates of Change at a Point",
+  "seed_used": true,
+  "stem": "A particle's position is s(t) = t^3 - 2t meters, with t in seconds. What is the instantaneous velocity at t = 2?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "10 m/s",
+    "is_correct": true,
+    "rationale": "Earns the point: the instantaneous rate is the limit of (s(2 + h) - s(2))/h as h→0, which equals s'(2) = 3(2)^2 - 2 = 10."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "4 m/s",
+    "is_correct": false,
+    "rationale": "Tempting because s(2) = 8 - 4 = 4 is the first number you compute. But that is the position, not a rate. Fix: velocity is the derivative of s, not s itself."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "17 m/s",
+    "is_correct": false,
+    "rationale": "Tempting because the average rate over [2, 3] is (21 - 4)/1 = 17, a quick secant slope. But that covers a full second, not an instant. Fix: for a rate at one point, take the limit as the interval shrinks."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "12 m/s",
+    "is_correct": false,
+    "rationale": "Tempting if you differentiate t^3 to 3t^2 and forget the -2t term. But every term must be differentiated. Fix: s'(t) = 3t^2 - 2, so s'(2) = 10."
+   }
+  ],
+  "verification": "Sympy: diff(t**3-2*t,t).subs(t,2)=10; s(2)=4; (s(3)-s(2))/1=17; 3*t**2 at 2 = 12 (dropped -2).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point",
+  "seed_used": true,
+  "stem": "The population P(t), in thousands, of a colony is recorded at selected times t in hours.\n\nt = 0: P = 110\nt = 2: P = 130\nt = 5: P = 190\nt = 6: P = 214\nt = 10: P = 300\n\nUsing the two table values closest to t = 5.5, what is the best estimate of P'(5.5)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "20 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because it uses t = 2 and t = 5, which are nearby entries: (190 - 130)/3 = 20. But both lie on the same side of 5.5. Fix: choose the closest values on both sides of the target."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "24 thousand per hour",
+    "is_correct": true,
+    "rationale": "Earns the point: the closest values on either side of 5.5 are at t = 5 and t = 6, so the estimate is (214 - 190)/(6 - 5) = 24 thousand per hour."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "19 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because the endpoints t = 0 and t = 10 are easy to find: (300 - 110)/10 = 19. But they are far from 5.5 and give a global average. Fix: use the nearest entries around the point."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "21.5 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because t = 6 and t = 10 are the next entries after the target: (300 - 214)/4 = 21.5. But the interval is wide and one-sided. Fix: use t = 5 and t = 6 on either side of 5.5."
+   }
+  ],
+  "verification": "Arithmetic (Rational): (214-190)/1=24; (190-130)/3=20; (300-110)/10=19; (300-214)/4=43/2=21.5.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.6",
+  "topic_title": "Derivative Rules: Constant, Sum, Difference, and Constant Multiple",
+  "seed_used": true,
+  "stem": "Let g(x) = 3x^4 - 5x^2 + 2x - 11. What is g'(2)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "67",
+    "is_correct": false,
+    "rationale": "Tempting if you treat -11 as a term that keeps its value in the derivative, giving 78 - 11. But the derivative of a constant is 0. Fix: drop the constant when differentiating."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "118",
+    "is_correct": false,
+    "rationale": "Tempting if the sign on the -5x^2 term flips to +10x during differentiation: 96 + 20 + 2 = 118. Fix: keep every sign; the derivative of -5x^2 is -10x."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "78",
+    "is_correct": true,
+    "rationale": "Earns the point: differentiate term by term to get g'(x) = 12x^3 - 10x + 2, where the constant -11 contributes 0. Then g'(2) = 96 - 20 + 2 = 78."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "21",
+    "is_correct": false,
+    "rationale": "Tempting because evaluating at x = 2 is the first step many students take: g(2) = 48 - 20 + 4 - 11 = 21. But that is the function value, not the derivative. Fix: differentiate first, then substitute."
+   }
+  ],
+  "verification": "Sympy: diff(3*x**4-5*x**2+2*x-11,x).subs(x,2)=78; slips 67 (constant kept), 118 (sign flip), 21 (g(2)).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "Calculating Higher-Order Derivatives",
+  "seed_used": true,
+  "stem": "Let f(x) = x^4 - 3x^3 + 2x. What is f''(2)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "-2",
+    "is_correct": false,
+    "rationale": "Tempting because f'(2) = 32 - 36 + 2 = -2 is the first thing you find. But that is only the first derivative. Fix: differentiate twice before substituting."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "30",
+    "is_correct": false,
+    "rationale": "Tempting if you go one derivative too far: f'''(x) = 24x - 18, so f'''(2) = 30. Fix: label each derivative and stop at f''."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting if you substitute x = 2 into f' first, getting the number -2, and then differentiate it. But the derivative of a constant is 0, and you have lost the function. Fix: differentiate twice, then substitute."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "12",
+    "is_correct": true,
+    "rationale": "Earns the point: f'(x) = 4x^3 - 9x^2 + 2, so f''(x) = 12x^2 - 18x, and f''(2) = 48 - 36 = 12."
+   }
+  ],
+  "verification": "Sympy: diff(f,x,2).subs(x,2)=12; diff(f,x).subs(x,2)=-2; diff(f,x,3).subs(x,2)=30.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 4,
+  "topic_code": "4.1",
+  "topic_title": "Interpreting the Meaning of the Derivative in Context",
+  "seed_used": false,
+  "stem": "The depth of water in a tank is h(t) feet, where t is in minutes. Given h'(6) = -0.4, which interpretation is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "At t = 6 minutes, the depth is decreasing at a rate of 0.4 feet per minute.",
+    "is_correct": true,
+    "rationale": "Earns the point: it names the quantity (depth), the input value (t = 6), the direction (decreasing, from the negative sign), and the units (feet per minute)."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "At t = 6 minutes, the depth of the water is -0.4 feet.",
+    "is_correct": false,
+    "rationale": "Tempting because h' looks like h with a mark. But h gives the depth and h' gives its rate of change. Fix: the derivative value is a rate, not an amount."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "During the first 6 minutes, the depth decreased by a total of 0.4 feet.",
+    "is_correct": false,
+    "rationale": "Tempting because 6 and -0.4 both appear. But h'(6) is the rate at the instant t = 6, not a total change over an interval. Fix: say 'at t = 6' and use rate units."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "At t = 6 minutes, the depth is decreasing at 0.4 minutes per foot.",
+    "is_correct": false,
+    "rationale": "Tempting if you flip the units. But the derivative is output change per input change, so units are feet per minute. Fix: units are output units per input unit."
+   }
+  ],
+  "verification": "Conceptual item from the brief's sentence frame: at x = a, the quantity changes at value units of output per unit of input.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 4,
+  "topic_code": "4.2",
+  "topic_title": "Straight-Line Motion: Connecting Position, Velocity, and Acceleration",
+  "seed_used": true,
+  "stem": "A particle moves on a line with velocity v(t) = t^2 - 6t + 5. At t = 4, which statement is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The particle is speeding up, because the acceleration is positive.",
+    "is_correct": false,
+    "rationale": "Tempting because positive acceleration sounds like speeding up. But you must compare it with the velocity: -3 and +2 have opposite signs. Fix: speeding up needs the same signs; slowing down needs opposite signs."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The particle is moving in the negative direction and slowing down.",
+    "is_correct": true,
+    "rationale": "Earns the point: v(4) = -3 is negative, and a(t) = 2t - 6 gives a(4) = 2, which is positive. Opposite signs mean the speed is decreasing."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The particle is slowing down, because the velocity is negative.",
+    "is_correct": false,
+    "rationale": "Tempting because a negative velocity feels like a smaller quantity. But the sign of v shows direction, not speed. Fix: use the signs of v and a together to decide."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The particle is moving in the positive direction and slowing down, because the acceleration is positive.",
+    "is_correct": false,
+    "rationale": "Tempting because it blends the sign of acceleration with direction. But direction comes from velocity, which is -3. Fix: direction comes from v, speeding up or slowing down from v and a together."
+   }
+  ],
+  "verification": "Sympy: v(4)=16-24+5=-3; a(t)=diff(v,t)=2t-6, a(4)=2; opposite signs -> slowing down, negative direction.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 4,
+  "topic_code": "4.3",
+  "topic_title": "Rates of Change in Applied Contexts Other Than Motion",
+  "seed_used": false,
+  "stem": "The total cost to produce x widgets is C(x) dollars. Given C'(200) = 3.5, which interpretation is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The average cost per widget for the first 200 widgets is $3.50.",
+    "is_correct": false,
+    "rationale": "Tempting because 'per widget' sounds like an average. But an average would be C(200)/200, while C' is the rate of change at x = 200. Fix: the derivative is the instantaneous rate, not an average."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The total cost of producing 200 widgets is $3.50.",
+    "is_correct": false,
+    "rationale": "Tempting because 200 and 3.5 both sit next to C. But C(200) would give the total cost, and C'(200) gives how fast it changes. Fix: the derivative's value is a rate, not a total."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "When 200 widgets are being produced, the total cost is increasing at about $3.50 per additional widget.",
+    "is_correct": true,
+    "rationale": "Earns the point: C' is cost per widget, so C'(200) = 3.5 says that around x = 200, each extra widget adds about $3.50 to total cost."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The cost increases by $200 for each additional $3.50.",
+    "is_correct": false,
+    "rationale": "Tempting if you swap numerator and denominator. But C' is dollars of cost per widget of production. Fix: output units over input units, so dollars per widget."
+   }
+  ],
+  "verification": "Conceptual item from the brief: translate dy/dx as change in y per change in x with units.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 4,
+  "topic_code": "4.4",
+  "topic_title": "Introduction to Related Rates",
+  "seed_used": false,
+  "stem": "A point moves along the curve x^2 + xy = 12. At the moment it is at (2, 4), dx/dt = 3. What is dy/dt at that moment?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "-6",
+    "is_correct": false,
+    "rationale": "Tempting if you use the product rule on xy but forget the (dx/dt)y part: 12 + 2(dy/dt) = 0. But both factors of xy change with time. Fix: d/dt of xy is (dx/dt)y + x(dy/dt)."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "-4",
+    "is_correct": false,
+    "rationale": "Tempting because dy/dx = -(2x + y)/x = -4 is the implicit derivative at (2, 4). But the question asks for dy/dt, which also needs dx/dt. Fix: dy/dt = (dy/dx)(dx/dt) = -4(3) = -12."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "12",
+    "is_correct": false,
+    "rationale": "Tempting if the sign flips when you isolate dy/dt: 24 + 2(dy/dt) = 0. But moving 24 to the other side gives -24. Fix: dy/dt = -24/2 = -12."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "-12",
+    "is_correct": true,
+    "rationale": "Earns the point: differentiating with respect to t gives 2x(dx/dt) + (dx/dt)y + x(dy/dt) = 0. Substituting x = 2, y = 4, dx/dt = 3 gives 12 + 12 + 2(dy/dt) = 0, so dy/dt = -12."
+   }
+  ],
+  "verification": "Check point: 2**2+2*4=12. Differentiated: 2x x' + x' y + x y' = 4*3+4*3+2*y' = 0 -> y' = -12 (sympy solve). dy/dx=-(2x+y)/x=-4 at (2,4).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 4,
+  "topic_code": "4.5",
+  "topic_title": "Solving Related Rates Problems",
+  "seed_used": true,
+  "stem": "A rectangle has length l and width w in centimeters, both changing with time. At a certain moment, l = 8 and increasing at 3 cm/s, and w = 5 and decreasing at 2 cm/s. At that moment, the area is changing at which rate?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "-1 cm^2/s",
+    "is_correct": true,
+    "rationale": "Earns the point: A = lw gives dA/dt = (dl/dt)w + l(dw/dt) = 3(5) + 8(-2) = 15 - 16 = -1, so the area is decreasing at 1 cm^2/s."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "-6 cm^2/s",
+    "is_correct": false,
+    "rationale": "Tempting if you multiply the two rates, 3 times -2. But the product rule combines each rate with the other dimension. Fix: dA/dt = (dl/dt)w + l(dw/dt)."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "31 cm^2/s",
+    "is_correct": false,
+    "rationale": "Tempting if the decreasing width is treated as +2: 15 + 16 = 31. But a decrease makes dw/dt = -2. Fix: keep the sign of each rate."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "15 cm^2/s",
+    "is_correct": false,
+    "rationale": "Tempting if you only use the length's change and ignore the shrinking width. But the area depends on both. Fix: add both product-rule terms."
+   }
+  ],
+  "verification": "Arithmetic: 3*5+8*(-2)=-1; 3*(-2)=-6; 3*5+8*2=31; 3*5=15 (term only).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 4,
+  "topic_code": "4.6",
+  "topic_title": "Approximating Values of a Function Using Local Linearity and Linearization",
+  "seed_used": true,
+  "stem": "Let f(x) = x^3 - 6x^2 + 3x + 13. Use the tangent line at x = 2 to approximate f(2.1).",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "3.9",
+    "is_correct": false,
+    "rationale": "Tempting if the sign of the slope flips: 3 + 0.9. But f'(2) = -9, so the line goes down from 3. Fix: carry the slope's sign."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "2.1",
+    "is_correct": true,
+    "rationale": "Earns the point: f(2) = 3 and f'(2) = 12 - 24 + 3 = -9, so L(x) = 3 - 9(x - 2). Then L(2.1) = 3 - 0.9 = 2.1."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "-15.9",
+    "is_correct": false,
+    "rationale": "Tempting if you multiply the slope by 2.1 instead of by x - 2 = 0.1: 3 - 9(2.1). But the tangent line moves from the anchor point a. Fix: use (x - a) = 0.1."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "-0.9",
+    "is_correct": false,
+    "rationale": "Tempting if you only compute the change f'(2)(0.1) and forget the anchor value. But L(x) starts at f(2) = 3. Fix: L(x) = f(a) + f'(a)(x - a)."
+   }
+  ],
+  "verification": "Sympy: f(2)=3; f'(2)=-9; L(2.1)=3-9*0.1=2.1; slips 3.9, 3-9*2.1=-15.9, -0.9.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 4,
+  "topic_code": "4.7",
+  "topic_title": "Using L'Hospital's Rule for Determining Limits of Indeterminate Forms",
+  "seed_used": true,
+  "stem": "What is the limit as x→0 of (e^(3x) - 1)/sin(2x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0",
+    "is_correct": false,
+    "rationale": "Tempting because the numerator is 0 at x = 0. But the denominator is also 0, so the form is 0/0, which needs the rule. Fix: name the form, then differentiate top and bottom."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "2/3",
+    "is_correct": false,
+    "rationale": "Tempting if you invert the ratio of derivatives and put the denominator's derivative on top. Fix: the numerator's derivative goes over the denominator's derivative: 3 over 2."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "3/2",
+    "is_correct": true,
+    "rationale": "Earns the point: direct substitution gives 0/0, so L'Hospital's Rule applies. Differentiating top and bottom separately gives 3e^(3x)/(2cos(2x)), which equals 3/2 at x = 0."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "3",
+    "is_correct": false,
+    "rationale": "Tempting if you differentiate only the numerator and treat the denominator as if it were 1. But L'Hospital's Rule needs the derivative of the denominator too, which is 2cos(2x). Fix: differentiate both pieces separately."
+   }
+  ],
+  "verification": "Sympy: limit((exp(3*x)-1)/sin(2*x),x,0)=3/2; form 0/0 at x=0.",
+  "author_flags": ""
+ }
+]

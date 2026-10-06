@@ -192,3 +192,53 @@ attempt.
 
 **Release path:** to return a spare item to scoring, set `released_at = now()`. Do this when a
 generated teaching item for that topic is published.
+
+## Independent QA and containment — 2026-10-06
+
+Fable's independent QA (`docs/qa/QA_STUDENT_HUB_OPEN_HAND_PRACTICE_2026_10_06.md`) found that the
+invariant "teaching items are excluded from all scored practice" does **not** hold in Production.
+Two other serving paths read published MCQs directly, and the SQL selector patch does not cover them:
+- `student-session-items` `cell_scoped` mode, used by today's `/session` for the AP Statistics pilot.
+  The deployed v32 has no `dropTeachingItems`.
+- A client-side published-MCQ read in the app. It is the fallback used whenever
+  `select_unit_gated_practice_items` returns 0, which it does for every `targeted_drill` MCQ request
+  (re-verified: Biology 0 vs 25 with a null format, Statistics 0 vs 50).
+
+My earlier statement that the four SQL selectors cover every path students can reach today was wrong.
+
+**Containment, ~01:35 UTC:** disabled `trg_refuse_attempt_on_teaching_item` in Production
+(`alter table app.attempts disable trigger …`). Before that, a student served a teaching item would
+get a generic 500 on submit with no way forward. With the trigger disabled, such an item is graded
+normally. This is harmless while Open Hand is unreachable (plate loop OFF), because no student can
+have seen a teaching item's key. Production postgres logs showed **no** refused attempt between
+designation and containment.
+
+**Re-enable the trigger only after all of these:**
+1. `student-session-items` is deployed with `dropTeachingItems`.
+2. The client fallback read is removed, or excludes teaching items.
+3. `attempt-response` maps the trigger error to a 409 `open_hand_item_not_scorable`.
+
+The QA's other blockers also have to be fixed before the plate loop is turned on: the Practice
+result never reveals the correct answer, and a Unit 1 Biology student hits Open Hand with no
+question and no Next.
+
+## QA fix round — 2026-10-06
+
+**Backend (live in Development and Production):** migration
+`20261006081339_practice_feedback_and_teaching_topics.sql` adds two read-only RPCs.
+- `get_graded_mcq_feedback(p_attempt_id)` returns the picked choice, the score, and every choice with
+  `is_correct` and its rationale. It answers only for the caller's own MCQ attempt and only after a
+  submitted response and a grading result exist. Otherwise it raises `feedback:not_found` /
+  `feedback:not_graded`. Production check: the owner gets picked=A, 0/1, 4 choices; a non-owner gets
+  `feedback:not_found`.
+- `get_open_hand_teaching_topics(p_subject_key)` returns the topic codes that have a teaching item.
+  It is entitlement-scoped and takes the raw `subjects.subject_key`. Production: Biology has 2.7 and
+  4.3; Statistics has 14 topics.
+
+**Product Owner decisions (David):**
+- Remove the "x of 4 explanations read" counter and its caption from Open Hand. Everything is
+  visible on load, so there is nothing to track.
+- Do not block re-serving an item after its post-grade answer reveal in Practice.
+
+**Frontend:** Fable's corrected prompt (sections A–H) was sent to Lovable as a build-only round.
+The plate loop stays OFF, and the build is not published until David reviews it.

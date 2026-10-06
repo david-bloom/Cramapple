@@ -1,5 +1,12 @@
 # TASK-0065 checker pilot — AP Biology, 2026-10-06
 
+> **Reconciled with APPROVAL-0123 / PR #340 (2026-10-06, later the same day).** Another session ran TASK-0065
+> in parallel on PR #340 (merged), under APPROVAL-0123: Units 1-3 of Biology, Statistics, Chemistry and Calculus AB
+> (91 items), with habit lines taken from the topic's point brief on screen rather than carried per item. That
+> approval governs. This pilot's **scope revision (603 topics) is withdrawn** and **C6 is retired**. C3, the lint,
+> the planted-defect controls and the CED-text topic probe stay as supplementary stages to #340's checker
+> (`open_hand_teaching_check.mjs`). See "Supplementary stages on the APPROVAL-0123 batch" at the end.
+
 **Task:** `docs/tasks/TASK-0065-OPEN-HAND-TEACHING-QUESTION-GENERATION.md`. **Owner:** Claude (David, 2026-10-06).
 **Purpose:** prove the checker suite catches what the item standard forbids, before any full-batch spend.
 Nothing was written to any database. Nothing is published.
@@ -66,7 +73,7 @@ The clean items were not clean. The checkers found real authoring defects that I
 David accepted all three recommendations. Changes:
 1. **C6:** "covers the brief's core" became `brief_shares_a_move`: no line contradicts the brief and at least one line shares one of its moves. "Pairs with this item" stays blocking.
 2. **C5:** `apbio_seeded_label_probe.mjs` now prints each topic's CED learning objectives and essential knowledge under its title when the taxonomy carries a `ced` field (`taxonomy_ced.json`, extracted from `docs/product/AP_BIOLOGY_CED_FACT_PACK.md`, all 60 topics). Taxonomies without `ced` behave as before. `ced_text_tiebreak` (runbook §6) remains the fallback.
-3. **Scope:** see the task record. Every topic with a published point brief gets a teaching item, which is 603 topics.
+3. **Scope:** ~~every topic with a published point brief (603)~~ **withdrawn**; APPROVAL-0123 (91 items) governs. The count of 603 published briefs across the 10 subjects stands as a measurement.
 
 Items are unchanged from round 2 except 2.5, whose stem now says X is **uncharged** (DeepSeek's correct round-2 C2 finding). That is a second patch, beyond the one-patch-loop policy, so **2.5 is not publish-eligible from this pilot**. It was rerun only to test the CED-text probe. Round 2 is archived in `round2/`.
 
@@ -89,3 +96,35 @@ One note on noise: X4 (a copy of 1.1 with one false rationale) failed C6 "not pa
 ### Readiness for the full batch
 
 The checker suite is ready for the Biology and Statistics batch. Volume: about 18 calls per item per round. 603 topics × about 1.5 rounds is about 16k calls; Biology + Statistics (115 topics) is about 3k.
+
+## Supplementary stages on the APPROVAL-0123 batch (2026-10-06)
+
+Input: `docs/research/open_hand_teaching_batch_2026_10_06/SCOPE_UNITS_1-3.json` (91 items, unpatched drafts, the
+same input as #340's `check_run_1`). The tools now read that batch shape directly. Nothing in the batch directory
+was edited.
+
+**Tool changes.** `teaching_item_check.mjs` is C3 only, reads the batch shape, keys items `subject:topic` like
+`open_hand_teaching_check.mjs --only`, and refuses Anthropic models. Regression: control X1 still fails and 3.1
+still passes on both checkers (`out_c3_regression/`). `lint.py` dropped the habit-line rules and reads the batch shape. Its figure rule
+now flags only a reference to a visual the student cannot see (the first pass flagged inline tables and graphs
+described in words: 9 false positives on the batch). It also names `!=` (self-test: 9 planted defects caught).
+
+**Lint (L), 91 items:** 2 fail. Calculus AB 1.11 and 1.13 write `x != 4` / `x != 3` where a student should see `≠`.
+
+**C3 named-trap audit, 91 items, DeepSeek v4-pro + Gemini 3.8 flash, union of flags:** 38 blocked (13 flagged by
+both). Results are in `batch_c3/`, and the per-item reasons are in `batch_c3_blocked.json`.
+- **13 items: a distractor's temptation is not named.** These are real defects, for example Calculus AB 1.16 ("12 feels close"),
+  Biology 1.7 C, 3.2 A and 3.3 B.
+- **25 items are blocked only because a `Fix:` line states the correct fact instead of telling the student what to
+  do differently.** C3 reads "one-line fix" as an action, which is stricter than the item standard's wording.
+  **Open for David:** keep that reading, which means a rewrite of those fix lines in the patch loop, or accept a
+  factual fix line.
+- No item fails on a missing `Fix:` line, a long fix, or an unexplained keyed rationale.
+
+**C5 topic probe with CED text, Biology (21 items), 3 models × 2 samples:** 21 of 21 reach 5/6 or better for the
+designated topic (`batch_c5_*/`). The other three subjects have no per-topic LO/EK text in their fact packs
+(Chemistry and Calculus AB list titles only; Statistics is prose by topic), so the probe cannot be extended to
+them without extracting that text from the CEDs first. They stay on #340's single-model `on_topic` judgement.
+
+Calls: 182 (C3) + 126 (C5) + 4 (regression). These results are inputs to #340's patch loop. They do not clear any
+item on their own.

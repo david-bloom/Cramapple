@@ -8,6 +8,12 @@
 
 ## Purpose
 
+2026-10-06 follow-on: joint Astra/Sol review is recorded in
+`docs/qa/CHECKOUT_FLOW_QA_2026_10_06.md`, with the morning checklist in
+`docs/handoffs/MORNING_CHECKOUT_AND_EMAIL_ACTIONS_2026_10_06.md`.
+It includes UX friction as well as bugs, and does not supersede outstanding real
+payment, inbox and signed-in checks with source review or synthetic browser evidence.
+
 **2026-10-06 follow-on, David-authorized:** consolidate transactional templates and
 delivery in Loops. Plan and execution evidence:
 `docs/product/LOOPS_TRANSACTIONAL_EMAIL_MIGRATION_2026_10_06.md`.
