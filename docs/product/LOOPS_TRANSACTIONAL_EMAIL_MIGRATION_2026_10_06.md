@@ -39,6 +39,14 @@ No migration is complete merely because its code is committed.
 
 ## Design handoff
 
+2026-10-06: David supplied ten numbered HTML designs and controlled inboxes.
+See `docs/email/transactional/README.md` for preserved inputs, Loops MJML import
+package and richer variable contracts. Designs are received, not yet published
+or bound. Embedded Supabase/platform/expiry notes do not supersede this plan;
+templates remain consolidated in Loops. Existing six-template mappings below
+are the original backend contract, not a claim of compatibility with the ten
+new designs. PR #341 merged during QA; merge is not Production cutover evidence.
+
 | Template | Environment variable | Data variables |
 | --- | --- | --- |
 | Verify email | LOOPS_SIGNUP_TRANSACTIONAL_ID | token, welcomeUrl |
