@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0127 — Remove Repeated Answer Choices From 198 Published MCQ Stems (Label Carry-Forward)
 - APPROVAL-0126 — Load and Publish 27 Orly Clean-Room MCQs (21 AP Chemistry Units 1/3, 6 AP Calculus AB 2.1) to Production; Hold the 3 Density Items — DECISION-0098
 - APPROVAL-0125 — TASK-0065: Load 91 Open Hand Teaching Items (Units 1–3; Bio, Stats, Chem, Calc AB) to Production
 - APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads (RLS); Re-enable Teaching-Item Attempt Trigger
@@ -138,6 +139,33 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other view change; any app-side change.
 
+
+## APPROVAL-0127 — Remove Repeated Answer Choices From 198 Published MCQ Stems
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "Yes, prepare the 198 stem cleanup", then "Apply all 198 (Recommended)")  
+**Decision:** Approved
+
+**Defect:** 198 published MCQs repeated their choices as a trailing `A. … D. …` list inside the stem, so students saw
+the choices twice. The counts: Chemistry 68, Calculus BC 42, Calculus AB 26, Physics C Mechanics 22, Physics C E&M 20,
+Physics 2 20. In all 198, the list matched `mcq_choices` exactly.
+
+**Applied in Production:**
+- **Scope:** all 198, in 8 chunks plus the review 7. The review 7 keep their assumption sentence (e.g. "Assume 25 C.")
+  after a blank line. Choices were untouched.
+- **Label carry-forward:** in the same statement as each edit, each serving label's prior state was restored,
+  following the APPROVAL-0116/0066 precedent. A bare edit would have marked the labels stale and pulled 148 items out
+  of Practice.
+- **Verification:**
+  - 198 of 198 cleaned, and 0 published MCQs still carry an inline list.
+  - Label counts are identical to baseline, with no stale labels and servable 148.
+  - Sampled units serve the same items as before.
+- **Rollback:** `prod_rollback.sql` restores the snapshot stems and labels. It has not been needed.
+- **Files:** `scripts/content-seed/stem_choice_cleanup_2026_10_06/` (`REPORT.md`, `APPLY_LOG.md`, `prod_snapshot.json`).
+
+**Follow-ups:**
+- The import path that wrote these lists needs a guard: the stem/choice sync trigger misses identical copies.
+- Two stems end in "--" (apphy2-mcq-010, apphycem-mcq-016).
 
 ## APPROVAL-0126 — Load and Publish 27 Orly Clean-Room MCQs to Production; Hold the 3 Density Items
 
