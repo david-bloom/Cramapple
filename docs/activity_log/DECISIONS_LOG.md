@@ -66,6 +66,10 @@ David logged in on 2026-10-05 and got neither the redesigned student hub nor Ope
 2. TASK-0052 is executed now: the front end calls the RPC directly, one item at a time, and `open-hand-item` is deleted from the app (DECISION-0086 D2 as amended on TASK-0052).
 3. The plate loop (Open Hand → Practice plate) is the default "Start practice" path for every student. The `?loop=` override is removed; `VITE_PLATE_LOOP=off` is the kill switch; `/session` stays in the codebase as the fallback.
 
+### Amendment 2026-10-06
+
+Point 3 is reversed for now: after seeing the live screen, David turned the plate loop OFF by default (`5b269ac1`, published). The plate loop returns as the default only after the fixes and checks listed on TASK-0052 pass his review.
+
 ### Consequences
 
 The open TASK-0051 items (fresh QA, F3, excluded-item serving, staff live path, per-load exclusion count) remain open and owned. Rollback for the front end is the kill switch or a Lovable revert; rollback for the backend is dropping the function, which no other caller depends on.
