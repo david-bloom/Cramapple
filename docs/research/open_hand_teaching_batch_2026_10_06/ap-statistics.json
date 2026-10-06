@@ -155,7 +155,7 @@
         "choice_key": "A",
         "choice_text": "The claim is confirmed, because the tall bar shows that many students earned exactly the same score within that bin.",
         "is_correct": false,
-        "rationale": "Tempting because tall bars look like frequent values — but a bar's height counts everything in the bin, not one repeated score. Fix: remember the bin can hold 11 different scores."
+        "rationale": "Tempting because tall bars look like frequent values — but a bar's height counts every score in the bin, and those 11 scores could all be different values from 70 to 89. Fix: read a bar's height as the count for its whole interval, not for one exact score."
       },
       {
         "choice_key": "B",
@@ -983,7 +983,7 @@
         "choice_key": "A",
         "choice_text": "A test of homogeneity, because the table compares news source across the three age groups.",
         "is_correct": false,
-        "rationale": "Tempting because the table looks like three groups side by side — but homogeneity needs separate samples from each population. Fix: look at how the data were collected, not at the table's shape."
+        "rationale": "Tempting because the table looks like three groups side by side — but homogeneity is for data collected as separate random samples (or randomly assigned treatment groups), one per group being compared, and here there was one sample. Fix: look at how the data were collected, not at the table's shape."
       },
       {
         "choice_key": "B",
@@ -1037,7 +1037,7 @@
         "choice_key": "D",
         "choice_text": "1.67",
         "is_correct": false,
-        "rationale": "Tempting if you forget to square the differences — but squaring is what keeps the terms from canceling and weights large gaps. Fix: use (O − E)²/E."
+        "rationale": "Tempting if you use the size of each gap, |O − E|, without squaring it: 10/20 + 10/30 + 10/20 + 10/30 ≈ 1.67. But the statistic squares each difference first. Fix: use (O − E)²/E for every cell."
       }
     ],
     "verification": "Expected=[[20.0, 30.0], [20.0, 30.0]]; chi2=16.6667; /obs=20.8333; no div=400.0; no square=1.667",
