@@ -1,0 +1,1383 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.1",
+  "topic_title": "Structure of Water and Hydrogen Bonding"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__1.1#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25168,
+    "inputTokenDetails": {
+     "noCacheTokens": 25168,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1421,
+    "outputTokenDetails": {
+     "textTokens": 698,
+     "reasoningTokens": 723
+    },
+    "totalTokens": 26589,
+    "raw": {
+     "input_tokens": 25168,
+     "output_tokens": 1421,
+     "output_tokens_details": {
+      "thinking_tokens": 723
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 723,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.1",
+    "topic_title": "Structure of Water and Hydrogen Bonding",
+    "stem": "On a hot day, evaporation of sweat lowers a runner's skin temperature. Which explanation best connects the molecular structure of water to this cooling effect?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Water has a high heat of vaporization, so sweat evaporating from the skin removes heat and cools the body.",
+      "is_correct": false,
+      "rationale": "This is the common point loss of naming a property without its molecular cause. The statement is true, but it never says that polarity produces hydrogen bonds or that those bonds are what absorb heat as they break. Fix: Check that your explanation includes all three links: polarity, then hydrogen bonds, then the biological effect."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "As sweat evaporates, the polar covalent O–H bonds inside each water molecule break, and breaking these bonds absorbs heat from the skin.",
+      "is_correct": false,
+      "rationale": "This answer confuses bonds within a molecule with attractions between molecules. Evaporation separates intact water molecules by breaking the hydrogen bonds between them, and the covalent O–H bonds stay intact, so water vapor is still H₂O. Fix: Ask whether a process changes the molecule itself or only separates whole molecules from one another."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Because water is polar, hydrogen bonds form between molecules as sweat evaporates, and forming these bonds carries heat away from the skin.",
+      "is_correct": false,
+      "rationale": "This answer reverses the energy direction. Evaporation breaks hydrogen bonds rather than forming them. Breaking bonds absorbs energy, while forming bonds releases energy. Fix: Decide whether bonds are breaking or forming, then check whether that step absorbs or releases heat."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Water molecules are polar, so they form hydrogen bonds with one another; a large amount of heat must be absorbed from the skin to break these bonds as sweat evaporates, which cools the skin.",
+      "is_correct": true,
+      "rationale": "This answer completes the full chain. Polarity leads to hydrogen bonding between molecules, which gives water a high heat of vaporization. Breaking those bonds during evaporation absorbs heat from the body surface, producing evaporative cooling."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 322,
+         "inputTokenDetails": {
+          "noCacheTokens": 322,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 145,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 119
+         },
+         "totalTokens": 467,
+         "raw": {
+          "input_tokens": 322,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 145,
+          "output_tokens_details": {
+           "reasoning_tokens": 119
+          },
+          "total_tokens": 467
+         },
+         "reasoningTokens": 119,
+         "cachedInputTokens": 0
+        },
+        "ms": 4279,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 397,
+         "inputTokenDetails": {
+          "noCacheTokens": 397,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 413,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 383
+         },
+         "totalTokens": 810,
+         "raw": {
+          "thoughtsTokenCount": 383,
+          "promptTokenCount": 397,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 810,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 397
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 383,
+         "cachedInputTokens": 0
+        },
+        "ms": 4621,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 460,
+         "inputTokenDetails": {
+          "noCacheTokens": 204,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 852,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 832
+         },
+         "totalTokens": 1312,
+         "raw": {
+          "prompt_tokens": 460,
+          "completion_tokens": 852,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 204,
+          "total_tokens": 1312,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 832
+          }
+         },
+         "reasoningTokens": 832,
+         "cachedInputTokens": 256
+        },
+        "ms": 10694,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 486,
+         "inputTokenDetails": {
+          "noCacheTokens": 358,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 625,
+         "outputTokenDetails": {
+          "textTokens": 24,
+          "reasoningTokens": 601
+         },
+         "totalTokens": 1111,
+         "raw": {
+          "prompt_tokens": 486,
+          "completion_tokens": 625,
+          "total_tokens": 1111,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 601,
+           "accepted_prediction_tokens": 388,
+           "rejected_prediction_tokens": 320,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 601,
+         "cachedInputTokens": 128
+        },
+        "ms": 5027,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice C's rationale has four sentences, including its Fix sentence, exceeding the three-sentence limit."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16214,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16211
+         },
+         "outputTokens": 390,
+         "outputTokenDetails": {
+          "textTokens": 242,
+          "reasoningTokens": 148
+         },
+         "totalTokens": 16604,
+         "raw": {
+          "input_tokens": 16214,
+          "input_tokens_details": {
+           "cache_write_tokens": 16211,
+           "cached_tokens": 0
+          },
+          "output_tokens": 390,
+          "output_tokens_details": {
+           "reasoning_tokens": 148
+          },
+          "total_tokens": 16604
+         },
+         "reasoningTokens": 148,
+         "cachedInputTokens": 0
+        },
+        "ms": 10764,
+        "flags": [
+         "concise: Choice C's rationale has four sentences, including its Fix sentence, exceeding the three-sentence limit."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice C’s rationale contains four sentences, including its Fix sentence, exceeding the three-sentence maximum."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16214,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16211,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 399,
+         "outputTokenDetails": {
+          "textTokens": 242,
+          "reasoningTokens": 157
+         },
+         "totalTokens": 16613,
+         "raw": {
+          "input_tokens": 16214,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16211
+          },
+          "output_tokens": 399,
+          "output_tokens_details": {
+           "reasoning_tokens": 157
+          },
+          "total_tokens": 16613
+         },
+         "reasoningTokens": 157,
+         "cachedInputTokens": 16211
+        },
+        "ms": 13070,
+        "flags": [
+         "concise: Choice C’s rationale contains four sentences, including its Fix sentence, exceeding the three-sentence maximum."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17535,
+         "inputTokenDetails": {
+          "noCacheTokens": 17535,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1459,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1197
+         },
+         "totalTokens": 18994,
+         "raw": {
+          "thoughtsTokenCount": 1197,
+          "promptTokenCount": 17535,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 18994,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17535
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1197,
+         "cachedInputTokens": 0
+        },
+        "ms": 12042,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16386,
+         "inputTokenDetails": {
+          "noCacheTokens": 15106,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 5612,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 5393
+         },
+         "totalTokens": 21998,
+         "raw": {
+          "prompt_tokens": 16386,
+          "completion_tokens": 5612,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15106,
+          "total_tokens": 21998,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5393
+          }
+         },
+         "reasoningTokens": 5393,
+         "cachedInputTokens": 1280
+        },
+        "ms": 55049,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16890,
+         "inputTokenDetails": {
+          "noCacheTokens": 16314,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 3354,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 3227
+         },
+         "totalTokens": 20244,
+         "raw": {
+          "prompt_tokens": 16890,
+          "completion_tokens": 3354,
+          "total_tokens": 20244,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3227,
+           "accepted_prediction_tokens": 2176,
+           "rejected_prediction_tokens": 1355,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 3227,
+         "cachedInputTokens": 576
+        },
+        "ms": 22371,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__1.1#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15619,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15616
+    },
+    "outputTokens": 738,
+    "outputTokenDetails": {
+     "textTokens": 433,
+     "reasoningTokens": 305
+    },
+    "totalTokens": 16357,
+    "raw": {
+     "input_tokens": 15619,
+     "input_tokens_details": {
+      "cache_write_tokens": 15616,
+      "cached_tokens": 0
+     },
+     "output_tokens": 738,
+     "output_tokens_details": {
+      "reasoning_tokens": 305
+     },
+     "total_tokens": 16357
+    },
+    "reasoningTokens": 305,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.1",
+    "topic_title": "Structure of Water and Hydrogen Bonding",
+    "stem": "When sweat evaporates from a person's skin, the skin cools. Which explanation correctly connects water's molecular structure to this biological effect?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Water's polarity produces covalent bonds between neighboring water molecules; breaking these bonds during evaporation absorbs energy from the skin, cooling it.",
+      "is_correct": false,
+      "rationale": "The trap is confusing bonds within molecules with attractions between molecules: neighboring water molecules form hydrogen bonds, not covalent bonds. Evaporation separates water molecules without breaking their covalent H–O bonds. Fix: Identify whether the bond connects atoms within one water molecule or connects two different water molecules."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Water's polarity enables hydrogen bonds between water molecules; breaking these bonds during evaporation releases energy, and this energy release removes heat from the skin.",
+      "is_correct": false,
+      "rationale": "The trap is reversing the energy change of bond breaking: overcoming hydrogen bonds requires energy rather than releasing it. Cooling occurs because evaporation absorbs heat from the skin. Fix: Check whether your explanation makes separation of attracted molecules require energy input or release energy."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Water's polarity enables hydrogen bonds between water molecules; these give water high specific heat capacity, meaning evaporation requires little energy and therefore cools the skin.",
+      "is_correct": false,
+      "rationale": "The trap is confusing specific heat capacity with heat of vaporization. High specific heat capacity limits temperature change as water absorbs heat; water's high heat of vaporization means evaporation requires substantial energy. Fix: Ask whether the observation involves changing liquid water's temperature or changing liquid water into vapor, then select the matching property."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Water's polarity enables hydrogen bonds between water molecules; overcoming these attractions during evaporation requires energy absorbed from the skin, cooling it.",
+      "is_correct": true,
+      "rationale": "This explanation connects polarity to hydrogen bonding and then to evaporative cooling. Energy is required to separate hydrogen-bonded water molecules during evaporation, so evaporating sweat absorbs heat from the skin."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 760,
+         "inputTokenDetails": {
+          "noCacheTokens": 760,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 790,
+         "raw": {
+          "input_tokens": 760,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2529,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 395,
+         "inputTokenDetails": {
+          "noCacheTokens": 395,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 182,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 152
+         },
+         "totalTokens": 577,
+         "raw": {
+          "thoughtsTokenCount": 152,
+          "promptTokenCount": 395,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 577,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 395
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 152,
+         "cachedInputTokens": 0
+        },
+        "ms": 3545,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 449,
+         "inputTokenDetails": {
+          "noCacheTokens": 193,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 714,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 688
+         },
+         "totalTokens": 1163,
+         "raw": {
+          "prompt_tokens": 449,
+          "completion_tokens": 714,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 193,
+          "total_tokens": 1163,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 688
+          }
+         },
+         "reasoningTokens": 688,
+         "cachedInputTokens": 256
+        },
+        "ms": 8375,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 477,
+         "inputTokenDetails": {
+          "noCacheTokens": 413,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 170,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 150
+         },
+         "totalTokens": 647,
+         "raw": {
+          "prompt_tokens": 477,
+          "completion_tokens": 170,
+          "total_tokens": 647,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 150,
+           "accepted_prediction_tokens": 104,
+           "rejected_prediction_tokens": 91,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 150,
+         "cachedInputTokens": 64
+        },
+        "ms": 1705,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 26860,
+         "inputTokenDetails": {
+          "noCacheTokens": 26860,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 573,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 361
+         },
+         "totalTokens": 27433,
+         "raw": {
+          "input_tokens": 26860,
+          "output_tokens": 573,
+          "output_tokens_details": {
+           "thinking_tokens": 361
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 361,
+         "cachedInputTokens": 0
+        },
+        "ms": 9929,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17520,
+         "inputTokenDetails": {
+          "noCacheTokens": 17520,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1347,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1085
+         },
+         "totalTokens": 18867,
+         "raw": {
+          "thoughtsTokenCount": 1085,
+          "promptTokenCount": 17520,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 18867,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17520
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1085,
+         "cachedInputTokens": 0
+        },
+        "ms": 11572,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16361,
+         "inputTokenDetails": {
+          "noCacheTokens": 14185,
+          "cacheReadTokens": 2176
+         },
+         "outputTokens": 6807,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6588
+         },
+         "totalTokens": 23168,
+         "raw": {
+          "prompt_tokens": 16361,
+          "completion_tokens": 6807,
+          "prompt_cache_hit_tokens": 2176,
+          "prompt_cache_miss_tokens": 14185,
+          "total_tokens": 23168,
+          "prompt_tokens_details": {
+           "cached_tokens": 2176
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6588
+          }
+         },
+         "reasoningTokens": 6588,
+         "cachedInputTokens": 2176
+        },
+        "ms": 65484,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16871,
+         "inputTokenDetails": {
+          "noCacheTokens": 16807,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 1656,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 1529
+         },
+         "totalTokens": 18527,
+         "raw": {
+          "prompt_tokens": 16871,
+          "completion_tokens": 1656,
+          "total_tokens": 18527,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1529,
+           "accepted_prediction_tokens": 1126,
+           "rejected_prediction_tokens": 461,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1529,
+         "cachedInputTokens": 64
+        },
+        "ms": 13316,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16198,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16195
+         },
+         "outputTokens": 295,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 73
+         },
+         "totalTokens": 16493,
+         "raw": {
+          "input_tokens": 16198,
+          "input_tokens_details": {
+           "cache_write_tokens": 16195,
+           "cached_tokens": 0
+          },
+          "output_tokens": 295,
+          "output_tokens_details": {
+           "reasoning_tokens": 73
+          },
+          "total_tokens": 16493
+         },
+         "reasoningTokens": 73,
+         "cachedInputTokens": 0
+        },
+        "ms": 10945,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__1.1#r1-openai",
+ "accepted_at": "2026-10-06T15:16:01.537Z"
+}

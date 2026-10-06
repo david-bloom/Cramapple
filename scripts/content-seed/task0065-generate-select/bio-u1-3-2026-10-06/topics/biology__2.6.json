@@ -1,0 +1,701 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.6",
+  "topic_title": "Facilitated Diffusion"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__2.6#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 26273,
+    "inputTokenDetails": {
+     "noCacheTokens": 26273,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1254,
+    "outputTokenDetails": {
+     "textTokens": 725,
+     "reasoningTokens": 529
+    },
+    "totalTokens": 27527,
+    "raw": {
+     "input_tokens": 26273,
+     "output_tokens": 1254,
+     "output_tokens_details": {
+      "thinking_tokens": 529
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 529,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.6",
+    "topic_title": "Facilitated Diffusion",
+    "stem": "Researchers study uptake of a large polar sugar by cells placed in a solution where the sugar concentration outside the cells is higher than inside. A drug that blocks ATP production does not change the uptake rate. A compound that binds and blocks one specific membrane protein stops uptake completely. Net uptake stops once the inside and outside sugar concentrations become equal. Which explanation best accounts for these results?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The sugar crosses through a specific carrier protein by facilitated diffusion, moving passively down its concentration gradient.",
+      "is_correct": true,
+      "rationale": "Blocking one protein stops uptake, so a transport protein is required. Blocking ATP production has no effect, and net movement stops when concentrations equalize, so the movement is passive and down the gradient. Together these are the signature of facilitated diffusion."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The sugar is moved by active transport, because a membrane protein is required for it to cross.",
+      "is_correct": false,
+      "rationale": "This trap assumes that any protein-assisted transport must be active. Active transport needs energy and can build up a gradient, yet blocking ATP had no effect and uptake stopped at equal concentrations. Fix: Ask whether energy input is needed and whether movement continues against the gradient before calling transport active."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The sugar diffuses directly through the phospholipid bilayer from high to low concentration.",
+      "is_correct": false,
+      "rationale": "This trap focuses only on the high-to-low direction and ignores what blocks a large polar molecule. The hydrophobic bilayer interior blocks large polar molecules, and blocking one protein stopped uptake, so the bilayer route is ruled out. Fix: Check the molecule's size and polarity, and check whether blocking a protein changes uptake, before choosing simple diffusion."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The sugar enters through aquaporins, carried along with water as it moves by osmosis.",
+      "is_correct": false,
+      "rationale": "This trap treats aquaporins as general channels for anything dissolved in water. Aquaporins are channels that transport large quantities of water; they do not carry sugars, and the data concern a sugar gradient, not water movement. Fix: Match each transport protein to the specific substance it moves before linking it to the data."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 324,
+         "inputTokenDetails": {
+          "noCacheTokens": 324,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 98,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 72
+         },
+         "totalTokens": 422,
+         "raw": {
+          "input_tokens": 324,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 98,
+          "output_tokens_details": {
+           "reasoning_tokens": 72
+          },
+          "total_tokens": 422
+         },
+         "reasoningTokens": 72,
+         "cachedInputTokens": 0
+        },
+        "ms": 5706,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 401,
+         "inputTokenDetails": {
+          "noCacheTokens": 401,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 243,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 213
+         },
+         "totalTokens": 644,
+         "raw": {
+          "thoughtsTokenCount": 213,
+          "promptTokenCount": 401,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 644,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 401
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 213,
+         "cachedInputTokens": 0
+        },
+        "ms": 3205,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 461,
+         "inputTokenDetails": {
+          "noCacheTokens": 205,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 215,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 195
+         },
+         "totalTokens": 676,
+         "raw": {
+          "prompt_tokens": 461,
+          "completion_tokens": 215,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 205,
+          "total_tokens": 676,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 195
+          }
+         },
+         "reasoningTokens": 195,
+         "cachedInputTokens": 256
+        },
+        "ms": 3096,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 488,
+         "inputTokenDetails": {
+          "noCacheTokens": 360,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 152,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 132
+         },
+         "totalTokens": 640,
+         "raw": {
+          "prompt_tokens": 488,
+          "completion_tokens": 152,
+          "total_tokens": 640,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 132,
+           "accepted_prediction_tokens": 83,
+           "rejected_prediction_tokens": 121,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 132,
+         "cachedInputTokens": 128
+        },
+        "ms": 1724,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16950,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16947
+         },
+         "outputTokens": 450,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 228
+         },
+         "totalTokens": 17400,
+         "raw": {
+          "input_tokens": 16950,
+          "input_tokens_details": {
+           "cache_write_tokens": 16947,
+           "cached_tokens": 0
+          },
+          "output_tokens": 450,
+          "output_tokens_details": {
+           "reasoning_tokens": 228
+          },
+          "total_tokens": 17400
+         },
+         "reasoningTokens": 228,
+         "cachedInputTokens": 0
+        },
+        "ms": 14760,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 18284,
+         "inputTokenDetails": {
+          "noCacheTokens": 18284,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1025,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 763
+         },
+         "totalTokens": 19309,
+         "raw": {
+          "thoughtsTokenCount": 763,
+          "promptTokenCount": 18284,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19309,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 18284
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 763,
+         "cachedInputTokens": 0
+        },
+        "ms": 8627,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17120,
+         "inputTokenDetails": {
+          "noCacheTokens": 15840,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 7383,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 7164
+         },
+         "totalTokens": 24503,
+         "raw": {
+          "prompt_tokens": 17120,
+          "completion_tokens": 7383,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15840,
+          "total_tokens": 24503,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7164
+          }
+         },
+         "reasoningTokens": 7164,
+         "cachedInputTokens": 1280
+        },
+        "ms": 73329,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17628,
+         "inputTokenDetails": {
+          "noCacheTokens": 17564,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2460,
+         "outputTokenDetails": {
+          "textTokens": 173,
+          "reasoningTokens": 2287
+         },
+         "totalTokens": 20088,
+         "raw": {
+          "prompt_tokens": 17628,
+          "completion_tokens": 2460,
+          "total_tokens": 20088,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2287,
+           "accepted_prediction_tokens": 1609,
+           "rejected_prediction_tokens": 941,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2287,
+         "cachedInputTokens": 64
+        },
+        "ms": 18671,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 28027,
+         "inputTokenDetails": {
+          "noCacheTokens": 28027,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 840,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 628
+         },
+         "totalTokens": 28867,
+         "raw": {
+          "input_tokens": 28027,
+          "output_tokens": 840,
+          "output_tokens_details": {
+           "thinking_tokens": 628
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 628,
+         "cachedInputTokens": 0
+        },
+        "ms": 8528,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__2.6#r1-anthropic",
+ "accepted_at": "2026-10-06T15:27:21.636Z"
+}

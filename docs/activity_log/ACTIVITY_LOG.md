@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Close: Open Hand Live — 91 Teaching Items in Production, Plate Loop for All Subjects Built (2026-10-06): student-session-items deployed; teaching items hidden from student reads (RLS) and the attempt trigger re-enabled (APPROVAL-0124); 91 checked Units 1–3 teaching items live for Bio, Stats, Chem and Calc AB (APPROVAL-0125); Lovable all-subjects plate loop with the diagnostic removed is built but not yet published. **Next Owner:** David. **Next Action:** publish the Lovable build and do a signed-in check.
+- TASK-0065 Generate-and-Select Pipeline Built; Biology Pilot 18/21 Accepted, 3 Escalated (2026-10-06): David replaced hand-patching with no-edit generation checked by four model families plus an own-family veto; 6/6 planted-defect controls caught; 2 escalations are brief-vs-fact-pack conflicts; nothing loaded to any database
 - Orly Pooled Practice Sets: Clean-Room Drafts (AP Chemistry Units 1/3, AP Calculus AB 2.1) (2026-10-06): 24 pooled reworded-exam MCQs mapped to CED topics and compared with the bank. All 4 Calculus keys and 2 of 20 Chemistry keys were wrong (told to Orly). Units 1-3 items used as seeds through the clean-room path (DECISION-0098): 10 families, 30 drafts; 27 published to Production (APPROVAL-0126), 3 density items held
 - TASK-0065 Checker Pilot (AP Biology) (2026-10-06): supplementary checks for generated Open Hand teaching items (named-trap audit, lint, CED-text topic probe) proven on a pilot (4 of 4 planted defects caught); reconciled with APPROVAL-0123 / PR #340 (pilot's 603-topic scope withdrawn, per-item habit-line check retired); run on the 91 drafts: lint 2 fail, named-trap 38 blocked (25 only on fact-vs-action fix lines), Biology topic probe 21/21; nothing written to any database
 - Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) (2026-10-04): `/home` was rendering legacy `TopicHome` for everyone because the built Stage A/B components were unmounted; Lovable commit `08a042ca` now routes by `experienceStage`; Dev `public.student_course_positions` view refreshed; NOT published; code-level QA only, six findings in the task file.
@@ -380,6 +382,52 @@ Most recent entries (full reverse-chronological list follows below):
 
 <!-- INDEX_END -->
 
+## Session Close: Open Hand Live — 91 Teaching Items in Production, Plate Loop for All Subjects Built — 2026-10-06
+
+**Tasks:** TASK-0064, TASK-0065. **Approvals:** APPROVAL-0124, APPROVAL-0125. **PRs:** #340, #347, #349, #350 (all merged).
+**Handoff:** `docs/handoffs/SESSION_CLOSE_2026_10_06_OPEN_HAND_LIVE.md`.
+
+### Summary
+- **Serving.** David deployed `student-session-items` with the teaching filter (Production v33, Development v21).
+- **Database (Development and Production).** RLS on `content_item_versions` now hides active teaching items from student
+  reads. This closes the legacy `/session` MCQ and `/session/mcq` client reads, which Fable had missed. The attempt
+  trigger is re-enabled in Production.
+- **attempt-response.** The 409 mapping for refused teaching-item attempts is merged but not deployed.
+- **QA.** Fable re-checked the build. The three earlier blockers are fixed; Fable's new double-rationale finding is
+  fixed and published.
+- **Plate loop.** It went live for Statistics first (published). Then, at David's request, Lovable built a version
+  with the loop on for every subject and every diagnostic/session entry retired. That build is **not yet published.**
+- **Teaching items.** The outside checkers (Gemini 3.8 Flash, DeepSeek V4 Pro) ran on 91 Units 1–3 items. Every key
+  was confirmed; 4 rationale errors were fixed; the 15 C3/lint-blocked items were rewritten.
+- **Production load.** All 91 are loaded (Bio 21, Stats 29, Chem 21, Calc AB 20) and verified: content hashes match,
+  Open Hand serves them, they are hidden from students, and scoring never serves them.
+
+### Pending decisions
+- Whether the Statistics skill rail should also move off `/session` into Practice (David).
+
+### Open risks / blockers
+- Biology Unit 1 Practice has only 4 items, all on topic 1.7. Chemistry U1 and Physics C Mechanics U1 are also thin.
+- The live app has not had a human signed-in walkthrough.
+- The `attempt-response` 409 is undeployed. Low risk: it is a backstop.
+- Resume opens Practice at the start, not at the student's last topic.
+
+### Next required action
+- David publishes the Lovable all-subjects / no-diagnostic build (edit `edt-660b7fa5`) and does the signed-in check:
+  a non-Statistics "Start" button opens a worked example or Practice, and `/session/setup` lands on Home.
+- Then he deploys `attempt-response` via the CLI (Development, then Production).
+## TASK-0065 Generate-and-Select Pipeline Built; Biology Pilot 18/21 Accepted, 3 Escalated — 2026-10-06
+
+**Why:** David asked why repeatedly reviewed questions kept failing, and asked for a way to add questions without editing them, using at least 4 models and multiple sessions. Diagnosis: the rules were applied after writing (25 of the 38 C3 blocks), reviews checked other things, single model calls are noisy, patches need full re-checks, and two sessions worked to different specs. **Decision:** build the pipeline; regenerate the 38 C3-blocked topics; hold PR #348 (now a draft); discard the 13 unchecked rewrites.
+
+**Built:** `scripts/vercel-gateway-check/teaching_pipeline/`.
+- One rubric for authors and checkers, plus a deterministic lint.
+- Stateless Claude Opus 5.5 and GPT-6.1 authors.
+- Four non-author checker families: a blind solve, then a rubric audit with the CED fact pack and the unit's topic list.
+- Re-sample on flag; own-family veto (can reject, never approve).
+- Accept the first clean candidate or escalate.
+- Six planted-defect controls gate every batch; per-topic claims for multiple sessions.
+
+**Biology units 1–3:** controls 6/6 caught. 18 of 21 accepted (12 GPT-authored, 6 Claude), 3 escalated, 0 edited. About 600 calls, 0 failed, about 6.5M input tokens. Escalations: 2.10 and 3.3 have point briefs that require content the fact pack lacks; 1.5 overlaps 2.3. Not loaded to any database; human spot-check pending. Production was read only (point briefs).
 ## Orly Pooled Practice Sets: Clean-Room Drafts (AP Chemistry Units 1/3, AP Calculus AB 2.1) — 2026-10-06
 
 **Source:** practice sets pooled by Orly and classmates: 20 AP Chemistry MCQs in a Google Doc and 4 AP Calculus AB MCQs pasted in chat. All are reworded released-exam items. Logged in `docs/research/orly_source_log/SOURCE_LOG.md`; insight note `2026-10-06_ap_chemistry_pooled_practice_mcqs.md`. **Decision:** `DECISION-0098` (class D seeds only through the clean-room spec path; the source is not stored).

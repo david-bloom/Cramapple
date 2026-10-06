@@ -1,0 +1,4700 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Lipids"
+ },
+ "status": "escalated",
+ "candidates": [
+  {
+   "id": "biology__1.5#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25200,
+    "inputTokenDetails": {
+     "noCacheTokens": 25200,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1436,
+    "outputTokenDetails": {
+     "textTokens": 776,
+     "reasoningTokens": 660
+    },
+    "totalTokens": 26636,
+    "raw": {
+     "input_tokens": 25200,
+     "output_tokens": 1436,
+     "output_tokens_details": {
+      "thinking_tokens": 660
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 660,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Lipids",
+    "stem": "A lipid isolated from a cell has a head region containing a phosphate group and two long hydrocarbon fatty acid tails. When the purified lipid is mixed into water, the molecules spontaneously arrange into a double-layered sheet. Which statement best explains this behavior and the molecule's main biological role?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The molecule is a fat whose main role is long-term energy storage; its nonpolar tails make it insoluble, so it clumps together in water.",
+      "is_correct": false,
+      "rationale": "This treats all lipids as fats. Fats are almost entirely nonpolar and coalesce into droplets for storage, but this molecule has a polar phosphate head and forms an organized double layer, which identifies it as a membrane phospholipid. Fix: Check whether a lipid has a polar head before assigning it a storage role versus a membrane role."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The molecule is amphipathic: its hydrophilic head faces water while its hydrophobic tails cluster away from water, so it forms the lipid bilayer of cell membranes.",
+      "is_correct": true,
+      "rationale": "Starting from polarity, the phosphate head is polar and interacts with water, while the nonpolar tails avoid water. A double layer satisfies both parts, with heads on the outer surfaces and tails sealed inside, which is exactly the bilayer structure that phospholipids build in membranes."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The molecule is completely hydrophobic, so both its head and its tails avoid water, which pushes the molecules into stacked layers.",
+      "is_correct": false,
+      "rationale": "This assumes every lipid is fully nonpolar. A fully hydrophobic molecule would have no reason to keep one surface facing water; the bilayer forms only because the phosphate-containing head is hydrophilic while the tails are hydrophobic. Fix: Ask whether each region of the molecule is polar or nonpolar, then predict which region contacts water."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The fatty acid tails face the water on both surfaces of the sheet because their long hydrocarbon chains form hydrogen bonds with water.",
+      "is_correct": false,
+      "rationale": "This reverses the orientation. Hydrocarbon chains are nonpolar and cannot hydrogen bond with water, so they point inward, away from water, while the polar heads form the surfaces. Fix: Label hydrocarbon chains as nonpolar first, then place them where water is excluded."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 348,
+         "inputTokenDetails": {
+          "noCacheTokens": 348,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 24,
+         "outputTokenDetails": {
+          "textTokens": 24,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 372,
+         "raw": {
+          "input_tokens": 348,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 24,
+          "output_tokens_details": {
+           "reasoning_tokens": 0
+          },
+          "total_tokens": 372
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2672,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 423,
+         "inputTokenDetails": {
+          "noCacheTokens": 423,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 162,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 132
+         },
+         "totalTokens": 585,
+         "raw": {
+          "thoughtsTokenCount": 132,
+          "promptTokenCount": 423,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 585,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 423
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 132,
+         "cachedInputTokens": 0
+        },
+        "ms": 3136,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 480,
+         "inputTokenDetails": {
+          "noCacheTokens": 224,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 161,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 135
+         },
+         "totalTokens": 641,
+         "raw": {
+          "prompt_tokens": 480,
+          "completion_tokens": 161,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 224,
+          "total_tokens": 641,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 135
+          }
+         },
+         "reasoningTokens": 135,
+         "cachedInputTokens": 256
+        },
+        "ms": 2672,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 512,
+         "inputTokenDetails": {
+          "noCacheTokens": 384,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 86,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 66
+         },
+         "totalTokens": 598,
+         "raw": {
+          "prompt_tokens": 512,
+          "completion_tokens": 86,
+          "total_tokens": 598,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 66,
+           "accepted_prediction_tokens": 48,
+           "rejected_prediction_tokens": 63,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 66,
+         "cachedInputTokens": 128
+        },
+        "ms": 1123,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The central reasoning tests hydrophilic-head and hydrophobic-tail orientation in a bilayer, explicitly covered by EK 2.3.A.1. Topic 1.5 identifies phospholipids' bilayer-forming role but does not supply the regional polarity and orientation needed to explain this behavior."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16260,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16257
+         },
+         "outputTokens": 509,
+         "outputTokenDetails": {
+          "textTokens": 283,
+          "reasoningTokens": 226
+         },
+         "totalTokens": 16769,
+         "raw": {
+          "input_tokens": 16260,
+          "input_tokens_details": {
+           "cache_write_tokens": 16257,
+           "cached_tokens": 0
+          },
+          "output_tokens": 509,
+          "output_tokens_details": {
+           "reasoning_tokens": 226
+          },
+          "total_tokens": 16769
+         },
+         "reasoningTokens": 226,
+         "cachedInputTokens": 0
+        },
+        "ms": 9481,
+        "flags": [
+         "topic 2.3",
+         "on_topic: The central reasoning tests hydrophilic-head and hydrophobic-tail orientation in a bilayer, explicitly covered by EK 2.3.A.1. Topic 1.5 identifies phospholipids' bilayer-forming role but does not supply the regional polarity and orientation needed to explain this behavior."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question primarily tests hydrophilic-head/hydrophobic-tail orientation and bilayer assembly, explicitly covered in topic 2.3. Topic 1.5 identifies phospholipids' bilayer role but does not supply the regional polarity and orientation needed to explain the behavior."
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice B introduces the term 'amphipathic,' which is not included in the supplied fact pack. Although head-and-tail orientation is covered in topic 2.3, supplying an explanation alongside an out-of-scope term does not satisfy this rule."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16260,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16257,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 717,
+         "outputTokenDetails": {
+          "textTokens": 330,
+          "reasoningTokens": 387
+         },
+         "totalTokens": 16977,
+         "raw": {
+          "input_tokens": 16260,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16257
+          },
+          "output_tokens": 717,
+          "output_tokens_details": {
+           "reasoning_tokens": 387
+          },
+          "total_tokens": 16977
+         },
+         "reasoningTokens": 387,
+         "cachedInputTokens": 16257
+        },
+        "ms": 15406,
+        "flags": [
+         "topic 2.3",
+         "on_topic: The question primarily tests hydrophilic-head/hydrophobic-tail orientation and bilayer assembly, explicitly covered in topic 2.3. Topic 1.5 identifies phospholipids' bilayer role but does not supply the regional polarity and orientation needed to explain the behavior.",
+         "ced_scope: Choice B introduces the term 'amphipathic,' which is not included in the supplied fact pack. Although head-and-tail orientation is covered in topic 2.3, supplying an explanation alongside an out-of-scope term does not satisfy this rule."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17573,
+         "inputTokenDetails": {
+          "noCacheTokens": 17573,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 6553,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 6291
+         },
+         "totalTokens": 24126,
+         "raw": {
+          "thoughtsTokenCount": 6291,
+          "promptTokenCount": 17573,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 24126,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17573
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 6291,
+         "cachedInputTokens": 0
+        },
+        "ms": 43446,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The correct answer relies on phospholipid head/tail orientation (hydrophilic head, hydrophobic tails). That mechanism first appears in 2.3, not in 1.5 or earlier. A student who has studied only 1.5 and earlier could not explain why the lipid forms a double layer."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16418,
+         "inputTokenDetails": {
+          "noCacheTokens": 15138,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 19705,
+         "outputTokenDetails": {
+          "textTokens": 281,
+          "reasoningTokens": 19424
+         },
+         "totalTokens": 36123,
+         "raw": {
+          "prompt_tokens": 16418,
+          "completion_tokens": 19705,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15138,
+          "total_tokens": 36123,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 19424
+          }
+         },
+         "reasoningTokens": 19424,
+         "cachedInputTokens": 1280
+        },
+        "ms": 207734,
+        "flags": [
+         "on_topic: The correct answer relies on phospholipid head/tail orientation (hydrophilic head, hydrophobic tails). That mechanism first appears in 2.3, not in 1.5 or earlier. A student who has studied only 1.5 and earlier could not explain why the lipid forms a double layer."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16418,
+         "inputTokenDetails": {
+          "noCacheTokens": 34,
+          "cacheReadTokens": 16384
+         },
+         "outputTokens": 13930,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 13711
+         },
+         "totalTokens": 30348,
+         "raw": {
+          "prompt_tokens": 16418,
+          "completion_tokens": 13930,
+          "prompt_cache_hit_tokens": 16384,
+          "prompt_cache_miss_tokens": 34,
+          "total_tokens": 30348,
+          "prompt_tokens_details": {
+           "cached_tokens": 16384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 13711
+          }
+         },
+         "reasoningTokens": 13711,
+         "cachedInputTokens": 16384
+        },
+        "ms": 135701,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16946,
+         "inputTokenDetails": {
+          "noCacheTokens": 16562,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 8935,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 8808
+         },
+         "totalTokens": 25881,
+         "raw": {
+          "prompt_tokens": 16946,
+          "completion_tokens": 8935,
+          "total_tokens": 25881,
+          "prompt_tokens_details": {
+           "cached_tokens": 384,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8808,
+           "accepted_prediction_tokens": 5574,
+           "rejected_prediction_tokens": 4506,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 8808,
+         "cachedInputTokens": 384
+        },
+        "ms": 64701,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__1.5#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15648,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15645
+    },
+    "outputTokens": 788,
+    "outputTokenDetails": {
+     "textTokens": 497,
+     "reasoningTokens": 291
+    },
+    "totalTokens": 16436,
+    "raw": {
+     "input_tokens": 15648,
+     "input_tokens_details": {
+      "cache_write_tokens": 15645,
+      "cached_tokens": 0
+     },
+     "output_tokens": 788,
+     "output_tokens_details": {
+      "reasoning_tokens": 291
+     },
+     "total_tokens": 16436
+    },
+    "reasoningTokens": 291,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Lipids",
+    "stem": "A student claims that fats and phospholipids are equally suited to forming a cell membrane's lipid bilayer because both are lipids. Which explanation best evaluates this claim?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The claim is correct: fats and phospholipids are both entirely hydrophobic, and hydrophobicity alone makes both equally suited to forming bilayers.",
+      "is_correct": false,
+      "rationale": "The all-lipids-are-identical trap overlooks phospholipids' hydrophilic regions. Being hydrophobic alone does not provide the two contrasting regions that support phospholipid bilayer formation. Fix: Check whether each lipid has both hydrophilic and hydrophobic regions before predicting its behavior in water."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The claim is incorrect: phospholipids form bilayers with hydrophobic heads facing water and hydrophilic tails sheltered inside, while fats cannot form this arrangement.",
+      "is_correct": false,
+      "rationale": "The head–tail polarity reversal trap assigns the opposite properties to phospholipid regions. Phospholipid heads are hydrophilic and face water; their hydrophobic tails cluster inside the bilayer. Fix: Identify which region attracts water, then place that region on the bilayer surfaces."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The claim is incorrect: phospholipids have hydrophilic and hydrophobic regions that support bilayer formation, whereas fats are largely nonpolar and function primarily in energy storage.",
+      "is_correct": true,
+      "rationale": "Phospholipids are amphipathic: their hydrophilic regions face water while their hydrophobic regions cluster inside the bilayer. Fats lack this arrangement of water-attracting and water-avoiding regions, so belonging to the lipid category does not make them equivalent membrane-building materials."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The claim is correct: fats store energy, so they can replace phospholipids as the main structural material of a membrane bilayer.",
+      "is_correct": false,
+      "rationale": "The energy-storage-means-membrane-formation trap confuses two different lipid functions. Energy storage does not give fats the amphipathic organization that makes phospholipids suited to bilayer formation. Fix: Match each proposed function to the lipid's polarity and organization rather than inferring one function from another."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 771,
+         "inputTokenDetails": {
+          "noCacheTokens": 771,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 801,
+         "raw": {
+          "input_tokens": 771,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2039,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 392,
+         "inputTokenDetails": {
+          "noCacheTokens": 392,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 252,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 222
+         },
+         "totalTokens": 644,
+         "raw": {
+          "thoughtsTokenCount": 222,
+          "promptTokenCount": 392,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 644,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 392
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 222,
+         "cachedInputTokens": 0
+        },
+        "ms": 3261,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 457,
+         "inputTokenDetails": {
+          "noCacheTokens": 201,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 331,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 305
+         },
+         "totalTokens": 788,
+         "raw": {
+          "prompt_tokens": 457,
+          "completion_tokens": 331,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 201,
+          "total_tokens": 788,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 305
+          }
+         },
+         "reasoningTokens": 305,
+         "cachedInputTokens": 256
+        },
+        "ms": 4862,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 504,
+         "inputTokenDetails": {
+          "noCacheTokens": 440,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 426,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 406
+         },
+         "totalTokens": 930,
+         "raw": {
+          "prompt_tokens": 504,
+          "completion_tokens": 426,
+          "total_tokens": 930,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 406,
+           "accepted_prediction_tokens": 244,
+           "rejected_prediction_tokens": 299,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 406,
+         "cachedInputTokens": 64
+        },
+        "ms": 3348,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 26868,
+         "inputTokenDetails": {
+          "noCacheTokens": 26868,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 853,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 641
+         },
+         "totalTokens": 27721,
+         "raw": {
+          "input_tokens": 26868,
+          "output_tokens": 853,
+          "output_tokens_details": {
+           "thinking_tokens": 641
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 641,
+         "cachedInputTokens": 0
+        },
+        "ms": 16435,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17524,
+         "inputTokenDetails": {
+          "noCacheTokens": 17524,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2683,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 2421
+         },
+         "totalTokens": 20207,
+         "raw": {
+          "thoughtsTokenCount": 2421,
+          "promptTokenCount": 17524,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 20207,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17524
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 2421,
+         "cachedInputTokens": 0
+        },
+        "ms": 20052,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16377,
+         "inputTokenDetails": {
+          "noCacheTokens": 15097,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 11188,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 10969
+         },
+         "totalTokens": 27565,
+         "raw": {
+          "prompt_tokens": 16377,
+          "completion_tokens": 11188,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15097,
+          "total_tokens": 27565,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 10969
+          }
+         },
+         "reasoningTokens": 10969,
+         "cachedInputTokens": 1280
+        },
+        "ms": 109515,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16930,
+         "inputTokenDetails": {
+          "noCacheTokens": 16354,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 8344,
+         "outputTokenDetails": {
+          "textTokens": 217,
+          "reasoningTokens": 8127
+         },
+         "totalTokens": 25274,
+         "raw": {
+          "prompt_tokens": 16930,
+          "completion_tokens": 8344,
+          "total_tokens": 25274,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8127,
+           "accepted_prediction_tokens": 5339,
+           "rejected_prediction_tokens": 3673,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 8127,
+         "cachedInputTokens": 576
+        },
+        "ms": 46096,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "veto",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "Distinguishing B from C requires phospholipid head–tail polarity and bilayer orientation, taught in topic 2.3 (EK 2.3.A.1), not topic 1.5 or earlier topics. Topic 1.5 identifies phospholipids' bilayer function but does not supply this mechanism."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16257,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16254
+         },
+         "outputTokens": 492,
+         "outputTokenDetails": {
+          "textTokens": 289,
+          "reasoningTokens": 203
+         },
+         "totalTokens": 16749,
+         "raw": {
+          "input_tokens": 16257,
+          "input_tokens_details": {
+           "cache_write_tokens": 16254,
+           "cached_tokens": 0
+          },
+          "output_tokens": 492,
+          "output_tokens_details": {
+           "reasoning_tokens": 203
+          },
+          "total_tokens": 16749
+         },
+         "reasoningTokens": 203,
+         "cachedInputTokens": 0
+        },
+        "ms": 13799,
+        "flags": [
+         "on_topic: Distinguishing B from C requires phospholipid head–tail polarity and bilayer orientation, taught in topic 2.3 (EK 2.3.A.1), not topic 1.5 or earlier topics. Topic 1.5 identifies phospholipids' bilayer function but does not supply this mechanism."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "Distinguishing B from C requires knowing phospholipid head–tail polarity and bilayer orientation, explicitly covered in topic 2.3 rather than topic 1.5 or earlier topics."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16257,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16254,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 476,
+         "outputTokenDetails": {
+          "textTokens": 261,
+          "reasoningTokens": 215
+         },
+         "totalTokens": 16733,
+         "raw": {
+          "input_tokens": 16257,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16254
+          },
+          "output_tokens": 476,
+          "output_tokens_details": {
+           "reasoning_tokens": 215
+          },
+          "total_tokens": 16733
+         },
+         "reasoningTokens": 215,
+         "cachedInputTokens": 16254
+        },
+        "ms": 11422,
+        "flags": [
+         "on_topic: Distinguishing B from C requires knowing phospholipid head–tail polarity and bilayer orientation, explicitly covered in topic 2.3 rather than topic 1.5 or earlier topics."
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "biology__1.5#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25221,
+    "inputTokenDetails": {
+     "noCacheTokens": 25221,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1439,
+    "outputTokenDetails": {
+     "textTokens": 683,
+     "reasoningTokens": 756
+    },
+    "totalTokens": 26660,
+    "raw": {
+     "input_tokens": 25221,
+     "output_tokens": 1439,
+     "output_tokens_details": {
+      "thinking_tokens": 756
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 756,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Lipids",
+    "stem": "A student mixes an unknown lipid with water and observes that the molecules spontaneously arrange into a two-layered sheet separating two watery compartments. Which description of the lipid best explains this behavior?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "It is a phospholipid with a hydrophilic phosphate-containing head and hydrophobic fatty acid tails.",
+      "is_correct": true,
+      "rationale": "A bilayer requires an amphipathic molecule. The hydrophobic tails cluster together away from water while the hydrophilic heads face the water on both surfaces, producing a two-layered sheet. This structure-to-function link is why phospholipids form the lipid bilayer of membranes."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "It is a fat made entirely of long nonpolar hydrocarbon chains attached to glycerol.",
+      "is_correct": false,
+      "rationale": "This treats all lipids as the same. A fully hydrophobic fat has no region that faces water, so it clumps into droplets used for energy storage rather than forming a sheet with two water-facing surfaces. Fix: Ask whether the molecule has both a hydrophilic and a hydrophobic region before predicting that it forms a bilayer."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "It is a steroid such as cholesterol, which keeps animal membranes stable.",
+      "is_correct": false,
+      "rationale": "This confuses stabilizing a membrane with forming one. Cholesterol sits within an existing phospholipid bilayer and stabilizes it, and steroids also act as hormones, but steroids do not build the bilayer framework themselves. Fix: Match each lipid class to its specific role, asking whether the molecule builds the structure or modifies one that already exists."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "It is a highly polar lipid that forms hydrogen bonds with water along its entire length.",
+      "is_correct": false,
+      "rationale": "This misapplies polarity. A molecule that is polar throughout would dissolve in water rather than create a layered barrier; a bilayer forms only because part of each molecule is hydrophobic and avoids water. Fix: Check which part of the molecule avoids water, since a barrier between water compartments needs a hydrophobic core."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 280,
+         "inputTokenDetails": {
+          "noCacheTokens": 280,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 69,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 43
+         },
+         "totalTokens": 349,
+         "raw": {
+          "input_tokens": 280,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 69,
+          "output_tokens_details": {
+           "reasoning_tokens": 43
+          },
+          "total_tokens": 349
+         },
+         "reasoningTokens": 43,
+         "cachedInputTokens": 0
+        },
+        "ms": 4385,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 356,
+         "inputTokenDetails": {
+          "noCacheTokens": 356,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 213,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 183
+         },
+         "totalTokens": 569,
+         "raw": {
+          "thoughtsTokenCount": 183,
+          "promptTokenCount": 356,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 569,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 356
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 183,
+         "cachedInputTokens": 0
+        },
+        "ms": 3111,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 415,
+         "inputTokenDetails": {
+          "noCacheTokens": 159,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 339,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 313
+         },
+         "totalTokens": 754,
+         "raw": {
+          "prompt_tokens": 415,
+          "completion_tokens": 339,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 159,
+          "total_tokens": 754,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 313
+          }
+         },
+         "reasoningTokens": 313,
+         "cachedInputTokens": 256
+        },
+        "ms": 5452,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 447,
+         "inputTokenDetails": {
+          "noCacheTokens": 319,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 80,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 60
+         },
+         "totalTokens": 527,
+         "raw": {
+          "prompt_tokens": 447,
+          "completion_tokens": 80,
+          "total_tokens": 527,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 60,
+           "accepted_prediction_tokens": 49,
+           "rejected_prediction_tokens": 41,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 60,
+         "cachedInputTokens": 128
+        },
+        "ms": 944,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question most directly tests phospholipid head–tail orientation and bilayer assembly, covered in 2.3 Plasma Membrane. Topic 1.5 identifies phospholipids as bilayer-forming lipids but does not supply the mechanism requested."
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice B requires glycerol-based fat structure, which is not included in the fact pack and falls under the exclusion of specific lipid molecular structure. The term 'amphipathic' in rationale A is also not included in the pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Rationale B incorrectly describes a fat as 'fully hydrophobic'; fats contain polar ester groups, although they are predominantly hydrophobic and lack a distinct hydrophilic head. Rationale D overstates solubility: being polar throughout does not guarantee dissolution in water, because intermolecular interactions and molecular size also matter."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16214,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16211
+         },
+         "outputTokens": 676,
+         "outputTokenDetails": {
+          "textTokens": 385,
+          "reasoningTokens": 291
+         },
+         "totalTokens": 16890,
+         "raw": {
+          "input_tokens": 16214,
+          "input_tokens_details": {
+           "cache_write_tokens": 16211,
+           "cached_tokens": 0
+          },
+          "output_tokens": 676,
+          "output_tokens_details": {
+           "reasoning_tokens": 291
+          },
+          "total_tokens": 16890
+         },
+         "reasoningTokens": 291,
+         "cachedInputTokens": 0
+        },
+        "ms": 15107,
+        "flags": [
+         "topic 2.3",
+         "on_topic: The question most directly tests phospholipid head–tail orientation and bilayer assembly, covered in 2.3 Plasma Membrane. Topic 1.5 identifies phospholipids as bilayer-forming lipids but does not supply the mechanism requested.",
+         "ced_scope: Choice B requires glycerol-based fat structure, which is not included in the fact pack and falls under the exclusion of specific lipid molecular structure. The term 'amphipathic' in rationale A is also not included in the pack.",
+         "accurate: Rationale B incorrectly describes a fat as 'fully hydrophobic'; fats contain polar ester groups, although they are predominantly hydrophobic and lack a distinct hydrophilic head. Rationale D overstates solubility: being polar throughout does not guarantee dissolution in water, because intermolecular interactions and molecular size also matter."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question most directly tests topic 2.3: how hydrophilic heads and hydrophobic tails orient to form a bilayer. Topic 1.5 identifies phospholipids as bilayer-forming lipids but does not supply this explanatory mechanism."
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice B introduces glycerol and the attachment of hydrocarbon chains to it, molecular-structure details absent from the fact pack and covered by topic 1.5's exclusion of specific lipid molecular structure."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "B's rationale calls a fat 'fully hydrophobic' and says it has 'no region that faces water'; fats are predominantly hydrophobic but contain polar ester groups, and molecules at a droplet's surface contact water. D's rationale incorrectly guarantees that a molecule polar throughout would dissolve: polarity alone does not establish water solubility."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16214,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16211,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 613,
+         "outputTokenDetails": {
+          "textTokens": 381,
+          "reasoningTokens": 232
+         },
+         "totalTokens": 16827,
+         "raw": {
+          "input_tokens": 16214,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16211
+          },
+          "output_tokens": 613,
+          "output_tokens_details": {
+           "reasoning_tokens": 232
+          },
+          "total_tokens": 16827
+         },
+         "reasoningTokens": 232,
+         "cachedInputTokens": 16211
+        },
+        "ms": 12288,
+        "flags": [
+         "topic 2.3",
+         "on_topic: The question most directly tests topic 2.3: how hydrophilic heads and hydrophobic tails orient to form a bilayer. Topic 1.5 identifies phospholipids as bilayer-forming lipids but does not supply this explanatory mechanism.",
+         "ced_scope: Choice B introduces glycerol and the attachment of hydrocarbon chains to it, molecular-structure details absent from the fact pack and covered by topic 1.5's exclusion of specific lipid molecular structure.",
+         "accurate: B's rationale calls a fat 'fully hydrophobic' and says it has 'no region that faces water'; fats are predominantly hydrophobic but contain polar ester groups, and molecules at a droplet's surface contact water. D's rationale incorrectly guarantees that a molecule polar throughout would dissolve: polarity alone does not establish water solubility."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17521,
+         "inputTokenDetails": {
+          "noCacheTokens": 17521,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1859,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1597
+         },
+         "totalTokens": 19380,
+         "raw": {
+          "thoughtsTokenCount": 1597,
+          "promptTokenCount": 17521,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19380,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17521
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1597,
+         "cachedInputTokens": 0
+        },
+        "ms": 12677,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice B uses out-of-scope glycerol/specific fat structure (CED excludes specific lipid molecular structure); the correct rationale also uses 'amphipathic,' not in the CED fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16366,
+         "inputTokenDetails": {
+          "noCacheTokens": 15854,
+          "cacheReadTokens": 512
+         },
+         "outputTokens": 8070,
+         "outputTokenDetails": {
+          "textTokens": 258,
+          "reasoningTokens": 7812
+         },
+         "totalTokens": 24436,
+         "raw": {
+          "prompt_tokens": 16366,
+          "completion_tokens": 8070,
+          "prompt_cache_hit_tokens": 512,
+          "prompt_cache_miss_tokens": 15854,
+          "total_tokens": 24436,
+          "prompt_tokens_details": {
+           "cached_tokens": 512
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7812
+          }
+         },
+         "reasoningTokens": 7812,
+         "cachedInputTokens": 512
+        },
+        "ms": 77071,
+        "flags": [
+         "ced_scope: Choice B uses out-of-scope glycerol/specific fat structure (CED excludes specific lipid molecular structure); the correct rationale also uses 'amphipathic,' not in the CED fact pack."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16366,
+         "inputTokenDetails": {
+          "noCacheTokens": 110,
+          "cacheReadTokens": 16256
+         },
+         "outputTokens": 12743,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 12524
+         },
+         "totalTokens": 29109,
+         "raw": {
+          "prompt_tokens": 16366,
+          "completion_tokens": 12743,
+          "prompt_cache_hit_tokens": 16256,
+          "prompt_cache_miss_tokens": 110,
+          "total_tokens": 29109,
+          "prompt_tokens_details": {
+           "cached_tokens": 16256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 12524
+          }
+         },
+         "reasoningTokens": 12524,
+         "cachedInputTokens": 16256
+        },
+        "ms": 122887,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16898,
+         "inputTokenDetails": {
+          "noCacheTokens": 16834,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 5183,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 4967
+         },
+         "totalTokens": 22081,
+         "raw": {
+          "prompt_tokens": 16898,
+          "completion_tokens": 5183,
+          "total_tokens": 22081,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4967,
+           "accepted_prediction_tokens": 3197,
+           "rejected_prediction_tokens": 2758,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 4967,
+         "cachedInputTokens": 64
+        },
+        "ms": 30124,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__1.5#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15658,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15655
+    },
+    "outputTokens": 839,
+    "outputTokenDetails": {
+     "textTokens": 498,
+     "reasoningTokens": 341
+    },
+    "totalTokens": 16497,
+    "raw": {
+     "input_tokens": 15658,
+     "input_tokens_details": {
+      "cache_write_tokens": 15655,
+      "cached_tokens": 0
+     },
+     "output_tokens": 839,
+     "output_tokens_details": {
+      "reasoning_tokens": 341
+     },
+     "total_tokens": 16497
+    },
+    "reasoningTokens": 341,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Lipids",
+    "stem": "A student claims that fats could replace phospholipids as the main material forming a cell's lipid bilayer because both are lipids. Which explanation best evaluates this claim?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The claim is correct: fats and phospholipids are both entirely hydrophobic, so both can form the same bilayer structure by avoiding water.",
+      "is_correct": false,
+      "rationale": "The all-lipids-are-identical trap overlooks phospholipids' hydrophilic regions. Hydrophobicity alone does not explain a phospholipid bilayer, which has water-facing hydrophilic surfaces and a hydrophobic interior. Fix: Check whether each lipid has both hydrophilic and hydrophobic regions before predicting that it forms a bilayer."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The claim is incorrect: phospholipids have hydrophilic and hydrophobic regions that support bilayer formation, whereas fats are largely hydrophobic and primarily store energy.",
+      "is_correct": true,
+      "rationale": "Phospholipids are amphipathic: their hydrophilic regions face water while their hydrophobic regions face the bilayer's interior. This structure supports membrane formation; largely nonpolar fats lack the same arrangement of regions and instead function mainly in long-term energy storage."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The claim is incorrect: phospholipids form bilayers with hydrophobic regions facing water and hydrophilic regions buried inside, whereas fats primarily store energy.",
+      "is_correct": false,
+      "rationale": "The reversed-orientation trap places each phospholipid region in the wrong environment. Hydrophilic regions face water, while hydrophobic regions are sheltered in the bilayer's interior. Fix: Identify which regions interact with water, then orient those regions toward the watery surroundings."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The claim is incorrect: fats have hydrophilic and hydrophobic regions that support bilayer formation, whereas phospholipids are largely hydrophobic and primarily store energy.",
+      "is_correct": false,
+      "rationale": "The lipid-role reversal trap assigns phospholipid structure and function to fats. Phospholipids are the amphipathic bilayer-forming lipids; fats are largely hydrophobic energy-storage lipids. Fix: Match each lipid's polarity pattern to its function before assigning membrane formation or energy storage."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 779,
+         "inputTokenDetails": {
+          "noCacheTokens": 779,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 809,
+         "raw": {
+          "input_tokens": 779,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2010,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 389,
+         "inputTokenDetails": {
+          "noCacheTokens": 389,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 291,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 261
+         },
+         "totalTokens": 680,
+         "raw": {
+          "thoughtsTokenCount": 261,
+          "promptTokenCount": 389,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 680,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 389
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 261,
+         "cachedInputTokens": 0
+        },
+        "ms": 3864,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 453,
+         "inputTokenDetails": {
+          "noCacheTokens": 197,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 365,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 339
+         },
+         "totalTokens": 818,
+         "raw": {
+          "prompt_tokens": 453,
+          "completion_tokens": 365,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 197,
+          "total_tokens": 818,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 339
+          }
+         },
+         "reasoningTokens": 339,
+         "cachedInputTokens": 256
+        },
+        "ms": 4002,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 507,
+         "inputTokenDetails": {
+          "noCacheTokens": 379,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 165,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 145
+         },
+         "totalTokens": 672,
+         "raw": {
+          "prompt_tokens": 507,
+          "completion_tokens": 165,
+          "total_tokens": 672,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 145,
+           "accepted_prediction_tokens": 101,
+           "rejected_prediction_tokens": 88,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 145,
+         "cachedInputTokens": 128
+        },
+        "ms": 1642,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 26912,
+         "inputTokenDetails": {
+          "noCacheTokens": 26912,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 1026,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 814
+         },
+         "totalTokens": 27938,
+         "raw": {
+          "input_tokens": 26912,
+          "output_tokens": 1026,
+          "output_tokens_details": {
+           "thinking_tokens": 814
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 814,
+         "cachedInputTokens": 0
+        },
+        "ms": 16472,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17537,
+         "inputTokenDetails": {
+          "noCacheTokens": 17537,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 4525,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 4263
+         },
+         "totalTokens": 22062,
+         "raw": {
+          "thoughtsTokenCount": 4263,
+          "promptTokenCount": 17537,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 22062,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17537
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 4263,
+         "cachedInputTokens": 0
+        },
+        "ms": 21331,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16384,
+         "inputTokenDetails": {
+          "noCacheTokens": 15104,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 10794,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 10575
+         },
+         "totalTokens": 27178,
+         "raw": {
+          "prompt_tokens": 16384,
+          "completion_tokens": 10794,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15104,
+          "total_tokens": 27178,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 10575
+          }
+         },
+         "reasoningTokens": 10575,
+         "cachedInputTokens": 1280
+        },
+        "ms": 104692,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16946,
+         "inputTokenDetails": {
+          "noCacheTokens": 16562,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 6678,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 6551
+         },
+         "totalTokens": 23624,
+         "raw": {
+          "prompt_tokens": 16946,
+          "completion_tokens": 6678,
+          "total_tokens": 23624,
+          "prompt_tokens_details": {
+           "cached_tokens": 384,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6551,
+           "accepted_prediction_tokens": 4275,
+           "rejected_prediction_tokens": 2931,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 6551,
+         "cachedInputTokens": 384
+        },
+        "ms": 41337,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "veto",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "Distinguishing B from C requires knowing phospholipids' hydrophilic/hydrophobic regions and their orientation in a bilayer, explicitly covered in topic 2.3 rather than topic 1.5 or earlier topics."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16258,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16255
+         },
+         "outputTokens": 454,
+         "outputTokenDetails": {
+          "textTokens": 269,
+          "reasoningTokens": 185
+         },
+         "totalTokens": 16712,
+         "raw": {
+          "input_tokens": 16258,
+          "input_tokens_details": {
+           "cache_write_tokens": 16255,
+           "cached_tokens": 0
+          },
+          "output_tokens": 454,
+          "output_tokens_details": {
+           "reasoning_tokens": 185
+          },
+          "total_tokens": 16712
+         },
+         "reasoningTokens": 185,
+         "cachedInputTokens": 0
+        },
+        "ms": 14473,
+        "flags": [
+         "topic 2.3",
+         "on_topic: Distinguishing B from C requires knowing phospholipids' hydrophilic/hydrophobic regions and their orientation in a bilayer, explicitly covered in topic 2.3 rather than topic 1.5 or earlier topics."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "Although the question compares lipid structures and functions, distinguishing B from C requires phospholipid regions’ orientation in a bilayer, explicitly taught in topic 2.3 rather than topic 1.5 or earlier topics."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16258,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16255,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 612,
+         "outputTokenDetails": {
+          "textTokens": 266,
+          "reasoningTokens": 346
+         },
+         "totalTokens": 16870,
+         "raw": {
+          "input_tokens": 16258,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16255
+          },
+          "output_tokens": 612,
+          "output_tokens_details": {
+           "reasoning_tokens": 346
+          },
+          "total_tokens": 16870
+         },
+         "reasoningTokens": 346,
+         "cachedInputTokens": 16255
+        },
+        "ms": 17875,
+        "flags": [
+         "on_topic: Although the question compares lipid structures and functions, distinguishing B from C requires phospholipid regions’ orientation in a bilayer, explicitly taught in topic 2.3 rather than topic 1.5 or earlier topics."
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "biology__1.5#r3-anthropic",
+   "round": 3,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25221,
+    "inputTokenDetails": {
+     "noCacheTokens": 25221,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1460,
+    "outputTokenDetails": {
+     "textTokens": 783,
+     "reasoningTokens": 677
+    },
+    "totalTokens": 26681,
+    "raw": {
+     "input_tokens": 25221,
+     "output_tokens": 1460,
+     "output_tokens_details": {
+      "thinking_tokens": 677
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 677,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Lipids",
+    "stem": "A student extracts stored fat from two sources. Fat X, from cattle adipose tissue, is solid at room temperature. Fat Y, from olive seeds, is liquid at room temperature. Both are energy-storage fats made mostly of fatty acid chains. Which structural difference best explains why Fat Y is liquid at room temperature?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Fat Y's fatty acids contain only single carbon–carbon bonds, which make the chains flexible enough to flow.",
+      "is_correct": false,
+      "rationale": "This reverses saturated and unsaturated, assuming single bonds make chains floppy and fluid. Chains with only single bonds are saturated and straight, so they pack tightly and form solids like animal fat. Fix: Ask whether the chains are straight or kinked, then link straight chains to tight packing and solids, kinked chains to liquids."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Fat Y's fatty acids are polar, so they form hydrogen bonds with one another that keep the fat fluid.",
+      "is_correct": false,
+      "rationale": "This applies water's polarity and hydrogen bonding to fats. Fatty acid chains are nonpolar hydrocarbons, so polarity and hydrogen bonding do not explain whether a fat is solid or liquid; double bonds and kinks do. Fix: Start by classifying the molecule as polar, nonpolar, or amphipathic before using hydrogen bonding in an explanation."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Fat Y's fatty acids contain more carbon–carbon double bonds, which put kinks in the chains so they cannot pack tightly together.",
+      "is_correct": true,
+      "rationale": "Unsaturated fatty acids have at least one C=C double bond, and each double bond adds a kink. Kinked chains cannot line up closely, so the molecules pack loosely and stay fluid. More double bonds means more unsaturation and a more liquid fat at room temperature."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Fat Y is made of phospholipids, whose hydrophilic heads keep the fat in a liquid state.",
+      "is_correct": false,
+      "rationale": "This treats all lipids as the same kind of molecule. Phospholipids are amphipathic and function to form membrane bilayers, while storage fats are nonpolar and store energy; the stem says both samples are storage fats. Fix: Check which lipid class the stem describes, fat, phospholipid, or steroid, and match its structure to its function before answering."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 331,
+         "inputTokenDetails": {
+          "noCacheTokens": 331,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 69,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 43
+         },
+         "totalTokens": 400,
+         "raw": {
+          "input_tokens": 331,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 69,
+          "output_tokens_details": {
+           "reasoning_tokens": 43
+          },
+          "total_tokens": 400
+         },
+         "reasoningTokens": 43,
+         "cachedInputTokens": 0
+        },
+        "ms": 2880,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 410,
+         "inputTokenDetails": {
+          "noCacheTokens": 410,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 260,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 230
+         },
+         "totalTokens": 670,
+         "raw": {
+          "thoughtsTokenCount": 230,
+          "promptTokenCount": 410,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 670,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 410
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 230,
+         "cachedInputTokens": 0
+        },
+        "ms": 6786,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 468,
+         "inputTokenDetails": {
+          "noCacheTokens": 212,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 316,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 290
+         },
+         "totalTokens": 784,
+         "raw": {
+          "prompt_tokens": 468,
+          "completion_tokens": 316,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 212,
+          "total_tokens": 784,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 290
+          }
+         },
+         "reasoningTokens": 290,
+         "cachedInputTokens": 256
+        },
+        "ms": 4717,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 495,
+         "inputTokenDetails": {
+          "noCacheTokens": 367,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 146,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 126
+         },
+         "totalTokens": 641,
+         "raw": {
+          "prompt_tokens": 495,
+          "completion_tokens": 146,
+          "total_tokens": 641,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 126,
+           "accepted_prediction_tokens": 85,
+           "rejected_prediction_tokens": 95,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 126,
+         "cachedInputTokens": 128
+        },
+        "ms": 1625,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "C's rationale incorrectly says that each double bond adds a kink; trans double bonds do not produce the characteristic kink of cis double bonds. A's rationale also overgeneralizes that saturated chains form solids: physical state depends on chain length and temperature as well as saturation. Qualify these statements rather than teaching them as universal rules."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16275,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16272
+         },
+         "outputTokens": 585,
+         "outputTokenDetails": {
+          "textTokens": 287,
+          "reasoningTokens": 298
+         },
+         "totalTokens": 16860,
+         "raw": {
+          "input_tokens": 16275,
+          "input_tokens_details": {
+           "cache_write_tokens": 16272,
+           "cached_tokens": 0
+          },
+          "output_tokens": 585,
+          "output_tokens_details": {
+           "reasoning_tokens": 298
+          },
+          "total_tokens": 16860
+         },
+         "reasoningTokens": 298,
+         "cachedInputTokens": 0
+        },
+        "ms": 11354,
+        "flags": [
+         "accurate: C's rationale incorrectly says that each double bond adds a kink; trans double bonds do not produce the characteristic kink of cis double bonds. A's rationale also overgeneralizes that saturated chains form solids: physical state depends on chain length and temperature as well as saturation. Qualify these statements rather than teaching them as universal rules."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "C's rationale says each double bond adds a kink; this is true of cis double bonds, not trans double bonds. A's rationale also categorically says saturated chains form solids, although physical state depends on chain length and temperature as well as saturation. Qualify these claims rather than teaching them as universal rules."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16275,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16272,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 530,
+         "outputTokenDetails": {
+          "textTokens": 284,
+          "reasoningTokens": 246
+         },
+         "totalTokens": 16805,
+         "raw": {
+          "input_tokens": 16275,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16272
+          },
+          "output_tokens": 530,
+          "output_tokens_details": {
+           "reasoning_tokens": 246
+          },
+          "total_tokens": 16805
+         },
+         "reasoningTokens": 246,
+         "cachedInputTokens": 16272
+        },
+        "ms": 10699,
+        "flags": [
+         "accurate: C's rationale says each double bond adds a kink; this is true of cis double bonds, not trans double bonds. A's rationale also categorically says saturated chains form solids, although physical state depends on chain length and temperature as well as saturation. Qualify these claims rather than teaching them as universal rules."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17598,
+         "inputTokenDetails": {
+          "noCacheTokens": 17598,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1380,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1118
+         },
+         "totalTokens": 18978,
+         "raw": {
+          "thoughtsTokenCount": 1118,
+          "promptTokenCount": 17598,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 18978,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17598
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1118,
+         "cachedInputTokens": 0
+        },
+        "ms": 14548,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice B's fix and choice D's rationale introduce 'amphipathic,' which is not present in the verified CED fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16441,
+         "inputTokenDetails": {
+          "noCacheTokens": 14137,
+          "cacheReadTokens": 2304
+         },
+         "outputTokens": 14682,
+         "outputTokenDetails": {
+          "textTokens": 247,
+          "reasoningTokens": 14435
+         },
+         "totalTokens": 31123,
+         "raw": {
+          "prompt_tokens": 16441,
+          "completion_tokens": 14682,
+          "prompt_cache_hit_tokens": 2304,
+          "prompt_cache_miss_tokens": 14137,
+          "total_tokens": 31123,
+          "prompt_tokens_details": {
+           "cached_tokens": 2304
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 14435
+          }
+         },
+         "reasoningTokens": 14435,
+         "cachedInputTokens": 2304
+        },
+        "ms": 146380,
+        "flags": [
+         "ced_scope: Choice B's fix and choice D's rationale introduce 'amphipathic,' which is not present in the verified CED fact pack."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16441,
+         "inputTokenDetails": {
+          "noCacheTokens": 57,
+          "cacheReadTokens": 16384
+         },
+         "outputTokens": 9382,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 9163
+         },
+         "totalTokens": 25823,
+         "raw": {
+          "prompt_tokens": 16441,
+          "completion_tokens": 9382,
+          "prompt_cache_hit_tokens": 16384,
+          "prompt_cache_miss_tokens": 57,
+          "total_tokens": 25823,
+          "prompt_tokens_details": {
+           "cached_tokens": 16384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 9163
+          }
+         },
+         "reasoningTokens": 9163,
+         "cachedInputTokens": 16384
+        },
+        "ms": 89529,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16959,
+         "inputTokenDetails": {
+          "noCacheTokens": 16511,
+          "cacheReadTokens": 448
+         },
+         "outputTokens": 6193,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 5977
+         },
+         "totalTokens": 23152,
+         "raw": {
+          "prompt_tokens": 16959,
+          "completion_tokens": 6193,
+          "total_tokens": 23152,
+          "prompt_tokens_details": {
+           "cached_tokens": 448,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5977,
+           "accepted_prediction_tokens": 3667,
+           "rejected_prediction_tokens": 3908,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 5977,
+         "cachedInputTokens": 448
+        },
+        "ms": 45605,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__1.5#r3-openai",
+   "round": 3,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15658,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 15655,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 840,
+    "outputTokenDetails": {
+     "textTokens": 492,
+     "reasoningTokens": 348
+    },
+    "totalTokens": 16498,
+    "raw": {
+     "input_tokens": 15658,
+     "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 15655
+     },
+     "output_tokens": 840,
+     "output_tokens_details": {
+      "reasoning_tokens": 348
+     },
+     "total_tokens": 16498
+    },
+    "reasoningTokens": 348,
+    "cachedInputTokens": 15655
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Lipids",
+    "stem": "A student claims that fats can replace phospholipids as the main material forming a cell’s lipid bilayer because both are lipids. Which explanation best evaluates this claim?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The claim is correct: fats and phospholipids are both entirely nonpolar, so both form the same bilayer arrangement in water.",
+      "is_correct": false,
+      "rationale": "The trap is treating all lipids as structurally identical. Phospholipids have hydrophilic regions as well as hydrophobic regions, so their bilayer behavior cannot be predicted from nonpolarity alone. Fix: Check whether each lipid has both hydrophilic and hydrophobic regions before predicting that it forms a bilayer."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The claim is correct: fats have hydrophilic heads and hydrophobic tails just like phospholipids, so fats can provide the same bilayer framework.",
+      "is_correct": false,
+      "rationale": "The trap is transferring phospholipid structure to fats. Fats are primarily hydrophobic and do not have the distinct hydrophilic head and hydrophobic tail arrangement that supports phospholipid bilayers. Fix: Identify the lipid type before assigning it a hydrophilic head and hydrophobic tails."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The claim is incorrect: phospholipids form bilayers by exposing their hydrophobic tails to water, whereas fats function mainly in energy storage.",
+      "is_correct": false,
+      "rationale": "The trap is reversing phospholipid orientation. Hydrophobic tails face the bilayer’s interior, away from water; hydrophilic heads face the watery surroundings. Fix: Label the heads hydrophilic and the tails hydrophobic, then place the water-facing regions before predicting bilayer orientation."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The claim is incorrect: phospholipids have hydrophilic and hydrophobic regions that support bilayer formation, whereas fats are primarily hydrophobic energy-storage molecules.",
+      "is_correct": true,
+      "rationale": "Phospholipids are amphipathic: their hydrophilic heads face water, while their hydrophobic tails face inward, away from water. This arrangement supports bilayer formation. Fats are primarily nonpolar and serve in long-term energy storage rather than providing the amphipathic framework of membranes."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 760,
+         "inputTokenDetails": {
+          "noCacheTokens": 760,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 790,
+         "raw": {
+          "input_tokens": 760,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1924,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 386,
+         "inputTokenDetails": {
+          "noCacheTokens": 386,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 266,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 236
+         },
+         "totalTokens": 652,
+         "raw": {
+          "thoughtsTokenCount": 236,
+          "promptTokenCount": 386,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 652,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 386
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 236,
+         "cachedInputTokens": 0
+        },
+        "ms": 3473,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 451,
+         "inputTokenDetails": {
+          "noCacheTokens": 195,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 573,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 547
+         },
+         "totalTokens": 1024,
+         "raw": {
+          "prompt_tokens": 451,
+          "completion_tokens": 573,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 195,
+          "total_tokens": 1024,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 547
+          }
+         },
+         "reasoningTokens": 547,
+         "cachedInputTokens": 256
+        },
+        "ms": 7028,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 498,
+         "inputTokenDetails": {
+          "noCacheTokens": 370,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 128,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 108
+         },
+         "totalTokens": 626,
+         "raw": {
+          "prompt_tokens": 498,
+          "completion_tokens": 128,
+          "total_tokens": 626,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 108,
+           "accepted_prediction_tokens": 76,
+           "rejected_prediction_tokens": 77,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 108,
+         "cachedInputTokens": 128
+        },
+        "ms": 1492,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 26898,
+         "inputTokenDetails": {
+          "noCacheTokens": 26898,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 1667,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 1455
+         },
+         "totalTokens": 28565,
+         "raw": {
+          "input_tokens": 26898,
+          "output_tokens": 1667,
+          "output_tokens_details": {
+           "thinking_tokens": 1455
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 1455,
+         "cachedInputTokens": 0
+        },
+        "ms": 21679,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17522,
+         "inputTokenDetails": {
+          "noCacheTokens": 17522,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1560,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1298
+         },
+         "totalTokens": 19082,
+         "raw": {
+          "thoughtsTokenCount": 1298,
+          "promptTokenCount": 17522,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19082,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17522
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1298,
+         "cachedInputTokens": 0
+        },
+        "ms": 11976,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question asks students to evaluate why fats cannot replace phospholipids in a lipid bilayer. Answering requires knowing that phospholipids have hydrophilic heads and hydrophobic tails, which is not stated in the 1.5 EKs (and the topic excludes specific lipid molecular structure); that content appears later in 2.3."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16376,
+         "inputTokenDetails": {
+          "noCacheTokens": 14072,
+          "cacheReadTokens": 2304
+         },
+         "outputTokens": 14827,
+         "outputTokenDetails": {
+          "textTokens": 282,
+          "reasoningTokens": 14545
+         },
+         "totalTokens": 31203,
+         "raw": {
+          "prompt_tokens": 16376,
+          "completion_tokens": 14827,
+          "prompt_cache_hit_tokens": 2304,
+          "prompt_cache_miss_tokens": 14072,
+          "total_tokens": 31203,
+          "prompt_tokens_details": {
+           "cached_tokens": 2304
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 14545
+          }
+         },
+         "reasoningTokens": 14545,
+         "cachedInputTokens": 2304
+        },
+        "ms": 141524,
+        "flags": [
+         "on_topic: The question asks students to evaluate why fats cannot replace phospholipids in a lipid bilayer. Answering requires knowing that phospholipids have hydrophilic heads and hydrophobic tails, which is not stated in the 1.5 EKs (and the topic excludes specific lipid molecular structure); that content appears later in 2.3."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16376,
+         "inputTokenDetails": {
+          "noCacheTokens": 120,
+          "cacheReadTokens": 16256
+         },
+         "outputTokens": 16440,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 16221
+         },
+         "totalTokens": 32816,
+         "raw": {
+          "prompt_tokens": 16376,
+          "completion_tokens": 16440,
+          "prompt_cache_hit_tokens": 16256,
+          "prompt_cache_miss_tokens": 120,
+          "total_tokens": 32816,
+          "prompt_tokens_details": {
+           "cached_tokens": 16256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 16221
+          }
+         },
+         "reasoningTokens": 16221,
+         "cachedInputTokens": 16256
+        },
+        "ms": 158857,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16941,
+         "inputTokenDetails": {
+          "noCacheTokens": 16365,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 5265,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 5049
+         },
+         "totalTokens": 22206,
+         "raw": {
+          "prompt_tokens": 16941,
+          "completion_tokens": 5265,
+          "total_tokens": 22206,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5049,
+           "accepted_prediction_tokens": 3337,
+           "rejected_prediction_tokens": 2444,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 5049,
+         "cachedInputTokens": 576
+        },
+        "ms": 33525,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "veto",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The decisive reasoning in choices C and D requires phospholipids’ hydrophilic heads, hydrophobic tails, and bilayer orientation, covered in topic 2.3. Topic 1.5 identifies lipid functions but does not supply this mechanism."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16252,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16249
+         },
+         "outputTokens": 491,
+         "outputTokenDetails": {
+          "textTokens": 273,
+          "reasoningTokens": 218
+         },
+         "totalTokens": 16743,
+         "raw": {
+          "input_tokens": 16252,
+          "input_tokens_details": {
+           "cache_write_tokens": 16249,
+           "cached_tokens": 0
+          },
+          "output_tokens": 491,
+          "output_tokens_details": {
+           "reasoning_tokens": 218
+          },
+          "total_tokens": 16743
+         },
+         "reasoningTokens": 218,
+         "cachedInputTokens": 0
+        },
+        "ms": 19355,
+        "flags": [
+         "topic 2.3",
+         "on_topic: The decisive reasoning in choices C and D requires phospholipids’ hydrophilic heads, hydrophobic tails, and bilayer orientation, covered in topic 2.3. Topic 1.5 identifies lipid functions but does not supply this mechanism."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The decisive reasoning in D requires phospholipids’ hydrophilic and hydrophobic regions; C additionally tests head–tail orientation. These concepts are assigned to topic 2.3, not topic 1.5 or earlier topics."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16252,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16249,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 633,
+         "outputTokenDetails": {
+          "textTokens": 270,
+          "reasoningTokens": 363
+         },
+         "totalTokens": 16885,
+         "raw": {
+          "input_tokens": 16252,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16249
+          },
+          "output_tokens": 633,
+          "output_tokens_details": {
+           "reasoning_tokens": 363
+          },
+          "total_tokens": 16885
+         },
+         "reasoningTokens": 363,
+         "cachedInputTokens": 16249
+        },
+        "ms": 14086,
+        "flags": [
+         "topic 2.3",
+         "on_topic: The decisive reasoning in D requires phospholipids’ hydrophilic and hydrophobic regions; C additionally tests head–tail orientation. These concepts are assigned to topic 2.3, not topic 1.5 or earlier topics."
+        ]
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_at": "2026-10-06T15:24:04.124Z"
+}

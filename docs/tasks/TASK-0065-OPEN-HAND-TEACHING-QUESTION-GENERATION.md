@@ -161,6 +161,64 @@ Record: `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`.
   Still open: 13 items with an unnamed temptation (7 of them also have fact-style fixes).
 - These results feed the patch loop (step 3 of the handoff above). They clear nothing on their own.
 
+## Generate-and-select pipeline replaces hand-patching — 2026-10-06 (David)
+
+> **Superseded for Units 1–3; see "Reconciliation" at the end of this file.** The pipeline stays as the route for
+> Units 4 and later. Items 2–3 of the decision below did not happen: #348 was merged, and the 15 blocked items were
+> fixed, checked and loaded.
+
+David asked why reviewed questions kept failing new checks, and asked for "a way to add questions without
+needing to edit them using at least 4 models and multiple sessions".
+
+**Diagnosis.** The rules were applied after the items were written: the named-trap and action-fix rules
+caused 25 of the 38 blocks. Earlier reviews checked other things. Single model calls are noisy. Every
+hand patch needed a full re-check. Two sessions also worked to different specs.
+
+**Decision (David, 2026-10-06).**
+1. Build a generate-and-select pipeline. No item is ever edited.
+2. Regenerate all 38 topics that C3 blocked.
+3. Hold PR #348 (the 25 hand-patched items; now a draft) and discard the 13 unchecked rewrites.
+
+**Pipeline:** `scripts/vercel-gateway-check/teaching_pipeline/` (`README.md`).
+- **One rubric** (`rubric.mjs`, 10 rules plus a deterministic lint). Both the author and the checkers
+  are prompted with it.
+- **Authors:** two per round, Claude Opus 5.5 and GPT-6.1, stateless. The correct answer's position is
+  randomized.
+- **Checkers:** four families, never the author's own: OpenAI, Google, DeepSeek, Moonshot, Anthropic,
+  minus the author. Each does a blind solve, then a rubric audit with the CED fact pack and the unit's
+  topic list.
+- **Variance and selection:** a checker that flags is re-sampled once, and only a repeated flag counts.
+  The first clean candidate is accepted. After 2 rounds with none, the topic is escalated to a human.
+- **Controls and sessions:** six planted-defect controls run before any generation, and the batch is
+  void if one is accepted. Per-topic lock files let sessions on one machine share a batch; separate
+  machines use `--shard`.
+
+**Smoke test:**
+- All 6 controls were caught at the expected stage, by all four checkers. The one exception: the
+  false-fact control was caught by Gemini under the accuracy rule and by the other three under other rules.
+- Biology 1.1 was accepted on its first candidate.
+- My spot check of that accepted item found rationales longer than the design's one to three sentences.
+  A `concise` rule was added to the rubric and lint (60 words per rationale, 25 per fix) before the
+  pilot. The human spot-check stays required.
+
+**Biology pilot (units 1–3, 21 topics), batch `scripts/content-seed/task0065-generate-select/bio-u1-3-2026-10-06/`:**
+- **Controls:** 6 of 6 caught.
+- **First pass:** 21 of 21 accepted from 38 candidates, with 17 rejected at the audit. Every Claude
+  rejection came from GPT-6.1 alone, and GPT never checked GPT-written items, so the bar depended on
+  the author.
+- **Veto added:** the author's own family can reject but never approve, so every accepted item has
+  passed all five families. Applied to the 21, it vetoed 3 GPT-written items (1.5, 2.10, 3.3).
+  Their regeneration rounds were also rejected.
+- **Result:** 18 accepted (12 GPT-authored, 6 Claude), 3 escalated, 0 edited. 0 failed calls out of about 600.
+- **Escalated, for David:**
+  - 2.10 and 3.3: the topic point brief students see requires content the Biology CED fact pack lacks
+    (circular organelle DNA and binary fission for 2.10; ATP coupling for 3.3). No item can satisfy
+    both. Decide which source is right.
+  - 1.5 Lipids: its content overlaps 2.3 (phospholipid orientation), and GPT consistently places
+    lipid-structure items in 2.3.
+- **Lint additions from the pilot:** stray HTML, and more than three sentences in an explanation.
+- **Next:** the accepted items need the per-subject human spot-check before any Development load.
+  Statistics, Chemistry and Calculus AB (70 topics) have not been run.
 ## Checker run on all 91 — 2026-10-06 (`open_hand_teaching_check.mjs`)
 Results are in `docs/research/open_hand_teaching_batch_2026_10_06/CHECK_RESULTS.md`.
 - The smoke test and canary passed: both models caught 4 of 4 planted wrong keys.
@@ -185,3 +243,23 @@ Results are in `docs/research/open_hand_teaching_batch_2026_10_06/CHECK_RESULTS.
 - `SCOPE_UNITS_1-3.json` now holds the final text of all 91, with the fix15 rewrites merged in.
 - **Follow-up:** add energy coupling and ATP hydrolysis to the 3.3 entry of `AP_BIOLOGY_CED_FACT_PACK.md`, so the
   checker stops flagging it.
+
+## Reconciliation of the two Units 1–3 tracks — 2026-10-06 (merge of PR #351)
+Two sessions worked TASK-0065 Units 1–3 in parallel with different plans. This records what actually happened, so
+the file states one plan.
+
+- **Live:** the hand-patch track. PR #348 was merged, not held. The 13 temptation-blocked items plus the 2 lint
+  failures were rewritten in `fix15/` and checked (lint, C3 and solve/audit on both checkers). All 91 Units 1–3
+  items were loaded to Production under APPROVAL-0125.
+- **Not loaded:** the generate-and-select Biology pilot's 18 accepted items
+  (`scripts/content-seed/task0065-generate-select/bio-u1-3-2026-10-06/`). They must not be loaded for Units 1–3.
+  Every one of those topics already has a live generated teaching item, and a second active row per topic would be
+  shadowed (`get_open_hand_teaching_item` picks the earliest designated `generated` row).
+  If David prefers a pipeline item for a topic, release the live row first (`released_at = now()`), then load the
+  replacement. One active generated row per topic.
+- **Kept:** the pipeline itself (`scripts/vercel-gateway-check/teaching_pipeline/`) is the route for Units 4 and
+  later. It generates without edits and runs four checker families plus an own-family veto.
+- **Still open for David, common to both tracks:** Biology 2.10 and 3.3. The published topic point briefs require
+  content (circular organelle DNA and binary fission; ATP coupling) that `AP_BIOLOGY_CED_FACT_PACK.md` omits.
+  Decide which source is right. If it is the briefs, add that content to the fact pack.
+
