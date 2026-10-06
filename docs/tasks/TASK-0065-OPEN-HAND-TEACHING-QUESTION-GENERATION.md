@@ -140,3 +140,21 @@ guides. 4.6 was also flagged, but it is a deliberate wrong-slope scenario, not a
 - David reviews and merges PR #340.
 - Next Lovable round: change the copy "↻ Revisit — the point is still available next attempt." to
   "Revisit this one."
+
+## Supplementary checker stages — 2026-10-06 (PR #345)
+
+A separate session built and piloted extra checks for this task before seeing #340. Reconciled with
+APPROVAL-0123, which governs scope (91 items) and the decision that habit lines come from the point brief.
+Record: `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`.
+
+- **Proven on a Biology pilot:** 4 of 4 planted defects caught by both checkers in every round.
+- **Kept as stages beside `open_hand_teaching_check.mjs`:** C3 named-trap audit
+  (`teaching_item_check.mjs`), the lint (`lint.py`), and the CED-text topic probe (Biology only).
+  The per-item habit-line check (C6) is retired.
+- **Run on the 91 drafts (unpatched):**
+  - Lint: 2 fail (Calculus AB 1.11 and 1.13 use `!=`).
+  - C3: 38 blocked. 13 for an unnamed temptation. 25 only because a `Fix:` line states a fact rather than an action.
+  - Biology topic probe: 21 of 21 pass.
+- **Open for David:** should a `Fix:` line have to be an action, which means rewriting 25 items' fixes, or may
+  it state the correct fact?
+- These results feed the patch loop (step 3 of the handoff above). They clear nothing on their own.
