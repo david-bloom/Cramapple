@@ -121,8 +121,17 @@ No new Production deployment, template publish, email or payment occurred.
 Loops upload access, actual footer mailing address, template ID binding and inbox
 QA remain pending. Existing-account first-code orchestration, invite/confirmation
 overlap and repeat-purchase entitlement provenance are still release blockers.
-Preview-only frontend friction work is underway in the marketing Lovable project;
-it must be reviewed and verified before publication.
+Preview-only frontend friction changes are implemented and source-reviewed in
+the marketing Lovable project, checkpoint
+`8f17fe707140d06b3f2802431bdd27c9c9709713`. They include compact preselected
+subjects, shared promo/parent guards, retained parent links, wallet timing,
+original-code entry, bounded polling and stale-session recovery protections.
+Lovable reports 85 frontend tests passed and a clean type-check. Codex checked
+the compact picker, email visibility, promo prerequisites and layout in Chrome
+at 390x844 and 1440x900; real auth/payment result paths remain deferred.
+See [the implementation checkpoint](../qa/CHECKOUT_IMPLEMENTATION_VERIFICATION_2026_10_06.md)
+for exact evidence boundaries and the private preview link. This is not published
+to Production and does not resolve every release blocker in the joint audit.
 
 - Build/publish your Loops designs and bind Development template IDs.
 - Configure the signed Auth hook and worker secrets; keep codes out of the queue.
