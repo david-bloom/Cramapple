@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads (RLS); Re-enable Teaching-Item Attempt Trigger
 - APPROVAL-0123 — Repair Calc AB Explainers 4.4/4.5; TASK-0065 Units 1-3 Scope; Checkers Gemini 3.8 + DeepSeek 5
 - APPROVAL-0081 — AP Biology Skill Re-vote on the 73 Topic-Corrected Items (Production) — DECISION-0085
 - APPROVAL-0080 — Load and Publish 24 AP Biology Units 1-2 Variants (Production) — DECISION-0085
@@ -135,6 +136,38 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other view change; any app-side change.
 
+
+## APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads; Re-enable the Teaching-Item Attempt Trigger
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "I approve the 409 change, then have checker run on the 91 questions, then have fable do the walk through and finish by turning the database rule back", then "Fix it in the database first (Recommended)")  
+**Related Tasks:** `TASK-0064`, `TASK-0065`  
+**Decision:** Approved
+
+**Approved scope and outcome:**
+1. **409 mapping.** `attempt-response` `create_attempt` returns 409 `{error: "open_hand_item_not_scorable"}`
+   when `trg_refuse_attempt_on_teaching_item` refuses the insert. Any other insert failure still returns 500.
+   Commit 225c46b, with two handler tests; 9/9 pass. **Not yet deployed.** David deploys it from the CLI,
+   Development then Production.
+2. **Hide teaching items from student reads.** Migration `20261006140000_hide_teaching_items_from_student_reads`:
+   - `content_item_versions_select_published` gains `and not app.content_item_is_teaching(content_item_id)`.
+   - Authenticated users get execute on `app.content_item_is_teaching`.
+
+   This closes the two client screens that still read published MCQs directly: `/session` with the MCQ
+   format, and `/session/mcq`. Fable's re-check had missed the first; Claude's audit found it.
+   **Done 2026-10-06** in Development and Production, with ledger rows in both. Verified as a real
+   student:
+   - Development: 208 of 211 published versions are visible. The 3 hidden are the 3 teaching items.
+   - Production: 2,407 of 2,502 are visible. The 95 hidden are the 95 teaching items.
+   - Production, entitled Biology student: `get_open_hand_teaching_item('biology','2.7')` still returns
+     the stem and 4 choices, while a direct read of the same version returns nothing.
+3. **Re-enable the trigger.** `trg_refuse_attempt_on_teaching_item` is re-enabled in Production
+   (`tgenabled` changed from D to O). Development was already on. A rolled-back test insert of an
+   attempt on a teaching item was refused with `open_hand_item_not_scorable`.
+
+**Not covered:** turning the plate loop ON. Fable's re-check found that every Open Hand option shows
+its rationale twice (N1), which needs a Lovable fix first. Biology Unit 1 Practice has only one topic's
+content (N3).
 
 ## APPROVAL-0123 — Repair Calc AB Topic Explainers 4.4 and 4.5; TASK-0065 Scope and Checker Slate
 
