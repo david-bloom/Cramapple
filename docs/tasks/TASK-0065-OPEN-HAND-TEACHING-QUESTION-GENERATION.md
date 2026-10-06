@@ -160,3 +160,15 @@ Record: `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`.
   Two single-checker flags were adjudicated: one as variance, one as a wrong flag on ozone's octet.
   Still open: 13 items with an unnamed temptation (7 of them also have fact-style fixes).
 - These results feed the patch loop (step 3 of the handoff above). They clear nothing on their own.
+
+## Checker run on all 91 — 2026-10-06 (`open_hand_teaching_check.mjs`)
+Results are in `docs/research/open_hand_teaching_batch_2026_10_06/CHECK_RESULTS.md`.
+- The smoke test and canary passed: both models caught 4 of 4 planted wrong keys.
+- Full run: 182/182 calls succeeded. Every blind solve matched its key, and neither model disputed a key.
+- 13 items were flagged. 4 were real rationale errors (Calc AB 1.5 B; Stats 1.5 A, 3.14 A, 3.15 D). I fixed them on
+  top of #348's action fix lines. The other 9 were verified as non-defects (scope supported by the published briefs;
+  calculator use allowed in Statistics, keys recomputed).
+- The 4 fixes re-check clean on this checker and pass lint. On C3, 3 pass. Stats 3.14 still fails, but on choice
+  D, which is outside my edits.
+
+**Open before loading:** the 13 C3 temptation-blocked items and the 2 lint failures from #345/#348.
