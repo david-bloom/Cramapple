@@ -69,3 +69,14 @@ choices and per-choice rationales only.
 **Blocked:** the two outside-family checker stages (DECISION-0093). `ai-gateway.vercel.sh` is denied by
 this environment's network policy, and no `AI_GATEWAY_API_KEY` is set. No item is loaded until both
 checkers have cleared it.
+
+### Finding: live topic-guide defects (AP Calculus AB) — 2026-10-06
+
+While authoring, the Calc AB agent found two published explainers whose mini example uses a point that is
+not on the curve. Re-checked in Production:
+- **4.4:** `x^2 + 3xy = 20` at (2, 4) gives 4 + 24 = 28, not 20.
+- **4.5:** `2xy + ln(y) = 8` at (1, 4) gives 8 + ln 4 ≈ 9.39, not 8.
+
+Students see these in the topic guide and the deep dive. The teaching items do not reuse them. The fix
+(pick points on each curve) is a separate content repair and needs David's approval to edit published
+guides. 4.6 was also flagged, but it is a deliberate wrong-slope scenario, not a defect.
