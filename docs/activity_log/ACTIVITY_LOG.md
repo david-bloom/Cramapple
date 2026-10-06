@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) (2026-10-04): `/home` was rendering legacy `TopicHome` for everyone because the built Stage A/B components were unmounted; Lovable commit `08a042ca` now routes by `experienceStage`; Dev `public.student_course_positions` view refreshed; NOT published; code-level QA only, six findings in the task file.
 - Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) (2026-10-04): final end-to-end QA on the live site passes; remaining checks need a signed-in session or a real inbox; handoff written.
 - Six-Criteria Re-run; Calc AB Canonicals; Difficulty Inheritance (2026-10-04): re-ran the six servability criteria on Production (no subject six-of-six: criterion 5 failed for MCQ everywhere after about 1,300 variants were published without difficulty, and criterion 4 failed for 20 Calc AB FRQs). Wrote the 20 canonicals with label carry-forward (APPROVAL-0116). Rated 31 seeds and had 1,011 variants and BC copies inherit, plus 1 FRQ variant (DECISION-0096, APPROVAL-0117). Every published item now has a difficulty band (FRQ 572/572, MCQ 1,718/1,718). PRs #327, #328 merged. Handoff: `docs/handoffs/SESSION_CLOSE_2026_10_04_SIX_CRITERIA_CANONICALS_DIFFICULTY.md`. **Next Owner:** David Bloom. **Next Action:** none blocking; optional provenance columns for seed links.
 - Parent Payment Short Links Live in Production (APPROVAL-0119) (2026-10-04): `cramapple.com/p/<code>` resolves to the live Stripe URL; new table, new function, two function changes, tested in Dev then verified live without payment.
@@ -376,6 +377,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) — 2026-10-04
+
+**Task:** `docs/tasks/TASK-0048-HOME-REDESIGN-STAGE-A-B.md`. **Design:** `https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh`. **Frontend:** Lovable `56cae479`, commit `08a042ca` (Dev preview, **not published**). **Dev database:** `public.student_course_positions` recreated with `topic_code`/`topic_source` (same SQL as `APPROVAL-0120`, Dev only, no new approval number used; Production untouched).
+
+**Result:** backend prerequisites (`get_home_start_queue`, topic-level position) confirmed live in Dev and Production. Stage A/B were built but unmounted, so every student saw the legacy layout; they are now mounted by stage and the personalized path is unchanged. Gaps against the artboards fixed (threshold copy from real constants, Stage A start path, Stage B start hero). Authenticated visual QA not done; findings and next steps are in the task file.
+
+**Next Owner:** David Bloom. **Next Action:** review the Dev preview signed in, decide on the findings, then approve or reject publishing.
 
 ## Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) — 2026-10-04
 
