@@ -6,7 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
-- APPROVAL-0127 — Remove Repeated Answer Choices From 198 Published MCQ Stems (Label Carry-Forward)
+- APPROVAL-0128 — Remove Repeated Answer Choices From 198 Published MCQ Stems (Label Carry-Forward)
+- APPROVAL-0127 — Fix the AP Biology 2.10 Topic Point Brief (Dev + Production); Restore EK 3.3.A.2 Sub-Points in the Biology CED Fact Pack — TASK-0065
 - APPROVAL-0126 — Load and Publish 27 Orly Clean-Room MCQs (21 AP Chemistry Units 1/3, 6 AP Calculus AB 2.1) to Production; Hold the 3 Density Items — DECISION-0098
 - APPROVAL-0125 — TASK-0065: Load 91 Open Hand Teaching Items (Units 1–3; Bio, Stats, Chem, Calc AB) to Production
 - APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads (RLS); Re-enable Teaching-Item Attempt Trigger
@@ -140,7 +141,9 @@ Most recent entries (full chronological list follows below):
 **Not approved by this entry:** any other view change; any app-side change.
 
 
-## APPROVAL-0127 — Remove Repeated Answer Choices From 198 Published MCQ Stems
+## APPROVAL-0128 — Remove Repeated Answer Choices From 198 Published MCQ Stems
+
+> **Numbering note:** this was applied and recorded in Production as `APPROVAL-0127`. Production label `source_payload` entries and the apply SQL's `v_approval` say 0127. Another session's approval claimed 0127 on `main` first, so this entry is renumbered 0128. Treat "APPROVAL-0127" on the stem-cleanup records as this approval.
 
 **Date:** 2026-10-06  
 **Approved By:** David Bloom (2026-10-06 Claude session: "Yes, prepare the 198 stem cleanup", then "Apply all 198 (Recommended)")  
@@ -1808,3 +1811,28 @@ What was approved or rejected?
 ```
 
 **Conflict rule:** if `Expires` has passed but `Status` still reads `Active`, the approval is treated as expired regardless of the recorded status — the date wins. `Status: Superseded` overrides date-based validity even before expiration.
+
+
+## APPROVAL-0127 — Fix the AP Biology 2.10 Topic Point Brief (Dev + Production); Restore EK 3.3.A.2 Sub-Points in the Biology CED Fact Pack
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "correct me if I am wrong, but this seems like a brief error. The fact pack is correct. If that is right, fix the brief.")  
+**Related Task:** `TASK-0065`  
+**Decision:** Approved, in part as stated and in part corrected. David was right for 2.10 and wrong for 3.3; the 3.3 fix was made where the error actually was.
+
+**Finding (checked against the CED PDF, `docs/teaching/ap-biology-course-and-exam-description.pdf`, Fall 2025):**
+- **2.10, brief error (David right).** The brief told students they earn points for circular DNA, ribosomes and binary fission as endosymbiosis evidence. The CED's required content (EK 2.10.A.1–3, p. 62) states only the endosymbiotic origin and the prokaryote/eukaryote compartmentalization contrast. Circular chromosomes appear only in 6.1. Double membranes are 2.1 content, so the new brief keeps them.
+- **3.3, fact-pack error (David wrong).** CED EK 3.3.A.2.ii (p. 63) says "cellular processes that release energy may be coupled with cellular processes that require energy". The fact pack's paraphrase dropped it, so the brief's coupling requirement is correct.
+
+**Approved scope and result:**
+1. **2.10 brief.** `how_points_are_earned`, `answer_move` and `common_point_loss` were rewritten from the CED (migration `20261006180000_fix_ap_biology_2_10_point_brief.sql`).
+   - Development: applied, then re-read independently.
+   - Production: applied; content hash `459f37d0…` matches Development.
+   - Ledger rows were inserted in both.
+2. **Fact pack.** `docs/product/AP_BIOLOGY_CED_FACT_PACK.md` EK 3.3.A.2 now carries sub-points i–iii verbatim. The pipeline inputs (`ced_topics_biology.json`, `briefs_u1-3.json`) were updated to match.
+3. **Pipeline.** 2.10 and 3.3 were regenerated with the corrected inputs. Controls were re-run (6/6), and both topics were accepted in round 1.
+
+**Not changed:** the 2.10 topic explainer, which also teaches circular DNA and binary fission as evidence (repair of 2026-08-22). It is student-facing and still overreaches the CED. Flagged for David.
+
+**Rollback:** restore the three fields from `supabase/migrations/20260820230000_seed_remaining_biology_calculus_topic_point_briefs.sql` (line 91).
+

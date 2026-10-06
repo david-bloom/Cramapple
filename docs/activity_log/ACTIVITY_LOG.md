@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Biology 2.10 Brief Fixed and 3.3 Fact-Pack Gap Closed (APPROVAL-0127); Biology Teaching Items 20/21; Method Test Designed (2026-10-06): CED PDF showed the 2.10 brief overreached and the fact pack dropped EK 3.3.A.2.ii; both topics regenerated and accepted; review page published; legacy-vs-pipeline test designed, not run
 - Session Close: Open Hand Live — 91 Teaching Items in Production, Plate Loop for All Subjects Built (2026-10-06): student-session-items deployed; teaching items hidden from student reads (RLS) and the attempt trigger re-enabled (APPROVAL-0124); 91 checked Units 1–3 teaching items live for Bio, Stats, Chem and Calc AB (APPROVAL-0125); Lovable all-subjects plate loop with the diagnostic removed is built but not yet published. **Next Owner:** David. **Next Action:** publish the Lovable build and do a signed-in check.
 - TASK-0065 Generate-and-Select Pipeline Built; Biology Pilot 18/21 Accepted, 3 Escalated (2026-10-06): David replaced hand-patching with no-edit generation checked by four model families plus an own-family veto; 6/6 planted-defect controls caught; 2 escalations are brief-vs-fact-pack conflicts; nothing loaded to any database
 - Orly Pooled Practice Sets: Clean-Room Drafts (AP Chemistry Units 1/3, AP Calculus AB 2.1) (2026-10-06): 24 pooled reworded-exam MCQs mapped to CED topics and compared with the bank. All 4 Calculus keys and 2 of 20 Chemistry keys were wrong (told to Orly). Units 1-3 items used as seeds through the clean-room path (DECISION-0098): 10 families, 30 drafts; 27 published to Production (APPROVAL-0126), 3 density items held
@@ -381,6 +382,18 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Biology 2.10 Brief Fixed and 3.3 Fact-Pack Gap Closed (APPROVAL-0127); Biology Teaching Items 20/21; Method Test Designed — 2026-10-06
+
+**Checked against the CED PDF:**
+- 2.10's point brief overreached: it asked for circular DNA and binary fission. It was fixed in Development and Production, with matching hashes and ledger rows in both.
+- The Biology fact pack had dropped EK 3.3.A.2.ii (energy coupling). It was restored verbatim. The 3.3 brief was correct.
+
+**Pipeline:** both topics were regenerated after the controls were re-run (6/6), and both were accepted in round 1. Biology units 1–3: 20 of 21 accepted. 1.5 awaits David's confirmation, because his premise ("taught previously") was inverted: 2.3 comes later. The 2.10 topic explainer still teaches the overreaching evidence; flagged, not changed.
+
+**Review page:** https://claude.ai/artifact/CiBQWsfy6YHsJNfLaH45eh. Biology pilot cost: $20.13.
+
+**Method test:** legacy patch loop vs generate-and-select, designed in `docs/product/OPEN_HAND_CONTENT_METHOD_TEST_DESIGN_2026_10_06.md`. It uses 24 topics, held-out judges from three other families working from the CED PDF text, planted defects, a numeric recompute and human review of disputes. Not run.
 
 ## Session Close: Open Hand Live — 91 Teaching Items in Production, Plate Loop for All Subjects Built — 2026-10-06
 

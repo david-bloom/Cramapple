@@ -263,3 +263,15 @@ the file states one plan.
   content (circular organelle DNA and binary fission; ATP coupling) that `AP_BIOLOGY_CED_FACT_PACK.md` omits.
   Decide which source is right. If it is the briefs, add that content to the fact pack.
 
+
+**David's decisions on the Biology escalations (2026-10-06, APPROVAL-0127):**
+- **2.10:** the brief was wrong (the CED does not list circular DNA or binary fission). The brief was fixed in Development and Production.
+- **3.3:** the fact pack was wrong (it dropped EK 3.3.A.2.ii, energy coupling). The fact pack was fixed and the brief left as is.
+- Both topics were regenerated after the controls were re-run (6/6), and both were accepted.
+- **1.5:** David said to keep it, saying an occasional question may use a concept taught previously. But phospholipid orientation is taught **later**, in 2.3. Awaiting confirmation before accepting candidate r1-openai (it passed the four independent checkers and was rejected only by GPT's topic veto).
+- **Biology units 1–3 now:** 20 of 21 accepted.
+- **Review page (private Claude artifact):** https://claude.ai/artifact/CiBQWsfy6YHsJNfLaH45eh (renderer: `scripts/content-seed/task0065-generate-select/render_review.py`).
+
+**Biology pilot cost:** $20.13 at live gateway prices for 21 topics (about $1.12 per accepted item), plus $3.04 for the controls.
+
+**Method test designed:** `docs/product/OPEN_HAND_CONTENT_METHOD_TEST_DESIGN_2026_10_06.md`. It compares legacy and pipeline on quality (key accuracy, option accuracy, CED faithfulness), speed and cost, using held-out judges and planted defects. Not yet run; awaiting David's approval of the design and decision rule.

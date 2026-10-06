@@ -1,6 +1,6 @@
 # MCQ stem cleanup — choices repeated inside the question (2026-10-06)
 
-**Status:** **Applied to Production 2026-10-06 under APPROVAL-0127.** All 198 cleaned; labels carried forward; servable count unchanged (see `APPLY_LOG.md`).
+**Status:** **Applied to Production 2026-10-06 under APPROVAL-0128 (recorded in Production as APPROVAL-0127; renumbered because another approval took 0127 on main).** All 198 cleaned; labels carried forward; servable count unchanged (see `APPLY_LOG.md`).
 
 ## Defect
 198 published MCQs carry their answer choices a second time, as a trailing `A. … B. … C. … D. …` list inside the
