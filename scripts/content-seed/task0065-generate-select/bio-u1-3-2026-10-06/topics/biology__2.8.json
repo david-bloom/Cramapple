@@ -1,0 +1,1383 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.8",
+  "topic_title": "Mechanisms of Transport"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__2.8#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 26291,
+    "inputTokenDetails": {
+     "noCacheTokens": 26291,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1442,
+    "outputTokenDetails": {
+     "textTokens": 791,
+     "reasoningTokens": 651
+    },
+    "totalTokens": 27733,
+    "raw": {
+     "input_tokens": 26291,
+     "output_tokens": 1442,
+     "output_tokens_details": {
+      "thinking_tokens": 651
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 651,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.8",
+    "topic_title": "Mechanisms of Transport",
+    "stem": "A neuron keeps its cytoplasmic Na⁺ concentration near 15 mM, while the surrounding extracellular fluid contains about 145 mM Na⁺. Na⁺ ions that leak into the cell must be continuously removed to maintain this difference. Which mechanism and justification best explain how the cell removes Na⁺ from its cytoplasm?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "A Na⁺ channel, because charged ions cannot cross the hydrophobic bilayer and must pass through a channel protein.",
+      "is_correct": false,
+      "rationale": "This picks a mechanism from the molecule type alone and ignores gradient direction. Channels allow only passive flow down the gradient, so an open Na⁺ channel would let Na⁺ rush into the cell, not out. Fix: Compare the concentrations on each side and ask which way passive flow would go before choosing a channel."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Exocytosis, because vesicles can fuse with the plasma membrane and release their contents outside the cell.",
+      "is_correct": false,
+      "rationale": "This confuses bulk vesicle transport with selective ion transport. Exocytosis secretes large molecules such as proteins in vesicles; it is not the mechanism cells use to selectively move individual ions against their gradients. Fix: Ask whether the substance is a large molecule before choosing endocytosis or exocytosis for it."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "A Na⁺/K⁺ pump, because Na⁺ must move from lower concentration inside to higher concentration outside, which requires energy from ATP hydrolysis.",
+      "is_correct": true,
+      "rationale": "Exporting Na⁺ moves it from about 15 mM to about 145 mM, against its concentration gradient, so passive transport cannot do it. The Na⁺/K⁺ ATPase uses ATP to pump Na⁺ out and K⁺ in, maintaining the electrochemical gradient and membrane potential."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Facilitated diffusion through a carrier protein, because Na⁺ needs a transport protein and carriers move solutes without energy input.",
+      "is_correct": false,
+      "rationale": "This assumes any protein-mediated transport can move a solute in either direction. Facilitated diffusion is passive and moves solutes only from high to low concentration, so it cannot move Na⁺ out into the higher-concentration fluid. Fix: Check whether movement is low to high, and if so, identify the energy source that powers it."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 345,
+         "inputTokenDetails": {
+          "noCacheTokens": 345,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 68,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 42
+         },
+         "totalTokens": 413,
+         "raw": {
+          "input_tokens": 345,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 68,
+          "output_tokens_details": {
+           "reasoning_tokens": 42
+          },
+          "total_tokens": 413
+         },
+         "reasoningTokens": 42,
+         "cachedInputTokens": 0
+        },
+        "ms": 4148,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 410,
+         "inputTokenDetails": {
+          "noCacheTokens": 410,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 229,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 199
+         },
+         "totalTokens": 639,
+         "raw": {
+          "thoughtsTokenCount": 199,
+          "promptTokenCount": 410,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 639,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 410
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 199,
+         "cachedInputTokens": 0
+        },
+        "ms": 3918,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 476,
+         "inputTokenDetails": {
+          "noCacheTokens": 220,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 622,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 596
+         },
+         "totalTokens": 1098,
+         "raw": {
+          "prompt_tokens": 476,
+          "completion_tokens": 622,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 220,
+          "total_tokens": 1098,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 596
+          }
+         },
+         "reasoningTokens": 596,
+         "cachedInputTokens": 256
+        },
+        "ms": 8182,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 512,
+         "inputTokenDetails": {
+          "noCacheTokens": 448,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 450,
+         "outputTokenDetails": {
+          "textTokens": 21,
+          "reasoningTokens": 429
+         },
+         "totalTokens": 962,
+         "raw": {
+          "prompt_tokens": 512,
+          "completion_tokens": 450,
+          "total_tokens": 962,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 429,
+           "accepted_prediction_tokens": 241,
+           "rejected_prediction_tokens": 383,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 429,
+         "cachedInputTokens": 64
+        },
+        "ms": 4601,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D's rationale incorrectly states that facilitated diffusion moves solutes 'only from high to low concentration.' For ions, net passive movement follows the electrochemical gradient, so electrical forces can drive movement against a concentration gradient. A and C likewise use concentrations alone to justify passive Na⁺ movement direction. Specify net movement and account for the electrical gradient, or explicitly state that it also favors Na⁺ entry."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16994,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16991
+         },
+         "outputTokens": 549,
+         "outputTokenDetails": {
+          "textTokens": 257,
+          "reasoningTokens": 292
+         },
+         "totalTokens": 17543,
+         "raw": {
+          "input_tokens": 16994,
+          "input_tokens_details": {
+           "cache_write_tokens": 16991,
+           "cached_tokens": 0
+          },
+          "output_tokens": 549,
+          "output_tokens_details": {
+           "reasoning_tokens": 292
+          },
+          "total_tokens": 17543
+         },
+         "reasoningTokens": 292,
+         "cachedInputTokens": 0
+        },
+        "ms": 14238,
+        "flags": [
+         "accurate: D's rationale incorrectly states that facilitated diffusion moves solutes 'only from high to low concentration.' For ions, net passive movement follows the electrochemical gradient, so electrical forces can drive movement against a concentration gradient. A and C likewise use concentrations alone to justify passive Na⁺ movement direction. Specify net movement and account for the electrical gradient, or explicitly state that it also favors Na⁺ entry."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "C and D overgeneralize by treating concentration alone as determining passive ion movement. Ions move passively down their electrochemical gradient; an electrical gradient can drive movement toward higher ion concentration. D's claim that facilitated diffusion moves solutes 'only from high to low concentration' therefore needs qualification, and C's exclusion of passive transport needs electrical conditions or an explicit electrochemical-gradient premise."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16994,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16991,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 691,
+         "outputTokenDetails": {
+          "textTokens": 299,
+          "reasoningTokens": 392
+         },
+         "totalTokens": 17685,
+         "raw": {
+          "input_tokens": 16994,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16991
+          },
+          "output_tokens": 691,
+          "output_tokens_details": {
+           "reasoning_tokens": 392
+          },
+          "total_tokens": 17685
+         },
+         "reasoningTokens": 392,
+         "cachedInputTokens": 16991
+        },
+        "ms": 18603,
+        "flags": [
+         "accurate: C and D overgeneralize by treating concentration alone as determining passive ion movement. Ions move passively down their electrochemical gradient; an electrical gradient can drive movement toward higher ion concentration. D's claim that facilitated diffusion moves solutes 'only from high to low concentration' therefore needs qualification, and C's exclusion of passive transport needs electrical conditions or an explicit electrochemical-gradient premise."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 18300,
+         "inputTokenDetails": {
+          "noCacheTokens": 18300,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1790,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1528
+         },
+         "totalTokens": 20090,
+         "raw": {
+          "thoughtsTokenCount": 1528,
+          "promptTokenCount": 18300,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 20090,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 18300
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1528,
+         "cachedInputTokens": 0
+        },
+        "ms": 12465,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17151,
+         "inputTokenDetails": {
+          "noCacheTokens": 15871,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 6857,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6638
+         },
+         "totalTokens": 24008,
+         "raw": {
+          "prompt_tokens": 17151,
+          "completion_tokens": 6857,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15871,
+          "total_tokens": 24008,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6638
+          }
+         },
+         "reasoningTokens": 6638,
+         "cachedInputTokens": 1280
+        },
+        "ms": 69740,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17676,
+         "inputTokenDetails": {
+          "noCacheTokens": 17100,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 2916,
+         "outputTokenDetails": {
+          "textTokens": 217,
+          "reasoningTokens": 2699
+         },
+         "totalTokens": 20592,
+         "raw": {
+          "prompt_tokens": 17676,
+          "completion_tokens": 2916,
+          "total_tokens": 20592,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2699,
+           "accepted_prediction_tokens": 1988,
+           "rejected_prediction_tokens": 793,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2699,
+         "cachedInputTokens": 576
+        },
+        "ms": 17488,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__2.8#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 16331,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 16328
+    },
+    "outputTokens": 958,
+    "outputTokenDetails": {
+     "textTokens": 453,
+     "reasoningTokens": 505
+    },
+    "totalTokens": 17289,
+    "raw": {
+     "input_tokens": 16331,
+     "input_tokens_details": {
+      "cache_write_tokens": 16328,
+      "cached_tokens": 0
+     },
+     "output_tokens": 958,
+     "output_tokens_details": {
+      "reasoning_tokens": 505
+     },
+     "total_tokens": 17289
+    },
+    "reasoningTokens": 505,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.8",
+    "topic_title": "Mechanisms of Transport",
+    "stem": "A cell has a higher Na⁺ concentration outside than inside, and its membrane potential also favors Na⁺ movement inward. Nevertheless, the cell continually transports Na⁺ outward to maintain this electrochemical gradient. Which mechanism and justification best explain this outward transport?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "A Na⁺ channel allows outward transport because small, charged ions can pass through channels.",
+      "is_correct": false,
+      "rationale": "Charge-only trap: A channel provides a pathway for Na⁺, but it does not drive net movement against an electrochemical gradient. Under these conditions, passive Na⁺ movement would be inward. Fix: Compare the requested movement direction with the electrochemical gradient before choosing a channel."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The Na⁺/K⁺ pump transports Na⁺ outward without ATP because using a membrane protein makes transport passive.",
+      "is_correct": false,
+      "rationale": "Protein-means-passive trap: Using a membrane protein does not make transport passive. The Na⁺/K⁺ pump requires ATP to move ions against their electrochemical gradients. Fix: Check whether the protein merely provides a pathway or uses energy to drive movement against a gradient."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The Na⁺/K⁺ pump uses ATP to move Na⁺ outward against its electrochemical gradient.",
+      "is_correct": true,
+      "rationale": "Both the concentration difference and the electrical force favor inward Na⁺ movement, so outward transport requires energy. The Na⁺/K⁺ pump uses ATP to drive this active transport, helping maintain ion gradients and membrane potential."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Exocytosis transports Na⁺ outward because charged ions must be enclosed in vesicles to leave a cell.",
+      "is_correct": false,
+      "rationale": "Vesicle-for-charge trap: Charged ions can cross membranes through transport proteins; their charge does not require vesicular export. Exocytosis releases vesicle contents rather than pumping individual Na⁺ ions across the membrane. Fix: Identify whether the material needs an ion-transport protein or bulk transport in a vesicle."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 749,
+         "inputTokenDetails": {
+          "noCacheTokens": 749,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 779,
+         "raw": {
+          "input_tokens": 749,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3962,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 381,
+         "inputTokenDetails": {
+          "noCacheTokens": 381,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 242,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 212
+         },
+         "totalTokens": 623,
+         "raw": {
+          "thoughtsTokenCount": 212,
+          "promptTokenCount": 381,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 623,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 381
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 212,
+         "cachedInputTokens": 0
+        },
+        "ms": 4015,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 451,
+         "inputTokenDetails": {
+          "noCacheTokens": 195,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 239,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 213
+         },
+         "totalTokens": 690,
+         "raw": {
+          "prompt_tokens": 451,
+          "completion_tokens": 239,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 195,
+          "total_tokens": 690,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 213
+          }
+         },
+         "reasoningTokens": 213,
+         "cachedInputTokens": 256
+        },
+        "ms": 4162,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 476,
+         "inputTokenDetails": {
+          "noCacheTokens": 348,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 66,
+         "outputTokenDetails": {
+          "textTokens": 29,
+          "reasoningTokens": 37
+         },
+         "totalTokens": 542,
+         "raw": {
+          "prompt_tokens": 476,
+          "completion_tokens": 66,
+          "total_tokens": 542,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 37,
+           "accepted_prediction_tokens": 36,
+           "rejected_prediction_tokens": 51,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 37,
+         "cachedInputTokens": 128
+        },
+        "ms": 1094,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27986,
+         "inputTokenDetails": {
+          "noCacheTokens": 27986,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 488,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 276
+         },
+         "totalTokens": 28474,
+         "raw": {
+          "input_tokens": 27986,
+          "output_tokens": 488,
+          "output_tokens_details": {
+           "thinking_tokens": 276
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 276,
+         "cachedInputTokens": 0
+        },
+        "ms": 8176,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 18237,
+         "inputTokenDetails": {
+          "noCacheTokens": 18237,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1506,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1244
+         },
+         "totalTokens": 19743,
+         "raw": {
+          "thoughtsTokenCount": 1244,
+          "promptTokenCount": 18237,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19743,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 18237
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1244,
+         "cachedInputTokens": 0
+        },
+        "ms": 12307,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17094,
+         "inputTokenDetails": {
+          "noCacheTokens": 15814,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 3975,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 3756
+         },
+         "totalTokens": 21069,
+         "raw": {
+          "prompt_tokens": 17094,
+          "completion_tokens": 3975,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15814,
+          "total_tokens": 21069,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3756
+          }
+         },
+         "reasoningTokens": 3756,
+         "cachedInputTokens": 1280
+        },
+        "ms": 36240,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17601,
+         "inputTokenDetails": {
+          "noCacheTokens": 17217,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 2248,
+         "outputTokenDetails": {
+          "textTokens": 129,
+          "reasoningTokens": 2119
+         },
+         "totalTokens": 19849,
+         "raw": {
+          "prompt_tokens": 17601,
+          "completion_tokens": 2248,
+          "total_tokens": 19849,
+          "prompt_tokens_details": {
+           "cached_tokens": 384,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2119,
+           "accepted_prediction_tokens": 1504,
+           "rejected_prediction_tokens": 725,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2119,
+         "cachedInputTokens": 384
+        },
+        "ms": 15067,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16936,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16933
+         },
+         "outputTokens": 297,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 75
+         },
+         "totalTokens": 17233,
+         "raw": {
+          "input_tokens": 16936,
+          "input_tokens_details": {
+           "cache_write_tokens": 16933,
+           "cached_tokens": 0
+          },
+          "output_tokens": 297,
+          "output_tokens_details": {
+           "reasoning_tokens": 75
+          },
+          "total_tokens": 17233
+         },
+         "reasoningTokens": 75,
+         "cachedInputTokens": 0
+        },
+        "ms": 7298,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__2.8#r1-openai",
+ "accepted_at": "2026-10-06T15:28:54.209Z"
+}

@@ -1,0 +1,1519 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.2",
+  "topic_title": "Environmental Impacts on Enzyme Function"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__3.2#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25514,
+    "inputTokenDetails": {
+     "noCacheTokens": 25514,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1603,
+    "outputTokenDetails": {
+     "textTokens": 875,
+     "reasoningTokens": 728
+    },
+    "totalTokens": 27117,
+    "raw": {
+     "input_tokens": 25514,
+     "output_tokens": 1603,
+     "output_tokens_details": {
+      "thinking_tokens": 728
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 728,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.2",
+    "topic_title": "Environmental Impacts on Enzyme Function",
+    "stem": "A student measures the activity of an enzyme from human cells (micromoles of product formed per minute) at several temperatures: 20°C, 12; 30°C, 25; 37°C, 40; 45°C, 22; 55°C, 3. A separate sample of the enzyme is held at 55°C for 10 minutes, cooled to 37°C, and tested again; its activity is 4. Which explanation best accounts for both the drop in activity above 37°C and the result after cooling?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Temperatures above 37°C reduce how often enzyme and substrate molecules collide, so fewer enzyme-substrate complexes form and the rate falls.",
+      "is_correct": false,
+      "rationale": "This reverses the collision idea. Raising temperature increases molecular motion and collision frequency; the rate falls above the optimum because the enzyme's shape changes, not because collisions decrease. It also cannot explain why activity stayed low after cooling. Fix: Ask whether a higher temperature speeds or slows molecular motion before using collisions to explain a rate decrease."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Heat above 37°C broke the peptide bonds between amino acids, destroying the enzyme's primary structure so it could no longer catalyze the reaction.",
+      "is_correct": false,
+      "rationale": "This confuses denaturation with breaking the amino acid chain. Heat denaturation disrupts weaker interactions such as hydrogen bonds that maintain higher-level folding; the covalent peptide bonds of the primary structure typically remain intact. Fix: Check which level of protein structure depends on weak interactions before naming what heat disrupts."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The enzyme was only slowed at 55°C and returned to its normal shape and full activity once it was cooled back to 37°C.",
+      "is_correct": false,
+      "rationale": "This assumes denaturation is always reversible and ignores the data. The cooled sample's activity was 4, far below the 40 measured at 37°C, so the enzyme did not regain its functional shape. Fix: Compare the post-cooling activity value to the original 37°C value before claiming the enzyme recovered."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Heat above the optimum disrupted hydrogen bonds and other interactions that hold the enzyme's three-dimensional shape, so the active site no longer fit the substrate, and this denaturation was not reversed by cooling.",
+      "is_correct": true,
+      "rationale": "This links the data to structure. Above 37°C, increased molecular motion breaks the weak interactions that maintain tertiary structure, altering the active site so substrate binds poorly. Activity after cooling stayed near 4 rather than returning to 40, showing the shape change persisted, so the denaturation was not reversed."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 411,
+         "inputTokenDetails": {
+          "noCacheTokens": 411,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 74,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 48
+         },
+         "totalTokens": 485,
+         "raw": {
+          "input_tokens": 411,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 74,
+          "output_tokens_details": {
+           "reasoning_tokens": 48
+          },
+          "total_tokens": 485
+         },
+         "reasoningTokens": 48,
+         "cachedInputTokens": 0
+        },
+        "ms": 2826,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 521,
+         "inputTokenDetails": {
+          "noCacheTokens": 521,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 220,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 190
+         },
+         "totalTokens": 741,
+         "raw": {
+          "thoughtsTokenCount": 190,
+          "promptTokenCount": 521,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 741,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 521
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 190,
+         "cachedInputTokens": 0
+        },
+        "ms": 3409,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 563,
+         "inputTokenDetails": {
+          "noCacheTokens": 307,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 682,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 656
+         },
+         "totalTokens": 1245,
+         "raw": {
+          "prompt_tokens": 563,
+          "completion_tokens": 682,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 307,
+          "total_tokens": 1245,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 656
+          }
+         },
+         "reasoningTokens": 656,
+         "cachedInputTokens": 256
+        },
+        "ms": 8098,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 574,
+         "inputTokenDetails": {
+          "noCacheTokens": 446,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 593,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 573
+         },
+         "totalTokens": 1167,
+         "raw": {
+          "prompt_tokens": 574,
+          "completion_tokens": 593,
+          "total_tokens": 1167,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 573,
+           "accepted_prediction_tokens": 333,
+           "rejected_prediction_tokens": 444,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 573,
+         "cachedInputTokens": 128
+        },
+        "ms": 5590,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice A's rationale has four sentences, including its Fix sentence, exceeding the three-sentence maximum."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16522,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16519
+         },
+         "outputTokens": 596,
+         "outputTokenDetails": {
+          "textTokens": 242,
+          "reasoningTokens": 354
+         },
+         "totalTokens": 17118,
+         "raw": {
+          "input_tokens": 16522,
+          "input_tokens_details": {
+           "cache_write_tokens": 16519,
+           "cached_tokens": 0
+          },
+          "output_tokens": 596,
+          "output_tokens_details": {
+           "reasoning_tokens": 354
+          },
+          "total_tokens": 17118
+         },
+         "reasoningTokens": 354,
+         "cachedInputTokens": 0
+        },
+        "ms": 11638,
+        "flags": [
+         "concise: Choice A's rationale has four sentences, including its Fix sentence, exceeding the three-sentence maximum."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice A's rationale contains four sentences, including its Fix sentence, exceeding the three-sentence maximum. Combine or remove one of the three sentences before the Fix."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16522,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16519,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 438,
+         "outputTokenDetails": {
+          "textTokens": 254,
+          "reasoningTokens": 184
+         },
+         "totalTokens": 16960,
+         "raw": {
+          "input_tokens": 16522,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16519
+          },
+          "output_tokens": 438,
+          "output_tokens_details": {
+           "reasoning_tokens": 184
+          },
+          "total_tokens": 16960
+         },
+         "reasoningTokens": 184,
+         "cachedInputTokens": 16519
+        },
+        "ms": 9314,
+        "flags": [
+         "concise: Choice A's rationale contains four sentences, including its Fix sentence, exceeding the three-sentence maximum. Combine or remove one of the three sentences before the Fix."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choice A has four sentences in its rationale, exceeding the maximum of three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17903,
+         "inputTokenDetails": {
+          "noCacheTokens": 17903,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3218,
+         "outputTokenDetails": {
+          "textTokens": 278,
+          "reasoningTokens": 2940
+         },
+         "totalTokens": 21121,
+         "raw": {
+          "thoughtsTokenCount": 2940,
+          "promptTokenCount": 17903,
+          "candidatesTokenCount": 278,
+          "totalTokenCount": 21121,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17903
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 278
+           }
+          ]
+         },
+         "reasoningTokens": 2940,
+         "cachedInputTokens": 0
+        },
+        "ms": 22168,
+        "flags": [
+         "concise: Choice A has four sentences in its rationale, exceeding the maximum of three sentences."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17903,
+         "inputTokenDetails": {
+          "noCacheTokens": 5709,
+          "cacheReadTokens": 12194
+         },
+         "outputTokens": 1301,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1039
+         },
+         "totalTokens": 19204,
+         "raw": {
+          "cachedContentTokenCount": 12194,
+          "thoughtsTokenCount": 1039,
+          "promptTokenCount": 17903,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19204,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17903
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12194
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1039,
+         "cachedInputTokens": 12194
+        },
+        "ms": 9528,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16736,
+         "inputTokenDetails": {
+          "noCacheTokens": 15456,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 5564,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 5345
+         },
+         "totalTokens": 22300,
+         "raw": {
+          "prompt_tokens": 16736,
+          "completion_tokens": 5564,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15456,
+          "total_tokens": 22300,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5345
+          }
+         },
+         "reasoningTokens": 5345,
+         "cachedInputTokens": 1280
+        },
+        "ms": 56024,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17212,
+         "inputTokenDetails": {
+          "noCacheTokens": 16636,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 2027,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 1900
+         },
+         "totalTokens": 19239,
+         "raw": {
+          "prompt_tokens": 17212,
+          "completion_tokens": 2027,
+          "total_tokens": 19239,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1900,
+           "accepted_prediction_tokens": 1291,
+           "rejected_prediction_tokens": 914,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1900,
+         "cachedInputTokens": 576
+        },
+        "ms": 14113,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__3.2#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15791,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15788
+    },
+    "outputTokens": 1011,
+    "outputTokenDetails": {
+     "textTokens": 495,
+     "reasoningTokens": 516
+    },
+    "totalTokens": 16802,
+    "raw": {
+     "input_tokens": 15791,
+     "input_tokens_details": {
+      "cache_write_tokens": 15788,
+      "cached_tokens": 0
+     },
+     "output_tokens": 1011,
+     "output_tokens_details": {
+      "reasoning_tokens": 516
+     },
+     "total_tokens": 16802
+    },
+    "reasoningTokens": 516,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.2",
+    "topic_title": "Environmental Impacts on Enzyme Function",
+    "stem": "A researcher incubates equal amounts of an enzyme without substrate for 10 minutes at different temperatures. Each sample is then brought to 25°C, and the same concentration of fresh substrate is added. All other conditions, including pH, are identical. Initial reaction rates measured at 25°C are:\n\nPrior incubation temperature | Initial reaction rate\n20°C | 100 units/min\n40°C | 100 units/min\n70°C | 5 units/min\n\nWhich explanation best connects the low activity of the sample previously incubated at 70°C to a molecular cause?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Cooling to 25°C caused fewer enzyme–substrate collisions in the sample previously incubated at 70°C than in the other samples.",
+      "is_correct": false,
+      "rationale": "Trap: confusing treatment temperature with measurement temperature. All samples react at 25°C with equal enzyme and substrate concentrations, so their different rates cannot be explained by different measurement temperatures. Fix: Separate the prior treatment conditions from the conditions present when reaction rates are measured."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Heating to 70°C used up most of the substrate, leaving less available when the reaction rate was measured.",
+      "is_correct": false,
+      "rationale": "Trap: attributing reduced activity to substrate depletion. No substrate was present during heating, and equal concentrations of fresh substrate were added afterward. Fix: Check when substrate was added and whether its starting concentration differed among samples."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Heating to 70°C likely disrupted interactions maintaining the enzyme’s shape, leaving an altered active site that functions poorly at 25°C.",
+      "is_correct": true,
+      "rationale": "The rate is much lower after the 70°C treatment even though measurement conditions are identical. High temperature can disrupt interactions such as hydrogen bonds, causing denaturation that alters active-site fit and reduces catalysis; cooling does not necessarily restore the functional shape."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Heating to 70°C denatured the enzyme by necessarily breaking the peptide bonds joining its amino acids.",
+      "is_correct": false,
+      "rationale": "Trap: confusing denaturation with breakdown of primary structure. Denaturation can disrupt the interactions maintaining a protein’s folded shape without breaking its peptide bonds. Fix: Identify whether the proposed mechanism changes protein folding or breaks the amino-acid chain."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "The item is well posed with C as the single correct choice. A is wrong because all three samples were measured at the same 25°C, so collision frequency should be the same in each. B is wrong because the enzyme was incubated without substrate, and fresh substrate was added afterward. D is wrong because denaturation disrupts noncovalent interactions that hold the enzyme's shape; it does not necessarily break peptide bonds. C correctly links the low rate to heat-disrupted interactions that alter the active site, an effect that persists after cooling."
+        },
+        "usage": {
+         "inputTokens": 854,
+         "inputTokenDetails": {
+          "noCacheTokens": 854,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 200,
+         "outputTokenDetails": {
+          "textTokens": 200,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 1054,
+         "raw": {
+          "input_tokens": 854,
+          "output_tokens": 200,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 5919,
+        "flags": [
+         "defect: The item is well posed with C as the single correct choice. A is wrong because all three samples were measured at the same 25°C, so collision frequency should be the same in each. B is wrong because the enzyme was incubated without substrate, and fresh substrate was added afterward. D is wrong because denaturation disrupts noncovalent interactions that hold the enzyme's shape; it does not necessarily break peptide bonds. C correctly links the low rate to heat-disrupted interactions that alter the active site, an effect that persists after cooling."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 854,
+         "inputTokenDetails": {
+          "noCacheTokens": 854,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 884,
+         "raw": {
+          "input_tokens": 854,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 5337,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 497,
+         "inputTokenDetails": {
+          "noCacheTokens": 497,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 302,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 272
+         },
+         "totalTokens": 799,
+         "raw": {
+          "thoughtsTokenCount": 272,
+          "promptTokenCount": 497,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 799,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 497
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 272,
+         "cachedInputTokens": 0
+        },
+        "ms": 6182,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 536,
+         "inputTokenDetails": {
+          "noCacheTokens": 280,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 372,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 346
+         },
+         "totalTokens": 908,
+         "raw": {
+          "prompt_tokens": 536,
+          "completion_tokens": 372,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 280,
+          "total_tokens": 908,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 346
+          }
+         },
+         "reasoningTokens": 346,
+         "cachedInputTokens": 256
+        },
+        "ms": 5113,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 549,
+         "inputTokenDetails": {
+          "noCacheTokens": 421,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 108,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 83
+         },
+         "totalTokens": 657,
+         "raw": {
+          "prompt_tokens": 549,
+          "completion_tokens": 108,
+          "total_tokens": 657,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 83,
+           "accepted_prediction_tokens": 59,
+           "rejected_prediction_tokens": 85,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 83,
+         "cachedInputTokens": 128
+        },
+        "ms": 1294,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27305,
+         "inputTokenDetails": {
+          "noCacheTokens": 27305,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 680,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 468
+         },
+         "totalTokens": 27985,
+         "raw": {
+          "input_tokens": 27305,
+          "output_tokens": 680,
+          "output_tokens_details": {
+           "thinking_tokens": 468
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 468,
+         "cachedInputTokens": 0
+        },
+        "ms": 10212,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17819,
+         "inputTokenDetails": {
+          "noCacheTokens": 17819,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1432,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1170
+         },
+         "totalTokens": 19251,
+         "raw": {
+          "thoughtsTokenCount": 1170,
+          "promptTokenCount": 17819,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19251,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17819
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1170,
+         "cachedInputTokens": 0
+        },
+        "ms": 11198,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16650,
+         "inputTokenDetails": {
+          "noCacheTokens": 15370,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 4473,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 4254
+         },
+         "totalTokens": 21123,
+         "raw": {
+          "prompt_tokens": 16650,
+          "completion_tokens": 4473,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15370,
+          "total_tokens": 21123,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4254
+          }
+         },
+         "reasoningTokens": 4254,
+         "cachedInputTokens": 1280
+        },
+        "ms": 44515,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17127,
+         "inputTokenDetails": {
+          "noCacheTokens": 16551,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 2469,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 2342
+         },
+         "totalTokens": 19596,
+         "raw": {
+          "prompt_tokens": 17127,
+          "completion_tokens": 2469,
+          "total_tokens": 19596,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2342,
+           "accepted_prediction_tokens": 1569,
+           "rejected_prediction_tokens": 1128,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2342,
+         "cachedInputTokens": 576
+        },
+        "ms": 16308,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16447,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16444
+         },
+         "outputTokens": 279,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 57
+         },
+         "totalTokens": 16726,
+         "raw": {
+          "input_tokens": 16447,
+          "input_tokens_details": {
+           "cache_write_tokens": 16444,
+           "cached_tokens": 0
+          },
+          "output_tokens": 279,
+          "output_tokens_details": {
+           "reasoning_tokens": 57
+          },
+          "total_tokens": 16726
+         },
+         "reasoningTokens": 57,
+         "cachedInputTokens": 0
+        },
+        "ms": 6236,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__3.2#r1-openai",
+ "accepted_at": "2026-10-06T15:31:23.234Z"
+}

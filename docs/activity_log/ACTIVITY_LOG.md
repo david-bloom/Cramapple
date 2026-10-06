@@ -7,6 +7,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 Most recent entries (full reverse-chronological list follows below):
 
 - Session Close: Open Hand Live — 91 Teaching Items in Production, Plate Loop for All Subjects Built (2026-10-06): student-session-items deployed; teaching items hidden from student reads (RLS) and the attempt trigger re-enabled (APPROVAL-0124); 91 checked Units 1–3 teaching items live for Bio, Stats, Chem and Calc AB (APPROVAL-0125); Lovable all-subjects plate loop with the diagnostic removed is built but not yet published. **Next Owner:** David. **Next Action:** publish the Lovable build and do a signed-in check.
+- TASK-0065 Generate-and-Select Pipeline Built; Biology Pilot 18/21 Accepted, 3 Escalated (2026-10-06): David replaced hand-patching with no-edit generation checked by four model families plus an own-family veto; 6/6 planted-defect controls caught; 2 escalations are brief-vs-fact-pack conflicts; nothing loaded to any database
 - TASK-0065 Checker Pilot (AP Biology) (2026-10-06): supplementary checks for generated Open Hand teaching items (named-trap audit, lint, CED-text topic probe) proven on a pilot (4 of 4 planted defects caught); reconciled with APPROVAL-0123 / PR #340 (pilot's 603-topic scope withdrawn, per-item habit-line check retired); run on the 91 drafts: lint 2 fail, named-trap 38 blocked (25 only on fact-vs-action fix lines), Biology topic probe 21/21; nothing written to any database
 - Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) (2026-10-04): `/home` was rendering legacy `TopicHome` for everyone because the built Stage A/B components were unmounted; Lovable commit `08a042ca` now routes by `experienceStage`; Dev `public.student_course_positions` view refreshed; NOT published; code-level QA only, six findings in the task file.
 - Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) (2026-10-04): final end-to-end QA on the live site passes; remaining checks need a signed-in session or a real inbox; handoff written.
@@ -413,6 +414,19 @@ Most recent entries (full reverse-chronological list follows below):
 - David publishes the Lovable all-subjects / no-diagnostic build (edit `edt-660b7fa5`) and does the signed-in check:
   a non-Statistics "Start" button opens a worked example or Practice, and `/session/setup` lands on Home.
 - Then he deploys `attempt-response` via the CLI (Development, then Production).
+## TASK-0065 Generate-and-Select Pipeline Built; Biology Pilot 18/21 Accepted, 3 Escalated — 2026-10-06
+
+**Why:** David asked why repeatedly reviewed questions kept failing, and asked for a way to add questions without editing them, using at least 4 models and multiple sessions. Diagnosis: the rules were applied after writing (25 of the 38 C3 blocks), reviews checked other things, single model calls are noisy, patches need full re-checks, and two sessions worked to different specs. **Decision:** build the pipeline; regenerate the 38 C3-blocked topics; hold PR #348 (now a draft); discard the 13 unchecked rewrites.
+
+**Built:** `scripts/vercel-gateway-check/teaching_pipeline/`.
+- One rubric for authors and checkers, plus a deterministic lint.
+- Stateless Claude Opus 5.5 and GPT-6.1 authors.
+- Four non-author checker families: a blind solve, then a rubric audit with the CED fact pack and the unit's topic list.
+- Re-sample on flag; own-family veto (can reject, never approve).
+- Accept the first clean candidate or escalate.
+- Six planted-defect controls gate every batch; per-topic claims for multiple sessions.
+
+**Biology units 1–3:** controls 6/6 caught. 18 of 21 accepted (12 GPT-authored, 6 Claude), 3 escalated, 0 edited. About 600 calls, 0 failed, about 6.5M input tokens. Escalations: 2.10 and 3.3 have point briefs that require content the fact pack lacks; 1.5 overlaps 2.3. Not loaded to any database; human spot-check pending. Production was read only (point briefs).
 
 ## TASK-0065 Checker Pilot (AP Biology) — 2026-10-06
 
