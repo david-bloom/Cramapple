@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Orly Pooled Practice Sets: Clean-Room Drafts (AP Chemistry Units 1/3, AP Calculus AB 2.1) (2026-10-06): 24 pooled reworded-exam MCQs mapped to CED topics and compared with the bank. All 4 Calculus keys and 2 of 20 Chemistry keys were wrong (told to Orly). Units 1-3 items used as seeds through the clean-room path (DECISION-0098): 10 families, 30 drafts, 26 checked, 4 held; nothing written to any database
 - TASK-0065 Checker Pilot (AP Biology) (2026-10-06): supplementary checks for generated Open Hand teaching items (named-trap audit, lint, CED-text topic probe) proven on a pilot (4 of 4 planted defects caught); reconciled with APPROVAL-0123 / PR #340 (pilot's 603-topic scope withdrawn, per-item habit-line check retired); run on the 91 drafts: lint 2 fail, named-trap 38 blocked (25 only on fact-vs-action fix lines), Biology topic probe 21/21; nothing written to any database
 - Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) (2026-10-04): `/home` was rendering legacy `TopicHome` for everyone because the built Stage A/B components were unmounted; Lovable commit `08a042ca` now routes by `experienceStage`; Dev `public.student_course_positions` view refreshed; NOT published; code-level QA only, six findings in the task file.
 - Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) (2026-10-04): final end-to-end QA on the live site passes; remaining checks need a signed-in session or a real inbox; handoff written.
@@ -378,6 +379,31 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## Orly Pooled Practice Sets: Clean-Room Drafts (AP Chemistry Units 1/3, AP Calculus AB 2.1) — 2026-10-06
+
+**Source:** practice sets pooled by Orly and classmates: 20 AP Chemistry MCQs in a Google Doc and 4 AP Calculus AB MCQs pasted in chat. All are reworded released-exam items. Logged in `docs/research/orly_source_log/SOURCE_LOG.md`; insight note `2026-10-06_ap_chemistry_pooled_practice_mcqs.md`. **Decision:** `DECISION-0098` (class D seeds only through the clean-room spec path; the source is not stored).
+
+**Assessment:**
+- **AP Chemistry:** Unit 1 (7 items), Unit 3 (2), Unit 4 (9), Unit 9 (2). 2 of 20 keys are wrong.
+- **AP Calculus AB:** topic 2.1 (3 items) and 5.1 (1). All 4 keys are wrong, and 3 of the 4 items have no correct choice.
+- **Bank comparison:** we have no Chemistry content for Units 4 or 9. Topics 1.3 and 1.4 have one item each. Units 1-3 have no lab-procedure or error-analysis MCQs. The Calculus 2.1 polynomial pattern duplicates an existing family.
+
+**Run (David's choices):**
+- 10 families (Chemistry F1-F8, Calculus C1-C2), 3 members each, written by fresh authoring agents.
+- Checkers: gpt-5.6-sol and deepseek-v4-pro-0813.
+- Stop point: checked drafts.
+
+**Result:** 30 drafts.
+- **Checks:** both models solved all 30 to the key, and the independent re-derivation confirmed all 30 keys.
+- **Divergence rewrites:** 4 drafts had converged on a source instance and were rewritten.
+- **Patches:** 6 text patches, each re-checked clean.
+- **Held:** F4 density (3 items) is outside the CED scope (readiness content), and f6-v2 is held for its topic label (3.7 vs 4.5).
+- **Outcome:** 26 checked drafts. Batch: `scripts/content-seed/apchem-orly-cleanroom-2026-10-06/README.md`.
+
+Production was read only. Nothing was written to any database.
+
+**Next Owner:** David Bloom. **Next Action:** sign off the spec scrub (`family_specs.json`), decide F4 and f6-v2, and approve or decline loading and labelling the 26 checked drafts.
 
 ## TASK-0065 Checker Pilot (AP Biology) — 2026-10-06
 

@@ -1,0 +1,112 @@
+{
+  "batch": "apchem-orly-cleanroom-2026-10-06",
+  "subject": "AP Chemistry",
+  "seed_class": "D handled under the class-B clean-room path (Product Owner decision 2026-10-06)",
+  "extractor_note": "Written by the extractor context, the only context that read the source. Patterns only: no source numbers, compounds, contexts, wording, choices or answer values. Each family gets 3 members: v1 easy, v2 medium, v3 hard. Every member must have a different chemical context and a different number set from its siblings.",
+  "families": [
+    {
+      "family_id": "F1",
+      "topic_code": "1.3",
+      "task_verb": "Determine the empirical formula of a compound from its composition by mass",
+      "structure": "A pure compound of two elements is described by the mass percent of each element, or by the mass of each element found in one sample. The four choices are candidate formulas built from the same elements. At least one member must give masses in grams rather than percents. At least one member must have a mole ratio that is not close to a whole number and must be multiplied by a small integer to give whole numbers.",
+      "misconceptions": [
+        "Treats the mass ratio as if it were the mole ratio, without dividing by molar mass",
+        "Divides molar mass by mass, so the ratio is inverted",
+        "Rounds a ratio near x.5 or x.33 to the nearest whole number instead of multiplying through",
+        "Swaps the subscripts between the two elements"
+      ],
+      "notes": "Use realistic compounds whose formulas a student could check. Do not reuse compounds already in the published bank items described in avoid_overlap.",
+      "avoid_overlap": "The bank already has an item asking for the molecular formula of a compound of carbon and hydrogen from percent composition plus molar mass. Do not use compounds of only carbon and hydrogen in this family."
+    },
+    {
+      "family_id": "F2",
+      "topic_code": "1.3",
+      "task_verb": "Distinguish the empirical formula from formulas that share the same element ratio, given incomplete composition data",
+      "structure": "Only one element's mass percent is stated for a pure compound of two elements; the student must infer the other element's percent as the remainder. The correct choice is the lowest-whole-number formula; one distractor must be a whole-number multiple of it (a possible molecular formula, but not the empirical formula). No molar mass of the compound is given unless a member asks which molecular formula fits, in which case the molar mass is given and the multiple becomes the key. Use a different element pair in each member.",
+      "misconceptions": [
+        "Uses the stated percent for one element and forgets to find the other by subtraction",
+        "Chooses a whole-number multiple of the empirical formula, confusing empirical and molecular formulas",
+        "Assumes the two percents give a 1:1 ratio because the compound has two elements"
+      ]
+    },
+    {
+      "family_id": "F3",
+      "topic_code": "1.1",
+      "task_verb": "Count moles or number of particles of one element in a given number of moles of an ionic compound written with polyatomic ions",
+      "structure": "The formula contains at least one polyatomic ion in parentheses with a subscript outside the parentheses. Choices state an amount of atoms of different elements, in moles or as a multiple of Avogadro's number; exactly one is correct. The amount of compound is not always 1 mol in every member (at least one member uses a fractional or multiple amount). Do not use dot (adduct) notation or the word hydrate (not CED vocabulary).",
+      "misconceptions": [
+        "Ignores the subscript outside the parentheses",
+        "Counts an element only in one ion when it appears in two",
+        "Gives moles of formula units instead of moles of atoms",
+        "Multiplies by Avogadro's number when the choice is in moles, or the reverse"
+      ]
+    },
+    {
+      "family_id": "F4",
+      "topic_code": "1.1",
+      "task_verb": "Combine density and molar mass to relate the volume of a condensed (liquid or solid) substance to amount in moles or number of particles",
+      "structure": "A pure liquid or solid element or simple compound with a stated density. Members vary the direction: the space occupied by a mole; moles or particles in a given volume; mass of a given number of particles. At least one member asks for a number of particles. Use substances other than any metal that is liquid near room temperature.",
+      "misconceptions": [
+        "Multiplies molar mass by density instead of dividing",
+        "Divides density by molar mass (inverted)",
+        "Applies a gas molar volume to a liquid or solid",
+        "Omits the Avogadro step, or applies it twice"
+      ]
+    },
+    {
+      "family_id": "F5",
+      "topic_code": "1.4",
+      "task_verb": "Find the mass percent of one component of a two-component mixture from elemental analysis",
+      "structure": "A mixture of two substances is analysed. The analysis reports an amount (moles or mass) of an element that is present in only ONE of the two components. The student converts that amount to the mass of the component, then to a percent of the sample. At least one member gives the element amount in moles; at least one gives it as a mass; at least one asks for the purity of a sample contaminated by a substance that does not contain the element. Do not describe any chemical reaction (keep this as composition, not reaction stoichiometry).",
+      "misconceptions": [
+        "Reports the mass percent of the element instead of the component",
+        "Uses the molar mass of the wrong component",
+        "Divides by the mass of the component rather than the mass of the whole sample",
+        "Forgets the subscript of the element in the component's formula"
+      ]
+    },
+    {
+      "family_id": "F6",
+      "topic_code": "3.7",
+      "task_verb": "Find the molar concentration of one ion in a solution prepared from two dissolved ionic solids that share that ion",
+      "structure": "Two soluble ionic solids that share a common ion, with different numbers of that ion per formula unit, are dissolved together and the solution is made up to a final volume given in mL. Amounts may be in moles (easy) or grams (harder, molar masses given). At least one member asks for the concentration of an ion that comes from only one of the solids, and at least one asks for the common ion.",
+      "misconceptions": [
+        "Ignores the number of ions per formula unit",
+        "Uses mL as if it were L",
+        "Averages the two concentrations instead of adding moles of ions",
+        "Counts the ion from only one of the solids"
+      ]
+    },
+    {
+      "family_id": "F7",
+      "topic_code": "3.4",
+      "task_verb": "Evaluate an experimental procedure for finding the molar mass of a gas with the ideal gas law",
+      "structure": "A described laboratory procedure in which the mass of a gas sample is found and its pressure, volume and temperature are measured. Members vary the task: which measurement is not needed; which additional measurement is needed; how a stated procedural error changes the calculated molar mass (too high, too low, no change). Exactly four choices. If a member involves collecting the gas over a liquid, it must state that the vapor of the liquid contributes a partial pressure, and the reasoning must use the CED relation for partial pressures.",
+      "misconceptions": [
+        "Treats a measurement that only identifies the apparatus as necessary",
+        "Uses total pressure where the partial pressure of the gas is needed",
+        "Reverses the direction of the effect of an error (for example, an error that lowers the measured n raises M)",
+        "Uses Celsius temperature in the ideal gas law"
+      ]
+    },
+    {
+      "family_id": "F8",
+      "topic_code": "1.4",
+      "task_verb": "Decide on the correct next step, or the effect of a procedural error, when a volatile component is driven off a mixture by heating to find composition by mass",
+      "structure": "A mixture sample (for example, a solid moistened with a volatile liquid, or a solid dissolved in a volatile solvent) is heated to remove the volatile component and weighed after repeated heating-and-cooling cycles. Members vary the task: what to do when successive masses still differ; which conclusion about percent composition is justified; how an incomplete heating or a weighing while still hot changes the calculated percent of the volatile component. Do not use the word hydrate or dot notation. Keep any calculation to one or two steps.",
+      "misconceptions": [
+        "Takes the lowest recorded mass as final before successive weighings agree",
+        "Averages masses from cycles that have not converged",
+        "Reverses the direction of the effect of incomplete heating on the percent of the volatile component",
+        "Believes a different starting mass is needed rather than a repeated measurement"
+      ]
+    }
+  ],
+  "member_rules": {
+    "per_family": 3,
+    "difficulty": "v1 easy, v2 medium, v3 hard",
+    "choices": "Exactly 4 choices, A-D; one correct; each distractor produced by one named misconception, with a rationale that reproduces the shown value exactly.",
+    "calculator": "Numbers chosen so the arithmetic is manageable; state molar masses and constants needed.",
+    "vocabulary": "CED vocabulary only (DECISION-0095); the fact pack for Units 1 and 3 is the boundary."
+  }
+}

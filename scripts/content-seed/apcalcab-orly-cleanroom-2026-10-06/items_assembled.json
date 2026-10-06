@@ -1,0 +1,266 @@
+[
+ {
+  "key": "apcalcab-mcq-orly-c1-v1",
+  "kind": "mcq",
+  "family_id": "C1",
+  "topic_code": "2.1",
+  "difficulty": "easy",
+  "stem": "Let f(x) = sin(2x). What is the average rate of change of f on the interval [0, π/4]?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "2√2/π"
+   },
+   {
+    "label": "B",
+    "text": "4/π"
+   },
+   {
+    "label": "C",
+    "text": "1"
+   },
+   {
+    "label": "D",
+    "text": "-4/π"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Dropped the coefficient inside the argument: using sin(π/4) - sin(0) = √2/2 instead of sin(2·π/4) - sin(0), then dividing by π/4, gives 2√2/π.",
+   "B": "Average rate of change = (f(π/4) - f(0))/(π/4 - 0) = (sin(π/2) - sin(0))/(π/4) = (1 - 0)/(π/4) = 4/π.",
+   "C": "Did not divide by the interval length: f(π/4) - f(0) = 1 - 0 = 1 is the change in f, not its average rate of change.",
+   "D": "Sign reversed: computing (f(0) - f(π/4))/(π/4) = (0 - 1)/(π/4) gives -4/π. The earlier value must be subtracted from the later value."
+  },
+  "misconception_map": {
+   "A": "Drops the coefficient inside the argument when evaluating, for example using the value at x instead of at kx",
+   "C": "Gives the change in the function without dividing by the interval length",
+   "D": "Subtracts in the wrong order, so the sign is reversed"
+  },
+  "author_letter_map": {
+   "A": "D",
+   "B": "A",
+   "C": "C",
+   "D": "B"
+  }
+ },
+ {
+  "key": "apcalcab-mcq-orly-c1-v2",
+  "kind": "mcq",
+  "family_id": "C1",
+  "topic_code": "2.1",
+  "difficulty": "medium",
+  "stem": "Let g(x) = 3cos(2x) + 1. What is the average rate of change of g on the interval [π/6, 5π/6]?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "0"
+   },
+   {
+    "label": "B",
+    "text": "3√3"
+   },
+   {
+    "label": "C",
+    "text": "-3√3"
+   },
+   {
+    "label": "D",
+    "text": "-9√3/(2π)"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "g(π/6) = 3cos(π/3) + 1 = 5/2 and g(5π/6) = 3cos(5π/3) + 1 = 5/2. So (g(5π/6) - g(π/6))/(5π/6 - π/6) = 0/(2π/3) = 0. The function is not constant on the interval; its values at the two endpoints are equal.",
+   "B": "Used an instantaneous rate at the right endpoint: the derivative -6sin(2x) at x = 5π/6 is -6sin(5π/3) = 3√3, which is not the average rate of change.",
+   "C": "Used an instantaneous rate at the left endpoint: the derivative -6sin(2x) at x = π/6 is -6sin(π/3) = -3√3, which is not the average rate of change.",
+   "D": "Dropped the coefficient inside the argument: using 3cos(x) + 1 gives (3cos(5π/6) - 3cos(π/6))/(2π/3) = (-3√3)/(2π/3) = -9√3/(2π)."
+  },
+  "misconception_map": {
+   "B": "Evaluates the derivative at an endpoint or at the midpoint, giving an instantaneous rate instead of the average",
+   "C": "Evaluates the derivative at an endpoint or at the midpoint, giving an instantaneous rate instead of the average",
+   "D": "Drops the coefficient inside the argument when evaluating, for example using the value at x instead of at kx"
+  },
+  "author_letter_map": {
+   "A": "A",
+   "B": "C",
+   "C": "B",
+   "D": "D"
+  }
+ },
+ {
+  "key": "apcalcab-mcq-orly-c1-v3",
+  "kind": "mcq",
+  "family_id": "C1",
+  "topic_code": "2.1",
+  "difficulty": "hard",
+  "stem": "The height of a weight bouncing on a spring is modeled by h(t) = 12 + 5sin(2t) centimeters, where t is the time in seconds. What is the average rate of change of h over the time interval π/6 ≤ t ≤ π/2?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "15√3/(2π) cm per second"
+   },
+   {
+    "label": "B",
+    "text": "-5√3/2 cm per second"
+   },
+   {
+    "label": "C",
+    "text": "-15√3/(2π) cm per second"
+   },
+   {
+    "label": "D",
+    "text": "-5 cm per second"
+   }
+  ],
+  "keyed_label": "C",
+  "rationales": {
+   "A": "Sign reversed: computing (h(π/6) - h(π/2))/(π/3) = (5√3/2)/(π/3) gives 15√3/(2π) cm per second. The later value must be subtracted first.",
+   "B": "Did not divide by the interval length: h(π/2) - h(π/6) = -5√3/2 is the change in height in centimeters, so -5√3/2 cm per second is not the average rate of change.",
+   "C": "h(π/6) = 12 + 5sin(π/3) = 12 + 5√3/2 and h(π/2) = 12 + 5sin(π) = 12. Average rate of change = (12 - (12 + 5√3/2))/(π/2 - π/6) = (-5√3/2)/(π/3) = -15√3/(2π) cm per second.",
+   "D": "Used an instantaneous rate at the midpoint: the derivative 10cos(2t) at t = π/3 is 10cos(2π/3) = -5, giving -5 cm per second, which is the rate at one instant, not the average over the interval."
+  },
+  "misconception_map": {
+   "A": "Subtracts in the wrong order, so the sign is reversed",
+   "B": "Gives the change in the function without dividing by the interval length",
+   "D": "Evaluates the derivative at an endpoint or at the midpoint, giving an instantaneous rate instead of the average"
+  },
+  "author_letter_map": {
+   "A": "C",
+   "B": "D",
+   "C": "A",
+   "D": "B"
+  }
+ },
+ {
+  "key": "apcalcab-mcq-orly-c2-v1",
+  "kind": "mcq",
+  "family_id": "C2",
+  "topic_code": "2.1",
+  "difficulty": "easy",
+  "stem": "The table gives selected values of a function f.\n\nx: 0, 2, 3, 5, 7, 9\nf(x): 1, 10, 16, 28, 24, 26\n\nOn which of the following intervals is the average rate of change of f greatest?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[2, 3]"
+   },
+   {
+    "label": "B",
+    "text": "[5, 7]"
+   },
+   {
+    "label": "C",
+    "text": "[7, 9]"
+   },
+   {
+    "label": "D",
+    "text": "[0, 2]"
+   }
+  ],
+  "keyed_label": "A",
+  "rationales": {
+   "A": "Average rates of change: [0, 2]: (10 - 1)/2 = 9/2; [2, 3]: (16 - 10)/1 = 6; [5, 7]: (24 - 28)/2 = -2; [7, 9]: (26 - 24)/2 = 1. The greatest is 6, on [2, 3].",
+   "B": "Used the mean of the endpoint values: (28 + 24)/2 = 26 on [5, 7] is the largest mean, so [5, 7] was chosen, but its average rate of change is (24 - 28)/2 = -2.",
+   "C": "Compared function values at the right endpoints: f(9) = 26 is the largest right-endpoint value, so [7, 9] was chosen, but its average rate of change is only (26 - 24)/2 = 1.",
+   "D": "Divided by the right endpoint instead of the interval length: (10 - 1)/2 = 9/2 on [0, 2] beats (16 - 10)/3 = 2 on [2, 3], so [0, 2] looks greatest. The divisor must be b - a."
+  },
+  "misconception_map": {
+   "B": "Uses the mean of the two endpoint values (an average value of the function) instead of the average rate of change",
+   "C": "Compares function values at the right endpoints instead of rates",
+   "D": "Divides by the right endpoint instead of the interval length"
+  },
+  "author_letter_map": {
+   "A": "A",
+   "B": "D",
+   "C": "C",
+   "D": "B"
+  }
+ },
+ {
+  "key": "apcalcab-mcq-orly-c2-v2",
+  "kind": "mcq",
+  "family_id": "C2",
+  "topic_code": "2.1",
+  "difficulty": "medium",
+  "stem": "Let f(x) = x³ - 6x. On which of the following intervals is the average rate of change of f greatest?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[0, 5]"
+   },
+   {
+    "label": "B",
+    "text": "[2, 5]"
+   },
+   {
+    "label": "C",
+    "text": "[1, 5]"
+   },
+   {
+    "label": "D",
+    "text": "[3, 4]"
+   }
+  ],
+  "keyed_label": "B",
+  "rationales": {
+   "A": "Used the mean of the endpoint values: (0 + 95)/2 = 95/2 on [0, 5] is the largest mean, so [0, 5] was chosen, but its average rate of change is only 19.",
+   "B": "f(0) = 0, f(1) = -5, f(2) = -4, f(3) = 9, f(4) = 40, f(5) = 95. Average rates: [2, 5]: (95 - (-4))/3 = 33; [3, 4]: (40 - 9)/1 = 31; [1, 5]: (95 - (-5))/4 = 25; [0, 5]: (95 - 0)/5 = 19. The greatest is 33, on [2, 5].",
+   "C": "Divided by the right endpoint instead of the interval length: (95 - (-5))/5 = 20 on [1, 5] beats 99/5 on [2, 5], 19 on [0, 5], and 31/4 on [3, 4], so [1, 5] was chosen.",
+   "D": "Mishandled the negative value f(2) = -4: computing 95 - 4 instead of 95 - (-4) gives 91/3 on [2, 5] (and 90/4 on [1, 5]), so [3, 4] with 31 appears greatest."
+  },
+  "misconception_map": {
+   "A": "Uses the mean of the two endpoint values (an average value of the function) instead of the average rate of change",
+   "C": "Divides by the right endpoint instead of the interval length",
+   "D": "Mishandles a negative function value at the left endpoint when subtracting"
+  },
+  "author_letter_map": {
+   "A": "D",
+   "B": "A",
+   "C": "C",
+   "D": "B"
+  }
+ },
+ {
+  "key": "apcalcab-mcq-orly-c2-v3",
+  "kind": "mcq",
+  "family_id": "C2",
+  "topic_code": "2.1",
+  "difficulty": "hard",
+  "stem": "The volume of water in a reservoir is modeled by V(t) = 40√(t + 1) - 4t thousand cubic meters, where t is the time in days, 0 ≤ t ≤ 35. On which of the following intervals is the average rate of change of V least?",
+  "choices": [
+   {
+    "label": "A",
+    "text": "[0, 15]"
+   },
+   {
+    "label": "B",
+    "text": "[3, 8]"
+   },
+   {
+    "label": "C",
+    "text": "[8, 15]"
+   },
+   {
+    "label": "D",
+    "text": "[3, 35]"
+   }
+  ],
+  "keyed_label": "D",
+  "rationales": {
+   "A": "Used the mean of the endpoint values: (40 + 100)/2 = 70 on [0, 15] is the smallest mean, so [0, 15] was chosen, but its average rate of change is 4 thousand cubic meters per day.",
+   "B": "Compared function values at the right endpoints: V(8) = 88 is the smallest right-endpoint value, so [3, 8] was chosen, but its average rate of change is 4 thousand cubic meters per day.",
+   "C": "Divided by the right endpoint instead of the interval length: (100 - 88)/15 = 4/5 on [8, 15] is smaller than (100 - 68)/35 = 32/35 on [3, 35], so [8, 15] was chosen, but its average rate of change is 12/7 thousand cubic meters per day.",
+   "D": "V(0) = 40, V(3) = 68, V(8) = 88, V(15) = 100, V(35) = 100. Average rates (thousand cubic meters per day): [3, 35]: (100 - 68)/32 = 1; [3, 8]: (88 - 68)/5 = 4; [8, 15]: (100 - 88)/7 = 12/7; [0, 15]: (100 - 40)/15 = 4. The least is 1, on [3, 35]."
+  },
+  "misconception_map": {
+   "A": "Uses the mean of the two endpoint values (an average value of the function) instead of the average rate of change",
+   "B": "Compares function values at the right endpoints instead of rates",
+   "C": "Divides by the right endpoint instead of the interval length"
+  },
+  "author_letter_map": {
+   "A": "D",
+   "B": "B",
+   "C": "C",
+   "D": "A"
+  }
+ }
+]
