@@ -1,0 +1,146 @@
+[
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.1-canary",
+  "topic_title": "Introducing Calculus: Can Change Occur at an Instant?",
+  "seed_used": false,
+  "stem": "A runner's distance from the start is s(t) meters, where t is in seconds. Which statement best describes the runner's speed at exactly t = 5?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It is the value that the average speeds (s(5 + h) - s(5))/h approach as the time interval h gets smaller and smaller.",
+    "is_correct": false,
+    "rationale": "Earns the point: an instant has no width, so the instantaneous rate is defined as the value approached by average rates over shrinking intervals around t = 5."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It is the average speed over the whole run so far, s(5)/5.",
+    "is_correct": true,
+    "rationale": "Tempting because average speed is the rate you can compute directly from two measurements. But that is the rate over [0, 5], not at one instant. Fix: shrink the interval around t = 5 and look at where the average speeds settle."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It is (s(5) - s(5))/(5 - 5), which equals 0 because no time passes at an instant.",
+    "is_correct": false,
+    "rationale": "Tempting because at one instant neither distance nor time changes. But this is 0/0, which is undefined, not 0. Fix: never divide by a zero-width interval; use a limit of average rates instead."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is s(5), the runner's position at t = 5.",
+    "is_correct": false,
+    "rationale": "Tempting because s(5) is the one number the function gives at t = 5. But position is a distance, not a rate of change. Fix: speed measures how fast s changes, so it comes from average rates of s over intervals, not from s(5) itself."
+   }
+  ],
+  "verification": "Conceptual item resting on the brief: instantaneous rate = value approached by average rates over smaller intervals; direct quotient has zero change in x (0/0).",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.2-canary",
+  "topic_title": "Mass Spectra of Elements",
+  "seed_used": false,
+  "stem": "A mass spectrum of a sample of element Z shows exactly two peaks: one at mass 69.0 u with a relative abundance of 60.0%, and one at mass 71.0 u with a relative abundance of 40.0%. The peaks come from singly charged monatomic ions. What is the average atomic mass of Z?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "70.0 u",
+    "is_correct": true,
+    "rationale": "Tempting if you average the two peak masses, (69.0 + 71.0)/2 \u2014 but that treats both isotopes as equally common. Fix: multiply each mass by its fractional abundance before adding."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "69.8 u",
+    "is_correct": false,
+    "rationale": "Each peak's mass is weighted by its fractional abundance: 0.600(69.0) + 0.400(71.0) = 69.8 u. The sample is mostly the lighter isotope, so the average sits closer to 69 than to 71."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "70.2 u",
+    "is_correct": false,
+    "rationale": "Tempting if you pair 69.0 with 40.0% and 71.0 with 60.0% \u2014 but each isotope's mass goes with its own peak's abundance. Fix: match each peak's height to the mass at that same peak."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "69.0 u",
+    "is_correct": false,
+    "rationale": "Tempting if you report the tallest peak as the element's mass \u2014 but the average atomic mass includes every isotope's contribution. Fix: add the weighted contributions from all peaks."
+   }
+  ],
+  "verification": "0.600*69.0+0.400*71.0=69.8 (python). Simple mean 70.0; swapped abundances 0.4*69+0.6*71=70.2; tallest peak 69.0.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.1-canary",
+  "topic_title": "Structure of Water and Hydrogen Bonding",
+  "seed_used": false,
+  "stem": "A shallow pond and the sand beside it receive the same sunlight for an hour. The sand heats up by many degrees, but the pond water warms only slightly. Which statement best explains why the water changes temperature so little?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Water molecules are nonpolar, so they pass sunlight through without absorbing much of it and only a small fraction of the incoming heat is taken in by the pond.",
+    "is_correct": true,
+    "rationale": "Tempting if you link water's behavior to light transmission rather than to structure. But water is polar, and its temperature stability comes from hydrogen bonding. Fix: connect polarity to hydrogen bonds to heat absorption."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Heat absorbed by the water is first used to break some of the many hydrogen bonds between polar water molecules, so less of it raises the molecules' motion and temperature.",
+    "is_correct": false,
+    "rationale": "Water's polarity lets each molecule hydrogen-bond to its neighbors, and breaking those bonds absorbs energy. That is the high specific heat that keeps aquatic environments thermally stable."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Cohesion pulls the water molecules together at the surface, which blocks heat from entering the pond.",
+    "is_correct": false,
+    "rationale": "Tempting because cohesion is the best-known hydrogen-bond property. But cohesion explains surface tension, not resistance to temperature change. Fix: match the property to the observation; temperature stability is specific heat."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Evaporation removes all of the absorbed heat immediately, so the pond cannot warm at all.",
+    "is_correct": false,
+    "rationale": "Tempting because evaporative cooling is real. But the pond did warm slightly, and evaporation does not remove all heat. Fix: the main reason is that hydrogen bonds absorb energy as they break, giving water a high specific heat."
+   }
+  ],
+  "verification": "Brief/explainer: hydrogen bonds absorb energy when broken -> high specific heat -> thermal stability.",
+  "author_flags": ""
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.1-canary",
+  "topic_title": "Introducing Statistics: What Can We Learn from Data?",
+  "seed_used": true,
+  "stem": "A free-response question describes a school that wants to know whether students who sleep more tend to earn higher quiz scores, and then supplies a table of sleep hours and quiz scores for 30 students. Which first move best reflects how statistics is used to answer a real question?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Begin computing the mean and standard deviation of both variables right away, since the table already holds everything needed.",
+    "is_correct": true,
+    "rationale": "Tempting if you think statistics is just calculating numbers from a table \u2014 but numbers with no question behind them cannot be interpreted. Fix: name the question first, then choose calculations that help answer it."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Restate the investigative question in the context of sleep and quiz scores, and keep tying each calculation back to that question.",
+    "is_correct": false,
+    "rationale": "This earns the point because every statistical tool is a way to answer the real-world question despite variability in the data. Opening with the question keeps later numbers connected to what the school actually wants to learn."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Ignore the school setting, because context is only decoration and the numbers alone answer the question.",
+    "is_correct": false,
+    "rationale": "Tempting because the context does not change any arithmetic \u2014 but later free-response answers are graded on connecting results back to the situation. Fix: treat the context as part of the answer, not decoration."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Decide which procedure to use from the sample size of 30, and read the question only after the calculations are done.",
+    "is_correct": false,
+    "rationale": "Tempting because sample size matters for conditions \u2014 but the type of data and the question determine the method, not n alone. Fix: read the question first so the method and conclusion fit what is being asked."
+   }
+  ],
+  "verification": "Rests on the topic explainer: Topic 1.1 is a habit of treating data as evidence for a stated real-world question; no numeric computation.",
+  "author_flags": ""
+ }
+]

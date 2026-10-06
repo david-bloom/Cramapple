@@ -1,5 +1,11 @@
 import { Webhook } from "https://esm.sh/standardwebhooks@1.0.0";
 import {
+  emailFirstName,
+  emailFooter,
+  emailText,
+  emailUrl,
+} from "./email-template-data.ts";
+import {
   requireEmailConfig,
   sendLoopsTransactional,
 } from "./loops-transactional.ts";
@@ -12,7 +18,7 @@ const TEMPLATE_ENV: Record<string, string> = {
 
 export function buildAuthEmail(payload: unknown) {
   const { user, email_data: data } = payload as {
-    user?: { email?: string };
+    user?: { email?: string; user_metadata?: { first_name?: unknown } };
     email_data?: { email_action_type?: string; token?: string };
   };
   const action = data?.email_action_type ?? "";
@@ -28,7 +34,16 @@ export function buildAuthEmail(payload: unknown) {
     email: user.email,
     dataVariables: {
       token: data.token,
-      welcomeUrl: requireEmailConfig("AUTH_EMAIL_WELCOME_URL"),
+      welcomeUrl: emailUrl(requireEmailConfig("AUTH_EMAIL_WELCOME_URL")),
+      emailAddress: emailText(user.email),
+      expiryText: "Use this code soon. Request a new code if it expires.",
+      ...emailFooter(),
+      ...(action === "invite"
+        ? {
+          // Personalization only: metadata must never imply payment or access.
+          firstName: emailFirstName(user.user_metadata?.first_name),
+        }
+        : {}),
     },
   };
 }

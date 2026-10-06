@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0065 Checker Pilot (AP Biology) (2026-10-06): supplementary checks for generated Open Hand teaching items (named-trap audit, lint, CED-text topic probe) proven on a pilot (4 of 4 planted defects caught); reconciled with APPROVAL-0123 / PR #340 (pilot's 603-topic scope withdrawn, per-item habit-line check retired); run on the 91 drafts: lint 2 fail, named-trap 38 blocked (25 only on fact-vs-action fix lines), Biology topic probe 21/21; nothing written to any database
 - Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) (2026-10-04): `/home` was rendering legacy `TopicHome` for everyone because the built Stage A/B components were unmounted; Lovable commit `08a042ca` now routes by `experienceStage`; Dev `public.student_course_positions` view refreshed; NOT published; code-level QA only, six findings in the task file.
 - Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) (2026-10-04): final end-to-end QA on the live site passes; remaining checks need a signed-in session or a real inbox; handoff written.
 - Six-Criteria Re-run; Calc AB Canonicals; Difficulty Inheritance (2026-10-04): re-ran the six servability criteria on Production (no subject six-of-six: criterion 5 failed for MCQ everywhere after about 1,300 variants were published without difficulty, and criterion 4 failed for 20 Calc AB FRQs). Wrote the 20 canonicals with label carry-forward (APPROVAL-0116). Rated 31 seeds and had 1,011 variants and BC copies inherit, plus 1 FRQ variant (DECISION-0096, APPROVAL-0117). Every published item now has a difficulty band (FRQ 572/572, MCQ 1,718/1,718). PRs #327, #328 merged. Handoff: `docs/handoffs/SESSION_CLOSE_2026_10_04_SIX_CRITERIA_CANONICALS_DIFFICULTY.md`. **Next Owner:** David Bloom. **Next Action:** none blocking; optional provenance columns for seed links.
@@ -377,6 +378,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## TASK-0065 Checker Pilot (AP Biology) — 2026-10-06
+
+**Task:** `docs/tasks/TASK-0065-OPEN-HAND-TEACHING-QUESTION-GENERATION.md`. **Report:** `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`. David named Claude the owner and approved a Biology pilot first, with an item failing a check if either checker flags it.
+
+**Built:** `teaching_item_check.mjs` (C3 named-trap audit, C6 habit lines checked against `app.topic_point_briefs`) and `lint.py` (deterministic item-standard lint with a self-test). C1/C2/C4/C5 reuse the existing audit, CED and label-probe runners. Checkers: DeepSeek v4-pro + Gemini 3.8 flash; GPT-6.1 sol joins the 6-vote topic probe. Roster checked live.
+
+**Result:** 5 clean items plus 4 controls with one planted defect each. All 4 defects were caught by the intended check, by both checkers, in both rounds. After one patch round, 2 of 5 clean items pass (3.1, 7.5); the checkers found real authoring defects in the others. **Open:** C6's "brief core covered" rule pulls against "pairs with item"; the topic probe sees titles only (2.5 vs 2.8); Production has 61 Biology topic briefs vs the task's 27. **Reconciled with APPROVAL-0123 / PR #340 (same day):** another session had run TASK-0065 in parallel, and its approval governs: 91 items, with habit lines from the point brief. This pilot's 603-topic scope is withdrawn and C6 is retired. C3, the lint and the CED-text probe were run on #340's 91 drafts. Lint: 2 fail. C3: 38 blocked, 13 for an unnamed temptation and 25 only because a fix line states a fact rather than an action (open for David). Biology topic probe: 21/21. Results feed #340's patch loop. **Earlier, round 3 (David's decisions applied):** C6 brief rule softened to "shares at least one move"; topic probe given per-topic CED text (2.5 votes went from 2/6 to 6/6); scope revised to the 603 topics with a published point brief. Controls still 4 of 4; clean items 4 of 5 (2.5 excluded because it had a second patch). Production was read only. Nothing written to any database. 486 model calls.
 
 ## Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) — 2026-10-04
 
