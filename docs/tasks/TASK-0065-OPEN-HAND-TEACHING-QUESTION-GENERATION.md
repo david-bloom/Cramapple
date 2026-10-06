@@ -1,6 +1,6 @@
 # TASK-0065 — Generate Open Hand Teaching Questions (One per Topic, Never Scored)
 
-**Status:** In progress — authoring (Claude session, 2026-10-06)  
+**Status:** In progress — drafts done; outside checkers ready to run (paused 2026-10-06)  
 **Tier:** Standard for authoring in Development; Hard-Gate for Production publish and designation  
 **Owner:** Claude session (authoring); outside-family checkers via AI Gateway  
 **Product Owner:** David Bloom  
@@ -89,3 +89,53 @@ guides. 4.6 was also flagged, but it is a deliberate wrong-slope scenario, not a
 - **Still blocked:** `ai-gateway.vercel.sh` is denied by this environment's network policy, and no
   `AI_GATEWAY_API_KEY` is set.
 - **Explainer repair (4.4/4.5):** approved. Migration `20261006100000_repair_calc_ab_4_4_4_5_explainer_examples`.
+
+## Session handoff — 2026-10-06 (end of day)
+
+**Done.**
+- All 252 gap items are drafted and pass the structure self-check. The 91 in scope are in
+  `docs/research/open_hand_teaching_batch_2026_10_06/SCOPE_UNITS_1-3.json`.
+- The Calc AB 4.4/4.5 explainer repair is applied and verified in both Development and Production.
+- The checker script is written: `scripts/vercel-gateway-check/open_hand_teaching_check.mjs`. It runs a
+  blind solve plus a fact-pack audit per item per model, writes a union-of-flags report, can resume a
+  partial run, and refuses Anthropic models.
+- **Checker slate.** David chose DeepSeek V4 Pro because DeepSeek 5 is not on the gateway roster.
+  - `google/gemini-3.8-flash`
+  - `deepseek/deepseek-v4-pro`
+- **Gateway unblocked.** David added `ai-gateway.vercel.sh` to the allowed domains and set
+  `AI_GATEWAY_API_KEY` in the environment. A one-line test call to Gemini 3.8 through the `ai` SDK
+  returned OK.
+- **Env vars needed.** Node's fetch must go through the agent proxy, or every call gets a 403:
+  `NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt`.
+
+**Not done yet, in order.**
+1. **Smoke test** (AQP §3.2 rule 4), on four items (one per subject: Calc AB 1.1, Chem 1.2, Bio 1.1,
+   Stats 1.1), both models. The first attempt failed with a 403 before the proxy fix and was not re-run.
+   ```
+   cd scripts/vercel-gateway-check
+   NODE_USE_ENV_PROXY=1 NODE_EXTRA_CA_CERTS=/root/.ccr/ca-bundle.crt \
+     node open_hand_teaching_check.mjs <smoke4.json> <out_dir> \
+     --models=google/gemini-3.8-flash,deepseek/deepseek-v4-pro
+   ```
+   Build `smoke4.json` by picking those four items from `SCOPE_UNITS_1-3.json`. The script skips items
+   that already have a row in `results.jsonl`, so use a fresh output directory.
+2. **Full run** on `SCOPE_UNITS_1-3.json` into `docs/research/open_hand_teaching_batch_2026_10_06/check_run_1/`.
+3. **Verify every union flag** by hand, or with sympy for numeric items. Apply one patch loop, then
+   re-check every patched item with both models.
+4. **Record the results.** Model IDs, smoke results and cost go in a batch README, this file and
+   APPROVAL-0123.
+5. **Load in Development** as drafts. Insert `app.open_hand_teaching_items` rows (`source='generated'`)
+   and release the matching spare rows.
+6. **Production** only on David's approval (Hard-Gate).
+
+**Supabase MCP note.** Multi-statement writes, `apply_migration`, and UPDATEs that concatenate
+`source_note` hang at 60 seconds. Use single, simple statements.
+
+**Other open items outside this task, all before the plate loop goes ON.**
+- David deploys `student-session-items` with the CLI.
+- David gives the go-ahead on the attempt-response 409 mapping.
+- Fable does a signed-in walkthrough of the published Lovable build.
+- Re-enable `trg_refuse_attempt_on_teaching_item`.
+- David reviews and merges PR #340.
+- Next Lovable round: change the copy "↻ Revisit — the point is still available next attempt." to
+  "Revisit this one."
