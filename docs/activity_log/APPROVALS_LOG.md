@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0126 — Load and Publish 27 Orly Clean-Room MCQs (21 AP Chemistry Units 1/3, 6 AP Calculus AB 2.1) to Production; Hold the 3 Density Items — DECISION-0098
 - APPROVAL-0125 — TASK-0065: Load 91 Open Hand Teaching Items (Units 1–3; Bio, Stats, Chem, Calc AB) to Production
 - APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads (RLS); Re-enable Teaching-Item Attempt Trigger
 - APPROVAL-0123 — Repair Calc AB Explainers 4.4/4.5; TASK-0065 Units 1-3 Scope; Checkers Gemini 3.8 + DeepSeek 5
@@ -137,6 +138,39 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other view change; any app-side change.
 
+
+## APPROVAL-0126 — Load and Publish 27 Orly Clean-Room MCQs to Production; Hold the 3 Density Items
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (chat, 2026-10-06): "1. Approve 2. Hold the 3 density chem questions. Do not publish. 3. Approve 3.7 4. Approve loading the 26"  
+**Related:** `DECISION-0098`, `DECISION-0093`, `DECISION-0095`, `DECISION-0096`, `DECISION-0066`, PR #352  
+**Decision:** Approved
+
+**What David approved:**
+1. The S2 scrub of both batches' `family_specs.json`.
+2. Hold the 3 F4 density items. They are not published and were not written to any database.
+3. Topic 3.7 for `apchem-mcq-orly-f6-v2`.
+4. Loading the 26 checked drafts.
+
+**Interpretation, stated in chat:** approving 3.7 cleared f6-v2's only hold, so it was loaded with the 26. That makes **27 items**: 21 AP Chemistry (`apchem-mcq-orly-f1..f3, f5..f8`) and 6 AP Calculus AB (`apcalcab-mcq-orly-c1, c2`).
+
+**Writes (Production):** one transaction per subject. Each was rehearsed first (it raises `REHEARSAL OK` and rolls back), then committed. Pattern copied from the Physics 2 run. Per item:
+- **Item and status walk:** item, version 1, 4 choices, then `draft` → owner review decision → `reviewed_approved` → `published`.
+- **Difficulty:** the authored band (`calibrated_judgement`, DECISION-0096).
+- **Serving label:** validated (DECISION-0066). For f6-v2 it rests on David's chat decision (`chat_review`).
+- **Topic cell:** validated primary topic cell.
+- **Skill cell:** from a four-voter skill vote (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash), restricted to the Production topic × skill grid. 26 are validated at 3 or 4 of 4. `f2-v3` is `provisional_model` at 2 of 4.
+- **Required units:** from the blind topic probe. Two 2-2 ties (f6-v1, f7-v1) were broken by the family's pooled plurality, giving [1,3].
+
+**Pre-load change:** the f7-v1 choice B rationale still said "gauge reading" after the stem changed to "pressure sensor". It was reworded and re-audited by both checkers (clean).
+
+**Verified after commit (SELECT checks):**
+- **Text hashes:** 21/21 Chemistry and 6/6 Calculus match the build manifest.
+- **Published rows:** 27 published in `public.content_items`. 27 validated serving labels, 27 topic cells, 27 skill cells (26 validated, 1 provisional) and 27 difficulty rows.
+- **Held items:** 0 `orly-f4` rows.
+- **Answer keys:** A 6, B 7, C 7, D 7.
+
+**Rollback:** retire the 27 versions and items by `content_key ilike '%-orly-%'`. No other rows depend on them.
 
 ## APPROVAL-0125 — TASK-0065: Load 91 Open Hand Teaching Items to Production
 

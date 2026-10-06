@@ -6,7 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- Orly Pooled Practice Sets: Clean-Room Drafts (AP Chemistry Units 1/3, AP Calculus AB 2.1) (2026-10-06): 24 pooled reworded-exam MCQs mapped to CED topics and compared with the bank. All 4 Calculus keys and 2 of 20 Chemistry keys were wrong (told to Orly). Units 1-3 items used as seeds through the clean-room path (DECISION-0098): 10 families, 30 drafts, 26 checked, 4 held; nothing written to any database
+- Orly Pooled Practice Sets: Clean-Room Drafts (AP Chemistry Units 1/3, AP Calculus AB 2.1) (2026-10-06): 24 pooled reworded-exam MCQs mapped to CED topics and compared with the bank. All 4 Calculus keys and 2 of 20 Chemistry keys were wrong (told to Orly). Units 1-3 items used as seeds through the clean-room path (DECISION-0098): 10 families, 30 drafts; 27 published to Production (APPROVAL-0126), 3 density items held
 - TASK-0065 Checker Pilot (AP Biology) (2026-10-06): supplementary checks for generated Open Hand teaching items (named-trap audit, lint, CED-text topic probe) proven on a pilot (4 of 4 planted defects caught); reconciled with APPROVAL-0123 / PR #340 (pilot's 603-topic scope withdrawn, per-item habit-line check retired); run on the 91 drafts: lint 2 fail, named-trap 38 blocked (25 only on fact-vs-action fix lines), Biology topic probe 21/21; nothing written to any database
 - Student Hub Stage A/B Mounted in Lovable Dev Preview; Dev View Fixed (TASK-0048) (2026-10-04): `/home` was rendering legacy `TopicHome` for everyone because the built Stage A/B components were unmounted; Lovable commit `08a042ca` now routes by `experienceStage`; Dev `public.student_course_positions` view refreshed; NOT published; code-level QA only, six findings in the task file.
 - Session Close: Checkout User Testing, Post-Purchase Flow, Parent Pay, Student Home 400 (TASK-0060) (2026-10-04): final end-to-end QA on the live site passes; remaining checks need a signed-in session or a real inbox; handoff written.
@@ -403,7 +403,7 @@ Most recent entries (full reverse-chronological list follows below):
 
 Production was read only. Nothing was written to any database.
 
-**Next Owner:** David Bloom. **Next Action:** sign off the spec scrub (`family_specs.json`), decide F4 and f6-v2, and approve or decline loading and labelling the 26 checked drafts.
+**Update (same day, APPROVAL-0126):** David approved the scrub, held F4 (density, not published), set f6-v2 to 3.7 and approved loading. **27 items published to Production** (21 Chemistry, 6 Calc AB) with validated labels, topic cells, skill cells and difficulty; hash-verified. **Next Owner:** David Bloom. **Next Action:** none blocking; F4 stays held as readiness content.
 
 ## TASK-0065 Checker Pilot (AP Biology) — 2026-10-06
 

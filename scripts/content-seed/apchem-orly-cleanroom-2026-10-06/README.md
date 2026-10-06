@@ -1,6 +1,6 @@
 # Orly pooled-practice clean-room batches (2026-10-06)
 
-Two batches, run together under `DECISION-0098`. Both stop at **checked drafts**: nothing is loaded to Dev or Production.
+Two batches, run together under `DECISION-0098`. **Update 2026-10-06: 27 items published to Production under `APPROVAL-0126`** (`gen_publish.py`, `*_rehearsal.sql` / `*_commit.sql`, `hash_check_*.sql`). F4 (density) is held and is not in any database.
 
 | Batch | Families | Drafts | Checked drafts | Held |
 |---|---|---|---|---|
@@ -71,11 +71,10 @@ never as source text.
 Per-item status: `status_manifest.json` in each batch. Final item text: `items_assembled.json`
 (pre-patch: `items_assembled_prepatch.json`).
 
-## Not done (needs a separate approval)
+## After APPROVAL-0126
 
-- Product Owner scrub sign-off.
-- Skill labels (four-voter run).
-- Difficulty band confirmation.
-- Loading to Dev or Production.
-- Content keys `apchem-mcq-orly-*` and `apcalcab-mcq-orly-*` are proposals.
-- Family membership exists only in these files (seeded protocol §7).
+- **Scrub:** signed off by David.
+- **Skills:** four-voter vote restricted to the Production grid (`out_skill_*`). 26 validated and 1 provisional (f2-v3). An earlier Chemistry vote that ran without the grid restriction was discarded (`out_skill_unrestricted_discarded/`).
+- **Difficulty:** the authored band.
+- **Required units:** 2-2 ties broken by family plurality (f6-v1, f7-v1).
+- **Still open:** family membership exists only in these files (seeded protocol §7). F4 stays held.
