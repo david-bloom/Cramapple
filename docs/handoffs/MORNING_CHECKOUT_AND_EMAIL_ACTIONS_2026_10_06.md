@@ -1,6 +1,6 @@
 # Morning Reference: Checkout and Transactional Email
 
-STATUS: CURRENT - joint review complete; fixes, designs and end-to-end checks outstanding
+STATUS: CURRENT - David's checklist steps 1-3 complete; integration, fixes and end-to-end checks outstanding
 DATE: 2026-10-06
 OWNER: David Bloom
 BRANCH: codex/checkout-qa-friction
@@ -13,9 +13,12 @@ every point. Joint QA covers both functional bugs and avoidable friction.
 Astra reviews the flow and implementation; Sol checks the live browser; Codex
 checks production evidence and integrates the findings.
 
-**First morning action:** review the priorities below and provide the six email designs. The Loops backend
-foundation is built and tested, but final templates and inbox tests are needed
-before it can replace live auth/payment email.
+**Progress update, 2026-10-06:** David confirmed checklist steps 1-3 complete:
+email designs provided, QA recommendations reviewed, and controlled parent/student
+inboxes supplied. Ten numbered HTML designs are preserved and adapted for Loops
+in [PR #344](https://github.com/david-bloom/Cramapple/pull/344).
+Design delivery is complete; publishing/binding templates and real-inbox tests
+are separate implementation steps, not completed by this confirmation.
 
 Implementation and rollout plan:
 https://github.com/david-bloom/Cramapple/pull/341
@@ -58,16 +61,23 @@ source-reviewed defects and tests still needing real payment or inbox evidence.
 
 ## Your checklist
 
-| Priority | Action | Owner | Completion evidence |
-| --- | --- | --- | --- |
-| 1 | Provide the six transactional email designs below | David | Designs and final copy ready to build in Loops |
-| 2 | Review the QA's recommended checkout changes, including friction findings | David | Chosen priorities and desired flow recorded |
-| 3 | Supply controlled student and parent inboxes for real-inbox testing | David | Separate inboxes available; brand-new student and existing-account cases covered |
-| 4 | Confirm current Supabase auth emails show a six-digit code while migration remains pending | David + implementation | Invite, signup confirmation and login code work through the current sender |
-| 5 | Verify the login fix and hub welcome banner are actually published and work after login | David + implementation | Successful signed-in hub load, banner dismiss persists on reload |
-| 6 | Complete the final end-to-end purchase and parent-pay tests after fixes | David + QA | Correct amount, one intended verification request, access granted, clear next step |
+| Priority | Status | Action | Owner | Completion evidence |
+| --- | --- | --- | --- | --- |
+| 1 | Complete | Provide transactional email designs | David | Ten numbered HTML designs received; originals and validated MJML adaptations in PR #344 |
+| 2 | Complete | Review the QA's recommended checkout changes, including friction findings | David | David explicitly confirmed step 2 complete on 2026-10-06; this is review completion, not a QA pass or resolution of every open product decision |
+| 3 | Complete | Supply controlled student and parent inboxes for real-inbox testing | David | Two parent and two student addresses supplied privately, including intended existing/new student cases; no account reset or test-send result implied |
+| 4 | Pending | Confirm current Supabase auth emails show a six-digit code while migration remains pending | David + implementation | Invite, signup confirmation and login code work through the current sender |
+| 5 | Pending | Verify the login fix and hub welcome banner are actually published and work after login | David + implementation | Successful signed-in hub load, banner dismiss persists on reload |
+| 6 | Pending | Complete the final end-to-end purchase and parent-pay tests after fixes | David + QA | Correct amount, one intended verification request, access granted, clear next step |
 
-## Email designs to provide
+## Email designs received
+
+The table below retains the original six core purposes. The supplied ten designs
+also cover payer receipts, subjects added, parent reminders, payment-link expiry
+and refunds. See [the import readiness checklist](https://github.com/david-bloom/Cramapple/blob/codex/loops-email-designs/docs/email/transactional/README.md)
+for exact files, variables and unresolved trigger/data contracts. Loops upload
+remains blocked by Chrome extension local-file access; the real footer mailing
+address is also needed. These do not reopen completed design-delivery step 1.
 
 | Design | Recipient / purpose | Essential content |
 | --- | --- | --- |
@@ -83,9 +93,10 @@ Supabase's different auth actions; the student should not have to understand the
 Keep code emails short. A purchase confirmation must not imply that payment alone
 signs the student in.
 
-One-provider delivery is the agreed destination. Payer receipts, refund emails,
-parent reminders/expiration and enabled account-security notices also need a
-coverage decision and appropriate designs. Stripe receipts remain active until
+One-provider delivery is the agreed destination. Designs for payer receipts,
+refunds and parent reminders/expiration have now been supplied; their trigger
+and coverage decisions remain outstanding. Any enabled account-security notices
+also need explicit coverage. Stripe receipts remain active until
 the replacement receipt path has been tested, so the migration is not yet complete.
 
 ## Implementation work queued for Codex
