@@ -1,8 +1,8 @@
 # TASK-0065 — Generate Open Hand Teaching Questions (One per Topic, Never Scored)
 
-**Status:** Open — owner to be named by David  
+**Status:** In progress — authoring (Claude session, 2026-10-06)  
 **Tier:** Standard for authoring in Development; Hard-Gate for Production publish and designation  
-**Owner:** content pipeline (to be confirmed)  
+**Owner:** Claude session (authoring); outside-family checkers via AI Gateway  
 **Product Owner:** David Bloom  
 **Date opened:** 2026-10-06  
 **Parent:** `TASK-0064` (teaching pool), `DECISION-0087` ("reserved teaching pool")
@@ -52,3 +52,20 @@ has a generated item. Priority order:
 - [ ] After designation, each topic's RPC call returns the generated item, and the released spare is
       served again by the selectors.
 - [ ] 0 generated teaching items are served by any scored selector (same 30-seed check as TASK-0064).
+
+## Scope decision — 2026-10-06 (David)
+
+"Do bio, stats, chemistry and calc AB." Other subjects wait until they have real students; the QA-round
+frontend routes a topic with no worked example to Practice and finds the nearest worked example.
+
+Gap measured in Production against published topic point briefs (the topics a student can land on):
+Biology 58, Statistics 41, Chemistry 84, Calc AB 69, for **252 items**. The earlier "~214 for every subject"
+estimate undercounted, because it used topics with scored content rather than every brief.
+
+Batch directory: `docs/research/open_hand_teaching_batch_2026_10_06/` (`AUTHORING_SPEC.md`,
+`FACT_PACK_QUERY.sql`). Habit lines come from each topic's point brief on screen, so items carry stem,
+choices and per-choice rationales only.
+
+**Blocked:** the two outside-family checker stages (DECISION-0093). `ai-gateway.vercel.sh` is denied by
+this environment's network policy, and no `AI_GATEWAY_API_KEY` is set. No item is loaded until both
+checkers have cleared it.
