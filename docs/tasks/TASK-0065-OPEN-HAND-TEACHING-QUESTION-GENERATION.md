@@ -132,7 +132,8 @@ guides. 4.6 was also flagged, but it is a deliberate wrong-slope scenario, not a
 `source_note` hang at 60 seconds. Use single, simple statements.
 
 **Other open items outside this task, all before the plate loop goes ON.**
-- David deploys `student-session-items` with the CLI.
+- ~~David deploys `student-session-items` with the CLI.~~ **Done 2026-10-06:** Production v33, Development v21. All six
+  deployed files are byte-identical to this branch (checked via the Supabase MCP); `verify_jwt` stays on.
 - David gives the go-ahead on the attempt-response 409 mapping.
 - Fable does a signed-in walkthrough of the published Lovable build.
 - Re-enable `trg_refuse_attempt_on_teaching_item`.
