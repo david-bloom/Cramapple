@@ -242,3 +242,17 @@ question and no Next.
 
 **Frontend:** Fable's corrected prompt (sections A–H) was sent to Lovable as a build-only round.
 The plate loop stays OFF, and the build is not published until David reviews it.
+
+## Trigger re-enabled — 2026-10-06 (APPROVAL-0124)
+
+All three re-enable conditions are now met or covered:
+1. `student-session-items` with `dropTeachingItems` is deployed: Production v33, Development v21.
+2. The client reads are covered at the database. Practice no longer reads content tables, and the two
+   remaining client reads (`/session` with the MCQ format, `/session/mcq`) are blocked by RLS through
+   migration `20261006140000_hide_teaching_items_from_student_reads`.
+3. The `attempt-response` 409 mapping is committed (225c46b) and waiting on David's CLI deploy. With
+   every serving path filtered, the trigger is now only a backstop.
+
+`trg_refuse_attempt_on_teaching_item` is re-enabled in Production. A rolled-back test insert was
+refused. Fable's re-check is in `docs/qa/QA_OPEN_HAND_PRACTICE_RECHECK_2026_10_06.md`, with an addendum.
+The plate loop stays OFF until N1 (each Open Hand rationale printed twice) is fixed.
