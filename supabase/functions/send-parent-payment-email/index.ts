@@ -3,6 +3,7 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
 import { shortLinkUrl } from "../_shared/parent-short-link.ts";
 import { parentRequestVariables } from "../_shared/email-template-data.ts";
+import { recordParentRequestLifecycle } from "../_shared/parent-email-lifecycle.ts";
 import {
   requireEmailConfig,
   sendLoopsTransactional,
@@ -119,6 +120,18 @@ Deno.serve(async (req) => {
       }),
     }, crypto.randomUUID());
     sendStatus = "sent";
+    if (Deno.env.get("PARENT_EMAIL_LIFECYCLE_ENABLED") === "true") {
+      try {
+        await recordParentRequestLifecycle(service, {
+          session: session as unknown as Parameters<typeof recordParentRequestLifecycle>[1]["session"],
+          sentParentEmail: parentEmail,
+        });
+      } catch (error) {
+        // The request email already sent. Keep that result truthful while
+        // surfacing lifecycle setup failures for operator review.
+        console.error("send-parent-payment-email lifecycle_record_failed", error);
+      }
+    }
     return respond({ status: "ok" });
   } catch {
     console.error("send-parent-payment-email delivery_failed");

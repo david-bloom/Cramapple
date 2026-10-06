@@ -1,6 +1,6 @@
 # Transactional Email Design Import
 
-STATUS: CURRENT - core backend template contracts implemented and tested; Loops import blocked, no cutover
+STATUS: CURRENT - nine Loops templates published; final publication and Development cutover pending
 DATE: 2026-10-06
 OWNER: David Bloom (design); Codex (integration)
 RELATED: TASK-0060; Loops PR #341; checkout QA PR #343; ordering fix PR #342
@@ -65,9 +65,9 @@ Normalization is deliberately limited:
 | 10 Refund | Payer after successful refund | No dedicated Loops refund trigger yet. Needs refund-specific amount/status, original payment details, truthful accessChange and receipt URL. Support partial/multiple refunds and non-card methods. Timing copy needs verification. |
 
 `manifest.json` lists variables actually used, not merely variables named in
-source comments. All IDs remain null until imported and checked; do not point
-current backend environment variables at these richer contracts until import,
-provider discovery/render verification and Development configuration are complete.
+source comments. It records the nine provider-published IDs and the imported but
+unconfirmed tenth draft. Do not point current backend environment variables at
+the unconfirmed refund template until provider publication is visibly verified.
 
 ## Implementation Authorized While Manual QA Is Deferred
 
@@ -102,15 +102,12 @@ deliveries are awaiting reconciliation.
 ## Import Evidence and Blocker
 
 Confirmed authenticated access to the Cramapple Loops workspace, Free plan.
-Created one unpublished draft: `01 Welcome Verification - Design QA`, ID
-`cmuwnate600hw0jzcwwtxrtmy`. The Code editor requires an MJML ZIP upload.
-Upload failed because the ChatGPT Chrome extension has local-file access disabled.
-No content was uploaded, no template was published, and no mail was sent.
-Draft: https://app.loops.so/transactional/cmuwnate600hw0jzcwwtxrtmy?stepName=Compose
-
-David's next step: enable Allow access to file URLs for the ChatGPT Chrome
-extension, or upload the prepared MJML ZIP files manually. This expands extension
-local-file access and must be the user's decision; Codex did not alter the setting.
+Templates 01-09 were uploaded, variable-discovered, reviewed and shown as
+Published in the provider list. Template 10 was uploaded and has provider ID
+`cmuwrv0td06ic0jzlawvqx6q5`, but the provider list still showed Draft after the
+publish attempt; it is recorded as `draft_unconfirmed`. No email was sent during
+import. A reproducible ZIP builder is checked in as `build-imports.mjs` and
+requires a single root `index.mjml` per archive.
 
 ## QA and Next Owner
 
