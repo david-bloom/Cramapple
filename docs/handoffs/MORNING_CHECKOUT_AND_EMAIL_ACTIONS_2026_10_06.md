@@ -101,6 +101,29 @@ the replacement receipt path has been tested, so the migration is not yet comple
 
 ## Implementation work queued for Codex
 
+2026-10-06 delegation: David cannot run checklist steps 4-6 now and authorized
+Codex to proceed with implementation. Those manual acceptance checks are deferred,
+not passed, and do not block code work. No permission to skip release gates is inferred.
+
+Implemented in [PR #344](https://github.com/david-bloom/Cramapple/pull/344), source
+checkpoint `9ae755de900a241c04462f334792eb0e90e90a60`:
+
+- Six core Loops template-variable contracts, formatted discounted USD prices,
+  explicit parent-link expiry, safe text/links and correct student recipient.
+- Auth templates no longer promise paid access from editable metadata; direct
+  confirmation omits unverified access-end dates and separate-receipt promises.
+- Verified authentication and order-owner checks before add-on customer reuse;
+  mocked handler rejects missing/invalid tokens and wrong account without Stripe calls.
+- Notification ownership backfill precedes independent queue work (PR #342 correction).
+- 49 backend tests passed; five function entrypoints type-check; ten MJML files validate.
+
+No new Production deployment, template publish, email or payment occurred.
+Loops upload access, actual footer mailing address, template ID binding and inbox
+QA remain pending. Existing-account first-code orchestration, invite/confirmation
+overlap and repeat-purchase entitlement provenance are still release blockers.
+Preview-only frontend friction work is underway in the marketing Lovable project;
+it must be reviewed and verified before publication.
+
 - Build/publish your Loops designs and bind Development template IDs.
 - Configure the signed Auth hook and worker secrets; keep codes out of the queue.
 - Check enabled Auth actions and add mappings for every enabled email type before cutover.
