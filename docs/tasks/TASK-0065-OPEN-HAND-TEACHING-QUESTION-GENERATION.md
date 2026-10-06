@@ -1,8 +1,8 @@
 # TASK-0065 — Generate Open Hand Teaching Questions (One per Topic, Never Scored)
 
-**Status:** Open — owner to be named by David  
+**Status:** In progress — checker pilot (Biology) done 2026-10-06; two checker-policy questions open before the full batch  
 **Tier:** Standard for authoring in Development; Hard-Gate for Production publish and designation  
-**Owner:** content pipeline (to be confirmed)  
+**Owner:** Claude (named by David, 2026-10-06)  
 **Product Owner:** David Bloom  
 **Date opened:** 2026-10-06  
 **Parent:** `TASK-0064` (teaching pool), `DECISION-0087` ("reserved teaching pool")
@@ -52,3 +52,20 @@ has a generated item. Priority order:
 - [ ] After designation, each topic's RPC call returns the generated item, and the released spare is
       served again by the selectors.
 - [ ] 0 generated teaching items are served by any scored selector (same 30-seed check as TASK-0064).
+
+## Progress — 2026-10-06 (checker pilot)
+
+David's direction: Claude owns the task; build and prove the checkers on a small Biology pilot first;
+an item fails a check if **either** checker flags it.
+
+Pilot: 5 clean items (topics 1.1, 2.5, 3.1, 5.3, 7.5) plus 4 controls with one planted defect each.
+Full report: `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`. New tooling:
+`scripts/vercel-gateway-check/teaching_item_check.mjs` (C3 named-trap audit, C6 habit lines) and the
+pilot's `lint.py`. Nothing written to any database.
+
+- All 4 planted defects were caught by the intended check, by both checkers, in both rounds.
+- After one patch round, 2 of 5 clean items pass (3.1, 7.5). The checkers found real defects in the
+  rest. 2.5 is dropped because of a 2.5/2.8 topic overlap.
+- Open before the full batch: (1) C6 "brief core covered" vs "pairs with item", which pull against
+  each other; (2) give the topic probe the CED text, not just titles; (3) scope: Production has 61
+  Biology topic briefs, not 27.
