@@ -3,6 +3,7 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
 import { isPayerNotLearner } from "../_shared/addon-checkout.ts";
+import { enqueuePaymentEmail } from "../_shared/payment-email.ts";
 import {
   isFullyRefunded,
   isSettledPaymentStatus,
@@ -413,6 +414,13 @@ async function handleCheckoutSessionCompleted(
     },
   });
 
+  await enqueuePaymentEmail(service, userId, {
+    sessionId: session.id,
+    purchaseType,
+    subjects: mode === "unlimited" ? "All AP subjects" : metadata.subject_ids ?? "",
+    amountTotal: session.amount_total ?? 0,
+    currency: session.currency ?? "usd",
+  });
   return userId;
 }
 

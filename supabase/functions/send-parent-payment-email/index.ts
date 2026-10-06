@@ -2,8 +2,11 @@ import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { createServiceClient } from "../_shared/supabase.ts";
 import { stripe } from "../_shared/stripe.ts";
 import { shortLinkUrl } from "../_shared/parent-short-link.ts";
+import {
+  requireEmailConfig,
+  sendLoopsTransactional,
+} from "../_shared/loops-transactional.ts";
 
-const LOOPS_API_BASE = "https://app.loops.so/api/v1";
 const MAX_SENDS_PER_SESSION_PER_HOUR = 5;
 
 function asString(value: unknown) {
@@ -18,7 +21,8 @@ function asEmail(value: unknown) {
 async function sha256(value: string) {
   const bytes = new TextEncoder().encode(value);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
-  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 Deno.serve(async (req) => {
@@ -51,8 +55,12 @@ Deno.serve(async (req) => {
 
   const metadata = session.metadata ?? {};
   const purchaseType = metadata.purchase_type ?? metadata.purchaser_type;
-  if (purchaseType !== "parent_share" || !session.url || session.status !== "open") {
-    return respond({ error: "invalid_parent_payment_session" }, { status: 409 });
+  if (
+    purchaseType !== "parent_share" || !session.url || session.status !== "open"
+  ) {
+    return respond({ error: "invalid_parent_payment_session" }, {
+      status: 409,
+    });
   }
 
   const service = createServiceClient();
@@ -63,7 +71,10 @@ Deno.serve(async (req) => {
     .eq("checkout_session_id", sessionId)
     .gte("created_at", since);
   if (countError) {
-    console.error("send-parent-payment-email rate_limit_lookup_failed", countError);
+    console.error(
+      "send-parent-payment-email rate_limit_lookup_failed",
+      countError,
+    );
     return respond({ error: "email_send_failed" }, { status: 500 });
   }
   if ((count ?? 0) >= MAX_SENDS_PER_SESSION_PER_HOUR) {
@@ -87,34 +98,35 @@ Deno.serve(async (req) => {
     if (linkRow?.code) checkoutUrl = shortLinkUrl(appBaseUrl, linkRow.code);
   }
 
-  const studentName = metadata.student_name ?? "your student";
-  const subjectCount = (metadata.subject_ids ?? "").split(",").filter(Boolean).length;
+  const studentName = metadata.student_name?.trim().split(/\s+/)[0] ||
+    "your student";
+  const subjectCount =
+    (metadata.subject_ids ?? "").split(",").filter(Boolean).length;
 
   let sendStatus = "failed";
   try {
-    const response = await fetch(`${LOOPS_API_BASE}/events/send`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+    await sendLoopsTransactional({
+      transactionalId: requireEmailConfig(
+        "LOOPS_PARENT_REQUEST_TRANSACTIONAL_ID",
+      ),
+      email: parentEmail,
+      dataVariables: {
+        checkoutUrl,
+        studentName,
+        subjectCount,
+        subjects: metadata.subject_ids ?? "",
+        amountTotal: session.amount_total ?? 0,
+        currency: session.currency ?? "usd",
+        expiresAt: session.expires_at
+          ? new Date(session.expires_at * 1000).toISOString()
+          : "",
       },
-      body: JSON.stringify({
-        email: parentEmail,
-        eventName: "parent_payment_link_requested",
-        eventProperties: {
-          checkoutUrl,
-          studentName,
-          subjectCount,
-        },
-      }),
-    });
-
-    if (!response.ok) {
-      console.error("send-parent-payment-email loops_failed", response.status);
-      return respond({ error: "email_send_failed" }, { status: 502 });
-    }
+    }, crypto.randomUUID());
     sendStatus = "sent";
     return respond({ status: "ok" });
+  } catch {
+    console.error("send-parent-payment-email delivery_failed");
+    return respond({ error: "email_send_failed" }, { status: 502 });
   } finally {
     const emailHash = await sha256(parentEmail);
     const { error } = await service.schema("app")
