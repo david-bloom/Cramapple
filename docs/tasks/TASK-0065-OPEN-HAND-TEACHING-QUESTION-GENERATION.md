@@ -1,6 +1,6 @@
 # TASK-0065 — Generate Open Hand Teaching Questions (One per Topic, Never Scored)
 
-**Status:** In progress — drafts done; outside checkers ready to run (paused 2026-10-06)  
+**Status:** Units 1–3 done — 91 items live in Production (2026-10-06, APPROVAL-0125). Units 4+ not started.  
 **Tier:** Standard for authoring in Development; Hard-Gate for Production publish and designation  
 **Owner:** Claude session (authoring); outside-family checkers via AI Gateway  
 **Product Owner:** David Bloom  
@@ -172,3 +172,16 @@ Results are in `docs/research/open_hand_teaching_batch_2026_10_06/CHECK_RESULTS.
   D, which is outside my edits.
 
 **Open before loading:** the 13 C3 temptation-blocked items and the 2 lint failures from #345/#348.
+
+## Loaded to Production — 2026-10-06 (APPROVAL-0125)
+- **Batch 1:** the 76 items that cleared every stage.
+- **Batch 2:** the 15 C3/lint-blocked items, after the `fix15/` rewrite. All 15 now pass lint, C3 and the
+  solve/audit checks on both checkers. The one DeepSeek scope flag, on Bio 3.3, was adjudicated: the published brief
+  covers energy coupling.
+- **Live:** Bio 21, Stats 29, Chem 21, Calc AB 20 = 91. Every Units 1–3 gap topic in the four subjects now has a
+  worked example.
+- **Verified:** content hashes match; Open Hand serves the new items; students cannot read them directly; scoring
+  never serves them.
+- `SCOPE_UNITS_1-3.json` now holds the final text of all 91, with the fix15 rewrites merged in.
+- **Follow-up:** add energy coupling and ATP hydrolysis to the 3.3 entry of `AP_BIOLOGY_CED_FACT_PACK.md`, so the
+  checker stops flagging it.

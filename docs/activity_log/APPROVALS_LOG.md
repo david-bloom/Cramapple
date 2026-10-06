@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0125 — TASK-0065: Load 91 Open Hand Teaching Items (Units 1–3; Bio, Stats, Chem, Calc AB) to Production
 - APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads (RLS); Re-enable Teaching-Item Attempt Trigger
 - APPROVAL-0123 — Repair Calc AB Explainers 4.4/4.5; TASK-0065 Units 1-3 Scope; Checkers Gemini 3.8 + DeepSeek 5
 - APPROVAL-0081 — AP Biology Skill Re-vote on the 73 Topic-Corrected Items (Production) — DECISION-0085
@@ -136,6 +137,44 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other view change; any app-side change.
 
+
+## APPROVAL-0125 — TASK-0065: Load 91 Open Hand Teaching Items to Production
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "Load 76 now, I fix the 15 (Recommended)", then "Yes, load all 76 (Recommended)")  
+**Related Tasks:** `TASK-0065`, `TASK-0064`  
+**Decision:** Approved
+
+**Scope:** Units 1–3 gap topics for AP Biology, AP Statistics, AP Chemistry and AP Calculus AB. Each item is a
+published MCQ with one primary topic cell and an active `app.open_hand_teaching_items` row (`source='generated'`,
+note 'TASK-0065 batch 2026-10-06'). None has a serving label. Teaching items are hidden from student reads by RLS
+(APPROVAL-0124) and excluded from every scoring selector.
+
+**Quality gates:**
+- **Outside checkers** (DECISION-0093): Gemini 3.8 Flash and DeepSeek V4 Pro. Smoke test and canary first; then
+  a blind solve and a fact-pack audit on all 91. Every key matched and none was disputed. Four rationale errors
+  were fixed.
+- **Lint and C3 named-trap audit** (#345/#348): 15 items were blocked. They were rewritten (`fix15/`) and now pass
+  lint, C3 and the solve/audit checks on both models.
+- **Review status:** set directly to `question_review_approved`. No human-review records were written; the
+  checker stages above are the review provenance.
+
+**Outcome (verified in Production by SELECT checks):**
+- **Batch 1:** 76 items (Bio 15, Stats 25, Chem 21, Calc AB 15). Hash check 76/76.
+- **Batch 2:** 15 items (Bio 6, Stats 4, Calc AB 5). Content check 15/15.
+- **Totals:** 91 items, published with 4 choices and 1 correct each: Bio 21, Stats 29, Chem 21, Calc AB 20.
+- **Functional checks:**
+  - `get_open_hand_teaching_item` returns the new item for an entitled student.
+  - A direct student read sees 0 of the 91.
+  - `select_unit_gated_practice_items` returns none of them. For Statistics and Calc AB this is a sample,
+    because the selector caps results at 50 rows.
+- **Spares released:** 0. All batch topics were gap topics.
+- Development holds Bio and Stats only. It has no published Chemistry or Calc AB pack.
+
+**Files:**
+- Loader: `scripts/content-seed/task0065_load/`
+- Load SQL: `docs/research/open_hand_teaching_batch_2026_10_06/load/`, `load_batch2/`
+- Reports: `load/LOAD_REPORT.md`, `CHECK_RESULTS.md`, `fix15/FIX15_REPORT.md`
 
 ## APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads; Re-enable the Teaching-Item Attempt Trigger
 
