@@ -107,9 +107,7 @@ export async function recordGrowthEvent(
   if (lookupError) throw lookupError;
   if (!existing || existing.delivered_at) return;
 
-  const projectKey = Deno.env.get("POSTHOG_PROJECT_API_KEY") ??
-    Deno.env.get("POSTHOG_PROJECT_TOKEN") ??
-    Deno.env.get("POSTHOG_API_KEY");
+  const projectKey = Deno.env.get("POSTHOG_PROJECT_API_KEY");
   const host = (Deno.env.get("POSTHOG_HOST") ?? "https://us.i.posthog.com")
     .replace(/\/$/, "");
   if (!projectKey) return;
