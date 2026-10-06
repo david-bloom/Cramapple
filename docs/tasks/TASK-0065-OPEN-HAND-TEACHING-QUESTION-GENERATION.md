@@ -80,3 +80,12 @@ not on the curve. Re-checked in Production:
 Students see these in the topic guide and the deep dive. The teaching items do not reuse them. The fix
 (pick points on each curve) is a separate content repair and needs David's approval to edit published
 guides. 4.6 was also flagged, but it is a deliberate wrong-slope scenario, not a defect.
+
+## Scope and checkers — 2026-10-06 (APPROVAL-0123)
+
+- **Units 1–3 only** for the four subjects: Biology 21, Statistics 29, Chemistry 21, Calc AB 20, for
+  **91 items**. The later-unit drafts stay in the batch directory but are out of scope.
+- **Checkers:** Gemini 3.8 and DeepSeek 5. Their exact gateway IDs and smoke tests are recorded at batch start.
+- **Still blocked:** `ai-gateway.vercel.sh` is denied by this environment's network policy, and no
+  `AI_GATEWAY_API_KEY` is set.
+- **Explainer repair (4.4/4.5):** approved. Migration `20261006100000_repair_calc_ab_4_4_4_5_explainer_examples`.
