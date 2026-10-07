@@ -169,7 +169,90 @@ board is built; three Stage B copy lines become conditional on `canRecommend` ("
 are", a why-this that cites the attempt count, no threshold line); `TopicHome.tsx` stays in the
 codebase unmounted. Built in Lovable `56cae479` the same day as commit `ed1b4715` (3 files: `HomeV2.tsx`,
 `HomeStageBBuilding.tsx` with an exported `stageBCopy` helper, `home-stage-selection.test.ts`; full suite
-676 tests, typecheck and build clean; diff reviewed by Claude). **Preview only; David publishes.** This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
+676 tests, typecheck and build clean; diff reviewed by Claude). **Published by David 2026-10-07 ~15:35 UTC and confirmed live** on his account: Stage B renders with
+"Here's where you are", the attempt-count "Why this", no threshold line, no mode bar, no "Ask for help"
+or "Homework helper". Two data-honesty follow-ups seen on that live page, not yet investigated:
+**W8** Pulse showed "607 minutes this week" for 5 questions, so a session closed long after it was
+abandoned is counting its whole wall-clock span (B3 should cap or end sessions on inactivity);
+**W9** "Guided 0% · Independent 100%, 5 of 5" on a day the owner opened the topic hint and reference
+materials before submitting, so hint use may not be reaching `assistance_state` (check B7 against the
+grading call's `assisted` flag).
+
+**W8 and W9 investigated 2026-10-07 (read-only, Production + source):**
+
+*W8, root cause.* `sumMinutesThisWeek` in `home-snapshot.ts` adds `ended_at − started_at` for every
+session with an `ended_at` in the last 7 days, whatever its status or content. The owner's
+2026-10-06 15:29 session had **zero attempts** and was auto-archived at 01:33 the next morning when
+the next visit started a new session (the client ends an orphaned active session with
+`ended_at = now()`), so it contributed **604 minutes**. The session that actually holds his five
+graded questions is still `active` with no `ended_at`, so it contributed **nothing**. The figure is
+inflated by abandonment and blind to real work at the same time. *Fix:* derive minutes from attempt
+timestamps, per session: sessions with at least one graded attempt count `last attempt − session
+start`, capped (60 min), active sessions included; `ended_at` is not used. Frontend server function
+only. A backend nicety: when the client archives an orphaned session, set `ended_at` to its last
+activity, not `now()`. This also feeds B3.
+
+*W9, root cause, three layers.* (1) The plate-loop grading client creates the attempt at submit time
+**without** `assistance_state` (the server defaults it to `independent`) and sends
+`assistance_condition: "coached"` only to `evaluate-attempt`, which uses that field **solely in its
+idempotency request hash**, never for the stored state. (2) Since `DECISION-0080`, `evaluate-attempt`
+writes `assistance_state` from `deriveAssistanceState(attempt.assistance_state,
+attempt.pre_submit_hint_count)`, where the hint count is maintained by a trigger on
+`app.attempt_assistance_events`. (3) **Nothing on the plate loop writes `attempt_assistance_events`**;
+the shared helper's own comment says it is a no-op "until a real UI writes to
+attempt_assistance_events, SessionFrame does not yet, pending Workstream B1", and the plate loop,
+now the default path, does not either. Result: every attempt in Production is `independent` with
+`pre_submit_hint_count = 0`, including the owner's two hinted answers from the morning recording.
+Hints exist only as local receipts on the feedback card. *Consequences:* the Independence bar is
+100% for everyone; the mastery rule (`DECISION-0074`, "no hint before submission") cannot be
+enforced because the cell-state counts key on `pre_submit_hint_count = 0`; and B7's "recorded as
+guided" is currently untrue. *Fix, two steps:* (a) **now, one line in `gradeLiveMcq` / the FRQ
+twin:** pass `assistance_state: assisted ? "coached" : "independent"` on `create_attempt`, which the
+server accepts and `deriveAssistanceState` passes through; honest, but client-supplied. (b) **the
+real fix, under the interaction-data plan:** the plate loop records each aid opened before
+submission as an `attempt_assistance_events` row so the trigger-maintained count is the truth. That
+needs the attempt row to exist before the aid is opened, so the plate loop would create the attempt
+when the item is shown (as the legacy flow's drafts did), not at submit. Scope as its own task.
+
+**Both fixes built 2026-10-07, Lovable `04e35dbc`, preview only, diff reviewed by Claude:** W9(a)
+adds `assistance_state: assisted ? "coached" : "independent"` to `create_attempt` in both grading
+clients (4 new tests); W8 replaces `sumMinutesThisWeek` with `computeMinutesThisWeek` (sessions started
+in the window, active included, `ended_at` unused, start → last graded attempt, capped at 60 min per
+session; 4 tests). 695 tests, typecheck and build pass. Earlier attempts stay `independent`; the
+Independence bar only changes as new attempts land. One stale doc-comment above the new constant
+("Whole minutes across COMPLETED sessions…") is harmless. **Published by David and confirmed live
+2026-10-07 ~16:05 UTC:** the hub now shows "5 questions · 60 minutes" (the per-session cap, because the
+owner's one real session has been open since 01:40 with attempts at both ends; the old figure was 607),
+and a practice answer submitted with the topic hint open landed in Production as
+`assistance_state = coached` (`pre_submit_hint_count` still 0, as expected until the events path
+exists). Two more gaps seen on the way: **W10** `attempts.submitted_at` is never written by any
+edge function (status goes draft → graded), so the events trigger's "before/after submission" split
+always reads "before"; the client must only log pre-submission opens. **W11** a session left open
+across a day with attempts at both ends counts the full 60-minute cap; B3 (close on exit / idle)
+is still the real answer.
+
+**Real hint recording (W9 step b), 2026-10-07 — frontend half built, backend half awaiting approval.**
+Lovable `b868486f` (preview only, diff reviewed): `SessionProvider` stamps the first open time of each
+aid; `useHints` exposes `usedDetailed`; `toAssistanceEvents` maps topic→`topic_hint`,
+eliminate→`elimination`, deepdive→`deep_dive`, reference→`reference_materials`, rubric→`rubric_preview`,
+points→`points_earned_lost` (unknown aids skipped); both grading clients insert the rows through
+`public.attempt_assistance_events` after `create_attempt` and before `submit_response`, failing soft
+with one warning if the view is missing. 9 focused tests; 700 total; typecheck and build pass. One
+unexplained line in the same edit: `@lovable.dev/vite-tanstack-config` pinned 2.26.0 → 2.25.3 in
+`package.json` (Lovable platform package; flagged, not reverted). **Backend half:** a migration adding
+`topic_hint` to both CHECK constraints plus a policy row (`disqualifies_mastery = true`, flippable by
+row insert) and a `security_invoker` view `public.attempt_assistance_events` with INSERT/SELECT for
+`authenticated` (base-table RLS = own attempts; triggers derive every other column). The SQL was
+presented to David in chat for approval; the file write was blocked by the session's permission
+classifier because it grants privileges, and Production migrations are the owner's gate regardless.
+**Applied 2026-10-07 under `APPROVAL-0130`:** Dev `20261007180947` (rehearsed on a real attempt: before/after
+derivation and the hint-count rollup both work; rows cleaned up), Production `20261007181153` (verified).
+File committed as `supabase/migrations/20261007181153_assistance_events_write_path_topic_hint.sql`. **Published by David and confirmed live 2026-10-07 18:18 UTC:** one practice answer with the topic hint
+and the reference materials opened produced two event rows (`topic_hint` ordinal 1, `reference_materials`
+ordinal 2, both `before`, both counting, source `practice_mcq`, timestamps 10–11 s before the attempt), and the
+attempt graded as `coached` with `pre_submit_hint_count = 2`. **W9 closed end to end.** Attempts graded before
+18:18 UTC keep count 0; the hub's Independence bar and the mastery rule now have real data from here on.
+ This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
 ### 3b.2 A memory card instead of evidence disclaimers (Stage B)
@@ -200,8 +283,8 @@ restrained note: *"Recommendations get more personal as you practice. You're at 
 | --- | --- | --- | --- |
 | B1 | Persist lesson, phase, current worked item, practice queue position and unfinished input; define same-device vs cross-device. | Sol F8, list 1 | 3b.1 "Continue" |
 | B2 | Serve an *unseen, lesson-aligned* practice item after a worked example, or show an explicit "no practice for this lesson yet" state. The client's reorder-a-batch is not a contract. Reproduce the topic-less `/practice-mcq?from=open-hand` handoff first. | Sol F4 | 3.3 "on this lesson" |
-| B2a | **Fix the dropped topic on the Open Hand → Practice handoff** (§8 W4): route through the router's `search` object, not `URLSearchParams`; test with a numeric-looking topic code. Frontend only. | §8 W4 | 3.3 |
-| B2b | **Practice never opens on an already-submitted item** (§8 W5): skip or exclude items with a stored attempt for this student; show how many unseen remain. Frontend first; server selector follow-up. | §8 W5 | 3.3, 3.4 |
+| B2a | **Fix the dropped topic on the Open Hand → Practice handoff** (§8 W4). **Built 2026-10-07, Lovable `d7e1292f`, preview only, diff reviewed:** new `questionHref()` JSON-encodes every topic/cell/from value so the router parses strings; `codeParam` validator on the four question routes accepts string or number as a safety net (an unquoted `1.10` still cannot round-trip, which is why senders quote). All five link builders switched (`LiveOpenHandTeaching`, `LiveOpenHand`, `LivePracticeMcq.goWorkedExample`, `QuestionRoute`, `byoq/scaffold.practiceHref`). Tests round-trip `1.10`, `4.12`, `1.1`. | §8 W4 | 3.3 |
+| B2b | **Practice never opens on an already-submitted item** (§8 W5). **Built 2026-10-07, same Lovable commit:** `buildPracticeQueue()` drops items with a practice attempt in this browser ∪ the student's own `submitted`/`graded` rows read from `public.attempts` (verified: view is `security_invoker`, base policy `auth.uid() = user_id`, so only own rows), then applies the topic bias; all-answered renders "You've answered every practice question ready for this lesson." Fails soft to local-only if the read errors. Server-selector exclusion remains a follow-up. 688 tests, typecheck and build pass. **Published by David and confirmed live 2026-10-07 ~16:00 UTC** on his Chrome: Open Hand 1.1 → "Try one on your own" landed on `/practice-mcq?topic=%221.1%22&from=%22open-hand%22` (topic carried, W4 closed) and opened on an unanswered 1.1 water-moles question with Submit available instead of this morning's graded glucose item (W5 closed; the topic bias now also reaches practice). | §8 W5 | 3.3, 3.4 |
 | B3 | Close learning sessions on exit; record `lastAttempt`; stop showing "Resume" for every session ever opened. | Claude D4, R9 | 3.5, 3b.1 |
 | B4 | Route-appropriate recap data: example viewed, notes saved, practice summary. | Sol brief 4; Claude R9 | 3.5 |
 | B5 | Saved-notes store and export format. | Claude K23; Sol brief 9 | 3.6 |

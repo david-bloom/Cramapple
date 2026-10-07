@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0130 — Assistance-Events Write Path: `public.attempt_assistance_events` View (INSERT/SELECT for Signed-In Students) and the `topic_hint` Event Kind (Dev + Production)
 - APPROVAL-0129 — Replace Three Defective Live Open Hand Teaching Items (Stats 1.10, Stats 2.12, Bio 2.10); Fix the AP Statistics 2.12 Topic Point Brief (Dev + Production) — TASK-0065
 - APPROVAL-0128 — Remove Repeated Answer Choices From 198 Published MCQ Stems (Label Carry-Forward)
 - APPROVAL-0127 — Fix the AP Biology 2.10 Topic Point Brief (Dev + Production); Restore EK 3.3.A.2 Sub-Points in the Biology CED Fact Pack — TASK-0065
@@ -1869,3 +1870,20 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 
 **Rollback:** per topic, set the old row's `released_at` back to null, return the old item and version to `published`, then release the `-r2` row and retire the `-r2` item. Restore the 2.12 brief text from `20260821*` seed history.
 
+
+## APPROVAL-0130 — Assistance-Events Write Path: `public.attempt_assistance_events` View (INSERT/SELECT for Signed-In Students) and the `topic_hint` Event Kind (Dev + Production)
+
+**Date:** 2026-10-07  
+**Approved By:** David Bloom (2026-10-07 Claude session: "approved, run it Dev then Production", after the SQL was shown in full in chat)  
+**Related:** `DECISION-0080` (the four aids count as pre-submission hint use), `DECISION-0100` and its amendment (free aids on question 1 are still recorded as guided), `docs/product/STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md` §W9; migration file `supabase/migrations/20261007181153_assistance_events_write_path_topic_hint.sql`  
+**Decision:** Approved
+
+**Approved scope:** one migration, applied via the Supabase MCP to Dev (`wmgjsdkphcyhngaffbqf`, recorded version `20261007180947`) and then Production (`pcntajvbdfqhbeewmdry`, recorded version `20261007181153`): (1) add `topic_hint` to the `event_kind` CHECK constraints on `app.assistance_event_policy` and `app.attempt_assistance_events`, with a policy row `disqualifies_mastery = true` effective 2026-10-07 (a later policy change is a row insert, not a migration); (2) `grant usage on schema app` and `grant select, insert on app.attempt_assistance_events` to `authenticated`; (3) create `public.attempt_assistance_events` as a `security_invoker`, `security_barrier` view over the base table with `select, insert` granted to `authenticated`. The base table's existing RLS (select and insert only for attempts owned by `auth.uid()`) and its two INSERT triggers (derived `relative_to_submission` / `hint_ordinal` / `counts_toward_hint_rule`; rollup of `attempts.pre_submit_hint_count`) are unchanged and are what make the client-supplied rows safe: the client can only name its own attempts and cannot set any derived column.
+
+**Why:** since `DECISION-0080` the grader derives `attempts.assistance_state` from the events table, but no public view and no edge-function operation ever wrote to it, so every Production attempt read `independent` with a hint count of 0, the hub's Independence bar read 100% for everyone, and the mastery rule's "no hint before submission" condition could not be enforced. The plate loop's frontend half (Lovable `56cae479` commit `b868486f`, preview) inserts one row per aid opened before submission through this view, after `create_attempt` and before `submit_response`, failing soft if the view is unavailable.
+
+**Rehearsed on Dev before Production:** an insert through the view on a real Dev attempt (Dev's attempts all carry `submitted_at`) derived `after` / ordinal 1 / `counts_toward_hint_rule = false` for an event timed after submission, and `before` / ordinal 2 / `true` for one timed a minute before it, and `pre_submit_hint_count` went 0 → 1. Both rows were deleted and the count reset to 0; Dev holds no event rows. Production verified after apply: view options `security_invoker=true, security_barrier=true`; `authenticated` has INSERT, SELECT on the view and on the base table; six policy rows including `topic_hint=true`; both named constraints present; zero event rows.
+
+**Rollback:** `drop view public.attempt_assistance_events; revoke select, insert on app.attempt_assistance_events from authenticated;` and, if the kind must go, `delete from app.assistance_event_policy where event_kind = 'topic_hint'` and restore the five-value CHECK constraints. The frontend's insert fails soft, so a rollback does not break grading.
+
+**Not approved by this entry:** any edge-function change; writing `attempts.submitted_at` (never set by any function today, noted as W10); publishing the Lovable build (David's step).
