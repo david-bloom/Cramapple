@@ -1,6 +1,6 @@
 # New Student First Session — UX Assessment
 
-STATUS: CURRENT
+STATUS: CURRENT as an evidence record. Its recommendation sections (§5, §8) are consolidated with Sol's parallel assessment (PR #365) in `STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md`, which governs where the two differ.
 DATE: 2026-10-07
 OWNER: David Bloom (Product Owner)
 AUTHOR: Claude (session `claude/ux-evaluation-session-flp1xj`)
