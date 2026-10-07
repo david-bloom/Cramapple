@@ -230,6 +230,23 @@ edge function (status goes draft → graded), so the events trigger's "before/af
 always reads "before"; the client must only log pre-submission opens. **W11** a session left open
 across a day with attempts at both ends counts the full 60-minute cap; B3 (close on exit / idle)
 is still the real answer.
+
+**Real hint recording (W9 step b), 2026-10-07 — frontend half built, backend half awaiting approval.**
+Lovable `b868486f` (preview only, diff reviewed): `SessionProvider` stamps the first open time of each
+aid; `useHints` exposes `usedDetailed`; `toAssistanceEvents` maps topic→`topic_hint`,
+eliminate→`elimination`, deepdive→`deep_dive`, reference→`reference_materials`, rubric→`rubric_preview`,
+points→`points_earned_lost` (unknown aids skipped); both grading clients insert the rows through
+`public.attempt_assistance_events` after `create_attempt` and before `submit_response`, failing soft
+with one warning if the view is missing. 9 focused tests; 700 total; typecheck and build pass. One
+unexplained line in the same edit: `@lovable.dev/vite-tanstack-config` pinned 2.26.0 → 2.25.3 in
+`package.json` (Lovable platform package; flagged, not reverted). **Backend half:** a migration adding
+`topic_hint` to both CHECK constraints plus a policy row (`disqualifies_mastery = true`, flippable by
+row insert) and a `security_invoker` view `public.attempt_assistance_events` with INSERT/SELECT for
+`authenticated` (base-table RLS = own attempts; triggers derive every other column). The SQL was
+presented to David in chat for approval; the file write was blocked by the session's permission
+classifier because it grants privileges, and Production migrations are the owner's gate regardless.
+Order once approved: Dev, rehearsal insert in a rolled-back transaction, Production, commit the file
+under the recorded version.
  This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
