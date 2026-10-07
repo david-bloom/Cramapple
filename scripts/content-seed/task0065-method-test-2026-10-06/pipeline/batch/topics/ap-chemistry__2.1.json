@@ -1,0 +1,1083 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Types of Chemical Bonds"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-chemistry__2.1#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32501,
+    "inputTokenDetails": {
+     "noCacheTokens": 32501,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1649,
+    "outputTokenDetails": {
+     "textTokens": 759,
+     "reasoningTokens": 890
+    },
+    "totalTokens": 34150,
+    "raw": {
+     "input_tokens": 32501,
+     "output_tokens": 1649,
+     "output_tokens_details": {
+      "thinking_tokens": 890
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 890,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 2,
+    "topic_code": "2.1",
+    "topic_title": "Types of Chemical Bonds",
+    "stem": "A student compares four single bonds: C–H, C–O, C–F, and O–F. Using periodic trends in electronegativity, which statement correctly identifies the most polar of these bonds and the atom that carries the partial negative charge (δ−) in it?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "O–F is the most polar, with δ− on F, because O and F are the two most electronegative elements in the set.",
+      "is_correct": false,
+      "rationale": "This choice judges polarity by how electronegative the atoms are rather than by the difference between them. O and F are adjacent in period 2, so their electronegativities are close and the O–F bond is only weakly polar. Fix: Subtract the two atoms' electronegativities, or compare how far apart they sit in the period, before ranking bond polarity."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "C–F is the most polar, with δ− on C, because the more electronegative F pulls so strongly that it leaves C holding extra electron density.",
+      "is_correct": false,
+      "rationale": "This reverses the dipole direction. Electronegativity measures an atom's pull on shared electrons, so the electron density shifts toward F. That makes F partially negative and leaves C partially positive. Fix: Ask which atom pulls harder on the shared pair, and place δ− on that atom."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "C–F is the most polar, with δ− on F, because F is more electronegative than C and C and F are farthest apart in period 2, giving the largest electronegativity difference.",
+      "is_correct": true,
+      "rationale": "Electronegativity increases from C to O to F across period 2. C and F are farthest apart, so they have the largest difference and the most unequal sharing. The shared electrons are pulled toward the more electronegative atom, F, which therefore carries δ−. This bond has the most ionic character of the four."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "All four bonds are equally nonpolar covalent with no ionic character, because each bond joins two nonmetals.",
+      "is_correct": false,
+      "rationale": "This treats ionic and covalent as two separate boxes and lets the nonmetal–nonmetal shortcut override the electronegativity comparison. Bonds between nonmetals with unequal electronegativities are polar covalent, and every polar bond has some ionic character. These four bonds differ in polarity. Fix: State the electronegativity comparison for each bond before naming its type, rather than classifying by metal or nonmetal identity alone."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "rationale C has 4 sentences before any Fix (max 3)"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "ap-chemistry__2.1#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20363,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 20360
+    },
+    "outputTokens": 832,
+    "outputTokenDetails": {
+     "textTokens": 499,
+     "reasoningTokens": 333
+    },
+    "totalTokens": 21195,
+    "raw": {
+     "input_tokens": 20363,
+     "input_tokens_details": {
+      "cache_write_tokens": 20360,
+      "cached_tokens": 0
+     },
+     "output_tokens": 832,
+     "output_tokens_details": {
+      "reasoning_tokens": 333
+     },
+     "total_tokens": 21195
+    },
+    "reasoningTokens": 333,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 2,
+    "topic_code": "2.1",
+    "topic_title": "Types of Chemical Bonds",
+    "stem": "The electronegativity values of H, Cl, and Br are 2.2, 3.2, and 3.0, respectively. Which statement correctly describes the H–Cl and H–Br bonds in HCl and HBr?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Both bonds are nonpolar covalent because both bonded atoms are nonmetals; neither bond has a partial negative end.",
+      "is_correct": false,
+      "rationale": "Trap: nonmetal–nonmetal means nonpolar. Nonmetal pairs generally form covalent bonds, but unequal electronegativities produce unequal electron sharing and partial charges in these bonds. Fix: Compare the two electronegativity values before deciding whether a covalent bond is polar or nonpolar."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Both bonds are polar covalent, and H–Cl is more polar, but H carries δ− in each bond because H has the lower electronegativity.",
+      "is_correct": false,
+      "rationale": "Trap: reversed partial charges. The lower-electronegativity atom attracts shared electrons less strongly, so H is partially positive, not partially negative, in both bonds. Fix: Assign δ− to the atom with the higher electronegativity and δ+ to the other atom."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Cl and Br are more electronegative than H, so both bonds are polar covalent, with δ− on the halogen. H–Cl is more polar, and both bonds have some ionic character.",
+      "is_correct": true,
+      "rationale": "The electronegativity differences are 1.0 for H–Cl and 0.8 for H–Br, so H–Cl is more polar. Each halogen attracts the shared electrons more strongly than H does, making the halogen partially negative. Unequal sharing gives polar covalent bonds some ionic character."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Both bonds are ionic because any electronegativity difference makes a bond ionic rather than covalent.",
+      "is_correct": false,
+      "rationale": "Trap: treating any unequal electron attraction as ionic bonding. Unequal electronegativities can produce polar covalent bonds; having some ionic character does not require classifying a bond as ionic. Fix: Compare the size of the electronegativity difference and distinguish unequal sharing from predominantly ionic bonding."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "The electronegativity values given (H 2.2, Cl 3.2, Br 3.0) are consistent with the Pauling scale. They give ΔEN = 1.0 for H–Cl and 0.8 for H–Br. Both bonds are therefore polar covalent, with δ− on the halogen, and H–Cl is more polar. C is the only correct choice: A wrongly calls both bonds nonpolar, B puts δ− on H, and D wrongly calls both bonds ionic."
+        },
+        "usage": {
+         "inputTokens": 752,
+         "inputTokenDetails": {
+          "noCacheTokens": 752,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 191,
+         "outputTokenDetails": {
+          "textTokens": 191,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 943,
+         "raw": {
+          "input_tokens": 752,
+          "output_tokens": 191,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3723,
+        "flags": [
+         "defect: The electronegativity values given (H 2.2, Cl 3.2, Br 3.0) are consistent with the Pauling scale. They give ΔEN = 1.0 for H–Cl and 0.8 for H–Br. Both bonds are therefore polar covalent, with δ− on the halogen, and H–Cl is more polar. C is the only correct choice: A wrongly calls both bonds nonpolar, B puts δ− on H, and D wrongly calls both bonds ionic."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "Only one choice is correct. The electronegativity differences are 1.0 for H–Cl and 0.8 for H–Br, so both bonds are polar covalent. The halogen carries δ− in each bond, and H–Cl is the more polar bond. Polar covalent bonds have partial ionic character, so C is right. A is wrong because both bonds are polar. B puts δ− on hydrogen, which is backwards. D is wrong because a small electronegativity difference does not make a bond ionic."
+        },
+        "usage": {
+         "inputTokens": 752,
+         "inputTokenDetails": {
+          "noCacheTokens": 752,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 191,
+         "outputTokenDetails": {
+          "textTokens": 191,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 943,
+         "raw": {
+          "input_tokens": 752,
+          "output_tokens": 191,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3667,
+        "flags": [
+         "defect: Only one choice is correct. The electronegativity differences are 1.0 for H–Cl and 0.8 for H–Br, so both bonds are polar covalent. The halogen carries δ− in each bond, and H–Cl is the more polar bond. Polar covalent bonds have partial ionic character, so C is right. A is wrong because both bonds are polar. B puts δ− on hydrogen, which is backwards. D is wrong because a small electronegativity difference does not make a bond ionic."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 413,
+         "inputTokenDetails": {
+          "noCacheTokens": 413,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 362,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 332
+         },
+         "totalTokens": 775,
+         "raw": {
+          "thoughtsTokenCount": 332,
+          "promptTokenCount": 413,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 775,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 413
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 332,
+         "cachedInputTokens": 0
+        },
+        "ms": 4018,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 477,
+         "inputTokenDetails": {
+          "noCacheTokens": 221,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 464,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 438
+         },
+         "totalTokens": 941,
+         "raw": {
+          "prompt_tokens": 477,
+          "completion_tokens": 464,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 221,
+          "total_tokens": 941,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 438
+          }
+         },
+         "reasoningTokens": 438,
+         "cachedInputTokens": 256
+        },
+        "ms": 4811,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 516,
+         "inputTokenDetails": {
+          "noCacheTokens": 452,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 120,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 100
+         },
+         "totalTokens": 636,
+         "raw": {
+          "prompt_tokens": 516,
+          "completion_tokens": 120,
+          "total_tokens": 636,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 100,
+           "accepted_prediction_tokens": 68,
+           "rejected_prediction_tokens": 85,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 100,
+         "cachedInputTokens": 64
+        },
+        "ms": 2820,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  },
+  {
+   "id": "ap-chemistry__2.1#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32501,
+    "inputTokenDetails": {
+     "noCacheTokens": 32501,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1816,
+    "outputTokenDetails": {
+     "textTokens": 732,
+     "reasoningTokens": 1084
+    },
+    "totalTokens": 34317,
+    "raw": {
+     "input_tokens": 32501,
+     "output_tokens": 1816,
+     "output_tokens_details": {
+      "thinking_tokens": 1084
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 1084,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 2,
+    "topic_code": "2.1",
+    "topic_title": "Types of Chemical Bonds",
+    "stem": "A student compares four single bonds between second-period atoms: C–F, N–F, O–F, and F–F. Electronegativity increases from left to right across a period. Which statement correctly identifies the most polar of these bonds and describes how its bonding electrons are distributed?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "C–F is the most polar; the shared electrons are pulled toward F, so F carries the partial negative charge.",
+      "is_correct": true,
+      "rationale": "Across period 2, electronegativity rises C < N < O < F, so carbon differs most from fluorine. The largest electronegativity difference gives the largest bond dipole. Fluorine, the more electronegative atom, pulls the shared pair closer and carries δ−, while carbon carries δ+."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "O–F is the most polar; it joins the two most electronegative atoms, and the shared electrons are pulled toward F.",
+      "is_correct": false,
+      "rationale": "This trap ranks polarity by how electronegative the atoms are rather than by the difference between them. O and F are close in electronegativity, so their pull on the shared pair is nearly balanced, and O–F is the least polar of the heteroatomic bonds listed. Fix: Compute or estimate the electronegativity difference for each pair before ranking bond polarity."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "C–F is the most polar; the shared electrons are pulled toward C, so C carries the partial negative charge.",
+      "is_correct": false,
+      "rationale": "The bond is chosen correctly, but the partial charges are reversed. Carbon is less electronegative than fluorine, so the shared pair spends more time near F, leaving C partially positive. Fix: Ask which atom is more electronegative, and place δ− on that atom."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "C–F is the most polar; the electrons are fully transferred to F, so it is an ionic bond rather than a polar covalent bond.",
+      "is_correct": false,
+      "rationale": "This trap treats ionic and covalent as two separate boxes, so a large difference is read as complete transfer. C and F are both nonmetals that share electrons unequally, so C–F is polar covalent, with partial charges rather than full ionic charges. A large difference only means more ionic character. Fix: Place the bond on the continuum, and ask whether the electrons are shared unequally or truly transferred."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 339,
+         "inputTokenDetails": {
+          "noCacheTokens": 339,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 24,
+         "outputTokenDetails": {
+          "textTokens": 24,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 363,
+         "raw": {
+          "input_tokens": 339,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 24,
+          "output_tokens_details": {
+           "reasoning_tokens": 0
+          },
+          "total_tokens": 363
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1994,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 420,
+         "inputTokenDetails": {
+          "noCacheTokens": 420,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 420,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 390
+         },
+         "totalTokens": 840,
+         "raw": {
+          "thoughtsTokenCount": 390,
+          "promptTokenCount": 420,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 840,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 420
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 390,
+         "cachedInputTokens": 0
+        },
+        "ms": 4001,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 479,
+         "inputTokenDetails": {
+          "noCacheTokens": 223,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 943,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 923
+         },
+         "totalTokens": 1422,
+         "raw": {
+          "prompt_tokens": 479,
+          "completion_tokens": 943,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 223,
+          "total_tokens": 1422,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 923
+          }
+         },
+         "reasoningTokens": 923,
+         "cachedInputTokens": 256
+        },
+        "ms": 7996,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 504,
+         "inputTokenDetails": {
+          "noCacheTokens": 440,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 169,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 149
+         },
+         "totalTokens": 673,
+         "raw": {
+          "prompt_tokens": 504,
+          "completion_tokens": 169,
+          "total_tokens": 673,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 149,
+           "accepted_prediction_tokens": 92,
+           "rejected_prediction_tokens": 136,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 149,
+         "cachedInputTokens": 64
+        },
+        "ms": 2682,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20848,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20845
+         },
+         "outputTokens": 443,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 221
+         },
+         "totalTokens": 21291,
+         "raw": {
+          "input_tokens": 20848,
+          "input_tokens_details": {
+           "cache_write_tokens": 20845,
+           "cached_tokens": 0
+          },
+          "output_tokens": 443,
+          "output_tokens_details": {
+           "reasoning_tokens": 221
+          },
+          "total_tokens": 21291
+         },
+         "reasoningTokens": 221,
+         "cachedInputTokens": 0
+        },
+        "ms": 9621,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21688,
+         "inputTokenDetails": {
+          "noCacheTokens": 21688,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 978,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 716
+         },
+         "totalTokens": 22666,
+         "raw": {
+          "thoughtsTokenCount": 716,
+          "promptTokenCount": 21688,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 22666,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21688
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 716,
+         "cachedInputTokens": 0
+        },
+        "ms": 7776,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20615,
+         "inputTokenDetails": {
+          "noCacheTokens": 19335,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 6790,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6571
+         },
+         "totalTokens": 27405,
+         "raw": {
+          "prompt_tokens": 20615,
+          "completion_tokens": 6790,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 19335,
+          "total_tokens": 27405,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6571
+          }
+         },
+         "reasoningTokens": 6571,
+         "cachedInputTokens": 1280
+        },
+        "ms": 47766,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21157,
+         "inputTokenDetails": {
+          "noCacheTokens": 688,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20469
+         },
+         "outputTokens": 2487,
+         "outputTokenDetails": {
+          "textTokens": 138,
+          "reasoningTokens": 2349
+         },
+         "totalTokens": 23644,
+         "raw": {
+          "input_tokens": 21157,
+          "input_tokens_details": {
+           "cache_write_tokens": 20469,
+           "cached_tokens": 0
+          },
+          "output_tokens": 2487,
+          "output_tokens_details": {
+           "reasoning_tokens": 2349
+          },
+          "total_tokens": 23644
+         },
+         "reasoningTokens": 2349,
+         "cachedInputTokens": 0
+        },
+        "ms": 32328,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 33910,
+         "inputTokenDetails": {
+          "noCacheTokens": 33910,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 703,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 491
+         },
+         "totalTokens": 34613,
+         "raw": {
+          "input_tokens": 33910,
+          "output_tokens": 703,
+          "output_tokens_details": {
+           "thinking_tokens": 491
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 491,
+         "cachedInputTokens": 0
+        },
+        "ms": 10397,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-chemistry__2.1#r2-anthropic",
+ "accepted_at": "2026-10-07T00:34:21.195Z"
+}

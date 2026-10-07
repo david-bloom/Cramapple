@@ -1,0 +1,1383 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Proteins"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__1.7#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25365,
+    "inputTokenDetails": {
+     "noCacheTokens": 25365,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1496,
+    "outputTokenDetails": {
+     "textTokens": 808,
+     "reasoningTokens": 688
+    },
+    "totalTokens": 26861,
+    "raw": {
+     "input_tokens": 25365,
+     "output_tokens": 1496,
+     "output_tokens_details": {
+      "thinking_tokens": 688
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 688,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.7",
+    "topic_title": "Proteins",
+    "stem": "A water-soluble globular protein binds a small molecule in a pocket on its surface. In the normal folded protein, one amino acid with a hydrophobic R group sits deep in the protein's core, far from the binding pocket. In a variant protein, that amino acid is replaced by one with an ionic (charged) R group. Which prediction best explains how this change could affect the protein's function?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The charged amino acid breaks the peptide bonds next to it, splitting the polypeptide into two fragments that can no longer bind the small molecule.",
+      "is_correct": false,
+      "rationale": "This confuses R-group chemistry with the backbone. Peptide bonds link the carboxyl group of one amino acid to the amine of the next, regardless of which R group is present, so the chain stays intact and only the interactions that shape folding change. Fix: Ask whether the change involves the backbone bond or the R group before predicting broken peptide bonds."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The protein's function is unchanged, because the substituted amino acid is far from the binding pocket and the pocket's own amino acids are the same.",
+      "is_correct": false,
+      "rationale": "This assumes only residues touching the target matter. The core's R-group interactions determine the overall tertiary shape, so a disrupted core can shift the whole fold, including a distant pocket. Fix: Trace the chain sequence to interactions to overall shape to function before deciding a distant change has no effect."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Only the alpha-helices change, because R groups form the hydrogen bonds of secondary structure; the overall 3D shape and binding stay the same.",
+      "is_correct": false,
+      "rationale": "This misassigns which atoms build each level of structure. Alpha-helices and beta-sheets form from hydrogen bonds between backbone atoms, while R-group interactions such as hydrophobic clustering mainly determine tertiary shape, which governs the binding pocket. Fix: Check whether an interaction involves backbone atoms or R groups to decide which level of structure it affects."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The charged R group disrupts the hydrophobic interactions that hold the core together, altering the tertiary shape, which can distort the binding pocket and reduce binding.",
+      "is_correct": true,
+      "rationale": "A sequence change alters R-group interactions. Hydrophobic R groups cluster in the core away from water, so a charged R group there disrupts those interactions and changes the 3D fold. Because function depends on shape, a changed fold can reshape even a distant binding pocket, reducing binding."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 375,
+         "inputTokenDetails": {
+          "noCacheTokens": 375,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 50,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 24
+         },
+         "totalTokens": 425,
+         "raw": {
+          "input_tokens": 375,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 50,
+          "output_tokens_details": {
+           "reasoning_tokens": 24
+          },
+          "total_tokens": 425
+         },
+         "reasoningTokens": 24,
+         "cachedInputTokens": 0
+        },
+        "ms": 2491,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 456,
+         "inputTokenDetails": {
+          "noCacheTokens": 456,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 354,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 324
+         },
+         "totalTokens": 810,
+         "raw": {
+          "thoughtsTokenCount": 324,
+          "promptTokenCount": 456,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 810,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 456
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 324,
+         "cachedInputTokens": 0
+        },
+        "ms": 5849,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 511,
+         "inputTokenDetails": {
+          "noCacheTokens": 255,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 611,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 585
+         },
+         "totalTokens": 1122,
+         "raw": {
+          "prompt_tokens": 511,
+          "completion_tokens": 611,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 255,
+          "total_tokens": 1122,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 585
+          }
+         },
+         "reasoningTokens": 585,
+         "cachedInputTokens": 256
+        },
+        "ms": 6521,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 540,
+         "inputTokenDetails": {
+          "noCacheTokens": 476,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 117,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 97
+         },
+         "totalTokens": 657,
+         "raw": {
+          "prompt_tokens": 540,
+          "completion_tokens": 117,
+          "total_tokens": 657,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 97,
+           "accepted_prediction_tokens": 61,
+           "rejected_prediction_tokens": 104,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 97,
+         "cachedInputTokens": 64
+        },
+        "ms": 10079,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D's rationale states that the charged substitution 'changes the 3D fold' as a certainty. Such a substitution can disrupt core interactions, but a changed overall fold is not guaranteed. Replace this with 'can disrupt those interactions and alter the 3D fold' to preserve the stem's conditional prediction."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16418,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16415
+         },
+         "outputTokens": 612,
+         "outputTokenDetails": {
+          "textTokens": 283,
+          "reasoningTokens": 329
+         },
+         "totalTokens": 17030,
+         "raw": {
+          "input_tokens": 16418,
+          "input_tokens_details": {
+           "cache_write_tokens": 16415,
+           "cached_tokens": 0
+          },
+          "output_tokens": 612,
+          "output_tokens_details": {
+           "reasoning_tokens": 329
+          },
+          "total_tokens": 17030
+         },
+         "reasoningTokens": 329,
+         "cachedInputTokens": 0
+        },
+        "ms": 14695,
+        "flags": [
+         "accurate: D's rationale states that the charged substitution 'changes the 3D fold' as a certainty. Such a substitution can disrupt core interactions, but a changed overall fold is not guaranteed. Replace this with 'can disrupt those interactions and alter the 3D fold' to preserve the stem's conditional prediction."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D's rationale states that the charged R group necessarily 'disrupts those interactions and changes the 3D fold.' This is possible, not guaranteed; some substitutions can be accommodated without substantially changing the fold. Use 'can disrupt those interactions and alter the 3D fold' to match the stem's conditional prediction."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16418,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16415,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 486,
+         "outputTokenDetails": {
+          "textTokens": 286,
+          "reasoningTokens": 200
+         },
+         "totalTokens": 16904,
+         "raw": {
+          "input_tokens": 16418,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16415
+          },
+          "output_tokens": 486,
+          "output_tokens_details": {
+           "reasoning_tokens": 200
+          },
+          "total_tokens": 16904
+         },
+         "reasoningTokens": 200,
+         "cachedInputTokens": 16415
+        },
+        "ms": 9885,
+        "flags": [
+         "accurate: D's rationale states that the charged R group necessarily 'disrupts those interactions and changes the 3D fold.' This is possible, not guaranteed; some substitutions can be accommodated without substantially changing the fold. Use 'can disrupt those interactions and alter the 3D fold' to match the stem's conditional prediction."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17758,
+         "inputTokenDetails": {
+          "noCacheTokens": 17758,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1279,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1017
+         },
+         "totalTokens": 19037,
+         "raw": {
+          "thoughtsTokenCount": 1017,
+          "promptTokenCount": 17758,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19037,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17758
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1017,
+         "cachedInputTokens": 0
+        },
+        "ms": 9268,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16589,
+         "inputTokenDetails": {
+          "noCacheTokens": 15309,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 8721,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 8502
+         },
+         "totalTokens": 25310,
+         "raw": {
+          "prompt_tokens": 16589,
+          "completion_tokens": 8721,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15309,
+          "total_tokens": 25310,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8502
+          }
+         },
+         "reasoningTokens": 8502,
+         "cachedInputTokens": 1280
+        },
+        "ms": 64265,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17098,
+         "inputTokenDetails": {
+          "noCacheTokens": 17034,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2496,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 2369
+         },
+         "totalTokens": 19594,
+         "raw": {
+          "prompt_tokens": 17098,
+          "completion_tokens": 2496,
+          "total_tokens": 19594,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2369,
+           "accepted_prediction_tokens": 1668,
+           "rejected_prediction_tokens": 813,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2369,
+         "cachedInputTokens": 64
+        },
+        "ms": 22955,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__1.7#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15752,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15749
+    },
+    "outputTokens": 963,
+    "outputTokenDetails": {
+     "textTokens": 447,
+     "reasoningTokens": 516
+    },
+    "totalTokens": 16715,
+    "raw": {
+     "input_tokens": 15752,
+     "input_tokens_details": {
+      "cache_write_tokens": 15749,
+      "cached_tokens": 0
+     },
+     "output_tokens": 963,
+     "output_tokens_details": {
+      "reasoning_tokens": 516
+     },
+     "total_tokens": 16715
+    },
+    "reasoningTokens": 516,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.7",
+    "topic_title": "Proteins",
+    "stem": "A protein consisting of a single polypeptide must bind a particular small molecule to perform its function. A variant replaces one charged amino acid with an amino acid having a nonpolar R group. Both versions have the same chain length and intact peptide bonds, but the variant binds the molecule less effectively. Which explanation best connects the amino acid replacement to the reduced function?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Because the chain length is unchanged, the protein’s folding must be unchanged; reduced binding is unrelated to its shape.",
+      "is_correct": false,
+      "rationale": "Trap: equating chain length with protein shape. Proteins of equal length can have different amino acid sequences and R-group interactions, producing different shapes and functions. Fix: Compare R-group properties, not just amino acid counts, before predicting whether folding will change."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The replacement breaks peptide bonds, fragmenting the polypeptide and eliminating the surface needed for binding.",
+      "is_correct": false,
+      "rationale": "Trap: confusing altered R-group interactions with a broken backbone. The stem states that peptide bonds remain intact, so fragmentation cannot explain the reduced binding. Fix: Check whether the evidence indicates broken peptide bonds or altered interactions within an intact chain."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The replacement can alter R-group interactions, changing the protein’s folding and binding surface so that it binds the molecule less effectively.",
+      "is_correct": true,
+      "rationale": "Changing an amino acid changes the primary structure and can alter interactions that stabilize the protein’s three-dimensional shape. A changed binding surface can reduce binding and therefore function, completing the sequence → interactions → folding/shape → function chain."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The replacement disrupts the hydrogen bonds between R groups that define alpha helices, changing the surface needed for binding.",
+      "is_correct": false,
+      "rationale": "Trap: assigning secondary structure to R-group hydrogen bonds. Alpha helices are stabilized by hydrogen bonds between backbone atoms, whereas R-group interactions help determine tertiary structure. Fix: Identify whether the proposed interaction involves backbone atoms or R groups before naming the affected structural level."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 780,
+         "inputTokenDetails": {
+          "noCacheTokens": 780,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 810,
+         "raw": {
+          "input_tokens": 780,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2259,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 417,
+         "inputTokenDetails": {
+          "noCacheTokens": 417,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 240,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 210
+         },
+         "totalTokens": 657,
+         "raw": {
+          "thoughtsTokenCount": 210,
+          "promptTokenCount": 417,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 657,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 417
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 210,
+         "cachedInputTokens": 0
+        },
+        "ms": 3803,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 476,
+         "inputTokenDetails": {
+          "noCacheTokens": 220,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 534,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 508
+         },
+         "totalTokens": 1010,
+         "raw": {
+          "prompt_tokens": 476,
+          "completion_tokens": 534,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 220,
+          "total_tokens": 1010,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 508
+          }
+         },
+         "reasoningTokens": 508,
+         "cachedInputTokens": 256
+        },
+        "ms": 5222,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 500,
+         "inputTokenDetails": {
+          "noCacheTokens": 372,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 364,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 344
+         },
+         "totalTokens": 864,
+         "raw": {
+          "prompt_tokens": 500,
+          "completion_tokens": 364,
+          "total_tokens": 864,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 344,
+           "accepted_prediction_tokens": 209,
+           "rejected_prediction_tokens": 253,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 344,
+         "cachedInputTokens": 128
+        },
+        "ms": 14508,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27031,
+         "inputTokenDetails": {
+          "noCacheTokens": 27031,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 468,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 256
+         },
+         "totalTokens": 27499,
+         "raw": {
+          "input_tokens": 27031,
+          "output_tokens": 468,
+          "output_tokens_details": {
+           "thinking_tokens": 256
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 256,
+         "cachedInputTokens": 0
+        },
+        "ms": 7451,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17664,
+         "inputTokenDetails": {
+          "noCacheTokens": 17664,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1160,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 898
+         },
+         "totalTokens": 18824,
+         "raw": {
+          "thoughtsTokenCount": 898,
+          "promptTokenCount": 17664,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 18824,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17664
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 898,
+         "cachedInputTokens": 0
+        },
+        "ms": 10063,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16496,
+         "inputTokenDetails": {
+          "noCacheTokens": 15216,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 6989,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6770
+         },
+         "totalTokens": 23485,
+         "raw": {
+          "prompt_tokens": 16496,
+          "completion_tokens": 6989,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15216,
+          "total_tokens": 23485,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6770
+          }
+         },
+         "reasoningTokens": 6770,
+         "cachedInputTokens": 1280
+        },
+        "ms": 51859,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16993,
+         "inputTokenDetails": {
+          "noCacheTokens": 16929,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 1990,
+         "outputTokenDetails": {
+          "textTokens": 173,
+          "reasoningTokens": 1817
+         },
+         "totalTokens": 18983,
+         "raw": {
+          "prompt_tokens": 16993,
+          "completion_tokens": 1990,
+          "total_tokens": 18983,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1817,
+           "accepted_prediction_tokens": 1285,
+           "rejected_prediction_tokens": 827,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1817,
+         "cachedInputTokens": 64
+        },
+        "ms": 28543,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16319,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16316
+         },
+         "outputTokens": 269,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 47
+         },
+         "totalTokens": 16588,
+         "raw": {
+          "input_tokens": 16319,
+          "input_tokens_details": {
+           "cache_write_tokens": 16316,
+           "cached_tokens": 0
+          },
+          "output_tokens": 269,
+          "output_tokens_details": {
+           "reasoning_tokens": 47
+          },
+          "total_tokens": 16588
+         },
+         "reasoningTokens": 47,
+         "cachedInputTokens": 0
+        },
+        "ms": 6340,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__1.7#r1-openai",
+ "accepted_at": "2026-10-06T23:49:17.730Z"
+}
