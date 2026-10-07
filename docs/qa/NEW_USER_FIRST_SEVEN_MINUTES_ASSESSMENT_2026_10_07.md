@@ -1,6 +1,6 @@
 # New-User Experience: First 5–7 Minutes
 
-**Status:** Draft — source review, owner-supplied action-trace analysis and alternate-design revision brief complete; timed, implemented-flow and fresh-student validation pending
+**Status:** Evidence record. Its recommendations are consolidated with the parallel Claude assessment in `docs/product/STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md`, which governs where the two differ (`DECISION-0100` and its 2026-10-07 amendment). Source review, owner-supplied action-trace analysis and alternate-design revision brief complete; timed, implemented-flow and fresh-student validation pending
 **Date:** 2026-10-07
 **Owner:** Codex / Main Conductor
 **Product Owner:** David Bloom
