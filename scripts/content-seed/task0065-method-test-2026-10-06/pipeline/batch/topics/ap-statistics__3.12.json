@@ -1,0 +1,699 @@
+{
+ "topic": {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.12",
+  "topic_title": "Setting Up a Test for the Difference Between Two Population Proportions"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-statistics__3.12#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 21732,
+    "inputTokenDetails": {
+     "noCacheTokens": 21732,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1534,
+    "outputTokenDetails": {
+     "textTokens": 1033,
+     "reasoningTokens": 501
+    },
+    "totalTokens": 23266,
+    "raw": {
+     "input_tokens": 21732,
+     "output_tokens": 1534,
+     "output_tokens_details": {
+      "thinking_tokens": 501
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 501,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.12",
+    "topic_title": "Setting Up a Test for the Difference Between Two Population Proportions",
+    "stem": "A district wants to know whether the proportion of students who ride the bus is greater at School A than at School B. A random sample of 200 School A students found 90 bus riders, and an independent random sample of 150 School B students found 54 bus riders. Which choice gives a correct setup for a significance test, including the pooled proportion used for the null model?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Let p̂_A = 90/200 and p̂_B = 54/150. H₀: p̂_A = p̂_B, Hₐ: p̂_A > p̂_B; pooled p̂_c = (90 + 54)/(200 + 150) ≈ 0.411.",
+      "is_correct": false,
+      "rationale": "This writes hypotheses about sample statistics instead of population parameters. Hypotheses must concern unknown population proportions; the sample proportions 0.45 and 0.36 are already known and plainly differ, so testing them makes no sense. Fix: Check that every symbol in H₀ and Hₐ is a parameter p, defined for an entire population, never a p̂."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Let p_A = the proportion of all School A students who ride the bus and p_B = the proportion of all School B students who ride the bus. H₀: p_A − p_B = 0, Hₐ: p_A − p_B > 0; pooled p̂_c = (90 + 54)/(200 + 150) ≈ 0.411.",
+      "is_correct": true,
+      "rationale": "Both parameters are defined as population proportions in context, and the alternative's direction matches the claim that School A's proportion is greater. Because H₀ assumes p_A = p_B, the null model pools all successes over all observations: 144/350 ≈ 0.411."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Let p_A = the proportion of all School A students who ride the bus and p_B = the proportion of all School B students who ride the bus. H₀: p_A − p_B = 0, Hₐ: p_A − p_B > 0; pooled p̂_c = (0.45 + 0.36)/2 = 0.405.",
+      "is_correct": false,
+      "rationale": "The hypotheses are right, but the pooled proportion was found by averaging the two sample proportions without weighting by sample size. Since the samples differ in size (200 versus 150), the simple average misstates the combined proportion, which is 144/350 ≈ 0.411. Fix: Compute the pooled proportion as total successes divided by total sample size, (x₁ + x₂)/(n₁ + n₂)."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Let p₁ = the proportion of all School B students who ride the bus and p₂ = the proportion of all School A students who ride the bus. H₀: p₁ − p₂ = 0, Hₐ: p₁ − p₂ > 0; pooled p̂_c = (90 + 54)/(200 + 150) ≈ 0.411.",
+      "is_correct": false,
+      "rationale": "This is a sign error caused by the labeling. With p₁ defined as School B, Hₐ: p₁ − p₂ > 0 claims School B's proportion is greater, which is the opposite of the district's question. Fix: After defining p₁ and p₂, ask whether Hₐ, read in words, states the claim in the prompt."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 559,
+         "inputTokenDetails": {
+          "noCacheTokens": 559,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 52,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 26
+         },
+         "totalTokens": 611,
+         "raw": {
+          "input_tokens": 559,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 52,
+          "output_tokens_details": {
+           "reasoning_tokens": 26
+          },
+          "total_tokens": 611
+         },
+         "reasoningTokens": 26,
+         "cachedInputTokens": 0
+        },
+        "ms": 2445,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 697,
+         "inputTokenDetails": {
+          "noCacheTokens": 697,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 632,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 602
+         },
+         "totalTokens": 1329,
+         "raw": {
+          "thoughtsTokenCount": 602,
+          "promptTokenCount": 697,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 1329,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 697
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 602,
+         "cachedInputTokens": 0
+        },
+        "ms": 5407,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 694,
+         "inputTokenDetails": {
+          "noCacheTokens": 438,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 924,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 898
+         },
+         "totalTokens": 1618,
+         "raw": {
+          "prompt_tokens": 694,
+          "completion_tokens": 924,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 438,
+          "total_tokens": 1618,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 898
+          }
+         },
+         "reasoningTokens": 898,
+         "cachedInputTokens": 256
+        },
+        "ms": 8383,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 720,
+         "inputTokenDetails": {
+          "noCacheTokens": 656,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 728,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 708
+         },
+         "totalTokens": 1448,
+         "raw": {
+          "prompt_tokens": 720,
+          "completion_tokens": 728,
+          "total_tokens": 1448,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 708,
+           "accepted_prediction_tokens": 419,
+           "rejected_prediction_tokens": 505,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 708,
+         "cachedInputTokens": 64
+        },
+        "ms": 9541,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14667,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 14664
+         },
+         "outputTokens": 336,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 114
+         },
+         "totalTokens": 15003,
+         "raw": {
+          "input_tokens": 14667,
+          "input_tokens_details": {
+           "cache_write_tokens": 14664,
+           "cached_tokens": 0
+          },
+          "output_tokens": 336,
+          "output_tokens_details": {
+           "reasoning_tokens": 114
+          },
+          "total_tokens": 15003
+         },
+         "reasoningTokens": 114,
+         "cachedInputTokens": 0
+        },
+        "ms": 5872,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 15988,
+         "inputTokenDetails": {
+          "noCacheTokens": 15988,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2133,
+         "outputTokenDetails": {
+          "textTokens": 263,
+          "reasoningTokens": 1870
+         },
+         "totalTokens": 18121,
+         "raw": {
+          "thoughtsTokenCount": 1870,
+          "promptTokenCount": 15988,
+          "candidatesTokenCount": 263,
+          "totalTokenCount": 18121,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 15988
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 263
+           }
+          ]
+         },
+         "reasoningTokens": 1870,
+         "cachedInputTokens": 0
+        },
+        "ms": 15017,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14804,
+         "inputTokenDetails": {
+          "noCacheTokens": 13524,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 7111,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6892
+         },
+         "totalTokens": 21915,
+         "raw": {
+          "prompt_tokens": 14804,
+          "completion_tokens": 7111,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 13524,
+          "total_tokens": 21915,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6892
+          }
+         },
+         "reasoningTokens": 6892,
+         "cachedInputTokens": 1280
+        },
+        "ms": 51791,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14782,
+         "inputTokenDetails": {
+          "noCacheTokens": 688,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 14094
+         },
+         "outputTokens": 3685,
+         "outputTokenDetails": {
+          "textTokens": 227,
+          "reasoningTokens": 3458
+         },
+         "totalTokens": 18467,
+         "raw": {
+          "input_tokens": 14782,
+          "input_tokens_details": {
+           "cache_write_tokens": 14094,
+           "cached_tokens": 0
+          },
+          "output_tokens": 3685,
+          "output_tokens_details": {
+           "reasoning_tokens": 3458
+          },
+          "total_tokens": 18467
+         },
+         "reasoningTokens": 3458,
+         "cachedInputTokens": 0
+        },
+        "ms": 30793,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 23610,
+         "inputTokenDetails": {
+          "noCacheTokens": 23610,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 674,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 462
+         },
+         "totalTokens": 24284,
+         "raw": {
+          "input_tokens": 23610,
+          "output_tokens": 674,
+          "output_tokens_details": {
+           "thinking_tokens": 462
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 462,
+         "cachedInputTokens": 0
+        },
+        "ms": 8908,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-statistics__3.12#r1-anthropic",
+ "accepted_at": "2026-10-07T00:35:04.690Z"
+}

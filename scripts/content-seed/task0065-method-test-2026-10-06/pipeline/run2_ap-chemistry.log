@@ -1,0 +1,45 @@
+test2-ap-chemistry ap-chemistry__2.1 r1-anthropic: rejected at lint
+test2-ap-chemistry ap-chemistry__2.1 r1-openai: rejected at solve
+test2-ap-chemistry ap-chemistry__3.8 r1-anthropic: rejected at audit
+test2-ap-chemistry ap-chemistry__3.8 r1-openai: rejected at solve
+test2-ap-chemistry ap-chemistry__3.9 r1-anthropic: rejected at audit
+test2-ap-chemistry ap-chemistry__3.9 r1-openai: rejected at solve
+test2-ap-chemistry ap-chemistry__2.1 r2-anthropic: accepted
+test2-ap-chemistry ap-chemistry__3.9 r2-anthropic: rejected at lint
+test2-ap-chemistry ap-chemistry__3.8 r2-anthropic: rejected at audit
+test2-ap-chemistry ap-chemistry__3.9 r2-openai: rejected at solve
+test2-ap-chemistry ap-chemistry__3.8 r2-openai: accepted
+{
+ "topics": 24,
+ "by_subject": {
+  "ap-calculus-ab": {
+   "accepted": 6,
+   "escalated": 0,
+   "open": 0
+  },
+  "ap-chemistry": {
+   "accepted": 5,
+   "escalated": 1,
+   "open": 0
+  },
+  "ap-statistics": {
+   "accepted": 4,
+   "escalated": 0,
+   "open": 2
+  },
+  "biology": {
+   "accepted": 6,
+   "escalated": 0,
+   "open": 0
+  }
+ },
+ "candidates": 45,
+ "candidate_outcomes": {
+  "accepted": 21,
+  "rejected_at_lint": 10,
+  "rejected_at_audit": 9,
+  "rejected_at_solve": 5
+ },
+ "controls_all_caught": true,
+ "accepted_file": "accepted.json"
+}

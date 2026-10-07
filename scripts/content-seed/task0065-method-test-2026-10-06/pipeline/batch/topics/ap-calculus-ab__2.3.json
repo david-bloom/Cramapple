@@ -1,0 +1,1581 @@
+{
+ "topic": {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-calculus-ab__2.3#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32542,
+    "inputTokenDetails": {
+     "noCacheTokens": 32542,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1341,
+    "outputTokenDetails": {
+     "textTokens": 647,
+     "reasoningTokens": 694
+    },
+    "totalTokens": 33883,
+    "raw": {
+     "input_tokens": 32542,
+     "output_tokens": 1341,
+     "output_tokens_details": {
+      "thinking_tokens": 694
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 694,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "Water is pumped into a tank. The volume V(t), in liters, is differentiable, and selected values are given: at t = 0, 4, 6, 8, 12 minutes, V(t) = 50, 62, 70, 76, 80 liters, respectively. Using the data values on either side of t = 6 that are closest to t = 6, what is the estimate of V′(6)?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "2.5 liters per minute",
+      "is_correct": false,
+      "rationale": "This uses the most distant data, (80 − 50)/(12 − 0), which is the average rate over the whole 12 minutes. That interval is too wide to reflect how fast the volume changes near t = 6. Fix: Pick the two table times immediately before and after the target time and compute the slope between only those points."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "14 liters per minute",
+      "is_correct": false,
+      "rationale": "This takes the change in volume, 76 − 62 = 14 liters, but never divides by the change in time. A rate of change needs liters divided by minutes, and the interval here is 4 minutes long. Fix: Write the difference quotient as ΔV/Δt and check that you divided by the time gap before reporting a rate."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "3.5 liters per minute",
+      "is_correct": true,
+      "rationale": "The closest times bracketing t = 6 are t = 4 and t = 8, so V′(6) ≈ (V(8) − V(4))/(8 − 4) = (76 − 62)/4 = 3.5 liters per minute. This is a local slope across a short interval centered at 6, so it approximates the instantaneous rate; it is an estimate, not the exact derivative."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "70 liters per minute",
+      "is_correct": false,
+      "rationale": "This reports V(6), the amount of water in the tank at t = 6, instead of how fast that amount is changing. The derivative measures a rate, not the function's value, so the table entry alone cannot be the answer. Fix: Ask whether the question wants a function value or a rate, and for a rate compute a slope between two nearby points."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 300,
+         "inputTokenDetails": {
+          "noCacheTokens": 300,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 50,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 24
+         },
+         "totalTokens": 350,
+         "raw": {
+          "input_tokens": 300,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 50,
+          "output_tokens_details": {
+           "reasoning_tokens": 24
+          },
+          "total_tokens": 350
+         },
+         "reasoningTokens": 24,
+         "cachedInputTokens": 0
+        },
+        "ms": 3331,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 387,
+         "inputTokenDetails": {
+          "noCacheTokens": 387,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 324,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 294
+         },
+         "totalTokens": 711,
+         "raw": {
+          "thoughtsTokenCount": 294,
+          "promptTokenCount": 387,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 711,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 387
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 294,
+         "cachedInputTokens": 0
+        },
+        "ms": 4591,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 438,
+         "inputTokenDetails": {
+          "noCacheTokens": 182,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 809,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 783
+         },
+         "totalTokens": 1247,
+         "raw": {
+          "prompt_tokens": 438,
+          "completion_tokens": 809,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 182,
+          "total_tokens": 1247,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 783
+          }
+         },
+         "reasoningTokens": 783,
+         "cachedInputTokens": 256
+        },
+        "ms": 7292,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 462,
+         "inputTokenDetails": {
+          "noCacheTokens": 398,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 946,
+         "outputTokenDetails": {
+          "textTokens": 21,
+          "reasoningTokens": 925
+         },
+         "totalTokens": 1408,
+         "raw": {
+          "prompt_tokens": 462,
+          "completion_tokens": 946,
+          "total_tokens": 1408,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 925,
+           "accepted_prediction_tokens": 559,
+           "rejected_prediction_tokens": 599,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 925,
+         "cachedInputTokens": 64
+        },
+        "ms": 10341,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A overstates that the wider interval is necessarily too wide to reflect the rate near t = 6; the data do not establish its accuracy. It is wrong because it does not use the requested closest bracketing times. C says the estimate is 'not the exact derivative,' but it could equal V′(6). Say instead that the exact derivative cannot be determined from these data."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21665,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 21662
+         },
+         "outputTokens": 753,
+         "outputTokenDetails": {
+          "textTokens": 255,
+          "reasoningTokens": 498
+         },
+         "totalTokens": 22418,
+         "raw": {
+          "input_tokens": 21665,
+          "input_tokens_details": {
+           "cache_write_tokens": 21662,
+           "cached_tokens": 0
+          },
+          "output_tokens": 753,
+          "output_tokens_details": {
+           "reasoning_tokens": 498
+          },
+          "total_tokens": 22418
+         },
+         "reasoningTokens": 498,
+         "cachedInputTokens": 0
+        },
+        "ms": 17589,
+        "flags": [
+         "accurate: A overstates that the wider interval is necessarily too wide to reflect the rate near t = 6; the data do not establish its accuracy. It is wrong because it does not use the requested closest bracketing times. C says the estimate is 'not the exact derivative,' but it could equal V′(6). Say instead that the exact derivative cannot be determined from these data."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A asserts that the wider interval is too wide to reflect the rate near t = 6; the data do not establish its accuracy relative to V′(6). It is wrong because it does not use the requested closest bracketing times. C says the estimate is not the exact derivative, but it could coincide with V′(6); say that it is not guaranteed to be exact."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21665,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 21662,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 692,
+         "outputTokenDetails": {
+          "textTokens": 256,
+          "reasoningTokens": 436
+         },
+         "totalTokens": 22357,
+         "raw": {
+          "input_tokens": 21665,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 21662
+          },
+          "output_tokens": 692,
+          "output_tokens_details": {
+           "reasoning_tokens": 436
+          },
+          "total_tokens": 22357
+         },
+         "reasoningTokens": 436,
+         "cachedInputTokens": 21662
+        },
+        "ms": 12572,
+        "flags": [
+         "accurate: A asserts that the wider interval is too wide to reflect the rate near t = 6; the data do not establish its accuracy relative to V′(6). It is wrong because it does not use the requested closest bracketing times. C says the estimate is not the exact derivative, but it could coincide with V′(6); say that it is not guaranteed to be exact."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 23176,
+         "inputTokenDetails": {
+          "noCacheTokens": 23176,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2002,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1740
+         },
+         "totalTokens": 25178,
+         "raw": {
+          "thoughtsTokenCount": 1740,
+          "promptTokenCount": 23176,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 25178,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 23176
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1740,
+         "cachedInputTokens": 0
+        },
+        "ms": 12459,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21742,
+         "inputTokenDetails": {
+          "noCacheTokens": 20462,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 8654,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 8435
+         },
+         "totalTokens": 30396,
+         "raw": {
+          "prompt_tokens": 21742,
+          "completion_tokens": 8654,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 20462,
+          "total_tokens": 30396,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8435
+          }
+         },
+         "reasoningTokens": 8435,
+         "cachedInputTokens": 1280
+        },
+        "ms": 62055,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21809,
+         "inputTokenDetails": {
+          "noCacheTokens": 688,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 21121
+         },
+         "outputTokens": 2182,
+         "outputTokenDetails": {
+          "textTokens": 138,
+          "reasoningTokens": 2044
+         },
+         "totalTokens": 23991,
+         "raw": {
+          "input_tokens": 21809,
+          "input_tokens_details": {
+           "cache_write_tokens": 21121,
+           "cached_tokens": 0
+          },
+          "output_tokens": 2182,
+          "output_tokens_details": {
+           "reasoning_tokens": 2044
+          },
+          "total_tokens": 23991
+         },
+         "reasoningTokens": 2044,
+         "cachedInputTokens": 0
+        },
+        "ms": 20022,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-calculus-ab__2.3#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20996,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 20993
+    },
+    "outputTokens": 743,
+    "outputTokenDetails": {
+     "textTokens": 517,
+     "reasoningTokens": 226
+    },
+    "totalTokens": 21739,
+    "raw": {
+     "input_tokens": 20996,
+     "input_tokens_details": {
+      "cache_write_tokens": 20993,
+      "cached_tokens": 0
+     },
+     "output_tokens": 743,
+     "output_tokens_details": {
+      "reasoning_tokens": 226
+     },
+     "total_tokens": 21739
+    },
+    "reasoningTokens": 226,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "The temperature T(t), in °C, of a liquid is differentiable, where t is measured in minutes. Selected values are shown below; no formula for T is available.\n\nt (minutes): 0 | 4 | 6 | 10\nT(t) (°C): 10 | 22 | 28 | 50\n\nUsing the closest tabulated times on either side of t = 5, which statement correctly reports an estimate of T′(5)?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "T′(5) ≈ 4 °C/min.",
+      "is_correct": false,
+      "rationale": "Distant-data trap: (50 − 10)/(10 − 0) = 4 °C/min uses the endpoints of the table rather than the closest times surrounding 5. It measures change over a wider interval, not the requested local interval. Fix: Identify the closest tabulated time below and above the target before computing the slope."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "T′(5) ≈ 6 °C/min.",
+      "is_correct": false,
+      "rationale": "Missing-denominator trap: 28 − 22 = 6 is the temperature change, not a rate of change. The elapsed time is 6 − 4 = 2 minutes, so the slope requires division by 2. Fix: Divide the change in temperature by the change in time, and check that the units are °C/min."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "T′(5) ≈ 3 °C/min.",
+      "is_correct": true,
+      "rationale": "The closest tabulated times surrounding 5 are 4 and 6, giving the local slope estimate (28 − 22)/(6 − 4) = 3 °C/min. This nearby secant slope estimates the derivative; the table does not establish its exact value."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The table proves that T′(5) is exactly 3 °C/min.",
+      "is_correct": false,
+      "rationale": "Estimate-as-exact trap: the nearby data give a secant slope of 3 °C/min, but finitely many table values do not determine the exact derivative at 5. Differentiability alone does not make that secant slope equal to T′(5). Fix: Use ≈ when reporting a derivative obtained from nearby table values unless additional information establishes exact equality."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "stem refers to a figure the student cannot see"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "ap-calculus-ab__2.3#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32542,
+    "inputTokenDetails": {
+     "noCacheTokens": 32542,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1492,
+    "outputTokenDetails": {
+     "textTokens": 703,
+     "reasoningTokens": 789
+    },
+    "totalTokens": 34034,
+    "raw": {
+     "input_tokens": 32542,
+     "output_tokens": 1492,
+     "output_tokens_details": {
+      "thinking_tokens": 789
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 789,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "A cup of water is heated, and its temperature T(t), in degrees Celsius, is measured at selected times t, in minutes. The table gives: t = 0, 4, 6, 9, 15 with T(t) = 20, 28, 34, 40, 49, respectively. T is differentiable, and no formula for T is given. Using the data in the table, what is the best estimate of T′(7)?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "About 1.93 degrees Celsius per minute",
+      "is_correct": false,
+      "rationale": "This uses distant data: (49 − 20)/(15 − 0) = 29/15 is the average rate over the whole 15 minutes. It describes overall behavior, not the local slope near t = 7, so it is a weaker estimate than the bracketing values give. Fix: Before computing, circle the two table entries closest to the target time, one on each side, and use only those."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "0.5 minutes per degree Celsius",
+      "is_correct": false,
+      "rationale": "This inverts the difference quotient, computing (9 − 6)/(40 − 34) = 3/6. A derivative T′(t) is change in output over change in input, so it must be measured in degrees Celsius per minute, not minutes per degree. Fix: Write the quotient as ΔT/Δt with units attached and check that the units read as output units per input unit."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "6 degrees Celsius per minute",
+      "is_correct": false,
+      "rationale": "This takes the change in temperature, 40 − 34 = 6, and stops without dividing by the elapsed time. The change in T over the interval is not a rate, because the interval from t = 6 to t = 9 lasts 3 minutes, not 1. Fix: Compute Δt between the two chosen times and divide the change in T by it before reporting the rate."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "2 degrees Celsius per minute",
+      "is_correct": true,
+      "rationale": "The table values closest to t = 7 on either side are t = 6 and t = 9, so the local rate is (40 − 34)/(9 − 6) = 6/3 = 2. This difference quotient approximates the slope of T near t = 7. It is an estimate of T′(7), not its exact value, and its units are degrees Celsius per minute."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "rationale D over 60 words (63)"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "ap-calculus-ab__2.3#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20996,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 20993,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 734,
+    "outputTokenDetails": {
+     "textTokens": 500,
+     "reasoningTokens": 234
+    },
+    "totalTokens": 21730,
+    "raw": {
+     "input_tokens": 20996,
+     "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 20993
+     },
+     "output_tokens": 734,
+     "output_tokens_details": {
+      "reasoning_tokens": 234
+     },
+     "total_tokens": 21730
+    },
+    "reasoningTokens": 234,
+    "cachedInputTokens": 20993
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "The volume V(t) of water in a tank is measured in liters, and t is measured in minutes. The function V is differentiable, but no formula is available. Selected values are given below.\n\nt (minutes): 0, 4, 6, 10\nV(t) (liters): 10, 18, 24, 30\n\nWhich statement correctly estimates V′(5) using the closest available times on opposite sides of t = 5?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "V′(5) ≈ 2 liters per minute.",
+      "is_correct": false,
+      "rationale": "Distant-data trap: (30 − 10)/(10 − 0) = 2 uses the endpoints of the entire table rather than the closest times surrounding 5. It describes a rate over a wider interval, not the requested local estimate. Fix: Select the nearest listed time below the target and the nearest listed time above it before computing the slope."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "V′(5) ≈ 3 liters per minute.",
+      "is_correct": true,
+      "rationale": "The closest available times surrounding 5 are 4 and 6, giving the local slope estimate (24 − 18)/(6 − 4) = 3 liters per minute. This nearby secant slope estimates the derivative; the table does not establish its exact value."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "V′(5) ≈ 6 liters per minute.",
+      "is_correct": false,
+      "rationale": "Missing-denominator trap: 24 − 18 = 6 is the change in volume, not a rate of change. The slope must also divide by the elapsed time, 6 − 4 = 2 minutes. Fix: Compute both the output change and input change, then divide the output change by the input change."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "V′(5) = 3 liters per minute exactly, as determined by the table.",
+      "is_correct": false,
+      "rationale": "Estimate-as-exact trap: the nearby secant slope is exactly 3, but it only estimates the derivative at 5. A finite table does not determine the exact tangent slope there. Fix: Use ≈ when reporting a derivative obtained from nearby table values unless additional information establishes exactness."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": "Using the nearest bracketing times t = 4 and t = 6 gives (24 − 18)/(6 − 4) = 3 liters per minute, so V′(5) ≈ 3 (choice B). Choice D wrongly claims the value is exact, but the table only supports an estimate. Choice C is the raw change in volume without dividing by the time interval, and choice A does not match the difference quotient over the specified interval."
+        },
+        "usage": {
+         "inputTokens": 709,
+         "inputTokenDetails": {
+          "noCacheTokens": 709,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 166,
+         "outputTokenDetails": {
+          "textTokens": 166,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 875,
+         "raw": {
+          "input_tokens": 709,
+          "output_tokens": 166,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3497,
+        "flags": [
+         "defect: Using the nearest bracketing times t = 4 and t = 6 gives (24 − 18)/(6 − 4) = 3 liters per minute, so V′(5) ≈ 3 (choice B). Choice D wrongly claims the value is exact, but the table only supports an estimate. Choice C is the raw change in volume without dividing by the time interval, and choice A does not match the difference quotient over the specified interval."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 709,
+         "inputTokenDetails": {
+          "noCacheTokens": 709,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 739,
+         "raw": {
+          "input_tokens": 709,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2038,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 418,
+         "inputTokenDetails": {
+          "noCacheTokens": 418,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 314,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 284
+         },
+         "totalTokens": 732,
+         "raw": {
+          "thoughtsTokenCount": 284,
+          "promptTokenCount": 418,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 732,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 418
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 284,
+         "cachedInputTokens": 0
+        },
+        "ms": 3200,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 464,
+         "inputTokenDetails": {
+          "noCacheTokens": 208,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 411,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 385
+         },
+         "totalTokens": 875,
+         "raw": {
+          "prompt_tokens": 464,
+          "completion_tokens": 411,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 208,
+          "total_tokens": 875,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 385
+          }
+         },
+         "reasoningTokens": 385,
+         "cachedInputTokens": 256
+        },
+        "ms": 4148,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 494,
+         "inputTokenDetails": {
+          "noCacheTokens": 430,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 98,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 78
+         },
+         "totalTokens": 592,
+         "raw": {
+          "prompt_tokens": 494,
+          "completion_tokens": 98,
+          "total_tokens": 592,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 78,
+           "accepted_prediction_tokens": 56,
+           "rejected_prediction_tokens": 67,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 78,
+         "cachedInputTokens": 64
+        },
+        "ms": 5408,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 34195,
+         "inputTokenDetails": {
+          "noCacheTokens": 34195,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 490,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 278
+         },
+         "totalTokens": 34685,
+         "raw": {
+          "input_tokens": 34195,
+          "output_tokens": 490,
+          "output_tokens_details": {
+           "thinking_tokens": 278
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 278,
+         "cachedInputTokens": 0
+        },
+        "ms": 7652,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 23148,
+         "inputTokenDetails": {
+          "noCacheTokens": 23148,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1135,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 873
+         },
+         "totalTokens": 24283,
+         "raw": {
+          "thoughtsTokenCount": 873,
+          "promptTokenCount": 23148,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 24283,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 23148
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 873,
+         "cachedInputTokens": 0
+        },
+        "ms": 10077,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21712,
+         "inputTokenDetails": {
+          "noCacheTokens": 20432,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 4516,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 4297
+         },
+         "totalTokens": 26228,
+         "raw": {
+          "prompt_tokens": 21712,
+          "completion_tokens": 4516,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 20432,
+          "total_tokens": 26228,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4297
+          }
+         },
+         "reasoningTokens": 4297,
+         "cachedInputTokens": 1280
+        },
+        "ms": 32639,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21782,
+         "inputTokenDetails": {
+          "noCacheTokens": 21718,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2262,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 2046
+         },
+         "totalTokens": 24044,
+         "raw": {
+          "prompt_tokens": 21782,
+          "completion_tokens": 2262,
+          "total_tokens": 24044,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2046,
+           "accepted_prediction_tokens": 1504,
+           "rejected_prediction_tokens": 767,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2046,
+         "cachedInputTokens": 64
+        },
+        "ms": 24019,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21638,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 21635
+         },
+         "outputTokens": 214,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 42
+         },
+         "totalTokens": 21852,
+         "raw": {
+          "input_tokens": 21638,
+          "input_tokens_details": {
+           "cache_write_tokens": 21635,
+           "cached_tokens": 0
+          },
+          "output_tokens": 214,
+          "output_tokens_details": {
+           "reasoning_tokens": 42
+          },
+          "total_tokens": 21852
+         },
+         "reasoningTokens": 42,
+         "cachedInputTokens": 0
+        },
+        "ms": 7106,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-calculus-ab__2.3#r2-openai",
+ "accepted_at": "2026-10-07T00:34:53.602Z"
+}

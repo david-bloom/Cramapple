@@ -1,0 +1,2414 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.8",
+  "topic_title": "Representations of Solutions"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-chemistry__3.8#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32408,
+    "inputTokenDetails": {
+     "noCacheTokens": 32408,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1553,
+    "outputTokenDetails": {
+     "textTokens": 780,
+     "reasoningTokens": 773
+    },
+    "totalTokens": 33961,
+    "raw": {
+     "input_tokens": 32408,
+     "output_tokens": 1553,
+     "output_tokens_details": {
+      "thinking_tokens": 773
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 773,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.8",
+    "topic_title": "Representations of Solutions",
+    "stem": "Two particulate diagrams of aqueous glucose solutions are described in words. In both diagrams, each drawn glucose particle represents the same number of moles of glucose. Diagram X represents a 0.50 L sample of solution and shows 6 glucose particles among water molecules. Diagram Y represents a 0.25 L sample of solution and shows 4 glucose particles among water molecules. Which statement correctly compares the molarities of glucose in the two solutions?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Solution X has the greater molarity because its diagram shows more glucose particles.",
+      "is_correct": false,
+      "rationale": "This counts drawn particles without checking whether the diagrams represent equal volumes. The particle count gives moles, not concentration, and X spreads its 6 particles through twice the volume that Y does, giving only 12 per liter versus 16 per liter. Fix: Before comparing particle counts, check each diagram's volume and divide particles by liters of solution."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Solution Y has twice the molarity of solution X because its volume is half as large.",
+      "is_correct": false,
+      "rationale": "This uses only the volume ratio and ignores that the two diagrams show different numbers of solute particles. Halving the volume would double molarity only if both samples held the same amount of glucose, but Y has 4 particles and X has 6, so the true ratio is 16/12 = 4/3. Fix: Compute particles per liter for each diagram separately, then take the ratio of those two values."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The molarities cannot be compared unless the mass of water in each sample is known.",
+      "is_correct": false,
+      "rationale": "This confuses molarity with molality, which uses kilograms of solvent and is outside AP Chemistry calculations. Molarity needs only moles of solute and liters of solution, and both are given or represented in the diagrams. Fix: Ask whether the prompt asks for molarity, and if so, use moles of solute divided by liters of solution."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Solution Y has the greater molarity; its molarity is 4/3 that of solution X.",
+      "is_correct": true,
+      "rationale": "Molarity is moles of solute per liter of solution, so particles must be divided by the volume each diagram represents. X has 6 ÷ 0.50 L = 12 particles per liter, and Y has 4 ÷ 0.25 L = 16 particles per liter. The ratio 16/12 = 4/3 shows Y is more concentrated."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 335,
+         "inputTokenDetails": {
+          "noCacheTokens": 335,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 60,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 34
+         },
+         "totalTokens": 395,
+         "raw": {
+          "input_tokens": 335,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 60,
+          "output_tokens_details": {
+           "reasoning_tokens": 34
+          },
+          "total_tokens": 395
+         },
+         "reasoningTokens": 34,
+         "cachedInputTokens": 0
+        },
+        "ms": 2542,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 416,
+         "inputTokenDetails": {
+          "noCacheTokens": 416,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 389,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 359
+         },
+         "totalTokens": 805,
+         "raw": {
+          "thoughtsTokenCount": 359,
+          "promptTokenCount": 416,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 805,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 416
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 359,
+         "cachedInputTokens": 0
+        },
+        "ms": 3606,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 473,
+         "inputTokenDetails": {
+          "noCacheTokens": 217,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 498,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 472
+         },
+         "totalTokens": 971,
+         "raw": {
+          "prompt_tokens": 473,
+          "completion_tokens": 498,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 217,
+          "total_tokens": 971,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 472
+          }
+         },
+         "reasoningTokens": 472,
+         "cachedInputTokens": 256
+        },
+        "ms": 4909,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 503,
+         "inputTokenDetails": {
+          "noCacheTokens": 439,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 125,
+         "outputTokenDetails": {
+          "textTokens": 28,
+          "reasoningTokens": 97
+         },
+         "totalTokens": 628,
+         "raw": {
+          "prompt_tokens": 503,
+          "completion_tokens": 125,
+          "total_tokens": 628,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 97,
+           "accepted_prediction_tokens": 69,
+           "rejected_prediction_tokens": 96,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 97,
+         "cachedInputTokens": 64
+        },
+        "ms": 2347,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "C's rationale introduces and defines molality using kilograms of solvent, a concept not included in the fact pack's assessed content. Calling its calculations out of scope does not make this added teaching content in scope; explain instead why solvent mass is unnecessary for comparing molarity."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20920,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20917
+         },
+         "outputTokens": 785,
+         "outputTokenDetails": {
+          "textTokens": 275,
+          "reasoningTokens": 510
+         },
+         "totalTokens": 21705,
+         "raw": {
+          "input_tokens": 20920,
+          "input_tokens_details": {
+           "cache_write_tokens": 20917,
+           "cached_tokens": 0
+          },
+          "output_tokens": 785,
+          "output_tokens_details": {
+           "reasoning_tokens": 510
+          },
+          "total_tokens": 21705
+         },
+         "reasoningTokens": 510,
+         "cachedInputTokens": 0
+        },
+        "ms": 15241,
+        "flags": [
+         "ced_scope: C's rationale introduces and defines molality using kilograms of solvent, a concept not included in the fact pack's assessed content. Calling its calculations out of scope does not make this added teaching content in scope; explain instead why solvent mass is unnecessary for comparing molarity."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "C's rationale introduces and defines molality using kilograms of solvent. That definition is not part of the fact pack's in-scope content; molality appears only in the exclusion for solution calculations. Explain the solvent-mass error using the definition of molarity instead."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20920,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 20917,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 861,
+         "outputTokenDetails": {
+          "textTokens": 275,
+          "reasoningTokens": 586
+         },
+         "totalTokens": 21781,
+         "raw": {
+          "input_tokens": 20920,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 20917
+          },
+          "output_tokens": 861,
+          "output_tokens_details": {
+           "reasoning_tokens": 586
+          },
+          "total_tokens": 21781
+         },
+         "reasoningTokens": 586,
+         "cachedInputTokens": 20917
+        },
+        "ms": 16609,
+        "flags": [
+         "ced_scope: C's rationale introduces and defines molality using kilograms of solvent. That definition is not part of the fact pack's in-scope content; molality appears only in the exclusion for solution calculations. Explain the solvent-mass error using the definition of molarity instead."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21772,
+         "inputTokenDetails": {
+          "noCacheTokens": 21772,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1943,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1681
+         },
+         "totalTokens": 23715,
+         "raw": {
+          "thoughtsTokenCount": 1681,
+          "promptTokenCount": 21772,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 23715,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21772
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1681,
+         "cachedInputTokens": 0
+        },
+        "ms": 12841,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20681,
+         "inputTokenDetails": {
+          "noCacheTokens": 19401,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 5367,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 5148
+         },
+         "totalTokens": 26048,
+         "raw": {
+          "prompt_tokens": 20681,
+          "completion_tokens": 5367,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 19401,
+          "total_tokens": 26048,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5148
+          }
+         },
+         "reasoningTokens": 5148,
+         "cachedInputTokens": 1280
+        },
+        "ms": 41276,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21226,
+         "inputTokenDetails": {
+          "noCacheTokens": 21162,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 3019,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 2892
+         },
+         "totalTokens": 24245,
+         "raw": {
+          "prompt_tokens": 21226,
+          "completion_tokens": 3019,
+          "total_tokens": 24245,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2892,
+           "accepted_prediction_tokens": 2024,
+           "rejected_prediction_tokens": 958,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2892,
+         "cachedInputTokens": 64
+        },
+        "ms": 26916,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-chemistry__3.8#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20291,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 20288
+    },
+    "outputTokens": 872,
+    "outputTokenDetails": {
+     "textTokens": 622,
+     "reasoningTokens": 250
+    },
+    "totalTokens": 21163,
+    "raw": {
+     "input_tokens": 20291,
+     "input_tokens_details": {
+      "cache_write_tokens": 20288,
+      "cached_tokens": 0
+     },
+     "output_tokens": 872,
+     "output_tokens_details": {
+      "reasoning_tokens": 250
+     },
+     "total_tokens": 21163
+    },
+    "reasoningTokens": 250,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.8",
+    "topic_title": "Representations of Solutions",
+    "stem": "Two particulate diagrams represent aqueous NaCl solutions in which all dissolved NaCl is present as separated Na⁺ and Cl⁻ ions. Each ion symbol represents the same number of ions in both diagrams.\n\nDiagram P: 4 Na⁺ symbols and 4 Cl⁻ symbols in a solution volume V.\nDiagram Q: 6 Na⁺ symbols and 6 Cl⁻ symbols in a solution volume 3V.\n\nMost water molecules are omitted for clarity. In a water molecule, the oxygen end is partially negative (δ−), and the hydrogen ends are partially positive (δ+).\n\nWhich statement correctly compares the NaCl concentrations and describes the preferred orientation of nearby water molecules?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Q is 1.5 times as concentrated as P; water’s oxygen end points toward Na⁺, and its hydrogen ends point toward Cl⁻.",
+      "is_correct": false,
+      "rationale": "Raw-count trap: Comparing 6 symbols with 4 ignores that Q represents three times the solution volume. More solute particles do not necessarily mean a higher concentration when represented volumes differ. Fix: Divide each diagram’s count of the same solute species by its represented solution volume before comparing."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "P is twice as concentrated as Q; water’s oxygen end points toward Na⁺, and its hydrogen ends point toward Cl⁻.",
+      "is_correct": true,
+      "rationale": "Compare solute amount per solution volume, not raw symbol counts: P has 4/V represented NaCl units, while Q has 6/(3V) = 2/V. Thus P is twice as concentrated. Water’s partially negative oxygen end is attracted to Na⁺, and its partially positive hydrogen ends are attracted to Cl⁻."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "P is twice as concentrated as Q; water’s hydrogen ends point toward Na⁺, and its oxygen end points toward Cl⁻.",
+      "is_correct": false,
+      "rationale": "Reversed-orientation trap: This places water’s partially positive ends toward a positive ion and its partially negative end toward a negative ion. Preferred orientations place opposite charges near one another. Fix: Mark each ion’s charge and water’s partial charges, then orient the oppositely charged end toward each ion."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "P and Q have equal concentrations because both show a 1:1 ratio of Na⁺ to Cl⁻; water’s oxygen end points toward Na⁺, and its hydrogen ends point toward Cl⁻.",
+      "is_correct": false,
+      "rationale": "Composition-ratio trap: The 1:1 ion ratio identifies NaCl’s composition, not its concentration. Both diagrams can have the same ion ratio while showing different amounts of solute per solution volume. Fix: Compare the number of Na⁺ symbols per represented solution volume, rather than the Na⁺:Cl⁻ ratio."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": "The concentration of P is 4/V and that of Q is 6/(3V) = 2/V, so P is twice as concentrated as Q. Water orients with its δ− oxygen end toward Na⁺ and its δ+ hydrogen ends toward Cl⁻. B is the only choice that gets both parts right, so there is no defect."
+        },
+        "usage": {
+         "inputTokens": 986,
+         "inputTokenDetails": {
+          "noCacheTokens": 986,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 139,
+         "outputTokenDetails": {
+          "textTokens": 139,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 1125,
+         "raw": {
+          "input_tokens": 986,
+          "output_tokens": 139,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2756,
+        "flags": [
+         "defect: The concentration of P is 4/V and that of Q is 6/(3V) = 2/V, so P is twice as concentrated as Q. Water orients with its δ− oxygen end toward Na⁺ and its δ+ hydrogen ends toward Cl⁻. B is the only choice that gets both parts right, so there is no defect."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": "The choice is well posed with exactly one correct answer. P has a concentration of 4/V. Q has a concentration of 6/(3V) = 2/V. P is therefore twice as concentrated as Q. Water's oxygen end points toward Na⁺, and its hydrogen ends point toward Cl⁻."
+        },
+        "usage": {
+         "inputTokens": 986,
+         "inputTokenDetails": {
+          "noCacheTokens": 986,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 132,
+         "outputTokenDetails": {
+          "textTokens": 132,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 1118,
+         "raw": {
+          "input_tokens": 986,
+          "output_tokens": 132,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2567,
+        "flags": [
+         "defect: The choice is well posed with exactly one correct answer. P has a concentration of 4/V. Q has a concentration of 6/(3V) = 2/V. P is therefore twice as concentrated as Q. Water's oxygen end points toward Na⁺, and its hydrogen ends point toward Cl⁻."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 515,
+         "inputTokenDetails": {
+          "noCacheTokens": 515,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 373,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 343
+         },
+         "totalTokens": 888,
+         "raw": {
+          "thoughtsTokenCount": 343,
+          "promptTokenCount": 515,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 888,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 515
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 343,
+         "cachedInputTokens": 0
+        },
+        "ms": 4422,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 578,
+         "inputTokenDetails": {
+          "noCacheTokens": 322,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 343,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 317
+         },
+         "totalTokens": 921,
+         "raw": {
+          "prompt_tokens": 578,
+          "completion_tokens": 343,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 322,
+          "total_tokens": 921,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 317
+          }
+         },
+         "reasoningTokens": 317,
+         "cachedInputTokens": 256
+        },
+        "ms": 3850,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 600,
+         "inputTokenDetails": {
+          "noCacheTokens": 536,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 103,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 83
+         },
+         "totalTokens": 703,
+         "raw": {
+          "prompt_tokens": 600,
+          "completion_tokens": 103,
+          "total_tokens": 703,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 83,
+           "accepted_prediction_tokens": 63,
+           "rejected_prediction_tokens": 54,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 83,
+         "cachedInputTokens": 64
+        },
+        "ms": 3917,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  },
+  {
+   "id": "ap-chemistry__3.8#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32408,
+    "inputTokenDetails": {
+     "noCacheTokens": 32408,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1980,
+    "outputTokenDetails": {
+     "textTokens": 877,
+     "reasoningTokens": 1103
+    },
+    "totalTokens": 34388,
+    "raw": {
+     "input_tokens": 32408,
+     "output_tokens": 1980,
+     "output_tokens_details": {
+      "thinking_tokens": 1103
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 1103,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.8",
+    "topic_title": "Representations of Solutions",
+    "stem": "Two particulate diagrams of aqueous solutions are described in words. Diagram 1 represents a 1.0 L sample of glucose solution and shows 6 glucose molecules dispersed among water molecules. Diagram 2 represents a 2.0 L sample of sodium chloride solution and shows 8 Na⁺ ions and 8 Cl⁻ ions, each separated and surrounded by water molecules. Each drawn particle stands for the same fixed number of moles. Which statement correctly compares the molarity of the dissolved compound in the two solutions?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The NaCl solution has the greater molarity: 16 dissolved particles compared with 6 dissolved particles.",
+      "is_correct": false,
+      "rationale": "This counts every drawn ion as a separate unit of solute and also ignores that the two diagrams represent different volumes. The 16 ions are only 8 NaCl formula units, and they are spread over 2.0 L, giving 4 per liter versus 6 per liter for glucose. Fix: Convert ions back to formula units, then divide each count by the volume its diagram represents."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The glucose solution has the greater molarity: 6 glucose molecules per liter compared with 4 NaCl formula units per liter.",
+      "is_correct": true,
+      "rationale": "Molarity is moles of solute per liter of solution, so each count must be divided by the volume its diagram represents. The 16 ions in Diagram 2 come from 8 NaCl formula units, and 8 ÷ 2.0 L = 4 per liter. Glucose gives 6 ÷ 1.0 L = 6 per liter, which is greater."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The NaCl solution has the greater molarity: 8 NaCl formula units compared with 6 glucose molecules.",
+      "is_correct": false,
+      "rationale": "This correctly groups the ions into formula units but compares raw counts as if both diagrams showed equal volumes. Diagram 2 represents twice the volume, so its 8 formula units correspond to only 4 per liter, below glucose's 6 per liter. Fix: Check the volume each diagram represents and divide the particle count by it before comparing."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The NaCl solution has the greater molarity: 8 ions per liter compared with 6 glucose molecules per liter.",
+      "is_correct": false,
+      "rationale": "This divides by volume correctly but reports the concentration of all dissolved ions instead of the concentration of the compound NaCl. Each formula unit releases two ions, so 8 ions per liter corresponds to only 4 NaCl formula units per liter. Fix: Ask whether the prompt names the compound or its ions, and divide ion counts by ions per formula unit."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 372,
+         "inputTokenDetails": {
+          "noCacheTokens": 372,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 76,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 50
+         },
+         "totalTokens": 448,
+         "raw": {
+          "input_tokens": 372,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 76,
+          "output_tokens_details": {
+           "reasoning_tokens": 50
+          },
+          "total_tokens": 448
+         },
+         "reasoningTokens": 50,
+         "cachedInputTokens": 0
+        },
+        "ms": 3448,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 447,
+         "inputTokenDetails": {
+          "noCacheTokens": 447,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 391,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 361
+         },
+         "totalTokens": 838,
+         "raw": {
+          "thoughtsTokenCount": 361,
+          "promptTokenCount": 447,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 838,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 447
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 361,
+         "cachedInputTokens": 0
+        },
+        "ms": 4353,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 506,
+         "inputTokenDetails": {
+          "noCacheTokens": 250,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 1971,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 1945
+         },
+         "totalTokens": 2477,
+         "raw": {
+          "prompt_tokens": 506,
+          "completion_tokens": 1971,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 250,
+          "total_tokens": 2477,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1945
+          }
+         },
+         "reasoningTokens": 1945,
+         "cachedInputTokens": 256
+        },
+        "ms": 17002,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 540,
+         "inputTokenDetails": {
+          "noCacheTokens": 476,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 451,
+         "outputTokenDetails": {
+          "textTokens": 32,
+          "reasoningTokens": 419
+         },
+         "totalTokens": 991,
+         "raw": {
+          "prompt_tokens": 540,
+          "completion_tokens": 451,
+          "total_tokens": 991,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 419,
+           "accepted_prediction_tokens": 241,
+           "rejected_prediction_tokens": 386,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 419,
+         "cachedInputTokens": 64
+        },
+        "ms": 8601,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": false,
+           "issue": "B correctly identifies glucose as more concentrated, but its literal claim of 6 molecules/L versus 4 formula units/L is not established. Each drawn particle represents an unspecified number of moles, not one actual particle. Thus no choice is fully correct as written; B should describe normalized drawn counts or relative molarities."
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "The rationales blur scaled diagram counts with actual particle concentrations, especially C's '4 per liter' and D's '8 ions per liter' and '4 NaCl formula units per liter.' These are normalized drawn counts, not established physical particle concentrations. If each symbol represents k moles, the compound molarities are 6k mol/L for glucose and 4k mol/L for NaCl."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20949,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20946
+         },
+         "outputTokens": 845,
+         "outputTokenDetails": {
+          "textTokens": 368,
+          "reasoningTokens": 477
+         },
+         "totalTokens": 21794,
+         "raw": {
+          "input_tokens": 20949,
+          "input_tokens_details": {
+           "cache_write_tokens": 20946,
+           "cached_tokens": 0
+          },
+          "output_tokens": 845,
+          "output_tokens_details": {
+           "reasoning_tokens": 477
+          },
+          "total_tokens": 21794
+         },
+         "reasoningTokens": 477,
+         "cachedInputTokens": 0
+        },
+        "ms": 17891,
+        "flags": [
+         "one_answer: B correctly identifies glucose as more concentrated, but its literal claim of 6 molecules/L versus 4 formula units/L is not established. Each drawn particle represents an unspecified number of moles, not one actual particle. Thus no choice is fully correct as written; B should describe normalized drawn counts or relative molarities.",
+         "accurate: The rationales blur scaled diagram counts with actual particle concentrations, especially C's '4 per liter' and D's '8 ions per liter' and '4 NaCl formula units per liter.' These are normalized drawn counts, not established physical particle concentrations. If each symbol represents k moles, the compound molarities are 6k mol/L for glucose and 4k mol/L for NaCl."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": false,
+           "issue": "B correctly identifies glucose as having greater molarity, but its literal claim of 6 glucose molecules per liter versus 4 NaCl formula units per liter is unsupported. Each drawn particle represents an unspecified number of moles, not one actual particle. Thus no choice is fully correct as written; B should identify these numbers as normalized diagram counts."
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "The rationales repeatedly conflate scaled diagram counts with actual particle concentrations, most explicitly in D's '8 ions per liter' and '4 NaCl formula units per liter.' If each icon represents k moles, the compound molarities are 6k mol/L and 4k mol/L. State that 6 and 4 are normalized diagram counts, or retain the scale factor when reporting concentrations."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20949,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 20946,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 888,
+         "outputTokenDetails": {
+          "textTokens": 372,
+          "reasoningTokens": 516
+         },
+         "totalTokens": 21837,
+         "raw": {
+          "input_tokens": 20949,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 20946
+          },
+          "output_tokens": 888,
+          "output_tokens_details": {
+           "reasoning_tokens": 516
+          },
+          "total_tokens": 21837
+         },
+         "reasoningTokens": 516,
+         "cachedInputTokens": 20946
+        },
+        "ms": 19207,
+        "flags": [
+         "one_answer: B correctly identifies glucose as having greater molarity, but its literal claim of 6 glucose molecules per liter versus 4 NaCl formula units per liter is unsupported. Each drawn particle represents an unspecified number of moles, not one actual particle. Thus no choice is fully correct as written; B should identify these numbers as normalized diagram counts.",
+         "accurate: The rationales repeatedly conflate scaled diagram counts with actual particle concentrations, most explicitly in D's '8 ions per liter' and '4 NaCl formula units per liter.' If each icon represents k moles, the compound molarities are 6k mol/L and 4k mol/L. State that 6 and 4 are normalized diagram counts, or retain the scale factor when reporting concentrations."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21789,
+         "inputTokenDetails": {
+          "noCacheTokens": 21789,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1409,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1147
+         },
+         "totalTokens": 23198,
+         "raw": {
+          "thoughtsTokenCount": 1147,
+          "promptTokenCount": 21789,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 23198,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21789
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1147,
+         "cachedInputTokens": 0
+        },
+        "ms": 10110,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20706,
+         "inputTokenDetails": {
+          "noCacheTokens": 19298,
+          "cacheReadTokens": 1408
+         },
+         "outputTokens": 5041,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 4822
+         },
+         "totalTokens": 25747,
+         "raw": {
+          "prompt_tokens": 20706,
+          "completion_tokens": 5041,
+          "prompt_cache_hit_tokens": 1408,
+          "prompt_cache_miss_tokens": 19298,
+          "total_tokens": 25747,
+          "prompt_tokens_details": {
+           "cached_tokens": 1408
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4822
+          }
+         },
+         "reasoningTokens": 4822,
+         "cachedInputTokens": 1408
+        },
+        "ms": 36365,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21251,
+         "inputTokenDetails": {
+          "noCacheTokens": 21187,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 3067,
+         "outputTokenDetails": {
+          "textTokens": 173,
+          "reasoningTokens": 2894
+         },
+         "totalTokens": 24318,
+         "raw": {
+          "prompt_tokens": 21251,
+          "completion_tokens": 3067,
+          "total_tokens": 24318,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2894,
+           "accepted_prediction_tokens": 2067,
+           "rejected_prediction_tokens": 930,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2894,
+         "cachedInputTokens": 64
+        },
+        "ms": 28933,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-chemistry__3.8#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20291,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 20288,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 884,
+    "outputTokenDetails": {
+     "textTokens": 572,
+     "reasoningTokens": 312
+    },
+    "totalTokens": 21175,
+    "raw": {
+     "input_tokens": 20291,
+     "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 20288
+     },
+     "output_tokens": 884,
+     "output_tokens_details": {
+      "reasoning_tokens": 312
+     },
+     "total_tokens": 21175
+    },
+    "reasoningTokens": 312,
+    "cachedInputTokens": 20288
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.8",
+    "topic_title": "Representations of Solutions",
+    "stem": "Two particulate models represent aqueous NaCl solutions. Model P contains 4 Na⁺ symbols and 4 Cl⁻ symbols in a solution volume V. Model Q contains 6 Na⁺ symbols and 6 Cl⁻ symbols in a solution volume 2V. Each ion symbol represents the same number of ions in both models, and all ions are dispersed throughout the water. Water molecules have a partially negative oxygen end and partially positive hydrogen ends. Which interpretation correctly compares the Na⁺ concentrations and describes the orientation of nearby water molecules around Na⁺?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Model P has the greater Na⁺ concentration, and the oxygen ends of nearby water molecules point toward Na⁺.",
+      "is_correct": true,
+      "rationale": "Compare Na⁺ count per represented solution volume: 4/V > 6/(2V) = 3/V, so P has the greater Na⁺ concentration. The partially negative oxygen end of water is attracted to the positive Na⁺ ion."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Model Q has the greater Na⁺ concentration because it contains more Na⁺ symbols, and the oxygen ends of nearby water molecules point toward Na⁺.",
+      "is_correct": false,
+      "rationale": "Raw-count trap: More drawn ions do not necessarily mean greater concentration when the represented volumes differ. Q has more Na⁺ symbols but twice the solution volume, giving fewer Na⁺ symbols per unit volume. Fix: Divide each model’s Na⁺ count by its represented solution volume before comparing concentrations."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The models have equal Na⁺ concentrations because both have a 1:1 ratio of Na⁺ to Cl⁻, and the oxygen ends of nearby water molecules point toward Na⁺.",
+      "is_correct": false,
+      "rationale": "Ion-ratio trap: The Na⁺:Cl⁻ ratio describes relative ion amounts, not the number of Na⁺ ions per solution volume. Both models have the same ion ratio, but their Na⁺ counts per unit volume differ. Fix: Compare Na⁺ count per represented solution volume rather than the Na⁺:Cl⁻ ratio."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Model P has the greater Na⁺ concentration, and the hydrogen ends of nearby water molecules point toward Na⁺.",
+      "is_correct": false,
+      "rationale": "Reversed-water-orientation trap: The partially positive hydrogen ends are repelled by Na⁺, not attracted to it. A suitable particulate representation places the partially negative oxygen end toward Na⁺. Fix: Mark the ion’s charge and water’s partial charges, then orient the oppositely charged end toward the ion."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": "Choice A is the only correct answer. Model P has 4 Na⁺ in volume V, a concentration of 4/V. Model Q has 6 Na⁺ in volume 2V, a concentration of 3/V. So P is more concentrated. Na⁺ is a cation, so the partially negative oxygen ends of nearby water molecules point toward it. B and C misread concentration as ion count or ion ratio, and D gets the water orientation backwards."
+        },
+        "usage": {
+         "inputTokens": 920,
+         "inputTokenDetails": {
+          "noCacheTokens": 920,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 178,
+         "outputTokenDetails": {
+          "textTokens": 178,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 1098,
+         "raw": {
+          "input_tokens": 920,
+          "output_tokens": 178,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2869,
+        "flags": [
+         "defect: Choice A is the only correct answer. Model P has 4 Na⁺ in volume V, a concentration of 4/V. Model Q has 6 Na⁺ in volume 2V, a concentration of 3/V. So P is more concentrated. Na⁺ is a cation, so the partially negative oxygen ends of nearby water molecules point toward it. B and C misread concentration as ion count or ion ratio, and D gets the water orientation backwards."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 920,
+         "inputTokenDetails": {
+          "noCacheTokens": 920,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 950,
+         "raw": {
+          "input_tokens": 920,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1562,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 471,
+         "inputTokenDetails": {
+          "noCacheTokens": 471,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 276,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 246
+         },
+         "totalTokens": 747,
+         "raw": {
+          "thoughtsTokenCount": 246,
+          "promptTokenCount": 471,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 747,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 471
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 246,
+         "cachedInputTokens": 0
+        },
+        "ms": 4501,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 544,
+         "inputTokenDetails": {
+          "noCacheTokens": 288,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 541,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 521
+         },
+         "totalTokens": 1085,
+         "raw": {
+          "prompt_tokens": 544,
+          "completion_tokens": 541,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 288,
+          "total_tokens": 1085,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 521
+          }
+         },
+         "reasoningTokens": 521,
+         "cachedInputTokens": 256
+        },
+        "ms": 5284,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 568,
+         "inputTokenDetails": {
+          "noCacheTokens": 504,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 94,
+         "outputTokenDetails": {
+          "textTokens": 21,
+          "reasoningTokens": 73
+         },
+         "totalTokens": 662,
+         "raw": {
+          "prompt_tokens": 568,
+          "completion_tokens": 94,
+          "total_tokens": 662,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 73,
+           "accepted_prediction_tokens": 52,
+           "rejected_prediction_tokens": 71,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 73,
+         "cachedInputTokens": 64
+        },
+        "ms": 5953,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 34187,
+         "inputTokenDetails": {
+          "noCacheTokens": 34187,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 466,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 254
+         },
+         "totalTokens": 34653,
+         "raw": {
+          "input_tokens": 34187,
+          "output_tokens": 466,
+          "output_tokens_details": {
+           "thinking_tokens": 254
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 254,
+         "cachedInputTokens": 0
+        },
+        "ms": 5338,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21761,
+         "inputTokenDetails": {
+          "noCacheTokens": 21761,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1474,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1212
+         },
+         "totalTokens": 23235,
+         "raw": {
+          "thoughtsTokenCount": 1212,
+          "promptTokenCount": 21761,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 23235,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21761
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1212,
+         "cachedInputTokens": 0
+        },
+        "ms": 9878,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20706,
+         "inputTokenDetails": {
+          "noCacheTokens": 19298,
+          "cacheReadTokens": 1408
+         },
+         "outputTokens": 6231,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6012
+         },
+         "totalTokens": 26937,
+         "raw": {
+          "prompt_tokens": 20706,
+          "completion_tokens": 6231,
+          "prompt_cache_hit_tokens": 1408,
+          "prompt_cache_miss_tokens": 19298,
+          "total_tokens": 26937,
+          "prompt_tokens_details": {
+           "cached_tokens": 1408
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6012
+          }
+         },
+         "reasoningTokens": 6012,
+         "cachedInputTokens": 1408
+        },
+        "ms": 43485,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21227,
+         "inputTokenDetails": {
+          "noCacheTokens": 21163,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2450,
+         "outputTokenDetails": {
+          "textTokens": 173,
+          "reasoningTokens": 2277
+         },
+         "totalTokens": 23677,
+         "raw": {
+          "prompt_tokens": 21227,
+          "completion_tokens": 2450,
+          "total_tokens": 23677,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2277,
+           "accepted_prediction_tokens": 1621,
+           "rejected_prediction_tokens": 863,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2277,
+         "cachedInputTokens": 64
+        },
+        "ms": 23153,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.8",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20934,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20931
+         },
+         "outputTokens": 251,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 79
+         },
+         "totalTokens": 21185,
+         "raw": {
+          "input_tokens": 20934,
+          "input_tokens_details": {
+           "cache_write_tokens": 20931,
+           "cached_tokens": 0
+          },
+          "output_tokens": 251,
+          "output_tokens_details": {
+           "reasoning_tokens": 79
+          },
+          "total_tokens": 21185
+         },
+         "reasoningTokens": 79,
+         "cachedInputTokens": 0
+        },
+        "ms": 5116,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-chemistry__3.8#r2-openai",
+ "accepted_at": "2026-10-07T00:35:36.513Z"
+}

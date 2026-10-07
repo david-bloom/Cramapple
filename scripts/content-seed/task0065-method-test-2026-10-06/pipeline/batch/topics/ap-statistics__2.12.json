@@ -1,0 +1,1690 @@
+{
+ "topic": {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.12",
+  "topic_title": "Sampling Distributions and the Central Limit Theorem"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-statistics__2.12#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 21695,
+    "inputTokenDetails": {
+     "noCacheTokens": 21695,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1416,
+    "outputTokenDetails": {
+     "textTokens": 769,
+     "reasoningTokens": 647
+    },
+    "totalTokens": 23111,
+    "raw": {
+     "input_tokens": 21695,
+     "output_tokens": 1416,
+     "output_tokens_details": {
+      "thinking_tokens": 647
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 647,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-statistics",
+    "unit_number": 2,
+    "topic_code": "2.12",
+    "topic_title": "Sampling Distributions and the Central Limit Theorem",
+    "stem": "The commute times of all workers in a large city are moderately right-skewed. A researcher takes 1,000 separate random samples, each of 50 workers, computes the mean commute time of each sample, and makes a dotplot of the 1,000 sample means. Which statement best describes this dotplot?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Each dot is one sample's mean commute time, and the dotplot is right-skewed like the population, because samples drawn from a skewed population produce skewed results.",
+      "is_correct": false,
+      "rationale": "This confuses the shape of the population with the shape of the sampling distribution. Individual samples may look skewed, but the distribution of their means becomes approximately normal as sample size grows, by the Central Limit Theorem. Fix: Ask whether the graph's dots are individuals or sample statistics, and apply the Central Limit Theorem only when they are sample means."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Each dot is one worker's commute time, so the dotplot shows a single large sample of 1,000 workers and should be right-skewed like the population.",
+      "is_correct": false,
+      "rationale": "This misreads what a dot represents. The researcher plotted 1,000 sample means, each computed from 50 workers, not 1,000 individual commute times, so this is not one sample's data. Fix: Before describing any distribution, name what one dot stands for by tracing how each plotted value was produced."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Each dot is one sample's mean commute time; the dotplot is approximately normal, centered near the population mean, with less spread than the individual commute times in the population.",
+      "is_correct": true,
+      "rationale": "Each dot summarizes a whole sample, so this is a sampling distribution of the sample mean. The Central Limit Theorem says this distribution is approximately normal for a large enough sample size, even when the population is skewed. Averaging 50 workers cancels out extreme values, so sample means vary less than individual commute times."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The dotplot is approximately normal, which shows that the population of commute times becomes approximately normal once each sample has at least 30 workers.",
+      "is_correct": false,
+      "rationale": "This is the common belief that the Central Limit Theorem changes the population. The population of commute times stays right-skewed no matter how samples are drawn; only the distribution of the sample mean becomes approximately normal. Fix: Check which distribution a normality claim refers to, and attach the Central Limit Theorem only to the sampling distribution."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 373,
+         "inputTokenDetails": {
+          "noCacheTokens": 373,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 54,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 28
+         },
+         "totalTokens": 427,
+         "raw": {
+          "input_tokens": 373,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 54,
+          "output_tokens_details": {
+           "reasoning_tokens": 28
+          },
+          "total_tokens": 427
+         },
+         "reasoningTokens": 28,
+         "cachedInputTokens": 0
+        },
+        "ms": 2460,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 464,
+         "inputTokenDetails": {
+          "noCacheTokens": 464,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 351,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 321
+         },
+         "totalTokens": 815,
+         "raw": {
+          "thoughtsTokenCount": 321,
+          "promptTokenCount": 464,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 815,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 464
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 321,
+         "cachedInputTokens": 0
+        },
+        "ms": 5611,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 512,
+         "inputTokenDetails": {
+          "noCacheTokens": 512,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1122,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 1096
+         },
+         "totalTokens": 1634,
+         "raw": {
+          "prompt_tokens": 512,
+          "completion_tokens": 1122,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 512,
+          "total_tokens": 1634,
+          "prompt_tokens_details": {
+           "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1096
+          }
+         },
+         "reasoningTokens": 1096,
+         "cachedInputTokens": 0
+        },
+        "ms": 10507,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 535,
+         "inputTokenDetails": {
+          "noCacheTokens": 471,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 390,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 370
+         },
+         "totalTokens": 925,
+         "raw": {
+          "prompt_tokens": 535,
+          "completion_tokens": 390,
+          "total_tokens": 925,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 370,
+           "accepted_prediction_tokens": 236,
+           "rejected_prediction_tokens": 223,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 370,
+         "cachedInputTokens": 64
+        },
+        "ms": 8518,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "C's rationale incorrectly says averaging 'cancels out extreme values.' Averaging reduces variability across samples but does not necessarily cancel extremes, especially in a right-skewed population. Also, the 1,000 simulated means form an approximation to the sampling distribution, not the sampling distribution over all possible samples."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14353,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 14350
+         },
+         "outputTokens": 669,
+         "outputTokenDetails": {
+          "textTokens": 284,
+          "reasoningTokens": 385
+         },
+         "totalTokens": 15022,
+         "raw": {
+          "input_tokens": 14353,
+          "input_tokens_details": {
+           "cache_write_tokens": 14350,
+           "cached_tokens": 0
+          },
+          "output_tokens": 669,
+          "output_tokens_details": {
+           "reasoning_tokens": 385
+          },
+          "total_tokens": 15022
+         },
+         "reasoningTokens": 385,
+         "cachedInputTokens": 0
+        },
+        "ms": 13090,
+        "flags": [
+         "accurate: C's rationale incorrectly says averaging 'cancels out extreme values.' Averaging reduces variability across samples but does not necessarily cancel extremes, especially in a right-skewed population. Also, the 1,000 simulated means form an approximation to the sampling distribution, not the sampling distribution over all possible samples."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "C's rationale incorrectly says averaging 'cancels out extreme values'; extreme values still affect the mean, although averaging reduces variability across samples. It also calls the 1,000 plotted means a sampling distribution without qualification: they approximate the sampling distribution, which is defined over all possible samples of size 50."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14353,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 14350,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 642,
+         "outputTokenDetails": {
+          "textTokens": 284,
+          "reasoningTokens": 358
+         },
+         "totalTokens": 14995,
+         "raw": {
+          "input_tokens": 14353,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 14350
+          },
+          "output_tokens": 642,
+          "output_tokens_details": {
+           "reasoning_tokens": 358
+          },
+          "total_tokens": 14995
+         },
+         "reasoningTokens": 358,
+         "cachedInputTokens": 14350
+        },
+        "ms": 11713,
+        "flags": [
+         "accurate: C's rationale incorrectly says averaging 'cancels out extreme values'; extreme values still affect the mean, although averaging reduces variability across samples. It also calls the 1,000 plotted means a sampling distribution without qualification: they approximate the sampling distribution, which is defined over all possible samples of size 50."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 15612,
+         "inputTokenDetails": {
+          "noCacheTokens": 15612,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1919,
+         "outputTokenDetails": {
+          "textTokens": 263,
+          "reasoningTokens": 1656
+         },
+         "totalTokens": 17531,
+         "raw": {
+          "thoughtsTokenCount": 1656,
+          "promptTokenCount": 15612,
+          "candidatesTokenCount": 263,
+          "totalTokenCount": 17531,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 15612
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 263
+           }
+          ]
+         },
+         "reasoningTokens": 1656,
+         "cachedInputTokens": 0
+        },
+        "ms": 12425,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14492,
+         "inputTokenDetails": {
+          "noCacheTokens": 13212,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 10802,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 10583
+         },
+         "totalTokens": 25294,
+         "raw": {
+          "prompt_tokens": 14492,
+          "completion_tokens": 10802,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 13212,
+          "total_tokens": 25294,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 10583
+          }
+         },
+         "reasoningTokens": 10583,
+         "cachedInputTokens": 1280
+        },
+        "ms": 80035,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14478,
+         "inputTokenDetails": {
+          "noCacheTokens": 14414,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 3347,
+         "outputTokenDetails": {
+          "textTokens": 215,
+          "reasoningTokens": 3132
+         },
+         "totalTokens": 17825,
+         "raw": {
+          "prompt_tokens": 14478,
+          "completion_tokens": 3347,
+          "total_tokens": 17825,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3132,
+           "accepted_prediction_tokens": 2153,
+           "rejected_prediction_tokens": 1426,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 3132,
+         "cachedInputTokens": 64
+        },
+        "ms": 34011,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-statistics__2.12#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 21695,
+    "inputTokenDetails": {
+     "noCacheTokens": 21695,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1264,
+    "outputTokenDetails": {
+     "textTokens": 751,
+     "reasoningTokens": 513
+    },
+    "totalTokens": 22959,
+    "raw": {
+     "input_tokens": 21695,
+     "output_tokens": 1264,
+     "output_tokens_details": {
+      "thinking_tokens": 513
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 513,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-statistics",
+    "unit_number": 2,
+    "topic_code": "2.12",
+    "topic_title": "Sampling Distributions and the Central Limit Theorem",
+    "stem": "Monthly electricity bills for households in a large city have a strongly right-skewed distribution. A researcher selects 500 separate random samples of 50 households each, computes the mean bill for each sample, and makes a dotplot of the 500 sample means. Which statement correctly describes this dotplot?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Each dot is one sample's mean bill, and the dotplot should be approximately normal even though the population of bills remains right-skewed.",
+      "is_correct": true,
+      "rationale": "The dotplot approximates the sampling distribution of the sample mean, so each dot summarizes a whole sample of 50 households. The Central Limit Theorem says this distribution of sample means is approximately normal for a large enough sample size, while individual bills in the population stay right-skewed."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Each dot is one household's bill, and the dotplot should be right-skewed like the population.",
+      "is_correct": false,
+      "rationale": "This confuses the sampling distribution with the population distribution, treating dots as individual households. The researcher plotted 500 sample means, so each dot is a whole sample's statistic, and those means pile up approximately normally. Fix: Before describing a graph, ask what one dot represents: one individual or one whole sample's statistic."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Each dot is one sample's mean bill, and the dotplot should be right-skewed because the samples come from a right-skewed population.",
+      "is_correct": false,
+      "rationale": "This assumes the sampling distribution inherits the population's shape. Averaging 50 bills dampens extreme values, and the Central Limit Theorem says the distribution of sample means is approximately normal for a large enough sample size despite a skewed population. Fix: Check whether the graph shows a statistic from many samples; if it shows sample means with large n, apply the Central Limit Theorem."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Each dot is one sample's mean bill, and the dotplot should be approximately normal because samples of 50 make the population of bills approximately normal.",
+      "is_correct": false,
+      "rationale": "This is the claim that the Central Limit Theorem makes the population normal. Sampling cannot change the population; the bills remain right-skewed, and only the distribution of sample means becomes approximately normal. Fix: Ask which distribution the normality claim attaches to, and apply the Central Limit Theorem only to the sampling distribution of the statistic."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [
+          "C"
+         ],
+         "defect": "A is the intended AP Statistics answer: each dot represents a sample mean, and the central limit theorem explains why sample means can be approximately normal while the population remains skewed. However, n = 50 does not guarantee approximate normality for a strongly right-skewed population. For example, if extremely large bills are sufficiently rare, the sample means can remain strongly right-skewed, making C defensible for that population. More information about the population's skewness or tails is needed to make A uniquely justified."
+        },
+        "usage": {
+         "inputTokens": 346,
+         "inputTokenDetails": {
+          "noCacheTokens": 346,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 434,
+         "outputTokenDetails": {
+          "textTokens": 131,
+          "reasoningTokens": 303
+         },
+         "totalTokens": 780,
+         "raw": {
+          "input_tokens": 346,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 434,
+          "output_tokens_details": {
+           "reasoning_tokens": 303
+          },
+          "total_tokens": 780
+         },
+         "reasoningTokens": 303,
+         "cachedInputTokens": 0
+        },
+        "ms": 11578,
+        "flags": [
+         "also defensible: C",
+         "defect: A is the intended AP Statistics answer: each dot represents a sample mean, and the central limit theorem explains why sample means can be approximately normal while the population remains skewed. However, n = 50 does not guarantee approximate normality for a strongly right-skewed population. For example, if extremely large bills are sufficiently rare, the sample means can remain strongly right-skewed, making C defensible for that population. More information about the population's skewness or tails is needed to make A uniquely justified."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [
+          "C"
+         ],
+         "defect": "A is the intended AP Statistics answer: each dot represents one sample mean, and the central limit theorem can make their distribution approximately normal without changing the population distribution. However, a sample size of 50 does not guarantee a good normal approximation for a strongly right-skewed population. With sufficiently rare, extreme bills, the sample means could remain substantially right-skewed, making C defensible in that case. More information about the population's skewness or tail behavior is needed to ensure a unique answer."
+        },
+        "usage": {
+         "inputTokens": 346,
+         "inputTokenDetails": {
+          "noCacheTokens": 346,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 412,
+         "outputTokenDetails": {
+          "textTokens": 128,
+          "reasoningTokens": 284
+         },
+         "totalTokens": 758,
+         "raw": {
+          "input_tokens": 346,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 412,
+          "output_tokens_details": {
+           "reasoning_tokens": 284
+          },
+          "total_tokens": 758
+         },
+         "reasoningTokens": 284,
+         "cachedInputTokens": 0
+        },
+        "ms": 9911,
+        "flags": [
+         "also defensible: C",
+         "defect: A is the intended AP Statistics answer: each dot represents one sample mean, and the central limit theorem can make their distribution approximately normal without changing the population distribution. However, a sample size of 50 does not guarantee a good normal approximation for a strongly right-skewed population. With sufficiently rare, extreme bills, the sample means could remain substantially right-skewed, making C defensible in that case. More information about the population's skewness or tail behavior is needed to ensure a unique answer."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 438,
+         "inputTokenDetails": {
+          "noCacheTokens": 438,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 307,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 277
+         },
+         "totalTokens": 745,
+         "raw": {
+          "thoughtsTokenCount": 277,
+          "promptTokenCount": 438,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 745,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 438
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 277,
+         "cachedInputTokens": 0
+        },
+        "ms": 3970,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 487,
+         "inputTokenDetails": {
+          "noCacheTokens": 231,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 3399,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 3379
+         },
+         "totalTokens": 3886,
+         "raw": {
+          "prompt_tokens": 487,
+          "completion_tokens": 3399,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 231,
+          "total_tokens": 3886,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3379
+          }
+         },
+         "reasoningTokens": 3379,
+         "cachedInputTokens": 256
+        },
+        "ms": 29761,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 508,
+         "inputTokenDetails": {
+          "noCacheTokens": 444,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 376,
+         "outputTokenDetails": {
+          "textTokens": 32,
+          "reasoningTokens": 344
+         },
+         "totalTokens": 884,
+         "raw": {
+          "prompt_tokens": 508,
+          "completion_tokens": 376,
+          "total_tokens": 884,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 344,
+           "accepted_prediction_tokens": 215,
+           "rejected_prediction_tokens": 265,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 344,
+         "cachedInputTokens": 64
+        },
+        "ms": 4713,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  },
+  {
+   "id": "ap-statistics__2.12#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 13818,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 13815
+    },
+    "outputTokens": 813,
+    "outputTokenDetails": {
+     "textTokens": 513,
+     "reasoningTokens": 300
+    },
+    "totalTokens": 14631,
+    "raw": {
+     "input_tokens": 13818,
+     "input_tokens_details": {
+      "cache_write_tokens": 13815,
+      "cached_tokens": 0
+     },
+     "output_tokens": 813,
+     "output_tokens_details": {
+      "reasoning_tokens": 300
+     },
+     "total_tokens": 14631
+    },
+    "reasoningTokens": 300,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-statistics",
+    "unit_number": 2,
+    "topic_code": "2.12",
+    "topic_title": "Sampling Distributions and the Central Limit Theorem",
+    "stem": "A company's population of delivery times is strongly right-skewed. For every possible sample of size n, with observations selected independently with replacement, imagine calculating the sample mean and placing one dot at that mean. Suppose n is large enough for the Central Limit Theorem to give a good normal approximation. Which statement correctly describes this plot and what happens when n increases further?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Each dot represents one individual delivery time from a single sample. The plot is approximately normal and has less spread as n increases.",
+      "is_correct": false,
+      "rationale": "This is the individual-versus-statistic confusion: the plotted values are means of whole samples, not individual delivery times. The Central Limit Theorem does not promise that the data within a large sample become normally distributed. Fix: Identify what was calculated before each dot was placed, and label the dot as an individual value or a sample statistic."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Each dot represents one whole sample's mean. The plot has less spread as n increases because the Central Limit Theorem makes the population approximately normal.",
+      "is_correct": false,
+      "rationale": "This is the population-normality misconception: the Central Limit Theorem concerns the sampling distribution of the mean, not the population. Taking larger samples does not change the population's right-skewed shape. Fix: Name the distribution receiving the normal approximation, and check whether its values are individuals or whole samples' means."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Each dot represents one whole sample's mean. The plot is approximately normal and has greater spread as n increases, while the population remains right-skewed.",
+      "is_correct": false,
+      "rationale": "This is the reversed-spread misconception: larger samples make sample means less variable, not more variable. Averaging more observations reduces the influence of individual unusually high or low values on each sample mean. Fix: When comparing sample sizes, track the variability of the sample means rather than the range of individual observations."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Each dot represents one whole sample's mean. The plot is approximately normal and has less spread as n increases, while the population remains right-skewed.",
+      "is_correct": true,
+      "rationale": "Plotting a statistic from every possible sample produces a sampling distribution, not a distribution of individual delivery times. The Central Limit Theorem explains its approximate normality, and larger samples produce less variable means without changing the population."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 793,
+         "inputTokenDetails": {
+          "noCacheTokens": 793,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 823,
+         "raw": {
+          "input_tokens": 793,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1943,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 448,
+         "inputTokenDetails": {
+          "noCacheTokens": 448,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 280,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 250
+         },
+         "totalTokens": 728,
+         "raw": {
+          "thoughtsTokenCount": 250,
+          "promptTokenCount": 448,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 728,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 448
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 250,
+         "cachedInputTokens": 0
+        },
+        "ms": 3131,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 503,
+         "inputTokenDetails": {
+          "noCacheTokens": 247,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 868,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 842
+         },
+         "totalTokens": 1371,
+         "raw": {
+          "prompt_tokens": 503,
+          "completion_tokens": 868,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 247,
+          "total_tokens": 1371,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 842
+          }
+         },
+         "reasoningTokens": 842,
+         "cachedInputTokens": 256
+        },
+        "ms": 7584,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 525,
+         "inputTokenDetails": {
+          "noCacheTokens": 461,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 181,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 161
+         },
+         "totalTokens": 706,
+         "raw": {
+          "prompt_tokens": 525,
+          "completion_tokens": 181,
+          "total_tokens": 706,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 161,
+           "accepted_prediction_tokens": 102,
+           "rejected_prediction_tokens": 132,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 161,
+         "cachedInputTokens": 64
+        },
+        "ms": 2422,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 23152,
+         "inputTokenDetails": {
+          "noCacheTokens": 23152,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 721,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 509
+         },
+         "totalTokens": 23873,
+         "raw": {
+          "input_tokens": 23152,
+          "output_tokens": 721,
+          "output_tokens_details": {
+           "thinking_tokens": 509
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 509,
+         "cachedInputTokens": 0
+        },
+        "ms": 9932,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 15562,
+         "inputTokenDetails": {
+          "noCacheTokens": 15562,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1411,
+         "outputTokenDetails": {
+          "textTokens": 263,
+          "reasoningTokens": 1148
+         },
+         "totalTokens": 16973,
+         "raw": {
+          "thoughtsTokenCount": 1148,
+          "promptTokenCount": 15562,
+          "candidatesTokenCount": 263,
+          "totalTokenCount": 16973,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 15562
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 263
+           }
+          ]
+         },
+         "reasoningTokens": 1148,
+         "cachedInputTokens": 0
+        },
+        "ms": 9879,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14454,
+         "inputTokenDetails": {
+          "noCacheTokens": 13174,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 8972,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 8753
+         },
+         "totalTokens": 23426,
+         "raw": {
+          "prompt_tokens": 14454,
+          "completion_tokens": 8972,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 13174,
+          "total_tokens": 23426,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8753
+          }
+         },
+         "reasoningTokens": 8753,
+         "cachedInputTokens": 1280
+        },
+        "ms": 65003,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14436,
+         "inputTokenDetails": {
+          "noCacheTokens": 14372,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 8991,
+         "outputTokenDetails": {
+          "textTokens": 173,
+          "reasoningTokens": 8818
+         },
+         "totalTokens": 23427,
+         "raw": {
+          "prompt_tokens": 14436,
+          "completion_tokens": 8991,
+          "total_tokens": 23427,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8818,
+           "accepted_prediction_tokens": 5787,
+           "rejected_prediction_tokens": 3822,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 8818,
+         "cachedInputTokens": 64
+        },
+        "ms": 83181,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.12",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14309,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 14306
+         },
+         "outputTokens": 476,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 254
+         },
+         "totalTokens": 14785,
+         "raw": {
+          "input_tokens": 14309,
+          "input_tokens_details": {
+           "cache_write_tokens": 14306,
+           "cached_tokens": 0
+          },
+          "output_tokens": 476,
+          "output_tokens_details": {
+           "reasoning_tokens": 254
+          },
+          "total_tokens": 14785
+         },
+         "reasoningTokens": 254,
+         "cachedInputTokens": 0
+        },
+        "ms": 10071,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-statistics__2.12#r2-openai",
+ "accepted_at": "2026-10-07T00:34:47.767Z"
+}
