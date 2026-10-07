@@ -1,6 +1,6 @@
 # New-User Experience: First 5–7 Minutes
 
-**Status:** Draft — source assessment complete; signed-in observation pending
+**Status:** Draft — source review and owner-supplied action-trace analysis complete; visual, timed and fresh-student validation pending
 **Date:** 2026-10-07
 **Owner:** Codex / Main Conductor
 **Product Owner:** David Bloom
@@ -18,16 +18,18 @@ This records the owner's brief and proposed assessment criteria. It does not ame
 
 The reviewed implementation contains the right ingredients, but does not consistently guide a student through one small learning cycle. Home leads with class-position setup and collecting evidence; the worked-question screen's primary CTA advances to another worked example, while independent practice is secondary. The student must infer both the method and when to move from reading to doing.
 
-This is an expert source-review finding, not observed student behavior or a usability-test verdict.
+The owner-supplied action trace supports this concern: it records another worked question before independent practice, several Home detours, and repeated use of information/help. It shows that the core path is reachable, but does not establish that students understand it. This remains an expert assessment with recorded actions, not a timed first-use student usability test.
 
 ## Evidence boundaries
 
 - Canonical bootstrap, workflow, standing approval lanes, architecture/design entry point and index were read from GitHub in this session.
 - TASK-0048 records Stage A/B as published on 2026-10-05; signed-in visual QA remains owed.
 - Lovable project 56cae479-f7c9-4988-b536-56538c38ee4e was read at exact source commit **64352ecbf26da46b26a235d142fefddf1043d82f**, the latest head returned 2026-10-07. Some changes at this head are documented as preview-only. Publication of this exact head was not verified.
-- Direct browser navigation to app.cramapple.com/home redirected to cramapple.com/login?redirect=%2Fhome. Sign-in offers Google or an emailed sign-in code. No signed-in hub or question was observed.
+- Direct browser navigation in this session redirected to sign-in. The assessor did not obtain a signed-in visual walkthrough; cloud-browser access was unavailable.
+- David supplied a Chrome Recorder JavaScript action export on 2026-10-07. It contains 38 recorded steps at a desktop viewport of 1210 × 1279, including navigation and accessibility-label selectors. It was read as data, not executed or replayed. Authentication fields were excluded from this report; the raw export was not committed.
+- The export has no video frames, screenshots, elapsed-time measurements or grading results. A click is evidence of a recorded action, not proof of the rendered outcome, user confusion or task success. Its captured build and account evidence stage were not verified against the reviewed source head.
 - No timed student session, grading, lesson completion, departure/re-entry, mobile screen inspection, or learning-outcome test was performed.
-- No student account was created or reset. No grading/history/course-position write, production configuration, publication, or migration occurred.
+- The assessor created or reset no student account and performed no grading/history/course-position write, production configuration, publication or migration. The supplied trace includes the owner's unit selection and two answer submissions; their resulting stored state was not inspected.
 - Existing QA reports are historical evidence with their stated limitations; they are not new tests in this session.
 
 ## The journey to assess
@@ -43,7 +45,25 @@ The time bands below are proposed observation windows, not measured timings or a
 | 5–7 minutes | What did I learn and what next? | Feedback names the useful lesson; clear continue/repair/stop choice with an honest small-session recap | Partial: scored feedback exists; reviewed MCQ path advances with “Next question” and finishes on batch exhaustion rather than a defined small learning cycle |
 | Stop and return | Where was I and how do I continue? | Resume the exact lesson and phase with expectations about saved work | Unverified/partial: practice session IDs and Home Resume exist; live teaching traversal has no learning session and stores its current topic in component state |
 
-## Source findings and recommendations
+## Owner-supplied recorded journey
+
+This is an action trace, not a visual recording. It does not establish a five-to-seven-minute duration. The captured Home controls include Points, Ask for help and Homework helper, which occur in the reviewed TopicHome implementation. Treat it as evidence about a Home path, not confirmed coverage of the new-student Stage A branch.
+
+| Part of journey | Recorded actions | What this supports / what remains unknown |
+| --- | --- | --- |
+| Home exploration | Select Unit 1; click Points and Ask for help; explicitly navigate to Home; click Homework helper; explicitly navigate to login | Several alternative entry points are used before the worked example. No hesitation duration is known. Explicit navigate steps do not prove that Ask for help or Homework helper caused a redirect or failed. |
+| Worked question | See a worked example; click a distractor labelled DISTRACTOR; Next question | Another worked example is chosen before independent practice. No evidence shows whether the reasoning was read or understood. |
+| Targeted information | Show me the deep dive; Copy deep dive twice; Back to the question | Deep Dive and copying are discoverable and used. Repeated Copy clicks do not establish a broken copy action. |
+| Independent handoff | Try one on your own; asserted destination `/practice-mcq?from=open-hand` | Practice navigation is captured, but this URL has no topic parameter. The actual served item's alignment was not captured. |
+| Assisted practice | Give me a hint → Yes, show me; Show me the reference materials → Yes, show me | Both aids are discoverable. Each requires a confirmation; the generic hint wording also gates reference materials in reviewed source. |
+| Attempts and feedback path | Select an answer; Submit answer; Next question; select/change an answer; Submit answer; open and copy Deep Dive; Back to the question | Two submissions and continued question navigation are recorded. Correctness, feedback quality, assisted-attempt classification and persistence are unknown. |
+| Return | Student hub, with asserted navigation to Home; Explore units | The return link works at the recorded navigation level. This does not test stopping, reopening later, restoring unfinished input or resuming the exact lesson/phase. |
+
+**Strengths:** the owner reaches the worked question, uses Deep Dive before and after practice, requests targeted aids, submits answers and returns to Home. The ingredients can support lesson learning, and targeted information attracts use in this trace.
+
+**Interpretation:** the recorded path visits several options without an explicit, bounded lesson cycle. That is consistent with the source concern about guidance, but an owner navigating the product is not a representative first-time student. The trace cannot establish which actions felt confusing or how long they took.
+
+## Findings and recommendations
 
 ### F1 — Setup is clearer than the teaching promise (high priority)
 
@@ -68,6 +88,8 @@ Stage A enables position saving only after selecting a unit; independent entry i
 OpenHandMcqScreen renders **“Next question”** with the primary variant and **“Try one on your own”** with the quiet variant.
 LiveOpenHandTeaching binds Next to pickNextTeachingTopic, which advances through later topics and can cross units.
 
+**Recorded evidence:** the trace uses Next question before Try one on your own. It corroborates the availability and use of this route, without proving the owner's motivation or that all students will choose it.
+
 **Inference:** a student following the strongest button may browse several lessons without trying the one just explained. “Next question” also fails to say whether the next item is worked or independent.
 
 **Proposed change:** make independent practice for this lesson primary. Label browsing another worked example explicitly and keep it available as a deliberate secondary choice. Explain the transition in one sentence tied to the learning move.
@@ -77,6 +99,8 @@ LiveOpenHandTeaching binds Next to pickNextTeachingTopic, which advances through
 LiveOpenHandTeaching passes topic to /practice-mcq.
 LivePracticeMcq fetches up to ten unit-gated MCQs from student-session-items, without sending the target topic in that request. biasItemsToTarget moves matching returned items first; it retains all nonmatching items.
 No matching practice item is guaranteed by this client path, and same-topic matching alone does not establish that it checks the same reasoning move.
+
+**Recorded discrepancy:** the Try one on your own navigation asserts `/practice-mcq?from=open-hand`, without a topic parameter. The reviewed teaching path supplies a topic when known. The captured path/build may differ, or topic context may be absent; the trace does not identify the cause. Reproduce this transition and inspect the served item before assigning a root cause.
 
 **Risk:** the experience can imply transfer from the worked question while the next item checks something else.
 
@@ -116,6 +140,22 @@ Latest StudyNav adds hub/topic/subject exit controls, but the linked QA document
 
 **Proposed change:** resume a lesson and phase, not just a generic practice route. Explain what is saved, protect unfinished input, and distinguish same-device from cross-device continuity. Verify exact next-item behavior before promising it.
 
+### F9 — Home presents a feature promise that is not fulfilled on click (high priority)
+
+The trace includes a Homework helper click before the worked example. In reviewed TopicHome, the button intentionally looks available at rest; clicking reveals “coming soon” as a demand probe, with no helper feature behind that action. A separate ByoqHomeLink offers Bring your own question to /byoq.
+
+**Inference:** a student seeking help with today's lesson can spend their first interaction on an unmet promise. The overlap with the available Bring your own question entry can also obscure which action helps now. The trace does not show the rendered coming-soon note, so that outcome is source evidence.
+
+**Proposed change:** make availability clear before the click, and clarify or consolidate the relationship with the actual question-help entry. Keep the first-use primary action focused on the worked-question learning cycle. Do not silently substitute one feature for another.
+
+### F10 — Assistance wording can discourage learning and mislabel reference use (medium priority)
+
+The trace records two confirmation pairs: hint request and reference-material request. HintGate uses “Sure you need a hint?” for both, while ReferencePane uses this same gate for reference materials. Current assistance semantics distinguish coached attempts; assistance before submission is recorded, and post-answer Deep Dive is free.
+
+**Inference:** generic, cautionary hint wording can make a learning aid feel like a penalty or treat reference use as an admission of failure. Two confirmation pairs add steps during the recorded attempt. The trace does not establish whether the owner objected.
+
+**Proposed change:** use neutral, resource-specific wording and explain the consequence plainly, for example “Using this help marks this attempt as guided.” Preserve honest assistance recording and the student's explicit choice. Review repeated confirmations against that purpose; do not remove them without checking the intended assistance contract.
+
 ## Recommended first-use sequence (proposal)
 
 1. Pick a familiar lesson, with help if unsure.
@@ -128,7 +168,7 @@ Latest StudyNav adds hub/topic/subject exit controls, but the linked QA document
 
 Keep the worked question central. A long feature tour, extra dashboard regions, or multiple introductory modes would add choices before the student experiences this method.
 
-## Observed walkthrough and validation plan
+## Remaining visual walkthrough and student validation
 
 Use an existing controlled, entitled test student with no qualifying practice history; do not reset a real student. First verify the published build and record the evidence stage. Start after authentication, on Home.
 
@@ -150,6 +190,6 @@ Repeat the principal path on mobile and test unsure-topic, no-worked-example, wr
 
 ## Next required action and approval state
 
-**Next owner:** Codex for assessment; David for providing secure sign-in to an appropriate existing controlled test student.
-**Next action:** complete the signed-in published-build walkthrough, then reconcile observed findings with this source assessment. Follow with student usability sessions.
+**Next owner:** Codex for assessment synthesis; David for visual evidence and access to an appropriate controlled first-use account.
+**Next action:** obtain screen/video evidence of Home, worked question, practice feedback and return state; confirm the published build and account stage. Reproduce the topic-less practice handoff, inspect its served item, and test departure/re-entry. Follow with first-time student usability sessions. The action-trace findings above stand without another cloud-browser attempt; visual/layout and timing judgments remain pending.
 **Approval:** read-only assessment and recommendation drafting are Lane 1. This report grants no implementation, production write, publication, migration, task closure or final QA approval. Proposed changes need a scoped task and the applicable gate.
