@@ -1,0 +1,779 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Atomic Structure and Electron Configuration"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-chemistry__1.5#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32446,
+    "inputTokenDetails": {
+     "noCacheTokens": 32446,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1912,
+    "outputTokenDetails": {
+     "textTokens": 862,
+     "reasoningTokens": 1050
+    },
+    "totalTokens": 34358,
+    "raw": {
+     "input_tokens": 32446,
+     "output_tokens": 1912,
+     "output_tokens_details": {
+      "thinking_tokens": 1050
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 1050,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Atomic Structure and Electron Configuration",
+    "stem": "Sodium's second ionization energy is roughly nine times its first ionization energy. Which choice gives the correct ground-state electron configuration of a neutral sodium atom (Z = 11) and correctly explains this large jump using Coulomb's law?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "1s² 2s² 2p⁶ 3s¹; the second ionization energy is large because Na⁺ has a stable noble-gas configuration, and stable configurations resist losing electrons.",
+      "is_correct": false,
+      "rationale": "The configuration is right, but the explanation stops at a label (stability) and never mentions charge, distance, or shielding. A stable configuration is a description, not a cause, so this reasoning would not earn the Coulomb's law point. Fix: After writing a configuration, state which subshell the electron leaves and compare its distance and shielding to justify the energy."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "1s² 2s² 2p⁶ 3s¹; the second electron is also removed from the 3s subshell, but the positive ion pulls on it more strongly.",
+      "is_correct": false,
+      "rationale": "This misreads the configuration: 3s¹ holds only one electron, so once it is removed, no 3s electrons remain. The second electron must come from 2p in the n = 2 shell. A small increase in ion charge on a same-shell electron could not explain a ninefold jump. Fix: Count the electrons left in each subshell after each removal before naming where the next electron comes from."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "1s² 2s² 2p⁶ 3s¹; the second electron is removed from the 2p subshell, which is closer to the nucleus and less shielded than 3s, so it is attracted far more strongly.",
+      "is_correct": true,
+      "rationale": "Filling 1s, 2s, 2p, then 3s places sodium's only n = 3 electron in 3s. After that electron is removed, the next one comes from n = 2. Coulomb's law says force grows as r decreases, and the 2p electrons are shielded only by the 1s electrons. Both effects greatly increase the attraction to the nucleus."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "1s² 2s² 2p⁶ 3p¹; the second electron is removed from the 2p subshell, which is closer to the nucleus and less shielded, so it is held more strongly.",
+      "is_correct": false,
+      "rationale": "This is an Aufbau filling-order error. It skips 3s, which is lower in energy than 3p and must fill first, so the configuration is wrong even though the explanation sounds right. Ground-state sodium has its outermost electron in 3s. Fix: Write out the filling order 1s, 2s, 2p, 3s, 3p and check that no lower subshell is skipped."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "rationale C has 4 sentences before any Fix (max 3)"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "ap-chemistry__1.5#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20327,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 20324
+    },
+    "outputTokens": 956,
+    "outputTokenDetails": {
+     "textTokens": 549,
+     "reasoningTokens": 407
+    },
+    "totalTokens": 21283,
+    "raw": {
+     "input_tokens": 20327,
+     "input_tokens_details": {
+      "cache_write_tokens": 20324,
+      "cached_tokens": 0
+     },
+     "output_tokens": 956,
+     "output_tokens_details": {
+      "reasoning_tokens": 407
+     },
+     "total_tokens": 21283
+    },
+    "reasoningTokens": 407,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Atomic Structure and Electron Configuration",
+    "stem": "A neutral potassium atom has 19 protons and 19 electrons. In the notation below, [Ar] represents 1s² 2s² 2p⁶ 3s² 3p⁶. Which statement correctly gives potassium’s ground-state electron configuration and compares the energy needed to remove its outermost electron with that needed to remove a 1s electron?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "[Ar] 3d¹; the outermost electron requires less energy to remove because its greater average distance from the nucleus and greater shielding weaken its attraction to the nucleus.",
+      "is_correct": false,
+      "rationale": "Shell-number filling trap: This configuration places an electron in 3d before filling the lower-energy 4s subshell. Aufbau filling follows increasing subshell energy, not numerical shell order alone. Fix: After filling 3p, place the next electron in 4s before adding electrons to 3d."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "[Ar] 4s¹; the outermost electron and a 1s electron require equal energy to remove because both are attracted to the same 19-proton nucleus.",
+      "is_correct": false,
+      "rationale": "Nuclear-charge-only trap: Sharing the same nucleus does not give electrons equal attraction or equal removal energies. Electron–nucleus distance and shielding differ substantially between 4s and 1s electrons. Fix: Compare both average distance and shielding before using nuclear charge to judge electron attraction."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "[Ar] 4s¹; the outermost electron requires more energy to remove because shielding by inner electrons strengthens its attraction to the nucleus.",
+      "is_correct": false,
+      "rationale": "Reversed-shielding trap: Inner electrons reduce, rather than strengthen, the effective nuclear attraction experienced by the outermost electron. Together with its greater average distance, this shielding makes the 4s electron easier to remove than a 1s electron. Fix: Treat increased shielding as reduced effective nuclear attraction, then connect weaker attraction to lower removal energy."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "[Ar] 4s¹; the outermost electron requires less energy to remove because its greater average distance from the nucleus and greater shielding weaken its attraction to the nucleus.",
+      "is_correct": true,
+      "rationale": "Aufbau filling places the nineteenth electron in 4s after 3p is filled. Compared with a 1s electron, the 4s electron is farther from the nucleus on average and more shielded by other electrons, so it experiences weaker Coulombic attraction and requires less energy to remove."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 836,
+         "inputTokenDetails": {
+          "noCacheTokens": 836,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 866,
+         "raw": {
+          "input_tokens": 836,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2407,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 466,
+         "inputTokenDetails": {
+          "noCacheTokens": 466,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 359,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 329
+         },
+         "totalTokens": 825,
+         "raw": {
+          "thoughtsTokenCount": 329,
+          "promptTokenCount": 466,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 825,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 466
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 329,
+         "cachedInputTokens": 0
+        },
+        "ms": 3992,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 523,
+         "inputTokenDetails": {
+          "noCacheTokens": 267,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 534,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 514
+         },
+         "totalTokens": 1057,
+         "raw": {
+          "prompt_tokens": 523,
+          "completion_tokens": 534,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 267,
+          "total_tokens": 1057,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 514
+          }
+         },
+         "reasoningTokens": 514,
+         "cachedInputTokens": 256
+        },
+        "ms": 5721,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 552,
+         "inputTokenDetails": {
+          "noCacheTokens": 181,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 371
+         },
+         "outputTokens": 72,
+         "outputTokenDetails": {
+          "textTokens": 31,
+          "reasoningTokens": 41
+         },
+         "totalTokens": 624,
+         "raw": {
+          "input_tokens": 552,
+          "input_tokens_details": {
+           "cache_write_tokens": 371,
+           "cached_tokens": 0
+          },
+          "output_tokens": 72,
+          "output_tokens_details": {
+           "reasoning_tokens": 41
+          },
+          "total_tokens": 624
+         },
+         "reasoningTokens": 41,
+         "cachedInputTokens": 0
+        },
+        "ms": 1865,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 34026,
+         "inputTokenDetails": {
+          "noCacheTokens": 34026,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 573,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 361
+         },
+         "totalTokens": 34599,
+         "raw": {
+          "input_tokens": 34026,
+          "output_tokens": 573,
+          "output_tokens_details": {
+           "thinking_tokens": 361
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 361,
+         "cachedInputTokens": 0
+        },
+        "ms": 7807,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21724,
+         "inputTokenDetails": {
+          "noCacheTokens": 21724,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1310,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1048
+         },
+         "totalTokens": 23034,
+         "raw": {
+          "thoughtsTokenCount": 1048,
+          "promptTokenCount": 21724,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 23034,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21724
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1048,
+         "cachedInputTokens": 0
+        },
+        "ms": 8896,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20641,
+         "inputTokenDetails": {
+          "noCacheTokens": 19361,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 4845,
+         "outputTokenDetails": {
+          "textTokens": 179,
+          "reasoningTokens": 4666
+         },
+         "totalTokens": 25486,
+         "raw": {
+          "prompt_tokens": 20641,
+          "completion_tokens": 4845,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 19361,
+          "total_tokens": 25486,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4666
+          }
+         },
+         "reasoningTokens": 4666,
+         "cachedInputTokens": 1280
+        },
+        "ms": 35267,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21176,
+         "inputTokenDetails": {
+          "noCacheTokens": 21112,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2455,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 2239
+         },
+         "totalTokens": 23631,
+         "raw": {
+          "prompt_tokens": 21176,
+          "completion_tokens": 2455,
+          "total_tokens": 23631,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2239,
+           "accepted_prediction_tokens": 1640,
+           "rejected_prediction_tokens": 802,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2239,
+         "cachedInputTokens": 64
+        },
+        "ms": 34642,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20869,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20866
+         },
+         "outputTokens": 275,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 53
+         },
+         "totalTokens": 21144,
+         "raw": {
+          "input_tokens": 20869,
+          "input_tokens_details": {
+           "cache_write_tokens": 20866,
+           "cached_tokens": 0
+          },
+          "output_tokens": 275,
+          "output_tokens_details": {
+           "reasoning_tokens": 53
+          },
+          "total_tokens": 21144
+         },
+         "reasoningTokens": 53,
+         "cachedInputTokens": 0
+        },
+        "ms": 6134,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-chemistry__1.5#r1-openai",
+ "accepted_at": "2026-10-06T23:52:00.947Z"
+}

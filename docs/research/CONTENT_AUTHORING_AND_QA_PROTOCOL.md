@@ -1,4 +1,4 @@
-# Content authoring & QA protocol — canonical, v0.4
+# Content authoring & QA protocol — canonical, v0.6
 
 **Status:** Adopted, 2026-08-08. Promoted from draft after a 212-item run across all 10
 subjects exercised both QA methods (§4 CED-conformance and §9 independent re-derivation)
@@ -46,6 +46,19 @@ batches authored by Claude. The independence rules themselves are unchanged. Dir
 as ratified policy. The same revision adds **variants as an optional, prompted step** (§2.1, Phase 5b): before each
 run the Product Owner is asked whether to make variants of each question and how many.
 
+**Revision note (v0.6, 2026-10-07, `DECISION-0099`):** new MCQs are now made by **generate-and-select**
+(§0). No item is ever edited: candidates are accepted whole or dropped whole. Authors and checkers read one
+shared rubric, four model families that did not write an item must all clear it, and the author's own family
+holds a reject-only veto. Planted-defect controls gate every batch. Direction: David Bloom, 2026-10-06 ("a way to
+add questions without needing to edit them using at least 4 models and multiple sessions") and 2026-10-07
+("update the content creation protocol with the improved new approach").
+- **Evidence:** a blind, held-out comparison on 24 topics. Defective items: legacy 4/24, generate-and-select
+  1/23. The judges also disputed 6/24 legacy items and none of the new ones (§0.1).
+- **What changes:** §2.1's checker question and §3.2's family count change to match. §6 Phases 1–5 are carried
+  out by §0 for new MCQs.
+- **What does not change:** §4, §5, §9 and Phase 6 still apply to existing content and FRQs, which §0 does not
+  cover yet.
+
 **Why this document exists:** there is currently no single place that states what has to
 be true before a batch of questions gets written, which model does which job and why,
 what gates a question before it reaches a student, and what closes the loop after
@@ -60,6 +73,156 @@ rule is inert and no event-driven re-check (Phase 7) can compute its target set;
 **P0-B — a publish gate defined against `review_status` (§7.2)**, without which the
 disapproved-but-published bug recurs (it already has, once). Everything else is
 secondary to these two.
+
+---
+
+## 0. Default method for new MCQs: generate-and-select (v0.6)
+
+**Status:** adopted 2026-10-07 (`DECISION-0099`).
+- **Proven on:** Open Hand teaching MCQs, units 1–3, AP Biology, Statistics, Chemistry and Calculus AB.
+- **Tool:** `scripts/vercel-gateway-check/teaching_pipeline/` (`README.md`, `rubric.mjs`, `run.mjs`).
+
+### 0.1 Why: the evidence
+
+On 2026-10-06 questions that had been "reviewed many times" kept failing new checks. Five causes:
+1. **Rules applied after writing.** The named-trap and action-fix rules caused 25 of 38 blocks, and the authors
+   were never given them.
+2. **Reviews checked different things.** Earlier passes covered the key and scope, not traps.
+3. **Single model calls are noisy.** The same unchanged sentence passed and then failed for one checker.
+4. **Patches create work.** Every hand patch needed a full re-check, and could introduce a new defect.
+5. **Parallel specs.** Two sessions worked one task to different specs.
+
+**The method test.** It compared the legacy method (one author, two checkers, one patch loop) with
+generate-and-select on the same 24 topics. Both arms were judged blind by three model families used by neither
+arm, against the CED PDF text, with planted defects to prove the judges work (all 4 caught). The live
+Production items for those topics were judged as a third arm. Full write-up:
+`scripts/content-seed/task0065-method-test-2026-10-06/RESULTS.md`.
+
+| | Legacy | Generate-and-select | Live items (legacy, shipped) |
+|---|---:|---:|---:|
+| Items with a confirmed accuracy or CED defect | 4/24 | **1/23** | 3/24 |
+| Items a judge consistently would not publish | 6/24 | **0/23** | 4/24 |
+| Keys correct (33 numeric keys recomputed) | 24/24 | 23/23 | 24/24 |
+| Cost per defect-free item | ~$0.19 | $0.77 | — |
+| Wall-clock for 24 topics | 10.3 min | 13.7 min | — |
+
+- **Significance.** The sample is small (error difference p = 0.35), but every measure points the same way.
+- **Root cause of the one pipeline error.** It traced to an overreaching topic brief (Statistics 2.12) that
+  caused the same defect in all three arms. The brief is now fixed (`APPROVAL-0129`).
+- **Production follow-up.** The three defective live items were replaced through this method (`APPROVAL-0129`).
+
+### 0.2 The method
+
+| Step | What happens | Why |
+|---|---|---|
+| Rubric | One rubric (`rubric.mjs`) builds both the author prompt and every checker prompt: on topic, CED scope, one defensible answer, self-contained, clean stem, keyed rationale explains, every distractor a named trap ending in one action `Fix:`, accurate, concise (1–3 sentences, ≤60 words; fix ≤25 words), style. | An item is written to exactly the standard it is checked against. A new rule goes into the rubric **before** the next batch, never applied to items already written. |
+| Authors | Each round makes two stateless candidates per topic from different families (now Claude Opus 5.5 and GPT-6.1). Each author gets the topic's point brief, the unit's topic list and the full CED fact pack. It never sees another candidate or any checker feedback. | Two families give two independent chances; statelessness prevents drift toward a checker's preferences. |
+| Key position | The runner places the correct answer at a deterministic random letter. | Removes letter bias (`feedback_mcq_authoring_requirements`). |
+| Lint | Deterministic rules: 4 choices, 1 correct, no inline list, one final `Fix:` per distractor, length limits, no HTML, emoji, `!` or `!=`, no figure the student cannot see. | Free and exact. Catches what models are noisy on. |
+| Blind solve | The **four families that did not write the item** solve it without the key. A wrong answer, a second defensible answer or a defect counts as a flag. | Catches wrong keys and ambiguity. |
+| Rubric audit | The same four judge every rubric rule and name the topic the item tests. They get the CED fact pack and the unit topic list (with CED text where available). | Catches scope, topic, trap, accuracy and style failures. |
+| Re-sample | A checker that flags is asked once more. Only a repeated flag counts. | Absorbs single-call variance. |
+| Own-family veto | The author's family then audits too. **It can reject, never approve.** | Without it the strictest checker (GPT-6.1) never saw GPT-written items, so the bar depended on who wrote the item. |
+| Select | The first candidate that passes everything is accepted. After 2 rounds (4 candidates) with none, the topic is **escalated**. | No patching. Escalations go to triage (§0.4). |
+| Controls | Six planted-defect items (lint, wrong key, fact-style fixes, missing traps, false fact, wrong topic) run before any generation. If one is accepted the batch is void. | Proves the checkers can still see defects with today's models and rubric. |
+| Sessions | Per-topic lock files let sessions share a batch on one machine. Separate machines use disjoint `--shard=k/n`. Every candidate's state is written as it completes, so runs resume. | "Multiple sessions" without two sessions working one topic. |
+
+### 0.3 Rules that do not bend
+
+1. **Never hand-edit a generated item.** A failing item is regenerated, not repaired. This retires the patch
+   loop (§5's adjudicate-and-repair, Phase 5) for new MCQs.
+2. **A rule added after writing applies to the next batch, not the current one.** Put it in `rubric.mjs`, re-run
+   the controls, then generate.
+3. **No item is accepted on its own family's say-so.** Four non-author families clear it. The author's family
+   may only reject.
+4. **Controls gate every batch,** including re-runs after a rubric or model change.
+5. **Numeric keys are recomputed deterministically** (Python/sympy) before load. §9 still applies.
+6. **A human spot-checks a sample of accepted items per subject** before the first load, and the Production
+   load is a Hard-Gate approval. Never set `review_status` from the pipeline alone without that approval
+   recorded.
+7. **Refresh the model roster at batch start** (gateway list). A model that fails structured output in the
+   smoke run is replaced, not worked around.
+
+### 0.4 Escalation triage
+
+When a topic escalates, or several candidates fail for the **same** reason, suspect the inputs before the
+authors.
+1. **Check the brief and the fact pack against the CED PDF** (`docs/teaching/ap-*-course-and-exam-description.pdf`),
+   not against each other. Both have been wrong:
+   - Biology 2.10's brief demanded evidence the CED does not list (`APPROVAL-0127`).
+   - Biology 3.3's fact pack had dropped EK 3.3.A.2.ii (`APPROVAL-0127`).
+   - Statistics 2.12's brief demanded CED 4.1 content (`APPROVAL-0129`).
+
+   The fact packs' per-topic EK sections are paraphrase. The PDF governs.
+2. **Fix the source** with the Product Owner's approval, then regenerate. Never patch the item.
+3. **Topic overlap** (for example Biology 1.5 vs 2.3, where answering needs a later topic): the Product Owner
+   decides whether to allow it. Record the decision in the batch.
+
+### 0.5 Evaluating a change to the method
+
+Use the method-test design (`docs/product/OPEN_HAND_CONTENT_METHOD_TEST_DESIGN_2026_10_06.md`) whenever the
+method itself changes: new author or checker families, a rubric change that loosens a rule, or a cost cut.
+- **Judges and source.** Judges come from families used by neither arm, and judge against the CED PDF excerpt
+  for each topic.
+- **Planted defects.** Mix them into the blind set. If any is missed, the results do not count.
+- **Scoring traps learned:**
+  - score the key from the structured answer only, since judges fill free-text fields with commentary;
+  - a "false statement" counts only in the stem, a rationale or fix, or the keyed choice, since wrong choices
+    are false by design;
+  - parse topic codes from the first number pair.
+- **Disputes.** A dispute is a single judge objecting. Adjudicate each one blind to arm with a recorded reason,
+  and have a human confirm.
+
+### 0.6 Replacing a live item
+
+The `APPROVAL-0129` pattern (`scripts/content-seed/task0065-live-replacements-2026-10-07/`):
+1. Generate the replacement through §0.2.
+2. Load it under a new `content_key` (`-r2`) with the standard loader.
+3. In the same transaction: release the old teaching row, retire the old item and its version, and assert the
+   topic has exactly one active teaching row.
+4. Development first. Then a Production rehearsal that raises and rolls back, then the apply.
+5. Verify a content hash against the locally computed plan.
+6. Call the real serving function (`get_open_hand_teaching_item`) as an authenticated user. Do not model its
+   predicate.
+
+### 0.7 Cost, speed and tuning
+
+Measured at about $0.74–0.77 per accepted item. 24 topics took about 14 minutes with four subjects running in parallel, three topics each.
+That is 3.5–4.9× the legacy cost per defect-free item, which failed the method test's proposed 3× cost rule.
+The rule for that case: tune, don't drop. Levers, in order:
+1. A cheaper fourth checker where its smoke test and calibration hold (Kimi K3 was the most expensive checker).
+2. Cheaper solve-stage models (the solve prompt is short and needs no fact pack).
+3. Generating the second author's candidate only when the first is rejected.
+4. Sending only the topic's unit section of the fact pack where that section carries the exclusion statements.
+
+Re-run §0.5 after any cut that could lower the bar.
+
+### 0.8 Scope
+
+| Use | Status |
+|---|---|
+| **Open Hand teaching MCQs** | Required method. |
+| **New scored MCQs** | May use §0 for authoring and checking. They still need serving labels (topic/skill/difficulty, by the voting rules in the Units 1–3 runbook) and the Phase 6 publish gate. Not yet piloted for scored items; pilot one batch before relying on it. |
+| **FRQs** | Not covered. §4–§6 and §9 govern. |
+| **Variants (Phase 5b) and seeded generation** | Unchanged. Their outputs may be checked with §0's checker stages. |
+| **Existing published content** | §4, §5 and §9 govern re-checks. Defects found there are fixed by replacement (§0.6), not by in-place edits, where the item is a teaching item. |
+
+### 0.9 Running it
+
+From `scripts/content-seed/task0065-generate-select/` (or a new batch folder). Generate:
+
+```bash
+node ../../vercel-gateway-check/teaching_pipeline/run.mjs run --batch=<dir> --subject=<key> --session=<name>
+```
+
+Report:
+
+```bash
+node ../../vercel-gateway-check/teaching_pipeline/run.mjs report --batch=<dir>
+```
+
+The `report` command writes `accepted.json` (ready for the loader) and `summary.json`. Every model call is
+logged to `<batch>/calls.jsonl` for cost. See the README for sharding, resuming and the veto back-fill.
 
 ---
 
@@ -153,9 +316,14 @@ The authoring session asks these **before** a batch is checked or extended, wait
 them in the batch README next to the authoring provenance. It never assumes an answer or reuses the last
 batch's answers.
 
-1. **Checker models.** "Which two of these four checker models do you want?" (the §3.2 menu, with current
-   prices and what each has been tested on). The two must be from different families and neither from the
-   author's family.
+1. **Checker models.**
+   - **For a generate-and-select batch (§0, the default for new MCQs):** "Confirm this slate." List the two
+     author models and the five checker families, re-listed from the live roster with current prices and an
+     estimated batch cost. Every candidate is checked by the four non-author families plus its own family's
+     reject-only veto.
+   - **For checks that are not §0** (existing content, FRQs, seeded-variant spot checks): "Which two of these
+     four checker models do you want?" (the §3.2 menu, with current prices and what each has been tested on).
+     The two must be from different families, and neither from the author's family.
 2. **Variants.** "**Do you want variants? If yes, how many per question?**"
    - **No answer or "no": no variants are made.** Variants multiply the item count, the review load and the
      model spend, so they are opt-in.
@@ -185,7 +353,8 @@ reference point is the **item's own author**, not the grader.
 - **The conformance-check model must not share a family with whatever authored the item.**
   Same-family author and checker share a notion of what counts as "close enough" to a
   fact-pack example, so the check inherits the writer's blind spot instead of catching it.
-- **Two independent families check every item, not one.** A single model's verdict cannot
+- **At least two independent families check every item, never one** (generate-and-select uses four plus a
+  reject-only own-family veto, §0). A single model's verdict cannot
   gate a publish decision — §5 documents the measured, systematic failure modes of both
   models used this session. This is the direct answer to "can we just run one model and
   trust it": no, because each family's errors are systematic, not random noise a bigger
@@ -327,6 +496,10 @@ autonomous state machine, so Phase 4's scheduling relative to it is specified ex
 Phase 0  Preconditions       Fact pack present; its tier (§1.6) determines whether Phase 4
                              can run for this batch. Writer/verifier roster confirmed
                              reachable (§7.4 smoke test, once it exists).
+
+         NEW MCQs (v0.6): Phases 1, 2, 4 and 5 are carried out by generate-and-select (§0).
+         Its accepted items go straight to the human spot-check and Phase 6. Nothing is
+         hand-patched. The phases below remain the method for FRQs and existing content.
 
 Phase 1  Authoring           Model drafts item against the FULL fact-pack text (not a
                              summary). RECORD: authoring model, fact_pack_hash, batch_id.

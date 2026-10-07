@@ -1,0 +1,212 @@
+[
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "title": "Mass Spectra of Elements",
+  "brief": {
+   "what_it_is": "A mass spectrum of a single element shows a peak for each isotope, positioned at that isotope's mass and sized by its relative abundance in a natural sample. Average atomic mass is the isotope-weighted average of those peaks.",
+   "how_points_are_earned": "You earn points by reading isotope mass and relative abundance off the spectrum, multiplying each isotope's mass by its fractional abundance, and summing to calculate the weighted average atomic mass.",
+   "answer_move": "For each peak, multiply the isotope mass by its fractional abundance, then add the products across every peak to get the weighted average atomic mass.",
+   "common_point_loss": "Attributing isotope mass differences to electrons or protons instead of neutrons."
+  },
+  "explainer": {
+   "core_idea": "A single-element mass spectrum shows one peak per isotope, positioned at that isotope's mass and sized by its natural relative abundance; average atomic mass is the isotope-weighted average of those peaks. The AP Exam explicitly excludes interpreting spectra from samples containing multiple elements or peaks from anything other than singly charged monatomic ions.",
+   "what_students_need_to_understand": "This is how average atomic mass is actually measured, not memorized, and it depends on isotopes of one element sharing the same proton count while differing only in neutron count -- the 2025 FRQ's isotope-mass-difference point scored a mean of just 0.55/1.0, mostly from students attributing that mass difference to electrons or protons instead of neutrons.",
+   "mini_example_question": "Magnesium's natural sample shows three mass-spectrum peaks: Mg-24 (mass 23.985 amu, 78.99% abundance), Mg-25 (24.986 amu, 10.00%), and Mg-26 (25.983 amu, 11.01%). Calculate the average atomic mass, then explain what makes Mg-25 one amu heavier than Mg-24.",
+   "common_point_loss": "Attributing isotope mass differences to electrons or protons instead of neutrons."
+  },
+  "seed": null
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "title": "Elemental Composition of Pure Substances",
+  "brief": {
+   "what_it_is": "The law of definite proportions says the mass ratio of elements in any pure sample of a compound is always the same. The empirical formula is the lowest whole-number ratio of atoms that matches that mass ratio.",
+   "how_points_are_earned": "You earn points by converting given masses or mass percentages to moles of each element, dividing every mole value by the smallest one, and rounding to a whole-number ratio to get the empirical formula, then scaling to the molecular formula if molar mass is given.",
+   "answer_move": "Assume a 100 g sample so mass percent becomes grams, convert each element's grams to moles, divide every mole value by the smallest mole value, then scale to whole numbers.",
+   "common_point_loss": "Stopping at the empirical formula when the molecular formula was asked for, by not scaling the empirical formula using the ratio of given molar mass to empirical formula mass."
+  },
+  "explainer": {
+   "core_idea": "The law of definite proportions says the mass ratio of elements in any pure sample of a compound is fixed; the empirical formula is the lowest whole-number atom ratio matching that mass ratio. A molecular formula is always an integer multiple of the empirical formula, found by dividing the compound's actual molar mass by the empirical formula's mass.",
+   "what_students_need_to_understand": "This connects experimental mass data -- like combustion analysis, which reports masses of CO2 and H2O produced from burning a sample -- to a compound's formula, and it only works because every sample of a pure compound gives the same element ratio no matter how much of it you burn.",
+   "mini_example_question": "A compound is 40.0% C, 6.71% H, and 53.3% O by mass, with a molar mass of about 180 g/mol. Find its molecular formula.",
+   "common_point_loss": "Stopping at the empirical formula when the molecular formula was asked for, by not scaling the empirical formula using the ratio of given molar mass to empirical formula mass."
+  },
+  "seed": {
+   "stem": "Silicon nitride, a hard ceramic used in bearings, is a pure compound of silicon and nitrogen. Elemental analysis shows it is 60.06% silicon and 39.94% nitrogen by mass. What is the empirical formula of the compound? (Molar masses: Si = 28.09 g/mol, N = 14.01 g/mol)",
+   "choices": [
+    {
+     "k": "A",
+     "t": "SiN",
+     "ok": false
+    },
+    {
+     "k": "B",
+     "t": "Si₃N₄",
+     "ok": true
+    },
+    {
+     "k": "C",
+     "t": "Si₄N₃",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "Si₃N₂",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "title": "Atomic Structure and Electron Configuration",
+  "brief": {
+   "what_it_is": "An atom is a positively charged nucleus (protons and neutrons) surrounded by negatively charged electrons. Coulomb's law describes the force between charged particles as proportional to q1 times q2 divided by r squared. Electron configuration follows the Aufbau principle, filling shells and subshells in order of increasing energy.",
+   "how_points_are_earned": "You earn points by writing correct ground-state electron configurations using the Aufbau filling order, and by using Coulomb's law reasoning, meaning charge and distance from the nucleus, to explain why a configuration produces a given property instead of only stating the property.",
+   "answer_move": "Fill subshells in order of increasing energy (1s, 2s, 2p, 3s, 3p, 4s, 3d, and so on), then explain any related property, such as ionization energy, using nuclear charge and electron distance or shielding rather than stopping at the configuration itself.",
+   "common_point_loss": "Writing a correct electron configuration but then explaining a related property, such as ionization energy, with a vague label like periodic trend instead of grounding the explanation in nuclear charge and electron distance or shielding, which is what the Coulomb's law reasoning actually requires."
+  },
+  "explainer": {
+   "core_idea": "An atom is a nucleus (protons and neutrons) surrounded by electrons, with Coulomb's law giving the force between charged particles as F proportional to q1q2/r^2. Electron configuration follows the Aufbau filling order, but the AP Exam explicitly excludes assigning quantum numbers to individual electrons in a subshell -- configuration notation and filling order are what's tested, not the n/l/ml/ms labels.",
+   "what_students_need_to_understand": "Electron configuration is the structural fact behind reactivity, bonding behavior, and every periodic trend for the rest of the course -- and behind the photoelectron spectroscopy evidence in the very next topic -- so a configuration written correctly but explained with a vague label like \"periodic trend\" doesn't earn the reasoning point.",
+   "mini_example_question": "Write the ground-state electron configuration for sulfur (S, Z=16) and aluminum (Al, Z=13), and use those configurations to explain why sulfur has a higher first ionization energy than aluminum.",
+   "common_point_loss": "Writing a correct electron configuration but then explaining a related property, such as ionization energy, with a vague label like periodic trend instead of grounding the explanation in nuclear charge and electron distance or shielding, which is what the Coulomb's law reasoning actually requires."
+  },
+  "seed": {
+   "stem": "Titanium(II) ions are studied in a solid-state chemistry lab. Which configuration is the ground state of the Ti2+ ion (Ti, Z = 22, ground-state configuration [Ar]3d^2 4s^2)?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "[Ar]3d^1 4s^1",
+     "ok": false
+    },
+    {
+     "k": "B",
+     "t": "[Ar]3d^4",
+     "ok": false
+    },
+    {
+     "k": "C",
+     "t": "[Ar]3d^2",
+     "ok": true
+    },
+    {
+     "k": "D",
+     "t": "[Ar]4s^2",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "title": "Types of Chemical Bonds",
+  "brief": {
+   "what_it_is": "Bonding is a continuum set by how unequally two atoms pull on shared electrons. Electronegativity rises left-to-right across a period and falls down a group (shell model plus Coulomb's law). Similar electronegativities give nonpolar covalent bonds, unequal ones give polar covalent bonds with a bond dipole, and large differences give bonds we call ionic. Metals instead delocalize their valence electrons across the whole solid rather than assigning them to individual atoms.",
+   "how_points_are_earned": "Points come from classifying a bond as nonpolar covalent, polar covalent, or ionic AND justifying the classification with a stated electronegativity comparison, then using observed properties (conductivity when molten or dissolved, melting point, solubility, brittleness versus malleability) as the confirming evidence. Comparison items award credit for ranking bond polarity by relative electronegativity difference and for identifying which atom carries the partial negative charge.",
+   "answer_move": "State the electronegativity comparison explicitly before naming the bond type ('O is more electronegative than H, so the shared electrons are pulled toward O -- polar covalent, with delta-negative on O'), and when the item gives you experimental properties, let those properties decide the classification rather than the metal/nonmetal shortcut.",
+   "common_point_loss": "Treating ionic and covalent as two separate boxes, instead of a continuum where every polar bond already has some ionic character."
+  },
+  "explainer": {
+   "core_idea": "Electronegativity difference doesn't sort bonds into three separate boxes -- it places every bond on one continuous scale. Because the classification has no hard cutoff, even a bond called 'polar covalent' carries some ionic character, and a small real difference like C-H's is still treated as effectively nonpolar.",
+   "what_students_need_to_understand": "Bond polarity set here reappears as molecular dipole moments in 2.7, as the charge magnitude driving Coulombic strength in 2.2 and 2.3, and as the delocalized-electron picture that explains metallic behavior in 2.4 -- so an unstated or wrong electronegativity comparison quietly loses points across three later topics, not just this one.",
+   "mini_example_question": "Rank the C-H bond in methane, the O-H bond in water, and the Na-Cl bond in table salt from least to most ionic character, and justify the order using electronegativity difference.",
+   "common_point_loss": "Treating ionic and covalent as two separate boxes, instead of a continuum where every polar bond already has some ionic character."
+  },
+  "seed": {
+   "stem": "A student is asked to predict which bond in a set will behave most like an ionic interaction. Pauling electronegativities: Li = 0.98, Be = 1.57, C = 2.55, Cl = 3.16, I = 2.66, O = 3.44, F = 3.98. Which bond has the greatest ionic character?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "Li–I",
+     "ok": false
+    },
+    {
+     "k": "B",
+     "t": "Be–O",
+     "ok": true
+    },
+    {
+     "k": "C",
+     "t": "C–F",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "O–Cl",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.8",
+  "title": "Representations of Solutions",
+  "brief": {
+   "what_it_is": "Representations of Solutions is the Properties of Substances and Mixtures topic where you turn the concept into an AP-ready action: interpret particulate diagrams for relative concentration and solute-solvent interactions without using excluded colligative-property calculations.",
+   "how_points_are_earned": "Points are earned when you interpret particulate diagrams for relative concentration and solute-solvent interactions without using excluded colligative-property calculations, show the required setup or condition check, and state the result in the language of the prompt.",
+   "answer_move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then interpret particulate diagrams for relative concentration and solute-solvent interactions without using excluded colligative-property calculations before doing arithmetic or writing the final sentence.",
+   "common_point_loss": "Counting drawn particles without checking whether the diagram represents equal volumes"
+  },
+  "explainer": {
+   "core_idea": "Particulate diagrams represent solutions by drawing relative numbers and spacing of solute and solvent particles inside a defined boundary, letting you compare relative concentration or interaction type between two solutions -- but only if the boxes represent equal volumes, since a diagram with more particles in a larger box can represent the same or even lower concentration than fewer particles in a smaller box. Two things are explicitly off the AP Exam here: colligative properties (freezing-point depression, boiling-point elevation, etc.) and any molality, percent-by-mass, or percent-by-volume calculation.",
+   "what_students_need_to_understand": "This topic tests visual/quantitative reasoning without the calculation tools (molality, colligative properties) that would normally support it, which is exactly why the equal-volume check matters so much.",
+   "mini_example_question": "Diagram A shows 8 solute particles in a small square box. Diagram B shows 12 solute particles in a box with twice the area of Diagram A. Which diagram represents the more concentrated solution?",
+   "common_point_loss": "Counting drawn particles without checking whether the diagram represents equal volumes"
+  },
+  "seed": null
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.9",
+  "title": "Separation of Solutions and Mixtures",
+  "brief": {
+   "what_it_is": "Separation of Solutions and Mixtures is the Properties of Substances and Mixtures topic where you turn the concept into an AP-ready action: choose a separation method by the property that differs, especially filtration versus chromatography by interaction strength.",
+   "how_points_are_earned": "Points are earned when you choose a separation method by the property that differs, especially filtration versus chromatography by interaction strength, show the required setup or condition check, and state the result in the language of the prompt.",
+   "answer_move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then choose a separation method by the property that differs, especially filtration versus chromatography by interaction strength before doing arithmetic or writing the final sentence.",
+   "common_point_loss": "Trying to separate dissolved solute from solution by ordinary filtration"
+  },
+  "explainer": {
+   "core_idea": "Ordinary filtration only separates a solid from a liquid it is suspended in (a heterogeneous mixture) -- once a solute is truly dissolved, its particles are the same phase as the solvent and pass right through a filter, so filtration cannot separate a homogeneous solution into its components. Chromatography separates based on differential interaction strength instead: each component interacts differently with a stationary phase and a mobile phase, so components that interact more strongly with the mobile phase travel farther/faster, and the resulting chromatogram's pattern of distances lets you infer each component's relative polarity.",
+   "what_students_need_to_understand": "This connects directly back to 3.1's IMF vocabulary (chromatography separation is entirely an IMF-strength argument) and to 3.7's homogeneous/heterogeneous distinction, which determines whether filtration is even a candidate method.",
+   "mini_example_question": "In a paper chromatography experiment separating two dyes, Dye A travels much farther up the paper than Dye B when developed with a nonpolar solvent. The paper (stationary phase) is polar; the solvent (mobile phase) is nonpolar. Explain what this result indicates about Dye A and Dye B's relative polarity.",
+   "common_point_loss": "Trying to separate dissolved solute from solution by ordinary filtration"
+  },
+  "seed": {
+   "stem": "In a paper chromatography experiment, a mixture of two pigments, X and Y, is spotted near the bottom of a strip of polar cellulose paper. The strip is placed in a nonpolar solvent that rises up the paper. After the run, pigment Y has traveled much farther up the paper than pigment X. Which statement best explains why Y traveled farther?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "Y is more polar than X, so it dissolves better in the solvent that rises up the paper and is carried farther.",
+     "ok": false
+    },
+    {
+     "k": "B",
+     "t": "Y is less polar than X, so the polar paper holds it less strongly and the nonpolar solvent carries it farther.",
+     "ok": true
+    },
+    {
+     "k": "C",
+     "t": "Y has stronger attractions to the paper than X does, and the paper carries it upward along with the rising solvent.",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "Y has smaller particles than X, so it passes through the pores of the paper more easily, as in filtration.",
+     "ok": false
+    }
+   ]
+  }
+ }
+]
