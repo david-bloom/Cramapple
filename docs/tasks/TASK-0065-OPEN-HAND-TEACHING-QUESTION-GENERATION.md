@@ -320,3 +320,23 @@ MiniMax) against CED PDF text, with 4 planted defects mixed in (all 4 caught):
   with pipeline items checked by four model families and three held-out judges.
 - The old items are retired. The real teaching function now serves the replacements.
 - Details: APPROVAL-0129.
+
+## Cost levers and Biology Unit 1 seed pilot — 2026-10-07
+
+**Cost levers.**
+- Muse Spark is now the fourth checker, and the unit-scoped fact pack is the default.
+- Cost per item fell from $0.28 to $0.20 with no quality loss.
+- See `scripts/content-seed/task0065-cost-levers-2026-10-07/RESULTS.md`.
+
+**Seed pilot** (`scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`): Biology 1.1–1.7, 3 seeds per topic and 3 variants per seed, made with `seed_pipeline.mjs` and no hand edits.
+- 21/21 seeds and 61/63 variants were accepted.
+- Blind held-out judges found 0 defects in the seeds and in a 21-variant sample, and caught 4/4 planted defects.
+- Cost was $25.73 on the pre-lever config.
+- Difficulty targeting failed: no item was voted Hard.
+- Skill targeting is reliable at the practice level (17/21) but not at the sub-skill level (14/21).
+
+**Open for David:**
+- the difficulty and skill handling (see the RESULTS recommendations);
+- whether to load the pilot items (Hard-Gate, needs approval);
+- human confirmation of the 15 provisional adjudications;
+- whether to run the Orly spec-guided seed A/B on Chemistry or Calculus.
