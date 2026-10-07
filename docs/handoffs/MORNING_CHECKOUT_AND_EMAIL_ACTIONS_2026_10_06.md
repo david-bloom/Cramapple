@@ -17,8 +17,12 @@ checks production evidence and integrates the findings.
 email designs provided, QA recommendations reviewed, and controlled parent/student
 inboxes supplied. Ten numbered HTML designs are preserved and adapted for Loops
 in [PR #344](https://github.com/david-bloom/Cramapple/pull/344).
-Design delivery is complete; publishing/binding templates and real-inbox tests
-are separate implementation steps, not completed by this confirmation.
+Design delivery is complete. Subsequent implementation published all ten Loops
+templates, bound Development IDs, applied the lifecycle migration and deployed
+four handlers. Genuine student codes verified in Development; corrected parent
+request delivery was independently read in one Gmail inbox with a Stripe test
+checkout URL. See [the rollout evidence and remaining gates](../qa/LOOPS_DEVELOPMENT_ROLLOUT_2026_10_06.md).
+Auth hook activation, protected scheduling and full purchase QA remain pending.
 
 Implementation and rollout plan:
 https://github.com/david-bloom/Cramapple/pull/341
@@ -66,7 +70,7 @@ source-reviewed defects and tests still needing real payment or inbox evidence.
 | 1 | Complete | Provide transactional email designs | David | Ten numbered HTML designs received; originals and validated MJML adaptations in PR #344 |
 | 2 | Complete | Review the QA's recommended checkout changes, including friction findings | David | David explicitly confirmed step 2 complete on 2026-10-06; this is review completion, not a QA pass or resolution of every open product decision |
 | 3 | Complete | Supply controlled student and parent inboxes for real-inbox testing | David | Two parent and two student addresses supplied privately, including intended existing/new student cases; no account reset or test-send result implied |
-| 4 | Pending | Confirm current Supabase auth emails show a six-digit code while migration remains pending | David + implementation | Invite, signup confirmation and login code work through the current sender |
+| 4 | Partial | Confirm codes match actual Supabase configuration and work in the browser | David + implementation | Development generates eight-digit codes; signed Loops hook sends for signup/login verified through Supabase. Automatic hook, invite and browser entry remain unverified |
 | 5 | Pending | Verify the login fix and hub welcome banner are actually published and work after login | David + implementation | Successful signed-in hub load, banner dismiss persists on reload |
 | 6 | Pending | Complete the final end-to-end purchase and parent-pay tests after fixes | David + QA | Correct amount, one intended verification request, access granted, clear next step |
 
@@ -75,15 +79,14 @@ source-reviewed defects and tests still needing real payment or inbox evidence.
 The table below retains the original six core purposes. The supplied ten designs
 also cover payer receipts, subjects added, parent reminders, payment-link expiry
 and refunds. See [the import readiness checklist](https://github.com/david-bloom/Cramapple/blob/codex/loops-email-designs/docs/email/transactional/README.md)
-for exact files, variables and unresolved trigger/data contracts. Loops upload
-remains blocked by Chrome extension local-file access; the real footer mailing
-address is also needed. These do not reopen completed design-delivery step 1.
+for exact files, variables and unresolved trigger/data contracts. Upload is now
+complete and footer text is configured. These do not reopen design-delivery step 1.
 
 | Design | Recipient / purpose | Essential content |
 | --- | --- | --- |
-| Verify email | Student with an unconfirmed account | Six-digit code and plain /welcome link |
-| New-student invite | Student whose account is created after purchase | Six-digit code and plain /welcome link |
-| Sign-in code | Existing student requesting login | Six-digit code and plain /welcome link |
+| Verify email | Student with an unconfirmed account | Supabase-generated code and plain /welcome link |
+| New-student invite | Student whose account is created after purchase | Supabase-generated code and plain /welcome link |
+| Sign-in code | Existing student requesting login | Supabase-generated code and plain /welcome link |
 | Parent payment request | Parent asked to pay | Student first name, subjects, actual discounted price, short payment link, expiration |
 | Parent payment completed | Student after parent payment | Subjects unlocked and a clear study CTA |
 | Purchase confirmation | Student after direct purchase or subjects added | Purchased subjects, actual amount and study CTA |
@@ -117,9 +120,10 @@ checkpoint `9ae755de900a241c04462f334792eb0e90e90a60`:
 - Notification ownership backfill precedes independent queue work (PR #342 correction).
 - 49 backend tests passed; five function entrypoints type-check; ten MJML files validate.
 
-No new Production deployment, template publish, email or payment occurred.
-Loops upload access, actual footer mailing address, template ID binding and inbox
-QA remain pending. Existing-account first-code orchestration, invite/confirmation
+The earlier PR #344 checkpoint did not deploy to Production or send email.
+The subsequent rollout published templates and performed limited Development
+delivery QA as described above; no payment or Production cutover occurred.
+Existing-account first-code orchestration, invite/confirmation
 overlap and repeat-purchase entitlement provenance are still release blockers.
 Preview-only frontend friction changes are implemented and source-reviewed in
 the marketing Lovable project, checkpoint
@@ -150,8 +154,8 @@ to Production and does not resolve every release blocker in the joint audit.
   is pushed and tested; failure-injection QA and deployment remain pending.
 - 20 focused email/payment tests passed; changed entrypoints type-check.
 - The queue migration and two new handlers are deployed only in Development.
-- Auth hook activation, published designs/IDs, changed payment-function deployments,
-  scheduling and real inbox QA are still pending.
+- Published designs/IDs and changed Development function deployments are complete.
+  Auth hook activation, scheduling and full checkout/inbox rendering QA remain pending.
 - Production currently has no Loops transactional payment queue.
 - Read-only Production audit during this QA: five paid sessions in the preceding
   48 hours, all with student IDs and active access, with no expected-subject-count

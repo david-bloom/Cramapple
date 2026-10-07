@@ -26,7 +26,7 @@ export function buildAuthEmail(payload: unknown) {
     ? TEMPLATE_ENV[action]
     : undefined;
   if (!templateEnv) throw new Error("unsupported_auth_email_action");
-  if (!user?.email || !data?.token || !/^\d{6}$/.test(data.token)) {
+  if (!user?.email || !data?.token || !/^\d{6,10}$/.test(data.token)) {
     throw new Error("invalid_auth_email_payload");
   }
   return {
