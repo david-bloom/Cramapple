@@ -16,7 +16,7 @@ TIER: Micro (recommendation only; no code, schema, publication or Production cha
 
 Both were made the same morning from the same source head (`64352ecb`), the same Recorder trace,
 and the same four artboards. Both received the owner clarification now recorded as `DECISION-0100`.
-Neither had a signed-in walkthrough. **Primary concern: the new student. Secondary: the returning
+Neither had a signed-in walkthrough at the time; §8 adds one (desktop, returning-student account). **Primary concern: the new student. Secondary: the returning
 student.** This document supersedes the *recommendation* sections of both; their findings stand as
 the evidence record and are cited by id below.
 
@@ -188,6 +188,8 @@ restrained note: *"Recommendations get more personal as you practice. You're at 
 | --- | --- | --- | --- |
 | B1 | Persist lesson, phase, current worked item, practice queue position and unfinished input; define same-device vs cross-device. | Sol F8, list 1 | 3b.1 "Continue" |
 | B2 | Serve an *unseen, lesson-aligned* practice item after a worked example, or show an explicit "no practice for this lesson yet" state. The client's reorder-a-batch is not a contract. Reproduce the topic-less `/practice-mcq?from=open-hand` handoff first. | Sol F4 | 3.3 "on this lesson" |
+| B2a | **Fix the dropped topic on the Open Hand → Practice handoff** (§8 W4): route through the router's `search` object, not `URLSearchParams`; test with a numeric-looking topic code. Frontend only. | §8 W4 | 3.3 |
+| B2b | **Practice never opens on an already-submitted item** (§8 W5): skip or exclude items with a stored attempt for this student; show how many unseen remain. Frontend first; server selector follow-up. | §8 W5 | 3.3, 3.4 |
 | B3 | Close learning sessions on exit; record `lastAttempt`; stop showing "Resume" for every session ever opened. | Claude D4, R9 | 3.5, 3b.1 |
 | B4 | Route-appropriate recap data: example viewed, notes saved, practice summary. | Sol brief 4; Claude R9 | 3.5 |
 | B5 | Saved-notes store and export format. | Claude K23; Sol brief 9 | 3.6 |
@@ -200,10 +202,9 @@ restrained note: *"Recommendations get more personal as you practice. You're at 
 
 ## 5. Validation, in order
 
-1. **Signed-in walkthrough on the published build** (David signs in; Claude drives the Recorder path
-   and screenshots Stage A, the worked example, practice and the hub at desktop and 390px). Confirms
-   what is actually published versus preview-only at `64352ecb`, and the account stage. Neither
-   assessment had this.
+1. **Signed-in walkthrough on the published build.** Done at desktop on 2026-10-07 for the
+   returning-student path (§8): found two P0 bugs (W4, W5). Still owed: phone width, and Stage A on an
+   account with zero attempts (a controlled test account, not a reset of a real student).
 2. **Sol's student protocol**, adopted as written: a controlled entitled test account with no
    qualifying history; one neutral task ("you just covered a lesson in class, use Cramapple for a few
    minutes to prepare for being questioned on it, then stop when you normally would"); separate
@@ -244,6 +245,31 @@ restrained note: *"Recommendations get more personal as you practice. You're at 
 | 3 | B3, B8 (session close, last attempt, events) | Claude, backend + Lovable | — |
 | 4 | B2 (aligned practice contract), B1 (phase persistence), B5 (notes store), B6 (BYOQ boundary) | scoped tasks under `TASK-0048` / `TASK-0052` successors | David's gate |
 | 5 | §5 validation | David + Claude, then students | published build |
+
+---
+
+## 8. Published-build walkthrough, 2026-10-07 **[live]**
+
+Done signed in as the Product Owner through his own Chrome (Claude in Chrome extension), on
+`app.cramapple.com`, 15:05–15:10 UTC, desktop width. The account is at the `personalized` stage with
+AP Chemistry active, so this is the returning-student path; Stage A was not reachable on this account.
+Screenshots in `docs/product/assets/first-session-walkthrough-2026-10-07/`.
+
+| # | What the live build showed | Confirms / adds |
+| --- | --- | --- |
+| W1 | `/home` opened in **Points** mode because the mode is remembered in local storage from the last visit: "Your points so far", "No graded evidence in this unit yet", "0 of 9 units with evidence", with the **Learn · Points · Ask for help · Homework helper** bar above it. (`01`) | A6, C7, F9 live. A returning student can land on the less useful mode without choosing it. |
+| W2 | In Learn mode the hero reads **"Nothing due right now — Pick a unit and topic above to build ahead"** above **See a worked example →**, **Resume session**, **Pick something else**. Below: "Your class is on Unit 1 · 1.1" captioned *"Our best guess from your class calendar"*. (`02`) | C4 live (no calendar exists); D4 live (Resume shown). |
+| W3 | **Open Hand renders correctly** on the published build: subject label, "1.1 · Moles and Molar Mass", face-up key with four rationales, reference pane from the topic guide, deep dive. Primary **Next question**, quiet **Try one on your own**, **Upload your own question**. (`03`) | A3 live. The 2026-10-06 fixes under `TASK-0052` are published. |
+| **W4** | **The Open Hand → Practice handoff drops the topic.** The hub sends `?topic=%221.1%22` (the router JSON-encodes the string) and Open Hand loads 1.1. "Try one on your own" lands on `/practice-mcq?from=open-hand` with **no topic**. Cause: the Open Hand screen builds the URL with `URLSearchParams` (`topic=1.1`, unquoted); the practice route's validator is `z.string().optional().catch(undefined)`; the router parses `1.1` as a number, the string check fails, and `.catch` discards it silently. Confirmed independently: typing `/open-hand-mcq?topic=1.1` by hand was rewritten to `?from=home`. **Every topic code shaped `N.N` is affected, which is all of them.** The practice bias toward the lesson never applies from this handoff. | Root-causes Sol F4's "topic-less handoff". New P0 bug. Fix: navigate through the router's `search` object (or JSON-encode in the URL) in `LiveOpenHandTeaching.startPractice` and `goWorkedExample`; add a test with a numeric-looking code. |
+| **W5** | **Practice served two already-answered questions in a row, pre-graded.** The first item was this morning's glucose question with the old verdict already shown ("Your answer 1.00 mol · 0/1 · Hints used: Topic hint, Reference materials"); **Next question** gave this morning's photoelectron question, also pre-graded (1/1). The queue repeats the same server batch across sessions and the client replays stored attempts. A returning student who clicks "Try one on your own" must page past old graded questions to reach anything new, with no sign of how many are left. (`04`, `05`) | Confirms Sol F4/F8 and requirement B2: "unseen" is not guaranteed. New P0: the practice list must exclude items this student has already submitted, or start at the first unanswered one. |
+| W6 | "Questions seen: 3 · this device" counter in the study nav; **Student hub** and **Change topic** links work. | The 2026-10-07 02:00 preview-only work is in fact published. |
+| W7 | **Phone width not captured.** Resizing the window to 390×844 through the extension did not change what the screenshot tool returned (still 1131 px wide). Mobile stays unverified. | Validation step 1 is half done: desktop yes, phone no. |
+
+**What this changes in the plan above.** Two P0 bugs sit underneath the copy and structure work in §3
+and must land first or alongside it, because they break the recommended door even when the words
+are right: W4 (the topic is lost between the worked example and practice) and W5 (practice shows
+already-graded questions first). Both are frontend-only in `56cae479`; W5 may also want the server
+selector to skip submitted items. They are added to §4 as B2a and B2b.
 
 **Not recommended:** a visual rebuild of the hub ahead of step 1; the 6-question diagnostic; any
 "Continue" or "Resume" copy that promises restoration the backend does not yet do.
