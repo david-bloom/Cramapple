@@ -19,7 +19,8 @@ regenerated, never repaired.
 | Step | What happens |
 |---|---|
 | Rubric | `rubric.mjs` holds the one rubric. The author prompt and every checker prompt are built from it. |
-| Authors | Each round makes two fresh, stateless candidates per topic: one from Claude Opus 5.5 and one from GPT-6.1. An author never sees the other candidate, an earlier candidate, or checker feedback. |
+| Authors | Each round has two stateless authors, GPT-6.1 then Claude Opus 5.5 (`--author-order`). They run in sequence: the second writes only if the first's candidate is rejected. An author never sees the other candidate, an earlier candidate, or checker feedback. |
+| Prompt caching | Long prompts put the fixed part (role, rubric, full fact pack) first, so providers serve it from cache; Claude's prefix carries an explicit cache marker. Cost per accepted item fell from $0.72 to $0.28 (`task0065-cost-test-2026-10-07/RESULTS.md`). |
 | Key position | The runner places the correct answer at a deterministic random letter. |
 | Lint | Deterministic rules (`lint()` in `rubric.mjs`). Any failure rejects the candidate. |
 | Blind solve | 4 checkers solve the question without the key. Any wrong answer, second defensible answer or defect counts as a flag. |

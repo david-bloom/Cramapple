@@ -14,7 +14,7 @@ export const RUBRIC_RULES = [
   ['named_trap', 'Every wrong choice is a named trap. Its rationale (a) names the specific error, misreading or misconception that makes a student pick it, (b) says briefly why it is wrong, and (c) ends with exactly one sentence that starts "Fix: " (it may sit in the same paragraph) and tells the student a concrete ACTION to take next time ("check...", "compute...", "ask whether..."). A fix that only states a fact or the right answer fails. Generic advice ("review the topic", "read carefully") fails.'],
   ['accurate', 'Every statement in every rationale is factually and mathematically correct.'],
   ['concise', 'Each rationale explains in one to three sentences, not counting a wrong choice\'s final Fix sentence. The correct choice\'s rationale is at most 60 words. Each wrong choice\'s rationale is at most 60 words before its Fix sentence, and the Fix sentence is at most 25 words.'],
-  ['style', 'Plain, calm teacher voice: no emoji, no exclamation marks, no "Great job" or "Oops". Rationales never refer to other choices by letter. Use proper symbols (for example ≠, ≤, √) rather than programmer notation such as != or <=.'],
+  ['style', 'Plain, calm teacher voice: no emoji, no exclamation marks, no "Great job" or "Oops". Rationales never refer to other choices by letter. Use proper symbols (for example ≠, ≤, √) rather than programmer notation such as != or <=. Write all mathematics as plain text with Unicode symbols (for example lim x→3 f(x), x², √(x+1), 3/(x−2)); never LaTeX such as \\( \\), $…$ or \\frac, because the app shows text as written.'],
 ];
 export const RUBRIC_TEXT = RUBRIC_RULES.map(([k, t], i) => `${i + 1}. [${k}] ${t}`).join('\n');
 
@@ -71,6 +71,7 @@ export function lint(item) {
   const text = [stem, ...ch.map((c) => `${c.choice_text} ${c.rationale}`)].join(' ');
   if (EMOJI.test(text)) f.push('emoji present');
   if (/<\/?[a-z][^>]*>|&[a-z]+;/i.test(text)) f.push('HTML markup or entity present');
+  if (/\\[()\[\]]|\\(frac|lim|sqrt|infty|to|displaystyle|cdot|le|ge|neq)\b|\$[^$\s][^$]*\$/.test(text)) f.push('LaTeX markup present (write maths as plain text)');
   if (/!=|<=|>=/.test(text)) f.push('programmer notation (!=, <=, >=) instead of a symbol');
   if (/!/.test(text.replace(/!=/g, ''))) f.push('exclamation mark present');
   if (/\bcalculator\b/i.test(text)) f.push('calculator reference');

@@ -1,0 +1,701 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.10",
+  "topic_title": "Origins of Cell Compartmentalization"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__2.10#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 16606,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 16603
+    },
+    "outputTokens": 821,
+    "outputTokenDetails": {
+     "textTokens": 553,
+     "reasoningTokens": 268
+    },
+    "totalTokens": 17427,
+    "raw": {
+     "input_tokens": 16606,
+     "input_tokens_details": {
+      "cache_write_tokens": 16603,
+      "cached_tokens": 0
+     },
+     "output_tokens": 821,
+     "output_tokens_details": {
+      "reasoning_tokens": 268
+     },
+     "total_tokens": 17427
+    },
+    "reasoningTokens": 268,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.10",
+    "topic_title": "Origins of Cell Compartmentalization",
+    "stem": "Which statement correctly explains the evolutionary origin of mitochondria and chloroplasts and compares compartmentalization in prokaryotic and eukaryotic cells?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Mitochondria and chloroplasts arose solely from folds of the host cell's membrane; prokaryotes typically have specialized internal regions without membrane-bound organelles, whereas eukaryotes partition their cells with internal membranes.",
+      "is_correct": false,
+      "rationale": "Membrane-folding trap: this substitutes changes in the host's membrane for the incorporation of formerly free-living cells. Endosymbiotic theory identifies prokaryotic ancestors as the source of mitochondria and chloroplasts. Fix: Check whether the proposed origin includes formerly independent prokaryotic cells."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Mitochondria and chloroplasts evolved from free-living prokaryotes through endosymbiosis; prokaryotes have no specialized internal regions, whereas eukaryotes partition their cells with internal membranes.",
+      "is_correct": false,
+      "rationale": "No-organization trap: this equates lacking membrane-bound organelles with lacking internal organization. Prokaryotes can have specialized internal regions even though they typically lack membrane-bound organelles. Fix: Separate the presence of specialized regions from the presence of surrounding membranes."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "All eukaryotic membrane-bound organelles evolved from free-living prokaryotes through endosymbiosis; prokaryotes typically have specialized internal regions without membrane-bound organelles, whereas eukaryotes partition their cells with internal membranes.",
+      "is_correct": false,
+      "rationale": "Overgeneralization trap: this extends the endosymbiotic origin of mitochondria and chloroplasts to every membrane-bound organelle. Having a surrounding membrane does not establish that an organelle descended from a free-living prokaryote. Fix: Identify which organelles the endosymbiotic explanation applies to before generalizing."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Mitochondria and chloroplasts evolved from free-living prokaryotes through endosymbiosis; prokaryotes typically have specialized internal regions without membrane-bound organelles, whereas eukaryotes partition their cells with internal membranes.",
+      "is_correct": true,
+      "rationale": "Endosymbiosis explains how formerly free-living prokaryotic cells became organelles within host cells. The comparison also distinguishes specialized regions in prokaryotes from membrane-enclosed compartments in eukaryotes without implying that prokaryotes lack internal organization."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 876,
+         "inputTokenDetails": {
+          "noCacheTokens": 876,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 906,
+         "raw": {
+          "input_tokens": 876,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2304,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 434,
+         "inputTokenDetails": {
+          "noCacheTokens": 434,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 415,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 385
+         },
+         "totalTokens": 849,
+         "raw": {
+          "thoughtsTokenCount": 385,
+          "promptTokenCount": 434,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 849,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 434
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 385,
+         "cachedInputTokens": 0
+        },
+        "ms": 4364,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 490,
+         "inputTokenDetails": {
+          "noCacheTokens": 234,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 613,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 587
+         },
+         "totalTokens": 1103,
+         "raw": {
+          "prompt_tokens": 490,
+          "completion_tokens": 613,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 234,
+          "total_tokens": 1103,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 587
+          }
+         },
+         "reasoningTokens": 587,
+         "cachedInputTokens": 256
+        },
+        "ms": 8649,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 559,
+         "inputTokenDetails": {
+          "noCacheTokens": 559,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1298,
+         "outputTokenDetails": {
+          "textTokens": 21,
+          "reasoningTokens": 1277
+         },
+         "totalTokens": 1857,
+         "raw": {
+          "prompt_tokens": 559,
+          "completion_tokens": 1298,
+          "total_tokens": 1857,
+          "prompt_tokens_details": {
+           "cached_tokens": 0,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1277,
+           "accepted_prediction_tokens": 800,
+           "rejected_prediction_tokens": 691,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1277,
+         "cachedInputTokens": 0
+        },
+        "ms": 20774,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 28323,
+         "inputTokenDetails": {
+          "noCacheTokens": 3598,
+          "cacheReadTokens": 24725,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 500,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 288
+         },
+         "totalTokens": 28823,
+         "raw": {
+          "input_tokens": 3598,
+          "output_tokens": 500,
+          "output_tokens_details": {
+           "thinking_tokens": 288
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 24725,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 288,
+         "cachedInputTokens": 24725
+        },
+        "ms": 6759,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 18427,
+         "inputTokenDetails": {
+          "noCacheTokens": 18427,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1283,
+         "outputTokenDetails": {
+          "textTokens": 263,
+          "reasoningTokens": 1020
+         },
+         "totalTokens": 19710,
+         "raw": {
+          "thoughtsTokenCount": 1020,
+          "promptTokenCount": 18427,
+          "candidatesTokenCount": 263,
+          "totalTokenCount": 19710,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 18427
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 263
+           }
+          ]
+         },
+         "reasoningTokens": 1020,
+         "cachedInputTokens": 0
+        },
+        "ms": 9812,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17248,
+         "inputTokenDetails": {
+          "noCacheTokens": 2144,
+          "cacheReadTokens": 15104
+         },
+         "outputTokens": 3742,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 3523
+         },
+         "totalTokens": 20990,
+         "raw": {
+          "prompt_tokens": 17248,
+          "completion_tokens": 3742,
+          "prompt_cache_hit_tokens": 15104,
+          "prompt_cache_miss_tokens": 2144,
+          "total_tokens": 20990,
+          "prompt_tokens_details": {
+           "cached_tokens": 15104
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3523
+          }
+         },
+         "reasoningTokens": 3523,
+         "cachedInputTokens": 15104
+        },
+        "ms": 41165,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17822,
+         "inputTokenDetails": {
+          "noCacheTokens": 2974,
+          "cacheReadTokens": 14848
+         },
+         "outputTokens": 1983,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 1767
+         },
+         "totalTokens": 19805,
+         "raw": {
+          "prompt_tokens": 17822,
+          "completion_tokens": 1983,
+          "total_tokens": 19805,
+          "prompt_tokens_details": {
+           "cached_tokens": 14848,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1767,
+           "accepted_prediction_tokens": 1331,
+           "rejected_prediction_tokens": 622,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1767,
+         "cachedInputTokens": 14848
+        },
+        "ms": 23142,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17153,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 17150
+         },
+         "outputTokens": 281,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 59
+         },
+         "totalTokens": 17434,
+         "raw": {
+          "input_tokens": 17153,
+          "input_tokens_details": {
+           "cache_write_tokens": 17150,
+           "cached_tokens": 0
+          },
+          "output_tokens": 281,
+          "output_tokens_details": {
+           "reasoning_tokens": 59
+          },
+          "total_tokens": 17434
+         },
+         "reasoningTokens": 59,
+         "cachedInputTokens": 0
+        },
+        "ms": 9173,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__2.10#r1-openai",
+ "accepted_at": "2026-10-07T13:07:32.877Z"
+}

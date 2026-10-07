@@ -1,0 +1,701 @@
+{
+ "topic": {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.14",
+  "topic_title": "Connecting Infinite Limits and Vertical Asymptotes"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-calculus-ab__1.14#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 21132,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 21129
+    },
+    "outputTokens": 869,
+    "outputTokenDetails": {
+     "textTokens": 569,
+     "reasoningTokens": 300
+    },
+    "totalTokens": 22001,
+    "raw": {
+     "input_tokens": 21132,
+     "input_tokens_details": {
+      "cache_write_tokens": 21129,
+      "cached_tokens": 0
+     },
+     "output_tokens": 869,
+     "output_tokens_details": {
+      "reasoning_tokens": 300
+     },
+     "total_tokens": 22001
+    },
+    "reasoningTokens": 300,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.14",
+    "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+    "stem": "Let \\(f(x)=\\dfrac{3}{x-2}\\). Which statement correctly describes the one-sided limits at \\(x=2\\) and whether the graph has a vertical asymptote there?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "\\(\\displaystyle\\lim_{x\\to2^-}f(x)=+\\infty\\) and \\(\\displaystyle\\lim_{x\\to2^+}f(x)=-\\infty\\); \\(x=2\\) is a vertical asymptote.",
+      "is_correct": false,
+      "rationale": "Left–right reversal assigns the signs to the wrong sides: x − 2 is negative when x < 2 and positive when x > 2. Fix: Test the denominator’s sign at one input on each side of 2."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "\\(\\displaystyle\\lim_{x\\to2^-}f(x)=+\\infty\\) and \\(\\displaystyle\\lim_{x\\to2^+}f(x)=+\\infty\\); \\(x=2\\) is a vertical asymptote.",
+      "is_correct": false,
+      "rationale": "Ignoring the denominator’s sign confuses unbounded magnitude with positive unbounded behavior. From the left, the positive numerator divided by a negative denominator gives negative values. Fix: Determine the quotient’s sign before assigning +∞ or −∞."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "\\(\\displaystyle\\lim_{x\\to2^-}f(x)=-\\infty\\) and \\(\\displaystyle\\lim_{x\\to2^+}f(x)=+\\infty\\); \\(x=2\\) is a vertical asymptote.",
+      "is_correct": true,
+      "rationale": "The denominator approaches zero through negative values from the left and positive values from the right, so the quotient grows without bound with the indicated signs. These infinite one-sided limits establish the vertical asymptote x = 2."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "\\(\\displaystyle\\lim_{x\\to2^-}f(x)=-\\infty\\) and \\(\\displaystyle\\lim_{x\\to2^+}f(x)=+\\infty\\); there is no vertical asymptote at \\(x=2\\).",
+      "is_correct": false,
+      "rationale": "Requiring matching one-sided limits incorrectly imposes a two-sided-limit condition on vertical asymptotes. A vertical asymptote exists when at least one one-sided limit is +∞ or −∞, even if the sides differ. Fix: Check each one-sided limit separately for unbounded behavior."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 890,
+         "inputTokenDetails": {
+          "noCacheTokens": 890,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 920,
+         "raw": {
+          "input_tokens": 890,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 4544,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 496,
+         "inputTokenDetails": {
+          "noCacheTokens": 496,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 404,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 374
+         },
+         "totalTokens": 900,
+         "raw": {
+          "thoughtsTokenCount": 374,
+          "promptTokenCount": 496,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 900,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 496
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 374,
+         "cachedInputTokens": 0
+        },
+        "ms": 3824,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 535,
+         "inputTokenDetails": {
+          "noCacheTokens": 279,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 232,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 206
+         },
+         "totalTokens": 767,
+         "raw": {
+          "prompt_tokens": 535,
+          "completion_tokens": 232,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 279,
+          "total_tokens": 767,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 206
+          }
+         },
+         "reasoningTokens": 206,
+         "cachedInputTokens": 256
+        },
+        "ms": 4158,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 563,
+         "inputTokenDetails": {
+          "noCacheTokens": 499,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 78,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 58
+         },
+         "totalTokens": 641,
+         "raw": {
+          "prompt_tokens": 563,
+          "completion_tokens": 78,
+          "total_tokens": 641,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 58,
+           "accepted_prediction_tokens": 44,
+           "rejected_prediction_tokens": 55,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 58,
+         "cachedInputTokens": 64
+        },
+        "ms": 18905,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 34445,
+         "inputTokenDetails": {
+          "noCacheTokens": 1208,
+          "cacheReadTokens": 33237,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 529,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 317
+         },
+         "totalTokens": 34974,
+         "raw": {
+          "input_tokens": 1208,
+          "output_tokens": 529,
+          "output_tokens_details": {
+           "thinking_tokens": 317
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 33237,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 317,
+         "cachedInputTokens": 33237
+        },
+        "ms": 5906,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 23208,
+         "inputTokenDetails": {
+          "noCacheTokens": 23208,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1364,
+         "outputTokenDetails": {
+          "textTokens": 263,
+          "reasoningTokens": 1101
+         },
+         "totalTokens": 24572,
+         "raw": {
+          "thoughtsTokenCount": 1101,
+          "promptTokenCount": 23208,
+          "candidatesTokenCount": 263,
+          "totalTokenCount": 24572,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 23208
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 263
+           }
+          ]
+         },
+         "reasoningTokens": 1101,
+         "cachedInputTokens": 0
+        },
+        "ms": 10453,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21767,
+         "inputTokenDetails": {
+          "noCacheTokens": 775,
+          "cacheReadTokens": 20992
+         },
+         "outputTokens": 6165,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 5946
+         },
+         "totalTokens": 27932,
+         "raw": {
+          "prompt_tokens": 21767,
+          "completion_tokens": 6165,
+          "prompt_cache_hit_tokens": 20992,
+          "prompt_cache_miss_tokens": 775,
+          "total_tokens": 27932,
+          "prompt_tokens_details": {
+           "cached_tokens": 20992
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5946
+          }
+         },
+         "reasoningTokens": 5946,
+         "cachedInputTokens": 20992
+        },
+        "ms": 61183,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21838,
+         "inputTokenDetails": {
+          "noCacheTokens": 21774,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 1985,
+         "outputTokenDetails": {
+          "textTokens": 126,
+          "reasoningTokens": 1859
+         },
+         "totalTokens": 23823,
+         "raw": {
+          "prompt_tokens": 21838,
+          "completion_tokens": 1985,
+          "total_tokens": 23823,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1859,
+           "accepted_prediction_tokens": 1209,
+           "rejected_prediction_tokens": 1116,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1859,
+         "cachedInputTokens": 64
+        },
+        "ms": 20681,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21740,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 21737
+         },
+         "outputTokens": 251,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 29
+         },
+         "totalTokens": 21991,
+         "raw": {
+          "input_tokens": 21740,
+          "input_tokens_details": {
+           "cache_write_tokens": 21737,
+           "cached_tokens": 0
+          },
+          "output_tokens": 251,
+          "output_tokens_details": {
+           "reasoning_tokens": 29
+          },
+          "total_tokens": 21991
+         },
+         "reasoningTokens": 29,
+         "cachedInputTokens": 0
+        },
+        "ms": 7411,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-calculus-ab__1.14#r1-openai",
+ "accepted_at": "2026-10-07T13:10:25.351Z"
+}
