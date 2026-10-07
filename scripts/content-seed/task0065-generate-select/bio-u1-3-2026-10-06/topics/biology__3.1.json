@@ -1,0 +1,1427 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Enzymes"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__3.1#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25505,
+    "inputTokenDetails": {
+     "noCacheTokens": 25505,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1680,
+    "outputTokenDetails": {
+     "textTokens": 777,
+     "reasoningTokens": 903
+    },
+    "totalTokens": 27185,
+    "raw": {
+     "input_tokens": 25505,
+     "output_tokens": 1680,
+     "output_tokens_details": {
+      "thinking_tokens": 903
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 903,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.1",
+    "topic_title": "Enzymes",
+    "stem": "An enzyme speeds the breakdown of molecule X. Its active site is lined with amino acids whose R groups carry positive charges, and the part of X that binds there carries negative charges. A researcher then tests molecule Y, which has the same size and shape as X but carries positive charges in the part that would contact the active site. Which prediction, with its reasoning, is best supported?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The enzyme will speed the breakdown of X but not of Y, because Y's charges do not complement the active site, so Y cannot form an enzyme-substrate complex in which activation energy is lowered.",
+      "is_correct": true,
+      "rationale": "Substrate binding requires a fit in both shape and charge. The negative region of X is attracted to the positive active site, so an enzyme-substrate complex forms and activation energy drops. The positive region of Y is repelled by the same R groups, so no complex forms and Y's reaction is not sped up."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The enzyme will speed the breakdown of X and Y equally, because both molecules have the same shape and so fit the active site equally well.",
+      "is_correct": false,
+      "rationale": "This is a shape-only view of specificity. It ignores that the substrate's charge must also match the chemical environment of the active site. Like charges repel, so Y cannot bind the way X does. Fix: For each substrate, check both shape and charge against the active-site R groups before predicting binding."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The enzyme will speed the breakdown of X by supplying energy to X molecules so they can get over the activation energy barrier.",
+      "is_correct": false,
+      "rationale": "This is the misconception that enzymes add energy to reactions. Enzymes do not supply energy. They bind the substrate in a way that lowers the activation energy barrier, so more molecules can react at the same energy. Fix: Ask whether your explanation changes the height of the energy barrier or the energy given to molecules, and choose the barrier."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The enzyme will speed the breakdown of X by making the products of X lower in energy, so the reaction releases more energy overall.",
+      "is_correct": false,
+      "rationale": "This confuses activation energy with the overall energy difference between reactants and products. An enzyme lowers only the energy barrier. The starting and ending energy levels, and so the total energy released, stay the same with or without the enzyme. Fix: On an energy diagram, locate which part an enzyme changes: the peak only, not the reactant or product levels."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": "A is the best-supported qualitative prediction: Y's positive charges would repel the positively charged active-site groups, disfavoring productive binding despite its matching shape. However, 'cannot form' is too absolute; charge mismatch alone does not establish that binding and catalysis are impossible. B ignores charge complementarity, while C and D misstate how enzymes work."
+        },
+        "usage": {
+         "inputTokens": 369,
+         "inputTokenDetails": {
+          "noCacheTokens": 369,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 346,
+         "outputTokenDetails": {
+          "textTokens": 96,
+          "reasoningTokens": 250
+         },
+         "totalTokens": 715,
+         "raw": {
+          "input_tokens": 369,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 346,
+          "output_tokens_details": {
+           "reasoning_tokens": 250
+          },
+          "total_tokens": 715
+         },
+         "reasoningTokens": 250,
+         "cachedInputTokens": 0
+        },
+        "ms": 10451,
+        "flags": [
+         "defect: A is the best-supported qualitative prediction: Y's positive charges would repel the positively charged active-site groups, disfavoring productive binding despite its matching shape. However, 'cannot form' is too absolute; charge mismatch alone does not establish that binding and catalysis are impossible. B ignores charge complementarity, while C and D misstate how enzymes work."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 369,
+         "inputTokenDetails": {
+          "noCacheTokens": 369,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 245,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 219
+         },
+         "totalTokens": 614,
+         "raw": {
+          "input_tokens": 369,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 245,
+          "output_tokens_details": {
+           "reasoning_tokens": 219
+          },
+          "total_tokens": 614
+         },
+         "reasoningTokens": 219,
+         "cachedInputTokens": 0
+        },
+        "ms": 7387,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 452,
+         "inputTokenDetails": {
+          "noCacheTokens": 452,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 243,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 213
+         },
+         "totalTokens": 695,
+         "raw": {
+          "thoughtsTokenCount": 213,
+          "promptTokenCount": 452,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 695,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 452
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 213,
+         "cachedInputTokens": 0
+        },
+        "ms": 9111,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 510,
+         "inputTokenDetails": {
+          "noCacheTokens": 254,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 272,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 246
+         },
+         "totalTokens": 782,
+         "raw": {
+          "prompt_tokens": 510,
+          "completion_tokens": 272,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 254,
+          "total_tokens": 782,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 246
+          }
+         },
+         "reasoningTokens": 246,
+         "cachedInputTokens": 256
+        },
+        "ms": 4756,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 531,
+         "inputTokenDetails": {
+          "noCacheTokens": 403,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 289,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 269
+         },
+         "totalTokens": 820,
+         "raw": {
+          "prompt_tokens": 531,
+          "completion_tokens": 289,
+          "total_tokens": 820,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 269,
+           "accepted_prediction_tokens": 142,
+           "rejected_prediction_tokens": 296,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 269,
+         "cachedInputTokens": 128
+        },
+        "ms": 15644,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": false,
+           "issue": "No choice is fully defensible as written. A makes an absolute prediction of no Y binding or catalysis, but charge repulsion supports reduced binding and activity, not necessarily their complete absence. B, C, and D give incorrect reasoning."
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A's rationale overstates the effect of unfavorable charges: repulsion does not establish that 'no complex forms' or that Y receives no catalytic acceleration. Predict reduced binding and catalytic activity rather than categorically ruling them out."
+          },
+          "concise": {
+           "pass": false,
+           "issue": "B, C, and D each have four rationale sentences, including the Fix sentence, exceeding the one-to-three-sentence limit."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16490,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16487
+         },
+         "outputTokens": 810,
+         "outputTokenDetails": {
+          "textTokens": 340,
+          "reasoningTokens": 470
+         },
+         "totalTokens": 17300,
+         "raw": {
+          "input_tokens": 16490,
+          "input_tokens_details": {
+           "cache_write_tokens": 16487,
+           "cached_tokens": 0
+          },
+          "output_tokens": 810,
+          "output_tokens_details": {
+           "reasoning_tokens": 470
+          },
+          "total_tokens": 17300
+         },
+         "reasoningTokens": 470,
+         "cachedInputTokens": 0
+        },
+        "ms": 17083,
+        "flags": [
+         "one_answer: No choice is fully defensible as written. A makes an absolute prediction of no Y binding or catalysis, but charge repulsion supports reduced binding and activity, not necessarily their complete absence. B, C, and D give incorrect reasoning.",
+         "accurate: A's rationale overstates the effect of unfavorable charges: repulsion does not establish that 'no complex forms' or that Y receives no catalytic acceleration. Predict reduced binding and catalytic activity rather than categorically ruling them out.",
+         "concise: B, C, and D each have four rationale sentences, including the Fix sentence, exceeding the one-to-three-sentence limit."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": false,
+           "issue": "A overstates what the stem establishes: charge repulsion supports reduced productive binding and catalysis of Y, but does not establish that Y cannot form a catalytic complex or undergo any enzyme-catalyzed breakdown. The other choices are incorrect, leaving no fully defensible choice as written."
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A's rationale incorrectly treats unfavorable charge interactions as proof that 'no complex forms' and that Y's reaction is not accelerated at all. Repulsion can reduce binding affinity without eliminating all binding or catalysis; the stem does not justify these absolute claims."
+          },
+          "concise": {
+           "pass": false,
+           "issue": "B, C, and D each have four rationale sentences, including the Fix sentence, exceeding the one-to-three-sentence limit. Their word counts and Fix-sentence lengths otherwise meet the limits."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16490,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16487,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 1085,
+         "outputTokenDetails": {
+          "textTokens": 368,
+          "reasoningTokens": 717
+         },
+         "totalTokens": 17575,
+         "raw": {
+          "input_tokens": 16490,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16487
+          },
+          "output_tokens": 1085,
+          "output_tokens_details": {
+           "reasoning_tokens": 717
+          },
+          "total_tokens": 17575
+         },
+         "reasoningTokens": 717,
+         "cachedInputTokens": 16487
+        },
+        "ms": 26062,
+        "flags": [
+         "one_answer: A overstates what the stem establishes: charge repulsion supports reduced productive binding and catalysis of Y, but does not establish that Y cannot form a catalytic complex or undergo any enzyme-catalyzed breakdown. The other choices are incorrect, leaving no fully defensible choice as written.",
+         "accurate: A's rationale incorrectly treats unfavorable charge interactions as proof that 'no complex forms' and that Y's reaction is not accelerated at all. Repulsion can reduce binding affinity without eliminating all binding or catalysis; the stem does not justify these absolute claims.",
+         "concise: B, C, and D each have four rationale sentences, including the Fix sentence, exceeding the one-to-three-sentence limit. Their word counts and Fix-sentence lengths otherwise meet the limits."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17841,
+         "inputTokenDetails": {
+          "noCacheTokens": 17841,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 8943,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 8681
+         },
+         "totalTokens": 26784,
+         "raw": {
+          "thoughtsTokenCount": 8681,
+          "promptTokenCount": 17841,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 26784,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17841
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 8681,
+         "cachedInputTokens": 0
+        },
+        "ms": 62767,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16690,
+         "inputTokenDetails": {
+          "noCacheTokens": 15410,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 7007,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6788
+         },
+         "totalTokens": 23697,
+         "raw": {
+          "prompt_tokens": 16690,
+          "completion_tokens": 7007,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15410,
+          "total_tokens": 23697,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6788
+          }
+         },
+         "reasoningTokens": 6788,
+         "cachedInputTokens": 1280
+        },
+        "ms": 67512,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17174,
+         "inputTokenDetails": {
+          "noCacheTokens": 16598,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 2770,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 2554
+         },
+         "totalTokens": 19944,
+         "raw": {
+          "prompt_tokens": 17174,
+          "completion_tokens": 2770,
+          "total_tokens": 19944,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2554,
+           "accepted_prediction_tokens": 1784,
+           "rejected_prediction_tokens": 1171,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2554,
+         "cachedInputTokens": 576
+        },
+        "ms": 17869,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__3.1#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15778,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15775
+    },
+    "outputTokens": 631,
+    "outputTokenDetails": {
+     "textTokens": 440,
+     "reasoningTokens": 191
+    },
+    "totalTokens": 16409,
+    "raw": {
+     "input_tokens": 15778,
+     "input_tokens_details": {
+      "cache_write_tokens": 15775,
+      "cached_tokens": 0
+     },
+     "output_tokens": 631,
+     "output_tokens_details": {
+      "reasoning_tokens": 191
+     },
+     "total_tokens": 16409
+    },
+    "reasoningTokens": 191,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.1",
+    "topic_title": "Enzymes",
+    "stem": "Two molecules, S and T, are similar in size but differ in shape and charge. In separate tests under identical conditions, adding enzyme E increases the reaction rate for S but does not change the reaction rate for T. Which explanation best connects enzyme structure to these results?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The active site of E is compatible with S in shape and charge, allowing E to supply the activation energy needed for S to react.",
+      "is_correct": false,
+      "rationale": "Energy-donor misconception: Enzymes do not speed reactions by supplying activation energy; they lower the activation-energy barrier. Fix: Check whether your explanation lowers the energy barrier or incorrectly makes the enzyme an energy source."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The active site of E is compatible with S in shape and charge, allowing an enzyme–substrate complex to form that lowers the reaction’s activation energy.",
+      "is_correct": true,
+      "rationale": "Active-site shape and charge determine which substrates can bind appropriately. Binding S allows E to lower the activation energy for its reaction, increasing the reaction rate; T’s different shape and charge explain why E does not catalyze its reaction."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The similar sizes of S and T mean both must fit the active site of E, so E should increase both reaction rates.",
+      "is_correct": false,
+      "rationale": "Size-only specificity trap: Similar size does not guarantee appropriate binding because substrate shape and charge must also be compatible with the active site. Fix: Compare substrate shape and charge with the active site rather than using size alone to predict binding."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The active site of E is compatible with S in shape and charge, allowing an enzyme–substrate complex to form that raises the reaction’s activation energy.",
+      "is_correct": false,
+      "rationale": "Activation-energy direction reversal: Raising the activation-energy barrier would make the reaction slower under the same conditions, not explain the observed increase in rate. Fix: Trace the relationship from barrier height to reaction rate before deciding whether activation energy rises or falls."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 754,
+         "inputTokenDetails": {
+          "noCacheTokens": 754,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 784,
+         "raw": {
+          "input_tokens": 754,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2277,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 424,
+         "inputTokenDetails": {
+          "noCacheTokens": 424,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 293,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 263
+         },
+         "totalTokens": 717,
+         "raw": {
+          "thoughtsTokenCount": 263,
+          "promptTokenCount": 424,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 717,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 424
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 263,
+         "cachedInputTokens": 0
+        },
+        "ms": 3981,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 485,
+         "inputTokenDetails": {
+          "noCacheTokens": 229,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 332,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 306
+         },
+         "totalTokens": 817,
+         "raw": {
+          "prompt_tokens": 485,
+          "completion_tokens": 332,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 229,
+          "total_tokens": 817,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 306
+          }
+         },
+         "reasoningTokens": 306,
+         "cachedInputTokens": 256
+        },
+        "ms": 4604,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 504,
+         "inputTokenDetails": {
+          "noCacheTokens": 376,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 67,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 47
+         },
+         "totalTokens": 571,
+         "raw": {
+          "prompt_tokens": 504,
+          "completion_tokens": 67,
+          "total_tokens": 571,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 47,
+           "accepted_prediction_tokens": 35,
+           "rejected_prediction_tokens": 58,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 47,
+         "cachedInputTokens": 128
+        },
+        "ms": 1110,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27158,
+         "inputTokenDetails": {
+          "noCacheTokens": 27158,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 623,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 411
+         },
+         "totalTokens": 27781,
+         "raw": {
+          "input_tokens": 27158,
+          "output_tokens": 623,
+          "output_tokens_details": {
+           "thinking_tokens": 411
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 411,
+         "cachedInputTokens": 0
+        },
+        "ms": 11285,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17734,
+         "inputTokenDetails": {
+          "noCacheTokens": 17734,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1487,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1225
+         },
+         "totalTokens": 19221,
+         "raw": {
+          "thoughtsTokenCount": 1225,
+          "promptTokenCount": 17734,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19221,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17734
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1225,
+         "cachedInputTokens": 0
+        },
+        "ms": 11182,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16586,
+         "inputTokenDetails": {
+          "noCacheTokens": 14154,
+          "cacheReadTokens": 2432
+         },
+         "outputTokens": 3458,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 3239
+         },
+         "totalTokens": 20044,
+         "raw": {
+          "prompt_tokens": 16586,
+          "completion_tokens": 3458,
+          "prompt_cache_hit_tokens": 2432,
+          "prompt_cache_miss_tokens": 14154,
+          "total_tokens": 20044,
+          "prompt_tokens_details": {
+           "cached_tokens": 2432
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3239
+          }
+         },
+         "reasoningTokens": 3239,
+         "cachedInputTokens": 2432
+        },
+        "ms": 27348,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17065,
+         "inputTokenDetails": {
+          "noCacheTokens": 16489,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 1403,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 1276
+         },
+         "totalTokens": 18468,
+         "raw": {
+          "prompt_tokens": 17065,
+          "completion_tokens": 1403,
+          "total_tokens": 18468,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1276,
+           "accepted_prediction_tokens": 943,
+           "rejected_prediction_tokens": 434,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1276,
+         "cachedInputTokens": 576
+        },
+        "ms": 9289,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16391,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16388
+         },
+         "outputTokens": 272,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 50
+         },
+         "totalTokens": 16663,
+         "raw": {
+          "input_tokens": 16391,
+          "input_tokens_details": {
+           "cache_write_tokens": 16388,
+           "cached_tokens": 0
+          },
+          "output_tokens": 272,
+          "output_tokens_details": {
+           "reasoning_tokens": 50
+          },
+          "total_tokens": 16663
+         },
+         "reasoningTokens": 50,
+         "cachedInputTokens": 0
+        },
+        "ms": 8576,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__3.1#r1-openai",
+ "accepted_at": "2026-10-06T15:30:20.090Z"
+}

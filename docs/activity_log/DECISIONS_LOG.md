@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0098 — Released-Exam-Derived Student Practice Sets May Seed Original Items Only Through the Clean-Room Spec Path
 - DECISION-0097 — Owner Override: Open Hand and the Plate-Loop Practice Template Ship to Production Without the Fresh QA TASK-0051 Required; the Plate Loop Becomes the Default Practice Entry
 - DECISION-0096 — MCQ and FRQ Variants Inherit Their Seed's Difficulty Band; an Unrated Seed Is Rated First and Applied to Its Variants
 - DECISION-0095 — Items Stay Within the Subject's CED Vocabulary; a Mechanism Supplied in the Stem Does Not Bring a Term In Scope; Published Items That Break It Are Retired, Not Repaired
@@ -49,6 +50,30 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0098 — Released-Exam-Derived Student Practice Sets May Seed Original Items Only Through the Clean-Room Spec Path
+
+**Date:** 2026-10-06  
+**Decided By:** David Bloom  
+**Related:** `docs/research/SEEDED_ITEM_GENERATION_PROTOCOL_2026_09_30.md` (§2 class D, §3 S1-S4, §4), `docs/research/ORLY_EXTERNAL_ASSIGNMENT_MINING_PROTOCOL_2026_08_24.md`, `DECISION-0093`, `DECISION-0095`
+
+### Context
+
+Orly and classmates pooled practice MCQs: 20 AP Chemistry questions in a Google Doc and 4 AP Calculus AB questions pasted in chat. Each item is a reworded version of a released AP exam item (most carry an "Original idea" line). The seeded protocol classes these as D ("do not use as seeds without a decision"). David asked to learn from them to make more diverse questions, "consider them seeds which we will version", for Units 1-3 only, aligned with the CED.
+
+### Decision
+
+1. Class-D student-pooled sets may be used as seeds **only through the class-B clean-room path** (seeded protocol §3 S1-S4, §4):
+   - one context reads the source and writes scrubbed family specs (patterns and misconceptions only);
+   - a separate context that never saw the source authors original items from those specs;
+   - a divergence check against the source runs outside the repo and stores only numbers.
+2. The source text is not stored in the repository. Specs, items, check outputs and numeric divergence reports are.
+3. Run parameters chosen by David (AQP §2.1): checkers `openai/gpt-5.6-sol` + `deepseek/deepseek-v4-pro-0813` (live roster 2026-10-06), 3 members per family (easy/medium/hard), and **stop at checked drafts**. Nothing is loaded to Dev or Production without a separate approval.
+4. The protocol's scrub sign-off (S2) is David's. The specs are in each batch's `family_specs.json`.
+
+### Consequences
+
+The batches are `scripts/content-seed/apchem-orly-cleanroom-2026-10-06/` (8 families, 24 drafts) and `scripts/content-seed/apcalcab-orly-cleanroom-2026-10-06/` (2 families, 6 drafts). A source-instance convergence (an author independently reproducing the source's specific compound or apparatus) is treated as a rewrite, not a tweak; 4 of 24 Chemistry drafts were rewritten for this reason. The family-membership gap (seeded protocol §7) still applies: family IDs live only in the batch files.
 
 ## DECISION-0097 — Owner Override: Open Hand and the Plate-Loop Practice Template Ship to Production Without the Fresh Independent QA TASK-0051 Required; the Plate Loop Becomes the Default Practice Entry
 

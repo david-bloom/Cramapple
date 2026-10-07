@@ -1,0 +1,1478 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.4",
+  "topic_title": "Carbohydrates"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__1.4#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25187,
+    "inputTokenDetails": {
+     "noCacheTokens": 25187,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1246,
+    "outputTokenDetails": {
+     "textTokens": 675,
+     "reasoningTokens": 571
+    },
+    "totalTokens": 26433,
+    "raw": {
+     "input_tokens": 25187,
+     "output_tokens": 1246,
+     "output_tokens_details": {
+      "thinking_tokens": 571
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 571,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.4",
+    "topic_title": "Carbohydrates",
+    "stem": "A plant cell makes two different polysaccharides, and both are built entirely from glucose monomers joined by covalent bonds. The first is kept in granules and broken down when the plant needs energy. The second forms long, unbranched chains that pack tightly side by side within the cell wall. Which choice correctly identifies the second polysaccharide and its function?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Starch, which stores energy within the plant cell wall",
+      "is_correct": false,
+      "rationale": "This reflects the misconception that carbohydrates serve only an energy role, so every plant glucose polymer must be starch. Starch is the plant's storage polysaccharide, which matches the first molecule in the granules, not the tightly packed chains in the wall. Fix: Ask whether the description points to storage or to support before you name the polysaccharide."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Glycogen, which stores energy in highly branched chains",
+      "is_correct": false,
+      "rationale": "This confuses the storage polysaccharides of plants and animals. Glycogen is the branched glucose storage polymer of animals, kept in places such as liver and muscle. The stem also describes unbranched chains in a plant cell wall, which do not match glycogen. Fix: Check the organism and whether the chains are branched or linear before you match a polysaccharide."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Cellulose, which provides structural support for the plant cell wall",
+      "is_correct": true,
+      "rationale": "Cellulose is a linear polymer of glucose. Its long, unbranched chains pack tightly together into strong fibers in the cell wall, so it supports the cell rather than serving as an energy reserve. This shows that a polymer's organization, not just its monomer, determines its function."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Glucose, which supplies readily usable energy to the cell",
+      "is_correct": false,
+      "rationale": "This mixes up the monomer with the polymer. Glucose is the monosaccharide building block, and as a free sugar it can be used quickly for energy. The stem asks about a polysaccharide built from many glucose units that forms long chains. Fix: Check whether the question describes a single monomer or a polymer of many joined monomers."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 297,
+         "inputTokenDetails": {
+          "noCacheTokens": 297,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 24,
+         "outputTokenDetails": {
+          "textTokens": 24,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 321,
+         "raw": {
+          "input_tokens": 297,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 24,
+          "output_tokens_details": {
+           "reasoning_tokens": 0
+          },
+          "total_tokens": 321
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1953,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 365,
+         "inputTokenDetails": {
+          "noCacheTokens": 365,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 221,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 191
+         },
+         "totalTokens": 586,
+         "raw": {
+          "thoughtsTokenCount": 191,
+          "promptTokenCount": 365,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 586,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 365
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 191,
+         "cachedInputTokens": 0
+        },
+        "ms": 3295,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 431,
+         "inputTokenDetails": {
+          "noCacheTokens": 175,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 326,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 300
+         },
+         "totalTokens": 757,
+         "raw": {
+          "prompt_tokens": 431,
+          "completion_tokens": 326,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 175,
+          "total_tokens": 757,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 300
+          }
+         },
+         "reasoningTokens": 300,
+         "cachedInputTokens": 256
+        },
+        "ms": 4472,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 466,
+         "inputTokenDetails": {
+          "noCacheTokens": 338,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 129,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 109
+         },
+         "totalTokens": 595,
+         "raw": {
+          "prompt_tokens": 466,
+          "completion_tokens": 129,
+          "total_tokens": 595,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 109,
+           "accepted_prediction_tokens": 75,
+           "rejected_prediction_tokens": 84,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 109,
+         "cachedInputTokens": 128
+        },
+        "ms": 1539,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The stem and rationale C teach specific side-by-side packing of cellulose chains into fibers, beyond the fact pack's generic linear-or-branched polymer description. Rationale B also introduces glycogen storage in liver and muscle, a tissue-specific detail not included in the fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Rationales B and D each contain four sentences, including the Fix sentence; explanations must contain only one to three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16240,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16237
+         },
+         "outputTokens": 649,
+         "outputTokenDetails": {
+          "textTokens": 302,
+          "reasoningTokens": 347
+         },
+         "totalTokens": 16889,
+         "raw": {
+          "input_tokens": 16240,
+          "input_tokens_details": {
+           "cache_write_tokens": 16237,
+           "cached_tokens": 0
+          },
+          "output_tokens": 649,
+          "output_tokens_details": {
+           "reasoning_tokens": 347
+          },
+          "total_tokens": 16889
+         },
+         "reasoningTokens": 347,
+         "cachedInputTokens": 0
+        },
+        "ms": 15292,
+        "flags": [
+         "ced_scope: The stem and rationale C teach specific side-by-side packing of cellulose chains into fibers, beyond the fact pack's generic linear-or-branched polymer description. Rationale B also introduces glycogen storage in liver and muscle, a tissue-specific detail not included in the fact pack.",
+         "concise: Rationales B and D each contain four sentences, including the Fix sentence; explanations must contain only one to three sentences."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "The stem and rationale C teach cellulose-specific chain packing into strong fibers, exceeding the pack's general linear/branched-polymer description and its exclusion of specific carbohydrate polymer molecular structure. Rationale B also introduces liver and muscle storage sites not covered by the fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Rationales B and D each contain four sentences, including the Fix sentence, exceeding the three-sentence maximum."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16240,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16237,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 541,
+         "outputTokenDetails": {
+          "textTokens": 298,
+          "reasoningTokens": 243
+         },
+         "totalTokens": 16781,
+         "raw": {
+          "input_tokens": 16240,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16237
+          },
+          "output_tokens": 541,
+          "output_tokens_details": {
+           "reasoning_tokens": 243
+          },
+          "total_tokens": 16781
+         },
+         "reasoningTokens": 243,
+         "cachedInputTokens": 16237
+        },
+        "ms": 13252,
+        "flags": [
+         "ced_scope: The stem and rationale C teach cellulose-specific chain packing into strong fibers, exceeding the pack's general linear/branched-polymer description and its exclusion of specific carbohydrate polymer molecular structure. Rationale B also introduces liver and muscle storage sites not covered by the fact pack.",
+         "concise: Rationales B and D each contain four sentences, including the Fix sentence, exceeding the three-sentence maximum."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choices B and D each contain four sentences in total (three explanatory sentences plus the Fix sentence), violating the requirement that explanations be one to three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17538,
+         "inputTokenDetails": {
+          "noCacheTokens": 17538,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3647,
+         "outputTokenDetails": {
+          "textTokens": 292,
+          "reasoningTokens": 3355
+         },
+         "totalTokens": 21185,
+         "raw": {
+          "thoughtsTokenCount": 3355,
+          "promptTokenCount": 17538,
+          "candidatesTokenCount": 292,
+          "totalTokenCount": 21185,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17538
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 292
+           }
+          ]
+         },
+         "reasoningTokens": 3355,
+         "cachedInputTokens": 0
+        },
+        "ms": 23748,
+        "flags": [
+         "concise: Choices B and D each contain four sentences in total (three explanatory sentences plus the Fix sentence), violating the requirement that explanations be one to three sentences."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17538,
+         "inputTokenDetails": {
+          "noCacheTokens": 5346,
+          "cacheReadTokens": 12192
+         },
+         "outputTokens": 9014,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 8752
+         },
+         "totalTokens": 26552,
+         "raw": {
+          "cachedContentTokenCount": 12192,
+          "thoughtsTokenCount": 8752,
+          "promptTokenCount": 17538,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 26552,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17538
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12192
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 8752,
+         "cachedInputTokens": 12192
+        },
+        "ms": 61947,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16396,
+         "inputTokenDetails": {
+          "noCacheTokens": 15116,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 9781,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 9562
+         },
+         "totalTokens": 26177,
+         "raw": {
+          "prompt_tokens": 16396,
+          "completion_tokens": 9781,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15116,
+          "total_tokens": 26177,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 9562
+          }
+         },
+         "reasoningTokens": 9562,
+         "cachedInputTokens": 1280
+        },
+        "ms": 94911,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16935,
+         "inputTokenDetails": {
+          "noCacheTokens": 16871,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2345,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 2129
+         },
+         "totalTokens": 19280,
+         "raw": {
+          "prompt_tokens": 16935,
+          "completion_tokens": 2345,
+          "total_tokens": 19280,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2129,
+           "accepted_prediction_tokens": 1407,
+           "rejected_prediction_tokens": 1404,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2129,
+         "cachedInputTokens": 64
+        },
+        "ms": 17273,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__1.4#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15632,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15629
+    },
+    "outputTokens": 764,
+    "outputTokenDetails": {
+     "textTokens": 419,
+     "reasoningTokens": 345
+    },
+    "totalTokens": 16396,
+    "raw": {
+     "input_tokens": 15632,
+     "input_tokens_details": {
+      "cache_write_tokens": 15629,
+      "cached_tokens": 0
+     },
+     "output_tokens": 764,
+     "output_tokens_details": {
+      "reasoning_tokens": 345
+     },
+     "total_tokens": 16396
+    },
+    "reasoningTokens": 345,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.4",
+    "topic_title": "Carbohydrates",
+    "stem": "Starch and cellulose are both carbohydrates found in plants. Which statement correctly connects their structures to their biological functions?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Starch and cellulose both contain glucose units, so both function primarily as energy-storage polysaccharides.",
+      "is_correct": false,
+      "rationale": "The same-monomer, same-function trap ignores how polymer organization affects function. Sharing glucose monomers does not make cellulose an energy-storage carbohydrate; its organization supports plant cell walls. Fix: Compare each polymer’s organization and biological role instead of assigning function from its monomer alone."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Starch is a polysaccharide used for energy storage, whereas cellulose is a monosaccharide used for plant cell wall support.",
+      "is_correct": false,
+      "rationale": "The monomer–polymer confusion misclassifies cellulose. Cellulose consists of many covalently linked sugar monomers, making it a polysaccharide rather than a monosaccharide. Fix: Check whether each carbohydrate is a single sugar unit or a chain of sugar units before naming its type."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Starch chains provide structural support in plant cell walls, whereas cellulose chains store glucose units for later energy use.",
+      "is_correct": false,
+      "rationale": "The storage–support reversal assigns each polysaccharide the other’s role. Starch functions in energy storage, while cellulose contributes to plant cell wall support. Fix: Match each carbohydrate’s name to its biological role before connecting its polymer structure to that function."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Starch is a polysaccharide that stores glucose units for later energy use, whereas cellulose is a polysaccharide whose chains are organized to support plant cell walls.",
+      "is_correct": true,
+      "rationale": "Both carbohydrates contain glucose monomers joined by covalent bonds, but their different organization supports different functions. Starch stores glucose units for later energy use, while cellulose chains form structural material in plant cell walls."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 712,
+         "inputTokenDetails": {
+          "noCacheTokens": 712,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 742,
+         "raw": {
+          "input_tokens": 712,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2193,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 371,
+         "inputTokenDetails": {
+          "noCacheTokens": 371,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 255,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 225
+         },
+         "totalTokens": 626,
+         "raw": {
+          "thoughtsTokenCount": 225,
+          "promptTokenCount": 371,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 626,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 371
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 225,
+         "cachedInputTokens": 0
+        },
+        "ms": 3145,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 434,
+         "inputTokenDetails": {
+          "noCacheTokens": 178,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 231,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 211
+         },
+         "totalTokens": 665,
+         "raw": {
+          "prompt_tokens": 434,
+          "completion_tokens": 231,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 178,
+          "total_tokens": 665,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 211
+          }
+         },
+         "reasoningTokens": 211,
+         "cachedInputTokens": 256
+        },
+        "ms": 2993,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 474,
+         "inputTokenDetails": {
+          "noCacheTokens": 346,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 106,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 86
+         },
+         "totalTokens": 580,
+         "raw": {
+          "prompt_tokens": 474,
+          "completion_tokens": 106,
+          "total_tokens": 580,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 86,
+           "accepted_prediction_tokens": 65,
+           "rejected_prediction_tokens": 55,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 86,
+         "cachedInputTokens": 128
+        },
+        "ms": 1694,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 26769,
+         "inputTokenDetails": {
+          "noCacheTokens": 26769,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 514,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 302
+         },
+         "totalTokens": 27283,
+         "raw": {
+          "input_tokens": 26769,
+          "output_tokens": 514,
+          "output_tokens_details": {
+           "thinking_tokens": 302
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 302,
+         "cachedInputTokens": 0
+        },
+        "ms": 13113,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17486,
+         "inputTokenDetails": {
+          "noCacheTokens": 17486,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1668,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1406
+         },
+         "totalTokens": 19154,
+         "raw": {
+          "thoughtsTokenCount": 1406,
+          "promptTokenCount": 17486,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19154,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17486
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1406,
+         "cachedInputTokens": 0
+        },
+        "ms": 11383,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16338,
+         "inputTokenDetails": {
+          "noCacheTokens": 15058,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 10259,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 10040
+         },
+         "totalTokens": 26597,
+         "raw": {
+          "prompt_tokens": 16338,
+          "completion_tokens": 10259,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15058,
+          "total_tokens": 26597,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 10040
+          }
+         },
+         "reasoningTokens": 10040,
+         "cachedInputTokens": 1280
+        },
+        "ms": 110722,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16873,
+         "inputTokenDetails": {
+          "noCacheTokens": 16297,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 4485,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 4358
+         },
+         "totalTokens": 21358,
+         "raw": {
+          "prompt_tokens": 16873,
+          "completion_tokens": 4485,
+          "total_tokens": 21358,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4358,
+           "accepted_prediction_tokens": 2885,
+           "rejected_prediction_tokens": 1912,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 4358,
+         "cachedInputTokens": 576
+        },
+        "ms": 30485,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16180,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16177
+         },
+         "outputTokens": 306,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 84
+         },
+         "totalTokens": 16486,
+         "raw": {
+          "input_tokens": 16180,
+          "input_tokens_details": {
+           "cache_write_tokens": 16177,
+           "cached_tokens": 0
+          },
+          "output_tokens": 306,
+          "output_tokens_details": {
+           "reasoning_tokens": 84
+          },
+          "total_tokens": 16486
+         },
+         "reasoningTokens": 84,
+         "cachedInputTokens": 0
+        },
+        "ms": 10402,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__1.4#r1-openai",
+ "accepted_at": "2026-10-06T15:19:45.773Z"
+}

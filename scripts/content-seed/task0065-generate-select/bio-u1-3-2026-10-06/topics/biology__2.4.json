@@ -1,0 +1,781 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.4",
+  "topic_title": "Membrane Permeability"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__2.4#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 26282,
+    "inputTokenDetails": {
+     "noCacheTokens": 26282,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1329,
+    "outputTokenDetails": {
+     "textTokens": 721,
+     "reasoningTokens": 608
+    },
+    "totalTokens": 27611,
+    "raw": {
+     "input_tokens": 26282,
+     "output_tokens": 1329,
+     "output_tokens_details": {
+      "thinking_tokens": 608
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 608,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.4",
+    "topic_title": "Membrane Permeability",
+    "stem": "A researcher makes artificial vesicles enclosed by a pure phospholipid bilayer containing no proteins. Equal concentrations of four substances are added to the solution outside the vesicles. Which substance would enter the vesicles most rapidly, and what is the reason?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "H₂O, because it is smaller than every other substance listed and so passes through the bilayer fastest",
+      "is_correct": false,
+      "rationale": "This trap judges permeability by size alone and ignores polarity. Water is small but polar, so the hydrophobic core lets it through only in small amounts without aquaporins, much more slowly than a small nonpolar molecule. Fix: Ask whether the molecule is polar or nonpolar before considering size, since a hydrophobic interior slows polar molecules."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Glucose, because cells require it for energy, so the membrane allows it to pass readily",
+      "is_correct": false,
+      "rationale": "This trap explains movement by what the cell needs rather than by molecular properties. Glucose is a large polar molecule that cannot cross the hydrophobic core in meaningful amounts, and these vesicles lack the transport proteins it would require. Fix: Explain crossing using the molecule's size, polarity, and charge, and check whether a needed transport protein is present."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "O₂, because it is small and nonpolar, so it can dissolve through the hydrophobic interior of the bilayer without a protein",
+      "is_correct": true,
+      "rationale": "The bilayer's hydrocarbon tails form a hydrophobic core that small nonpolar molecules such as O₂ pass through freely. Polar molecules and ions are blocked or slowed by that core, and these vesicles have no channels or carriers to help them, so O₂ crosses fastest."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "K⁺, because a single ion is tiny and can slip between the phospholipid molecules",
+      "is_correct": false,
+      "rationale": "This trap treats a charged particle as if small size were enough. The charge makes K⁺ strongly hydrophilic, so the hydrocarbon tails block it, and with no channel proteins it essentially cannot cross. Fix: Check for a charge first; any ion needs a channel or transport protein to cross the hydrophobic interior."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 312,
+         "inputTokenDetails": {
+          "noCacheTokens": 312,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 69,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 43
+         },
+         "totalTokens": 381,
+         "raw": {
+          "input_tokens": 312,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 69,
+          "output_tokens_details": {
+           "reasoning_tokens": 43
+          },
+          "total_tokens": 381
+         },
+         "reasoningTokens": 43,
+         "cachedInputTokens": 0
+        },
+        "ms": 4076,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 377,
+         "inputTokenDetails": {
+          "noCacheTokens": 377,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 523,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 493
+         },
+         "totalTokens": 900,
+         "raw": {
+          "thoughtsTokenCount": 493,
+          "promptTokenCount": 377,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 900,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 377
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 493,
+         "cachedInputTokens": 0
+        },
+        "ms": 5284,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 443,
+         "inputTokenDetails": {
+          "noCacheTokens": 187,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 6620,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 6594
+         },
+         "totalTokens": 7063,
+         "raw": {
+          "prompt_tokens": 443,
+          "completion_tokens": 6620,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 187,
+          "total_tokens": 7063,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6594
+          }
+         },
+         "reasoningTokens": 6594,
+         "cachedInputTokens": 256
+        },
+        "ms": 80260,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 478,
+         "inputTokenDetails": {
+          "noCacheTokens": 350,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 266,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 246
+         },
+         "totalTokens": 744,
+         "raw": {
+          "prompt_tokens": 478,
+          "completion_tokens": 266,
+          "total_tokens": 744,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 246,
+           "accepted_prediction_tokens": 155,
+           "rejected_prediction_tokens": 175,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 246,
+         "cachedInputTokens": 128
+        },
+        "ms": 2288,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16960,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16957
+         },
+         "outputTokens": 534,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 312
+         },
+         "totalTokens": 17494,
+         "raw": {
+          "input_tokens": 16960,
+          "input_tokens_details": {
+           "cache_write_tokens": 16957,
+           "cached_tokens": 0
+          },
+          "output_tokens": 534,
+          "output_tokens_details": {
+           "reasoning_tokens": 312
+          },
+          "total_tokens": 17494
+         },
+         "reasoningTokens": 312,
+         "cachedInputTokens": 0
+        },
+        "ms": 13150,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 18270,
+         "inputTokenDetails": {
+          "noCacheTokens": 18270,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1707,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1445
+         },
+         "totalTokens": 19977,
+         "raw": {
+          "thoughtsTokenCount": 1445,
+          "promptTokenCount": 18270,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19977,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 18270
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1445,
+         "cachedInputTokens": 0
+        },
+        "ms": 13169,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.4 Membrane Permeability",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17112,
+         "inputTokenDetails": {
+          "noCacheTokens": 15832,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 4421,
+         "outputTokenDetails": {
+          "textTokens": 223,
+          "reasoningTokens": 4198
+         },
+         "totalTokens": 21533,
+         "raw": {
+          "prompt_tokens": 17112,
+          "completion_tokens": 4421,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15832,
+          "total_tokens": 21533,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4198
+          }
+         },
+         "reasoningTokens": 4198,
+         "cachedInputTokens": 1280
+        },
+        "ms": 41466,
+        "flags": [
+         "topic 2.4 Membrane Permeability"
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17112,
+         "inputTokenDetails": {
+          "noCacheTokens": 88,
+          "cacheReadTokens": 17024
+         },
+         "outputTokens": 10303,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 10084
+         },
+         "totalTokens": 27415,
+         "raw": {
+          "prompt_tokens": 17112,
+          "completion_tokens": 10303,
+          "prompt_cache_hit_tokens": 17024,
+          "prompt_cache_miss_tokens": 88,
+          "total_tokens": 27415,
+          "prompt_tokens_details": {
+           "cached_tokens": 17024
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 10084
+          }
+         },
+         "reasoningTokens": 10084,
+         "cachedInputTokens": 17024
+        },
+        "ms": 105532,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17647,
+         "inputTokenDetails": {
+          "noCacheTokens": 17071,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 2294,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 2078
+         },
+         "totalTokens": 19941,
+         "raw": {
+          "prompt_tokens": 17647,
+          "completion_tokens": 2294,
+          "total_tokens": 19941,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2078,
+           "accepted_prediction_tokens": 1426,
+           "rejected_prediction_tokens": 1175,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2078,
+         "cachedInputTokens": 576
+        },
+        "ms": 21721,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.4",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 28022,
+         "inputTokenDetails": {
+          "noCacheTokens": 28022,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 696,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 484
+         },
+         "totalTokens": 28718,
+         "raw": {
+          "input_tokens": 28022,
+          "output_tokens": 696,
+          "output_tokens_details": {
+           "thinking_tokens": 484
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 484,
+         "cachedInputTokens": 0
+        },
+        "ms": 10271,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__2.4#r1-anthropic",
+ "accepted_at": "2026-10-06T15:26:35.329Z"
+}
