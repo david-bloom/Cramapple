@@ -247,9 +247,11 @@ presented to David in chat for approval; the file write was blocked by the sessi
 classifier because it grants privileges, and Production migrations are the owner's gate regardless.
 **Applied 2026-10-07 under `APPROVAL-0130`:** Dev `20261007180947` (rehearsed on a real attempt: before/after
 derivation and the hint-count rollup both work; rows cleaned up), Production `20261007181153` (verified).
-File committed as `supabase/migrations/20261007181153_assistance_events_write_path_topic_hint.sql`. **Waiting on
-David to publish Lovable `b868486f`**, then a live hinted answer should produce one event row and
-`pre_submit_hint_count = 1`.
+File committed as `supabase/migrations/20261007181153_assistance_events_write_path_topic_hint.sql`. **Published by David and confirmed live 2026-10-07 18:18 UTC:** one practice answer with the topic hint
+and the reference materials opened produced two event rows (`topic_hint` ordinal 1, `reference_materials`
+ordinal 2, both `before`, both counting, source `practice_mcq`, timestamps 10–11 s before the attempt), and the
+attempt graded as `coached` with `pre_submit_hint_count = 2`. **W9 closed end to end.** Attempts graded before
+18:18 UTC keep count 0; the hub's Independence bar and the mastery rule now have real data from here on.
  This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
