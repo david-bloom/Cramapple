@@ -213,6 +213,14 @@ real fix, under the interaction-data plan:** the plate loop records each aid ope
 submission as an `attempt_assistance_events` row so the trigger-maintained count is the truth. That
 needs the attempt row to exist before the aid is opened, so the plate loop would create the attempt
 when the item is shown (as the legacy flow's drafts did), not at submit. Scope as its own task.
+
+**Both fixes built 2026-10-07, Lovable `04e35dbc`, preview only, diff reviewed by Claude:** W9(a)
+adds `assistance_state: assisted ? "coached" : "independent"` to `create_attempt` in both grading
+clients (4 new tests); W8 replaces `sumMinutesThisWeek` with `computeMinutesThisWeek` (sessions started
+in the window, active included, `ended_at` unused, start → last graded attempt, capped at 60 min per
+session; 4 tests). 695 tests, typecheck and build pass. Earlier attempts stay `independent`; the
+Independence bar only changes as new attempts land. One stale doc-comment above the new constant
+("Whole minutes across COMPLETED sessions…") is harmless. **Awaiting David's publish.**
  This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
