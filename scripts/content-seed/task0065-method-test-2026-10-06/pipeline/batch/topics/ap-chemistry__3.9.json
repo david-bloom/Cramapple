@@ -1,0 +1,1381 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.9",
+  "topic_title": "Separation of Solutions and Mixtures"
+ },
+ "status": "escalated",
+ "candidates": [
+  {
+   "id": "ap-chemistry__3.9#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32392,
+    "inputTokenDetails": {
+     "noCacheTokens": 32392,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1419,
+    "outputTokenDetails": {
+     "textTokens": 728,
+     "reasoningTokens": 691
+    },
+    "totalTokens": 33811,
+    "raw": {
+     "input_tokens": 32392,
+     "output_tokens": 1419,
+     "output_tokens_details": {
+      "thinking_tokens": 691
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 691,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.9",
+    "topic_title": "Separation of Solutions and Mixtures",
+    "stem": "A student has a clear green aqueous solution that contains two different dissolved dyes and no undissolved solid. One dye is noticeably more polar than the other. The student wants to obtain the two dyes separately from each other. Which procedure is most appropriate, and on what property difference does it rely?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Spot the solution on chromatography paper and develop it with a suitable solvent; the dyes separate because they differ in how strongly they interact with the stationary and mobile phases.",
+      "is_correct": true,
+      "rationale": "The dyes are dissolved, so they differ not in particle size but in polarity and therefore in intermolecular interaction strength. In chromatography, the dye that interacts more strongly with the stationary phase moves a shorter distance, and the dye that interacts more strongly with the mobile phase moves farther, so the two end up in separate places."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Pour the solution through filter paper; the more polar dye is trapped on the paper while the less polar dye passes through.",
+      "is_correct": false,
+      "rationale": "This applies ordinary filtration to a solution. Filtration separates by particle size, catching only undissolved solids, and dissolved dye molecules are small enough to pass through the filter with the water, so both dyes end up in the filtrate. Fix: Ask whether the component is dissolved; if it is, choose a method based on interaction strength, not filtration."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Let the solution stand undisturbed until the denser dye settles to the bottom, then pour off the top layer.",
+      "is_correct": false,
+      "rationale": "This treats a solution like a heterogeneous mixture. A solution is homogeneous, and its dissolved particles stay evenly dispersed instead of settling out, so standing or decanting leaves both dyes mixed together. Fix: Check whether the sample is homogeneous before choosing a settling or decanting method."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Heat the solution until all the water evaporates; the solid left behind is the two dyes, now separated.",
+      "is_correct": false,
+      "rationale": "This confuses separating solute from solvent with separating two solutes from each other. Evaporation removes the water, but both dyes stay behind together in one residue, so they are not separated from each other. Fix: Identify which two components must be separated, then pick the property in which those two specific components differ."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 335,
+         "inputTokenDetails": {
+          "noCacheTokens": 335,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 59,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 33
+         },
+         "totalTokens": 394,
+         "raw": {
+          "input_tokens": 335,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 59,
+          "output_tokens_details": {
+           "reasoning_tokens": 33
+          },
+          "total_tokens": 394
+         },
+         "reasoningTokens": 33,
+         "cachedInputTokens": 0
+        },
+        "ms": 3174,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 413,
+         "inputTokenDetails": {
+          "noCacheTokens": 413,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 188,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 158
+         },
+         "totalTokens": 601,
+         "raw": {
+          "thoughtsTokenCount": 158,
+          "promptTokenCount": 413,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 601,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 413
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 158,
+         "cachedInputTokens": 0
+        },
+        "ms": 2680,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 474,
+         "inputTokenDetails": {
+          "noCacheTokens": 218,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 221,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 201
+         },
+         "totalTokens": 695,
+         "raw": {
+          "prompt_tokens": 474,
+          "completion_tokens": 221,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 218,
+          "total_tokens": 695,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 201
+          }
+         },
+         "reasoningTokens": 201,
+         "cachedInputTokens": 256
+        },
+        "ms": 3012,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 500,
+         "inputTokenDetails": {
+          "noCacheTokens": 436,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 94,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 74
+         },
+         "totalTokens": 594,
+         "raw": {
+          "prompt_tokens": 500,
+          "completion_tokens": 94,
+          "total_tokens": 594,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 74,
+           "accepted_prediction_tokens": 52,
+           "rejected_prediction_tokens": 71,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 74,
+         "cachedInputTokens": 64
+        },
+        "ms": 1655,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A's rationale incorrectly infers that the dyes do not differ in particle size because they are dissolved. Different dissolved dyes can have different molecular sizes; the valid point is that ordinary filtration cannot separate these dissolved dyes, whereas chromatography exploits their different relative affinities for the stationary and mobile phases."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20870,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20867
+         },
+         "outputTokens": 437,
+         "outputTokenDetails": {
+          "textTokens": 234,
+          "reasoningTokens": 203
+         },
+         "totalTokens": 21307,
+         "raw": {
+          "input_tokens": 20870,
+          "input_tokens_details": {
+           "cache_write_tokens": 20867,
+           "cached_tokens": 0
+          },
+          "output_tokens": 437,
+          "output_tokens_details": {
+           "reasoning_tokens": 203
+          },
+          "total_tokens": 21307
+         },
+         "reasoningTokens": 203,
+         "cachedInputTokens": 0
+        },
+        "ms": 8673,
+        "flags": [
+         "accurate: A's rationale incorrectly infers that the dyes do not differ in particle size because they are dissolved. Different dissolved dyes can have different molecular sizes; the valid point is that ordinary filtration cannot separate these dissolved dyes, whereas chromatography exploits their different relative affinities for the stationary and mobile phases."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A: Being dissolved does not imply that the dyes do not differ in particle size; different dissolved molecules can have different sizes. State instead that ordinary filtration cannot separate these dissolved dyes and that chromatography exploits their differing interactions with the stationary and mobile phases."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20870,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 20867,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 428,
+         "outputTokenDetails": {
+          "textTokens": 226,
+          "reasoningTokens": 202
+         },
+         "totalTokens": 21298,
+         "raw": {
+          "input_tokens": 20870,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 20867
+          },
+          "output_tokens": 428,
+          "output_tokens_details": {
+           "reasoning_tokens": 202
+          },
+          "total_tokens": 21298
+         },
+         "reasoningTokens": 202,
+         "cachedInputTokens": 20867
+        },
+        "ms": 8301,
+        "flags": [
+         "accurate: A: Being dissolved does not imply that the dyes do not differ in particle size; different dissolved molecules can have different sizes. State instead that ordinary filtration cannot separate these dissolved dyes and that chromatography exploits their differing interactions with the stationary and mobile phases."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21712,
+         "inputTokenDetails": {
+          "noCacheTokens": 21712,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1601,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1339
+         },
+         "totalTokens": 23313,
+         "raw": {
+          "thoughtsTokenCount": 1339,
+          "promptTokenCount": 21712,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 23313,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21712
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1339,
+         "cachedInputTokens": 0
+        },
+        "ms": 10115,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20641,
+         "inputTokenDetails": {
+          "noCacheTokens": 19361,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 10560,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 10341
+         },
+         "totalTokens": 31201,
+         "raw": {
+          "prompt_tokens": 20641,
+          "completion_tokens": 10560,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 19361,
+          "total_tokens": 31201,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 10341
+          }
+         },
+         "reasoningTokens": 10341,
+         "cachedInputTokens": 1280
+        },
+        "ms": 86229,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21171,
+         "inputTokenDetails": {
+          "noCacheTokens": 21107,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2779,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 2652
+         },
+         "totalTokens": 23950,
+         "raw": {
+          "prompt_tokens": 21171,
+          "completion_tokens": 2779,
+          "total_tokens": 23950,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2652,
+           "accepted_prediction_tokens": 1869,
+           "rejected_prediction_tokens": 858,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2652,
+         "cachedInputTokens": 64
+        },
+        "ms": 23986,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-chemistry__3.9#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20286,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 20283
+    },
+    "outputTokens": 804,
+    "outputTokenDetails": {
+     "textTokens": 447,
+     "reasoningTokens": 357
+    },
+    "totalTokens": 21090,
+    "raw": {
+     "input_tokens": 20286,
+     "input_tokens_details": {
+      "cache_write_tokens": 20283,
+      "cached_tokens": 0
+     },
+     "output_tokens": 804,
+     "output_tokens_details": {
+      "reasoning_tokens": 357
+     },
+     "total_tokens": 21090
+    },
+    "reasoningTokens": 357,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.9",
+    "topic_title": "Separation of Solutions and Mixtures",
+    "stem": "A solution contains two dissolved dyes, X and Y, with no undissolved solid present. In a proposed paper chromatography system, both dyes interact equally strongly with the moving solvent, but X interacts more strongly than Y with the stationary phase. Which procedure and predicted result are best supported by this information?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Use paper chromatography with the sample spot initially above the solvent level; Y will travel farther than X.",
+      "is_correct": true,
+      "rationale": "Chromatography exploits differences in interactions with the stationary and mobile phases. With equal solvent interactions, X’s stronger stationary-phase interaction holds it back more, so Y travels farther. Starting the sample spot above the solvent level allows the rising solvent to carry the dyes along the paper."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Use ordinary filtration; both dyes will remain on the filter paper while the solvent passes through.",
+      "is_correct": false,
+      "rationale": "Dissolved-solute filtration trap: ordinary filtration separates suspended solids from a liquid, not dissolved dyes from their solvent. No undissolved solid is present to collect on the filter. Fix: Check whether the material to be collected is an undissolved solid before choosing ordinary filtration."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Use paper chromatography with the sample spot initially above the solvent level; X will travel farther than Y.",
+      "is_correct": false,
+      "rationale": "Stationary-phase attraction reversal: stronger attraction to the stationary phase slows a dye’s movement rather than pulling it farther along the paper. X is held back more strongly than Y. Fix: Identify the stationary phase and predict less travel for the component that interacts more strongly with it."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Use paper chromatography with the sample spot initially above the solvent level; X and Y will travel the same distance.",
+      "is_correct": false,
+      "rationale": "Mobile-phase-only reasoning: equal interactions with the moving solvent do not imply equal travel distances when stationary-phase interactions differ. X’s stronger stationary-phase interaction causes greater retention. Fix: Compare each dye’s interactions with both phases before predicting whether their travel distances will differ."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": "Choice A is the only correct option. Filtration (B) cannot separate dissolved solutes, so both dyes would pass through the filter paper. In paper chromatography, the spot must start above the solvent level, and the dye held more strongly by the stationary phase travels less far. X interacts more strongly with the paper while both dyes interact equally with the solvent, so Y travels farther than X, ruling out C and D. The question is well posed."
+        },
+        "usage": {
+         "inputTokens": 735,
+         "inputTokenDetails": {
+          "noCacheTokens": 735,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 169,
+         "outputTokenDetails": {
+          "textTokens": 169,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 904,
+         "raw": {
+          "input_tokens": 735,
+          "output_tokens": 169,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3759,
+        "flags": [
+         "defect: Choice A is the only correct option. Filtration (B) cannot separate dissolved solutes, so both dyes would pass through the filter paper. In paper chromatography, the spot must start above the solvent level, and the dye held more strongly by the stationary phase travels less far. X interacts more strongly with the paper while both dyes interact equally with the solvent, so Y travels farther than X, ruling out C and D. The question is well posed."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": "The question is well posed. Paper chromatography is the right method, because filtration cannot separate dissolved solutes. The spot must start above the solvent level so the dyes do not dissolve into the reservoir. Both dyes interact equally with the mobile phase, but X interacts more strongly with the stationary phase. So X is retained more and travels less, and Y travels farther, which is choice A."
+        },
+        "usage": {
+         "inputTokens": 735,
+         "inputTokenDetails": {
+          "noCacheTokens": 735,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 154,
+         "outputTokenDetails": {
+          "textTokens": 154,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 889,
+         "raw": {
+          "input_tokens": 735,
+          "output_tokens": 154,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3425,
+        "flags": [
+         "defect: The question is well posed. Paper chromatography is the right method, because filtration cannot separate dissolved solutes. The spot must start above the solvent level so the dyes do not dissolve into the reservoir. Both dyes interact equally with the mobile phase, but X interacts more strongly with the stationary phase. So X is retained more and travels less, and Y travels farther, which is choice A."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 396,
+         "inputTokenDetails": {
+          "noCacheTokens": 396,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 220,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 190
+         },
+         "totalTokens": 616,
+         "raw": {
+          "thoughtsTokenCount": 190,
+          "promptTokenCount": 396,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 616,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 396
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 190,
+         "cachedInputTokens": 0
+        },
+        "ms": 3423,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 455,
+         "inputTokenDetails": {
+          "noCacheTokens": 199,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 566,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 546
+         },
+         "totalTokens": 1021,
+         "raw": {
+          "prompt_tokens": 455,
+          "completion_tokens": 566,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 199,
+          "total_tokens": 1021,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 546
+          }
+         },
+         "reasoningTokens": 546,
+         "cachedInputTokens": 256
+        },
+        "ms": 6162,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 484,
+         "inputTokenDetails": {
+          "noCacheTokens": 420,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 144,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 124
+         },
+         "totalTokens": 628,
+         "raw": {
+          "prompt_tokens": 484,
+          "completion_tokens": 144,
+          "total_tokens": 628,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 124,
+           "accepted_prediction_tokens": 75,
+           "rejected_prediction_tokens": 129,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 124,
+         "cachedInputTokens": 64
+        },
+        "ms": 2319,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  },
+  {
+   "id": "ap-chemistry__3.9#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32392,
+    "inputTokenDetails": {
+     "noCacheTokens": 32392,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1246,
+    "outputTokenDetails": {
+     "textTokens": 746,
+     "reasoningTokens": 500
+    },
+    "totalTokens": 33638,
+    "raw": {
+     "input_tokens": 32392,
+     "output_tokens": 1246,
+     "output_tokens_details": {
+      "thinking_tokens": 500
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 500,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.9",
+    "topic_title": "Separation of Solutions and Mixtures",
+    "stem": "A student has a clear green aqueous solution that contains two completely dissolved, nonvolatile dyes, one blue and one yellow. The blue dye is more polar than the yellow dye. The student wants to separate the two dyes from each other. Which procedure and reasoning are most appropriate?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Use paper chromatography, because the two dyes interact with different strengths with the stationary phase and the mobile phase, so they travel at different rates.",
+      "is_correct": true,
+      "rationale": "Both dyes are dissolved, so no ordinary physical barrier can hold one back. The property that differs is polarity. That polarity difference changes how strongly each dye is attracted to the paper versus the solvent. The two dyes therefore move different distances and separate into distinct spots on the chromatogram."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Pour the solution through fine filter paper, because the more polar blue dye will be trapped by the paper while the yellow dye passes through.",
+      "is_correct": false,
+      "rationale": "This applies ordinary filtration to dissolved solutes. Filtration only removes undissolved solid particles. Dissolved dye molecules are dispersed among the water molecules and pass through the filter along with the solvent. Fix: Ask whether the component is dissolved or suspended as a solid before choosing filtration, and use filtration only for undissolved solids."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Use paper chromatography, because the larger dye molecules are physically blocked by the pores of the paper and move more slowly.",
+      "is_correct": false,
+      "rationale": "The method is right, but the reasoning treats chromatography as a size sieve, like filtration. Chromatography separates components by their differing strength of intermolecular attraction to the stationary phase versus the mobile phase, not by pore blocking. Fix: When justifying chromatography, name the interaction-strength difference between each component and the two phases, not particle size."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Heat the solution until all the water evaporates, because the dyes will be left behind as separate solids.",
+      "is_correct": false,
+      "rationale": "Evaporation removes the volatile solvent from the nonvolatile solutes. It does not separate the two nonvolatile dyes from each other, so both are deposited together as one mixed green residue. Fix: Check that your method exploits a property that differs between the two components you want to separate, not just between solvent and solutes."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "rationale A has 4 sentences before any Fix (max 3)"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "ap-chemistry__3.9#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20286,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 20283,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 793,
+    "outputTokenDetails": {
+     "textTokens": 484,
+     "reasoningTokens": 309
+    },
+    "totalTokens": 21079,
+    "raw": {
+     "input_tokens": 20286,
+     "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 20283
+     },
+     "output_tokens": 793,
+     "output_tokens_details": {
+      "reasoning_tokens": 309
+     },
+     "total_tokens": 21079
+    },
+    "reasoningTokens": 309,
+    "cachedInputTokens": 20283
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.9",
+    "topic_title": "Separation of Solutions and Mixtures",
+    "stem": "A solution contains two fully dissolved dyes, X and Y. In an available paper-chromatography system, the dyes interact equally strongly with the moving solvent (mobile phase), but X interacts more strongly than Y with the paper (stationary phase). Which procedure and predicted result are justified by this information?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Use ordinary filtration; X will remain on the filter paper while Y passes through.",
+      "is_correct": false,
+      "rationale": "Dissolved-solute filtration trap: Ordinary filtration does not separate fully dissolved dyes from a solution. Different attractions to chromatography paper do not establish that one dissolved dye will be trapped by an ordinary filter. Fix: Check whether the material to be retained is an undissolved solid before choosing ordinary filtration."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Use paper chromatography with the sample spot above the initial solvent level; Y will travel farther than X.",
+      "is_correct": true,
+      "rationale": "Chromatography exploits the dyes’ different interactions with the stationary phase. With equal mobile-phase interactions, X is retained more strongly by the paper, so Y travels farther. Placing the spot above the initial solvent level allows the moving solvent to carry the dyes through the paper rather than dissolving the sample directly into the solvent reservoir."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Use paper chromatography with the sample spot above the initial solvent level; X will travel farther than Y.",
+      "is_correct": false,
+      "rationale": "Retention-direction reversal: Stronger attraction to the stationary phase makes a dye travel less far, not farther. Because the mobile-phase interactions are equal, X’s stronger interaction with the paper causes greater retention. Fix: Identify which phase holds each dye more strongly, then predict less travel for the dye more strongly retained by the stationary phase."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Use paper chromatography with the sample spot above the initial solvent level; both dyes will travel the same distance because their mobile-phase interactions are equal.",
+      "is_correct": false,
+      "rationale": "Mobile-phase-only reasoning: Chromatographic movement depends on interactions with both phases. Equal mobile-phase interactions do not imply equal travel distances when the dyes interact differently with the stationary phase. Fix: Compare each dye’s interactions with both the mobile and stationary phases before predicting whether their travel distances will match."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": "Both dyes interact equally with the mobile phase, but X is held more strongly by the stationary phase, so Y travels farther. Ordinary filtration cannot separate dissolved solutes, which rules out A. The sample spot must start above the solvent level so the dyes are not washed into the solvent reservoir. Choice B is correct; C reverses the order, and D ignores the difference in stationary-phase interaction."
+        },
+        "usage": {
+         "inputTokens": 743,
+         "inputTokenDetails": {
+          "noCacheTokens": 743,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 164,
+         "outputTokenDetails": {
+          "textTokens": 164,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 907,
+         "raw": {
+          "input_tokens": 743,
+          "output_tokens": 164,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2782,
+        "flags": [
+         "defect: Both dyes interact equally with the mobile phase, but X is held more strongly by the stationary phase, so Y travels farther. Ordinary filtration cannot separate dissolved solutes, which rules out A. The sample spot must start above the solvent level so the dyes are not washed into the solvent reservoir. Choice B is correct; C reverses the order, and D ignores the difference in stationary-phase interaction."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": "The question is well posed. X binds more strongly to the stationary phase while mobile-phase affinities are equal, so Y travels farther (higher Rf). Filtration (A) cannot separate dissolved solutes. C reverses the order. D ignores that separation depends on the difference in stationary-phase interactions."
+        },
+        "usage": {
+         "inputTokens": 743,
+         "inputTokenDetails": {
+          "noCacheTokens": 743,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 130,
+         "outputTokenDetails": {
+          "textTokens": 130,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 873,
+         "raw": {
+          "input_tokens": 743,
+          "output_tokens": 130,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2334,
+        "flags": [
+         "defect: The question is well posed. X binds more strongly to the stationary phase while mobile-phase affinities are equal, so Y travels farther (higher Rf). Filtration (A) cannot separate dissolved solutes. C reverses the order. D ignores that separation depends on the difference in stationary-phase interactions."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 401,
+         "inputTokenDetails": {
+          "noCacheTokens": 401,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 272,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 242
+         },
+         "totalTokens": 673,
+         "raw": {
+          "thoughtsTokenCount": 242,
+          "promptTokenCount": 401,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 673,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 401
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 242,
+         "cachedInputTokens": 0
+        },
+        "ms": 3708,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 460,
+         "inputTokenDetails": {
+          "noCacheTokens": 204,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 2309,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 2289
+         },
+         "totalTokens": 2769,
+         "raw": {
+          "prompt_tokens": 460,
+          "completion_tokens": 2309,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 204,
+          "total_tokens": 2769,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2289
+          }
+         },
+         "reasoningTokens": 2289,
+         "cachedInputTokens": 256
+        },
+        "ms": 21031,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 487,
+         "inputTokenDetails": {
+          "noCacheTokens": 423,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 112,
+         "outputTokenDetails": {
+          "textTokens": 28,
+          "reasoningTokens": 84
+         },
+         "totalTokens": 599,
+         "raw": {
+          "prompt_tokens": 487,
+          "completion_tokens": 112,
+          "total_tokens": 599,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 84,
+           "accepted_prediction_tokens": 58,
+           "rejected_prediction_tokens": 101,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 84,
+         "cachedInputTokens": 64
+        },
+        "ms": 2214,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  }
+ ]
+}

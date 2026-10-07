@@ -1,0 +1,861 @@
+{
+ "topic": {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.14",
+  "topic_title": "Connecting Infinite Limits and Vertical Asymptotes"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-calculus-ab__1.14#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32680,
+    "inputTokenDetails": {
+     "noCacheTokens": 32680,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1931,
+    "outputTokenDetails": {
+     "textTokens": 895,
+     "reasoningTokens": 1036
+    },
+    "totalTokens": 34611,
+    "raw": {
+     "input_tokens": 32680,
+     "output_tokens": 1931,
+     "output_tokens_details": {
+      "thinking_tokens": 1036
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 1036,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.14",
+    "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+    "stem": "Let f(x) = (x² − x − 2)/(x² − 4). Which statement correctly describes the behavior of f near the zeros of its denominator and identifies every vertical asymptote of the graph of f?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "lim_{x→−2⁻} f(x) = ∞ and lim_{x→−2⁺} f(x) = −∞, so x = −2 and x = 2 are vertical asymptotes.",
+      "is_correct": false,
+      "rationale": "This treats every zero of the denominator as a vertical asymptote without checking for a common factor. At x = 2 the factor (x − 2) cancels, so f approaches 3/4, a finite value, and the graph has a hole there rather than unbounded behavior. Fix: Factor and cancel common factors first, then compute the limit at each remaining denominator zero to confirm it is infinite."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "lim_{x→−2⁻} f(x) = −∞ and lim_{x→−2⁺} f(x) = ∞, so x = −2 is the only vertical asymptote.",
+      "is_correct": false,
+      "rationale": "This is a sign error, usually from assuming the numerator is positive near x = −2. The numerator x + 1 approaches −1, so a negative numerator over a negative denominator on the left gives +∞, and over a positive denominator on the right gives −∞. Fix: Plug a test value such as x = −2.1 or x = −1.9 into the simplified form to check each side's sign."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "lim_{x→−2⁻} f(x) = ∞ and lim_{x→−2⁺} f(x) = −∞, so x = −2 is the only vertical asymptote.",
+      "is_correct": true,
+      "rationale": "Factoring gives f(x) = (x − 2)(x + 1)/((x − 2)(x + 2)) = (x + 1)/(x + 2) for x ≠ 2, so x = 2 is a hole where f approaches 3/4. Near x = −2 the numerator approaches −1. The denominator is negative on the left, making f → ∞, and positive on the right, making f → −∞. One infinite one-sided limit is enough for an asymptote."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "lim_{x→−2} f(x) does not exist because the one-sided limits disagree, so the graph of f has no vertical asymptote.",
+      "is_correct": false,
+      "rationale": "This confuses a two-sided limit failing to exist with the absence of an asymptote. A vertical asymptote at x = −2 requires only that at least one one-sided limit be ∞ or −∞, and here both are, so stopping at does not exist loses the behavior description. Fix: When a limit fails to exist, ask whether either one-sided limit is infinite, and if so name x = c as the vertical asymptote."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "rationale C over 60 words (71)",
+     "rationale C has 4 sentences before any Fix (max 3)"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "ap-calculus-ab__1.14#r2-anthropic",
+   "round": 2,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32680,
+    "inputTokenDetails": {
+     "noCacheTokens": 32680,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1678,
+    "outputTokenDetails": {
+     "textTokens": 819,
+     "reasoningTokens": 859
+    },
+    "totalTokens": 34358,
+    "raw": {
+     "input_tokens": 32680,
+     "output_tokens": 1678,
+     "output_tokens_details": {
+      "thinking_tokens": 859
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 859,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.14",
+    "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+    "stem": "Let f(x) = (x² − 1)/(x² − 3x + 2). Which statement correctly describes the behavior of f near the values of x where its denominator equals zero?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "lim_{x→2⁻} f(x) = −∞ and lim_{x→2⁺} f(x) = ∞, so x = 2 is the only vertical asymptote of the graph of f.",
+      "is_correct": true,
+      "rationale": "Factoring gives f(x) = (x − 1)(x + 1)/((x − 1)(x − 2)) = (x + 1)/(x − 2) for x ≠ 1, so the limit at x = 1 is −2, which is finite. Near x = 2 the numerator approaches 3 while the denominator approaches 0, negative from the left and positive from the right. This unbounded behavior on each side makes x = 2 a vertical asymptote."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The graph of f has vertical asymptotes at x = 1 and x = 2.",
+      "is_correct": false,
+      "rationale": "This trap treats every zero of the denominator as an asymptote without simplifying first. The factor x − 1 cancels, and lim_{x→1} f(x) = 2/(−1) = −2, which is finite, so x = 1 is a hole rather than an asymptote. Fix: Factor and cancel common factors, then compute the limit at each zero of the denominator before naming an asymptote."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "lim_{x→2} f(x) = ∞, so x = 2 is the only vertical asymptote of the graph of f.",
+      "is_correct": false,
+      "rationale": "This trap comes from checking only the right side of x = 2, where f grows without bound in the positive direction. From the left, the denominator is negative, so f decreases without bound. The two-sided limit therefore is not ∞. Fix: Test a value slightly less than 2 and a value slightly greater than 2 to find the sign of f on each side."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "lim_{x→2} f(x) does not exist because the one-sided limits differ, so x = 2 is not a vertical asymptote.",
+      "is_correct": false,
+      "rationale": "This trap assumes that a nonexistent limit rules out an asymptote. In fact, a single one-sided limit of ±∞ is enough for x = 2 to be a vertical asymptote, and here both one-sided limits are infinite. Writing only that the limit does not exist hides that unbounded behavior. Fix: Ask whether either one-sided limit is ∞ or −∞, and if so, write that limit and name the asymptote."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "rationale A over 60 words (70)"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "ap-calculus-ab__1.14#r2-openai",
+   "round": 2,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 21052,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 21049
+    },
+    "outputTokens": 828,
+    "outputTokenDetails": {
+     "textTokens": 552,
+     "reasoningTokens": 276
+    },
+    "totalTokens": 21880,
+    "raw": {
+     "input_tokens": 21052,
+     "input_tokens_details": {
+      "cache_write_tokens": 21049,
+      "cached_tokens": 0
+     },
+     "output_tokens": 828,
+     "output_tokens_details": {
+      "reasoning_tokens": 276
+     },
+     "total_tokens": 21880
+    },
+    "reasoningTokens": 276,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.14",
+    "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+    "stem": "A function f satisfies f(2) = 5. As x approaches 2 from the left, f(x) decreases without bound. As x approaches 2 from the right, f(x) increases without bound. Which statement correctly describes the one-sided limits and the vertical-asymptote behavior at x = 2?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "lim(x → 2⁻) f(x) = +∞ and lim(x → 2⁺) f(x) = +∞; x = 2 is a vertical asymptote.",
+      "is_correct": false,
+      "rationale": "Sign-of-infinity error: unbounded behavior is not always positive. The left-hand values decrease without bound, so that limit is −∞. Fix: Match each side’s description to its sign: increasing without bound means +∞, and decreasing without bound means −∞."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "lim(x → 2⁻) f(x) = −∞ and lim(x → 2⁺) f(x) = +∞; x = 2 is not a vertical asymptote.",
+      "is_correct": false,
+      "rationale": "Matching-sides misconception: opposite infinite limits prevent a two-sided limit, but they do not prevent a vertical asymptote. Unbounded behavior from even one side is sufficient. Fix: Check each one-sided limit for +∞ or −∞ before deciding whether the input identifies a vertical asymptote."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "lim(x → 2⁻) f(x) = −∞ and lim(x → 2⁺) f(x) = +∞; x = 2 is a vertical asymptote.",
+      "is_correct": true,
+      "rationale": "Decreasing without bound gives the left-hand limit −∞, while increasing without bound gives the right-hand limit +∞. An infinite limit from either side establishes a vertical asymptote at x = 2, regardless of f(2)."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "lim(x → 2⁻) f(x) = 5 and lim(x → 2⁺) f(x) = 5; x = 2 is not a vertical asymptote.",
+      "is_correct": false,
+      "rationale": "Point-value substitution error: f(2) describes the value at the input, not the behavior nearby. The stated unbounded behavior determines the one-sided limits and establishes a vertical asymptote despite f(2) = 5. Fix: Set aside f(2) and use the stated nearby behavior to determine each one-sided limit."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 823,
+         "inputTokenDetails": {
+          "noCacheTokens": 823,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 853,
+         "raw": {
+          "input_tokens": 823,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2063,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 492,
+         "inputTokenDetails": {
+          "noCacheTokens": 492,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 395,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 365
+         },
+         "totalTokens": 887,
+         "raw": {
+          "thoughtsTokenCount": 365,
+          "promptTokenCount": 492,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 887,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 492
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 365,
+         "cachedInputTokens": 0
+        },
+        "ms": 3986,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 539,
+         "inputTokenDetails": {
+          "noCacheTokens": 283,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 3076,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 3056
+         },
+         "totalTokens": 3615,
+         "raw": {
+          "prompt_tokens": 539,
+          "completion_tokens": 3076,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 283,
+          "total_tokens": 3615,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3056
+          }
+         },
+         "reasoningTokens": 3056,
+         "cachedInputTokens": 256
+        },
+        "ms": 26558,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 561,
+         "inputTokenDetails": {
+          "noCacheTokens": 497,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 123,
+         "outputTokenDetails": {
+          "textTokens": 24,
+          "reasoningTokens": 99
+         },
+         "totalTokens": 684,
+         "raw": {
+          "prompt_tokens": 561,
+          "completion_tokens": 123,
+          "total_tokens": 684,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 99,
+           "accepted_prediction_tokens": 74,
+           "rejected_prediction_tokens": 70,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 99,
+         "cachedInputTokens": 64
+        },
+        "ms": 2999,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 34425,
+         "inputTokenDetails": {
+          "noCacheTokens": 34425,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 588,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 376
+         },
+         "totalTokens": 35013,
+         "raw": {
+          "input_tokens": 34425,
+          "output_tokens": 588,
+          "output_tokens_details": {
+           "thinking_tokens": 376
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 376,
+         "cachedInputTokens": 0
+        },
+        "ms": 8398,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 23238,
+         "inputTokenDetails": {
+          "noCacheTokens": 23238,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 263,
+         "outputTokenDetails": {
+          "textTokens": 263,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 23501,
+         "raw": {
+          "promptTokenCount": 23238,
+          "candidatesTokenCount": 263,
+          "totalTokenCount": 23501,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 23238
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 263
+           }
+          ]
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3780,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21798,
+         "inputTokenDetails": {
+          "noCacheTokens": 20518,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 5245,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 5026
+         },
+         "totalTokens": 27043,
+         "raw": {
+          "prompt_tokens": 21798,
+          "completion_tokens": 5245,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 20518,
+          "total_tokens": 27043,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5026
+          }
+         },
+         "reasoningTokens": 5026,
+         "cachedInputTokens": 1280
+        },
+        "ms": 37436,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21867,
+         "inputTokenDetails": {
+          "noCacheTokens": 21803,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2684,
+         "outputTokenDetails": {
+          "textTokens": 126,
+          "reasoningTokens": 2558
+         },
+         "totalTokens": 24551,
+         "raw": {
+          "prompt_tokens": 21867,
+          "completion_tokens": 2684,
+          "total_tokens": 24551,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2558,
+           "accepted_prediction_tokens": 1826,
+           "rejected_prediction_tokens": 745,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2558,
+         "cachedInputTokens": 64
+        },
+        "ms": 26518,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.14",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21736,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 21733
+         },
+         "outputTokens": 330,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 108
+         },
+         "totalTokens": 22066,
+         "raw": {
+          "input_tokens": 21736,
+          "input_tokens_details": {
+           "cache_write_tokens": 21733,
+           "cached_tokens": 0
+          },
+          "output_tokens": 330,
+          "output_tokens_details": {
+           "reasoning_tokens": 108
+          },
+          "total_tokens": 22066
+         },
+         "reasoningTokens": 108,
+         "cachedInputTokens": 0
+        },
+        "ms": 7432,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-calculus-ab__1.14#r2-openai",
+ "accepted_at": "2026-10-07T00:33:47.655Z"
+}

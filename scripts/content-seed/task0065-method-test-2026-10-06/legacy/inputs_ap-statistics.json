@@ -1,0 +1,212 @@
+[
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.10",
+  "title": "The Investigative Question Revisited and Data Collection",
+  "brief": {
+   "what_it_is": "An observational study records data without intervening on subjects, while an experiment imposes a treatment; observational studies are further split into prospective (collected going forward from now) and retrospective (collected by looking back at past records).",
+   "how_points_are_earned": "You earn credit by correctly classifying a described study as observational or experimental, and observational studies further as prospective or retrospective, based on whether a treatment was imposed and whether data collection looks forward or backward in time.",
+   "answer_move": "When classifying a study, ask first whether the researcher imposed a treatment (experiment) or just measured/recorded existing conditions (observational); only if it's observational, then ask whether data collection moves forward from now (prospective) or looks back at existing records (retrospective).",
+   "common_point_loss": "Calling a study an experiment just because researchers measured or tracked subjects over time, without checking whether a treatment was actually imposed."
+  },
+  "explainer": {
+   "core_idea": "The defining test for observational versus experimental is whether the researcher imposed a treatment -- tracking or measuring subjects over time, even repeatedly, is still observational unless a treatment was actively assigned, and observational studies split further into prospective (forward-looking) and retrospective (looking back at existing records).",
+   "what_students_need_to_understand": "This classification determines whether a causal claim is ever justified from the study -- only a well-designed experiment (1.13) can support cause-and-effect, so correctly naming a study as observational is also implicitly a signal that no causal conclusion can be drawn from it.",
+   "mini_example_question": "Researchers track a group of runners' knee health by recording their training logs over the next five years as the runners train however they choose. A student classifies this as an experiment since the runners were tracked over time.",
+   "common_point_loss": "Calling a study an experiment just because researchers measured or tracked subjects over time, without checking whether a treatment was actually imposed."
+  },
+  "seed": {
+   "stem": "A zoo veterinarian weighs all 15 giraffes at the zoo to describe the herd. What is this called?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "A random sample of giraffes",
+     "ok": false
+    },
+    {
+     "k": "B",
+     "t": "A census of the herd",
+     "ok": true
+    },
+    {
+     "k": "C",
+     "t": "An experiment",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "A convenience sample",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.12",
+  "title": "Sampling Distributions and the Central Limit Theorem",
+  "brief": {
+   "what_it_is": "A sampling distribution is the distribution of a statistic across all possible samples of a given size drawn from a population -- a distribution whose individual dots are whole samples' summary values, not individual subjects. It is distinct from the population distribution and from one particular sample's data. A randomization distribution is simulation-based and answers a different question than a sampling distribution. The Central Limit Theorem says the sampling distribution of a sample mean is approximately normal, improving as sample size grows.",
+   "how_points_are_earned": "You earn credit for identifying which of the three distributions a graph or description shows -- population, single sample, or sampling distribution of a statistic -- for stating that the Central Limit Theorem makes the sampling distribution of a sample mean approximately normal for a large enough sample, and for explaining that increasing sample size tightens the spread of the statistic.",
+   "answer_move": "Before describing any distribution here, name what one dot on it represents: one individual (population or single sample) or one whole sample's statistic (sampling distribution) -- and note the Central Limit Theorem's normality promise attaches to the sampling distribution, not to the population.",
+   "common_point_loss": "Claiming the Central Limit Theorem makes the population normal; it describes the distribution of the sample mean, while the population can stay skewed."
+  },
+  "explainer": {
+   "core_idea": "A sampling distribution's dots aren't enumerated by hand -- they represent the theoretical collection of every possible sample's statistic, which is why the simulation approach from 2.3 is the practical stand-in used to approximate what a sampling distribution looks like when the true distribution can't be listed out directly.",
+   "what_students_need_to_understand": "Three different distributions get compared in this topic and it's easy to blur them together: the population distribution (one dot per individual in the whole population), a single sample's data (one dot per individual in just that one sample), and the sampling distribution of a statistic (one dot per whole sample's computed statistic, across many samples) -- correctly naming which of the three a given graph shows is the entire conceptual task.",
+   "mini_example_question": "A population of exam scores is strongly right-skewed. Many random samples of size 40 are drawn, each sample's mean is computed, and all of those means are plotted on one dotplot. A student is asked what a single dot on this new dotplot represents.",
+   "common_point_loss": "Claiming the Central Limit Theorem makes the population normal; it describes the distribution of the sample mean, while the population can stay skewed."
+  },
+  "seed": null
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "title": "Estimators",
+  "brief": {
+   "what_it_is": "Estimators is the Inference for Categorical Data: Proportions topic where you turn the concept into an AP-ready action: identify the statistic as an estimator of a population parameter and explain unbiasedness as no systematic over- or underestimation.",
+   "how_points_are_earned": "Points are earned when you identify the statistic as an estimator of a population parameter and explain unbiasedness as no systematic over- or underestimation, show the required setup or condition check, and state the result in the language of the prompt.",
+   "answer_move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then identify the statistic as an estimator of a population parameter and explain unbiasedness as no systematic over- or underestimation before doing arithmetic or writing the final sentence.",
+   "common_point_loss": "Calling one sample result biased just because it is not exactly equal to the parameter"
+  },
+  "explainer": {
+   "core_idea": "phat is the point estimator of the population proportion p, and unbiasedness is a property of the sampling distribution of phat across every possible sample of size n, not a property of any single sample's result -- an unbiased estimator's sampling distribution has mean exactly equal to p (mu_phat = p, formalized in 3.2), even though almost every individual sample's phat will land somewhat above or below p by chance.",
+   "what_students_need_to_understand": "Because bias describes the estimator's long-run behavior over repeated sampling, a single sample landing far from the true p is completely consistent with phat being unbiased -- what would make phat biased is a sampling method that systematically pulls results in one direction (for example, a convenience sample that over-represents one group), not ordinary sample-to-sample variability.",
+   "mini_example_question": "A citywide poll of n=50 randomly selected voters finds phat=0.58 support for a ballot measure. The true (but unknown to the pollster) population support is later revealed to be p=0.52. A student is asked whether this poll's estimator was biased.",
+   "common_point_loss": "Calling one sample result biased just because it is not exactly equal to the parameter"
+  },
+  "seed": {
+   "stem": "A new thermometer is tested thousands of times on liquids with known temperatures. Its readings are tightly clustered, but they average 2.3 degrees above the true temperature no matter how many readings are averaged. What is the main problem?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "The estimator has high variability, since its readings are not equal to the true temperature.",
+     "ok": false
+    },
+    {
+     "k": "B",
+     "t": "The readings are not independent, since each is above the true temperature.",
+     "ok": false
+    },
+    {
+     "k": "C",
+     "t": "The sample sizes are too small, since averaging more readings would remove the error.",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "The estimator is biased, since its readings are centered above the true value.",
+     "ok": true
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.12",
+  "title": "Setting Up a Test for the Difference Between Two Population Proportions",
+  "brief": {
+   "what_it_is": "Setting Up a Test for the Difference Between Two Population Proportions is the Inference for Categorical Data: Proportions topic where you turn the concept into an AP-ready action: define both population proportions, write hypotheses for p1 minus p2, and identify the pooled proportion for the null model.",
+   "how_points_are_earned": "Points are earned when you define both population proportions, write hypotheses for p1 minus p2, and identify the pooled proportion for the null model, show the required setup or condition check, and state the result in the language of the prompt.",
+   "answer_move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then define both population proportions, write hypotheses for p1 minus p2, and identify the pooled proportion for the null model before doing arithmetic or writing the final sentence.",
+   "common_point_loss": "Forgetting to define which population is p1 and which is p2, making the sign of the alternative unclear"
+  },
+  "explainer": {
+   "core_idea": "Because H0 assumes p1=p2, the test statistic's standard error uses one pooled estimate phat_c=(n1phat1+n2phat2)/(n1+n2), built from both samples combined, since under H0 there is really only a single common p to estimate -- unlike 3.10's confidence interval, which never pools because it makes no such assumption.",
+   "what_students_need_to_understand": "Defining exactly which population is p1 and which is p2 in words, before writing any symbols, is what keeps the sign of the alternative hypothesis unambiguous -- Ha: p1>p2 and Ha: p2>p1 describe opposite claims, and without a stated definition of p1 and p2 a grader cannot tell which direction the alternative actually claims.",
+   "mini_example_question": "A study compares the proportion of grade 9 students (p1) and grade 12 students (p2) who report using a specific study app. A student writes hypotheses without defining p1 and p2 in words.",
+   "common_point_loss": "Forgetting to define which population is p1 and which is p2, making the sign of the alternative unclear"
+  },
+  "seed": null
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.15",
+  "title": "Carrying Out a Chi-Square Test for Homogeneity or Independence",
+  "brief": {
+   "what_it_is": "Carrying Out a Chi-Square Test for Homogeneity or Independence is the Inference for Categorical Data: Proportions topic where you turn the concept into an AP-ready action: calculate chi-square contributions from observed and expected counts and interpret the p-value for the categorical association question.",
+   "how_points_are_earned": "Points are earned when you calculate chi-square contributions from observed and expected counts and interpret the p-value for the categorical association question, show the required setup or condition check, and state the result in the language of the prompt.",
+   "answer_move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then calculate chi-square contributions from observed and expected counts and interpret the p-value for the categorical association question before doing arithmetic or writing the final sentence.",
+   "common_point_loss": "Checking expected counts against 10 instead of the chi-square threshold that all expected counts exceed 5"
+  },
+  "explainer": {
+   "core_idea": "The chi-square statistic sums (observed-expected)^2/expected across every cell of the table, and its expected-counts condition requires every expected count to exceed 5 -- a numerically different, lower threshold than the value-of-10 large-counts condition used for proportion and mean procedures elsewhere in this course; applying the 10-threshold here is a documented cross-topic confusion.",
+   "what_students_need_to_understand": "A chi-square test can still be valid even when some expected counts sit between 5 and 10 -- checking against the wrong (10) threshold could incorrectly disqualify a perfectly usable table, so getting the correct threshold (5) right matters before any chi-square value gets computed at all.",
+   "mini_example_question": "A 2×2 table has row totals 30 and 70, column totals 20 and 80, and observed counts 8, 22, 12, and 58 filling the four cells (matching those totals). A student computes expected counts of 6, 24, 14, and 56, and checks the expected-counts condition.",
+   "common_point_loss": "Checking expected counts against 10 instead of the chi-square threshold that all expected counts exceed 5"
+  },
+  "seed": {
+   "stem": "In a chi-square test of independence, one cell of the table has row total 60, column total 90, and the table total is 300. What is the expected count for that cell?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "18",
+     "ok": true
+    },
+    {
+     "k": "B",
+     "t": "5,400",
+     "ok": false
+    },
+    {
+     "k": "C",
+     "t": "150",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "36",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "title": "p-Values",
+  "brief": {
+   "what_it_is": "p-Values is the Inference for Categorical Data: Proportions topic where you turn the concept into an AP-ready action: interpret the p-value as the chance of a result at least as extreme, assuming the null hypothesis is true.",
+   "how_points_are_earned": "Points are earned when you interpret the p-value as the chance of a result at least as extreme, assuming the null hypothesis is true, show the required setup or condition check, and state the result in the language of the prompt.",
+   "answer_move": "First name the quantity, structure, condition, or representation the prompt is really asking about; then interpret the p-value as the chance of a result at least as extreme, assuming the null hypothesis is true before doing arithmetic or writing the final sentence.",
+   "common_point_loss": "Interpreting the p-value as the probability that the null hypothesis is true"
+  },
+  "explainer": {
+   "core_idea": "A p-value is the probability, computed assuming H0 is true, of getting a sample result at least as extreme as the one observed -- it is not the probability that H0 itself is true, since H0 is a fixed claim about the population, not a random event with its own probability; a small p-value means the observed result would be unusual if H0 were true, which is evidence against H0, not a probability attached to H0.",
+   "what_students_need_to_understand": "The decision rule compares the p-value directly to the chosen significance level alpha: reject H0 if the p-value is less than alpha, and fail to reject H0 otherwise -- getting this comparison backwards, or treating a small p-value as proof H0 is false rather than evidence against it, both cost points even when the numeric p-value itself is computed correctly.",
+   "mini_example_question": "A one-proportion z-test comparing a sample result to a hypothesized p0=0.5 produces a p-value of 0.03, and the significance level was set at alpha=0.05.",
+   "common_point_loss": "Interpreting the p-value as the probability that the null hypothesis is true"
+  },
+  "seed": {
+   "stem": "A hospital tests whether a new protocol reduces readmission rates and uses alpha = 0.01. The test gives p = 0.047. Which conclusion is correct?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "Reject H0, since p = 0.047 is below the common 0.05 cutoff.",
+     "ok": false
+    },
+    {
+     "k": "B",
+     "t": "Fail to reject H0, which means H0 is true with probability 1 - 0.047 = 0.953.",
+     "ok": false
+    },
+    {
+     "k": "C",
+     "t": "Fail to reject H0; there is not convincing evidence at the 0.01 level.",
+     "ok": true
+    },
+    {
+     "k": "D",
+     "t": "Reject H0, since 0.047 is close to 0.01.",
+     "ok": false
+    }
+   ]
+  }
+ }
+]

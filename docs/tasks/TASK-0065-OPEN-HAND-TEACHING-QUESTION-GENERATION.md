@@ -275,3 +275,40 @@ the file states one plan.
 **Biology pilot cost:** $20.13 at live gateway prices for 21 topics (about $1.12 per accepted item), plus $3.04 for the controls.
 
 **Method test designed:** `docs/product/OPEN_HAND_CONTENT_METHOD_TEST_DESIGN_2026_10_06.md`. It compares legacy and pipeline on quality (key accuracy, option accuracy, CED faithfulness), speed and cost, using held-out judges and planted defects. Not yet run; awaiting David's approval of the design and decision rule.
+
+## Method test run — 2026-10-06/07 (legacy vs generate-and-select)
+
+David asked for the test to be executed with units 1–3 for every subject. Full results:
+`scripts/content-seed/task0065-method-test-2026-10-06/RESULTS.md`.
+
+**Setup:** 24 topics, 6 per subject. Three arms were judged blind by three held-out families (Mistral, GLM,
+MiniMax) against CED PDF text, with 4 planted defects mixed in (all 4 caught):
+- a fresh legacy run;
+- the pipeline;
+- the 24 items live in Production for the same topics.
+
+**Items with a confirmed accuracy or CED defect:** legacy 4/24, pipeline 1/23, live 3/24.
+- Every key was correct in every arm (33 numeric keys recomputed).
+- The pipeline came out clean on every pedagogy and "publish as is" judgement.
+
+**Cost and speed:**
+- Pipeline: $0.77 per defect-free item, 13.7 minutes.
+- Legacy: about $0.19 per defect-free item, 10.3 minutes.
+- So the pipeline is 3.5–4.9× the cost, which fails the proposed 3× cap.
+- With n = 24 the quality difference is not significant (p = 0.35).
+
+**Found along the way:**
+1. **Live defects in Production:**
+   - Stats 1.10: a fix line says random assignment defines an experiment.
+   - Stats 2.12: the key needs σ/√n, which is CED 4.1.
+   - Bio 2.10: a false rationale, and a key that needs evidence outside the CED.
+   - Roughly 11 of the 91 live items may be affected (extrapolated, not counted).
+2. **Statistics 2.12 brief overreach:** it asks for "sample size tightens the spread" (CED 4.1). It caused the
+   same defect in all three arms.
+
+**Open for David:**
+- the decision on the method;
+- whether to replace the defective live items;
+- whether to fix the 2.12 brief;
+- human confirmation of Claude's provisional adjudication of 17 disputed items;
+- the Q* and pedagogy ratings.

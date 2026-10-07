@@ -1,0 +1,218 @@
+[
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 1,
+    "topic_code": "1.10",
+    "topic_title": "The Investigative Question Revisited and Data Collection",
+    "seed_used": true,
+    "stem": "Researchers randomly select 400 patient records from a hospital's database covering 2015 to 2024. For each patient, they note whether the patient took a daily vitamin D supplement and whether the patient was later diagnosed with a kidney stone, then compare kidney-stone rates for the two groups. How should this study be classified?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "An experiment, because the researchers compared a supplement group with a no-supplement group.",
+        "is_correct": false,
+        "rationale": "Tempting if you treat any two-group comparison as an experiment — but the researchers never assigned anyone to take or skip the supplement; patients chose for themselves. Fix: an experiment requires the researcher to impose the treatment, not just compare existing groups."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "A retrospective observational study, because no treatment was imposed and the data come from existing past records.",
+        "is_correct": true,
+        "rationale": "No treatment was imposed, so the study is observational. Because the researchers looked back at records of what already happened, rather than following people forward from now, it is retrospective."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "A prospective observational study, because each patient's diagnosis came after the supplement use.",
+        "is_correct": false,
+        "rationale": "Tempting if you judge direction by the order of events in a patient's life — but prospective means the researchers collect data going forward from now. Fix: ask when the researchers gather the data; here they read old records, so it is retrospective."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "An experiment, because the patient records were selected at random from the database.",
+        "is_correct": false,
+        "rationale": "Tempting if you mix up random selection with random assignment — but choosing records at random only helps the sample represent the population; it does not assign a treatment. Fix: look for whether a treatment was assigned, not whether anything was random."
+      }
+    ],
+    "verification": "Rests on the brief: experiment = researcher imposes a treatment; observational studies split into prospective (collected going forward) and retrospective (looking back at existing records). Patients self-selected supplement use and the data are past hospital records, so B. Seed (census vs sample) tests a different idea and scenario.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 2,
+    "topic_code": "2.12",
+    "topic_title": "Sampling Distributions and the Central Limit Theorem",
+    "seed_used": false,
+    "stem": "Commute times for all workers in a large city are strongly right-skewed, with mean 28 minutes and standard deviation 18 minutes. A researcher takes 1,000 random samples of 50 workers each, computes the mean commute time of each sample, and plots those 1,000 means on one dotplot. Which statement best describes this dotplot?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Each dot is one sample's mean; the dotplot is approximately normal, centered near 28 minutes, with standard deviation near 2.5 minutes.",
+        "is_correct": true,
+        "rationale": "Each dot is a whole sample's statistic, so this approximates the sampling distribution of the sample mean. By the Central Limit Theorem it is approximately normal for n = 50, centered at the population mean, with spread 18/√50 ≈ 2.5 minutes."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Each dot is one worker's commute time; the dotplot is strongly right-skewed, like the population.",
+        "is_correct": false,
+        "rationale": "Tempting if you picture the raw data from a sample — but the researcher plotted sample means, not individual workers. Fix: before describing a distribution, name what one dot represents; here it is one sample's mean."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Each dot is one worker's commute time; the Central Limit Theorem makes these commute times approximately normal.",
+        "is_correct": false,
+        "rationale": "Tempting if you think the Central Limit Theorem reshapes the population — but individual commute times stay right-skewed no matter how many samples are taken. Fix: the theorem's normality applies to the distribution of the sample mean, not to individuals."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Each dot is one sample's mean; the dotplot is approximately normal, centered near 28 minutes, with standard deviation near 18 minutes.",
+        "is_correct": false,
+        "rationale": "Tempting if you assume sample means vary as much as individuals do — but averaging 50 values cancels much of the variation. Fix: the spread of sample means is σ/√n = 18/√50 ≈ 2.5 minutes, much smaller than 18."
+      }
+    ],
+    "verification": "python3: 18/math.sqrt(50) = 2.5456 -> 'near 2.5' (key A). Distractor D uses population SD 18 (slip: forgetting division by sqrt(n)). B/C mislabel the dot as an individual; C adds the brief's named trap (CLT makes the population normal). Center = population mean 28.",
+    "author_flags": "Uses sigma/sqrt(n) for the spread, which the topic's brief mentions only qualitatively ('tightens the spread'); the formula is formalized in later topics (Unit 4 sampling distribution of x-bar). Checker may judge whether quoting ~2.5 is in scope; the item works conceptually even without the number."
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.1",
+    "topic_title": "Estimators",
+    "seed_used": true,
+    "stem": "A school district selects a simple random sample of 60 parents and finds that 45% favor a later school start time. A full survey of every parent later shows the true proportion is 40%. Which statement about the sample proportion as an estimator of the true proportion is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "It is biased, because this sample's 45% does not equal the true 40%.",
+        "is_correct": false,
+        "rationale": "Tempting if you judge bias from one result — but almost every random sample misses p by some amount just by chance. Fix: bias is about whether the estimator's results center on p across all possible samples, not about one sample's miss."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "It is biased, but taking a larger random sample would remove the bias.",
+        "is_correct": false,
+        "rationale": "Tempting if you treat bias and sampling variability as the same thing — but a larger sample shrinks random scatter, not a systematic lean. Fix: random sampling already makes the estimator unbiased; sample size affects only its spread."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "It is unbiased, because the sample of 60 parents is large enough for the large-counts condition.",
+        "is_correct": false,
+        "rationale": "Tempting if you link unbiasedness to having a big enough sample — but large counts only support a normal approximation. Fix: the estimator is unbiased because its sampling distribution is centered at p, which comes from random sampling, not from sample size."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "It is unbiased; a 5-point miss in one random sample is chance variation, not a systematic lean.",
+        "is_correct": true,
+        "rationale": "Unbiasedness is a long-run property: over every possible random sample, the sample proportion has no systematic over- or underestimate, so its mean equals p. One sample landing 5 points high is consistent with that."
+      }
+    ],
+    "verification": "Brief/explainer: unbiased means no systematic over/underestimation; a single sample differing from p does not show bias; bias comes from a method that systematically pulls results one way. SRS -> p-hat unbiased (mu_phat = p). Difference 0.45-0.40 = 0.05 by arithmetic. Seed (thermometer, biased, key D) has a different scenario and the opposite conclusion (seed's answer is 'biased'; this item's is 'unbiased').",
+    "author_flags": "Key letter D matches the seed's key letter; correct ideas differ (biased vs unbiased)."
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.12",
+    "topic_title": "Setting Up a Test for the Difference Between Two Population Proportions",
+    "seed_used": false,
+    "stem": "A planner suspects that a greater proportion of commuters bike to work in North City than in South City. In a random sample of 200 North City commuters, 46 bike; in an independent random sample of 300 South City commuters, 45 bike. Let p1 = the proportion of all North City commuters who bike and p2 = the proportion of all South City commuters who bike. Which setup is correct for a significance test of the planner's claim?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "H0: p1 − p2 = 0, Ha: p1 − p2 < 0; pooled proportion = 0.182",
+        "is_correct": false,
+        "rationale": "Tempting if you write the alternative without checking which city is p1 — but the claim is that North City (p1) is greater, so p1 − p2 should be positive. Fix: reread the definitions of p1 and p2, then point the inequality the way the claim does."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "H0: p1 − p2 = 0, Ha: p1 − p2 > 0; pooled proportion = 0.182",
+        "is_correct": true,
+        "rationale": "With p1 for North City and p2 for South City, the claim 'North is greater' gives Ha: p1 − p2 > 0. Under H0 there is one common proportion, estimated by pooling: (46 + 45)/(200 + 300) = 91/500 = 0.182."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "H0: p1 − p2 = 0, Ha: p1 − p2 > 0; pooled proportion = 0.19",
+        "is_correct": false,
+        "rationale": "Tempting if you average the two sample proportions, (0.23 + 0.15)/2 — but that ignores the different sample sizes. Fix: pool the counts, (46 + 45)/(200 + 300) = 0.182, so the larger sample gets more weight."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "H0: p̂1 − p̂2 = 0, Ha: p̂1 − p̂2 > 0; pooled proportion = 0.182",
+        "is_correct": false,
+        "rationale": "Tempting because the sample proportions are the numbers you can see — but hypotheses are claims about population parameters, and the sample values are already known (0.23 and 0.15). Fix: write hypotheses with p1 and p2, never p̂1 and p̂2."
+      }
+    ],
+    "verification": "python3: phat1 = 46/200 = 0.23, phat2 = 45/300 = 0.15; pooled = 91/500 = 0.182 (key B); unweighted average (0.23+0.15)/2 = 0.19 (distractor C, slip: ignoring sample sizes). A = reversed sign; D = hypotheses about statistics. Pooled formula phat_c = (n1 phat1 + n2 phat2)/(n1+n2) from fact pack 3.12-3.13.",
+    "author_flags": ""
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.15",
+    "topic_title": "Carrying Out a Chi-Square Test for Homogeneity or Independence",
+    "seed_used": true,
+    "stem": "A random sample of 120 students at a large school was classified by two variables. Of the 30 students who play an instrument, 10 are in math club and 20 are not. Of the 90 students who do not play an instrument, 14 are in math club and 76 are not. The expected counts for a chi-square test of independence are 6 and 24 (instrument row) and 18 and 72 (no-instrument row). Which statement is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The expected-counts condition fails because one expected count, 6, is less than 10, so the test should not be carried out.",
+        "is_correct": false,
+        "rationale": "Tempting if you carry over the large-counts threshold of 10 from proportion procedures — but the chi-square condition only requires every expected count to exceed 5. Fix: check expected counts against 5 here; 6 passes."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The condition is met, and the instrument/math-club cell contributes (10 − 6)²/10 = 1.6 to the chi-square statistic.",
+        "is_correct": false,
+        "rationale": "Tempting if you divide by the observed count because it appears first — but each contribution divides by the expected count. Fix: use (observed − expected)²/expected = (10 − 6)²/6."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The condition is met because every expected count exceeds 5, and the instrument/math-club cell contributes (10 − 6)²/6 ≈ 2.67.",
+        "is_correct": true,
+        "rationale": "All four expected counts (6, 24, 18, 72) are greater than 5, so the condition holds. That cell's contribution is (observed − expected)²/expected = 16/6 ≈ 2.67."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The condition is met, and the instrument/math-club cell contributes (10 − 6)/6 ≈ 0.67 to the chi-square statistic.",
+        "is_correct": false,
+        "rationale": "Tempting if you forget to square the difference — but without squaring, positive and negative gaps would cancel across cells. Fix: square first, (10 − 6)² = 16, then divide by 6 to get about 2.67."
+      }
+    ],
+    "verification": "python3: expected = row*col/total -> [[6,24],[18,72]] from row totals 30, 90 and column totals 24, 96 (n=120); observed [[10,20],[14,76]] match totals. Contribution (10-6)^2/6 = 2.667 (key C); divide-by-observed slip 16/10 = 1.6 (B); no-square slip 4/6 = 0.667 (D); threshold-10 slip (A). Total chi-square = 4.444 (not used). Expected-count > 5 rule from fact pack 3.14-3.15.",
+    "author_flags": "Seed asks to compute an expected count; this item gives expected counts and tests the condition threshold and a cell contribution, so the seed's answer is not taught."
+  },
+  {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.6",
+    "topic_title": "p-Values",
+    "seed_used": true,
+    "stem": "A coffee shop owner tests whether more than 30% of customers order oat milk, using H0: p = 0.30 and Ha: p > 0.30. A random sample of customers gives a p-value of 0.04. Which is the correct interpretation of this p-value?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "If 30% of all customers order oat milk, there is about a 4% chance that a random sample of this size would give a sample proportion as large as or larger than the one observed.",
+        "is_correct": true,
+        "rationale": "A p-value is computed assuming H0 is true, and it gives the chance of a result at least as extreme as the one observed, in the direction of Ha. This sentence states both parts in context."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "There is about a 4% probability that the null hypothesis is true, that is, that exactly 30% of all customers order oat milk.",
+        "is_correct": false,
+        "rationale": "Tempting because a small p-value is evidence against H0 — but H0 is a fixed claim, not a random event, so it has no probability here. Fix: the p-value is a probability about sample results, computed assuming H0 is true."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Because 1 − 0.04 = 0.96, there is about a 96% probability that more than 30% of all customers order oat milk.",
+        "is_correct": false,
+        "rationale": "Tempting if you take 1 − 0.04 as the chance Ha is right — but the p-value says nothing directly about the probability of either hypothesis. Fix: describe how unusual the sample result would be if H0 were true."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "If more than 30% of all customers order oat milk, there is about a 4% chance of getting a sample proportion as large as or larger than the one observed.",
+        "is_correct": false,
+        "rationale": "Tempting because Ha is the owner's claim — but the p-value is calculated under the null model, not the alternative. Fix: always begin the interpretation with 'assuming H0 is true' (here, p = 0.30)."
+      }
+    ],
+    "verification": "Brief/explainer: p-value = probability, assuming H0 true, of a result at least as extreme as observed; not P(H0 true). Ha: p > 0.30 so 'as large as or larger'. Complement 1 - 0.04 = 0.96 for distractor C. Seed tests the alpha decision rule (alpha 0.01, p 0.047) with a different scenario and correct idea.",
+    "author_flags": "Choice A is the longest choice, with D of similar length."
+  }
+]
