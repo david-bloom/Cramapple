@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0099 — Generate-and-Select Is the Default Method for New MCQs (Required for Open Hand Teaching Items): No Hand Edits, One Shared Rubric, Four Non-Author Checker Families Plus a Reject-Only Own-Family Veto, Planted-Defect Controls
 - DECISION-0098 — Released-Exam-Derived Student Practice Sets May Seed Original Items Only Through the Clean-Room Spec Path
 - DECISION-0097 — Owner Override: Open Hand and the Plate-Loop Practice Template Ship to Production Without the Fresh QA TASK-0051 Required; the Plate Loop Becomes the Default Practice Entry
 - DECISION-0096 — MCQ and FRQ Variants Inherit Their Seed's Difficulty Band; an Unrated Seed Is Rated First and Applied to Its Variants
@@ -50,6 +51,45 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0099 — Generate-and-Select Is the Default Method for New MCQs (Required for Open Hand Teaching Items)
+
+**Date:** 2026-10-07  
+**Decided By:** David Bloom  
+**Related:** `docs/research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` v0.6 §0, `TASK-0065`, `APPROVAL-0127`, `APPROVAL-0129`, `DECISION-0093`, `DECISION-0095`
+
+### Context
+
+Repeatedly reviewed teaching questions kept failing newly applied checks. On 2026-10-06 David asked for "a way to
+add questions without needing to edit them using at least 4 models and multiple sessions". The resulting pipeline
+was piloted on Biology (20/21 accepted after two source fixes). It was then compared blind against the legacy
+method on 24 topics, judged by three held-out model families against the CED PDF text, with planted defects
+(4/4 caught):
+- **Defective items:** legacy 4/24, generate-and-select 1/23, live legacy items 3/24.
+- **Judge disputes:** legacy 6/24, generate-and-select 0/23.
+- **Cost:** generate-and-select is about 4× legacy per defect-free item.
+
+David (2026-10-07): "the new approach has fewer errors … and fewer disputes (eg higher confidence)"; "update the
+content creation protocol with the improved new approach".
+
+### Decision
+
+1. **New MCQs are made by generate-and-select (protocol §0).** It is **required** for Open Hand teaching items
+   and is the default for new scored MCQs. Scored MCQs still need serving labels and the Phase 6 gate. FRQs are
+   not covered.
+2. **Generated items are never hand-edited.** Failures are regenerated. Escalations are triaged against the CED
+   PDF (brief or fact-pack errors are fixed at the source).
+3. **Independence and controls.** Four checker families that did not write the item must clear it, and the
+   author's family holds a reject-only veto. Planted-defect controls gate every batch.
+4. **Cost.** The cost gap is accepted for now, with tuning levers listed in §0.7. Re-evaluate with the §0.5 test
+   after any cut.
+
+### Consequences
+
+- The legacy patch loop (§5 adjudicate-and-repair) is retired for new MCQs.
+- PR #348 (25 hand-patched items) stays on hold.
+- Live teaching items found defective are replaced through §0.6, not edited in place.
+- Human spot-check per subject and a Hard-Gate approval remain required before any Production load.
 
 ## DECISION-0098 — Released-Exam-Derived Student Practice Sets May Seed Original Items Only Through the Clean-Room Spec Path
 
