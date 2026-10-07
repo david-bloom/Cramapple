@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0100 — Learning Through a Worked (Scored) Example Is a Recommended, Exam-Directed Path on the Student Hub, Never a Required Step; Four Equal Entry Points (Worked Example, Practice, Deep-Dive Notes, Bring a Question)
 - DECISION-0099 — Generate-and-Select Is the Default Method for New MCQs (Required for Open Hand Teaching Items): No Hand Edits, One Shared Rubric, Four Non-Author Checker Families Plus a Reject-Only Own-Family Veto, Planted-Defect Controls
 - DECISION-0098 — Released-Exam-Derived Student Practice Sets May Seed Original Items Only Through the Clean-Room Spec Path
 - DECISION-0097 — Owner Override: Open Hand and the Plate-Loop Practice Template Ship to Production Without the Fresh QA TASK-0051 Required; the Plate Loop Becomes the Default Practice Entry
@@ -51,6 +52,69 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0100 — Learning Through a Worked (Scored) Example Is a Recommended, Exam-Directed Path on the Student Hub, Never a Required Step; Four Equal Entry Points (Worked Example, Practice, Deep-Dive Notes, Bring a Question)
+
+**Date:** 2026-10-07
+**Decided By:** David Bloom (verbal, in the `claude/ux-evaluation-session-flp1xj` session, recorded by Claude)
+**Related:** `docs/product/NEW_STUDENT_FIRST_SESSION_UX_ASSESSMENT_2026_10_07.md` (§0b, R1, R3, K1, K7, K8, K23, K24), `TASK-0048`, `TASK-0052`, `DECISION-0097`, `DECISION-0075` D2/D17, open PR #365
+**Area:** Product / student hub / first-session design
+
+### Context
+
+The 2026-10-07 first-session UX assessment found that the worked-example → practice loop exists only
+in routing and that no screen states why a student would read an answered question. Its first draft
+proposed a numbered four-step strip (position → worked example → practice → recommendation) that
+would have presented the worked example as step 2 of a sequence. David's direction, verbatim in
+substance:
+
+> A student can learn through a worked example, and doing so is important because that is how they
+> will be questioned on tests and the exam. It is highly directed learning toward tests and the exam,
+> not toward general knowledge. But it is not required. Students might want to skip a worked example
+> and practice on their own, or export the deep dives and use them as supplemental notes from class.
+> They might upload their own homework question, which we will help them understand but not answer
+> for them.
+
+### Decision
+
+1. **The worked example is a primary, recommended way to learn a topic, and its purpose is exam
+   scoring.** The student-facing product must say so in one sentence (working copy: "Cramapple
+   teaches each topic the way the exam asks and scores it"). It is directed at tests and the exam,
+   not at general knowledge.
+2. **It is never required.** No hub stage, plate, or recommendation may gate practice, notes, or
+   bringing a question on having viewed a worked example. The numbered step-strip concept is
+   withdrawn.
+3. **Four equal entry points on the student hub, for the student's current topic:** the worked
+   (scored) example, listed first and marked recommended with its reason; practice; deep dives as
+   saveable, exportable notes; and bring-a-question. Each is one tap from the hub at every stage.
+4. **Deep dives are exportable** as supplemental notes (save with confirmation, export, a place on the
+   hub where saved notes live). Notes never count as evidence or score.
+5. **Bring-a-question's promise is stated in the door:** Cramapple helps the student understand their
+   own homework question and does not answer it for them. One name for this door everywhere.
+6. **Vocabulary stays open.** "Worked example" is not confirmed; the assessment lists candidates and
+   recommends "scored example" / "See one scored". The masthead term "Open Hand" is unaffected.
+
+### Amendment 2026-10-07 (same day, David Bloom, answering the unified recommendation's §6)
+
+1. The recommended door is named **"Learn from a question"**.
+2. On the **first practice question of a session, aids (hint, lesson notes) are free and ungated**; the attempt is still recorded as guided when an aid is opened, so `DECISION-0074` is unaffected.
+3. The **calendar hint** on the lesson question is dropped.
+4. Both parallel assessments (Claude's in `docs/product/`, Sol's in `docs/qa/`, PR #365) merge as evidence records carrying a STATUS line that points to `docs/product/STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md`, which is the single recommendation.
+5. The first-session pause card appears after **three** graded attempts and asks **"Want to keep going?"**, with continuing as the primary action and the hub as the alternative: three is enough for Cramapple to start recommending, every further answer sharpens it, and the student may want to keep going.
+
+### Consequences
+
+- The assessment's R1, R3, K1, K7 and K8 are revised in place; K23 (notes export) and K24
+  (bring-a-question door) are added. No code, schema or Production change is made by this decision.
+- `DECISION-0075` D2 (two plate templates, Open Hand unscored / Practice scored) and D17 (Open Hand as a
+  sanctioned full-disclosure teaching method) are unchanged; this decision governs *how the hub offers*
+  those templates, not what they are.
+- `TASK-0052`'s "teaching-first is the default entry" wording (its line "Home's start practice always
+  starts with Open Hand") now means *recommended first*, not *only path*: the hub must also expose
+  practice, notes and bring-a-question directly.
+- Open PR #365 (Codex, same-day parallel assessment) proposes an explicit "worked question → own
+  attempt → focused feedback sequence"; where that reads as a required sequence it is superseded by
+  this decision, and the two documents are to be reconciled by the Product Owner before merge.
 
 ## DECISION-0099 — Generate-and-Select Is the Default Method for New MCQs (Required for Open Hand Teaching Items)
 
