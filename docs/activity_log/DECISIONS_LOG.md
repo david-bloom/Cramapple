@@ -94,6 +94,14 @@ substance:
 6. **Vocabulary stays open.** "Worked example" is not confirmed; the assessment lists candidates and
    recommends "scored example" / "See one scored". The masthead term "Open Hand" is unaffected.
 
+### Amendment 2026-10-07 (same day, David Bloom, answering the unified recommendation's §6)
+
+1. The recommended door is named **"Learn from a question"**.
+2. On the **first practice question of a session, aids (hint, lesson notes) are free and ungated**; the attempt is still recorded as guided when an aid is opened, so `DECISION-0074` is unaffected.
+3. The **calendar hint** on the lesson question is dropped.
+4. Both parallel assessments (Claude's in `docs/product/`, Sol's in `docs/qa/`, PR #365) merge as evidence records carrying a STATUS line that points to `docs/product/STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md`, which is the single recommendation.
+5. The first-session pause count (proposed: three graded attempts) is still awaiting David's confirmation.
+
 ### Consequences
 
 - The assessment's R1, R3, K1, K7 and K8 are revised in place; K23 (notes export) and K24

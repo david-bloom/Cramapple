@@ -4,7 +4,7 @@ STATUS: CURRENT
 DATE: 2026-10-07
 OWNER: David Bloom (Product Owner)
 PREPARED BY: Claude, reconciling two parallel assessments
-GOVERNING DECISION: `DECISION-0100` (worked example is recommended, never required; four equal entry points)
+GOVERNING DECISION: `DECISION-0100` (worked example is recommended, never required; four equal entry points) and its 2026-10-07 amendment (§6 answers)
 TIER: Micro (recommendation only; no code, schema, publication or Production change)
 
 **Inputs reconciled**
@@ -44,10 +44,10 @@ Every substantive finding appears in both. The ids differ; the content does not.
 | Topic | Claude | Sol | Resolution |
 | --- | --- | --- | --- |
 | **Shape of the first-session guidance** | A numbered 1-2-3-4 strip (withdrawn by `DECISION-0100`). | A suggested route plus four equal goals. | **Sol's model.** One sentence of purpose; four doors; the example route *recommended* with its reason, never numbered or gated (§3.1). |
-| **The door's name** | "Scored example" / "See one scored" — leads with scoring, the differentiator. | "Learn from a question", explained as "See the reasoning behind a test-style question". | **Sol's label, Claude's sub-line.** "Learn from a question" says what the student does; the sub-line says why it is different: *"See how a test-style question is asked and scored."* "Test-style" only where content alignment supports it (Sol §vocabulary). Final word is David's (§6). |
+| **The door's name** | "Scored example" / "See one scored" — leads with scoring, the differentiator. | "Learn from a question", explained as "See the reasoning behind a test-style question". | **Decided 2026-10-07: "Learn from a question"** (David, §6.1), with the sub-line *"See how a test-style question is asked and scored."* "Test-style" only where content alignment supports it (Sol §vocabulary). "Worked example" may stay as a descriptive word inside the screen. |
 | **First-session length** | Three graded questions, then a stopping-point card (matches `RECOMMEND_MIN_ATTEMPTS`). | "A short first session"; a recap at a small justified set; example-only and notes-only visits are complete visits. | **Both.** Practice route: a pause card after the third graded attempt, because that is the real threshold and the student should be told so. Every other route gets its own factual recap (§3.5). Time label: "a short first session" until measured. |
-| **Hints on the first question** | Free and ungated on question 1 (R9a). | Neutral, resource-specific wording; do not remove confirmations without checking the assistance contract. | **Sol now; Claude's as a Product Owner decision.** Ungated hints interact with `DECISION-0074` (no hint before submission for mastery). Reword and merge the two gates immediately (§3.4); whether question 1's aids are free is question 6.2. |
-| **"Not sure where my class is"** | Calendar badge ("most classes are in Unit 2–3 in October") and an explicit "start me at the beginning". | Recognisable lesson names, "Browse lessons" / "Try a sample lesson"; the 6-question check must not claim to find the teacher's position. | **All of it except the 6-question check**, which stays cut. |
+| **Hints on the first question** | Free and ungated on question 1 (R9a). | Neutral, resource-specific wording; do not remove confirmations without checking the assistance contract. | **Decided 2026-10-07: free and ungated on the first practice question** (David, §6.2). Reword and merge the gates everywhere (§3.4). The attempt is still *recorded* as guided when an aid was opened, so `DECISION-0074`'s mastery rule is untouched; what changes is the gate and the tone, not the data. |
+| **"Not sure where my class is"** | Calendar badge ("most classes are in Unit 2–3 in October") and an explicit "start me at the beginning". | Recognisable lesson names, "Browse lessons" / "Try a sample lesson"; the 6-question check must not claim to find the teacher's position. | **Lesson titles, "Browse lessons", "Not sure, start me at the beginning"; the calendar hint is dropped** (David, §6.4: visual clutter, not helpful); the 6-question check stays cut. |
 | **Practice alignment** | Not examined. | F4: the client only *reorders* a server batch toward the topic; no aligned item is guaranteed; the recorded URL had no topic parameter. | **Adopt F4 as a behavior requirement** (§4). Until it holds, the handoff copy must not promise "one like it". |
 | **Instrumentation** | R11: six events; app sends none today. | Not raised. | **Keep R11.** Both assessments had to reconstruct behaviour from database rows and a click trace. |
 | **Pilot-account data** | Five accounts; FRQ drafts; 0/1 ×2. | Not available. | **Keep, with the caveat** that the plate loop was off on Oct 5–6 (`DECISION-0097` amendment), so those sessions likely ran the legacy path. |
@@ -78,8 +78,8 @@ Ordered as a student meets them. "Lovable" = frontend change in `56cae479`, no b
 ### 3.2 The lesson question comes before the position form, and the form cannot mislead
 
 - Ask **"What did you cover in class most recently?"** with lesson *titles* grouped by unit (codes
-  in grey), a quiet calendar hint ("most classes are around Unit 2–3 in early October"), and two
-  explicit alternatives: **Browse lessons** and **Not sure, start me at the beginning**.
+  in grey) and two explicit alternatives: **Browse lessons** and **Not sure, start me at the
+  beginning**. No calendar hint (§6.4).
 - A unit-only answer leads to choosing a lesson; it never silently resolves to the unit's first
   topic (`resolveStartTopic` today). (Claude K6; Sol F2, brief 2.)
 - The 6-question check stays cut. A diagnostic can inform a *practice* recommendation; it cannot
@@ -107,9 +107,12 @@ Ordered as a student meets them. "Lovable" = frontend change in `56cae479`, no b
   **Keep going** quiet. Never require the batch to finish. (Claude R4; Sol F7.)
 - **First wrong answer:** *"Normal for a first look. The explanation for the one you picked is on the
   left."* (Claude R5; Sol F7.)
-- **Assistance wording, now:** rename the gates to the resource ("Show the hint", "Open the lesson
-  notes"), one gate not two, consequence stated plainly: *"Using this marks the attempt as guided."*
-  (Sol F10; Claude C9.) Whether question 1's aids are free is §6.2.
+- **First question: aids are free and ungated** (§6.2). The hint and the lesson notes are open on
+  question 1 with the line *"Free on your first question. From the next one, opening help is noted
+  on your feedback."* The attempt is still recorded as guided if an aid was opened (B7).
+- **From question 2: one gate, not two,** named by the resource ("Show the hint", "Open the lesson
+  notes"), consequence stated plainly: *"Using this marks the attempt as guided."* No "Sure you need a
+  hint?". (Sol F10; Claude C9.)
 - A quiet **"See one worked first"** link on the first practice question for students who came
   straight to practice. (Claude K8.)
 
@@ -186,7 +189,7 @@ restrained note: *"Recommendations get more personal as you practice. You're at 
 | B4 | Route-appropriate recap data: example viewed, notes saved, practice summary. | Sol brief 4; Claude R9 | 3.5 |
 | B5 | Saved-notes store and export format. | Claude K23; Sol brief 9 | 3.6 |
 | B6 | BYOQ answer-boundary verification, including leakage through explanations and exports. | Sol F9 | 3.6 |
-| B7 | Assistance classification preserved under the reworded gate; decision on question-1 aids vs `DECISION-0074`. | Sol F10; Claude R9a | 3.4 |
+| B7 | Assistance classification preserved: a question-1 attempt with an opened aid is recorded as guided even though no gate was shown, so `DECISION-0074` is unaffected. | Sol F10; Claude R9a; §6.2 | 3.4 |
 | B8 | Six app events in PostHog: `hub_viewed{stage}`, `door_chosen{door}`, `position_set{unit,topic,was_default}`, `example_viewed`, `answer_submitted{correct,assisted}`, `session_paused{questions,points}`; `$pageview` on. | Claude R11 | every later assessment |
 | B9 | Trace the mid-session login-page flash (`DECISION-0097` era build, cross-subdomain cookie, one-pager O2). | Claude D6 | trust on return |
 
@@ -209,17 +212,21 @@ restrained note: *"Recommendations get more personal as you practice. You're at 
 
 ---
 
-## 6. Decisions still needed from the Product Owner
+## 6. Product Owner decisions (answered 2026-10-07; recorded as the amendment to `DECISION-0100`)
 
-1. **The door's name.** "Learn from a question" (recommended here) vs "Scored example / See one
-   scored" vs keep "Worked example". The sub-line "See how a test-style question is asked and scored"
-   works under any of them.
-2. **Question-1 aids.** Free and ungated on the first practice question (Claude R9a), or reworded but
-   still gated (Sol F10)? This touches `DECISION-0074`'s "no hint before submission" mastery rule.
-3. **First-session pause at three graded attempts** (the real threshold) — confirm, or name a number.
-4. **Calendar hint** on the lesson question — keep, or drop as presumptuous.
-5. **Who reconciles PR #365 and this branch.** Recommendation: merge both assessments as evidence
-   records with a STATUS line pointing here, and treat this document as the single recommendation.
+1. **The door's name: "Learn from a question."** Decided.
+2. **Question-1 aids: free and ungated on the first practice question.** Decided. Still recorded as
+   guided (B7).
+3. **First-session pause.** *Clarification of what was asked:* the pause card (§3.4) appears after a
+   fixed number of graded attempts in a practice session. The proposal is **three**, because three
+   graded attempts across two questions is the real threshold at which the hub can start
+   recommending (`RECOMMEND_MIN_ATTEMPTS`), so the card can truthfully say "that's enough for
+   Cramapple to start recommending". "Confirm, or name a number" meant: accept three, or choose
+   another count (five, say) and the card's sentence changes to match. **Working value: three,
+   pending David's confirmation.**
+4. **Calendar hint: dropped.** Decided.
+5. **Landing the two assessments:** both merge as evidence records with a STATUS line pointing to
+   this document, which is the single recommendation. Decided.
 
 ---
 
