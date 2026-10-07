@@ -275,3 +275,11 @@ the file states one plan.
 **Biology pilot cost:** $20.13 at live gateway prices for 21 topics (about $1.12 per accepted item), plus $3.04 for the controls.
 
 **Method test designed:** `docs/product/OPEN_HAND_CONTENT_METHOD_TEST_DESIGN_2026_10_06.md`. It compares legacy and pipeline on quality (key accuracy, option accuracy, CED faithfulness), speed and cost, using held-out judges and planted defects. Not yet run; awaiting David's approval of the design and decision rule.
+
+## Live replacements and Statistics 2.12 brief fix — 2026-10-07 (APPROVAL-0129)
+
+- The Statistics 2.12 brief was fixed to CED 2.12 in Development and Production.
+- The three defective live items (Stats 1.10, Stats 2.12, Bio 2.10) were replaced in Development and Production
+  with pipeline items checked by four model families and three held-out judges.
+- The old items are retired. The real teaching function now serves the replacements.
+- Details: APPROVAL-0129.
