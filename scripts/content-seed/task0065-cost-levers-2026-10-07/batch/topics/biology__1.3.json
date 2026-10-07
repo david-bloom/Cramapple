@@ -1,0 +1,693 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Introduction to Macromolecules"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__1.3#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 6134,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 6131
+    },
+    "outputTokens": 709,
+    "outputTokenDetails": {
+     "textTokens": 340,
+     "reasoningTokens": 369
+    },
+    "totalTokens": 6843,
+    "raw": {
+     "input_tokens": 6134,
+     "input_tokens_details": {
+      "cache_write_tokens": 6131,
+      "cached_tokens": 0
+     },
+     "output_tokens": 709,
+     "output_tokens_details": {
+      "reasoning_tokens": 369
+     },
+     "total_tokens": 6843
+    },
+    "reasoningTokens": 369,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.3",
+    "topic_title": "Introduction to Macromolecules",
+    "stem": "A cell breaks a covalent bond linking two monomers in a polymer. Which statement correctly identifies this reaction and describes the role of water?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The reaction is dehydration synthesis, and water is released.",
+      "is_correct": false,
+      "rationale": "The trap is confusing polymer breakdown with polymer building. Dehydration synthesis releases water while forming a covalent bond, but the cell described here is breaking a bond. Fix: Determine whether the reaction joins monomers or separates them before naming it."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The reaction is hydrolysis, and water is released.",
+      "is_correct": false,
+      "rationale": "The trap is reversing water's role in hydrolysis. The reaction is correctly named, but hydrolysis consumes water to break the bond rather than producing water. Fix: Place water on the reactant side when describing hydrolysis."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The reaction is hydrolysis, and water is consumed.",
+      "is_correct": true,
+      "rationale": "Hydrolysis breaks the bond by adding water, with H attaching to one monomer and OH attaching to the other. Water is therefore a reactant rather than a product."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The reaction is dehydration synthesis, and water is consumed.",
+      "is_correct": false,
+      "rationale": "The trap is attaching the wrong reaction name to water consumption. Adding water to cleave a polymer bond describes hydrolysis; dehydration synthesis instead joins monomers and releases water. Fix: Match bond cleavage and water addition to hydrolysis before selecting a reaction name."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 623,
+         "inputTokenDetails": {
+          "noCacheTokens": 623,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 653,
+         "raw": {
+          "input_tokens": 623,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1906,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 324,
+         "inputTokenDetails": {
+          "noCacheTokens": 324,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 172,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 142
+         },
+         "totalTokens": 496,
+         "raw": {
+          "thoughtsTokenCount": 142,
+          "promptTokenCount": 324,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 496,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 324
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 142,
+         "cachedInputTokens": 0
+        },
+        "ms": 2190,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 383,
+         "inputTokenDetails": {
+          "noCacheTokens": 127,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 209,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 183
+         },
+         "totalTokens": 592,
+         "raw": {
+          "prompt_tokens": 383,
+          "completion_tokens": 209,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 127,
+          "total_tokens": 592,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 183
+          }
+         },
+         "reasoningTokens": 183,
+         "cachedInputTokens": 256
+        },
+        "ms": 3323,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 153,
+         "inputTokenDetails": {
+          "noCacheTokens": 153,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 761,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 731
+         },
+         "totalTokens": 914,
+         "raw": {
+          "input_tokens": 153,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 761,
+          "output_tokens_details": {
+           "reasoning_tokens": 731
+          },
+          "total_tokens": 914
+         },
+         "reasoningTokens": 731,
+         "cachedInputTokens": 0
+        },
+        "ms": 14494,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11149,
+         "inputTokenDetails": {
+          "noCacheTokens": 2096,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 9053
+         },
+         "outputTokens": 374,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 162
+         },
+         "totalTokens": 11523,
+         "raw": {
+          "input_tokens": 2096,
+          "output_tokens": 374,
+          "output_tokens_details": {
+           "thinking_tokens": 162
+          },
+          "cache_creation_input_tokens": 9053,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 9053,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 162,
+         "cachedInputTokens": 0
+        },
+        "ms": 6499,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7330,
+         "inputTokenDetails": {
+          "noCacheTokens": 7330,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 754,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 492
+         },
+         "totalTokens": 8084,
+         "raw": {
+          "thoughtsTokenCount": 492,
+          "promptTokenCount": 7330,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 8084,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7330
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 492,
+         "cachedInputTokens": 0
+        },
+        "ms": 7243,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6727,
+         "inputTokenDetails": {
+          "noCacheTokens": 1351,
+          "cacheReadTokens": 5376
+         },
+         "outputTokens": 2882,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 2663
+         },
+         "totalTokens": 9609,
+         "raw": {
+          "prompt_tokens": 6727,
+          "completion_tokens": 2882,
+          "prompt_cache_hit_tokens": 5376,
+          "prompt_cache_miss_tokens": 1351,
+          "total_tokens": 9609,
+          "prompt_tokens_details": {
+           "cached_tokens": 5376
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2663
+          }
+         },
+         "reasoningTokens": 2663,
+         "cachedInputTokens": 5376
+        },
+        "ms": 24586,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5867,
+         "inputTokenDetails": {
+          "noCacheTokens": 5867,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3763,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3606
+         },
+         "totalTokens": 9630,
+         "raw": {
+          "input_tokens": 5867,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3763,
+          "output_tokens_details": {
+           "reasoning_tokens": 3606
+          },
+          "total_tokens": 9630
+         },
+         "reasoningTokens": 3606,
+         "cachedInputTokens": 0
+        },
+        "ms": 22881,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6511,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 6508
+         },
+         "outputTokens": 267,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 45
+         },
+         "totalTokens": 6778,
+         "raw": {
+          "input_tokens": 6511,
+          "input_tokens_details": {
+           "cache_write_tokens": 6508,
+           "cached_tokens": 0
+          },
+          "output_tokens": 267,
+          "output_tokens_details": {
+           "reasoning_tokens": 45
+          },
+          "total_tokens": 6778
+         },
+         "reasoningTokens": 45,
+         "cachedInputTokens": 0
+        },
+        "ms": 5890,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__1.3#r1-openai",
+ "accepted_at": "2026-10-07T16:15:38.828Z"
+}

@@ -1,0 +1,993 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Proteins"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__1.7#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 6128,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 6125
+    },
+    "outputTokens": 757,
+    "outputTokenDetails": {
+     "textTokens": 436,
+     "reasoningTokens": 321
+    },
+    "totalTokens": 6885,
+    "raw": {
+     "input_tokens": 6128,
+     "input_tokens_details": {
+      "cache_write_tokens": 6125,
+      "cached_tokens": 0
+     },
+     "output_tokens": 757,
+     "output_tokens_details": {
+      "reasoning_tokens": 321
+     },
+     "total_tokens": 6885
+    },
+    "reasoningTokens": 321,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.7",
+    "topic_title": "Proteins",
+    "stem": "A protein consists of a single polypeptide. A second version has the same amino acid sequence except that one amino acid with a hydrophobic R group is replaced by an amino acid with a charged R group. The second version has a different three-dimensional shape and reduced function. Which explanation best connects the replacement to these observations?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The unchanged chain length means primary structure is unchanged, so the reduced function must be unrelated to protein structure.",
+      "is_correct": false,
+      "rationale": "Length–sequence confusion: Primary structure is the amino acid sequence, not merely the number of amino acids. Replacing one amino acid changes primary structure and can affect folding and function. Fix: Compare amino acid identities and order, not just chain length."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The replacement changes the hydrogen bonds between R groups that define secondary structure, reducing the protein’s function.",
+      "is_correct": false,
+      "rationale": "Backbone–R-group confusion: The hydrogen bonds defining alpha-helices and beta-sheets form between backbone atoms, not R groups. Changes in R-group interactions can alter tertiary structure and thereby affect function. Fix: Identify whether each interaction involves backbone atoms or R groups before assigning a structural level."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The replacement changes R-group interactions, altering the protein’s folding and the shape needed for its function.",
+      "is_correct": true,
+      "rationale": "Replacing a hydrophobic R group with a charged R group changes the interactions available during folding. These changes can alter tertiary structure, disrupting the shape required for the protein’s function."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The replacement changes quaternary structure by rearranging interactions within the single polypeptide, reducing the protein’s function.",
+      "is_correct": false,
+      "rationale": "Tertiary–quaternary confusion: Quaternary structure involves interactions between multiple polypeptides. The overall three-dimensional folding of this single polypeptide is its tertiary structure. Fix: Count polypeptide chains before identifying a change as quaternary structure."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "The question is well posed and C is the only correct choice. Swapping a hydrophobic R group for a charged one changes R-group interactions. That alters tertiary folding, and the new shape changes function. A is wrong because the primary structure did change. B is wrong because secondary structure depends on hydrogen bonds in the backbone, not between R groups. D is wrong because quaternary structure requires more than one polypeptide."
+        },
+        "usage": {
+         "inputTokens": 744,
+         "inputTokenDetails": {
+          "noCacheTokens": 744,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 163,
+         "outputTokenDetails": {
+          "textTokens": 163,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 907,
+         "raw": {
+          "input_tokens": 744,
+          "output_tokens": 163,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3586,
+        "flags": [
+         "defect: The question is well posed and C is the only correct choice. Swapping a hydrophobic R group for a charged one changes R-group interactions. That alters tertiary folding, and the new shape changes function. A is wrong because the primary structure did change. B is wrong because secondary structure depends on hydrogen bonds in the backbone, not between R groups. D is wrong because quaternary structure requires more than one polypeptide."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "Not a defect in the item; the remaining choices are clearly wrong. A fails because swapping one amino acid changes the primary structure even though chain length is unchanged. B fails because secondary structure comes from backbone hydrogen bonds, not R-group hydrogen bonds. D fails because a single polypeptide has no quaternary structure. C correctly links the R-group change to altered tertiary folding, which changes shape and reduces function."
+        },
+        "usage": {
+         "inputTokens": 744,
+         "inputTokenDetails": {
+          "noCacheTokens": 744,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 171,
+         "outputTokenDetails": {
+          "textTokens": 171,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 915,
+         "raw": {
+          "input_tokens": 744,
+          "output_tokens": 171,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3922,
+        "flags": [
+         "defect: Not a defect in the item; the remaining choices are clearly wrong. A fails because swapping one amino acid changes the primary structure even though chain length is unchanged. B fails because secondary structure comes from backbone hydrogen bonds, not R-group hydrogen bonds. D fails because a single polypeptide has no quaternary structure. C correctly links the R-group change to altered tertiary folding, which changes shape and reduces function."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 403,
+         "inputTokenDetails": {
+          "noCacheTokens": 403,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 181,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 151
+         },
+         "totalTokens": 584,
+         "raw": {
+          "thoughtsTokenCount": 151,
+          "promptTokenCount": 403,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 584,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 403
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 151,
+         "cachedInputTokens": 0
+        },
+        "ms": 3549,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 462,
+         "inputTokenDetails": {
+          "noCacheTokens": 206,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 413,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 387
+         },
+         "totalTokens": 875,
+         "raw": {
+          "prompt_tokens": 462,
+          "completion_tokens": 413,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 206,
+          "total_tokens": 875,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 387
+          }
+         },
+         "reasoningTokens": 387,
+         "cachedInputTokens": 256
+        },
+        "ms": 5614,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 229,
+         "inputTokenDetails": {
+          "noCacheTokens": 229,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1311,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 1286
+         },
+         "totalTokens": 1540,
+         "raw": {
+          "input_tokens": 229,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1311,
+          "output_tokens_details": {
+           "reasoning_tokens": 1286
+          },
+          "total_tokens": 1540
+         },
+         "reasoningTokens": 1286,
+         "cachedInputTokens": 0
+        },
+        "ms": 11619,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  },
+  {
+   "id": "biology__1.7#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 9815,
+    "inputTokenDetails": {
+     "noCacheTokens": 1787,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 8028
+    },
+    "outputTokens": 1201,
+    "outputTokenDetails": {
+     "textTokens": 669,
+     "reasoningTokens": 532
+    },
+    "totalTokens": 11016,
+    "raw": {
+     "input_tokens": 1787,
+     "output_tokens": 1201,
+     "output_tokens_details": {
+      "thinking_tokens": 532
+     },
+     "cache_creation_input_tokens": 8028,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 8028,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 532,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.7",
+    "topic_title": "Proteins",
+    "stem": "A water-soluble protein folds so that several amino acids with hydrophobic R groups cluster in its interior, away from the surrounding water. A mutation replaces one of these interior amino acids with an amino acid whose R group is ionic (charged). Which prediction best describes the most likely effect of this substitution?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The protein's function would be unchanged, because a single substitution does not change the protein's primary structure.",
+      "is_correct": false,
+      "rationale": "This trap assumes one substitution is too small to matter. Primary structure is the amino acid sequence itself, so any substitution changes it, and a buried charged R group can alter folding and function. Fix: Ask whether the sequence changed, then trace sequence to folding to function."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The peptide bonds next to the new amino acid would break, splitting the polypeptide into two shorter chains.",
+      "is_correct": false,
+      "rationale": "This confuses R-group interactions with the backbone. Peptide bonds link the carboxyl of one amino acid to the amine of the next, and every amino acid has these groups regardless of its R group. Fix: Check whether a change involves the backbone or the R group before predicting its effect."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Only the secondary structure would be affected, because alpha helices and beta sheets are held together by interactions between R groups.",
+      "is_correct": false,
+      "rationale": "This misassigns the bonds behind each structural level. Secondary structure comes from hydrogen bonds between backbone atoms, while hydrophobic and ionic R-group interactions shape tertiary structure. Fix: Match each interaction type to its structural level before deciding which level changes."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The charged R group would disrupt hydrophobic interactions in the interior, altering the tertiary structure and likely impairing the protein's function.",
+      "is_correct": true,
+      "rationale": "A charged R group does not interact favorably with the nonpolar cluster, so the interactions that stabilize the folded interior change. Tertiary structure depends on R-group interactions, so the 3D shape shifts, and because shape determines function, the protein may no longer work properly."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 327,
+         "inputTokenDetails": {
+          "noCacheTokens": 327,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 53,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 27
+         },
+         "totalTokens": 380,
+         "raw": {
+          "input_tokens": 327,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 53,
+          "output_tokens_details": {
+           "reasoning_tokens": 27
+          },
+          "total_tokens": 380
+         },
+         "reasoningTokens": 27,
+         "cachedInputTokens": 0
+        },
+        "ms": 2327,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 408,
+         "inputTokenDetails": {
+          "noCacheTokens": 408,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 316,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 286
+         },
+         "totalTokens": 724,
+         "raw": {
+          "thoughtsTokenCount": 286,
+          "promptTokenCount": 408,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 724,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 408
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 286,
+         "cachedInputTokens": 0
+        },
+        "ms": 4044,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 463,
+         "inputTokenDetails": {
+          "noCacheTokens": 207,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 572,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 552
+         },
+         "totalTokens": 1035,
+         "raw": {
+          "prompt_tokens": 463,
+          "completion_tokens": 572,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 207,
+          "total_tokens": 1035,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 552
+          }
+         },
+         "reasoningTokens": 552,
+         "cachedInputTokens": 256
+        },
+        "ms": 6582,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 234,
+         "inputTokenDetails": {
+          "noCacheTokens": 234,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 900,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 870
+         },
+         "totalTokens": 1134,
+         "raw": {
+          "input_tokens": 234,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 900,
+          "output_tokens_details": {
+           "reasoning_tokens": 870
+          },
+          "total_tokens": 1134
+         },
+         "reasoningTokens": 870,
+         "cachedInputTokens": 0
+        },
+        "ms": 7782,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6631,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 6628
+         },
+         "outputTokens": 336,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 114
+         },
+         "totalTokens": 6967,
+         "raw": {
+          "input_tokens": 6631,
+          "input_tokens_details": {
+           "cache_write_tokens": 6628,
+           "cached_tokens": 0
+          },
+          "output_tokens": 336,
+          "output_tokens_details": {
+           "reasoning_tokens": 114
+          },
+          "total_tokens": 6967
+         },
+         "reasoningTokens": 114,
+         "cachedInputTokens": 0
+        },
+        "ms": 8350,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7458,
+         "inputTokenDetails": {
+          "noCacheTokens": 7458,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1491,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1229
+         },
+         "totalTokens": 8949,
+         "raw": {
+          "thoughtsTokenCount": 1229,
+          "promptTokenCount": 7458,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 8949,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 7458
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1229,
+         "cachedInputTokens": 0
+        },
+        "ms": 11176,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 6852,
+         "inputTokenDetails": {
+          "noCacheTokens": 1476,
+          "cacheReadTokens": 5376
+         },
+         "outputTokens": 10884,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 10665
+         },
+         "totalTokens": 17736,
+         "raw": {
+          "prompt_tokens": 6852,
+          "completion_tokens": 10884,
+          "prompt_cache_hit_tokens": 5376,
+          "prompt_cache_miss_tokens": 1476,
+          "total_tokens": 17736,
+          "prompt_tokens_details": {
+           "cached_tokens": 5376
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 10665
+          }
+         },
+         "reasoningTokens": 10665,
+         "cachedInputTokens": 5376
+        },
+        "ms": 112925,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 5990,
+         "inputTokenDetails": {
+          "noCacheTokens": 5990,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 4239,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 4082
+         },
+         "totalTokens": 10229,
+         "raw": {
+          "input_tokens": 5990,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 4239,
+          "output_tokens_details": {
+           "reasoning_tokens": 4082
+          },
+          "total_tokens": 10229
+         },
+         "reasoningTokens": 4082,
+         "cachedInputTokens": 0
+        },
+        "ms": 27868,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.7",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11313,
+         "inputTokenDetails": {
+          "noCacheTokens": 2260,
+          "cacheReadTokens": 9053,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 577,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 365
+         },
+         "totalTokens": 11890,
+         "raw": {
+          "input_tokens": 2260,
+          "output_tokens": 577,
+          "output_tokens_details": {
+           "thinking_tokens": 365
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 9053,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 365,
+         "cachedInputTokens": 9053
+        },
+        "ms": 8888,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__1.7#r1-anthropic",
+ "accepted_at": "2026-10-07T16:17:29.364Z"
+}

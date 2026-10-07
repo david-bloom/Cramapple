@@ -1,0 +1,954 @@
+[
+ {
+  "id": "L7342",
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.12",
+  "topic_title": "Setting Up a Test for the Difference Between Two Population Proportions",
+  "stem": "Independent random samples of 100 students from School A and 200 students from School B find that 80 and 100 students, respectively, favor a later school start time. Let p₁ and p₂ be the proportions of all students at Schools A and B, respectively, who favor a later start time. A researcher wants to test whether School A has a greater population proportion than School B. Which hypotheses and pooled sample proportion correctly set up this test?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "H₀: p₁ − p₂ = 0; Hₐ: p₁ − p₂ < 0; pooled proportion = 180/300 = 0.60.",
+    "is_correct": false,
+    "rationale": "Reversed-direction error: p₁ − p₂ < 0 represents School A having a smaller proportion, contrary to the researcher's claim. Fix: Translate the claim into an inequality using the stated order of the populations."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "H₀: p₁ − p₂ = 0; Hₐ: p₁ − p₂ > 0; pooled proportion = (0.80 + 0.50)/2 = 0.65.",
+    "is_correct": false,
+    "rationale": "Unweighted-average error: averaging the sample proportions gives both samples equal weight despite their different sizes. The pooled proportion counts all successes over all sampled students. Fix: Add the success counts, then divide by the combined sample size."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "H₀: p̂₁ − p̂₂ = 0; Hₐ: p̂₁ − p̂₂ > 0; pooled proportion = 180/300 = 0.60.",
+    "is_correct": false,
+    "rationale": "Statistic-versus-parameter error: these hypotheses concern observed sample proportions rather than the unknown population proportions. Hypothesis tests make claims about population parameters. Fix: Write hypotheses using p₁ and p₂, reserving p̂₁ and p̂₂ for sample results."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "H₀: p₁ − p₂ = 0; Hₐ: p₁ − p₂ > 0; pooled proportion = 180/300 = 0.60.",
+    "is_correct": true,
+    "rationale": "The claim that School A's proportion is greater translates to p₁ − p₂ > 0. Under the null hypothesis of equal population proportions, pooling gives one estimate from all sampled students: (80 + 100)/(100 + 200) = 0.60."
+   }
+  ]
+ },
+ {
+  "id": "L2146",
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.12",
+  "topic_title": "Confirming Continuity over an Interval",
+  "stem": "Let f(x) = √(x+2)/(x−1). What is the largest interval containing 0 on which f is continuous? Use one-sided continuity at any included endpoint.",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "(−∞, 1)",
+    "is_correct": false,
+    "rationale": "Ignoring the square-root domain: this interval includes x < −2, where √(x+2) is not real. A function cannot be continuous at points where it is undefined. Fix: Require x+2 ≥ 0 before selecting the interval."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "[−2, 1)",
+    "is_correct": true,
+    "rationale": "The square root requires x ≥ −2, and the denominator requires x ≠ 1. The quotient is continuous wherever both requirements hold, including right-hand continuity at −2, so the largest interval containing 0 is [−2, 1)."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "[−2, 1]",
+    "is_correct": false,
+    "rationale": "Including an undefined endpoint: x = 1 makes the denominator zero, so f(1) is undefined. One-sided continuity does not allow an undefined endpoint to be included. Fix: Check that the function is defined at every included endpoint."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "(−2, 1)",
+    "is_correct": false,
+    "rationale": "Automatically excluding a domain endpoint: f is continuous on this interval, but it is not the largest possible interval. Since f(−2) = 0 and lim x→−2⁺ f(x) = 0, the endpoint −2 can be included. Fix: Compare the endpoint value with the limit from inside the interval."
+   }
+  ]
+ },
+ {
+  "id": "L3522",
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.10",
+  "topic_title": "The Investigative Question Revisited and Data Collection",
+  "stem": "Researchers enroll employees who already walk to work and employees who already drive to work. They do not ask anyone to change commuting habits. Over the next six months, they record each employee’s days absent and compare the two groups. Which statement correctly classifies this study and explains why?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It is a prospective observational study because researchers impose no treatment and collect absence data going forward.",
+    "is_correct": true,
+    "rationale": "The researchers observe existing commuting habits rather than assign them, so the study is observational. Recording absences over the next six months makes it prospective."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It is a retrospective observational study because employees chose their commuting habits before the study began.",
+    "is_correct": false,
+    "rationale": "This is the preexisting-condition timing trap: existing commuting habits do not make the study retrospective. The absence data are collected going forward, not retrieved from past records. Fix: Identify when the study’s outcome data are collected relative to its start."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It is an experiment because researchers repeatedly record employees’ absences over six months.",
+    "is_correct": false,
+    "rationale": "This is the tracking-equals-experiment trap: repeated measurements do not constitute an imposed treatment. The researchers record absences without assigning commuting habits. Fix: Check whether researchers impose a treatment or only record what happens."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is an experiment because researchers compare employees with two different commuting habits.",
+    "is_correct": false,
+    "rationale": "This is the comparison-equals-experiment trap: observational studies can also compare groups. Here, the employees’ commuting habits already exist and are not assigned by researchers. Fix: Check how the groups acquired their conditions before labeling the study an experiment."
+   }
+  ]
+ },
+ {
+  "id": "L4804",
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "p-Values",
+  "stem": "A random sample of 100 adults in a city includes 60 who favor a proposed library levy. Let p be the proportion of all adults in the city who favor the levy. A test of H₀: p = 0.50 against Hₐ: p > 0.50 reports an approximate p-value of 0.023. All conditions for the test are met. Which statement correctly interprets this p-value?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The probability that 50% of all adults in the city favor the levy is approximately 0.023.",
+    "is_correct": false,
+    "rationale": "This is the probability-of-the-null trap: it assigns a probability to the null hypothesis. The p-value describes possible sample results assuming the null is true, not the probability that it is true. Fix: Begin your interpretation with the assumption that the population proportion equals 0.50."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "If 50% of all adults in the city favor the levy, the probability that a random sample of 100 adults has exactly 60% favoring it is approximately 0.023.",
+    "is_correct": false,
+    "rationale": "This is the exact-result trap: it includes only the observed outcome. A p-value includes that outcome and outcomes more extreme in the direction of the alternative. Fix: Include sample proportions greater than 0.60 along with the observed proportion."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "If 50% of all adults in the city favor the levy, the probability that a random sample of 100 adults has 60% or less favoring it is approximately 0.023.",
+    "is_correct": false,
+    "rationale": "This is the reversed-tail trap: it counts outcomes below the observed proportion. The alternative p > 0.50 makes larger sample proportions, not smaller ones, evidence against the null. Fix: Use the alternative’s inequality to choose the tail beyond the observed result."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "If 50% of all adults in the city favor the levy, the probability that a random sample of 100 adults has 60% or more favoring it is approximately 0.023.",
+    "is_correct": true,
+    "rationale": "A p-value assumes the null hypothesis is true and measures the probability of a result at least as extreme as the observed result. Because the alternative is p > 0.50, results at least as extreme are sample proportions of 0.60 or greater."
+   }
+  ]
+ },
+ {
+  "id": "L8229",
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point",
+  "stem": "The temperature T(t), in degrees Celsius, of a liquid being heated is recorded at selected times t, in minutes. At t = 0, 2, 5, 6, and 9, the values of T(t) are 20, 26, 35, 38, and 44, respectively. T is differentiable for 0 ≤ t ≤ 9. Using the data, what is the best estimate of T′(5.5)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "8/3 degrees Celsius per minute",
+    "is_correct": false,
+    "rationale": "This uses the distant endpoints, (44 − 20)/(9 − 0) = 24/9 = 8/3, which is the average rate over the whole interval. Over nine minutes the rate changes, so it poorly describes the rate near t = 5.5. Fix: Pick the two table values that bracket the target time most tightly."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "1/3 minute per degree Celsius",
+    "is_correct": false,
+    "rationale": "This inverts the difference quotient, dividing the change in time by the change in temperature. T′ measures change in T per unit change in t, so temperature change belongs in the numerator. Fix: Write Δ(output)/Δ(input) and check the units read degrees Celsius per minute."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "3 degrees Celsius per minute",
+    "is_correct": true,
+    "rationale": "The data points closest to t = 5.5 on either side are t = 5 and t = 6, so the difference quotient (38 − 35)/(6 − 5) = 3 approximates the local slope there. The units are output units per input unit, degrees Celsius per minute."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "36.5 degrees Celsius",
+    "is_correct": false,
+    "rationale": "This averages T(5) and T(6), which estimates the temperature T(5.5), not its rate of change. A derivative estimate needs a difference quotient, not an average of function values. Fix: Ask whether the question wants a value of T or of T′ before computing."
+   }
+  ]
+ },
+ {
+  "id": "L8451",
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.8",
+  "topic_title": "Representations of Solutions",
+  "stem": "A student draws particulate diagrams of two aqueous glucose solutions. Diagram 1 shows a container labeled 1.0 L with 8 dissolved glucose molecules. Diagram 2 shows a container labeled 0.50 L with 5 dissolved glucose molecules. Water molecules are omitted and each drawn molecule represents the same number of moles. Which statement correctly compares the molarities of the two solutions?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Solution 1 has the greater molarity, by a factor of 1.6.",
+    "is_correct": false,
+    "rationale": "This counts drawn particles (8 versus 5) without checking that the diagrams show different volumes. Concentration depends on particles per liter, not total particles drawn. Fix: Divide each particle count by its labeled volume before comparing."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Solution 1 has the greater molarity, by a factor of 3.2.",
+    "is_correct": false,
+    "rationale": "This multiplies particle count by volume (8 × 1.0 = 8 versus 5 × 0.50 = 2.5), which treats volume as if it increases concentration. Molarity is n/V, so a larger volume dilutes the solute. Fix: Write M = n/V and check that volume sits in the denominator."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Solution 1 has the greater molarity, by a factor of 1.25.",
+    "is_correct": false,
+    "rationale": "This inverts the ratio, computing liters per particle (1.0/8 = 0.125 versus 0.50/5 = 0.10) and treating the larger value as more concentrated. A larger volume per particle means a more dilute solution. Fix: Check units; concentration must be particles per liter, not liters per particle."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Solution 2 has the greater molarity, by a factor of 1.25.",
+    "is_correct": true,
+    "rationale": "Molarity is moles of solute per liter of solution, so particle counts must be divided by volume. Diagram 1 gives 8/1.0 = 8 particles per liter, and Diagram 2 gives 5/0.50 = 10 particles per liter. Since 10/8 = 1.25, Solution 2 is more concentrated."
+   }
+  ]
+ },
+ {
+  "id": "L1982",
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy",
+  "stem": "A cell builds a polymer from monomers in a reaction that requires energy input. A second reaction releases more energy than polymer synthesis requires. The cell couples these reactions. Which statement explains how this coupling supports polymer synthesis?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Coupling creates new energy that the cell uses to build the polymer.",
+    "is_correct": false,
+    "rationale": "Energy-creation misconception: Coupling transfers energy between processes; it does not create energy. Cells obey conservation of energy even when they build ordered structures. Fix: Identify the source of energy before explaining how a cellular process uses it."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The reactions only need to occur simultaneously; no energy transfer between them is necessary.",
+    "is_correct": false,
+    "rationale": "Coincidence-as-coupling error: Simultaneous reactions are not necessarily coupled. Polymer synthesis requires a connection that allows energy from the releasing reaction to drive the energy-requiring process. Fix: Check whether released energy actually supports the process, rather than merely being released nearby."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Coupling allows the cell to recycle energy indefinitely, eliminating its need for additional energy input.",
+    "is_correct": false,
+    "rationale": "Energy-recycling misconception: Energy transfers include losses of usable energy, so coupling cannot power cellular work indefinitely. Living systems require continuing energy input to maintain organization and function. Fix: Trace energy input and energy loss instead of assuming energy cycles like matter."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Energy released by the second reaction supplies the energy required for polymer synthesis.",
+    "is_correct": true,
+    "rationale": "Polymer synthesis requires an energy input. Coupling connects an energy-releasing reaction to this energy-requiring process, allowing released energy to drive synthesis rather than being unavailable for that work."
+   }
+  ]
+ },
+ {
+  "id": "L5940",
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Estimating Limit Values from Graphs",
+  "stem": "Near x = 3, the graph of f has a left-hand branch approaching an open circle at (3, 2) and a right-hand branch approaching an open circle at (3, 6). A filled point is at (3, 8). What is lim x→3 f(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "8",
+    "is_correct": false,
+    "rationale": "Function-value confusion: the filled point gives f(3) = 8, not the value approached by nearby graph branches. Neither branch approaches 8. Fix: Trace both nearby branches before using the filled point."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "2",
+    "is_correct": false,
+    "rationale": "One-sided reasoning: 2 is the left-hand limit, but the right-hand branch approaches 6. The left-hand behavior alone cannot establish a two-sided limit. Fix: Trace the graph toward x = 3 from the right as well."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit does not exist.",
+    "is_correct": true,
+    "rationale": "The graph approaches 2 from the left and 6 from the right. A two-sided limit requires both sides to approach the same value, so this limit does not exist."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "4",
+    "is_correct": false,
+    "rationale": "Averaging unequal limits: averaging 2 and 6 gives 4, but neither branch approaches 4. A two-sided limit requires agreement, not an average. Fix: Compare the two approached values instead of averaging them."
+   }
+  ]
+ },
+ {
+  "id": "L1419",
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.14",
+  "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+  "stem": "Let f(x) = 3/(x−2) for x ≠ 2. Which statement correctly describes the behavior of f near x = 2 and its connection to a vertical asymptote?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "lim x→2⁻ f(x) = ∞ and lim x→2⁺ f(x) = −∞; the line x = 2 is a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Reversed-side sign error: this assigns a positive denominator to the left side and a negative denominator to the right side. In fact, x−2 is negative when x < 2 and positive when x > 2. Fix: Test the denominator’s sign at one input on each side of 2."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "lim x→2⁻ f(x) = ∞ and lim x→2⁺ f(x) = ∞; the line x = 2 is a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Ignoring the denominator’s sign: a denominator approaching zero does not always produce positive unbounded values. On the left, the positive numerator divided by a negative denominator gives negative values with increasing magnitude. Fix: Determine the quotient’s sign on each side before assigning ∞ or −∞."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "lim x→2⁻ f(x) = −∞ and lim x→2⁺ f(x) = ∞; the line x = 2 is a vertical asymptote.",
+    "is_correct": true,
+    "rationale": "From the left, x−2 is negative and approaches zero, so f(x) decreases without bound. From the right, x−2 is positive and approaches zero, so f(x) increases without bound. This unbounded behavior makes x = 2 a vertical asymptote."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The two-sided limit as x→2 does not exist, so x = 2 is not a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Two-sided-limit requirement error: a vertical asymptote does not require matching one-sided limits. Although the two-sided limit does not exist here, the one-sided unbounded behavior establishes the vertical asymptote. Fix: Check each one-sided limit for unbounded behavior before ruling out a vertical asymptote."
+   }
+  ]
+ },
+ {
+  "id": "L7412",
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Mass Spectra of Elements",
+  "stem": "A sample of an element contains only two isotopes. Its mass spectrum, obtained from singly charged monatomic ions, shows a peak at 50.0 amu with relative abundance 75.0% and a peak at 54.0 amu with relative abundance 25.0%. What is the average atomic mass of the element in this sample?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "52.0 amu",
+    "is_correct": false,
+    "rationale": "Equal-weight averaging gives (50.0 + 54.0)/2 = 52.0 amu, but this assumes equal isotope abundances. The spectrum instead shows three times as much of the lighter isotope. Fix: Multiply each isotope’s mass by its fractional abundance before adding."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "50.0 amu",
+    "is_correct": false,
+    "rationale": "The most-abundant-isotope trap treats the largest peak’s mass as the average. The heavier isotope also contributes, so the average must exceed 50.0 amu. Fix: Include a weighted contribution from every isotope peak."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "53.0 amu",
+    "is_correct": false,
+    "rationale": "Reversing the abundances gives (50.0 × 0.250) + (54.0 × 0.750) = 53.0 amu. This incorrectly assigns the larger abundance to the heavier isotope. Fix: Pair each peak’s mass with its own abundance before multiplying."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "51.0 amu",
+    "is_correct": true,
+    "rationale": "Average atomic mass weights each isotope’s mass by its fractional abundance: (50.0 × 0.750) + (54.0 × 0.250) = 51.0 amu. The result is closer to 50.0 amu because that isotope is more abundant."
+   }
+  ]
+ },
+ {
+  "id": "L1694",
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Estimators",
+  "stem": "In a school district, 40% of students walk to school. A simple random sample of 50 students gives a sample proportion of 0.46 who walk to school. Averaging the sample proportions from all possible simple random samples of 50 students gives 0.40. Which statement correctly describes estimation in this setting?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The sample proportion is an unbiased estimator of the population proportion, even though this sample gives 0.46.",
+    "is_correct": true,
+    "rationale": "The sample proportion estimates the population proportion. Because its average across all possible samples equals 0.40, it does not systematically overestimate or underestimate the population proportion; an individual estimate can still differ from 0.40."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The sample proportion is a biased estimator because this sample gives 0.46, which exceeds 0.40.",
+    "is_correct": false,
+    "rationale": "Single-sample bias error: one estimate above the parameter does not establish systematic overestimation. Bias concerns the estimator’s average across possible samples, which here equals the population proportion. Fix: Compare the average across possible samples with the population parameter."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The sample proportion is unbiased, so every simple random sample of 50 students must give 0.40.",
+    "is_correct": false,
+    "rationale": "Unbiased-means-exact error: unbiasedness describes the average of estimates, not every individual estimate. Sample proportions can vary while averaging to the population proportion. Fix: Distinguish an individual sample’s estimate from the average across possible samples."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The population proportion 0.40 is an estimator of the sample proportion 0.46.",
+    "is_correct": false,
+    "rationale": "Parameter–statistic reversal: the population proportion describes the entire district, while the sample proportion describes the selected students. The sample statistic estimates the population parameter, not the reverse. Fix: Identify which quantity describes the sample and which describes the population."
+   }
+  ]
+ },
+ {
+  "id": "L6647",
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.15",
+  "topic_title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+  "stem": "Let f(x) = (3x²+2)/(x²+1). Which equation gives the horizontal asymptote of the graph of f?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "y = 2",
+    "is_correct": false,
+    "rationale": "Finite-input trap: f(0) = 2 describes the function at one input, not its end behavior. A horizontal asymptote comes from a finite limit as x→∞ or x→−∞. Fix: Compute the limits at infinity instead of substituting x = 0."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "y = 3",
+    "is_correct": true,
+    "rationale": "Dividing numerator and denominator by x² gives f(x) = (3+2/x²)/(1+1/x²) for x ≠ 0. As x→∞ or x→−∞, the terms containing 1/x² approach 0, so f(x) approaches 3 and the horizontal asymptote is y = 3."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "y = 0",
+    "is_correct": false,
+    "rationale": "Growing-denominator trap: a denominator that grows without bound does not force the quotient toward 0. The numerator also grows quadratically, so their ratio approaches 3. Fix: Divide every term in the numerator and denominator by x² before taking the limit."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "y = 1/3",
+    "is_correct": false,
+    "rationale": "Reversed-ratio trap: this uses the denominator’s leading coefficient divided by the numerator’s. For equal-degree polynomials, the end-behavior limit is the numerator’s leading coefficient divided by the denominator’s, giving 3/1. Fix: Write the numerator’s leading coefficient above the denominator’s before simplifying."
+   }
+  ]
+ },
+ {
+  "id": "L3502",
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.15",
+  "topic_title": "Carrying Out a Chi-Square Test for Homogeneity or Independence",
+  "stem": "A researcher uses a chi-square test of independence to investigate the association between neighborhood and preferred method of transportation among adults in a city. All conditions for the test are met. One cell has an observed count of 10 and an expected count of 8. What is this cell’s contribution to the χ² test statistic?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0.25",
+    "is_correct": false,
+    "rationale": "Missing-square error: (10 − 8)/8 = 0.25 uses the difference without squaring it. A chi-square contribution requires the squared difference. Fix: Square the observed-minus-expected difference before dividing by the expected count."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "4",
+    "is_correct": false,
+    "rationale": "Missing-denominator error: (10 − 8)² = 4 is only the numerator of the contribution. It must be divided by the expected count. Fix: Divide the squared difference by the cell’s expected count."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "0.5",
+    "is_correct": true,
+    "rationale": "Each cell contributes (observed − expected)²/expected. For this cell, (10 − 8)²/8 = 4/8 = 0.5."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0.4",
+    "is_correct": false,
+    "rationale": "Wrong-denominator error: (10 − 8)²/10 = 0.4 divides by the observed count. The chi-square formula divides by the expected count, which is 8. Fix: Label observed and expected counts before substituting into the formula."
+   }
+  ]
+ },
+ {
+  "id": "L3677",
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.10",
+  "topic_title": "Origins of Cell Compartmentalization",
+  "stem": "Which statement correctly connects the endosymbiotic origin of mitochondria and chloroplasts with differences in compartmentalization between prokaryotic and eukaryotic cells?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Mitochondria and chloroplasts originated solely from folds in a host cell’s membranes; prokaryotic cells typically have specialized internal regions without membrane-bound organelles, whereas eukaryotic cells use internal membranes to partition specialized regions.",
+    "is_correct": false,
+    "rationale": "Membrane-folding origin trap: This substitutes a change in the host’s membranes for the incorporation of free-living prokaryotes. Endosymbiotic theory identifies those prokaryotes as the ancestors of mitochondria and chloroplasts. Fix: Check whether the proposed origin includes once free-living cells becoming organelles."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Mitochondria and chloroplasts evolved from free-living prokaryotes; prokaryotic cells lack any specialized internal organization, whereas eukaryotic cells use internal membranes to partition specialized regions.",
+    "is_correct": false,
+    "rationale": "No-organization trap: Lacking membrane-bound organelles does not mean lacking internal organization. Prokaryotes have specialized internal regions even though they typically lack membrane-bound organelles. Fix: Separate the presence of specialized regions from the presence of membrane-bound organelles."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Free-living prokaryotes evolved from mitochondria and chloroplasts; prokaryotic cells typically have specialized internal regions without membrane-bound organelles, whereas eukaryotic cells use internal membranes to partition specialized regions.",
+    "is_correct": false,
+    "rationale": "Reversed-ancestry trap: This reverses the evolutionary relationship described by endosymbiotic theory. Free-living prokaryotes were ancestors of mitochondria and chloroplasts, not descendants of those organelles. Fix: Trace the proposed ancestry from free-living prokaryotes to organelles within host cells."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Mitochondria and chloroplasts evolved from free-living prokaryotes; prokaryotic cells typically have specialized internal regions without membrane-bound organelles, whereas eukaryotic cells use internal membranes to partition specialized regions.",
+    "is_correct": true,
+    "rationale": "Endosymbiotic theory explains these organelles as descendants of once free-living prokaryotes that lived within another cell. The compartmentalization comparison distinguishes organization into specialized regions from partitioning by internal membranes."
+   }
+  ]
+ },
+ {
+  "id": "L4719",
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "topic_title": "Connecting Multiple Representations of Limits",
+  "stem": "The function f is defined by f(x) = (x² − 9)/(x − 3) for x ≠ 3, and f(3) = 2. A table gives these values: at x = 2.9, f(x) = 5.9; at x = 2.99, f(x) = 5.99; at x = 3.01, f(x) = 6.01; at x = 3.1, f(x) = 6.1. Which statement is consistent with both the formula and the table?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "lim x→3 f(x) = 2, because f(3) = 2.",
+    "is_correct": false,
+    "rationale": "This matches the limit to the function value instead of to the approach behavior. Nearby values cluster around 6 in both the table and the simplified formula, not around 2. Fix: Read the table entries on each side of x = 3 and ask what value they approach."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "lim x→3 f(x) does not exist, because substituting x = 3 into the formula gives 0/0.",
+    "is_correct": false,
+    "rationale": "This treats the indeterminate form 0/0 as proof that no limit exists. A 0/0 result only signals that more work is needed; factoring gives x + 3, whose limit at 3 is 6. Fix: When substitution gives 0/0, factor and cancel, then evaluate the simplified expression."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "lim x→3 f(x) does not exist, because f(3) = 2 does not match the trend in the table.",
+    "is_correct": false,
+    "rationale": "This confuses a limit failing to exist with a function being discontinuous. A mismatch between f(3) and the trend makes f discontinuous at 3, but both one-sided limits equal 6, so the limit exists. Fix: Compare the left and right approach values to each other, not to f(3)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "lim x→3 f(x) = 6, even though f(3) = 2.",
+    "is_correct": true,
+    "rationale": "For x ≠ 3 the formula simplifies to x + 3, which approaches 6 as x approaches 3. The table shows values approaching 6 from both sides. The limit describes approach behavior, so the separately assigned value f(3) = 2 does not affect it."
+   }
+  ]
+ },
+ {
+  "id": "L1518",
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Atomic Structure and Electron Configuration",
+  "stem": "In a simplified model of an atom, an electron is moved from a distance r to a distance 2r from the nucleus. The nuclear charge and the electron’s charge remain unchanged. How does the magnitude of the attractive electrostatic force on the electron change?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It decreases to one-half of its original value.",
+    "is_correct": false,
+    "rationale": "Inverse-linear trap: This treats the force as proportional to 1/r rather than 1/r². The distance must be squared when calculating the force ratio. Fix: Square the distance-change factor before taking its reciprocal."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It increases to four times its original value.",
+    "is_correct": false,
+    "rationale": "Direct-square trap: This treats the force as proportional to r² instead of 1/r². Increasing the separation weakens the attraction when both charges remain unchanged. Fix: Put the squared distance-change factor in the denominator of the force ratio."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It remains unchanged.",
+    "is_correct": false,
+    "rationale": "Charge-only trap: Unchanged charges do not guarantee an unchanged force. Coulomb’s law also depends on the separation between the electron and nucleus, which doubles here. Fix: Check both the charge product and the separation before comparing forces."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It decreases to one-fourth of its original value.",
+    "is_correct": true,
+    "rationale": "Coulomb’s law gives a force magnitude proportional to 1/r² when the charges remain constant. Doubling the distance therefore multiplies the force by 1/2² = 1/4."
+   }
+  ]
+ },
+ {
+  "id": "L4022",
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.9",
+  "topic_title": "Separation of Solutions and Mixtures",
+  "stem": "Two dyes, X and Y, are completely dissolved in water. In a paper chromatography setup, both dyes dissolve equally well in the moving solvent, but X is attracted more strongly than Y to the stationary paper. Which procedure and predicted result are best supported by this information?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Use paper chromatography; Y will travel farther from the starting line than X.",
+    "is_correct": true,
+    "rationale": "Chromatography separates substances through differences in their interactions with the stationary and mobile phases. Because X interacts more strongly with the paper while both dyes interact equally with the moving solvent, X moves less far than Y."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Use ordinary filtration; both dyes will remain on the filter while the water passes through.",
+    "is_correct": false,
+    "rationale": "Dissolved-solute filtration error: Ordinary filtration separates suspended solids from a liquid, not dissolved dye molecules from water. These dyes are dissolved rather than present as suspended particles. Fix: Check whether the material to be removed is dissolved or suspended before choosing filtration."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Use paper chromatography; X will travel farther from the starting line than Y.",
+    "is_correct": false,
+    "rationale": "Stationary-phase attraction reversal: Stronger attraction to the stationary paper holds a dye back rather than carrying it forward. X therefore travels less far than Y. Fix: Identify which phase moves, then determine which dye is held more strongly by the stationary phase."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Use paper chromatography; X and Y will travel the same distance because they dissolve equally well in the moving solvent.",
+    "is_correct": false,
+    "rationale": "Mobile-phase-only reasoning: Equal solubility in the moving solvent does not guarantee equal travel distances. The dyes differ in their attraction to the stationary paper, allowing separation. Fix: Compare each dye’s interactions with both the moving solvent and the stationary paper."
+   }
+  ]
+ },
+ {
+  "id": "L9333",
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Introduction to Macromolecules",
+  "stem": "A cell breaks a covalent bond linking two monomers in a polymer. Which statement correctly identifies this reaction and describes the role of water?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The reaction is dehydration synthesis, and water is released.",
+    "is_correct": false,
+    "rationale": "The trap is confusing polymer breakdown with polymer building. Dehydration synthesis releases water while forming a covalent bond, but the cell described here is breaking a bond. Fix: Determine whether the reaction joins monomers or separates them before naming it."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The reaction is hydrolysis, and water is released.",
+    "is_correct": false,
+    "rationale": "The trap is reversing water's role in hydrolysis. The reaction is correctly named, but hydrolysis consumes water to break the bond rather than producing water. Fix: Place water on the reactant side when describing hydrolysis."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The reaction is hydrolysis, and water is consumed.",
+    "is_correct": true,
+    "rationale": "Hydrolysis breaks the bond by adding water, with H attaching to one monomer and OH attaching to the other. Water is therefore a reactant rather than a product."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The reaction is dehydration synthesis, and water is consumed.",
+    "is_correct": false,
+    "rationale": "The trap is attaching the wrong reaction name to water consumption. Adding water to cleave a polymer bond describes hydrolysis; dehydration synthesis instead joins monomers and releases water. Fix: Match bond cleavage and water addition to hydrolysis before selecting a reaction name."
+   }
+  ]
+ },
+ {
+  "id": "L5713",
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Elemental Composition of Pure Substances",
+  "stem": "A sample of a pure compound contains only iron and oxygen: 112 g of Fe and 48 g of O. What is the empirical formula of the compound? Use molar masses of 56 g/mol for Fe and 16 g/mol for O.",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Fe₇O₃",
+    "is_correct": false,
+    "rationale": "Mass-ratio trap: Reducing 112:48 gives 7:3, but formula subscripts represent atom ratios, not mass ratios. Different elements have different molar masses. Fix: Convert each element’s mass to moles before comparing amounts."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "FeO₂",
+    "is_correct": false,
+    "rationale": "Premature-rounding trap: Dividing the mole amounts by 2 gives 1:1.5, not 1:2. Rounding 1.5 to 2 changes the composition rather than preserving the ratio. Fix: Multiply every ratio value by 2 when a half-integer remains."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Fe₂O₃",
+    "is_correct": true,
+    "rationale": "The sample contains 112/56 = 2 mol Fe and 48/16 = 3 mol O. The simplest whole-number mole ratio is 2:3, so the empirical formula is Fe₂O₃."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Fe₄O₆",
+    "is_correct": false,
+    "rationale": "Unreduced-ratio trap: A 4:6 atom ratio matches the composition, but it is not the lowest whole-number ratio. An empirical formula requires the simplest ratio. Fix: Divide all subscripts by their greatest common factor."
+   }
+  ]
+ },
+ {
+  "id": "L6864",
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.5",
+  "topic_title": "Cellular Respiration",
+  "stem": "A cell in a gland secretes large amounts of a protein hormone. Electron micrographs show that its cytoplasm is packed with extensive, flattened membrane sacs whose outer surfaces are densely studded with ribosomes. Which statement best explains how this structure supports the cell's function?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The sacs are smooth ER; their extensive membranes synthesize lipids and detoxify substances, supplying the materials the cell needs to secrete the hormone.",
+    "is_correct": false,
+    "rationale": "This confuses rough and smooth ER. Smooth ER lacks ribosomes and carries out lipid synthesis and detoxification, so it cannot explain heavy protein production by ribosome-studded membranes. Fix: Check whether the described membranes carry ribosomes before naming the ER type, since ribosomes signal rough ER and protein synthesis."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The sacs are Golgi stacks; the ribosomes on their flattened surfaces synthesize the hormone, which is then released directly from the Golgi.",
+    "is_correct": false,
+    "rationale": "This mistakes flattened sacs for the Golgi just because of their shape. The Golgi is not studded with ribosomes; it modifies and packages proteins that were already made elsewhere, so it does not synthesize the hormone. Fix: Ask which feature of the structure matches the function, and look for bound ribosomes rather than relying on sac shape alone."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The ribosomes are attached to the membranes so they can produce ATP, supplying the energy the cell needs to export large amounts of hormone.",
+    "is_correct": false,
+    "rationale": "This assigns a mitochondrial job to ribosomes. Ribosomes, made of rRNA and protein, synthesize proteins from mRNA; ATP synthesis is supported by the convoluted inner mitochondrial membrane, not by ribosome-studded membranes. Fix: Match each structure to its own function first, then ask whether the feature described actually supports that function."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The sacs are rough ER; their membrane-bound ribosomes synthesize the protein hormone, and the ER membranes, as part of the endomembrane system, carry the protein onward to be modified, packaged, and transported out of the cell.",
+    "is_correct": true,
+    "rationale": "This names the structure (rough ER), the function (protein synthesis), and the feature that makes it possible: ribosomes bound to the ER membrane. An extensive rough ER means many ribosomes making protein, and its membranes feed the endomembrane pathway that modifies, packages, and transports the hormone for secretion."
+   }
+  ]
+ },
+ {
+  "id": "L9890",
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.12",
+  "topic_title": "Sampling Distributions and the Central Limit Theorem",
+  "stem": "A population of delivery times is strongly right-skewed and has a finite mean and standard deviation. For a chosen sample size n, a researcher repeatedly takes independent random samples and records each sample’s mean delivery time. Which statement correctly applies the Central Limit Theorem to this process?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "As n increases, the population distribution of delivery times becomes more nearly normal.",
+    "is_correct": false,
+    "rationale": "Population-normality trap: Increasing sample size does not change the population of delivery times. The Central Limit Theorem describes the distribution of sample means, not individual delivery times. Fix: Identify whether each plotted value represents an individual or a whole sample’s mean."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "As n increases, the distribution of individual delivery times within each sample becomes more nearly normal.",
+    "is_correct": false,
+    "rationale": "Sample-data normality trap: The Central Limit Theorem does not make individual observations within a sample normally distributed. Those observations still come from the right-skewed population. Fix: Separate the distribution within one sample from the distribution of means across samples."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "With n fixed at 1, increasing the number of repeated samples makes the distribution of recorded sample means more nearly normal.",
+    "is_correct": false,
+    "rationale": "Repetition-versus-size trap: With n = 1, each sample mean is one individual delivery time, so its distribution matches the right-skewed population. More repetitions do not increase the size of each sample. Fix: Check whether the change increases observations per sample or only the number of samples."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "As n increases, the sampling distribution of the sample mean becomes more nearly normal, even though the population remains right-skewed.",
+    "is_correct": true,
+    "rationale": "Each recorded value summarizes a whole sample, so these values represent a sampling distribution of the mean. The Central Limit Theorem concerns this distribution’s shape as sample size increases, not the population’s shape."
+   }
+  ]
+ },
+ {
+  "id": "L5540",
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Proteins",
+  "stem": "A water-soluble protein folds so that several amino acids with hydrophobic R groups cluster in its interior, away from the surrounding water. A mutation replaces one of these interior amino acids with an amino acid whose R group is ionic (charged). Which prediction best describes the most likely effect of this substitution?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The protein's function would be unchanged, because a single substitution does not change the protein's primary structure.",
+    "is_correct": false,
+    "rationale": "This trap assumes one substitution is too small to matter. Primary structure is the amino acid sequence itself, so any substitution changes it, and a buried charged R group can alter folding and function. Fix: Ask whether the sequence changed, then trace sequence to folding to function."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The peptide bonds next to the new amino acid would break, splitting the polypeptide into two shorter chains.",
+    "is_correct": false,
+    "rationale": "This confuses R-group interactions with the backbone. Peptide bonds link the carboxyl of one amino acid to the amine of the next, and every amino acid has these groups regardless of its R group. Fix: Check whether a change involves the backbone or the R group before predicting its effect."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Only the secondary structure would be affected, because alpha helices and beta sheets are held together by interactions between R groups.",
+    "is_correct": false,
+    "rationale": "This misassigns the bonds behind each structural level. Secondary structure comes from hydrogen bonds between backbone atoms, while hydrophobic and ionic R-group interactions shape tertiary structure. Fix: Match each interaction type to its structural level before deciding which level changes."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The charged R group would disrupt hydrophobic interactions in the interior, altering the tertiary structure and likely impairing the protein's function.",
+    "is_correct": true,
+    "rationale": "A charged R group does not interact favorably with the nonpolar cluster, so the interactions that stabilize the folded interior change. Tertiary structure depends on R-group interactions, so the 3D shape shifts, and because shape determines function, the protein may no longer work properly."
+   }
+  ]
+ },
+ {
+  "id": "L4129",
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Plasma Membrane",
+  "stem": "A protein spans a cell’s plasma membrane, with portions exposed to the watery environments inside and outside the cell. Which arrangement of phospholipids and protein regions is most consistent with the fluid mosaic model?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Phospholipid heads face the watery environments; tails face inward. Hydrophobic protein regions contact the tails, while hydrophilic protein regions face water.",
+    "is_correct": true,
+    "rationale": "Hydrophilic heads interact with water, while hydrophobic tails form the bilayer’s interior. The protein’s orientation similarly places hydrophobic regions against the tails and hydrophilic regions in contact with water."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Phospholipid tails face the watery environments; heads face inward. Hydrophobic protein regions contact the tails, while hydrophilic protein regions contact the heads.",
+    "is_correct": false,
+    "rationale": "The inverted-bilayer trap reverses phospholipid orientation. Hydrophobic tails avoid water, while hydrophilic heads face the watery environments on both sides of the membrane. Fix: Identify the water-facing surfaces, then place hydrophilic heads at those surfaces."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Phospholipid heads face the watery environments; tails face inward. Hydrophilic protein regions contact the tails, while hydrophobic protein regions face water.",
+    "is_correct": false,
+    "rationale": "The reversed-protein-orientation trap correctly places phospholipids but mismatches protein regions with their surroundings. Hydrophilic regions favor contact with water, not the hydrophobic tail region. Fix: Match each protein region’s hydrophilic or hydrophobic character to its surroundings."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Phospholipid heads face the watery environments; tails face inward. Every region of the spanning protein is hydrophobic because the protein is embedded in the membrane.",
+    "is_correct": false,
+    "rationale": "The uniformly-hydrophobic-protein trap treats membrane location as determining the entire protein’s character. A spanning protein can contain both hydrophobic regions within the bilayer and hydrophilic regions exposed to water. Fix: Evaluate the surroundings of each protein region rather than classifying the whole protein together."
+   }
+  ]
+ },
+ {
+  "id": "L2102",
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.4",
+  "topic_title": "Membrane Permeability",
+  "stem": "A researcher makes artificial vesicles enclosed by a pure phospholipid bilayer containing no proteins. Equal concentrations of four substances are added to the solution outside the vesicles. Which substance would enter the vesicles most rapidly, and what is the reason?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "H₂O, because it is smaller than every other substance listed and so passes through the bilayer fastest",
+    "is_correct": false,
+    "rationale": "This trap judges permeability by size alone and ignores polarity. Water is small but polar, so the hydrophobic core lets it through only in small amounts without aquaporins, much more slowly than a small nonpolar molecule. Fix: Ask whether the molecule is polar or nonpolar before considering size, since a hydrophobic interior slows polar molecules."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Glucose, because cells require it for energy, so the membrane allows it to pass readily",
+    "is_correct": false,
+    "rationale": "This trap explains movement by what the cell needs rather than by molecular properties. Glucose is a large polar molecule that cannot cross the hydrophobic core in meaningful amounts, and these vesicles lack the transport proteins it would require. Fix: Explain crossing using the molecule's size, polarity, and charge, and check whether a needed transport protein is present."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "O₂, because it is small and nonpolar, so it can dissolve through the hydrophobic interior of the bilayer without a protein",
+    "is_correct": true,
+    "rationale": "The bilayer's hydrocarbon tails form a hydrophobic core that small nonpolar molecules such as O₂ pass through freely. Polar molecules and ions are blocked or slowed by that core, and these vesicles have no channels or carriers to help them, so O₂ crosses fastest. Quantitatively, the Goldman–Hodgkin–Katz equation predicts each ion's permeability-weighted contribution to this result."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "K⁺, because a single ion is tiny and can slip between the phospholipid molecules",
+    "is_correct": false,
+    "rationale": "This trap treats a charged particle as if small size were enough. The charge makes K⁺ strongly hydrophilic, so the hydrocarbon tails block it, and with no channel proteins it essentially cannot cross. Fix: Check for a charge first; any ion needs a channel or transport protein to cross the hydrophobic interior."
+   }
+  ]
+ },
+ {
+  "id": "L3421",
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Enzymes",
+  "stem": "Substrate X has a shape and charge compatible with an enzyme’s active site. Substrate Y is similar in size to X but has an incompatible shape and charge. Which explanation best predicts how this enzyme affects the reactions of X and Y?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The enzyme speeds X’s reaction by supplying the energy needed to overcome the activation-energy barrier.",
+    "is_correct": false,
+    "rationale": "Energy-supply misconception: this treats the enzyme as an energy source. Enzymes speed reactions by lowering the activation-energy barrier, not by supplying energy to overcome it. Fix: Check whether the proposed mechanism lowers an energy barrier or supplies energy."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The enzyme speeds X’s reaction by lowering its activation energy but does not catalyze Y’s reaction because Y cannot bind appropriately.",
+    "is_correct": true,
+    "rationale": "X can form an enzyme-substrate complex because its shape and charge fit the active site. This interaction lowers the activation-energy barrier, increasing reaction rate; Y’s incompatible shape and charge prevent appropriate binding."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The enzyme speeds both reactions because substrates of similar size can use the same active site.",
+    "is_correct": false,
+    "rationale": "Size-only specificity trap: similar size does not establish compatibility with an active site. Substrate shape and charge must also permit appropriate binding, which Y lacks. Fix: Compare both shape and charge with the active site before predicting catalysis."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The enzyme speeds X’s reaction by raising its activation energy, while Y’s reaction is unaffected.",
+    "is_correct": false,
+    "rationale": "Activation-energy reversal: raising the energy barrier would hinder a reaction rather than speed it. Enzyme catalysis increases reaction rate by lowering that barrier. Fix: Check whether the stated barrier change makes the reaction easier or harder to initiate."
+   }
+  ]
+ },
+ {
+  "id": "L8753",
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.4",
+  "topic_title": "Carbohydrates",
+  "stem": "Starch and cellulose are both carbohydrates found in plants. Which statement correctly connects their structures to their biological functions?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Starch and cellulose both contain glucose units, so both function primarily as energy-storage polysaccharides.",
+    "is_correct": true,
+    "rationale": "The same-monomer, same-function trap ignores how polymer organization affects function. Sharing glucose monomers does not make cellulose an energy-storage carbohydrate; its organization supports plant cell walls. Fix: Compare each polymer’s organization and biological role instead of assigning function from its monomer alone."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Starch is a polysaccharide used for energy storage, whereas cellulose is a monosaccharide used for plant cell wall support.",
+    "is_correct": false,
+    "rationale": "The monomer–polymer confusion misclassifies cellulose. Cellulose consists of many covalently linked sugar monomers, making it a polysaccharide rather than a monosaccharide. Fix: Check whether each carbohydrate is a single sugar unit or a chain of sugar units before naming its type."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Starch chains provide structural support in plant cell walls, whereas cellulose chains store glucose units for later energy use.",
+    "is_correct": false,
+    "rationale": "The storage–support reversal assigns each polysaccharide the other’s role. Starch functions in energy storage, while cellulose contributes to plant cell wall support. Fix: Match each carbohydrate’s name to its biological role before connecting its polymer structure to that function."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Starch is a polysaccharide that stores glucose units for later energy use, whereas cellulose is a polysaccharide whose chains are organized to support plant cell walls.",
+    "is_correct": false,
+    "rationale": "Both carbohydrates contain glucose monomers joined by covalent bonds, but their different organization supports different functions. Starch stores glucose units for later energy use, while cellulose chains form structural material in plant cell walls."
+   }
+  ]
+ },
+ {
+  "id": "L5142",
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.2",
+  "topic_title": "Cell Size",
+  "stem": "A cube-shaped cell grows from a side length of 10 µm to a side length of 20 µm. For a cube, surface area = 6s² and volume = s³. Which statement correctly describes how this growth changes the cell's surface area-to-volume ratio and its exchange with the environment?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Surface area and volume both increase 8-fold, so the SA:V ratio stays the same and exchange efficiency is unchanged.",
+    "is_correct": false,
+    "rationale": "This error assumes that surface area and volume scale together. Surface area depends on s², so doubling the side multiplies it by 4, not 8, and the ratio drops. Fix: Compute surface area and volume separately at both sizes before you compare their ratio."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Surface area increases faster than volume, so the SA:V ratio rises and the larger cell exchanges materials more efficiently.",
+    "is_correct": false,
+    "rationale": "This reverses the exponents. Volume (s³) grows faster than surface area (s²), so the ratio falls as the cell gets larger, and exchange becomes less efficient. Fix: Check which quantity has the higher exponent, since that quantity grows faster as size increases."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Total surface area increases 4-fold, so the cell has more membrane and supplies its cytoplasm more efficiently than before.",
+    "is_correct": false,
+    "rationale": "This confuses absolute surface area with the surface area-to-volume ratio. Total membrane does increase, but volume increases 8-fold, so each unit of cytoplasm has less membrane serving it. Fix: Ask whether the question concerns total surface area or surface area per unit volume, and then compute SA:V."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Surface area increases 4-fold while volume increases 8-fold, so the SA:V ratio falls from 0.6 to 0.3 µm⁻¹ and each unit of cytoplasm is served by less membrane, making exchange less efficient.",
+    "is_correct": true,
+    "rationale": "Surface area scales with s² (600 to 2,400 µm²) but volume scales with s³ (1,000 to 8,000 µm³). Volume, which sets the demand for nutrients and waste removal, outpaces the membrane that supplies it. The ratio halves, so exchange per unit volume drops. Doubling a cube's side length doubles its surface-area-to-volume ratio."
+   }
+  ]
+ },
+ {
+  "id": "L6402",
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Types of Chemical Bonds",
+  "stem": "Hydrogen and chlorine have electronegativities of 2.2 and 3.2, respectively. The atoms share a pair of electrons in an H–Cl bond. Which description best accounts for the bond’s electron distribution and bonding character?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The bond is polar covalent, with a partial negative charge on H and some ionic character.",
+    "is_correct": false,
+    "rationale": "Reversed partial charges: the more electronegative atom attracts the shared electrons more strongly, so Cl, not H, carries the partial negative charge. Fix: Compare electronegativities and assign the partial negative charge to the higher value."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The bond is nonpolar covalent because both atoms are nonmetals.",
+    "is_correct": false,
+    "rationale": "Nonmetal shortcut: two nonmetals generally form a covalent bond, but that does not establish equal electron sharing. Their unequal electronegativities make this bond polar. Fix: Compare the atoms’ electronegativities before deciding whether a covalent bond is polar."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The bond is polar covalent, with a partial negative charge on Cl and some ionic character.",
+    "is_correct": true,
+    "rationale": "Cl is more electronegative than H, so it attracts the shared electrons more strongly and carries a partial negative charge. This unequal sharing makes the bond polar covalent; the resulting charge separation gives it some ionic character."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The bond is polar covalent, with a partial negative charge on Cl but no ionic character.",
+    "is_correct": false,
+    "rationale": "Separate-box misconception: covalent and ionic bonding are not completely separate categories. Unequal sharing produces partial charges, so a polar covalent bond has some ionic character without complete electron transfer. Fix: Check whether unequal sharing creates charge separation before claiming a bond has no ionic character."
+   }
+  ]
+ }
+]

@@ -198,8 +198,16 @@ Acceptance rose to 24/24 from 26 candidates, and the controls still caught 6/6. 
 defects in 24, with clean pedagogy and "publish" on all 24. Write-up:
 `scripts/content-seed/task0065-cost-test-2026-10-07/RESULTS.md`.
 
-**Next levers:** GPT and Kimi caching (2% and 18% hit rates), a cheaper fourth checker, and unit-only fact-pack
-sections (re-judge after that one).
+**Levers 2 and 3, measured 2026-10-07** (`scripts/content-seed/task0065-cost-levers-2026-10-07/RESULTS.md`):
+- **Fourth checker.** Meta Muse Spark 1.3 replaces Kimi K3. It is calibrated equal on 9 known defects and 24
+  known-clean items, at less than half the cost per audit.
+- **Unit-scoped fact pack** (now the default). All course-wide sections plus units up to the item's unit.
+- **Result:** $0.28 → **$0.20 per accepted question**, 24/24 accepted, and the blind re-judge again found 0
+  defects in 24.
+- **Cumulative:** −72% from $0.72.
+- **Caching:** GPT and Gemini report no cached input through the gateway in any setup, so that lever is closed.
+- **Any future fourth-checker swap** must first pass the `calibrate` command against the same known-defect and
+  known-clean sets.
 
 The original measurement follows.
 

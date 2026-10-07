@@ -1,0 +1,1375 @@
+{
+ "topic": {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "topic_title": "Connecting Multiple Representations of Limits"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-calculus-ab__1.9#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 9819,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 9816
+    },
+    "outputTokens": 850,
+    "outputTokenDetails": {
+     "textTokens": 372,
+     "reasoningTokens": 478
+    },
+    "totalTokens": 10669,
+    "raw": {
+     "input_tokens": 9819,
+     "input_tokens_details": {
+      "cache_write_tokens": 9816,
+      "cached_tokens": 0
+     },
+     "output_tokens": 850,
+     "output_tokens_details": {
+      "reasoning_tokens": 478
+     },
+     "total_tokens": 10669
+    },
+    "reasoningTokens": 478,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.9",
+    "topic_title": "Connecting Multiple Representations of Limits",
+    "stem": "Near x = 2, the graph of f approaches an open circle at (2, 5) from both the left and the right. There is a filled point at (2, 1). Which statement in limit notation matches this approach behavior?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "lim x→2 f(x) = 1",
+      "is_correct": false,
+      "rationale": "Function-value confusion: the filled point shows f(2) = 1, but a limit describes nearby values. Those values approach 5, not 1. Fix: Trace the curve toward x = 2 from each side, ignoring the filled point."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "lim x→2 f(x) = 2",
+      "is_correct": false,
+      "rationale": "Input-output confusion: 2 is the x-value being approached, not the output being approached. The approaching height is the open circle’s y-coordinate, 5. Fix: Identify the approached x-coordinate and y-coordinate separately before writing the limit."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "lim x→2 f(x) does not exist",
+      "is_correct": false,
+      "rationale": "Open-circle misconception: a missing point on the approaching curve does not prevent a limit from existing. The curve approaches the same height, 5, from both sides. Fix: Compare the heights approached from the left and right before declaring a limit nonexistent."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "lim x→2 f(x) = 5",
+      "is_correct": true,
+      "rationale": "From both sides, the graph’s y-values approach 5 as x approaches 2. Therefore, the limit is 5; the filled point gives f(2), not the limit."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 622,
+         "inputTokenDetails": {
+          "noCacheTokens": 622,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 652,
+         "raw": {
+          "input_tokens": 622,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1994,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 352,
+         "inputTokenDetails": {
+          "noCacheTokens": 352,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 286,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 256
+         },
+         "totalTokens": 638,
+         "raw": {
+          "thoughtsTokenCount": 256,
+          "promptTokenCount": 352,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 638,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 352
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 256,
+         "cachedInputTokens": 0
+        },
+        "ms": 3413,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 410,
+         "inputTokenDetails": {
+          "noCacheTokens": 154,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 247,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 227
+         },
+         "totalTokens": 657,
+         "raw": {
+          "prompt_tokens": 410,
+          "completion_tokens": 247,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 154,
+          "total_tokens": 657,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 227
+          }
+         },
+         "reasoningTokens": 227,
+         "cachedInputTokens": 256
+        },
+        "ms": 3250,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 179,
+         "inputTokenDetails": {
+          "noCacheTokens": 179,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 687,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 662
+         },
+         "totalTokens": 866,
+         "raw": {
+          "input_tokens": 179,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 687,
+          "output_tokens_details": {
+           "reasoning_tokens": 662
+          },
+          "total_tokens": 866
+         },
+         "reasoningTokens": 662,
+         "cachedInputTokens": 0
+        },
+        "ms": 4267,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The item reads a limit off a single verbally described graph: an open circle at (2, 5) and a filled point at (2, 1). That is the core skill of 1.3 Estimating Limit Values from Graphs. It does not connect multiple representations (graph, table, algebraic), which is what 1.9 targets."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16764,
+         "inputTokenDetails": {
+          "noCacheTokens": 897,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 15867
+         },
+         "outputTokens": 559,
+         "outputTokenDetails": {
+          "textTokens": 311,
+          "reasoningTokens": 248
+         },
+         "totalTokens": 17323,
+         "raw": {
+          "input_tokens": 897,
+          "output_tokens": 559,
+          "output_tokens_details": {
+           "thinking_tokens": 248
+          },
+          "cache_creation_input_tokens": 15867,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 15867,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 248,
+         "cachedInputTokens": 0
+        },
+        "ms": 7993,
+        "flags": [
+         "topic 1.3",
+         "on_topic: The item reads a limit off a single verbally described graph: an open circle at (2, 5) and a filled point at (2, 1). That is the core skill of 1.3 Estimating Limit Values from Graphs. It does not connect multiple representations (graph, table, algebraic), which is what 1.9 targets."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The item reads a two-sided limit from a single graphical description: an open circle with a separate filled point. This is the core skill of 1.3 (Estimating Limit Values from Graphs). It does not connect multiple representations such as a graph, table and expression, which is what 1.9 requires."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16764,
+         "inputTokenDetails": {
+          "noCacheTokens": 897,
+          "cacheReadTokens": 15867,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 672,
+         "outputTokenDetails": {
+          "textTokens": 303,
+          "reasoningTokens": 369
+         },
+         "totalTokens": 17436,
+         "raw": {
+          "input_tokens": 897,
+          "output_tokens": 672,
+          "output_tokens_details": {
+           "thinking_tokens": 369
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 15867,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 369,
+         "cachedInputTokens": 15867
+        },
+        "ms": 10419,
+        "flags": [
+         "topic 1.3",
+         "on_topic: The item reads a two-sided limit from a single graphical description: an open circle with a separate filled point. This is the core skill of 1.3 (Estimating Limit Values from Graphs). It does not connect multiple representations such as a graph, table and expression, which is what 1.9 requires."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11581,
+         "inputTokenDetails": {
+          "noCacheTokens": 11581,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1020,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 758
+         },
+         "totalTokens": 12601,
+         "raw": {
+          "thoughtsTokenCount": 758,
+          "promptTokenCount": 11581,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 12601,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 11581
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 758,
+         "cachedInputTokens": 0
+        },
+        "ms": 7960,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10574,
+         "inputTokenDetails": {
+          "noCacheTokens": 9294,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 4466,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 4247
+         },
+         "totalTokens": 15040,
+         "raw": {
+          "prompt_tokens": 10574,
+          "completion_tokens": 4466,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 9294,
+          "total_tokens": 15040,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4247
+          }
+         },
+         "reasoningTokens": 4247,
+         "cachedInputTokens": 1280
+        },
+        "ms": 41127,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 9555,
+         "inputTokenDetails": {
+          "noCacheTokens": 9555,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3208,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3051
+         },
+         "totalTokens": 12763,
+         "raw": {
+          "input_tokens": 9555,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3208,
+          "output_tokens_details": {
+           "reasoning_tokens": 3051
+          },
+          "total_tokens": 12763
+         },
+         "reasoningTokens": 3051,
+         "cachedInputTokens": 0
+        },
+        "ms": 16083,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ap-calculus-ab__1.9#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15394,
+    "inputTokenDetails": {
+     "noCacheTokens": 552,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 14842
+    },
+    "outputTokens": 1324,
+    "outputTokenDetails": {
+     "textTokens": 679,
+     "reasoningTokens": 645
+    },
+    "totalTokens": 16718,
+    "raw": {
+     "input_tokens": 552,
+     "output_tokens": 1324,
+     "output_tokens_details": {
+      "thinking_tokens": 645
+     },
+     "cache_creation_input_tokens": 14842,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 14842,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 645,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.9",
+    "topic_title": "Connecting Multiple Representations of Limits",
+    "stem": "The function f is defined by f(x) = (x² − 9)/(x − 3) for x ≠ 3, and f(3) = 2. A table gives these values: at x = 2.9, f(x) = 5.9; at x = 2.99, f(x) = 5.99; at x = 3.01, f(x) = 6.01; at x = 3.1, f(x) = 6.1. Which statement is consistent with both the formula and the table?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "lim x→3 f(x) = 2, because f(3) = 2.",
+      "is_correct": false,
+      "rationale": "This matches the limit to the function value instead of to the approach behavior. Nearby values cluster around 6 in both the table and the simplified formula, not around 2. Fix: Read the table entries on each side of x = 3 and ask what value they approach."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "lim x→3 f(x) does not exist, because substituting x = 3 into the formula gives 0/0.",
+      "is_correct": false,
+      "rationale": "This treats the indeterminate form 0/0 as proof that no limit exists. A 0/0 result only signals that more work is needed; factoring gives x + 3, whose limit at 3 is 6. Fix: When substitution gives 0/0, factor and cancel, then evaluate the simplified expression."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "lim x→3 f(x) does not exist, because f(3) = 2 does not match the trend in the table.",
+      "is_correct": false,
+      "rationale": "This confuses a limit failing to exist with a function being discontinuous. A mismatch between f(3) and the trend makes f discontinuous at 3, but both one-sided limits equal 6, so the limit exists. Fix: Compare the left and right approach values to each other, not to f(3)."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "lim x→3 f(x) = 6, even though f(3) = 2.",
+      "is_correct": true,
+      "rationale": "For x ≠ 3 the formula simplifies to x + 3, which approaches 6 as x approaches 3. The table shows values approaching 6 from both sides. The limit describes approach behavior, so the separately assigned value f(3) = 2 does not affect it."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 396,
+         "inputTokenDetails": {
+          "noCacheTokens": 396,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 35,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 9
+         },
+         "totalTokens": 431,
+         "raw": {
+          "input_tokens": 396,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 35,
+          "output_tokens_details": {
+           "reasoning_tokens": 9
+          },
+          "total_tokens": 431
+         },
+         "reasoningTokens": 9,
+         "cachedInputTokens": 0
+        },
+        "ms": 3067,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 488,
+         "inputTokenDetails": {
+          "noCacheTokens": 488,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 547,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 517
+         },
+         "totalTokens": 1035,
+         "raw": {
+          "thoughtsTokenCount": 517,
+          "promptTokenCount": 488,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 1035,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 488
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 517,
+         "cachedInputTokens": 0
+        },
+        "ms": 11185,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 534,
+         "inputTokenDetails": {
+          "noCacheTokens": 278,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 512,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 486
+         },
+         "totalTokens": 1046,
+         "raw": {
+          "prompt_tokens": 534,
+          "completion_tokens": 512,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 278,
+          "total_tokens": 1046,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 486
+          }
+         },
+         "reasoningTokens": 486,
+         "cachedInputTokens": 256
+        },
+        "ms": 5400,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 303,
+         "inputTokenDetails": {
+          "noCacheTokens": 303,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1161,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 1136
+         },
+         "totalTokens": 1464,
+         "raw": {
+          "input_tokens": 303,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1161,
+          "output_tokens_details": {
+           "reasoning_tokens": 1136
+          },
+          "total_tokens": 1464
+         },
+         "reasoningTokens": 1136,
+         "cachedInputTokens": 0
+        },
+        "ms": 8790,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10449,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 10446
+         },
+         "outputTokens": 345,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 123
+         },
+         "totalTokens": 10794,
+         "raw": {
+          "input_tokens": 10449,
+          "input_tokens_details": {
+           "cache_write_tokens": 10446,
+           "cached_tokens": 0
+          },
+          "output_tokens": 345,
+          "output_tokens_details": {
+           "reasoning_tokens": 123
+          },
+          "total_tokens": 10794
+         },
+         "reasoningTokens": 123,
+         "cachedInputTokens": 0
+        },
+        "ms": 14969,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11762,
+         "inputTokenDetails": {
+          "noCacheTokens": 11762,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1076,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 814
+         },
+         "totalTokens": 12838,
+         "raw": {
+          "thoughtsTokenCount": 814,
+          "promptTokenCount": 11762,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 12838,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 11762
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 814,
+         "cachedInputTokens": 0
+        },
+        "ms": 8342,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10747,
+         "inputTokenDetails": {
+          "noCacheTokens": 763,
+          "cacheReadTokens": 9984
+         },
+         "outputTokens": 5569,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 5350
+         },
+         "totalTokens": 16316,
+         "raw": {
+          "prompt_tokens": 10747,
+          "completion_tokens": 5569,
+          "prompt_cache_hit_tokens": 9984,
+          "prompt_cache_miss_tokens": 763,
+          "total_tokens": 16316,
+          "prompt_tokens_details": {
+           "cached_tokens": 9984
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5350
+          }
+         },
+         "reasoningTokens": 5350,
+         "cachedInputTokens": 9984
+        },
+        "ms": 51094,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 9732,
+         "inputTokenDetails": {
+          "noCacheTokens": 9732,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 4084,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3927
+         },
+         "totalTokens": 13816,
+         "raw": {
+          "input_tokens": 9732,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 4084,
+          "output_tokens_details": {
+           "reasoning_tokens": 3927
+          },
+          "total_tokens": 13816
+         },
+         "reasoningTokens": 3927,
+         "cachedInputTokens": 0
+        },
+        "ms": 19550,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.9",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16967,
+         "inputTokenDetails": {
+          "noCacheTokens": 1100,
+          "cacheReadTokens": 15867,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 351,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 139
+         },
+         "totalTokens": 17318,
+         "raw": {
+          "input_tokens": 1100,
+          "output_tokens": 351,
+          "output_tokens_details": {
+           "thinking_tokens": 139
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 15867,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 139,
+         "cachedInputTokens": 15867
+        },
+        "ms": 5182,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-calculus-ab__1.9#r1-anthropic",
+ "accepted_at": "2026-10-07T16:20:49.194Z"
+}

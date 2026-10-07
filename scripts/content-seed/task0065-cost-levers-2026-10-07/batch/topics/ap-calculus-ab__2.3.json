@@ -1,0 +1,993 @@
+{
+ "topic": {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-calculus-ab__2.3#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 10492,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 10489
+    },
+    "outputTokens": 736,
+    "outputTokenDetails": {
+     "textTokens": 448,
+     "reasoningTokens": 288
+    },
+    "totalTokens": 11228,
+    "raw": {
+     "input_tokens": 10492,
+     "input_tokens_details": {
+      "cache_write_tokens": 10489,
+      "cached_tokens": 0
+     },
+     "output_tokens": 736,
+     "output_tokens_details": {
+      "reasoning_tokens": 288
+     },
+     "total_tokens": 11228
+    },
+    "reasoningTokens": 288,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "A moving object's height h(t), in meters, is differentiable near t = 2 seconds. Selected values are given below.\n\nt (seconds): 0, 1.9, 2, 2.1, 4\nh(t) (meters): 1, 4, 4.3, 4.8, 13\n\nUsing the closest listed times on either side of t = 2, what is an estimate of h′(2)?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "3 meters per second",
+      "is_correct": false,
+      "rationale": "Distant-data trap: (13−1)/(4−0) = 3 uses the endpoints of the entire table. That interval does not use the closest listed times surrounding 2, as requested. Fix: Select the nearest listed time below 2 and the nearest above 2."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "0.8 meters per second",
+      "is_correct": false,
+      "rationale": "Missing-denominator trap: 4.8−4 = 0.8 is the height change in meters, not a rate. The slope estimate requires dividing by the elapsed time, 2.1−1.9 = 0.2 seconds. Fix: Divide the height change by the corresponding time change."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "4 meters per second",
+      "is_correct": true,
+      "rationale": "The closest listed times surrounding 2 are 1.9 and 2.1. Their secant slope is (4.8−4)/(2.1−1.9) = 4 meters per second, which estimates the local slope h′(2) rather than determining it exactly."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "4.3 meters per second",
+      "is_correct": false,
+      "rationale": "Function-value trap: 4.3 is h(2), the object's height in meters. A derivative estimate describes how quickly the height changes, not the height itself. Fix: Compute a slope from nearby table values instead of copying h(2)."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "Only the symmetric difference quotient is computed here. The phrasing 'closest listed times on either side' points to the symmetric difference quotient: (h(2.1) - h(1.9)) / 0.2 = (4.8 - 4) / 0.2 = 4 meters per second, which is choice C. Neither one-sided quotient (3 or 5 m/s) matches all choices, so the question is consistent: 3 m/s appears as A, but the phrasing points to the symmetric quotient. B (0.8) is the numerator without dividing by 0.2, and D (4.3) is h(2) itself. The data is well posed."
+        },
+        "usage": {
+         "inputTokens": 656,
+         "inputTokenDetails": {
+          "noCacheTokens": 656,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 234,
+         "outputTokenDetails": {
+          "textTokens": 234,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 890,
+         "raw": {
+          "input_tokens": 656,
+          "output_tokens": 234,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 4693,
+        "flags": [
+         "defect: Only the symmetric difference quotient is computed here. The phrasing 'closest listed times on either side' points to the symmetric difference quotient: (h(2.1) - h(1.9)) / 0.2 = (4.8 - 4) / 0.2 = 4 meters per second, which is choice C. Neither one-sided quotient (3 or 5 m/s) matches all choices, so the question is consistent: 3 m/s appears as A, but the phrasing points to the symmetric quotient. B (0.8) is the numerator without dividing by 0.2, and D (4.3) is h(2) itself. The data is well posed."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "The symmetric difference quotient (4.8 − 4)/(2.1 − 1.9) = 0.8/0.2 = 4 m/s gives C. The distractors match other plausible errors: 0.8 is the change in height without dividing by the time interval, 4.3 is h(2) itself, and 3 is the forward or backward one-sided quotient (both equal 3), so they do not create a second correct answer. The defect is the inconsistency the problem builds in: the left quotient (4.3 − 4)/0.1 = 3 differs sharply from the right quotient (4.8 − 4.3)/0.1 = 5, which suggests unrealistic local behavior, but this does not affect the answer."
+        },
+        "usage": {
+         "inputTokens": 656,
+         "inputTokenDetails": {
+          "noCacheTokens": 656,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 259,
+         "outputTokenDetails": {
+          "textTokens": 259,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 915,
+         "raw": {
+          "input_tokens": 656,
+          "output_tokens": 259,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 5885,
+        "flags": [
+         "defect: The symmetric difference quotient (4.8 − 4)/(2.1 − 1.9) = 0.8/0.2 = 4 m/s gives C. The distractors match other plausible errors: 0.8 is the change in height without dividing by the time interval, 4.3 is h(2) itself, and 3 is the forward or backward one-sided quotient (both equal 3), so they do not create a second correct answer. The defect is the inconsistency the problem builds in: the left quotient (4.3 − 4)/0.1 = 3 differs sharply from the right quotient (4.8 − 4.3)/0.1 = 5, which suggests unrealistic local behavior, but this does not affect the answer."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 384,
+         "inputTokenDetails": {
+          "noCacheTokens": 384,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 393,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 363
+         },
+         "totalTokens": 777,
+         "raw": {
+          "thoughtsTokenCount": 363,
+          "promptTokenCount": 384,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 777,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 384
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 363,
+         "cachedInputTokens": 0
+        },
+        "ms": 4239,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 440,
+         "inputTokenDetails": {
+          "noCacheTokens": 184,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 1498,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 1472
+         },
+         "totalTokens": 1938,
+         "raw": {
+          "prompt_tokens": 440,
+          "completion_tokens": 1498,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 184,
+          "total_tokens": 1938,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1472
+          }
+         },
+         "reasoningTokens": 1472,
+         "cachedInputTokens": 256
+        },
+        "ms": 15868,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 209,
+         "inputTokenDetails": {
+          "noCacheTokens": 209,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 762,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 737
+         },
+         "totalTokens": 971,
+         "raw": {
+          "input_tokens": 209,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 762,
+          "output_tokens_details": {
+           "reasoning_tokens": 737
+          },
+          "total_tokens": 971
+         },
+         "reasoningTokens": 737,
+         "cachedInputTokens": 0
+        },
+        "ms": 9555,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  },
+  {
+   "id": "ap-calculus-ab__2.3#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 16365,
+    "inputTokenDetails": {
+     "noCacheTokens": 452,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15913
+    },
+    "outputTokens": 1114,
+    "outputTokenDetails": {
+     "textTokens": 609,
+     "reasoningTokens": 505
+    },
+    "totalTokens": 17479,
+    "raw": {
+     "input_tokens": 452,
+     "output_tokens": 1114,
+     "output_tokens_details": {
+      "thinking_tokens": 505
+     },
+     "cache_creation_input_tokens": 15913,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 15913,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 505,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "stem": "The temperature T(t), in degrees Celsius, of a liquid being heated is recorded at selected times t, in minutes. At t = 0, 2, 5, 6, and 9, the values of T(t) are 20, 26, 35, 38, and 44, respectively. T is differentiable for 0 ≤ t ≤ 9. Using the data, what is the best estimate of T′(5.5)?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "8/3 degrees Celsius per minute",
+      "is_correct": false,
+      "rationale": "This uses the distant endpoints, (44 − 20)/(9 − 0) = 24/9 = 8/3, which is the average rate over the whole interval. Over nine minutes the rate changes, so it poorly describes the rate near t = 5.5. Fix: Pick the two table values that bracket the target time most tightly."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "1/3 minute per degree Celsius",
+      "is_correct": false,
+      "rationale": "This inverts the difference quotient, dividing the change in time by the change in temperature. T′ measures change in T per unit change in t, so temperature change belongs in the numerator. Fix: Write Δ(output)/Δ(input) and check the units read degrees Celsius per minute."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "3 degrees Celsius per minute",
+      "is_correct": true,
+      "rationale": "The data points closest to t = 5.5 on either side are t = 5 and t = 6, so the difference quotient (38 − 35)/(6 − 5) = 3 approximates the local slope there. The units are output units per input unit, degrees Celsius per minute."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "36.5 degrees Celsius",
+      "is_correct": false,
+      "rationale": "This averages T(5) and T(6), which estimates the temperature T(5.5), not its rate of change. A derivative estimate needs a difference quotient, not an average of function values. Fix: Ask whether the question wants a value of T or of T′ before computing."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 305,
+         "inputTokenDetails": {
+          "noCacheTokens": 305,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 65,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 39
+         },
+         "totalTokens": 370,
+         "raw": {
+          "input_tokens": 305,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 65,
+          "output_tokens_details": {
+           "reasoning_tokens": 39
+          },
+          "total_tokens": 370
+         },
+         "reasoningTokens": 39,
+         "cachedInputTokens": 0
+        },
+        "ms": 3867,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 390,
+         "inputTokenDetails": {
+          "noCacheTokens": 390,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 255,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 225
+         },
+         "totalTokens": 645,
+         "raw": {
+          "thoughtsTokenCount": 225,
+          "promptTokenCount": 390,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 645,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 390
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 225,
+         "cachedInputTokens": 0
+        },
+        "ms": 2875,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 443,
+         "inputTokenDetails": {
+          "noCacheTokens": 187,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 1978,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 1958
+         },
+         "totalTokens": 2421,
+         "raw": {
+          "prompt_tokens": 443,
+          "completion_tokens": 1978,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 187,
+          "total_tokens": 2421,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1958
+          }
+         },
+         "reasoningTokens": 1958,
+         "cachedInputTokens": 256
+        },
+        "ms": 21863,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 213,
+         "inputTokenDetails": {
+          "noCacheTokens": 213,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1358,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 1333
+         },
+         "totalTokens": 1571,
+         "raw": {
+          "input_tokens": 213,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 1358,
+          "output_tokens_details": {
+           "reasoning_tokens": 1333
+          },
+          "total_tokens": 1571
+         },
+         "reasoningTokens": 1333,
+         "cachedInputTokens": 0
+        },
+        "ms": 10627,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11030,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 11027
+         },
+         "outputTokens": 324,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 102
+         },
+         "totalTokens": 11354,
+         "raw": {
+          "input_tokens": 11030,
+          "input_tokens_details": {
+           "cache_write_tokens": 11027,
+           "cached_tokens": 0
+          },
+          "output_tokens": 324,
+          "output_tokens_details": {
+           "reasoning_tokens": 102
+          },
+          "total_tokens": 11354
+         },
+         "reasoningTokens": 102,
+         "cachedInputTokens": 0
+        },
+        "ms": 7265,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 12356,
+         "inputTokenDetails": {
+          "noCacheTokens": 12356,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1459,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1197
+         },
+         "totalTokens": 13815,
+         "raw": {
+          "thoughtsTokenCount": 1197,
+          "promptTokenCount": 12356,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 13815,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12356
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1197,
+         "cachedInputTokens": 0
+        },
+        "ms": 9784,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 11324,
+         "inputTokenDetails": {
+          "noCacheTokens": 10044,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 6133,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 5914
+         },
+         "totalTokens": 17457,
+         "raw": {
+          "prompt_tokens": 11324,
+          "completion_tokens": 6133,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 10044,
+          "total_tokens": 17457,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5914
+          }
+         },
+         "reasoningTokens": 5914,
+         "cachedInputTokens": 1280
+        },
+        "ms": 55301,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 10290,
+         "inputTokenDetails": {
+          "noCacheTokens": 10290,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3661,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3504
+         },
+         "totalTokens": 13951,
+         "raw": {
+          "input_tokens": 10290,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3661,
+          "output_tokens_details": {
+           "reasoning_tokens": 3504
+          },
+          "total_tokens": 13951
+         },
+         "reasoningTokens": 3504,
+         "cachedInputTokens": 0
+        },
+        "ms": 22036,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17858,
+         "inputTokenDetails": {
+          "noCacheTokens": 920,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16938
+         },
+         "outputTokens": 399,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 187
+         },
+         "totalTokens": 18257,
+         "raw": {
+          "input_tokens": 920,
+          "output_tokens": 399,
+          "output_tokens_details": {
+           "thinking_tokens": 187
+          },
+          "cache_creation_input_tokens": 16938,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 16938,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 187,
+         "cachedInputTokens": 0
+        },
+        "ms": 4444,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-calculus-ab__2.3#r1-anthropic",
+ "accepted_at": "2026-10-07T16:22:37.184Z"
+}
