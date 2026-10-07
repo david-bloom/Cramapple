@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0065 Method Test Run: Legacy vs Generate-and-Select (2026-10-07): 24 topics (units 1-3), blind held-out judges against CED PDF text, 4/4 planted defects caught; defective items legacy 4/24, pipeline 1/23, live 3/24 (not significant at n=24); pipeline cost 3.5-4.9x legacy per clean item; live defects and a Stats 2.12 brief overreach found; nothing written to any database
 - Biology 2.10 Brief Fixed and 3.3 Fact-Pack Gap Closed (APPROVAL-0127); Biology Teaching Items 20/21; Method Test Designed (2026-10-06): CED PDF showed the 2.10 brief overreached and the fact pack dropped EK 3.3.A.2.ii; both topics regenerated and accepted; review page published; legacy-vs-pipeline test designed, not run
 - Session Close: Open Hand Live — 91 Teaching Items in Production, Plate Loop for All Subjects Built (2026-10-06): student-session-items deployed; teaching items hidden from student reads (RLS) and the attempt trigger re-enabled (APPROVAL-0124); 91 checked Units 1–3 teaching items live for Bio, Stats, Chem and Calc AB (APPROVAL-0125); Lovable all-subjects plate loop with the diagnostic removed is built but not yet published. **Next Owner:** David. **Next Action:** publish the Lovable build and do a signed-in check.
 - TASK-0065 Generate-and-Select Pipeline Built; Biology Pilot 18/21 Accepted, 3 Escalated (2026-10-06): David replaced hand-patching with no-edit generation checked by four model families plus an own-family veto; 6/6 planted-defect controls caught; 2 escalations are brief-vs-fact-pack conflicts; nothing loaded to any database
@@ -382,6 +383,36 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+
+## TASK-0065 Method Test Run: Legacy vs Generate-and-Select — 2026-10-07
+
+**Design:** `docs/product/OPEN_HAND_CONTENT_METHOD_TEST_DESIGN_2026_10_06.md`. **Results:** `scripts/content-seed/task0065-method-test-2026-10-06/RESULTS.md`. David asked for units 1–3 in every subject.
+
+**Run:**
+- 24 topics.
+- The legacy arm was re-run fresh to #340's spec and checker, timed: subagent authors, a two-model check, one fix session, a re-check.
+- The pipeline arm ran unchanged, in two segments around a gateway credit outage. Candidates touched by the outage were discarded and regenerated.
+- The 24 live Production items for the same topics were added as a third arm.
+- Blind judging by Mistral Large 4, GLM-5.3 and MiniMax M3, two samples each, against CED PDF text: 900 calls, 0 failed, $4.32. MiMo was replaced after failing the schema in the smoke test.
+- Four planted defects were caught on their intended measures. All numeric keys were recomputed.
+
+**Results:**
+- Defective items: legacy 4/24, pipeline 1/23, live 3/24. Every key was correct.
+- Pipeline $0.77 per clean item vs legacy about $0.19, a ratio of 3.5–4.9×, which fails the proposed 3× rule.
+- Speed: 13.7 min vs 10.3 min.
+- p = 0.35 at n = 24.
+
+**Scoring corrections, applied blind and uniformly, with the planted defects re-verified after each:**
+- Q1 uses structured answers only.
+- Q2 excludes a wrong choice's own text.
+- Topic codes are parsed from the first number pair.
+
+**Found:**
+- Three live defective items (Stats 1.10, Stats 2.12, Bio 2.10).
+- A Statistics 2.12 brief overreach into CED 4.1.
+- My earlier env-loading one-liner echoed part of the AI Gateway key into tool output; David was told it may need rotating.
+
+Nothing was written to any database. Production was read only.
 
 ## Biology 2.10 Brief Fixed and 3.3 Fact-Pack Gap Closed (APPROVAL-0127); Biology Teaching Items 20/21; Method Test Designed — 2026-10-06
 

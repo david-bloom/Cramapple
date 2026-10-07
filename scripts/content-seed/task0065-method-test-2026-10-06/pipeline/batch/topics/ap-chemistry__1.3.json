@@ -1,0 +1,701 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Elemental Composition of Pure Substances"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-chemistry__1.3#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32336,
+    "inputTokenDetails": {
+     "noCacheTokens": 32336,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1529,
+    "outputTokenDetails": {
+     "textTokens": 707,
+     "reasoningTokens": 822
+    },
+    "totalTokens": 33865,
+    "raw": {
+     "input_tokens": 32336,
+     "output_tokens": 1529,
+     "output_tokens_details": {
+      "thinking_tokens": 822
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 822,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 1,
+    "topic_code": "1.3",
+    "topic_title": "Elemental Composition of Pure Substances",
+    "stem": "A pure compound contains only carbon, hydrogen, and oxygen. Elemental analysis shows it is 40.0% C, 6.7% H, and 53.3% O by mass, and its molar mass is 180 g/mol. What is the molecular formula of the compound?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "CH2O",
+      "is_correct": false,
+      "rationale": "This stops at the empirical formula. CH2O has a mass of only 30 g/mol, which does not match the given molar mass of 180 g/mol, so it cannot be the molecular formula. Fix: Divide the given molar mass by the empirical formula mass and multiply every subscript by that whole number."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "C6HO8",
+      "is_correct": false,
+      "rationale": "This divides the mass percentages directly by the smallest percentage (40.0 ÷ 6.7 ≈ 6, 53.3 ÷ 6.7 ≈ 8) without converting to moles. Mass ratios are not atom ratios because each element has a different molar mass. Fix: Convert each element's grams to moles using its molar mass before dividing by the smallest value."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "C6H6O6",
+      "is_correct": false,
+      "rationale": "This treats hydrogen as H2 (2.0 g/mol), giving 3.3 mol H and a false 1:1:1 ratio. Within a compound, hydrogen is counted as atoms with molar mass 1.008 g/mol, so there are about 6.6 mol H, twice the moles of C. Fix: Use the atomic molar mass from the periodic table for every element, never a diatomic molecular mass."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "C6H12O6",
+      "is_correct": true,
+      "rationale": "In a 100 g sample: 40.0 g C ÷ 12.01 g/mol ≈ 3.33 mol, 6.7 g H ÷ 1.008 g/mol ≈ 6.6 mol, 53.3 g O ÷ 16.00 g/mol ≈ 3.33 mol. Dividing by 3.33 gives 1:2:1, so the empirical formula is CH2O (30 g/mol). Since 180 ÷ 30 = 6, every subscript is multiplied by 6."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 258,
+         "inputTokenDetails": {
+          "noCacheTokens": 258,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 65,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 39
+         },
+         "totalTokens": 323,
+         "raw": {
+          "input_tokens": 258,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 65,
+          "output_tokens_details": {
+           "reasoning_tokens": 39
+          },
+          "total_tokens": 323
+         },
+         "reasoningTokens": 39,
+         "cachedInputTokens": 0
+        },
+        "ms": 3267,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 341,
+         "inputTokenDetails": {
+          "noCacheTokens": 341,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 306,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 276
+         },
+         "totalTokens": 647,
+         "raw": {
+          "thoughtsTokenCount": 276,
+          "promptTokenCount": 341,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 647,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 341
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 276,
+         "cachedInputTokens": 0
+        },
+        "ms": 2447,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 398,
+         "inputTokenDetails": {
+          "noCacheTokens": 398,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 412,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 386
+         },
+         "totalTokens": 810,
+         "raw": {
+          "prompt_tokens": 398,
+          "completion_tokens": 412,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 398,
+          "total_tokens": 810,
+          "prompt_tokens_details": {
+           "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 386
+          }
+         },
+         "reasoningTokens": 386,
+         "cachedInputTokens": 0
+        },
+        "ms": 4699,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 421,
+         "inputTokenDetails": {
+          "noCacheTokens": 357,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 404,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 384
+         },
+         "totalTokens": 825,
+         "raw": {
+          "prompt_tokens": 421,
+          "completion_tokens": 404,
+          "total_tokens": 825,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 384,
+           "accepted_prediction_tokens": 235,
+           "rejected_prediction_tokens": 269,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 384,
+         "cachedInputTokens": 64
+        },
+        "ms": 7823,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20855,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20852
+         },
+         "outputTokens": 648,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 426
+         },
+         "totalTokens": 21503,
+         "raw": {
+          "input_tokens": 20855,
+          "input_tokens_details": {
+           "cache_write_tokens": 20852,
+           "cached_tokens": 0
+          },
+          "output_tokens": 648,
+          "output_tokens_details": {
+           "reasoning_tokens": 426
+          },
+          "total_tokens": 21503
+         },
+         "reasoningTokens": 426,
+         "cachedInputTokens": 0
+        },
+        "ms": 12509,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21722,
+         "inputTokenDetails": {
+          "noCacheTokens": 21722,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2473,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 2211
+         },
+         "totalTokens": 24195,
+         "raw": {
+          "thoughtsTokenCount": 2211,
+          "promptTokenCount": 21722,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 24195,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21722
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 2211,
+         "cachedInputTokens": 0
+        },
+        "ms": 13873,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20607,
+         "inputTokenDetails": {
+          "noCacheTokens": 19839,
+          "cacheReadTokens": 768
+         },
+         "outputTokens": 8824,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 8605
+         },
+         "totalTokens": 29431,
+         "raw": {
+          "prompt_tokens": 20607,
+          "completion_tokens": 8824,
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 19839,
+          "total_tokens": 29431,
+          "prompt_tokens_details": {
+           "cached_tokens": 768
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8605
+          }
+         },
+         "reasoningTokens": 8605,
+         "cachedInputTokens": 768
+        },
+        "ms": 65251,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21160,
+         "inputTokenDetails": {
+          "noCacheTokens": 21096,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 5384,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 5257
+         },
+         "totalTokens": 26544,
+         "raw": {
+          "prompt_tokens": 21160,
+          "completion_tokens": 5384,
+          "total_tokens": 26544,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5257,
+           "accepted_prediction_tokens": 3454,
+           "rejected_prediction_tokens": 2333,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 5257,
+         "cachedInputTokens": 64
+        },
+        "ms": 51556,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 33908,
+         "inputTokenDetails": {
+          "noCacheTokens": 33908,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 1237,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 1025
+         },
+         "totalTokens": 35145,
+         "raw": {
+          "input_tokens": 33908,
+          "output_tokens": 1237,
+          "output_tokens_details": {
+           "thinking_tokens": 1025
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 1025,
+         "cachedInputTokens": 0
+        },
+        "ms": 16869,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-chemistry__1.3#r1-anthropic",
+ "accepted_at": "2026-10-06T23:52:39.701Z"
+}

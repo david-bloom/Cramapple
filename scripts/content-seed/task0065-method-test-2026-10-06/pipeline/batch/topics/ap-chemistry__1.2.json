@@ -1,0 +1,701 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Mass Spectra of Elements"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-chemistry__1.2#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 32285,
+    "inputTokenDetails": {
+     "noCacheTokens": 32285,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1238,
+    "outputTokenDetails": {
+     "textTokens": 650,
+     "reasoningTokens": 588
+    },
+    "totalTokens": 33523,
+    "raw": {
+     "input_tokens": 32285,
+     "output_tokens": 1238,
+     "output_tokens_details": {
+      "thinking_tokens": 588
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 588,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 1,
+    "topic_code": "1.2",
+    "topic_title": "Mass Spectra of Elements",
+    "stem": "A mass spectrum of a pure sample of element X shows only two peaks, both from singly charged monatomic ions. One peak is at 10.0 amu with a relative intensity of 25. The other is at 11.0 amu with a relative intensity of 100. The instrument scales the tallest peak to 100. What is the average atomic mass of X?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "10.5 amu",
+      "is_correct": false,
+      "rationale": "This is an unweighted average, (10.0 + 11.0)/2, which treats both isotopes as equally common. The 11.0 amu isotope is four times as abundant, so it must pull the average well above the midpoint. Fix: Convert each peak height to a fractional abundance and multiply each mass by its fraction before adding."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "11.0 amu",
+      "is_correct": false,
+      "rationale": "This reports only the mass of the tallest peak, as if the most abundant isotope alone set the atomic mass. The 10.0 amu isotope makes up 20% of the sample and lowers the average below 11.0. Fix: Include every peak in the sum, weighting each isotope mass by its fractional abundance."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "13.5 amu",
+      "is_correct": false,
+      "rationale": "This uses the scaled heights 0.25 and 1.00 as if they were fractions, giving 2.5 + 11.0. Those numbers sum to 1.25, not 1, so they are not true fractional abundances. A weighted average can never exceed the heaviest isotope's mass. Fix: Divide each peak height by the total of all heights so the fractions sum to 1."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "10.8 amu",
+      "is_correct": true,
+      "rationale": "The intensities total 125, so the fractional abundances are 25/125 = 0.20 and 100/125 = 0.80. Weighting each isotope mass by its fraction gives (10.0)(0.20) + (11.0)(0.80) = 2.0 + 8.8 = 10.8 amu. This value lies closer to 11.0 because that isotope is more abundant."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 279,
+         "inputTokenDetails": {
+          "noCacheTokens": 279,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 56,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 30
+         },
+         "totalTokens": 335,
+         "raw": {
+          "input_tokens": 279,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 56,
+          "output_tokens_details": {
+           "reasoning_tokens": 30
+          },
+          "total_tokens": 335
+         },
+         "reasoningTokens": 30,
+         "cachedInputTokens": 0
+        },
+        "ms": 3489,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 362,
+         "inputTokenDetails": {
+          "noCacheTokens": 362,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 281,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 251
+         },
+         "totalTokens": 643,
+         "raw": {
+          "thoughtsTokenCount": 251,
+          "promptTokenCount": 362,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 643,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 362
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 251,
+         "cachedInputTokens": 0
+        },
+        "ms": 2585,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 420,
+         "inputTokenDetails": {
+          "noCacheTokens": 420,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 355,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 335
+         },
+         "totalTokens": 775,
+         "raw": {
+          "prompt_tokens": 420,
+          "completion_tokens": 355,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 420,
+          "total_tokens": 775,
+          "prompt_tokens_details": {
+           "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 335
+          }
+         },
+         "reasoningTokens": 335,
+         "cachedInputTokens": 0
+        },
+        "ms": 4312,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 442,
+         "inputTokenDetails": {
+          "noCacheTokens": 378,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 164,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 144
+         },
+         "totalTokens": 606,
+         "raw": {
+          "prompt_tokens": 442,
+          "completion_tokens": 164,
+          "total_tokens": 606,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 144,
+           "accepted_prediction_tokens": 100,
+           "rejected_prediction_tokens": 89,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 144,
+         "cachedInputTokens": 64
+        },
+        "ms": 9698,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20831,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20828
+         },
+         "outputTokens": 366,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 194
+         },
+         "totalTokens": 21197,
+         "raw": {
+          "input_tokens": 20831,
+          "input_tokens_details": {
+           "cache_write_tokens": 20828,
+           "cached_tokens": 0
+          },
+          "output_tokens": 366,
+          "output_tokens_details": {
+           "reasoning_tokens": 194
+          },
+          "total_tokens": 21197
+         },
+         "reasoningTokens": 194,
+         "cachedInputTokens": 0
+        },
+        "ms": 6692,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21710,
+         "inputTokenDetails": {
+          "noCacheTokens": 21710,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2046,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1784
+         },
+         "totalTokens": 23756,
+         "raw": {
+          "thoughtsTokenCount": 1784,
+          "promptTokenCount": 21710,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 23756,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21710
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1784,
+         "cachedInputTokens": 0
+        },
+        "ms": 11536,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20605,
+         "inputTokenDetails": {
+          "noCacheTokens": 19837,
+          "cacheReadTokens": 768
+         },
+         "outputTokens": 5656,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 5437
+         },
+         "totalTokens": 26261,
+         "raw": {
+          "prompt_tokens": 20605,
+          "completion_tokens": 5656,
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 19837,
+          "total_tokens": 26261,
+          "prompt_tokens_details": {
+           "cached_tokens": 768
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 5437
+          }
+         },
+         "reasoningTokens": 5437,
+         "cachedInputTokens": 768
+        },
+        "ms": 39088,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21137,
+         "inputTokenDetails": {
+          "noCacheTokens": 21073,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 1699,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 1483
+         },
+         "totalTokens": 22836,
+         "raw": {
+          "prompt_tokens": 21137,
+          "completion_tokens": 1699,
+          "total_tokens": 22836,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1483,
+           "accepted_prediction_tokens": 1144,
+           "rejected_prediction_tokens": 518,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1483,
+         "cachedInputTokens": 64
+        },
+        "ms": 20549,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 33852,
+         "inputTokenDetails": {
+          "noCacheTokens": 33852,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 557,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 345
+         },
+         "totalTokens": 34409,
+         "raw": {
+          "input_tokens": 33852,
+          "output_tokens": 557,
+          "output_tokens_details": {
+           "thinking_tokens": 345
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 345,
+         "cachedInputTokens": 0
+        },
+        "ms": 8110,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-chemistry__1.2#r1-anthropic",
+ "accepted_at": "2026-10-06T23:52:01.192Z"
+}

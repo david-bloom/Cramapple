@@ -1,0 +1,781 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__3.3#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25777,
+    "inputTokenDetails": {
+     "noCacheTokens": 25777,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1634,
+    "outputTokenDetails": {
+     "textTokens": 865,
+     "reasoningTokens": 769
+    },
+    "totalTokens": 27411,
+    "raw": {
+     "input_tokens": 25777,
+     "output_tokens": 1634,
+     "output_tokens_details": {
+      "thinking_tokens": 769
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 769,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "stem": "Reaction X joins molecule A to molecule B to form AB. On its own, Reaction X requires an input of energy and does not proceed to any significant extent. In a cell, the reaction occurs as follows: an enzyme first transfers a phosphate group from ATP to A, forming A–P and ADP. A–P then reacts with B, forming AB and releasing inorganic phosphate. Which statement best explains how ATP makes the synthesis of AB possible?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Phosphate transfer from ATP produces a reactive, less stable A–P intermediate, so the energy released by ATP hydrolysis is coupled to the energy-requiring formation of AB and the combined process releases energy overall.",
+      "is_correct": true,
+      "rationale": "The energy-requiring process is joining A to B. ATP drives it through phosphate transfer: phosphorylating A creates a reactive intermediate, linking the energy-releasing breakdown of ATP to AB formation. Because the coupled steps together release energy, the overall process can proceed. This is energy coupling, not just ATP being energy."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "ATP acts as a catalyst that lowers the activation energy of Reaction X, so A and B combine faster without ATP being changed.",
+      "is_correct": false,
+      "rationale": "This confuses energy coupling with enzyme catalysis. ATP is consumed and becomes ADP plus phosphate, so it is not a catalyst, and lowering activation energy only speeds a reaction without supplying the energy an energy-requiring reaction needs.Fix: Ask whether the molecule is chemically changed by the end of the process; if it is used up, it is a reactant, not a catalyst."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "All of the energy released from ATP is transferred into the new bond in AB, so no energy is lost as heat during the coupled reaction.",
+      "is_correct": false,
+      "rationale": "This treats ATP as a packet of energy moved perfectly into AB, which violates the second law of thermodynamics. In every energy transfer some energy is lost as heat, which is why cells need continual energy input to maintain order.Fix: Check any energy-transfer claim against the second law by asking where some energy escapes as heat."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The formation of AB releases energy, and the cell uses that energy to regenerate ATP from ADP and phosphate.",
+      "is_correct": false,
+      "rationale": "This reverses which process releases energy and which requires it. The stem states that forming AB requires energy input, so AB synthesis cannot be the energy source; it is ATP breakdown that supplies the energy.Fix: Identify from the stem which reaction requires energy, then confirm the proposed energy source is the process that releases energy."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "rationale A has 4 sentences before any Fix (max 3)"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "biology__3.3#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15956,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15953
+    },
+    "outputTokens": 785,
+    "outputTokenDetails": {
+     "textTokens": 441,
+     "reasoningTokens": 344
+    },
+    "totalTokens": 16741,
+    "raw": {
+     "input_tokens": 15956,
+     "input_tokens_details": {
+      "cache_write_tokens": 15953,
+      "cached_tokens": 0
+     },
+     "output_tokens": 785,
+     "output_tokens_details": {
+      "reasoning_tokens": 344
+     },
+     "total_tokens": 16741
+    },
+    "reasoningTokens": 344,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "stem": "A membrane pump moves a solute from a region of lower concentration to a region of higher concentration, a process that requires energy input. During each pumping cycle, ATP is converted to ADP and inorganic phosphate. Which explanation best connects this ATP conversion to the work performed by the pump?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The presence of ATP supplies the required energy, so the pump could perform the same work without converting ATP to ADP and phosphate.",
+      "is_correct": false,
+      "rationale": "ATP-as-energy trap: Merely having ATP nearby does not explain how energy is transferred to the pump. In this pumping cycle, ATP hydrolysis must be coupled to solute movement. Fix: Identify the energy-releasing reaction and explain how it is linked to the work being performed."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Movement of the solute against its concentration gradient releases energy that drives the conversion of ATP to ADP and phosphate.",
+      "is_correct": false,
+      "rationale": "Reversed-coupling trap: This reverses the roles of the two processes. The stated solute movement requires energy input; ATP hydrolysis is the energy-releasing process that supports it. Fix: Mark which process requires energy and which releases energy before describing the direction of energy transfer."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "ATP hydrolysis creates new energy that the pump uses to move the solute against its concentration gradient.",
+      "is_correct": false,
+      "rationale": "Energy-creation trap: ATP hydrolysis does not create energy, because energy is conserved. It releases chemical energy that can be transferred through coupling to support cellular work. Fix: Check whether your explanation describes energy transfer or transformation rather than the creation of new energy."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "ATP hydrolysis releases energy that is coupled to the energy-requiring movement of the solute against its concentration gradient.",
+      "is_correct": true,
+      "rationale": "Moving the solute against its concentration gradient requires energy input. Coupling that movement to energy-releasing ATP hydrolysis allows the pump to perform work that would otherwise be energetically unfavorable."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 750,
+         "inputTokenDetails": {
+          "noCacheTokens": 750,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 780,
+         "raw": {
+          "input_tokens": 750,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3087,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 397,
+         "inputTokenDetails": {
+          "noCacheTokens": 397,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 331,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 301
+         },
+         "totalTokens": 728,
+         "raw": {
+          "thoughtsTokenCount": 301,
+          "promptTokenCount": 397,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 728,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 397
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 301,
+         "cachedInputTokens": 0
+        },
+        "ms": 3673,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 456,
+         "inputTokenDetails": {
+          "noCacheTokens": 200,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 302,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 276
+         },
+         "totalTokens": 758,
+         "raw": {
+          "prompt_tokens": 456,
+          "completion_tokens": 302,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 200,
+          "total_tokens": 758,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 276
+          }
+         },
+         "reasoningTokens": 276,
+         "cachedInputTokens": 256
+        },
+        "ms": 3143,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 488,
+         "inputTokenDetails": {
+          "noCacheTokens": 424,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 129,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 109
+         },
+         "totalTokens": 617,
+         "raw": {
+          "prompt_tokens": 488,
+          "completion_tokens": 129,
+          "total_tokens": 617,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 109,
+           "accepted_prediction_tokens": 75,
+           "rejected_prediction_tokens": 84,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 109,
+         "cachedInputTokens": 64
+        },
+        "ms": 13086,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27445,
+         "inputTokenDetails": {
+          "noCacheTokens": 27445,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 554,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 342
+         },
+         "totalTokens": 27999,
+         "raw": {
+          "input_tokens": 27445,
+          "output_tokens": 554,
+          "output_tokens_details": {
+           "thinking_tokens": 342
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 342,
+         "cachedInputTokens": 0
+        },
+        "ms": 7168,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17901,
+         "inputTokenDetails": {
+          "noCacheTokens": 17901,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1689,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1427
+         },
+         "totalTokens": 19590,
+         "raw": {
+          "thoughtsTokenCount": 1427,
+          "promptTokenCount": 17901,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19590,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17901
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1427,
+         "cachedInputTokens": 0
+        },
+        "ms": 11469,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16743,
+         "inputTokenDetails": {
+          "noCacheTokens": 14183,
+          "cacheReadTokens": 2560
+         },
+         "outputTokens": 6288,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 6069
+         },
+         "totalTokens": 23031,
+         "raw": {
+          "prompt_tokens": 16743,
+          "completion_tokens": 6288,
+          "prompt_cache_hit_tokens": 2560,
+          "prompt_cache_miss_tokens": 14183,
+          "total_tokens": 23031,
+          "prompt_tokens_details": {
+           "cached_tokens": 2560
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6069
+          }
+         },
+         "reasoningTokens": 6069,
+         "cachedInputTokens": 2560
+        },
+        "ms": 46003,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17247,
+         "inputTokenDetails": {
+          "noCacheTokens": 16671,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 1739,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 1612
+         },
+         "totalTokens": 18986,
+         "raw": {
+          "prompt_tokens": 17247,
+          "completion_tokens": 1739,
+          "total_tokens": 18986,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1612,
+           "accepted_prediction_tokens": 1057,
+           "rejected_prediction_tokens": 986,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1612,
+         "cachedInputTokens": 576
+        },
+        "ms": 26176,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16555,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16552
+         },
+         "outputTokens": 279,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 57
+         },
+         "totalTokens": 16834,
+         "raw": {
+          "input_tokens": 16555,
+          "input_tokens_details": {
+           "cache_write_tokens": 16552,
+           "cached_tokens": 0
+          },
+          "output_tokens": 279,
+          "output_tokens_details": {
+           "reasoning_tokens": 57
+          },
+          "total_tokens": 16834
+         },
+         "reasoningTokens": 57,
+         "cachedInputTokens": 0
+        },
+        "ms": 6293,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__3.3#r1-openai",
+ "accepted_at": "2026-10-06T23:50:46.473Z"
+}

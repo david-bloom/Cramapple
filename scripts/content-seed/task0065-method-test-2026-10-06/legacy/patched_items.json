@@ -1,0 +1,38 @@
+[
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Elemental Composition of Pure Substances",
+  "seed_used": true,
+  "stem": "A liquid hydrocarbon used as a solvent is 89.94% carbon and 10.06% hydrogen by mass. A separate experiment shows its molar mass is 120.2 g/mol. What is the molecular formula of the compound? (Molar masses: C = 12.01 g/mol, H = 1.008 g/mol)",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "C\u2083H\u2084",
+    "is_correct": false,
+    "rationale": "This is the empirical formula, and stopping here is the most common way to lose the point. C\u2083H\u2084 has a mass of only 40.07 g/mol, not 120.2 g/mol. Fix: divide the given molar mass by the empirical formula mass (120.2 \u00f7 40.07 = 3) and multiply every subscript by 3."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "C\u2089H",
+    "is_correct": false,
+    "rationale": "Tempting if you divide the mass percentages by each other (89.94 \u00f7 10.06 \u2248 9) without converting to moles first. Mass ratios are not atom ratios because a carbon atom is about 12 times heavier than a hydrogen atom. Fix: convert grams of each element to moles before comparing."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "C\u2089H\u2089",
+    "is_correct": false,
+    "rationale": "Tempting if you round the mole ratio 1 : 1.33 down to 1 : 1, giving CH (13.02 g/mol), and then round 120.2 \u00f7 13.02 = 9.23 to 9. A ratio of 1.33 is not close enough to round; it signals thirds, and a multiplier like 9.23 that is not a whole number is the warning sign. Fix: multiply 1 : 1.33 by 3 to get the whole-number ratio 3 : 4."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "C\u2089H\u2081\u2082",
+    "is_correct": true,
+    "rationale": "In 100 g there are 89.94 \u00f7 12.01 = 7.489 mol C and 10.06 \u00f7 1.008 = 9.980 mol H, a 1 : 1.33 ratio that becomes 3 : 4, so the empirical formula is C\u2083H\u2084 (40.07 g/mol). Since 120.2 \u00f7 40.07 = 3, the molecular formula is C\u2089H\u2081\u2082."
+   }
+  ],
+  "verification": "python3: %C, %H computed from C9H12 (M = 120.195): 89.94%, 10.06%. moles per 100 g: C 7.4881, H 9.9802; H/C = 1.3328 -> x3 = 3.998 -> C3H4; empirical mass 3(12.011)+4(1.008)=40.065; 120.2/40.065 = 3.00 -> C9H12 (key, M 120.195). Distractors: C3H4 = stopped at empirical (brief's named point loss); mass-as-mole slip 89.94/10.06 = 8.94 -> C9H; round 1.33 to 1 -> CH (13.019), 120.2/13.019 = 9.23 -> 9 -> C9H9 (117.17).",
+  "author_flags": "Seed was an empirical-formula item (Si/N ceramic); this item uses a different compound, different numbers, and the correct idea is the molecular-formula scaling step, not the empirical formula. Distractor B (C9H) is not a chemically sensible formula; kept because it is the direct result of a named slip."
+ }
+]
