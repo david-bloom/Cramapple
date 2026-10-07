@@ -220,7 +220,16 @@ clients (4 new tests); W8 replaces `sumMinutesThisWeek` with `computeMinutesThis
 in the window, active included, `ended_at` unused, start → last graded attempt, capped at 60 min per
 session; 4 tests). 695 tests, typecheck and build pass. Earlier attempts stay `independent`; the
 Independence bar only changes as new attempts land. One stale doc-comment above the new constant
-("Whole minutes across COMPLETED sessions…") is harmless. **Awaiting David's publish.**
+("Whole minutes across COMPLETED sessions…") is harmless. **Published by David and confirmed live
+2026-10-07 ~16:05 UTC:** the hub now shows "5 questions · 60 minutes" (the per-session cap, because the
+owner's one real session has been open since 01:40 with attempts at both ends; the old figure was 607),
+and a practice answer submitted with the topic hint open landed in Production as
+`assistance_state = coached` (`pre_submit_hint_count` still 0, as expected until the events path
+exists). Two more gaps seen on the way: **W10** `attempts.submitted_at` is never written by any
+edge function (status goes draft → graded), so the events trigger's "before/after submission" split
+always reads "before"; the client must only log pre-submission opens. **W11** a session left open
+across a day with attempts at both ends counts the full 60-minute cap; B3 (close on exit / idle)
+is still the real answer.
  This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
