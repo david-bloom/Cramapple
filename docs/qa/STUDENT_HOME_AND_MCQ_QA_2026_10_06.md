@@ -20,6 +20,34 @@ David supplied four live screenshots and requested:
 
 Existing published topic notes must render when available; do not conceal them behind a blanket coming-soon message.
 
+## Follow-Up: Study Navigation and Session Counter
+
+Follow-up documentation branch: `codex/study-navigation-counter-qa`, based on current `origin/main` after PR #363 merged. Original workspace changes remain untouched.
+
+Owner added two findings after the first preview: no mechanism to return to the student hub/change topic/change subject, and no count of questions seen in the session.
+
+Baseline source confirms `QuestionPlate` disables the topic map for live/package questions, has no hub action or subject switcher, and uses a generic real-item status instead of progress. `LivePracticeMcq` and `LivePracticeFrq` own the real session ID and fetched queue; `SessionProvider.attempts` persists across sessions and is not a valid seen counter. The live routes wrap screens in a React Router MemoryRouter inside TanStack routing, so a memory-only `/home` navigation is not an actual app exit.
+
+Build message: `umsg_01m4a21r2dfjk8nftzm9ppemng`. Preview only, based on `6aed5c8cbf1e4c8318d2a76a3f6eb88f12b6eea9`.
+
+Required behavior: actual Student hub navigation, a working Change topic action to the real picker, reuse of the real subject-switch flow, unsent-answer/pending-grade guards, and a visible count of distinct items actually displayed (including skips), scoped to authenticated user/session/pack and resilient to reload, duplicate renders and unavailable storage. Do not count all fetched items, graded attempts, or answer-key disclosures; do not invent a total or cross-device server history.
+
+First follow-up commit: `300c984d9b1d0b5cc76cd0cb9d6bdad1771cb82e` (connector-confirmed). Source adds `StudyNav` across live MCQ/FRQ/Open Hand states, real `/home` and `/home#change-topic` links, inline subject switching with a leave guard, picker anchors across Home stages, and browser-local distinct-item tracking keyed by user/pack/real learning session. Lovable reports 73 files / 654 tests passing, typecheck/build exit 0; no signed-in or phone browser checks.
+
+Review correction message: `umsg_01m4b4g7wefngb3xzscmf01f9h`. Review found aggressive counter pruning deleting other resumable sessions' counts, potential old-queue/new-identity counting during subject/user changes, effect-only pending guards, unguarded existing exit actions, and animated anchor scrolling despite the no-motion rule. Requested corrections and actual shared-component mobile geometry checks.
+
+Counter limitation: the current teaching-pool Open Hand MCQ route has no real learning session, so this build hides the real-session count there instead of inventing one. Practice MCQ/FRQ and session-backed Open Hand use their actual session IDs. Counts are browser-local, not cross-device server evidence. Change topic returns to the real hub picker and does not retain the previous MCQ/FRQ format.
+
+Final follow-up commit: `64352ecbf26da46b26a235d142fefddf1043d82f` (connector-confirmed). Reviewed diff replaces aggressive pruning with a 30-session recency history per user, binds fetched queues to their owning user/pack before rendering/counting, reruns fetches on authenticated-user changes, adds synchronous in-flight locks around grading/feedback/reveal calls, routes existing outward buttons through the leave guard, makes selected-subject selection a no-op, and uses nonanimated picker focus. Inline subject controls and menus wrap within viewport constraints.
+
+Lovable-run final checks: `npx tsgo --noEmit` exit 0, `bunx vitest run` exit 0 (73 files / 673 tests passing), `npm run build` exit 0, with command statuses captured rather than merely the status of `tail`. An initial build failed on an FRQ variable-name collision; it was repaired before the final checks. Test coverage combines pure helper behavior, static markup and source assertions, not mounted end-to-end interaction tests.
+
+Lovable also measured a headless isolated harness rendering the real `StudyNav` and `SubjectSwitcher` with the real stylesheet, stubbed authenticated subject/router data, the long Physics C E&M name and counter 12. At 320, 390 and 1280px: no page overflow, control overlap or off-screen controls; open-menu horizontal bounds were 12-304, 12-304 and 305-612px. This verifies shared-component geometry, not the complete signed-in question screen.
+
+Remaining limitations: browser-local count only (30 recent real-session counters retained); no counter for the sessionless teaching route; Change topic does not carry the previous MCQ/FRQ format; blocked older outward buttons do not show the study bar's blocking message. The sessionless teaching route was not given the fetched-queue identity guard, so its existing transient old-item display during switching remains a separate gap. Signed-in desktop/mobile walkthrough and fresh independent release QA remain required. No publishing or backend/data changes were performed by this preview build.
+
+Browser check (2026-10-07): the actual Lovable editor preview at `/practice-mcq` rendered Student hub and Change topic in the no-subject state. Clicking Student hub navigated the real iframe to the Home loading screen, then Sign in. This verifies a real app navigation, not signed-in hub behavior or the session counter. The preview remains unauthenticated; owner was asked to sign in for full walkthrough QA. No sign-in email was sent, question answered, key disclosed, or subject/course position changed by this check.
+
 ## Verified Baseline
 
 - Production account has current, nonexpiring beta entitlements for all ten active subjects. No entitlement writes were necessary.
