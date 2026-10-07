@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Three Defective Live Teaching Items Replaced; Statistics 2.12 Brief Fixed (APPROVAL-0129) (2026-10-07): pipeline-made replacements for Stats 1.10, Stats 2.12, Bio 2.10 loaded to Dev and Prod (rehearsed, hash-verified, real RPC serves them); old items retired; 2.12 brief brought back to CED 2.12
 - Content Authoring Protocol v0.6: Generate-and-Select Adopted (DECISION-0099) (2026-10-07): new §0 makes the no-edit, four-family method the default for new MCQs and required for Open Hand teaching items, with evidence, rules, escalation triage, evaluation method, live-replacement pattern, cost levers and scope
 - TASK-0065 Method Test Run: Legacy vs Generate-and-Select (2026-10-07): 24 topics (units 1-3), blind held-out judges against CED PDF text, 4/4 planted defects caught; defective items legacy 4/24, pipeline 1/23, live 3/24 (not significant at n=24); pipeline cost 3.5-4.9x legacy per clean item; live defects and a Stats 2.12 brief overreach found; nothing written to any database
 - Biology 2.10 Brief Fixed and 3.3 Fact-Pack Gap Closed (APPROVAL-0127); Biology Teaching Items 20/21; Method Test Designed (2026-10-06): CED PDF showed the 2.10 brief overreached and the fact pack dropped EK 3.3.A.2.ii; both topics regenerated and accepted; review page published; legacy-vs-pipeline test designed, not run

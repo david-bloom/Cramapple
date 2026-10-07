@@ -312,3 +312,11 @@ MiniMax) against CED PDF text, with 4 planted defects mixed in (all 4 caught):
 - whether to fix the 2.12 brief;
 - human confirmation of Claude's provisional adjudication of 17 disputed items;
 - the Q* and pedagogy ratings.
+
+## Live replacements and Statistics 2.12 brief fix — 2026-10-07 (APPROVAL-0129)
+
+- The Statistics 2.12 brief was fixed to CED 2.12 in Development and Production.
+- The three defective live items (Stats 1.10, Stats 2.12, Bio 2.10) were replaced in Development and Production
+  with pipeline items checked by four model families and three held-out judges.
+- The old items are retired. The real teaching function now serves the replacements.
+- Details: APPROVAL-0129.

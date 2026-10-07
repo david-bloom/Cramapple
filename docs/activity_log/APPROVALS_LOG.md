@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0129 — Replace Three Defective Live Open Hand Teaching Items (Stats 1.10, Stats 2.12, Bio 2.10); Fix the AP Statistics 2.12 Topic Point Brief (Dev + Production) — TASK-0065
 - APPROVAL-0128 — Remove Repeated Answer Choices From 198 Published MCQ Stems (Label Carry-Forward)
 - APPROVAL-0127 — Fix the AP Biology 2.10 Topic Point Brief (Dev + Production); Restore EK 3.3.A.2 Sub-Points in the Biology CED Fact Pack — TASK-0065
 - APPROVAL-0126 — Load and Publish 27 Orly Clean-Room MCQs (21 AP Chemistry Units 1/3, 6 AP Calculus AB 2.1) to Production; Hold the 3 Density Items — DECISION-0098
@@ -1835,4 +1836,36 @@ What was approved or rejected?
 **Not changed:** the 2.10 topic explainer, which also teaches circular DNA and binary fission as evidence (repair of 2026-08-22). It is student-facing and still overreaches the CED. Flagged for David.
 
 **Rollback:** restore the three fields from `supabase/migrations/20260820230000_seed_remaining_biology_calculus_topic_point_briefs.sql` (line 91).
+
+
+## APPROVAL-0129 — Replace Three Defective Live Open Hand Teaching Items; Fix the AP Statistics 2.12 Topic Point Brief
+
+**Date:** 2026-10-07  
+**Approved By:** David Bloom (2026-10-07 Claude session: "Replace the three live items and fix the 2.12 brief")  
+**Related Task:** `TASK-0065`. The source finding is the method test, `scripts/content-seed/task0065-method-test-2026-10-06/RESULTS.md` (PR #359).  
+**Decision:** Approved
+
+**Why:** the method test's blind held-out judging found three live teaching items with confirmed defects:
+- **Stats 1.10:** a fix line says random assignment defines an experiment.
+- **Stats 2.12:** the key needs σ/√n, which is CED 4.1.
+- **Bio 2.10:** a false rationale ("all eukaryotic organelles have membranes"), and a key that needs evidence outside CED 2.10.
+
+The Statistics 2.12 brief asked for "sample size tightens the spread", which is CED 4.1. That produced the same defect in all three arms.
+
+**Approved scope and result (Development `wmgjsdkphcyhngaffbqf`, then Production `pcntajvbdfqhbeewmdry`):**
+1. **Statistics 2.12 brief.** `how_points_are_earned` was rewritten to CED 2.12.A.1–A.4 (no spread claim). Migration `20261007020000_fix_ap_statistics_2_12_point_brief.sql`. Applied to Development and Production (hash `4d4c0cda…` in both), with ledger rows in both.
+2. **Replacements.** All three were made by the generate-and-select pipeline, with no edits:
+   - Stats 1.10 and Bio 2.10 are the pipeline items from the method test. All four checker families, the veto and all three held-out judges cleared them.
+   - Stats 2.12 was regenerated against the fixed brief. Controls 6/6 caught; it passed four checkers and the veto, then the three held-out judges, unanimously on key, topic, scope and "publish".
+   - **Load.** The APPROVAL-0125 loader SQL, plus a replace step that releases the old teaching row, retires the old item and version, and asserts exactly one active teaching row per topic. New keys: `APSTATS-OHT-1.10-r2`, `APSTATS-OHT-2.12-r2`, `APBIO-OHT-2.10-r2`.
+   - **Development:** applied; content hashes match the locally computed plan.
+   - **Production:** a rolled-back rehearsal per subject ("REHEARSAL OK"), then the apply. Content hashes match the plan.
+3. **Verification in Production:**
+   - The real `get_open_hand_teaching_item`, called as an authenticated user, returns the new item for all three topics.
+   - The old items are `retired`, with released teaching rows.
+   - Active generated teaching items: still 91.
+
+**Files:** `scripts/content-seed/task0065-live-replacements-2026-10-07/` (`build_replace_sql.py`, `*_apply.sql`, `*_rehearsal.sql`, `expected_hashes.json`, the pipeline batch and judge results).
+
+**Rollback:** per topic, set the old row's `released_at` back to null, return the old item and version to `published`, then release the `-r2` row and retire the `-r2` item. Restore the 2.12 brief text from `20260821*` seed history.
 
