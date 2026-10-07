@@ -245,8 +245,11 @@ row insert) and a `security_invoker` view `public.attempt_assistance_events` wit
 `authenticated` (base-table RLS = own attempts; triggers derive every other column). The SQL was
 presented to David in chat for approval; the file write was blocked by the session's permission
 classifier because it grants privileges, and Production migrations are the owner's gate regardless.
-Order once approved: Dev, rehearsal insert in a rolled-back transaction, Production, commit the file
-under the recorded version.
+**Applied 2026-10-07 under `APPROVAL-0130`:** Dev `20261007180947` (rehearsed on a real attempt: before/after
+derivation and the hint-count rollup both work; rows cleaned up), Production `20261007181153` (verified).
+File committed as `supabase/migrations/20261007181153_assistance_events_write_path_topic_hint.sql`. **Waiting on
+David to publish Lovable `b868486f`**, then a live hinted answer should produce one event row and
+`pre_submit_hint_count = 1`.
  This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
