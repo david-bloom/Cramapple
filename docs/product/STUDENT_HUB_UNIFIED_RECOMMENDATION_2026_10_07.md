@@ -169,7 +169,14 @@ board is built; three Stage B copy lines become conditional on `canRecommend` ("
 are", a why-this that cites the attempt count, no threshold line); `TopicHome.tsx` stays in the
 codebase unmounted. Built in Lovable `56cae479` the same day as commit `ed1b4715` (3 files: `HomeV2.tsx`,
 `HomeStageBBuilding.tsx` with an exported `stageBCopy` helper, `home-stage-selection.test.ts`; full suite
-676 tests, typecheck and build clean; diff reviewed by Claude). **Preview only; David publishes.** This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
+676 tests, typecheck and build clean; diff reviewed by Claude). **Published by David 2026-10-07 ~15:35 UTC and confirmed live** on his account: Stage B renders with
+"Here's where you are", the attempt-count "Why this", no threshold line, no mode bar, no "Ask for help"
+or "Homework helper". Two data-honesty follow-ups seen on that live page, not yet investigated:
+**W8** Pulse showed "607 minutes this week" for 5 questions, so a session closed long after it was
+abandoned is counting its whole wall-clock span (B3 should cap or end sessions on inactivity);
+**W9** "Guided 0% · Independent 100%, 5 of 5" on a day the owner opened the topic hint and reference
+materials before submitting, so hint use may not be reaching `assistance_state` (check B7 against the
+grading call's `assisted` flag). This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
 ### 3b.2 A memory card instead of evidence disclaimers (Stage B)
