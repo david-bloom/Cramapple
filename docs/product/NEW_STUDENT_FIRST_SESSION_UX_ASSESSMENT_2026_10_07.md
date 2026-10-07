@@ -25,6 +25,47 @@ the live site is outside what an assistant may do autonomously, so every screen 
 is reconstructed from source. TASK-0048 itself records that Stage A/B have "never had signed-in
 visual QA" **[doc]**. Section 8 says how to close that gap in ten minutes.
 
+## 0b. Product Owner direction received 2026-10-07 — recorded as DECISION-0100
+
+After reading §1–§8 David gave this direction (paraphrased closely; the decision text is in
+`DECISIONS_LOG.md` → `DECISION-0100`):
+
+> A student can **learn through a worked example**. That matters because it is *how they will be
+> questioned on tests and the exam*: it is highly directed learning toward tests and the exam, not
+> toward general knowledge. But it is **not required**. A student might skip the worked example and
+> practice on their own, or export the deep dives and use them as supplemental notes from class, or
+> bring their own homework question, which Cramapple helps them understand but does not answer.
+
+What this changes in this document:
+
+1. **The "four-step strip" (old R1 / K1) is withdrawn.** A numbered 1-2-3-4 sequence would present the
+   worked example as a gate. The replacement is a **"ways in" row**: for the student's current topic,
+   four equal doors, with the worked example *recommended* (listed first, with its reason) but never
+   required. See the revised R1, K1, K7 and K8 below.
+2. **The purpose of the worked example must be stated on the page**, once, in the student's terms:
+   *"See how this topic gets asked and scored on the exam."* That sentence does the work the strip was
+   meant to do. It is the differentiator (§1, B1) and it is currently nowhere in the product.
+3. **Deep dives become a first-class door, with export.** "Copy deep dive" (C8) becomes "Save as
+   notes" with confirmation and a place on the hub where saved notes live (new K23).
+4. **Bring a question is the fourth door, on every hub stage, with its promise stated**: *"We'll help
+   you understand it. We won't answer it for you."* (new K24). One name everywhere (R7 stands).
+5. **Open question 1 in §7 is answered** (optional, recommended). Question 3 (vocabulary) stays open;
+   candidates are listed in §7 with a recommendation.
+
+**Related work found while recording this:** a parallel Codex session opened PR #365
+(`docs/qa/NEW_USER_FIRST_SEVEN_MINUTES_ASSESSMENT_2026_10_07.md`) the same morning, from the same
+evidence (source at `64352ecb`, the Recorder trace, the four artboards). Its section headings
+(F1–F10, a "recommended first-use sequence", and a "revision brief" for the canvas by frame) overlap
+this document closely; its body could not be read in this session. **The two should be reconciled
+by the Product Owner before either merges**; this document's §0b direction applies to both.
+
+**Plate-loop flag history, relevant to §2:** `DECISION-0097`'s amendment records that the plate loop
+(worked example → practice) was switched **off** by default on 2026-10-06 (`5b269ac1`) and is back on
+in the build David recorded on 2026-10-07. The three pilot FRQ sessions on 2026-10-05/06 therefore
+happened while "Start practice" may have routed through the older `/session` flow, which serves FRQ
+drills. That is the likeliest answer to §2 item 2 and R12, and it means those three students never
+saw a worked example at all.
+
 ---
 
 ## 1. Verdict in four answers
@@ -253,9 +294,9 @@ no backend. Everything in P0 is copy and structure on screens that already exist
 
 | # | Change | Where | Why |
 | --- | --- | --- | --- |
-| R1 | **Put the loop on the page.** One strip, top of every hub stage and carried into the plate chrome: **1 Where is your class · 2 See one worked · 3 Try one for points · 4 We tell you what's next.** Highlight the current step. | Stage A/B hero, `QuestionPlate` breadcrumb right-slot (replace "Worked example"/"Practice" status with "Step 2 of 4 · Worked example") | Fixes A1, A3, B1 in one move; gives every other screen a frame to refer to. |
+| R1 | **Put the method on the page, then offer four doors.** *(Revised per §0b.)* One sentence under the hub hero: *"Cramapple teaches each topic the way the exam asks and scores it."* Then a **"Ways in" row for the current topic**: **See one scored** (recommended, with its reason: *"the fastest way to see how this topic earns points"*), **Practice**, **Notes** (deep dives, saveable), **Bring a question**. The worked example is first and marked recommended; nothing is numbered or gated. | Stage A/B hero, carried as a compact row into the plate chrome | A1, A3, B1 without making the worked example mandatory. |
 | R2 | **Make the position form answerable.** Replace "Tell us where your class is" with "What did your teacher cover most recently?"; show topic *titles* (not `1.1 ·` codes) and group by unit; preselect or badge the calendar-typical unit ("Most classes are in Unit 2–3 in early October"); keep "Not sure — start from the beginning" as an explicit choice so Unit 1 is a decision, not a default. | `HomeStageANew.tsx` | A2: 3/3 real students chose 1.1. |
-| R3 | **Open Hand: say why, then push forward.** Add a one-liner above the key: *"This one's answered for you. Read how each point is earned, then try one like it for real."* Make **"Try one on your own →"** the primary button; demote "Next question" to "Show me another worked one". Keep "Upload your own question" off this screen (it is on the hub). | `OpenHandMcqScreen.jsx` | A3, C2. |
+| R3 | **Open Hand: say why, then suggest the next door.** Add a one-liner above the key: *"This one's answered for you. This is how the exam asks and scores it: read how each point is earned."* Make **"Try one on your own →"** the primary button as the *suggested* next door, keep "Show me another scored one" and add **"Save as notes"** on the deep dive; "Back to hub" always visible. Nothing here is a gate. Keep "Upload your own question" off this screen (the hub's Bring-a-question door covers it). | `OpenHandMcqScreen.jsx` | A3, C2, §0b. |
 | R4 | **Practice: give the first session a shape.** Say "Your first session: 3 questions" on entry, show "Question 2 of 3" in the plate, and after the third graded answer show a **stopping-point card**: points so far, the topic, and *"That's enough for Cramapple to start recommending. Back to your hub →"* with "Keep going" as secondary. The Stage A copy already promises exactly this threshold (3 attempts across 2 items). | `LivePracticeMcq.jsx`, `PracticeMcqScreen.jsx` | A4, B3, B5. Replaces the "You've finished the questions ready for this unit" dead end. |
 | R5 | **Frame the first wrong answer.** On the first incorrect verdict of a session add one line to the feedback card: *"Normal for a first look at a topic. The explanations on the left are the point — read the one you picked."* | `FeedbackCard` caller in `PracticeMcqScreen.jsx` | B3: the one MCQ student quit after two reds. |
 | R6 | Link the "While you're here" explainer cards to `/learn/…`, and move them *below* the primary action so they do not compete with it. | `HomeStageANew.tsx` | A5. |
@@ -297,12 +338,19 @@ no backend. Everything in P0 is copy and structure on screens that already exist
 
 ## 7. Open questions for the Product Owner
 
-1. **Is the worked example mandatory or optional?** Today it is neither: it is the primary path when
-   content exists and silently absent when it doesn't. R1 assumes "mandatory, named step 2".
+1. ~~**Is the worked example mandatory or optional?**~~ **Answered 2026-10-07 (DECISION-0100): optional
+   and recommended.** It is one of four equal doors, listed first with its reason. Nothing gates on it.
 2. **How long is a first session?** Stage A says 3 attempts across 2 items; Practice serves 10.
    R4 assumes 3.
-3. **Which word?** "Worked example" (what the button says) or "Open Hand" (what the masthead says).
-   R7 assumes "Worked example" for students, "Open Hand" stays internal.
+3. **Which word?** David is not sure "worked example" is right. The thing to name is *a real exam-style
+   question shown with its answer and how it is scored, for learning*. Candidates:
+   - **"Worked example"** — familiar from textbooks; says nothing about scoring or the exam.
+   - **"Scored example"** (noun) / **"See one scored"** (button) — carries the differentiator: the
+     student sees how points are earned, which is the stated purpose in §0b. *Recommended.*
+   - **"Open Hand"** — the internal and marketing name; opaque to a new student on first contact,
+     fine as the masthead word once the student knows what it is.
+   - **"Answer key, face up"** — accurate, long, reads as cheating to a 15-year-old.
+   This document uses "scored example" in K1/K7/K8 and "worked example" elsewhere until David picks.
 4. **FRQ-first for Bio/Stats (R13)?** It is the promise on the homepage; it is also the screen three
    students bounced off. The answer may be "worked FRQ first, short-text FRQ practice", not "no FRQ".
 5. **Can we talk to the five pilot accounts?** Three questions each would be worth more than this
@@ -332,7 +380,7 @@ and tighten the returning-student boards second.
 
 | # | Change | Resolves |
 | --- | --- | --- |
-| K1 | **Add the four-step strip** directly under the orientation strip on all four boards, and (K8) on the two new plate boards: **1 Where your class is · 2 See one worked · 3 Try one for points · 4 What's next.** Current step filled, done steps ticked, later steps grey. Stage A: step 1 live. Stage A once position is set: step 2 live. Stage B: step 3 or 4 depending on count. Main: step 4 live, strip collapsed to one line. | A1, A3, B1 (R1) |
+| K1 | **Add the method line and the "Ways in" row** *(revised per §0b; the numbered strip is withdrawn)* under the hero on all four boards and, as a compact version, in the plate chrome of the two new boards (K8). Method line: *"Cramapple teaches each topic the way the exam asks and scores it."* Row, for the current topic: **See one scored · Recommended** (reason underneath) · **Practice** · **Notes** · **Bring a question**. Each door shows the student's own state for this topic where it exists ("1 seen", "2 of 3 answered", "1 note saved"). No numbering, no locks. | A1, A3, B1 (R1) |
 | K2 | **One vocabulary, eight words.** Student-facing nouns on the hub become: *Worked example, Practice, Points, Topic, Unit, Session, Deep dive, Bring a question.* Rename on the canvas: "Pulse" → "This week"; "Independence" / "Going it alone" → "On your own"; "Points on the table" / "Still yours to take" → "Points you can still get"; "What you've banked" → "So far"; "Worth revisiting" keeps its title but loses the second "Next best action" eyebrow. "Open Hand" does not appear on the hub. | C1 (R7) |
 | K3 | **Every "Why this" is forward-looking and cites the student's own last action** ("Your first three answers tell Cramapple where to start", "Last time: 2 questions on 1.1, 1 point"), never a statement of what Cramapple can't do yet. The honest-empty-state rule stays; the *copy* points forward. | B5 |
 | K4 | **No upsell, no notices, above the first primary action.** Remove "Add a subject", "Your only subject so far", "AP Chemistry is here", and the framework-update notice from the first viewport on every board; at most one dismissible notice per page, below the hero. | B5, C1 |
@@ -343,11 +391,13 @@ and tighten the returning-student boards second.
 | # | Change | Resolves |
 | --- | --- | --- |
 | K6 | **Rewrite the hero question.** "Tell us where your class is" → **"What did your class cover most recently?"** One grouped select (unit headings, topic *titles* as options, codes in grey after the title), a calendar badge beside it ("Most AP Biology classes are in Unit 2–3 in early October"), and an explicit third choice: **"Not sure — start me at the beginning."** Drop the "Not sure? Take the 6-question check" tile (unbuilt; TASK-0048 cut it, this assessment agrees). Button: **"That's where I am →"**. | A2 (R2): 4 of 4 real users chose Unit 1 · 1.1 |
-| K7 | **Add a second state of Stage A, as its own artboard `Stage-A2-Ready.dc.html`** (position set, no attempts yet; today the page silently re-renders). Hero becomes the method, said once: *"Every topic, two steps: see one worked, then try one for points."* Two buttons: **"See one worked (2 min) →"** primary, **"Skip to practice"** quiet. Below: **"Your first session: one worked example, three questions, then your first recommendation."** Replace "What happens next: after about 8 questions…" with that line. | A1, A3, A4, B1 (R1, R4) |
-| K8 | **Add two plate boards so the loop is designed end to end:** `Worked-Example.dc.html` and `Practice-First-Question.dc.html`, built on the question plate in `docs/new_design/`. Worked example: the K1 strip in the breadcrumb row; a one-line lead above the key (*"This one's answered for you. Read how each point is earned, then try one like it for real."*); primary **"Now try one for points →"**, quiet "Show me another worked one"; no "Upload your own question" here. Practice: breadcrumb right slot **"Question 1 of 3"**; Reference and topic hint open and ungated on question 1 with the line *"Free on your first question"*; and a **stopping-point card** after question 3 (points, topic, *"That's enough for Cramapple to start recommending. Back to your hub →"*, "Keep going" quiet). | A3, A4, C8, C9 (R3, R4, R9a) |
+| K7 | **Add a second state of Stage A, as its own artboard `Stage-A2-Ready.dc.html`** (position set, no attempts yet; today the page silently re-renders). Hero: the topic title, the method line, then the K1 "Ways in" row with **See one scored** marked recommended and its reason, and all four doors live. Below: *"Three answered questions are enough for Cramapple to start recommending. Scored examples and notes don't count toward that, and that's fine."* Replace "What happens next: after about 8 questions…" with that line. | A1, A3, A4, B1 (R1, R4), §0b |
+| K8 | **Add two plate boards so the doors are designed end to end:** `Scored-Example.dc.html` and `Practice-First-Question.dc.html`, built on the question plate in `docs/new_design/`. Scored example: the compact K1 row in the breadcrumb band showing where the student is; a one-line lead above the key (*"This one's answered for you. This is how the exam asks and scores it."*); primary **"Now try one for points →"** as the suggested next door, quiet "Another scored one", **"Save as notes"** on the deep dive (K23), "Back to hub". Practice: breadcrumb right slot **"Question 1 of 3"**; Reference and topic hint open and ungated on question 1 with *"Free on your first question"*; a quiet link **"See one scored first"** for students who came straight to practice; and a **stopping-point card** after question 3 (points, topic, *"That's enough for Cramapple to start recommending. Back to your hub →"*, "Keep going" quiet). | A3, A4, C8, C9 (R3, R4, R9a), §0b |
 | K9 | **First-wrong-answer line** on the practice board's feedback card: *"Normal for a first look at a topic. The explanation for the one you picked is on the left."* | B3 (R5) |
 | K10 | **Shrink the curriculum on Stage A to one line** ("8 units · 53 topics · you're starting in Unit 2") with a "See the map" link. A grid of 53 grey cells on a first visit says "you have done nothing", which is true and unhelpful. The full rail returns on Stage B. | B5 |
 | K11 | **Explainer cards are links**, titled by what they teach ("What earns the FRQ point · 6 min"), placed *below* the primary action, not beside it. | A5 (R6) |
+| K23 | **Notes door, with export.** "Copy deep dive" becomes **"Save as notes"** with a visible confirmation ("Saved to your notes") and an **export** (download as text/PDF, or copy, with confirmation). The hub's Deep dives shelf gains a **"Your notes"** tab listing saved ones by topic, so a student who uses Cramapple as supplemental notes from class has a place to come back to. Saved notes are never scored and never count as evidence. *Needs:* a small `saved_notes` table (user, topic, deep-dive id) or local storage for v1. | C8, §0b |
+| K24 | **Bring-a-question door on every hub stage**, one name, with its promise in the door itself: *"Snap or paste a homework question. We'll help you understand it. We won't answer it for you."* Remove "Upload your own question" from the plate and "Ask for help" / "Homework helper" from the hub (R9b). | C2, C7, §0b |
 | K12 | **Stage A on mobile first.** The canvas note says mobile is the old boxy version; the first-session screen is the one most likely opened on a phone between classes. Fold at 844px: greeting, K1 strip, K6 question, one button. Build this before `Mobile-Personalized`. | — |
 
 ### 8.3 Bridge: `Stage-B-Building` (1–2 graded attempts)
@@ -375,12 +425,12 @@ and tighten the returning-student boards second.
 1. K1, K2, K5 across boards (half a day of canvas edits).
 2. `Stage-A-New` K6, K10, K11 and the new `Stage-A2-Ready` (K7). These are the first-visit screens.
 3. The two plate boards (K8, K9). Without them the canvas still stops where the pilot students stopped.
-4. `Stage-B-Building` K13–K17.
+4. `Stage-B-Building` K13–K17, plus K23 (notes) and K24 (bring a question) on every board.
 5. `Main` and `Mobile` K18–K22, gated on R9 (session close + last attempt) and D7 (mastery) landing.
 
 **Stays open after this section:** the position estimator (K13), streaks (K19), partial-session resume
-(K18), and the five Product Owner questions in §7, in particular whether the worked example is a
-mandatory step 2 (K7 assumes yes, with "Skip to practice" as the escape).
+(K18), the vocabulary (§7 Q3), and the notes store for K23. Whether the worked example is required is
+**closed**: it is not (§0b, DECISION-0100).
 
 ---
 
@@ -403,4 +453,5 @@ mandatory step 2 (K7 assumes yes, with "Skip to practice" as the escape).
   `app.learning_sessions`, `app.attempts` (read-only, last 21 days).
 - PostHog: event taxonomy (last 30 days).
 - Design canvas `https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh` (four artboards + notes).
+- `DECISIONS_LOG.md` → `DECISION-0097` (plate-loop on/off history) and `DECISION-0100` (this session's direction); open PR #365 (headings and PR body only).
 - Product Owner's Chrome Recorder export, 2026-10-07 10:10 (click path only; the file also contains the owner's email and a spent one-time code and should not be committed).
