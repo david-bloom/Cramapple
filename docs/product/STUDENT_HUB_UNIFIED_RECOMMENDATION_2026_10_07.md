@@ -160,6 +160,17 @@ cards are links and sit below the primary action; no upsell or notice above the 
   0 and the worked-example traversal lives in component state (Sol F8), so until §4 lands the
   card says **"Last time: …"** and offers the doors, not "Resume".
 
+### 3b.0 Interim, decided 2026-10-07: personalized accounts route to Stage B
+
+David, on seeing the legacy TopicHome (Points mode, Learn/Points/Ask for help/Homework helper bar) on
+his own `personalized` account during the §8 walkthrough: **"route personalized accounts to Stage B
+for now."** `HomeV2.tsx` renders `HomeStageBBuilding` for all three stages until the personalized
+board is built; three Stage B copy lines become conditional on `canRecommend` ("Here's where you
+are", a why-this that cites the attempt count, no threshold line); `TopicHome.tsx` stays in the
+codebase unmounted. Build instruction sent to Lovable `56cae479` the same day, preview only; David
+publishes. This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
+single-structure change.
+
 ### 3b.2 A memory card instead of evidence disclaimers (Stage B)
 
 Replace the Pulse + Independence pair, which both say "not enough evidence" by construction below
