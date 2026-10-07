@@ -71,7 +71,7 @@ export function lint(item) {
   const text = [stem, ...ch.map((c) => `${c.choice_text} ${c.rationale}`)].join(' ');
   if (EMOJI.test(text)) f.push('emoji present');
   if (/<\/?[a-z][^>]*>|&[a-z]+;/i.test(text)) f.push('HTML markup or entity present');
-  if (/\\[()\[\]]|\\(frac|lim|sqrt|infty|to|displaystyle|cdot|le|ge|neq)\b|\$[^$\s][^$]*\$/.test(text)) f.push('LaTeX markup present (write maths as plain text)');
+  if (/\\[()\[\]]|\\(frac|lim|sqrt|infty|to|displaystyle|cdot|le|ge|neq)\b|\$[^$]*[\\^_{}][^$]*\$/.test(text)) f.push('LaTeX markup present (write maths as plain text)');
   if (/!=|<=|>=/.test(text)) f.push('programmer notation (!=, <=, >=) instead of a symbol');
   if (/!/.test(text.replace(/!=/g, ''))) f.push('exclamation mark present');
   if (/\bcalculator\b/i.test(text)) f.push('calculator reference');
