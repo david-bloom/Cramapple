@@ -116,7 +116,7 @@ Production items for those topics were judged as a third arm. Full write-up:
 | Step | What happens | Why |
 |---|---|---|
 | Rubric | One rubric (`rubric.mjs`) builds both the author prompt and every checker prompt: on topic, CED scope, one defensible answer, self-contained, clean stem, keyed rationale explains, every distractor a named trap ending in one action `Fix:`, accurate, concise (1–3 sentences, ≤60 words; fix ≤25 words), style. | An item is written to exactly the standard it is checked against. A new rule goes into the rubric **before** the next batch, never applied to items already written. |
-| Authors | Each round makes two stateless candidates per topic from different families (now Claude Opus 5.5 and GPT-6.1). Each author gets the topic's point brief, the unit's topic list and the full CED fact pack. It never sees another candidate or any checker feedback. | Two families give two independent chances; statelessness prevents drift toward a checker's preferences. |
+| Authors | Each round has two stateless authors from different families (now GPT-6.1, then Claude Opus 5.5). They run **in sequence**: the second writes only if the first's candidate is rejected. Each author gets the topic's point brief, the unit's topic list, the full CED fact pack and explicit length targets. It never sees another candidate or any checker feedback. | Two families give two independent chances. Running them in sequence stops paying for a candidate nobody uses. Statelessness prevents drift toward a checker's preferences. |
 | Key position | The runner places the correct answer at a deterministic random letter. | Removes letter bias (`feedback_mcq_authoring_requirements`). |
 | Lint | Deterministic rules: 4 choices, 1 correct, no inline list, one final `Fix:` per distractor, length limits, no HTML, emoji, `!` or `!=`, no figure the student cannot see. | Free and exact. Catches what models are noisy on. |
 | Blind solve | The **four families that did not write the item** solve it without the key. A wrong answer, a second defensible answer or a defect counts as a flag. | Catches wrong keys and ambiguity. |
@@ -187,7 +187,24 @@ The `APPROVAL-0129` pattern (`scripts/content-seed/task0065-live-replacements-20
 
 ### 0.7 Cost, speed and tuning
 
-Measured at about $0.74–0.77 per accepted item. 24 topics took about 14 minutes with four subjects running in parallel, three topics each.
+**Updated 2026-10-07 (measured):** three changes cut the cost per accepted question from $0.72 to **$0.28**
+(−61%) on the method test's 24 topics:
+- **Cache-friendly prompts.** The fixed role, rubric and fact pack come first, and Claude's prefix carries a cache
+  marker.
+- **Sequential authors.**
+- **Explicit length targets** for writers.
+
+Acceptance rose to 24/24 from 26 candidates, and the controls still caught 6/6. A blind held-out re-judge found 0
+defects in 24, with clean pedagogy and "publish" on all 24. Write-up:
+`scripts/content-seed/task0065-cost-test-2026-10-07/RESULTS.md`.
+
+**Next levers:** GPT and Kimi caching (2% and 18% hit rates), a cheaper fourth checker, and unit-only fact-pack
+sections (re-judge after that one).
+
+The original measurement follows.
+
+
+Originally measured at about $0.74–0.77 per accepted item. 24 topics took about 14 minutes with four subjects running in parallel, three topics each.
 That is 3.5–4.9× the legacy cost per defect-free item, which failed the method test's proposed 3× cost rule.
 The rule for that case: tune, don't drop. Levers, in order:
 1. A cheaper fourth checker where its smoke test and calibration hold (Kimi K3 was the most expensive checker).

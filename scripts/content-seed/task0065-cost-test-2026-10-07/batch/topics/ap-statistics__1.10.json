@@ -1,0 +1,701 @@
+{
+ "topic": {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.10",
+  "topic_title": "The Investigative Question Revisited and Data Collection"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-statistics__1.10#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 13849,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 13846
+    },
+    "outputTokens": 571,
+    "outputTokenDetails": {
+     "textTokens": 384,
+     "reasoningTokens": 187
+    },
+    "totalTokens": 14420,
+    "raw": {
+     "input_tokens": 13849,
+     "input_tokens_details": {
+      "cache_write_tokens": 13846,
+      "cached_tokens": 0
+     },
+     "output_tokens": 571,
+     "output_tokens_details": {
+      "reasoning_tokens": 187
+     },
+     "total_tokens": 14420
+    },
+    "reasoningTokens": 187,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-statistics",
+    "unit_number": 1,
+    "topic_code": "1.10",
+    "topic_title": "The Investigative Question Revisited and Data Collection",
+    "stem": "Researchers want to compare workplace absences among employees who usually walk to work and employees who usually drive. Today, they record each employee’s usual commuting method. They then track absences over the next six months without asking anyone to change commuting methods. Which statement best classifies this study and explains why?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "It is a prospective observational study because researchers impose no treatment and collect absence data going forward.",
+      "is_correct": true,
+      "rationale": "Researchers record employees’ existing commuting methods rather than impose a treatment, so the study is observational. Tracking absences over the next six months makes it prospective."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "It is a retrospective observational study because employees established their commuting habits before the study began.",
+      "is_correct": false,
+      "rationale": "This is the existing-habits timing error: a habit’s starting date does not determine whether a study is retrospective. Researchers track future absences rather than look back at past absence records. Fix: Identify whether the outcome data come from past records or future tracking."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "It is an experiment because researchers actively track employees’ absences for six months.",
+      "is_correct": false,
+      "rationale": "This is the monitoring-as-treatment error: actively measuring outcomes does not impose a treatment. Researchers do not change employees’ commuting methods. Fix: Locate the treatment researchers impose before classifying a study as experimental."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "It is an experiment because researchers compare groups with different commuting methods.",
+      "is_correct": false,
+      "rationale": "This is the comparison-as-experiment error: comparing existing groups does not make a study experimental. Employees already use their commuting methods; researchers do not impose them. Fix: Check whether researchers imposed the group conditions or merely recorded existing differences."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 689,
+         "inputTokenDetails": {
+          "noCacheTokens": 689,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 719,
+         "raw": {
+          "input_tokens": 689,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 3361,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 377,
+         "inputTokenDetails": {
+          "noCacheTokens": 377,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 245,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 215
+         },
+         "totalTokens": 622,
+         "raw": {
+          "thoughtsTokenCount": 215,
+          "promptTokenCount": 377,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 622,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 377
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 215,
+         "cachedInputTokens": 0
+        },
+        "ms": 3839,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 440,
+         "inputTokenDetails": {
+          "noCacheTokens": 184,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 343,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 317
+         },
+         "totalTokens": 783,
+         "raw": {
+          "prompt_tokens": 440,
+          "completion_tokens": 343,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 184,
+          "total_tokens": 783,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 317
+          }
+         },
+         "reasoningTokens": 317,
+         "cachedInputTokens": 256
+        },
+        "ms": 5962,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 462,
+         "inputTokenDetails": {
+          "noCacheTokens": 398,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 179,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 159
+         },
+         "totalTokens": 641,
+         "raw": {
+          "prompt_tokens": 462,
+          "completion_tokens": 179,
+          "total_tokens": 641,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 159,
+           "accepted_prediction_tokens": 98,
+           "rejected_prediction_tokens": 142,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 159,
+         "cachedInputTokens": 64
+        },
+        "ms": 14357,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 23007,
+         "inputTokenDetails": {
+          "noCacheTokens": 895,
+          "cacheReadTokens": 22112,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 381,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 169
+         },
+         "totalTokens": 23388,
+         "raw": {
+          "input_tokens": 895,
+          "output_tokens": 381,
+          "output_tokens_details": {
+           "thinking_tokens": 169
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 22112,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 169,
+         "cachedInputTokens": 22112
+        },
+        "ms": 6453,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 15448,
+         "inputTokenDetails": {
+          "noCacheTokens": 15448,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 948,
+         "outputTokenDetails": {
+          "textTokens": 263,
+          "reasoningTokens": 685
+         },
+         "totalTokens": 16396,
+         "raw": {
+          "thoughtsTokenCount": 685,
+          "promptTokenCount": 15448,
+          "candidatesTokenCount": 263,
+          "totalTokenCount": 16396,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 15448
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 263
+           }
+          ]
+         },
+         "reasoningTokens": 685,
+         "cachedInputTokens": 0
+        },
+        "ms": 7765,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14351,
+         "inputTokenDetails": {
+          "noCacheTokens": 8591,
+          "cacheReadTokens": 5760
+         },
+         "outputTokens": 3291,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 3072
+         },
+         "totalTokens": 17642,
+         "raw": {
+          "prompt_tokens": 14351,
+          "completion_tokens": 3291,
+          "prompt_cache_hit_tokens": 5760,
+          "prompt_cache_miss_tokens": 8591,
+          "total_tokens": 17642,
+          "prompt_tokens_details": {
+           "cached_tokens": 5760
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3072
+          }
+         },
+         "reasoningTokens": 3072,
+         "cachedInputTokens": 5760
+        },
+        "ms": 32165,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14336,
+         "inputTokenDetails": {
+          "noCacheTokens": 14272,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 1999,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 1872
+         },
+         "totalTokens": 16335,
+         "raw": {
+          "prompt_tokens": 14336,
+          "completion_tokens": 1999,
+          "total_tokens": 16335,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1872,
+           "accepted_prediction_tokens": 1257,
+           "rejected_prediction_tokens": 966,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1872,
+         "cachedInputTokens": 64
+        },
+        "ms": 24144,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.10",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14206,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 14203
+         },
+         "outputTokens": 267,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 45
+         },
+         "totalTokens": 14473,
+         "raw": {
+          "input_tokens": 14206,
+          "input_tokens_details": {
+           "cache_write_tokens": 14203,
+           "cached_tokens": 0
+          },
+          "output_tokens": 267,
+          "output_tokens_details": {
+           "reasoning_tokens": 45
+          },
+          "total_tokens": 14473
+         },
+         "reasoningTokens": 45,
+         "cachedInputTokens": 0
+        },
+        "ms": 5918,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-statistics__1.10#r1-openai",
+ "accepted_at": "2026-10-07T13:08:41.759Z"
+}

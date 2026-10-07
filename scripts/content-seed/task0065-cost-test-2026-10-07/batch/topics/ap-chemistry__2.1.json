@@ -1,0 +1,744 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Types of Chemical Bonds"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-chemistry__2.1#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 20443,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 20440
+    },
+    "outputTokens": 601,
+    "outputTokenDetails": {
+     "textTokens": 438,
+     "reasoningTokens": 163
+    },
+    "totalTokens": 21044,
+    "raw": {
+     "input_tokens": 20443,
+     "input_tokens_details": {
+      "cache_write_tokens": 20440,
+      "cached_tokens": 0
+     },
+     "output_tokens": 601,
+     "output_tokens_details": {
+      "reasoning_tokens": 163
+     },
+     "total_tokens": 21044
+    },
+    "reasoningTokens": 163,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 2,
+    "topic_code": "2.1",
+    "topic_title": "Types of Chemical Bonds",
+    "stem": "Hydrogen has an electronegativity of 2.2, and chlorine has an electronegativity of 3.2. Which description best characterizes the H–Cl bond and its electron distribution?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "The bond is nonpolar covalent, with electrons shared equally because both atoms are nonmetals.",
+      "is_correct": false,
+      "rationale": "Nonmetal shortcut: Two nonmetals generally form a covalent bond, but that does not establish equal sharing. Their unequal electronegativities make the H–Cl bond polar. Fix: Compare the atoms’ electronegativities before deciding whether sharing is equal or unequal."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The bond is polar covalent, with H carrying a partial negative charge; the bond also has some ionic character.",
+      "is_correct": false,
+      "rationale": "Reversed partial charges: This assigns greater electron density to the less electronegative atom. Cl attracts the shared electrons more strongly than H, so Cl—not H—carries the partial negative charge. Fix: Assign δ− to the atom with the higher electronegativity."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "The bond is polar covalent, with Cl carrying a partial negative charge; the bond also has some ionic character.",
+      "is_correct": true,
+      "rationale": "Cl is more electronegative than H, so it attracts the shared electrons more strongly and carries a partial negative charge. This unequal sharing makes the bond polar covalent, and its charge separation gives it some ionic character."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "The bond is ionic, with electrons completely transferred to Cl because the atoms have unequal electronegativities.",
+      "is_correct": false,
+      "rationale": "Unequal-electronegativity means ionic: An electronegativity difference does not automatically imply complete electron transfer. In H–Cl, the electrons are shared unequally, producing a polar covalent bond rather than an ionic bond. Fix: Distinguish unequal sharing from electron transfer when classifying a bond."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": "The stem gives chlorine's electronegativity as 3.2; the standard Pauling value is about 3.16, so the stated value is a rounded figure rather than an error. The electronegativity difference of 1.0 makes H–Cl a polar covalent bond. Chlorine is the more electronegative atom, so it carries the partial negative charge, and the bond has some ionic character. That matches C and rules out A, B and D."
+        },
+        "usage": {
+         "inputTokens": 703,
+         "inputTokenDetails": {
+          "noCacheTokens": 703,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 166,
+         "outputTokenDetails": {
+          "textTokens": 166,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 869,
+         "raw": {
+          "input_tokens": 703,
+          "output_tokens": 166,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 4458,
+        "flags": [
+         "defect: The stem gives chlorine's electronegativity as 3.2; the standard Pauling value is about 3.16, so the stated value is a rounded figure rather than an error. The electronegativity difference of 1.0 makes H–Cl a polar covalent bond. Chlorine is the more electronegative atom, so it carries the partial negative charge, and the bond has some ionic character. That matches C and rules out A, B and D."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 703,
+         "inputTokenDetails": {
+          "noCacheTokens": 703,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 733,
+         "raw": {
+          "input_tokens": 703,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1941,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 375,
+         "inputTokenDetails": {
+          "noCacheTokens": 375,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 326,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 296
+         },
+         "totalTokens": 701,
+         "raw": {
+          "thoughtsTokenCount": 296,
+          "promptTokenCount": 375,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 701,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 375
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 296,
+         "cachedInputTokens": 0
+        },
+        "ms": 4426,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 439,
+         "inputTokenDetails": {
+          "noCacheTokens": 183,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 274,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 248
+         },
+         "totalTokens": 713,
+         "raw": {
+          "prompt_tokens": 439,
+          "completion_tokens": 274,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 183,
+          "total_tokens": 713,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 248
+          }
+         },
+         "reasoningTokens": 248,
+         "cachedInputTokens": 256
+        },
+        "ms": 5254,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 475,
+         "inputTokenDetails": {
+          "noCacheTokens": 411,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 264,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 239
+         },
+         "totalTokens": 739,
+         "raw": {
+          "prompt_tokens": 475,
+          "completion_tokens": 264,
+          "total_tokens": 739,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 239,
+           "accepted_prediction_tokens": 157,
+           "rejected_prediction_tokens": 161,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 239,
+         "cachedInputTokens": 64
+        },
+        "ms": 12219,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 33808,
+         "inputTokenDetails": {
+          "noCacheTokens": 826,
+          "cacheReadTokens": 32982,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 528,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 316
+         },
+         "totalTokens": 34336,
+         "raw": {
+          "input_tokens": 826,
+          "output_tokens": 528,
+          "output_tokens_details": {
+           "thinking_tokens": 316
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 32982,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 316,
+         "cachedInputTokens": 32982
+        },
+        "ms": 7958,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21584,
+         "inputTokenDetails": {
+          "noCacheTokens": 21584,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 889,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 627
+         },
+         "totalTokens": 22473,
+         "raw": {
+          "thoughtsTokenCount": 627,
+          "promptTokenCount": 21584,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 22473,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 21584
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 627,
+         "cachedInputTokens": 0
+        },
+        "ms": 7197,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20512,
+         "inputTokenDetails": {
+          "noCacheTokens": 544,
+          "cacheReadTokens": 19968
+         },
+         "outputTokens": 5165,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 4946
+         },
+         "totalTokens": 25677,
+         "raw": {
+          "prompt_tokens": 20512,
+          "completion_tokens": 5165,
+          "prompt_cache_hit_tokens": 19968,
+          "prompt_cache_miss_tokens": 544,
+          "total_tokens": 25677,
+          "prompt_tokens_details": {
+           "cached_tokens": 19968
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4946
+          }
+         },
+         "reasoningTokens": 4946,
+         "cachedInputTokens": 19968
+        },
+        "ms": 51935,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 21066,
+         "inputTokenDetails": {
+          "noCacheTokens": 21002,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 1957,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 1741
+         },
+         "totalTokens": 23023,
+         "raw": {
+          "prompt_tokens": 21066,
+          "completion_tokens": 1957,
+          "total_tokens": 23023,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1741,
+           "accepted_prediction_tokens": 1276,
+           "rejected_prediction_tokens": 764,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 1741,
+         "cachedInputTokens": 64
+        },
+        "ms": 29834,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 20746,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 20743
+         },
+         "outputTokens": 251,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 29
+         },
+         "totalTokens": 20997,
+         "raw": {
+          "input_tokens": 20746,
+          "input_tokens_details": {
+           "cache_write_tokens": 20743,
+           "cached_tokens": 0
+          },
+          "output_tokens": 251,
+          "output_tokens_details": {
+           "reasoning_tokens": 29
+          },
+          "total_tokens": 20997
+         },
+         "reasoningTokens": 29,
+         "cachedInputTokens": 0
+        },
+        "ms": 6366,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-chemistry__2.1#r1-openai",
+ "accepted_at": "2026-10-07T13:09:57.713Z"
+}
