@@ -1,0 +1,236 @@
+[
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.12",
+  "title": "Confirming Continuity over an Interval",
+  "brief": {
+   "what_it_is": "Continuity over an interval means the function is continuous at every point in that interval.",
+   "how_points_are_earned": "You earn points by identifying the interval, checking special points, and naming domain restrictions or endpoints that matter.",
+   "answer_move": "Start with the function family and domain, then check special points inside the interval.",
+   "common_point_loss": "Claiming continuity over an interval while ignoring holes, asymptotes, piecewise boundaries, or excluded domain values."
+  },
+  "explainer": {
+   "core_idea": "A function is continuous over an interval if it is continuous at every point in that interval.",
+   "what_students_need_to_understand": "Students must scan the interval for domain restrictions, holes, jumps, asymptotes, and endpoints.",
+   "mini_example_question": "Is f(x)=1/(x-2) continuous on [0,4]?",
+   "common_point_loss": "Using a general fact while ignoring the domain."
+  },
+  "seed": {
+   "stem": "An oscillating gauge reading must be defined and continuous at every time from 0 to 4 seconds, inclusive. Which of the following functions is continuous on the closed interval [0, 4]?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "f(x) = tan(pi x/10)",
+     "ok": true
+    },
+    {
+     "k": "B",
+     "t": "f(x) = ln(2x - 3)",
+     "ok": false
+    },
+    {
+     "k": "C",
+     "t": "f(x) = tan(pi x/6)",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "f(x) = (x^2 - 3x)/(x - 3)",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.14",
+  "title": "Connecting Infinite Limits and Vertical Asymptotes",
+  "brief": {
+   "what_it_is": "An infinite limit describes function values growing without bound as x approaches a finite input.",
+   "how_points_are_earned": "You earn points by using limit notation to describe unbounded behavior and connecting it to a vertical asymptote when appropriate.",
+   "answer_move": "Check each side of the input. If f(x) grows without bound, write the infinite limit and name x = c as the vertical asymptote.",
+   "common_point_loss": "Writing only does not exist when the problem asks for behavior or an asymptote connection."
+  },
+  "explainer": {
+   "core_idea": "An infinite limit describes unbounded behavior near a finite input.",
+   "what_students_need_to_understand": "Infinity describes behavior, not a regular real-number limit.",
+   "mini_example_question": "As x approaches 2 from the right, f(x) increases without bound.",
+   "common_point_loss": "Writing only DNE when the behavior or asymptote connection is requested."
+  },
+  "seed": {
+   "stem": "Let f(x) = (x^2 - 4x)/(x^2 - 16). Which of the following gives all vertical asymptotes of the graph of f?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "x = -4 only",
+     "ok": true
+    },
+    {
+     "k": "B",
+     "t": "x = 4 only",
+     "ok": false
+    },
+    {
+     "k": "C",
+     "t": "x = 4 and x = -4",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "x = 0 and x = -4",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.15",
+  "title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+  "brief": {
+   "what_it_is": "A limit at infinity describes end behavior as x grows very large positive or negative.",
+   "how_points_are_earned": "You earn points by identifying end behavior, writing the correct limit at infinity, and connecting a finite result to y = L.",
+   "answer_move": "Ask what f(x) approaches as x goes far left or far right. If it approaches L, name y = L.",
+   "common_point_loss": "Confusing vertical asymptotes with horizontal asymptotes or finite-input limits with limits at infinity."
+  },
+  "explainer": {
+   "core_idea": "A limit at infinity describes end behavior as x goes far left or right.",
+   "what_students_need_to_understand": "Horizontal asymptotes describe long-run y-values, not undefined x-values.",
+   "mini_example_question": "If lim f(x)=3 as x approaches infinity, what graph feature is suggested?",
+   "common_point_loss": "Confusing x=c vertical asymptotes with y=L horizontal asymptotes."
+  },
+  "seed": {
+   "stem": "A gain function is modeled by f(x) = 6x/(x + 2sqrt(x^2 + 1)). The denominator is positive for every real x. Which of the following gives all horizontal asymptotes of the graph of f?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "y = 2 and y = -2",
+     "ok": false
+    },
+    {
+     "k": "B",
+     "t": "y = 2 and y = -6",
+     "ok": true
+    },
+    {
+     "k": "C",
+     "t": "y = 2 and y = 6",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "y = 2 only",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "title": "Estimating Limit Values from Graphs",
+  "brief": {
+   "what_it_is": "A graph can show what y-value a function approaches as x moves toward a chosen input from the left, right, or both sides.",
+   "how_points_are_earned": "You earn points by identifying left-hand and right-hand behavior and concluding whether the two-sided limit exists.",
+   "answer_move": "Trace the graph toward the x-value from both sides before looking at the point on the graph.",
+   "common_point_loss": "Using a filled or open point as the limit value without checking nearby graph behavior."
+  },
+  "explainer": {
+   "core_idea": "A graph shows the y-value approached as x moves toward an input.",
+   "what_students_need_to_understand": "The filled point shows f(c); nearby curve behavior shows the limit.",
+   "mini_example_question": "A graph approaches y = 4 from both sides at x = 3 but has a filled point at (3,1).",
+   "common_point_loss": "Using the function value instead of approaching graph behavior."
+  },
+  "seed": {
+   "stem": "The graph of g consists of the line y = x + 1 for x < 3, an isolated point at (3, 6), and the curve y = -(x - 3)^2 + 4 for x > 3. What is lim(x->3) g(x)?",
+   "choices": [
+    {
+     "k": "A",
+     "t": "4",
+     "ok": true
+    },
+    {
+     "k": "B",
+     "t": "Does not exist, because the two branches use different formulas",
+     "ok": false
+    },
+    {
+     "k": "C",
+     "t": "Does not exist, because g(3) is not equal to 4",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "6",
+     "ok": false
+    }
+   ]
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "title": "Connecting Multiple Representations of Limits",
+  "brief": {
+   "what_it_is": "The same limit can be represented by notation, words, a graph, a table, or an equation.",
+   "how_points_are_earned": "You earn points by identifying the same limiting behavior across representations and keeping the claim consistent.",
+   "answer_move": "Convert each representation into: as x approaches c, f(x) approaches L.",
+   "common_point_loss": "Matching a table or graph to a function value instead of to approach behavior."
+  },
+  "explainer": {
+   "core_idea": "A formula, table, graph, words, and notation can express the same limit.",
+   "what_students_need_to_understand": "The underlying sentence stays the same even when the representation changes.",
+   "mini_example_question": "A table suggests f(x) approaches 4 as x approaches 2. What graph feature matches?",
+   "common_point_loss": "Matching a limit trend to a function value."
+  },
+  "seed": null
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "title": "Estimating Derivatives of a Function at a Point",
+  "brief": {
+   "what_it_is": "A derivative can be estimated from nearby graph or table values when an exact formula is not available.",
+   "how_points_are_earned": "You earn points by choosing nearby points, computing a reasonable local rate, and labeling the estimate with units when the context has units.",
+   "answer_move": "Use the closest available values around the point and describe the estimate as a local slope.",
+   "common_point_loss": "Using distant data values or failing to distinguish an estimate from an exact derivative."
+  },
+  "explainer": {
+   "core_idea": "Estimating a derivative from a table means using the two data points closest to the target input and computing their slope -- symmetric intervals (one point on each side) give a better local estimate than using only points on one side.",
+   "what_students_need_to_understand": "A derivative estimate from data is a secant slope between nearby points, not the true instantaneous rate -- students must select the closest available x-values and report the estimate with the context's units, never as an exact derivative.",
+   "mini_example_question": "A table gives f(2) = 5 and f(4) = 13, with no data between them. Estimate f'(3).",
+   "common_point_loss": "Reporting a raw function value instead of a computed slope, or building the estimate from data points that are not the closest available to the target x-value."
+  },
+  "seed": {
+   "stem": "A differentiable function f has the tabulated values below.\n\nx:    2    5    6    10\nf(x): 4   13   19    33\n\nApproximate f′(8) with a difference quotient built from the nearest listed x-values that lie on either side of 8.",
+   "choices": [
+    {
+     "k": "A",
+     "t": "7/2",
+     "ok": true
+    },
+    {
+     "k": "B",
+     "t": "6",
+     "ok": false
+    },
+    {
+     "k": "C",
+     "t": "14",
+     "ok": false
+    },
+    {
+     "k": "D",
+     "t": "7/8",
+     "ok": false
+    }
+   ]
+  }
+ }
+]

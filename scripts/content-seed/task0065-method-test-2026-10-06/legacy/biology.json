@@ -1,0 +1,218 @@
+[
+  {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.3",
+    "topic_title": "Introduction to Macromolecules",
+    "seed_used": true,
+    "stem": "During digestion, enzymes completely break apart an unbranched chain of 10 glucose monomers, releasing 10 free glucose molecules. Which statement correctly describes this reaction and the water involved?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "It is dehydration synthesis, and 9 water molecules are released.",
+        "is_correct": false,
+        "rationale": "Tempting if you link 'water released' to any reaction involving monomers, but dehydration synthesis builds polymers, and this chain is being broken apart. Fix: breaking a polymer into monomers is hydrolysis."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "It is hydrolysis, and 9 water molecules are released.",
+        "is_correct": false,
+        "rationale": "Tempting because you named the right reaction, but you reversed the direction of water. Hydrolysis means 'splitting with water': each bond breaks as a water molecule is added. Fix: hydrolysis uses water; dehydration synthesis releases it."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "It is hydrolysis, and 9 water molecules are consumed.",
+        "is_correct": true,
+        "rationale": "Breaking a polymer into monomers is hydrolysis, which uses one water molecule per bond broken, adding an H to one monomer and an OH to the other. An unbranched chain of 10 monomers has 9 bonds between them, so 9 water molecules are consumed."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "It is hydrolysis, and 10 water molecules are consumed.",
+        "is_correct": false,
+        "rationale": "Tempting if you count monomers instead of bonds. Water is used once per bond, and a chain of 10 monomers has only 9 links between them. Fix: for an unbranched chain, bonds = monomers minus 1."
+      }
+    ],
+    "verification": "EK 1.3.A.1: hydrolysis cleaves a polymer bond by adding water (H to one monomer, OH to the other); explainer: one water consumed per bond broken. Unbranched chain of n=10 monomers has n-1=9 bonds -> 9 H2O consumed.",
+    "author_flags": "Context is a carbohydrate chain but no carbohydrate structure detail is required (1.4 exclusion respected). Seed (sugar isomers/transport) used only as a difficulty anchor; different idea."
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 1,
+    "topic_code": "1.7",
+    "topic_title": "Proteins",
+    "seed_used": true,
+    "stem": "An enzyme made of a single polypeptide chain is treated with a chemical that breaks hydrogen bonds but does not break covalent bonds. After treatment, the enzyme can no longer bind its substrate. Which statement best explains the loss of function?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Broken hydrogen bonds unfold the helices, sheets and 3D shape, changing the active site, while the amino acid sequence stays the same.",
+        "is_correct": true,
+        "rationale": "Secondary structure depends on hydrogen bonds between backbone atoms, and tertiary shape depends partly on hydrogen bonds between R groups. Breaking them changes the folded shape, including the active site, so the substrate no longer fits. The peptide bonds are covalent, so the primary structure stays intact."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The peptide bonds linking the amino acids are broken, so the enzyme falls apart into free amino acids that cannot bind the substrate.",
+        "is_correct": false,
+        "rationale": "Tempting because the enzyme clearly 'came apart' in function. But peptide bonds are covalent, and this chemical breaks only hydrogen bonds. Fix: check which bond type a treatment breaks before deciding which structural level is lost."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The separate polypeptide chains of the enzyme drift apart, so the quaternary structure needed to form the active site is lost.",
+        "is_correct": false,
+        "rationale": "Tempting if you assume every enzyme has quaternary structure. Quaternary structure exists only when a protein has more than one polypeptide, and this enzyme has one chain. Fix: name quaternary structure only for multi-chain proteins."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The chemical changes the order of amino acids in the chain, giving the enzyme a new primary structure that no longer fits the substrate.",
+        "is_correct": false,
+        "rationale": "Tempting because sequence does determine shape. But the amino acid order is set by covalent peptide bonds, which this chemical leaves intact; only a mutation would change the sequence. Fix: the sequence stays the same here; the folding is what changes."
+      }
+    ],
+    "verification": "EK 1.7.A.4 (secondary structure from backbone H-bonds), EK 1.7.A.5 (tertiary from H-bonds, hydrophobic, ionic, disulfide), EK 1.7.A.6 (quaternary only with multiple polypeptides; all levels determine function), EK 1.7.A.1 (peptide bonds covalent). Single chain + only H-bonds broken -> secondary/tertiary disrupted, primary intact, no quaternary.",
+    "author_flags": "Touches denaturation language lightly (3.2 overlap) but answer rests on 1.7 structure levels. Seed (surface hydrophobic aggregation) not reused."
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.10",
+    "topic_title": "Origins of Cell Compartmentalization",
+    "seed_used": true,
+    "stem": "A student writes: \"Bacteria have no membrane-bound organelles, so the inside of a bacterial cell has no internal organization at all.\" Which statement best corrects the student's claim?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Bacteria have a true nucleus surrounded by a double membrane, which keeps their DNA separate from the rest of the cytoplasm.",
+        "is_correct": false,
+        "rationale": "Tempting because bacterial DNA does sit in one area of the cell. But that area is not enclosed by a membrane, so it is not a nucleus. Fix: a membrane-bound nucleus is a eukaryotic feature."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Bacteria contain small mitochondria, which form a separate compartment where cellular respiration happens.",
+        "is_correct": false,
+        "rationale": "Tempting if you mix up the direction of endosymbiosis. Mitochondria descended from free-living prokaryotes that were engulfed by a host cell; bacteria do not contain mitochondria. Fix: mitochondria came from bacteria, not inside bacteria."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Bacteria have an endoplasmic reticulum and a Golgi apparatus that divide the cytoplasm into compartments.",
+        "is_correct": false,
+        "rationale": "Tempting because these membranes are what organize a eukaryotic cell. But the endomembrane system is a eukaryotic feature that bacteria lack. Fix: eukaryotes partition the cell with internal membranes; prokaryotes do not."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Bacteria lack membrane-bound organelles but have specialized internal regions, such as an area where DNA is concentrated.",
+        "is_correct": true,
+        "rationale": "This keeps the true part of the claim and fixes the false part. Prokaryotes typically lack membrane-bound organelles, but they do have specialized internal regions, while eukaryotes use internal membranes to partition the cell into compartments."
+      }
+    ],
+    "verification": "EK 2.10.A.2 (prokaryotes typically lack membrane-bound organelles but have specialized internal regions); EK 2.10.A.3 (eukaryotic internal membranes partition); EK 2.10.A.1 (mitochondria evolved from free-living prokaryotes). Brief common_point_loss names 'claiming prokaryotes have no internal organization at all'.",
+    "author_flags": "Correct choice gives the DNA region (nucleoid) as the example of a specialized region; the explainer does not name a specific region. Checker: confirm this example is acceptable at CED scope. Seed tested double-membrane engulfment evidence; this item tests the prokaryote/eukaryote compartmentalization contrast instead."
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Plasma Membrane",
+    "seed_used": true,
+    "stem": "When phospholipids are mixed into water, they spontaneously form hollow spheres whose wall is a bilayer, with water both inside and outside the sphere. Which statement best explains how the phospholipids are arranged in this wall?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The fatty-acid tails face the water on both surfaces, because the tails form hydrogen bonds with water molecules.",
+        "is_correct": false,
+        "rationale": "Tempting if you swap which part of the phospholipid is water-loving. The fatty-acid tails are nonpolar hydrocarbon chains and cannot hydrogen bond with water. Fix: the tails are hydrophobic and point away from water."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The phosphate heads face the water on both surfaces, and the fatty-acid tails face each other in the interior, away from water.",
+        "is_correct": true,
+        "rationale": "Phospholipids are amphipathic: the hydrophilic phosphate head interacts with water and the hydrophobic tails avoid it. With water on both sides, two layers form with heads facing each water surface and tails tucked together in the middle, the same arrangement as the plasma membrane."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The phosphate heads face inward toward each other in the middle, and the tails face outward toward the water.",
+        "is_correct": false,
+        "rationale": "Tempting if you picture the heads clustering together. But that would put the hydrophobic tails in contact with water on both sides, the least stable arrangement. Fix: heads go wherever water is; tails go where water is not."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The phospholipids are joined to each other by covalent bonds, which lock them into a rigid sheet that keeps water out.",
+        "is_correct": false,
+        "rationale": "Tempting because a membrane seems like a solid wall. But the bilayer is held together by hydrophobic interactions, not covalent bonds, and its lipids and proteins drift within it, as the fluid mosaic model describes. Fix: the membrane is fluid, not a rigid covalent sheet."
+      }
+    ],
+    "verification": "EK 2.3.A.1 (hydrophilic heads face out, hydrophobic tails face in); explainer: amphipathic phospholipids, heads face watery cytoplasm/extracellular fluid, tails inward; EK 2.3.B.1 fluid mosaic (mobile components).",
+    "author_flags": "Seed tested multipass membrane-protein orientation; this item tests phospholipid orientation instead, so the seed answer is not taught here."
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.1",
+    "topic_title": "Enzymes",
+    "seed_used": false,
+    "stem": "An enzyme speeds up the breakdown of its substrate into two products. Compared with the same reaction without the enzyme, which statement about the catalyzed reaction is correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The enzyme adds energy to the substrate, giving it enough energy to break apart into products.",
+        "is_correct": false,
+        "rationale": "Tempting because a faster reaction feels like it needs extra energy. But enzymes do not supply energy; they lower the energy barrier the substrate must get over. Fix: say enzymes lower activation energy, never that they add energy."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "The enzyme makes the reaction release more energy overall, which is why the products form faster.",
+        "is_correct": false,
+        "rationale": "Tempting if you link speed to the amount of energy released. An enzyme does not change the energy of the reactants or products, so the overall energy change is the same. Fix: enzymes change the rate, not the overall energy difference."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The enzyme lowers the activation energy by binding to any molecule that is about the same size as its substrate.",
+        "is_correct": false,
+        "rationale": "Tempting because the activation-energy part is right. But binding depends on the substrate's shape and charge fitting the active site, not just its size, which is why enzymes are specific. Fix: specificity comes from shape and charge fit."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The enzyme lowers the activation energy, but the overall energy change from reactants to products stays the same.",
+        "is_correct": true,
+        "rationale": "Enzymes are catalysts: by binding the substrate in the active site, they lower the activation energy so the reaction proceeds faster. They do not change the starting or ending energy of the reaction, so the overall energy difference stays the same."
+      }
+    ],
+    "verification": "EK 3.1.A.1 (enzymes are protein catalysts that lower activation energy); EK 3.1.A.2 (substrate shape/charge must fit active site); brief common_point_loss: 'saying enzymes add energy'. Catalysts do not alter reactant/product energies (overall energy change unchanged).",
+    "author_flags": "No seed. Choice B's 'overall energy change' is described conceptually; no Gibbs equation used (3.3 exclusion respected)."
+  },
+  {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.3",
+    "topic_title": "Cellular Energy",
+    "seed_used": false,
+    "stem": "Joining molecule X to molecule Y to form XY requires an input of energy and does not happen on its own in the cell. The cell makes XY in two steps: an enzyme first transfers a phosphate group from ATP to X, and the phosphorylated X then reacts with Y. Which statement best explains how this lets the cell make XY?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Energy released by ATP hydrolysis is coupled, through the phosphate transfer, to the energy-requiring formation of XY.",
+        "is_correct": true,
+        "rationale": "This is energy coupling. Removing a phosphate from ATP releases energy, and moving that phosphate onto X makes X more reactive. The energy released by ATP hydrolysis is greater than the energy XY formation requires, so the combined process can proceed."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "ATP breaks down and releases heat, and that heat warms X and Y until they have enough energy to react together.",
+        "is_correct": false,
+        "rationale": "Tempting if you think of ATP as a fuel that is burned. Heat released into the cell is lost, not directed into a specific reaction. Fix: ATP drives work through phosphate transfer that couples it to the reaction, not through heating."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The phosphate group acts as a catalyst, so forming XY no longer requires any input of energy.",
+        "is_correct": false,
+        "rationale": "Tempting because the phosphate step makes the reaction happen. But a catalyst only lowers activation energy; it cannot make an energy-requiring reaction stop requiring energy. Fix: the energy comes from ATP hydrolysis, which is coupled to the reaction."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Forming the XY bond releases energy, and the cell captures that released energy by making ATP from ADP and phosphate.",
+        "is_correct": false,
+        "rationale": "Tempting if you reverse the direction of coupling. The stem says forming XY requires energy, and ATP is used up here, not made. Fix: an energy-releasing process (ATP hydrolysis) pays for an energy-requiring one (making XY)."
+      }
+    ],
+    "verification": "EK 3.3.A.2(ii) energy-releasing processes may be coupled with energy-requiring ones; brief: explain how ATP hydrolysis/phosphate transfer makes an unfavorable process possible. Stem fixes XY formation as energy-requiring and ATP as consumed, which rules out B (heat), C (catalysis), D (reversed).",
+    "author_flags": "Seed (apoptosis vs necrosis) is off-topic for 3.3 Cellular Energy and was not used; seed_used set false. Phosphorylated-intermediate mechanism is described generically; no specific enzyme or Gibbs equation (CED exclusion respected)."
+  }
+]

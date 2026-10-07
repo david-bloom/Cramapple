@@ -1,0 +1,218 @@
+[
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.3",
+    "topic_title": "Estimating Limit Values from Graphs",
+    "seed_used": true,
+    "stem": "The graph of h is made of two pieces. For x < 2 it is the line y = x + 1, which ends in an open circle at (2, 3). For x ≥ 2 it is the curve y = (x − 2)^2 + 1, which starts with a filled dot at (2, 1). Which statement about lim(x→2) h(x) is true?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "The limit is 1, because the graph has a filled dot at (2, 1).",
+        "is_correct": false,
+        "rationale": "Tempting if you read the filled dot as the limit — but the dot only gives h(2), and the limit is about the y-values the graph approaches from both sides. Fix: trace the curve toward x = 2 from the left and from the right before you look at the dot."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "It does not exist; the left side approaches 3 but the right side approaches 1.",
+        "is_correct": true,
+        "rationale": "From the left the line climbs toward y = 3, and from the right the curve comes down toward y = 1. The two one-sided limits disagree, so the two-sided limit does not exist — this is the mismatched one-sided limits pattern."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The limit is 3, because the graph approaches y = 3 as x approaches 2.",
+        "is_correct": false,
+        "rationale": "Tempting if you only trace the left piece — but the right piece approaches y = 1, not 3. Fix: a two-sided limit needs both sides; check the right-hand behavior too."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "The limit is 2, the average of the left-side and right-side values.",
+        "is_correct": false,
+        "rationale": "Tempting if you try to split the difference between 3 and 1 — but limits are never averaged. Fix: if the one-sided limits differ, the answer is that the two-sided limit does not exist."
+      }
+    ],
+    "verification": "sympy: limit(x+1, x, 2, '-') = 3; limit((x-2)**2+1, x, 2, '+') = 1; one-sided limits differ so the two-sided limit DNE (CED canonical mismatched one-sided limits pattern). Distractor values: filled dot h(2)=1 (A), left-only 3 (C), average (3+1)/2 = 2 (D). Explainer fact: 'The filled point shows f(c); nearby curve behavior shows the limit.'",
+    "author_flags": "Graph is described in words (no figure). Seed answer was 'limit exists = 4 despite isolated point'; this item uses a different idea (mismatched one-sided limits, DNE)."
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.9",
+    "topic_title": "Connecting Multiple Representations of Limits",
+    "seed_used": false,
+    "stem": "A function g is defined for all real numbers, and g(1) = 2. A table gives these values near x = 1.\n\nx:    0.9   0.99   0.999   1.001   1.01   1.1\ng(x): 4.8   4.98   4.998   5.002   5.02   5.2\n\nAssuming the table shows g's true behavior near x = 1, which statement matches the table and the given value?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "lim(x→1) g(x) = 5, with an open circle at (1, 5) and a filled dot at (1, 2).",
+        "is_correct": true,
+        "rationale": "Both sides of the table close in on 5, so the limit is 5. Since g(1) = 2, the graph shows the approach to 5 as an open circle and the actual value as a separate filled dot at (1, 2). The same limit sentence — as x approaches 1, g(x) approaches 5 — holds in the table, the notation and the graph."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "lim(x→1) g(x) = 2, because the value of g at x = 1 is g(1) = 2.",
+        "is_correct": false,
+        "rationale": "Tempting if you match the limit to the function value — but the table shows outputs closing in on 5, not 2. Fix: the limit comes from the approach trend in the table; g(1) is a separate fact about the point itself."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "The graph of g has a vertical asymptote at x = 1, because g(1) ≠ 5.",
+        "is_correct": false,
+        "rationale": "Tempting if any mismatch at a point feels like a break to infinity — but the outputs stay near 5 and never grow without bound. Fix: a vertical asymptote needs unbounded values near x = 1; here the graph has a hole and a displaced point instead."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "lim(x→1) g(x) does not exist, because g(1) does not equal 5.",
+        "is_correct": false,
+        "rationale": "Tempting if you think the limit must equal the function value to exist — but a limit only needs both sides to approach the same number, which they do. Fix: g(1) ≠ 5 makes g discontinuous at 1, but the limit still exists and equals 5."
+      }
+    ],
+    "verification": "Table generated from 5 + 2(x − 1) (python3): 4.8, 4.98, 4.998, 5.002, 5.02, 5.2 — both sides approach 5. g(1)=2 given separately, so limit 5 ≠ value 2: removable discontinuity (hole at (1,5), filled point at (1,2)). Explainer fact: same limit sentence across representations; common loss is matching the limit to the function value.",
+    "author_flags": "No seed. Stem says 'assuming the table shows g's true behavior' so the table-based limit claim is defensible."
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.12",
+    "topic_title": "Confirming Continuity over an Interval",
+    "seed_used": true,
+    "stem": "A sensor reading must be modeled by a function that is continuous at every x in the closed interval [−1, 3]. Which of the following functions meets that requirement?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "f(x) = (x + 1)/(x^2 − 4)",
+        "is_correct": false,
+        "rationale": "Tempting because rational functions are continuous on their domains — but x^2 − 4 = 0 at x = 2, which lies inside [−1, 3]. Fix: find every excluded x-value, then check whether any of them land inside the interval."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "f(x) = √x",
+        "is_correct": false,
+        "rationale": "Tempting because √x is continuous wherever it is defined — but it is undefined for −1 ≤ x < 0, the left part of this interval. Fix: check the domain against the whole interval, endpoints included."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "f(x) = 1/(x^2 − 2x − 8)",
+        "is_correct": true,
+        "rationale": "The denominator factors as (x − 4)(x + 2), so the only excluded values are x = 4 and x = −2. Neither is in [−1, 3], so this rational function is continuous at every point of the interval."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "f(x) = x^2 for x < 1, and f(x) = 2x for x ≥ 1",
+        "is_correct": false,
+        "rationale": "Tempting because both pieces are polynomials — but at the boundary x = 1 the left piece approaches 1 while the right piece gives 2, a jump. Fix: at every piecewise boundary inside the interval, check that the left limit, right limit and function value all match."
+      }
+    ],
+    "verification": "sympy continuous_domain over the reals: (x+1)/(x^2-4) excludes ±2 (2 ∈ [−1,3]); sqrt(x) is [0, ∞) (misses [−1,0)); 1/(x^2−2x−8) = 1/((x−4)(x+2)) excludes 4 and −2, interval [−1,3] is a subset of its continuous domain (True); piecewise: limit x^2 at 1− = 1, 2x at 1+ = 2, jump.",
+    "author_flags": "Seed used tan/ln families on [0,4]; this item uses rational/root/piecewise on [−1,3] with a different correct function."
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.14",
+    "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+    "seed_used": true,
+    "stem": "Let f(x) = 2x/(x − 3). Which statement correctly describes the behavior of f near x = 3?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "lim(x→3⁻) f(x) = ∞ and lim(x→3⁺) f(x) = ∞, so x = 3 is a vertical asymptote.",
+        "is_correct": false,
+        "rationale": "Tempting if you see a zero denominator and assume both sides blow up the same way — but for x just below 3 the denominator is a small negative number while the numerator is near 6, so f is very negative. Fix: check the sign of the numerator and denominator on each side separately."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "lim(x→3⁻) f(x) = −∞ and lim(x→3⁺) f(x) = ∞, so x = 3 is a vertical asymptote.",
+        "is_correct": true,
+        "rationale": "Near x = 3 the numerator is about 6. From the left the denominator is a tiny negative number, so f drops without bound; from the right it is a tiny positive number, so f grows without bound. Either infinite one-sided limit makes x = 3 a vertical asymptote."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "lim(x→3) f(x) does not exist, so f has no vertical asymptote at x = 3.",
+        "is_correct": false,
+        "rationale": "Tempting if you stop at 'does not exist' — but the reason it fails to exist is unbounded growth, which is exactly what a vertical asymptote is. Fix: describe each side with an infinite limit and then name x = 3 as the asymptote."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "lim(x→3) f(x) = 2, because the ratio of leading coefficients is 2.",
+        "is_correct": false,
+        "rationale": "Tempting if you mix up end behavior with behavior near a finite input — the leading-coefficient ratio gives the limit as x → ∞, which is the horizontal asymptote y = 2. Fix: for x → 3, plug in values close to 3 and check signs; for x → ∞, compare leading terms."
+      }
+    ],
+    "verification": "sympy: limit(2x/(x−3), x, 3, '-') = −oo; limit(..., x, 3, '+') = +oo; limit(..., x, oo) = 2 (source of distractor D). Brief: write the infinite limit and name x = c as the vertical asymptote; common loss: writing only DNE (distractor C).",
+    "author_flags": "Seed asked to find all vertical asymptotes of a rational function with a hole; this item asks for one-sided infinite-limit description, different function and idea."
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 1,
+    "topic_code": "1.15",
+    "topic_title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+    "seed_used": true,
+    "stem": "Let f(x) = (3x^2 − 5x)/(6x^2 + x − 2). Which of the following gives the horizontal asymptote of the graph of f?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "y = 2",
+        "is_correct": false,
+        "rationale": "Tempting if you take the ratio of leading coefficients upside down (6/3) — but the limit at infinity is numerator's leading coefficient over the denominator's. Fix: for equal degrees, divide every term by x^2 and let x → ∞; you get 3/6."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "x = 1/2",
+        "is_correct": false,
+        "rationale": "Tempting because 6x^2 + x − 2 = (2x − 1)(3x + 2) is zero at x = 1/2 — but that gives a vertical asymptote, not a horizontal one. Fix: a horizontal asymptote is a y = L line from end behavior; an x = c line comes from a finite input where f is unbounded."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "y = 0",
+        "is_correct": false,
+        "rationale": "Tempting if you evaluate f near x = 0, where f(0) = 0 — but end behavior is about x → ∞ and x → −∞, not x → 0. Fix: write lim(x→∞) f(x) and lim(x→−∞) f(x), then compare leading terms."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "y = 1/2",
+        "is_correct": true,
+        "rationale": "The numerator and denominator have the same degree, so as x → ±∞ the leading terms dominate: 3x^2/(6x^2) = 1/2. Since lim(x→∞) f(x) = lim(x→−∞) f(x) = 1/2, the only horizontal asymptote is y = 1/2."
+      }
+    ],
+    "verification": "sympy: limit(f, x, oo) = 1/2, limit(f, x, −oo) = 1/2; factor(6x^2+x−2) = (2x−1)(3x+2) → vertical asymptote x = 1/2 (distractor B, no common factor with x(3x−5)); f(0) = 0 (distractor C, fact-pack documented 'evaluating near zero' misconception); 6/3 = 2 (distractor A, inverted ratio).",
+    "author_flags": "Seed was a square-root function with two different horizontal asymptotes; this is a rational function with one, built around the x = 1/2 vs y = 1/2 confusion."
+  },
+  {
+    "subject_key": "ap-calculus-ab",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Estimating Derivatives of a Function at a Point",
+    "seed_used": true,
+    "stem": "The temperature of a cup of coffee, T(t), in degrees Celsius, is measured t minutes after it is poured. T is differentiable.\n\nt (minutes):  0    2    5    6    9\nT(t) (°C):   70   64   57   55   48\n\nUsing the nearest listed times on each side of t = 5, estimate T′(5).",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "−22/9 °C per minute",
+        "is_correct": false,
+        "rationale": "Tempting if you use the first and last rows, (48 − 70)/(9 − 0) — but that is an average rate over the whole 9 minutes, not a local estimate at t = 5. Fix: use the closest times that bracket t = 5, which are t = 2 and t = 6."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "−4/9 °C per minute",
+        "is_correct": false,
+        "rationale": "Tempting if you divide the change in time by the change in temperature, (6 − 2)/(55 − 64) — but that flips the slope (and its units would be minutes per degree). Fix: a derivative estimate is change in output over change in input, ΔT/Δt."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "−9/4 °C per minute",
+        "is_correct": true,
+        "rationale": "The nearest times on each side of 5 are t = 2 and t = 6, so T′(5) ≈ (55 − 64)/(6 − 2) = −9/4. The coffee is cooling at about 2.25 °C per minute at t = 5; this is a secant-slope estimate, not the exact derivative."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "9/4 °C per minute",
+        "is_correct": false,
+        "rationale": "Tempting if you subtract temperatures in one order and times in the other, (64 − 55)/(6 − 2) — but that flips the sign, and the coffee is cooling. Fix: keep the same order on top and bottom: (T(6) − T(2))/(6 − 2)."
+      }
+    ],
+    "verification": "python3 Fraction: key (55−64)/(6−2) = −9/4; distant endpoints (48−70)/(9−0) = −22/9; inverted (6−2)/(55−64) = −4/9; mixed-order sign slip (64−55)/(6−2) = 9/4. Checked no collision with other plausible estimates (backward (57−64)/3 = −7/3, forward (55−57)/1 = −2; neither is a choice).",
+    "author_flags": "Seed also uses a nearest-bracketing difference quotient but with the target not in the table; this item puts the target in the table (symmetric bracketing around a listed point) in a units context. Stem specifies the method so forward/backward one-sided estimates are not competing answers. Choice B is labeled °C per minute for parallel form though its true units would be minutes per °C — rationale says so; checker may prefer a different label."
+  }
+]

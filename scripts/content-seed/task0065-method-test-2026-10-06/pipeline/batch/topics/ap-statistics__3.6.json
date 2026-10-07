@@ -1,0 +1,777 @@
+{
+ "topic": {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "p-Values"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-statistics__3.6#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 21677,
+    "inputTokenDetails": {
+     "noCacheTokens": 21677,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1363,
+    "outputTokenDetails": {
+     "textTokens": 862,
+     "reasoningTokens": 501
+    },
+    "totalTokens": 23040,
+    "raw": {
+     "input_tokens": 21677,
+     "output_tokens": 1363,
+     "output_tokens_details": {
+      "thinking_tokens": 501
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 501,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.6",
+    "topic_title": "p-Values",
+    "stem": "A school's records suggest that 40% of its students bike to school. A club suspects the proportion is now higher. They take a random sample of 150 students and find that 71 bike, so p̂ ≈ 0.47. They test H₀: p = 0.40 against Hₐ: p > 0.40, where p is the proportion of all students at the school who bike to school. The test gives z ≈ 1.75 and a p-value of about 0.04. Which statement correctly interprets this p-value?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "If the true proportion of all students at the school who bike is 0.40, the probability of getting a sample proportion of 0.47 or higher in a random sample of 150 students is about 0.04.",
+      "is_correct": true,
+      "rationale": "A p-value is computed assuming H₀ is true. It gives the probability of a sample result at least as extreme as the observed one, in the direction of Hₐ. Here that means p̂ ≥ 0.47 when p = 0.40 and n = 150. The statement is also written in the study's context."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "There is about a 0.04 probability that the true proportion of all students at the school who bike is 0.40.",
+      "is_correct": false,
+      "rationale": "This is the common error of treating the p-value as the probability that the null hypothesis is true. The p-value assumes H₀ is true and measures how unusual the sample result would be. It does not give a probability for the parameter itself. Fix: Check that your sentence starts by assuming H₀ is true and then describes the probability of the sample result, not of the hypothesis."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "If the true proportion of all students at the school who bike is 0.40, the probability of getting a sample proportion of exactly 0.47 in a random sample of 150 students is about 0.04.",
+      "is_correct": false,
+      "rationale": "This statement drops the 'at least as extreme' part. The p-value is the probability of the whole tail of results p̂ ≥ 0.47, not the probability of one exact value. With the normal model, the probability of one exact value is essentially zero. Fix: Ask whether your interpretation includes the observed result 'or more extreme' in the direction of Hₐ."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "If the true proportion of all students at the school who bike is greater than 0.40, the probability of getting a sample proportion of 0.47 or higher in a random sample of 150 students is about 0.04.",
+      "is_correct": false,
+      "rationale": "This conditions on the alternative hypothesis instead of the null. The z-statistic and p-value were computed using p₀ = 0.40, so the probability only makes sense under the assumption that p = 0.40. Fix: Check which parameter value you used to compute the test statistic, and state that value as the assumption in your interpretation."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [
+     "rationale A has 4 sentences before any Fix (max 3)"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  },
+  {
+   "id": "ap-statistics__3.6#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 13823,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 13820
+    },
+    "outputTokens": 952,
+    "outputTokenDetails": {
+     "textTokens": 547,
+     "reasoningTokens": 405
+    },
+    "totalTokens": 14775,
+    "raw": {
+     "input_tokens": 13823,
+     "input_tokens_details": {
+      "cache_write_tokens": 13820,
+      "cached_tokens": 0
+     },
+     "output_tokens": 952,
+     "output_tokens_details": {
+      "reasoning_tokens": 405
+     },
+     "total_tokens": 14775
+    },
+    "reasoningTokens": 405,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-statistics",
+    "unit_number": 3,
+    "topic_code": "3.6",
+    "topic_title": "p-Values",
+    "stem": "A city surveys a simple random sample of 100 adults from its 10,000 adult residents. Of those sampled, 60 support a proposed bus route. Let p be the proportion of all adult residents who support the route. A normal-approximation test of H₀: p = 0.50 against Hₐ: p > 0.50 gives an approximate p-value of 0.023; all conditions for the test have been verified. Which statement correctly interprets this p-value?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Given the sample results, the probability that exactly 50% of all adult residents support the route is approximately 0.023.",
+      "is_correct": false,
+      "rationale": "This is the probability-of-the-null trap. The p-value describes sample results under the assumption p = 0.50; it does not give the probability that this population claim is true. Fix: Begin your interpretation with the null assumption, then identify the sample outcomes whose probability is being described."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Assuming 50% of all adult residents support the route, the probability of getting exactly 60 supporters in a random sample of 100 adults is approximately 0.023.",
+      "is_correct": false,
+      "rationale": "This is the exact-result trap. A p-value includes the observed result and results more extreme in the direction of the alternative, rather than only the single observed count. Fix: Replace “exactly” with a range that includes the observed result and all more extreme results in the alternative’s direction."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Assuming 50% of all adult residents support the route, the probability of getting 60 or fewer supporters in a random sample of 100 adults is approximately 0.023.",
+      "is_correct": false,
+      "rationale": "This is the wrong-tail trap. The alternative p > 0.50 makes larger counts evidence against the null, so counting downward from 60 uses the wrong direction. Fix: Check the alternative’s inequality and count outcomes from the observed result toward that direction."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Assuming 50% of all adult residents support the route, the probability of getting 60 or more supporters in a random sample of 100 adults is approximately 0.023.",
+      "is_correct": true,
+      "rationale": "A p-value is a probability of sample results calculated assuming the null hypothesis is true. Because the alternative is p > 0.50, results at least as extreme as the observed result are 60 or more supporters, not just exactly 60."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 836,
+         "inputTokenDetails": {
+          "noCacheTokens": 836,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 110,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 80
+         },
+         "totalTokens": 946,
+         "raw": {
+          "input_tokens": 836,
+          "output_tokens": 110,
+          "output_tokens_details": {
+           "thinking_tokens": 80
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 80,
+         "cachedInputTokens": 0
+        },
+        "ms": 3157,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 523,
+         "inputTokenDetails": {
+          "noCacheTokens": 523,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 541,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 511
+         },
+         "totalTokens": 1064,
+         "raw": {
+          "thoughtsTokenCount": 511,
+          "promptTokenCount": 523,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 1064,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 523
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 511,
+         "cachedInputTokens": 0
+        },
+        "ms": 10023,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 550,
+         "inputTokenDetails": {
+          "noCacheTokens": 294,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 1104,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 1078
+         },
+         "totalTokens": 1654,
+         "raw": {
+          "prompt_tokens": 550,
+          "completion_tokens": 1104,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 294,
+          "total_tokens": 1654,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1078
+          }
+         },
+         "reasoningTokens": 1078,
+         "cachedInputTokens": 256
+        },
+        "ms": 10244,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 570,
+         "inputTokenDetails": {
+          "noCacheTokens": 181,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 389
+         },
+         "outputTokens": 742,
+         "outputTokenDetails": {
+          "textTokens": 31,
+          "reasoningTokens": 711
+         },
+         "totalTokens": 1312,
+         "raw": {
+          "input_tokens": 570,
+          "input_tokens_details": {
+           "cache_write_tokens": 389,
+           "cached_tokens": 0
+          },
+          "output_tokens": 742,
+          "output_tokens_details": {
+           "reasoning_tokens": 711
+          },
+          "total_tokens": 1312
+         },
+         "reasoningTokens": 711,
+         "cachedInputTokens": 0
+        },
+        "ms": 7306,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 23291,
+         "inputTokenDetails": {
+          "noCacheTokens": 23291,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 501,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 289
+         },
+         "totalTokens": 23792,
+         "raw": {
+          "input_tokens": 23291,
+          "output_tokens": 501,
+          "output_tokens_details": {
+           "thinking_tokens": 289
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 289,
+         "cachedInputTokens": 0
+        },
+        "ms": 7355,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 15722,
+         "inputTokenDetails": {
+          "noCacheTokens": 15722,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1434,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1172
+         },
+         "totalTokens": 17156,
+         "raw": {
+          "thoughtsTokenCount": 1172,
+          "promptTokenCount": 15722,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 17156,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 15722
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1172,
+         "cachedInputTokens": 0
+        },
+        "ms": 9867,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14582,
+         "inputTokenDetails": {
+          "noCacheTokens": 13302,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 3746,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 3527
+         },
+         "totalTokens": 18328,
+         "raw": {
+          "prompt_tokens": 14582,
+          "completion_tokens": 3746,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 13302,
+          "total_tokens": 18328,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3527
+          }
+         },
+         "reasoningTokens": 3527,
+         "cachedInputTokens": 1280
+        },
+        "ms": 31097,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14551,
+         "inputTokenDetails": {
+          "noCacheTokens": 688,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 13863
+         },
+         "outputTokens": 1872,
+         "outputTokenDetails": {
+          "textTokens": 138,
+          "reasoningTokens": 1734
+         },
+         "totalTokens": 16423,
+         "raw": {
+          "input_tokens": 14551,
+          "input_tokens_details": {
+           "cache_write_tokens": 13863,
+           "cached_tokens": 0
+          },
+          "output_tokens": 1872,
+          "output_tokens_details": {
+           "reasoning_tokens": 1734
+          },
+          "total_tokens": 16423
+         },
+         "reasoningTokens": 1734,
+         "cachedInputTokens": 0
+        },
+        "ms": 34354,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.6",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 14429,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 14426
+         },
+         "outputTokens": 302,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 130
+         },
+         "totalTokens": 14731,
+         "raw": {
+          "input_tokens": 14429,
+          "input_tokens_details": {
+           "cache_write_tokens": 14426,
+           "cached_tokens": 0
+          },
+          "output_tokens": 302,
+          "output_tokens_details": {
+           "reasoning_tokens": 130
+          },
+          "total_tokens": 14731
+         },
+         "reasoningTokens": 130,
+         "cachedInputTokens": 0
+        },
+        "ms": 7200,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-statistics__3.6#r1-openai",
+ "accepted_at": "2026-10-07T00:33:30.804Z"
+}

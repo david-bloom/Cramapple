@@ -1,0 +1,818 @@
+[
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.12",
+  "topic_title": "Confirming Continuity over an Interval",
+  "content_key": "apcalcab-oht-1.12",
+  "stem": "Let f(x) = (x + 2)/(x^2 - 4x - 5). On which interval is f continuous?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "[0, 5]",
+    "is_correct": false,
+    "rationale": "Tempting if you find the trouble values but treat a closed endpoint as safe, as if continuity on [0, 5] only concerned the inside of the interval — but the bracket includes x = 5, where the denominator is 0 and f is undefined. Fix: list the excluded values (x = 5 and x = -1) and check each one against the interval, endpoints included."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "[-2, 3]",
+    "is_correct": false,
+    "rationale": "Tempting if you set the numerator x + 2 equal to 0 and treat x = -2 as the only trouble spot, so starting the interval at -2 seems safe — but discontinuities come from zeros of the denominator, and x = -1 lies inside [-2, 3]. Fix: factor the denominator, solve (x - 5)(x + 1) = 0, and check those x-values against the interval."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "All real numbers, because f is a rational function.",
+    "is_correct": false,
+    "rationale": "Tempting if you remember 'rational functions are continuous' and drop the 'on their domain' part — but f is undefined where the denominator is 0, at x = 5 and x = -1. Fix: factor the denominator and remove its zeros before naming any interval of continuity."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "[0, 4]",
+    "is_correct": true,
+    "rationale": "Earns the point: the denominator factors as (x - 5)(x + 1), so f fails only at x = 5 and x = -1. The interval [0, 4] avoids both."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.14",
+  "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+  "content_key": "apcalcab-oht-1.14",
+  "stem": "Which statement is correct about f(x) = (x - 3)/(x - 1) near x = 1?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The limit as x→1+ of f(x) is +infinity, so x = 1 is a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Tempting because a small positive denominator suggests large positive values. But the numerator is negative near x = 1, so the quotient is large and negative. Fix: track the sign of the numerator as well."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The limit as x→1+ of f(x) is -infinity, so x = 1 is a vertical asymptote.",
+    "is_correct": true,
+    "rationale": "Earns the point: just to the right of 1 the numerator is near -2 and the denominator is a small positive number, so the quotient decreases without bound. That infinite limit gives a vertical asymptote at x = 1."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit as x→1+ of f(x) is 0, because x - 1 gets close to 0.",
+    "is_correct": false,
+    "rationale": "Tempting because x - 1 approaches 0. But it is in the denominator, so dividing -2 by a tiny number makes the size grow. Fix: a nonzero numerator over a zero-approaching denominator is unbounded."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The limit does not exist, so there is no vertical asymptote at x = 1.",
+    "is_correct": false,
+    "rationale": "Tempting because infinite limits are often described as 'does not exist'. But the function still grows without bound, and that behavior is what defines a vertical asymptote. Fix: write the infinite limit and name x = c as the asymptote."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.15",
+  "topic_title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+  "content_key": "apcalcab-oht-1.15",
+  "stem": "What is the horizontal asymptote of f(x) = (6x^2 + 1)/(3x^2 - 5x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "y = 0",
+    "is_correct": false,
+    "rationale": "Tempting if you think the denominator's extra -5x term makes it grow faster. But both parts have degree 2, so the leading terms 6x^2 and 3x^2 control the end behavior. Fix: compare the highest powers, not the number of terms."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "y = -1/5",
+    "is_correct": false,
+    "rationale": "Tempting because the lowest-degree terms 1 and -5x look like they set the ratio. But for large x the highest powers dominate. Fix: use leading coefficients for end behavior."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "y = 2",
+    "is_correct": true,
+    "rationale": "Earns the point: the numerator and denominator have the same degree, so the limit as x→infinity is the ratio of leading coefficients, 6/3 = 2. That limit names the horizontal asymptote y = 2."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "x = 5/3",
+    "is_correct": false,
+    "rationale": "Tempting because 3x^2 - 5x = 0 at x = 5/3 and a zero denominator feels like an asymptote. But that is a vertical line, and a horizontal asymptote has the form y = L. Fix: limits at infinity give y = L; zeros of the denominator give vertical lines."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Estimating Limit Values from Graphs",
+  "content_key": "apcalcab-oht-1.3",
+  "stem": "The graph of p consists of the line y = x + 2 for x < 3, a single filled point at (3, 5), and the curve y = x^2 - 7 for x > 3. What is the limit as x→3 of p(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "5, because the graph has a filled point at (3, 5) and the left branch also heads to 5.",
+    "is_correct": false,
+    "rationale": "Tempting because the filled point and the left branch agree on 5. But a limit must match from both sides, and the right branch heads to 2. Fix: trace both sides toward x = 3 before looking at the point."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "2, because the right branch gives the value the graph is approaching.",
+    "is_correct": false,
+    "rationale": "Tempting if you follow only one branch. But a limit uses both sides, and the left branch approaches 5, not 2. Fix: check the left-hand and right-hand limits and compare them."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit does not exist, because p(x) approaches 5 from the left but approaches 2 from the right.",
+    "is_correct": true,
+    "rationale": "Earns the point: the two one-sided limits are 5 (from x + 2) and 2 (from x^2 - 7). A two-sided limit exists only when they agree, and the filled point does not change that."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "7/2, because the limit is the average of the two one-sided values.",
+    "is_correct": false,
+    "rationale": "Tempting because the two sides disagree and splitting the difference feels like a compromise. But limits are never averaged; if the sides differ, the limit does not exist. Fix: unequal one-sided limits mean DNE."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "topic_title": "Connecting Multiple Representations of Limits",
+  "content_key": "apcalcab-oht-1.9",
+  "stem": "A table shows f(2.9) = 6.8, f(2.99) = 6.98, f(2.999) = 6.998, f(3.001) = 7.002, f(3.01) = 7.02, and f(3.1) = 7.2. Also f(3) = 1. Which statement matches this information?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The limit as x→3 of f(x) is 7, so the graph of f approaches a height of 7 near x = 3, with the point at x = 3 sitting at height 1.",
+    "is_correct": true,
+    "rationale": "Earns the point: the table shows f(x) approaching 7 from both sides, which is the limit statement. The separate value f(3) = 1 only tells you where the single plotted point is."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The limit as x→3 of f(x) is 1, so the graph passes through (3, 1) with nothing special happening.",
+    "is_correct": false,
+    "rationale": "Tempting because 1 is the value at x = 3. But the limit follows the nearby values, which head to 7. Fix: match the table to approach behavior, not to f(3)."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit as x→3 of f(x) does not exist, because f(3) differs from the nearby values.",
+    "is_correct": false,
+    "rationale": "Tempting because f(3) = 1 clashes with the table. But a limit can exist even when the point at x = 3 is displaced; both sides approach 7. Fix: existence depends on left and right approach, not on f(3)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The limit as x→7 of f(x) is 3, because the table pairs 3 with 7.",
+    "is_correct": false,
+    "rationale": "Tempting because the numbers 3 and 7 appear together. But the input approached is x = 3 and the output approached is 7, so the arrow goes x→3. Fix: write 'as x approaches (input), f(x) approaches (output)'."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point",
+  "content_key": "apcalcab-oht-2.3",
+  "stem": "The population P(t), in thousands, of a colony is recorded at selected times t in hours.\n\nt = 0: P = 110\nt = 2: P = 130\nt = 5: P = 190\nt = 6: P = 214\nt = 10: P = 300\n\nUsing the two table values closest to t = 5.5, what is the best estimate of P'(5.5)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "20 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because it uses t = 2 and t = 5, which are nearby entries: (190 - 130)/3 = 20. But both lie on the same side of 5.5. Fix: choose the closest values on both sides of the target."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "24 thousand per hour",
+    "is_correct": true,
+    "rationale": "Earns the point: the closest values on either side of 5.5 are at t = 5 and t = 6, so the estimate is (214 - 190)/(6 - 5) = 24 thousand per hour."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "19 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because the endpoints t = 0 and t = 10 are easy to find: (300 - 110)/10 = 19. But they are far from 5.5 and give a global average. Fix: use the nearest entries around the point."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "21.5 thousand per hour",
+    "is_correct": false,
+    "rationale": "Tempting because t = 6 and t = 10 are the next entries after the target: (300 - 214)/4 = 21.5. But the interval is wide and one-sided. Fix: use t = 5 and t = 6 on either side of 5.5."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Mass Spectra of Elements",
+  "content_key": "apchem-oht-1.2",
+  "stem": "A mass spectrum of a sample of element Z shows exactly two peaks: one at mass 69.0 u with a relative abundance of 60.0%, and one at mass 71.0 u with a relative abundance of 40.0%. The peaks come from singly charged monatomic ions. What is the average atomic mass of Z?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "70.0 u",
+    "is_correct": false,
+    "rationale": "Tempting if you average the two peak masses, (69.0 + 71.0)/2 — but that treats both isotopes as equally common. Fix: multiply each mass by its fractional abundance before adding."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "69.8 u",
+    "is_correct": true,
+    "rationale": "Each peak's mass is weighted by its fractional abundance: 0.600(69.0) + 0.400(71.0) = 69.8 u. The sample is mostly the lighter isotope, so the average sits closer to 69 than to 71."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "70.2 u",
+    "is_correct": false,
+    "rationale": "Tempting if you pair 69.0 with 40.0% and 71.0 with 60.0% — but each isotope's mass goes with its own peak's abundance. Fix: match each peak's height to the mass at that same peak."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "69.0 u",
+    "is_correct": false,
+    "rationale": "Tempting if you report the tallest peak as the element's mass — but the average atomic mass includes every isotope's contribution. Fix: add the weighted contributions from all peaks."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Elemental Composition of Pure Substances",
+  "content_key": "apchem-oht-1.3",
+  "stem": "Analysis of a pure hydrocarbon shows 85.7% carbon and 14.3% hydrogen by mass. Its molar mass is 56 g/mol. What is its molecular formula? (Use C = 12 g/mol and H = 1 g/mol.)",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "CH2",
+    "is_correct": false,
+    "rationale": "Tempting if you stop once the mole ratio is simplified — but that gives only the empirical formula. Fix: divide the molar mass by the empirical formula mass and scale by that whole number."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "C4H2",
+    "is_correct": false,
+    "rationale": "Tempting if you find the multiplier 4 but apply it only to carbon — but the multiplier scales every subscript. Fix: multiply both subscripts of CH2 by 4."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "C14H28",
+    "is_correct": false,
+    "rationale": "Tempting if you multiply by the empirical formula mass (14) instead of dividing the molar mass by it — but that gives a molar mass of 196 g/mol. Fix: the multiplier is 56 / 14 = 4."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "C4H8",
+    "is_correct": true,
+    "rationale": "In 100 g there are about 7.14 mol C and 14.3 mol H, a 1 : 2 ratio, so the empirical formula is CH2 (mass 14). Since 56/14 = 4, multiply the subscripts by 4 to get C4H8."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Atomic Structure and Electron Configuration",
+  "content_key": "apchem-oht-1.5",
+  "stem": "Selenium has atomic number 34. Which is its ground-state electron configuration?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "[Ar] 4s2 3d8 4p6",
+    "is_correct": false,
+    "rationale": "Tempting if you fill 4p before 3d is full — but 3d lies below 4p in energy. Fix: complete 3d (10 electrons) before putting any electrons in 4p."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "[Ar] 4s2 3d10 4p6",
+    "is_correct": false,
+    "rationale": "Tempting if you complete the p subshell by habit — but this has 36 electrons, which is krypton. Fix: add up the electrons and match them to Z = 34."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "[Ar] 4s2 3d10 4p4",
+    "is_correct": true,
+    "rationale": "Argon accounts for 18 electrons, and 16 more fill in order of increasing energy: 4s (2), then 3d (10), then 4p (4). That totals 34 electrons."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "[Ar] 3d10 4p6",
+    "is_correct": false,
+    "rationale": "Tempting if you believe 3d fills before 4s — but 4s fills first and is part of the configuration. This version also leaves out the 4s electrons. Fix: follow the order 4s, 3d, 4p."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Types of Chemical Bonds",
+  "content_key": "apchem-oht-2.1",
+  "stem": "Pauling electronegativities: H 2.20, C 2.55, Cl 3.16, Br 2.96, O 3.44. Which bond is polar covalent with the partial negative charge on the atom written second?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "O–H",
+    "is_correct": false,
+    "rationale": "Tempting because O–H is the classic polar bond — but O is written first, so the partial negative charge sits on the first atom. Fix: put the delta-negative on the more electronegative atom wherever it is written."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "C–H",
+    "is_correct": false,
+    "rationale": "Tempting if you read the bond as polar with the negative end on H, or call it polar at all — but C (2.55) is slightly more electronegative and the 0.35 difference is small enough to treat as effectively nonpolar. Fix: compare values before assigning charges."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "H–Cl",
+    "is_correct": true,
+    "rationale": "Cl (3.16) is more electronegative than H (2.20), so the shared pair is pulled toward Cl, the second atom. The difference is large enough to make a clearly polar bond, though like every polar bond it has some ionic character."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Br–Br",
+    "is_correct": false,
+    "rationale": "Tempting if you think a large atom pulls electrons harder — but both atoms have identical electronegativity, so the pull is equal. Fix: check that the two atoms differ in electronegativity before you assign any partial charge."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.8",
+  "topic_title": "Representations of Solutions",
+  "content_key": "apchem-oht-3.8",
+  "stem": "Particulate diagram 1 shows 8 dissolved solute particles inside a box that represents 100 mL of solution. Diagram 2 shows 16 dissolved solute particles of the same solute inside a box that represents 200 mL of solution. How do the two solution concentrations compare?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "They are equal, because both have 0.08 solute particles per mL.",
+    "is_correct": true,
+    "rationale": "Concentration depends on particles per volume, not on the total drawn. 8/100 and 16/200 are the same ratio, so the solutions have the same concentration."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Solution 2 is more concentrated, because it has twice as many solute particles.",
+    "is_correct": false,
+    "rationale": "Tempting if you simply count particles — but the boxes represent different volumes. Fix: divide the particle count by the volume each box represents."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Solution 1 is more concentrated, because its box is smaller, so the particles look more crowded.",
+    "is_correct": false,
+    "rationale": "Tempting if you compare the look of the boxes — but the labeled volumes matter, not the drawing size. Fix: compare particles per mL: 0.08 for both."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "They cannot be compared, because the diagrams show different numbers of particles.",
+    "is_correct": false,
+    "rationale": "Tempting if you think different counts block comparison — but you are given the volumes, so you can compute particles per unit volume. Fix: check that you have counts and volumes, then compare ratios."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.9",
+  "topic_title": "Separation of Solutions and Mixtures",
+  "content_key": "apchem-oht-3.9",
+  "stem": "In paper chromatography, a mixture of two dyes is spotted on polar paper (the stationary phase) and a solvent (the mobile phase) moves up the paper. After the run, dye X has traveled 6.0 cm and dye Y has traveled 2.0 cm. Which statement best explains the separation?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Dye X is attracted to the paper more strongly than dye Y, so the paper pulls it farther along.",
+    "is_correct": false,
+    "rationale": "Tempting if you think attraction pulls a dye forward — but attraction to the stationary paper holds a dye back. Fix: stronger attraction to the stationary phase means shorter travel."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Dye Y consists of larger particles that were caught in the pores of the paper, as in filtration.",
+    "is_correct": false,
+    "rationale": "Tempting because separation sounds like filtering — but dissolved dyes are far smaller than the pores and are separated by differing attractions. Fix: use interaction strength, not particle trapping."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Dye Y has no attraction to the solvent and dye X has no attraction to the paper, so each stays in one phase.",
+    "is_correct": false,
+    "rationale": "Tempting if you treat attractions as all-or-nothing — but each dye distributes between both phases to different degrees. Fix: compare how strongly each interacts with the paper relative to the solvent."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Dye Y interacts more strongly with the paper than dye X does, so it is held back and moves less far with the solvent.",
+    "is_correct": true,
+    "rationale": "Chromatography separates by differences in interaction strength with the stationary and mobile phases. The component more strongly attracted to the paper spends more time stuck to it and travels less."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.10",
+  "topic_title": "The Investigative Question Revisited and Data Collection",
+  "content_key": "APSTATS-OHT-1.10",
+  "stem": "Researchers follow 500 adults for ten years. Each person reports weekly coffee consumption, and researchers record blood pressure each year. Nobody is told how much coffee to drink. Which statement best describes this study?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It is an experiment, because the same people were measured repeatedly over ten years.",
+    "is_correct": false,
+    "rationale": "Tempting because tracking over time feels like active research — but measuring is not the same as imposing a treatment. Fix: ask whether researchers assigned the explanatory variable."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It is a prospective observational study, because researchers followed people forward in time without assigning any treatment.",
+    "is_correct": true,
+    "rationale": "This earns the point because an experiment requires researchers to impose a treatment, and here people chose their own coffee habits. Following subjects forward and recording data makes it prospective observational, so it cannot support a cause-and-effect conclusion."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It is a retrospective observational study, because the researchers are looking at coffee habits and blood pressure of adults.",
+    "is_correct": false,
+    "rationale": "Tempting because it is observational — but retrospective studies examine past records, while this one collects data going forward. Fix: check whether data are collected going forward or looked up from the past before you call a study retrospective."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is an experiment, because the researchers measured blood pressure themselves.",
+    "is_correct": false,
+    "rationale": "Tempting because researchers took the measurements — but experiments are defined by assigned treatments, not by who records the data. Fix: look for random assignment of a treatment."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.12",
+  "topic_title": "Sampling Distributions and the Central Limit Theorem",
+  "content_key": "APSTATS-OHT-2.12",
+  "stem": "A population is strongly right-skewed with mean 40 and standard deviation 24. Many random samples of size 64 are taken, the mean of each sample is computed, and the sample means are plotted. Which description of the plot is best?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Right-skewed like the population, centered near 40, with standard deviation about 3.",
+    "is_correct": false,
+    "rationale": "Tempting because the population is skewed — but with n = 64 the sample means pile up symmetrically. Fix: for a large sample size, describe the distribution of sample means as approximately normal, whatever the population's shape."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Approximately normal, centered near 40, with standard deviation about 3.",
+    "is_correct": true,
+    "rationale": "This earns the point because the sample size of 64 is large enough for the Central Limit Theorem, so the sampling distribution of the mean is approximately normal. Its center is 40 and its spread is 24/√64 = 3."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Approximately normal, centered near 40, with standard deviation about 24.",
+    "is_correct": false,
+    "rationale": "Tempting because the population SD is 24 — but averages vary less than individual values. Fix: divide σ by √n."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Approximately normal, centered near 40, with standard deviation about 0.375.",
+    "is_correct": false,
+    "rationale": "Tempting if you divide 24 by 64 — but the standard deviation of the mean uses √n, not n. Fix: divide σ by √n, not by n: 24/√64 = 3."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Estimators",
+  "content_key": "APSTATS-OHT-3.1",
+  "stem": "The true proportion of voters who support a measure is p = 0.50. A pollster takes one random sample of 200 voters and gets a sample proportion of 0.44. Which statement is best?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The sample proportion is a biased estimator, because the result of 0.44 does not equal the true value of 0.50.",
+    "is_correct": false,
+    "rationale": "Tempting because the estimate missed the target — but bias is about the long-run center, not one miss. Fix: judge bias by the mean of the sampling distribution."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The sampling method must be flawed, because a properly done random sample should give a result of exactly 0.50.",
+    "is_correct": false,
+    "rationale": "Tempting because random sampling feels like it should reproduce the population — but random samples vary. Fix: expect sample-to-sample variability around p."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The sample proportion is biased low, and taking a larger random sample of 400 voters would remove that bias.",
+    "is_correct": false,
+    "rationale": "Tempting because larger samples help — but larger n reduces variability, not bias, and a single 0.44 does not show bias. Fix: bias comes from the method, spread comes from n."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "This is consistent with an unbiased estimator, because unbiased means the center of all possible sample proportions is p, not that every sample hits p.",
+    "is_correct": true,
+    "rationale": "This earns the point because bias describes the sampling distribution over many samples. One sample falling 0.06 below p is ordinary sampling variability and says nothing against unbiasedness."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.12",
+  "topic_title": "Setting Up a Test for the Difference Between Two Population Proportions",
+  "content_key": "APSTATS-OHT-3.12",
+  "stem": "Sample 1 has n₁ = 80 and 48 successes; sample 2 has n₂ = 120 and 60 successes. For a test of H₀: p₁ = p₂, which value of the combined proportion p̂_c belongs in the standard error?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "0.55",
+    "is_correct": false,
+    "rationale": "Tempting if you average 0.60 and 0.50 — but the samples have different sizes, so each should count in proportion to n. Fix: total successes divided by total sample size."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "0.60",
+    "is_correct": false,
+    "rationale": "Tempting if you use only sample 1's proportion — but the pooled estimate uses both samples. Fix: combine the successes and the sample sizes."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "0.10",
+    "is_correct": false,
+    "rationale": "Tempting if you use the difference p̂₁ − p̂₂ — but that is the numerator of the test statistic, not the common proportion. Fix: pooled p̂ comes from adding counts."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "0.54",
+    "is_correct": true,
+    "rationale": "This earns the point because under H₀ both samples share one proportion, estimated by combining all successes over all observations: (48 + 60)/(80 + 120) = 108/200 = 0.54."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.15",
+  "topic_title": "Carrying Out a Chi-Square Test for Homogeneity or Independence",
+  "content_key": "APSTATS-OHT-3.15",
+  "stem": "A random sample of 100 people is classified by two categorical variables. The observed counts are: row 1 has 30 and 20; row 2 has 10 and 40. The expected counts are 20 and 30 in row 1, and 20 and 30 in row 2. What is the chi-square test statistic?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "20.83",
+    "is_correct": false,
+    "rationale": "Tempting if you divide by the observed counts — but the denominator is the expected count. Fix: divide each squared difference by E."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "400",
+    "is_correct": false,
+    "rationale": "Tempting if you add the squared differences and stop — but each must be scaled by its expected count. Fix: divide each (O − E)² by E before summing."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "16.67",
+    "is_correct": true,
+    "rationale": "This earns the point because χ² sums (observed − expected)²/expected over every cell: 100/20 + 100/30 + 100/20 + 100/30 ≈ 16.67."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "1.67",
+    "is_correct": false,
+    "rationale": "Tempting if you use the size of each gap, |O − E|, without squaring it: 10/20 + 10/30 + 10/20 + 10/30 ≈ 1.67. But the statistic squares each difference first. Fix: use (O − E)²/E for every cell."
+   }
+  ]
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "p-Values",
+  "content_key": "APSTATS-OHT-3.6",
+  "stem": "A significance test of H₀: p = 0.30 versus Hₐ: p > 0.30 produces a p-value of 0.03. Which interpretation of the p-value is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "There is a 3% chance that the null hypothesis H₀ is true, given the sample result.",
+    "is_correct": false,
+    "rationale": "Tempting if you flip the condition and read the p-value as the probability that H₀ is true given the data — but the p-value is computed by assuming H₀ is true, so it cannot be the probability that H₀ is true. Fix: begin every p-value interpretation with 'Assuming H₀ is true,' and then describe the chance of a result at least as extreme as the one observed."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "There is a 97% chance that the alternative hypothesis Hₐ is true, given the sample result.",
+    "is_correct": false,
+    "rationale": "Tempting if you subtract the p-value from 1 and read 0.97 as the probability that Hₐ is true — but a p-value gives no probability for either hypothesis. Fix: do not subtract the p-value from 1; interpret 0.03 directly as the chance of a result this extreme if H₀ is true."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "If the true proportion were 0.30, there would be a 3% chance of getting a sample proportion at least as large as the one observed.",
+    "is_correct": true,
+    "rationale": "This earns the point because a p-value is computed assuming H₀ is true and measures how unusual the sample result is under that assumption."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The sample proportion is 3 percentage points above the hypothesized value of 0.30.",
+    "is_correct": false,
+    "rationale": "Tempting if you read 0.03 on the same scale as the proportion 0.30 and treat it as the gap between the sample proportion and 0.30 — but the p-value is a probability, not a difference in proportions. Fix: when you see a p-value, ask 'the probability of what?' and answer with the chance of a sample proportion at least as large as the observed one under H₀."
+   }
+  ]
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Introduction to Macromolecules",
+  "content_key": "APBIO-OHT-1.3",
+  "stem": "A cell links 50 amino acids into one polypeptide chain by forming peptide bonds. Which statement correctly describes the water involved?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Forty-nine water molecules are released, one for each peptide bond formed by dehydration synthesis.",
+    "is_correct": true,
+    "rationale": "Joining 50 monomers in a chain forms 49 bonds, and each dehydration synthesis reaction removes one water molecule. So 49 waters are released."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Fifty water molecules are released, one for each amino acid added.",
+    "is_correct": false,
+    "rationale": "Tempting if you count monomers instead of bonds. But a chain of 50 has only 49 links between subunits. Fix: water released equals bonds formed, which is monomers minus one."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Forty-nine water molecules are consumed, because building a polymer requires adding water.",
+    "is_correct": false,
+    "rationale": "Tempting if you mix up the two reactions. Adding water is hydrolysis, which breaks polymers. Fix: dehydration synthesis removes water as it builds; hydrolysis adds water as it breaks."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "No water is involved, because peptide bonds form by simply joining two monomers directly, which makes dehydration synthesis seem to be a simple joining reaction.",
+    "is_correct": false,
+    "rationale": "Tempting because the bond seems to just connect two molecules. But each covalent bond formed between monomers releases an H and an OH as water. Fix: remember 'dehydration' means water is removed."
+   }
+  ]
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Proteins",
+  "content_key": "APBIO-OHT-1.7",
+  "stem": "A reducing chemical breaks the disulfide bridges between cysteine side chains in a single-chain enzyme. The amino acid sequence is unchanged, but the enzyme loses its activity. Which level of protein structure is directly altered?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Tertiary structure, because disulfide bridges between R groups help hold the polypeptide in its overall three-dimensional shape.",
+    "is_correct": true,
+    "rationale": "Tertiary structure is the overall 3D shape held by R-group interactions, including disulfide bridges. Breaking them changes the shape of the active site while the sequence stays the same."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Primary structure, because breaking the bridges changes the order of amino acids so that the whole chain rearranges.",
+    "is_correct": false,
+    "rationale": "Tempting if you reason that because the cysteines are part of the sequence, breaking their bridges must change the sequence — but the stem says the amino acid order is unchanged; only bonds between side chains broke. Fix: ask whether the order of amino acids changed, and if it did not, rule out primary structure."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Secondary structure, because disulfide bridges are the main bonds in alpha helices.",
+    "is_correct": false,
+    "rationale": "Tempting if you assume that disulfide bridges, being strong covalent bonds, must be what holds alpha helices together — but helices and pleated sheets are held by hydrogen bonds between backbone atoms, while disulfide bridges link R groups. Fix: sort each bond by what it connects: backbone to backbone means secondary, R group to R group means tertiary."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Quaternary structure, because the bridges hold several polypeptide chains together.",
+    "is_correct": false,
+    "rationale": "Tempting if you remember that disulfide bridges can link separate chains in some proteins and apply that here — but this enzyme is a single chain, so it has no quaternary structure. Fix: count the polypeptide chains described in the stem before choosing quaternary structure."
+   }
+  ]
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.10",
+  "topic_title": "Origins of Cell Compartmentalization",
+  "content_key": "APBIO-OHT-2.10",
+  "stem": "Which observation most directly supports the hypothesis that mitochondria descended from free-living bacteria, rather than having always been made entirely from the host cell's own genes?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Mitochondria produce ATP, which prokaryotes also produce.",
+    "is_correct": false,
+    "rationale": "Tempting because both make ATP. But shared function does not show common origin, since many structures share functions. Fix: look for structural or genetic evidence of ancestry."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Mitochondria are enclosed by membranes, like the nucleus and other organelles and so they must have originated as separate organisms from the host.",
+    "is_correct": false,
+    "rationale": "Tempting because membranes appear in the theory. But all eukaryotic organelles have membranes, so this does not single out mitochondria. Fix: pick evidence unique to a prokaryote, such as its own DNA."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Mitochondria contain their own circular DNA and ribosomes that resemble those of bacteria, and they divide in a way similar to binary fission.",
+    "is_correct": true,
+    "rationale": "Bacterial-like genetic material, ribosomes and division are evidence of a prokaryotic ancestry for the organelle. These are features expected if mitochondria began as separate organisms."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Mitochondria are found in almost every eukaryotic cell, which shows they are very ancient.",
+    "is_correct": false,
+    "rationale": "Tempting because widespread features seem old. But being common does not show origin as a separate organism. Fix: the evidence must show prokaryote-like traits."
+   }
+  ]
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Plasma Membrane",
+  "content_key": "APBIO-OHT-2.3",
+  "stem": "Phospholipids are placed in water and spontaneously form a closed bilayer sphere. Which description of the arrangement is correct?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The hydrophobic tails face the water on both surfaces, and the heads face each other in the middle so the water-loving side stays in the middle of the bilayer.",
+    "is_correct": false,
+    "rationale": "Tempting if you reverse the polarity of the two ends. But the phosphate head is hydrophilic, and nonpolar tails avoid water. Fix: hydrophilic toward water, hydrophobic away."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "All heads and tails mix evenly throughout the sphere because the molecules move freely.",
+    "is_correct": false,
+    "rationale": "Tempting because the membrane is fluid. But movement within the membrane does not change the orientation, which is set by hydrophilic and hydrophobic parts. Fix: molecules drift, but the head-out, tail-in order stays."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The heads of the outer layer face the tails of the inner layer so the layers stick together.",
+    "is_correct": false,
+    "rationale": "Tempting if you think layers must attract each other. But hydrophobic tails group together to avoid water, and heads contact water on each side. Fix: tails meet tails in the center."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The hydrophilic phosphate heads face the water on both the outer and inner surfaces, and the hydrophobic fatty-acid tails face each other inside the bilayer.",
+    "is_correct": true,
+    "rationale": "Each phospholipid is amphipathic, so its polar head faces the water and its nonpolar tails are tucked away from it. In a bilayer this puts the tails in the middle, facing each other."
+   }
+  ]
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Enzymes",
+  "content_key": "APBIO-OHT-3.1",
+  "stem": "An uncatalyzed reaction has an activation energy of 75 kJ/mol and releases 30 kJ/mol overall. An enzyme lowers the activation energy to 40 kJ/mol. What does the enzyme change?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "It supplies 35 kJ/mol of energy to the substrate so the reaction can start and then the substrate has enough energy to react without help.",
+    "is_correct": false,
+    "rationale": "Tempting because 75 minus 40 is 35 and it looks like a donated amount. But enzymes do not add energy; they provide an easier path. Fix: describe the enzyme as lowering the barrier from 75 to 40 kJ/mol, never as adding energy."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "It lowers the energy barrier to 40 kJ/mol, and the reaction still releases 30 kJ/mol overall.",
+    "is_correct": true,
+    "rationale": "Enzymes speed reactions by lowering activation energy, not by changing the reactants' or products' energy. The reaction therefore reaches the same overall 30 kJ/mol release, only faster."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "It makes the reaction release 65 kJ/mol overall, because the barrier is 35 kJ/mol lower.",
+    "is_correct": false,
+    "rationale": "Tempting if you add the barrier reduction to the energy released. But the overall energy change depends only on reactants and products. Fix: keep the energy released (30 kJ/mol) separate from the activation energy, the only value the enzyme changes."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "It is used up in the reaction as it permanently joins the substrate.",
+    "is_correct": false,
+    "rationale": "Tempting because the enzyme binds the substrate. But the enzyme is released unchanged after catalysis and can be reused. Fix: describe enzyme binding as temporary, with the enzyme unchanged and reusable after the reaction."
+   }
+  ]
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy",
+  "content_key": "APBIO-OHT-3.3",
+  "stem": "The reaction glucose + phosphate to glucose-6-phosphate does not occur spontaneously. A cell couples it to ATP hydrolysis and the reaction proceeds. Why does coupling make the reaction possible?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The energy released by ATP hydrolysis is used to drive the energy-requiring reaction, so the combined process can proceed.",
+    "is_correct": true,
+    "rationale": "Energy coupling links an energy-releasing reaction (ATP to ADP and phosphate) to one that needs energy input. The released energy drives the second reaction, which is how cells run processes that would not occur alone."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "ATP acts as an enzyme that lowers the activation energy of the glucose reaction.",
+    "is_correct": false,
+    "rationale": "Tempting if you confuse the two ways a reaction can be helped, lowering activation energy (what enzymes do) and supplying energy (what ATP does) — but ATP is not a catalyst; it is used up when it is hydrolyzed. Fix: ask whether the molecule is changed by the reaction, and if it is, as ATP is, do not call it an enzyme."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "ATP stores its energy in a form that is later released as heat, which speeds the reaction in the cell and gives the reaction an extra push forward.",
+    "is_correct": false,
+    "rationale": "Tempting if you think cells speed reactions by heating them, so ATP's energy must be released as heat — but heat cannot drive one specific energy-requiring reaction; coupling transfers ATP's phosphate and energy directly to glucose. Fix: trace where ATP's phosphate group goes (it ends up on glucose) to see energy transferred by coupling rather than lost as heat."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "ATP is simply energy itself, so it adds a quantity of energy to the glucose.",
+    "is_correct": false,
+    "rationale": "Tempting if you take 'energy currency' literally and treat ATP as pure energy rather than a molecule — but ATP is a molecule, and its hydrolysis to ADP and phosphate releases energy that is coupled to the glucose reaction. Fix: write ATP → ADP + phosphate next to the glucose reaction so you see a molecule reacting and its phosphate being transferred."
+   }
+  ]
+ }
+]

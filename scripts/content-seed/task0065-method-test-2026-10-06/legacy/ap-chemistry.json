@@ -1,0 +1,218 @@
+[
+  {
+    "subject_key": "ap-chemistry",
+    "unit_number": 1,
+    "topic_code": "1.2",
+    "topic_title": "Mass Spectra of Elements",
+    "seed_used": false,
+    "stem": "The mass spectrum of a natural sample of gallium shows two peaks: one at 68.926 amu with a relative abundance of 60.11% and one at 70.925 amu with a relative abundance of 39.89%. Which choice gives gallium's average atomic mass and correctly explains why the two isotopes differ in mass?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "69.93 amu; the heavier isotope has two more neutrons in its nucleus.",
+        "is_correct": false,
+        "rationale": "Tempting if you average the two peak masses straight across, as if both isotopes were equally common. But the 68.926 amu isotope is more abundant, so the average must sit closer to it. Fix: multiply each mass by its fractional abundance (0.6011 and 0.3989) before adding."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "69.72 amu; the heavier isotope has two more neutrons in its nucleus.",
+        "is_correct": true,
+        "rationale": "68.926 × 0.6011 + 70.925 × 0.3989 = 69.72 amu, a weighted average that lands closer to the more abundant isotope. Isotopes of one element always have the same number of protons, so the 2 amu mass difference comes from two extra neutrons."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "69.72 amu; the heavier isotope has two more protons in its nucleus.",
+        "is_correct": false,
+        "rationale": "The calculation is right, but the explanation is the classic slip: adding protons would change the element itself, so it would no longer be gallium. Fix: isotopes share a proton count and differ only in neutrons, so the extra mass is from neutrons."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "70.13 amu; the heavier isotope has two more neutrons in its nucleus.",
+        "is_correct": false,
+        "rationale": "Tempting if you pair each mass with the other peak's abundance, which happens when you read across the spectrum carelessly. That weights the rarer, heavier isotope more, so the answer drifts too high. Fix: match each mass to its own peak height before multiplying."
+      }
+    ],
+    "verification": "python3: 68.926*0.6011 + 70.925*0.3989 = 69.7234 -> 69.72 (key). Distractors: simple average (68.926+70.925)/2 = 69.9255 -> 69.93; swapped abundances 68.926*0.3989 + 70.925*0.6011 = 70.1276 -> 70.13; abundances sum to 1.0000. Mass numbers 69 and 71 differ by 2 -> 2 neutrons (brief/explainer: isotope mass difference is from neutrons, not protons or electrons). Single-element, singly charged monatomic ion spectrum, inside the CED exclusion boundary.",
+    "author_flags": "Gallium isotope masses/abundances are real-world values (Ga-69/Ga-71), used for realism; no figure needed since peaks are given in text."
+  },
+  {
+    "subject_key": "ap-chemistry",
+    "unit_number": 1,
+    "topic_code": "1.3",
+    "topic_title": "Elemental Composition of Pure Substances",
+    "seed_used": true,
+    "stem": "A liquid hydrocarbon used as a solvent is 89.94% carbon and 10.06% hydrogen by mass. A separate experiment shows its molar mass is 120.2 g/mol. What is the molecular formula of the compound? (Molar masses: C = 12.01 g/mol, H = 1.008 g/mol)",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "C₃H₄",
+        "is_correct": false,
+        "rationale": "This is the empirical formula, and stopping here is the most common way to lose the point. C₃H₄ has a mass of only 40.07 g/mol, not 120.2 g/mol. Fix: divide the given molar mass by the empirical formula mass (120.2 ÷ 40.07 = 3) and multiply every subscript by 3."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "C₉H",
+        "is_correct": false,
+        "rationale": "Tempting if you divide the mass percentages by each other (89.94 ÷ 10.06 ≈ 9) without converting to moles first. Mass ratios are not atom ratios because a carbon atom is about 12 times heavier than a hydrogen atom. Fix: convert grams of each element to moles before comparing."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "C₉H₉",
+        "is_correct": false,
+        "rationale": "Tempting if you round the mole ratio 1 : 1.33 down to 1 : 1, giving CH, and then scale by 120.2 ÷ 13.02 ≈ 9. A ratio of 1.33 is not close enough to round; it signals thirds. Fix: multiply 1 : 1.33 by 3 to get the whole-number ratio 3 : 4."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "C₉H₁₂",
+        "is_correct": true,
+        "rationale": "In 100 g there are 89.94 ÷ 12.01 = 7.489 mol C and 10.06 ÷ 1.008 = 9.980 mol H, a 1 : 1.33 ratio that becomes 3 : 4, so the empirical formula is C₃H₄ (40.07 g/mol). Since 120.2 ÷ 40.07 = 3, the molecular formula is C₉H₁₂."
+      }
+    ],
+    "verification": "python3: %C, %H computed from C9H12 (M = 120.195): 89.94%, 10.06%. moles per 100 g: C 7.4881, H 9.9802; H/C = 1.3328 -> x3 = 3.998 -> C3H4; empirical mass 3(12.011)+4(1.008)=40.065; 120.2/40.065 = 3.00 -> C9H12 (key, M 120.195). Distractors: C3H4 = stopped at empirical (brief's named point loss); mass-as-mole slip 89.94/10.06 = 8.94 -> C9H; round 1.33 to 1 -> CH (13.019), 120.2/13.019 = 9.23 -> 9 -> C9H9 (117.17).",
+    "author_flags": "Seed was an empirical-formula item (Si/N ceramic); this item uses a different compound, different numbers, and the correct idea is the molecular-formula scaling step, not the empirical formula. Distractor B (C9H) is not a chemically sensible formula; kept because it is the direct result of a named slip."
+  },
+  {
+    "subject_key": "ap-chemistry",
+    "unit_number": 1,
+    "topic_code": "1.5",
+    "topic_title": "Atomic Structure and Electron Configuration",
+    "seed_used": true,
+    "stem": "Sodium (Na, Z = 11) has the ground-state configuration [Ne]3s¹. Potassium (K, Z = 19) is directly below sodium in the periodic table and has a lower first ionization energy. Which choice gives potassium's ground-state electron configuration and an explanation that would earn the reasoning point?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "[Ar]4s¹; potassium's outermost electron is in a higher shell, farther from the nucleus and more shielded by inner electrons, so it feels a weaker Coulombic attraction.",
+        "is_correct": true,
+        "rationale": "After argon's 18 electrons, the 19th goes into 4s, which is lower in energy than 3d. That electron is farther from the nucleus and shielded by more inner shells, so the attraction (F ∝ q₁q₂/r²) is weaker and less energy is needed to remove it."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "[Ar]3d¹; potassium's outermost electron is in a d subshell, farther from the nucleus and more shielded by inner electrons, so it feels a weaker Coulombic attraction.",
+        "is_correct": false,
+        "rationale": "Tempting if you fill subshells in numerical order and put the 19th electron in 3d after 3p. But 4s is lower in energy than 3d, so it fills first. Fix: follow the Aufbau order 3s, 3p, 4s, 3d."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "[Ar]4s¹; potassium is lower in Group 1, and ionization energy decreases going down a group.",
+        "is_correct": false,
+        "rationale": "The configuration is right and the statement is true, but naming the trend is not an explanation. A reasoning point needs the cause. Fix: say why the trend happens, using distance from the nucleus and shielding."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "[Ar]4s¹; potassium has more protons than sodium, and a larger nuclear charge holds the outer electron less tightly.",
+        "is_correct": false,
+        "rationale": "Tempting if you link more protons with the lower ionization energy because they both appear in this comparison. But a larger nuclear charge pulls harder, not less. Fix: potassium's extra protons are offset by extra inner shells, so the greater distance and shielding are what weaken the attraction."
+      }
+    ],
+    "verification": "Aufbau order 1s 2s 2p 3s 3p 4s 3d: K (19 e-) = [Ar]4s1 (brief: fill in order of increasing energy, 4s before 3d). Brief/explainer: IE explanation must use nuclear charge and distance/shielding (Coulomb's law), not a vague 'periodic trend' label. K first IE < Na first IE is standard (CED 1.5/1.7 qualitative reasoning). Not an aufbau exception, no quantum numbers.",
+    "author_flags": "Seed asked for the Ti2+ ion configuration; this item uses a neutral main-group atom and centres on the Coulomb's-law explanation. Explainer's own example is S vs Al, so a different pair (Na vs K) was used. Choice C is a true statement that fails as reasoning; stem asks for the explanation 'that would earn the reasoning point' to make that unambiguous."
+  },
+  {
+    "subject_key": "ap-chemistry",
+    "unit_number": 2,
+    "topic_code": "2.1",
+    "topic_title": "Types of Chemical Bonds",
+    "seed_used": true,
+    "stem": "Pauling electronegativities: H = 2.20, S = 2.58, N = 3.04, O = 3.44. A student compares the S–H, N–H, and O–H bonds. Which choice correctly orders the bonds from least polar to most polar and states where the partial negative charge sits in the O–H bond?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "O–H < N–H < S–H; the partial negative charge is on O.",
+        "is_correct": false,
+        "rationale": "Tempting if you mix up 'least' and 'most' or think a bigger electronegativity gap makes a bond more even. A larger difference means a more unequal share, so a more polar bond. Fix: compute each difference (0.38, 0.84, 1.24) and list from smallest to largest."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "S–H < N–H < O–H; the partial negative charge is on H.",
+        "is_correct": false,
+        "rationale": "The order is right, but the charge is backwards. Tempting if you think the less electronegative atom ends up with the electrons. Fix: the more electronegative atom (O, 3.44) pulls the shared electrons toward itself, so O carries the δ−."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "S–H < N–H < O–H; the partial negative charge is on O.",
+        "is_correct": true,
+        "rationale": "The electronegativity differences are 0.38 for S–H, 0.84 for N–H, and 1.24 for O–H, so polarity increases in that order. Oxygen is more electronegative than hydrogen, so the shared electrons are pulled toward O, giving O the δ−."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "All three are bonds between nonmetals, so none of them has any ionic character or partial charges.",
+        "is_correct": false,
+        "rationale": "Tempting if you sort bonds into separate 'ionic' and 'covalent' boxes. Bonding is a continuum, and every polar bond already has some ionic character. Fix: use the electronegativity difference, not the metal/nonmetal shortcut, to judge polarity."
+      }
+    ],
+    "verification": "python3: dEN S-H = 2.58-2.20 = 0.38; N-H = 3.04-2.20 = 0.84; O-H = 3.44-2.20 = 1.24 -> least to most polar S-H < N-H < O-H; O (3.44) > H (2.20) so delta-negative on O. Reversed order in A; delta- on H in B; 'no ionic character' in D is the brief's named continuum misconception (CED EK 2.1: all polar bonds have some ionic character).",
+    "author_flags": "Seed asked which bond has the greatest ionic character from a list of metal/nonmetal pairs; this item uses a different bond set (all X–H), asks for a full ranking plus delta-negative placement, and adds the continuum misconception."
+  },
+  {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.8",
+    "topic_title": "Representations of Solutions",
+    "seed_used": false,
+    "stem": "A particulate diagram of an aqueous sucrose solution shows 6 sucrose molecules in a box that represents 0.5 L of solution. A second diagram, drawn to the same scale, shows a box that represents 1.5 L of solution. How many sucrose molecules must the second box show for the two diagrams to represent the same concentration?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "6",
+        "is_correct": false,
+        "rationale": "Tempting if you assume the same number of particles always means the same concentration. But the second box holds three times the volume, so 6 molecules there would be one-third as concentrated. Fix: compare particles per volume, not raw counts."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "2",
+        "is_correct": false,
+        "rationale": "Tempting if you scale the count by the volume ratio the wrong way (6 × 0.5 ÷ 1.5). A larger volume needs more particles, not fewer, to keep the same concentration. Fix: since the volume triples, the count must triple."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "18",
+        "is_correct": true,
+        "rationale": "The first box has 6 ÷ 0.5 L = 12 molecules per liter. To match that in 1.5 L, the box needs 12 × 1.5 = 18 molecules, three times as many in three times the volume."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "9",
+        "is_correct": false,
+        "rationale": "Tempting if you multiply 6 by 1.5 as though the first box were 1 L. That ignores that the 6 molecules sit in only 0.5 L. Fix: find the particles per liter first (6 ÷ 0.5 = 12), then scale to 1.5 L."
+      }
+    ],
+    "verification": "python3: 6/0.5 = 12 per L; 12*1.5 = 18 (key). Distractors: same count 6 (ignores volume, the brief's named point loss); inverted scaling 6*0.5/1.5 = 2; treating first box as 1 L 6*1.5 = 9. Ratio reasoning only; no molality, percent, or colligative calculation (CED 3.8 exclusions respected).",
+    "author_flags": "Sucrose chosen as a nonelectrolyte so each drawn particle is one molecule. Diagram is described in words; no figure required. Explainer example compares 8 vs 12 particles in a box twice the size; this item uses different numbers and asks for a matching count instead of a comparison."
+  },
+  {
+    "subject_key": "ap-chemistry",
+    "unit_number": 3,
+    "topic_code": "3.9",
+    "topic_title": "Separation of Solutions and Mixtures",
+    "seed_used": true,
+    "stem": "A beaker contains sand stirred into water in which two different food dyes are completely dissolved. A student wants to isolate the sand and also separate the two dyes from each other. Which plan and reason are both correct?",
+    "choices": [
+      {
+        "choice_key": "A",
+        "choice_text": "Filter to collect the sand, then pass the colored filtrate through a second, finer filter paper, which traps the dye molecules because they are larger than water molecules.",
+        "is_correct": false,
+        "rationale": "Tempting because filtration worked for the sand. But dissolved dye molecules are in the same phase as the water and pass through any ordinary filter paper. Fix: use filtration only for undissolved solids, and use a method based on intermolecular attractions for dissolved parts."
+      },
+      {
+        "choice_key": "B",
+        "choice_text": "Filter to collect the sand, then run chromatography on the filtrate, where the dyes separate because they are attracted differently to the stationary and mobile phases.",
+        "is_correct": true,
+        "rationale": "The sand is undissolved, so filtration removes it. The dyes are dissolved, so they need chromatography, which separates them by how strongly each interacts with the stationary phase versus the mobile phase."
+      },
+      {
+        "choice_key": "C",
+        "choice_text": "Run chromatography on the whole mixture, where the sand and each dye travel different distances because larger particles move more slowly up the paper.",
+        "is_correct": false,
+        "rationale": "Tempting if you picture chromatography as sorting by size, like a sieve. It actually separates by differences in attraction to the two phases, and sand would just clog the spot. Fix: remove the undissolved sand by filtration first, then reason with interaction strength."
+      },
+      {
+        "choice_key": "D",
+        "choice_text": "Filter to collect the sand, then run chromatography on the filtrate, where the dye most attracted to the stationary phase travels farthest.",
+        "is_correct": false,
+        "rationale": "The plan works, but the reasoning is backwards. A dye held strongly by the stationary phase stays near the starting line. Fix: the dye that interacts more strongly with the mobile phase moves farther."
+      }
+    ],
+    "verification": "Explainer/CED 3.9: filtration separates only undissolved solids; dissolved solutes pass through, so liquid-solution components cannot be separated by filtration. Chromatography separates by differential interaction strength with stationary vs mobile phases; components interacting more strongly with the mobile phase travel farther. Key B uses both facts; A = named point loss; C = size-based misconception plus unfiltered sand; D = reversed direction.",
+    "author_flags": "Seed asked why one pigment travels farther (polarity reasoning); this item's correct idea is the filtration-then-chromatography method choice. Distractor D overlaps the seed's concept (direction of travel) but in a different scenario, and its fix restates the general rule, not the seed's answer."
+  }
+]
