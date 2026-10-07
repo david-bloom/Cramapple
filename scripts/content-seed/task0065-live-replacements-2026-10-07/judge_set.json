@@ -1,0 +1,36 @@
+[
+ {
+  "id": "N212",
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.12",
+  "topic_title": "Sampling Distributions and the Central Limit Theorem",
+  "stem": "Delivery times in a large database have a right-skewed population distribution. For a fixed sample size n, consider all possible random samples of n delivery times drawn with replacement from this database. A dotplot places one dot at the mean of each possible sample. The process is then considered for larger sample sizes. Which statement correctly identifies the dotplot’s distribution and describes what the Central Limit Theorem implies as n grows?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The dotplot shows the population distribution of delivery times; the Central Limit Theorem makes that population approximately normal as n grows.",
+    "is_correct": false,
+    "rationale": "Population-normality trap: the dots are sample means, not individual population values. Increasing sample size changes the sampling distribution, not the delivery times already in the database. Fix: Identify what one dot represents before deciding which distribution the Central Limit Theorem describes."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The dotplot shows the sampling distribution of the sample mean; its normal approximation improves as n grows, while the population remains right-skewed.",
+    "is_correct": true,
+    "rationale": "Each dot summarizes an entire sample rather than representing one delivery. The Central Limit Theorem applies to the distribution of these sample means: its normal approximation improves with increasing sample size without changing the population’s shape."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The dotplot shows the distribution of individual delivery times in one sample; the Central Limit Theorem makes those observations approximately normal as n grows.",
+    "is_correct": false,
+    "rationale": "Single-sample confusion: this plot combines means from all possible samples, not observations from one sample. The Central Limit Theorem does not promise that individual observations in a large sample will be normally distributed. Fix: Check whether the plotted values are individual measurements or summaries calculated from separate whole samples."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The dotplot shows the sampling distribution of the sample mean; it must remain strongly right-skewed as n grows because the population is right-skewed.",
+    "is_correct": false,
+    "rationale": "Shape-inheritance trap: a sampling distribution need not have the population’s shape. Even with a right-skewed population, the Central Limit Theorem gives an improving normal approximation for the distribution of sample means as sample size grows. Fix: Name the plotted statistic, then apply the Central Limit Theorem to its distribution rather than copying the population’s shape."
+   }
+  ]
+ }
+]
