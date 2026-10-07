@@ -16,6 +16,7 @@ path back in on a later day.
 | **[live]** | Observed in a browser on `cramapple.com` / `app.cramapple.com`, signed out. |
 | **[data]** | Queried read-only from Supabase Production (`pcntajvbdfqhbeewmdry`) on 2026-10-07. |
 | **[doc]** | Taken from a canonical repo doc (`ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`, `TASK-0048`, the 2026-10-04 checkout handoff). |
+| **[recording]** | A Chrome DevTools Recorder export of the Product Owner's own signed-in walkthrough on 2026-10-07 (click path and selectors only; no timings, no screenshots). Account is at the `personalized` stage, active subject AP Chemistry. |
 | **[unverified]** | Could not be checked this session; stated as a gap, not a finding. |
 
 **What was not done:** a signed-in walkthrough of Production. Creating or signing into an account on
@@ -74,6 +75,33 @@ Four things this small sample already says loudly:
 
 **Caveat:** n=5, friends-and-family pilot, $1 promo. It is directional, not statistical. But it
 matches David's observation ("students seem to struggle to know what to do next") exactly.
+
+## 2b. The Product Owner's own walkthrough **[recording]**
+
+David recorded a signed-in session with Chrome's Recorder (desktop, 1210×1279). The export has no
+timestamps or screenshots, but the click path is unambiguous. His account is `personalized`, so he saw
+the legacy `TopicHome`, not Stage A. The path, with what it shows:
+
+| Step | What the recording shows | What it tells us |
+| --- | --- | --- |
+| Sign in with emailed code → `/home` | Lands on `TopicHome` (mode bar **Learn · Points · Ask for help · Homework helper**). | A student with 3+ attempts gets the legacy hub (A6). |
+| Picks Unit 1 in the madlib select | First option again. | Even the owner reaches for Unit 1 when the picker has no calendar hint (A2). |
+| Clicks **Points**, then **Ask for help** | `/ask` is the AP Statistics Unit 1 homework flow; for a Chemistry student every pasted question ends in "We can't help with this yet". He left by typing `/home` into the address bar rather than the page's own "← Back to home". | "Ask for help" is offered on every subject's hub but only works for one unit of one subject (new finding **C7**). |
+| Clicks **Homework helper** | The "coming soon" demand probe. | Two adjacent buttons that both lead nowhere useful. |
+| **Bounced to `cramapple.com/login?redirect=/home`** mid-session, then back on `/home` with no code entered | A visible round-trip through the login page while already signed in. | Cross-subdomain auth flash (one-pager **O2**). Cause not determined here; it is the kind of thing that makes a 15-year-old assume they were logged out (new finding **D6**). |
+| **See a worked example →** (from the *Points* hero) | AP Chemistry Open Hand MCQ. Clicks a distractor (free exploration works), **Next question**, **Show me the deep dive**. | Primary action on Open Hand is "Next question" (A3). |
+| Clicks **Copy deep dive** twice, then its icon | No "Copied" confirmation exists (`DeepDiveOverlay.jsx` fires `clipboard.writeText` silently). | New finding **C8**: a button with no feedback gets clicked three times. |
+| **Try one on your own** → `/practice-mcq?from=open-hand` | | The intended step 3. Page title asserted as empty at navigation. |
+| **Give me a hint** → "Sure you need a hint?" → **Yes, show me**; **Show me the reference materials** → "Sure you need a hint?" → **Yes, show me** | Two consecutive two-step confirmation gates before the first answer. Each gate's copy warns about a "cost" that is listed on feedback. | New finding **C9**: the gating is doing the opposite of what the first seven minutes need. A new student should be *encouraged* to read the reference and the hint on question one, and told it is free the first time. |
+| Picks "1.00 mol", **Submit answer**, **Next question**; changes mind Neon → Magnesium, **Submit answer** | Two graded answers. | The loop works mechanically. |
+| **Show me the deep dive**, **Copy deep dive**, **Back to the question**, **Student hub** | Returns to `TopicHome`. | |
+| **Explore units** | Scrolls to the madlib picker. End of recording. | After two graded answers the hub still says "Nothing due right now. Pick a unit and topic above to build ahead." There is no "you just did 2 questions on 1.1" anywhere (D3). |
+
+Three things the recording settles that the source read could only suggest: the Ask-for-help dead
+end for non-Statistics subjects, the silent copy button, and the double hint-gate. One thing it
+raises that nothing else did: the login-page flash mid-session.
+
+---
 
 ---
 
@@ -197,6 +225,9 @@ primary actions. TASK-0048 flagged this as "finding 2 — product call" and it i
 | C3 | "Welcome, {email-prefix}" for name-less accounts. | [code] `home.functions.ts` |
 | C4 | TopicHome caption claims "Our best guess from your class calendar"; no calendar exists. | [code] `TopicHome.tsx` |
 | C5 | Decorative exam gauge arc looks like progress but is static. | [code] [doc] TASK-0048 f.1 |
+| C7 | "Ask for help" is on every subject's hub mode bar but `/ask` serves AP Statistics Unit 1 only; every other subject's question is declined after the student has pasted it and answered "Where's this from?". | [code] `ask.tsx` [recording] |
+| C8 | "Copy deep dive" gives no confirmation; the owner clicked it three times. | [code] `DeepDiveOverlay.jsx` [recording] |
+| C9 | Hint and Reference each sit behind a two-step "Sure you need a hint?" gate with "cost" copy. On question one of a first session this is friction against the very thing we want them to read. | [code] `HintGate.jsx`, `PracticeMcqScreen.jsx` [recording] |
 | C6 | No instrumentation: PostHog receives **zero events from the app** in the last 30 days (only checkout events from marketing; no `$pageview`). We cannot see where students stall, which is why §2 had to be reconstructed from database rows. | [data] PostHog `read-data-schema` |
 
 ### 4.4 "When they leave, is it easy to get back in?"
@@ -207,6 +238,7 @@ primary actions. TASK-0048 flagged this as "finding 2 — product call" and it i
 | D2 | Sign-in is email + 6-digit code, with Supabase's one-email-per-minute cap. Fine for a returning student who remembers to come back; it is the whole reason nobody comes back by accident. | [doc] 2026-10-04 handoff |
 | D3 | The hub cannot say "last time you…": `lastAttempt` is hardcoded `null`, `stats` is `[]`. Stage B's Pulse ("3 questions · 12 minutes this week") is the only memory the product shows. | [code] `home.functions.ts` |
 | D4 | "Resume session" appears for every student who has ever practised, because `/practice-mcq` and `/practice-frq` never call `session_end`; resume starts a new list anyway. | [code] [data] (all 7 recent sessions `ended_at = null`) |
+| D6 | A signed-in student can be bounced through `cramapple.com/login?redirect=/home` mid-session and land back on `/home` without entering a code. Cause unverified; relates to the open cross-subdomain cookie question (one-pager O2). | [recording] |
 | D5 | The one student who returned (`f6216fbc`) did the identical thing both days: opened an FRQ screen, never submitted. Nothing changed on the second visit to help them. | [data] |
 
 ---
@@ -227,6 +259,8 @@ no backend. Everything in P0 is copy and structure on screens that already exist
 | R5 | **Frame the first wrong answer.** On the first incorrect verdict of a session add one line to the feedback card: *"Normal for a first look at a topic. The explanations on the left are the point — read the one you picked."* | `FeedbackCard` caller in `PracticeMcqScreen.jsx` | B3: the one MCQ student quit after two reds. |
 | R6 | Link the "While you're here" explainer cards to `/learn/…`, and move them *below* the primary action so they do not compete with it. | `HomeStageANew.tsx` | A5. |
 | R7 | **One vocabulary.** Student-facing: **Worked example** (step 2) and **Practice** (step 3). Keep "Open Hand" only as the masthead brand word if at all; drop "Face-up" and the standalone "Not scored" chip (fold into R3's one-liner). One name for outside questions: **Bring a question** everywhere; remove "Upload your own question" and the "Homework helper" probe from the mode bar. | `OpenHandMcqScreen.jsx`, `TopicHome.tsx`, `ByoqHomeLink.tsx` | C1, C2. |
+| R9a | **First-question hints are free.** On the first practice item of a session, open the Reference pane and the topic hint without a gate and say so ("Free on your first question. From the next one, hints are listed on your feedback."). Keep the gate from question two. | `PracticeMcqScreen.jsx`, `ReferencePane` | C9. |
+| R9b | **Hide "Ask for help" and "Homework helper" for every subject except AP Statistics**, and add a "Copied" state to the deep-dive button. | `TopicHome.tsx`, `DeepDiveOverlay.jsx` | C7, C8. |
 | R8 | Small honesty fixes: "Welcome" (no name) instead of "Welcome, jsmith2008"; remove the static gauge arc (plain "34 days to the exam"); delete "from your class calendar". | `home.functions.ts` (frontend server fn), `HomeStageANew.tsx`, `TopicHome.tsx` | C3, C4, C5. |
 
 ### P1 — next, needs a decision or small backend work
@@ -238,6 +272,7 @@ no backend. Everything in P0 is copy and structure on screens that already exist
 | R11 | **Instrument the loop.** Six events from the app: `hub_viewed{stage}`, `position_set{unit,topic,was_default}`, `worked_example_viewed`, `practice_started{entry}`, `answer_submitted{correct,hints}`, `session_ended{questions,points}`. Turn on `$pageview` on `app.cramapple.com`. Until then every assessment like this one is archaeology. | Lovable (posthog.ts already exists) | C6. |
 | R12 | **Investigate the FRQ drafts.** Find how three students reached `/practice-frq` (there is no link from Home's primary path), and why the first thing they saw was a full FRQ. If it is the Open Hand FRQ screen (`LiveOpenHand.jsx` opens a practice session to fetch its list), the draft is an artefact and the student saw a worked FRQ and left — which still means the worked FRQ did not pull them into practice. Ask the three students; there are no session replays. | 30 min code trace + three messages | §2 item 2, D5. |
 | R13 | **Match the promise.** For AP Biology and AP Statistics (the two subjects cleared for the criterion-level starter, `CRITERION_STARTER_SUBJECTS`), make the first worked example an **FRQ with its rubric** — the thing the marketing hero shows — and the first practice a short-text FRQ. MCQ first for the other eight. | Product call; `practice-entry.ts` routes by subject | B2, B4. |
+| R15 | **Trace the mid-session login flash** (D6): reproduce with the Recorder export, check whether the app-side session is being re-validated against `cramapple.com`, and fix under O2. | eng | A student who sees a login page thinks they were logged out. |
 | R14 | **One next-day email.** "You left off at 1.1 Topic title with 2 questions done. One more and Cramapple can tell you what's next." Link to `/home?subject=…`. Loops is connected; TASK-0026 scoped it. | Backend + Loops | D1. |
 
 ### Not recommended right now
@@ -292,3 +327,4 @@ no backend. Everything in P0 is copy and structure on screens that already exist
 - Production DB: `auth.users`, `app.subject_entitlements`, `app.student_course_positions`,
   `app.learning_sessions`, `app.attempts` (read-only, last 21 days).
 - PostHog: event taxonomy (last 30 days).
+- Product Owner's Chrome Recorder export, 2026-10-07 10:10 (click path only; the file also contains the owner's email and a spent one-time code and should not be committed).
