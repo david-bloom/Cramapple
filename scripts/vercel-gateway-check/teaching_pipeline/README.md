@@ -79,3 +79,23 @@ Options:
 - Approves the Production load (Hard-Gate).
 
 The checkers clear an item. They do not replace that sample.
+
+## Seeds and variants (`seed_pipeline.mjs`)
+
+```
+node seed_pipeline.mjs run --batch=<dir> --plan=<plan.json> --skills=<skills.json> [--variants=3] [--rounds=2] [--conc=4]
+```
+
+Each plan slot names a skill **practice** (for example `"practice": "4"`). An optional `"skills": ["4.B"]` narrows the practice to the skills a multiple-choice item can exercise.
+
+**Seeds**
+- Seeds go through the same checks as teaching items.
+- The four non-author families then vote on each seed's skill and difficulty.
+- **Difficulty is not an author target**, and the vote is stored only as `provisional_model`.
+
+**Variants**
+- Variants are checked like seeds.
+- They also pass a 3-gram similarity gate against the seed and earlier sibling variants (Jaccard 0.35 or less).
+- They **inherit the seed's labels** and are not re-voted (DECISION-0101).
+
+Evidence: `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`.

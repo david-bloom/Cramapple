@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0101 — Seeds and Variants (§0): Difficulty Is Not an Author Target and Stays a Provisional Label; Skills Targeted at Practice Level; Variants Inherit the Seed's Labels Instead of Re-Voting
 - DECISION-0100 — Learning Through a Worked (Scored) Example Is a Recommended, Exam-Directed Path on the Student Hub, Never a Required Step; Four Equal Entry Points (Worked Example, Practice, Deep-Dive Notes, Bring a Question)
 - DECISION-0099 — Generate-and-Select Is the Default Method for New MCQs (Required for Open Hand Teaching Items): No Hand Edits, One Shared Rubric, Four Non-Author Checker Families Plus a Reject-Only Own-Family Veto, Planted-Defect Controls
 - DECISION-0098 — Released-Exam-Derived Student Practice Sets May Seed Original Items Only Through the Clean-Room Spec Path
@@ -52,6 +53,25 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0101 — Seeds and Variants (§0): Difficulty Is Not an Author Target; Skills Targeted at Practice Level; Variants Inherit the Seed's Labels
+
+- **Date:** 2026-10-07
+- **Decided by:** David Bloom (Product Owner), in session. Approved recommendations 1 and 2 from the Biology Unit 1 seed pilot.
+- **Evidence:** `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md` (PR #370).
+  - Seeds written to a "Hard" brief were all voted Medium (0/7 Hard).
+  - The target band was hit 10/21 times.
+  - The seed's skill practice matched its target 17/21 times; the exact sub-skill matched 14/21.
+  - Re-voted variants landed on a different sub-skill from their seed 22/61 times, although they kept the same reasoning.
+- **Decision:**
+  1. **Difficulty is not an author target** in §0 seed generation. The four-family difficulty vote on each seed is kept only as a `provisional_model` label until it is recalibrated from real attempt data.
+  2. **Skills are targeted at the practice level.** A plan slot names a practice and may narrow it to the skills a multiple-choice item can exercise. The seed's sub-skill counts as validated at 3 or more matching votes.
+  3. **Variants inherit the seed's skill and difficulty labels**; they are not re-voted. This extends DECISION-0096 (variants inherit difficulty) to skills. The variant prompt keeps the seed's validated sub-skill, or else its practice.
+- **Implementation:** `scripts/vercel-gateway-check/teaching_pipeline/seed_pipeline.mjs`; protocol §0.8.
+- **Not decided:**
+  - a structural definition of Hard;
+  - loading the pilot items, which is Hard-Gate;
+  - confirmation of the 15 provisional adjudications.
 
 ## DECISION-0100 — Learning Through a Worked (Scored) Example Is a Recommended, Exam-Directed Path on the Student Hub, Never a Required Step; Four Equal Entry Points (Worked Example, Practice, Deep-Dive Notes, Bring a Question)
 
