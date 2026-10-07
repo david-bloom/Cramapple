@@ -176,7 +176,44 @@ or "Homework helper". Two data-honesty follow-ups seen on that live page, not ye
 abandoned is counting its whole wall-clock span (B3 should cap or end sessions on inactivity);
 **W9** "Guided 0% · Independent 100%, 5 of 5" on a day the owner opened the topic hint and reference
 materials before submitting, so hint use may not be reaching `assistance_state` (check B7 against the
-grading call's `assisted` flag). This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
+grading call's `assisted` flag).
+
+**W8 and W9 investigated 2026-10-07 (read-only, Production + source):**
+
+*W8, root cause.* `sumMinutesThisWeek` in `home-snapshot.ts` adds `ended_at − started_at` for every
+session with an `ended_at` in the last 7 days, whatever its status or content. The owner's
+2026-10-06 15:29 session had **zero attempts** and was auto-archived at 01:33 the next morning when
+the next visit started a new session (the client ends an orphaned active session with
+`ended_at = now()`), so it contributed **604 minutes**. The session that actually holds his five
+graded questions is still `active` with no `ended_at`, so it contributed **nothing**. The figure is
+inflated by abandonment and blind to real work at the same time. *Fix:* derive minutes from attempt
+timestamps, per session: sessions with at least one graded attempt count `last attempt − session
+start`, capped (60 min), active sessions included; `ended_at` is not used. Frontend server function
+only. A backend nicety: when the client archives an orphaned session, set `ended_at` to its last
+activity, not `now()`. This also feeds B3.
+
+*W9, root cause, three layers.* (1) The plate-loop grading client creates the attempt at submit time
+**without** `assistance_state` (the server defaults it to `independent`) and sends
+`assistance_condition: "coached"` only to `evaluate-attempt`, which uses that field **solely in its
+idempotency request hash**, never for the stored state. (2) Since `DECISION-0080`, `evaluate-attempt`
+writes `assistance_state` from `deriveAssistanceState(attempt.assistance_state,
+attempt.pre_submit_hint_count)`, where the hint count is maintained by a trigger on
+`app.attempt_assistance_events`. (3) **Nothing on the plate loop writes `attempt_assistance_events`**;
+the shared helper's own comment says it is a no-op "until a real UI writes to
+attempt_assistance_events, SessionFrame does not yet, pending Workstream B1", and the plate loop,
+now the default path, does not either. Result: every attempt in Production is `independent` with
+`pre_submit_hint_count = 0`, including the owner's two hinted answers from the morning recording.
+Hints exist only as local receipts on the feedback card. *Consequences:* the Independence bar is
+100% for everyone; the mastery rule (`DECISION-0074`, "no hint before submission") cannot be
+enforced because the cell-state counts key on `pre_submit_hint_count = 0`; and B7's "recorded as
+guided" is currently untrue. *Fix, two steps:* (a) **now, one line in `gradeLiveMcq` / the FRQ
+twin:** pass `assistance_state: assisted ? "coached" : "independent"` on `create_attempt`, which the
+server accepts and `deriveAssistanceState` passes through; honest, but client-supplied. (b) **the
+real fix, under the interaction-data plan:** the plate loop records each aid opened before
+submission as an `attempt_assistance_events` row so the trigger-maintained count is the truth. That
+needs the attempt row to exist before the aid is opened, so the plate loop would create the attempt
+when the item is shown (as the legacy flow's drafts did), not at submit. Scope as its own task.
+ This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
 ### 3b.2 A memory card instead of evidence disclaimers (Stage B)
