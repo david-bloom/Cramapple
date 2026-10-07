@@ -17,6 +17,7 @@ path back in on a later day.
 | **[data]** | Queried read-only from Supabase Production (`pcntajvbdfqhbeewmdry`) on 2026-10-07. |
 | **[doc]** | Taken from a canonical repo doc (`ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md`, `TASK-0048`, the 2026-10-04 checkout handoff). |
 | **[recording]** | A Chrome DevTools Recorder export of the Product Owner's own signed-in walkthrough on 2026-10-07 (click path and selectors only; no timings, no screenshots). Account is at the `personalized` stage, active subject AP Chemistry. |
+| **[canvas]** | Read from the Student Hub design canvas's artboard files (`Stage-A-New`, `Stage-B-Building`, `Main`, `Mobile-Personalized`, `canvas.json` notes), 2026-10-07. |
 | **[unverified]** | Could not be checked this session; stated as a gap, not a finding. |
 
 **What was not done:** a signed-in walkthrough of Production. Creating or signing into an account on
@@ -277,7 +278,7 @@ no backend. Everything in P0 is copy and structure on screens that already exist
 
 ### Not recommended right now
 - Rebuilding the hub visually before R1–R4 land. The 2026-09-27 canvas design is sound; the problem
-  is narration and sequencing, not layout.
+  is narration and sequencing, not layout. §8 says what to change *on* the canvas so it carries R1–R4.
 - Adding a 6-question diagnostic (TASK-0048 cut it; this assessment agrees — it is a third thing
   to explain before any value is shown).
 
@@ -309,7 +310,81 @@ no backend. Everything in P0 is copy and structure on screens that already exist
 
 ---
 
-## 8. Sources read this session
+## 8. Recommended changes to the Student Hub design canvas
+
+**Canvas:** `https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh` ("CramApple — Student Hub"), four
+artboards: `Stage-A-New`, `Stage-B-Building`, `Main` (desktop personalized), `Mobile-Personalized`,
+plus the canvas's own notes (home is a page not a plate; only Next Best Action and the curriculum rail
+keep a hard border; mobile not yet reworked). Read 2026-10-07 **[canvas]**.
+
+**What the canvas already gets right, keep it:** one visual language across all stages (kills the
+legacy `TopicHome` and its Learn / Points / Ask for help / Homework helper bar, which closes A6 and
+C7 by omission); topics shown by title; a "Why this" line that cites real numbers; and on `Main`, the
+"Pick up where you left off", "Good to see you, 4 of the last 7 days", "You're getting better" and
+Recent activity patterns, which are exactly D3–D5.
+
+**What it does not do:** it is a hub design, and the pilot students stalled after the hub. No board
+states the worked-then-practice loop, mentions a worked example, shapes the first session, or
+changes the position question. The changes below make the canvas carry R1–R4 for a new student first,
+and tighten the returning-student boards second.
+
+### 8.1 Across every board
+
+| # | Change | Resolves |
+| --- | --- | --- |
+| K1 | **Add the four-step strip** directly under the orientation strip on all four boards, and (K8) on the two new plate boards: **1 Where your class is · 2 See one worked · 3 Try one for points · 4 What's next.** Current step filled, done steps ticked, later steps grey. Stage A: step 1 live. Stage A once position is set: step 2 live. Stage B: step 3 or 4 depending on count. Main: step 4 live, strip collapsed to one line. | A1, A3, B1 (R1) |
+| K2 | **One vocabulary, eight words.** Student-facing nouns on the hub become: *Worked example, Practice, Points, Topic, Unit, Session, Deep dive, Bring a question.* Rename on the canvas: "Pulse" → "This week"; "Independence" / "Going it alone" → "On your own"; "Points on the table" / "Still yours to take" → "Points you can still get"; "What you've banked" → "So far"; "Worth revisiting" keeps its title but loses the second "Next best action" eyebrow. "Open Hand" does not appear on the hub. | C1 (R7) |
+| K3 | **Every "Why this" is forward-looking and cites the student's own last action** ("Your first three answers tell Cramapple where to start", "Last time: 2 questions on 1.1, 1 point"), never a statement of what Cramapple can't do yet. The honest-empty-state rule stays; the *copy* points forward. | B5 |
+| K4 | **No upsell, no notices, above the first primary action.** Remove "Add a subject", "Your only subject so far", "AP Chemistry is here", and the framework-update notice from the first viewport on every board; at most one dismissible notice per page, below the hero. | B5, C1 |
+| K5 | **Greeting without the email prefix** ("Welcome" / "Good to see you" when no name is on the account). Countdown as plain text, no decorative arc. | C3, C5 (R8) |
+
+### 8.2 Primary: the new student — `Stage-A-New` and two boards the canvas does not have
+
+| # | Change | Resolves |
+| --- | --- | --- |
+| K6 | **Rewrite the hero question.** "Tell us where your class is" → **"What did your class cover most recently?"** One grouped select (unit headings, topic *titles* as options, codes in grey after the title), a calendar badge beside it ("Most AP Biology classes are in Unit 2–3 in early October"), and an explicit third choice: **"Not sure — start me at the beginning."** Drop the "Not sure? Take the 6-question check" tile (unbuilt; TASK-0048 cut it, this assessment agrees). Button: **"That's where I am →"**. | A2 (R2): 4 of 4 real users chose Unit 1 · 1.1 |
+| K7 | **Add a second state of Stage A, as its own artboard `Stage-A2-Ready.dc.html`** (position set, no attempts yet; today the page silently re-renders). Hero becomes the method, said once: *"Every topic, two steps: see one worked, then try one for points."* Two buttons: **"See one worked (2 min) →"** primary, **"Skip to practice"** quiet. Below: **"Your first session: one worked example, three questions, then your first recommendation."** Replace "What happens next: after about 8 questions…" with that line. | A1, A3, A4, B1 (R1, R4) |
+| K8 | **Add two plate boards so the loop is designed end to end:** `Worked-Example.dc.html` and `Practice-First-Question.dc.html`, built on the question plate in `docs/new_design/`. Worked example: the K1 strip in the breadcrumb row; a one-line lead above the key (*"This one's answered for you. Read how each point is earned, then try one like it for real."*); primary **"Now try one for points →"**, quiet "Show me another worked one"; no "Upload your own question" here. Practice: breadcrumb right slot **"Question 1 of 3"**; Reference and topic hint open and ungated on question 1 with the line *"Free on your first question"*; and a **stopping-point card** after question 3 (points, topic, *"That's enough for Cramapple to start recommending. Back to your hub →"*, "Keep going" quiet). | A3, A4, C8, C9 (R3, R4, R9a) |
+| K9 | **First-wrong-answer line** on the practice board's feedback card: *"Normal for a first look at a topic. The explanation for the one you picked is on the left."* | B3 (R5) |
+| K10 | **Shrink the curriculum on Stage A to one line** ("8 units · 53 topics · you're starting in Unit 2") with a "See the map" link. A grid of 53 grey cells on a first visit says "you have done nothing", which is true and unhelpful. The full rail returns on Stage B. | B5 |
+| K11 | **Explainer cards are links**, titled by what they teach ("What earns the FRQ point · 6 min"), placed *below* the primary action, not beside it. | A5 (R6) |
+| K12 | **Stage A on mobile first.** The canvas note says mobile is the old boxy version; the first-session screen is the one most likely opened on a phone between classes. Fold at 844px: greeting, K1 strip, K6 question, one button. Build this before `Mobile-Personalized`. | — |
+
+### 8.3 Bridge: `Stage-B-Building` (1–2 graded attempts)
+
+| # | Change | Resolves |
+| --- | --- | --- |
+| K13 | **Replace "Estimated by Cramapple — Is this right? Yes, confirm / No, change it"** with "Confirmed by you · Change". No estimator exists; a fake confirmation prompt breaks the no-invented-data rule. Reinstate the estimated state when an estimator ships. | honesty |
+| K14 | **Hero keeps "Your best 15 minutes — Plasma membranes"** but gets the pair of buttons from K7 (worked first quiet, practice primary) and a **threshold progress bar** under it: "2 of 3 toward your first recommendation" (the real `RECOMMEND_MIN_ATTEMPTS`), not "about 8 questions in a topic". | A4, B5 |
+| K15 | **Replace the Pulse + Independence pair with one "Last session" card** (R9): date, topic, questions, points, one line of what to do next. Both canvas panels render "not enough evidence" by construction below the threshold, so on Stage B they are two boxes that say nothing. They move to `Main` where they have data. | B5, D3 |
+| K16 | **"Worth revisiting" renders only with items**; its empty state is one sentence under the hero, not a section. (Today the queue only resolves names for the AP Statistics pilot skills, so every other subject is empty.) | B5 |
+| K17 | Cut "Your subjects" (cross-subject rollup) as TASK-0048 already did; keep it cut on the canvas so the board matches what can be built. | — |
+
+### 8.4 Secondary: the returning student — `Main` and `Mobile-Personalized`
+
+| # | Change | Resolves |
+| --- | --- | --- |
+| K18 | **Recovery wins.** When a resumable session exists, "Pick up where you left off · Resume" sits *above* "Your best 20 minutes", not inside it. When none exists, that slot shows "Last time: …" (K15's card). Both need R9's backend: close sessions on exit and record `lastAttempt`. Until then the board must not show "6 of 10 done", since partial-resume data does not exist. | D3, D4 |
+| K19 | **"So far" slab degrades per item.** Topics mastered, units complete and points earned exist once mastery (D7) ships; "days in a row" needs a streak layer that does not exist. Hide each tile individually at zero rather than inventing one, and drop "Share these" for launch. | no-invented-data |
+| K20 | **Hero names the format and routes through a worked example for FRQ.** "Feedback mechanisms · Unit 4 · Practice FRQ" is right; for AP Biology and AP Statistics the primary should read "See one worked FRQ, then practice (20 min)" so the first FRQ a student meets is face-up, not blank. This is the canvas-side half of R13 and the answer to the three unsubmitted FRQ drafts. | B2, B4, §2 item 2 |
+| K21 | **"Needing less help" and "You're getting better" keep their numbers but gain a date** ("since 23 Sep"), and show only when `canClaimTrend` is true (5 attempts, 2 sessions); below that the slot shows K15's "Last session" card. | B5 |
+| K22 | **Mobile personalized:** fold = countdown, position, Your best N minutes with one button, Resume if any. Move Curriculum, Opportunities and Deep dives below the fold in that order; cut "Your subjects" (K17). The canvas's "Why this: your last 6 questions here earned 4 of 9 points, two with a hint" is the model line for every "Why this" (K3). | D3 |
+
+### 8.5 Build order on the canvas
+
+1. K1, K2, K5 across boards (half a day of canvas edits).
+2. `Stage-A-New` K6, K10, K11 and the new `Stage-A2-Ready` (K7). These are the first-visit screens.
+3. The two plate boards (K8, K9). Without them the canvas still stops where the pilot students stopped.
+4. `Stage-B-Building` K13–K17.
+5. `Main` and `Mobile` K18–K22, gated on R9 (session close + last attempt) and D7 (mastery) landing.
+
+**Stays open after this section:** the position estimator (K13), streaks (K19), partial-session resume
+(K18), and the five Product Owner questions in §7, in particular whether the worked example is a
+mandatory step 2 (K7 assumes yes, with "Skip to practice" as the escape).
+
+---
+
+## 9. Sources read this session
 
 - App `56cae479` (Lovable, HEAD `64352ecb`): `HomeV2.tsx`, `HomeStageANew.tsx`, `HomeStageBBuilding.tsx`,
   `TopicHome.tsx`, `HomeWelcomeBanner.tsx`, `_ux.home.tsx`, `_ux.tsx`, `Pieces.tsx`, `SubjectSwitcher.tsx`,
@@ -327,4 +402,5 @@ no backend. Everything in P0 is copy and structure on screens that already exist
 - Production DB: `auth.users`, `app.subject_entitlements`, `app.student_course_positions`,
   `app.learning_sessions`, `app.attempts` (read-only, last 21 days).
 - PostHog: event taxonomy (last 30 days).
+- Design canvas `https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh` (four artboards + notes).
 - Product Owner's Chrome Recorder export, 2026-10-07 10:10 (click path only; the file also contains the owner's email and a spent one-time code and should not be committed).
