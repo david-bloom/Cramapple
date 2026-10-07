@@ -10,15 +10,19 @@
 
 ## Purpose and owner framing
 
-David's assessment brief: Cramapple helps students lock in each lesson through targeted information and targeted practice. The Open Hand / worked question is central. Assess from first landing on Student Home through the next 5–7 minutes, including stopping and returning.
+David's assessment brief: Cramapple helps students lock in each lesson through targeted information and targeted practice. Assess from first landing on Student Home through the next 5–7 minutes, including stopping and returning.
+
+**Owner clarification, 2026-10-07:** the learning is directed toward how a lesson will be questioned on class tests and the AP exam, rather than general subject knowledge. A worked question teaches the reasoning through a concrete question in the form students will encounter. It is an important learning option, not a prerequisite. Students may go directly to independent practice, export Deep Dives as supplemental class notes, or upload their own homework question for help understanding it without Cramapple answering it for them.
+
+This clarification governs the recommendations below. The earlier proposed lesson cycle is a suggested route for students who choose it. Direct practice, notes use and homework understanding are valid goals, not incomplete or failed versions of that route. The brief states intended product behavior; availability and exact behavior of each implementation still require verification.
 
 This records the owner's brief and proposed assessment criteria. It does not amend the product vision or assert that every competitor fits a reference/test dichotomy. No competitive research was performed.
 
 ## Preliminary finding
 
-The reviewed implementation contains the right ingredients, but does not consistently guide a student through one small learning cycle. Home leads with class-position setup and collecting evidence; the worked-question screen's primary CTA advances to another worked example, while independent practice is secondary. The student must infer both the method and when to move from reading to doing.
+The reviewed implementation contains the right ingredients, but does not consistently explain test-directed lesson learning or help a student choose an appropriate way to use it. Home leads with class-position setup and collecting evidence; the worked-question screen's primary CTA advances to another worked example, while independent practice is secondary. Students must infer why learning through a question is useful and how to move between examples, practice, notes and homework help. The goal is clear choice and continuity, not compulsory completion of one sequence.
 
-The owner-supplied action trace supports this concern: it records another worked question before independent practice, several Home detours, and repeated use of information/help. It shows that the core path is reachable, but does not establish that students understand it. This remains an expert assessment with recorded actions, not a timed first-use student usability test.
+The owner-supplied action trace supports this concern: it records another worked question before independent practice, several Home choices, and repeated use of information/help. It shows that the core path is reachable, but does not establish that students understand it. This remains an expert assessment with recorded actions, not a timed first-use student usability test.
 
 ## Evidence boundaries
 
@@ -38,7 +42,7 @@ The time bands below are proposed observation windows, not measured timings or a
 
 | Window | Student's question | Success criterion | Source assessment |
 | --- | --- | --- | --- |
-| First 30 seconds | What is this for, and where do I start? | Student can explain the worked-question → own attempt method and identify one primary action | Partial: class-position action is explicit; differentiated method is not explained in the reviewed welcome or Stage A hero |
+| First 30 seconds | What is this for, and where do I start? | Student understands the test/exam purpose, recognizes learning from a question as an option, and chooses a route that fits their goal | Partial: class-position action is explicit; differentiated method and optional routes are not explained in the reviewed welcome or Stage A hero |
 | 30–90 seconds | Which lesson should I work on? | Choose a relevant topic; recover if they do not know their official unit/topic | Partial: taxonomy selects exist, but no visible “not sure” path in Stage A |
 | 1–3 minutes | What should I notice in this worked question? | Identify the key reasoning move and a likely mistake without guessing which pane to read | Partial: correct answer/rationales and reference are present; no explicit reading sequence or student task in this live teaching path |
 | 3–5 minutes | Can I now do this myself? | Clear primary CTA to an unseen question requiring the same lesson/reasoning | Weak: independent practice is secondary; topic is passed, but the practice client only reorders a server-selected batch |
@@ -61,7 +65,7 @@ This is an action trace, not a visual recording. It does not establish a five-to
 
 **Strengths:** the owner reaches the worked question, uses Deep Dive before and after practice, requests targeted aids, submits answers and returns to Home. The ingredients can support lesson learning, and targeted information attracts use in this trace.
 
-**Interpretation:** the recorded path visits several options without an explicit, bounded lesson cycle. That is consistent with the source concern about guidance, but an owner navigating the product is not a representative first-time student. The trace cannot establish which actions felt confusing or how long they took.
+**Interpretation:** the recorded path visits several options without a clearly stated learning purpose or bounded pause. The owner's clarification means example browsing, direct practice and copying notes can all be valid choices; sequence alone cannot classify them as detours. Guidance should help students act on their chosen goal. An owner navigating the product is not a representative first-time student, and the trace cannot establish confusion or timings.
 
 ## Findings and recommendations
 
@@ -73,7 +77,7 @@ The rationale stresses that Cramapple has no work yet and cannot recommend hones
 
 **Inference:** this explains a setup dependency and the absence of personalization, but gives little reason to invest the first minutes. “What happens next” describes graded-attempt thresholds, not the student's immediate learning experience.
 
-**Proposed change:** lead with the small outcome and method: choose today's lesson, examine a worked question, try a related question, get focused feedback. Keep personalization thresholds subordinate. “Lock in” is the product goal, not a mastery claim earned simply by completing the first cycle.
+**Proposed change:** lead with the test/exam purpose and an understandable choice: learn a lesson through a question, practice independently, use its Deep Dive as notes, or bring a homework question for help understanding it. Explain the example → own attempt route as a useful option. Keep personalization thresholds subordinate. “Lock in” is the product goal, not a mastery claim earned simply by finishing a route.
 
 ### F2 — A student must know the taxonomy before seeing value (high priority)
 
@@ -83,16 +87,16 @@ Stage A enables position saving only after selecting a unit; independent entry i
 
 **Proposed change:** retain class-position selection; add an honest alternate way to choose a recognizable lesson, including a supported example for students who are unsure. Do not silently guess that the first topic is what their teacher just covered.
 
-### F3 — Primary continuation moves away from locking in this lesson (highest priority)
+### F3 — Continuation does not clearly distinguish learning from another example and testing yourself (highest priority)
 
 OpenHandMcqScreen renders **“Next question”** with the primary variant and **“Try one on your own”** with the quiet variant.
 LiveOpenHandTeaching binds Next to pickNextTeachingTopic, which advances through later topics and can cross units.
 
 **Recorded evidence:** the trace uses Next question before Try one on your own. It corroborates the availability and use of this route, without proving the owner's motivation or that all students will choose it.
 
-**Inference:** a student following the strongest button may browse several lessons without trying the one just explained. “Next question” also fails to say whether the next item is worked or independent.
+**Inference:** a student following the strongest button may move to a different lesson without realizing it. Browsing more examples is legitimate when chosen knowingly; “Next question” fails to say whether the next item is worked or independent, or whether its lesson changes.
 
-**Proposed change:** make independent practice for this lesson primary. Label browsing another worked example explicitly and keep it available as a deliberate secondary choice. Explain the transition in one sentence tied to the learning move.
+**Proposed change:** after a worked question, offer a clear recommended continuation, “Try one yourself on this lesson,” alongside an explicit “Study another example.” State when the lesson changes. Keep practice optional and accessible directly from Home without viewing an example first. Explain the transition in a sentence tied to the tested reasoning move.
 
 ### F4 — Targeted practice is a preference, not a verified lesson-pairing contract (highest priority)
 
@@ -146,7 +150,7 @@ The trace includes a Homework helper click before the worked example. In reviewe
 
 **Inference:** a student seeking help with today's lesson can spend their first interaction on an unmet promise. The overlap with the available Bring your own question entry can also obscure which action helps now. The trace does not show the rendered coming-soon note, so that outcome is source evidence.
 
-**Proposed change:** make availability clear before the click, and clarify or consolidate the relationship with the actual question-help entry. Keep the first-use primary action focused on the worked-question learning cycle. Do not silently substitute one feature for another.
+**Proposed change:** make availability clear before the click and clarify or consolidate the relationship with the actual question-help entry. Present “Help me understand my question” as a legitimate separate goal. Explain the boundary before upload: Cramapple helps the student reason through their own homework question without supplying its final answer. The reviewed link alone does not establish that this boundary is implemented.
 
 ### F10 — Assistance wording can discourage learning and mislabel reference use (medium priority)
 
@@ -156,17 +160,39 @@ The trace records two confirmation pairs: hint request and reference-material re
 
 **Proposed change:** use neutral, resource-specific wording and explain the consequence plainly, for example “Using this help marks this attempt as guided.” Preserve honest assistance recording and the student's explicit choice. Review repeated confirmations against that purpose; do not remove them without checking the intended assistance contract.
 
-## Recommended first-use sequence (proposal)
+## Recommended first-use choices (proposal)
 
-1. Pick a familiar lesson, with help if unsure.
-2. Show the outcome and brief path: worked question → own attempt → focused feedback.
-3. Direct attention to one useful reasoning move in the worked question.
-4. Make “Try this yourself” the primary continuation, with an unseen aligned item.
-5. Give specific feedback; offer another targeted attempt when needed.
-6. Provide a factual mini recap and a clear pause/continue choice.
-7. Returning Home shows the lesson and the appropriate next phase.
+Explain the purpose before setup: **Prepare for tests and the AP exam, one lesson at a time.** Let students choose a recognizable lesson when needed; do not require class-position setup before every route.
 
-Keep the worked question central. A long feature tour, extra dashboard regions, or multiple introductory modes would add choices before the student experiences this method.
+| Student's goal | Proposed entry | What should happen | Useful pause/return state |
+| --- | --- | --- | --- |
+| Learn how this lesson appears in questions | **Learn from a question** | Show a worked question with reasoning, tested idea and tempting mistake; recommend an aligned own attempt when ready | Return to the example or choose an own attempt; neither is mandatory |
+| Check what I can do | **Practice on my own** | Enter targeted independent practice immediately; offer explanations/help when needed | Restore the exact attempt/queue and unfinished input where supported |
+| Supplement my class notes | **Read or export lesson notes** | Open the relevant Deep Dive and make export/copy availability clear, without requiring an attempt | Revisit the named Deep Dive; do not treat reading/export as demonstrated mastery |
+| Understand my homework question | **Help me understand my question** | Accept an upload and guide the student's reasoning without providing the final answer | Restore the question and guidance context where supported; do not pretend it is an unanswered practice set |
+
+For a student who chooses to learn from a question:
+1. Identify the test/exam idea and reasoning move the question illustrates.
+2. Explain why the correct response works and why a tempting alternative fails.
+3. Offer an unseen aligned own attempt as the recommended next step, while keeping another example or notes available.
+4. Give focused feedback if the student attempts practice.
+5. Provide a factual recap and a concrete pause/continue choice.
+
+Keep one dominant recommendation and compact, visible alternatives on the hub. These are different uses of the same lesson resources, not separate dashboard modes or a long onboarding tour.
+
+### Student-facing vocabulary (proposal to validate)
+
+Use **“Learn from a question”** as the action label, with **“See the reasoning behind a test-style question”** as its short explanation. “Worked example” can remain a descriptive term inside the screen where its meaning is apparent; “Open Hand” needs explanation if exposed to students. Validate these words with students rather than assuming familiarity with instructional terminology.
+
+Suggested hero copy:
+
+> Prepare for tests and the AP exam, one lesson at a time. Learn from a question with the reasoning explained, practice on your own, or use lesson notes alongside class.
+
+Suggested homework-entry copy:
+
+> Bring a question you're working on. We'll help you understand the ideas and work through your reasoning; you supply the answer.
+
+Use “test-style” or equivalent exam-format claims only for content whose format and alignment support that promise. Avoid implying that an example is a predicted exam question.
 
 ## Alternate Student Hub design: assessment and revision brief
 
@@ -176,15 +202,15 @@ Keep the worked question central. A long feature tour, extra dashboard regions, 
 
 ### What this alternative resolves or improves
 
-The alternate gives the recommended action a clear visual focal point, explains recommendation reasons, names specific lessons and separates curriculum position from demonstrated performance. Its personalized view surfaces an unfinished set (“Unit 4 MCQ · 6 of 10 done”), and the mobile view names that set in its Resume link. These are useful improvements in direction and return visibility. The illustrated design also omits the reviewed live hub's competing Points/Ask for help/Homework helper row.
+The alternate gives the recommended action a clear visual focal point, explains recommendation reasons, names specific lessons and separates curriculum position from demonstrated performance. Its personalized view surfaces an unfinished set (“Unit 4 MCQ · 6 of 10 done”), and the mobile view names that set in its Resume link. These are useful improvements in direction and return visibility. The illustrated design also omits the reviewed live hub's Points/Ask for help/Homework helper row. Its simpler hierarchy is useful, but removal of that row does not replace the need for understandable homework-help and notes entries.
 
-It does **not** resolve the central first-use concern by itself. Frame A still leads with “Tell us where your class is,” “no work from you yet” and question thresholds. Later frames primarily offer Start practice for 15 or 20 minutes. None of the four frames clearly introduces the worked question → own attempt → focused feedback method. Resume visibility is improved, but exact lesson/phase restoration remains a behavior requirement.
+It does **not** resolve the central first-use concern by itself. Frame A still leads with “Tell us where your class is,” “no work from you yet” and question thresholds. Later frames primarily offer Start practice for 15 or 20 minutes. None of the four frames clearly explains learning through test-style questions or distinguishes that route from direct practice, notes use and help with a student's own question. Resume visibility is improved, but exact lesson/phase restoration remains a behavior requirement.
 
 | Concern from this assessment | Alternate design effect | Revision needed |
 | --- | --- | --- |
-| F1/F6: teaching promise and early value | Clear hierarchy; new view still foregrounds missing evidence | Explain and deliver one small lesson cycle before emphasizing personalization thresholds |
+| F1/F6: teaching promise and early value | Clear hierarchy; new view still foregrounds missing evidence | Explain the test/exam purpose and optional routes before emphasizing personalization thresholds |
 | F2: choosing a lesson when unsure | Adds “Not sure?” and a six-question check | Offer recognizable lesson selection; do not imply six answers establish the teacher's current position |
-| F3/F5: worked-question guidance and handoff | Not shown in these hub frames | Make the worked question an explicit entry and independent attempt its primary continuation |
+| F3/F5: worked-question guidance and handoff | Not shown in these hub frames | Make learning from a question an explicit option; recommend an own attempt without making either a prerequisite |
 | F4: practice alignment | Topic labels make the recommendation concrete | Validate an unseen aligned item before promising the cycle; UI labels alone do not establish alignment |
 | F7: satisfying stop | 15/20-minute labels suggest a bounded activity | Define a short finish/recap and an honest duration expectation |
 | F8: return continuity | Specific unfinished-set Resume is substantially clearer | Extend Resume to lesson and phase, including a completed worked example with practice still to do |
@@ -196,9 +222,9 @@ It does **not** resolve the central first-use concern by itself. Frame A still l
 
 Keep the strong hero treatment, but change its purpose. Suggested copy:
 
-> Lock in today's lesson. See how one question works, try a related question yourself, and use the feedback to decide what to revisit.
+> Prepare for tests and the AP exam, one lesson at a time. Learn from a question with the reasoning explained, practice on your own, or use lesson notes alongside class.
 
-Show a short text sequence: **Worked question → Your attempt → Focused feedback**. Keep it within the hero, rather than adding a separate feature-tour region. Use one primary CTA, **Start a lesson**; when a lesson is selected, name it: **Start: Plasma membranes**. The time label can say **A short first session** until a five-to-seven-minute estimate has been validated. Do not imply a score or mastery outcome simply from finishing it.
+Show the recommended route briefly: **Learn from a question → Try one yourself → Focused feedback**. Label it as a suggested path, not a required checklist. Use **Learn from a question** as the dominant first-use recommendation when appropriate, and put **Practice on my own** visibly beside it. Provide compact **Lesson notes** and **Bring my own question** entries without adding four large dashboard panels. Name the selected lesson in the entry. The time label can say **A short first session** until a five-to-seven-minute estimate has been validated. Do not imply a score or mastery outcome simply from finishing it.
 
 **2. Keep topic selection, but make it a bridge to learning.**
 
@@ -210,11 +236,11 @@ For an unsure student, offer **Browse lessons** or a deliberately identified **T
 
 Reduce “can't estimate,” empty curriculum, threshold and “no work yet” messaging to one quiet explanation: **Recommendations become more personal as you practice.** Retain honest evidence limits where a performance claim would otherwise appear.
 
-Move the full curriculum and general explainers below the first learning action. Provide selected-topic information beside the worked question, where it helps answer a concrete question. The existing reading links can remain as optional routes; they should not carry the primary first-use explanation.
+Move the full curriculum below the immediate actions. Provide selected-topic information beside the worked question, where it helps answer a concrete question, and also allow direct Deep Dive access for students seeking supplemental class notes. Label these as lesson-specific notes directed toward the tested ideas, rather than a general reference library. Notes users should not have to complete a worked question or graded attempt to read or export them.
 
 **4. Design a finish worth reaching.**
 
-After the worked question and an aligned attempt, show a factual recap: the lesson studied, the reasoning move practiced, what the answer feedback showed, and whether help was used. Offer **Try another on this lesson** and **Pause for now**. Keep any reference material revisitable. A wrong answer should lead to a specific explanation or guided repair, followed by another aligned attempt when available.
+At a useful pause in the chosen route, show a factual recap appropriate to what happened: an example viewed, notes copied/exported, a homework idea discussed, or practice attempted with feedback and assistance status. For the example-plus-practice route, identify the tested reasoning move and useful feedback. Offer a relevant continuation and **Pause for now**. A notes-only or example-only visit is a valid use; do not show an incomplete-practice warning merely because no attempt was submitted. A wrong practice answer should lead to a specific explanation or guided repair, with another aligned attempt available when justified.
 
 This finish belongs to the lesson flow and must be designed alongside the hub; it is absent from the reviewed artifact.
 
@@ -224,17 +250,19 @@ This finish belongs to the lesson flow and must be designed alongside the hub; i
 
 Keep its honest distinction between class position and performance. Replace the primary generic Start practice invitation with either:
 - **Continue your lesson**, when there is unfinished lesson work; or
-- **Work on Plasma membranes**, with the same worked-question → own-attempt path when there is no unfinished work.
+- **Work on Plasma membranes**, with visible choices to learn from a question, practice directly or open lesson notes when there is no unfinished work.
 
 Explain why in one short sentence: **You selected Plasma membranes as today's lesson.** Avoid a large explanation of how little the system knows. The current repeated “not enough evidence” regions can be collapsed into a single restrained note; factual activity can still appear below.
 
-A student should get the value of guided lesson learning without first accumulating enough graded attempts for personalization.
+A student should get useful test-directed learning or independent practice without first accumulating enough graded attempts for personalization. Do not require an example before practice.
 
 **6. Turn recent work into an actionable memory cue.**
 
 Show a small recent-lesson card with the lesson, last phase and next action. Examples are proposed states, not observed saved behavior:
-- **Plasma membranes · Worked question viewed. Next: try one yourself.**
-- **Membrane transport · Attempt submitted. Next: revisit the explanation.**
+- **Plasma membranes · Example viewed. Suggested next: try one yourself**, with return-to-example also available.
+- **Membrane transport · Attempt submitted. Suggested next: revisit the explanation.**
+- **Plasma membranes · Lesson notes last opened**, with direct reopen/export.
+- **Your uploaded homework question · Guidance in progress**, with continue only if that context is actually saved.
 - **Unit 4 practice · 6 of 10 completed. Next: question 7**, only if exact queue restoration is verified.
 
 Do not infer understanding from viewing a worked question. If there is unfinished answer input, state that it is saved only when the product actually persists and restores it.
@@ -243,7 +271,7 @@ Do not infer understanding from viewing a worked question. If there is unfinishe
 
 **7. Choose a single primary action using the student's unfinished work.**
 
-The desktop hero currently contains both a new recommendation and an unfinished-set Resume link; the larger Start practice treatment can compete with returning to prior work. When meaningful unfinished work exists, make **Continue [lesson]** primary and put **Start a different lesson** second. After a completed cycle, make the new recommendation primary. Allow an easy deliberate switch; do not force stale work.
+The desktop hero currently contains both a new recommendation and an unfinished-set Resume link; the larger Start practice treatment can compete with returning to prior work. When meaningful unfinished work exists, make **Continue [lesson or question]** primary and name its next phase. After a completed activity, make a relevant new recommendation primary. For recent notes use, offer **Reopen [lesson] notes** rather than suggesting an abandoned attempt. Keep direct practice, learning from a question, notes and own-question help accessible. Allow an easy deliberate switch; do not force stale work or unfinished practice onto a student returning for notes.
 
 Distinguish **Your class: Unit 5** from **Suggested review: Unit 4**. Name why the recommendation moves backward: **Your last attempts missed this reasoning step**, supported by actual evidence. This makes the backward curriculum arrow intelligible and helps the student judge relevance.
 
@@ -252,7 +280,9 @@ Distinguish **Your class: Unit 5** from **Suggested review: Unit 4**. Name why t
 Keep the bold typography, color and visible progress; they can give the hub energy. Make the hero show what the next activity will teach or check, rather than only recoverable points. Suggested direction:
 
 > Feedback mechanisms  
-> See how a worked question distinguishes negative from positive feedback, then try an aligned question.
+> Learn how a test question distinguishes negative from positive feedback. See the reasoning, then try one yourself when you're ready.
+
+Keep **Practice on my own** visible for a student who already understands the lesson.
 
 Use truthful, task-specific encouragement after work: **You solved the next question without help** or **You corrected the same mistake on another question**, where recorded evidence supports it. Do not equate fewer hints with learning automatically. Preserve the supportive intent of “both fair calls” without attributing a student's motives.
 
@@ -260,7 +290,7 @@ Review “topics mastered,” “units complete,” “points waiting” and ind
 
 **9. Make Deep Dives answer the current learning need.**
 
-The alternate's short, named explainers are useful. Prioritize the one relevant to the active lesson or a recorded mistake and explain that relationship. Keep Browse all secondary. Avoid sending a student into a separate reading library before an independent attempt; include the relevant explanation within the lesson cycle and make it accessible after feedback.
+The alternate's short, named explainers are useful. Prioritize the one relevant to the active lesson or a recorded mistake and explain that relationship. Provide both in-question access and a direct **Lesson notes** route, with visible **Export notes** or **Copy notes** controls matching actual capability. Notes can supplement class independently of practice. Preserve topic, source/version context and useful structure in exported material; verify the export format and current implementation before promising it. The trace confirms Copy clicks, not a particular exported file format or successful copy result.
 
 **10. Update mobile to the same action hierarchy.**
 
@@ -274,36 +304,41 @@ These are implementation requirements to scope separately, not changes authorize
 - Serve an unseen practice item aligned with the lesson and intended reasoning move. Show an explicit alternative when that content is unavailable.
 - Restore the actual next phase on return. A generic route or a restarted batch is insufficient for the proposed Continue copy.
 - Preserve assistance classification, with neutral resource-specific explanation in the help gate.
-- Produce a factual session recap and a useful next action without inventing mastery, a learning gain or a saved state.
+- Produce a route-appropriate factual recap and useful next action without inventing mastery, a learning gain or a saved state. Reading/exporting notes is not practice evidence.
+- Permit independent practice and direct notes use without an example-completion gate. Preserve easy switching between these routes.
+- For uploaded homework, guide concepts and the student's reasoning without revealing its final answer, including through rationales, Deep Dives, downloads or generated solution steps. Verify this boundary in the implemented BYOQ flow; the existence of /byoq is not proof.
+- Verify notes export/copy and own-question upload capabilities separately, and reflect actual availability in labels.
 - Ensure every suggested entry is available; show disabled/unavailable content honestly.
 
 ### Priority and acceptance checks
 
-**First:** revise Frame A's promise/lesson entry, specify the worked-question handoff and aligned attempt, then specify recap and lesson/phase resume. These directly address the product differentiation and the first seven minutes.
+**First:** revise Frame A's test/exam promise and optional route choices; specify the worked-question handoff and aligned attempt for students choosing that path, direct practice entry, route-appropriate recap and return behavior. Include clear notes export and own-question help boundaries. These directly address the product differentiation and the first seven minutes.
 
 **Next:** apply the same primary-action rule to Frame B and personalized views, clarify recommendation reasons, reduce repeated evidence warnings, and bring mobile to parity. Preserve the visual character; an additional dashboard region is not required for each recommendation.
 
 Validate with a first-time student and a returning student, without explaining the method beforehand:
-1. Can they describe what the product will help them do and choose a relevant lesson?
-2. Do they notice the reasoning move and proceed to independent practice?
+1. Can they describe the test/exam purpose, choose a relevant lesson or upload their own question, and distinguish the available routes?
+2. If choosing an example, do they notice the tested reasoning move and understand the optional own-attempt continuation? Can a practice-first student bypass the example?
 3. Does that attempt check the intended lesson, including when aligned content is missing?
 4. Can they stop after a useful small cycle and explain what happened?
 5. On return, do they recognize their lesson and resume the correct phase, with input and queue state restored where promised?
-6. Does mobile present the same clear action and truthful state?
+6. Can a notes-first student find and export/copy the relevant Deep Dive without submitting an answer? Is its return state useful and free of misleading practice-completion prompts?
+7. Does own-question help support the student's reasoning without supplying the homework answer, including indirect leakage through exported explanations?
+8. Does mobile present the same clear choices and truthful state?
 
-The alternate is a useful visual and recommendation framework. The proposed revision makes that framework communicate and continue a lesson-learning experience from the student's first visit onward.
+The alternate is a useful visual and recommendation framework. The proposed revision makes it communicate test-directed lesson learning while supporting a student's deliberate choice of examples, independent practice, supplemental notes or homework understanding.
 
 ## Remaining visual walkthrough and student validation
 
 Use an existing controlled, entitled test student with no qualifying practice history; do not reset a real student. First verify the published build and record the evidence stage. Start after authentication, on Home.
 
-Give a student one neutral task: “You just covered a lesson in class. Use Cramapple for a few minutes to help it stick, then stop when you would normally stop.” Avoid explaining the product method beforehand.
+Give a student one neutral task: “You just covered a lesson in class. Use Cramapple for a few minutes to prepare for being questioned on it, then stop when you would normally stop.” Avoid explaining the product method beforehand. Separately observe students who want immediate practice, supplemental notes and help understanding an uploaded homework question; do not require each to follow the example route.
 
 Observe:
-- time to identify a useful first action and time to a relevant worked example;
+- time to identify a useful action for the student's stated goal, including a relevant example when chosen;
 - hesitations and choices made without prompting;
 - whether they can explain why the answer works, rather than merely identify it;
-- whether they notice and choose the independent-practice transition;
+- whether they understand the independent-practice transition and know that examples are optional;
 - whether the practice checks the intended lesson/reasoning;
 - whether feedback changes their next action;
 - where they decide to stop and what they believe was saved;
@@ -316,5 +351,5 @@ Repeat the principal path on mobile and test unsure-topic, no-worked-example, wr
 ## Next required action and approval state
 
 **Next owner:** Codex for assessment synthesis; David for visual evidence and access to an appropriate controlled first-use account.
-**Next action:** use the alternate-design revision brief to scope the first lesson cycle and return behavior; obtain screen/video evidence of implemented Home, worked question, practice feedback and return state; confirm the published build and account stage. Reproduce the topic-less practice handoff, inspect its served item, and test departure/re-entry. Follow with first-time student usability sessions. The action-trace findings above stand without another cloud-browser attempt; visual/layout and timing judgments remain pending.
+**Next action:** use the owner clarification and alternate-design revision brief to scope optional test-directed learning routes and return behavior; obtain screen/video evidence of implemented Home, worked question, practice feedback and return state; confirm the published build and account stage. Reproduce the topic-less practice handoff, inspect its served item, and test departure/re-entry. Follow with first-time student usability sessions. The action-trace findings above stand without another cloud-browser attempt; visual/layout and timing judgments remain pending.
 **Approval:** read-only assessment and recommendation drafting are Lane 1. This report grants no implementation, production write, publication, migration, task closure or final QA approval. Proposed changes need a scoped task and the applicable gate.
