@@ -102,9 +102,12 @@ Ordered as a student meets them. "Lovable" = frontend change in `56cae479`, no b
 ### 3.4 Practice: a first session with a shape, aids that don't scold
 
 - Breadcrumb right slot: **"Question 1 of 3 · a short first session"**.
-- **After the third graded attempt, a pause card:** points, the lesson, one sentence of what the
-  feedback said, and *"That's enough for Cramapple to start recommending. Back to your hub →"* with
-  **Keep going** quiet. Never require the batch to finish. (Claude R4; Sol F7.)
+- **After the third graded attempt, a pause card** (§6.3, decided): points, the lesson, one sentence
+  of what the feedback said, then **"Want to keep going?"** with **Keep going →** primary and **Back to
+  your hub** beside it. Framing line: *"That's enough for Cramapple to start recommending. Every
+  question after this makes the recommendation sharper."* The student is invited onward, not sent
+  away; three is the floor, not the session. Never require the batch to finish. (David 2026-10-07;
+  Claude R4; Sol F7.)
 - **First wrong answer:** *"Normal for a first look. The explanation for the one you picked is on the
   left."* (Claude R5; Sol F7.)
 - **First question: aids are free and ungated** (§6.2). The hint and the lesson notes are open on
@@ -222,8 +225,10 @@ restrained note: *"Recommendations get more personal as you practice. You're at 
    graded attempts across two questions is the real threshold at which the hub can start
    recommending (`RECOMMEND_MIN_ATTEMPTS`), so the card can truthfully say "that's enough for
    Cramapple to start recommending". "Confirm, or name a number" meant: accept three, or choose
-   another count (five, say) and the card's sentence changes to match. **Working value: three,
-   pending David's confirmation.**
+   another count (five, say) and the card's sentence changes to match. **Decided: three.** David's
+   framing: Cramapple has what it needs after three, but gets more from every further answer and the
+   student may well want to continue, so the card asks **"Want to keep going?"** with continuing as
+   the primary and the hub as the alternative.
 4. **Calendar hint: dropped.** Decided.
 5. **Landing the two assessments:** both merge as evidence records with a STATUS line pointing to
    this document, which is the single recommendation. Decided.

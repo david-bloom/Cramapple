@@ -100,7 +100,7 @@ substance:
 2. On the **first practice question of a session, aids (hint, lesson notes) are free and ungated**; the attempt is still recorded as guided when an aid is opened, so `DECISION-0074` is unaffected.
 3. The **calendar hint** on the lesson question is dropped.
 4. Both parallel assessments (Claude's in `docs/product/`, Sol's in `docs/qa/`, PR #365) merge as evidence records carrying a STATUS line that points to `docs/product/STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md`, which is the single recommendation.
-5. The first-session pause count (proposed: three graded attempts) is still awaiting David's confirmation.
+5. The first-session pause card appears after **three** graded attempts and asks **"Want to keep going?"**, with continuing as the primary action and the hub as the alternative: three is enough for Cramapple to start recommending, every further answer sharpens it, and the student may want to keep going.
 
 ### Consequences
 
