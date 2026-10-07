@@ -35,8 +35,12 @@ export const AUTHORS = { anthropic: 'anthropic/claude-opus-5.5', openai: 'openai
 const AUTHOR_ORDER = (process.argv.find((a) => a.startsWith('--author-order=')) || '--author-order=openai,anthropic').slice(15).split(',');
 export const CHECKERS = {
   anthropic: 'anthropic/claude-opus-5.5', openai: 'openai/gpt-6.1-sol', google: 'google/gemini-3.8-flash',
-  deepseek: 'deepseek/deepseek-v4-pro', moonshot: 'moonshotai/kimi-k3',
+  deepseek: 'deepseek/deepseek-v4-pro', meta: 'meta/muse-spark-1.3',
 };
+// --fourth=<model> swaps the fourth checker slot (Meta by default since 2026-10-07; Kimi K3 before) for another
+// single-family checker. Calibrate it first (`calibrate` command) against the known-defect and known-clean sets.
+{ const fourth = (process.argv.find((a) => a.startsWith('--fourth=')) || '').slice(9);
+  if (fourth) { delete CHECKERS.meta; CHECKERS[fourth.split('/')[0]] = fourth; } }
 const family = (model) => Object.entries(CHECKERS).find(([, m]) => m === model)?.[0] ?? model.split('/')[0];
 export const checkersFor = (authorFamily) => Object.entries(CHECKERS).filter(([f]) => f !== authorFamily).map(([, m]) => m);
 
@@ -47,7 +51,23 @@ const SUBJECTS = {
   'ap-calculus-ab': { name: 'AP Calculus AB', brief: 'ap_calculus_ab', pack: 'AP_CALCULUS_AB_BC_CED_FACT_PACK.md' },
 };
 const packCache = {};
-const factPack = (s) => (packCache[s] ??= fs.readFileSync(path.resolve(HERE, '../../../docs/product', SUBJECTS[s].pack), 'utf8'));
+const fullPack = (s) => (packCache[s] ??= fs.readFileSync(path.resolve(HERE, '../../../docs/product', SUBJECTS[s].pack), 'utf8'));
+// --pack=scoped (v0.6 cost lever 3): keep every course-wide section and every "### Unit N" block up to and including
+// the item's unit (earlier units are fair game); drop later units only. A unit block ends at the next heading of
+// level 3 or higher. --pack=full sends the whole pack.
+const PACK_MODE = (process.argv.find((a) => a.startsWith('--pack=')) || '--pack=scoped').slice(7);
+const scopedCache = {};
+export function scopedPack(s, unit) {
+  const key = `${s}|${unit}`; if (scopedCache[key]) return scopedCache[key];
+  const out = []; let skipping = false;
+  for (const line of fullPack(s).split('\n')) {
+    const h = line.match(/^(#{1,3}) /);
+    if (h) { const u = line.match(/^### Unit (\d+)\b/); skipping = !!(u && Number(u[1]) > unit); }
+    if (!skipping) out.push(line);
+  }
+  return (scopedCache[key] = out.join('\n'));
+}
+const factPack = (s, unit) => (PACK_MODE === 'scoped' && unit ? scopedPack(s, unit) : fullPack(s));
 const BRIEFS = JSON.parse(fs.readFileSync(path.join(HERE, 'inputs/briefs_u1-3.json'), 'utf8'));
 const CED_TOPICS = { biology: JSON.parse(fs.readFileSync(path.join(HERE, 'inputs/ced_topics_biology.json'), 'utf8')) };
 const briefFor = (s, code) => BRIEFS.find((b) => b.subject_key === SUBJECTS[s].brief && b.topic_code === code);
@@ -59,6 +79,7 @@ function unitTopicList(s, unit) {
 
 // ---- model calls (every call is appended to <batch>/calls.jsonl for progress and cost) ----
 let CALL_LOG = null;
+export function setCallLog(p) { CALL_LOG = p; }
 const logCall = (row) => { if (CALL_LOG) fs.appendFileSync(CALL_LOG, JSON.stringify({ at: new Date().toISOString(), ...row }) + '\n'); };
 async function call(model, schema, prompt, timeoutMs = 300_000, tag = '') {
   const res = await callInner(model, schema, prompt, timeoutMs);
@@ -107,7 +128,7 @@ Return the stem, the correct choice with its rationale, and three wrong choices 
 
 Verified CED fact pack for this course (the only authority for scope):
 === CED FACT PACK ===
-${factPack(t.subject_key)}
+${factPack(t.subject_key, t.unit_number)}
 === END FACT PACK ===`;
   const suffix = `
 
@@ -140,7 +161,7 @@ ${RUBRIC_TEXT}
 
 Verified CED fact pack (the only authority for [ced_scope]):
 === CED FACT PACK ===
-${factPack(it.subject_key)}
+${factPack(it.subject_key, it.unit_number)}
 === END FACT PACK ===`,
   suffix: `
 
@@ -203,6 +224,31 @@ export async function evaluate(it, authorFamily, tag = '') {
   }
   ev.verdict = 'accepted'; ev.stage = 'done';
   return ev;
+}
+
+// Calibrate a candidate checker: run its solve + audit stages (with the re-sample rule) on items whose verdict is
+// known. --set=<json [{id, expect: 'flag'|'pass', item}]> --models=a,b --out=<dir>. Reports catches and false flags.
+async function cmdCalibrate() {
+  const set = JSON.parse(fs.readFileSync(arg('set'), 'utf8')); const models = arg('models').split(',');
+  const out = path.resolve(arg('out')); fs.mkdirSync(out, { recursive: true }); CALL_LOG = path.join(out, 'calls.jsonl');
+  const rows = []; const queue = models.flatMap((m) => set.map((x) => ({ m, x })));
+  async function worker() {
+    while (queue.length) {
+      const { m, x } = queue.shift();
+      const sv = await stage(m, solvePrompt(x.item), SOLVE_SCHEMA, (o) => solveFlags(x.item, o), `cal ${x.id} solve`);
+      const au = sv.pass ? await stage(m, auditPrompt(x.item), AUDIT_SCHEMA, (o) => auditFlags(x.item, o), `cal ${x.id} audit`) : null;
+      const flagged = !sv.pass || (au && !au.pass);
+      rows.push({ model: m, id: x.id, expect: x.expect, flagged, flags: (au && !au.pass ? au : sv).samples.at(-1).flags, calls_failed: [sv, au].filter(Boolean).some((s) => s.samples.some((q) => !q.ok)) });
+      fs.appendFileSync(path.join(out, 'results.jsonl'), JSON.stringify(rows.at(-1)) + '\n');
+    }
+  }
+  await Promise.all(Array.from({ length: Number(arg('conc', '6')) }, worker));
+  for (const m of models) {
+    const r = rows.filter((x) => x.model === m);
+    const catch_ = r.filter((x) => x.expect === 'flag' && x.flagged).length, nflag = r.filter((x) => x.expect === 'flag').length;
+    const fp = r.filter((x) => x.expect === 'pass' && x.flagged).length, npass = r.filter((x) => x.expect === 'pass').length;
+    console.log(`${m.padEnd(36)} caught ${catch_}/${nflag}  false flags ${fp}/${npass}  failed calls ${r.filter((x) => x.calls_failed).length}`);
+  }
 }
 
 // Apply the veto stage to items a batch already accepted (for batches run before the veto existed).
@@ -333,8 +379,14 @@ function cmdReport() {
   console.log(JSON.stringify(summary, null, 1));
 }
 
-const cmd = process.argv[2];
+// Shared with seed_pipeline.mjs.
+export { call, assemble, authorPrompt, briefFor, unitTopicList, SUBJECTS, factPack, stage, AUTHOR_ORDER, readJson, writeJson, claim, release, topicKey };
+
+import { pathToFileURL } from 'node:url';
+const IS_MAIN = import.meta.url === pathToFileURL(process.argv[1]).href;
+const cmd = IS_MAIN ? process.argv[2] : undefined;
 if (cmd === 'run') await cmdRun();
 else if (cmd === 'report') cmdReport();
 else if (cmd === 'veto') await cmdVeto();
+else if (cmd === 'calibrate') await cmdCalibrate();
 else if (cmd) { console.error('usage: node run.mjs run|report --batch=<dir> ...'); process.exit(2); }

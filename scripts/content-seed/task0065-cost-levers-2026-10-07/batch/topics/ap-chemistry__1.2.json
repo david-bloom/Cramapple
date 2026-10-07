@@ -1,0 +1,693 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Mass Spectra of Elements"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "ap-chemistry__1.2#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 7493,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 7490
+    },
+    "outputTokens": 664,
+    "outputTokenDetails": {
+     "textTokens": 409,
+     "reasoningTokens": 255
+    },
+    "totalTokens": 8157,
+    "raw": {
+     "input_tokens": 7493,
+     "input_tokens_details": {
+      "cache_write_tokens": 7490,
+      "cached_tokens": 0
+     },
+     "output_tokens": 664,
+     "output_tokens_details": {
+      "reasoning_tokens": 255
+     },
+     "total_tokens": 8157
+    },
+    "reasoningTokens": 255,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "ap-chemistry",
+    "unit_number": 1,
+    "topic_code": "1.2",
+    "topic_title": "Mass Spectra of Elements",
+    "stem": "A sample of an element contains only two isotopes. Its mass spectrum, obtained from singly charged monatomic ions, shows a peak at 50.0 amu with relative abundance 75.0% and a peak at 54.0 amu with relative abundance 25.0%. What is the average atomic mass of the element in this sample?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "52.0 amu",
+      "is_correct": false,
+      "rationale": "Equal-weight averaging gives (50.0 + 54.0)/2 = 52.0 amu, but this assumes equal isotope abundances. The spectrum instead shows three times as much of the lighter isotope. Fix: Multiply each isotope’s mass by its fractional abundance before adding."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "50.0 amu",
+      "is_correct": false,
+      "rationale": "The most-abundant-isotope trap treats the largest peak’s mass as the average. The heavier isotope also contributes, so the average must exceed 50.0 amu. Fix: Include a weighted contribution from every isotope peak."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "53.0 amu",
+      "is_correct": false,
+      "rationale": "Reversing the abundances gives (50.0 × 0.250) + (54.0 × 0.750) = 53.0 amu. This incorrectly assigns the larger abundance to the heavier isotope. Fix: Pair each peak’s mass with its own abundance before multiplying."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "51.0 amu",
+      "is_correct": true,
+      "rationale": "Average atomic mass weights each isotope’s mass by its fractional abundance: (50.0 × 0.750) + (54.0 × 0.250) = 51.0 amu. The result is closer to 50.0 amu because that isotope is more abundant."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 635,
+         "inputTokenDetails": {
+          "noCacheTokens": 635,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 665,
+         "raw": {
+          "input_tokens": 635,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 1503,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 352,
+         "inputTokenDetails": {
+          "noCacheTokens": 352,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 222,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 192
+         },
+         "totalTokens": 574,
+         "raw": {
+          "thoughtsTokenCount": 192,
+          "promptTokenCount": 352,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 574,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 352
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 192,
+         "cachedInputTokens": 0
+        },
+        "ms": 2460,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 413,
+         "inputTokenDetails": {
+          "noCacheTokens": 157,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 220,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 200
+         },
+         "totalTokens": 633,
+         "raw": {
+          "prompt_tokens": 413,
+          "completion_tokens": 220,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 157,
+          "total_tokens": 633,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 200
+          }
+         },
+         "reasoningTokens": 200,
+         "cachedInputTokens": 256
+        },
+        "ms": 3179,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 176,
+         "inputTokenDetails": {
+          "noCacheTokens": 176,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 864,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 839
+         },
+         "totalTokens": 1040,
+         "raw": {
+          "input_tokens": 176,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 864,
+          "output_tokens_details": {
+           "reasoning_tokens": 839
+          },
+          "total_tokens": 1040
+         },
+         "reasoningTokens": 839,
+         "cachedInputTokens": 0
+        },
+        "ms": 5854,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 13264,
+         "inputTokenDetails": {
+          "noCacheTokens": 763,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 12501
+         },
+         "outputTokens": 368,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 156
+         },
+         "totalTokens": 13632,
+         "raw": {
+          "input_tokens": 763,
+          "output_tokens": 368,
+          "output_tokens_details": {
+           "thinking_tokens": 156
+          },
+          "cache_creation_input_tokens": 12501,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 12501,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 156,
+         "cachedInputTokens": 0
+        },
+        "ms": 7986,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 8934,
+         "inputTokenDetails": {
+          "noCacheTokens": 8934,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1370,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1108
+         },
+         "totalTokens": 10304,
+         "raw": {
+          "thoughtsTokenCount": 1108,
+          "promptTokenCount": 8934,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 10304,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 8934
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1108,
+         "cachedInputTokens": 0
+        },
+        "ms": 9403,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 8188,
+         "inputTokenDetails": {
+          "noCacheTokens": 6908,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 2119,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 1900
+         },
+         "totalTokens": 10307,
+         "raw": {
+          "prompt_tokens": 8188,
+          "completion_tokens": 2119,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 6908,
+          "total_tokens": 10307,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 1900
+          }
+         },
+         "reasoningTokens": 1900,
+         "cachedInputTokens": 1280
+        },
+        "ms": 19250,
+        "flags": []
+       }
+      ]
+     },
+     "meta/muse-spark-1.3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7273,
+         "inputTokenDetails": {
+          "noCacheTokens": 7273,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3432,
+         "outputTokenDetails": {
+          "textTokens": 157,
+          "reasoningTokens": 3275
+         },
+         "totalTokens": 10705,
+         "raw": {
+          "input_tokens": 7273,
+          "input_tokens_details": {
+           "cached_tokens": 0
+          },
+          "output_tokens": 3432,
+          "output_tokens_details": {
+           "reasoning_tokens": 3275
+          },
+          "total_tokens": 10705
+         },
+         "reasoningTokens": 3275,
+         "cachedInputTokens": 0
+        },
+        "ms": 40759,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.2",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 7926,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 7923
+         },
+         "outputTokens": 209,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 37
+         },
+         "totalTokens": 8135,
+         "raw": {
+          "input_tokens": 7926,
+          "input_tokens_details": {
+           "cache_write_tokens": 7923,
+           "cached_tokens": 0
+          },
+          "output_tokens": 209,
+          "output_tokens_details": {
+           "reasoning_tokens": 37
+          },
+          "total_tokens": 8135
+         },
+         "reasoningTokens": 37,
+         "cachedInputTokens": 0
+        },
+        "ms": 5634,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "ap-chemistry__1.2#r1-openai",
+ "accepted_at": "2026-10-07T16:19:24.193Z"
+}

@@ -25,7 +25,8 @@ regenerated, never repaired.
 | Lint | Deterministic rules (`lint()` in `rubric.mjs`). Any failure rejects the candidate. |
 | Blind solve | 4 checkers solve the question without the key. Any wrong answer, second defensible answer or defect counts as a flag. |
 | Rubric audit | The same 4 checkers judge every rubric rule and name the topic the item tests, with the full CED fact pack and the unit's topic list. Biology topics also carry their CED learning objectives and essential knowledge. |
-| Checker families | Five families: OpenAI, Google, DeepSeek, Moonshot, Anthropic. Every candidate is checked by the **four that did not write it**. |
+| Checker families | Five families: OpenAI, Google, DeepSeek, Meta (Muse Spark 1.3; Moonshot's Kimi K3 before 2026-10-07), Anthropic. Every candidate is checked by the **four that did not write it**. Swap the fourth with `--fourth=<model>` only after `run.mjs calibrate` passes. |
+| Fact pack | `--pack=scoped` (default): every course-wide section plus units up to the item's unit. `--pack=full` sends the whole pack. |
 | Noise control | A checker that flags is re-sampled once. The candidate is rejected only if the re-sample flags too. |
 | Veto | After the four pass, the **author's own family** audits too. It can reject but never approve, so every accepted item has passed all five families. Added after the Biology pilot: the strictest checker (GPT-6.1) never saw GPT-written candidates, so the bar depended on who wrote the item. |
 | Accept | The first candidate that passes lint, all 4 solves, all 4 audits and the veto is accepted. |

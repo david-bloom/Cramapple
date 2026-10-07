@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0065 Pipeline Cost Levers and Biology Unit 1 Seed Pilot (2026-10-07): Muse Spark replaced Kimi as the fourth checker and the unit-scoped fact pack became the default ($0.28 -> $0.20/item, blind re-judge 0 defects). Seed pilot (no DB writes): 21/21 seeds + 61/63 variants accepted with no edits; blind held-out judges 0 defects in 21 seeds + 21 sampled variants, planted 4/4 caught; $25.73 on the pre-lever config; difficulty targeting failed (no item voted Hard). Results: `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`.
 - Three Defective Live Teaching Items Replaced; Statistics 2.12 Brief Fixed (APPROVAL-0129) (2026-10-07): pipeline-made replacements for Stats 1.10, Stats 2.12, Bio 2.10 loaded to Dev and Prod (rehearsed, hash-verified, real RPC serves them); old items retired; 2.12 brief brought back to CED 2.12
 - Content Authoring Protocol v0.6: Generate-and-Select Adopted (DECISION-0099) (2026-10-07): new §0 makes the no-edit, four-family method the default for new MCQs and required for Open Hand teaching items, with evidence, rules, escalation triage, evaluation method, live-replacement pattern, cost levers and scope
 - TASK-0065 Method Test Run: Legacy vs Generate-and-Select (2026-10-07): 24 topics (units 1-3), blind held-out judges against CED PDF text, 4/4 planted defects caught; defective items legacy 4/24, pipeline 1/23, live 3/24 (not significant at n=24); pipeline cost 3.5-4.9x legacy per clean item; live defects and a Stats 2.12 brief overreach found; nothing written to any database
@@ -386,6 +387,25 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0065 Pipeline Cost Levers and Biology Unit 1 Seed Pilot — 2026-10-07
+
+**Cost levers** (`scripts/content-seed/task0065-cost-levers-2026-10-07/RESULTS.md`):
+- Meta Muse Spark replaced Kimi K3 as the fourth checker. In calibration it caught 9/9 known defects, flagged the same 2 of 24 clean items, and cost under half as much per audit.
+- The unit-scoped fact pack is now the default.
+- Same 24 topics: $0.28 → $0.20 per item, 24/24 accepted, controls 6/6, blind re-judge 0 defects.
+- GPT and Gemini prompt caching is closed as a lever: the gateway reports no cached input for them.
+
+**Seed pilot** (`scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`): Biology 1.1–1.7, three seeds per topic (each a different skill and target band) and three variants per seed, through generate-and-select with no hand edits. Nothing was written to any database.
+- **Accepted:** 21/21 seeds and 61/63 variants. The 2 unfilled variant slots escalated after 4 rejected candidates each, as the protocol intends.
+- **Quality:** the blind held-out panel (Mistral, GLM, MiniMax; 2 samples each) found 0 defects in 21 seeds and a 21-variant sample, and caught 4/4 planted defects. 15 single-judge disputes were adjudicated by Claude as non-defects; those adjudications are provisional and need human review.
+- **Cost:** $25.73 ($0.31 per item), on the pre-lever config. About $0.22 per item expected on current defaults (estimate).
+- **Labels:** seed practice matched its target 17/21 (exact sub-skill 14/21). Target band matched 10/21, and no item was ever voted Hard.
+
+**Recommendations for David:**
+- drop the band as an author target;
+- have variants inherit the seed's validated skill instead of re-voting;
+- target skills at the practice level.
+
 
 ## TASK-0065 Method Test Run: Legacy vs Generate-and-Select — 2026-10-07
 
