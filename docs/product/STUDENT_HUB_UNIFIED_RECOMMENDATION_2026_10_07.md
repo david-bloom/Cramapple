@@ -167,8 +167,9 @@ his own `personalized` account during the §8 walkthrough: **"route personalized
 for now."** `HomeV2.tsx` renders `HomeStageBBuilding` for all three stages until the personalized
 board is built; three Stage B copy lines become conditional on `canRecommend` ("Here's where you
 are", a why-this that cites the attempt count, no threshold line); `TopicHome.tsx` stays in the
-codebase unmounted. Build instruction sent to Lovable `56cae479` the same day, preview only; David
-publishes. This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
+codebase unmounted. Built in Lovable `56cae479` the same day as commit `ed1b4715` (3 files: `HomeV2.tsx`,
+`HomeStageBBuilding.tsx` with an exported `stageBCopy` helper, `home-stage-selection.test.ts`; full suite
+676 tests, typecheck and build clean; diff reviewed by Claude). **Preview only; David publishes.** This closes A6 / F9 / C7 on the student path at once and makes §3.1's four-door hub a
 single-structure change.
 
 ### 3b.2 A memory card instead of evidence disclaimers (Stage B)
