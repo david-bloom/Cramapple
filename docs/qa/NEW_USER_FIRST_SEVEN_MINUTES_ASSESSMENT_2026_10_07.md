@@ -1,6 +1,6 @@
 # New-User Experience: First 5–7 Minutes
 
-**Status:** Draft — source review and owner-supplied action-trace analysis complete; visual, timed and fresh-student validation pending
+**Status:** Draft — source review, owner-supplied action-trace analysis and alternate-design revision brief complete; timed, implemented-flow and fresh-student validation pending
 **Date:** 2026-10-07
 **Owner:** Codex / Main Conductor
 **Product Owner:** David Bloom
@@ -28,7 +28,7 @@ The owner-supplied action trace supports this concern: it records another worked
 - Direct browser navigation in this session redirected to sign-in. The assessor did not obtain a signed-in visual walkthrough; cloud-browser access was unavailable.
 - David supplied a Chrome Recorder JavaScript action export on 2026-10-07. It contains 38 recorded steps at a desktop viewport of 1210 × 1279, including navigation and accessibility-label selectors. It was read as data, not executed or replayed. Authentication fields were excluded from this report; the raw export was not committed.
 - The export has no video frames, screenshots, elapsed-time measurements or grading results. A click is evidence of a recorded action, not proof of the rendered outcome, user confusion or task success. Its captured build and account evidence stage were not verified against the reviewed source head.
-- No timed student session, grading, lesson completion, departure/re-entry, mobile screen inspection, or learning-outcome test was performed.
+- No timed student session, grading, lesson completion, departure/re-entry, implemented mobile screen inspection or learning-outcome test was performed. The alternate artifact's desktop/mobile hub artboards were inspected separately; this is design evidence, not implemented-flow validation.
 - The assessor created or reset no student account and performed no grading/history/course-position write, production configuration, publication or migration. The supplied trace includes the owner's unit selection and two answer submissions; their resulting stored state was not inspected.
 - Existing QA reports are historical evidence with their stated limitations; they are not new tests in this session.
 
@@ -168,6 +168,131 @@ The trace records two confirmation pairs: hint request and reference-material re
 
 Keep the worked question central. A long feature tour, extra dashboard regions, or multiple introductory modes would add choices before the student experiences this method.
 
+## Alternate Student Hub design: assessment and revision brief
+
+**Design reviewed:** [CramApple — Student Hub, Claude artifact](https://claude.ai/artifact/HoaRcFFv8GoiV9VeyDcgYh), supplied by David as an unimplemented alternative.
+
+**Evidence:** inspected the artifact's rendered canvas and accessibility content on 2026-10-07. Its one page contains four artboards: Desktop · Personalized, Mobile · Personalized, Frame A · New recognized student, and Frame B · Building evidence. The reviewed design shows hub layouts, not a complete worked-question, practice-feedback or session-end flow. Its links include mock fragment destinations; backend behavior, routing, saved state and recommendation quality were not validated. A design annotation says the mobile frame is an earlier version and has not been reworked.
+
+### What this alternative resolves or improves
+
+The alternate gives the recommended action a clear visual focal point, explains recommendation reasons, names specific lessons and separates curriculum position from demonstrated performance. Its personalized view surfaces an unfinished set (“Unit 4 MCQ · 6 of 10 done”), and the mobile view names that set in its Resume link. These are useful improvements in direction and return visibility. The illustrated design also omits the reviewed live hub's competing Points/Ask for help/Homework helper row.
+
+It does **not** resolve the central first-use concern by itself. Frame A still leads with “Tell us where your class is,” “no work from you yet” and question thresholds. Later frames primarily offer Start practice for 15 or 20 minutes. None of the four frames clearly introduces the worked question → own attempt → focused feedback method. Resume visibility is improved, but exact lesson/phase restoration remains a behavior requirement.
+
+| Concern from this assessment | Alternate design effect | Revision needed |
+| --- | --- | --- |
+| F1/F6: teaching promise and early value | Clear hierarchy; new view still foregrounds missing evidence | Explain and deliver one small lesson cycle before emphasizing personalization thresholds |
+| F2: choosing a lesson when unsure | Adds “Not sure?” and a six-question check | Offer recognizable lesson selection; do not imply six answers establish the teacher's current position |
+| F3/F5: worked-question guidance and handoff | Not shown in these hub frames | Make the worked question an explicit entry and independent attempt its primary continuation |
+| F4: practice alignment | Topic labels make the recommendation concrete | Validate an unseen aligned item before promising the cycle; UI labels alone do not establish alignment |
+| F7: satisfying stop | 15/20-minute labels suggest a bounded activity | Define a short finish/recap and an honest duration expectation |
+| F8: return continuity | Specific unfinished-set Resume is substantially clearer | Extend Resume to lesson and phase, including a completed worked example with practice still to do |
+| F9/F10: competing promises and assistance | Cleaner hub choices; supportive “both fair calls” copy | Carry that tone into assistance gates and preserve truthful availability/status |
+
+### Changes for a new student: Frame A
+
+**1. Replace the setup-first hero with an outcome and a small learning path.**
+
+Keep the strong hero treatment, but change its purpose. Suggested copy:
+
+> Lock in today's lesson. See how one question works, try a related question yourself, and use the feedback to decide what to revisit.
+
+Show a short text sequence: **Worked question → Your attempt → Focused feedback**. Keep it within the hero, rather than adding a separate feature-tour region. Use one primary CTA, **Start a lesson**; when a lesson is selected, name it: **Start: Plasma membranes**. The time label can say **A short first session** until a five-to-seven-minute estimate has been validated. Do not imply a score or mastery outcome simply from finishing it.
+
+**2. Keep topic selection, but make it a bridge to learning.**
+
+Ask “What did you cover in class?” and show recognizable lesson names alongside official unit/topic labels. Allow the student to change the choice easily. Put the selector in or immediately beside the hero, so saving class position is not the perceived end of onboarding. A unit-only choice should lead to choosing a lesson, not silently selecting that unit's first topic.
+
+For an unsure student, offer **Browse lessons** or a deliberately identified **Try a sample lesson**. A diagnostic can be secondary if implemented and justified. Rewrite the current “Answer 6 questions and we'll estimate it” claim: performance can inform a practice recommendation, but does not identify where the teacher is in the syllabus. Never convert that estimate into confirmed class position without the student's confirmation.
+
+**3. Give early value more space than absent evidence.**
+
+Reduce “can't estimate,” empty curriculum, threshold and “no work yet” messaging to one quiet explanation: **Recommendations become more personal as you practice.** Retain honest evidence limits where a performance claim would otherwise appear.
+
+Move the full curriculum and general explainers below the first learning action. Provide selected-topic information beside the worked question, where it helps answer a concrete question. The existing reading links can remain as optional routes; they should not carry the primary first-use explanation.
+
+**4. Design a finish worth reaching.**
+
+After the worked question and an aligned attempt, show a factual recap: the lesson studied, the reasoning move practiced, what the answer feedback showed, and whether help was used. Offer **Try another on this lesson** and **Pause for now**. Keep any reference material revisitable. A wrong answer should lead to a specific explanation or guided repair, followed by another aligned attempt when available.
+
+This finish belongs to the lesson flow and must be designed alongside the hub; it is absent from the reviewed artifact.
+
+### Changes for an early returning student: Frame B
+
+**5. Replace the “building evidence” experience with a useful next lesson action.**
+
+Keep its honest distinction between class position and performance. Replace the primary generic Start practice invitation with either:
+- **Continue your lesson**, when there is unfinished lesson work; or
+- **Work on Plasma membranes**, with the same worked-question → own-attempt path when there is no unfinished work.
+
+Explain why in one short sentence: **You selected Plasma membranes as today's lesson.** Avoid a large explanation of how little the system knows. The current repeated “not enough evidence” regions can be collapsed into a single restrained note; factual activity can still appear below.
+
+A student should get the value of guided lesson learning without first accumulating enough graded attempts for personalization.
+
+**6. Turn recent work into an actionable memory cue.**
+
+Show a small recent-lesson card with the lesson, last phase and next action. Examples are proposed states, not observed saved behavior:
+- **Plasma membranes · Worked question viewed. Next: try one yourself.**
+- **Membrane transport · Attempt submitted. Next: revisit the explanation.**
+- **Unit 4 practice · 6 of 10 completed. Next: question 7**, only if exact queue restoration is verified.
+
+Do not infer understanding from viewing a worked question. If there is unfinished answer input, state that it is saved only when the product actually persists and restores it.
+
+### Changes for an established returning student: personalized desktop and mobile
+
+**7. Choose a single primary action using the student's unfinished work.**
+
+The desktop hero currently contains both a new recommendation and an unfinished-set Resume link; the larger Start practice treatment can compete with returning to prior work. When meaningful unfinished work exists, make **Continue [lesson]** primary and put **Start a different lesson** second. After a completed cycle, make the new recommendation primary. Allow an easy deliberate switch; do not force stale work.
+
+Distinguish **Your class: Unit 5** from **Suggested review: Unit 4**. Name why the recommendation moves backward: **Your last attempts missed this reasoning step**, supported by actual evidence. This makes the backward curriculum arrow intelligible and helps the student judge relevance.
+
+**8. Connect information, practice and motivation to the same lesson.**
+
+Keep the bold typography, color and visible progress; they can give the hub energy. Make the hero show what the next activity will teach or check, rather than only recoverable points. Suggested direction:
+
+> Feedback mechanisms  
+> See how a worked question distinguishes negative from positive feedback, then try an aligned question.
+
+Use truthful, task-specific encouragement after work: **You solved the next question without help** or **You corrected the same mistake on another question**, where recorded evidence supports it. Do not equate fewer hints with learning automatically. Preserve the supportive intent of “both fair calls” without attributing a student's motives.
+
+Review “topics mastered,” “units complete,” “points waiting” and independence graphics against the actual evidence rules. Question counts alone do not establish mastery; “5 points waiting” should not sound like a guaranteed gain. Prefer observed results and clearly explained status, with stronger claims gated by the product's approved evidence contract.
+
+**9. Make Deep Dives answer the current learning need.**
+
+The alternate's short, named explainers are useful. Prioritize the one relevant to the active lesson or a recorded mistake and explain that relationship. Keep Browse all secondary. Avoid sending a student into a separate reading library before an independent attempt; include the relevant explanation within the lesson cycle and make it accessible after feedback.
+
+**10. Update mobile to the same action hierarchy.**
+
+Do not ship the artifact's explicitly unreworked mobile frame as the final design. Above the fold, prioritize subject/lesson context, the primary start-or-continue card and its next phase. Countdown and broad curriculum can remain compact secondary context. Use the same specific resume wording as desktop; expand details on demand. Verify that the primary action and its purpose are visible at real device widths and text sizes, rather than relying on the canvas annotation about an 844px fold.
+
+### Behavior required for these design promises
+
+These are implementation requirements to scope separately, not changes authorized by this report:
+
+- Persist the subject, lesson/topic, phase, current worked item, practice queue position and unfinished input as appropriate; define same-device and cross-device behavior.
+- Serve an unseen practice item aligned with the lesson and intended reasoning move. Show an explicit alternative when that content is unavailable.
+- Restore the actual next phase on return. A generic route or a restarted batch is insufficient for the proposed Continue copy.
+- Preserve assistance classification, with neutral resource-specific explanation in the help gate.
+- Produce a factual session recap and a useful next action without inventing mastery, a learning gain or a saved state.
+- Ensure every suggested entry is available; show disabled/unavailable content honestly.
+
+### Priority and acceptance checks
+
+**First:** revise Frame A's promise/lesson entry, specify the worked-question handoff and aligned attempt, then specify recap and lesson/phase resume. These directly address the product differentiation and the first seven minutes.
+
+**Next:** apply the same primary-action rule to Frame B and personalized views, clarify recommendation reasons, reduce repeated evidence warnings, and bring mobile to parity. Preserve the visual character; an additional dashboard region is not required for each recommendation.
+
+Validate with a first-time student and a returning student, without explaining the method beforehand:
+1. Can they describe what the product will help them do and choose a relevant lesson?
+2. Do they notice the reasoning move and proceed to independent practice?
+3. Does that attempt check the intended lesson, including when aligned content is missing?
+4. Can they stop after a useful small cycle and explain what happened?
+5. On return, do they recognize their lesson and resume the correct phase, with input and queue state restored where promised?
+6. Does mobile present the same clear action and truthful state?
+
+The alternate is a useful visual and recommendation framework. The proposed revision makes that framework communicate and continue a lesson-learning experience from the student's first visit onward.
+
 ## Remaining visual walkthrough and student validation
 
 Use an existing controlled, entitled test student with no qualifying practice history; do not reset a real student. First verify the published build and record the evidence stage. Start after authentication, on Home.
@@ -191,5 +316,5 @@ Repeat the principal path on mobile and test unsure-topic, no-worked-example, wr
 ## Next required action and approval state
 
 **Next owner:** Codex for assessment synthesis; David for visual evidence and access to an appropriate controlled first-use account.
-**Next action:** obtain screen/video evidence of Home, worked question, practice feedback and return state; confirm the published build and account stage. Reproduce the topic-less practice handoff, inspect its served item, and test departure/re-entry. Follow with first-time student usability sessions. The action-trace findings above stand without another cloud-browser attempt; visual/layout and timing judgments remain pending.
+**Next action:** use the alternate-design revision brief to scope the first lesson cycle and return behavior; obtain screen/video evidence of implemented Home, worked question, practice feedback and return state; confirm the published build and account stage. Reproduce the topic-less practice handoff, inspect its served item, and test departure/re-entry. Follow with first-time student usability sessions. The action-trace findings above stand without another cloud-browser attempt; visual/layout and timing judgments remain pending.
 **Approval:** read-only assessment and recommendation drafting are Lane 1. This report grants no implementation, production write, publication, migration, task closure or final QA approval. Proposed changes need a scoped task and the applicable gate.
