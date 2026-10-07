@@ -97,6 +97,27 @@ Deno.test("auth routes all three actions to configured templates with plain welc
     );
   }));
 
+Deno.test("auth preserves configured numeric OTP lengths and rejects malformed codes", () =>
+  withEmailTest(async () => {
+    for (const token of ["123456", "12345678", "1234567890"]) {
+      assertEquals(
+        buildAuthEmail({
+          user: { email: "s@example.com" },
+          email_data: { email_action_type: "magiclink", token },
+        }).dataVariables.token,
+        token,
+      );
+    }
+    for (const token of ["12345", "12345678901", "1234abcd", "123456\n"]) {
+      assertThrows(() =>
+        buildAuthEmail({
+          user: { email: "s@example.com" },
+          email_data: { email_action_type: "magiclink", token },
+        })
+      );
+    }
+  }));
+
 Deno.test("valid hook sends through Loops; invalid signature and tampered body never send", () =>
   withEmailTest(async () => {
     let sends = 0;

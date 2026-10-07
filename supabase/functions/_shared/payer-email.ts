@@ -62,7 +62,9 @@ function payerEmail(charge: PayerCharge) {
 }
 
 function date(seconds: number) {
-  if (!Number.isSafeInteger(seconds) || seconds <= 0 || seconds > 253402300799) {
+  if (
+    !Number.isSafeInteger(seconds) || seconds <= 0 || seconds > 253402300799
+  ) {
     throw new Error("invalid_payer_payment_date");
   }
   return new Intl.DateTimeFormat("en-US", {
@@ -71,7 +73,9 @@ function date(seconds: number) {
   }).format(new Date(seconds * 1000));
 }
 
-function paymentMethod(charge: PayerCharge): { cardBrand: string; cardLast4: string } | null {
+function paymentMethod(
+  charge: PayerCharge,
+): { cardBrand: string; cardLast4: string } | null {
   const details = charge.payment_method_details;
   if (details?.type === "card" && details.card) {
     if (!/^\d{4}$/.test(details.card.last4)) {
@@ -91,7 +95,9 @@ function paymentMethod(charge: PayerCharge): { cardBrand: string; cardLast4: str
 function receiptUrl(charge: PayerCharge) {
   if (!charge.receipt_url) throw new Error("missing_payer_receipt_url");
   const url = new URL(bounded(charge.receipt_url, 2048));
-  if (url.hostname !== "pay.stripe.com" || !url.pathname.startsWith("/receipts/")) {
+  if (
+    url.hostname !== "pay.stripe.com" || !url.pathname.startsWith("/receipts/")
+  ) {
     throw new Error("invalid_payer_receipt_url");
   }
   return emailUrl(url.toString());
@@ -102,7 +108,9 @@ function settled(charge: PayerCharge) {
 }
 
 function capturedAmount(charge: PayerCharge) {
-  if (charge.amount_captured <= 0) throw new Error("invalid_payer_captured_amount");
+  if (charge.amount_captured <= 0) {
+    throw new Error("invalid_payer_captured_amount");
+  }
   return emailAmount(charge.amount_captured, charge.currency);
 }
 
@@ -136,7 +144,9 @@ export function buildPayerRefundEmail(
   subjects: string,
 ) {
   if (refund.status !== "succeeded" || !settled(charge)) return null;
-  const chargeId = typeof refund.charge === "string" ? refund.charge : refund.charge?.id;
+  const chargeId = typeof refund.charge === "string"
+    ? refund.charge
+    : refund.charge?.id;
   if (chargeId !== charge.id || refund.currency !== charge.currency) {
     throw new Error("payer_refund_charge_mismatch");
   }
@@ -162,8 +172,10 @@ export function buildPayerRefundEmail(
       receiptUrl: receiptUrl(charge),
       // Access revocation is a separate charge.refunded handler and may arrive
       // later. Neither a full nor partial refund proves current access here.
-      accessChange: "This notice confirms the refund only. Check Cramapple for current study access.",
-      refundTiming: "Your payment provider determines when the refund appears. Timing varies by payment method.",
+      accessChange:
+        "This notice confirms the refund only. Check Cramapple for current study access.",
+      refundTiming:
+        "Your payment provider determines when the refund appears. Timing varies by payment method.",
       ...emailFooter(),
     },
   };
@@ -171,7 +183,9 @@ export function buildPayerRefundEmail(
 
 export async function enqueuePayerEmail(
   service: SupabaseClient,
-  message: ReturnType<typeof buildPayerReceiptEmail> | ReturnType<typeof buildPayerRefundEmail>,
+  message:
+    | ReturnType<typeof buildPayerReceiptEmail>
+    | ReturnType<typeof buildPayerRefundEmail>,
 ) {
   if (!payerEmailsEnabled()) return;
   if (!message) {

@@ -29,6 +29,7 @@ create table app.parent_email_lifecycle_jobs (
   due_at timestamptz not null,
   next_attempt_at timestamptz not null,
   created_at timestamptz not null default now(),
+  first_attempt_at timestamptz,
   delivered_at timestamptz,
   cancelled_at timestamptz,
   attempt_count integer not null default 0 check (attempt_count >= 0),
@@ -69,6 +70,7 @@ language sql security invoker set search_path = '' as $$
   update app.parent_email_lifecycle_jobs j
   set lease_id = gen_random_uuid(),
       leased_until = now() + interval '2 minutes',
+      first_attempt_at = coalesce(j.first_attempt_at, now()),
       attempt_count = j.attempt_count + 1
   where j.id in (
     select q.id from app.parent_email_lifecycle_jobs q

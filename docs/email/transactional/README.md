@@ -1,6 +1,6 @@
 # Transactional Email Design Import
 
-STATUS: CURRENT - nine Loops templates published; final publication and Development cutover pending
+STATUS: CURRENT - ten templates published; Development deployed; activation and checkout QA pending
 DATE: 2026-10-06
 OWNER: David Bloom (design); Codex (integration)
 RELATED: TASK-0060; Loops PR #341; checkout QA PR #343; ordering fix PR #342
@@ -58,16 +58,16 @@ Normalization is deliberately limited:
 | 03 Email confirmation | Signup or unconfirmed-account confirmation | LOOPS_SIGNUP_TRANSACTIONAL_ID; implemented emailAddress, expiryText and mailingAddress. Confirm resend action mapping with controlled accounts before activation. |
 | 04 Parent request | Parent recipient only | Implemented formatted USD amount, paymentUrl, explicit UTC expiresOn, parentEmail and mailingAddress. Preserves short-link preference and actual discounted session total. |
 | 05 Parent paid | Student access notification | Implemented firstName, readable subjects, appUrl and mailingAddress. Recipient remains the Auth student, never the parent payer. Invite/confirmation overlap remains a release blocker. |
-| 06 Receipt | Actual payer, distinct from student | No dedicated payer receipt trigger yet. Needs verified date, receipt number, payment method or non-card fallback, line items, total, receiptUrl and mailingAddress. Never assign student access from payer identity. |
+| 06 Receipt | Actual payer, distinct from student | Verified Stripe card-charge builder and durable outbox implemented in Development; automatic sends off. Uses actual payer billing email, captured amount and card details. Non-card coverage and live event QA remain pending. |
 | 07 Subjects added / purchase complete | Student after settled direct purchase | LOOPS_PURCHASE_TRANSACTIONAL_ID; adapted design and backend now agree on firstName, purchased subjects, appUrl and mailingAddress. No invented expiry, all-account holdings or receipt-send claim. |
-| 08 Parent reminder | Parent, unpaid and unexpired request | No scheduler/trigger implemented. Source proposes one reminder, but timing and eligibility remain owner decisions; recheck settlement/expiry immediately before delivery. |
-| 09 Link expired | Student recovery | No dedicated trigger/context-preserving recovery links implemented. The parent variant described in a comment is not a supplied standalone design or an authorized extra send. |
-| 10 Refund | Payer after successful refund | No dedicated Loops refund trigger yet. Needs refund-specific amount/status, original payment details, truthful accessChange and receipt URL. Support partial/multiple refunds and non-card methods. Timing copy needs verification. |
+| 08 Parent reminder | Parent, unpaid and unexpired request | Private lifecycle store and settlement/expiry rechecks implemented in Development; disabled. Timing and protected schedule remain pending. |
+| 09 Link expired | Student recovery | Verified-student, subject-matching recovery context implemented; frontend must supply URLs. Disabled until recovery behavior and same-parent copy are truthful. No extra parent variant is authorized. |
+| 10 Refund | Payer after successful refund | Successful individual Stripe card refund builder and refund-ID dedupe implemented; automatic sends off. Partial refunds use their actual individual amount. Non-card coverage and real event/replay QA remain pending. |
 
 `manifest.json` lists variables actually used, not merely variables named in
-source comments. It records the nine provider-published IDs and the imported but
-unconfirmed tenth draft. Do not point current backend environment variables at
-the unconfirmed refund template until provider publication is visibly verified.
+source comments. It records all ten provider-published IDs, independently rechecked
+in the Loops list. See [the Development rollout evidence](../../qa/LOOPS_DEVELOPMENT_ROLLOUT_2026_10_06.md)
+for deployed functions, controlled delivery tests and remaining activation gates.
 
 ## Implementation Authorized While Manual QA Is Deferred
 
@@ -102,10 +102,10 @@ deliveries are awaiting reconciliation.
 ## Import Evidence and Blocker
 
 Confirmed authenticated access to the Cramapple Loops workspace, Free plan.
-Templates 01-09 were uploaded, variable-discovered, reviewed and shown as
-Published in the provider list. Template 10 was uploaded and has provider ID
-`cmuwrv0td06ic0jzlawvqx6q5`, but the provider list still showed Draft after the
-publish attempt; it is recorded as `draft_unconfirmed`. No email was sent during
+Templates 01-10 were uploaded, variable-discovered, reviewed and shown as
+Published in the provider list. Template 10 has provider ID
+`cmuwrv0td06ic0jzlawvqx6q5`; its earlier Draft observation was stale and is now
+superseded by the Published list state. No email was sent during
 import. A reproducible ZIP builder is checked in as `build-imports.mjs` and
 requires a single root `index.mjml` per archive.
 
@@ -131,9 +131,10 @@ reply-to, and configured expiry. Keep Stripe receipts until the replacement path
 has demonstrated truthful receipt delivery. No Production auth hook activation,
 payment notification enablement, reminder schedule or payment was performed here.
 
-David: provide the actual mailing address and approve any reminder policy.
+David supplied footer text `Brooklyn, NY USA`; reminder timing remains undecided.
 Supplied inboxes satisfy the earlier request for controlled test recipients;
-they have not yet received test mail from this integration. Use the existing
+controlled student codes and parent requests have now been sent in Development,
+with evidence and limits in the rollout report. Use the existing
 student for returning/login tests and the intended new student for invite tests;
 verify state first, and never delete/recreate a real account to reset a fixture.
 Use synthetic fixtures for send-error, refund and queue failure tests; do not

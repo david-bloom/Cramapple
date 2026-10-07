@@ -88,10 +88,10 @@ Deno.serve(async (req) => {
     return respond({ error: "email_provider_unavailable" }, { status: 503 });
   }
 
-  // Prefer the short link (TASK-0060); the long Stripe URL is the fallback.
+  // Development may not have a frontend connected to its short-link database.
   let checkoutUrl: string = session.url;
   const appBaseUrl = Deno.env.get("APP_BASE_URL");
-  if (appBaseUrl) {
+  if (appBaseUrl && Deno.env.get("PARENT_EMAIL_USE_SHORT_LINKS") !== "false") {
     const { data: linkRow } = await service.schema("app")
       .from("parent_payment_links")
       .select("code")
@@ -123,13 +123,27 @@ Deno.serve(async (req) => {
     if (Deno.env.get("PARENT_EMAIL_LIFECYCLE_ENABLED") === "true") {
       try {
         await recordParentRequestLifecycle(service, {
-          session: session as unknown as Parameters<typeof recordParentRequestLifecycle>[1]["session"],
+          session: session as unknown as Parameters<
+            typeof recordParentRequestLifecycle
+          >[1]["session"],
           sentParentEmail: parentEmail,
+          studentBearerToken: req.headers.get("Authorization")?.match(
+            /^Bearer (.+)$/i,
+          )?.[1],
+          ...(typeof input.new_request_url === "string" &&
+              typeof input.pay_yourself_url === "string"
+            ? {
+              recoveryUrls: {
+                newRequestUrl: input.new_request_url,
+                payYourselfUrl: input.pay_yourself_url,
+              },
+            }
+            : {}),
         });
-      } catch (error) {
+      } catch {
         // The request email already sent. Keep that result truthful while
         // surfacing lifecycle setup failures for operator review.
-        console.error("send-parent-payment-email lifecycle_record_failed", error);
+        console.error("send-parent-payment-email lifecycle_record_failed");
       }
     }
     return respond({ status: "ok" });
