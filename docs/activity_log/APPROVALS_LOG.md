@@ -6,6 +6,12 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0129 — Replace Three Defective Live Open Hand Teaching Items (Stats 1.10, Stats 2.12, Bio 2.10); Fix the AP Statistics 2.12 Topic Point Brief (Dev + Production) — TASK-0065
+- APPROVAL-0128 — Remove Repeated Answer Choices From 198 Published MCQ Stems (Label Carry-Forward)
+- APPROVAL-0127 — Fix the AP Biology 2.10 Topic Point Brief (Dev + Production); Restore EK 3.3.A.2 Sub-Points in the Biology CED Fact Pack — TASK-0065
+- APPROVAL-0126 — Load and Publish 27 Orly Clean-Room MCQs (21 AP Chemistry Units 1/3, 6 AP Calculus AB 2.1) to Production; Hold the 3 Density Items — DECISION-0098
+- APPROVAL-0125 — TASK-0065: Load 91 Open Hand Teaching Items (Units 1–3; Bio, Stats, Chem, Calc AB) to Production
+- APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads (RLS); Re-enable Teaching-Item Attempt Trigger
 - APPROVAL-0123 — Repair Calc AB Explainers 4.4/4.5; TASK-0065 Units 1-3 Scope; Checkers Gemini 3.8 + DeepSeek 5
 - APPROVAL-0081 — AP Biology Skill Re-vote on the 73 Topic-Corrected Items (Production) — DECISION-0085
 - APPROVAL-0080 — Load and Publish 24 AP Biology Units 1-2 Variants (Production) — DECISION-0085
@@ -135,6 +141,138 @@ Most recent entries (full chronological list follows below):
 
 **Not approved by this entry:** any other view change; any app-side change.
 
+
+## APPROVAL-0128 — Remove Repeated Answer Choices From 198 Published MCQ Stems
+
+> **Numbering note:** this was applied and recorded in Production as `APPROVAL-0127`. Production label `source_payload` entries and the apply SQL's `v_approval` say 0127. Another session's approval claimed 0127 on `main` first, so this entry is renumbered 0128. Treat "APPROVAL-0127" on the stem-cleanup records as this approval.
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "Yes, prepare the 198 stem cleanup", then "Apply all 198 (Recommended)")  
+**Decision:** Approved
+
+**Defect:** 198 published MCQs repeated their choices as a trailing `A. … D. …` list inside the stem, so students saw
+the choices twice. The counts: Chemistry 68, Calculus BC 42, Calculus AB 26, Physics C Mechanics 22, Physics C E&M 20,
+Physics 2 20. In all 198, the list matched `mcq_choices` exactly.
+
+**Applied in Production:**
+- **Scope:** all 198, in 8 chunks plus the review 7. The review 7 keep their assumption sentence (e.g. "Assume 25 C.")
+  after a blank line. Choices were untouched.
+- **Label carry-forward:** in the same statement as each edit, each serving label's prior state was restored,
+  following the APPROVAL-0116/0066 precedent. A bare edit would have marked the labels stale and pulled 148 items out
+  of Practice.
+- **Verification:**
+  - 198 of 198 cleaned, and 0 published MCQs still carry an inline list.
+  - Label counts are identical to baseline, with no stale labels and servable 148.
+  - Sampled units serve the same items as before.
+- **Rollback:** `prod_rollback.sql` restores the snapshot stems and labels. It has not been needed.
+- **Files:** `scripts/content-seed/stem_choice_cleanup_2026_10_06/` (`REPORT.md`, `APPLY_LOG.md`, `prod_snapshot.json`).
+
+**Follow-ups:**
+- The import path that wrote these lists needs a guard: the stem/choice sync trigger misses identical copies.
+- Two stems end in "--" (apphy2-mcq-010, apphycem-mcq-016).
+
+## APPROVAL-0126 — Load and Publish 27 Orly Clean-Room MCQs to Production; Hold the 3 Density Items
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (chat, 2026-10-06): "1. Approve 2. Hold the 3 density chem questions. Do not publish. 3. Approve 3.7 4. Approve loading the 26"  
+**Related:** `DECISION-0098`, `DECISION-0093`, `DECISION-0095`, `DECISION-0096`, `DECISION-0066`, PR #352  
+**Decision:** Approved
+
+**What David approved:**
+1. The S2 scrub of both batches' `family_specs.json`.
+2. Hold the 3 F4 density items. They are not published and were not written to any database.
+3. Topic 3.7 for `apchem-mcq-orly-f6-v2`.
+4. Loading the 26 checked drafts.
+
+**Interpretation, stated in chat:** approving 3.7 cleared f6-v2's only hold, so it was loaded with the 26. That makes **27 items**: 21 AP Chemistry (`apchem-mcq-orly-f1..f3, f5..f8`) and 6 AP Calculus AB (`apcalcab-mcq-orly-c1, c2`).
+
+**Writes (Production):** one transaction per subject. Each was rehearsed first (it raises `REHEARSAL OK` and rolls back), then committed. Pattern copied from the Physics 2 run. Per item:
+- **Item and status walk:** item, version 1, 4 choices, then `draft` → owner review decision → `reviewed_approved` → `published`.
+- **Difficulty:** the authored band (`calibrated_judgement`, DECISION-0096).
+- **Serving label:** validated (DECISION-0066). For f6-v2 it rests on David's chat decision (`chat_review`).
+- **Topic cell:** validated primary topic cell.
+- **Skill cell:** from a four-voter skill vote (claude-opus-5, gpt-5.5, gemini-2.5-pro, gemini-3.8-flash), restricted to the Production topic × skill grid. 26 are validated at 3 or 4 of 4. `f2-v3` is `provisional_model` at 2 of 4.
+- **Required units:** from the blind topic probe. Two 2-2 ties (f6-v1, f7-v1) were broken by the family's pooled plurality, giving [1,3].
+
+**Pre-load change:** the f7-v1 choice B rationale still said "gauge reading" after the stem changed to "pressure sensor". It was reworded and re-audited by both checkers (clean).
+
+**Verified after commit (SELECT checks):**
+- **Text hashes:** 21/21 Chemistry and 6/6 Calculus match the build manifest.
+- **Published rows:** 27 published in `public.content_items`. 27 validated serving labels, 27 topic cells, 27 skill cells (26 validated, 1 provisional) and 27 difficulty rows.
+- **Held items:** 0 `orly-f4` rows.
+- **Answer keys:** A 6, B 7, C 7, D 7.
+
+**Rollback:** retire the 27 versions and items by `content_key ilike '%-orly-%'`. No other rows depend on them.
+
+## APPROVAL-0125 — TASK-0065: Load 91 Open Hand Teaching Items to Production
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "Load 76 now, I fix the 15 (Recommended)", then "Yes, load all 76 (Recommended)")  
+**Related Tasks:** `TASK-0065`, `TASK-0064`  
+**Decision:** Approved
+
+**Scope:** Units 1–3 gap topics for AP Biology, AP Statistics, AP Chemistry and AP Calculus AB. Each item is a
+published MCQ with one primary topic cell and an active `app.open_hand_teaching_items` row (`source='generated'`,
+note 'TASK-0065 batch 2026-10-06'). None has a serving label. Teaching items are hidden from student reads by RLS
+(APPROVAL-0124) and excluded from every scoring selector.
+
+**Quality gates:**
+- **Outside checkers** (DECISION-0093): Gemini 3.8 Flash and DeepSeek V4 Pro. Smoke test and canary first; then
+  a blind solve and a fact-pack audit on all 91. Every key matched and none was disputed. Four rationale errors
+  were fixed.
+- **Lint and C3 named-trap audit** (#345/#348): 15 items were blocked. They were rewritten (`fix15/`) and now pass
+  lint, C3 and the solve/audit checks on both models.
+- **Review status:** set directly to `question_review_approved`. No human-review records were written; the
+  checker stages above are the review provenance.
+
+**Outcome (verified in Production by SELECT checks):**
+- **Batch 1:** 76 items (Bio 15, Stats 25, Chem 21, Calc AB 15). Hash check 76/76.
+- **Batch 2:** 15 items (Bio 6, Stats 4, Calc AB 5). Content check 15/15.
+- **Totals:** 91 items, published with 4 choices and 1 correct each: Bio 21, Stats 29, Chem 21, Calc AB 20.
+- **Functional checks:**
+  - `get_open_hand_teaching_item` returns the new item for an entitled student.
+  - A direct student read sees 0 of the 91.
+  - `select_unit_gated_practice_items` returns none of them. For Statistics and Calc AB this is a sample,
+    because the selector caps results at 50 rows.
+- **Spares released:** 0. All batch topics were gap topics.
+- Development holds Bio and Stats only. It has no published Chemistry or Calc AB pack.
+
+**Files:**
+- Loader: `scripts/content-seed/task0065_load/`
+- Load SQL: `docs/research/open_hand_teaching_batch_2026_10_06/load/`, `load_batch2/`
+- Reports: `load/LOAD_REPORT.md`, `CHECK_RESULTS.md`, `fix15/FIX15_REPORT.md`
+
+## APPROVAL-0124 — attempt-response 409 Mapping; Hide Teaching Items From Student Reads; Re-enable the Teaching-Item Attempt Trigger
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "I approve the 409 change, then have checker run on the 91 questions, then have fable do the walk through and finish by turning the database rule back", then "Fix it in the database first (Recommended)")  
+**Related Tasks:** `TASK-0064`, `TASK-0065`  
+**Decision:** Approved
+
+**Approved scope and outcome:**
+1. **409 mapping.** `attempt-response` `create_attempt` returns 409 `{error: "open_hand_item_not_scorable"}`
+   when `trg_refuse_attempt_on_teaching_item` refuses the insert. Any other insert failure still returns 500.
+   Commit 225c46b, with two handler tests; 9/9 pass. **Not yet deployed.** David deploys it from the CLI,
+   Development then Production.
+2. **Hide teaching items from student reads.** Migration `20261006140000_hide_teaching_items_from_student_reads`:
+   - `content_item_versions_select_published` gains `and not app.content_item_is_teaching(content_item_id)`.
+   - Authenticated users get execute on `app.content_item_is_teaching`.
+
+   This closes the two client screens that still read published MCQs directly: `/session` with the MCQ
+   format, and `/session/mcq`. Fable's re-check had missed the first; Claude's audit found it.
+   **Done 2026-10-06** in Development and Production, with ledger rows in both. Verified as a real
+   student:
+   - Development: 208 of 211 published versions are visible. The 3 hidden are the 3 teaching items.
+   - Production: 2,407 of 2,502 are visible. The 95 hidden are the 95 teaching items.
+   - Production, entitled Biology student: `get_open_hand_teaching_item('biology','2.7')` still returns
+     the stem and 4 choices, while a direct read of the same version returns nothing.
+3. **Re-enable the trigger.** `trg_refuse_attempt_on_teaching_item` is re-enabled in Production
+   (`tgenabled` changed from D to O). Development was already on. A rolled-back test insert of an
+   attempt on a teaching item was refused with `open_hand_item_not_scorable`.
+
+**Not covered:** turning the plate loop ON. Fable's re-check found that every Open Hand option shows
+its rationale twice (N1), which needs a Lovable fix first. Biology Unit 1 Practice has only one topic's
+content (N3).
 
 ## APPROVAL-0123 — Repair Calc AB Topic Explainers 4.4 and 4.5; TASK-0065 Scope and Checker Slate
 
@@ -1674,3 +1812,60 @@ What was approved or rejected?
 ```
 
 **Conflict rule:** if `Expires` has passed but `Status` still reads `Active`, the approval is treated as expired regardless of the recorded status — the date wins. `Status: Superseded` overrides date-based validity even before expiration.
+
+
+## APPROVAL-0127 — Fix the AP Biology 2.10 Topic Point Brief (Dev + Production); Restore EK 3.3.A.2 Sub-Points in the Biology CED Fact Pack
+
+**Date:** 2026-10-06  
+**Approved By:** David Bloom (2026-10-06 Claude session: "correct me if I am wrong, but this seems like a brief error. The fact pack is correct. If that is right, fix the brief.")  
+**Related Task:** `TASK-0065`  
+**Decision:** Approved, in part as stated and in part corrected. David was right for 2.10 and wrong for 3.3; the 3.3 fix was made where the error actually was.
+
+**Finding (checked against the CED PDF, `docs/teaching/ap-biology-course-and-exam-description.pdf`, Fall 2025):**
+- **2.10, brief error (David right).** The brief told students they earn points for circular DNA, ribosomes and binary fission as endosymbiosis evidence. The CED's required content (EK 2.10.A.1–3, p. 62) states only the endosymbiotic origin and the prokaryote/eukaryote compartmentalization contrast. Circular chromosomes appear only in 6.1. Double membranes are 2.1 content, so the new brief keeps them.
+- **3.3, fact-pack error (David wrong).** CED EK 3.3.A.2.ii (p. 63) says "cellular processes that release energy may be coupled with cellular processes that require energy". The fact pack's paraphrase dropped it, so the brief's coupling requirement is correct.
+
+**Approved scope and result:**
+1. **2.10 brief.** `how_points_are_earned`, `answer_move` and `common_point_loss` were rewritten from the CED (migration `20261006180000_fix_ap_biology_2_10_point_brief.sql`).
+   - Development: applied, then re-read independently.
+   - Production: applied; content hash `459f37d0…` matches Development.
+   - Ledger rows were inserted in both.
+2. **Fact pack.** `docs/product/AP_BIOLOGY_CED_FACT_PACK.md` EK 3.3.A.2 now carries sub-points i–iii verbatim. The pipeline inputs (`ced_topics_biology.json`, `briefs_u1-3.json`) were updated to match.
+3. **Pipeline.** 2.10 and 3.3 were regenerated with the corrected inputs. Controls were re-run (6/6), and both topics were accepted in round 1.
+
+**Not changed:** the 2.10 topic explainer, which also teaches circular DNA and binary fission as evidence (repair of 2026-08-22). It is student-facing and still overreaches the CED. Flagged for David.
+
+**Rollback:** restore the three fields from `supabase/migrations/20260820230000_seed_remaining_biology_calculus_topic_point_briefs.sql` (line 91).
+
+
+## APPROVAL-0129 — Replace Three Defective Live Open Hand Teaching Items; Fix the AP Statistics 2.12 Topic Point Brief
+
+**Date:** 2026-10-07  
+**Approved By:** David Bloom (2026-10-07 Claude session: "Replace the three live items and fix the 2.12 brief")  
+**Related Task:** `TASK-0065`. The source finding is the method test, `scripts/content-seed/task0065-method-test-2026-10-06/RESULTS.md` (PR #359).  
+**Decision:** Approved
+
+**Why:** the method test's blind held-out judging found three live teaching items with confirmed defects:
+- **Stats 1.10:** a fix line says random assignment defines an experiment.
+- **Stats 2.12:** the key needs σ/√n, which is CED 4.1.
+- **Bio 2.10:** a false rationale ("all eukaryotic organelles have membranes"), and a key that needs evidence outside CED 2.10.
+
+The Statistics 2.12 brief asked for "sample size tightens the spread", which is CED 4.1. That produced the same defect in all three arms.
+
+**Approved scope and result (Development `wmgjsdkphcyhngaffbqf`, then Production `pcntajvbdfqhbeewmdry`):**
+1. **Statistics 2.12 brief.** `how_points_are_earned` was rewritten to CED 2.12.A.1–A.4 (no spread claim). Migration `20261007020000_fix_ap_statistics_2_12_point_brief.sql`. Applied to Development and Production (hash `4d4c0cda…` in both), with ledger rows in both.
+2. **Replacements.** All three were made by the generate-and-select pipeline, with no edits:
+   - Stats 1.10 and Bio 2.10 are the pipeline items from the method test. All four checker families, the veto and all three held-out judges cleared them.
+   - Stats 2.12 was regenerated against the fixed brief. Controls 6/6 caught; it passed four checkers and the veto, then the three held-out judges, unanimously on key, topic, scope and "publish".
+   - **Load.** The APPROVAL-0125 loader SQL, plus a replace step that releases the old teaching row, retires the old item and version, and asserts exactly one active teaching row per topic. New keys: `APSTATS-OHT-1.10-r2`, `APSTATS-OHT-2.12-r2`, `APBIO-OHT-2.10-r2`.
+   - **Development:** applied; content hashes match the locally computed plan.
+   - **Production:** a rolled-back rehearsal per subject ("REHEARSAL OK"), then the apply. Content hashes match the plan.
+3. **Verification in Production:**
+   - The real `get_open_hand_teaching_item`, called as an authenticated user, returns the new item for all three topics.
+   - The old items are `retired`, with released teaching rows.
+   - Active generated teaching items: still 91.
+
+**Files:** `scripts/content-seed/task0065-live-replacements-2026-10-07/` (`build_replace_sql.py`, `*_apply.sql`, `*_rehearsal.sql`, `expected_hashes.json`, the pipeline batch and judge results).
+
+**Rollback:** per topic, set the old row's `released_at` back to null, return the old item and version to `published`, then release the `-r2` row and retire the `-r2` item. Restore the 2.12 brief text from `20260821*` seed history.
+

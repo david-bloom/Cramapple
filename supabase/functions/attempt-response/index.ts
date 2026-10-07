@@ -532,6 +532,14 @@ export async function handleAttemptResponse(
           "id, user_id, learning_session_id, exam_pack_version_id, content_item_version_id, attempt_mode, status, assistance_state, started_at, created_at",
         )
         .maybeSingle();
+      if (attemptError?.message?.includes("open_hand_item_not_scorable")) {
+        // trg_refuse_attempt_on_teaching_item: the item is in the Open Hand
+        // teaching pool and must never be scored (TASK-0064).
+        return respond(
+          { error: "open_hand_item_not_scorable" },
+          { status: 409 },
+        );
+      }
       if (attemptError || !attempt) {
         return respond(
           { error: "attempt_create_failed" },

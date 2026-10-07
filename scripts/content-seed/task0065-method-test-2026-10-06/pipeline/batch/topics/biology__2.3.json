@@ -1,0 +1,701 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Plasma Membrane"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__2.3#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 26472,
+    "inputTokenDetails": {
+     "noCacheTokens": 26472,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1648,
+    "outputTokenDetails": {
+     "textTokens": 915,
+     "reasoningTokens": 733
+    },
+    "totalTokens": 28120,
+    "raw": {
+     "input_tokens": 26472,
+     "output_tokens": 1648,
+     "output_tokens_details": {
+      "thinking_tokens": 733
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 733,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 2,
+    "topic_code": "2.3",
+    "topic_title": "Plasma Membrane",
+    "stem": "A researcher studies a plasma membrane protein whose polypeptide chain crosses the membrane exactly once. Its amino acid sequence has three consecutive regions: Region 1 (about 100 amino acids) has mostly polar and charged R groups, Region 2 (about 20 amino acids) has almost entirely nonpolar R groups, and Region 3 (about 80 amino acids) has mostly polar and charged R groups. Based on the structure of the phospholipid bilayer, which statement best describes how this protein is positioned in the membrane?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Regions 1 and 3 lie within the bilayer interior, while Region 2 is exposed to the aqueous fluid outside the cell.",
+      "is_correct": false,
+      "rationale": "This reverses the bilayer's layout, treating the membrane interior as hydrophilic because the phosphate heads are charged. The heads face the water; the interior is made of hydrophobic fatty acid tails, which cannot stably surround charged and polar R groups. Fix: Sketch the bilayer first, label heads outward and tails inward, then match each protein region to the environment it resembles chemically."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "The entire protein sits on the outer surface of the membrane, bound to the phosphate heads, because proteins are hydrophilic molecules.",
+      "is_correct": false,
+      "rationale": "This assumes all membrane proteins are hydrophilic and ignores the long nonpolar Region 2 and the stated single membrane crossing. Embedded proteins can be hydrophilic, hydrophobic, or both, and are oriented so each part matches its surroundings. Fix: Check the R-group chemistry of each region and ask whether any segment is nonpolar enough to sit among the fatty acid tails."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Region 2 lies within the bilayer interior, while Regions 1 and 3 both extend into the extracellular fluid on the same side of the membrane.",
+      "is_correct": false,
+      "rationale": "This correctly places the hydrophobic segment but fails to trace the chain's path. A chain that crosses the bilayer only once must enter from one side and exit on the other, so the regions flanking the crossing cannot finish on the same side. Fix: Trace the polypeptide from one end to the other and count each crossing to determine which side every hydrophilic region ends on."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Region 2 lies within the bilayer interior, while Regions 1 and 3 extend into the aqueous fluids on opposite sides of the membrane.",
+      "is_correct": true,
+      "rationale": "Phospholipid tails form a hydrophobic core, so the nonpolar R groups of Region 2 are stable there. The polar and charged Regions 1 and 3 interact with water and hydrophilic heads, and because the chain crosses only once, the segments before and after the crossing must end up on opposite sides."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 394,
+         "inputTokenDetails": {
+          "noCacheTokens": 394,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 59,
+         "outputTokenDetails": {
+          "textTokens": 33,
+          "reasoningTokens": 26
+         },
+         "totalTokens": 453,
+         "raw": {
+          "input_tokens": 394,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 59,
+          "output_tokens_details": {
+           "reasoning_tokens": 26
+          },
+          "total_tokens": 453
+         },
+         "reasoningTokens": 26,
+         "cachedInputTokens": 0
+        },
+        "ms": 2542,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 470,
+         "inputTokenDetails": {
+          "noCacheTokens": 470,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 292,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 262
+         },
+         "totalTokens": 762,
+         "raw": {
+          "thoughtsTokenCount": 262,
+          "promptTokenCount": 470,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 762,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 470
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 262,
+         "cachedInputTokens": 0
+        },
+        "ms": 7658,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 526,
+         "inputTokenDetails": {
+          "noCacheTokens": 270,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 591,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 571
+         },
+         "totalTokens": 1117,
+         "raw": {
+          "prompt_tokens": 526,
+          "completion_tokens": 591,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 270,
+          "total_tokens": 1117,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 571
+          }
+         },
+         "reasoningTokens": 571,
+         "cachedInputTokens": 256
+        },
+        "ms": 6614,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 561,
+         "inputTokenDetails": {
+          "noCacheTokens": 497,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 114,
+         "outputTokenDetails": {
+          "textTokens": 24,
+          "reasoningTokens": 90
+         },
+         "totalTokens": 675,
+         "raw": {
+          "prompt_tokens": 561,
+          "completion_tokens": 114,
+          "total_tokens": 675,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 90,
+           "accepted_prediction_tokens": 61,
+           "rejected_prediction_tokens": 95,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 90,
+         "cachedInputTokens": 64
+        },
+        "ms": 8351,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17203,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 17200
+         },
+         "outputTokens": 475,
+         "outputTokenDetails": {
+          "textTokens": 172,
+          "reasoningTokens": 303
+         },
+         "totalTokens": 17678,
+         "raw": {
+          "input_tokens": 17203,
+          "input_tokens_details": {
+           "cache_write_tokens": 17200,
+           "cached_tokens": 0
+          },
+          "output_tokens": 475,
+          "output_tokens_details": {
+           "reasoning_tokens": 303
+          },
+          "total_tokens": 17678
+         },
+         "reasoningTokens": 303,
+         "cachedInputTokens": 0
+        },
+        "ms": 8297,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 18523,
+         "inputTokenDetails": {
+          "noCacheTokens": 18523,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1063,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 801
+         },
+         "totalTokens": 19586,
+         "raw": {
+          "thoughtsTokenCount": 801,
+          "promptTokenCount": 18523,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19586,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 18523
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 801,
+         "cachedInputTokens": 0
+        },
+        "ms": 8208,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17349,
+         "inputTokenDetails": {
+          "noCacheTokens": 16069,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 7892,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 7673
+         },
+         "totalTokens": 25241,
+         "raw": {
+          "prompt_tokens": 17349,
+          "completion_tokens": 7892,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 16069,
+          "total_tokens": 25241,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7673
+          }
+         },
+         "reasoningTokens": 7673,
+         "cachedInputTokens": 1280
+        },
+        "ms": 58085,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17890,
+         "inputTokenDetails": {
+          "noCacheTokens": 17826,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 3910,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 3694
+         },
+         "totalTokens": 21800,
+         "raw": {
+          "prompt_tokens": 17890,
+          "completion_tokens": 3910,
+          "total_tokens": 21800,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3694,
+           "accepted_prediction_tokens": 2632,
+           "rejected_prediction_tokens": 1199,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 3694,
+         "cachedInputTokens": 64
+        },
+        "ms": 36458,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "2.3",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 28383,
+         "inputTokenDetails": {
+          "noCacheTokens": 28383,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 860,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 648
+         },
+         "totalTokens": 29243,
+         "raw": {
+          "input_tokens": 28383,
+          "output_tokens": 860,
+          "output_tokens_details": {
+           "thinking_tokens": 648
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 648,
+         "cachedInputTokens": 0
+        },
+        "ms": 10653,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__2.3#r1-anthropic",
+ "accepted_at": "2026-10-06T23:48:07.290Z"
+}

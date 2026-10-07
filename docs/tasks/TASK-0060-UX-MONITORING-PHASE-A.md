@@ -10,7 +10,7 @@ STATUS: IN PROGRESS
 **Priority:** High  
 **Created Date:** 2026-10-03  
 **Approved Date:** 2026-10-03  
-**Branch:** `chatgpt/ux-monitoring-user-research-v1`  
+**Branch:** `chatgpt/task-0060-phase-a-closeout`  
 **PR:** TBD  
 **Product Goal:** Make the minimal Cramapple conversion/product-health monitoring path trustworthy before any Production instrumentation change.  
 **Technical Scope:** Development-only frontend PostHog call-site repair; Development `first_response_graded` diagnosis/repair; derive study/return from existing Supabase data where possible; Development E2E verification; durable evidence.  
@@ -93,3 +93,20 @@ After the Development key path is configured, run:
 5. query Supabase for study-start and later-day-return counts;
 6. record evidence here and in the monitoring spec.
 
+
+
+## Closeout verification — 2026-10-06
+
+- Frontend environment tagging is active in PostHog for both Development and Production traffic.
+- A fresh direct Development checkout smoke test created one unpaid test checkout and wrote a `checkout_started` row tagged `environment=development`.
+- The fresh Development row remained undelivered with zero delivery attempts. The shared relay was updated in Development to recognize the PostHog secret naming conventions used across the project.
+- Lovable marketing and student previews currently point at Production Supabase. The marketing preview also uses live Stripe configuration. Therefore Lovable preview is not a valid Development E2E surface and was not used for the successful Development checkout smoke test.
+- No Development graded/uncertain result exists in the last seven days. The genuinely-first `first_response_graded` E2E therefore has not occurred and was not fabricated.
+- Current study/return evidence: 6 users started study, 7 started sessions, 0 users returned on 2+ distinct dates.
+
+### Remaining closeout conditions
+
+1. A fresh Development backend event must demonstrate successful PostHog delivery after the compatibility deployment.
+2. A genuinely new Development student's first graded response must produce and deliver exactly one `first_response_graded` tagged `environment=development`.
+
+Production was not changed as part of this closeout attempt.

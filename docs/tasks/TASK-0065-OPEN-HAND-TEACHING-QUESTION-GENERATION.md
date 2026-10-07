@@ -1,6 +1,6 @@
 # TASK-0065 — Generate Open Hand Teaching Questions (One per Topic, Never Scored)
 
-**Status:** In progress — drafts done; outside checkers ready to run (paused 2026-10-06)  
+**Status:** Units 1–3 done — 91 items live in Production (2026-10-06, APPROVAL-0125). Units 4+ not started.  
 **Tier:** Standard for authoring in Development; Hard-Gate for Production publish and designation  
 **Owner:** Claude session (authoring); outside-family checkers via AI Gateway  
 **Product Owner:** David Bloom  
@@ -132,10 +132,191 @@ guides. 4.6 was also flagged, but it is a deliberate wrong-slope scenario, not a
 `source_note` hang at 60 seconds. Use single, simple statements.
 
 **Other open items outside this task, all before the plate loop goes ON.**
-- David deploys `student-session-items` with the CLI.
+- ~~David deploys `student-session-items` with the CLI.~~ **Done 2026-10-06:** Production v33, Development v21. All six
+  deployed files are byte-identical to this branch (checked via the Supabase MCP); `verify_jwt` stays on.
 - David gives the go-ahead on the attempt-response 409 mapping.
 - Fable does a signed-in walkthrough of the published Lovable build.
 - Re-enable `trg_refuse_attempt_on_teaching_item`.
 - David reviews and merges PR #340.
 - Next Lovable round: change the copy "↻ Revisit — the point is still available next attempt." to
   "Revisit this one."
+
+## Supplementary checker stages — 2026-10-06 (PR #345)
+
+A separate session built and piloted extra checks for this task before seeing #340. Reconciled with
+APPROVAL-0123, which governs scope (91 items) and the decision that habit lines come from the point brief.
+Record: `scripts/content-seed/task0065-bio-pilot-2026-10-06/PILOT_REPORT.md`.
+
+- **Proven on a Biology pilot:** 4 of 4 planted defects caught by both checkers in every round.
+- **Kept as stages beside `open_hand_teaching_check.mjs`:** C3 named-trap audit
+  (`teaching_item_check.mjs`), the lint (`lint.py`), and the CED-text topic probe (Biology only).
+  The per-item habit-line check (C6) is retired.
+- **Run on the 91 drafts (unpatched):**
+  - Lint: 2 fail (Calculus AB 1.11 and 1.13 use `!=`).
+  - C3: 38 blocked. 13 for an unnamed temptation. 25 only because a `Fix:` line states a fact rather than an action.
+  - Biology topic probe: 21 of 21 pass.
+- **David (2026-10-06): fix lines must be actions.** I rewrote 44 fix lines across the 25 items,
+  in both copies of each item. On re-check, all 25 clear lint, C3 and `open_hand_teaching_check.mjs`.
+  Two single-checker flags were adjudicated: one as variance, one as a wrong flag on ozone's octet.
+  Still open: 13 items with an unnamed temptation (7 of them also have fact-style fixes).
+- These results feed the patch loop (step 3 of the handoff above). They clear nothing on their own.
+
+## Generate-and-select pipeline replaces hand-patching — 2026-10-06 (David)
+
+> **Superseded for Units 1–3; see "Reconciliation" at the end of this file.** The pipeline stays as the route for
+> Units 4 and later. Items 2–3 of the decision below did not happen: #348 was merged, and the 15 blocked items were
+> fixed, checked and loaded.
+
+David asked why reviewed questions kept failing new checks, and asked for "a way to add questions without
+needing to edit them using at least 4 models and multiple sessions".
+
+**Diagnosis.** The rules were applied after the items were written: the named-trap and action-fix rules
+caused 25 of the 38 blocks. Earlier reviews checked other things. Single model calls are noisy. Every
+hand patch needed a full re-check. Two sessions also worked to different specs.
+
+**Decision (David, 2026-10-06).**
+1. Build a generate-and-select pipeline. No item is ever edited.
+2. Regenerate all 38 topics that C3 blocked.
+3. Hold PR #348 (the 25 hand-patched items; now a draft) and discard the 13 unchecked rewrites.
+
+**Pipeline:** `scripts/vercel-gateway-check/teaching_pipeline/` (`README.md`).
+- **One rubric** (`rubric.mjs`, 10 rules plus a deterministic lint). Both the author and the checkers
+  are prompted with it.
+- **Authors:** two per round, Claude Opus 5.5 and GPT-6.1, stateless. The correct answer's position is
+  randomized.
+- **Checkers:** four families, never the author's own: OpenAI, Google, DeepSeek, Moonshot, Anthropic,
+  minus the author. Each does a blind solve, then a rubric audit with the CED fact pack and the unit's
+  topic list.
+- **Variance and selection:** a checker that flags is re-sampled once, and only a repeated flag counts.
+  The first clean candidate is accepted. After 2 rounds with none, the topic is escalated to a human.
+- **Controls and sessions:** six planted-defect controls run before any generation, and the batch is
+  void if one is accepted. Per-topic lock files let sessions on one machine share a batch; separate
+  machines use `--shard`.
+
+**Smoke test:**
+- All 6 controls were caught at the expected stage, by all four checkers. The one exception: the
+  false-fact control was caught by Gemini under the accuracy rule and by the other three under other rules.
+- Biology 1.1 was accepted on its first candidate.
+- My spot check of that accepted item found rationales longer than the design's one to three sentences.
+  A `concise` rule was added to the rubric and lint (60 words per rationale, 25 per fix) before the
+  pilot. The human spot-check stays required.
+
+**Biology pilot (units 1–3, 21 topics), batch `scripts/content-seed/task0065-generate-select/bio-u1-3-2026-10-06/`:**
+- **Controls:** 6 of 6 caught.
+- **First pass:** 21 of 21 accepted from 38 candidates, with 17 rejected at the audit. Every Claude
+  rejection came from GPT-6.1 alone, and GPT never checked GPT-written items, so the bar depended on
+  the author.
+- **Veto added:** the author's own family can reject but never approve, so every accepted item has
+  passed all five families. Applied to the 21, it vetoed 3 GPT-written items (1.5, 2.10, 3.3).
+  Their regeneration rounds were also rejected.
+- **Result:** 18 accepted (12 GPT-authored, 6 Claude), 3 escalated, 0 edited. 0 failed calls out of about 600.
+- **Escalated, for David:**
+  - 2.10 and 3.3: the topic point brief students see requires content the Biology CED fact pack lacks
+    (circular organelle DNA and binary fission for 2.10; ATP coupling for 3.3). No item can satisfy
+    both. Decide which source is right.
+  - 1.5 Lipids: its content overlaps 2.3 (phospholipid orientation), and GPT consistently places
+    lipid-structure items in 2.3.
+- **Lint additions from the pilot:** stray HTML, and more than three sentences in an explanation.
+- **Next:** the accepted items need the per-subject human spot-check before any Development load.
+  Statistics, Chemistry and Calculus AB (70 topics) have not been run.
+## Checker run on all 91 — 2026-10-06 (`open_hand_teaching_check.mjs`)
+Results are in `docs/research/open_hand_teaching_batch_2026_10_06/CHECK_RESULTS.md`.
+- The smoke test and canary passed: both models caught 4 of 4 planted wrong keys.
+- Full run: 182/182 calls succeeded. Every blind solve matched its key, and neither model disputed a key.
+- 13 items were flagged. 4 were real rationale errors (Calc AB 1.5 B; Stats 1.5 A, 3.14 A, 3.15 D). I fixed them on
+  top of #348's action fix lines. The other 9 were verified as non-defects (scope supported by the published briefs;
+  calculator use allowed in Statistics, keys recomputed).
+- The 4 fixes re-check clean on this checker and pass lint. On C3, 3 pass. Stats 3.14 still fails, but on choice
+  D, which is outside my edits.
+
+**Open before loading:** the 13 C3 temptation-blocked items and the 2 lint failures from #345/#348.
+
+## Loaded to Production — 2026-10-06 (APPROVAL-0125)
+- **Batch 1:** the 76 items that cleared every stage.
+- **Batch 2:** the 15 C3/lint-blocked items, after the `fix15/` rewrite. All 15 now pass lint, C3 and the
+  solve/audit checks on both checkers. The one DeepSeek scope flag, on Bio 3.3, was adjudicated: the published brief
+  covers energy coupling.
+- **Live:** Bio 21, Stats 29, Chem 21, Calc AB 20 = 91. Every Units 1–3 gap topic in the four subjects now has a
+  worked example.
+- **Verified:** content hashes match; Open Hand serves the new items; students cannot read them directly; scoring
+  never serves them.
+- `SCOPE_UNITS_1-3.json` now holds the final text of all 91, with the fix15 rewrites merged in.
+- **Follow-up:** add energy coupling and ATP hydrolysis to the 3.3 entry of `AP_BIOLOGY_CED_FACT_PACK.md`, so the
+  checker stops flagging it.
+
+## Reconciliation of the two Units 1–3 tracks — 2026-10-06 (merge of PR #351)
+Two sessions worked TASK-0065 Units 1–3 in parallel with different plans. This records what actually happened, so
+the file states one plan.
+
+- **Live:** the hand-patch track. PR #348 was merged, not held. The 13 temptation-blocked items plus the 2 lint
+  failures were rewritten in `fix15/` and checked (lint, C3 and solve/audit on both checkers). All 91 Units 1–3
+  items were loaded to Production under APPROVAL-0125.
+- **Not loaded:** the generate-and-select Biology pilot's 18 accepted items
+  (`scripts/content-seed/task0065-generate-select/bio-u1-3-2026-10-06/`). They must not be loaded for Units 1–3.
+  Every one of those topics already has a live generated teaching item, and a second active row per topic would be
+  shadowed (`get_open_hand_teaching_item` picks the earliest designated `generated` row).
+  If David prefers a pipeline item for a topic, release the live row first (`released_at = now()`), then load the
+  replacement. One active generated row per topic.
+- **Kept:** the pipeline itself (`scripts/vercel-gateway-check/teaching_pipeline/`) is the route for Units 4 and
+  later. It generates without edits and runs four checker families plus an own-family veto.
+- **Still open for David, common to both tracks:** Biology 2.10 and 3.3. The published topic point briefs require
+  content (circular organelle DNA and binary fission; ATP coupling) that `AP_BIOLOGY_CED_FACT_PACK.md` omits.
+  Decide which source is right. If it is the briefs, add that content to the fact pack.
+
+
+**David's decisions on the Biology escalations (2026-10-06, APPROVAL-0127):**
+- **2.10:** the brief was wrong (the CED does not list circular DNA or binary fission). The brief was fixed in Development and Production.
+- **3.3:** the fact pack was wrong (it dropped EK 3.3.A.2.ii, energy coupling). The fact pack was fixed and the brief left as is.
+- Both topics were regenerated after the controls were re-run (6/6), and both were accepted.
+- **1.5:** David said to keep it, saying an occasional question may use a concept taught previously. But phospholipid orientation is taught **later**, in 2.3. Awaiting confirmation before accepting candidate r1-openai (it passed the four independent checkers and was rejected only by GPT's topic veto).
+- **Biology units 1–3 now:** 20 of 21 accepted.
+- **Review page (private Claude artifact):** https://claude.ai/artifact/CiBQWsfy6YHsJNfLaH45eh (renderer: `scripts/content-seed/task0065-generate-select/render_review.py`).
+
+**Biology pilot cost:** $20.13 at live gateway prices for 21 topics (about $1.12 per accepted item), plus $3.04 for the controls.
+
+**Method test designed:** `docs/product/OPEN_HAND_CONTENT_METHOD_TEST_DESIGN_2026_10_06.md`. It compares legacy and pipeline on quality (key accuracy, option accuracy, CED faithfulness), speed and cost, using held-out judges and planted defects. Not yet run; awaiting David's approval of the design and decision rule.
+
+## Method test run — 2026-10-06/07 (legacy vs generate-and-select)
+
+David asked for the test to be executed with units 1–3 for every subject. Full results:
+`scripts/content-seed/task0065-method-test-2026-10-06/RESULTS.md`.
+
+**Setup:** 24 topics, 6 per subject. Three arms were judged blind by three held-out families (Mistral, GLM,
+MiniMax) against CED PDF text, with 4 planted defects mixed in (all 4 caught):
+- a fresh legacy run;
+- the pipeline;
+- the 24 items live in Production for the same topics.
+
+**Items with a confirmed accuracy or CED defect:** legacy 4/24, pipeline 1/23, live 3/24.
+- Every key was correct in every arm (33 numeric keys recomputed).
+- The pipeline came out clean on every pedagogy and "publish as is" judgement.
+
+**Cost and speed:**
+- Pipeline: $0.77 per defect-free item, 13.7 minutes.
+- Legacy: about $0.19 per defect-free item, 10.3 minutes.
+- So the pipeline is 3.5–4.9× the cost, which fails the proposed 3× cap.
+- With n = 24 the quality difference is not significant (p = 0.35).
+
+**Found along the way:**
+1. **Live defects in Production:**
+   - Stats 1.10: a fix line says random assignment defines an experiment.
+   - Stats 2.12: the key needs σ/√n, which is CED 4.1.
+   - Bio 2.10: a false rationale, and a key that needs evidence outside the CED.
+   - Roughly 11 of the 91 live items may be affected (extrapolated, not counted).
+2. **Statistics 2.12 brief overreach:** it asks for "sample size tightens the spread" (CED 4.1). It caused the
+   same defect in all three arms.
+
+**Open for David:**
+- the decision on the method;
+- whether to replace the defective live items;
+- whether to fix the 2.12 brief;
+- human confirmation of Claude's provisional adjudication of 17 disputed items;
+- the Q* and pedagogy ratings.
+
+## Live replacements and Statistics 2.12 brief fix — 2026-10-07 (APPROVAL-0129)
+
+- The Statistics 2.12 brief was fixed to CED 2.12 in Development and Production.
+- The three defective live items (Stats 1.10, Stats 2.12, Bio 2.10) were replaced in Development and Production
+  with pipeline items checked by four model families and three held-out judges.
+- The old items are retired. The real teaching function now serves the replacements.
+- Details: APPROVAL-0129.

@@ -53,7 +53,7 @@
         "choice_key": "B",
         "choice_text": "Quantitative continuous, because area codes fall anywhere along a number line between 200 and 999 like measurements do.",
         "is_correct": false,
-        "rationale": "Tempting because numbers can be placed on a number line — but a code of 415 is not 'more' than 212 in any measurable sense. Fix: a continuous variable measures a quantity; labels written as numbers do not."
+        "rationale": "Tempting because numbers can be placed on a number line — but a code of 415 is not 'more' than 212 in any measurable sense. Fix: ask whether the number measures an amount; if it is a label, classify the variable as categorical."
       },
       {
         "choice_key": "C",
@@ -155,7 +155,7 @@
         "choice_key": "A",
         "choice_text": "The claim is confirmed, because the tall bar shows that many students earned exactly the same score within that bin.",
         "is_correct": false,
-        "rationale": "Tempting because tall bars look like frequent values — but a bar's height counts everything in the bin, not one repeated score. Fix: remember the bin can hold 11 different scores."
+        "rationale": "Tempting because tall bars look like frequent values — but a bar's height counts every score in the bin, and those 11 scores could all be different values from 70 to 89. Fix: read a bar's height as the count for its whole interval, not for one exact score."
       },
       {
         "choice_key": "B",
@@ -203,13 +203,13 @@
         "choice_key": "C",
         "choice_text": "88.5",
         "is_correct": false,
-        "rationale": "Tempting because 88.5 is the fence you just computed — but the fence is a cutoff, not a data value. Fix: the whisker ends at an actual data point inside the fence."
+        "rationale": "Tempting because 88.5 is the fence you just computed — but the fence is a cutoff, not a data value. Fix: end the whisker at the largest actual data value inside the fence, not at the fence itself."
       },
       {
         "choice_key": "D",
         "choice_text": "60",
         "is_correct": false,
-        "rationale": "Tempting because the box ends at Q3 — but the whisker continues beyond the box to the largest non-outlier. Fix: Q3 is the end of the box, not the whisker."
+        "rationale": "Tempting because the box ends at Q3 — but the whisker continues beyond the box to the largest non-outlier. Fix: compute the upper fence, Q3 + 1.5 × IQR, then extend the whisker past Q3 to the largest value inside it."
       }
     ],
     "verification": "IQR=19; upper fence=88.5; lower fence=12.5; 12 < 12.5? True; 90>88.5? True; largest value <= fence = 67",
@@ -275,7 +275,7 @@
         "choice_key": "C",
         "choice_text": "It is a retrospective observational study, because the researchers are looking at coffee habits and blood pressure of adults.",
         "is_correct": false,
-        "rationale": "Tempting because it is observational — but retrospective studies examine past records, while this one collects data going forward. Fix: forward-looking data collection is prospective."
+        "rationale": "Tempting because it is observational — but retrospective studies examine past records, while this one collects data going forward. Fix: check whether data are collected going forward or looked up from the past before you call a study retrospective."
       },
       {
         "choice_key": "D",
@@ -335,13 +335,13 @@
         "choice_key": "A",
         "choice_text": "More Art Club members than Chess Club members prefer online meetings.",
         "is_correct": false,
-        "rationale": "Tempting because 75% looks bigger than 40% — but the chart hides the club sizes, so counts cannot be compared. Fix: compare proportions, or find the group totals first."
+        "rationale": "Tempting because 75% looks bigger than 40% — but the chart hides the club sizes, so counts cannot be compared. Fix: compare percents as percents, and find each group's total before you compare counts."
       },
       {
         "choice_key": "B",
         "choice_text": "The two clubs have the same number of members, because each bar is the same total height.",
         "is_correct": false,
-        "rationale": "Tempting because every bar reaches 100% — but each bar is scaled to its own group. Fix: equal bar heights say nothing about group size."
+        "rationale": "Tempting because every bar reaches 100% — but each bar is scaled to its own group. Fix: read each bar as 100% of its own group, and look for the group counts before you compare sizes."
       },
       {
         "choice_key": "C",
@@ -449,7 +449,7 @@
         "choice_key": "B",
         "choice_text": "5/3, about 1.67",
         "is_correct": false,
-        "rationale": "Tempting if you compare red marbles with blue ones — but a probability can never exceed 1. Fix: if your answer is above 1, the denominator is wrong."
+        "rationale": "Tempting if you compare red marbles with blue ones — but a probability can never exceed 1. Fix: check that every probability is between 0 and 1, and divide by the total number of marbles."
       },
       {
         "choice_key": "C",
@@ -563,7 +563,7 @@
         "choice_key": "C",
         "choice_text": "95%",
         "is_correct": false,
-        "rationale": "Tempting because 95% is the empirical-rule number for 2 SD — but that is the area between 300 and 700. Fix: ask which region the question wants."
+        "rationale": "Tempting because 95% is the empirical-rule number for 2 SD — but that is the area between 300 and 700. Fix: shade the region the question asks about (above 700) before you read off a percent."
       },
       {
         "choice_key": "D",
@@ -587,7 +587,7 @@
         "choice_key": "A",
         "choice_text": "Right-skewed like the population, centered near 40, with standard deviation about 3.",
         "is_correct": false,
-        "rationale": "Tempting because the population is skewed — but with n = 64 the sample means pile up symmetrically. Fix: the CLT makes the shape approximately normal for large n."
+        "rationale": "Tempting because the population is skewed — but with n = 64 the sample means pile up symmetrically. Fix: for a large sample size, describe the distribution of sample means as approximately normal, whatever the population's shape."
       },
       {
         "choice_key": "B",
@@ -605,7 +605,7 @@
         "choice_key": "D",
         "choice_text": "Approximately normal, centered near 40, with standard deviation about 0.375.",
         "is_correct": false,
-        "rationale": "Tempting if you divide 24 by 64 — but the standard deviation of the mean uses √n, not n. Fix: 24/√64 = 3."
+        "rationale": "Tempting if you divide 24 by 64 — but the standard deviation of the mean uses √n, not n. Fix: divide σ by √n, not by n: 24/√64 = 3."
       }
     ],
     "verification": "sigma/sqrt(n)=3.000; sigma/n=0.375; n>=30 so CLT applies",
@@ -701,7 +701,7 @@
         "choice_key": "B",
         "choice_text": "H₀: p = 0.22 versus Hₐ: p > 0.22, where p is the true proportion of underfilled bottles.",
         "is_correct": false,
-        "rationale": "Tempting if you notice the sample result is above 22% (40/150 ≈ 0.27) — but the direction must come from the research question, not the data. Fix: 'different from' means two-sided."
+        "rationale": "Tempting if you notice the sample result is above 22% (40/150 ≈ 0.27) — but the direction must come from the research question, not the data. Fix: use ≠ in Hₐ whenever the claim is that the proportion is 'different from' a value."
       },
       {
         "choice_key": "C",
@@ -713,7 +713,7 @@
         "choice_key": "D",
         "choice_text": "H₀: p = 0.27 versus Hₐ: p ≠ 0.27, where p is the true proportion of underfilled bottles.",
         "is_correct": false,
-        "rationale": "Tempting if you put the sample proportion into the null — but the null value is the claimed 0.22, not the observed 0.27. Fix: the sample result is used later in the test statistic."
+        "rationale": "Tempting if you put the sample proportion into the null — but the null value is the claimed 0.22, not the observed 0.27. Fix: write the hypotheses with the claimed value, 0.22, and save the sample result for the test statistic."
       }
     ],
     "verification": "40/150=0.2667; claim p0=0.22; 'differs' implies two-sided.",
@@ -983,7 +983,7 @@
         "choice_key": "A",
         "choice_text": "A test of homogeneity, because the table compares news source across the three age groups.",
         "is_correct": false,
-        "rationale": "Tempting because the table looks like three groups side by side — but homogeneity needs separate samples from each population. Fix: look at how the data were collected, not at the table's shape."
+        "rationale": "Tempting because the table looks like three groups side by side — but homogeneity is for data collected as separate random samples (or randomly assigned treatment groups), one per group being compared, and here there was one sample. Fix: look at how the data were collected, not at the table's shape."
       },
       {
         "choice_key": "B",
@@ -1037,7 +1037,7 @@
         "choice_key": "D",
         "choice_text": "1.67",
         "is_correct": false,
-        "rationale": "Tempting if you forget to square the differences — but squaring is what keeps the terms from canceling and weights large gaps. Fix: use (O − E)²/E."
+        "rationale": "Tempting if you use the size of each gap, |O − E|, without squaring it: 10/20 + 10/30 + 10/20 + 10/30 ≈ 1.67. But the statistic squares each difference first. Fix: use (O − E)²/E for every cell."
       }
     ],
     "verification": "Expected=[[20.0, 30.0], [20.0, 30.0]]; chi2=16.6667; /obs=20.8333; no div=400.0; no square=1.667",

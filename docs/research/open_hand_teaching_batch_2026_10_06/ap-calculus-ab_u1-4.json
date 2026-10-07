@@ -161,7 +161,7 @@
     "choice_key": "B",
     "choice_text": "11/3",
     "is_correct": false,
-    "rationale": "Tempting if you treat f(x)^2 as -4 by squaring only the number and dropping the sign. But the square of -2 is +4. Fix: the limit of f^2 is (limit of f)^2 = 4."
+    "rationale": "Tempting if you read (-2)^2 as -(2^2), squaring the 2 and keeping the minus sign outside, which puts -4 + 15 = 11 on top. But the square of -2 is +4. Fix: square the limit of f before you add: (-2)^2 = 4, not -4."
    },
    {
     "choice_key": "C",
@@ -203,7 +203,7 @@
     "choice_key": "C",
     "choice_text": "10/3",
     "is_correct": false,
-    "rationale": "Tempting if you factor the denominator as (x - 5)(x - 2), a sign slip on the 10. Check by expanding: that gives x^2 - 7x + 10, not x^2 - 3x - 10. Fix: the correct factors are (x - 5)(x + 2)."
+    "rationale": "Tempting if you factor the denominator as (x - 5)(x - 2), a sign slip on the 10. Check by expanding: that gives x^2 - 7x + 10, not x^2 - 3x - 10. Fix: expand your factors to check them before you cancel; x^2 - 3x - 10 = (x - 5)(x + 2)."
    },
    {
     "choice_key": "D",
@@ -233,7 +233,7 @@
     "choice_key": "B",
     "choice_text": "Rationalize the numerator, then get 1/4 by replacing sqrt(x) + 4 with just sqrt(16).",
     "is_correct": false,
-    "rationale": "Tempting because the conjugate method is right, but dropping the +4 gives 1/sqrt(x) = 1/4. Fix: the denominator after rationalizing is sqrt(x) + 4 = 8, so the limit is 1/8."
+    "rationale": "Tempting because the conjugate method is right, but dropping the +4 gives 1/sqrt(x) = 1/4. Fix: keep the whole factor sqrt(x) + 4 after rationalizing, and substitute x = 16 into all of it."
    },
    {
     "choice_key": "C",
@@ -245,7 +245,7 @@
     "choice_key": "D",
     "choice_text": "Conclude the limit does not exist, because the denominator equals 0 at x = 16.",
     "is_correct": false,
-    "rationale": "Tempting because a zero denominator looks like a vertical asymptote. But the numerator is also 0, so this is an indeterminate form that can have a finite limit. Fix: simplify first, then decide."
+    "rationale": "Tempting because a zero denominator looks like a vertical asymptote. But the numerator is also 0, so this is an indeterminate form that can have a finite limit. Fix: when substitution gives 0/0, rewrite the expression (factor or rationalize) and substitute again before deciding."
    }
   ],
   "verification": "Sympy: limit((sqrt(x)-4)/(x-16),x,16)=1/8; (sqrt(x)-4)/(x-16)=1/(sqrt(x)+4); slip values 1/4 (dropped +4), 0 (numerator only).",
@@ -593,7 +593,7 @@
     "choice_key": "B",
     "choice_text": "4 m/s",
     "is_correct": false,
-    "rationale": "Tempting because s(2) = 8 - 4 = 4 is the first number you compute. But that is the position, not a rate. Fix: velocity is the derivative of s, not s itself."
+    "rationale": "Tempting because s(2) = 8 - 4 = 4 is the first number you compute. But that is the position, not a rate. Fix: differentiate s(t) first, then substitute t = 2."
    },
    {
     "choice_key": "C",
@@ -605,7 +605,7 @@
     "choice_key": "D",
     "choice_text": "12 m/s",
     "is_correct": false,
-    "rationale": "Tempting if you differentiate t^3 to 3t^2 and forget the -2t term. But every term must be differentiated. Fix: s'(t) = 3t^2 - 2, so s'(2) = 10."
+    "rationale": "Tempting if you differentiate t^3 to 3t^2 and forget the -2t term. But every term must be differentiated. Fix: differentiate every term, including -2t, before you substitute t = 2."
    }
   ],
   "verification": "Sympy: diff(t**3-2*t,t).subs(t,2)=10; s(2)=4; (s(3)-s(2))/1=17; 3*t**2 at 2 = 12 (dropped -2).",

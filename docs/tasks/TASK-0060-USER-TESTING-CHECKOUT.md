@@ -8,6 +8,19 @@
 
 ## Purpose
 
+2026-10-06 follow-on: joint Astra/Sol review is recorded in
+`docs/qa/CHECKOUT_FLOW_QA_2026_10_06.md`, with the morning checklist in
+`docs/handoffs/MORNING_CHECKOUT_AND_EMAIL_ACTIONS_2026_10_06.md`.
+It includes UX friction as well as bugs, and does not supersede outstanding real
+payment, inbox and signed-in checks with source review or synthetic browser evidence.
+
+**2026-10-06 follow-on, David-authorized:** consolidate transactional templates and
+delivery in Loops. Plan and execution evidence:
+`docs/product/LOOPS_TRANSACTIONAL_EMAIL_MIGRATION_2026_10_06.md`.
+Branch: `codex/loops-transactional-email`; draft PR #341. Backend built; new handlers and queue
+deployed in Development only. Designs/published IDs, inbox QA and live cutover
+remain pending. This does not close the checkout checks below.
+
 Run structured user testing of the live purchase and first-use path, record each observation with evidence, and send fixes to
 the Lovable frontend (project `61dd6602-6991-4561-b418-e988bb7c8a0b`; the frontend is not in this repo). Nothing here changes
 payment methods or pricing unless David says so. Lovable publishes are David's step; Claude reads each diff before David tests.

@@ -1,0 +1,1014 @@
+[
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.12",
+  "topic_title": "Confirming Continuity over an Interval",
+  "stem": "Let f(x) = √x / (x² − 4x + 3). On which of the following intervals is f continuous at every point?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "[−1, 1)",
+    "is_correct": false,
+    "rationale": "This choice checks the denominator's zeros but ignores the domain of the square root. For −1 ≤ x < 0, √x is undefined, so f is not defined there and cannot be continuous there. Fix: List every domain restriction from each function family, such as roots, denominators, and logarithms, before testing an interval."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "[0, 3)",
+    "is_correct": false,
+    "rationale": "This choice excludes x = 3 but overlooks the zero at x = 1, which lies inside the interval. Since x² − 4x + 3 = (x − 1)(x − 3), f is undefined at x = 1, so it is not continuous on all of [0, 3). Fix: Factor the denominator completely and check whether each zero falls inside the interval."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "(2, 4)",
+    "is_correct": false,
+    "rationale": "This choice looks only at the endpoints. Both endpoints give defined values of f, but the interior point x = 3 makes the denominator zero, so f has a vertical asymptote inside the interval. Fix: Check every special point between the endpoints, not just the endpoints themselves, before claiming continuity on an interval."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "(1, 3)",
+    "is_correct": true,
+    "rationale": "f is a quotient of continuous functions, so it is continuous wherever it is defined. √x requires x ≥ 0, and the denominator (x − 1)(x − 3) is zero at x = 1 and x = 3. The open interval (1, 3) contains only nonnegative values and neither excluded point."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-ab__1.12#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.14",
+  "topic_title": "Connecting Infinite Limits and Vertical Asymptotes",
+  "stem": "A function f satisfies f(2) = 5. As x approaches 2 from the left, f(x) decreases without bound. As x approaches 2 from the right, f(x) increases without bound. Which statement correctly describes the one-sided limits and the vertical-asymptote behavior at x = 2?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "lim(x → 2⁻) f(x) = +∞ and lim(x → 2⁺) f(x) = +∞; x = 2 is a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Sign-of-infinity error: unbounded behavior is not always positive. The left-hand values decrease without bound, so that limit is −∞. Fix: Match each side’s description to its sign: increasing without bound means +∞, and decreasing without bound means −∞."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "lim(x → 2⁻) f(x) = −∞ and lim(x → 2⁺) f(x) = +∞; x = 2 is not a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Matching-sides misconception: opposite infinite limits prevent a two-sided limit, but they do not prevent a vertical asymptote. Unbounded behavior from even one side is sufficient. Fix: Check each one-sided limit for +∞ or −∞ before deciding whether the input identifies a vertical asymptote."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "lim(x → 2⁻) f(x) = −∞ and lim(x → 2⁺) f(x) = +∞; x = 2 is a vertical asymptote.",
+    "is_correct": true,
+    "rationale": "Decreasing without bound gives the left-hand limit −∞, while increasing without bound gives the right-hand limit +∞. An infinite limit from either side establishes a vertical asymptote at x = 2, regardless of f(2)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "lim(x → 2⁻) f(x) = 5 and lim(x → 2⁺) f(x) = 5; x = 2 is not a vertical asymptote.",
+    "is_correct": false,
+    "rationale": "Point-value substitution error: f(2) describes the value at the input, not the behavior nearby. The stated unbounded behavior determines the one-sided limits and establishes a vertical asymptote despite f(2) = 5. Fix: Set aside f(2) and use the stated nearby behavior to determine each one-sided limit."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-ab__1.14#r2-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.15",
+  "topic_title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+  "stem": "Let f(x) = (6x² − x + 1)/(3x² + 5x − 2). Which equation describes a horizontal asymptote of the graph of f?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "y = −1/2",
+    "is_correct": false,
+    "rationale": "This is f(0) = 1/(−2), found by letting x approach 0 instead of infinity. That is the documented error of confusing a finite-input limit with end behavior, so it gives the y-intercept, not where the graph levels off. Fix: write the limit as x → ∞ and x → −∞ before computing, and divide by the highest power of x."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "y = 2",
+    "is_correct": true,
+    "rationale": "A horizontal asymptote comes from a limit at infinity. Dividing every term by x² gives (6 − 1/x + 1/x²)/(3 + 5/x − 2/x²), and as x → ∞ or x → −∞ every term with x in a denominator goes to 0. Both limits equal 6/3 = 2, so the line is y = 2."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "x = −2",
+    "is_correct": false,
+    "rationale": "This confuses a vertical asymptote with a horizontal one. The denominator factors as (3x − 1)(x + 2), so x = −2 is where f is unbounded, and a vertical line cannot describe end behavior. Fix: ask what value f(x) approaches as x grows without bound, and write the answer in the form y = L."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "y = −1/5",
+    "is_correct": false,
+    "rationale": "This uses the coefficients of the x terms, −1 and 5, instead of the leading terms. For large |x|, the x² terms dominate, and the lower-degree terms shrink to 0 after dividing by x². Fix: identify the highest power of x in the denominator, divide every term by it, and keep only the terms that do not vanish."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-ab__1.15#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Estimating Limit Values from Graphs",
+  "stem": "The graph of f near x = 2 is described as follows: For 1 ≤ x < 2, a straight line segment runs from (1, 1) toward an open circle at (2, 3). For 2 < x ≤ 3, another straight line segment runs from an open circle at (2, 5) to (3, 4). There is a filled point at (2, 7), and there are no other graph pieces near x = 2. What is lim(x → 2) f(x)?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "3",
+    "is_correct": false,
+    "rationale": "Left-side-only trap: The left branch approaches 3, but the right branch approaches 5. A two-sided limit requires both sides to approach the same value. Fix: Trace toward x = 2 from the right as well as the left, and compare the approached y-values."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "5",
+    "is_correct": false,
+    "rationale": "Right-side-only trap: The right branch approaches 5, but the left branch approaches 3. Reading only the right branch does not establish a two-sided limit. Fix: Trace toward x = 2 from the left as well as the right, and compare the approached y-values."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The limit does not exist.",
+    "is_correct": true,
+    "rationale": "Tracing the graph toward x = 2 from the left gives y-values approaching 3; tracing from the right gives y-values approaching 5. Since the one-sided limits differ, the two-sided limit does not exist, regardless of the filled point at (2, 7)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "7",
+    "is_correct": false,
+    "rationale": "Function-value trap: The filled point shows f(2) = 7, not what nearby graph values approach. Here the two branches approach different heights, so the filled point cannot determine the limit. Fix: Ignore the filled point initially and trace the nearby graph toward x = 2 from both sides."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-ab__1.3#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 1,
+  "topic_code": "1.9",
+  "topic_title": "Connecting Multiple Representations of Limits",
+  "stem": "The function g is defined by g(x) = (x² − 4)/(x − 2) for x ≠ 2 and g(2) = 1. A table of values gives g(1.9) = 3.9, g(1.99) = 3.99, g(2.01) = 4.01, and g(2.1) = 4.1. A graph of g shows the line y = x + 2 with an open circle at (2, 4) and a filled dot at (2, 1). Which statement correctly describes the behavior of g near x = 2 in a way that is consistent with all three representations?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "lim (x→2) g(x) = 1, because g(2) = 1",
+    "is_correct": false,
+    "rationale": "This matches the limit to the function value instead of to the approach behavior. A limit describes what g(x) approaches as x nears 2, and the table, the simplified equation and the open circle all point to 4, not to the isolated value 1. Fix: Ignore the value at x = 2 and check what the outputs approach from both sides before stating the limit."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The table suggests 4 but the equation gives g(2) = 1, so the representations disagree and the limit cannot be determined",
+    "is_correct": false,
+    "rationale": "This compares approach behavior in one representation with a function value in another, then treats them as conflicting. Translated into the same claim, every representation says g(x) approaches 4 as x approaches 2; the value g(2) = 1 answers a different question. Fix: Rewrite each representation as 'as x approaches 2, g(x) approaches ___' before comparing them."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "lim (x→2) g(x) does not exist, because substituting x = 2 into (x² − 4)/(x − 2) gives 0/0",
+    "is_correct": false,
+    "rationale": "This treats the 0/0 form from substitution as a final answer instead of a signal to simplify. Factoring gives (x − 2)(x + 2)/(x − 2) = x + 2 for x ≠ 2, which approaches 4, matching the table and graph. Fix: When substitution gives 0/0, factor and cancel, then check the result against the table or graph."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "lim (x→2) g(x) = 4, and g(2) = 1",
+    "is_correct": true,
+    "rationale": "For x ≠ 2, the equation simplifies to g(x) = x + 2, which approaches 4. The table values approach 4 from both sides, and the open circle at (2, 4) marks the height the graph approaches. The filled dot at (2, 1) is only the function value, which does not affect the limit."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-ab__1.9#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-calculus-ab",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point",
+  "stem": "The volume V(t) of water in a tank is measured in liters, and t is measured in minutes. The function V is differentiable, but no formula is available. Selected values are given below.\n\nt (minutes): 0, 4, 6, 10\nV(t) (liters): 10, 18, 24, 30\n\nWhich statement correctly estimates V′(5) using the closest available times on opposite sides of t = 5?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "V′(5) ≈ 2 liters per minute.",
+    "is_correct": false,
+    "rationale": "Distant-data trap: (30 − 10)/(10 − 0) = 2 uses the endpoints of the entire table rather than the closest times surrounding 5. It describes a rate over a wider interval, not the requested local estimate. Fix: Select the nearest listed time below the target and the nearest listed time above it before computing the slope."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "V′(5) ≈ 3 liters per minute.",
+    "is_correct": true,
+    "rationale": "The closest available times surrounding 5 are 4 and 6, giving the local slope estimate (24 − 18)/(6 − 4) = 3 liters per minute. This nearby secant slope estimates the derivative; the table does not establish its exact value."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "V′(5) ≈ 6 liters per minute.",
+    "is_correct": false,
+    "rationale": "Missing-denominator trap: 24 − 18 = 6 is the change in volume, not a rate of change. The slope must also divide by the elapsed time, 6 − 4 = 2 minutes. Fix: Compute both the output change and input change, then divide the output change by the input change."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "V′(5) = 3 liters per minute exactly, as determined by the table.",
+    "is_correct": false,
+    "rationale": "Estimate-as-exact trap: the nearby secant slope is exactly 3, but it only estimates the derivative at 5. A finite table does not determine the exact tangent slope there. Fix: Use ≈ when reporting a derivative obtained from nearby table values unless additional information establishes exactness."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-calculus-ab__2.3#r2-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.2",
+  "topic_title": "Mass Spectra of Elements",
+  "stem": "A mass spectrum of a pure sample of element X shows only two peaks, both from singly charged monatomic ions. One peak is at 10.0 amu with a relative intensity of 25. The other is at 11.0 amu with a relative intensity of 100. The instrument scales the tallest peak to 100. What is the average atomic mass of X?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "10.5 amu",
+    "is_correct": false,
+    "rationale": "This is an unweighted average, (10.0 + 11.0)/2, which treats both isotopes as equally common. The 11.0 amu isotope is four times as abundant, so it must pull the average well above the midpoint. Fix: Convert each peak height to a fractional abundance and multiply each mass by its fraction before adding."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "11.0 amu",
+    "is_correct": false,
+    "rationale": "This reports only the mass of the tallest peak, as if the most abundant isotope alone set the atomic mass. The 10.0 amu isotope makes up 20% of the sample and lowers the average below 11.0. Fix: Include every peak in the sum, weighting each isotope mass by its fractional abundance."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "13.5 amu",
+    "is_correct": false,
+    "rationale": "This uses the scaled heights 0.25 and 1.00 as if they were fractions, giving 2.5 + 11.0. Those numbers sum to 1.25, not 1, so they are not true fractional abundances. A weighted average can never exceed the heaviest isotope's mass. Fix: Divide each peak height by the total of all heights so the fractions sum to 1."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "10.8 amu",
+    "is_correct": true,
+    "rationale": "The intensities total 125, so the fractional abundances are 25/125 = 0.20 and 100/125 = 0.80. Weighting each isotope mass by its fraction gives (10.0)(0.20) + (11.0)(0.80) = 2.0 + 8.8 = 10.8 amu. This value lies closer to 11.0 because that isotope is more abundant."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-chemistry__1.2#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Elemental Composition of Pure Substances",
+  "stem": "A pure compound contains only carbon, hydrogen, and oxygen. Elemental analysis shows it is 40.0% C, 6.7% H, and 53.3% O by mass, and its molar mass is 180 g/mol. What is the molecular formula of the compound?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "CH2O",
+    "is_correct": false,
+    "rationale": "This stops at the empirical formula. CH2O has a mass of only 30 g/mol, which does not match the given molar mass of 180 g/mol, so it cannot be the molecular formula. Fix: Divide the given molar mass by the empirical formula mass and multiply every subscript by that whole number."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "C6HO8",
+    "is_correct": false,
+    "rationale": "This divides the mass percentages directly by the smallest percentage (40.0 ÷ 6.7 ≈ 6, 53.3 ÷ 6.7 ≈ 8) without converting to moles. Mass ratios are not atom ratios because each element has a different molar mass. Fix: Convert each element's grams to moles using its molar mass before dividing by the smallest value."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "C6H6O6",
+    "is_correct": false,
+    "rationale": "This treats hydrogen as H2 (2.0 g/mol), giving 3.3 mol H and a false 1:1:1 ratio. Within a compound, hydrogen is counted as atoms with molar mass 1.008 g/mol, so there are about 6.6 mol H, twice the moles of C. Fix: Use the atomic molar mass from the periodic table for every element, never a diatomic molecular mass."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "C6H12O6",
+    "is_correct": true,
+    "rationale": "In a 100 g sample: 40.0 g C ÷ 12.01 g/mol ≈ 3.33 mol, 6.7 g H ÷ 1.008 g/mol ≈ 6.6 mol, 53.3 g O ÷ 16.00 g/mol ≈ 3.33 mol. Dividing by 3.33 gives 1:2:1, so the empirical formula is CH2O (30 g/mol). Since 180 ÷ 30 = 6, every subscript is multiplied by 6."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-chemistry__1.3#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 1,
+  "topic_code": "1.5",
+  "topic_title": "Atomic Structure and Electron Configuration",
+  "stem": "A neutral potassium atom has 19 protons and 19 electrons. In the notation below, [Ar] represents 1s² 2s² 2p⁶ 3s² 3p⁶. Which statement correctly gives potassium’s ground-state electron configuration and compares the energy needed to remove its outermost electron with that needed to remove a 1s electron?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "[Ar] 3d¹; the outermost electron requires less energy to remove because its greater average distance from the nucleus and greater shielding weaken its attraction to the nucleus.",
+    "is_correct": false,
+    "rationale": "Shell-number filling trap: This configuration places an electron in 3d before filling the lower-energy 4s subshell. Aufbau filling follows increasing subshell energy, not numerical shell order alone. Fix: After filling 3p, place the next electron in 4s before adding electrons to 3d."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "[Ar] 4s¹; the outermost electron and a 1s electron require equal energy to remove because both are attracted to the same 19-proton nucleus.",
+    "is_correct": false,
+    "rationale": "Nuclear-charge-only trap: Sharing the same nucleus does not give electrons equal attraction or equal removal energies. Electron–nucleus distance and shielding differ substantially between 4s and 1s electrons. Fix: Compare both average distance and shielding before using nuclear charge to judge electron attraction."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "[Ar] 4s¹; the outermost electron requires more energy to remove because shielding by inner electrons strengthens its attraction to the nucleus.",
+    "is_correct": false,
+    "rationale": "Reversed-shielding trap: Inner electrons reduce, rather than strengthen, the effective nuclear attraction experienced by the outermost electron. Together with its greater average distance, this shielding makes the 4s electron easier to remove than a 1s electron. Fix: Treat increased shielding as reduced effective nuclear attraction, then connect weaker attraction to lower removal energy."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "[Ar] 4s¹; the outermost electron requires less energy to remove because its greater average distance from the nucleus and greater shielding weaken its attraction to the nucleus.",
+    "is_correct": true,
+    "rationale": "Aufbau filling places the nineteenth electron in 4s after 3p is filled. Compared with a 1s electron, the 4s electron is farther from the nucleus on average and more shielded by other electrons, so it experiences weaker Coulombic attraction and requires less energy to remove."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-chemistry__1.5#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Types of Chemical Bonds",
+  "stem": "A student compares four single bonds between second-period atoms: C–F, N–F, O–F, and F–F. Electronegativity increases from left to right across a period. Which statement correctly identifies the most polar of these bonds and describes how its bonding electrons are distributed?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "C–F is the most polar; the shared electrons are pulled toward F, so F carries the partial negative charge.",
+    "is_correct": true,
+    "rationale": "Across period 2, electronegativity rises C < N < O < F, so carbon differs most from fluorine. The largest electronegativity difference gives the largest bond dipole. Fluorine, the more electronegative atom, pulls the shared pair closer and carries δ−, while carbon carries δ+."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "O–F is the most polar; it joins the two most electronegative atoms, and the shared electrons are pulled toward F.",
+    "is_correct": false,
+    "rationale": "This trap ranks polarity by how electronegative the atoms are rather than by the difference between them. O and F are close in electronegativity, so their pull on the shared pair is nearly balanced, and O–F is the least polar of the heteroatomic bonds listed. Fix: Compute or estimate the electronegativity difference for each pair before ranking bond polarity."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "C–F is the most polar; the shared electrons are pulled toward C, so C carries the partial negative charge.",
+    "is_correct": false,
+    "rationale": "The bond is chosen correctly, but the partial charges are reversed. Carbon is less electronegative than fluorine, so the shared pair spends more time near F, leaving C partially positive. Fix: Ask which atom is more electronegative, and place δ− on that atom."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "C–F is the most polar; the electrons are fully transferred to F, so it is an ionic bond rather than a polar covalent bond.",
+    "is_correct": false,
+    "rationale": "This trap treats ionic and covalent as two separate boxes, so a large difference is read as complete transfer. C and F are both nonmetals that share electrons unequally, so C–F is polar covalent, with partial charges rather than full ionic charges. A large difference only means more ionic character. Fix: Place the bond on the continuum, and ask whether the electrons are shared unequally or truly transferred."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-chemistry__2.1#r2-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-chemistry",
+  "unit_number": 3,
+  "topic_code": "3.8",
+  "topic_title": "Representations of Solutions",
+  "stem": "Two particulate models represent aqueous NaCl solutions. Model P contains 4 Na⁺ symbols and 4 Cl⁻ symbols in a solution volume V. Model Q contains 6 Na⁺ symbols and 6 Cl⁻ symbols in a solution volume 2V. Each ion symbol represents the same number of ions in both models, and all ions are dispersed throughout the water. Water molecules have a partially negative oxygen end and partially positive hydrogen ends. Which interpretation correctly compares the Na⁺ concentrations and describes the orientation of nearby water molecules around Na⁺?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Model P has the greater Na⁺ concentration, and the oxygen ends of nearby water molecules point toward Na⁺.",
+    "is_correct": true,
+    "rationale": "Compare Na⁺ count per represented solution volume: 4/V > 6/(2V) = 3/V, so P has the greater Na⁺ concentration. The partially negative oxygen end of water is attracted to the positive Na⁺ ion."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Model Q has the greater Na⁺ concentration because it contains more Na⁺ symbols, and the oxygen ends of nearby water molecules point toward Na⁺.",
+    "is_correct": false,
+    "rationale": "Raw-count trap: More drawn ions do not necessarily mean greater concentration when the represented volumes differ. Q has more Na⁺ symbols but twice the solution volume, giving fewer Na⁺ symbols per unit volume. Fix: Divide each model’s Na⁺ count by its represented solution volume before comparing concentrations."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The models have equal Na⁺ concentrations because both have a 1:1 ratio of Na⁺ to Cl⁻, and the oxygen ends of nearby water molecules point toward Na⁺.",
+    "is_correct": false,
+    "rationale": "Ion-ratio trap: The Na⁺:Cl⁻ ratio describes relative ion amounts, not the number of Na⁺ ions per solution volume. Both models have the same ion ratio, but their Na⁺ counts per unit volume differ. Fix: Compare Na⁺ count per represented solution volume rather than the Na⁺:Cl⁻ ratio."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Model P has the greater Na⁺ concentration, and the hydrogen ends of nearby water molecules point toward Na⁺.",
+    "is_correct": false,
+    "rationale": "Reversed-water-orientation trap: The partially positive hydrogen ends are repelled by Na⁺, not attracted to it. A suitable particulate representation places the partially negative oxygen end toward Na⁺. Fix: Mark the ion’s charge and water’s partial charges, then orient the oppositely charged end toward the ion."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-chemistry__3.8#r2-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 1,
+  "topic_code": "1.10",
+  "topic_title": "The Investigative Question Revisited and Data Collection",
+  "stem": "Researchers want to investigate whether adults who regularly walk to work have different sleep durations from adults who do not. They enroll adults today and record their usual commuting habits. For the next six months, researchers measure each adult’s sleep duration weekly and compare the two groups. Researchers do not assign commuting methods or ask anyone to change their habits. Which classification and explanation best describe this study?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "A prospective observational study, because researchers impose no treatment and collect sleep data going forward from enrollment.",
+    "is_correct": true,
+    "rationale": "Researchers record commuting habits without assigning or changing them, so the study is observational. The sleep measurements are collected over the next six months, making it prospective."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "A retrospective observational study, because the adults’ commuting habits existed before enrollment.",
+    "is_correct": false,
+    "rationale": "The trap is using the age of a habit to determine the study’s time direction. Existing commuting habits do not make this retrospective; researchers collect sleep data going forward rather than looking back through past records. Fix: Locate when the study’s data are collected, not when the subjects’ habits began."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "An experiment, because researchers repeatedly measure the adults’ sleep over six months.",
+    "is_correct": false,
+    "rationale": "The trap is treating repeated measurement as an imposed treatment. Tracking sleep over time records an outcome but does not assign or change the adults’ commuting habits. Fix: Ask what treatment researchers imposed before classifying repeated tracking as an experiment."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "An experiment, because researchers compare adults who walk to work with adults who do not.",
+    "is_correct": false,
+    "rationale": "The trap is assuming that comparing groups makes a study experimental. These groups arise from existing habits, not treatments imposed by the researchers; observational studies can also compare groups. Fix: Check whether researchers created the groups by imposing treatments or simply recorded existing differences."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-statistics__1.10#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 2,
+  "topic_code": "2.12",
+  "topic_title": "Sampling Distributions and the Central Limit Theorem",
+  "stem": "A company's population of delivery times is strongly right-skewed. For every possible sample of size n, with observations selected independently with replacement, imagine calculating the sample mean and placing one dot at that mean. Suppose n is large enough for the Central Limit Theorem to give a good normal approximation. Which statement correctly describes this plot and what happens when n increases further?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Each dot represents one individual delivery time from a single sample. The plot is approximately normal and has less spread as n increases.",
+    "is_correct": false,
+    "rationale": "This is the individual-versus-statistic confusion: the plotted values are means of whole samples, not individual delivery times. The Central Limit Theorem does not promise that the data within a large sample become normally distributed. Fix: Identify what was calculated before each dot was placed, and label the dot as an individual value or a sample statistic."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Each dot represents one whole sample's mean. The plot has less spread as n increases because the Central Limit Theorem makes the population approximately normal.",
+    "is_correct": false,
+    "rationale": "This is the population-normality misconception: the Central Limit Theorem concerns the sampling distribution of the mean, not the population. Taking larger samples does not change the population's right-skewed shape. Fix: Name the distribution receiving the normal approximation, and check whether its values are individuals or whole samples' means."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Each dot represents one whole sample's mean. The plot is approximately normal and has greater spread as n increases, while the population remains right-skewed.",
+    "is_correct": false,
+    "rationale": "This is the reversed-spread misconception: larger samples make sample means less variable, not more variable. Averaging more observations reduces the influence of individual unusually high or low values on each sample mean. Fix: When comparing sample sizes, track the variability of the sample means rather than the range of individual observations."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Each dot represents one whole sample's mean. The plot is approximately normal and has less spread as n increases, while the population remains right-skewed.",
+    "is_correct": true,
+    "rationale": "Plotting a statistic from every possible sample produces a sampling distribution, not a distribution of individual delivery times. The Central Limit Theorem explains its approximate normality, and larger samples produce less variable means without changing the population."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-statistics__2.12#r2-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Estimators",
+  "stem": "A town has 5,000 adult residents, and a recent census found that 60% support a proposed park. A researcher selects a simple random sample of 100 adult residents; all respond accurately, and 54% support the park. Let p be the population proportion who support the park and p̂ be the sample proportion. Which statement correctly identifies the estimator and explains whether the sample result shows bias?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The statistic p̂ estimates the parameter p. It is unbiased under this sampling method: across repeated simple random samples, it does not systematically overestimate or underestimate p, even though this sample gives 0.54 rather than 0.60.",
+    "is_correct": true,
+    "rationale": "The sample proportion is the statistic used to estimate the town’s population proportion. With simple random sampling and accurate responses from everyone selected, p̂ is unbiased: its average across repeated samples equals p = 0.60. An individual estimate can differ from p because of sampling variability."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The statistic p̂ estimates the parameter p, but it is biased downward because 0.54 is less than 0.60.",
+    "is_correct": false,
+    "rationale": "Single-sample bias trap: one underestimate does not establish systematic underestimation. Bias describes the estimator’s average behavior across repeated samples, not the direction of one sample’s error. Fix: Ask whether the sampling method systematically underestimates across repeated samples rather than comparing only one estimate with p."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The statistic p = 0.60 estimates the parameter p̂ = 0.54, and the difference between them is due to sampling variability.",
+    "is_correct": false,
+    "rationale": "Parameter–statistic reversal: p describes all adult residents, so it is the population parameter; p̂ is calculated from the sample, so it is the statistic. The sample statistic estimates the population parameter, not the reverse. Fix: Identify which proportion describes the entire population and which is calculated from the selected sample before naming the estimator."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "An unbiased p̂ must equal p in every simple random sample, so the result 0.54 shows that this sample could not have been selected randomly.",
+    "is_correct": false,
+    "rationale": "Unbiasedness-as-exactness trap: unbiasedness does not require every estimate to equal the parameter. Random samples can produce different proportions; unbiasedness concerns their average, so 0.54 does not contradict simple random sampling. Fix: Separate the requirement that estimates average to p from the incorrect requirement that every estimate equal p."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-statistics__3.1#r2-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.12",
+  "topic_title": "Setting Up a Test for the Difference Between Two Population Proportions",
+  "stem": "A district wants to know whether the proportion of students who ride the bus is greater at School A than at School B. A random sample of 200 School A students found 90 bus riders, and an independent random sample of 150 School B students found 54 bus riders. Which choice gives a correct setup for a significance test, including the pooled proportion used for the null model?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Let p̂_A = 90/200 and p̂_B = 54/150. H₀: p̂_A = p̂_B, Hₐ: p̂_A > p̂_B; pooled p̂_c = (90 + 54)/(200 + 150) ≈ 0.411.",
+    "is_correct": false,
+    "rationale": "This writes hypotheses about sample statistics instead of population parameters. Hypotheses must concern unknown population proportions; the sample proportions 0.45 and 0.36 are already known and plainly differ, so testing them makes no sense. Fix: Check that every symbol in H₀ and Hₐ is a parameter p, defined for an entire population, never a p̂."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Let p_A = the proportion of all School A students who ride the bus and p_B = the proportion of all School B students who ride the bus. H₀: p_A − p_B = 0, Hₐ: p_A − p_B > 0; pooled p̂_c = (90 + 54)/(200 + 150) ≈ 0.411.",
+    "is_correct": true,
+    "rationale": "Both parameters are defined as population proportions in context, and the alternative's direction matches the claim that School A's proportion is greater. Because H₀ assumes p_A = p_B, the null model pools all successes over all observations: 144/350 ≈ 0.411."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Let p_A = the proportion of all School A students who ride the bus and p_B = the proportion of all School B students who ride the bus. H₀: p_A − p_B = 0, Hₐ: p_A − p_B > 0; pooled p̂_c = (0.45 + 0.36)/2 = 0.405.",
+    "is_correct": false,
+    "rationale": "The hypotheses are right, but the pooled proportion was found by averaging the two sample proportions without weighting by sample size. Since the samples differ in size (200 versus 150), the simple average misstates the combined proportion, which is 144/350 ≈ 0.411. Fix: Compute the pooled proportion as total successes divided by total sample size, (x₁ + x₂)/(n₁ + n₂)."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Let p₁ = the proportion of all School B students who ride the bus and p₂ = the proportion of all School A students who ride the bus. H₀: p₁ − p₂ = 0, Hₐ: p₁ − p₂ > 0; pooled p̂_c = (90 + 54)/(200 + 150) ≈ 0.411.",
+    "is_correct": false,
+    "rationale": "This is a sign error caused by the labeling. With p₁ defined as School B, Hₐ: p₁ − p₂ > 0 claims School B's proportion is greater, which is the opposite of the district's question. Fix: After defining p₁ and p₂, ask whether Hₐ, read in words, states the claim in the prompt."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-statistics__3.12#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.15",
+  "topic_title": "Carrying Out a Chi-Square Test for Homogeneity or Independence",
+  "stem": "A random sample of 150 students at a large high school was classified by grade group and preferred lunch option. Underclass students (90): hot meal 52, salad bar 6, packed lunch 32. Upperclass students (60): hot meal 23, salad bar 14, packed lunch 23. The expected counts are 45, 12, 33 for underclass and 30, 8, 22 for upperclass. The chi-square test for independence gives χ² ≈ 10.30 with df = 2 and p-value ≈ 0.006. At α = 0.05, which statement correctly completes the test?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The expected count of 8 for upperclass salad bar is less than 10, so the expected-counts condition fails and the chi-square test should not be carried out.",
+    "is_correct": false,
+    "rationale": "This applies the large-counts threshold of 10 from proportion tests to a chi-square test. The chi-square condition only requires every expected count to exceed 5, and 8 does, so the test is valid. Fix: Check each expected count (not observed count) against 5 whenever you run a chi-square test for homogeneity or independence."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "All expected counts are greater than 5, so the condition is met. Because 0.006 < 0.05, reject H₀: there is convincing evidence of an association between grade group and lunch preference among students at this school.",
+    "is_correct": true,
+    "rationale": "The smallest expected count is 8, and the chi-square condition requires every expected count to exceed 5. The p-value is below α, so we reject H₀. The conclusion is stated in context, refers to the school's population, and uses non-definitive \"convincing evidence\" language for the alternative hypothesis of association."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "All expected counts exceed 5. The p-value of 0.006 means there is only a 0.6% probability that grade group and lunch preference are independent, so reject H₀.",
+    "is_correct": false,
+    "rationale": "This misreads the p-value as the probability that H₀ is true. A p-value assumes H₀ is true. It gives the probability of getting a χ² value of 10.30 or larger by chance alone under that assumption. Fix: Phrase the p-value as \"assuming no association, the probability of χ² ≥ 10.30 is 0.006.\""
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "All expected counts exceed 5. Because 0.006 < 0.05, the test proves that being an upperclass student causes a student to prefer the salad bar.",
+    "is_correct": false,
+    "rationale": "This uses definitive language and makes a causal claim. A test only provides convincing evidence, never proof. The data come from a random sample, not an experiment, so the test can show an association but cannot show cause. Fix: Ask whether treatments were randomly assigned before claiming causation, and write \"convincing evidence of an association.\""
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-statistics__3.15#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "ap-statistics",
+  "unit_number": 3,
+  "topic_code": "3.6",
+  "topic_title": "p-Values",
+  "stem": "A city surveys a simple random sample of 100 adults from its 10,000 adult residents. Of those sampled, 60 support a proposed bus route. Let p be the proportion of all adult residents who support the route. A normal-approximation test of H₀: p = 0.50 against Hₐ: p > 0.50 gives an approximate p-value of 0.023; all conditions for the test have been verified. Which statement correctly interprets this p-value?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Given the sample results, the probability that exactly 50% of all adult residents support the route is approximately 0.023.",
+    "is_correct": false,
+    "rationale": "This is the probability-of-the-null trap. The p-value describes sample results under the assumption p = 0.50; it does not give the probability that this population claim is true. Fix: Begin your interpretation with the null assumption, then identify the sample outcomes whose probability is being described."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Assuming 50% of all adult residents support the route, the probability of getting exactly 60 supporters in a random sample of 100 adults is approximately 0.023.",
+    "is_correct": false,
+    "rationale": "This is the exact-result trap. A p-value includes the observed result and results more extreme in the direction of the alternative, rather than only the single observed count. Fix: Replace “exactly” with a range that includes the observed result and all more extreme results in the alternative’s direction."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Assuming 50% of all adult residents support the route, the probability of getting 60 or fewer supporters in a random sample of 100 adults is approximately 0.023.",
+    "is_correct": false,
+    "rationale": "This is the wrong-tail trap. The alternative p > 0.50 makes larger counts evidence against the null, so counting downward from 60 uses the wrong direction. Fix: Check the alternative’s inequality and count outcomes from the observed result toward that direction."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Assuming 50% of all adult residents support the route, the probability of getting 60 or more supporters in a random sample of 100 adults is approximately 0.023.",
+    "is_correct": true,
+    "rationale": "A p-value is a probability of sample results calculated assuming the null hypothesis is true. Because the alternative is p > 0.50, results at least as extreme as the observed result are 60 or more supporters, not just exactly 60."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "ap-statistics__3.6#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.3",
+  "topic_title": "Introduction to Macromolecules",
+  "stem": "A researcher incubates a solution of a long biological polymer with an enzyme. Over the next hour, the concentration of free monomers in the solution rises and the average chain length of the polymer falls. Which statement correctly describes the reaction occurring in the solution?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Dehydration synthesis is occurring: water is released as covalent bonds between monomers are broken.",
+    "is_correct": false,
+    "rationale": "This error links the word 'dehydration' to any reaction involving water and attaches it to bond breaking. Dehydration synthesis forms bonds and releases water, so it cannot explain chains getting shorter. Fix: Ask whether the molecule is getting larger or smaller, then match building to dehydration synthesis and breaking to hydrolysis."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Hydrolysis is occurring: water is released as covalent bonds between monomers are broken.",
+    "is_correct": false,
+    "rationale": "The reaction is named correctly, but the direction of water movement is reversed. In hydrolysis ('water splitting'), water is added across the bond and split into H and OH, so water is consumed, not produced. Fix: Check that the water direction matches the name: hydrolysis uses water, and dehydration synthesis releases it."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Hydrolysis is occurring: water is consumed as covalent bonds between monomers are broken.",
+    "is_correct": true,
+    "rationale": "Rising free monomers and shrinking chains show the polymer is being broken apart. Hydrolysis cleaves the covalent bond between monomers by adding a water molecule, with H going to one monomer and OH to the other. So water is used up as each bond breaks."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Dehydration synthesis is occurring: water is consumed as covalent bonds form between monomers.",
+    "is_correct": false,
+    "rationale": "This choice reads the data backward, treating the experiment as polymer building, and also reverses water use in dehydration synthesis. More free monomers and shorter chains mean bonds are being broken. Dehydration synthesis would also release water, not consume it. Fix: Check the trend in monomer concentration first, since monomers rising means a polymer is being broken down."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "biology__1.3#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 1,
+  "topic_code": "1.7",
+  "topic_title": "Proteins",
+  "stem": "A protein consisting of a single polypeptide must bind a particular small molecule to perform its function. A variant replaces one charged amino acid with an amino acid having a nonpolar R group. Both versions have the same chain length and intact peptide bonds, but the variant binds the molecule less effectively. Which explanation best connects the amino acid replacement to the reduced function?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Because the chain length is unchanged, the protein’s folding must be unchanged; reduced binding is unrelated to its shape.",
+    "is_correct": false,
+    "rationale": "Trap: equating chain length with protein shape. Proteins of equal length can have different amino acid sequences and R-group interactions, producing different shapes and functions. Fix: Compare R-group properties, not just amino acid counts, before predicting whether folding will change."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The replacement breaks peptide bonds, fragmenting the polypeptide and eliminating the surface needed for binding.",
+    "is_correct": false,
+    "rationale": "Trap: confusing altered R-group interactions with a broken backbone. The stem states that peptide bonds remain intact, so fragmentation cannot explain the reduced binding. Fix: Check whether the evidence indicates broken peptide bonds or altered interactions within an intact chain."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The replacement can alter R-group interactions, changing the protein’s folding and binding surface so that it binds the molecule less effectively.",
+    "is_correct": true,
+    "rationale": "Changing an amino acid changes the primary structure and can alter interactions that stabilize the protein’s three-dimensional shape. A changed binding surface can reduce binding and therefore function, completing the sequence → interactions → folding/shape → function chain."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "The replacement disrupts the hydrogen bonds between R groups that define alpha helices, changing the surface needed for binding.",
+    "is_correct": false,
+    "rationale": "Trap: assigning secondary structure to R-group hydrogen bonds. Alpha helices are stabilized by hydrogen bonds between backbone atoms, whereas R-group interactions help determine tertiary structure. Fix: Identify whether the proposed interaction involves backbone atoms or R groups before naming the affected structural level."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "biology__1.7#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.10",
+  "topic_title": "Origins of Cell Compartmentalization",
+  "stem": "A student is asked to explain how cell compartmentalization arose and how it differs between prokaryotes and eukaryotes. Which statement gives the most accurate explanation?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Mitochondria and chloroplasts formed when the host cell's plasma membrane folded inward around parts of its own cytoplasm. Prokaryotes lack these organelles, and eukaryotes use internal membranes to partition the cell.",
+    "is_correct": false,
+    "rationale": "This trap swaps endosymbiosis for simple membrane infolding. Infolding cannot explain the origin of these organelles, because they descend from once free-living prokaryotic cells that lived inside a host. Fix: Ask whether the explanation names a once free-living prokaryote as the ancestor of the organelle."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Mitochondria and chloroplasts descended from engulfed free-living prokaryotes. Prokaryotes have no internal organization, so all of their molecules and reactions mix freely, while eukaryotes partition the cell with internal membranes.",
+    "is_correct": false,
+    "rationale": "The origin is correct, but this makes the common error of treating prokaryotes as unorganized bags of molecules. Prokaryotes typically lack membrane-bound organelles, yet they still have specialized internal regions where particular functions occur. Fix: Check that the claim says prokaryotes lack membrane-bound organelles rather than lacking all internal organization."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Because mitochondria and chloroplasts evolved from prokaryotes, modern prokaryotes also contain mitochondria and chloroplasts. Both cell types therefore compartmentalize using membrane-bound organelles.",
+    "is_correct": false,
+    "rationale": "This trap confuses an organelle's ancestry with where it is found today. The engulfed ancestors were whole prokaryotic cells, and modern prokaryotes typically lack membrane-bound organelles such as mitochondria and chloroplasts. Fix: Ask whether the statement describes the ancestor of an organelle or describes the cells that contain the organelle now."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Mitochondria and chloroplasts descended from once free-living prokaryotes that were engulfed by a host cell, which fits their double membranes. Prokaryotes typically lack membrane-bound organelles but still have specialized internal regions, while eukaryotes use internal membranes to partition the cell.",
+    "is_correct": true,
+    "rationale": "This states the endosymbiotic origin from free-living prokaryotes and supports it with the double membrane, which is consistent with one cell engulfing another. It also makes the comparison correctly: prokaryotes are organized into specialized regions without membrane-bound organelles, whereas eukaryotes partition the cell with internal membranes."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "biology__2.10#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 2,
+  "topic_code": "2.3",
+  "topic_title": "Plasma Membrane",
+  "stem": "A researcher studies a plasma membrane protein whose polypeptide chain crosses the membrane exactly once. Its amino acid sequence has three consecutive regions: Region 1 (about 100 amino acids) has mostly polar and charged R groups, Region 2 (about 20 amino acids) has almost entirely nonpolar R groups, and Region 3 (about 80 amino acids) has mostly polar and charged R groups. Based on the structure of the phospholipid bilayer, which statement best describes how this protein is positioned in the membrane?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Regions 1 and 3 lie within the bilayer interior, while Region 2 is exposed to the aqueous fluid outside the cell.",
+    "is_correct": false,
+    "rationale": "This reverses the bilayer's layout, treating the membrane interior as hydrophilic because the phosphate heads are charged. The heads face the water; the interior is made of hydrophobic fatty acid tails, which cannot stably surround charged and polar R groups. Fix: Sketch the bilayer first, label heads outward and tails inward, then match each protein region to the environment it resembles chemically."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "The entire protein sits on the outer surface of the membrane, bound to the phosphate heads, because proteins are hydrophilic molecules.",
+    "is_correct": false,
+    "rationale": "This assumes all membrane proteins are hydrophilic and ignores the long nonpolar Region 2 and the stated single membrane crossing. Embedded proteins can be hydrophilic, hydrophobic, or both, and are oriented so each part matches its surroundings. Fix: Check the R-group chemistry of each region and ask whether any segment is nonpolar enough to sit among the fatty acid tails."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "Region 2 lies within the bilayer interior, while Regions 1 and 3 both extend into the extracellular fluid on the same side of the membrane.",
+    "is_correct": false,
+    "rationale": "This correctly places the hydrophobic segment but fails to trace the chain's path. A chain that crosses the bilayer only once must enter from one side and exit on the other, so the regions flanking the crossing cannot finish on the same side. Fix: Trace the polypeptide from one end to the other and count each crossing to determine which side every hydrophilic region ends on."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Region 2 lies within the bilayer interior, while Regions 1 and 3 extend into the aqueous fluids on opposite sides of the membrane.",
+    "is_correct": true,
+    "rationale": "Phospholipid tails form a hydrophobic core, so the nonpolar R groups of Region 2 are stable there. The polar and charged Regions 1 and 3 interact with water and hydrophilic heads, and because the chain crosses only once, the segments before and after the crossing must end up on opposite sides."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "biology__2.3#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.1",
+  "topic_title": "Enzymes",
+  "stem": "A digestive enzyme rapidly hydrolyzes one specific disaccharide but does not act on a second disaccharide made of the same monosaccharides joined with a different bond orientation. Which statement best explains both the enzyme's specificity and how it increases the rate of the reaction it catalyzes?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "Only the first disaccharide's shape and charge fit the active site, so it forms an enzyme–substrate complex in which the enzyme lowers the activation energy needed to break the bond.",
+    "is_correct": true,
+    "rationale": "Specificity comes from complementary shape and charge between substrate and active site; the other disaccharide's different bond orientation prevents a proper fit. Once bound, the enzyme lowers the activation energy barrier, so more substrate molecules react per unit time without the enzyme being consumed."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Only the first disaccharide fits the active site, and the enzyme then transfers energy to it, raising the substrate's energy until the bond breaks.",
+    "is_correct": false,
+    "rationale": "This is the misconception that enzymes add energy to reactions. Enzymes are catalysts that lower the activation energy barrier; they do not supply energy to push substrates over an unchanged barrier. Fix: When explaining catalysis, ask whether your answer changes the height of the barrier or the energy added, and choose lowering the barrier."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "The enzyme lowers activation energy for any disaccharide that collides with it, so the second disaccharide is not hydrolyzed only because it is present at lower concentration.",
+    "is_correct": false,
+    "rationale": "This ignores the enzyme–substrate fit model and treats catalysis as nonspecific. Because the second disaccharide's shape does not fit the active site, it cannot form an enzyme–substrate complex regardless of its concentration. Fix: Check whether the substrate's shape and charge match the active site before attributing a difference in reaction to concentration."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "Only the first disaccharide fits the active site, and binding makes the hydrolysis release more energy overall, which drives the reaction faster.",
+    "is_correct": false,
+    "rationale": "This confuses activation energy with the overall energy difference between reactants and products. An enzyme lowers only the activation energy; the energy released by the reaction is the same with or without the enzyme. Fix: Separate the energy barrier from the reactant-to-product energy difference, and check which one an enzyme actually changes."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "biology__3.1#r1-anthropic",
+   "author": "anthropic/claude-opus-5.5",
+   "checkers": [
+    "openai/gpt-6.1-sol",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ },
+ {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy",
+  "stem": "A membrane pump moves a solute from a region of lower concentration to a region of higher concentration, a process that requires energy input. During each pumping cycle, ATP is converted to ADP and inorganic phosphate. Which explanation best connects this ATP conversion to the work performed by the pump?",
+  "choices": [
+   {
+    "choice_key": "A",
+    "choice_text": "The presence of ATP supplies the required energy, so the pump could perform the same work without converting ATP to ADP and phosphate.",
+    "is_correct": false,
+    "rationale": "ATP-as-energy trap: Merely having ATP nearby does not explain how energy is transferred to the pump. In this pumping cycle, ATP hydrolysis must be coupled to solute movement. Fix: Identify the energy-releasing reaction and explain how it is linked to the work being performed."
+   },
+   {
+    "choice_key": "B",
+    "choice_text": "Movement of the solute against its concentration gradient releases energy that drives the conversion of ATP to ADP and phosphate.",
+    "is_correct": false,
+    "rationale": "Reversed-coupling trap: This reverses the roles of the two processes. The stated solute movement requires energy input; ATP hydrolysis is the energy-releasing process that supports it. Fix: Mark which process requires energy and which releases energy before describing the direction of energy transfer."
+   },
+   {
+    "choice_key": "C",
+    "choice_text": "ATP hydrolysis creates new energy that the pump uses to move the solute against its concentration gradient.",
+    "is_correct": false,
+    "rationale": "Energy-creation trap: ATP hydrolysis does not create energy, because energy is conserved. It releases chemical energy that can be transferred through coupling to support cellular work. Fix: Check whether your explanation describes energy transfer or transformation rather than the creation of new energy."
+   },
+   {
+    "choice_key": "D",
+    "choice_text": "ATP hydrolysis releases energy that is coupled to the energy-requiring movement of the solute against its concentration gradient.",
+    "is_correct": true,
+    "rationale": "Moving the solute against its concentration gradient requires energy input. Coupling that movement to energy-releasing ATP hydrolysis allows the pump to perform work that would otherwise be energetically unfavorable."
+   }
+  ],
+  "provenance": {
+   "candidate_id": "biology__3.3#r1-openai",
+   "author": "openai/gpt-6.1-sol",
+   "checkers": [
+    "anthropic/claude-opus-5.5",
+    "google/gemini-3.8-flash",
+    "deepseek/deepseek-v4-pro",
+    "moonshotai/kimi-k3"
+   ],
+   "batch": "batch"
+  }
+ }
+]

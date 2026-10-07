@@ -3,6 +3,13 @@ import { createServiceClient } from "../_shared/supabase.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { stripe, verifyStripeWebhookEvent } from "../_shared/stripe.ts";
 import { isPayerNotLearner } from "../_shared/addon-checkout.ts";
+import { enqueuePaymentEmail } from "../_shared/payment-email.ts";
+import {
+  buildPayerReceiptEmail,
+  buildPayerRefundEmail,
+  enqueuePayerEmail,
+  payerEmailsEnabled,
+} from "../_shared/payer-email.ts";
 import {
   isFullyRefunded,
   isSettledPaymentStatus,
@@ -461,6 +468,39 @@ async function handleCheckoutSessionEvent(
         .eq("id", session.id);
       if (error) throw error;
     }
+    // Fulfilled access must be visible before independent notification work.
+    // A queue failure can retry this webhook without hiding the paid order.
+    const intentId = objectId(session.payment_intent);
+    if (session.payment_status === "paid" && intentId) {
+      const intent = await stripe.paymentIntents.retrieve(intentId);
+      const chargeId = objectId(intent.latest_charge);
+      if (!chargeId) throw new Error("checkout_fulfillment_missing_charge");
+      const currentCharge = await stripe.charges.retrieve(chargeId);
+      if (isFullyRefunded(currentCharge)) {
+        // A refund event can be processed before this checkout event. Reconcile
+        // current Stripe state after granting so replay cannot restore access.
+        await handleChargeRefunded(service, {
+          id: currentCharge.id,
+          payment_intent: intentId,
+          refunded: currentCharge.refunded,
+          amount: currentCharge.amount,
+          amount_refunded: currentCharge.amount_refunded,
+          currency: currentCharge.currency,
+        }, eventId);
+        return;
+      }
+    }
+    const metadata = session.metadata ?? {};
+    await enqueueCheckoutPayerReceipt(service, session);
+    await enqueuePaymentEmail(service, userId, {
+      sessionId: session.id,
+      purchaseType: metadata.purchase_type ?? metadata.purchaser_type ?? "",
+      subjects: metadata.mode === "unlimited"
+        ? "All AP subjects"
+        : metadata.subject_ids ?? "",
+      amountTotal: session.amount_total ?? 0,
+      currency: session.currency ?? "usd",
+    });
     return;
   }
 
@@ -484,6 +524,68 @@ async function handleCheckoutSessionEvent(
       promotion_codes: unique(discounts.map((entry) => entry.promotion_code)),
     },
   });
+}
+
+function purchasedSubjects(session: CheckoutSessionObject) {
+  return session.metadata?.mode === "unlimited"
+    ? "All AP subjects"
+    : session.metadata?.subject_ids ?? "";
+}
+
+async function enqueueCheckoutPayerReceipt(
+  service: Service,
+  session: CheckoutSessionObject,
+) {
+  if (!payerEmailsEnabled() || session.payment_status !== "paid") return;
+  const intentId = objectId(session.payment_intent);
+  if (!intentId) throw new Error("payer_receipt_missing_payment_intent");
+  const intent = await stripe.paymentIntents.retrieve(intentId);
+  const chargeId = objectId(intent.latest_charge);
+  if (!chargeId) throw new Error("payer_receipt_missing_charge");
+  const charge = await stripe.charges.retrieve(chargeId);
+  if (objectId(charge.payment_intent) !== intentId) {
+    throw new Error("payer_receipt_charge_mismatch");
+  }
+  await enqueuePayerEmail(
+    service,
+    buildPayerReceiptEmail(charge, purchasedSubjects(session)),
+  );
+}
+
+async function enqueueSuccessfulPayerRefund(
+  service: Service,
+  refundId: string,
+) {
+  if (!payerEmailsEnabled()) return;
+  // Retrieve current state: a created event can be pending, and webhook
+  // deliveries can be out of order. Only individual succeeded refunds qualify.
+  const refund = await stripe.refunds.retrieve(refundId);
+  if (refund.status !== "succeeded") return;
+  const chargeId = objectId(refund.charge);
+  if (!chargeId) throw new Error("payer_refund_missing_charge");
+  const charge = await stripe.charges.retrieve(chargeId);
+  const intentId = objectId(charge.payment_intent);
+  if (!intentId) return;
+  const sessions = await stripe.checkout.sessions.list({
+    payment_intent: intentId,
+    limit: 1,
+  });
+  const session = sessions.data[0];
+  if (!session) return;
+  // Scope notifications to our recorded purchases, never unrelated payments
+  // in the Stripe account. A refund racing fulfillment must be retried.
+  const { data: purchase, error } = await service.schema("app")
+    .from("stripe_checkout_sessions").select("id").eq("id", session.id)
+    .maybeSingle();
+  if (error || !purchase) throw new Error("payer_refund_purchase_not_recorded");
+  await enqueuePayerEmail(
+    service,
+    buildPayerRefundEmail(
+      charge,
+      refund,
+      purchasedSubjects(session as unknown as CheckoutSessionObject),
+    ),
+  );
 }
 
 // A Charge doesn't carry the checkout session id directly -- Stripe's own
@@ -675,6 +777,10 @@ Deno.serve(async (req) => {
         event.data.object as unknown as ChargeObject,
         event.id,
       );
+    } else if (
+      event.type === "refund.created" || event.type === "refund.updated"
+    ) {
+      await enqueueSuccessfulPayerRefund(service, event.data.object.id);
     } else {
       throw new Error(`unsupported_stripe_event_type:${event.type}`);
     }

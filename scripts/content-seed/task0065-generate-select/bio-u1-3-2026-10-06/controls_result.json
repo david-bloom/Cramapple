@@ -1,0 +1,3942 @@
+{
+ "ran_at": "2026-10-06T20:53:44.024Z",
+ "all_caught": true,
+ "results": [
+  {
+   "id": "ctrl-trap",
+   "planted": "no named temptation, generic fixes, keyed rationale unexplained",
+   "expected_stage": "audit",
+   "verdict": "rejected",
+   "stage": "audit",
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 259,
+         "inputTokenDetails": {
+          "noCacheTokens": 259,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 48,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 22
+         },
+         "totalTokens": 307,
+         "raw": {
+          "input_tokens": 259,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 48,
+          "output_tokens_details": {
+           "reasoning_tokens": 22
+          },
+          "total_tokens": 307
+         },
+         "reasoningTokens": 22,
+         "cachedInputTokens": 0
+        },
+        "ms": 4264,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 341,
+         "inputTokenDetails": {
+          "noCacheTokens": 341,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 191,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 161
+         },
+         "totalTokens": 532,
+         "raw": {
+          "thoughtsTokenCount": 161,
+          "promptTokenCount": 341,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 532,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 341
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 161,
+         "cachedInputTokens": 0
+        },
+        "ms": 3354,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 400,
+         "inputTokenDetails": {
+          "noCacheTokens": 16,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 231,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 205
+         },
+         "totalTokens": 631,
+         "raw": {
+          "prompt_tokens": 400,
+          "completion_tokens": 231,
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 16,
+          "total_tokens": 631,
+          "prompt_tokens_details": {
+           "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 205
+          }
+         },
+         "reasoningTokens": 205,
+         "cachedInputTokens": 384
+        },
+        "ms": 3347,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "D",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 421,
+         "inputTokenDetails": {
+          "noCacheTokens": 357,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 107,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 87
+         },
+         "totalTokens": 528,
+         "raw": {
+          "prompt_tokens": 421,
+          "completion_tokens": 107,
+          "total_tokens": 528,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 87,
+           "accepted_prediction_tokens": 65,
+           "rejected_prediction_tokens": 58,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 87,
+         "cachedInputTokens": 64
+        },
+        "ms": 2753,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": false,
+           "issue": "D's rationale merely declares the statement correct. It must explain that lowering activation energy allows the reaction to proceed faster."
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "A, B, and C neither name their specific misconceptions nor explain why their proposed mechanisms are wrong. Their identical Fix sentences give generic review advice rather than concrete actions. Name the energy-supply misconception for A, the enzyme-as-heater misconception for B, and the size-only specificity misconception for C, then provide targeted checks."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16352,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16349
+         },
+         "outputTokens": 356,
+         "outputTokenDetails": {
+          "textTokens": 310,
+          "reasoningTokens": 46
+         },
+         "totalTokens": 16708,
+         "raw": {
+          "input_tokens": 16352,
+          "input_tokens_details": {
+           "cache_write_tokens": 16349,
+           "cached_tokens": 0
+          },
+          "output_tokens": 356,
+          "output_tokens_details": {
+           "reasoning_tokens": 46
+          },
+          "total_tokens": 16708
+         },
+         "reasoningTokens": 46,
+         "cachedInputTokens": 0
+        },
+        "ms": 10993,
+        "flags": [
+         "keyed_rationale: D's rationale merely declares the statement correct. It must explain that lowering activation energy allows the reaction to proceed faster.",
+         "named_trap: A, B, and C neither name their specific misconceptions nor explain why their proposed mechanisms are wrong. Their identical Fix sentences give generic review advice rather than concrete actions. Name the energy-supply misconception for A, the enzyme-as-heater misconception for B, and the size-only specificity misconception for C, then provide targeted checks."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": false,
+           "issue": "D's rationale merely declares the statement correct. It does not explain why lowering activation energy increases reaction rate."
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "A, B, and C use the same generic rejection without naming their specific misconceptions: enzyme-as-energy-source, enzyme-as-heater, and size-only substrate recognition. None explains the specific reason the choice is wrong. Each final Fix sentence gives generic review advice rather than a concrete action."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16352,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16349,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 352,
+         "outputTokenDetails": {
+          "textTokens": 300,
+          "reasoningTokens": 52
+         },
+         "totalTokens": 16704,
+         "raw": {
+          "input_tokens": 16352,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16349
+          },
+          "output_tokens": 352,
+          "output_tokens_details": {
+           "reasoning_tokens": 52
+          },
+          "total_tokens": 16704
+         },
+         "reasoningTokens": 52,
+         "cachedInputTokens": 16349
+        },
+        "ms": 10182,
+        "flags": [
+         "keyed_rationale: D's rationale merely declares the statement correct. It does not explain why lowering activation energy increases reaction rate.",
+         "named_trap: A, B, and C use the same generic rejection without naming their specific misconceptions: enzyme-as-energy-source, enzyme-as-heater, and size-only substrate recognition. None explains the specific reason the choice is wrong. Each final Fix sentence gives generic review advice rather than a concrete action."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": false,
+           "issue": "Choice D rationale merely states that it is correct rather than explaining the biological reasoning for why it earns the point."
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choices A, B, and C fail to name the specific trap/misconception, fail to explain why the statement is biologically incorrect, and give a forbidden generic fix ('Fix: review how enzymes work')."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17711,
+         "inputTokenDetails": {
+          "noCacheTokens": 17711,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1060,
+         "outputTokenDetails": {
+          "textTokens": 327,
+          "reasoningTokens": 733
+         },
+         "totalTokens": 18771,
+         "raw": {
+          "thoughtsTokenCount": 733,
+          "promptTokenCount": 17711,
+          "candidatesTokenCount": 327,
+          "totalTokenCount": 18771,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17711
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 327
+           }
+          ]
+         },
+         "reasoningTokens": 733,
+         "cachedInputTokens": 0
+        },
+        "ms": 8692,
+        "flags": [
+         "keyed_rationale: Choice D rationale merely states that it is correct rather than explaining the biological reasoning for why it earns the point.",
+         "named_trap: Choices A, B, and C fail to name the specific trap/misconception, fail to explain why the statement is biologically incorrect, and give a forbidden generic fix ('Fix: review how enzymes work')."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": false,
+           "issue": "Choice D rationale merely states that it is the correct statement rather than explaining the biological reasoning for why it earns the point."
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choices A, B, and C fail to identify a specific named trap or misconception, and each uses the generic non-actionable sentence 'Fix: review how enzymes work.'"
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17711,
+         "inputTokenDetails": {
+          "noCacheTokens": 5519,
+          "cacheReadTokens": 12192
+         },
+         "outputTokens": 1017,
+         "outputTokenDetails": {
+          "textTokens": 321,
+          "reasoningTokens": 696
+         },
+         "totalTokens": 18728,
+         "raw": {
+          "cachedContentTokenCount": 12192,
+          "thoughtsTokenCount": 696,
+          "promptTokenCount": 17711,
+          "candidatesTokenCount": 321,
+          "totalTokenCount": 18728,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17711
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12192
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 321
+           }
+          ]
+         },
+         "reasoningTokens": 696,
+         "cachedInputTokens": 12192
+        },
+        "ms": 10814,
+        "flags": [
+         "keyed_rationale: Choice D rationale merely states that it is the correct statement rather than explaining the biological reasoning for why it earns the point.",
+         "named_trap: Choices A, B, and C fail to identify a specific named trap or misconception, and each uses the generic non-actionable sentence 'Fix: review how enzymes work.'"
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": false,
+           "issue": "Choice D's rationale only states that it is correct; it does not explain that the complementary active site binds the substrate and lowers activation energy, which increases the reaction rate."
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choices A, B, and C are not named traps: they do not identify the specific misconception (A: enzymes supply energy, B: enzymes raise the temperature, C: enzymes are nonspecific by size), and each gives only the generic fix 'review how enzymes work' instead of a concrete action."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16556,
+         "inputTokenDetails": {
+          "noCacheTokens": 15276,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 3137,
+         "outputTokenDetails": {
+          "textTokens": 315,
+          "reasoningTokens": 2822
+         },
+         "totalTokens": 19693,
+         "raw": {
+          "prompt_tokens": 16556,
+          "completion_tokens": 3137,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15276,
+          "total_tokens": 19693,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2822
+          }
+         },
+         "reasoningTokens": 2822,
+         "cachedInputTokens": 1280
+        },
+        "ms": 24128,
+        "flags": [
+         "keyed_rationale: Choice D's rationale only states that it is correct; it does not explain that the complementary active site binds the substrate and lowers activation energy, which increases the reaction rate.",
+         "named_trap: Choices A, B, and C are not named traps: they do not identify the specific misconception (A: enzymes supply energy, B: enzymes raise the temperature, C: enzymes are nonspecific by size), and each gives only the generic fix 'review how enzymes work' instead of a concrete action."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": false,
+           "issue": "Choice D rationale only labels it correct; it does not explain that the enzyme lowers activation energy by binding a complementary substrate in the active site, which increases reaction rate."
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choices A, B, and C all use generic 'enzymes do not work this way' without naming the specific misconception; their Fix sentences are generic review advice, not concrete next steps."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16556,
+         "inputTokenDetails": {
+          "noCacheTokens": 44,
+          "cacheReadTokens": 16512
+         },
+         "outputTokens": 2539,
+         "outputTokenDetails": {
+          "textTokens": 292,
+          "reasoningTokens": 2247
+         },
+         "totalTokens": 19095,
+         "raw": {
+          "prompt_tokens": 16556,
+          "completion_tokens": 2539,
+          "prompt_cache_hit_tokens": 16512,
+          "prompt_cache_miss_tokens": 44,
+          "total_tokens": 19095,
+          "prompt_tokens_details": {
+           "cached_tokens": 16512
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2247
+          }
+         },
+         "reasoningTokens": 2247,
+         "cachedInputTokens": 16512
+        },
+        "ms": 20176,
+        "flags": [
+         "keyed_rationale: Choice D rationale only labels it correct; it does not explain that the enzyme lowers activation energy by binding a complementary substrate in the active site, which increases reaction rate.",
+         "named_trap: Choices A, B, and C all use generic 'enzymes do not work this way' without naming the specific misconception; their Fix sentences are generic review advice, not concrete next steps."
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": false,
+           "issue": "Choice D's rationale ('This is the correct statement about how enzymes work') only asserts that it is correct; it never explains WHY: that enzymes are catalysts that lower activation energy by binding a substrate whose shape/charge complements the active site (EK 3.1.A.1, 3.1.A.2)."
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "All three wrong choices (A, B, C) share the identical rationale 'This is incorrect because enzymes do not work this way,' which names no specific error or misconception and gives no reason the choice is wrong. The Fix sentence 'review how enzymes work' is generic advice, not a concrete action; each trap needs its own named misconception (e.g., A: confusing lowering activation energy with supplying energy; B: confusing the effect of heating a reaction with enzyme catalysis; C: confusing size with shape/charge complementarity) and a specific actionable Fix."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17035,
+         "inputTokenDetails": {
+          "noCacheTokens": 16971,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 1210,
+         "outputTokenDetails": {
+          "textTokens": 395,
+          "reasoningTokens": 815
+         },
+         "totalTokens": 18245,
+         "raw": {
+          "prompt_tokens": 17035,
+          "completion_tokens": 1210,
+          "total_tokens": 18245,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 815,
+           "accepted_prediction_tokens": 781,
+           "rejected_prediction_tokens": 503,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 815,
+         "cachedInputTokens": 64
+        },
+        "ms": 13574,
+        "flags": [
+         "keyed_rationale: Choice D's rationale ('This is the correct statement about how enzymes work') only asserts that it is correct; it never explains WHY: that enzymes are catalysts that lower activation energy by binding a substrate whose shape/charge complements the active site (EK 3.1.A.1, 3.1.A.2).",
+         "named_trap: All three wrong choices (A, B, C) share the identical rationale 'This is incorrect because enzymes do not work this way,' which names no specific error or misconception and gives no reason the choice is wrong. The Fix sentence 'review how enzymes work' is generic advice, not a concrete action; each trap needs its own named misconception (e.g., A: confusing lowering activation energy with supplying energy; B: confusing the effect of heating a reaction with enzyme catalysis; C: confusing size with shape/charge complementarity) and a specific actionable Fix."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": false,
+           "issue": "D's rationale ('This is the correct statement about how enzymes work.') only asserts that it is correct; it never explains WHY — that the active site's complementary shape/charge fits the substrate (EK 3.1.A.2) and that lowering activation energy lets more reactant molecules react per unit time, speeding the rate (EK 3.1.A.1)."
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "A, B, and C all share the identical generic rationale 'This is incorrect because enzymes do not work this way,' which names no specific misconception (A: confusing a catalyst with an energy source; B: confusing enzyme action with raising temperature/collision frequency; C: ignoring active-site shape/charge specificity). The Fix 'review how enzymes work' is generic 'review the topic' advice, not a concrete action, and fails for all three wrong choices."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17035,
+         "inputTokenDetails": {
+          "noCacheTokens": 11,
+          "cacheReadTokens": 17024
+         },
+         "outputTokens": 1202,
+         "outputTokenDetails": {
+          "textTokens": 292,
+          "reasoningTokens": 910
+         },
+         "totalTokens": 18237,
+         "raw": {
+          "prompt_tokens": 17035,
+          "completion_tokens": 1202,
+          "total_tokens": 18237,
+          "prompt_tokens_details": {
+           "cached_tokens": 17024,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 910,
+           "accepted_prediction_tokens": 772,
+           "rejected_prediction_tokens": 515,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 910,
+         "cachedInputTokens": 17024
+        },
+        "ms": 17531,
+        "flags": [
+         "keyed_rationale: D's rationale ('This is the correct statement about how enzymes work.') only asserts that it is correct; it never explains WHY — that the active site's complementary shape/charge fits the substrate (EK 3.1.A.2) and that lowering activation energy lets more reactant molecules react per unit time, speeding the rate (EK 3.1.A.1).",
+         "named_trap: A, B, and C all share the identical generic rationale 'This is incorrect because enzymes do not work this way,' which names no specific misconception (A: confusing a catalyst with an energy source; B: confusing enzyme action with raising temperature/collision frequency; C: ignoring active-site shape/charge specificity). The Fix 'review how enzymes work' is generic 'review the topic' advice, not a concrete action, and fails for all three wrong choices."
+        ]
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ctrl-fact-fix",
+   "planted": "every fix line states a fact instead of an action",
+   "expected_stage": "audit",
+   "verdict": "rejected",
+   "stage": "audit",
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 270,
+         "inputTokenDetails": {
+          "noCacheTokens": 270,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 68,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 42
+         },
+         "totalTokens": 338,
+         "raw": {
+          "input_tokens": 270,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 68,
+          "output_tokens_details": {
+           "reasoning_tokens": 42
+          },
+          "total_tokens": 338
+         },
+         "reasoningTokens": 42,
+         "cachedInputTokens": 0
+        },
+        "ms": 4606,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 350,
+         "inputTokenDetails": {
+          "noCacheTokens": 350,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 395,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 365
+         },
+         "totalTokens": 745,
+         "raw": {
+          "thoughtsTokenCount": 365,
+          "promptTokenCount": 350,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 745,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 350
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 365,
+         "cachedInputTokens": 0
+        },
+        "ms": 5377,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 410,
+         "inputTokenDetails": {
+          "noCacheTokens": 26,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 194,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 168
+         },
+         "totalTokens": 604,
+         "raw": {
+          "prompt_tokens": 410,
+          "completion_tokens": 194,
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 26,
+          "total_tokens": 604,
+          "prompt_tokens_details": {
+           "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 168
+          }
+         },
+         "reasoningTokens": 168,
+         "cachedInputTokens": 384
+        },
+        "ms": 3262,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 434,
+         "inputTokenDetails": {
+          "noCacheTokens": 370,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 207,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 187
+         },
+         "totalTokens": 641,
+         "raw": {
+          "prompt_tokens": 434,
+          "completion_tokens": 207,
+          "total_tokens": 641,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 187,
+           "accepted_prediction_tokens": 117,
+           "rejected_prediction_tokens": 150,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 187,
+         "cachedInputTokens": 64
+        },
+        "ms": 3685,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "B, C, and D end with Fix sentences that state facts rather than concrete actions. B should direct students to identify whether the bonds are within or between molecules; C should direct them to distinguish temperature change from evaporation; D should direct them to check whether the explanation connects absorbed energy to temperature change."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16245,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16242
+         },
+         "outputTokens": 581,
+         "outputTokenDetails": {
+          "textTokens": 282,
+          "reasoningTokens": 299
+         },
+         "totalTokens": 16826,
+         "raw": {
+          "input_tokens": 16245,
+          "input_tokens_details": {
+           "cache_write_tokens": 16242,
+           "cached_tokens": 0
+          },
+          "output_tokens": 581,
+          "output_tokens_details": {
+           "reasoning_tokens": 299
+          },
+          "total_tokens": 16826
+         },
+         "reasoningTokens": 299,
+         "cachedInputTokens": 0
+        },
+        "ms": 16107,
+        "flags": [
+         "named_trap: B, C, and D end with Fix sentences that state facts rather than concrete actions. B should direct students to identify whether the bonds are within or between molecules; C should direct them to distinguish temperature change from evaporation; D should direct them to check whether the explanation connects absorbed energy to temperature change."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "B, C, and D explain their misconceptions, but every Fix sentence merely states a fact rather than directing a concrete action. Replace them with actions such as identifying whether bonds are within or between molecules, checking whether energy raises temperature or leaves through evaporation, and checking whether an explanation addresses energy absorbed per degree."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16245,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16242,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 655,
+         "outputTokenDetails": {
+          "textTokens": 283,
+          "reasoningTokens": 372
+         },
+         "totalTokens": 16900,
+         "raw": {
+          "input_tokens": 16245,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16242
+          },
+          "output_tokens": 655,
+          "output_tokens_details": {
+           "reasoning_tokens": 372
+          },
+          "total_tokens": 16900
+         },
+         "reasoningTokens": 372,
+         "cachedInputTokens": 16242
+        },
+        "ms": 18207,
+        "flags": [
+         "named_trap: B, C, and D explain their misconceptions, but every Fix sentence merely states a fact rather than directing a concrete action. Replace them with actions such as identifying whether bonds are within or between molecules, checking whether energy raises temperature or leaves through evaporation, and checking whether an explanation addresses energy absorbed per degree."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "The Fix sentences for choices B, C, and D merely state facts rather than directing the student toward a concrete action (such as 'check...', 'ask whether...', or 'distinguish...')."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17582,
+         "inputTokenDetails": {
+          "noCacheTokens": 17582,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1384,
+         "outputTokenDetails": {
+          "textTokens": 302,
+          "reasoningTokens": 1082
+         },
+         "totalTokens": 18966,
+         "raw": {
+          "thoughtsTokenCount": 1082,
+          "promptTokenCount": 17582,
+          "candidatesTokenCount": 302,
+          "totalTokenCount": 18966,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17582
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 302
+           }
+          ]
+         },
+         "reasoningTokens": 1082,
+         "cachedInputTokens": 0
+        },
+        "ms": 10438,
+        "flags": [
+         "named_trap: The Fix sentences for choices B, C, and D merely state facts rather than directing the student toward a concrete action (such as 'check...', 'ask whether...', or 'distinguish...')."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choices B, C, and D fail the Fix requirement: each Fix sentence merely states a fact rather than instructing the student with a concrete action to take next time (e.g., using an imperative like 'check...', 'ask whether...', or 'distinguish between...')."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17582,
+         "inputTokenDetails": {
+          "noCacheTokens": 5390,
+          "cacheReadTokens": 12192
+         },
+         "outputTokens": 1827,
+         "outputTokenDetails": {
+          "textTokens": 318,
+          "reasoningTokens": 1509
+         },
+         "totalTokens": 19409,
+         "raw": {
+          "cachedContentTokenCount": 12192,
+          "thoughtsTokenCount": 1509,
+          "promptTokenCount": 17582,
+          "candidatesTokenCount": 318,
+          "totalTokenCount": 19409,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17582
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12192
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 318
+           }
+          ]
+         },
+         "reasoningTokens": 1509,
+         "cachedInputTokens": 12192
+        },
+        "ms": 13976,
+        "flags": [
+         "named_trap: Choices B, C, and D fail the Fix requirement: each Fix sentence merely states a fact rather than instructing the student with a concrete action to take next time (e.g., using an imperative like 'check...', 'ask whether...', or 'distinguish between...')."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice D introduces 'density' as a property of liquid water; density is not in the verified CED fact pack for topic 1.1 or elsewhere as a required water property."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "B, C, and D each end with a Fix sentence that states a fact or the right answer rather than a concrete next-time action."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16422,
+         "inputTokenDetails": {
+          "noCacheTokens": 15142,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 8022,
+         "outputTokenDetails": {
+          "textTokens": 285,
+          "reasoningTokens": 7737
+         },
+         "totalTokens": 24444,
+         "raw": {
+          "prompt_tokens": 16422,
+          "completion_tokens": 8022,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15142,
+          "total_tokens": 24444,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7737
+          }
+         },
+         "reasoningTokens": 7737,
+         "cachedInputTokens": 1280
+        },
+        "ms": 61361,
+        "flags": [
+         "ced_scope: Choice D introduces 'density' as a property of liquid water; density is not in the verified CED fact pack for topic 1.1 or elsewhere as a required water property.",
+         "named_trap: B, C, and D each end with a Fix sentence that states a fact or the right answer rather than a concrete next-time action."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1 Structure of Water and Hydrogen Bonding",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "B, C, and D Fix sentences state facts or right answers rather than concrete next-step actions (e.g., B: 'the bonds that break are hydrogen bonds between molecules,' C: 'specific heat and evaporative cooling are different properties,' D: 'density does not determine specific heat')."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16422,
+         "inputTokenDetails": {
+          "noCacheTokens": 38,
+          "cacheReadTokens": 16384
+         },
+         "outputTokens": 8784,
+         "outputTokenDetails": {
+          "textTokens": 287,
+          "reasoningTokens": 8497
+         },
+         "totalTokens": 25206,
+         "raw": {
+          "prompt_tokens": 16422,
+          "completion_tokens": 8784,
+          "prompt_cache_hit_tokens": 16384,
+          "prompt_cache_miss_tokens": 38,
+          "total_tokens": 25206,
+          "prompt_tokens_details": {
+           "cached_tokens": 16384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 8497
+          }
+         },
+         "reasoningTokens": 8497,
+         "cachedInputTokens": 16384
+        },
+        "ms": 65989,
+        "flags": [
+         "topic 1.1 Structure of Water and Hydrogen Bonding",
+         "named_trap: B, C, and D Fix sentences state facts or right answers rather than concrete next-step actions (e.g., B: 'the bonds that break are hydrogen bonds between molecules,' C: 'specific heat and evaporative cooling are different properties,' D: 'density does not determine specific heat')."
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "All three Fix sentences state a fact rather than giving a concrete action, which the rule explicitly fails. B: 'Fix: the bonds that break are hydrogen bonds between molecules' just restates the correct distinction. C: 'Fix: specific heat and evaporative cooling are different properties' only asserts a fact. D: 'Fix: density does not determine specific heat' only asserts a fact. Each Fix should direct an action, e.g. B: 'Fix: ask whether the bond involved is inside one molecule or between molecules.' C: 'Fix: check whether the choice explains heat absorbed per degree or heat lost by evaporation.' D: 'Fix: ask whether the property named in the choice actually measures energy per degree of temperature change.'"
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16923,
+         "inputTokenDetails": {
+          "noCacheTokens": 16859,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2559,
+         "outputTokenDetails": {
+          "textTokens": 367,
+          "reasoningTokens": 2192
+         },
+         "totalTokens": 19482,
+         "raw": {
+          "prompt_tokens": 16923,
+          "completion_tokens": 2559,
+          "total_tokens": 19482,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2192,
+           "accepted_prediction_tokens": 1663,
+           "rejected_prediction_tokens": 1022,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2192,
+         "cachedInputTokens": 64
+        },
+        "ms": 24485,
+        "flags": [
+         "named_trap: All three Fix sentences state a fact rather than giving a concrete action, which the rule explicitly fails. B: 'Fix: the bonds that break are hydrogen bonds between molecules' just restates the correct distinction. C: 'Fix: specific heat and evaporative cooling are different properties' only asserts a fact. D: 'Fix: density does not determine specific heat' only asserts a fact. Each Fix should direct an action, e.g. B: 'Fix: ask whether the bond involved is inside one molecule or between molecules.' C: 'Fix: check whether the choice explains heat absorbed per degree or heat lost by evaporation.' D: 'Fix: ask whether the property named in the choice actually measures energy per degree of temperature change.'"
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "All three Fix sentences state a fact or the right answer instead of telling the student a concrete action. B: 'Fix: the bonds that break are hydrogen bonds between molecules' just restates the correct idea. C: 'Fix: specific heat and evaporative cooling are different properties' only states a fact. D: 'Fix: density does not determine specific heat' only states a fact. Each Fix must direct an action, e.g. 'check which bonds the explanation claims are breaking', 'ask whether the property describes heat absorbed per degree or heat lost by evaporation', or 'check whether the cited property actually links to hydrogen bonding'."
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16923,
+         "inputTokenDetails": {
+          "noCacheTokens": 27,
+          "cacheReadTokens": 16896
+         },
+         "outputTokens": 3827,
+         "outputTokenDetails": {
+          "textTokens": 390,
+          "reasoningTokens": 3437
+         },
+         "totalTokens": 20750,
+         "raw": {
+          "prompt_tokens": 16923,
+          "completion_tokens": 3827,
+          "total_tokens": 20750,
+          "prompt_tokens_details": {
+           "cached_tokens": 16896,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3437,
+           "accepted_prediction_tokens": 2491,
+           "rejected_prediction_tokens": 1514,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 3437,
+         "cachedInputTokens": 16896
+        },
+        "ms": 37389,
+        "flags": [
+         "named_trap: All three Fix sentences state a fact or the right answer instead of telling the student a concrete action. B: 'Fix: the bonds that break are hydrogen bonds between molecules' just restates the correct idea. C: 'Fix: specific heat and evaporative cooling are different properties' only states a fact. D: 'Fix: density does not determine specific heat' only states a fact. Each Fix must direct an action, e.g. 'check which bonds the explanation claims are breaking', 'ask whether the property describes heat absorbed per degree or heat lost by evaporation', or 'check whether the cited property actually links to hydrogen bonding'."
+        ]
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ctrl-topic",
+   "planted": "water/hydrogen-bond question designated as 1.2 Elements of Life",
+   "expected_stage": "audit",
+   "verdict": "rejected",
+   "stage": "audit",
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 270,
+         "inputTokenDetails": {
+          "noCacheTokens": 270,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 52,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 26
+         },
+         "totalTokens": 322,
+         "raw": {
+          "input_tokens": 270,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 52,
+          "output_tokens_details": {
+           "reasoning_tokens": 26
+          },
+          "total_tokens": 322
+         },
+         "reasoningTokens": 26,
+         "cachedInputTokens": 0
+        },
+        "ms": 5231,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 350,
+         "inputTokenDetails": {
+          "noCacheTokens": 350,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 338,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 308
+         },
+         "totalTokens": 688,
+         "raw": {
+          "thoughtsTokenCount": 308,
+          "promptTokenCount": 350,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 688,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 350
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 308,
+         "cachedInputTokens": 0
+        },
+        "ms": 3151,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 410,
+         "inputTokenDetails": {
+          "noCacheTokens": 26,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 248,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 222
+         },
+         "totalTokens": 658,
+         "raw": {
+          "prompt_tokens": 410,
+          "completion_tokens": 248,
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 26,
+          "total_tokens": 658,
+          "prompt_tokens_details": {
+           "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 222
+          }
+         },
+         "reasoningTokens": 222,
+         "cachedInputTokens": 384
+        },
+        "ms": 4173,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 434,
+         "inputTokenDetails": {
+          "noCacheTokens": 370,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 142,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 122
+         },
+         "totalTokens": 576,
+         "raw": {
+          "prompt_tokens": 434,
+          "completion_tokens": 142,
+          "total_tokens": 576,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 122,
+           "accepted_prediction_tokens": 78,
+           "rejected_prediction_tokens": 111,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 122,
+         "cachedInputTokens": 64
+        },
+        "ms": 3587,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question directly tests topic 1.1, Structure of Water and Hydrogen Bonding, through the explanation of water’s high specific heat. It does not test topic 1.2, Elements of Life."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16265,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16262
+         },
+         "outputTokens": 682,
+         "outputTokenDetails": {
+          "textTokens": 264,
+          "reasoningTokens": 418
+         },
+         "totalTokens": 16947,
+         "raw": {
+          "input_tokens": 16265,
+          "input_tokens_details": {
+           "cache_write_tokens": 16262,
+           "cached_tokens": 0
+          },
+          "output_tokens": 682,
+          "output_tokens_details": {
+           "reasoning_tokens": 418
+          },
+          "total_tokens": 16947
+         },
+         "reasoningTokens": 418,
+         "cachedInputTokens": 0
+        },
+        "ms": 20403,
+        "flags": [
+         "topic 1.1",
+         "on_topic: The question directly tests topic 1.1, Structure of Water and Hydrogen Bonding, through the explanation of water’s high specific heat. It does not test topic 1.2, Elements of Life."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question tests water's specific heat and hydrogen bonding in topic 1.1, not macromolecular elemental composition in topic 1.2."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": false,
+           "issue": "A is the intended answer, but 'before the molecules can move faster' incorrectly makes hydrogen-bond breaking a prerequisite for increased molecular motion. Under a careful literal reading, no choice is fully correct."
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "A's rationale says absorbed energy 'first' breaks hydrogen bonds, implying a separate stage before molecular motion increases. During warming, energy changes hydrogen-bond interactions while also increasing average molecular kinetic energy; the explanation should describe energy allocation rather than a strict sequence."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16265,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16262,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 859,
+         "outputTokenDetails": {
+          "textTokens": 343,
+          "reasoningTokens": 516
+         },
+         "totalTokens": 17124,
+         "raw": {
+          "input_tokens": 16265,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16262
+          },
+          "output_tokens": 859,
+          "output_tokens_details": {
+           "reasoning_tokens": 516
+          },
+          "total_tokens": 17124
+         },
+         "reasoningTokens": 516,
+         "cachedInputTokens": 16262
+        },
+        "ms": 22808,
+        "flags": [
+         "topic 1.1",
+         "on_topic: The question tests water's specific heat and hydrogen bonding in topic 1.1, not macromolecular elemental composition in topic 1.2.",
+         "one_answer: A is the intended answer, but 'before the molecules can move faster' incorrectly makes hydrogen-bond breaking a prerequisite for increased molecular motion. Under a careful literal reading, no choice is fully correct.",
+         "accurate: A's rationale says absorbed energy 'first' breaks hydrogen bonds, implying a separate stage before molecular motion increases. During warming, energy changes hydrogen-bond interactions while also increasing average molecular kinetic energy; the explanation should describe energy allocation rather than a strict sequence."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question directly tests the thermal properties of water and hydrogen bonding, which is covered under topic 1.1 (Structure of Water and Hydrogen Bonding), not topic 1.2 (Elements of Life)."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17603,
+         "inputTokenDetails": {
+          "noCacheTokens": 17603,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2844,
+         "outputTokenDetails": {
+          "textTokens": 303,
+          "reasoningTokens": 2541
+         },
+         "totalTokens": 20447,
+         "raw": {
+          "thoughtsTokenCount": 2541,
+          "promptTokenCount": 17603,
+          "candidatesTokenCount": 303,
+          "totalTokenCount": 20447,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17603
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 303
+           }
+          ]
+         },
+         "reasoningTokens": 2541,
+         "cachedInputTokens": 0
+        },
+        "ms": 20811,
+        "flags": [
+         "topic 1.1",
+         "on_topic: The question directly tests the thermal properties of water and hydrogen bonding, which is covered under topic 1.1 (Structure of Water and Hydrogen Bonding), not topic 1.2 (Elements of Life)."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question directly assesses water's high specific heat and hydrogen bonding, which is Topic 1.1 (Structure of Water and Hydrogen Bonding) rather than the designated Topic 1.2 (Elements of Life)."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17603,
+         "inputTokenDetails": {
+          "noCacheTokens": 5411,
+          "cacheReadTokens": 12192
+         },
+         "outputTokens": 2979,
+         "outputTokenDetails": {
+          "textTokens": 305,
+          "reasoningTokens": 2674
+         },
+         "totalTokens": 20582,
+         "raw": {
+          "cachedContentTokenCount": 12192,
+          "thoughtsTokenCount": 2674,
+          "promptTokenCount": 17603,
+          "candidatesTokenCount": 305,
+          "totalTokenCount": 20582,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17603
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12192
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 305
+           }
+          ]
+         },
+         "reasoningTokens": 2674,
+         "cachedInputTokens": 12192
+        },
+        "ms": 19404,
+        "flags": [
+         "topic 1.1",
+         "on_topic: The question directly assesses water's high specific heat and hydrogen bonding, which is Topic 1.1 (Structure of Water and Hydrogen Bonding) rather than the designated Topic 1.2 (Elements of Life)."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question tests high specific heat and hydrogen bonding, which is content from 1.1 Structure of Water and Hydrogen Bonding, not 1.2 Elements of Life. A student who studied only 1.2 would not be prepared to answer it."
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice D and its rationale invoke density (and heat trapped between tightly packed molecules), a concept not present in the CED fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16442,
+         "inputTokenDetails": {
+          "noCacheTokens": 15162,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 7671,
+         "outputTokenDetails": {
+          "textTokens": 298,
+          "reasoningTokens": 7373
+         },
+         "totalTokens": 24113,
+         "raw": {
+          "prompt_tokens": 16442,
+          "completion_tokens": 7671,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15162,
+          "total_tokens": 24113,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7373
+          }
+         },
+         "reasoningTokens": 7373,
+         "cachedInputTokens": 1280
+        },
+        "ms": 56935,
+        "flags": [
+         "topic 1.1",
+         "on_topic: The question tests high specific heat and hydrogen bonding, which is content from 1.1 Structure of Water and Hydrogen Bonding, not 1.2 Elements of Life. A student who studied only 1.2 would not be prepared to answer it.",
+         "ced_scope: Choice D and its rationale invoke density (and heat trapped between tightly packed molecules), a concept not present in the CED fact pack."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question tests high specific heat and hydrogen bonding, which is topic 1.1 Structure of Water and Hydrogen Bonding, not 1.2 Elements of Life."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choice D's Fix does not give a concrete next-time action; it just tells the student to use the correct explanation. It should name the trap, e.g., 'ask whether the property mentioned actually affects heat absorbed per degree.'"
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16442,
+         "inputTokenDetails": {
+          "noCacheTokens": 58,
+          "cacheReadTokens": 16384
+         },
+         "outputTokens": 7600,
+         "outputTokenDetails": {
+          "textTokens": 300,
+          "reasoningTokens": 7300
+         },
+         "totalTokens": 24042,
+         "raw": {
+          "prompt_tokens": 16442,
+          "completion_tokens": 7600,
+          "prompt_cache_hit_tokens": 16384,
+          "prompt_cache_miss_tokens": 58,
+          "total_tokens": 24042,
+          "prompt_tokens_details": {
+           "cached_tokens": 16384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7300
+          }
+         },
+         "reasoningTokens": 7300,
+         "cachedInputTokens": 16384
+        },
+        "ms": 54870,
+        "flags": [
+         "topic 1.1",
+         "on_topic: The question tests high specific heat and hydrogen bonding, which is topic 1.1 Structure of Water and Hydrogen Bonding, not 1.2 Elements of Life.",
+         "named_trap: Choice D's Fix does not give a concrete next-time action; it just tells the student to use the correct explanation. It should name the trap, e.g., 'ask whether the property mentioned actually affects heat absorbed per degree.'"
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question tests why water has a high specific heat, which is EK 1.1.A.1 (topic 1.1 Structure of Water and Hydrogen Bonding). It involves no element-composition content (C/H/O prevalence, S/P/N roles) from topic 1.2 Elements of Life, so a student who studied only 1.2 could not answer it. Primary topic is 1.1, not 1.2."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16943,
+         "inputTokenDetails": {
+          "noCacheTokens": 16879,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 3130,
+         "outputTokenDetails": {
+          "textTokens": 220,
+          "reasoningTokens": 2910
+         },
+         "totalTokens": 20073,
+         "raw": {
+          "prompt_tokens": 16943,
+          "completion_tokens": 3130,
+          "total_tokens": 20073,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2910,
+           "accepted_prediction_tokens": 1836,
+           "rejected_prediction_tokens": 2043,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2910,
+         "cachedInputTokens": 64
+        },
+        "ms": 37089,
+        "flags": [
+         "topic 1.1",
+         "on_topic: The question tests why water has a high specific heat, which is EK 1.1.A.1 (topic 1.1 Structure of Water and Hydrogen Bonding). It involves no element-composition content (C/H/O prevalence, S/P/N roles) from topic 1.2 Elements of Life, so a student who studied only 1.2 could not answer it. Primary topic is 1.1, not 1.2."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": false,
+           "issue": "The question asks why water has a high specific heat and every choice reasons about hydrogen bonding, polarity, and evaporative cooling. That is Topic 1.1 (EK 1.1.A.1). Nothing in the stem or choices touches the elemental composition of macromolecules (C/H/O/N/P/S), so a student who studied only 1.2 could not answer it; the primary topic is 1.1, not the designated 1.2."
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16943,
+         "inputTokenDetails": {
+          "noCacheTokens": 47,
+          "cacheReadTokens": 16896
+         },
+         "outputTokens": 3587,
+         "outputTokenDetails": {
+          "textTokens": 223,
+          "reasoningTokens": 3364
+         },
+         "totalTokens": 20530,
+         "raw": {
+          "prompt_tokens": 16943,
+          "completion_tokens": 3587,
+          "total_tokens": 20530,
+          "prompt_tokens_details": {
+           "cached_tokens": 16896,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3364,
+           "accepted_prediction_tokens": 2319,
+           "rejected_prediction_tokens": 1482,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 3364,
+         "cachedInputTokens": 16896
+        },
+        "ms": 38814,
+        "flags": [
+         "topic 1.1",
+         "on_topic: The question asks why water has a high specific heat and every choice reasons about hydrogen bonding, polarity, and evaporative cooling. That is Topic 1.1 (EK 1.1.A.1). Nothing in the stem or choices touches the elemental composition of macromolecules (C/H/O/N/P/S), so a student who studied only 1.2 could not answer it; the primary topic is 1.1, not the designated 1.2."
+        ]
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ctrl-false-fact",
+   "planted": "false claim that ice is denser than liquid water and sinks",
+   "expected_stage": "audit",
+   "verdict": "rejected",
+   "stage": "audit",
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 270,
+         "inputTokenDetails": {
+          "noCacheTokens": 270,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 76,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 50
+         },
+         "totalTokens": 346,
+         "raw": {
+          "input_tokens": 270,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 76,
+          "output_tokens_details": {
+           "reasoning_tokens": 50
+          },
+          "total_tokens": 346
+         },
+         "reasoningTokens": 50,
+         "cachedInputTokens": 0
+        },
+        "ms": 4492,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 350,
+         "inputTokenDetails": {
+          "noCacheTokens": 350,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 315,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 285
+         },
+         "totalTokens": 665,
+         "raw": {
+          "thoughtsTokenCount": 285,
+          "promptTokenCount": 350,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 665,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 350
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 285,
+         "cachedInputTokens": 0
+        },
+        "ms": 4963,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 410,
+         "inputTokenDetails": {
+          "noCacheTokens": 26,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 260,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 240
+         },
+         "totalTokens": 670,
+         "raw": {
+          "prompt_tokens": 410,
+          "completion_tokens": 260,
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 26,
+          "total_tokens": 670,
+          "prompt_tokens_details": {
+           "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 240
+          }
+         },
+         "reasoningTokens": 240,
+         "cachedInputTokens": 384
+        },
+        "ms": 4096,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "A",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 434,
+         "inputTokenDetails": {
+          "noCacheTokens": 370,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 167,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 147
+         },
+         "totalTokens": 601,
+         "raw": {
+          "prompt_tokens": 434,
+          "completion_tokens": 167,
+          "total_tokens": 601,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 147,
+           "accepted_prediction_tokens": 99,
+           "rejected_prediction_tokens": 102,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 147,
+         "cachedInputTokens": 64
+        },
+        "ms": 3716,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "D's rationale introduces water's solid-versus-liquid density and ice behavior in lakes, which are not included in the supplied CED fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "D's rationale does not explain why the claim that tightly packed molecules trap heat is wrong. Its discussion of ice density does not address that causal misconception."
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D's rationale falsely states that water is densest as a solid and that ice sinks in lakes. Ordinary ice is less dense than liquid water and floats."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16278,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16275
+         },
+         "outputTokens": 503,
+         "outputTokenDetails": {
+          "textTokens": 312,
+          "reasoningTokens": 191
+         },
+         "totalTokens": 16781,
+         "raw": {
+          "input_tokens": 16278,
+          "input_tokens_details": {
+           "cache_write_tokens": 16275,
+           "cached_tokens": 0
+          },
+          "output_tokens": 503,
+          "output_tokens_details": {
+           "reasoning_tokens": 191
+          },
+          "total_tokens": 16781
+         },
+         "reasoningTokens": 191,
+         "cachedInputTokens": 0
+        },
+        "ms": 13994,
+        "flags": [
+         "ced_scope: D's rationale introduces water's solid-versus-liquid density and ice behavior in lakes, which are not included in the supplied CED fact pack.",
+         "named_trap: D's rationale does not explain why the claim that tightly packed molecules trap heat is wrong. Its discussion of ice density does not address that causal misconception.",
+         "accurate: D's rationale falsely states that water is densest as a solid and that ice sinks in lakes. Ordinary ice is less dense than liquid water and floats."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice D's rationale introduces water's density in different phases and ice buoyancy, neither of which is included in the supplied CED fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choice D's rationale identifies a density-related distraction but does not explain why the proposed heat-trapping mechanism is wrong. Its false claim about ice density does not provide a valid explanation for rejecting the choice."
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale falsely states that water is densest as a solid and that ice sinks in lakes. Ordinary ice is less dense than liquid water and floats."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16278,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16275,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 524,
+         "outputTokenDetails": {
+          "textTokens": 323,
+          "reasoningTokens": 201
+         },
+         "totalTokens": 16802,
+         "raw": {
+          "input_tokens": 16278,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16275
+          },
+          "output_tokens": 524,
+          "output_tokens_details": {
+           "reasoning_tokens": 201
+          },
+          "total_tokens": 16802
+         },
+         "reasoningTokens": 201,
+         "cachedInputTokens": 16275
+        },
+        "ms": 14954,
+        "flags": [
+         "ced_scope: Choice D's rationale introduces water's density in different phases and ice buoyancy, neither of which is included in the supplied CED fact pack.",
+         "named_trap: Choice D's rationale identifies a density-related distraction but does not explain why the proposed heat-trapping mechanism is wrong. Its false claim about ice density does not provide a valid explanation for rejecting the choice.",
+         "accurate: Choice D's rationale falsely states that water is densest as a solid and that ice sinks in lakes. Ordinary ice is less dense than liquid water and floats."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D rationale states that water is densest as a solid and that ice sinks to the bottom of lakes in winter, which is factually incorrect; liquid water is denser than ice, and ice floats."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17615,
+         "inputTokenDetails": {
+          "noCacheTokens": 17615,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 3896,
+         "outputTokenDetails": {
+          "textTokens": 303,
+          "reasoningTokens": 3593
+         },
+         "totalTokens": 21511,
+         "raw": {
+          "thoughtsTokenCount": 3593,
+          "promptTokenCount": 17615,
+          "candidatesTokenCount": 303,
+          "totalTokenCount": 21511,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17615
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 303
+           }
+          ]
+         },
+         "reasoningTokens": 3593,
+         "cachedInputTokens": 0
+        },
+        "ms": 27171,
+        "flags": [
+         "accurate: Choice D rationale states that water is densest as a solid and that ice sinks to the bottom of lakes in winter, which is factually incorrect; liquid water is denser than ice, and ice floats."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choice D's Fix sentence directs the student toward the correct answer mechanism rather than providing a concrete checking action (such as 'check...' or 'ask whether...')."
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale states that 'water is densest as a solid, which is why ice sinks to the bottom of lakes in winter,' which is factually incorrect; solid ice is less dense than liquid water and floats."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17615,
+         "inputTokenDetails": {
+          "noCacheTokens": 5423,
+          "cacheReadTokens": 12192
+         },
+         "outputTokens": 2743,
+         "outputTokenDetails": {
+          "textTokens": 342,
+          "reasoningTokens": 2401
+         },
+         "totalTokens": 20358,
+         "raw": {
+          "cachedContentTokenCount": 12192,
+          "thoughtsTokenCount": 2401,
+          "promptTokenCount": 17615,
+          "candidatesTokenCount": 342,
+          "totalTokenCount": 20358,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17615
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12192
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 342
+           }
+          ]
+         },
+         "reasoningTokens": 2401,
+         "cachedInputTokens": 12192
+        },
+        "ms": 23185,
+        "flags": [
+         "named_trap: Choice D's Fix sentence directs the student toward the correct answer mechanism rather than providing a concrete checking action (such as 'check...' or 'ask whether...').",
+         "accurate: Choice D's rationale states that 'water is densest as a solid, which is why ice sinks to the bottom of lakes in winter,' which is factually incorrect; solid ice is less dense than liquid water and floats."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice D invokes water density and ice sinking, which are not in the CED fact pack."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choice D's rationale does not correctly name the density misconception or explain why it is wrong; it makes the false claim that ice sinks, and its fix is too generic."
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale is factually false: water is densest as a liquid near 4°C, and ice is less dense and floats, so ice does not sink."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16455,
+         "inputTokenDetails": {
+          "noCacheTokens": 15175,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 7881,
+         "outputTokenDetails": {
+          "textTokens": 309,
+          "reasoningTokens": 7572
+         },
+         "totalTokens": 24336,
+         "raw": {
+          "prompt_tokens": 16455,
+          "completion_tokens": 7881,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15175,
+          "total_tokens": 24336,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7572
+          }
+         },
+         "reasoningTokens": 7572,
+         "cachedInputTokens": 1280
+        },
+        "ms": 62328,
+        "flags": [
+         "ced_scope: Choice D invokes water density and ice sinking, which are not in the CED fact pack.",
+         "named_trap: Choice D's rationale does not correctly name the density misconception or explain why it is wrong; it makes the false claim that ice sinks, and its fix is too generic.",
+         "accurate: Choice D's rationale is factually false: water is densest as a liquid near 4°C, and ice is less dense and floats, so ice does not sink."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": false,
+           "issue": "Choice D introduces the concept of water/ice density, which is not in the verified CED fact pack for this topic or course."
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": false,
+           "issue": "Choice D's rationale gives a false 'why wrong' statement, and its Fix sentence is generic rather than a concrete next-step action."
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale states that water is densest as a solid and that ice sinks; this is false because ice is less dense than liquid water and floats."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16455,
+         "inputTokenDetails": {
+          "noCacheTokens": 71,
+          "cacheReadTokens": 16384
+         },
+         "outputTokens": 7424,
+         "outputTokenDetails": {
+          "textTokens": 305,
+          "reasoningTokens": 7119
+         },
+         "totalTokens": 23879,
+         "raw": {
+          "prompt_tokens": 16455,
+          "completion_tokens": 7424,
+          "prompt_cache_hit_tokens": 16384,
+          "prompt_cache_miss_tokens": 71,
+          "total_tokens": 23879,
+          "prompt_tokens_details": {
+           "cached_tokens": 16384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 7119
+          }
+         },
+         "reasoningTokens": 7119,
+         "cachedInputTokens": 16384
+        },
+        "ms": 57456,
+        "flags": [
+         "ced_scope: Choice D introduces the concept of water/ice density, which is not in the verified CED fact pack for this topic or course.",
+         "named_trap: Choice D's rationale gives a false 'why wrong' statement, and its Fix sentence is generic rather than a concrete next-step action.",
+         "accurate: Choice D's rationale states that water is densest as a solid and that ice sinks; this is false because ice is less dense than liquid water and floats."
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale states 'water is densest as a solid, which is why ice sinks to the bottom of lakes in winter.' This is backwards: ice is less dense than liquid water and floats, and water is densest as a liquid (around 4°C). Students would be taught a false fact that also contradicts the real biology (floating ice insulates lakes)."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16957,
+         "inputTokenDetails": {
+          "noCacheTokens": 16893,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 4884,
+         "outputTokenDetails": {
+          "textTokens": 203,
+          "reasoningTokens": 4681
+         },
+         "totalTokens": 21841,
+         "raw": {
+          "prompt_tokens": 16957,
+          "completion_tokens": 4884,
+          "total_tokens": 21841,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4681,
+           "accepted_prediction_tokens": 3044,
+           "rejected_prediction_tokens": 2473,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 4681,
+         "cachedInputTokens": 64
+        },
+        "ms": 54150,
+        "flags": [
+         "accurate: Choice D's rationale states 'water is densest as a solid, which is why ice sinks to the bottom of lakes in winter.' This is backwards: ice is less dense than liquid water and floats, and water is densest as a liquid (around 4°C). Students would be taught a false fact that also contradicts the real biology (floating ice insulates lakes)."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "1.1",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "Choice D's rationale states \"water is densest as a solid, which is why ice sinks to the bottom of lakes in winter.\" This is factually backwards: liquid water is densest at about 4°C, ice is less dense than liquid water, and ice floats on lakes (insulating the water below). A student would read a false claim as teaching."
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16957,
+         "inputTokenDetails": {
+          "noCacheTokens": 16893,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 3112,
+         "outputTokenDetails": {
+          "textTokens": 201,
+          "reasoningTokens": 2911
+         },
+         "totalTokens": 20069,
+         "raw": {
+          "prompt_tokens": 16957,
+          "completion_tokens": 3112,
+          "total_tokens": 20069,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2911,
+           "accepted_prediction_tokens": 1970,
+           "rejected_prediction_tokens": 1453,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2911,
+         "cachedInputTokens": 64
+        },
+        "ms": 32001,
+        "flags": [
+         "accurate: Choice D's rationale states \"water is densest as a solid, which is why ice sinks to the bottom of lakes in winter.\" This is factually backwards: liquid water is densest at about 4°C, ice is less dense than liquid water, and ice floats on lakes (insulating the water below). A student would read a false claim as teaching."
+        ]
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "ctrl-wrong-key",
+   "planted": "key moved to a wrong choice (A)",
+   "expected_stage": "solve",
+   "verdict": "rejected",
+   "stage": "solve",
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": "B is the intended answer, but it requires an unstated assumption: the intracellular increase resulted from net entry of X across the membrane at constant cell volume, rather than intracellular synthesis or cell shrinkage. If X entered against the stated concentration gradient, active transport is supported. Concentration changes alone do not establish that entry occurred, so strictly no choice is fully justified as written. D does not fix this problem: membrane proteins can mediate either passive or active transport."
+        },
+        "usage": {
+         "inputTokens": 291,
+         "inputTokenDetails": {
+          "noCacheTokens": 291,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 392,
+         "outputTokenDetails": {
+          "textTokens": 118,
+          "reasoningTokens": 274
+         },
+         "totalTokens": 683,
+         "raw": {
+          "input_tokens": 291,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 392,
+          "output_tokens_details": {
+           "reasoning_tokens": 274
+          },
+          "total_tokens": 683
+         },
+         "reasoningTokens": 274,
+         "cachedInputTokens": 0
+        },
+        "ms": 17700,
+        "flags": [
+         "solved B, key A",
+         "defect: B is the intended answer, but it requires an unstated assumption: the intracellular increase resulted from net entry of X across the membrane at constant cell volume, rather than intracellular synthesis or cell shrinkage. If X entered against the stated concentration gradient, active transport is supported. Concentration changes alone do not establish that entry occurred, so strictly no choice is fully justified as written. D does not fix this problem: membrane proteins can mediate either passive or active transport."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": "B is the intended answer, but it requires an unstated assumption: the intracellular increase resulted from net uptake of X, not intracellular synthesis or reduced cell volume. For an uncharged solute, net transport from 5 mM outside to 20–30 mM inside is uphill and requires active transport. The concentration data alone do not establish that such transport occurred, so no choice is unconditionally correct. D does not resolve this issue: membrane proteins can mediate either passive or active transport."
+        },
+        "usage": {
+         "inputTokens": 291,
+         "inputTokenDetails": {
+          "noCacheTokens": 291,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 330,
+         "outputTokenDetails": {
+          "textTokens": 125,
+          "reasoningTokens": 205
+         },
+         "totalTokens": 621,
+         "raw": {
+          "input_tokens": 291,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 330,
+          "output_tokens_details": {
+           "reasoning_tokens": 205
+          },
+          "total_tokens": 621
+         },
+         "reasoningTokens": 205,
+         "cachedInputTokens": 0
+        },
+        "ms": 13006,
+        "flags": [
+         "solved B, key A",
+         "defect: B is the intended answer, but it requires an unstated assumption: the intracellular increase resulted from net uptake of X, not intracellular synthesis or reduced cell volume. For an uncharged solute, net transport from 5 mM outside to 20–30 mM inside is uphill and requires active transport. The concentration data alone do not establish that such transport occurred, so no choice is unconditionally correct. D does not resolve this issue: membrane proteins can mediate either passive or active transport."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 370,
+         "inputTokenDetails": {
+          "noCacheTokens": 370,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 509,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 479
+         },
+         "totalTokens": 879,
+         "raw": {
+          "thoughtsTokenCount": 479,
+          "promptTokenCount": 370,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 879,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 370
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 479,
+         "cachedInputTokens": 0
+        },
+        "ms": 6026,
+        "flags": [
+         "solved B, key A"
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 370,
+         "inputTokenDetails": {
+          "noCacheTokens": 370,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 320,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 290
+         },
+         "totalTokens": 690,
+         "raw": {
+          "thoughtsTokenCount": 290,
+          "promptTokenCount": 370,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 690,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 370
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 290,
+         "cachedInputTokens": 0
+        },
+        "ms": 3433,
+        "flags": [
+         "solved B, key A"
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 427,
+         "inputTokenDetails": {
+          "noCacheTokens": 43,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 6672,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 6646
+         },
+         "totalTokens": 7099,
+         "raw": {
+          "prompt_tokens": 427,
+          "completion_tokens": 6672,
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 43,
+          "total_tokens": 7099,
+          "prompt_tokens_details": {
+           "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 6646
+          }
+         },
+         "reasoningTokens": 6646,
+         "cachedInputTokens": 384
+        },
+        "ms": 62002,
+        "flags": [
+         "solved B, key A"
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 427,
+         "inputTokenDetails": {
+          "noCacheTokens": 43,
+          "cacheReadTokens": 384
+         },
+         "outputTokens": 4487,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 4461
+         },
+         "totalTokens": 4914,
+         "raw": {
+          "prompt_tokens": 427,
+          "completion_tokens": 4487,
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 43,
+          "total_tokens": 4914,
+          "prompt_tokens_details": {
+           "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4461
+          }
+         },
+         "reasoningTokens": 4461,
+         "cachedInputTokens": 384
+        },
+        "ms": 42148,
+        "flags": [
+         "solved B, key A"
+        ]
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 453,
+         "inputTokenDetails": {
+          "noCacheTokens": 389,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 771,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 751
+         },
+         "totalTokens": 1224,
+         "raw": {
+          "prompt_tokens": 453,
+          "completion_tokens": 771,
+          "total_tokens": 1224,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 751,
+           "accepted_prediction_tokens": 428,
+           "rejected_prediction_tokens": 598,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 751,
+         "cachedInputTokens": 64
+        },
+        "ms": 11053,
+        "flags": [
+         "solved B, key A"
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 453,
+         "inputTokenDetails": {
+          "noCacheTokens": 389,
+          "cacheReadTokens": 64
+         },
+         "outputTokens": 2698,
+         "outputTokenDetails": {
+          "textTokens": 25,
+          "reasoningTokens": 2673
+         },
+         "totalTokens": 3151,
+         "raw": {
+          "prompt_tokens": 453,
+          "completion_tokens": 2698,
+          "total_tokens": 3151,
+          "prompt_tokens_details": {
+           "cached_tokens": 64,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2673,
+           "accepted_prediction_tokens": 1469,
+           "rejected_prediction_tokens": 2215,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2673,
+         "cachedInputTokens": 64
+        },
+        "ms": 31920,
+        "flags": [
+         "solved B, key A"
+        ]
+       }
+      ]
+     }
+    },
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "solve"
+   }
+  },
+  {
+   "id": "ctrl-lint",
+   "planted": "exclamation mark in stem",
+   "expected_stage": "lint",
+   "verdict": "rejected",
+   "stage": "lint",
+   "eval": {
+    "lint": [
+     "exclamation mark present"
+    ],
+    "solve": {},
+    "audit": {},
+    "verdict": "rejected",
+    "stage": "lint"
+   }
+  }
+ ]
+}

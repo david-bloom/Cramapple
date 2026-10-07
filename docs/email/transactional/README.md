@@ -1,0 +1,150 @@
+# Transactional Email Design Import
+
+STATUS: CURRENT - ten templates published; Development deployed; activation and checkout QA pending
+DATE: 2026-10-06
+OWNER: David Bloom (design); Codex (integration)
+RELATED: TASK-0060; Loops PR #341; checkout QA PR #343; ordering fix PR #342
+
+## Receipt and Scope
+
+David supplied ten numbered HTML email files and a combined interactive HTML
+preview on 2026-10-06, plus two parent and two student test inboxes. The first
+student address is the existing-account case; the second is intended as new.
+Account existence has not been independently verified. Keep exact addresses in
+the private test setup/chat, not in this GitHub document or sample payloads.
+Do not follow the hyperlink attached to the first address as an account identifier:
+it points to a parent payment link, not an inbox.
+
+The combined `Cramapple Transactional Email.html` is a JavaScript-bundled preview,
+not a deliverable email body. It was not executed or imported into Loops.
+The numbered HTML files are the design inputs. Their embedded platform/expiry/
+trigger notes are source material, not new deployment or payment authorization.
+
+## Package
+
+- `source/`: original numbered HTML, preserved without design edits.
+- `loops/`: adapted HTML and matching MJML envelopes for Loops custom-code import.
+- `manifest.json`: subject, required variables, binding state and template IDs.
+
+Loops accepts custom MJML uploads, not arbitrary HTML uploads. The MJML envelope
+retains the supplied table-based body through `mj-raw`, with fonts/styles in its
+head. Compiler validation does not establish Gmail/Outlook rendering or that
+Loops discovers variables inside the raw body; inspect Review API Details after
+import and test actual inboxes before binding IDs.
+
+Normalization is deliberately limited:
+
+- Supabase Go tokens become Loops `DATA_VARIABLE` tokens. All generation and
+  verification stays in Supabase; no template is installed in Supabase.
+- Sign-in's one-time clickable link becomes a plain `welcomeUrl` / Open Cramapple
+  action, preserving the established code-first experience.
+- Auth invite copy now asks for verification without promising paid access.
+  Supabase can send an invite before entitlements exist, and editable metadata
+  cannot substantiate purchase claims. Purchased-subject/parent-payment blocks
+  are omitted from the adapted invite, not from the preserved original.
+- Fixed one-hour expiry copy becomes `expiryText`; the backend supplies neutral
+  expiry guidance rather than an unverified duration. Supabase expiry is unchanged.
+- `[Mailing address]` becomes required `mailingAddress`, pending the real address.
+- Adapted 07 supports settled direct purchases using purchased `subjects`, rather
+  than inventing all-account subject holdings, an access-end date, or a separate
+  receipt delivery promise. Original subjects-added design remains in `source/`.
+
+## Template Readiness and Backend Gaps
+
+| Design | Intended use | Binding or missing contract |
+| --- | --- | --- |
+| 01 Welcome verification | New-student invite | LOOPS_INVITE_TRANSACTIONAL_ID; implemented token, welcomeUrl, firstName (safe personalization only), emailAddress, neutral expiryText and mailingAddress. No paid-access claims from metadata. |
+| 02 Sign-in code | Requested existing-account login | LOOPS_MAGICLINK_TRANSACTIONAL_ID; implemented emailAddress, expiryText and mailingAddress. Existing signed-out purchase must actually orchestrate its first code; this remains separate from template wiring. |
+| 03 Email confirmation | Signup or unconfirmed-account confirmation | LOOPS_SIGNUP_TRANSACTIONAL_ID; implemented emailAddress, expiryText and mailingAddress. Confirm resend action mapping with controlled accounts before activation. |
+| 04 Parent request | Parent recipient only | Implemented formatted USD amount, paymentUrl, explicit UTC expiresOn, parentEmail and mailingAddress. Preserves short-link preference and actual discounted session total. |
+| 05 Parent paid | Student access notification | Implemented firstName, readable subjects, appUrl and mailingAddress. Recipient remains the Auth student, never the parent payer. Invite/confirmation overlap remains a release blocker. |
+| 06 Receipt | Actual payer, distinct from student | Verified Stripe card-charge builder and durable outbox implemented in Development; automatic sends off. Uses actual payer billing email, captured amount and card details. Non-card coverage and live event QA remain pending. |
+| 07 Subjects added / purchase complete | Student after settled direct purchase | LOOPS_PURCHASE_TRANSACTIONAL_ID; adapted design and backend now agree on firstName, purchased subjects, appUrl and mailingAddress. No invented expiry, all-account holdings or receipt-send claim. |
+| 08 Parent reminder | Parent, unpaid and unexpired request | Private lifecycle store and settlement/expiry rechecks implemented in Development; disabled. Timing and protected schedule remain pending. |
+| 09 Link expired | Student recovery | Verified-student, subject-matching recovery context implemented; frontend must supply URLs. Disabled until recovery behavior and same-parent copy are truthful. No extra parent variant is authorized. |
+| 10 Refund | Payer after successful refund | Successful individual Stripe card refund builder and refund-ID dedupe implemented; automatic sends off. Partial refunds use their actual individual amount. Non-card coverage and real event/replay QA remain pending. |
+
+`manifest.json` lists variables actually used, not merely variables named in
+source comments. It records all ten provider-published IDs, independently rechecked
+in the Loops list. See [the Development rollout evidence](../../qa/LOOPS_DEVELOPMENT_ROLLOUT_2026_10_06.md)
+for deployed functions, controlled delivery tests and remaining activation gates.
+
+## Implementation Authorized While Manual QA Is Deferred
+
+David instructed Codex to proceed with implementation because he cannot run
+morning checklist steps 4-6 now. Those manual acceptance checks remain pending;
+they are not a prerequisite to writing and testing the code, and are not marked
+passed by delegation.
+
+Implemented shared template-data builders, safe bounded personalization, escaped
+text, HTTPS-only links without URL credentials, USD minor-unit formatting, and
+required footer configuration. Contract tests read the actual import manifest
+and cover all variables for the six wired templates. Codes are still generated
+and verified by Supabase and are not written to the payment queue.
+
+Includes PR #342's notification ordering correction: student ownership backfill
+precedes independent email work. Queue-failure injection after actual grants
+remains a separate fixture test, not established by type-checking.
+
+Checkout F1 source remediation: add-on requests now validate the bearer with
+`requireAuthedUser` and require the source order's student ID to match before
+any customer/Stripe lookup. A mocked full-handler test rejects missing/invalid
+tokens and wrong-account requests without Stripe calls. The route is not newly
+promoted or published; no saved-card payment was attempted. Production deployment
+is still outstanding, so do not describe the live endpoint as remediated.
+
+Required new server config: `TRANSACTIONAL_MAILING_ADDRESS`. Missing footer
+configuration fails before provider delivery; never deploy/activate the richer
+contracts without it. Existing SMTP/Auth configuration and Stripe receipts are
+unchanged. New templates/IDs must not be switched while old queued ambiguous
+deliveries are awaiting reconciliation.
+
+## Import Evidence and Blocker
+
+Confirmed authenticated access to the Cramapple Loops workspace, Free plan.
+Templates 01-10 were uploaded, variable-discovered, reviewed and shown as
+Published in the provider list. Template 10 has provider ID
+`cmuwrv0td06ic0jzlawvqx6q5`; its earlier Draft observation was stale and is now
+superseded by the Published list state. No email was sent during
+import. A reproducible ZIP builder is checked in as `build-imports.mjs` and
+requires a single root `index.mjml` per archive.
+
+## QA and Next Owner
+
+Checks completed: all ten MJML files pass `mjml@4.17.1 --validate`; all ten
+originals match Downloads byte-for-byte; adapted variable manifests match their
+MJML; no Supabase Go syntax, script elements, magic-link placeholders or literal
+mailing-address placeholders remain in adapted files. `git diff --check` passes.
+This is structural validation only, not client rendering or provider delivery QA.
+
+Implementation continuation verification: 49 focused backend tests pass (including
+the mocked full add-on handler, nine new template/ownership tests and the existing
+payment/auth/retry tests). All five changed function entrypoints type-check, and
+all ten updated MJML files validate. No test recipient addresses were used in
+provider calls; tests intercept fetch and use example.com fixtures. The frontend
+preview pass is separately reviewed/recorded before any publish.
+
+Codex: import the ten designs; inspect variable discovery and final rendered
+HTML; supply safe backend data contracts; resolve first-code/duplicate-message
+behavior; bind Development IDs only after contract tests; verify sender/domain,
+reply-to, and configured expiry. Keep Stripe receipts until the replacement path
+has demonstrated truthful receipt delivery. No Production auth hook activation,
+payment notification enablement, reminder schedule or payment was performed here.
+
+David supplied footer text `Brooklyn, NY USA`; reminder timing remains undecided.
+Supplied inboxes satisfy the earlier request for controlled test recipients;
+controlled student codes and parent requests have now been sent in Development,
+with evidence and limits in the rollout report. Use the existing
+student for returning/login tests and the intended new student for invite tests;
+verify state first, and never delete/recreate a real account to reset a fixture.
+Use synthetic fixtures for send-error, refund and queue failure tests; do not
+send fictional payment/refund claims to real inboxes.
+
+Before a full pass: new invite, existing first send, unconfirmed resend, parent
+request, paid-parent student notification, payer receipt, added subjects,
+reminder cancellation, expiry recovery, partial refund, duplicate webhook,
+cross-device code entry and Gmail/Outlook mobile rendering. No pass inferred
+from a design import or a compiler result.
+
+Sources: [Loops custom email upload](https://loops.so/docs/creating-emails/uploading-custom-email)
+and [Loops transactional guide](https://loops.so/docs/transactional/guide).

@@ -1,0 +1,40 @@
+{
+  "batch": "apcalcab-orly-cleanroom-2026-10-06",
+  "subject": "AP Calculus AB",
+  "seed_class": "D handled under the class-B clean-room path (same Product Owner decision as the AP Chemistry batch, DECISION-0098)",
+  "extractor_note": "Written by the extractor context, the only context that read the source. Patterns only: no source functions, intervals, numbers, wording, choices or answer values. Units 1-3 only, so the source's Unit 5 item is excluded. 3 members per family: v1 easy, v2 medium, v3 hard; each member uses a different function and interval from its siblings.",
+  "families": [
+    {
+      "family_id": "C1",
+      "topic_code": "2.1",
+      "task_verb": "Compute the average rate of change of a trigonometric function on an interval, using exact values",
+      "structure": "A sine or cosine function with a coefficient inside the argument, possibly plus a vertical shift or an outside coefficient, on an interval whose endpoints are multiples of pi. Members must include: one interval on which the endpoint values are equal, so the average rate of change is zero even though the function is not constant there; one whose exact answer has pi in the denominator; and one in a context with units, for example a periodic quantity over time. No calculator: values must come from the unit circle.",
+      "misconceptions": [
+        "Evaluates the derivative at an endpoint or at the midpoint, giving an instantaneous rate instead of the average",
+        "Drops the coefficient inside the argument when evaluating, for example using the value at x instead of at kx",
+        "Gives the change in the function without dividing by the interval length",
+        "Subtracts in the wrong order, so the sign is reversed"
+      ]
+    },
+    {
+      "family_id": "C2",
+      "topic_code": "2.1",
+      "task_verb": "Compare or locate average rates of change across intervals",
+      "structure": "A function given algebraically (polynomial, rational or radical) or as a short table of values. The task is to decide which of four intervals has the greatest (or least, or negative) average rate of change, or which interval has a given average rate of change. Choices are intervals. Members must include one table-based member, one where a function value at a left endpoint is negative, and one in a context with units. Do not simply ask for one average rate of change on one interval: the bank already has several.",
+      "misconceptions": [
+        "Compares function values at the right endpoints instead of rates",
+        "Divides by the right endpoint instead of the interval length",
+        "Mishandles a negative function value at the left endpoint when subtracting",
+        "Uses the mean of the two endpoint values (an average value of the function) instead of the average rate of change"
+      ],
+      "avoid_overlap": "Existing bank items ask for one average rate of change of x^2-3x, t^2+4t, sqrt(x) and x^3-x on fixed intervals, plus limit-of-average-velocity and table-of-h items. Do not reuse those functions or that task shape."
+    }
+  ],
+  "member_rules": {
+    "per_family": 3,
+    "difficulty": "v1 easy, v2 medium, v3 hard",
+    "choices": "Exactly 4 choices, A-D; one correct; each distractor produced by one named misconception, with a rationale that reproduces the shown value or choice exactly.",
+    "calculator": "No calculator. Exact values.",
+    "vocabulary": "CED vocabulary only (DECISION-0095); topic 2.1 scope from the AP Calculus AB/BC fact pack."
+  }
+}

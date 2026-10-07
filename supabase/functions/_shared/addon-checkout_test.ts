@@ -1,8 +1,18 @@
 import {
   addonCustomerOptions,
   isPayerNotLearner,
+  ownsAddonSource,
   purchaserTypeFromMetadata,
 } from "./addon-checkout.ts";
+
+Deno.test("add-on source requires a verified matching learner", () => {
+  assertEquals(ownsAddonSource("student", "student"), true);
+  assertEquals(ownsAddonSource("another-student", "student"), false);
+  assertEquals(ownsAddonSource(null, "student"), false);
+  assertEquals(ownsAddonSource("student", null), false);
+  assertEquals(ownsAddonSource(null, null), false);
+  assertEquals(ownsAddonSource("", ""), false);
+});
 
 function assertEquals(actual: unknown, expected: unknown) {
   if (JSON.stringify(actual) !== JSON.stringify(expected)) {

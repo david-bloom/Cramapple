@@ -1,0 +1,1479 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.5",
+  "topic_title": "Cellular Respiration"
+ },
+ "status": "accepted",
+ "candidates": [
+  {
+   "id": "biology__3.5#r1-anthropic",
+   "round": 1,
+   "author": "anthropic/claude-opus-5.5",
+   "author_family": "anthropic",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 25535,
+    "inputTokenDetails": {
+     "noCacheTokens": 25535,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 0
+    },
+    "outputTokens": 1475,
+    "outputTokenDetails": {
+     "textTokens": 865,
+     "reasoningTokens": 610
+    },
+    "totalTokens": 27010,
+    "raw": {
+     "input_tokens": 25535,
+     "output_tokens": 1475,
+     "output_tokens_details": {
+      "thinking_tokens": 610
+     },
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 0,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+     },
+     "service_tier": "standard",
+     "inference_geo": "global"
+    },
+    "reasoningTokens": 610,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.5",
+    "topic_title": "Cellular Respiration",
+    "stem": "Isolated mitochondria are supplied with pyruvate, ADP, and phosphate. When oxygen is removed from the solution, NADH accumulates inside the mitochondria and ATP synthesis by ATP synthase drops nearly to zero. Which explanation best accounts for these observations?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Oxygen is a reactant that ATP synthase combines with ADP and phosphate to form ATP, so without oxygen ATP synthase lacks a substrate.",
+      "is_correct": false,
+      "rationale": "This is the misconception that oxygen makes ATP directly. ATP synthase joins ADP and phosphate using energy from protons flowing down their gradient; oxygen never enters that reaction and acts only at the end of the chain, accepting electrons. Fix: Ask which molecule each step actually uses, and trace oxygen to where it accepts electrons and forms water."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Without oxygen to accept electrons at the end of the electron transport chain, electron flow stops, so protons are no longer pumped, the proton gradient dissipates, and ATP synthase has no gradient to drive ATP synthesis.",
+      "is_correct": true,
+      "rationale": "Oxygen is the final electron acceptor. When it is absent, electrons back up in the chain, so NADH cannot hand off its electrons and accumulates. With no electron flow, no protons are pumped into the intermembrane space, so chemiosmosis through ATP synthase stops."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Without oxygen, glycolysis cannot run, so no pyruvate or NADH is produced to feed the electron transport chain.",
+      "is_correct": false,
+      "rationale": "This confuses which steps need oxygen. Glycolysis does not require oxygen and continues anaerobically through fermentation; it also occurs in the cytosol, not in isolated mitochondria already given pyruvate. The accumulating NADH shows electrons are being supplied but not passed on. Fix: Check where each stage occurs and whether it directly consumes oxygen before blaming it for a stall."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Oxygen is needed to break the carbon-carbon bonds of pyruvate, so without it no carbon is oxidized and no electrons are released to NADH.",
+      "is_correct": false,
+      "rationale": "This treats respiration like burning, with oxygen attacking the fuel directly. In the Krebs cycle, carbon is released as CO₂ and electrons are transferred to NAD⁺ and FAD without oxygen reacting with the fuel. The observed NADH buildup shows carbon oxidation is still loading carriers. Fix: Track where electrons go at each step and ask whether the data show carriers being reduced."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 356,
+         "inputTokenDetails": {
+          "noCacheTokens": 356,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 73,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 47
+         },
+         "totalTokens": 429,
+         "raw": {
+          "input_tokens": 356,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 0
+          },
+          "output_tokens": 73,
+          "output_tokens_details": {
+           "reasoning_tokens": 47
+          },
+          "total_tokens": 429
+         },
+         "reasoningTokens": 47,
+         "cachedInputTokens": 0
+        },
+        "ms": 3645,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 416,
+         "inputTokenDetails": {
+          "noCacheTokens": 416,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 328,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 298
+         },
+         "totalTokens": 744,
+         "raw": {
+          "thoughtsTokenCount": 298,
+          "promptTokenCount": 416,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 744,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 416
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 298,
+         "cachedInputTokens": 0
+        },
+        "ms": 4753,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 481,
+         "inputTokenDetails": {
+          "noCacheTokens": 225,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 414,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 388
+         },
+         "totalTokens": 895,
+         "raw": {
+          "prompt_tokens": 481,
+          "completion_tokens": 414,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 225,
+          "total_tokens": 895,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 388
+          }
+         },
+         "reasoningTokens": 388,
+         "cachedInputTokens": 256
+        },
+        "ms": 6026,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "B",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 522,
+         "inputTokenDetails": {
+          "noCacheTokens": 394,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 210,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 190
+         },
+         "totalTokens": 732,
+         "raw": {
+          "prompt_tokens": 522,
+          "completion_tokens": 210,
+          "total_tokens": 732,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 190,
+           "accepted_prediction_tokens": 115,
+           "rejected_prediction_tokens": 167,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 190,
+         "cachedInputTokens": 128
+        },
+        "ms": 1928,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "openai/gpt-6.1-sol": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": false,
+           "issue": "D's rationale overstates what NADH buildup establishes: it does not demonstrate that carbon oxidation remains ongoing. NADH accumulates because its oxidation by the ETC is blocked; carbon oxidation can continue briefly but then slows or stops as NAD⁺ becomes unavailable."
+          },
+          "concise": {
+           "pass": false,
+           "issue": "C and D each have four rationale sentences, including the Fix sentence, exceeding the three-sentence maximum."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16489,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16486
+         },
+         "outputTokens": 782,
+         "outputTokenDetails": {
+          "textTokens": 294,
+          "reasoningTokens": 488
+         },
+         "totalTokens": 17271,
+         "raw": {
+          "input_tokens": 16489,
+          "input_tokens_details": {
+           "cache_write_tokens": 16486,
+           "cached_tokens": 0
+          },
+          "output_tokens": 782,
+          "output_tokens_details": {
+           "reasoning_tokens": 488
+          },
+          "total_tokens": 17271
+         },
+         "reasoningTokens": 488,
+         "cachedInputTokens": 0
+        },
+        "ms": 18810,
+        "flags": [
+         "accurate: D's rationale overstates what NADH buildup establishes: it does not demonstrate that carbon oxidation remains ongoing. NADH accumulates because its oxidation by the ETC is blocked; carbon oxidation can continue briefly but then slows or stops as NAD⁺ becomes unavailable.",
+         "concise: C and D each have four rationale sentences, including the Fix sentence, exceeding the three-sentence maximum."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "The rationales for C and D each contain four sentences, including the Fix sentence, exceeding the three-sentence maximum."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16489,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 16486,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 571,
+         "outputTokenDetails": {
+          "textTokens": 246,
+          "reasoningTokens": 325
+         },
+         "totalTokens": 17060,
+         "raw": {
+          "input_tokens": 16489,
+          "input_tokens_details": {
+           "cache_write_tokens": 0,
+           "cached_tokens": 16486
+          },
+          "output_tokens": 571,
+          "output_tokens_details": {
+           "reasoning_tokens": 325
+          },
+          "total_tokens": 17060
+         },
+         "reasoningTokens": 325,
+         "cachedInputTokens": 16486
+        },
+        "ms": 12569,
+        "flags": [
+         "concise: The rationales for C and D each contain four sentences, including the Fix sentence, exceeding the three-sentence maximum."
+        ]
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": false,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "Choices C and D each contain four sentences, violating the rule that explanations must be one to three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17803,
+         "inputTokenDetails": {
+          "noCacheTokens": 17803,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 2839,
+         "outputTokenDetails": {
+          "textTokens": 283,
+          "reasoningTokens": 2556
+         },
+         "totalTokens": 20642,
+         "raw": {
+          "thoughtsTokenCount": 2556,
+          "promptTokenCount": 17803,
+          "candidatesTokenCount": 283,
+          "totalTokenCount": 20642,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17803
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 283
+           }
+          ]
+         },
+         "reasoningTokens": 2556,
+         "cachedInputTokens": 0
+        },
+        "ms": 20071,
+        "flags": [
+         "concise: Choices C and D each contain four sentences, violating the rule that explanations must be one to three sentences."
+        ]
+       },
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": false,
+           "issue": "The rationales for choices C and D each contain four sentences, exceeding the requirement that explanations be one to three sentences."
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17803,
+         "inputTokenDetails": {
+          "noCacheTokens": 5610,
+          "cacheReadTokens": 12193
+         },
+         "outputTokens": 3685,
+         "outputTokenDetails": {
+          "textTokens": 286,
+          "reasoningTokens": 3399
+         },
+         "totalTokens": 21488,
+         "raw": {
+          "cachedContentTokenCount": 12193,
+          "thoughtsTokenCount": 3399,
+          "promptTokenCount": 17803,
+          "candidatesTokenCount": 286,
+          "totalTokenCount": 21488,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17803
+           }
+          ],
+          "cacheTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 12193
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 286
+           }
+          ]
+         },
+         "reasoningTokens": 3399,
+         "cachedInputTokens": 12193
+        },
+        "ms": 27742,
+        "flags": [
+         "concise: The rationales for choices C and D each contain four sentences, exceeding the requirement that explanations be one to three sentences."
+        ]
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16668,
+         "inputTokenDetails": {
+          "noCacheTokens": 15388,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 10370,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 10151
+         },
+         "totalTokens": 27038,
+         "raw": {
+          "prompt_tokens": 16668,
+          "completion_tokens": 10370,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15388,
+          "total_tokens": 27038,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 10151
+          }
+         },
+         "reasoningTokens": 10151,
+         "cachedInputTokens": 1280
+        },
+        "ms": 101736,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17180,
+         "inputTokenDetails": {
+          "noCacheTokens": 16604,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 4410,
+         "outputTokenDetails": {
+          "textTokens": 127,
+          "reasoningTokens": 4283
+         },
+         "totalTokens": 21590,
+         "raw": {
+          "prompt_tokens": 17180,
+          "completion_tokens": 4410,
+          "total_tokens": 21590,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 4283,
+           "accepted_prediction_tokens": 2928,
+           "rejected_prediction_tokens": 1515,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 4283,
+         "cachedInputTokens": 576
+        },
+        "ms": 22585,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "rejected",
+    "stage": "audit"
+   }
+  },
+  {
+   "id": "biology__3.5#r1-openai",
+   "round": 1,
+   "author": "openai/gpt-6.1-sol",
+   "author_family": "openai",
+   "gen_ok": true,
+   "gen_usage": {
+    "inputTokens": 15794,
+    "inputTokenDetails": {
+     "noCacheTokens": 3,
+     "cacheReadTokens": 0,
+     "cacheWriteTokens": 15791
+    },
+    "outputTokens": 711,
+    "outputTokenDetails": {
+     "textTokens": 475,
+     "reasoningTokens": 236
+    },
+    "totalTokens": 16505,
+    "raw": {
+     "input_tokens": 15794,
+     "input_tokens_details": {
+      "cache_write_tokens": 15791,
+      "cached_tokens": 0
+     },
+     "output_tokens": 711,
+     "output_tokens_details": {
+      "reasoning_tokens": 236
+     },
+     "total_tokens": 16505
+    },
+    "reasoningTokens": 236,
+    "cachedInputTokens": 0
+   },
+   "item": {
+    "subject_key": "biology",
+    "unit_number": 3,
+    "topic_code": "3.5",
+    "topic_title": "Cellular Respiration",
+    "stem": "An animal cell breaking down glucose releases CO₂, consumes O₂, and produces ATP. Which explanation correctly connects glucose breakdown to ATP production by oxidative phosphorylation?",
+    "choices": [
+     {
+      "choice_key": "A",
+      "choice_text": "Electron carriers deliver electrons from glucose breakdown to the electron transport chain. The chain transfers electrons to O₂, which directly supplies the energy for ATP synthesis without requiring a proton gradient.",
+      "is_correct": false,
+      "rationale": "Direct-oxygen trap: O₂ accepts electrons at the end of the chain, but ATP synthesis by oxidative phosphorylation depends on a proton gradient, not energy supplied directly by O₂. Fix: Trace the energy pathway from electron transfer to the proton gradient to ATP synthase."
+     },
+     {
+      "choice_key": "B",
+      "choice_text": "Carbon released as CO₂ carries energy from glucose breakdown to the electron transport chain. The chain uses that CO₂ to build a proton gradient, which powers ATP synthase while O₂ accepts electrons.",
+      "is_correct": false,
+      "rationale": "Carbon–electron confusion: CO₂ is a carbon-containing waste product, not the carrier delivering electrons to the electron transport chain. Electron carriers connect glucose oxidation to gradient formation. Fix: Track carbon and electrons separately, identifying which molecules leave as waste and which deliver electrons."
+     },
+     {
+      "choice_key": "C",
+      "choice_text": "Electron carriers deliver electrons from glucose breakdown to the electron transport chain. Electron transfer builds a proton gradient, proton flow through ATP synthase drives ATP production, and O₂ accepts electrons at the end of the chain.",
+      "is_correct": true,
+      "rationale": "Glucose breakdown releases carbon as CO₂ and transfers electrons to carriers. Energy from electron transfer builds the proton gradient that powers ATP synthase; O₂ maintains electron flow by serving as the final electron acceptor rather than making ATP directly."
+     },
+     {
+      "choice_key": "D",
+      "choice_text": "Electron carriers deliver electrons from glucose breakdown to the electron transport chain. The chain builds a proton gradient, but electrons flowing through ATP synthase directly drive ATP production before being accepted by O₂.",
+      "is_correct": false,
+      "rationale": "Electron–proton confusion: Electrons move through the electron transport chain, whereas protons flow through ATP synthase to drive ATP production. Fix: Label the particles moving through the electron transport chain and ATP synthase before explaining ATP production."
+     }
+    ]
+   },
+   "eval": {
+    "lint": [],
+    "solve": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 866,
+         "inputTokenDetails": {
+          "noCacheTokens": 866,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 30,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 0
+         },
+         "totalTokens": 896,
+         "raw": {
+          "input_tokens": 866,
+          "output_tokens": 30,
+          "output_tokens_details": {
+           "thinking_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 0,
+         "cachedInputTokens": 0
+        },
+        "ms": 2044,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 435,
+         "inputTokenDetails": {
+          "noCacheTokens": 435,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 202,
+         "outputTokenDetails": {
+          "textTokens": 30,
+          "reasoningTokens": 172
+         },
+         "totalTokens": 637,
+         "raw": {
+          "thoughtsTokenCount": 172,
+          "promptTokenCount": 435,
+          "candidatesTokenCount": 30,
+          "totalTokenCount": 637,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 435
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 30
+           }
+          ]
+         },
+         "reasoningTokens": 172,
+         "cachedInputTokens": 0
+        },
+        "ms": 3818,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 497,
+         "inputTokenDetails": {
+          "noCacheTokens": 241,
+          "cacheReadTokens": 256
+         },
+         "outputTokens": 356,
+         "outputTokenDetails": {
+          "textTokens": 26,
+          "reasoningTokens": 330
+         },
+         "totalTokens": 853,
+         "raw": {
+          "prompt_tokens": 497,
+          "completion_tokens": 356,
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 241,
+          "total_tokens": 853,
+          "prompt_tokens_details": {
+           "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 330
+          }
+         },
+         "reasoningTokens": 330,
+         "cachedInputTokens": 256
+        },
+        "ms": 3976,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "chosen_label": "C",
+         "other_defensible_labels": [],
+         "defect": ""
+        },
+        "usage": {
+         "inputTokens": 522,
+         "inputTokenDetails": {
+          "noCacheTokens": 394,
+          "cacheReadTokens": 128
+         },
+         "outputTokens": 193,
+         "outputTokenDetails": {
+          "textTokens": 20,
+          "reasoningTokens": 173
+         },
+         "totalTokens": 715,
+         "raw": {
+          "prompt_tokens": 522,
+          "completion_tokens": 193,
+          "total_tokens": 715,
+          "prompt_tokens_details": {
+           "cached_tokens": 128,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 173,
+           "accepted_prediction_tokens": 112,
+           "rejected_prediction_tokens": 128,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 173,
+         "cachedInputTokens": 128
+        },
+        "ms": 1977,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "audit": {
+     "anthropic/claude-opus-5.5": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 27329,
+         "inputTokenDetails": {
+          "noCacheTokens": 27329,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 0
+         },
+         "outputTokens": 583,
+         "outputTokenDetails": {
+          "textTokens": 212,
+          "reasoningTokens": 371
+         },
+         "totalTokens": 27912,
+         "raw": {
+          "input_tokens": 27329,
+          "output_tokens": 583,
+          "output_tokens_details": {
+           "thinking_tokens": 371
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "cache_creation": {
+           "ephemeral_5m_input_tokens": 0,
+           "ephemeral_1h_input_tokens": 0
+          },
+          "service_tier": "standard",
+          "inference_geo": "global"
+         },
+         "reasoningTokens": 371,
+         "cachedInputTokens": 0
+        },
+        "ms": 8655,
+        "flags": []
+       }
+      ]
+     },
+     "google/gemini-3.8-flash": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17755,
+         "inputTokenDetails": {
+          "noCacheTokens": 17755,
+          "cacheReadTokens": 0
+         },
+         "outputTokens": 1580,
+         "outputTokenDetails": {
+          "textTokens": 262,
+          "reasoningTokens": 1318
+         },
+         "totalTokens": 19335,
+         "raw": {
+          "thoughtsTokenCount": 1318,
+          "promptTokenCount": 17755,
+          "candidatesTokenCount": 262,
+          "totalTokenCount": 19335,
+          "trafficType": "ON_DEMAND",
+          "promptTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 17755
+           }
+          ],
+          "candidatesTokensDetails": [
+           {
+            "modality": "TEXT",
+            "tokenCount": 262
+           }
+          ]
+         },
+         "reasoningTokens": 1318,
+         "cachedInputTokens": 0
+        },
+        "ms": 11576,
+        "flags": []
+       }
+      ]
+     },
+     "deepseek/deepseek-v4-pro": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16610,
+         "inputTokenDetails": {
+          "noCacheTokens": 15330,
+          "cacheReadTokens": 1280
+         },
+         "outputTokens": 3899,
+         "outputTokenDetails": {
+          "textTokens": 219,
+          "reasoningTokens": 3680
+         },
+         "totalTokens": 20509,
+         "raw": {
+          "prompt_tokens": 16610,
+          "completion_tokens": 3899,
+          "prompt_cache_hit_tokens": 1280,
+          "prompt_cache_miss_tokens": 15330,
+          "total_tokens": 20509,
+          "prompt_tokens_details": {
+           "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 3680
+          }
+         },
+         "reasoningTokens": 3680,
+         "cachedInputTokens": 1280
+        },
+        "ms": 37942,
+        "flags": []
+       }
+      ]
+     },
+     "moonshotai/kimi-k3": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 17100,
+         "inputTokenDetails": {
+          "noCacheTokens": 16524,
+          "cacheReadTokens": 576
+         },
+         "outputTokens": 2378,
+         "outputTokenDetails": {
+          "textTokens": 216,
+          "reasoningTokens": 2162
+         },
+         "totalTokens": 19478,
+         "raw": {
+          "prompt_tokens": 17100,
+          "completion_tokens": 2378,
+          "total_tokens": 19478,
+          "prompt_tokens_details": {
+           "cached_tokens": 576,
+           "audio_tokens": 0
+          },
+          "completion_tokens_details": {
+           "reasoning_tokens": 2162,
+           "accepted_prediction_tokens": 1605,
+           "rejected_prediction_tokens": 711,
+           "audio_tokens": 0
+          }
+         },
+         "reasoningTokens": 2162,
+         "cachedInputTokens": 576
+        },
+        "ms": 13239,
+        "flags": []
+       }
+      ]
+     }
+    },
+    "verdict": "accepted",
+    "stage": "done",
+    "veto": {
+     "openai/gpt-6.1-sol": {
+      "pass": true,
+      "samples": [
+       {
+        "ok": true,
+        "object": {
+         "primary_topic_code": "3.5",
+         "rules": {
+          "on_topic": {
+           "pass": true,
+           "issue": ""
+          },
+          "ced_scope": {
+           "pass": true,
+           "issue": ""
+          },
+          "one_answer": {
+           "pass": true,
+           "issue": ""
+          },
+          "self_contained": {
+           "pass": true,
+           "issue": ""
+          },
+          "stem_clean": {
+           "pass": true,
+           "issue": ""
+          },
+          "keyed_rationale": {
+           "pass": true,
+           "issue": ""
+          },
+          "named_trap": {
+           "pass": true,
+           "issue": ""
+          },
+          "accurate": {
+           "pass": true,
+           "issue": ""
+          },
+          "concise": {
+           "pass": true,
+           "issue": ""
+          },
+          "style": {
+           "pass": true,
+           "issue": ""
+          }
+         }
+        },
+        "usage": {
+         "inputTokens": 16426,
+         "inputTokenDetails": {
+          "noCacheTokens": 3,
+          "cacheReadTokens": 0,
+          "cacheWriteTokens": 16423
+         },
+         "outputTokens": 269,
+         "outputTokenDetails": {
+          "textTokens": 222,
+          "reasoningTokens": 47
+         },
+         "totalTokens": 16695,
+         "raw": {
+          "input_tokens": 16426,
+          "input_tokens_details": {
+           "cache_write_tokens": 16423,
+           "cached_tokens": 0
+          },
+          "output_tokens": 269,
+          "output_tokens_details": {
+           "reasoning_tokens": 47
+          },
+          "total_tokens": 16695
+         },
+         "reasoningTokens": 47,
+         "cachedInputTokens": 0
+        },
+        "ms": 5291,
+        "flags": []
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "accepted_id": "biology__3.5#r1-openai",
+ "accepted_at": "2026-10-06T15:39:19.011Z"
+}
