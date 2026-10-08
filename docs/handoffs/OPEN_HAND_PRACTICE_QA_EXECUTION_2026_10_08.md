@@ -51,7 +51,7 @@ Package 3 — flow and comprehension (connector commit `5fe0ced7d69cb74caf3531aa
 - Cross-unit strip (F4): a `role="status"` line above the question plate, "You've finished Unit N's examples. This one is from Unit M · title.", for that question only; the old sentence in the button row is gone.
 - First-question disclosure (F5): "Open any of these freely on this question. Using one is recorded as guided help." shown only in the ungated first-question state.
 - Continue advances in one tap (m1); phone pane order question → answer/hints → reference via CSS order (m2); "Selected" instead of "Your answer" in worked examples (m3); the Answer Key pane carries only the correct answer and its rationale, each distractor's explanation on its own option row, so no text appears twice (m4; this replaces the earlier "explanations once, in the left pane" rule).
-- Visited set (A7): topics already shown this visit are skipped in the browser (the teaching RPC has no exclusion list); the pool ends with the existing end-of-pool notice. A follow-up message aligned the "Next example: …" label with the same pick so it never names a topic that is then skipped.
+- Visited set (A7): topics already shown this visit are skipped in the browser (the teaching RPC has no exclusion list); the pool ends with the existing end-of-pool notice. A follow-up (connector commit `926ac3fbb0876bc10d97916441980afb3dcabccc`, agent-reported `19172af5`; 80 files / 746 passed, tsgo 0, build 0) made the "Next example: …" label and the click share one pick, so the label always names the topic the student lands on.
 - Set-end tally (A8): "Answered N · Skipped M in this set".
 - Accessibility (A9): Deep Dive overlay is a real dialog (role, aria-modal, labelled title, focus in/return, Escape); FRQ textareas have visible labels and points described; MCQ radiogroups have arrow-key navigation with roving tabindex. The leave guard stays the browser's native confirm, which already blocks and handles focus. Status strips render once per question; not checked with a screen reader.
 - Reported after the final edits: 80 test files / 745 passed / 0 failed; `npx tsgo --noEmit` exit 0 after two test-file type fixes; `npm run build` exit 0. Tests exercise handlers directly (no simulated browser); phone order is asserted on the stylesheet rule.
@@ -70,7 +70,7 @@ Package 3 — flow and comprehension (connector commit `5fe0ced7d69cb74caf3531aa
 | `student-session-items` Development | v28, byte-identical to the committed source. Production v34 deployed from the same source. |
 | Lovable package 1 | 78 files / 718 passed; tsgo 0; build 0 (agent report). |
 | Lovable package 2 | 79 files / 732 passed; tsgo 0; build 0 (agent report). |
-| Lovable package 3 | 80 files / 745 passed; tsgo 0; build 0 (agent report). |
+| Lovable package 3 + follow-up | 80 files / 745 passed, then 746 passed after the follow-up; tsgo 0; build 0 (agent reports). Preview head `926ac3fb`. |
 | Independent diff review (this session) | Package 1 paging and `QuestionBody`; package 2 `grading-chain.ts` and `storage-user.ts`; package 3 Answer Key / option rows and `teaching.ts` read in full. No signed-in browser run from this sandbox. |
 
 **On-screen QA after David publishes** (adds to §6 of the QA report):
