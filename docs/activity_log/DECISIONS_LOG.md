@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0103 — Student Hub Slice 1 Contracts: Save on Change, Unit-Wide Study Scope, "Asked and Scored" Door Line, Revisit Queue Removed, No Dismissible First-Use Panel
 - DECISION-0102 — Items Made by Generate-and-Select (Protocol §0) Need No Human Review Before Load; the Production Hard-Gate Approval Remains
 - DECISION-0101 — Seeds and Variants (§0): Difficulty Is Not an Author Target and Stays a Provisional Label; Skills Targeted at Practice Level; Variants Inherit the Seed's Labels Instead of Re-Voting
 - DECISION-0100 — Learning Through a Worked (Scored) Example Is a Recommended, Exam-Directed Path on the Student Hub, Never a Required Step; Four Equal Entry Points (Worked Example, Practice, Deep-Dive Notes, Bring a Question)
@@ -54,6 +55,20 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0103 — Student Hub Slice 1 Contracts: Save on Change, Unit-Wide Study Scope, "Asked and Scored" Door Line, Revisit Queue Removed, No Dismissible First-Use Panel
+
+- **Date:** 2026-10-08
+- **Decided by:** David Bloom (Product Owner), answering §5 of `docs/qa/QA_STUDENT_HUB_CONSOLIDATED_PLAN_2026_10_08.md` (PR #381): "go with your recommendation" on 1, 2, 4 and 5; "go with 'asked and scored'" on 3.
+- **Context:** Sol's challenge QA (H1–H15) and Fable's independent assessment (N1–N8) were consolidated into one plan at Sol's request. Five questions where the two assessors differed, or where the plan departed from the unified recommendation, were put to the owner. Slice 1 (truthfulness and route reliability) depends on the first two.
+- **Decision:**
+  1. **Saved vs draft lesson: save on change.** Picking a unit or topic on the hub persists at once with an inline "Saved"; the Confirm / "Set my position" button goes; every door reads the saved lesson. The mutation is keyed to the latest pick. Unit-only saves send `topicCode: null`.
+  2. **Unit-only position is a valid study scope.** The doors box reads "Studying: Unit N · pick a topic to narrow it"; Learn and Practice open unit-wide and say so on the plate; Notes lists the unit's topics. No door silently opens the unit's first topic under a unit heading.
+  3. **Learn door line stays "See how a test-style question is asked and scored."** The unified recommendation §3.1 sub-line stands; the assessors' alternatives without "scored" are withdrawn.
+  4. **"Worth revisiting" is removed from Stage B** until a real revisit list exists; no empty, unavailable or error states are built for it.
+  5. **The first-use explanation is not dismissible.** It is shown on Stage A and absent on Stage B; no "How Cramapple works" reopen control.
+- **Unchanged:** `DECISION-0100` and its amendment; the unified recommendation's design model; the deferred saved-notes store; the "Open Hand" plate masthead.
+- **Consequences:** slice 1 of the consolidated plan can be scoped; the Fable record's §6.2 door line is annotated as superseded.
 
 ## DECISION-0102 — Items Made by Generate-and-Select (§0) Need No Human Review Before Load
 
