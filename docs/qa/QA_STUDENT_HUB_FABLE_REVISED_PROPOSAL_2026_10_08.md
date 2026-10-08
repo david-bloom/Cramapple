@@ -190,7 +190,7 @@ Stage B keeps its orientation strip and gets the same doors box in place of the 
 
 | Door | Line under the door | Available when | Opens |
 | --- | --- | --- | --- |
-| **Learn from a question** · Recommended when available | *See a real test question answered, and why the right answer works.* | A teaching item exists for the lesson (N1) | `/open-hand-mcq?topic=` with the saved topic. Never the "coming soon" plate. |
+| **Learn from a question** · Recommended when available | ~~*See a real test question answered, and why the right answer works.*~~ **Superseded by `DECISION-0103`: "See how a test-style question is asked and scored."** | A teaching item exists for the lesson (N1) | `/open-hand-mcq?topic=` with the saved topic. Never the "coming soon" plate. |
 | **Practice on my own** · Recommended when no example exists | *Answer questions on this lesson. Every answer comes with an explanation.* | Always, once a lesson is saved | `/practice-mcq?topic=`. Quiet link beneath: *Free-response questions (FRQs)* when `count_practice_frqs_available` > 0. |
 | **Read lesson notes** | *The key ideas for this lesson. Copy them to keep.* | Notes exist for the saved topic (nearly always, N7) | Existing overlay through the Radix dialog (H11); button reads "Copy notes"; "Copied" / "Couldn't copy" inline. |
 | **Bring a question** | *Stuck on homework? We'll help you understand it. We won't answer it for you.* | Always | `/byoq`. |

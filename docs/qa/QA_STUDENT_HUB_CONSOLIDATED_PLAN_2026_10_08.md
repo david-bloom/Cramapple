@@ -7,7 +7,7 @@ PREPARED BY: Claude (Fable), consolidating Sol's challenge QA and Fable's indepe
 EVIDENCE RECORDS (findings stand; this document governs where they differ): `QA_STUDENT_HUB_CHALLENGE_2026_10_08.md` (Sol, H1–H15, Lovable `d5adcbc6`) · `QA_STUDENT_HUB_FABLE_REVISED_PROPOSAL_2026_10_08.md` (Fable, N1–N8, §5b–§5d, Lovable `8a97bdca`)
 GOVERNING DECISION: `DECISION-0100` and its amendment; the unified recommendation `product/STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md` still governs the design model
 SCOPE: `/home` for the new student first, the returning student second. Planning only. No application, schema, data or deployment change.
-NEXT OWNER: implementation conductor for slice 1; David for §5 decisions and the slice 2 screenshots; Sol for independent re-QA after each slice.
+NEXT OWNER: implementation conductor for slice 1 (§5 decided, `DECISION-0103`); David for the slice 2 screenshots; Sol for independent re-QA after each slice.
 
 ## 1. Verdict
 
@@ -60,19 +60,19 @@ Priority: P1 = fix before the new-student experience is accepted; P2 = material 
 | --- | --- | --- | --- |
 | **1. Truthfulness and route reliability** | Scope attempts and sessions by active pack. Send `topicCode: null` on unit-only saves; fix the Stage A test. Stabilise saved vs draft lesson per §5(a). Stop the Learn door opening "coming soon": topic-level gate, honour the resolver, unknown ≠ unavailable. One rule for unit-only positions per §5(b). Guard the empty-taxonomy effect. | H1 N5 H3 N6 N1 H8 N2 H2 | Lovable, small: `home.functions.ts`, `HomeStageANew.tsx`, `HomeStageBBuilding.tsx`, `HomeStudyActions.tsx`, one test. |
 | **2. Signed-in visual QA** on the named Preview commit that carries slice 1 | Desktop, 390px, 320px; Stage A with and without a saved lesson; Stage B; notes overlay open; long lesson names; 200% zoom; console and network. Doors visible on a phone without scrolling past the form is a pass condition. | H15 | David (ten minutes) or a controlled zero-attempt test account; Sol records. |
-| **3. First-use clarity** | Purpose in the headline position; doors in their own box headed "Studying: [lesson] · Change"; "What did your class cover most recently?" with titles before codes; "Not sure? Start me at the beginning"; delete the negative copy; Stage B gets the same doors box and loses the threshold line; no dismissible panel. Door copy per the Fable record §6.2, subject to §5(c). | H4 H5 H6 N7 | Lovable, medium. Re-run slice 2 after it. |
+| **3. First-use clarity** | Purpose in the headline position; doors in their own box headed "Studying: [lesson] · Change"; "What did your class cover most recently?" with titles before codes; "Not sure? Start me at the beginning"; delete the negative copy; Stage B gets the same doors box and loses the threshold line; no dismissible panel. Door copy per the Fable record §6.2, except the Learn door line, which stays "See how a test-style question is asked and scored" (§5(c)). | H4 H5 H6 N7 | Lovable, medium. Re-run slice 2 after it. |
 | **4. Shelves and access** | Remove "Worth revisiting"; hide unit evidence labels; cards open notes; finish H11 (portal or z-index, inert, "Copy notes", announced copy); subsection retries; subject picker states; "minutes (estimated)"; plain "Welcome"; `aria-describedby` on the doors. | N3 H9 H10 H7 N4 H11 H12 H13 N8 H14 | Lovable, small to medium. |
 | Backend, separately scoped | Unit per attempt server-side (H7); B1–B9 from the unified recommendation; a real revisit list; per-topic practice availability if slice 2 shows empty queues. | — | Claude, backend tasks under `TASK-0048` successors. |
 
-## 5. Decisions for David
+## 5. Product Owner decisions — DECIDED 2026-10-08 (David Bloom; recorded as `DECISION-0103`)
 
-| # | Question | Sol | Fable | Recommendation |
+| # | Question | Sol | Fable | Decided |
 | --- | --- | --- | --- | --- |
-| (a) | Saved vs draft lesson | Persist before enabling doors, or an explicit "Apply lesson" with an unsaved cue. | Save on change; no Confirm button; inline "Saved". | **Save on change.** It removes the state split instead of labelling it. Requires (b) and a mutation keyed to the latest pick. |
+| (a) | Saved vs draft lesson | Persist before enabling doors, or an explicit "Apply lesson" with an unsaved cue. | Save on change; no Confirm button; inline "Saved". | **Save on change.** No Confirm button; inline "Saved"; the doors always read the saved lesson. Requires (b) and a mutation keyed to the latest pick. |
 | (b) | Unit-only position | Not addressed as one rule. | One rule across all three doors. | **Unit-wide is a valid study scope.** Doors box reads "Studying: Unit 2 · pick a topic to narrow it"; Learn and Practice open unit-wide and say so on the plate; Notes lists the unit's topics. Never silently open topic X.1 under a "Unit X" heading. |
-| (c) | Learn door line | "See an answered question and understand why the answer works." | "See a real test question answered, and why the right answer works." Neither says "scored", because the teaching pool is 186 MCQs and zero FRQs. | Either; both depart from the unified §3.1 sub-line "asked and scored". **Confirm the departure.** |
+| (c) | Learn door line | "See an answered question and understand why the answer works." | "See a real test question answered, and why the right answer works." Neither says "scored", because the teaching pool is 186 MCQs and zero FRQs. | **"See how a test-style question is asked and scored."** The unified §3.1 sub-line stands; both assessors' alternatives are withdrawn. It is the line the hub already carries. |
 | (d) | "Worth revisiting" | Honest empty, unavailable and error states with Retry. | Remove until a real revisit list exists. | **Remove.** It cannot render for nine subjects whatever its load state. |
-| (e) | First-use explanation | Compact panel, dismissible, reopenable from "How Cramapple works". | Always on Stage A, absent on Stage B, no dismiss. | **No dismiss.** A non-persistent dismissal does nothing; a persistent one is cross-session state David said he does not need. |
+| (e) | First-use explanation | Compact panel, dismissible, reopenable from "How Cramapple works". | Always on Stage A, absent on Stage B, no dismiss. | **No dismiss.** Shown on Stage A, absent on Stage B. |
 
 ## 6. Acceptance
 
@@ -100,4 +100,4 @@ Rendering at any width; whether the "coming soon" plate is what a student sees f
 
 Both evidence records carry their full source maps. Findings are cited by their original ids so either record can be checked without this document. App anchors at `926ac3fb`: `src/components/home/HomeV2.tsx`, `HomeStageANew.tsx`, `HomeStageBBuilding.tsx`, `HomeStudyActions.tsx`; `src/lib/home.functions.ts`, `home-snapshot.ts`, `practice-entry.ts`, `open-hand/teaching.ts`; `src/components/overlay/DeepDiveOverlay.jsx`; `src/routes/_ux.tsx`; `src/styles.css`.
 
-**Approval state:** Lane 1 documentation only. **Unresolved:** §5 decisions, §7. **Next action:** David answers §5; the implementation conductor scopes slice 1 against `926ac3fb` or later; Sol re-QAs each slice independently.
+**Approval state:** Lane 1 documentation only. **Unresolved:** §7. **Next action:** the implementation conductor scopes slice 1 under `DECISION-0103` against `926ac3fb` or later; Sol re-QAs each slice independently.
