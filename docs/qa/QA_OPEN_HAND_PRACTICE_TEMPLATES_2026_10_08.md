@@ -2,7 +2,9 @@
 
 **Date:** 2026-10-08
 **Reviewer:** independent QA (Claude, read-only). No code was changed.
-**Source of truth:** Lovable project `56cae479…` at `d5adcbc6` ("Updated own-attempt label at bounds", the latest connector commit, `is_published: true`); the backend repo at this commit; read-only SELECTs against Production `pcntajvbdfqhbeewmdry`. The live site could not be opened from this sandbox, so §6 lists what still needs eyes on a screen.
+**Designs under test:** the four question-experience boards in the *CramApple — Core Product* design canvas (`FZLJ4xPFWguSmcmMFrJNt2`, version saved 2026-10-07 ≈ 21:00 EDT): *1 · Learning from an answered question*, *2 · Practising, before submission*, *3 · Reviewing feedback after submission*, *Session endpoint and returning*, plus the canvas's own notes on them. These are the "new templates" for Open Hand and Practice.
+**Build under test:** Lovable project `56cae479…` at `d5adcbc6` ("Updated own-attempt label at bounds", 2026-10-07 23:14 EDT, the latest connector commit as of this review; `is_published: true`, but Lovable does not say whether this head is the published one). It is the implementation of those designs under the approved minimal slice (`STUDENT_SESSION_CLARITY_MINIMAL_PLAN_2026_10_07.md`, which treats the boards as "references for labels, orientation and progress, not build templates"). Nothing newer was in Lovable at review time.
+**Also read:** the backend repo at this commit; read-only SELECTs against Production `pcntajvbdfqhbeewmdry`; the five walkthrough screenshots under `docs/product/assets/first-session-walkthrough-2026-10-07/`. The live site could not be opened from this sandbox, so §6 lists what still needs eyes on a screen.
 **Scope:** the four live question templates a student reaches from the hub — `/open-hand-mcq` (`LiveOpenHandTeaching` → `OpenHandMcqScreen`), `/practice-mcq` (`LivePracticeMcq` → `PracticeMcqScreen`), `/practice-frq` (`LivePracticeFrq` → `PracticeFrqScreen`) — plus the hub doors that lead into them (`HomeStudyActions`, `TopicHome`). Assessed for ease of use, clarity and helpfulness, then traced to the backend.
 **Previous round:** `QA_OPEN_HAND_PRACTICE_RECHECK_2026_10_06.md`. Its N1 (rationale printed twice as "Fix:") is fixed: `OpenHandMcqScreen` no longer passes `explanation`/`note` to the option rows and the rationale lives once, in the Answer Key pane.
 
@@ -15,7 +17,7 @@
 1. **Practice FRQ is served with no topic in 8 of 10 subjects**, and Practice MCQ in AP Calculus AB Unit 1 is in the same state. On those items the plate titles itself **"Worked example"** (a Practice screen), offers no hint, no reference materials, no deep dive, and tells the student the question "isn't labelled with a topic yet".
 2. **Practice is capped at the same 50 questions forever.** The selector orders deterministically and the client can only hide answered ones, so a student who works through the served 50 is told "No unanswered questions were found in this set" while up to 224 more exist for their unit.
 
-Everything else is a copy, placement or policy issue that is cheap to fix. Nothing found leaks an answer key, scores a teaching item, or strands a student with no way forward.
+Measured against yesterday's boards, the build is a faithful minimal slice: the labels, progress and endpoint copy came across, and the things the plan deferred (pane swap, comparison tabs, revise, resume) are absent rather than half-built. The one design promise the build cannot keep is the learning state itself: the boards show a student learning from a scored **free-response** answer, and the only content Open Hand can serve is **multiple-choice** (§2b). Everything else is a copy, placement or policy issue that is cheap to fix. Nothing reachable from the hub leaks an answer key or scores a teaching item; one unlinked route still does (F9).
 
 ---
 
@@ -28,6 +30,33 @@ Everything else is a copy, placement or policy issue that is cheap to fix. Nothi
 - **Empty states are honest** — no `MISSING.` placeholders, no fabricated reference text, cross-unit jumps are announced, the end of the teaching pool offers Practice and the hub.
 - **Set progress and the three-answer pause** give a visible rhythm ("Question 3 of 10 in this set", "3 answers submitted. Want to keep going?").
 - **Phone layout** collapses the three panes to one column and stacks the Open Hand action row; text wraps with `overflow-wrap: anywhere`.
+
+---
+
+## 2b. Yesterday's designs against the build
+
+The boards describe one question experience in three states plus an endpoint. The build ships a deliberate subset. Where the two differ, the student-facing consequence is what matters, so each row says what a student sees today.
+
+| Design promise (Rev 1–4, 2026-10-07) | In the build at `d5adcbc6` | What a student sees today |
+|---|---|---|
+| **Mode is a bordered chip: LEARN FROM A QUESTION / INDEPENDENT PRACTICE**, beside the topic title. | Masthead chip reads **OPEN HAND** / **PRACTICE**; breadcrumb status reads "Worked example" / "Practice"; the hub door reads "Learn from a question". | The chip the design relies on for "what am I doing here?" uses the one word the design retired. See F6. |
+| **Breadcrumb: Subject › Unit N · Unit title › Topic N.N**, then a Passion One topic title and a one-line description. | Breadcrumb: Subject · Unit N · "N.N · Title"; pane title "N.N · Title". Unit title and description are not shown. | Fine when the item has a topic. When it has none the pane title is "Worked example" even in Practice. See F1. |
+| **Session progress "Question 2 of 5 · 3 remaining" with a five-segment bar**, persistent at the top of every state. | "Question X of N in this set" as plain text in the study nav; no bar; Open Hand shows "R more examples in Unit U". | Progress exists but is text-only and lives in the nav strip above the masthead, not beside the question. Readable; easy to miss on a phone. |
+| **"Save and stop"** in the header. | "Return to student hub" link in the nav; in Practice a line reads "Submitted answers are saved. Unsubmitted work isn't saved when you leave." | Matches the plan (no save promise that is not kept). The design's "Save and stop" label was correctly not copied. |
+| **Reference pane on the LEFT, unboxed, quiet**: numbered Skills, collapsible Vocabulary / Study tips / Key equations ("Not yet"), Deep Dive card with Copy · Google Docs · PDF · Share link. | Reference pane on the RIGHT, boxed, green cap; Topic / Skills / Vocabulary / On the exam / Common point loss; Deep Dive opens an overlay with Copy only. In Practice the whole pane sits behind a costed gate. | Pane swap deferred by the plan. Google Docs / PDF / Share link do not exist, which the plan also says to omit. The design's "Study tips" and "Key equations" have no data source. |
+| **Learning state (Rev 1): an FRQ with a worked answer, highlighted spans mapped to rubric criteria ("Earned by …"), comparison tabs This one / Full credit / Common mistake / Vague, a "ONE POINT AWAY" coaching block, "Reading this is optional".** | Live Open Hand serves the **MCQ teaching pool only** (`get_open_hand_teaching_item`; all 186 active teaching items are MCQs). The MCQ screen shows every option tagged Correct/Distractor with its rationale, no comparison tabs, no coaching block. `OpenHandFrqScreen` (face-up rubric, credited-response spans, points you can take back) exists but has no teaching content behind it. | The designed "learn from a question" is an FRQ experience; what ships is an MCQ one. A student who expects to see how a free-response answer is scored does not get that anywhere reachable from the hub. The hub note "Recommended: see how a test-style question is asked and scored" is the design's "Reading this is optional" line, correctly placed. |
+| **Practice state (Rev 2): rubric criteria names visible on the right before submission ("What each point needs is shown once you submit"); textarea placeholder restates the task; comparison tabs disabled with a lock "After you submit".** | FRQ: no criteria names before submission (no student-safe source yet); the Scoring pane shows only the points-brief gate. MCQ: left pane is "Hints". Textarea has no placeholder. No comparison tabs. | The design's main pre-submit orientation (how many points, named for what) is missing on FRQ. See m6. |
+| **Feedback state (Rev 3): highlighted spans in the student's own answer, criterion rows with "Earned by …" quotes, "ONE POINT AWAY", attempts ledger "1 of 3 · 2 of 3 · just now", "Revise your answer", "One point is still available".** | FRQ: criterion rows (✓ / ↻) with the grader's explanation or minimum fix, a Feedback card with the student's answer and coaching. No span highlighting, no ledger, no revise (plan: one submission). MCQ: Answer Key rows + feedback card. | Reasonable subset. The ↻ convention replaces the design's ✗, per the design-system rule. No "Revise your answer" is correct for the current scoring policy, and the design's button should not reappear without that policy changing. |
+| **Endpoint (Rev 4): "That's the session." · 5 of 5 · "Done for now" / "Practise 5 more"; return state "You stopped at question 3 of 5 … Resume question 3 / Start a new session".** | "You've reached the end of this practice set." · "Next set" / "Return to student hub" / "See a worked example". No return state: a returning student gets a rebuilt queue starting at "Question 1 of N". | Endpoint is honest and matches the plan. The return promise in the design is not built and the plan defers it; nothing in the build claims otherwise. |
+| **One box, not four; warm-grey page ground; only the task and rubric on white.** | Three boxed panes on the desk ground, each with a coloured cap. | Layout rebuild deferred by the plan. |
+| **No commerce on any board.** | None on the question routes. | Matches. |
+
+**Where the design itself needs attention before it becomes a build template** (the canvas notes already flag most of these; recorded here so they are not lost):
+
+- The session model ("Question 2 of 5") has no data behind it; the build's "set of up to 10 from a capped fetch of 50" is what exists. See F2.
+- The three comparison answers (Full credit / Common mistake / Vague) and "Key equations" have no content for any item; the boards render them disabled. Do not build the tabs until at least one subject has the content.
+- The regression example's question asks two things while its rubric scores three ("Explain influence"). The boards use it in every state; a student reading it would be taught to lose a point. Swap the fixture before the boards are used in any student-facing test.
+- The boards are 1440×900 desktop only; the build is responsive and is what phones get. The plan's "narrow phone width" check still needs a screen.
 
 ---
 
@@ -122,6 +151,12 @@ The same screen is called **"Open Hand"** (masthead chip, route, caption), **"Wo
 
 `cramapple.session.v1` (attempts, hint states) and `cramapple.ux001.session-id.v1` are keyed by nothing. On a shared device (school laptop, sibling) student B inherits student A's local attempts — items A answered are dropped from B's queue (`localAnsweredIds`), and hints A opened on an item B is later served count as "used" for B, marking B's attempt coached. The learning-session id is safe (the server refuses a resume by another user), but the plate state is not. Scope the key by `userId` as `seen-counter.ts` already does.
 
+#### F9. `/open-hand-frq` is a live route that reveals, and burns, scored FRQs
+
+`src/routes/open-hand-frq.tsx` → `LiveOpenHandFrq` → `LiveOpenHand` fetches the student's **scored** FRQ queue (`fetchPracticeFrqItems`, the same selector Practice uses), shows a consent screen ("Seeing the worked answer means this question won't count toward your score"), then calls `get_open_hand_item`, which writes an `open_hand_scoring_exclusions` row and returns the full key. This is the pre-TASK-0064 design; the Oct 6 decision moved Open Hand to the never-scored teaching pool, and the MCQ route was switched to it, but the FRQ sibling was not. It is not linked from the hub and is not in `RETIRED_STUDENT_PATHS`, so it is reachable by URL, browser history, and (it carries ordinary `og:` meta with no `noindex`) potentially by search. `get_open_hand_item` is still executable by `authenticated` in Production. Nobody has used it: `open_hand_scoring_exclusions` has 0 rows. With FRQ pools of 25–50 per subject, a curious student could remove most of a subject's FRQs from their own scoring in a few minutes.
+
+**Fix.** Add `/open-hand-frq` to `RETIRED_STUDENT_PATHS` (redirect to `/home`) until there is an FRQ teaching pool, or point it at a teaching-pool RPC. Revoke `authenticated` execute on `get_open_hand_item` if no reachable screen needs it.
+
 ### Minor
 
 - **m1. Two taps to continue after the pause.** At the third graded answer the "Next question" button is hidden and replaced by "Continue"; tapping it brings "Next question" back. Make "Continue" advance directly.
@@ -161,9 +196,11 @@ RLS spot-check (Production): `public.attempts`, `attempt_assistance_events`, `st
 
 1. **F1(a)** — mode-aware fallback title (one function, same day). Then **F1(b)** topic resolution for FRQ packs and Calc AB Unit 1 MCQs (content pipeline).
 2. **F2** — server-side answered exclusion or seeded randomisation in `select_unit_gated_practice_items`, plus truthful end-of-queue copy.
-3. **F3** — one-line fix in `HomeStudyActions.learn`; decide the placeholder's primary action.
-4. **F4, F5, F6** — copy and placement; no backend change.
-5. **F7, F8** — client robustness; small, contained.
+3. **F9** — retire `/open-hand-frq` (one entry in `RETIRED_STUDENT_PATHS`) and revoke the burn RPC from `authenticated`.
+4. **F3** — one-line fix in `HomeStudyActions.learn`; decide the placeholder's primary action.
+5. **F4, F5, F6** — copy and placement; no backend change.
+6. **F7, F8** — client robustness; small, contained.
+7. Before the Rev boards become build templates: an FRQ teaching pool (or the boards redrawn around an MCQ), a session contract, and a fixture whose rubric matches its question (§2b).
 
 ---
 
@@ -175,6 +212,7 @@ RLS spot-check (Production): `public.attempts`, `attempt_assistance_events`, `st
 - [ ] New-student hub (`HomeStageANew`) as an AP Physics C: Mechanics student at Unit 2: "Learn from a question" lands on the "coming soon" placeholder (F3).
 - [ ] Open Hand "Next example" across a unit boundary on a 390px phone: find the note (F4).
 - [ ] First question of a visit: tap "Show me the reference materials" — no cost shown before it opens; receipt appears after (F5).
+- [ ] Signed in as a test student, open `/open-hand-frq` directly: confirm the consent screen appears and that "Show me" would write an exclusion row (F9). Use a throwaway account; the exclusion is permanent for that student.
 - [ ] 390px: Practice MCQ action row ("Submit answer" + "Skip for now" + note) not clipped; Open Hand pane order (m2).
 
 ---
@@ -199,6 +237,9 @@ select pg_get_functiondef('public.select_unit_gated_practice_items(uuid,integer,
 
 -- F3: teaching-topic coverage per unit (taxonomy_topics × open_hand_teaching_items, subject keys normalised)
 
+-- F9: burn RPC still callable; never used
+-- get_open_hand_item: execute granted to authenticated; app.open_hand_scoring_exclusions: 0 rows
+
 -- F7: duplicate attempts, last 30 days
 select count(*), sum(n-1) from (select user_id, content_item_version_id, count(*) n
   from app.attempts where created_at > now() - interval '30 days' group by 1,2 having count(*) > 1) d;
@@ -207,4 +248,4 @@ select count(*), sum(n-1) from (select user_id, content_item_version_id, count(*
 -- Traffic context, last 14 days: mcq graded 11 (2 users), mcq draft 3, frq draft 4.
 ```
 
-Lovable files read at `d5adcbc6`: `src/screens/{LiveOpenHandMcq,LiveOpenHandTeaching,OpenHandMcqScreen,LivePracticeMcq,PracticeMcqScreen,LivePracticeFrq,PracticeFrqScreen}.jsx`, `src/screens/parts/{AnswerKeyRows,StudyNav,QuestionPlate,ReferencePane,DeepDiveGate,ScoringHelp,Stem}.jsx`, `src/components/{choice/RadioOptionRow,hint/HintGate,feedback/FeedbackCard,rubric/RubricCriterionRow,pane/PaneShell,pane/Plate,navigation/Breadcrumb,actions/ActionRow,question/QuestionHeader,overlay/DeepDiveOverlay}.jsx`, `src/components/home/{HomeStudyActions,HomeStageANew,TopicHome}.tsx`, `src/session/{SessionProvider.jsx,hint-state.ts}`, `src/lib/open-hand/{teaching,presentation,unit-progress,loop,practice-guides}.ts`, `src/lib/live-practice-mcq/{session,grade,feedback,adapt,bias,answered,assistance-events}.ts`, `src/lib/live-practice-frq/{session,adapt,grade}.ts`, `src/lib/study-nav/{practice-visit,guard,question-href,seen-counter}.ts`, `src/lib/{practice-entry,use-practice-entry,feature-flags,topic-content,attempt-response-client,runtime-context-client,student-session-storage}.ts`, `src/lib/session/resume-guard.ts`, `src/routes/{open-hand-mcq,practice-mcq,practice-frq}.tsx`, `src/styles.css` (plate rules). Repo: `supabase/functions/{student-session-items,attempt-response,evaluate-attempt,session-event}/index.ts`, `_shared/grading-router.ts`, migrations `20261006004005`, `20261006081339`, `20260930190000`.
+Lovable files read at `d5adcbc6`: `src/screens/{LiveOpenHandMcq,LiveOpenHandTeaching,OpenHandMcqScreen,LivePracticeMcq,PracticeMcqScreen,LivePracticeFrq,PracticeFrqScreen}.jsx`, `src/screens/parts/{AnswerKeyRows,StudyNav,QuestionPlate,ReferencePane,DeepDiveGate,ScoringHelp,Stem}.jsx`, `src/components/{choice/RadioOptionRow,hint/HintGate,feedback/FeedbackCard,rubric/RubricCriterionRow,pane/PaneShell,pane/Plate,navigation/Breadcrumb,actions/ActionRow,question/QuestionHeader,overlay/DeepDiveOverlay}.jsx`, `src/components/home/{HomeStudyActions,HomeStageANew,TopicHome}.tsx`, `src/session/{SessionProvider.jsx,hint-state.ts}`, `src/lib/open-hand/{teaching,presentation,unit-progress,loop,practice-guides}.ts`, `src/lib/live-practice-mcq/{session,grade,feedback,adapt,bias,answered,assistance-events}.ts`, `src/lib/live-practice-frq/{session,adapt,grade}.ts`, `src/lib/study-nav/{practice-visit,guard,question-href,seen-counter}.ts`, `src/lib/{practice-entry,use-practice-entry,feature-flags,topic-content,attempt-response-client,runtime-context-client,student-session-storage}.ts`, `src/lib/session/resume-guard.ts`, `src/routes/{open-hand-mcq,open-hand-frq,practice-mcq,practice-frq}.tsx`, `src/screens/{LiveOpenHand,LiveOpenHandFrq,OpenHandFrqScreen}.jsx`, `src/lib/open-hand/client.ts`, `src/lib/retired-routes.ts`, `src/styles.css` (plate rules). Repo: `supabase/functions/{student-session-items,attempt-response,evaluate-attempt,session-event}/index.ts`, `_shared/grading-router.ts`, migrations `20261006004005`, `20261006081339`, `20260930190000`.
