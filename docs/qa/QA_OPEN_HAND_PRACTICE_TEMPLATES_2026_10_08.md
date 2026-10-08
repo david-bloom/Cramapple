@@ -17,6 +17,8 @@
 1. **Practice FRQ is served with no topic in 8 of 10 subjects**, and Practice MCQ in AP Calculus AB Unit 1 is in the same state. On those items the plate titles itself **"Worked example"** (a Practice screen), offers no hint, no reference materials, no deep dive, and tells the student the question "isn't labelled with a topic yet".
 2. **Practice is capped at the same 50 questions forever.** The selector orders deterministically and the client can only hide answered ones, so a student who works through the served 50 is told "No unanswered questions were found in this set" while up to 224 more exist for their unit.
 
+**Added after the independent challenge review (`QA_OPEN_HAND_PRACTICE_CHALLENGE_2026_10_08.md`, same branch): §7 reconciles the two reports and corrects this one in four places, and F10 records a Production answer-key exposure found while verifying the challenge. F10 outranks everything else here.**
+
 Measured against yesterday's boards, the build is a faithful minimal slice: the labels, progress and endpoint copy came across, and the things the plan deferred (pane swap, comparison tabs, revise, resume) are absent rather than half-built. The one design promise the build cannot keep is the learning state itself: the boards show a student learning from a scored **free-response** answer, and the only content Open Hand can serve is **multiple-choice** (§2b). Everything else is a copy, placement or policy issue that is cheap to fix. Nothing reachable from the hub leaks an answer key or scores a teaching item; one unlinked route still does (F9).
 
 ---
@@ -45,7 +47,7 @@ The boards describe one question experience in three states plus an endpoint. Th
 | **"Save and stop"** in the header. | "Return to student hub" link in the nav; in Practice a line reads "Submitted answers are saved. Unsubmitted work isn't saved when you leave." | Matches the plan (no save promise that is not kept). The design's "Save and stop" label was correctly not copied. |
 | **Reference pane on the LEFT, unboxed, quiet**: numbered Skills, collapsible Vocabulary / Study tips / Key equations ("Not yet"), Deep Dive card with Copy · Google Docs · PDF · Share link. | Reference pane on the RIGHT, boxed, green cap; Topic / Skills / Vocabulary / On the exam / Common point loss; Deep Dive opens an overlay with Copy only. In Practice the whole pane sits behind a costed gate. | Pane swap deferred by the plan. Google Docs / PDF / Share link do not exist, which the plan also says to omit. The design's "Study tips" and "Key equations" have no data source. |
 | **Learning state (Rev 1): an FRQ with a worked answer, highlighted spans mapped to rubric criteria ("Earned by …"), comparison tabs This one / Full credit / Common mistake / Vague, a "ONE POINT AWAY" coaching block, "Reading this is optional".** | Live Open Hand serves the **MCQ teaching pool only** (`get_open_hand_teaching_item`; all 186 active teaching items are MCQs). The MCQ screen shows every option tagged Correct/Distractor with its rationale, no comparison tabs, no coaching block. `OpenHandFrqScreen` (face-up rubric, credited-response spans, points you can take back) exists but has no teaching content behind it. | The designed "learn from a question" is an FRQ experience; what ships is an MCQ one. A student who expects to see how a free-response answer is scored does not get that anywhere reachable from the hub. The hub note "Recommended: see how a test-style question is asked and scored" is the design's "Reading this is optional" line, correctly placed. |
-| **Practice state (Rev 2): rubric criteria names visible on the right before submission ("What each point needs is shown once you submit"); textarea placeholder restates the task; comparison tabs disabled with a lock "After you submit".** | FRQ: no criteria names before submission (no student-safe source yet); the Scoring pane shows only the points-brief gate. MCQ: left pane is "Hints". Textarea has no placeholder. No comparison tabs. | The design's main pre-submit orientation (how many points, named for what) is missing on FRQ. See m6. |
+| **Practice state (Rev 2): rubric criteria names visible on the right before submission ("What each point needs is shown once you submit"); textarea placeholder restates the task; comparison tabs disabled with a lock "After you submit".** | FRQ: no criteria names before submission (no student-safe source yet); the Scoring pane shows only the points-brief gate. MCQ: left pane is "Hints". Textarea placeholder is the generic "Write your answer", not the task restated. No comparison tabs. | The design's main pre-submit orientation (how many points, named for what) is missing on FRQ. See m6. |
 | **Feedback state (Rev 3): highlighted spans in the student's own answer, criterion rows with "Earned by …" quotes, "ONE POINT AWAY", attempts ledger "1 of 3 · 2 of 3 · just now", "Revise your answer", "One point is still available".** | FRQ: criterion rows (✓ / ↻) with the grader's explanation or minimum fix, a Feedback card with the student's answer and coaching. No span highlighting, no ledger, no revise (plan: one submission). MCQ: Answer Key rows + feedback card. | Reasonable subset. The ↻ convention replaces the design's ✗, per the design-system rule. No "Revise your answer" is correct for the current scoring policy, and the design's button should not reappear without that policy changing. |
 | **Endpoint (Rev 4): "That's the session." · 5 of 5 · "Done for now" / "Practise 5 more"; return state "You stopped at question 3 of 5 … Resume question 3 / Start a new session".** | "You've reached the end of this practice set." · "Next set" / "Return to student hub" / "See a worked example". No return state: a returning student gets a rebuilt queue starting at "Question 1 of N". | Endpoint is honest and matches the plan. The return promise in the design is not built and the plan defers it; nothing in the build claims otherwise. |
 | **One box, not four; warm-grey page ground; only the task and rubric on white.** | Three boxed panes on the desk ground, each with a coloured cap. | Layout rebuild deferred by the plan. |
@@ -70,7 +72,9 @@ The boards describe one question experience in three states plus an endpoint. Th
 
 **Why.** `LivePracticeFrq` and `LivePracticeMcq` both run the served item through `applyOpenHandContext` (`src/lib/open-hand/presentation.ts`). When the item has no `cell.topic_code`, `openHandDisplayTitle` falls back to the literal **"Worked example"**, and `realQuestionChromeLabels` treats that string as student-safe, so it propagates to the pane title, breadcrumb and caption. `usePracticeGuides` is disabled without a topic, so reference, deep dive and the topic hint are all null, and `practiceGuideEmptyMessage` prints the "isn't labelled" line.
 
-**How often (Production, 2026-10-08).** The FRQ selector the screen uses (`frq_only` default path → `select_practice_frqs`) serves items with no primary topic resolution in:
+**Correction (see §7, challenge A2).** The table below counts rows the FRQ *selector* returns. The FRQ adapter (`live-practice-frq/adapt.ts`) then rejects every row whose `parts_source` is not `prompt`, and the deployed edge function only authors prompt parts for Calculus AB, Statistics and Biology. So in the seven other subjects these rows never reach the plate: the student sees "No practice questions were found in this set." instead of a topic-less plate. The "Worked example" title is real today for **Calculus AB FRQs** (all four authored-prompt rows in the challenge's seeded probe lacked a topic) and for **Calculus AB Unit 1 MCQs**; for the seven subjects the defect is an empty route, which is A2.
+
+**Selector rows without a topic (Production, 2026-10-08; not delivered-queue counts):**
 
 | Subject | FRQs served (cap 50) | without a topic |
 |---|---|---|
@@ -153,7 +157,7 @@ The same screen is called **"Open Hand"** (masthead chip, route, caption), **"Wo
 
 #### F9. `/open-hand-frq` is a live route that reveals, and burns, scored FRQs
 
-`src/routes/open-hand-frq.tsx` → `LiveOpenHandFrq` → `LiveOpenHand` fetches the student's **scored** FRQ queue (`fetchPracticeFrqItems`, the same selector Practice uses), shows a consent screen ("Seeing the worked answer means this question won't count toward your score"), then calls `get_open_hand_item`, which writes an `open_hand_scoring_exclusions` row and returns the full key. This is the pre-TASK-0064 design; the Oct 6 decision moved Open Hand to the never-scored teaching pool, and the MCQ route was switched to it, but the FRQ sibling was not. It is not linked from the hub and is not in `RETIRED_STUDENT_PATHS`, so it is reachable by URL, browser history, and (it carries ordinary `og:` meta with no `noindex`) potentially by search. `get_open_hand_item` is still executable by `authenticated` in Production. Nobody has used it: `open_hand_scoring_exclusions` has 0 rows. With FRQ pools of 25–50 per subject, a curious student could remove most of a subject's FRQs from their own scoring in a few minutes.
+`src/routes/open-hand-frq.tsx` → `LiveOpenHandFrq` → `LiveOpenHand` fetches the student's **scored** FRQ queue (`fetchPracticeFrqItems`, the same selector Practice uses), shows a consent screen ("Seeing the worked answer means this question won't count toward your score"), then calls `get_open_hand_item`, which writes an `open_hand_scoring_exclusions` row and returns the full key. This is the pre-TASK-0064 design; the Oct 6 decision moved Open Hand to the never-scored teaching pool, and the MCQ route was switched to it, but the FRQ sibling was not. It is not linked from the hub and is not in `RETIRED_STUDENT_PATHS`, so it is reachable by URL, browser history, and (it carries ordinary `og:` meta with no `noindex`) potentially by search. `get_open_hand_item` is still executable by `authenticated` in Production. Nobody has used it: `open_hand_scoring_exclusions` has 0 rows. Scale, corrected per the challenge: the route fetches 10 FRQs at a time through the same adapter as Practice, so only subjects with authored prompt parts (Calculus AB, Statistics, Biology) can be burned this way, ten per load. Smaller than first stated, still permanent per student.
 
 **Fix.** Add `/open-hand-frq` to `RETIRED_STUDENT_PATHS` (redirect to `/home`) until there is an FRQ teaching pool, or point it at a teaching-pool RPC. Revoke `authenticated` execute on `get_open_hand_item` if no reachable screen needs it.
 
@@ -171,12 +175,58 @@ The same screen is called **"Open Hand"** (masthead chip, route, caption), **"Wo
 
 ---
 
+#### F10. BLOCKER — Production never received the answer-key revoke; a signed-in student can read keys through the selector RPC
+
+Found while verifying the challenge review's A2 (which relies on `select_practice_frqs` being callable from the browser). Migration `20260930190000_task0056b_revoke_prompt_json.sql` is the one that closes TASK-0056 for Production: it revokes the `prompt_json` column from `authenticated`, and revokes `execute` on `select_practice_frqs`, `select_unit_gated_practice_items` and `select_hand_drawn_pilot_items` from `anon` and `authenticated`. Its header says to record it as version `20260930190000` on every environment.
+
+**Production state, 2026-10-08 (read-only):**
+
+- `supabase_migrations.schema_migrations` has `20260930120000`, `120100`, `120200` and everything from `20261002` on. **`20260930190000` is absent.**
+- `has_column_privilege('authenticated', 'app.content_item_versions', 'prompt_json', 'select')` → **true**.
+- `has_function_privilege('authenticated', …)` → **true** for `select_practice_frqs` and `select_unit_gated_practice_items`. The latter is `SECURITY DEFINER` and returns `prompt_json`.
+- What `prompt_json` carries on served items (`select_unit_gated_practice_items(pack, highest allowed unit, null, null, 50)`): Calculus BC 12 of 50 with `canonical_answers` and 8 with `mcq_choices` carrying `is_correct`; Precalculus 10 and 6; Calculus AB 6 and 3; Statistics 12 with `criteria` / `deterministic_criteria` / `expected_graph_spec`. Chemistry, Physics and Biology served rows carry no answer fields.
+
+The RPC's own guard only limits a student to their active pack, so a Calc BC student can call it from the browser console with their own session and read the key for up to 12 of their next 50 items. The Oct 6 QA re-check and the launch-readiness records treat TASK-0056 as closed in Production; that assumption was wrong. The Lovable client also depends on this grant today: `usePublishedFrqs` (the hub's "Practice FRQs" door) calls `select_practice_frqs` directly and reads `prompt_json.parts`, so applying the revoke as written will hide that door until the hook moves to `student-session-items`.
+
+**Fix.** Apply `20260930190000` to Production (it is idempotent), after re-pointing `usePublishedFrqs` at the edge function or accepting that the FRQ door disappears until it is. Then re-run the TASK-0056 QA brief. This is a Product Owner call because it is a Production change; nothing here was changed.
+
+---
+
+## 7. Reconciliation with the independent challenge review
+
+`QA_OPEN_HAND_PRACTICE_CHALLENGE_2026_10_08.md` (Codex/Sol, pushed to this branch 2026-10-08 07:25 EDT) reviewed this report at `c173ca02`. Every one of its nine added findings was re-checked against the same Lovable head and Production; all nine hold. Where it corrects this report, the correction is now in the body above (F1, F9, §2b, §4) and summarised here.
+
+| Challenge finding | Verified? | Effect on this report |
+|---|---|---|
+| **A1** Practice MCQ never renders `question.stimuli` | Yes. `PracticeMcqScreen` renders `Stem` and choices only; `OpenHandMcqScreen` does render stimuli. Production first-unit MCQ selectors: Statistics 24 of 50 served items carry a text stimulus, Precalculus 10, Calc AB 3, Calc BC 3, Biology 1; none carry an image. | **New P0, missed here.** A Statistics Unit 1 student gets about half of their questions without the data needed to answer. Goes above F1 in the repair order. |
+| **A2** FRQ rows are rejected unless `parts_source === "prompt"`; only Calc AB, Stats, Bio get authored parts | Yes (`adapt.ts`, `student-item-delivery.ts` line 635, `EXAM_CODES_WITH_AUTHORED_PARTS`). | **Corrects F1.** Seven subjects get an empty FRQ route, not a topic-less plate. The topic-less "Worked example" plate is real for Calc AB FRQ and Calc AB Unit 1 MCQ. |
+| **A3** FRQ fetch bypasses the unit position | Yes (`fetchPracticeFrqItems` omits `unit_gated` by design; the default selectors have no unit constraint). | Added to the list; a Unit 1 student can be served a later-unit FRQ. |
+| **A4** FRQ requires every part filled; feedback promises a next attempt that does not exist | Yes (`answered = parts.every(...)`; "↻ … still available next attempt" copy; `buildPracticeQueue` drops submitted items). | Added. |
+| **A5** Opening the empty "How points are earned and lost" gate marks the FRQ attempt coached | Yes (`ScoringHelp` always renders `POINTS_HINT`; `PracticeFrqScreen` tracks it). MCQ is not affected (it only renders gates that have content). | Added; sharper than F5. |
+| **A6** Answer and aids stay editable while a grade is in flight | Yes (only the Submit button reads `grading`). | Added; fold into F7's retry work. |
+| **A7** Example traversal cycles | Yes; `teachingCandidates` has no visited set, so 1.1 → 2.1 → 1.1 … with two available topics. | **Corrects §4** ("never loops" was a single-step claim stated as a traversal one). |
+| **A8** Set endpoint cannot tell skipped from answered | Yes. | Added as a copy/scope item; the plan deferred a recap screen. |
+| **A9** Accessibility: overlay without dialog semantics, unlabeled FRQ fields, no arrow navigation on radios | Yes from source; not reproduced with assistive technology. | Added to §6. |
+
+**Where this report changes its position.**
+
+- **F5.** The first-question direct open is an approved decision, not a policy breach; the ask narrows to disclosure ("recorded as guided") plus A5.
+- **F6.** The masthead "Open Hand" is preserved by the approved plan; a global rename is the Product Owner's decision. The comprehension point stands.
+- **F3.** The challenge's preferred remedy (say the example is unavailable and offer the other doors, rather than silently routing to scored Practice) is better than the one-line fix proposed above. Either is a one-screen change.
+- **F2.** Seeded randomisation is a mitigation, not a fix; the challenge's server-side filter on the student's answered state before `LIMIT`, with a stable cursor, is the right target.
+- **F7.** The 9 extra attempts in 30 days are not proven to be retries; the diagnosis stands, the inference is withdrawn.
+- **m6 / §2b.** The FRQ textarea does have a placeholder ("Write your answer"); the gap is orientation, not absence.
+
+**Where this report holds.** F1's code defect and the Calc AB cases; F2; F4; F8 (the challenge raises its priority, agreed); F9 as a reachable obsolete route; the design-versus-build table in §2b, which the challenge did not independently check.
+
+**Repair order, revised.** F10 first (Production change, owner's call). Then the challenge's package 1 (A1, A2, F1 fallback, A5), package 2 (F7, F8, A6, A4), package 3 (F2, F3, A3, topic resolution), package 4 (F4, F5, F6, A7–A9, minors), package 5 (F9 containment, FRQ teaching decision, exact return). The challenge's 13 acceptance cases are the test plan for that order.
+
 ## 4. Backend wiring (what each screen calls, and the gate on each call)
 
 | Screen action | Client | Backend | Gate / note |
 |---|---|---|---|
 | Open Hand: load item | `fetchTeachingItem` → RPC `get_open_hand_teaching_item(subject, topic)` | plpgsql, `security definer` | `auth.uid()` required; active entitlement or staff role; teaching pool only (`released_at is null`, published); returns `null` when the topic has none. Still aliases `minimum_fix` to `rationale` (harmless now that the screen ignores it). |
-| Open Hand: "Next example" | `fetchTeachingTopics` → RPC `get_open_hand_teaching_topics(subject)` (cached per subject) → `pickNextTeachingTopic` → item RPC | same gates | Candidate order: rest of unit → later units → earlier units; never loops. |
+| Open Hand: "Next example" | `fetchTeachingTopics` → RPC `get_open_hand_teaching_topics(subject)` (cached per subject) → `pickNextTeachingTopic` → item RPC | same gates | Candidate order: rest of unit → later units → earlier units. A single step never revisits the start, but repeated steps cycle (1.1 → 2.1 → 1.1 …); see §7, A7. |
 | Open Hand: saved position | `fetchSavedCoursePosition` → `public.student_course_positions` view | `security_invoker`, RLS own-row | Only when no `?topic=`. |
 | Reference / deep dive / hint text (both modes) | `fetchTopicGuides` → RPC `get_topic_point_guides(subject, unit, topic)`; fallback view `topic_point_briefs` | authenticated | Needs a topic on the item — see F1. |
 | Practice: session | `startOrResumeSession` → edge `session-event` `session_resume` / `session_end` / `session_start` | owner-checked | MCQ sends no `practice_format`; FRQ sends `targeted_drill`. Stored id in `localStorage`. |
@@ -236,6 +286,16 @@ select pg_get_functiondef('public.select_unit_gated_practice_items(uuid,integer,
 -- limit greatest(1, least(coalesce(_limit, 20), 50));
 
 -- F3: teaching-topic coverage per unit (taxonomy_topics × open_hand_teaching_items, subject keys normalised)
+
+-- F10: TASK-0056b revoke never applied to Production
+select version from supabase_migrations.schema_migrations where version = '20260930190000'; -- 0 rows
+select has_column_privilege('authenticated','app.content_item_versions','prompt_json','select'); -- true
+select has_function_privilege('authenticated','public.select_unit_gated_practice_items(uuid,integer,text,text,integer)','execute'); -- true
+-- served rows (highest allowed unit, any type, 50) whose prompt_json carries canonical_answers / mcq_choices.is_correct:
+--   calc BC 12 / 8, precalc 10 / 6, calc AB 6 / 3; statistics 12 with criteria or expected_graph_spec
+
+-- A1: served first-unit MCQs with a text stimulus the Practice screen never renders
+--   statistics 24/50, precalculus 10/50, calc AB 3/50, calc BC 3/50, biology 1/50; images 0
 
 -- F9: burn RPC still callable; never used
 -- get_open_hand_item: execute granted to authenticated; app.open_hand_scoring_exclusions: 0 rows
