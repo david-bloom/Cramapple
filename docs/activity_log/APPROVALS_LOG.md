@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0135 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9) (2026-10-08)
 - APPROVAL-0134 — Publish 18 AP Chemistry Unit 2 Practice MCQs (9 Seeds, 9 Variants; Topics 2.1–2.6) From the Generate-and-Select Pipeline (Production) — TASK-0065
 - APPROVAL-0133 — Publish 20 AP Biology Unit 3 Practice MCQs (10 Seeds, 10 Variants; Topics 3.1–3.5) From the Generate-and-Select Pipeline (Production) — TASK-0065
 - APPROVAL-0132 — Republish 2 AP Biology MCQs Retired 2026-08-08 (`APBIO-MCQ-001`, `APBIO-MCQ-007`) Unchanged After a Five-Family Correctness Re-Check (Production) — TASK-0065
@@ -2010,4 +2011,22 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0135 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9)
+
+**Date:** 2026-10-08  
+**Approved By:** David Bloom (2026-10-08 Claude session, answer to the execution check-in: database changes go to "Dev and Production, no further check-in").  
+**Related:** `docs/qa/QA_OPEN_HAND_PRACTICE_TEMPLATES_2026_10_08.md` (F2, F9, F10), `docs/qa/QA_OPEN_HAND_PRACTICE_CHALLENGE_2026_10_08.md` (A2, A3); `docs/handoffs/OPEN_HAND_PRACTICE_QA_EXECUTION_2026_10_08.md`; PR #380  
+**Decision:** Approved
+
+**Why:** Migration `20260930190000` (TASK-0056b) had never been applied in either environment, so a signed-in student could read `prompt_json` answer keys through `select_unit_gated_practice_items`. The same selector also served the same 50 items forever (F2), and the unlinked `/open-hand-frq` route could burn scored items through `get_open_hand_item` (F9).
+
+**Approved scope:** Development `wmgjsdkphcyhngaffbqf` and Production `pcntajvbdfqhbeewmdry`, applied through the Supabase MCP with ledger rows inserted:
+- `20260930190000_task0056b_revoke_prompt_json.sql`: column revoke and selector execute revokes applied verbatim. Deviation: the public `content_item_versions` view projects `NULL::jsonb AS prompt_json` instead of dropping the column (same column list and order), so existing readers keep working under the security-invoker view. Recorded in the ledger note.
+- `20261008113000_student_practice_queue_selector.sql`: `select_student_practice_items` (service-role only; answered and revealed exclusion, topic first, offset paging), `count_practice_frqs_available` (authenticated), `get_open_hand_item` revoked from `authenticated`.
+- Edge function `student-session-items` deployed to Development (v28) and Production (v34) to call the new selector.
+
+**Evidence:** as `authenticated`, `prompt_json` reads null through the view and the revoked RPCs raise permission errors in both environments; page 2 of the new selector returns items for the AP Statistics test student in Production.
+
+**Rollback:** re-grant the revoked privileges and redeploy the previous `student-session-items` version; the new functions can be dropped without data loss.
 
