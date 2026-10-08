@@ -1,6 +1,6 @@
 # Student Session Clarity — Minimal Execution Plan
 
-**Status:** Proposed — ready for Fable's second opinion; implementation not started
+**Status:** Proposed — revised after Fable's second opinion; implementation not started
 **Date:** 2026-10-07 (America/New_York)
 **Product Owner:** David Bloom
 **Prepared by:** Codex
@@ -8,8 +8,8 @@
 **Related work:** TASK-0048 / TASK-0052; DECISION-0100 and its amendment
 **Branch:** `codex/new-user-experience-second-pass`
 **PR:** #369
-**Next owner:** Fable, for independent review
-**Next required action:** Review this bounded plan, return necessary corrections, then record the agreed implementation slice before dispatching it to Lovable.
+**Next owner:** David / implementation conductor, for disposition of the revised proposed slice
+**Next required action:** Confirm the revised proposed slice and its explicit notes-storage/export deferral; record the agreed slice before dispatching it to Lovable. Fable's review is received, not an execution approval.
 
 ## 1. Outcome and scope decision
 
@@ -49,22 +49,24 @@ Important facts that constrain the solution:
 
 Reuse the existing masthead/breadcrumb; do not add a new banner region.
 
-- Student-facing Open Hand label becomes **Learn from a question**. Keep internal identifiers, routes, API names and scoring exclusions unchanged.
+- The hub door is **Learn from a question**. Preserve **Open Hand** in the question masthead, as DECISION-0100 §6 explicitly requires; show the learning-purpose sentence beneath it. Keep internal identifiers, routes, API names and scoring exclusions unchanged.
 - Practice label stays **Practice**. Avoid describing aided practice as independent after a student opens help.
 - Display the delivered question's subject, unit when known, topic code and readable title. Existing taxonomy/guide fields only; no generated lesson synopsis. If a field is absent, omit it rather than borrowing another lesson's title.
 - On Open Hand show the agreed interface sentence: **See how a test-style question is asked and scored.** Keep **Your work isn't scored here** clear. For MCQs explain answer/rationale rather than implying an FRQ rubric exists.
 - Add one short reading cue using existing material: **Read the question, then compare the answer with its explanation.** This is interface guidance, not a new worked solution.
-- At the existing hub start-action location, use Learn from a question and its subline, and expose **Practice on my own** alongside it when practice is available. No new hub structure, four-card redesign, lesson picker or notes shelf. Do not require an example visit first.
+- Add the hub purpose sentence: **Lock in each lesson with targeted information and practice for class tests and the AP exam.** At the existing start-action location expose four compact, equally accessible actions: **Learn from a question** (recommended, with its reason), **Practice on my own**, **Read lesson notes**, and **Bring a question**. No four-card redesign or new lesson picker. Reword Stage B's practice-only hero lede to describe learning or practice, matching the destination. Never require an example visit first.
+- Promote the existing BYOQ entry, with **Understand your homework question without being given the answer.** Reuse its existing route and behavior.
+- The notes action opens the existing selected-topic Deep Dive using the existing content reader/overlay and functioning copy control; do not route through a required example or reveal a scored question key. Verify the current hub's content fields and reuse the existing topic-content query if needed. If no notes exist, state that accurately and retain the other choices. Saved-notes storage and new export formats are explicitly deferred. This is partial delivery of DECISION-0100's notes promise, not a declaration that save/export is complete.
 
 ### B. Visible, truthful progress
 
-**Practice:** use the queue owned by the current user and pack. In the existing navigation/header show **Question X of N in this set · R more after this**, where X = index + 1, N = current queue length and R = N − X. Keep X unchanged during submission and feedback; advance only on Next or Skip. Skipping advances position but does not count as a graded answer. If a question is removed after an access/exclusion error, recalculate accurately without a stale total. Hide the count during loading/error when the owned queue is unknown.
+**Practice:** request up to **50** items through the current capped selector, then apply existing answered-item filtering and target bias. Display the resulting owned queue in sets of **up to 10**. This prevents the current deterministic first-ten fetch from becoming a dead end after all ten are answered. Verify the live helper/edge path actually forwards the larger limit; if a lower cap exists there, report it rather than claiming this solves the wall. Apply the same rule to reachable FRQ practice after checking its selector/helper path.
 
-The scope label **in this set** is required: exhausting a fetched batch is not proof that the student exhausted the lesson or mastered it. Show actual question context when the batch crosses topics; do not imply the selected target describes every item.
+Show **Question X of N in this set**, where N is the actual current slice length, not 50 or the whole bank. Keep X unchanged through submission and feedback. Advance on Next or Skip; a skip is not a graded answer. Recalculate accurately after access/exclusion removal. At a set endpoint offer **Next set** as primary when eligible fetched items remain, and the hub as the alternative. At the last fetched set, show a truthful endpoint. No automatic next set, no claim of lesson mastery or entire-bank exhaustion. Server-side answered-item exclusion and pagination beyond the selector cap remain deferred; after all 50 are answered this frontend fix cannot discover items beyond the cap.
 
-**Open Hand:** use a small, finite browse set derived from the existing taxonomy order and available teaching-topic list. On entry, load the already-existing `get_open_hand_teaching_topics` list, intersect it with existing traversal candidates, include the current eligible example, and hold that ordered list in page-local state. Fetch individual examples through the existing teaching RPC only when needed. Show **Example X of N in this browse set · R more after this**. Do not create scored attempts or a learning session for this counter. Do not wrap to previously viewed examples on reaching the end.
+**Open Hand:** show **R more examples in Unit U**, using later topics in the current unit intersected with the available teaching-topic list. Reuse the existing `teachingTopicsKey` / `staleTime: Infinity` cache shared with `usePracticeEntry`; read through the existing fetch helper on cache miss, never add a new RPC or prefetch every answer key. Do not create a subject-wide total, a browse queue, scored attempts, or a learning session.
 
-This is the one bounded behavioral addition, needed to meet David's request that the experience not feel like a mystery. The set may cross topics: name the destination on the next action, e.g. **Next example: [existing topic title]**, before navigation. Do not claim N examples exist within the current lesson. Reset the local set on a new subject/topic entry; do not promise that it survives closing the page. If the availability list fails, keep the current example usable, omit the fabricated denominator, and offer practice or the hub plus retry; do not quietly return to unbounded browsing.
+Name the destination before navigation: **Next example: [existing topic title]**. At the last example in a unit show **Last example in this unit** and make any cross-unit action explicit: **Explore Unit U: [topic]**. Crossing is an optional action, not hidden inside Next; preserve the existing selector and end state. Do not imply this count is a saved session or required assignment. If taxonomy/availability is unknown, omit the count and preserve honest retry/practice/hub choices.
 
 **No timer.** Question/example counts supply the requested boundary without unmeasured duration estimates. Existing cumulative questions-seen data is distinct; make this-set progress primary and avoid two competing counters in the same strip.
 
@@ -72,23 +74,23 @@ This is the one bounded behavioral addition, needed to meet David's request that
 
 | State | Primary action | Other actions |
 | --- | --- | --- |
-| Open Hand, content available | **Try one myself** | **Next example: [topic]**; existing notes/BYOQ/hub access |
+| Open Hand, content available | **Try one on your own** | **Next example: [topic]**; existing notes/BYOQ/hub access |
 | Practice, before submission | **Submit answer** | Existing help and skip behavior |
 | Practice, successful grading | **Next question** | Existing feedback/help access |
 | Practice, grading error | **Try submitting again** | Existing guarded skip; preserve response |
-| Last example in browse set | **Try one myself** | **Return to student hub**; no misleading Next |
-| Last practice question graded/skipped | **Return to student hub** | Existing supported topic/example links; no automatic infinite continuation |
+| Last example in current unit | **Try one myself** | **Return to student hub**; no misleading Next |
+| Last practice question in a set | **Next set** if eligible fetched items remain; otherwise **Return to student hub** | Existing supported topic/example links; no automatic continuation |
 
-Keep the existing JSON-safe topic handoff. Practice must be a different eligible item; never submit the face-up example itself for a score. Until the aligned-item selector contract is implemented, avoid labels such as Try a similar question or Practice this exact lesson that promise more than current serving guarantees.
+Open Hand's unit boundary does not remove the existing optional, explicitly labelled cross-unit exploration. Keep the existing JSON-safe topic handoff. Practice must be a different eligible item; never submit the face-up example itself for a score. Until the aligned-item selector contract is implemented, avoid labels such as Try a similar question or Practice this exact lesson that promise more than current serving guarantees.
 
 Replace batch-exhaustion copy with **You've reached the end of this practice set.** If all fetched items were filtered as answered, say **No unanswered questions were found in this set**, not You've answered every question for this lesson. Do not turn a transient load failure into a completion state.
 
-Include the already-decided light pause after **three successfully graded attempts in the current visit**: **3 answers submitted. Want to keep going?** Continue is primary; the hub is secondary. Show it once per visit, keep current feedback visible, and do not interrupt an in-flight grade. Retries/idempotent responses count once; skipped questions and example views do not count. Do not claim recommendations are unlocked unless the real eligibility rule, including distinct-question requirements, is satisfied. This is a small inline pause, not a new summary screen or analytics project.
+Include the already-decided light pause after **three successfully graded attempts in the current visit**: **3 answers submitted. Want to keep going?** Continue is primary; the hub is secondary. Show it once per component mount (reload resets it), keep current feedback visible, and do not interrupt an in-flight grade. Retries/idempotent responses count once; skipped questions and example views do not count. Omit the unified recommendation's 'enough to start recommending' line entirely in this slice: recommendation eligibility excludes coached/retry attempts and requires at least two distinct items. The pause is a stopping invitation, not an eligibility announcement. This is a small inline pause, not a new summary screen or analytics project.
 
 ### D. Answer visibility and unavailable controls
 
 - Open Hand stays face-up, with existing answer/rationales or supported rubric visible immediately; nothing the student does there is graded.
-- Practice keeps answers, correctness and grading feedback unrevealed until successful submission. Preserve existing optional scoring-help/hint access and its assistance recording. The earlier suggestion to hide the rubric must not accidentally remove the already-governed optional rubric-preview aid or reveal it automatically.
+- Practice keeps answers, correctness and grading feedback unrevealed until successful submission. On the **first practice question of a learning session**, existing aids are free and open on the first click, without the confirmation step, as already decided. Opening an aid remains optional and must use the same assistance receipt/event path; it still records guided/coached work. Later questions retain existing aid behavior. Do not make every new set's first question ungated. Determine the first question against the actual session ID and existing attempt/history state; a resumed session is not automatically a fresh first question. If current state cannot establish that, flag the implementation dependency rather than silently substituting per-mount semantics. Preserve optional scoring-help access and assistance recording. The earlier suggestion to hide the rubric must not accidentally remove the already-governed optional rubric-preview aid or reveal it automatically.
 - Hide unavailable comparison tabs, missing-equation sections and nonfunctional export actions **if present in the real app**. Do not implement controls merely because they appear in the HTML reference.
 - Keep existing working Deep Dive, reference, copy and BYOQ entry points. No new Full credit/Common mistake/Vague answers, Google Docs/PDF export, equations or study tips.
 
@@ -98,14 +100,14 @@ Keep the existing hub link as the stop action, labelled **Return to student hub*
 
 For practice show concise factual copy near the response/action area: **Submitted answers are saved. Unsubmitted work isn't saved when you leave.** Preserve the existing discard confirmation and in-flight navigation block for hub, topic and subject changes. Open Hand does not need a fictitious saved-work message.
 
-Where the hub currently promises Resume session without exact restoration, relabel it **Return to practice**. It may reopen practice using the existing stored subject/position, but must not promise the last item, draft or phase. Carry a topic only if that destination context is genuinely known; do not present class position as a saved practice checkpoint. This slice makes existing return behavior honest; exact lesson/phase/input/queue restoration remains deferred.
+Remove the redundant format-only **Resume session** hub button. Practice on my own is the direct return action; its existing session-start helper may reuse a session under the current rules. Do not relabel the topic-less resume URL as a meaningful continuation. Preserve topic context on the ordinary hub entry where known. Exact lesson/phase/input/queue restoration remains deferred; returning may rebuild the queue and unsubmitted input is not recovered.
 
 ## 4. Implementation sequence and likely touchpoints
 
 1. Confirm the current Lovable head, actual hub entry components, MCQ/FRQ route wiring, existing assistance-event path, and displayable taxonomy fields. Record reachable versus fixture-only screens.
 2. Change shared question chrome and hub/action labels. Add truthful practice progress from each live container to the shared header/nav.
-3. Add the finite page-local Open Hand browse list and explicit next-topic label, preserving existing availability and entitlement checks.
-4. Update existing finish notices, three-attempt inline pause and stop/return wording. Hide unavailable controls only where they actually exist.
+3. Add the unit-scoped Open Hand remaining count and explicit next-topic/cross-unit labels, preserving the selector, existing cache, availability and entitlement checks. Increase the practice fetch to the supported cap and slice it into sets.
+4. Deliver first-question ungated aids through the existing event path; update finish notices, three-attempt inline pause and stop/return wording. Hide unavailable controls only where they actually exist.
 5. Validate in Preview, record evidence and deviations, then follow the existing release process. This proposed plan does not grant Production publication.
 
 Likely files: the baseline files above, plus actual hub entry components (`HomeStageANew.tsx`, `HomeStageBBuilding.tsx`, `use-practice-entry.ts`) and live FRQ session helpers if needed for queue ownership. Verify those current files before editing. Use a small progress prop/helper shared by reachable screens; do not refactor the full plate system. Prefer a frontend-only change with no new dependency, migration, RPC, local-storage schema, content mutation or grading contract.
@@ -116,10 +118,11 @@ Likely files: the baseline files above, plus actual hub entry components (`HomeS
 | --- | --- |
 | New student enters from hub | Recognizes Learn from a question versus direct Practice; example is optional. |
 | Open Hand entry | Topic/title and activity clear; authored answer visible; no graded attempt created. |
-| Example traversal | Accurate finite count; next topic named before crossing; no loop; final example has a clear endpoint. |
-| Practice queue of 1, 3 or fewer-than-fetch-limit items | N reflects filtered queue; current position survives submit/feedback; last item says no more after this. |
+| Example traversal | Accurate count of later available examples in current unit; next topic named; unit boundary explicit; no subject-wide assignment implied. |
+| Practice sets / returning after first ten | Fetch cap forwarded; answered first ten excluded; later available items reachable through sets of up to ten; N reflects current set; Next set only when more fetched items remain. |
 | Skip / excluded item / retry | Position/count stays accurate; skip is not submission; retries do not inflate graded count. |
-| Third successful grade | One optional inline pause; Continue primary; no recommendation claim based on count alone. |
+| Third successful grade | Once per mount; Continue primary; no recommendation claim; retry deduplicated and skipped/example items excluded. |
+| First-question aids / continued or resumed session | First session question opens an aid on one click and records its real event; later sets do not restart the exception; resumed sessions do not silently reset it. |
 | Practice before/after submit, MCQ and reachable FRQ | Key unrevealed before submit; optional aids behave as governed; real assistance events preserved; feedback remains readable after submit. |
 | Example → practice with numeric-looking topic such as 1.10 | Topic string survives; scored item is not the exposed example; no stronger alignment claim than the selector supports. |
 | Stop with unsent response / grading in flight | Existing discard confirmation / in-flight block remains; no silent loss or false save promise. |
@@ -127,24 +130,28 @@ Likely files: the baseline files above, plus actual hub entry components (`HomeS
 | Empty batch / missing guide / availability failure | Specific honest state; no fabricated total, bank-exhaustion or mastery claim; usable hub/practice/retry exit. |
 | Desktop and narrow phone width | Breadcrumb, activity, count and action readable without horizontal overflow; existing responsive behavior retained. |
 
-Run existing project typecheck, build and relevant tests. Add focused tests for progress under skip/removal, finite browse traversal, third-grade deduplication and preserved topic handoff; avoid tests that only assert changed prose. Use controlled Preview accounts and record source versus observed behavior separately.
+Run existing project typecheck, build and relevant tests. Add focused tests for set slicing and returning beyond the first ten, progress under skip/removal, unit remaining-count calculation, first-session-question aid behavior, third-grade deduplication and preserved topic handoff; avoid tests that only assert changed prose. Use controlled Preview accounts and record source versus observed behavior separately.
 
 For comprehension, give a student the neutral task of using a recently covered lesson for a few minutes. Before they act, ask what activity they expect; later ask how much remains, what happens if they leave, and where they would return. Record misunderstanding and hesitation; do not claim measured learning gains from this small usability check.
 
 ## 6. Explicitly deferred
 
-Pane swap/rebuild; full four-door hub redesign; new content or answer exemplars; content repair; lesson-aligned selector/backend work; new live FRQ Open Hand content; revise-and-rescore; exact/cross-device resume; draft saving; session-close/idle lifecycle; new recap screens; saved-notes shelf and new exports; timer estimates; new mastery/analytics rules; BYOQ redesign. Preserve existing functional entry points and boundaries.
+Pane swap/rebuild; full four-door hub redesign; new content or answer exemplars; content repair; lesson-aligned selector/backend work; new live FRQ Open Hand content; revise-and-rescore; exact/cross-device resume; draft saving; session-close/idle lifecycle; new recap screens; saved-notes shelf and new exports (explicit partial delivery of DECISION-0100, not silently omitted); server-side answered-item exclusion/pagination beyond 50; timer estimates; new mastery/analytics rules; BYOQ redesign. Preserve existing functional entry points and boundaries.
 
 The regression mockup still asks for association/slope while its rubric awards influence, and uses a numeric slope without sufficient displayed givens. Record those as design-fixture/content issues; do not manufacture replacements or treat the mockup as production content.
 
-## 7. Fable review request
+## 7. Fable review disposition — 2026-10-07
 
-Review for the smallest effective scope, not the ideal future product. Return **blocking corrections**, **optional improvements**, and **defer** separately.
+Review: [PR #369 comment](https://github.com/david-bloom/Cramapple/pull/369#issuecomment-6051091678). This revision incorporates the review as a **proposal**, not owner approval or implementation dispatch.
 
-1. Is the finite local Open Hand browse list the smallest honest way to satisfy the requested remaining-count boundary, given today's cross-topic traversal? Can it be smaller without misleading the student?
-2. Does practice progress clearly distinguish current position, successful submissions, skips, and remaining fetched items?
-3. Are the light three-attempt pause and truthful Return to practice label consistent with DECISION-0100 without pulling in persistence or recommendation work?
-4. Does the plan preserve face-up learning, optional practice assistance, scoring exclusions and the newly working assistance events?
-5. Are any proposed changes unnecessary for removing student confusion, or missing a real source dependency?
+| Finding | Disposition |
+| --- | --- |
+| Missing hub purpose/four routes/first-question ungated aids | Include compact existing-content entries and purpose; restore already-decided aid behavior. Explicitly defer saved-notes store and new exports. |
+| Deterministic first-ten wall | Fetch supported cap and expose filtered results in sets of ten. Acknowledge remaining cap limitation. |
+| Subject-wide example boundary | Replace with unit remaining-count using existing cache; preserve selector; label unit crossing explicitly. |
+| Redundant topic-less Resume | Remove; use ordinary contextual practice entry. |
+| Recommendation claim and visit ambiguity | Omit claim entirely; pause once per mount. First-question aid policy remains actual-session scoped. |
+| Open Hand masthead conflict | Preserve masthead per DECISION-0100; use Learn from a question for the door and explanatory copy. |
+| Optional copy/cache suggestions | Shorten practice count, retain Try one on your own, correct hero lede, explicitly reuse cached teaching topics. |
 
-No implementation agent has been dispatched. Fable's second opinion is the next action; application execution follows the agreed reviewed slice.
+**Remaining disposition:** the owner/conductor must record agreement to this revised slice, including partial delivery of the notes save/export promise. No need to re-decide the already-approved first-question aids or masthead wording. Fable's review has been received; the revised plan has not been independently re-reviewed and application implementation has not started.
