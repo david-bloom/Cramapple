@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0102 — Items Made by Generate-and-Select (Protocol §0) Need No Human Review Before Load; the Production Hard-Gate Approval Remains
 - DECISION-0100 — Learning Through a Worked (Scored) Example Is a Recommended, Exam-Directed Path on the Student Hub, Never a Required Step; Four Equal Entry Points (Worked Example, Practice, Deep-Dive Notes, Bring a Question)
 - DECISION-0099 — Generate-and-Select Is the Default Method for New MCQs (Required for Open Hand Teaching Items): No Hand Edits, One Shared Rubric, Four Non-Author Checker Families Plus a Reject-Only Own-Family Veto, Planted-Defect Controls
 - DECISION-0098 — Released-Exam-Derived Student Practice Sets May Seed Original Items Only Through the Clean-Room Spec Path
@@ -52,6 +53,19 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0102 — Items Made by Generate-and-Select (§0) Need No Human Review Before Load
+
+- **Date:** 2026-10-07
+- **Decided by:** David Bloom (Product Owner): "Remove the human-reviewed requirement for questions made with this protocol."
+- **Context:** Protocol v0.6 §0.3 rule 6 (DECISION-0099) required a human spot-check per subject before the first load, and §0.5 asked a human to confirm judge-dispute adjudications.
+  - Evidence: method test 1/23 defective vs legacy 4/24; lever re-judge 0/24; Biology Unit 1 seed pilot 0 defects in 42 blind-judged items, planted 4/4 caught.
+- **Decision:**
+  1. Items made by generate-and-select need no human review or spot-check before loading.
+  2. Human confirmation of dispute adjudications is optional.
+  3. The quality gate is the four non-author checker families, the planted-defect controls and the deterministic key recompute.
+- **Unchanged:** a Production load is still a Hard-Gate approval recorded before `review_status` is set; FRQs and existing content still follow §4–§6.
+- **Supersedes:** the human spot-check line in DECISION-0099 and §0.3 rule 6.
 
 ## DECISION-0100 — Learning Through a Worked (Scored) Example Is a Recommended, Exam-Directed Path on the Student Hub, Never a Required Step; Four Equal Entry Points (Worked Example, Practice, Deep-Dive Notes, Bring a Question)
 
@@ -153,7 +167,7 @@ content creation protocol with the improved new approach".
 - The legacy patch loop (§5 adjudicate-and-repair) is retired for new MCQs.
 - PR #348 (25 hand-patched items) stays on hold.
 - Live teaching items found defective are replaced through §0.6, not edited in place.
-- Human spot-check per subject and a Hard-Gate approval remain required before any Production load.
+- ~~Human spot-check per subject~~ (removed by DECISION-0102, 2026-10-07) and a Hard-Gate approval remain required before any Production load.
 
 ## DECISION-0098 — Released-Exam-Derived Student Practice Sets May Seed Original Items Only Through the Clean-Room Spec Path
 

@@ -137,9 +137,9 @@ Production items for those topics were judged as a third arm. Full write-up:
    may only reject.
 4. **Controls gate every batch,** including re-runs after a rubric or model change.
 5. **Numeric keys are recomputed deterministically** (Python/sympy) before load. §9 still applies.
-6. **A human spot-checks a sample of accepted items per subject** before the first load, and the Production
-   load is a Hard-Gate approval. Never set `review_status` from the pipeline alone without that approval
-   recorded.
+6. **No human review is required** for items made with this protocol (DECISION-0102, 2026-10-07). The four
+   non-author families, the planted-defect controls and the deterministic key recompute (rule 5) are the
+   quality gate. The Production load is still a Hard-Gate approval, recorded before `review_status` is set.
 7. **Refresh the model roster at batch start** (gateway list). A model that fails structured output in the
    smoke run is replaced, not worked around.
 
@@ -171,7 +171,7 @@ method itself changes: new author or checker families, a rubric change that loos
     are false by design;
   - parse topic codes from the first number pair.
 - **Disputes.** A dispute is a single judge objecting. Adjudicate each one blind to arm with a recorded reason,
-  and have a human confirm.
+  Human confirmation is optional (DECISION-0102); the adjudication and its reason are the record.
 
 ### 0.6 Replacing a live item
 
@@ -523,7 +523,7 @@ Phase 0  Preconditions       Fact pack present; its tier (§1.6) determines whet
                              reachable (§7.4 smoke test, once it exists).
 
          NEW MCQs (v0.6): Phases 1, 2, 4 and 5 are carried out by generate-and-select (§0).
-         Its accepted items go straight to the human spot-check and Phase 6. Nothing is
+         Its accepted items go straight to Phase 6; no human review (DECISION-0102). Nothing is
          hand-patched. The phases below remain the method for FRQs and existing content.
 
 Phase 1  Authoring           Model drafts item against the FULL fact-pack text (not a
