@@ -183,3 +183,21 @@ Target band matched 10/21 times. **The panel never voted any item Hard**, includ
 - `pilot_cost.json`: cost by model and stage
 - `judging/`: blind set (`review_set.json`), the arm key (`review_key.json`), CED excerpts, raw judgements, `recompute.py`/`recompute.json`, and scores
 - `score.py`: same rules as the method test and the lever test
+
+## 8. Published to Production (APPROVAL-0131, 2026-10-07)
+
+All 82 items are live as AP Biology practice MCQs.
+- **Keys:** seeds `APBIO-MCQ-101`–`121`; variants `APBIO-MCQ-SV-<seed>-v<k>`.
+- **Labels (DECISION-0101):** 74 skill cells (66 validated, 8 provisional); difficulty Medium 70, Easy 12, all provisional.
+- **Review:** no human review (DECISION-0102).
+
+**How it was loaded and checked:**
+- Every computable key among the 82 was recomputed first: 14/14 correct (`judging/recompute.py` → `recompute_all.json`).
+- Items went in as drafts and hash-matched the local manifest 82/82.
+- The publish was rehearsed and rolled back, then committed.
+- Each step was re-verified independently afterwards.
+- The real selector `app.select_biology_practice_items` serves all 82.
+
+**Effect:** Biology's published MCQ bank went from 79 to 161.
+
+Scripts: `load/build_load.py`, `chunk_NN.sql`, `hash_check.sql`, `publish_rehearsal.sql`, `publish.sql`.
