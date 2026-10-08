@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Legacy Retired MCQs Re-Checked (2 of 13 Pass, Republished Under APPROVAL-0132); Biology Unit 3 Batch Generated (20 MCQs, Controls 6/6) (2026-10-07): the 2026-08-08 retirements were mostly right (11 of 13 have real defects: old-CED content, factual errors); APBIO-MCQ-001/007 republished unchanged; Biology Unit 3 had 0 practice MCQs, so 10 seeds + 10 variants were generated across 3.1–3.5 and rehearsed on Production, awaiting the Product Owner's publish approval.
 - Seed Labels Rules Adopted (DECISION-0101); PR #370 Merged (2026-10-07): David approved dropping difficulty as an author target (provisional label only), practice-level skill targeting, and variants inheriting the seed's labels; `seed_pipeline.mjs` updated, protocol §0.8 amended.
 - 82 AP Biology Unit 1 Seed-Pilot MCQs Published to Production (APPROVAL-0131) (2026-10-07): 21 seeds + 61 variants from the no-edit generate-and-select pipeline; loaded as drafts, hash-matched 82/82, rehearsed, published; the real Biology selector serves all 82; Biology published MCQs 79 → 161.
 - Human Review Removed for Generate-and-Select Items (DECISION-0102) (2026-10-07): Product Owner removed the per-subject human spot-check (protocol §0.3 rule 6) and made human confirmation of judge-dispute adjudications optional; the Production Hard-Gate approval remains.

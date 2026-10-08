@@ -20,6 +20,8 @@ Commands
   rehearse              full transaction per chunk, rolled back (expects REHEARSAL OK)
   publish               full transaction per chunk, committed (Production needs --approval and --confirm-production)
   verify                read-only: independent post-publish check of every item
+  republish             existing retired MCQs, content copied verbatim into a new version and published
+                        (rehearse only unless --commit; Production commit needs --approval and --confirm-production)
 
   python3 publish_mcq_batch.py plan-from-seed-batch --batch DIR --key-prefix APBIO-MCQ --first-seed 122 --source TAG --out plan.json
   python3 publish_mcq_batch.py rehearse --plan plan.json --env dev --owner <uuid>
@@ -282,6 +284,127 @@ end $g$;
     return body + "commit;\n"
 
 
+# ---------------------------------------------------------------- republish (existing items, content unchanged)
+def legacy_hash(stimulus, stem, choices):
+    """Hash of an existing version's student-visible content, including the stimulus."""
+    return hashlib.md5(((stimulus or '') + '#' + item_hash(stem, choices)).encode()).hexdigest()
+
+
+def republish_sql(part, pack, tsv, owner, approval, source, run_note, mode):
+    """Add a new version that copies the item's latest version verbatim (content and choices; canonical_answer_1 is
+    re-derived from the correct choice, since some legacy versions left it null), then publish it with a
+    fresh serving label (superseding the old ones), a topic cell, an optional skill cell and a difficulty row. The
+    latest version's content must hash to the value that was re-checked (expect_hash), so nothing unchecked is published."""
+    N = len(part)
+    rows = [{'k': it['content_key'], 'topic': it['topic'], 'unit': int(it['unit']), 'h': it['expect_hash'],
+             'skill': it.get('skill'), 'sstat': it.get('skill_status'), 'snote': it.get('skill_note') or '',
+             'diff': it.get('difficulty'), 'dnote': it.get('difficulty_note') or ''} for it in part]
+    n_skill = sum(1 for r in rows if r['skill'])
+    run = f'{source} ({approval})'
+    payload = dollar(json.dumps(rows, ensure_ascii=False))
+    body = f"""begin;
+select pg_advisory_xact_lock(hashtext({lit('cramapple-republish-' + source)}));
+create temporary table lab on commit drop as
+select x.*, ci.id item_id, ci.status item_status, old.id old_version_id, old.version_num old_num, gen_random_uuid() version_id,
+  gen_random_uuid() assignment_id, gen_random_uuid() label_id, gen_random_uuid() vd_id,
+  (select coalesce(max(l.label_version),0)+1 from app.content_taxonomy_labels l where l.content_item_id=ci.id and l.label_scope='serving') label_version,
+  coalesce(x.diff, (select d.difficulty from app.content_item_difficulty d join app.content_item_versions v on v.id=d.content_item_version_id
+     where v.content_item_id=ci.id order by v.version_num desc, d.created_at desc limit 1)) difficulty,
+  (x.diff is null) diff_carried
+from jsonb_to_recordset({payload}::jsonb) as x(k text, topic text, unit int, h text, skill text, sstat text, snote text, diff text, dnote text)
+join app.content_items ci on ci.content_key=x.k and ci.exam_pack_version_id={lit(pack)} and ci.item_type='mcq'
+join lateral (select * from app.content_item_versions v where v.content_item_id=ci.id order by v.version_num desc limit 1) old on true;
+do $g$ begin
+ if (select count(*) from lab)<>{N} then raise exception 'found % of {N} items in the pack', (select count(*) from lab); end if;
+ if exists (select 1 from lab join app.content_item_versions v on v.content_item_id=lab.item_id where v.status='published') then raise exception 'an item already has a published version'; end if;
+ if exists (select 1 from lab where difficulty is null) then raise exception 'no difficulty to carry forward: %', (select string_agg(k, ', ') from lab where difficulty is null); end if;
+ if exists (select 1 from lab where not exists (select 1 from app.taxonomy_topics tt where tt.taxonomy_source_version={lit(tsv)} and tt.topic_code=lab.topic and tt.unit_number=lab.unit)) then raise exception 'topic/unit not in taxonomy'; end if;
+ if exists (select 1 from lab where skill is not null and not exists (select 1 from app.taxonomy_cells tc where tc.taxonomy_source_version={lit(tsv)} and tc.topic_code=lab.topic and tc.skill_code=lab.skill)) then raise exception 'skill not in topic grid'; end if;
+ if (select count(*) from (select lab.k from lab join app.content_item_versions old on old.id=lab.old_version_id join app.mcq_choices c on c.content_item_version_id=old.id
+     group by lab.k, old.stimulus, old.stem, lab.h having count(*)=4 and md5(coalesce(old.stimulus,'')||'#'||md5(old.stem||'|'||string_agg(c.choice_key||':'||c.choice_text||':'||c.is_correct::text||':'||c.rationale,'|' order by c.choice_key)))=lab.h) z)<>{N}
+   then raise exception 'latest version content differs from what was re-checked'; end if;
+end $g$;
+insert into app.content_item_versions (id, content_item_id, version_num, stem, stimulus, prompt_json, explanation, help_text, content_hash, status, review_status,
+  canonical_answer_1, canonical_answer_2, rubric_type, evaluator_strategy, stimulus_image_path, item_package_schema_version, item_package_payload, item_package_sha256, created_by)
+select lab.version_id, lab.item_id, lab.old_num+1, old.stem, old.stimulus, old.prompt_json, old.explanation, old.help_text, md5(lab.k||':v'||(lab.old_num+1)), 'draft', 'tutor_review_pending',
+  (select m.choice_key from app.mcq_choices m where m.content_item_version_id=old.id and m.is_correct), old.canonical_answer_2, old.rubric_type, old.evaluator_strategy, old.stimulus_image_path, old.item_package_schema_version, old.item_package_payload, old.item_package_sha256, {lit(owner)}::uuid
+from lab join app.content_item_versions old on old.id=lab.old_version_id;
+insert into app.mcq_choices (content_item_version_id, choice_key, choice_text, is_correct, rationale)
+select lab.version_id, c.choice_key, c.choice_text, c.is_correct, c.rationale from lab join app.mcq_choices c on c.content_item_version_id=lab.old_version_id;
+insert into app.content_review_assignments (content_review_assignment_id, content_item_version_id, reviewer_id, review_stage, review_kind, status, assignment_purpose, created_by)
+select assignment_id, version_id, {lit(owner)}::uuid, 'tutor_question', 'mcq', 'pending', 'owner_remediation_approval', {lit(owner)}::uuid from lab;
+insert into app.content_review_decisions (content_review_assignment_id, content_item_version_id, reviewer_id, review_stage, tutor_score, difficulty_label, diagnostic_flag, concern_codes, note, tutor_decision, decision_payload, decision_hash, created_by)
+select assignment_id, version_id, {lit(owner)}::uuid, 'tutor_question', 1, null, false, array[]::text[],
+ {lit(f'{run_note}. Republished unchanged after a correctness re-check by five model families (blind solve and audit, re-sample rule), all passing. No human review (DECISION-0102). Hard-Gate approval {approval}.')},
+ 'approve',
+ jsonb_build_object('review_stage','tutor_question','tutor_score',1,'tutor_decision','approve','approval_basis','legacy_recheck_po_approval','approval',{lit(approval)},'content_key',k,'copied_from_version',old_num),
+ md5(jsonb_build_object('review_stage','tutor_question','tutor_score',1,'tutor_decision','approve','approval_basis','legacy_recheck_po_approval','approval',{lit(approval)},'content_key',k,'copied_from_version',old_num)::text),
+ {lit(owner)}::uuid from lab;
+do $g$ begin
+ if exists (select 1 from lab join app.content_item_versions civ on civ.id=lab.version_id
+   where (select count(*) from app.mcq_choices m where m.content_item_version_id=civ.id)<>4
+      or civ.canonical_answer_1 is distinct from (select m.choice_key from app.mcq_choices m where m.content_item_version_id=civ.id and m.is_correct))
+   then raise exception 'copied version fails structural QA'; end if;
+end $g$;
+update app.content_item_versions civ set status='reviewed_approved', review_status='question_review_approved', approved_by={lit(owner)}::uuid, approved_at=now(), updated_at=now() from lab where civ.id=lab.version_id;
+update app.content_items ci set status='reviewed_approved', updated_at=now() from lab where ci.id=lab.item_id;
+insert into app.content_taxonomy_labels (content_taxonomy_label_id, content_item_id, label_version, label_scope, required_units, max_required_unit, primary_unit, assessed_topics, taxonomy_source_version, taxonomy_confidence, label_status, source, source_payload, model_run_id, created_by)
+select label_id, item_id, label_version, 'serving', array[unit], unit, unit, array[]::text[], {lit(tsv)}::uuid, 'provisional', 'provisional_model', {lit(source)},
+ jsonb_build_object('origin','legacy_republish','topic',topic,'copied_from_version',old_num,'units_source','five-family topic vote (at least 4 of 5)'), {lit(run)}, {lit(owner)}::uuid from lab;
+update app.content_taxonomy_labels l set superseded_by=lab.label_id from lab
+ where l.content_item_id=lab.item_id and l.label_scope='serving' and l.superseded_by is null and l.content_taxonomy_label_id<>lab.label_id;
+insert into app.content_taxonomy_validation_decisions (validation_decision_id, content_taxonomy_label_id, decided_by, decision, decision_source, reviewed_primary_unit, reviewed_required_units, notes)
+select vd_id, label_id, {lit(owner)}::uuid, 'confirmed', 'automated_spot_check', unit, array[unit],
+ {lit(f'Hard-Gate approval {approval}. Topic from a five-family vote (at least 4 of 5); correctness re-check passed by all five families.')} from lab;
+insert into app.content_item_cells (content_item_version_id, content_item_id, taxonomy_source_version, topic_code, skill_code, is_primary, assignment_status, source, model_run_id, validated_by, validated_at, validation_decision_id)
+select version_id, item_id, {lit(tsv)}::uuid, topic, null, true, 'validated', {lit(source + ':topic')}, {lit(run + ': five-family topic vote')}, null, now(), gen_random_uuid() from lab;
+insert into app.content_item_cells (content_item_version_id, content_item_id, taxonomy_source_version, topic_code, skill_code, is_primary, assignment_status, source, model_run_id, validated_by, validated_at, validation_decision_id)
+select version_id, item_id, {lit(tsv)}::uuid, topic, skill, false, sstat, {lit(source + ':skill:vote')}, {lit(run + ': ')}||snote, null,
+ case when sstat='validated' then now() end, case when sstat='validated' then gen_random_uuid() end from lab where skill is not null;
+insert into app.content_item_difficulty (content_item_version_id, difficulty, basis, source_value, rationale, confidence, proposal_run)
+select version_id, difficulty, case when diff_carried then 'translated' else 'calibrated_judgement' end, case when diff_carried then k||':v'||old_num end,
+ case when diff_carried then 'Carried forward unchanged from version '||old_num||' (content copied verbatim).' else dnote end, 'low', {lit(source)} from lab;
+update app.content_taxonomy_labels l set label_status='validated', validated_by={lit(owner)}::uuid, validated_at=now(), validation_decision_id=lab.vd_id,
+ validated_against_version_id=lab.version_id, validated_against_taxo_hash=app.taxonomy_relevant_hash(lab.version_id) from lab where l.content_taxonomy_label_id=lab.label_id;
+update app.content_item_versions civ set status='published', published_at=now(), updated_at=now() from lab where civ.id=lab.version_id;
+update app.content_items ci set status='published', updated_at=now() from lab where ci.id=lab.item_id;
+do $g$ declare n int; begin
+ select count(*) into n from (select v.content_item_id from app.content_item_versions v join lab on lab.item_id=v.content_item_id where v.status='published' group by 1 having count(*)=1) z; if n<>{N} then raise exception 'published versions %', n; end if;
+ select count(*) into n from app.content_items ci join lab on lab.item_id=ci.id where ci.status='published'; if n<>{N} then raise exception 'published items %', n; end if;
+ select count(*) into n from app.content_taxonomy_labels l join lab on lab.item_id=l.content_item_id where l.label_scope='serving' and l.superseded_by is null and l.label_status='validated' and l.validated_against_version_id=lab.version_id; if n<>{N} then raise exception 'current labels %', n; end if;
+ select count(*) into n from app.content_item_cells c join lab on lab.version_id=c.content_item_version_id where c.is_primary and c.assignment_status='validated'; if n<>{N} then raise exception 'topic cells %', n; end if;
+ select count(*) into n from app.content_item_cells c join lab on lab.version_id=c.content_item_version_id where not c.is_primary; if n<>{n_skill} then raise exception 'skill cells %', n; end if;
+ select count(*) into n from app.content_item_difficulty d join lab on lab.version_id=d.content_item_version_id; if n<>{N} then raise exception 'difficulty %', n; end if;
+end $g$;
+"""
+    if mode == 'rehearse':
+        return body + f"do $g$ begin raise exception 'REHEARSAL OK: republished={N} skill_cells={n_skill}'; end $g$;\nrollback;\n"
+    return body + "commit;\n"
+
+
+def cmd_republish(a):
+    """Republish existing retired MCQs unchanged. Plan: {source, run_note, items: [{content_key, subject_key, topic, unit,
+    expect_hash, skill, skill_status, skill_note, difficulty (null = carry forward), difficulty_note}]}."""
+    plan = json.load(open(a.plan))
+    ref = ENVS[a.env]
+    if a.commit and a.env == 'prod' and not (a.approval and a.approval.startswith('APPROVAL-') and a.confirm_production):
+        sys.exit('Production republish needs --approval APPROVAL-NNNN (recorded first) and --confirm-production')
+    by_subject = collections.defaultdict(list)
+    for it in plan['items']:
+        by_subject[it['subject_key']].append(it)
+    for subj, items in by_subject.items():
+        pack, tsv = resolve(ref, {'subject_key': subj}, a.owner)
+        print(f'{a.env}: {subj} pack {pack}, taxonomy {tsv}, {len(items)} items')
+        args = (items, pack, tsv, a.owner, a.approval or 'REHEARSAL', plan['source'], plan.get('run_note') or plan['source'])
+        msg = query(ref, republish_sql(*args, 'rehearse'), expect_error=True)
+        if 'REHEARSAL OK' not in msg:
+            sys.exit(f'{subj}: rehearsal FAILED: {msg[:2000]}')
+        print(f"{subj}: {msg[msg.index('REHEARSAL OK'):].splitlines()[0]} (rolled back)")
+        if a.commit:
+            query(ref, republish_sql(*args, 'commit'))
+            print(f'{subj}: committed')
+
+
 def chunks(items, size):
     return [items[i:i + size] for i in range(0, len(items), size)]
 
@@ -373,6 +496,10 @@ def main():
     g.add_argument('--batch', required=True); g.add_argument('--key-prefix', required=True)
     g.add_argument('--first-seed', type=int, required=True); g.add_argument('--source', required=True)
     g.add_argument('--run-note'); g.add_argument('--out', required=True)
+    r = sub.add_parser('republish')
+    r.add_argument('--plan', required=True); r.add_argument('--env', choices=ENVS, required=True)
+    r.add_argument('--owner', default=DEFAULT_OWNER); r.add_argument('--approval'); r.add_argument('--confirm-production', action='store_true')
+    r.add_argument('--commit', action='store_true', help='commit after a passing rehearsal (default: rehearse only)')
     for name in ('preflight', 'rehearse', 'publish', 'verify'):
         s = sub.add_parser(name)
         s.add_argument('--plan', required=True); s.add_argument('--env', choices=ENVS, required=True)
@@ -380,7 +507,7 @@ def main():
         s.add_argument('--approval'); s.add_argument('--confirm-production', action='store_true')
     a = p.parse_args()
     {'plan-from-seed-batch': cmd_plan_from_seed_batch, 'preflight': cmd_preflight, 'rehearse': cmd_rehearse,
-     'publish': cmd_publish, 'verify': cmd_verify}[a.cmd](a)
+     'publish': cmd_publish, 'verify': cmd_verify, 'republish': cmd_republish}[a.cmd](a)
 
 
 if __name__ == '__main__':
