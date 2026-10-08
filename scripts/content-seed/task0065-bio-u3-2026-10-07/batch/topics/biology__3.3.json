@@ -1,0 +1,5445 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.3",
+  "topic_title": "Cellular Energy",
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "1",
+    "skills": [
+     "1.B",
+     "1.C"
+    ]
+   },
+   {
+    "slot": "B",
+    "practice": "6",
+    "skills": [
+     "6.E"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "1",
+    "skills": [
+     "1.B",
+     "1.C"
+    ]
+   },
+   "seed": {
+    "id": "biology__3.3__A__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "biology",
+     "unit_number": 3,
+     "topic_code": "3.3",
+     "topic_title": "Cellular Energy",
+     "stem": "A cell moves a solute from a lower concentration outside the cell to a higher concentration inside. A membrane transport protein couples this movement to ATP hydrolysis. Which statement best explains how ATP supports this process?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "Energy released by ATP hydrolysis drives solute movement against its concentration gradient.",
+       "is_correct": true,
+       "rationale": "Moving the solute against its concentration gradient requires energy input. Coupling this movement to energy-releasing ATP hydrolysis allows the cell to perform that work."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "ATP hydrolysis creates new energy that drives solute movement against its concentration gradient.",
+       "is_correct": false,
+       "rationale": "Energy-creation misconception: ATP hydrolysis releases available chemical energy; it does not create energy. Cells transform energy while obeying the conservation of energy. Fix: Distinguish energy release or transfer from energy creation."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "Solute movement against its concentration gradient releases energy that drives ATP synthesis.",
+       "is_correct": false,
+       "rationale": "Reversed energy coupling: Moving a solute against its concentration gradient requires energy rather than supplying it. This explanation reverses the roles of the energy-requiring and energy-releasing processes. Fix: Identify which process requires energy and which process supplies it."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "ATP supplies energy for solute movement while remaining chemically unchanged.",
+       "is_correct": false,
+       "rationale": "Unchanged-ATP misconception: ATP undergoes a chemical reaction during hydrolysis. Its coupled breakdown, not its unchanged presence, supplies energy for the transport described. Fix: Check whether the explanation includes ATP undergoing the energy-releasing reaction."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 683,
+          "inputTokenDetails": {
+           "noCacheTokens": 683,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 713,
+          "raw": {
+           "input_tokens": 683,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 926,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 347,
+          "inputTokenDetails": {
+           "noCacheTokens": 347,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 164,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 134
+          },
+          "totalTokens": 511,
+          "raw": {
+           "thoughtsTokenCount": 134,
+           "promptTokenCount": 347,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 511,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 347
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 134,
+          "cachedInputTokens": 0
+         },
+         "ms": 4436,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 406,
+          "inputTokenDetails": {
+           "noCacheTokens": 150,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 285,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 259
+          },
+          "totalTokens": 691,
+          "raw": {
+           "prompt_tokens": 406,
+           "completion_tokens": 285,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 150,
+           "total_tokens": 691,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 259
+           }
+          },
+          "reasoningTokens": 259,
+          "cachedInputTokens": 256
+         },
+         "ms": 5459,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 175,
+          "inputTokenDetails": {
+           "noCacheTokens": 175,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 748,
+          "outputTokenDetails": {
+           "textTokens": 25,
+           "reasoningTokens": 723
+          },
+          "totalTokens": 923,
+          "raw": {
+           "input_tokens": 175,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 748,
+           "output_tokens_details": {
+            "reasoning_tokens": 723
+           },
+           "total_tokens": 923
+          },
+          "reasoningTokens": 723,
+          "cachedInputTokens": 0
+         },
+         "ms": 4534,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 17135,
+          "inputTokenDetails": {
+           "noCacheTokens": 2616,
+           "cacheReadTokens": 14519,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 550,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 338
+          },
+          "totalTokens": 17685,
+          "raw": {
+           "input_tokens": 2616,
+           "output_tokens": 550,
+           "output_tokens_details": {
+            "thinking_tokens": 338
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14519,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 338,
+          "cachedInputTokens": 14519
+         },
+         "ms": 8170,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 11108,
+          "inputTokenDetails": {
+           "noCacheTokens": 11108,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 843,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 581
+          },
+          "totalTokens": 11951,
+          "raw": {
+           "thoughtsTokenCount": 581,
+           "promptTokenCount": 11108,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11951,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 11108
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 581,
+          "cachedInputTokens": 0
+         },
+         "ms": 7861,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10369,
+          "inputTokenDetails": {
+           "noCacheTokens": 1537,
+           "cacheReadTokens": 8832
+          },
+          "outputTokens": 4197,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 3978
+          },
+          "totalTokens": 14566,
+          "raw": {
+           "prompt_tokens": 10369,
+           "completion_tokens": 4197,
+           "prompt_cache_hit_tokens": 8832,
+           "prompt_cache_miss_tokens": 1537,
+           "total_tokens": 14566,
+           "prompt_tokens_details": {
+            "cached_tokens": 8832
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 3978
+           }
+          },
+          "reasoningTokens": 3978,
+          "cachedInputTokens": 8832
+         },
+         "ms": 54559,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9464,
+          "inputTokenDetails": {
+           "noCacheTokens": 9464,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 4065,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 3908
+          },
+          "totalTokens": 13529,
+          "raw": {
+           "input_tokens": 9464,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 4065,
+           "output_tokens_details": {
+            "reasoning_tokens": 3908
+           },
+           "total_tokens": 13529
+          },
+          "reasoningTokens": 3908,
+          "cachedInputTokens": 0
+         },
+         "ms": 42918,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10165,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 10162
+          },
+          "outputTokens": 303,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 81
+          },
+          "totalTokens": 10468,
+          "raw": {
+           "input_tokens": 10165,
+           "input_tokens_details": {
+            "cache_write_tokens": 10162,
+            "cached_tokens": 0
+           },
+           "output_tokens": 303,
+           "output_tokens_details": {
+            "reasoning_tokens": 81
+           },
+           "total_tokens": 10468
+          },
+          "reasoningTokens": 81,
+          "cachedInputTokens": 0
+         },
+         "ms": 6287,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "1",
+     "skills": [
+      "1.B",
+      "1.C"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "1.B",
+       "difficulty": "Medium",
+       "reason": "The question asks students to explain how ATP hydrolysis powers active transport against a concentration gradient, which is explaining a biological process. It goes beyond defining a term because students must link energy coupling to movement against the gradient and rule out misconceptions such as energy being created or the coupling being reversed."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "1.B",
+       "difficulty": "Easy",
+       "reason": "The question asks students to explain the basic mechanism of active transport and energy coupling: that ATP hydrolysis releases free energy that is used to drive solute transport against an electrochemical or concentration gradient."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "1.B",
+       "difficulty": "Easy",
+       "reason": "The question asks students to choose the best explanation of how ATP supports transport against a concentration gradient, directly assessing explanation of a biological process. For a student who has studied active transport, this is recognition of the single energy-coupling concept with no multi-step reasoning."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "1.C",
+       "difficulty": "Medium",
+       "reason": "Stem gives an applied cell scenario (low outside to high inside coupled to ATP hydrolysis) and asks for explanation of how ATP supports it, matching 1.C. Requires interpreting gradient direction and applying the single concept of energy coupling to reach one conclusion, not mere recall and not combining multiple mechanisms."
+      }
+     ],
+     "skill": "1.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "1.B",
+       3
+      ],
+      [
+       "1.C",
+       1
+      ]
+     ],
+     "practice": "1",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "1",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       2
+      ],
+      [
+       "Easy",
+       2
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "biology__3.3__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "biology",
+      "unit_number": 3,
+      "topic_code": "3.3",
+      "topic_title": "Cellular Energy",
+      "stem": "A cell moves a solute from a lower concentration outside the cell to a higher concentration inside. A membrane transport protein couples this movement to ATP hydrolysis. Which statement best explains how ATP supports this process?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Energy released by ATP hydrolysis drives solute movement against its concentration gradient.",
+        "is_correct": true,
+        "rationale": "Moving the solute against its concentration gradient requires energy input. Coupling this movement to energy-releasing ATP hydrolysis allows the cell to perform that work."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "ATP hydrolysis creates new energy that drives solute movement against its concentration gradient.",
+        "is_correct": false,
+        "rationale": "Energy-creation misconception: ATP hydrolysis releases available chemical energy; it does not create energy. Cells transform energy while obeying the conservation of energy. Fix: Distinguish energy release or transfer from energy creation."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Solute movement against its concentration gradient releases energy that drives ATP synthesis.",
+        "is_correct": false,
+        "rationale": "Reversed energy coupling: Moving a solute against its concentration gradient requires energy rather than supplying it. This explanation reverses the roles of the energy-requiring and energy-releasing processes. Fix: Identify which process requires energy and which process supplies it."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "ATP supplies energy for solute movement while remaining chemically unchanged.",
+        "is_correct": false,
+        "rationale": "Unchanged-ATP misconception: ATP undergoes a chemical reaction during hydrolysis. Its coupled breakdown, not its unchanged presence, supplies energy for the transport described. Fix: Check whether the explanation includes ATP undergoing the energy-releasing reaction."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 683,
+           "inputTokenDetails": {
+            "noCacheTokens": 683,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 713,
+           "raw": {
+            "input_tokens": 683,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 926,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 347,
+           "inputTokenDetails": {
+            "noCacheTokens": 347,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 164,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 134
+           },
+           "totalTokens": 511,
+           "raw": {
+            "thoughtsTokenCount": 134,
+            "promptTokenCount": 347,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 511,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 347
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 134,
+           "cachedInputTokens": 0
+          },
+          "ms": 4436,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 406,
+           "inputTokenDetails": {
+            "noCacheTokens": 150,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 285,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 259
+           },
+           "totalTokens": 691,
+           "raw": {
+            "prompt_tokens": 406,
+            "completion_tokens": 285,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 150,
+            "total_tokens": 691,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 259
+            }
+           },
+           "reasoningTokens": 259,
+           "cachedInputTokens": 256
+          },
+          "ms": 5459,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 175,
+           "inputTokenDetails": {
+            "noCacheTokens": 175,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 748,
+           "outputTokenDetails": {
+            "textTokens": 25,
+            "reasoningTokens": 723
+           },
+           "totalTokens": 923,
+           "raw": {
+            "input_tokens": 175,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 748,
+            "output_tokens_details": {
+             "reasoning_tokens": 723
+            },
+            "total_tokens": 923
+           },
+           "reasoningTokens": 723,
+           "cachedInputTokens": 0
+          },
+          "ms": 4534,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 17135,
+           "inputTokenDetails": {
+            "noCacheTokens": 2616,
+            "cacheReadTokens": 14519,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 550,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 338
+           },
+           "totalTokens": 17685,
+           "raw": {
+            "input_tokens": 2616,
+            "output_tokens": 550,
+            "output_tokens_details": {
+             "thinking_tokens": 338
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14519,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 338,
+           "cachedInputTokens": 14519
+          },
+          "ms": 8170,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 11108,
+           "inputTokenDetails": {
+            "noCacheTokens": 11108,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 843,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 581
+           },
+           "totalTokens": 11951,
+           "raw": {
+            "thoughtsTokenCount": 581,
+            "promptTokenCount": 11108,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11951,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 11108
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 581,
+           "cachedInputTokens": 0
+          },
+          "ms": 7861,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10369,
+           "inputTokenDetails": {
+            "noCacheTokens": 1537,
+            "cacheReadTokens": 8832
+           },
+           "outputTokens": 4197,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 3978
+           },
+           "totalTokens": 14566,
+           "raw": {
+            "prompt_tokens": 10369,
+            "completion_tokens": 4197,
+            "prompt_cache_hit_tokens": 8832,
+            "prompt_cache_miss_tokens": 1537,
+            "total_tokens": 14566,
+            "prompt_tokens_details": {
+             "cached_tokens": 8832
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 3978
+            }
+           },
+           "reasoningTokens": 3978,
+           "cachedInputTokens": 8832
+          },
+          "ms": 54559,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9464,
+           "inputTokenDetails": {
+            "noCacheTokens": 9464,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 4065,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 3908
+           },
+           "totalTokens": 13529,
+           "raw": {
+            "input_tokens": 9464,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 4065,
+            "output_tokens_details": {
+             "reasoning_tokens": 3908
+            },
+            "total_tokens": 13529
+           },
+           "reasoningTokens": 3908,
+           "cachedInputTokens": 0
+          },
+          "ms": 42918,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10165,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 10162
+           },
+           "outputTokens": 303,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 81
+           },
+           "totalTokens": 10468,
+           "raw": {
+            "input_tokens": 10165,
+            "input_tokens_details": {
+             "cache_write_tokens": 10162,
+             "cached_tokens": 0
+            },
+            "output_tokens": 303,
+            "output_tokens_details": {
+             "reasoning_tokens": 81
+            },
+            "total_tokens": 10468
+           },
+           "reasoningTokens": 81,
+           "cachedInputTokens": 0
+          },
+          "ms": 6287,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "biology__3.3__A__v1#r1-openai",
+      "kind": "variant",
+      "round": 1,
+      "author": "openai/gpt-6.1-sol",
+      "author_family": "openai",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "biology",
+       "unit_number": 3,
+       "topic_code": "3.3",
+       "topic_title": "Cellular Energy",
+       "stem": "A growing plant cell builds a biological polymer from monomers. This synthesis requires an energy input and is coupled to ATP hydrolysis. How does ATP support polymer synthesis?",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "ATP hydrolysis generates new energy that the cell uses to assemble the polymer.",
+         "is_correct": false,
+         "rationale": "Energy-creation misconception: Hydrolysis transfers energy already available in the chemical system rather than creating energy. Polymer synthesis, like all cellular processes, obeys conservation of energy. Fix: Trace the existing energy source instead of describing energy as newly created."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "Polymer assembly releases energy that the cell uses to synthesize ATP.",
+         "is_correct": false,
+         "rationale": "Reversed energy coupling: The stem identifies polymer assembly as requiring energy, not releasing it. This explanation swaps the energy-supplying reaction with the energy-requiring process. Fix: Mark which process needs energy and which reaction releases it."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "ATP provides energy for polymer assembly without undergoing any chemical change.",
+         "is_correct": false,
+         "rationale": "Unchanged-ATP misconception: Hydrolysis chemically changes ATP. The described coupling depends on that energy-releasing reaction, not simply on ATP being present near the monomers. Fix: Check that ATP reacts in the explanation rather than remaining unchanged."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "ATP hydrolysis releases chemical energy that can be used to drive the energy-requiring assembly of the polymer.",
+         "is_correct": true,
+         "rationale": "Polymer assembly needs an energy source because the described synthesis requires energy input. Linking assembly to the energy-releasing hydrolysis of ATP provides energy for that work."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "D",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 681,
+            "inputTokenDetails": {
+             "noCacheTokens": 681,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 30,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 0
+            },
+            "totalTokens": 711,
+            "raw": {
+             "input_tokens": 681,
+             "output_tokens": 30,
+             "output_tokens_details": {
+              "thinking_tokens": 0
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 0,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 0,
+            "cachedInputTokens": 0
+           },
+           "ms": 1594,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "D",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 346,
+            "inputTokenDetails": {
+             "noCacheTokens": 346,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 244,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 214
+            },
+            "totalTokens": 590,
+            "raw": {
+             "thoughtsTokenCount": 214,
+             "promptTokenCount": 346,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 590,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 346
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 214,
+            "cachedInputTokens": 0
+           },
+           "ms": 2688,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "D",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 405,
+            "inputTokenDetails": {
+             "noCacheTokens": 149,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 254,
+            "outputTokenDetails": {
+             "textTokens": 20,
+             "reasoningTokens": 234
+            },
+            "totalTokens": 659,
+            "raw": {
+             "prompt_tokens": 405,
+             "completion_tokens": 254,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 149,
+             "total_tokens": 659,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 234
+             }
+            },
+            "reasoningTokens": 234,
+            "cachedInputTokens": 256
+           },
+           "ms": 3959,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "D",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 174,
+            "inputTokenDetails": {
+             "noCacheTokens": 174,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 884,
+            "outputTokenDetails": {
+             "textTokens": 25,
+             "reasoningTokens": 859
+            },
+            "totalTokens": 1058,
+            "raw": {
+             "input_tokens": 174,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 884,
+             "output_tokens_details": {
+              "reasoning_tokens": 859
+             },
+             "total_tokens": 1058
+            },
+            "reasoningTokens": 859,
+            "cachedInputTokens": 0
+           },
+           "ms": 16907,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 17145,
+            "inputTokenDetails": {
+             "noCacheTokens": 2626,
+             "cacheReadTokens": 14519,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 483,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 271
+            },
+            "totalTokens": 17628,
+            "raw": {
+             "input_tokens": 2626,
+             "output_tokens": 483,
+             "output_tokens_details": {
+              "thinking_tokens": 271
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14519,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 271,
+            "cachedInputTokens": 14519
+           },
+           "ms": 7132,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 11117,
+            "inputTokenDetails": {
+             "noCacheTokens": 11117,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1223,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 961
+            },
+            "totalTokens": 12340,
+            "raw": {
+             "thoughtsTokenCount": 961,
+             "promptTokenCount": 11117,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 12340,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 11117
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 961,
+            "cachedInputTokens": 0
+           },
+           "ms": 9040,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10377,
+            "inputTokenDetails": {
+             "noCacheTokens": 393,
+             "cacheReadTokens": 9984
+            },
+            "outputTokens": 6142,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 5923
+            },
+            "totalTokens": 16519,
+            "raw": {
+             "prompt_tokens": 10377,
+             "completion_tokens": 6142,
+             "prompt_cache_hit_tokens": 9984,
+             "prompt_cache_miss_tokens": 393,
+             "total_tokens": 16519,
+             "prompt_tokens_details": {
+              "cached_tokens": 9984
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 5923
+             }
+            },
+            "reasoningTokens": 5923,
+            "cachedInputTokens": 9984
+           },
+           "ms": 79798,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9473,
+            "inputTokenDetails": {
+             "noCacheTokens": 1558,
+             "cacheReadTokens": 7915
+            },
+            "outputTokens": 2975,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 2818
+            },
+            "totalTokens": 12448,
+            "raw": {
+             "input_tokens": 9473,
+             "input_tokens_details": {
+              "cached_tokens": 7915
+             },
+             "output_tokens": 2975,
+             "output_tokens_details": {
+              "reasoning_tokens": 2818
+             },
+             "total_tokens": 12448
+            },
+            "reasoningTokens": 2818,
+            "cachedInputTokens": 7915
+           },
+           "ms": 19647,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10165,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 10162
+            },
+            "outputTokens": 208,
+            "outputTokenDetails": {
+             "textTokens": 172,
+             "reasoningTokens": 36
+            },
+            "totalTokens": 10373,
+            "raw": {
+             "input_tokens": 10165,
+             "input_tokens_details": {
+              "cache_write_tokens": 10162,
+              "cached_tokens": 0
+             },
+             "output_tokens": 208,
+             "output_tokens_details": {
+              "reasoning_tokens": 36
+             },
+             "total_tokens": 10373
+            },
+            "reasoningTokens": 36,
+            "cachedInputTokens": 0
+           },
+           "ms": 5803,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "biology__3.3__A__seed#r1-openai",
+       "skill": "1.B",
+       "skill_status": "validated",
+       "practice": "1",
+       "practice_status": "validated",
+       "difficulty": "Medium",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.02097902097902098
+     },
+     "candidates": [
+      {
+       "id": "biology__3.3__A__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "biology",
+        "unit_number": 3,
+        "topic_code": "3.3",
+        "topic_title": "Cellular Energy",
+        "stem": "A growing plant cell builds a biological polymer from monomers. This synthesis requires an energy input and is coupled to ATP hydrolysis. How does ATP support polymer synthesis?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "ATP hydrolysis generates new energy that the cell uses to assemble the polymer.",
+          "is_correct": false,
+          "rationale": "Energy-creation misconception: Hydrolysis transfers energy already available in the chemical system rather than creating energy. Polymer synthesis, like all cellular processes, obeys conservation of energy. Fix: Trace the existing energy source instead of describing energy as newly created."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Polymer assembly releases energy that the cell uses to synthesize ATP.",
+          "is_correct": false,
+          "rationale": "Reversed energy coupling: The stem identifies polymer assembly as requiring energy, not releasing it. This explanation swaps the energy-supplying reaction with the energy-requiring process. Fix: Mark which process needs energy and which reaction releases it."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "ATP provides energy for polymer assembly without undergoing any chemical change.",
+          "is_correct": false,
+          "rationale": "Unchanged-ATP misconception: Hydrolysis chemically changes ATP. The described coupling depends on that energy-releasing reaction, not simply on ATP being present near the monomers. Fix: Check that ATP reacts in the explanation rather than remaining unchanged."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "ATP hydrolysis releases chemical energy that can be used to drive the energy-requiring assembly of the polymer.",
+          "is_correct": true,
+          "rationale": "Polymer assembly needs an energy source because the described synthesis requires energy input. Linking assembly to the energy-releasing hydrolysis of ATP provides energy for that work."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 681,
+             "inputTokenDetails": {
+              "noCacheTokens": 681,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 30,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 711,
+             "raw": {
+              "input_tokens": 681,
+              "output_tokens": 30,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 1594,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 346,
+             "inputTokenDetails": {
+              "noCacheTokens": 346,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 244,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 214
+             },
+             "totalTokens": 590,
+             "raw": {
+              "thoughtsTokenCount": 214,
+              "promptTokenCount": 346,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 590,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 346
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 214,
+             "cachedInputTokens": 0
+            },
+            "ms": 2688,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 405,
+             "inputTokenDetails": {
+              "noCacheTokens": 149,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 254,
+             "outputTokenDetails": {
+              "textTokens": 20,
+              "reasoningTokens": 234
+             },
+             "totalTokens": 659,
+             "raw": {
+              "prompt_tokens": 405,
+              "completion_tokens": 254,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 149,
+              "total_tokens": 659,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 234
+              }
+             },
+             "reasoningTokens": 234,
+             "cachedInputTokens": 256
+            },
+            "ms": 3959,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 174,
+             "inputTokenDetails": {
+              "noCacheTokens": 174,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 884,
+             "outputTokenDetails": {
+              "textTokens": 25,
+              "reasoningTokens": 859
+             },
+             "totalTokens": 1058,
+             "raw": {
+              "input_tokens": 174,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 884,
+              "output_tokens_details": {
+               "reasoning_tokens": 859
+              },
+              "total_tokens": 1058
+             },
+             "reasoningTokens": 859,
+             "cachedInputTokens": 0
+            },
+            "ms": 16907,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 17145,
+             "inputTokenDetails": {
+              "noCacheTokens": 2626,
+              "cacheReadTokens": 14519,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 483,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 271
+             },
+             "totalTokens": 17628,
+             "raw": {
+              "input_tokens": 2626,
+              "output_tokens": 483,
+              "output_tokens_details": {
+               "thinking_tokens": 271
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14519,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 271,
+             "cachedInputTokens": 14519
+            },
+            "ms": 7132,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 11117,
+             "inputTokenDetails": {
+              "noCacheTokens": 11117,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1223,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 961
+             },
+             "totalTokens": 12340,
+             "raw": {
+              "thoughtsTokenCount": 961,
+              "promptTokenCount": 11117,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 12340,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 11117
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 961,
+             "cachedInputTokens": 0
+            },
+            "ms": 9040,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10377,
+             "inputTokenDetails": {
+              "noCacheTokens": 393,
+              "cacheReadTokens": 9984
+             },
+             "outputTokens": 6142,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 5923
+             },
+             "totalTokens": 16519,
+             "raw": {
+              "prompt_tokens": 10377,
+              "completion_tokens": 6142,
+              "prompt_cache_hit_tokens": 9984,
+              "prompt_cache_miss_tokens": 393,
+              "total_tokens": 16519,
+              "prompt_tokens_details": {
+               "cached_tokens": 9984
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 5923
+              }
+             },
+             "reasoningTokens": 5923,
+             "cachedInputTokens": 9984
+            },
+            "ms": 79798,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9473,
+             "inputTokenDetails": {
+              "noCacheTokens": 1558,
+              "cacheReadTokens": 7915
+             },
+             "outputTokens": 2975,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 2818
+             },
+             "totalTokens": 12448,
+             "raw": {
+              "input_tokens": 9473,
+              "input_tokens_details": {
+               "cached_tokens": 7915
+              },
+              "output_tokens": 2975,
+              "output_tokens_details": {
+               "reasoning_tokens": 2818
+              },
+              "total_tokens": 12448
+             },
+             "reasoningTokens": 2818,
+             "cachedInputTokens": 7915
+            },
+            "ms": 19647,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10165,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 10162
+             },
+             "outputTokens": 208,
+             "outputTokenDetails": {
+              "textTokens": 172,
+              "reasoningTokens": 36
+             },
+             "totalTokens": 10373,
+             "raw": {
+              "input_tokens": 10165,
+              "input_tokens_details": {
+               "cache_write_tokens": 10162,
+               "cached_tokens": 0
+              },
+              "output_tokens": 208,
+              "output_tokens_details": {
+               "reasoning_tokens": 36
+              },
+              "total_tokens": 10373
+             },
+             "reasoningTokens": 36,
+             "cachedInputTokens": 0
+            },
+            "ms": 5803,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  },
+  {
+   "slot": {
+    "slot": "B",
+    "practice": "6",
+    "skills": [
+     "6.E"
+    ]
+   },
+   "seed": {
+    "id": "biology__3.3__B__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "biology",
+     "unit_number": 3,
+     "topic_code": "3.3",
+     "topic_title": "Cellular Energy",
+     "stem": "A cell synthesizes a polymer from monomers through an energy-requiring reaction coupled to ATP hydrolysis. A treatment disrupts this coupling without affecting the enzymes involved. ATP hydrolysis continues at the same rate, ATP and monomer concentrations remain constant, and no alternative energy-releasing reaction is coupled to polymer synthesis. Which prediction and explanation best describe the immediate effect of the treatment?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "Polymer synthesis remains unchanged because ATP hydrolysis anywhere in the cell supplies the energy needed for synthesis.",
+       "is_correct": false,
+       "rationale": "The energy-release-equals-coupling misconception treats energy released elsewhere as automatically available for cellular work. The synthesis reaction needs coupling, not merely simultaneous ATP hydrolysis. Fix: Check whether the energy-releasing reaction is actually coupled to the energy-requiring process."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "Polymer synthesis decreases because energy released by ATP hydrolysis is no longer coupled to the energy-requiring synthesis reaction.",
+       "is_correct": true,
+       "rationale": "Polymer synthesis requires energy input. Disrupting coupling prevents ATP hydrolysis from powering that reaction, even though ATP remains available and hydrolysis continues."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "Polymer synthesis remains unchanged because its enzymes eliminate the need for energy input.",
+       "is_correct": false,
+       "rationale": "The catalysis-versus-energy misconception confuses lowering activation energy with supplying energy for a reaction. Enzymes do not eliminate polymer synthesis's energy requirement. Fix: Separate the enzyme's effect on activation energy from the reaction's need for energy input."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "Polymer synthesis decreases because ATP hydrolysis has a net energy cost that takes energy away from synthesis.",
+       "is_correct": false,
+       "rationale": "The reversed-energy-flow misconception treats ATP hydrolysis as a net energy-consuming process. Under cellular conditions, ATP hydrolysis releases energy; synthesis decreases here because coupling is disrupted. Fix: Identify which reaction releases energy and which reaction requires energy."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 815,
+          "inputTokenDetails": {
+           "noCacheTokens": 815,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 845,
+          "raw": {
+           "input_tokens": 815,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 1365,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 401,
+          "inputTokenDetails": {
+           "noCacheTokens": 401,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 293,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 263
+          },
+          "totalTokens": 694,
+          "raw": {
+           "thoughtsTokenCount": 263,
+           "promptTokenCount": 401,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 694,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 401
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 263,
+          "cachedInputTokens": 0
+         },
+         "ms": 3636,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 460,
+          "inputTokenDetails": {
+           "noCacheTokens": 204,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 396,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 370
+          },
+          "totalTokens": 856,
+          "raw": {
+           "prompt_tokens": 460,
+           "completion_tokens": 396,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 204,
+           "total_tokens": 856,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 370
+           }
+          },
+          "reasoningTokens": 370,
+          "cachedInputTokens": 256
+         },
+         "ms": 6627,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 228,
+          "inputTokenDetails": {
+           "noCacheTokens": 228,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1301,
+          "outputTokenDetails": {
+           "textTokens": 25,
+           "reasoningTokens": 1276
+          },
+          "totalTokens": 1529,
+          "raw": {
+           "input_tokens": 228,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1301,
+           "output_tokens_details": {
+            "reasoning_tokens": 1276
+           },
+           "total_tokens": 1529
+          },
+          "reasoningTokens": 1276,
+          "cachedInputTokens": 0
+         },
+         "ms": 16744,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 17311,
+          "inputTokenDetails": {
+           "noCacheTokens": 2792,
+           "cacheReadTokens": 14519,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 566,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 354
+          },
+          "totalTokens": 17877,
+          "raw": {
+           "input_tokens": 2792,
+           "output_tokens": 566,
+           "output_tokens_details": {
+            "thinking_tokens": 354
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14519,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 354,
+          "cachedInputTokens": 14519
+         },
+         "ms": 7958,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 11175,
+          "inputTokenDetails": {
+           "noCacheTokens": 11175,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1449,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1187
+          },
+          "totalTokens": 12624,
+          "raw": {
+           "thoughtsTokenCount": 1187,
+           "promptTokenCount": 11175,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 12624,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 11175
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1187,
+          "cachedInputTokens": 0
+         },
+         "ms": 9651,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10431,
+          "inputTokenDetails": {
+           "noCacheTokens": 447,
+           "cacheReadTokens": 9984
+          },
+          "outputTokens": 4258,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 4039
+          },
+          "totalTokens": 14689,
+          "raw": {
+           "prompt_tokens": 10431,
+           "completion_tokens": 4258,
+           "prompt_cache_hit_tokens": 9984,
+           "prompt_cache_miss_tokens": 447,
+           "total_tokens": 14689,
+           "prompt_tokens_details": {
+            "cached_tokens": 9984
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 4039
+           }
+          },
+          "reasoningTokens": 4039,
+          "cachedInputTokens": 9984
+         },
+         "ms": 52466,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9526,
+          "inputTokenDetails": {
+           "noCacheTokens": 9526,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 3547,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 3390
+          },
+          "totalTokens": 13073,
+          "raw": {
+           "input_tokens": 9526,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 3547,
+           "output_tokens_details": {
+            "reasoning_tokens": 3390
+           },
+           "total_tokens": 13073
+          },
+          "reasoningTokens": 3390,
+          "cachedInputTokens": 0
+         },
+         "ms": 41165,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.3",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10224,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 10221
+          },
+          "outputTokens": 339,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 117
+          },
+          "totalTokens": 10563,
+          "raw": {
+           "input_tokens": 10224,
+           "input_tokens_details": {
+            "cache_write_tokens": 10221,
+            "cached_tokens": 0
+           },
+           "output_tokens": 339,
+           "output_tokens_details": {
+            "reasoning_tokens": 117
+           },
+           "total_tokens": 10563
+          },
+          "reasoningTokens": 117,
+          "cachedInputTokens": 0
+         },
+         "ms": 6529,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "B",
+     "practice": "6",
+     "skills": [
+      "6.E"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "6.E",
+       "difficulty": "Medium",
+       "reason": "The student must predict the effect of a disruption, uncoupling ATP hydrolysis from synthesis, on polymer production. This applies the single concept of energy coupling to a new scenario and reaches one conclusion."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "6.E",
+       "difficulty": "Medium",
+       "reason": "The question requires predicting the consequence of a specific disruption (uncoupling ATP hydrolysis from an endergonic synthesis reaction) to a biological process and selecting the correct underlying biological reasoning."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "6.E",
+       "difficulty": "Medium",
+       "reason": "The question asks students to predict the immediate effect of disrupting ATP hydrolysis coupling to polymer synthesis and to explain that prediction. This applies the concept of energy coupling to a novel treatment scenario, requiring a single conceptual application rather than simple recall or multi-step evaluation."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "6.E",
+       "difficulty": "Medium",
+       "reason": "The task is to predict the immediate effect of disrupting the coupling between ATP hydrolysis and polymer synthesis, which directly matches 6.E (predict causes/effects of a change/disruption to a component in a biological system). It requires applying the single concept of energy coupling to this new scenario to reach one conclusion, not mere recall (Easy) nor multi-step integration of multiple concepts (Hard)."
+      }
+     ],
+     "skill": "6.E",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "6.E",
+       4
+      ]
+     ],
+     "practice": "6",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "6",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       4
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "biology__3.3__B__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "biology",
+      "unit_number": 3,
+      "topic_code": "3.3",
+      "topic_title": "Cellular Energy",
+      "stem": "A cell synthesizes a polymer from monomers through an energy-requiring reaction coupled to ATP hydrolysis. A treatment disrupts this coupling without affecting the enzymes involved. ATP hydrolysis continues at the same rate, ATP and monomer concentrations remain constant, and no alternative energy-releasing reaction is coupled to polymer synthesis. Which prediction and explanation best describe the immediate effect of the treatment?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Polymer synthesis remains unchanged because ATP hydrolysis anywhere in the cell supplies the energy needed for synthesis.",
+        "is_correct": false,
+        "rationale": "The energy-release-equals-coupling misconception treats energy released elsewhere as automatically available for cellular work. The synthesis reaction needs coupling, not merely simultaneous ATP hydrolysis. Fix: Check whether the energy-releasing reaction is actually coupled to the energy-requiring process."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Polymer synthesis decreases because energy released by ATP hydrolysis is no longer coupled to the energy-requiring synthesis reaction.",
+        "is_correct": true,
+        "rationale": "Polymer synthesis requires energy input. Disrupting coupling prevents ATP hydrolysis from powering that reaction, even though ATP remains available and hydrolysis continues."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Polymer synthesis remains unchanged because its enzymes eliminate the need for energy input.",
+        "is_correct": false,
+        "rationale": "The catalysis-versus-energy misconception confuses lowering activation energy with supplying energy for a reaction. Enzymes do not eliminate polymer synthesis's energy requirement. Fix: Separate the enzyme's effect on activation energy from the reaction's need for energy input."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Polymer synthesis decreases because ATP hydrolysis has a net energy cost that takes energy away from synthesis.",
+        "is_correct": false,
+        "rationale": "The reversed-energy-flow misconception treats ATP hydrolysis as a net energy-consuming process. Under cellular conditions, ATP hydrolysis releases energy; synthesis decreases here because coupling is disrupted. Fix: Identify which reaction releases energy and which reaction requires energy."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 815,
+           "inputTokenDetails": {
+            "noCacheTokens": 815,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 845,
+           "raw": {
+            "input_tokens": 815,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 1365,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 401,
+           "inputTokenDetails": {
+            "noCacheTokens": 401,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 293,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 263
+           },
+           "totalTokens": 694,
+           "raw": {
+            "thoughtsTokenCount": 263,
+            "promptTokenCount": 401,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 694,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 401
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 263,
+           "cachedInputTokens": 0
+          },
+          "ms": 3636,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 460,
+           "inputTokenDetails": {
+            "noCacheTokens": 204,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 396,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 370
+           },
+           "totalTokens": 856,
+           "raw": {
+            "prompt_tokens": 460,
+            "completion_tokens": 396,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 204,
+            "total_tokens": 856,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 370
+            }
+           },
+           "reasoningTokens": 370,
+           "cachedInputTokens": 256
+          },
+          "ms": 6627,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 228,
+           "inputTokenDetails": {
+            "noCacheTokens": 228,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1301,
+           "outputTokenDetails": {
+            "textTokens": 25,
+            "reasoningTokens": 1276
+           },
+           "totalTokens": 1529,
+           "raw": {
+            "input_tokens": 228,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1301,
+            "output_tokens_details": {
+             "reasoning_tokens": 1276
+            },
+            "total_tokens": 1529
+           },
+           "reasoningTokens": 1276,
+           "cachedInputTokens": 0
+          },
+          "ms": 16744,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 17311,
+           "inputTokenDetails": {
+            "noCacheTokens": 2792,
+            "cacheReadTokens": 14519,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 566,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 354
+           },
+           "totalTokens": 17877,
+           "raw": {
+            "input_tokens": 2792,
+            "output_tokens": 566,
+            "output_tokens_details": {
+             "thinking_tokens": 354
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14519,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 354,
+           "cachedInputTokens": 14519
+          },
+          "ms": 7958,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 11175,
+           "inputTokenDetails": {
+            "noCacheTokens": 11175,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1449,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1187
+           },
+           "totalTokens": 12624,
+           "raw": {
+            "thoughtsTokenCount": 1187,
+            "promptTokenCount": 11175,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 12624,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 11175
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1187,
+           "cachedInputTokens": 0
+          },
+          "ms": 9651,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10431,
+           "inputTokenDetails": {
+            "noCacheTokens": 447,
+            "cacheReadTokens": 9984
+           },
+           "outputTokens": 4258,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 4039
+           },
+           "totalTokens": 14689,
+           "raw": {
+            "prompt_tokens": 10431,
+            "completion_tokens": 4258,
+            "prompt_cache_hit_tokens": 9984,
+            "prompt_cache_miss_tokens": 447,
+            "total_tokens": 14689,
+            "prompt_tokens_details": {
+             "cached_tokens": 9984
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 4039
+            }
+           },
+           "reasoningTokens": 4039,
+           "cachedInputTokens": 9984
+          },
+          "ms": 52466,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9526,
+           "inputTokenDetails": {
+            "noCacheTokens": 9526,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 3547,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 3390
+           },
+           "totalTokens": 13073,
+           "raw": {
+            "input_tokens": 9526,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 3547,
+            "output_tokens_details": {
+             "reasoning_tokens": 3390
+            },
+            "total_tokens": 13073
+           },
+           "reasoningTokens": 3390,
+           "cachedInputTokens": 0
+          },
+          "ms": 41165,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.3",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10224,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 10221
+           },
+           "outputTokens": 339,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 117
+           },
+           "totalTokens": 10563,
+           "raw": {
+            "input_tokens": 10224,
+            "input_tokens_details": {
+             "cache_write_tokens": 10221,
+             "cached_tokens": 0
+            },
+            "output_tokens": 339,
+            "output_tokens_details": {
+             "reasoning_tokens": 117
+            },
+            "total_tokens": 10563
+           },
+           "reasoningTokens": 117,
+           "cachedInputTokens": 0
+          },
+          "ms": 6529,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "biology__3.3__B__v1#r1-openai",
+      "kind": "variant",
+      "round": 1,
+      "author": "openai/gpt-6.1-sol",
+      "author_family": "openai",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "biology",
+       "unit_number": 3,
+       "topic_code": "3.3",
+       "topic_title": "Cellular Energy",
+       "stem": "A yeast cell uses a membrane protein to move an uncharged solute against its concentration gradient, powered by coupled ATP hydrolysis. A treatment disconnects ATP hydrolysis from transport without altering the protein's catalytic activity. During the observation, ATP concentration, the solute gradient, and the ATP hydrolysis rate are maintained; no replacement energy source is coupled to transport. What immediate effect on uphill solute transport is expected, and why?",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "Uphill transport slows because ATP hydrolysis no longer supplies energy through coupling to the transport process.",
+         "is_correct": true,
+         "rationale": "Moving the solute against its concentration gradient requires energy input. Breaking the coupling prevents energy released by ATP hydrolysis from driving that movement, despite continued ATP availability and hydrolysis."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "Uphill transport proceeds at its previous rate because ATP hydrolysis elsewhere automatically provides the energy for transport.",
+         "is_correct": false,
+         "rationale": "The energy-release-equals-coupling misconception assumes that releasing energy anywhere automatically powers a particular process. Continued ATP hydrolysis cannot drive uphill transport when their coupling is broken. Fix: Trace the coupling between the energy-releasing reaction and the transport process."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "Uphill transport proceeds at its previous rate because the protein's catalytic activity removes the need for energy input.",
+         "is_correct": false,
+         "rationale": "The catalysis-versus-energy misconception mistakes lowering activation energy for supplying energy. Catalytic activity does not remove the energy requirement for moving a solute against its gradient. Fix: Distinguish lowering activation energy from providing energy for uphill transport."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "Uphill transport slows because ATP hydrolysis consumes energy that would otherwise power solute movement.",
+         "is_correct": false,
+         "rationale": "The reversed-energy-flow misconception incorrectly assigns a net energy cost to ATP hydrolysis. Under cellular conditions, ATP hydrolysis releases energy; the transport slowdown results from losing coupling, not from hydrolysis consuming that energy. Fix: Mark which process releases energy and which process requires energy input."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "A",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 806,
+            "inputTokenDetails": {
+             "noCacheTokens": 806,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 145,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 115
+            },
+            "totalTokens": 951,
+            "raw": {
+             "input_tokens": 806,
+             "output_tokens": 145,
+             "output_tokens_details": {
+              "thinking_tokens": 115
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 0,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 115,
+            "cachedInputTokens": 0
+           },
+           "ms": 10401,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "A",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 413,
+            "inputTokenDetails": {
+             "noCacheTokens": 413,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 273,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 243
+            },
+            "totalTokens": 686,
+            "raw": {
+             "thoughtsTokenCount": 243,
+             "promptTokenCount": 413,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 686,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 413
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 243,
+            "cachedInputTokens": 0
+           },
+           "ms": 4856,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "A",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 475,
+            "inputTokenDetails": {
+             "noCacheTokens": 219,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 644,
+            "outputTokenDetails": {
+             "textTokens": 20,
+             "reasoningTokens": 624
+            },
+            "totalTokens": 1119,
+            "raw": {
+             "prompt_tokens": 475,
+             "completion_tokens": 644,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 219,
+             "total_tokens": 1119,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 624
+             }
+            },
+            "reasoningTokens": 624,
+            "cachedInputTokens": 256
+           },
+           "ms": 9768,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "A",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 243,
+            "inputTokenDetails": {
+             "noCacheTokens": 243,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1189,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 1159
+            },
+            "totalTokens": 1432,
+            "raw": {
+             "input_tokens": 243,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 1189,
+             "output_tokens_details": {
+              "reasoning_tokens": 1159
+             },
+             "total_tokens": 1432
+            },
+            "reasoningTokens": 1159,
+            "cachedInputTokens": 0
+           },
+           "ms": 16567,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 17313,
+            "inputTokenDetails": {
+             "noCacheTokens": 2794,
+             "cacheReadTokens": 14519,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 633,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 421
+            },
+            "totalTokens": 17946,
+            "raw": {
+             "input_tokens": 2794,
+             "output_tokens": 633,
+             "output_tokens_details": {
+              "thinking_tokens": 421
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14519,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 421,
+            "cachedInputTokens": 14519
+           },
+           "ms": 11586,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 11193,
+            "inputTokenDetails": {
+             "noCacheTokens": 11193,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 834,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 572
+            },
+            "totalTokens": 12027,
+            "raw": {
+             "thoughtsTokenCount": 572,
+             "promptTokenCount": 11193,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 12027,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 11193
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 572,
+            "cachedInputTokens": 0
+           },
+           "ms": 6313,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10452,
+            "inputTokenDetails": {
+             "noCacheTokens": 468,
+             "cacheReadTokens": 9984
+            },
+            "outputTokens": 8386,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 8167
+            },
+            "totalTokens": 18838,
+            "raw": {
+             "prompt_tokens": 10452,
+             "completion_tokens": 8386,
+             "prompt_cache_hit_tokens": 9984,
+             "prompt_cache_miss_tokens": 468,
+             "total_tokens": 18838,
+             "prompt_tokens_details": {
+              "cached_tokens": 9984
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 8167
+             }
+            },
+            "reasoningTokens": 8167,
+            "cachedInputTokens": 9984
+           },
+           "ms": 116473,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9550,
+            "inputTokenDetails": {
+             "noCacheTokens": 9550,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 3838,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 3681
+            },
+            "totalTokens": 13388,
+            "raw": {
+             "input_tokens": 9550,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 3838,
+             "output_tokens_details": {
+              "reasoning_tokens": 3681
+             },
+             "total_tokens": 13388
+            },
+            "reasoningTokens": 3681,
+            "cachedInputTokens": 0
+           },
+           "ms": 17769,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.3",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10250,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 10247
+            },
+            "outputTokens": 399,
+            "outputTokenDetails": {
+             "textTokens": 222,
+             "reasoningTokens": 177
+            },
+            "totalTokens": 10649,
+            "raw": {
+             "input_tokens": 10250,
+             "input_tokens_details": {
+              "cache_write_tokens": 10247,
+              "cached_tokens": 0
+             },
+             "output_tokens": 399,
+             "output_tokens_details": {
+              "reasoning_tokens": 177
+             },
+             "total_tokens": 10649
+            },
+            "reasoningTokens": 177,
+            "cachedInputTokens": 0
+           },
+           "ms": 10260,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "biology__3.3__B__seed#r1-openai",
+       "skill": "6.E",
+       "skill_status": "validated",
+       "practice": "6",
+       "practice_status": "validated",
+       "difficulty": "Medium",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.03017241379310345
+     },
+     "candidates": [
+      {
+       "id": "biology__3.3__B__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "biology",
+        "unit_number": 3,
+        "topic_code": "3.3",
+        "topic_title": "Cellular Energy",
+        "stem": "A yeast cell uses a membrane protein to move an uncharged solute against its concentration gradient, powered by coupled ATP hydrolysis. A treatment disconnects ATP hydrolysis from transport without altering the protein's catalytic activity. During the observation, ATP concentration, the solute gradient, and the ATP hydrolysis rate are maintained; no replacement energy source is coupled to transport. What immediate effect on uphill solute transport is expected, and why?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Uphill transport slows because ATP hydrolysis no longer supplies energy through coupling to the transport process.",
+          "is_correct": true,
+          "rationale": "Moving the solute against its concentration gradient requires energy input. Breaking the coupling prevents energy released by ATP hydrolysis from driving that movement, despite continued ATP availability and hydrolysis."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Uphill transport proceeds at its previous rate because ATP hydrolysis elsewhere automatically provides the energy for transport.",
+          "is_correct": false,
+          "rationale": "The energy-release-equals-coupling misconception assumes that releasing energy anywhere automatically powers a particular process. Continued ATP hydrolysis cannot drive uphill transport when their coupling is broken. Fix: Trace the coupling between the energy-releasing reaction and the transport process."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "Uphill transport proceeds at its previous rate because the protein's catalytic activity removes the need for energy input.",
+          "is_correct": false,
+          "rationale": "The catalysis-versus-energy misconception mistakes lowering activation energy for supplying energy. Catalytic activity does not remove the energy requirement for moving a solute against its gradient. Fix: Distinguish lowering activation energy from providing energy for uphill transport."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "Uphill transport slows because ATP hydrolysis consumes energy that would otherwise power solute movement.",
+          "is_correct": false,
+          "rationale": "The reversed-energy-flow misconception incorrectly assigns a net energy cost to ATP hydrolysis. Under cellular conditions, ATP hydrolysis releases energy; the transport slowdown results from losing coupling, not from hydrolysis consuming that energy. Fix: Mark which process releases energy and which process requires energy input."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 806,
+             "inputTokenDetails": {
+              "noCacheTokens": 806,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 145,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 115
+             },
+             "totalTokens": 951,
+             "raw": {
+              "input_tokens": 806,
+              "output_tokens": 145,
+              "output_tokens_details": {
+               "thinking_tokens": 115
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 115,
+             "cachedInputTokens": 0
+            },
+            "ms": 10401,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 413,
+             "inputTokenDetails": {
+              "noCacheTokens": 413,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 273,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 243
+             },
+             "totalTokens": 686,
+             "raw": {
+              "thoughtsTokenCount": 243,
+              "promptTokenCount": 413,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 686,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 413
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 243,
+             "cachedInputTokens": 0
+            },
+            "ms": 4856,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 475,
+             "inputTokenDetails": {
+              "noCacheTokens": 219,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 644,
+             "outputTokenDetails": {
+              "textTokens": 20,
+              "reasoningTokens": 624
+             },
+             "totalTokens": 1119,
+             "raw": {
+              "prompt_tokens": 475,
+              "completion_tokens": 644,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 219,
+              "total_tokens": 1119,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 624
+              }
+             },
+             "reasoningTokens": 624,
+             "cachedInputTokens": 256
+            },
+            "ms": 9768,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 243,
+             "inputTokenDetails": {
+              "noCacheTokens": 243,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1189,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 1159
+             },
+             "totalTokens": 1432,
+             "raw": {
+              "input_tokens": 243,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1189,
+              "output_tokens_details": {
+               "reasoning_tokens": 1159
+              },
+              "total_tokens": 1432
+             },
+             "reasoningTokens": 1159,
+             "cachedInputTokens": 0
+            },
+            "ms": 16567,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 17313,
+             "inputTokenDetails": {
+              "noCacheTokens": 2794,
+              "cacheReadTokens": 14519,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 633,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 421
+             },
+             "totalTokens": 17946,
+             "raw": {
+              "input_tokens": 2794,
+              "output_tokens": 633,
+              "output_tokens_details": {
+               "thinking_tokens": 421
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14519,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 421,
+             "cachedInputTokens": 14519
+            },
+            "ms": 11586,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 11193,
+             "inputTokenDetails": {
+              "noCacheTokens": 11193,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 834,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 572
+             },
+             "totalTokens": 12027,
+             "raw": {
+              "thoughtsTokenCount": 572,
+              "promptTokenCount": 11193,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 12027,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 11193
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 572,
+             "cachedInputTokens": 0
+            },
+            "ms": 6313,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10452,
+             "inputTokenDetails": {
+              "noCacheTokens": 468,
+              "cacheReadTokens": 9984
+             },
+             "outputTokens": 8386,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 8167
+             },
+             "totalTokens": 18838,
+             "raw": {
+              "prompt_tokens": 10452,
+              "completion_tokens": 8386,
+              "prompt_cache_hit_tokens": 9984,
+              "prompt_cache_miss_tokens": 468,
+              "total_tokens": 18838,
+              "prompt_tokens_details": {
+               "cached_tokens": 9984
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 8167
+              }
+             },
+             "reasoningTokens": 8167,
+             "cachedInputTokens": 9984
+            },
+            "ms": 116473,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9550,
+             "inputTokenDetails": {
+              "noCacheTokens": 9550,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 3838,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 3681
+             },
+             "totalTokens": 13388,
+             "raw": {
+              "input_tokens": 9550,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 3838,
+              "output_tokens_details": {
+               "reasoning_tokens": 3681
+              },
+              "total_tokens": 13388
+             },
+             "reasoningTokens": 3681,
+             "cachedInputTokens": 0
+            },
+            "ms": 17769,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.3",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10250,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 10247
+             },
+             "outputTokens": 399,
+             "outputTokenDetails": {
+              "textTokens": 222,
+              "reasoningTokens": 177
+             },
+             "totalTokens": 10649,
+             "raw": {
+              "input_tokens": 10250,
+              "input_tokens_details": {
+               "cache_write_tokens": 10247,
+               "cached_tokens": 0
+              },
+              "output_tokens": 399,
+              "output_tokens_details": {
+               "reasoning_tokens": 177
+              },
+              "total_tokens": 10649
+             },
+             "reasoningTokens": 177,
+             "cachedInputTokens": 0
+            },
+            "ms": 10260,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  }
+ ]
+}

@@ -1,0 +1,5708 @@
+{
+ "topic": {
+  "subject_key": "biology",
+  "unit_number": 3,
+  "topic_code": "3.4",
+  "topic_title": "Photosynthesis",
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "4",
+    "skills": [
+     "4.B"
+    ]
+   },
+   {
+    "slot": "B",
+    "practice": "1",
+    "skills": [
+     "1.B",
+     "1.C"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "4",
+    "skills": [
+     "4.B"
+    ]
+   },
+   "seed": {
+    "id": "biology__3.4__A__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "biology",
+     "unit_number": 3,
+     "topic_code": "3.4",
+     "topic_title": "Photosynthesis",
+     "stem": "Researchers measure photosynthesis in intact chloroplasts at three light intensities while keeping CO₂ availability and temperature constant. Rates are measured after they stabilize and are reported in relative units per minute.\n\nLight intensity | Oxygen production rate | Carbohydrate production rate\nLow | 2 | 1\nMedium | 4 | 2\nHigh | 6 | 3\n\nWhich statement accurately describes the pattern and connects it to the roles of the two stages of photosynthesis?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "Both production rates increase with light intensity; the light reactions directly produce carbohydrates in the thylakoids.",
+       "is_correct": false,
+       "rationale": "Stage-and-location confusion: This assigns carbohydrate production to the light reactions. Carbohydrates are produced through the Calvin cycle in the stroma, using ATP and NADPH from the light reactions. Fix: Assign each measured product to its photosynthetic stage and location before interpreting the trend."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "Both production rates increase with light intensity; the light reactions supply ATP and NADPH for carbohydrate production in the stroma.",
+       "is_correct": true,
+       "rationale": "Oxygen production rises from 2 to 6, while carbohydrate production rises from 1 to 3. The light reactions release oxygen and produce ATP and NADPH, which support carbohydrate production by the Calvin cycle in the stroma."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "Both production rates increase with light intensity; the oxygen is released when CO₂ is split during the Calvin cycle.",
+       "is_correct": false,
+       "rationale": "Oxygen-source confusion: This treats CO₂ as the source of released oxygen. Photosynthetic oxygen comes from water splitting during the light reactions, not from CO₂ during the Calvin cycle. Fix: Trace released oxygen to water splitting before linking it to a photosynthetic stage."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "Both production rates increase with light intensity; the Calvin cycle supplies ATP and NADPH to power the light reactions.",
+       "is_correct": false,
+       "rationale": "Energy-transfer reversal: This reverses the dependency between the two stages. The light reactions produce ATP and NADPH, and the Calvin cycle uses them to support carbohydrate production. Fix: Draw an arrow from the stage producing ATP and NADPH to the stage using them."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 817,
+          "inputTokenDetails": {
+           "noCacheTokens": 817,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 847,
+          "raw": {
+           "input_tokens": 817,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 3509,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 434,
+          "inputTokenDetails": {
+           "noCacheTokens": 434,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 300,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 270
+          },
+          "totalTokens": 734,
+          "raw": {
+           "thoughtsTokenCount": 270,
+           "promptTokenCount": 434,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 734,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 434
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 270,
+          "cachedInputTokens": 0
+         },
+         "ms": 4346,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 494,
+          "inputTokenDetails": {
+           "noCacheTokens": 238,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 445,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 419
+          },
+          "totalTokens": 939,
+          "raw": {
+           "prompt_tokens": 494,
+           "completion_tokens": 445,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 238,
+           "total_tokens": 939,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 419
+           }
+          },
+          "reasoningTokens": 419,
+          "cachedInputTokens": 256
+         },
+         "ms": 6186,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 264,
+          "inputTokenDetails": {
+           "noCacheTokens": 264,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 969,
+          "outputTokenDetails": {
+           "textTokens": 25,
+           "reasoningTokens": 944
+          },
+          "totalTokens": 1233,
+          "raw": {
+           "input_tokens": 264,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 969,
+           "output_tokens_details": {
+            "reasoning_tokens": 944
+           },
+           "total_tokens": 1233
+          },
+          "reasoningTokens": 944,
+          "cachedInputTokens": 0
+         },
+         "ms": 11923,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 17337,
+          "inputTokenDetails": {
+           "noCacheTokens": 2818,
+           "cacheReadTokens": 14519,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 546,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 334
+          },
+          "totalTokens": 17883,
+          "raw": {
+           "input_tokens": 2818,
+           "output_tokens": 546,
+           "output_tokens_details": {
+            "thinking_tokens": 334
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14519,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 334,
+          "cachedInputTokens": 14519
+         },
+         "ms": 13374,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 11235,
+          "inputTokenDetails": {
+           "noCacheTokens": 11235,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1216,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 954
+          },
+          "totalTokens": 12451,
+          "raw": {
+           "thoughtsTokenCount": 954,
+           "promptTokenCount": 11235,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 12451,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 11235
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 954,
+          "cachedInputTokens": 0
+         },
+         "ms": 16230,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10498,
+          "inputTokenDetails": {
+           "noCacheTokens": 1666,
+           "cacheReadTokens": 8832
+          },
+          "outputTokens": 8913,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 8694
+          },
+          "totalTokens": 19411,
+          "raw": {
+           "prompt_tokens": 10498,
+           "completion_tokens": 8913,
+           "prompt_cache_hit_tokens": 8832,
+           "prompt_cache_miss_tokens": 1666,
+           "total_tokens": 19411,
+           "prompt_tokens_details": {
+            "cached_tokens": 8832
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 8694
+           }
+          },
+          "reasoningTokens": 8694,
+          "cachedInputTokens": 8832
+         },
+         "ms": 122176,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9595,
+          "inputTokenDetails": {
+           "noCacheTokens": 9595,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 3218,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 3061
+          },
+          "totalTokens": 12813,
+          "raw": {
+           "input_tokens": 9595,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 3218,
+           "output_tokens_details": {
+            "reasoning_tokens": 3061
+           },
+           "total_tokens": 12813
+          },
+          "reasoningTokens": 3061,
+          "cachedInputTokens": 0
+         },
+         "ms": 20937,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10288,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 10285
+          },
+          "outputTokens": 263,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 41
+          },
+          "totalTokens": 10551,
+          "raw": {
+           "input_tokens": 10288,
+           "input_tokens_details": {
+            "cache_write_tokens": 10285,
+            "cached_tokens": 0
+           },
+           "output_tokens": 263,
+           "output_tokens_details": {
+            "reasoning_tokens": 41
+           },
+           "total_tokens": 10551
+          },
+          "reasoningTokens": 41,
+          "cachedInputTokens": 0
+         },
+         "ms": 5202,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "4",
+     "skills": [
+      "4.B"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Medium",
+       "reason": "The table shows both rates rising together, so reading the trend is trivial. The real task is connecting that result to how the light reactions and Calvin cycle depend on each other, which is one concept applied to the data."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Medium",
+       "reason": "The question requires students to connect experimental data showing increased rates of oxygen and carbohydrate production under increasing light intensity to the underlying biological process of photosynthesis, specifically how products of the light reactions (ATP and NADPH) are used by the Calvin cycle in the stroma."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Medium",
+       "reason": "The question asks the student to connect an observed data pattern (increasing oxygen and carbohydrate production with light intensity) to the roles of the light reactions and Calvin cycle in photosynthesis, which is explaining the relationship between experimental results and biological concepts."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Medium",
+       "reason": "Requires describing the table trend (O2 2->6, carbohydrate 1->3 with light) and linking that experimental result to the larger photosynthesis model - light reactions release O2 and supply ATP/NADPH used by Calvin cycle in stroma - which is 6.D, not just data reading. It applies one known stage-coupling to reach a single conclusion, so Medium, not single-fact Easy or multi-concept Hard."
+      }
+     ],
+     "skill": "6.D",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "6.D",
+       4
+      ]
+     ],
+     "practice": "6",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "6",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       4
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "biology__3.4__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "biology",
+      "unit_number": 3,
+      "topic_code": "3.4",
+      "topic_title": "Photosynthesis",
+      "stem": "Researchers measure photosynthesis in intact chloroplasts at three light intensities while keeping CO₂ availability and temperature constant. Rates are measured after they stabilize and are reported in relative units per minute.\n\nLight intensity | Oxygen production rate | Carbohydrate production rate\nLow | 2 | 1\nMedium | 4 | 2\nHigh | 6 | 3\n\nWhich statement accurately describes the pattern and connects it to the roles of the two stages of photosynthesis?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Both production rates increase with light intensity; the light reactions directly produce carbohydrates in the thylakoids.",
+        "is_correct": false,
+        "rationale": "Stage-and-location confusion: This assigns carbohydrate production to the light reactions. Carbohydrates are produced through the Calvin cycle in the stroma, using ATP and NADPH from the light reactions. Fix: Assign each measured product to its photosynthetic stage and location before interpreting the trend."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Both production rates increase with light intensity; the light reactions supply ATP and NADPH for carbohydrate production in the stroma.",
+        "is_correct": true,
+        "rationale": "Oxygen production rises from 2 to 6, while carbohydrate production rises from 1 to 3. The light reactions release oxygen and produce ATP and NADPH, which support carbohydrate production by the Calvin cycle in the stroma."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Both production rates increase with light intensity; the oxygen is released when CO₂ is split during the Calvin cycle.",
+        "is_correct": false,
+        "rationale": "Oxygen-source confusion: This treats CO₂ as the source of released oxygen. Photosynthetic oxygen comes from water splitting during the light reactions, not from CO₂ during the Calvin cycle. Fix: Trace released oxygen to water splitting before linking it to a photosynthetic stage."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Both production rates increase with light intensity; the Calvin cycle supplies ATP and NADPH to power the light reactions.",
+        "is_correct": false,
+        "rationale": "Energy-transfer reversal: This reverses the dependency between the two stages. The light reactions produce ATP and NADPH, and the Calvin cycle uses them to support carbohydrate production. Fix: Draw an arrow from the stage producing ATP and NADPH to the stage using them."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 817,
+           "inputTokenDetails": {
+            "noCacheTokens": 817,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 847,
+           "raw": {
+            "input_tokens": 817,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3509,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 434,
+           "inputTokenDetails": {
+            "noCacheTokens": 434,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 300,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 270
+           },
+           "totalTokens": 734,
+           "raw": {
+            "thoughtsTokenCount": 270,
+            "promptTokenCount": 434,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 734,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 434
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 270,
+           "cachedInputTokens": 0
+          },
+          "ms": 4346,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 494,
+           "inputTokenDetails": {
+            "noCacheTokens": 238,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 445,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 419
+           },
+           "totalTokens": 939,
+           "raw": {
+            "prompt_tokens": 494,
+            "completion_tokens": 445,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 238,
+            "total_tokens": 939,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 419
+            }
+           },
+           "reasoningTokens": 419,
+           "cachedInputTokens": 256
+          },
+          "ms": 6186,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 264,
+           "inputTokenDetails": {
+            "noCacheTokens": 264,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 969,
+           "outputTokenDetails": {
+            "textTokens": 25,
+            "reasoningTokens": 944
+           },
+           "totalTokens": 1233,
+           "raw": {
+            "input_tokens": 264,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 969,
+            "output_tokens_details": {
+             "reasoning_tokens": 944
+            },
+            "total_tokens": 1233
+           },
+           "reasoningTokens": 944,
+           "cachedInputTokens": 0
+          },
+          "ms": 11923,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 17337,
+           "inputTokenDetails": {
+            "noCacheTokens": 2818,
+            "cacheReadTokens": 14519,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 546,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 334
+           },
+           "totalTokens": 17883,
+           "raw": {
+            "input_tokens": 2818,
+            "output_tokens": 546,
+            "output_tokens_details": {
+             "thinking_tokens": 334
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14519,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 334,
+           "cachedInputTokens": 14519
+          },
+          "ms": 13374,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 11235,
+           "inputTokenDetails": {
+            "noCacheTokens": 11235,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1216,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 954
+           },
+           "totalTokens": 12451,
+           "raw": {
+            "thoughtsTokenCount": 954,
+            "promptTokenCount": 11235,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 12451,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 11235
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 954,
+           "cachedInputTokens": 0
+          },
+          "ms": 16230,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10498,
+           "inputTokenDetails": {
+            "noCacheTokens": 1666,
+            "cacheReadTokens": 8832
+           },
+           "outputTokens": 8913,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 8694
+           },
+           "totalTokens": 19411,
+           "raw": {
+            "prompt_tokens": 10498,
+            "completion_tokens": 8913,
+            "prompt_cache_hit_tokens": 8832,
+            "prompt_cache_miss_tokens": 1666,
+            "total_tokens": 19411,
+            "prompt_tokens_details": {
+             "cached_tokens": 8832
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 8694
+            }
+           },
+           "reasoningTokens": 8694,
+           "cachedInputTokens": 8832
+          },
+          "ms": 122176,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9595,
+           "inputTokenDetails": {
+            "noCacheTokens": 9595,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 3218,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 3061
+           },
+           "totalTokens": 12813,
+           "raw": {
+            "input_tokens": 9595,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 3218,
+            "output_tokens_details": {
+             "reasoning_tokens": 3061
+            },
+            "total_tokens": 12813
+           },
+           "reasoningTokens": 3061,
+           "cachedInputTokens": 0
+          },
+          "ms": 20937,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10288,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 10285
+           },
+           "outputTokens": 263,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 41
+           },
+           "totalTokens": 10551,
+           "raw": {
+            "input_tokens": 10288,
+            "input_tokens_details": {
+             "cache_write_tokens": 10285,
+             "cached_tokens": 0
+            },
+            "output_tokens": 263,
+            "output_tokens_details": {
+             "reasoning_tokens": 41
+            },
+            "total_tokens": 10551
+           },
+           "reasoningTokens": 41,
+           "cachedInputTokens": 0
+          },
+          "ms": 5202,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "biology__3.4__A__v1#r1-anthropic",
+      "kind": "variant",
+      "round": 1,
+      "author": "anthropic/claude-opus-5.5",
+      "author_family": "anthropic",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "biology",
+       "unit_number": 3,
+       "topic_code": "3.4",
+       "topic_title": "Photosynthesis",
+       "stem": "A student places spinach leaf disks in a bicarbonate solution and exposes them to three light levels, holding CO₂ supply and temperature constant. After rates stabilize, the student records outputs in relative units per minute. Full light: oxygen release 9, sugar formation 6. Partial shade: oxygen release 6, sugar formation 4. Deep shade: oxygen release 3, sugar formation 2. Which statement correctly describes these results and explains them using the roles of the two photosynthetic stages?",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "Both outputs decrease as light dims; the light reactions in the thylakoids directly build sugar, so less light means less sugar.",
+         "is_correct": false,
+         "rationale": "Stage-and-location confusion: this assigns sugar synthesis to the light reactions in the thylakoids. Sugar is built by the Calvin cycle in the stroma, which only depends on light indirectly through ATP and NADPH. Fix: Label each measured output with its stage and location before explaining the trend."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "Both outputs decrease as light dims; the oxygen comes from CO₂ broken apart during the Calvin cycle, which slows in dim light.",
+         "is_correct": false,
+         "rationale": "Oxygen-source confusion: this treats CO₂ as the source of released oxygen. Released oxygen comes from water split at photosystem II during the light reactions, while CO₂ carbon is built into sugar. Fix: Trace released oxygen back to water splitting before linking it to a stage."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "Both outputs decrease as light dims; less light means the light reactions make less ATP and NADPH, which limits sugar formation by the Calvin cycle in the stroma.",
+         "is_correct": true,
+         "rationale": "Oxygen release falls from 9 to 3 and sugar formation falls from 6 to 2 as light decreases. The light reactions split water, releasing oxygen, and produce ATP and NADPH. With less of these products, the Calvin cycle in the stroma has less energy and reducing power to build sugar."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "Both outputs decrease as light dims; the Calvin cycle supplies ATP and NADPH that power the light reactions, so both stages slow together.",
+         "is_correct": false,
+         "rationale": "Energy-transfer reversal: this flips the dependency between the stages. The light reactions produce ATP and NADPH, and the Calvin cycle consumes them to make sugar. Fix: Draw an arrow from the stage that makes ATP and NADPH to the stage that uses them."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 386,
+            "inputTokenDetails": {
+             "noCacheTokens": 386,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 51,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 25
+            },
+            "totalTokens": 437,
+            "raw": {
+             "input_tokens": 386,
+             "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+             },
+             "output_tokens": 51,
+             "output_tokens_details": {
+              "reasoning_tokens": 25
+             },
+             "total_tokens": 437
+            },
+            "reasoningTokens": 25,
+            "cachedInputTokens": 0
+           },
+           "ms": 3519,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 464,
+            "inputTokenDetails": {
+             "noCacheTokens": 464,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 273,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 243
+            },
+            "totalTokens": 737,
+            "raw": {
+             "thoughtsTokenCount": 243,
+             "promptTokenCount": 464,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 737,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 464
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 243,
+            "cachedInputTokens": 0
+           },
+           "ms": 2480,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 529,
+            "inputTokenDetails": {
+             "noCacheTokens": 273,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 439,
+            "outputTokenDetails": {
+             "textTokens": 20,
+             "reasoningTokens": 419
+            },
+            "totalTokens": 968,
+            "raw": {
+             "prompt_tokens": 529,
+             "completion_tokens": 439,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 273,
+             "total_tokens": 968,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 419
+             }
+            },
+            "reasoningTokens": 419,
+            "cachedInputTokens": 256
+           },
+           "ms": 6684,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 295,
+            "inputTokenDetails": {
+             "noCacheTokens": 295,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1138,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 1108
+            },
+            "totalTokens": 1433,
+            "raw": {
+             "input_tokens": 295,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 1138,
+             "output_tokens_details": {
+              "reasoning_tokens": 1108
+             },
+             "total_tokens": 1433
+            },
+            "reasoningTokens": 1108,
+            "cachedInputTokens": 0
+           },
+           "ms": 14604,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10337,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 10334
+            },
+            "outputTokens": 386,
+            "outputTokenDetails": {
+             "textTokens": 172,
+             "reasoningTokens": 214
+            },
+            "totalTokens": 10723,
+            "raw": {
+             "input_tokens": 10337,
+             "input_tokens_details": {
+              "cache_write_tokens": 10334,
+              "cached_tokens": 0
+             },
+             "output_tokens": 386,
+             "output_tokens_details": {
+              "reasoning_tokens": 214
+             },
+             "total_tokens": 10723
+            },
+            "reasoningTokens": 214,
+            "cachedInputTokens": 0
+           },
+           "ms": 7640,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 11290,
+            "inputTokenDetails": {
+             "noCacheTokens": 11290,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 946,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 684
+            },
+            "totalTokens": 12236,
+            "raw": {
+             "thoughtsTokenCount": 684,
+             "promptTokenCount": 11290,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 12236,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 11290
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 684,
+            "cachedInputTokens": 0
+           },
+           "ms": 7506,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10559,
+            "inputTokenDetails": {
+             "noCacheTokens": 1727,
+             "cacheReadTokens": 8832
+            },
+            "outputTokens": 7147,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 6928
+            },
+            "totalTokens": 17706,
+            "raw": {
+             "prompt_tokens": 10559,
+             "completion_tokens": 7147,
+             "prompt_cache_hit_tokens": 8832,
+             "prompt_cache_miss_tokens": 1727,
+             "total_tokens": 17706,
+             "prompt_tokens_details": {
+              "cached_tokens": 8832
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 6928
+             }
+            },
+            "reasoningTokens": 6928,
+            "cachedInputTokens": 8832
+           },
+           "ms": 86854,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9648,
+            "inputTokenDetails": {
+             "noCacheTokens": 9648,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 5914,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 5757
+            },
+            "totalTokens": 15562,
+            "raw": {
+             "input_tokens": 9648,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 5914,
+             "output_tokens_details": {
+              "reasoning_tokens": 5757
+             },
+             "total_tokens": 15562
+            },
+            "reasoningTokens": 5757,
+            "cachedInputTokens": 0
+           },
+           "ms": 73467,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 17388,
+            "inputTokenDetails": {
+             "noCacheTokens": 2869,
+             "cacheReadTokens": 14519,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 753,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 541
+            },
+            "totalTokens": 18141,
+            "raw": {
+             "input_tokens": 2869,
+             "output_tokens": 753,
+             "output_tokens_details": {
+              "thinking_tokens": 541
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14519,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 541,
+            "cachedInputTokens": 14519
+           },
+           "ms": 10800,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "biology__3.4__A__seed#r1-openai",
+       "skill": "6.D",
+       "skill_status": "validated",
+       "practice": "6",
+       "practice_status": "validated",
+       "difficulty": "Medium",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.07377049180327869
+     },
+     "candidates": [
+      {
+       "id": "biology__3.4__A__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "biology",
+        "unit_number": 3,
+        "topic_code": "3.4",
+        "topic_title": "Photosynthesis",
+        "stem": "An aquarium facility tests timed lighting schedules on equal-sized cultures of green algae. Each trial lasts eight hours, but the lights remain off for different portions of that time. Light intensity when the lamps are on, CO₂ availability, and temperature are identical across trials. Researchers record total production over each trial in relative units.\n\nHours with lights off | Total oxygen produced | Total carbohydrate produced\n0 | 24 | 16\n3 | 15 | 10\n6 | 6 | 4\n\nWhich explanation connects the experimental pattern to the relationship between the stages of photosynthesis?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Longer periods without light reduce both totals; light reactions manufacture carbohydrates directly in the thylakoids.",
+          "is_correct": false,
+          "rationale": "Stage-and-location confusion: This incorrectly places carbohydrate synthesis in the light reactions. The Calvin cycle makes carbohydrates in the stroma using products of the light reactions. Fix: Label the stage and location responsible for each product before explaining the measurements."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Longer periods without light reduce both totals; oxygen production falls because the Calvin cycle splits less CO₂ to release oxygen.",
+          "is_correct": false,
+          "rationale": "Oxygen-source confusion: This incorrectly attributes released oxygen to CO₂ breakdown in the Calvin cycle. Water splitting during the light reactions supplies the oxygen released by photosynthesis. Fix: Identify the molecule supplying released oxygen, then locate the stage that splits it."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "Longer periods without light reduce both totals; light reactions provide ATP and NADPH that support carbohydrate synthesis in the stroma.",
+          "is_correct": true,
+          "rationale": "Increasing darkness corresponds to lower oxygen and carbohydrate totals. Less time in light limits the light reactions, which release oxygen from water and supply ATP and NADPH for the Calvin cycle’s carbohydrate synthesis in the stroma."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "Longer periods without light reduce both totals; the Calvin cycle provides less ATP and NADPH to drive the light reactions.",
+          "is_correct": false,
+          "rationale": "Energy-transfer reversal: This assigns ATP and NADPH production to the stage that uses them. These molecules are produced by the light reactions and consumed during Calvin-cycle carbohydrate synthesis. Fix: Mark ATP and NADPH producers and consumers, then connect them with a directional arrow."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": false,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": "Minor wording issue: the data report 'oxygen produced' and 'carbohydrate produced' as totals that scale linearly with light hours (3 units O2 per hour, 2 units carbohydrate per hour), which is consistent and unambiguous. Choice C is the only option that correctly links the stages: light reactions supply ATP and NADPH to the Calvin cycle in the stroma. A is wrong because carbohydrate is not made in the thylakoids, B is wrong because oxygen comes from water splitting rather than CO2, and D reverses the dependency between the stages. No defect beyond this."
+            },
+            "usage": {
+             "inputTokens": 868,
+             "inputTokenDetails": {
+              "noCacheTokens": 868,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 227,
+             "outputTokenDetails": {
+              "textTokens": 227,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 1095,
+             "raw": {
+              "input_tokens": 868,
+              "output_tokens": 227,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 4874,
+            "flags": [
+             "defect: Minor wording issue: the data report 'oxygen produced' and 'carbohydrate produced' as totals that scale linearly with light hours (3 units O2 per hour, 2 units carbohydrate per hour), which is consistent and unambiguous. Choice C is the only option that correctly links the stages: light reactions supply ATP and NADPH to the Calvin cycle in the stroma. A is wrong because carbohydrate is not made in the thylakoids, B is wrong because oxygen comes from water splitting rather than CO2, and D reverses the dependency between the stages. No defect beyond this."
+            ]
+           },
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": "There is one minor oddity: the data show oxygen and carbohydrate falling proportionally, by 3 and 2 units per hour of darkness respectively. That implies production stops completely in the dark. In reality the Calvin cycle can continue briefly on leftover ATP and NADPH after the light goes off. This does not affect the answer. C is the only choice that correctly links the two stages: the light reactions supply ATP and NADPH, and the Calvin cycle in the stroma uses them to make carbohydrate. A, B and D each contain a factual error. Carbohydrate is not made in the thylakoids; oxygen comes from splitting water, not CO₂; and the Calvin cycle does not supply ATP and NADPH to the light reactions."
+            },
+            "usage": {
+             "inputTokens": 868,
+             "inputTokenDetails": {
+              "noCacheTokens": 868,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 273,
+             "outputTokenDetails": {
+              "textTokens": 273,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 1141,
+             "raw": {
+              "input_tokens": 868,
+              "output_tokens": 273,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 5948,
+            "flags": [
+             "defect: There is one minor oddity: the data show oxygen and carbohydrate falling proportionally, by 3 and 2 units per hour of darkness respectively. That implies production stops completely in the dark. In reality the Calvin cycle can continue briefly on leftover ATP and NADPH after the light goes off. This does not affect the answer. C is the only choice that correctly links the two stages: the light reactions supply ATP and NADPH, and the Calvin cycle in the stroma uses them to make carbohydrate. A, B and D each contain a factual error. Carbohydrate is not made in the thylakoids; oxygen comes from splitting water, not CO₂; and the Calvin cycle does not supply ATP and NADPH to the light reactions."
+            ]
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 465,
+             "inputTokenDetails": {
+              "noCacheTokens": 465,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 326,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 296
+             },
+             "totalTokens": 791,
+             "raw": {
+              "thoughtsTokenCount": 296,
+              "promptTokenCount": 465,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 791,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 465
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 296,
+             "cachedInputTokens": 0
+            },
+            "ms": 5081,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 520,
+             "inputTokenDetails": {
+              "noCacheTokens": 264,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 507,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 481
+             },
+             "totalTokens": 1027,
+             "raw": {
+              "prompt_tokens": 520,
+              "completion_tokens": 507,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 264,
+              "total_tokens": 1027,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 481
+              }
+             },
+             "reasoningTokens": 481,
+             "cachedInputTokens": 256
+            },
+            "ms": 7825,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 289,
+             "inputTokenDetails": {
+              "noCacheTokens": 289,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1073,
+             "outputTokenDetails": {
+              "textTokens": 25,
+              "reasoningTokens": 1048
+             },
+             "totalTokens": 1362,
+             "raw": {
+              "input_tokens": 289,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1073,
+              "output_tokens_details": {
+               "reasoning_tokens": 1048
+              },
+              "total_tokens": 1362
+             },
+             "reasoningTokens": 1048,
+             "cachedInputTokens": 0
+            },
+            "ms": 19554,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {},
+        "verdict": "rejected",
+        "stage": "solve"
+       }
+      },
+      {
+       "id": "biology__3.4__A__v1#r1-anthropic",
+       "kind": "variant",
+       "round": 1,
+       "author": "anthropic/claude-opus-5.5",
+       "author_family": "anthropic",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "biology",
+        "unit_number": 3,
+        "topic_code": "3.4",
+        "topic_title": "Photosynthesis",
+        "stem": "A student places spinach leaf disks in a bicarbonate solution and exposes them to three light levels, holding CO₂ supply and temperature constant. After rates stabilize, the student records outputs in relative units per minute. Full light: oxygen release 9, sugar formation 6. Partial shade: oxygen release 6, sugar formation 4. Deep shade: oxygen release 3, sugar formation 2. Which statement correctly describes these results and explains them using the roles of the two photosynthetic stages?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Both outputs decrease as light dims; the light reactions in the thylakoids directly build sugar, so less light means less sugar.",
+          "is_correct": false,
+          "rationale": "Stage-and-location confusion: this assigns sugar synthesis to the light reactions in the thylakoids. Sugar is built by the Calvin cycle in the stroma, which only depends on light indirectly through ATP and NADPH. Fix: Label each measured output with its stage and location before explaining the trend."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Both outputs decrease as light dims; the oxygen comes from CO₂ broken apart during the Calvin cycle, which slows in dim light.",
+          "is_correct": false,
+          "rationale": "Oxygen-source confusion: this treats CO₂ as the source of released oxygen. Released oxygen comes from water split at photosystem II during the light reactions, while CO₂ carbon is built into sugar. Fix: Trace released oxygen back to water splitting before linking it to a stage."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "Both outputs decrease as light dims; less light means the light reactions make less ATP and NADPH, which limits sugar formation by the Calvin cycle in the stroma.",
+          "is_correct": true,
+          "rationale": "Oxygen release falls from 9 to 3 and sugar formation falls from 6 to 2 as light decreases. The light reactions split water, releasing oxygen, and produce ATP and NADPH. With less of these products, the Calvin cycle in the stroma has less energy and reducing power to build sugar."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "Both outputs decrease as light dims; the Calvin cycle supplies ATP and NADPH that power the light reactions, so both stages slow together.",
+          "is_correct": false,
+          "rationale": "Energy-transfer reversal: this flips the dependency between the stages. The light reactions produce ATP and NADPH, and the Calvin cycle consumes them to make sugar. Fix: Draw an arrow from the stage that makes ATP and NADPH to the stage that uses them."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 386,
+             "inputTokenDetails": {
+              "noCacheTokens": 386,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 51,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 25
+             },
+             "totalTokens": 437,
+             "raw": {
+              "input_tokens": 386,
+              "input_tokens_details": {
+               "cache_write_tokens": 0,
+               "cached_tokens": 0
+              },
+              "output_tokens": 51,
+              "output_tokens_details": {
+               "reasoning_tokens": 25
+              },
+              "total_tokens": 437
+             },
+             "reasoningTokens": 25,
+             "cachedInputTokens": 0
+            },
+            "ms": 3519,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 464,
+             "inputTokenDetails": {
+              "noCacheTokens": 464,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 273,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 243
+             },
+             "totalTokens": 737,
+             "raw": {
+              "thoughtsTokenCount": 243,
+              "promptTokenCount": 464,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 737,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 464
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 243,
+             "cachedInputTokens": 0
+            },
+            "ms": 2480,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 529,
+             "inputTokenDetails": {
+              "noCacheTokens": 273,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 439,
+             "outputTokenDetails": {
+              "textTokens": 20,
+              "reasoningTokens": 419
+             },
+             "totalTokens": 968,
+             "raw": {
+              "prompt_tokens": 529,
+              "completion_tokens": 439,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 273,
+              "total_tokens": 968,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 419
+              }
+             },
+             "reasoningTokens": 419,
+             "cachedInputTokens": 256
+            },
+            "ms": 6684,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 295,
+             "inputTokenDetails": {
+              "noCacheTokens": 295,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1138,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 1108
+             },
+             "totalTokens": 1433,
+             "raw": {
+              "input_tokens": 295,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1138,
+              "output_tokens_details": {
+               "reasoning_tokens": 1108
+              },
+              "total_tokens": 1433
+             },
+             "reasoningTokens": 1108,
+             "cachedInputTokens": 0
+            },
+            "ms": 14604,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10337,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 10334
+             },
+             "outputTokens": 386,
+             "outputTokenDetails": {
+              "textTokens": 172,
+              "reasoningTokens": 214
+             },
+             "totalTokens": 10723,
+             "raw": {
+              "input_tokens": 10337,
+              "input_tokens_details": {
+               "cache_write_tokens": 10334,
+               "cached_tokens": 0
+              },
+              "output_tokens": 386,
+              "output_tokens_details": {
+               "reasoning_tokens": 214
+              },
+              "total_tokens": 10723
+             },
+             "reasoningTokens": 214,
+             "cachedInputTokens": 0
+            },
+            "ms": 7640,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 11290,
+             "inputTokenDetails": {
+              "noCacheTokens": 11290,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 946,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 684
+             },
+             "totalTokens": 12236,
+             "raw": {
+              "thoughtsTokenCount": 684,
+              "promptTokenCount": 11290,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 12236,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 11290
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 684,
+             "cachedInputTokens": 0
+            },
+            "ms": 7506,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10559,
+             "inputTokenDetails": {
+              "noCacheTokens": 1727,
+              "cacheReadTokens": 8832
+             },
+             "outputTokens": 7147,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 6928
+             },
+             "totalTokens": 17706,
+             "raw": {
+              "prompt_tokens": 10559,
+              "completion_tokens": 7147,
+              "prompt_cache_hit_tokens": 8832,
+              "prompt_cache_miss_tokens": 1727,
+              "total_tokens": 17706,
+              "prompt_tokens_details": {
+               "cached_tokens": 8832
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 6928
+              }
+             },
+             "reasoningTokens": 6928,
+             "cachedInputTokens": 8832
+            },
+            "ms": 86854,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9648,
+             "inputTokenDetails": {
+              "noCacheTokens": 9648,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 5914,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 5757
+             },
+             "totalTokens": 15562,
+             "raw": {
+              "input_tokens": 9648,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 5914,
+              "output_tokens_details": {
+               "reasoning_tokens": 5757
+              },
+              "total_tokens": 15562
+             },
+             "reasoningTokens": 5757,
+             "cachedInputTokens": 0
+            },
+            "ms": 73467,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 17388,
+             "inputTokenDetails": {
+              "noCacheTokens": 2869,
+              "cacheReadTokens": 14519,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 753,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 541
+             },
+             "totalTokens": 18141,
+             "raw": {
+              "input_tokens": 2869,
+              "output_tokens": 753,
+              "output_tokens_details": {
+               "thinking_tokens": 541
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14519,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 541,
+             "cachedInputTokens": 14519
+            },
+            "ms": 10800,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  },
+  {
+   "slot": {
+    "slot": "B",
+    "practice": "1",
+    "skills": [
+     "1.B",
+     "1.C"
+    ]
+   },
+   "seed": {
+    "id": "biology__3.4__B__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "biology",
+     "unit_number": 3,
+     "topic_code": "3.4",
+     "topic_title": "Photosynthesis",
+     "stem": "Which statement best explains how the light reactions and the Calvin cycle work together to produce carbohydrates in a chloroplast?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "The light reactions in the stroma produce ATP and NADPH that support carbohydrate production by the Calvin cycle in the thylakoid membranes.",
+       "is_correct": false,
+       "rationale": "Location reversal: This statement exchanges the locations of the two stages. The light reactions occur in thylakoid membranes, whereas the Calvin cycle occurs in the stroma. Fix: Map each stage to its chloroplast location before tracing its products."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "The Calvin cycle in the stroma produces ATP and NADPH that supply energy for the light reactions in the thylakoid membranes.",
+       "is_correct": false,
+       "rationale": "Energy-flow reversal: This statement reverses the relationship between the stages. The light reactions produce ATP and NADPH, and the Calvin cycle uses them for carbohydrate production. Fix: Draw an arrow from the ATP and NADPH producers to their users."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "The light reactions in the thylakoid membranes produce ATP and NADPH that support carbohydrate production by the Calvin cycle in the stroma.",
+       "is_correct": true,
+       "rationale": "The light reactions convert light energy into chemical energy in ATP and NADPH. The Calvin cycle uses these products to incorporate carbon from CO₂ into carbohydrates, linking the two stages."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "Light absorbed in the stroma directly powers carbohydrate production by the Calvin cycle, making ATP and NADPH from the light reactions unnecessary.",
+       "is_correct": false,
+       "rationale": "Direct-light misconception: The Calvin cycle does not directly capture light energy. It depends on ATP and NADPH supplied by the light reactions to support carbohydrate production. Fix: Separate light capture from carbon fixation, then identify what connects them."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 738,
+          "inputTokenDetails": {
+           "noCacheTokens": 738,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 768,
+          "raw": {
+           "input_tokens": 738,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 2641,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 382,
+          "inputTokenDetails": {
+           "noCacheTokens": 382,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 245,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 215
+          },
+          "totalTokens": 627,
+          "raw": {
+           "thoughtsTokenCount": 215,
+           "promptTokenCount": 382,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 627,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 382
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 215,
+          "cachedInputTokens": 0
+         },
+         "ms": 3398,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 445,
+          "inputTokenDetails": {
+           "noCacheTokens": 189,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 283,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 257
+          },
+          "totalTokens": 728,
+          "raw": {
+           "prompt_tokens": 445,
+           "completion_tokens": 283,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 189,
+           "total_tokens": 728,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 257
+           }
+          },
+          "reasoningTokens": 257,
+          "cachedInputTokens": 256
+         },
+         "ms": 4148,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "C",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 216,
+          "inputTokenDetails": {
+           "noCacheTokens": 216,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1174,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 1144
+          },
+          "totalTokens": 1390,
+          "raw": {
+           "input_tokens": 216,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1174,
+           "output_tokens_details": {
+            "reasoning_tokens": 1144
+           },
+           "total_tokens": 1390
+          },
+          "reasoningTokens": 1144,
+          "cachedInputTokens": 0
+         },
+         "ms": 25144,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 17201,
+          "inputTokenDetails": {
+           "noCacheTokens": 2682,
+           "cacheReadTokens": 14519,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 529,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 317
+          },
+          "totalTokens": 17730,
+          "raw": {
+           "input_tokens": 2682,
+           "output_tokens": 529,
+           "output_tokens_details": {
+            "thinking_tokens": 317
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14519,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 317,
+          "cachedInputTokens": 14519
+         },
+         "ms": 7144,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 11154,
+          "inputTokenDetails": {
+           "noCacheTokens": 11154,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1068,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 806
+          },
+          "totalTokens": 12222,
+          "raw": {
+           "thoughtsTokenCount": 806,
+           "promptTokenCount": 11154,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 12222,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 11154
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 806,
+          "cachedInputTokens": 0
+         },
+         "ms": 7568,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10421,
+          "inputTokenDetails": {
+           "noCacheTokens": 437,
+           "cacheReadTokens": 9984
+          },
+          "outputTokens": 4474,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 4255
+          },
+          "totalTokens": 14895,
+          "raw": {
+           "prompt_tokens": 10421,
+           "completion_tokens": 4474,
+           "prompt_cache_hit_tokens": 9984,
+           "prompt_cache_miss_tokens": 437,
+           "total_tokens": 14895,
+           "prompt_tokens_details": {
+            "cached_tokens": 9984
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 4255
+           }
+          },
+          "reasoningTokens": 4255,
+          "cachedInputTokens": 9984
+         },
+         "ms": 48998,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9521,
+          "inputTokenDetails": {
+           "noCacheTokens": 9521,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 3543,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 3386
+          },
+          "totalTokens": 13064,
+          "raw": {
+           "input_tokens": 9521,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 3543,
+           "output_tokens_details": {
+            "reasoning_tokens": 3386
+           },
+           "total_tokens": 13064
+          },
+          "reasoningTokens": 3386,
+          "cachedInputTokens": 0
+         },
+         "ms": 34693,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "3.4",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10206,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 10203
+          },
+          "outputTokens": 258,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 36
+          },
+          "totalTokens": 10464,
+          "raw": {
+           "input_tokens": 10206,
+           "input_tokens_details": {
+            "cache_write_tokens": 10203,
+            "cached_tokens": 0
+           },
+           "output_tokens": 258,
+           "output_tokens_details": {
+            "reasoning_tokens": 36
+           },
+           "total_tokens": 10464
+          },
+          "reasoningTokens": 36,
+          "cachedInputTokens": 0
+         },
+         "ms": 4621,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "B",
+     "practice": "1",
+     "skills": [
+      "1.B",
+      "1.C"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "1.B",
+       "difficulty": "Medium",
+       "reason": "The question asks students to explain how two photosynthetic processes are connected. That means relating the ATP and NADPH made by the light reactions to their use in the Calvin cycle, and placing each stage in the correct chloroplast location. This is conceptual explanation rather than an applied context. It integrates standard textbook knowledge into one conclusion, which makes it Medium."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "1.B",
+       "difficulty": "Medium",
+       "reason": "The question asks students to explain the functional relationship and coordination between two distinct stages of photosynthesis (light reactions and the Calvin cycle), including the specific chloroplast locations and the transfer of chemical energy products (ATP and NADPH)."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "1.B",
+       "difficulty": "Medium",
+       "reason": "The question asks students to explain the relationship between the light reactions and the Calvin cycle, requiring understanding of their locations, products, and energy flow rather than simple recall. Students must evaluate statements and select the accurate explanation of how ATP and NADPH link the two stages."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "1.B",
+       "difficulty": "Easy",
+       "reason": "Asks for how light reactions and Calvin cycle cooperate, matching 1.B explain processes. Only requires recognition of textbook coupling - light reactions in thylakoids make ATP/NADPH used by Calvin in stroma for CO2 to carbohydrate - with no new context, data, or multi-step inference."
+      }
+     ],
+     "skill": "1.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "1.B",
+       4
+      ]
+     ],
+     "practice": "1",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "1",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       3
+      ],
+      [
+       "Easy",
+       1
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "biology__3.4__B__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "biology",
+      "unit_number": 3,
+      "topic_code": "3.4",
+      "topic_title": "Photosynthesis",
+      "stem": "Which statement best explains how the light reactions and the Calvin cycle work together to produce carbohydrates in a chloroplast?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "The light reactions in the stroma produce ATP and NADPH that support carbohydrate production by the Calvin cycle in the thylakoid membranes.",
+        "is_correct": false,
+        "rationale": "Location reversal: This statement exchanges the locations of the two stages. The light reactions occur in thylakoid membranes, whereas the Calvin cycle occurs in the stroma. Fix: Map each stage to its chloroplast location before tracing its products."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "The Calvin cycle in the stroma produces ATP and NADPH that supply energy for the light reactions in the thylakoid membranes.",
+        "is_correct": false,
+        "rationale": "Energy-flow reversal: This statement reverses the relationship between the stages. The light reactions produce ATP and NADPH, and the Calvin cycle uses them for carbohydrate production. Fix: Draw an arrow from the ATP and NADPH producers to their users."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "The light reactions in the thylakoid membranes produce ATP and NADPH that support carbohydrate production by the Calvin cycle in the stroma.",
+        "is_correct": true,
+        "rationale": "The light reactions convert light energy into chemical energy in ATP and NADPH. The Calvin cycle uses these products to incorporate carbon from CO₂ into carbohydrates, linking the two stages."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Light absorbed in the stroma directly powers carbohydrate production by the Calvin cycle, making ATP and NADPH from the light reactions unnecessary.",
+        "is_correct": false,
+        "rationale": "Direct-light misconception: The Calvin cycle does not directly capture light energy. It depends on ATP and NADPH supplied by the light reactions to support carbohydrate production. Fix: Separate light capture from carbon fixation, then identify what connects them."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 738,
+           "inputTokenDetails": {
+            "noCacheTokens": 738,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 768,
+           "raw": {
+            "input_tokens": 738,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 2641,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 382,
+           "inputTokenDetails": {
+            "noCacheTokens": 382,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 245,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 215
+           },
+           "totalTokens": 627,
+           "raw": {
+            "thoughtsTokenCount": 215,
+            "promptTokenCount": 382,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 627,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 382
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 215,
+           "cachedInputTokens": 0
+          },
+          "ms": 3398,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 445,
+           "inputTokenDetails": {
+            "noCacheTokens": 189,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 283,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 257
+           },
+           "totalTokens": 728,
+           "raw": {
+            "prompt_tokens": 445,
+            "completion_tokens": 283,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 189,
+            "total_tokens": 728,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 257
+            }
+           },
+           "reasoningTokens": 257,
+           "cachedInputTokens": 256
+          },
+          "ms": 4148,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 216,
+           "inputTokenDetails": {
+            "noCacheTokens": 216,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1174,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 1144
+           },
+           "totalTokens": 1390,
+           "raw": {
+            "input_tokens": 216,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1174,
+            "output_tokens_details": {
+             "reasoning_tokens": 1144
+            },
+            "total_tokens": 1390
+           },
+           "reasoningTokens": 1144,
+           "cachedInputTokens": 0
+          },
+          "ms": 25144,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 17201,
+           "inputTokenDetails": {
+            "noCacheTokens": 2682,
+            "cacheReadTokens": 14519,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 529,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 317
+           },
+           "totalTokens": 17730,
+           "raw": {
+            "input_tokens": 2682,
+            "output_tokens": 529,
+            "output_tokens_details": {
+             "thinking_tokens": 317
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14519,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 317,
+           "cachedInputTokens": 14519
+          },
+          "ms": 7144,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 11154,
+           "inputTokenDetails": {
+            "noCacheTokens": 11154,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1068,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 806
+           },
+           "totalTokens": 12222,
+           "raw": {
+            "thoughtsTokenCount": 806,
+            "promptTokenCount": 11154,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 12222,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 11154
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 806,
+           "cachedInputTokens": 0
+          },
+          "ms": 7568,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10421,
+           "inputTokenDetails": {
+            "noCacheTokens": 437,
+            "cacheReadTokens": 9984
+           },
+           "outputTokens": 4474,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 4255
+           },
+           "totalTokens": 14895,
+           "raw": {
+            "prompt_tokens": 10421,
+            "completion_tokens": 4474,
+            "prompt_cache_hit_tokens": 9984,
+            "prompt_cache_miss_tokens": 437,
+            "total_tokens": 14895,
+            "prompt_tokens_details": {
+             "cached_tokens": 9984
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 4255
+            }
+           },
+           "reasoningTokens": 4255,
+           "cachedInputTokens": 9984
+          },
+          "ms": 48998,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9521,
+           "inputTokenDetails": {
+            "noCacheTokens": 9521,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 3543,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 3386
+           },
+           "totalTokens": 13064,
+           "raw": {
+            "input_tokens": 9521,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 3543,
+            "output_tokens_details": {
+             "reasoning_tokens": 3386
+            },
+            "total_tokens": 13064
+           },
+           "reasoningTokens": 3386,
+           "cachedInputTokens": 0
+          },
+          "ms": 34693,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "3.4",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10206,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 10203
+           },
+           "outputTokens": 258,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 36
+           },
+           "totalTokens": 10464,
+           "raw": {
+            "input_tokens": 10206,
+            "input_tokens_details": {
+             "cache_write_tokens": 10203,
+             "cached_tokens": 0
+            },
+            "output_tokens": 258,
+            "output_tokens_details": {
+             "reasoning_tokens": 36
+            },
+            "total_tokens": 10464
+           },
+           "reasoningTokens": 36,
+           "cachedInputTokens": 0
+          },
+          "ms": 4621,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "biology__3.4__B__v1#r1-openai",
+      "kind": "variant",
+      "round": 1,
+      "author": "openai/gpt-6.1-sol",
+      "author_family": "openai",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "biology",
+       "unit_number": 3,
+       "topic_code": "3.4",
+       "topic_title": "Photosynthesis",
+       "stem": "A researcher supplies CO₂ to a green alga growing under a lamp. Which explanation connects the absorbed light energy to the incorporation of the supplied carbon into carbohydrates inside the alga’s chloroplast?",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "Light reactions in the stroma generate ATP and NADPH, which the Calvin cycle at the thylakoid membranes uses to build carbohydrates from the supplied CO₂.",
+         "is_correct": false,
+         "rationale": "Location reversal: The two chloroplast locations are switched. Thylakoid membranes contain the light-reaction machinery, while carbon fixation by the Calvin cycle takes place in the stroma. Fix: Label the location of each stage before following ATP and NADPH."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "Light reactions at the thylakoid membranes generate ATP and NADPH, which the Calvin cycle in the stroma uses to build carbohydrates from the supplied CO₂.",
+         "is_correct": true,
+         "rationale": "ATP and NADPH transfer chemical energy from the light reactions to the Calvin cycle. Carbon fixation in the stroma uses these products to incorporate the supplied CO₂ into carbohydrates."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "The Calvin cycle in the stroma generates ATP and NADPH, which power light reactions at the thylakoid membranes as the supplied CO₂ becomes carbohydrates.",
+         "is_correct": false,
+         "rationale": "Energy-flow reversal: This explanation assigns ATP and NADPH production to their users. The Calvin cycle consumes these products of the light reactions during carbohydrate synthesis. Fix: Identify which stage makes ATP and NADPH, then trace them to the consuming stage."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "The Calvin cycle absorbs light in the stroma to build carbohydrates from the supplied CO₂ without using ATP or NADPH from the light reactions.",
+         "is_correct": false,
+         "rationale": "Direct-light misconception: This explanation treats carbon fixation as a light-capturing process. The Calvin cycle instead relies on chemical energy supplied through ATP and NADPH from the light reactions. Fix: Trace light energy through ATP and NADPH before connecting it to carbohydrate synthesis."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 808,
+            "inputTokenDetails": {
+             "noCacheTokens": 808,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 30,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 0
+            },
+            "totalTokens": 838,
+            "raw": {
+             "input_tokens": 808,
+             "output_tokens": 30,
+             "output_tokens_details": {
+              "thinking_tokens": 0
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 0,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 0,
+            "cachedInputTokens": 0
+           },
+           "ms": 8271,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 417,
+            "inputTokenDetails": {
+             "noCacheTokens": 417,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 174,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 144
+            },
+            "totalTokens": 591,
+            "raw": {
+             "thoughtsTokenCount": 144,
+             "promptTokenCount": 417,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 591,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 417
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 144,
+            "cachedInputTokens": 0
+           },
+           "ms": 3081,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 480,
+            "inputTokenDetails": {
+             "noCacheTokens": 224,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 199,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 173
+            },
+            "totalTokens": 679,
+            "raw": {
+             "prompt_tokens": 480,
+             "completion_tokens": 199,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 224,
+             "total_tokens": 679,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 173
+             }
+            },
+            "reasoningTokens": 173,
+            "cachedInputTokens": 256
+           },
+           "ms": 3650,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 250,
+            "inputTokenDetails": {
+             "noCacheTokens": 250,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 959,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 929
+            },
+            "totalTokens": 1209,
+            "raw": {
+             "input_tokens": 250,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 959,
+             "output_tokens_details": {
+              "reasoning_tokens": 929
+             },
+             "total_tokens": 1209
+            },
+            "reasoningTokens": 929,
+            "cachedInputTokens": 0
+           },
+           "ms": 5305,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 17303,
+            "inputTokenDetails": {
+             "noCacheTokens": 2784,
+             "cacheReadTokens": 14519,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 569,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 357
+            },
+            "totalTokens": 17872,
+            "raw": {
+             "input_tokens": 2784,
+             "output_tokens": 569,
+             "output_tokens_details": {
+              "thinking_tokens": 357
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14519,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 357,
+            "cachedInputTokens": 14519
+           },
+           "ms": 10759,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 11197,
+            "inputTokenDetails": {
+             "noCacheTokens": 11197,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1052,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 790
+            },
+            "totalTokens": 12249,
+            "raw": {
+             "thoughtsTokenCount": 790,
+             "promptTokenCount": 11197,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 12249,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 11197
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 790,
+            "cachedInputTokens": 0
+           },
+           "ms": 6828,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10466,
+            "inputTokenDetails": {
+             "noCacheTokens": 482,
+             "cacheReadTokens": 9984
+            },
+            "outputTokens": 8376,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 8157
+            },
+            "totalTokens": 18842,
+            "raw": {
+             "prompt_tokens": 10466,
+             "completion_tokens": 8376,
+             "prompt_cache_hit_tokens": 9984,
+             "prompt_cache_miss_tokens": 482,
+             "total_tokens": 18842,
+             "prompt_tokens_details": {
+              "cached_tokens": 9984
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 8157
+             }
+            },
+            "reasoningTokens": 8157,
+            "cachedInputTokens": 9984
+           },
+           "ms": 98602,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9563,
+            "inputTokenDetails": {
+             "noCacheTokens": 9563,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 3181,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 3024
+            },
+            "totalTokens": 12744,
+            "raw": {
+             "input_tokens": 9563,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 3181,
+             "output_tokens_details": {
+              "reasoning_tokens": 3024
+             },
+             "total_tokens": 12744
+            },
+            "reasoningTokens": 3024,
+            "cachedInputTokens": 0
+           },
+           "ms": 33183,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "3.4",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10249,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 10246
+            },
+            "outputTokens": 251,
+            "outputTokenDetails": {
+             "textTokens": 172,
+             "reasoningTokens": 79
+            },
+            "totalTokens": 10500,
+            "raw": {
+             "input_tokens": 10249,
+             "input_tokens_details": {
+              "cache_write_tokens": 10246,
+              "cached_tokens": 0
+             },
+             "output_tokens": 251,
+             "output_tokens_details": {
+              "reasoning_tokens": 79
+             },
+             "total_tokens": 10500
+            },
+            "reasoningTokens": 79,
+            "cachedInputTokens": 0
+           },
+           "ms": 6517,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "biology__3.4__B__seed#r1-openai",
+       "skill": "1.B",
+       "skill_status": "validated",
+       "practice": "1",
+       "practice_status": "validated",
+       "difficulty": "Medium",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.0728476821192053
+     },
+     "candidates": [
+      {
+       "id": "biology__3.4__B__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "biology",
+        "unit_number": 3,
+        "topic_code": "3.4",
+        "topic_title": "Photosynthesis",
+        "stem": "A researcher supplies CO₂ to a green alga growing under a lamp. Which explanation connects the absorbed light energy to the incorporation of the supplied carbon into carbohydrates inside the alga’s chloroplast?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Light reactions in the stroma generate ATP and NADPH, which the Calvin cycle at the thylakoid membranes uses to build carbohydrates from the supplied CO₂.",
+          "is_correct": false,
+          "rationale": "Location reversal: The two chloroplast locations are switched. Thylakoid membranes contain the light-reaction machinery, while carbon fixation by the Calvin cycle takes place in the stroma. Fix: Label the location of each stage before following ATP and NADPH."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Light reactions at the thylakoid membranes generate ATP and NADPH, which the Calvin cycle in the stroma uses to build carbohydrates from the supplied CO₂.",
+          "is_correct": true,
+          "rationale": "ATP and NADPH transfer chemical energy from the light reactions to the Calvin cycle. Carbon fixation in the stroma uses these products to incorporate the supplied CO₂ into carbohydrates."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "The Calvin cycle in the stroma generates ATP and NADPH, which power light reactions at the thylakoid membranes as the supplied CO₂ becomes carbohydrates.",
+          "is_correct": false,
+          "rationale": "Energy-flow reversal: This explanation assigns ATP and NADPH production to their users. The Calvin cycle consumes these products of the light reactions during carbohydrate synthesis. Fix: Identify which stage makes ATP and NADPH, then trace them to the consuming stage."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "The Calvin cycle absorbs light in the stroma to build carbohydrates from the supplied CO₂ without using ATP or NADPH from the light reactions.",
+          "is_correct": false,
+          "rationale": "Direct-light misconception: This explanation treats carbon fixation as a light-capturing process. The Calvin cycle instead relies on chemical energy supplied through ATP and NADPH from the light reactions. Fix: Trace light energy through ATP and NADPH before connecting it to carbohydrate synthesis."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 808,
+             "inputTokenDetails": {
+              "noCacheTokens": 808,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 30,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 838,
+             "raw": {
+              "input_tokens": 808,
+              "output_tokens": 30,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 8271,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 417,
+             "inputTokenDetails": {
+              "noCacheTokens": 417,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 174,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 144
+             },
+             "totalTokens": 591,
+             "raw": {
+              "thoughtsTokenCount": 144,
+              "promptTokenCount": 417,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 591,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 417
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 144,
+             "cachedInputTokens": 0
+            },
+            "ms": 3081,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 480,
+             "inputTokenDetails": {
+              "noCacheTokens": 224,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 199,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 173
+             },
+             "totalTokens": 679,
+             "raw": {
+              "prompt_tokens": 480,
+              "completion_tokens": 199,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 224,
+              "total_tokens": 679,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 173
+              }
+             },
+             "reasoningTokens": 173,
+             "cachedInputTokens": 256
+            },
+            "ms": 3650,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 250,
+             "inputTokenDetails": {
+              "noCacheTokens": 250,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 959,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 929
+             },
+             "totalTokens": 1209,
+             "raw": {
+              "input_tokens": 250,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 959,
+              "output_tokens_details": {
+               "reasoning_tokens": 929
+              },
+              "total_tokens": 1209
+             },
+             "reasoningTokens": 929,
+             "cachedInputTokens": 0
+            },
+            "ms": 5305,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 17303,
+             "inputTokenDetails": {
+              "noCacheTokens": 2784,
+              "cacheReadTokens": 14519,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 569,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 357
+             },
+             "totalTokens": 17872,
+             "raw": {
+              "input_tokens": 2784,
+              "output_tokens": 569,
+              "output_tokens_details": {
+               "thinking_tokens": 357
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14519,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 357,
+             "cachedInputTokens": 14519
+            },
+            "ms": 10759,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 11197,
+             "inputTokenDetails": {
+              "noCacheTokens": 11197,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1052,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 790
+             },
+             "totalTokens": 12249,
+             "raw": {
+              "thoughtsTokenCount": 790,
+              "promptTokenCount": 11197,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 12249,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 11197
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 790,
+             "cachedInputTokens": 0
+            },
+            "ms": 6828,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10466,
+             "inputTokenDetails": {
+              "noCacheTokens": 482,
+              "cacheReadTokens": 9984
+             },
+             "outputTokens": 8376,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 8157
+             },
+             "totalTokens": 18842,
+             "raw": {
+              "prompt_tokens": 10466,
+              "completion_tokens": 8376,
+              "prompt_cache_hit_tokens": 9984,
+              "prompt_cache_miss_tokens": 482,
+              "total_tokens": 18842,
+              "prompt_tokens_details": {
+               "cached_tokens": 9984
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 8157
+              }
+             },
+             "reasoningTokens": 8157,
+             "cachedInputTokens": 9984
+            },
+            "ms": 98602,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9563,
+             "inputTokenDetails": {
+              "noCacheTokens": 9563,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 3181,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 3024
+             },
+             "totalTokens": 12744,
+             "raw": {
+              "input_tokens": 9563,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 3181,
+              "output_tokens_details": {
+               "reasoning_tokens": 3024
+              },
+              "total_tokens": 12744
+             },
+             "reasoningTokens": 3024,
+             "cachedInputTokens": 0
+            },
+            "ms": 33183,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "3.4",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10249,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 10246
+             },
+             "outputTokens": 251,
+             "outputTokenDetails": {
+              "textTokens": 172,
+              "reasoningTokens": 79
+             },
+             "totalTokens": 10500,
+             "raw": {
+              "input_tokens": 10249,
+              "input_tokens_details": {
+               "cache_write_tokens": 10246,
+               "cached_tokens": 0
+              },
+              "output_tokens": 251,
+              "output_tokens_details": {
+               "reasoning_tokens": 79
+              },
+              "total_tokens": 10500
+             },
+             "reasoningTokens": 79,
+             "cachedInputTokens": 0
+            },
+            "ms": 6517,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  }
+ ]
+}

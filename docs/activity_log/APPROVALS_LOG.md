@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0133 — Publish 20 AP Biology Unit 3 Practice MCQs (10 Seeds, 10 Variants; Topics 3.1–3.5) From the Generate-and-Select Pipeline (Production) — TASK-0065
+- APPROVAL-0132 — Republish 2 AP Biology MCQs Retired 2026-08-08 (`APBIO-MCQ-001`, `APBIO-MCQ-007`) Unchanged After a Five-Family Correctness Re-Check (Production) — TASK-0065
 - APPROVAL-0131 — Publish 82 AP Biology Unit 1 Practice MCQs From the Generate-and-Select Seed Pilot (21 Seeds, 61 Variants; Production) — TASK-0065
 - APPROVAL-0130 — Assistance-Events Write Path: `public.attempt_assistance_events` View (INSERT/SELECT for Signed-In Students) and the `topic_hint` Event Kind (Dev + Production)
 - APPROVAL-0129 — Replace Three Defective Live Open Hand Teaching Items (Stats 1.10, Stats 2.12, Bio 2.10); Fix the AP Statistics 2.12 Topic Point Brief (Dev + Production) — TASK-0065
@@ -1926,4 +1928,61 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Rollback:** set `status='retired'` on the 82 `content_items` and their `content_item_versions` (keys above). Labels, cells and difficulty rows can stay with the retired items.
 
 **Not approved by this entry:** Units 2+ seeds; any Development mirror; any change to the 79 previously published Biology MCQs.
+
+## APPROVAL-0132 — Republish 2 AP Biology MCQs Retired 2026-08-08 (`APBIO-MCQ-001`, `APBIO-MCQ-007`) Unchanged After a Five-Family Correctness Re-Check (Production) — TASK-0065
+
+**Date:** 2026-10-07  
+**Approved By:** David Bloom (2026-10-07 Claude session: "Go ahead with 1,2, and 3", where step 2 was "republish the ones that pass under a new approval"). No human review, per DECISION-0102.  
+**Related:** `DECISION-0099`, `DECISION-0102`; the 2026-08-08 P0-B publish-gate retirement of 130 items that were published without approval; `scripts/content-seed/task0065-legacy-recheck-2026-10-07/`  
+**Decision:** Approved
+
+**Re-check:**
+- **Scope:** the 13 still-retired MCQs that reviewers had only approved (or never reviewed), in subjects with a pipeline fact pack: Biology 10, Statistics 2, Calculus AB 1. Physics 2 (2) and Precalculus (2) were not checked, because they have no fact pack.
+- **Method** (`recheck_legacy.mjs`, correctness only, not format):
+  - All five model families vote on the topic, and at least 4 of 5 must agree.
+  - Then every family blind-solves and audits the item against on_topic, ced_scope, one_answer, self_contained, stem_clean, keyed_rationale and accurate, with the re-sample rule.
+- **Result: 2 of 13 pass.** The 11 failures are real defects:
+  - outside the current CED: 6;
+  - factual error in a stimulus or rationale: 3;
+  - later-topic content: 1;
+  - no topic consensus: 1.
+
+**Approved scope:** Production only. For `APBIO-MCQ-001` and `APBIO-MCQ-007`:
+- Add a new version that copies the latest version verbatim: stimulus, stem, choices and rationales. `canonical_answer_1` is re-derived from the correct choice; it was null on `001` v1.
+- Publish it with a new serving label (unit 1, superseding the old labels) and a validated topic cell 1.1 from the five-family vote.
+- Carry the difficulty forward from the previous version: `001` Medium, `007` Hard. There is no skill cell, since no vote was taken.
+- The retired old versions are left as they are.
+- The script refuses to run unless the latest version's content hashes to exactly what was re-checked.
+
+**Rollback:** set the new versions and the two items to `retired`, and clear `superseded_by` on the previous serving labels.
+
+**Not approved by this entry:**
+- the 11 failing items, which stay retired;
+- the 17 items with reviewer edit requests and the 5 rejected items;
+- the 4 unchecked Physics 2 and Precalculus items.
+
+## APPROVAL-0133 — Publish 20 AP Biology Unit 3 Practice MCQs (10 Seeds, 10 Variants; Topics 3.1–3.5) From the Generate-and-Select Pipeline (Production) — TASK-0065
+
+**Date:** 2026-10-07  
+**Approved By:** David Bloom (2026-10-07 Claude session: "Approved. publish the 20 Unit 3 questions to Production"). No human review, per DECISION-0102.  
+**Related:** `DECISION-0099`, `DECISION-0101`, `DECISION-0102`, `DECISION-0096`; `scripts/content-seed/task0065-bio-u3-2026-10-07/`; PR #377  
+**Decision:** Approved
+
+**Why:** Biology Unit 3 had 0 practice MCQs. Its only four had been retired on 2026-08-08, and the 2026-10-02 Units 1–3 run only made variants of published seeds. The target was Unit 2's 22 MCQs. Unit 3 already had 10 FRQs against Unit 2's 9, so only MCQs were needed.
+
+**Approved scope:** Production. 20 MCQs published through `publish_mcq_batch.py publish`:
+- **Seeds:** `APBIO-MCQ-122`–`131`, two per topic for 3.1–3.5.
+- **Variants:** `APBIO-MCQ-SV-<seed>-v1`.
+- **Labels (DECISION-0101):**
+  - 20 skill cells: 18 validated, 2 provisional (`122` and its variant).
+  - Difficulty: Medium for all 20, provisional, from the four-family vote; variants inherit it.
+
+**Evidence:**
+- All 20 were accepted by generate-and-select with no hand edits: four non-author families plus the own-family veto.
+- Planted-defect controls caught 6/6.
+- All 5 data-table keys were recomputed (`recompute.py`).
+- The Production rehearsal passed and rolled back.
+- Cost: $3.60.
+
+**Rollback:** set the 20 items and their published versions to `retired`.
 
