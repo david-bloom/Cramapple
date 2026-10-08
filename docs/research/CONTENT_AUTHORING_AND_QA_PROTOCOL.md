@@ -230,6 +230,7 @@ Re-run §0.5 after any cut that could lower the bar.
 | **New scored MCQs** | May use §0 for authoring and checking. They still need serving labels (topic/skill/difficulty, by the voting rules in the Units 1–3 runbook) and the Phase 6 publish gate. Not yet piloted for scored items; pilot one batch before relying on it. |
 | **FRQs** | Not covered. §4–§6 and §9 govern. |
 | **Variants (Phase 5b) and seeded generation** | Unchanged. Their outputs may be checked with §0's checker stages. |
+| **§0 seeds and variants** (`seed_pipeline.mjs`) | Piloted 2026-10-07 on Biology Unit 1: 21/21 seeds and 61/63 variants accepted, 0 defects under blind judging. Rules (DECISION-0101): (1) **difficulty is not an author target**; the four-family vote on each seed is stored only as a `provisional_model` label until it is recalibrated from student attempts. (2) **Skills are targeted at the practice level**; a slot may narrow a practice to the skills a multiple-choice item can exercise. The seed's skill is validated at 3 or more matching votes, otherwise it stays at practice level. (3) **Variants inherit the seed's skill and difficulty labels**, with no re-vote. The variant prompt keeps the seed's validated skill and reasoning demand. |
 | **Existing published content** | §4, §5 and §9 govern re-checks. Defects found there are fixed by replacement (§0.6), not by in-place edits, where the item is a teaching item. |
 
 ### 0.9 Running it
