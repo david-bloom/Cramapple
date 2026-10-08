@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Chemistry Unit 2 Filled: 18 MCQs Published (APPROVAL-0134); Seed-vs-Seed Duplicate Gate Added (2026-10-08): Unit 2 practice MCQs 19 → 37; topics 2.2–2.4 went from 0 to 4 each; two same-concept seeds caught on read-through, a calibrated seed-vs-seed gate added, both regenerated before publish; the general selector serves all 18.
 - Biology Unit 3 Filled: 20 MCQs Published to Production (APPROVAL-0133) (2026-10-07): via publish_mcq_batch.py; verified 20/20 on text, labels, cells and difficulty; the selector serves all 20; Biology Unit 3 practice MCQs 0 → 20 (Unit 2 has 22); Biology published MCQs 183.
 - Legacy Retired MCQs Re-Checked (2 of 13 Pass, Republished Under APPROVAL-0132); Biology Unit 3 Batch Generated (20 MCQs, Controls 6/6) (2026-10-07): the 2026-08-08 retirements were mostly right (11 of 13 have real defects: old-CED content, factual errors); APBIO-MCQ-001/007 republished unchanged; Biology Unit 3 had 0 practice MCQs, so 10 seeds + 10 variants were generated across 3.1–3.5 and rehearsed on Production, awaiting the Product Owner's publish approval.
 - Seed Labels Rules Adopted (DECISION-0101); PR #370 Merged (2026-10-07): David approved dropping difficulty as an author target (provisional label only), practice-level skill targeting, and variants inheriting the seed's labels; `seed_pipeline.mjs` updated, protocol §0.8 amended.

@@ -1,0 +1,3277 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.6",
+  "topic_title": "Resonance and Formal Charge",
+  "allowed_skills": [
+   "6.A",
+   "6.B",
+   "6.C",
+   "6.D",
+   "6.E",
+   "6.F",
+   "6.G"
+  ],
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "6",
+    "skills": [
+     "6.C",
+     "6.D"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "6",
+    "skills": [
+     "6.C",
+     "6.D"
+    ]
+   },
+   "seed": {
+    "id": "ap-chemistry__2.6__A__seed#r1-anthropic",
+    "kind": "seed",
+    "round": 1,
+    "author": "anthropic/claude-opus-5.5",
+    "author_family": "anthropic",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-chemistry",
+     "unit_number": 2,
+     "topic_code": "2.6",
+     "topic_title": "Resonance and Formal Charge",
+     "stem": "The cyanate ion, OCN⁻ (16 valence electrons), has carbon as the central atom. Three candidate Lewis structures are described below. Electronegativity order: O > N > C.\n\nStructure I: O=C=N, with 2 lone pairs on O and 2 lone pairs on N\nStructure II: O≡C–N, with 1 lone pair on O and 3 lone pairs on N\nStructure III: O–C≡N, with 3 lone pairs on O and 1 lone pair on N\n\nWhich claim about the best representation of OCN⁻ is supported by formal-charge reasoning?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "Structure I, because it has the fewest nonzero formal charges, with only −1 on nitrogen.",
+       "is_correct": false,
+       "rationale": "This stops at the first criterion. Structures I and III tie, each with a single −1 charge, and the tiebreak favors negative charge on oxygen, which is more electronegative than nitrogen. Fix: When structures tie on formal charges, check which one puts the negative charge on the more electronegative atom."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "Structure III, because its only nonzero formal charge is −1 and it sits on oxygen, the most electronegative atom.",
+       "is_correct": true,
+       "rationale": "Formal charge = valence − lone-pair electrons − ½ bonding electrons. In III, O = 6 − 6 − 1 = −1, C = 4 − 0 − 4 = 0, N = 5 − 2 − 3 = 0. This ties for the fewest nonzero charges and places the negative charge on the most electronegative atom."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "Structure II, because its formal charges add up to −1, matching the charge of the ion.",
+       "is_correct": false,
+       "rationale": "This treats the total as the test. Every valid structure of OCN⁻ has formal charges summing to −1, and II actually has the largest charges, +1 on O and −2 on N. Fix: Compute each atom's formal charge and compare their sizes and locations, not just the total."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "No structure is best, because the ion rapidly switches among all three structures and spends equal time in each.",
+       "is_correct": false,
+       "rationale": "This is the resonance-as-switching misconception. The real ion is one averaged structure, and nonequivalent structures do not contribute equally, so the one with the best formal charges represents it most closely. Fix: Ask whether the structures are equivalent, and if not, rank them by formal charge."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 394,
+          "inputTokenDetails": {
+           "noCacheTokens": 394,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 89,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 63
+          },
+          "totalTokens": 483,
+          "raw": {
+           "input_tokens": 394,
+           "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+           },
+           "output_tokens": 89,
+           "output_tokens_details": {
+            "reasoning_tokens": 63
+           },
+           "total_tokens": 483
+          },
+          "reasoningTokens": 63,
+          "cachedInputTokens": 0
+         },
+         "ms": 2947,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 472,
+          "inputTokenDetails": {
+           "noCacheTokens": 472,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 606,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 576
+          },
+          "totalTokens": 1078,
+          "raw": {
+           "thoughtsTokenCount": 576,
+           "promptTokenCount": 472,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 1078,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 472
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 576,
+          "cachedInputTokens": 0
+         },
+         "ms": 6047,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 529,
+          "inputTokenDetails": {
+           "noCacheTokens": 273,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 3164,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 3144
+          },
+          "totalTokens": 3693,
+          "raw": {
+           "prompt_tokens": 529,
+           "completion_tokens": 3164,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 273,
+           "total_tokens": 3693,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 3144
+           }
+          },
+          "reasoningTokens": 3144,
+          "cachedInputTokens": 256
+         },
+         "ms": 42031,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "B",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 295,
+          "inputTokenDetails": {
+           "noCacheTokens": 295,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1551,
+          "outputTokenDetails": {
+           "textTokens": 25,
+           "reasoningTokens": 1526
+          },
+          "totalTokens": 1846,
+          "raw": {
+           "input_tokens": 295,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1551,
+           "output_tokens_details": {
+            "reasoning_tokens": 1526
+           },
+           "total_tokens": 1846
+          },
+          "reasoningTokens": 1526,
+          "cachedInputTokens": 0
+         },
+         "ms": 8804,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.6",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9344,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 9341
+          },
+          "outputTokens": 686,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 464
+          },
+          "totalTokens": 10030,
+          "raw": {
+           "input_tokens": 9344,
+           "input_tokens_details": {
+            "cache_write_tokens": 9341,
+            "cached_tokens": 0
+           },
+           "output_tokens": 686,
+           "output_tokens_details": {
+            "reasoning_tokens": 464
+           },
+           "total_tokens": 10030
+          },
+          "reasoningTokens": 464,
+          "cachedInputTokens": 0
+         },
+         "ms": 14609,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.6",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10331,
+          "inputTokenDetails": {
+           "noCacheTokens": 10331,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1440,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1178
+          },
+          "totalTokens": 11771,
+          "raw": {
+           "thoughtsTokenCount": 1178,
+           "promptTokenCount": 10331,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11771,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 10331
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1178,
+          "cachedInputTokens": 0
+         },
+         "ms": 10108,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.6",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9557,
+          "inputTokenDetails": {
+           "noCacheTokens": 725,
+           "cacheReadTokens": 8832
+          },
+          "outputTokens": 9309,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 9090
+          },
+          "totalTokens": 18866,
+          "raw": {
+           "prompt_tokens": 9557,
+           "completion_tokens": 9309,
+           "prompt_cache_hit_tokens": 8832,
+           "prompt_cache_miss_tokens": 725,
+           "total_tokens": 18866,
+           "prompt_tokens_details": {
+            "cached_tokens": 8832
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 9090
+           }
+          },
+          "reasoningTokens": 9090,
+          "cachedInputTokens": 8832
+         },
+         "ms": 111901,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.6",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8629,
+          "inputTokenDetails": {
+           "noCacheTokens": 8629,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 4490,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 4333
+          },
+          "totalTokens": 13119,
+          "raw": {
+           "input_tokens": 8629,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 4490,
+           "output_tokens_details": {
+            "reasoning_tokens": 4333
+           },
+           "total_tokens": 13119
+          },
+          "reasoningTokens": 4333,
+          "cachedInputTokens": 0
+         },
+         "ms": 43500,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.6",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15544,
+          "inputTokenDetails": {
+           "noCacheTokens": 980,
+           "cacheReadTokens": 14564,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 730,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 518
+          },
+          "totalTokens": 16274,
+          "raw": {
+           "input_tokens": 980,
+           "output_tokens": 730,
+           "output_tokens_details": {
+            "thinking_tokens": 518
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14564,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 518,
+          "cachedInputTokens": 14564
+         },
+         "ms": 10740,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "6",
+     "skills": [
+      "6.C",
+      "6.D"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "openai/gpt-6.1-sol",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Hard",
+       "reason": "The question requires justifying a claim using formal-charge calculations and chemical principles. Students must compare charges across the candidate structures, recognize that I and III tie in minimizing nonzero charges, and use electronegativity to favor the negative charge on oxygen in III."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "6.C",
+       "difficulty": "Medium",
+       "reason": "The question requires evaluating particulate-level Lewis representations to support a claim about the most favored structure (Skill 6.C). It is of medium difficulty because it requires applying the standard two-step formal-charge criteria (minimizing nonzero charges and assigning the remaining negative charge to the more electronegative atom) to reach a conclusion."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Hard",
+       "reason": "The question requires calculating formal charges for multiple Lewis structures and then applying the tie-breaking criterion of placing negative formal charge on the more electronegative atom, combining formal-charge rules with electronegativity and multi-step reasoning."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Hard",
+       "reason": "Selecting Structure III requires mathematical justification via formal-charge calculations plus the chemical principle of placing negative charge on the most electronegative atom to justify the best-structure claim, matching 6.D. It is Hard because it combines charge-minimization with electronegativity tie-breaker across multiple atoms and evaluates three competing structures, not single recall."
+      }
+     ],
+     "skill": "6.D",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "6.D",
+       3
+      ],
+      [
+       "6.C",
+       1
+      ]
+     ],
+     "practice": "6",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "6",
+       4
+      ]
+     ],
+     "difficulty": "Hard",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Hard",
+       3
+      ],
+      [
+       "Medium",
+       1
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-chemistry__2.6__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.6",
+      "topic_title": "Resonance and Formal Charge",
+      "stem": "Three equivalent Lewis diagrams can be drawn for NO₃⁻. In each diagram, N is bonded to three O atoms with one double bond and two single bonds; the double bond is placed on a different O atom in each diagram. Which statement about the actual ion is best justified by this model?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "All three N–O bonds have the same length, intermediate between typical N–O single- and double-bond lengths, because the ion has one resonance hybrid structure.",
+        "is_correct": true,
+        "rationale": "The equivalent diagrams contribute to one resonance hybrid rather than representing separate structures. Each N–O bond has the same intermediate bond order, so all three bonds have equal lengths."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "The ion rapidly switches among the three diagrams, so each N–O bond alternates between single and double bonds.",
+        "is_correct": false,
+        "rationale": "The switching-between-forms misconception treats resonance diagrams as structures visited over time. The ion instead has one structure with equivalent N–O bonds. Fix: Interpret equivalent resonance diagrams as contributors to one structure, not successive snapshots."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "One N–O bond is permanently shorter than the other two because only one of the three diagrams represents the actual ion.",
+        "is_correct": false,
+        "rationale": "The single-diagram trap treats one equivalent contributor as the complete structure. No contributor is preferred, and a permanently localized double bond would incorrectly distinguish one N–O bond from the others. Fix: Check whether the diagrams are equivalent before selecting one as the actual structure."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "All three N–O bonds are double bonds because that arrangement minimizes the formal charges.",
+        "is_correct": false,
+        "rationale": "The formal-charge-only trap ignores the octet rule. Three double bonds would place 12 electrons around nitrogen, which cannot exceed an octet as a second-period element. Fix: Count electrons around nitrogen before using formal charges to rank candidate diagrams."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": "Choice A's wording is slightly imprecise: the ion is described by a single resonance hybrid, not by 'one resonance hybrid structure' in the sense of a single Lewis diagram. Its substance (equal bond lengths, intermediate between single and double) is still clearly correct."
+          },
+          "usage": {
+           "inputTokens": 746,
+           "inputTokenDetails": {
+            "noCacheTokens": 746,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 122,
+           "outputTokenDetails": {
+            "textTokens": 122,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 868,
+           "raw": {
+            "input_tokens": 746,
+            "output_tokens": 122,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3179,
+          "flags": [
+           "defect: Choice A's wording is slightly imprecise: the ion is described by a single resonance hybrid, not by 'one resonance hybrid structure' in the sense of a single Lewis diagram. Its substance (equal bond lengths, intermediate between single and double) is still clearly correct."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": "Choice A is slightly loose: a single resonance hybrid does not by itself justify equal bond lengths. The equality follows because the three contributing structures are equivalent. This imprecision does not make another choice correct. B describes the classic misconception that the ion flips between structures. C contradicts the equivalence of the three diagrams. D is wrong because three N=O double bonds would give nitrogen an expanded octet, which second-period N cannot have."
+          },
+          "usage": {
+           "inputTokens": 746,
+           "inputTokenDetails": {
+            "noCacheTokens": 746,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 173,
+           "outputTokenDetails": {
+            "textTokens": 173,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 919,
+           "raw": {
+            "input_tokens": 746,
+            "output_tokens": 173,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 4298,
+          "flags": [
+           "defect: Choice A is slightly loose: a single resonance hybrid does not by itself justify equal bond lengths. The equality follows because the three contributing structures are equivalent. This imprecision does not make another choice correct. B describes the classic misconception that the ion flips between structures. C contradicts the equivalence of the three diagrams. D is wrong because three N=O double bonds would give nitrogen an expanded octet, which second-period N cannot have."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 412,
+           "inputTokenDetails": {
+            "noCacheTokens": 412,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 341,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 311
+           },
+           "totalTokens": 753,
+           "raw": {
+            "thoughtsTokenCount": 311,
+            "promptTokenCount": 412,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 753,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 412
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 311,
+           "cachedInputTokens": 0
+          },
+          "ms": 4275,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 472,
+           "inputTokenDetails": {
+            "noCacheTokens": 216,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 793,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 767
+           },
+           "totalTokens": 1265,
+           "raw": {
+            "prompt_tokens": 472,
+            "completion_tokens": 793,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 216,
+            "total_tokens": 1265,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 767
+            }
+           },
+           "reasoningTokens": 767,
+           "cachedInputTokens": 256
+          },
+          "ms": 13266,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 240,
+           "inputTokenDetails": {
+            "noCacheTokens": 240,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1158,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 1128
+           },
+           "totalTokens": 1398,
+           "raw": {
+            "input_tokens": 240,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1158,
+            "output_tokens_details": {
+             "reasoning_tokens": 1128
+            },
+            "total_tokens": 1398
+           },
+           "reasoningTokens": 1128,
+           "cachedInputTokens": 0
+          },
+          "ms": 6426,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "solve"
+     }
+    },
+    {
+     "id": "ap-chemistry__2.6__A__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.6",
+      "topic_title": "Resonance and Formal Charge",
+      "stem": "The cyanate ion, OCN⁻ (16 valence electrons), has carbon as the central atom. Three candidate Lewis structures are described below. Electronegativity order: O > N > C.\n\nStructure I: O=C=N, with 2 lone pairs on O and 2 lone pairs on N\nStructure II: O≡C–N, with 1 lone pair on O and 3 lone pairs on N\nStructure III: O–C≡N, with 3 lone pairs on O and 1 lone pair on N\n\nWhich claim about the best representation of OCN⁻ is supported by formal-charge reasoning?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Structure I, because it has the fewest nonzero formal charges, with only −1 on nitrogen.",
+        "is_correct": false,
+        "rationale": "This stops at the first criterion. Structures I and III tie, each with a single −1 charge, and the tiebreak favors negative charge on oxygen, which is more electronegative than nitrogen. Fix: When structures tie on formal charges, check which one puts the negative charge on the more electronegative atom."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Structure III, because its only nonzero formal charge is −1 and it sits on oxygen, the most electronegative atom.",
+        "is_correct": true,
+        "rationale": "Formal charge = valence − lone-pair electrons − ½ bonding electrons. In III, O = 6 − 6 − 1 = −1, C = 4 − 0 − 4 = 0, N = 5 − 2 − 3 = 0. This ties for the fewest nonzero charges and places the negative charge on the most electronegative atom."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Structure II, because its formal charges add up to −1, matching the charge of the ion.",
+        "is_correct": false,
+        "rationale": "This treats the total as the test. Every valid structure of OCN⁻ has formal charges summing to −1, and II actually has the largest charges, +1 on O and −2 on N. Fix: Compute each atom's formal charge and compare their sizes and locations, not just the total."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "No structure is best, because the ion rapidly switches among all three structures and spends equal time in each.",
+        "is_correct": false,
+        "rationale": "This is the resonance-as-switching misconception. The real ion is one averaged structure, and nonequivalent structures do not contribute equally, so the one with the best formal charges represents it most closely. Fix: Ask whether the structures are equivalent, and if not, rank them by formal charge."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 394,
+           "inputTokenDetails": {
+            "noCacheTokens": 394,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 89,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 63
+           },
+           "totalTokens": 483,
+           "raw": {
+            "input_tokens": 394,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 89,
+            "output_tokens_details": {
+             "reasoning_tokens": 63
+            },
+            "total_tokens": 483
+           },
+           "reasoningTokens": 63,
+           "cachedInputTokens": 0
+          },
+          "ms": 2947,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 472,
+           "inputTokenDetails": {
+            "noCacheTokens": 472,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 606,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 576
+           },
+           "totalTokens": 1078,
+           "raw": {
+            "thoughtsTokenCount": 576,
+            "promptTokenCount": 472,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 1078,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 472
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 576,
+           "cachedInputTokens": 0
+          },
+          "ms": 6047,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 529,
+           "inputTokenDetails": {
+            "noCacheTokens": 273,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 3164,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 3144
+           },
+           "totalTokens": 3693,
+           "raw": {
+            "prompt_tokens": 529,
+            "completion_tokens": 3164,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 273,
+            "total_tokens": 3693,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 3144
+            }
+           },
+           "reasoningTokens": 3144,
+           "cachedInputTokens": 256
+          },
+          "ms": 42031,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "B",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 295,
+           "inputTokenDetails": {
+            "noCacheTokens": 295,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1551,
+           "outputTokenDetails": {
+            "textTokens": 25,
+            "reasoningTokens": 1526
+           },
+           "totalTokens": 1846,
+           "raw": {
+            "input_tokens": 295,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1551,
+            "output_tokens_details": {
+             "reasoning_tokens": 1526
+            },
+            "total_tokens": 1846
+           },
+           "reasoningTokens": 1526,
+           "cachedInputTokens": 0
+          },
+          "ms": 8804,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.6",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9344,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 9341
+           },
+           "outputTokens": 686,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 464
+           },
+           "totalTokens": 10030,
+           "raw": {
+            "input_tokens": 9344,
+            "input_tokens_details": {
+             "cache_write_tokens": 9341,
+             "cached_tokens": 0
+            },
+            "output_tokens": 686,
+            "output_tokens_details": {
+             "reasoning_tokens": 464
+            },
+            "total_tokens": 10030
+           },
+           "reasoningTokens": 464,
+           "cachedInputTokens": 0
+          },
+          "ms": 14609,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.6",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10331,
+           "inputTokenDetails": {
+            "noCacheTokens": 10331,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1440,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1178
+           },
+           "totalTokens": 11771,
+           "raw": {
+            "thoughtsTokenCount": 1178,
+            "promptTokenCount": 10331,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11771,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 10331
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1178,
+           "cachedInputTokens": 0
+          },
+          "ms": 10108,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.6",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9557,
+           "inputTokenDetails": {
+            "noCacheTokens": 725,
+            "cacheReadTokens": 8832
+           },
+           "outputTokens": 9309,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 9090
+           },
+           "totalTokens": 18866,
+           "raw": {
+            "prompt_tokens": 9557,
+            "completion_tokens": 9309,
+            "prompt_cache_hit_tokens": 8832,
+            "prompt_cache_miss_tokens": 725,
+            "total_tokens": 18866,
+            "prompt_tokens_details": {
+             "cached_tokens": 8832
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 9090
+            }
+           },
+           "reasoningTokens": 9090,
+           "cachedInputTokens": 8832
+          },
+          "ms": 111901,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.6",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8629,
+           "inputTokenDetails": {
+            "noCacheTokens": 8629,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 4490,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 4333
+           },
+           "totalTokens": 13119,
+           "raw": {
+            "input_tokens": 8629,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 4490,
+            "output_tokens_details": {
+             "reasoning_tokens": 4333
+            },
+            "total_tokens": 13119
+           },
+           "reasoningTokens": 4333,
+           "cachedInputTokens": 0
+          },
+          "ms": 43500,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.6",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15544,
+           "inputTokenDetails": {
+            "noCacheTokens": 980,
+            "cacheReadTokens": 14564,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 730,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 518
+           },
+           "totalTokens": 16274,
+           "raw": {
+            "input_tokens": 980,
+            "output_tokens": 730,
+            "output_tokens_details": {
+             "thinking_tokens": 518
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14564,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 518,
+           "cachedInputTokens": 14564
+          },
+          "ms": 10740,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "ap-chemistry__2.6__A__v1#r1-anthropic",
+      "kind": "variant",
+      "round": 1,
+      "author": "anthropic/claude-opus-5.5",
+      "author_family": "anthropic",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "ap-chemistry",
+       "unit_number": 2,
+       "topic_code": "2.6",
+       "topic_title": "Resonance and Formal Charge",
+       "stem": "The thiocyanate ion, SCN⁻, has 16 valence electrons and a central carbon atom. Three candidate Lewis structures are listed. Structure I: S=C=N, with 2 lone pairs on S and 2 lone pairs on N. Structure II: S≡C–N, with 1 lone pair on S and 3 lone pairs on N. Structure III: S–C≡N, with 3 lone pairs on S and 1 lone pair on N. Electronegativities increase in the order C < S < N. Which claim about the best Lewis representation of SCN⁻ does formal-charge reasoning support?",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "Structure III, because it has only one nonzero formal charge, −1 on sulfur.",
+         "is_correct": false,
+         "rationale": "This stops after the first criterion. Structures I and III tie with a single −1 charge each, and the tiebreak favors the negative charge on nitrogen, which is more electronegative than sulfur. Fix: When structures tie on formal charges, check which places the negative charge on the more electronegative atom."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "Structure II, because its formal charges sum to −1, equal to the charge of the ion.",
+         "is_correct": false,
+         "rationale": "This uses the total as the deciding test. Every valid structure of SCN⁻ has formal charges summing to −1, and Structure II has the largest charges, +1 on S and −2 on N. Fix: Compute each atom's formal charge and compare magnitudes and locations, not just the sum."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "Structure I, because its only nonzero formal charge is −1, located on nitrogen, the most electronegative atom.",
+         "is_correct": true,
+         "rationale": "Formal charge = valence − lone-pair electrons − ½ bonding electrons. In Structure I, S = 6 − 4 − 2 = 0, C = 4 − 0 − 4 = 0, and N = 5 − 4 − 2 = −1. It ties for the fewest nonzero charges and places the negative charge on the most electronegative atom."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "None of the structures is best, because the ion rapidly flips among all three and spends equal time in each.",
+         "is_correct": false,
+         "rationale": "This is the resonance-as-switching misconception. The real ion is a single averaged structure, and nonequivalent structures do not contribute equally, so the one with the best formal charges represents it most closely. Fix: Ask whether the structures are equivalent, and if not, rank them by formal charge."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 394,
+            "inputTokenDetails": {
+             "noCacheTokens": 394,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 177,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 151
+            },
+            "totalTokens": 571,
+            "raw": {
+             "input_tokens": 394,
+             "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+             },
+             "output_tokens": 177,
+             "output_tokens_details": {
+              "reasoning_tokens": 151
+             },
+             "total_tokens": 571
+            },
+            "reasoningTokens": 151,
+            "cachedInputTokens": 0
+           },
+           "ms": 5723,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 471,
+            "inputTokenDetails": {
+             "noCacheTokens": 471,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 697,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 667
+            },
+            "totalTokens": 1168,
+            "raw": {
+             "thoughtsTokenCount": 667,
+             "promptTokenCount": 471,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 1168,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 471
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 667,
+            "cachedInputTokens": 0
+           },
+           "ms": 7810,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 529,
+            "inputTokenDetails": {
+             "noCacheTokens": 273,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 5450,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 5424
+            },
+            "totalTokens": 5979,
+            "raw": {
+             "prompt_tokens": 529,
+             "completion_tokens": 5450,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 273,
+             "total_tokens": 5979,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 5424
+             }
+            },
+            "reasoningTokens": 5424,
+            "cachedInputTokens": 256
+           },
+           "ms": 76345,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 295,
+            "inputTokenDetails": {
+             "noCacheTokens": 295,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 2141,
+            "outputTokenDetails": {
+             "textTokens": 25,
+             "reasoningTokens": 2116
+            },
+            "totalTokens": 2436,
+            "raw": {
+             "input_tokens": 295,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 2141,
+             "output_tokens_details": {
+              "reasoning_tokens": 2116
+             },
+             "total_tokens": 2436
+            },
+            "reasoningTokens": 2116,
+            "cachedInputTokens": 0
+           },
+           "ms": 9496,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.6",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9347,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 9344
+            },
+            "outputTokens": 703,
+            "outputTokenDetails": {
+             "textTokens": 222,
+             "reasoningTokens": 481
+            },
+            "totalTokens": 10050,
+            "raw": {
+             "input_tokens": 9347,
+             "input_tokens_details": {
+              "cache_write_tokens": 9344,
+              "cached_tokens": 0
+             },
+             "output_tokens": 703,
+             "output_tokens_details": {
+              "reasoning_tokens": 481
+             },
+             "total_tokens": 10050
+            },
+            "reasoningTokens": 481,
+            "cachedInputTokens": 0
+           },
+           "ms": 17419,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.6",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10332,
+            "inputTokenDetails": {
+             "noCacheTokens": 10332,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 2471,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 2209
+            },
+            "totalTokens": 12803,
+            "raw": {
+             "thoughtsTokenCount": 2209,
+             "promptTokenCount": 10332,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 12803,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 10332
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 2209,
+            "cachedInputTokens": 0
+           },
+           "ms": 16827,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.6",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9559,
+            "inputTokenDetails": {
+             "noCacheTokens": 727,
+             "cacheReadTokens": 8832
+            },
+            "outputTokens": 10918,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 10699
+            },
+            "totalTokens": 20477,
+            "raw": {
+             "prompt_tokens": 9559,
+             "completion_tokens": 10918,
+             "prompt_cache_hit_tokens": 8832,
+             "prompt_cache_miss_tokens": 727,
+             "total_tokens": 20477,
+             "prompt_tokens_details": {
+              "cached_tokens": 8832
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 10699
+             }
+            },
+            "reasoningTokens": 10699,
+            "cachedInputTokens": 8832
+           },
+           "ms": 120875,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.6",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 8631,
+            "inputTokenDetails": {
+             "noCacheTokens": 8631,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 4581,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 4424
+            },
+            "totalTokens": 13212,
+            "raw": {
+             "input_tokens": 8631,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 4581,
+             "output_tokens_details": {
+              "reasoning_tokens": 4424
+             },
+             "total_tokens": 13212
+            },
+            "reasoningTokens": 4424,
+            "cachedInputTokens": 0
+           },
+           "ms": 16294,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.6",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 15552,
+            "inputTokenDetails": {
+             "noCacheTokens": 988,
+             "cacheReadTokens": 14564,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 775,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 563
+            },
+            "totalTokens": 16327,
+            "raw": {
+             "input_tokens": 988,
+             "output_tokens": 775,
+             "output_tokens_details": {
+              "thinking_tokens": 563
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14564,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 563,
+            "cachedInputTokens": 14564
+           },
+           "ms": 11655,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "ap-chemistry__2.6__A__seed#r1-anthropic",
+       "skill": "6.D",
+       "skill_status": "validated",
+       "practice": "6",
+       "practice_status": "validated",
+       "difficulty": "Hard",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.2556053811659193
+     },
+     "candidates": [
+      {
+       "id": "ap-chemistry__2.6__A__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.6",
+        "topic_title": "Resonance and Formal Charge",
+        "stem": "A student compares three proposed Lewis diagrams for the thiocyanate ion, SCN⁻, in a salt. The ion contains 16 valence electrons, and its atoms have the electronegativity ranking N > S > C.\n\nDiagram 1: S≡C–N; S has one lone pair, and N has three lone pairs.\nDiagram 2: S=C=N; S and N each have two lone pairs.\nDiagram 3: S–C≡N; S has three lone pairs, and N has one lone pair.\n\nCarbon has no lone pairs in any diagram. Using the octet rule and formal-charge criteria, which conclusion about the preferred diagram is best justified?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Diagram 2 is preferred because it minimizes nonzero formal charges and places the negative formal charge on nitrogen.",
+          "is_correct": true,
+          "rationale": "Formal charge equals valence electrons minus lone-pair electrons minus half the bonding electrons. In Diagram 2, S = 6 − 4 − 2 = 0, C = 4 − 0 − 4 = 0, and N = 5 − 4 − 2 = −1. Diagrams 2 and 3 tie in charge minimization, but nitrogen is more electronegative."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Diagram 3 is preferred because sulfur carries −1 and every other atom has zero formal charge.",
+          "is_correct": false,
+          "rationale": "This is the stopping-after-charge-minimization error. Diagram 2 also has only one −1 formal charge, so the tie is resolved by placing that charge on the more electronegative nitrogen. Fix: After comparing charge magnitudes, compare the electronegativities of atoms carrying negative formal charges."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "Diagram 1 is preferred because its formal charges sum to the ion’s overall charge of −1.",
+          "is_correct": false,
+          "rationale": "This is the total-charge-only error: matching the ion’s charge does not distinguish these diagrams. Diagram 1 assigns +1 to sulfur and −2 to nitrogen, producing greater charge separation than either alternative. Fix: Calculate individual formal charges before comparing their magnitudes and locations."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "All three diagrams are equally preferred because SCN⁻ alternates among them, spending equal time in each arrangement.",
+          "is_correct": false,
+          "rationale": "This is the resonance-as-switching misconception. SCN⁻ has one resonance hybrid rather than alternating structures, and these nonequivalent diagrams do not contribute equally. Fix: Check whether the diagrams are equivalent before ranking their contributions using formal charges."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": false,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": "Diagrams 2 and 3 both have only one nonzero formal charge. Diagram 2 is preferred only because it puts the −1 charge on nitrogen, the more electronegative atom, so A's wording 'minimizes' really means 'ties for the minimum'. Experimentally, Diagram 3 also contributes substantially to the real resonance hybrid."
+            },
+            "usage": {
+             "inputTokens": 868,
+             "inputTokenDetails": {
+              "noCacheTokens": 868,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 530,
+             "outputTokenDetails": {
+              "textTokens": 149,
+              "reasoningTokens": 381
+             },
+             "totalTokens": 1398,
+             "raw": {
+              "input_tokens": 868,
+              "output_tokens": 530,
+              "output_tokens_details": {
+               "thinking_tokens": 381
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 381,
+             "cachedInputTokens": 0
+            },
+            "ms": 8524,
+            "flags": [
+             "defect: Diagrams 2 and 3 both have only one nonzero formal charge. Diagram 2 is preferred only because it puts the −1 charge on nitrogen, the more electronegative atom, so A's wording 'minimizes' really means 'ties for the minimum'. Experimentally, Diagram 3 also contributes substantially to the real resonance hybrid."
+            ]
+           },
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": "Minor wording issue: Diagrams 2 and 3 tie on the number of nonzero formal charges, so A's 'minimizes' clause does not distinguish them; the electronegativity tiebreaker does. Real SCN⁻ is a resonance hybrid with a substantial S–C≡N contribution, but under the stated formal-charge criteria A is the intended answer."
+            },
+            "usage": {
+             "inputTokens": 868,
+             "inputTokenDetails": {
+              "noCacheTokens": 868,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 576,
+             "outputTokenDetails": {
+              "textTokens": 153,
+              "reasoningTokens": 423
+             },
+             "totalTokens": 1444,
+             "raw": {
+              "input_tokens": 868,
+              "output_tokens": 576,
+              "output_tokens_details": {
+               "thinking_tokens": 423
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 423,
+             "cachedInputTokens": 0
+            },
+            "ms": 9544,
+            "flags": [
+             "defect: Minor wording issue: Diagrams 2 and 3 tie on the number of nonzero formal charges, so A's 'minimizes' clause does not distinguish them; the electronegativity tiebreaker does. Real SCN⁻ is a resonance hybrid with a substantial S–C≡N contribution, but under the stated formal-charge criteria A is the intended answer."
+            ]
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 480,
+             "inputTokenDetails": {
+              "noCacheTokens": 480,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 635,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 605
+             },
+             "totalTokens": 1115,
+             "raw": {
+              "thoughtsTokenCount": 605,
+              "promptTokenCount": 480,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 1115,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 480
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 605,
+             "cachedInputTokens": 0
+            },
+            "ms": 5513,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 534,
+             "inputTokenDetails": {
+              "noCacheTokens": 278,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 2996,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 2970
+             },
+             "totalTokens": 3530,
+             "raw": {
+              "prompt_tokens": 534,
+              "completion_tokens": 2996,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 278,
+              "total_tokens": 3530,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 2970
+              }
+             },
+             "reasoningTokens": 2970,
+             "cachedInputTokens": 256
+            },
+            "ms": 41954,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 299,
+             "inputTokenDetails": {
+              "noCacheTokens": 299,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 2153,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 2123
+             },
+             "totalTokens": 2452,
+             "raw": {
+              "input_tokens": 299,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 2153,
+              "output_tokens_details": {
+               "reasoning_tokens": 2123
+              },
+              "total_tokens": 2452
+             },
+             "reasoningTokens": 2123,
+             "cachedInputTokens": 0
+            },
+            "ms": 22471,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {},
+        "verdict": "rejected",
+        "stage": "solve"
+       }
+      },
+      {
+       "id": "ap-chemistry__2.6__A__v1#r1-anthropic",
+       "kind": "variant",
+       "round": 1,
+       "author": "anthropic/claude-opus-5.5",
+       "author_family": "anthropic",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.6",
+        "topic_title": "Resonance and Formal Charge",
+        "stem": "The thiocyanate ion, SCN⁻, has 16 valence electrons and a central carbon atom. Three candidate Lewis structures are listed. Structure I: S=C=N, with 2 lone pairs on S and 2 lone pairs on N. Structure II: S≡C–N, with 1 lone pair on S and 3 lone pairs on N. Structure III: S–C≡N, with 3 lone pairs on S and 1 lone pair on N. Electronegativities increase in the order C < S < N. Which claim about the best Lewis representation of SCN⁻ does formal-charge reasoning support?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Structure III, because it has only one nonzero formal charge, −1 on sulfur.",
+          "is_correct": false,
+          "rationale": "This stops after the first criterion. Structures I and III tie with a single −1 charge each, and the tiebreak favors the negative charge on nitrogen, which is more electronegative than sulfur. Fix: When structures tie on formal charges, check which places the negative charge on the more electronegative atom."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Structure II, because its formal charges sum to −1, equal to the charge of the ion.",
+          "is_correct": false,
+          "rationale": "This uses the total as the deciding test. Every valid structure of SCN⁻ has formal charges summing to −1, and Structure II has the largest charges, +1 on S and −2 on N. Fix: Compute each atom's formal charge and compare magnitudes and locations, not just the sum."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "Structure I, because its only nonzero formal charge is −1, located on nitrogen, the most electronegative atom.",
+          "is_correct": true,
+          "rationale": "Formal charge = valence − lone-pair electrons − ½ bonding electrons. In Structure I, S = 6 − 4 − 2 = 0, C = 4 − 0 − 4 = 0, and N = 5 − 4 − 2 = −1. It ties for the fewest nonzero charges and places the negative charge on the most electronegative atom."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "None of the structures is best, because the ion rapidly flips among all three and spends equal time in each.",
+          "is_correct": false,
+          "rationale": "This is the resonance-as-switching misconception. The real ion is a single averaged structure, and nonequivalent structures do not contribute equally, so the one with the best formal charges represents it most closely. Fix: Ask whether the structures are equivalent, and if not, rank them by formal charge."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 394,
+             "inputTokenDetails": {
+              "noCacheTokens": 394,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 177,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 151
+             },
+             "totalTokens": 571,
+             "raw": {
+              "input_tokens": 394,
+              "input_tokens_details": {
+               "cache_write_tokens": 0,
+               "cached_tokens": 0
+              },
+              "output_tokens": 177,
+              "output_tokens_details": {
+               "reasoning_tokens": 151
+              },
+              "total_tokens": 571
+             },
+             "reasoningTokens": 151,
+             "cachedInputTokens": 0
+            },
+            "ms": 5723,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 471,
+             "inputTokenDetails": {
+              "noCacheTokens": 471,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 697,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 667
+             },
+             "totalTokens": 1168,
+             "raw": {
+              "thoughtsTokenCount": 667,
+              "promptTokenCount": 471,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 1168,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 471
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 667,
+             "cachedInputTokens": 0
+            },
+            "ms": 7810,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 529,
+             "inputTokenDetails": {
+              "noCacheTokens": 273,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 5450,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 5424
+             },
+             "totalTokens": 5979,
+             "raw": {
+              "prompt_tokens": 529,
+              "completion_tokens": 5450,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 273,
+              "total_tokens": 5979,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 5424
+              }
+             },
+             "reasoningTokens": 5424,
+             "cachedInputTokens": 256
+            },
+            "ms": 76345,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 295,
+             "inputTokenDetails": {
+              "noCacheTokens": 295,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 2141,
+             "outputTokenDetails": {
+              "textTokens": 25,
+              "reasoningTokens": 2116
+             },
+             "totalTokens": 2436,
+             "raw": {
+              "input_tokens": 295,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 2141,
+              "output_tokens_details": {
+               "reasoning_tokens": 2116
+              },
+              "total_tokens": 2436
+             },
+             "reasoningTokens": 2116,
+             "cachedInputTokens": 0
+            },
+            "ms": 9496,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.6",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9347,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 9344
+             },
+             "outputTokens": 703,
+             "outputTokenDetails": {
+              "textTokens": 222,
+              "reasoningTokens": 481
+             },
+             "totalTokens": 10050,
+             "raw": {
+              "input_tokens": 9347,
+              "input_tokens_details": {
+               "cache_write_tokens": 9344,
+               "cached_tokens": 0
+              },
+              "output_tokens": 703,
+              "output_tokens_details": {
+               "reasoning_tokens": 481
+              },
+              "total_tokens": 10050
+             },
+             "reasoningTokens": 481,
+             "cachedInputTokens": 0
+            },
+            "ms": 17419,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.6",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10332,
+             "inputTokenDetails": {
+              "noCacheTokens": 10332,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 2471,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 2209
+             },
+             "totalTokens": 12803,
+             "raw": {
+              "thoughtsTokenCount": 2209,
+              "promptTokenCount": 10332,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 12803,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 10332
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 2209,
+             "cachedInputTokens": 0
+            },
+            "ms": 16827,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.6",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9559,
+             "inputTokenDetails": {
+              "noCacheTokens": 727,
+              "cacheReadTokens": 8832
+             },
+             "outputTokens": 10918,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 10699
+             },
+             "totalTokens": 20477,
+             "raw": {
+              "prompt_tokens": 9559,
+              "completion_tokens": 10918,
+              "prompt_cache_hit_tokens": 8832,
+              "prompt_cache_miss_tokens": 727,
+              "total_tokens": 20477,
+              "prompt_tokens_details": {
+               "cached_tokens": 8832
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 10699
+              }
+             },
+             "reasoningTokens": 10699,
+             "cachedInputTokens": 8832
+            },
+            "ms": 120875,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.6",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 8631,
+             "inputTokenDetails": {
+              "noCacheTokens": 8631,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 4581,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 4424
+             },
+             "totalTokens": 13212,
+             "raw": {
+              "input_tokens": 8631,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 4581,
+              "output_tokens_details": {
+               "reasoning_tokens": 4424
+              },
+              "total_tokens": 13212
+             },
+             "reasoningTokens": 4424,
+             "cachedInputTokens": 0
+            },
+            "ms": 16294,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.6",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 15552,
+             "inputTokenDetails": {
+              "noCacheTokens": 988,
+              "cacheReadTokens": 14564,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 775,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 563
+             },
+             "totalTokens": 16327,
+             "raw": {
+              "input_tokens": 988,
+              "output_tokens": 775,
+              "output_tokens_details": {
+               "thinking_tokens": 563
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14564,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 563,
+             "cachedInputTokens": 14564
+            },
+            "ms": 11655,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  }
+ ]
+}

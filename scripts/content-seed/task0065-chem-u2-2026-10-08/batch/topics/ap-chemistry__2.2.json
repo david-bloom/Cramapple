@@ -1,0 +1,6251 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.2",
+  "topic_title": "Intramolecular Force and Potential Energy",
+  "allowed_skills": [
+   "3.A",
+   "3.B",
+   "3.C"
+  ],
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "3",
+    "skills": [
+     "3.A"
+    ]
+   },
+   {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "3",
+    "skills": [
+     "3.A"
+    ]
+   },
+   "seed": {
+    "id": "ap-chemistry__2.2__A__seed#r1-anthropic",
+    "kind": "seed",
+    "round": 1,
+    "author": "anthropic/claude-opus-5.5",
+    "author_family": "anthropic",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-chemistry",
+     "unit_number": 2,
+     "topic_code": "2.2",
+     "topic_title": "Intramolecular Force and Potential Energy",
+     "stem": "A student is given potential energy (PE) data for two hydrogen atoms as a function of internuclear distance. PE is defined as 0 kJ/mol for fully separated atoms. Data (distance in pm, PE in kJ/mol): 40, +250; 60, −380; 74, −436; 100, −360; 150, −150; 300, −5. The student plots internuclear distance on the x-axis. Which description of the correctly drawn graph is accurate?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "With x in pm and y in kJ/mol, the curve rises steeply below about 50 pm, reaches a minimum at (74 pm, −436 kJ/mol), and levels off toward 0 kJ/mol at large distances.",
+       "is_correct": true,
+       "rationale": "The lowest point marks the equilibrium bond length, 74 pm, and the well depth below the separated-atom zero, 436 kJ/mol, is the bond energy. Nuclear repulsion makes PE climb at short range, and the curve approaches 0 as the atoms stop interacting."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "With x in pm and y in kJ/mol, the curve reaches a minimum at 74 pm and then levels off at −436 kJ/mol at large distances.",
+       "is_correct": false,
+       "rationale": "This confuses the well depth with the long-distance asymptote. The data show PE rising back toward 0 kJ/mol by 300 pm, because separated atoms have zero PE by definition. Fix: Check where the curve should flatten by asking what PE the separated atoms were assigned."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "With x in pm and y in kJ/mol, the bond length is shown where the curve crosses 0 kJ/mol, near 50 pm, and the minimum marks where the atoms separate.",
+       "is_correct": false,
+       "rationale": "This misreads the zero crossing as the bond length. At about 50 pm repulsion and attraction give PE equal to that of separated atoms; the stable bond length is at the lowest PE, 74 pm. Fix: Locate the x-value of the lowest plotted point and label that as bond length."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "With x in pm and y in kJ/mol, the curve rises to a maximum of +436 kJ/mol at 74 pm, because energy must be added to break the bond.",
+       "is_correct": false,
+       "rationale": "This sign error treats the positive bond energy as a plotted peak. The tabulated PE at 74 pm is −436 kJ/mol, so the bond is an energy well, and 436 kJ/mol is the depth needed to climb out to 0. Fix: Plot each point with the sign given in the table before interpreting the curve."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 440,
+          "inputTokenDetails": {
+           "noCacheTokens": 440,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 67,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 41
+          },
+          "totalTokens": 507,
+          "raw": {
+           "input_tokens": 440,
+           "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+           },
+           "output_tokens": 67,
+           "output_tokens_details": {
+            "reasoning_tokens": 41
+           },
+           "total_tokens": 507
+          },
+          "reasoningTokens": 41,
+          "cachedInputTokens": 0
+         },
+         "ms": 3684,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 552,
+          "inputTokenDetails": {
+           "noCacheTokens": 552,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 441,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 411
+          },
+          "totalTokens": 993,
+          "raw": {
+           "thoughtsTokenCount": 411,
+           "promptTokenCount": 552,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 993,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 552
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 411,
+          "cachedInputTokens": 0
+         },
+         "ms": 4766,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 570,
+          "inputTokenDetails": {
+           "noCacheTokens": 314,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 667,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 647
+          },
+          "totalTokens": 1237,
+          "raw": {
+           "prompt_tokens": 570,
+           "completion_tokens": 667,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 314,
+           "total_tokens": 1237,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 647
+           }
+          },
+          "reasoningTokens": 647,
+          "cachedInputTokens": 256
+         },
+         "ms": 10523,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 351,
+          "inputTokenDetails": {
+           "noCacheTokens": 351,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1279,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 1249
+          },
+          "totalTokens": 1630,
+          "raw": {
+           "input_tokens": 351,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1279,
+           "output_tokens_details": {
+            "reasoning_tokens": 1249
+           },
+           "total_tokens": 1630
+          },
+          "reasoningTokens": 1249,
+          "cachedInputTokens": 0
+         },
+         "ms": 7259,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9368,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 9365
+          },
+          "outputTokens": 309,
+          "outputTokenDetails": {
+           "textTokens": 172,
+           "reasoningTokens": 137
+          },
+          "totalTokens": 9677,
+          "raw": {
+           "input_tokens": 9368,
+           "input_tokens_details": {
+            "cache_write_tokens": 9365,
+            "cached_tokens": 0
+           },
+           "output_tokens": 309,
+           "output_tokens_details": {
+            "reasoning_tokens": 137
+           },
+           "total_tokens": 9677
+          },
+          "reasoningTokens": 137,
+          "cachedInputTokens": 0
+         },
+         "ms": 9341,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10406,
+          "inputTokenDetails": {
+           "noCacheTokens": 10406,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1663,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 1401
+          },
+          "totalTokens": 12069,
+          "raw": {
+           "thoughtsTokenCount": 1401,
+           "promptTokenCount": 10406,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 12069,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 10406
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 1401,
+          "cachedInputTokens": 0
+         },
+         "ms": 12828,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9578,
+          "inputTokenDetails": {
+           "noCacheTokens": 746,
+           "cacheReadTokens": 8832
+          },
+          "outputTokens": 6192,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 5973
+          },
+          "totalTokens": 15770,
+          "raw": {
+           "prompt_tokens": 9578,
+           "completion_tokens": 6192,
+           "prompt_cache_hit_tokens": 8832,
+           "prompt_cache_miss_tokens": 746,
+           "total_tokens": 15770,
+           "prompt_tokens_details": {
+            "cached_tokens": 8832
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 5973
+           }
+          },
+          "reasoningTokens": 5973,
+          "cachedInputTokens": 8832
+         },
+         "ms": 75436,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8666,
+          "inputTokenDetails": {
+           "noCacheTokens": 8666,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 4105,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 3948
+          },
+          "totalTokens": 12771,
+          "raw": {
+           "input_tokens": 8666,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 4105,
+           "output_tokens_details": {
+            "reasoning_tokens": 3948
+           },
+           "total_tokens": 12771
+          },
+          "reasoningTokens": 3948,
+          "cachedInputTokens": 0
+         },
+         "ms": 15483,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15606,
+          "inputTokenDetails": {
+           "noCacheTokens": 1042,
+           "cacheReadTokens": 14564,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 638,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 426
+          },
+          "totalTokens": 16244,
+          "raw": {
+           "input_tokens": 1042,
+           "output_tokens": 638,
+           "output_tokens_details": {
+            "thinking_tokens": 426
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14564,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 426,
+          "cachedInputTokens": 14564
+         },
+         "ms": 6188,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "3",
+     "skills": [
+      "3.A"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "openai/gpt-6.1-sol",
+       "ok": true,
+       "skill_code": "3.A",
+       "difficulty": "Medium",
+       "reason": "The question requires interpreting potential-energy data to identify a correctly drawn graph with appropriate axes, units, a minimum, and a long-distance asymptote. This involves translating the given data into a graphical representation, rather than recalling a fact or reading a single value."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "3.A",
+       "difficulty": "Medium",
+       "reason": "The question requires students to interpret given data points of internuclear distance versus potential energy and correctly describe the resulting graph, including the position of the minimum and asymptotic behavior."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "3.A",
+       "difficulty": "Medium",
+       "reason": "The question requires interpreting tabulated potential energy data to identify the correct graph shape, including axes, minimum, and asymptote, which directly exercises graphing representation and requires applying one concept to reach a conclusion."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "3.A",
+       "difficulty": "Medium",
+       "reason": "Task is to translate tabulated PE vs internuclear distance into correctly scaled graph shape with x in pm, y in kJ/mol, minimum at 74 pm/-436 and asymptote to 0, which is graphing technique 3.A, not diagram/model 3.B or multi-scale linkage 3.C. Interpreting 6 points for trend/minimum/asymptote is interpreting given info to one conclusion (Medium), not single-value recall (Easy) nor combining multiple mechanistic steps (Hard)."
+      }
+     ],
+     "skill": "3.A",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "3.A",
+       4
+      ]
+     ],
+     "practice": "3",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "3",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       4
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-chemistry__2.2__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Intramolecular Force and Potential Energy",
+      "stem": "A student will sketch potential energy versus internuclear distance for two atoms using the data below. The curve’s minimum is included in the table, and the potential energy approaches 0 kJ/mol as the atoms become widely separated.\n\nInternuclear distance (pm) | Potential energy (kJ/mol)\n80 | +200\n100 | −200\n120 | −400\n160 | −250\n240 | −100\n\nWhich graph specification correctly represents the data and identifies the energy required to separate the bonded atoms?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Potential energy on the horizontal axis; distance on the vertical axis; minimum at (−400 kJ/mol, 120 pm); separation requires 400 kJ/mol.",
+        "is_correct": false,
+        "rationale": "Axis-reversal error: This exchanges the axes required for potential energy versus internuclear distance. Although the separation energy is correct, the graph does not use the requested horizontal and vertical quantities. Fix: Place the quantity following “versus” on the horizontal axis and label both axes with units."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Distance on the horizontal axis; potential energy on the vertical axis; minimum at (120 pm, −400 kJ/mol); separation requires −400 kJ/mol.",
+        "is_correct": false,
+        "rationale": "Potential-energy/bond-energy confusion: The negative minimum describes the bonded atoms’ potential energy relative to separated atoms, not the energy required for separation. Separating the atoms requires an energy increase of 400 kJ/mol. Fix: Subtract the minimum energy from the separated-atom energy to find the required energy input."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Distance on the horizontal axis; potential energy on the vertical axis; minimum at (120 pm, −400 kJ/mol); separation requires 400 kJ/mol.",
+        "is_correct": true,
+        "rationale": "A potential-energy-versus-distance graph places distance on the horizontal axis and energy on the vertical axis. The minimum gives the equilibrium bond length, 120 pm; raising the energy from −400 kJ/mol to the separated-atom reference of 0 kJ/mol requires 400 kJ/mol."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Distance on the horizontal axis; potential energy on the vertical axis; minimum at (120 pm, −400 kJ/mol); separation requires 600 kJ/mol.",
+        "is_correct": false,
+        "rationale": "Wrong-reference error: The 600 kJ/mol difference uses the energy at 80 pm, where the atoms are close together, as the final energy. Separation instead ends at the widely separated-atom reference of 0 kJ/mol. Fix: Use the widely separated-atom energy, not the first table entry, as the final energy."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "No defect. C is the only correct choice. Distance is the independent variable, so it belongs on the horizontal axis and potential energy on the vertical axis. The minimum is at (120 pm, −400 kJ/mol). Potential energy goes to 0 at large separation, so separating the bonded atoms requires +400 kJ/mol. A swaps the axes, B gives the energy with the wrong sign, and D gives the wrong value (600 kJ/mol)."
+          },
+          "usage": {
+           "inputTokens": 896,
+           "inputTokenDetails": {
+            "noCacheTokens": 896,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 181,
+           "outputTokenDetails": {
+            "textTokens": 181,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 1077,
+           "raw": {
+            "input_tokens": 896,
+            "output_tokens": 181,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3982,
+          "flags": [
+           "defect: No defect. C is the only correct choice. Distance is the independent variable, so it belongs on the horizontal axis and potential energy on the vertical axis. The minimum is at (120 pm, −400 kJ/mol). Potential energy goes to 0 at large separation, so separating the bonded atoms requires +400 kJ/mol. A swaps the axes, B gives the energy with the wrong sign, and D gives the wrong value (600 kJ/mol)."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": "The stem says the minimum is included in the table, but the 80→100→120→160 pm points do not by themselves guarantee that the true minimum lies exactly at 120 pm. Since the stem explicitly asserts it, this is acceptable. Choice C is the only option that puts distance on the horizontal axis and potential energy on the vertical axis, places the minimum at (120 pm, −400 kJ/mol), and gives a positive energy of 400 kJ/mol needed to raise the energy from −400 to 0 kJ/mol. Choice A swaps the axes, B gives the separation energy with the wrong sign, and D gives 600 kJ/mol, which does not match the data."
+          },
+          "usage": {
+           "inputTokens": 896,
+           "inputTokenDetails": {
+            "noCacheTokens": 896,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 252,
+           "outputTokenDetails": {
+            "textTokens": 252,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 1148,
+           "raw": {
+            "input_tokens": 896,
+            "output_tokens": 252,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 4978,
+          "flags": [
+           "defect: The stem says the minimum is included in the table, but the 80→100→120→160 pm points do not by themselves guarantee that the true minimum lies exactly at 120 pm. Since the stem explicitly asserts it, this is acceptable. Choice C is the only option that puts distance on the horizontal axis and potential energy on the vertical axis, places the minimum at (120 pm, −400 kJ/mol), and gives a positive energy of 400 kJ/mol needed to raise the energy from −400 to 0 kJ/mol. Choice A swaps the axes, B gives the separation energy with the wrong sign, and D gives 600 kJ/mol, which does not match the data."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 536,
+           "inputTokenDetails": {
+            "noCacheTokens": 536,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 356,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 326
+           },
+           "totalTokens": 892,
+           "raw": {
+            "thoughtsTokenCount": 326,
+            "promptTokenCount": 536,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 892,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 536
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 326,
+           "cachedInputTokens": 0
+          },
+          "ms": 4973,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 540,
+           "inputTokenDetails": {
+            "noCacheTokens": 284,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 1158,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 1132
+           },
+           "totalTokens": 1698,
+           "raw": {
+            "prompt_tokens": 540,
+            "completion_tokens": 1158,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 284,
+            "total_tokens": 1698,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 1132
+            }
+           },
+           "reasoningTokens": 1132,
+           "cachedInputTokens": 256
+          },
+          "ms": 16114,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "C",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 318,
+           "inputTokenDetails": {
+            "noCacheTokens": 318,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1388,
+           "outputTokenDetails": {
+            "textTokens": 25,
+            "reasoningTokens": 1363
+           },
+           "totalTokens": 1706,
+           "raw": {
+            "input_tokens": 318,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1388,
+            "output_tokens_details": {
+             "reasoning_tokens": 1363
+            },
+            "total_tokens": 1706
+           },
+           "reasoningTokens": 1363,
+           "cachedInputTokens": 0
+          },
+          "ms": 25535,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "solve"
+     }
+    },
+    {
+     "id": "ap-chemistry__2.2__A__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Intramolecular Force and Potential Energy",
+      "stem": "A student is given potential energy (PE) data for two hydrogen atoms as a function of internuclear distance. PE is defined as 0 kJ/mol for fully separated atoms. Data (distance in pm, PE in kJ/mol): 40, +250; 60, −380; 74, −436; 100, −360; 150, −150; 300, −5. The student plots internuclear distance on the x-axis. Which description of the correctly drawn graph is accurate?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "With x in pm and y in kJ/mol, the curve rises steeply below about 50 pm, reaches a minimum at (74 pm, −436 kJ/mol), and levels off toward 0 kJ/mol at large distances.",
+        "is_correct": true,
+        "rationale": "The lowest point marks the equilibrium bond length, 74 pm, and the well depth below the separated-atom zero, 436 kJ/mol, is the bond energy. Nuclear repulsion makes PE climb at short range, and the curve approaches 0 as the atoms stop interacting."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "With x in pm and y in kJ/mol, the curve reaches a minimum at 74 pm and then levels off at −436 kJ/mol at large distances.",
+        "is_correct": false,
+        "rationale": "This confuses the well depth with the long-distance asymptote. The data show PE rising back toward 0 kJ/mol by 300 pm, because separated atoms have zero PE by definition. Fix: Check where the curve should flatten by asking what PE the separated atoms were assigned."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "With x in pm and y in kJ/mol, the bond length is shown where the curve crosses 0 kJ/mol, near 50 pm, and the minimum marks where the atoms separate.",
+        "is_correct": false,
+        "rationale": "This misreads the zero crossing as the bond length. At about 50 pm repulsion and attraction give PE equal to that of separated atoms; the stable bond length is at the lowest PE, 74 pm. Fix: Locate the x-value of the lowest plotted point and label that as bond length."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "With x in pm and y in kJ/mol, the curve rises to a maximum of +436 kJ/mol at 74 pm, because energy must be added to break the bond.",
+        "is_correct": false,
+        "rationale": "This sign error treats the positive bond energy as a plotted peak. The tabulated PE at 74 pm is −436 kJ/mol, so the bond is an energy well, and 436 kJ/mol is the depth needed to climb out to 0. Fix: Plot each point with the sign given in the table before interpreting the curve."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 440,
+           "inputTokenDetails": {
+            "noCacheTokens": 440,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 67,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 41
+           },
+           "totalTokens": 507,
+           "raw": {
+            "input_tokens": 440,
+            "input_tokens_details": {
+             "cache_write_tokens": 0,
+             "cached_tokens": 0
+            },
+            "output_tokens": 67,
+            "output_tokens_details": {
+             "reasoning_tokens": 41
+            },
+            "total_tokens": 507
+           },
+           "reasoningTokens": 41,
+           "cachedInputTokens": 0
+          },
+          "ms": 3684,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 552,
+           "inputTokenDetails": {
+            "noCacheTokens": 552,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 441,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 411
+           },
+           "totalTokens": 993,
+           "raw": {
+            "thoughtsTokenCount": 411,
+            "promptTokenCount": 552,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 993,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 552
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 411,
+           "cachedInputTokens": 0
+          },
+          "ms": 4766,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 570,
+           "inputTokenDetails": {
+            "noCacheTokens": 314,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 667,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 647
+           },
+           "totalTokens": 1237,
+           "raw": {
+            "prompt_tokens": 570,
+            "completion_tokens": 667,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 314,
+            "total_tokens": 1237,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 647
+            }
+           },
+           "reasoningTokens": 647,
+           "cachedInputTokens": 256
+          },
+          "ms": 10523,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 351,
+           "inputTokenDetails": {
+            "noCacheTokens": 351,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1279,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 1249
+           },
+           "totalTokens": 1630,
+           "raw": {
+            "input_tokens": 351,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1279,
+            "output_tokens_details": {
+             "reasoning_tokens": 1249
+            },
+            "total_tokens": 1630
+           },
+           "reasoningTokens": 1249,
+           "cachedInputTokens": 0
+          },
+          "ms": 7259,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9368,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 9365
+           },
+           "outputTokens": 309,
+           "outputTokenDetails": {
+            "textTokens": 172,
+            "reasoningTokens": 137
+           },
+           "totalTokens": 9677,
+           "raw": {
+            "input_tokens": 9368,
+            "input_tokens_details": {
+             "cache_write_tokens": 9365,
+             "cached_tokens": 0
+            },
+            "output_tokens": 309,
+            "output_tokens_details": {
+             "reasoning_tokens": 137
+            },
+            "total_tokens": 9677
+           },
+           "reasoningTokens": 137,
+           "cachedInputTokens": 0
+          },
+          "ms": 9341,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10406,
+           "inputTokenDetails": {
+            "noCacheTokens": 10406,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1663,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 1401
+           },
+           "totalTokens": 12069,
+           "raw": {
+            "thoughtsTokenCount": 1401,
+            "promptTokenCount": 10406,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 12069,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 10406
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 1401,
+           "cachedInputTokens": 0
+          },
+          "ms": 12828,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9578,
+           "inputTokenDetails": {
+            "noCacheTokens": 746,
+            "cacheReadTokens": 8832
+           },
+           "outputTokens": 6192,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 5973
+           },
+           "totalTokens": 15770,
+           "raw": {
+            "prompt_tokens": 9578,
+            "completion_tokens": 6192,
+            "prompt_cache_hit_tokens": 8832,
+            "prompt_cache_miss_tokens": 746,
+            "total_tokens": 15770,
+            "prompt_tokens_details": {
+             "cached_tokens": 8832
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 5973
+            }
+           },
+           "reasoningTokens": 5973,
+           "cachedInputTokens": 8832
+          },
+          "ms": 75436,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8666,
+           "inputTokenDetails": {
+            "noCacheTokens": 8666,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 4105,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 3948
+           },
+           "totalTokens": 12771,
+           "raw": {
+            "input_tokens": 8666,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 4105,
+            "output_tokens_details": {
+             "reasoning_tokens": 3948
+            },
+            "total_tokens": 12771
+           },
+           "reasoningTokens": 3948,
+           "cachedInputTokens": 0
+          },
+          "ms": 15483,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15606,
+           "inputTokenDetails": {
+            "noCacheTokens": 1042,
+            "cacheReadTokens": 14564,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 638,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 426
+           },
+           "totalTokens": 16244,
+           "raw": {
+            "input_tokens": 1042,
+            "output_tokens": 638,
+            "output_tokens_details": {
+             "thinking_tokens": 426
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14564,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 426,
+           "cachedInputTokens": 14564
+          },
+          "ms": 6188,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "ap-chemistry__2.2__A__v1#r1-anthropic",
+      "kind": "variant",
+      "round": 1,
+      "author": "anthropic/claude-opus-5.5",
+      "author_family": "anthropic",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "ap-chemistry",
+       "unit_number": 2,
+       "topic_code": "2.2",
+       "topic_title": "Intramolecular Force and Potential Energy",
+       "stem": "A chemistry student models the bond in a Cl₂ molecule using calculated potential energy values for two chlorine atoms at several internuclear distances. The potential energy of two completely separated Cl atoms is set at 0 kJ/mol. Data (internuclear distance in pm, potential energy in kJ/mol): 150, +300; 180, −150; 199, −242; 230, −200; 300, −80; 500, −3. The student will put internuclear distance on the horizontal axis. Which statement correctly describes the graph the student should draw?",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "With distance in pm and energy in kJ/mol, the curve bottoms out at 199 pm and then flattens at −242 kJ/mol as the distance keeps increasing.",
+         "is_correct": false,
+         "rationale": "This confuses the depth of the well with the long-range asymptote. The data rise back to −3 kJ/mol by 500 pm, since separated atoms were assigned 0 kJ/mol. Fix: Ask what energy the fully separated atoms were assigned and flatten the curve there."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "With distance in pm and energy in kJ/mol, the curve climbs steeply at distances below about 180 pm, bottoms out at (199 pm, −242 kJ/mol), and flattens toward 0 kJ/mol at large distances.",
+         "is_correct": true,
+         "rationale": "The lowest point gives the equilibrium bond length, 199 pm, and its depth below the separated-atom zero, 242 kJ/mol, is the bond energy. Nucleus–nucleus repulsion raises the energy at short range, and the energy returns toward 0 as the atoms stop interacting."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "With distance in pm and energy in kJ/mol, the bond length is shown where the curve crosses 0 kJ/mol, near 170 pm, and the lowest point marks where the atoms separate.",
+         "is_correct": false,
+         "rationale": "This misreads the zero crossing as the bond length. Near 170 pm the energy merely equals that of separated atoms; the stable bond length is at the minimum energy, 199 pm. Fix: Find the x-value of the lowest plotted point and label it as bond length."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "With distance in pm and energy in kJ/mol, the curve rises to a peak of +242 kJ/mol at 199 pm, because energy must be added to break the bond.",
+         "is_correct": false,
+         "rationale": "This sign error plots the positive bond energy as a peak. The tabulated energy at 199 pm is −242 kJ/mol, so the bond is a well, and 242 kJ/mol is the energy needed to climb out to 0. Fix: Plot every point with the sign shown in the table before interpreting."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 458,
+            "inputTokenDetails": {
+             "noCacheTokens": 458,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 75,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 49
+            },
+            "totalTokens": 533,
+            "raw": {
+             "input_tokens": 458,
+             "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+             },
+             "output_tokens": 75,
+             "output_tokens_details": {
+              "reasoning_tokens": 49
+             },
+             "total_tokens": 533
+            },
+            "reasoningTokens": 49,
+            "cachedInputTokens": 0
+           },
+           "ms": 3336,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 576,
+            "inputTokenDetails": {
+             "noCacheTokens": 576,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 325,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 295
+            },
+            "totalTokens": 901,
+            "raw": {
+             "thoughtsTokenCount": 295,
+             "promptTokenCount": 576,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 901,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 576
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 295,
+            "cachedInputTokens": 0
+           },
+           "ms": 4916,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 588,
+            "inputTokenDetails": {
+             "noCacheTokens": 332,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 752,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 726
+            },
+            "totalTokens": 1340,
+            "raw": {
+             "prompt_tokens": 588,
+             "completion_tokens": 752,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 332,
+             "total_tokens": 1340,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 726
+             }
+            },
+            "reasoningTokens": 726,
+            "cachedInputTokens": 256
+           },
+           "ms": 10642,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 371,
+            "inputTokenDetails": {
+             "noCacheTokens": 371,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1362,
+            "outputTokenDetails": {
+             "textTokens": 25,
+             "reasoningTokens": 1337
+            },
+            "totalTokens": 1733,
+            "raw": {
+             "input_tokens": 371,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 1362,
+             "output_tokens_details": {
+              "reasoning_tokens": 1337
+             },
+             "total_tokens": 1733
+            },
+            "reasoningTokens": 1337,
+            "cachedInputTokens": 0
+           },
+           "ms": 16247,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9382,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 9379
+            },
+            "outputTokens": 372,
+            "outputTokenDetails": {
+             "textTokens": 222,
+             "reasoningTokens": 150
+            },
+            "totalTokens": 9754,
+            "raw": {
+             "input_tokens": 9382,
+             "input_tokens_details": {
+              "cache_write_tokens": 9379,
+              "cached_tokens": 0
+             },
+             "output_tokens": 372,
+             "output_tokens_details": {
+              "reasoning_tokens": 150
+             },
+             "total_tokens": 9754
+            },
+            "reasoningTokens": 150,
+            "cachedInputTokens": 0
+           },
+           "ms": 8111,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10430,
+            "inputTokenDetails": {
+             "noCacheTokens": 10430,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1461,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 1199
+            },
+            "totalTokens": 11891,
+            "raw": {
+             "thoughtsTokenCount": 1199,
+             "promptTokenCount": 10430,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 11891,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 10430
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 1199,
+            "cachedInputTokens": 0
+           },
+           "ms": 9779,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9591,
+            "inputTokenDetails": {
+             "noCacheTokens": 759,
+             "cacheReadTokens": 8832
+            },
+            "outputTokens": 5970,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 5751
+            },
+            "totalTokens": 15561,
+            "raw": {
+             "prompt_tokens": 9591,
+             "completion_tokens": 5970,
+             "prompt_cache_hit_tokens": 8832,
+             "prompt_cache_miss_tokens": 759,
+             "total_tokens": 15561,
+             "prompt_tokens_details": {
+              "cached_tokens": 8832
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 5751
+             }
+            },
+            "reasoningTokens": 5751,
+            "cachedInputTokens": 8832
+           },
+           "ms": 70301,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 8684,
+            "inputTokenDetails": {
+             "noCacheTokens": 8684,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 3425,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 3268
+            },
+            "totalTokens": 12109,
+            "raw": {
+             "input_tokens": 8684,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 3425,
+             "output_tokens_details": {
+              "reasoning_tokens": 3268
+             },
+             "total_tokens": 12109
+            },
+            "reasoningTokens": 3268,
+            "cachedInputTokens": 0
+           },
+           "ms": 29673,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 15639,
+            "inputTokenDetails": {
+             "noCacheTokens": 1075,
+             "cacheReadTokens": 14564,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 733,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 521
+            },
+            "totalTokens": 16372,
+            "raw": {
+             "input_tokens": 1075,
+             "output_tokens": 733,
+             "output_tokens_details": {
+              "thinking_tokens": 521
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14564,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 521,
+            "cachedInputTokens": 14564
+           },
+           "ms": 8281,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "ap-chemistry__2.2__A__seed#r1-anthropic",
+       "skill": "3.A",
+       "skill_status": "validated",
+       "practice": "3",
+       "practice_status": "validated",
+       "difficulty": "Medium",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.15272727272727274
+     },
+     "candidates": [
+      {
+       "id": "ap-chemistry__2.2__A__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.2",
+        "topic_title": "Intramolecular Force and Potential Energy",
+        "stem": "A computer model examines the potential energy of a carbon monoxide molecule as its carbon and oxygen atoms move apart. Completely separated atoms are assigned PE = 0 kJ/mol. The model gives these data (internuclear distance in pm, PE in kJ/mol): 80, +400; 95, −800; 113, −1070; 160, −550; 260, −80; 500, −3. With internuclear distance plotted horizontally, which description correctly represents the potential-energy curve?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "The axes use pm horizontally and kJ/mol vertically; PE has a minimum at 113 pm and approaches −1070 kJ/mol as the atoms move far apart.",
+          "is_correct": false,
+          "rationale": "Well-depth/asymptote confusion assigns the minimum energy to fully separated atoms. The large-distance values instead approach the defined zero, not −1070 kJ/mol. Fix: Identify the assigned separated-atom energy before drawing the curve’s far-right end."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "The axes use pm horizontally and kJ/mol vertically; the equilibrium bond length lies at the zero crossing between 80 and 95 pm, while the minimum represents fully separated atoms.",
+          "is_correct": false,
+          "rationale": "Zero-crossing confusion mistakes the energy reference for the equilibrium condition. Equilibrium occurs at the lowest PE, whereas the zero crossing merely has the same PE as separated atoms. Fix: Find the minimum first, then read its horizontal coordinate as the equilibrium bond length."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "The axes use pm horizontally and kJ/mol vertically; PE has a maximum at (113 pm, +1070 kJ/mol), showing the positive energy required to separate the atoms.",
+          "is_correct": false,
+          "rationale": "Bond-energy sign reversal turns the negative potential-energy minimum into a positive peak. Breaking the bond requires a positive energy input, but the tabulated PE of the bonded atoms remains −1070 kJ/mol. Fix: Preserve each tabulated sign when plotting, then measure bond energy upward from the minimum."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "The axes use pm horizontally and kJ/mol vertically; PE increases sharply as distance decreases below 95 pm, has a minimum at (113 pm, −1070 kJ/mol), and approaches zero at large distances.",
+          "is_correct": true,
+          "rationale": "The minimum gives an equilibrium bond length of 113 pm and a bond energy of 1070 kJ/mol relative to separated atoms. Short-range repulsion raises PE, while increasing separation eventually eliminates the interaction, bringing PE toward the assigned zero."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": false,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": "The minimum depth of 1070 kJ/mol corresponds to the actual CO bond dissociation energy (about 1072 kJ/mol), so the data are physically consistent. With these data, D is the only correct description. A gives the wrong large-distance limit: PE approaches 0, not −1070 kJ/mol. B wrongly places the equilibrium bond length at the zero crossing. C describes a maximum where the curve actually has a minimum."
+            },
+            "usage": {
+             "inputTokens": 923,
+             "inputTokenDetails": {
+              "noCacheTokens": 923,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 176,
+             "outputTokenDetails": {
+              "textTokens": 176,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 1099,
+             "raw": {
+              "input_tokens": 923,
+              "output_tokens": 176,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 4491,
+            "flags": [
+             "defect: The minimum depth of 1070 kJ/mol corresponds to the actual CO bond dissociation energy (about 1072 kJ/mol), so the data are physically consistent. With these data, D is the only correct description. A gives the wrong large-distance limit: PE approaches 0, not −1070 kJ/mol. B wrongly places the equilibrium bond length at the zero crossing. C describes a maximum where the curve actually has a minimum."
+            ]
+           },
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": "Minor wording issue: D says PE 'increases sharply as distance decreases below 95 pm'; strictly, the repulsive rise begins as soon as the distance drops below the 113 pm minimum, so 'below 95 pm' is only an approximate description of the steepest part. This does not make any other choice defensible: A wrongly has PE approach −1070 kJ/mol at large separation, B misplaces the equilibrium bond length at the zero crossing and treats the minimum as separated atoms, and C reports a maximum of +1070 kJ/mol instead of a minimum of −1070 kJ/mol."
+            },
+            "usage": {
+             "inputTokens": 923,
+             "inputTokenDetails": {
+              "noCacheTokens": 923,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 230,
+             "outputTokenDetails": {
+              "textTokens": 230,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 1153,
+             "raw": {
+              "input_tokens": 923,
+              "output_tokens": 230,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 4791,
+            "flags": [
+             "defect: Minor wording issue: D says PE 'increases sharply as distance decreases below 95 pm'; strictly, the repulsive rise begins as soon as the distance drops below the 113 pm minimum, so 'below 95 pm' is only an approximate description of the steepest part. This does not make any other choice defensible: A wrongly has PE approach −1070 kJ/mol at large separation, B misplaces the equilibrium bond length at the zero crossing and treats the minimum as separated atoms, and C reports a maximum of +1070 kJ/mol instead of a minimum of −1070 kJ/mol."
+            ]
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 547,
+             "inputTokenDetails": {
+              "noCacheTokens": 547,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 464,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 434
+             },
+             "totalTokens": 1011,
+             "raw": {
+              "thoughtsTokenCount": 434,
+              "promptTokenCount": 547,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 1011,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 547
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 434,
+             "cachedInputTokens": 0
+            },
+            "ms": 5556,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 563,
+             "inputTokenDetails": {
+              "noCacheTokens": 307,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 564,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 538
+             },
+             "totalTokens": 1127,
+             "raw": {
+              "prompt_tokens": 563,
+              "completion_tokens": 564,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 307,
+              "total_tokens": 1127,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 538
+              }
+             },
+             "reasoningTokens": 538,
+             "cachedInputTokens": 256
+            },
+            "ms": 7572,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "D",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 341,
+             "inputTokenDetails": {
+              "noCacheTokens": 341,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1036,
+             "outputTokenDetails": {
+              "textTokens": 25,
+              "reasoningTokens": 1011
+             },
+             "totalTokens": 1377,
+             "raw": {
+              "input_tokens": 341,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1036,
+              "output_tokens_details": {
+               "reasoning_tokens": 1011
+              },
+              "total_tokens": 1377
+             },
+             "reasoningTokens": 1011,
+             "cachedInputTokens": 0
+            },
+            "ms": 17764,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {},
+        "verdict": "rejected",
+        "stage": "solve"
+       }
+      },
+      {
+       "id": "ap-chemistry__2.2__A__v1#r1-anthropic",
+       "kind": "variant",
+       "round": 1,
+       "author": "anthropic/claude-opus-5.5",
+       "author_family": "anthropic",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.2",
+        "topic_title": "Intramolecular Force and Potential Energy",
+        "stem": "A chemistry student models the bond in a Cl₂ molecule using calculated potential energy values for two chlorine atoms at several internuclear distances. The potential energy of two completely separated Cl atoms is set at 0 kJ/mol. Data (internuclear distance in pm, potential energy in kJ/mol): 150, +300; 180, −150; 199, −242; 230, −200; 300, −80; 500, −3. The student will put internuclear distance on the horizontal axis. Which statement correctly describes the graph the student should draw?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "With distance in pm and energy in kJ/mol, the curve bottoms out at 199 pm and then flattens at −242 kJ/mol as the distance keeps increasing.",
+          "is_correct": false,
+          "rationale": "This confuses the depth of the well with the long-range asymptote. The data rise back to −3 kJ/mol by 500 pm, since separated atoms were assigned 0 kJ/mol. Fix: Ask what energy the fully separated atoms were assigned and flatten the curve there."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "With distance in pm and energy in kJ/mol, the curve climbs steeply at distances below about 180 pm, bottoms out at (199 pm, −242 kJ/mol), and flattens toward 0 kJ/mol at large distances.",
+          "is_correct": true,
+          "rationale": "The lowest point gives the equilibrium bond length, 199 pm, and its depth below the separated-atom zero, 242 kJ/mol, is the bond energy. Nucleus–nucleus repulsion raises the energy at short range, and the energy returns toward 0 as the atoms stop interacting."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "With distance in pm and energy in kJ/mol, the bond length is shown where the curve crosses 0 kJ/mol, near 170 pm, and the lowest point marks where the atoms separate.",
+          "is_correct": false,
+          "rationale": "This misreads the zero crossing as the bond length. Near 170 pm the energy merely equals that of separated atoms; the stable bond length is at the minimum energy, 199 pm. Fix: Find the x-value of the lowest plotted point and label it as bond length."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "With distance in pm and energy in kJ/mol, the curve rises to a peak of +242 kJ/mol at 199 pm, because energy must be added to break the bond.",
+          "is_correct": false,
+          "rationale": "This sign error plots the positive bond energy as a peak. The tabulated energy at 199 pm is −242 kJ/mol, so the bond is a well, and 242 kJ/mol is the energy needed to climb out to 0. Fix: Plot every point with the sign shown in the table before interpreting."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 458,
+             "inputTokenDetails": {
+              "noCacheTokens": 458,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 75,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 49
+             },
+             "totalTokens": 533,
+             "raw": {
+              "input_tokens": 458,
+              "input_tokens_details": {
+               "cache_write_tokens": 0,
+               "cached_tokens": 0
+              },
+              "output_tokens": 75,
+              "output_tokens_details": {
+               "reasoning_tokens": 49
+              },
+              "total_tokens": 533
+             },
+             "reasoningTokens": 49,
+             "cachedInputTokens": 0
+            },
+            "ms": 3336,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 576,
+             "inputTokenDetails": {
+              "noCacheTokens": 576,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 325,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 295
+             },
+             "totalTokens": 901,
+             "raw": {
+              "thoughtsTokenCount": 295,
+              "promptTokenCount": 576,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 901,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 576
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 295,
+             "cachedInputTokens": 0
+            },
+            "ms": 4916,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 588,
+             "inputTokenDetails": {
+              "noCacheTokens": 332,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 752,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 726
+             },
+             "totalTokens": 1340,
+             "raw": {
+              "prompt_tokens": 588,
+              "completion_tokens": 752,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 332,
+              "total_tokens": 1340,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 726
+              }
+             },
+             "reasoningTokens": 726,
+             "cachedInputTokens": 256
+            },
+            "ms": 10642,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 371,
+             "inputTokenDetails": {
+              "noCacheTokens": 371,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1362,
+             "outputTokenDetails": {
+              "textTokens": 25,
+              "reasoningTokens": 1337
+             },
+             "totalTokens": 1733,
+             "raw": {
+              "input_tokens": 371,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1362,
+              "output_tokens_details": {
+               "reasoning_tokens": 1337
+              },
+              "total_tokens": 1733
+             },
+             "reasoningTokens": 1337,
+             "cachedInputTokens": 0
+            },
+            "ms": 16247,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9382,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 9379
+             },
+             "outputTokens": 372,
+             "outputTokenDetails": {
+              "textTokens": 222,
+              "reasoningTokens": 150
+             },
+             "totalTokens": 9754,
+             "raw": {
+              "input_tokens": 9382,
+              "input_tokens_details": {
+               "cache_write_tokens": 9379,
+               "cached_tokens": 0
+              },
+              "output_tokens": 372,
+              "output_tokens_details": {
+               "reasoning_tokens": 150
+              },
+              "total_tokens": 9754
+             },
+             "reasoningTokens": 150,
+             "cachedInputTokens": 0
+            },
+            "ms": 8111,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10430,
+             "inputTokenDetails": {
+              "noCacheTokens": 10430,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1461,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 1199
+             },
+             "totalTokens": 11891,
+             "raw": {
+              "thoughtsTokenCount": 1199,
+              "promptTokenCount": 10430,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 11891,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 10430
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 1199,
+             "cachedInputTokens": 0
+            },
+            "ms": 9779,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9591,
+             "inputTokenDetails": {
+              "noCacheTokens": 759,
+              "cacheReadTokens": 8832
+             },
+             "outputTokens": 5970,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 5751
+             },
+             "totalTokens": 15561,
+             "raw": {
+              "prompt_tokens": 9591,
+              "completion_tokens": 5970,
+              "prompt_cache_hit_tokens": 8832,
+              "prompt_cache_miss_tokens": 759,
+              "total_tokens": 15561,
+              "prompt_tokens_details": {
+               "cached_tokens": 8832
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 5751
+              }
+             },
+             "reasoningTokens": 5751,
+             "cachedInputTokens": 8832
+            },
+            "ms": 70301,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 8684,
+             "inputTokenDetails": {
+              "noCacheTokens": 8684,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 3425,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 3268
+             },
+             "totalTokens": 12109,
+             "raw": {
+              "input_tokens": 8684,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 3425,
+              "output_tokens_details": {
+               "reasoning_tokens": 3268
+              },
+              "total_tokens": 12109
+             },
+             "reasoningTokens": 3268,
+             "cachedInputTokens": 0
+            },
+            "ms": 29673,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 15639,
+             "inputTokenDetails": {
+              "noCacheTokens": 1075,
+              "cacheReadTokens": 14564,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 733,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 521
+             },
+             "totalTokens": 16372,
+             "raw": {
+              "input_tokens": 1075,
+              "output_tokens": 733,
+              "output_tokens_details": {
+               "thinking_tokens": 521
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14564,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 521,
+             "cachedInputTokens": 14564
+            },
+            "ms": 8281,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  },
+  {
+   "slot": {
+    "slot": "B",
+    "practice": "3",
+    "skills": [
+     "3.B",
+     "3.C"
+    ]
+   },
+   "seed": {
+    "id": "ap-chemistry__2.2__B__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-chemistry",
+     "unit_number": 2,
+     "topic_code": "2.2",
+     "topic_title": "Intramolecular Force and Potential Energy",
+     "stem": "A student is constructing a potential-energy-versus-internuclear-distance model comparing a C–C single bond with a C=C double bond. Both curves use zero potential energy for fully separated atoms. How should the student represent the double-bond curve relative to the single-bond curve?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "Place its minimum at a smaller internuclear distance and a more negative potential energy.",
+       "is_correct": true,
+       "rationale": "The minimum’s position represents equilibrium bond length, and its depth below zero represents bond energy. The higher-order double bond is shorter and stronger, so its minimum lies at a smaller distance and requires more energy to reach zero."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "Place its minimum at a greater internuclear distance and a more negative potential energy.",
+       "is_correct": false,
+       "rationale": "Length–strength reversal: This correctly represents greater bond energy but incorrectly makes the double bond longer. Higher bond order produces a shorter equilibrium bond length. Fix: Move the minimum toward smaller internuclear distance when bond order increases."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "Place its minimum at a smaller internuclear distance and a less negative potential energy.",
+       "is_correct": false,
+       "rationale": "Potential-energy sign confusion: A less negative minimum is closer to zero, so it represents less energy needed to separate the atoms. That would incorrectly model the double bond as weaker. Fix: Compare the vertical gaps between the minima and zero, not their signed energy values."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "Place its minimum at the same internuclear distance and a more negative potential energy.",
+       "is_correct": false,
+       "rationale": "Energy-only bond-order misconception: This represents the increased bond energy but ignores the change in equilibrium bond length. Increasing bond order also brings the bonded atoms closer together. Fix: Adjust both the horizontal position and the depth when modeling increased bond order."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 695,
+          "inputTokenDetails": {
+           "noCacheTokens": 695,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 725,
+          "raw": {
+           "input_tokens": 695,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 8788,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 380,
+          "inputTokenDetails": {
+           "noCacheTokens": 380,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 262,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 232
+          },
+          "totalTokens": 642,
+          "raw": {
+           "thoughtsTokenCount": 232,
+           "promptTokenCount": 380,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 642,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 380
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 232,
+          "cachedInputTokens": 0
+         },
+         "ms": 3225,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 434,
+          "inputTokenDetails": {
+           "noCacheTokens": 178,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 367,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 347
+          },
+          "totalTokens": 801,
+          "raw": {
+           "prompt_tokens": 434,
+           "completion_tokens": 367,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 178,
+           "total_tokens": 801,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 347
+           }
+          },
+          "reasoningTokens": 347,
+          "cachedInputTokens": 256
+         },
+         "ms": 6144,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 203,
+          "inputTokenDetails": {
+           "noCacheTokens": 203,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1292,
+          "outputTokenDetails": {
+           "textTokens": 25,
+           "reasoningTokens": 1267
+          },
+          "totalTokens": 1495,
+          "raw": {
+           "input_tokens": 203,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1292,
+           "output_tokens_details": {
+            "reasoning_tokens": 1267
+           },
+           "total_tokens": 1495
+          },
+          "reasoningTokens": 1267,
+          "cachedInputTokens": 0
+         },
+         "ms": 25097,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15363,
+          "inputTokenDetails": {
+           "noCacheTokens": 799,
+           "cacheReadTokens": 14564,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 544,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 332
+          },
+          "totalTokens": 15907,
+          "raw": {
+           "input_tokens": 799,
+           "output_tokens": 544,
+           "output_tokens_details": {
+            "thinking_tokens": 332
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14564,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 332,
+          "cachedInputTokens": 14564
+         },
+         "ms": 9201,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10174,
+          "inputTokenDetails": {
+           "noCacheTokens": 10174,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1040,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 778
+          },
+          "totalTokens": 11214,
+          "raw": {
+           "thoughtsTokenCount": 778,
+           "promptTokenCount": 10174,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11214,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 10174
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 778,
+          "cachedInputTokens": 0
+         },
+         "ms": 8382,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9391,
+          "inputTokenDetails": {
+           "noCacheTokens": 431,
+           "cacheReadTokens": 8960
+          },
+          "outputTokens": 4644,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 4425
+          },
+          "totalTokens": 14035,
+          "raw": {
+           "prompt_tokens": 9391,
+           "completion_tokens": 4644,
+           "prompt_cache_hit_tokens": 8960,
+           "prompt_cache_miss_tokens": 431,
+           "total_tokens": 14035,
+           "prompt_tokens_details": {
+            "cached_tokens": 8960
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 4425
+           }
+          },
+          "reasoningTokens": 4425,
+          "cachedInputTokens": 8960
+         },
+         "ms": 53438,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8468,
+          "inputTokenDetails": {
+           "noCacheTokens": 8468,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 3599,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 3442
+          },
+          "totalTokens": 12067,
+          "raw": {
+           "input_tokens": 8468,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 3599,
+           "output_tokens_details": {
+            "reasoning_tokens": 3442
+           },
+           "total_tokens": 12067
+          },
+          "reasoningTokens": 3442,
+          "cachedInputTokens": 0
+         },
+         "ms": 10634,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.2",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9166,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 9163
+          },
+          "outputTokens": 270,
+          "outputTokenDetails": {
+           "textTokens": 222,
+           "reasoningTokens": 48
+          },
+          "totalTokens": 9436,
+          "raw": {
+           "input_tokens": 9166,
+           "input_tokens_details": {
+            "cache_write_tokens": 9163,
+            "cached_tokens": 0
+           },
+           "output_tokens": 270,
+           "output_tokens_details": {
+            "reasoning_tokens": 48
+           },
+           "total_tokens": 9436
+          },
+          "reasoningTokens": 48,
+          "cachedInputTokens": 0
+         },
+         "ms": 7194,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "B",
+     "practice": "3",
+     "skills": [
+      "3.B",
+      "3.C"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "3.A",
+       "difficulty": "Medium",
+       "reason": "The student must sketch a potential-energy-versus-internuclear-distance curve, so the core task is choosing how to place the curve on graph axes. It takes one step: apply the bond order trend (higher order means shorter and stronger) to where the minimum sits."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "3.A",
+       "difficulty": "Medium",
+       "reason": "The question requires translating two separate concepts regarding bond order (bond length decreases and bond energy increases) into specific graphical features of a potential energy curve (horizontal position of the minimum and well depth)."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "3.A",
+       "difficulty": "Medium",
+       "reason": "The question asks students to apply the concept that higher bond order gives shorter, stronger bonds to interpret and construct features of a potential-energy curve, relating equilibrium bond length to minimum position and bond energy to the depth of the well."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Hard",
+       "reason": "Requires representing bonding with a potential-energy model by mapping minimum x-position to equilibrium length and depth below zero to bond energy, and combining two bond-order trends – double bond shorter and stronger – to place the curve. This is model use (3.B), not graphing scale/units, and needs multi-step integration rather than single recall."
+      }
+     ],
+     "skill": "3.A",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "3.A",
+       3
+      ],
+      [
+       "3.B",
+       1
+      ]
+     ],
+     "practice": "3",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "3",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       3
+      ],
+      [
+       "Hard",
+       1
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-chemistry__2.2__B__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.2",
+      "topic_title": "Intramolecular Force and Potential Energy",
+      "stem": "A student is constructing a potential-energy-versus-internuclear-distance model comparing a C–C single bond with a C=C double bond. Both curves use zero potential energy for fully separated atoms. How should the student represent the double-bond curve relative to the single-bond curve?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Place its minimum at a smaller internuclear distance and a more negative potential energy.",
+        "is_correct": true,
+        "rationale": "The minimum’s position represents equilibrium bond length, and its depth below zero represents bond energy. The higher-order double bond is shorter and stronger, so its minimum lies at a smaller distance and requires more energy to reach zero."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Place its minimum at a greater internuclear distance and a more negative potential energy.",
+        "is_correct": false,
+        "rationale": "Length–strength reversal: This correctly represents greater bond energy but incorrectly makes the double bond longer. Higher bond order produces a shorter equilibrium bond length. Fix: Move the minimum toward smaller internuclear distance when bond order increases."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "Place its minimum at a smaller internuclear distance and a less negative potential energy.",
+        "is_correct": false,
+        "rationale": "Potential-energy sign confusion: A less negative minimum is closer to zero, so it represents less energy needed to separate the atoms. That would incorrectly model the double bond as weaker. Fix: Compare the vertical gaps between the minima and zero, not their signed energy values."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Place its minimum at the same internuclear distance and a more negative potential energy.",
+        "is_correct": false,
+        "rationale": "Energy-only bond-order misconception: This represents the increased bond energy but ignores the change in equilibrium bond length. Increasing bond order also brings the bonded atoms closer together. Fix: Adjust both the horizontal position and the depth when modeling increased bond order."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 695,
+           "inputTokenDetails": {
+            "noCacheTokens": 695,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 725,
+           "raw": {
+            "input_tokens": 695,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 8788,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 380,
+           "inputTokenDetails": {
+            "noCacheTokens": 380,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 262,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 232
+           },
+           "totalTokens": 642,
+           "raw": {
+            "thoughtsTokenCount": 232,
+            "promptTokenCount": 380,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 642,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 380
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 232,
+           "cachedInputTokens": 0
+          },
+          "ms": 3225,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 434,
+           "inputTokenDetails": {
+            "noCacheTokens": 178,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 367,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 347
+           },
+           "totalTokens": 801,
+           "raw": {
+            "prompt_tokens": 434,
+            "completion_tokens": 367,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 178,
+            "total_tokens": 801,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 347
+            }
+           },
+           "reasoningTokens": 347,
+           "cachedInputTokens": 256
+          },
+          "ms": 6144,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 203,
+           "inputTokenDetails": {
+            "noCacheTokens": 203,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1292,
+           "outputTokenDetails": {
+            "textTokens": 25,
+            "reasoningTokens": 1267
+           },
+           "totalTokens": 1495,
+           "raw": {
+            "input_tokens": 203,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1292,
+            "output_tokens_details": {
+             "reasoning_tokens": 1267
+            },
+            "total_tokens": 1495
+           },
+           "reasoningTokens": 1267,
+           "cachedInputTokens": 0
+          },
+          "ms": 25097,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15363,
+           "inputTokenDetails": {
+            "noCacheTokens": 799,
+            "cacheReadTokens": 14564,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 544,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 332
+           },
+           "totalTokens": 15907,
+           "raw": {
+            "input_tokens": 799,
+            "output_tokens": 544,
+            "output_tokens_details": {
+             "thinking_tokens": 332
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14564,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 332,
+           "cachedInputTokens": 14564
+          },
+          "ms": 9201,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10174,
+           "inputTokenDetails": {
+            "noCacheTokens": 10174,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1040,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 778
+           },
+           "totalTokens": 11214,
+           "raw": {
+            "thoughtsTokenCount": 778,
+            "promptTokenCount": 10174,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11214,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 10174
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 778,
+           "cachedInputTokens": 0
+          },
+          "ms": 8382,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9391,
+           "inputTokenDetails": {
+            "noCacheTokens": 431,
+            "cacheReadTokens": 8960
+           },
+           "outputTokens": 4644,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 4425
+           },
+           "totalTokens": 14035,
+           "raw": {
+            "prompt_tokens": 9391,
+            "completion_tokens": 4644,
+            "prompt_cache_hit_tokens": 8960,
+            "prompt_cache_miss_tokens": 431,
+            "total_tokens": 14035,
+            "prompt_tokens_details": {
+             "cached_tokens": 8960
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 4425
+            }
+           },
+           "reasoningTokens": 4425,
+           "cachedInputTokens": 8960
+          },
+          "ms": 53438,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8468,
+           "inputTokenDetails": {
+            "noCacheTokens": 8468,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 3599,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 3442
+           },
+           "totalTokens": 12067,
+           "raw": {
+            "input_tokens": 8468,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 3599,
+            "output_tokens_details": {
+             "reasoning_tokens": 3442
+            },
+            "total_tokens": 12067
+           },
+           "reasoningTokens": 3442,
+           "cachedInputTokens": 0
+          },
+          "ms": 10634,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.2",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9166,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 9163
+           },
+           "outputTokens": 270,
+           "outputTokenDetails": {
+            "textTokens": 222,
+            "reasoningTokens": 48
+           },
+           "totalTokens": 9436,
+           "raw": {
+            "input_tokens": 9166,
+            "input_tokens_details": {
+             "cache_write_tokens": 9163,
+             "cached_tokens": 0
+            },
+            "output_tokens": 270,
+            "output_tokens_details": {
+             "reasoning_tokens": 48
+            },
+            "total_tokens": 9436
+           },
+           "reasoningTokens": 48,
+           "cachedInputTokens": 0
+          },
+          "ms": 7194,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "ap-chemistry__2.2__B__v1#r1-anthropic",
+      "kind": "variant",
+      "round": 1,
+      "author": "anthropic/claude-opus-5.5",
+      "author_family": "anthropic",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "ap-chemistry",
+       "unit_number": 2,
+       "topic_code": "2.2",
+       "topic_title": "Intramolecular Force and Potential Energy",
+       "stem": "For a lab report, a student sketches two potential-energy-versus-internuclear-distance curves on one set of axes: one for the N–N single bond in hydrazine and one for the N≡N triple bond in nitrogen gas. Potential energy is set to zero for fully separated atoms. How should the student draw the triple-bond curve compared with the single-bond curve?",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "Its minimum should sit at a shorter internuclear distance and lie farther below zero.",
+         "is_correct": true,
+         "rationale": "The x-value of a curve's minimum represents equilibrium bond length, and the well depth below zero represents bond energy. A triple bond is shorter and stronger than a single bond between the same atoms, so its minimum sits at smaller distance and lies deeper below zero."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "Its minimum should sit at a longer internuclear distance and lie farther below zero.",
+         "is_correct": false,
+         "rationale": "Length–strength reversal: this deepens the well correctly but makes the triple bond longer. Higher bond order pulls the nuclei closer together, so the minimum must shift to a smaller distance. Fix: Shift the minimum toward smaller distance whenever bond order increases."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "Its minimum should sit at a shorter internuclear distance and lie closer to zero.",
+         "is_correct": false,
+         "rationale": "Potential-energy sign confusion: a minimum closer to zero means less energy is needed to separate the atoms, which would model the triple bond as weaker. The stronger bond needs the deeper well. Fix: Measure the vertical gap from each minimum up to zero before comparing bond strengths."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "Its minimum should sit at the same internuclear distance and lie farther below zero.",
+         "is_correct": false,
+         "rationale": "Energy-only bond-order misconception: this shows the larger bond energy but ignores the shorter equilibrium bond length. Raising bond order changes both the position and the depth of the minimum. Fix: Adjust both the horizontal position and the depth of the minimum when bond order changes."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "A",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 317,
+            "inputTokenDetails": {
+             "noCacheTokens": 317,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 94,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 68
+            },
+            "totalTokens": 411,
+            "raw": {
+             "input_tokens": 317,
+             "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+             },
+             "output_tokens": 94,
+             "output_tokens_details": {
+              "reasoning_tokens": 68
+             },
+             "total_tokens": 411
+            },
+            "reasoningTokens": 68,
+            "cachedInputTokens": 0
+           },
+           "ms": 4505,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "A",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 398,
+            "inputTokenDetails": {
+             "noCacheTokens": 398,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 316,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 286
+            },
+            "totalTokens": 714,
+            "raw": {
+             "thoughtsTokenCount": 286,
+             "promptTokenCount": 398,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 714,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 398
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 286,
+            "cachedInputTokens": 0
+           },
+           "ms": 3785,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "A",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 455,
+            "inputTokenDetails": {
+             "noCacheTokens": 199,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 391,
+            "outputTokenDetails": {
+             "textTokens": 20,
+             "reasoningTokens": 371
+            },
+            "totalTokens": 846,
+            "raw": {
+             "prompt_tokens": 455,
+             "completion_tokens": 391,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 199,
+             "total_tokens": 846,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 371
+             }
+            },
+            "reasoningTokens": 371,
+            "cachedInputTokens": 256
+           },
+           "ms": 5976,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "A",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 223,
+            "inputTokenDetails": {
+             "noCacheTokens": 223,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 2788,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 2758
+            },
+            "totalTokens": 3011,
+            "raw": {
+             "input_tokens": 223,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 2788,
+             "output_tokens_details": {
+              "reasoning_tokens": 2758
+             },
+             "total_tokens": 3011
+            },
+            "reasoningTokens": 2758,
+            "cachedInputTokens": 0
+           },
+           "ms": 22324,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9207,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 9204
+            },
+            "outputTokens": 274,
+            "outputTokenDetails": {
+             "textTokens": 172,
+             "reasoningTokens": 102
+            },
+            "totalTokens": 9481,
+            "raw": {
+             "input_tokens": 9207,
+             "input_tokens_details": {
+              "cache_write_tokens": 9204,
+              "cached_tokens": 0
+             },
+             "output_tokens": 274,
+             "output_tokens_details": {
+              "reasoning_tokens": 102
+             },
+             "total_tokens": 9481
+            },
+            "reasoningTokens": 102,
+            "cachedInputTokens": 0
+           },
+           "ms": 7774,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10211,
+            "inputTokenDetails": {
+             "noCacheTokens": 10211,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1070,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 808
+            },
+            "totalTokens": 11281,
+            "raw": {
+             "thoughtsTokenCount": 808,
+             "promptTokenCount": 10211,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 11281,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 10211
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 808,
+            "cachedInputTokens": 0
+           },
+           "ms": 8210,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9430,
+            "inputTokenDetails": {
+             "noCacheTokens": 470,
+             "cacheReadTokens": 8960
+            },
+            "outputTokens": 5073,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 4854
+            },
+            "totalTokens": 14503,
+            "raw": {
+             "prompt_tokens": 9430,
+             "completion_tokens": 5073,
+             "prompt_cache_hit_tokens": 8960,
+             "prompt_cache_miss_tokens": 470,
+             "total_tokens": 14503,
+             "prompt_tokens_details": {
+              "cached_tokens": 8960
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 4854
+             }
+            },
+            "reasoningTokens": 4854,
+            "cachedInputTokens": 8960
+           },
+           "ms": 56931,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 8508,
+            "inputTokenDetails": {
+             "noCacheTokens": 8508,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 4752,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 4595
+            },
+            "totalTokens": 13260,
+            "raw": {
+             "input_tokens": 8508,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 4752,
+             "output_tokens_details": {
+              "reasoning_tokens": 4595
+             },
+             "total_tokens": 13260
+            },
+            "reasoningTokens": 4595,
+            "cachedInputTokens": 0
+           },
+           "ms": 60716,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.2",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 15421,
+            "inputTokenDetails": {
+             "noCacheTokens": 857,
+             "cacheReadTokens": 14564,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 546,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 334
+            },
+            "totalTokens": 15967,
+            "raw": {
+             "input_tokens": 857,
+             "output_tokens": 546,
+             "output_tokens_details": {
+              "thinking_tokens": 334
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14564,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 334,
+            "cachedInputTokens": 14564
+           },
+           "ms": 9010,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "ap-chemistry__2.2__B__seed#r1-openai",
+       "skill": "3.A",
+       "skill_status": "validated",
+       "practice": "3",
+       "practice_status": "validated",
+       "difficulty": "Medium",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.1056338028169014
+     },
+     "candidates": [
+      {
+       "id": "ap-chemistry__2.2__B__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.2",
+        "topic_title": "Intramolecular Force and Potential Energy",
+        "stem": "A textbook illustrator has drawn a potential-energy curve for a nitrogen–nitrogen triple bond and now needs to add one for a nitrogen–nitrogen double bond. The shared axes show internuclear distance in pm and potential energy in kJ/mol, with separated atoms assigned zero energy. Where should the double-bond minimum appear relative to the triple-bond minimum?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "At a smaller internuclear distance and a less negative potential energy.",
+          "is_correct": false,
+          "rationale": "Length–strength reversal: The shallower well correctly indicates a weaker bond, but the smaller distance incorrectly indicates a shorter bond. Decreasing bond order increases equilibrium bond length. Fix: Shift the minimum toward greater distance when bond order decreases."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "At a greater internuclear distance and a less negative potential energy.",
+          "is_correct": true,
+          "rationale": "The double bond is longer and weaker than the triple bond. Its minimum therefore occurs farther along the distance axis and closer to zero energy, giving a smaller energy requirement for separating the bonded atoms."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "At a greater internuclear distance and a more negative potential energy.",
+          "is_correct": false,
+          "rationale": "Potential-energy sign confusion: A more negative minimum creates a larger energy gap to zero, indicating a stronger bond. The double bond instead requires less energy to separate than the triple bond. Fix: Measure the vertical gap to zero before deciding which well represents the weaker bond."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "At the same internuclear distance and a less negative potential energy.",
+          "is_correct": false,
+          "rationale": "Energy-only bond-order misconception: The shallower well represents reduced bond energy but leaves the equilibrium bond length unchanged. A decrease from triple to double bond order also increases bond length. Fix: Change both the minimum’s horizontal position and its depth when bond order changes."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": false,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": "Nitrogen–nitrogen bond lengths and energies are approximate: the triple bond is about 110 pm and roughly 945 kJ/mol, while the double bond is about 125 pm and roughly 418 kJ/mol. A lower bond order gives a longer bond and a shallower well, so the double-bond minimum sits at a greater internuclear distance and a less negative potential energy. The question is well posed with exactly one correct choice."
+            },
+            "usage": {
+             "inputTokens": 712,
+             "inputTokenDetails": {
+              "noCacheTokens": 712,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 174,
+             "outputTokenDetails": {
+              "textTokens": 174,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 886,
+             "raw": {
+              "input_tokens": 712,
+              "output_tokens": 174,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 5630,
+            "flags": [
+             "defect: Nitrogen–nitrogen bond lengths and energies are approximate: the triple bond is about 110 pm and roughly 945 kJ/mol, while the double bond is about 125 pm and roughly 418 kJ/mol. A lower bond order gives a longer bond and a shallower well, so the double-bond minimum sits at a greater internuclear distance and a less negative potential energy. The question is well posed with exactly one correct choice."
+            ]
+           },
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": "The question is well posed. An N=N double bond is longer than the N≡N triple bond (about 125 pm versus 110 pm) and weaker (about 418 kJ/mol versus 945 kJ/mol). Its minimum therefore sits at a greater internuclear distance and a less negative potential energy, which is choice B."
+            },
+            "usage": {
+             "inputTokens": 712,
+             "inputTokenDetails": {
+              "noCacheTokens": 712,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 135,
+             "outputTokenDetails": {
+              "textTokens": 135,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 847,
+             "raw": {
+              "input_tokens": 712,
+              "output_tokens": 135,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 3771,
+            "flags": [
+             "defect: The question is well posed. An N=N double bond is longer than the N≡N triple bond (about 125 pm versus 110 pm) and weaker (about 418 kJ/mol versus 945 kJ/mol). Its minimum therefore sits at a greater internuclear distance and a less negative potential energy, which is choice B."
+            ]
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 379,
+             "inputTokenDetails": {
+              "noCacheTokens": 379,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 282,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 252
+             },
+             "totalTokens": 661,
+             "raw": {
+              "thoughtsTokenCount": 252,
+              "promptTokenCount": 379,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 661,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 379
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 252,
+             "cachedInputTokens": 0
+            },
+            "ms": 3583,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 436,
+             "inputTokenDetails": {
+              "noCacheTokens": 180,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 287,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 261
+             },
+             "totalTokens": 723,
+             "raw": {
+              "prompt_tokens": 436,
+              "completion_tokens": 287,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 180,
+              "total_tokens": 723,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 261
+              }
+             },
+             "reasoningTokens": 261,
+             "cachedInputTokens": 256
+            },
+            "ms": 5520,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 207,
+             "inputTokenDetails": {
+              "noCacheTokens": 207,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1296,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 1266
+             },
+             "totalTokens": 1503,
+             "raw": {
+              "input_tokens": 207,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1296,
+              "output_tokens_details": {
+               "reasoning_tokens": 1266
+              },
+              "total_tokens": 1503
+             },
+             "reasoningTokens": 1266,
+             "cachedInputTokens": 0
+            },
+            "ms": 7001,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {},
+        "verdict": "rejected",
+        "stage": "solve"
+       }
+      },
+      {
+       "id": "ap-chemistry__2.2__B__v1#r1-anthropic",
+       "kind": "variant",
+       "round": 1,
+       "author": "anthropic/claude-opus-5.5",
+       "author_family": "anthropic",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.2",
+        "topic_title": "Intramolecular Force and Potential Energy",
+        "stem": "For a lab report, a student sketches two potential-energy-versus-internuclear-distance curves on one set of axes: one for the N–N single bond in hydrazine and one for the N≡N triple bond in nitrogen gas. Potential energy is set to zero for fully separated atoms. How should the student draw the triple-bond curve compared with the single-bond curve?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Its minimum should sit at a shorter internuclear distance and lie farther below zero.",
+          "is_correct": true,
+          "rationale": "The x-value of a curve's minimum represents equilibrium bond length, and the well depth below zero represents bond energy. A triple bond is shorter and stronger than a single bond between the same atoms, so its minimum sits at smaller distance and lies deeper below zero."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Its minimum should sit at a longer internuclear distance and lie farther below zero.",
+          "is_correct": false,
+          "rationale": "Length–strength reversal: this deepens the well correctly but makes the triple bond longer. Higher bond order pulls the nuclei closer together, so the minimum must shift to a smaller distance. Fix: Shift the minimum toward smaller distance whenever bond order increases."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "Its minimum should sit at a shorter internuclear distance and lie closer to zero.",
+          "is_correct": false,
+          "rationale": "Potential-energy sign confusion: a minimum closer to zero means less energy is needed to separate the atoms, which would model the triple bond as weaker. The stronger bond needs the deeper well. Fix: Measure the vertical gap from each minimum up to zero before comparing bond strengths."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "Its minimum should sit at the same internuclear distance and lie farther below zero.",
+          "is_correct": false,
+          "rationale": "Energy-only bond-order misconception: this shows the larger bond energy but ignores the shorter equilibrium bond length. Raising bond order changes both the position and the depth of the minimum. Fix: Adjust both the horizontal position and the depth of the minimum when bond order changes."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 317,
+             "inputTokenDetails": {
+              "noCacheTokens": 317,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 94,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 68
+             },
+             "totalTokens": 411,
+             "raw": {
+              "input_tokens": 317,
+              "input_tokens_details": {
+               "cache_write_tokens": 0,
+               "cached_tokens": 0
+              },
+              "output_tokens": 94,
+              "output_tokens_details": {
+               "reasoning_tokens": 68
+              },
+              "total_tokens": 411
+             },
+             "reasoningTokens": 68,
+             "cachedInputTokens": 0
+            },
+            "ms": 4505,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 398,
+             "inputTokenDetails": {
+              "noCacheTokens": 398,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 316,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 286
+             },
+             "totalTokens": 714,
+             "raw": {
+              "thoughtsTokenCount": 286,
+              "promptTokenCount": 398,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 714,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 398
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 286,
+             "cachedInputTokens": 0
+            },
+            "ms": 3785,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 455,
+             "inputTokenDetails": {
+              "noCacheTokens": 199,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 391,
+             "outputTokenDetails": {
+              "textTokens": 20,
+              "reasoningTokens": 371
+             },
+             "totalTokens": 846,
+             "raw": {
+              "prompt_tokens": 455,
+              "completion_tokens": 391,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 199,
+              "total_tokens": 846,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 371
+              }
+             },
+             "reasoningTokens": 371,
+             "cachedInputTokens": 256
+            },
+            "ms": 5976,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 223,
+             "inputTokenDetails": {
+              "noCacheTokens": 223,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 2788,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 2758
+             },
+             "totalTokens": 3011,
+             "raw": {
+              "input_tokens": 223,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 2788,
+              "output_tokens_details": {
+               "reasoning_tokens": 2758
+              },
+              "total_tokens": 3011
+             },
+             "reasoningTokens": 2758,
+             "cachedInputTokens": 0
+            },
+            "ms": 22324,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9207,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 9204
+             },
+             "outputTokens": 274,
+             "outputTokenDetails": {
+              "textTokens": 172,
+              "reasoningTokens": 102
+             },
+             "totalTokens": 9481,
+             "raw": {
+              "input_tokens": 9207,
+              "input_tokens_details": {
+               "cache_write_tokens": 9204,
+               "cached_tokens": 0
+              },
+              "output_tokens": 274,
+              "output_tokens_details": {
+               "reasoning_tokens": 102
+              },
+              "total_tokens": 9481
+             },
+             "reasoningTokens": 102,
+             "cachedInputTokens": 0
+            },
+            "ms": 7774,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10211,
+             "inputTokenDetails": {
+              "noCacheTokens": 10211,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1070,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 808
+             },
+             "totalTokens": 11281,
+             "raw": {
+              "thoughtsTokenCount": 808,
+              "promptTokenCount": 10211,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 11281,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 10211
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 808,
+             "cachedInputTokens": 0
+            },
+            "ms": 8210,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9430,
+             "inputTokenDetails": {
+              "noCacheTokens": 470,
+              "cacheReadTokens": 8960
+             },
+             "outputTokens": 5073,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 4854
+             },
+             "totalTokens": 14503,
+             "raw": {
+              "prompt_tokens": 9430,
+              "completion_tokens": 5073,
+              "prompt_cache_hit_tokens": 8960,
+              "prompt_cache_miss_tokens": 470,
+              "total_tokens": 14503,
+              "prompt_tokens_details": {
+               "cached_tokens": 8960
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 4854
+              }
+             },
+             "reasoningTokens": 4854,
+             "cachedInputTokens": 8960
+            },
+            "ms": 56931,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 8508,
+             "inputTokenDetails": {
+              "noCacheTokens": 8508,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 4752,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 4595
+             },
+             "totalTokens": 13260,
+             "raw": {
+              "input_tokens": 8508,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 4752,
+              "output_tokens_details": {
+               "reasoning_tokens": 4595
+              },
+              "total_tokens": 13260
+             },
+             "reasoningTokens": 4595,
+             "cachedInputTokens": 0
+            },
+            "ms": 60716,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.2",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 15421,
+             "inputTokenDetails": {
+              "noCacheTokens": 857,
+              "cacheReadTokens": 14564,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 546,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 334
+             },
+             "totalTokens": 15967,
+             "raw": {
+              "input_tokens": 857,
+              "output_tokens": 546,
+              "output_tokens_details": {
+               "thinking_tokens": 334
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14564,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 334,
+             "cachedInputTokens": 14564
+            },
+            "ms": 9010,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  }
+ ]
+}

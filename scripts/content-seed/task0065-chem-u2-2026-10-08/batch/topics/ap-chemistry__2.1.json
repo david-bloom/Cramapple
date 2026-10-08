@@ -1,0 +1,3389 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.1",
+  "topic_title": "Types of Chemical Bonds",
+  "allowed_skills": [
+   "6.A",
+   "6.B",
+   "6.C",
+   "6.D",
+   "6.E",
+   "6.F",
+   "6.G"
+  ],
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "6",
+    "skills": [
+     "6.D",
+     "6.E"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "6",
+    "skills": [
+     "6.D",
+     "6.E"
+    ]
+   },
+   "seed": {
+    "id": "ap-chemistry__2.1__A__seed#r1-openai",
+    "kind": "seed",
+    "round": 1,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-chemistry",
+     "unit_number": 2,
+     "topic_code": "2.1",
+     "topic_title": "Types of Chemical Bonds",
+     "stem": "The electronegativities of hydrogen and chlorine are given below.\n\nAtom | Electronegativity\nH | 2.2\nCl | 3.2\n\nWhich statement best describes the H–Cl bond and explains how its bonding electrons are distributed?",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "The bond is polar covalent because Cl attracts the shared electrons more strongly than H, giving Cl a partial negative charge.",
+       "is_correct": true,
+       "rationale": "Cl has the higher electronegativity, so the bonding electrons are shared unequally and pulled toward Cl. This produces a polar covalent bond with some ionic character, rather than complete electron transfer."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "The bond is nonpolar covalent because both atoms are nonmetals and therefore share the bonding electrons equally.",
+       "is_correct": false,
+       "rationale": "Element-category shortcut: Two nonmetals can share electrons unequally. The different electronegativities of H and Cl make this bond polar, not nonpolar. Fix: Compare the atoms’ electronegativities before deciding whether electrons are shared equally."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "The bond is polar covalent because H attracts the shared electrons more strongly than Cl, giving H a partial negative charge.",
+       "is_correct": false,
+       "rationale": "Reversed charge assignment: The more electronegative atom attracts the shared electrons more strongly and carries the partial negative charge. Cl, not H, has the higher electronegativity. Fix: Assign the partial negative charge to the atom with the higher electronegativity."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "The bond is ionic because any difference in electronegativity means an electron is completely transferred between the atoms.",
+       "is_correct": false,
+       "rationale": "All-or-nothing bonding misconception: Unequal electronegativities do not automatically imply complete electron transfer. In H–Cl, the electrons remain shared, but the sharing is unequal. Fix: Distinguish unequal sharing from complete transfer when classifying a bond."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 736,
+          "inputTokenDetails": {
+           "noCacheTokens": 736,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 766,
+          "raw": {
+           "input_tokens": 736,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 3262,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 394,
+          "inputTokenDetails": {
+           "noCacheTokens": 394,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 255,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 225
+          },
+          "totalTokens": 649,
+          "raw": {
+           "thoughtsTokenCount": 225,
+           "promptTokenCount": 394,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 649,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 394
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 225,
+          "cachedInputTokens": 0
+         },
+         "ms": 3652,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 455,
+          "inputTokenDetails": {
+           "noCacheTokens": 199,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 223,
+          "outputTokenDetails": {
+           "textTokens": 20,
+           "reasoningTokens": 203
+          },
+          "totalTokens": 678,
+          "raw": {
+           "prompt_tokens": 455,
+           "completion_tokens": 223,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 199,
+           "total_tokens": 678,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 203
+           }
+          },
+          "reasoningTokens": 203,
+          "cachedInputTokens": 256
+         },
+         "ms": 3983,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 219,
+          "inputTokenDetails": {
+           "noCacheTokens": 219,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 774,
+          "outputTokenDetails": {
+           "textTokens": 25,
+           "reasoningTokens": 749
+          },
+          "totalTokens": 993,
+          "raw": {
+           "input_tokens": 219,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 774,
+           "output_tokens_details": {
+            "reasoning_tokens": 749
+           },
+           "total_tokens": 993
+          },
+          "reasoningTokens": 749,
+          "cachedInputTokens": 0
+         },
+         "ms": 11247,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.1",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15392,
+          "inputTokenDetails": {
+           "noCacheTokens": 828,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 14564
+          },
+          "outputTokens": 690,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 478
+          },
+          "totalTokens": 16082,
+          "raw": {
+           "input_tokens": 828,
+           "output_tokens": 690,
+           "output_tokens_details": {
+            "thinking_tokens": 478
+           },
+           "cache_creation_input_tokens": 14564,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 14564,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 478,
+          "cachedInputTokens": 0
+         },
+         "ms": 7063,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.1",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10177,
+          "inputTokenDetails": {
+           "noCacheTokens": 10177,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1217,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 955
+          },
+          "totalTokens": 11394,
+          "raw": {
+           "thoughtsTokenCount": 955,
+           "promptTokenCount": 10177,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11394,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 10177
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 955,
+          "cachedInputTokens": 0
+         },
+         "ms": 11314,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.1",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9414,
+          "inputTokenDetails": {
+           "noCacheTokens": 4294,
+           "cacheReadTokens": 5120
+          },
+          "outputTokens": 4210,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 3991
+          },
+          "totalTokens": 13624,
+          "raw": {
+           "prompt_tokens": 9414,
+           "completion_tokens": 4210,
+           "prompt_cache_hit_tokens": 5120,
+           "prompt_cache_miss_tokens": 4294,
+           "total_tokens": 13624,
+           "prompt_tokens_details": {
+            "cached_tokens": 5120
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 3991
+           }
+          },
+          "reasoningTokens": 3991,
+          "cachedInputTokens": 5120
+         },
+         "ms": 45675,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.1",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8476,
+          "inputTokenDetails": {
+           "noCacheTokens": 8476,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 4779,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 4622
+          },
+          "totalTokens": 13255,
+          "raw": {
+           "input_tokens": 8476,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 4779,
+           "output_tokens_details": {
+            "reasoning_tokens": 4622
+           },
+           "total_tokens": 13255
+          },
+          "reasoningTokens": 4622,
+          "cachedInputTokens": 0
+         },
+         "ms": 29288,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.1",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9198,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 9195
+          },
+          "outputTokens": 217,
+          "outputTokenDetails": {
+           "textTokens": 172,
+           "reasoningTokens": 45
+          },
+          "totalTokens": 9415,
+          "raw": {
+           "input_tokens": 9198,
+           "input_tokens_details": {
+            "cache_write_tokens": 9195,
+            "cached_tokens": 0
+           },
+           "output_tokens": 217,
+           "output_tokens_details": {
+            "reasoning_tokens": 45
+           },
+           "total_tokens": 9415
+          },
+          "reasoningTokens": 45,
+          "cachedInputTokens": 0
+         },
+         "ms": 6203,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "6",
+     "skills": [
+      "6.D",
+      "6.E"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Medium",
+       "reason": "The student must classify the H–Cl bond and justify how its electrons are distributed by applying the principle that the more electronegative atom attracts shared electrons. This is reasoning from a chemical principle (6.D). It is Medium because it applies one concept to the given electronegativity data to reach a single conclusion."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Medium",
+       "reason": "The question requires students to apply the concept of electronegativity to justify both the classification of the bond (polar covalent) and the resulting unequal distribution of bonding electrons (partial negative charge on the more electronegative atom)."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Medium",
+       "reason": "The question requires using the given electronegativity values and the principle that a greater electronegativity attracts bonding electrons more strongly to justify the claim that the H-Cl bond is polar covalent with a partial negative charge on Cl."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "6.D",
+       "difficulty": "Medium",
+       "reason": "Student must use the chemical principle that higher electronegativity means stronger attraction for shared electrons to justify the claim that H-Cl is polar covalent with electrons pulled toward Cl, applying one concept to interpret the given values."
+      }
+     ],
+     "skill": "6.D",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "6.D",
+       4
+      ]
+     ],
+     "practice": "6",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "6",
+       4
+      ]
+     ],
+     "difficulty": "Medium",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Medium",
+       4
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-chemistry__2.1__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.1",
+      "topic_title": "Types of Chemical Bonds",
+      "stem": "The electronegativities of hydrogen and chlorine are given below.\n\nAtom | Electronegativity\nH | 2.2\nCl | 3.2\n\nWhich statement best describes the H–Cl bond and explains how its bonding electrons are distributed?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "The bond is polar covalent because Cl attracts the shared electrons more strongly than H, giving Cl a partial negative charge.",
+        "is_correct": true,
+        "rationale": "Cl has the higher electronegativity, so the bonding electrons are shared unequally and pulled toward Cl. This produces a polar covalent bond with some ionic character, rather than complete electron transfer."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "The bond is nonpolar covalent because both atoms are nonmetals and therefore share the bonding electrons equally.",
+        "is_correct": false,
+        "rationale": "Element-category shortcut: Two nonmetals can share electrons unequally. The different electronegativities of H and Cl make this bond polar, not nonpolar. Fix: Compare the atoms’ electronegativities before deciding whether electrons are shared equally."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "The bond is polar covalent because H attracts the shared electrons more strongly than Cl, giving H a partial negative charge.",
+        "is_correct": false,
+        "rationale": "Reversed charge assignment: The more electronegative atom attracts the shared electrons more strongly and carries the partial negative charge. Cl, not H, has the higher electronegativity. Fix: Assign the partial negative charge to the atom with the higher electronegativity."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "The bond is ionic because any difference in electronegativity means an electron is completely transferred between the atoms.",
+        "is_correct": false,
+        "rationale": "All-or-nothing bonding misconception: Unequal electronegativities do not automatically imply complete electron transfer. In H–Cl, the electrons remain shared, but the sharing is unequal. Fix: Distinguish unequal sharing from complete transfer when classifying a bond."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 736,
+           "inputTokenDetails": {
+            "noCacheTokens": 736,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 766,
+           "raw": {
+            "input_tokens": 736,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 3262,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 394,
+           "inputTokenDetails": {
+            "noCacheTokens": 394,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 255,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 225
+           },
+           "totalTokens": 649,
+           "raw": {
+            "thoughtsTokenCount": 225,
+            "promptTokenCount": 394,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 649,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 394
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 225,
+           "cachedInputTokens": 0
+          },
+          "ms": 3652,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 455,
+           "inputTokenDetails": {
+            "noCacheTokens": 199,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 223,
+           "outputTokenDetails": {
+            "textTokens": 20,
+            "reasoningTokens": 203
+           },
+           "totalTokens": 678,
+           "raw": {
+            "prompt_tokens": 455,
+            "completion_tokens": 223,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 199,
+            "total_tokens": 678,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 203
+            }
+           },
+           "reasoningTokens": 203,
+           "cachedInputTokens": 256
+          },
+          "ms": 3983,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 219,
+           "inputTokenDetails": {
+            "noCacheTokens": 219,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 774,
+           "outputTokenDetails": {
+            "textTokens": 25,
+            "reasoningTokens": 749
+           },
+           "totalTokens": 993,
+           "raw": {
+            "input_tokens": 219,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 774,
+            "output_tokens_details": {
+             "reasoning_tokens": 749
+            },
+            "total_tokens": 993
+           },
+           "reasoningTokens": 749,
+           "cachedInputTokens": 0
+          },
+          "ms": 11247,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.1",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15392,
+           "inputTokenDetails": {
+            "noCacheTokens": 828,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 14564
+           },
+           "outputTokens": 690,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 478
+           },
+           "totalTokens": 16082,
+           "raw": {
+            "input_tokens": 828,
+            "output_tokens": 690,
+            "output_tokens_details": {
+             "thinking_tokens": 478
+            },
+            "cache_creation_input_tokens": 14564,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 14564,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 478,
+           "cachedInputTokens": 0
+          },
+          "ms": 7063,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.1",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10177,
+           "inputTokenDetails": {
+            "noCacheTokens": 10177,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1217,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 955
+           },
+           "totalTokens": 11394,
+           "raw": {
+            "thoughtsTokenCount": 955,
+            "promptTokenCount": 10177,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11394,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 10177
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 955,
+           "cachedInputTokens": 0
+          },
+          "ms": 11314,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.1",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9414,
+           "inputTokenDetails": {
+            "noCacheTokens": 4294,
+            "cacheReadTokens": 5120
+           },
+           "outputTokens": 4210,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 3991
+           },
+           "totalTokens": 13624,
+           "raw": {
+            "prompt_tokens": 9414,
+            "completion_tokens": 4210,
+            "prompt_cache_hit_tokens": 5120,
+            "prompt_cache_miss_tokens": 4294,
+            "total_tokens": 13624,
+            "prompt_tokens_details": {
+             "cached_tokens": 5120
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 3991
+            }
+           },
+           "reasoningTokens": 3991,
+           "cachedInputTokens": 5120
+          },
+          "ms": 45675,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.1",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8476,
+           "inputTokenDetails": {
+            "noCacheTokens": 8476,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 4779,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 4622
+           },
+           "totalTokens": 13255,
+           "raw": {
+            "input_tokens": 8476,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 4779,
+            "output_tokens_details": {
+             "reasoning_tokens": 4622
+            },
+            "total_tokens": 13255
+           },
+           "reasoningTokens": 4622,
+           "cachedInputTokens": 0
+          },
+          "ms": 29288,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.1",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9198,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 9195
+           },
+           "outputTokens": 217,
+           "outputTokenDetails": {
+            "textTokens": 172,
+            "reasoningTokens": 45
+           },
+           "totalTokens": 9415,
+           "raw": {
+            "input_tokens": 9198,
+            "input_tokens_details": {
+             "cache_write_tokens": 9195,
+             "cached_tokens": 0
+            },
+            "output_tokens": 217,
+            "output_tokens_details": {
+             "reasoning_tokens": 45
+            },
+            "total_tokens": 9415
+           },
+           "reasoningTokens": 45,
+           "cachedInputTokens": 0
+          },
+          "ms": 6203,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "ap-chemistry__2.1__A__v1#r1-anthropic",
+      "kind": "variant",
+      "round": 1,
+      "author": "anthropic/claude-opus-5.5",
+      "author_family": "anthropic",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "ap-chemistry",
+       "unit_number": 2,
+       "topic_code": "2.1",
+       "topic_title": "Types of Chemical Bonds",
+       "stem": "Methanol, CH₃OH, contains a single bond between a carbon atom and an oxygen atom. The electronegativity values are shown in the table below.\n\nAtom | Electronegativity\nC | 2.6\nO | 3.4\n\nWhich claim about the C–O bond in methanol, including its justification, is best supported by these data?",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "The C–O bond is nonpolar covalent because carbon and oxygen are both nonmetals, so they share the bonding electrons equally.",
+         "is_correct": false,
+         "rationale": "Element-category shortcut: two nonmetals do form a covalent bond, but that says nothing about whether the sharing is equal. The 0.8 electronegativity difference between O and C makes the sharing unequal. Fix: Compare the two electronegativity values before deciding whether electrons are shared equally."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "The C–O bond is polar covalent because C pulls the shared electron pair more strongly than O does, so C carries a partial negative charge.",
+         "is_correct": false,
+         "rationale": "Reversed charge assignment: the atom with the higher electronegativity attracts the shared pair more strongly and carries the partial negative charge. Oxygen, not carbon, has the higher value. Fix: Place the partial negative charge on whichever atom has the larger electronegativity value."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "The C–O bond is polar covalent because O pulls the shared electron pair more strongly than C does, so O carries a partial negative charge.",
+         "is_correct": true,
+         "rationale": "Oxygen's electronegativity (3.4) exceeds carbon's (2.6), so the shared pair lies closer to O, giving O a partial negative charge and C a partial positive charge. The electrons are still shared, not transferred, so the bond is polar covalent with some ionic character."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "The C–O bond is ionic because any difference in electronegativity means an electron is completely transferred from C to O.",
+         "is_correct": false,
+         "rationale": "All-or-nothing bonding misconception: an electronegativity difference shifts the shared pair toward one atom but does not by itself mean full electron transfer. Bonding is a continuum, and the C–O electrons remain shared, only unequally. Fix: Ask whether electrons are shifted or fully transferred before labeling a bond ionic."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 366,
+            "inputTokenDetails": {
+             "noCacheTokens": 366,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 50,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 24
+            },
+            "totalTokens": 416,
+            "raw": {
+             "input_tokens": 366,
+             "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+             },
+             "output_tokens": 50,
+             "output_tokens_details": {
+              "reasoning_tokens": 24
+             },
+             "total_tokens": 416
+            },
+            "reasoningTokens": 24,
+            "cachedInputTokens": 0
+           },
+           "ms": 3517,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 439,
+            "inputTokenDetails": {
+             "noCacheTokens": 439,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 274,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 244
+            },
+            "totalTokens": 713,
+            "raw": {
+             "thoughtsTokenCount": 244,
+             "promptTokenCount": 439,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 713,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 439
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 244,
+            "cachedInputTokens": 0
+           },
+           "ms": 3516,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 501,
+            "inputTokenDetails": {
+             "noCacheTokens": 245,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 262,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 236
+            },
+            "totalTokens": 763,
+            "raw": {
+             "prompt_tokens": 501,
+             "completion_tokens": 262,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 245,
+             "total_tokens": 763,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 236
+             }
+            },
+            "reasoningTokens": 236,
+            "cachedInputTokens": 256
+           },
+           "ms": 4989,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "C",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 263,
+            "inputTokenDetails": {
+             "noCacheTokens": 263,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1103,
+            "outputTokenDetails": {
+             "textTokens": 25,
+             "reasoningTokens": 1078
+            },
+            "totalTokens": 1366,
+            "raw": {
+             "input_tokens": 263,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 1103,
+             "output_tokens_details": {
+              "reasoning_tokens": 1078
+             },
+             "total_tokens": 1366
+            },
+            "reasoningTokens": 1078,
+            "cachedInputTokens": 0
+           },
+           "ms": 7843,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.1",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9292,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 9289
+            },
+            "outputTokens": 295,
+            "outputTokenDetails": {
+             "textTokens": 222,
+             "reasoningTokens": 73
+            },
+            "totalTokens": 9587,
+            "raw": {
+             "input_tokens": 9292,
+             "input_tokens_details": {
+              "cache_write_tokens": 9289,
+              "cached_tokens": 0
+             },
+             "output_tokens": 295,
+             "output_tokens_details": {
+              "reasoning_tokens": 73
+             },
+             "total_tokens": 9587
+            },
+            "reasoningTokens": 73,
+            "cachedInputTokens": 0
+           },
+           "ms": 6740,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.1",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10269,
+            "inputTokenDetails": {
+             "noCacheTokens": 10269,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1242,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 980
+            },
+            "totalTokens": 11511,
+            "raw": {
+             "thoughtsTokenCount": 980,
+             "promptTokenCount": 10269,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 11511,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 10269
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 980,
+            "cachedInputTokens": 0
+           },
+           "ms": 9658,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.1",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9504,
+            "inputTokenDetails": {
+             "noCacheTokens": 544,
+             "cacheReadTokens": 8960
+            },
+            "outputTokens": 5587,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 5368
+            },
+            "totalTokens": 15091,
+            "raw": {
+             "prompt_tokens": 9504,
+             "completion_tokens": 5587,
+             "prompt_cache_hit_tokens": 8960,
+             "prompt_cache_miss_tokens": 544,
+             "total_tokens": 15091,
+             "prompt_tokens_details": {
+              "cached_tokens": 8960
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 5368
+             }
+            },
+            "reasoningTokens": 5368,
+            "cachedInputTokens": 8960
+           },
+           "ms": 63799,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.1",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 8562,
+            "inputTokenDetails": {
+             "noCacheTokens": 8562,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 4062,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 3905
+            },
+            "totalTokens": 12624,
+            "raw": {
+             "input_tokens": 8562,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 4062,
+             "output_tokens_details": {
+              "reasoning_tokens": 3905
+             },
+             "total_tokens": 12624
+            },
+            "reasoningTokens": 3905,
+            "cachedInputTokens": 0
+           },
+           "ms": 42190,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.1",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 15494,
+            "inputTokenDetails": {
+             "noCacheTokens": 930,
+             "cacheReadTokens": 14564,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 566,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 354
+            },
+            "totalTokens": 16060,
+            "raw": {
+             "input_tokens": 930,
+             "output_tokens": 566,
+             "output_tokens_details": {
+              "thinking_tokens": 354
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14564,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 354,
+            "cachedInputTokens": 14564
+           },
+           "ms": 5980,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "ap-chemistry__2.1__A__seed#r1-openai",
+       "skill": "6.D",
+       "skill_status": "validated",
+       "practice": "6",
+       "practice_status": "validated",
+       "difficulty": "Medium",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.14754098360655737
+     },
+     "candidates": [
+      {
+       "id": "ap-chemistry__2.1__A__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.1",
+        "topic_title": "Types of Chemical Bonds",
+        "stem": "A student is analyzing the C–O bond in ethanol using these electronegativity values: C = 2.6 and O = 3.4. Which statement correctly classifies this bond and explains the distribution of its bonding electrons?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "The bond is polar covalent: shared electrons are drawn more strongly toward O, making O partially negative.",
+          "is_correct": true,
+          "rationale": "Oxygen’s greater electronegativity causes unequal sharing of the bonding electrons, with greater electron density near O. This unequal sharing gives the bond a dipole and some ionic character without making it an ionic bond."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "The bond is nonpolar covalent: carbon and oxygen are both nonmetals, so the bonding electrons are shared equally.",
+          "is_correct": false,
+          "rationale": "Element-category shortcut: Being nonmetals does not guarantee equal electron sharing. The unequal electronegativities of C and O produce a polar bond. Fix: Compare the supplied electronegativity values to check whether electron sharing is equal."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "The bond is polar covalent: shared electrons are drawn more strongly toward C, making C partially negative.",
+          "is_correct": false,
+          "rationale": "Reversed charge assignment: This places the partial negative charge on the less electronegative atom. Oxygen attracts the bonding electrons more strongly because its electronegativity is greater. Fix: Identify the higher electronegativity value, then place δ− on that atom."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "The bond is ionic: the unequal electronegativities require complete transfer of a bonding electron from C to O.",
+          "is_correct": false,
+          "rationale": "All-or-nothing bonding misconception: An electronegativity difference alone does not establish complete electron transfer. The C–O bond has unequal electron sharing, consistent with polar covalent bonding. Fix: Check whether the bonding description involves unequal sharing or complete transfer before choosing a classification."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 720,
+             "inputTokenDetails": {
+              "noCacheTokens": 720,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 30,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 750,
+             "raw": {
+              "input_tokens": 720,
+              "output_tokens": 30,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 2298,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 387,
+             "inputTokenDetails": {
+              "noCacheTokens": 387,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 256,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 226
+             },
+             "totalTokens": 643,
+             "raw": {
+              "thoughtsTokenCount": 226,
+              "promptTokenCount": 387,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 643,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 387
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 226,
+             "cachedInputTokens": 0
+            },
+            "ms": 3391,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 450,
+             "inputTokenDetails": {
+              "noCacheTokens": 194,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 195,
+             "outputTokenDetails": {
+              "textTokens": 20,
+              "reasoningTokens": 175
+             },
+             "totalTokens": 645,
+             "raw": {
+              "prompt_tokens": 450,
+              "completion_tokens": 195,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 194,
+              "total_tokens": 645,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 175
+              }
+             },
+             "reasoningTokens": 175,
+             "cachedInputTokens": 256
+            },
+            "ms": 4123,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "A",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 215,
+             "inputTokenDetails": {
+              "noCacheTokens": 215,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 893,
+             "outputTokenDetails": {
+              "textTokens": 25,
+              "reasoningTokens": 868
+             },
+             "totalTokens": 1108,
+             "raw": {
+              "input_tokens": 215,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 893,
+              "output_tokens_details": {
+               "reasoning_tokens": 868
+              },
+              "total_tokens": 1108
+             },
+             "reasoningTokens": 868,
+             "cachedInputTokens": 0
+            },
+            "ms": 5798,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "anthropic/claude-opus-5.5": {
+          "pass": false,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": false,
+               "issue": "Choice D's Fix is circular. It tells the student to check whether the bond involves unequal sharing or complete transfer, but that is exactly the judgment the question asks for. It gives no concrete test, such as computing the electronegativity difference (0.8 here) or using the metal–nonmetal guideline together with compound properties."
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 15384,
+             "inputTokenDetails": {
+              "noCacheTokens": 820,
+              "cacheReadTokens": 14564,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 640,
+             "outputTokenDetails": {
+              "textTokens": 316,
+              "reasoningTokens": 324
+             },
+             "totalTokens": 16024,
+             "raw": {
+              "input_tokens": 820,
+              "output_tokens": 640,
+              "output_tokens_details": {
+               "thinking_tokens": 324
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14564,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 324,
+             "cachedInputTokens": 14564
+            },
+            "ms": 10761,
+            "flags": [
+             "named_trap: Choice D's Fix is circular. It tells the student to check whether the bond involves unequal sharing or complete transfer, but that is exactly the judgment the question asks for. It gives no concrete test, such as computing the electronegativity difference (0.8 here) or using the metal–nonmetal guideline together with compound properties."
+            ]
+           },
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": false,
+               "issue": "D's Fix is circular. It says to check whether the bonding involves unequal sharing or complete transfer, but gives no criterion for deciding. A concrete action would be to compute the electronegativity difference (3.4 − 2.6 = 0.8) or to note that C and O are both nonmetals and so share electrons rather than transfer them."
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 15384,
+             "inputTokenDetails": {
+              "noCacheTokens": 820,
+              "cacheReadTokens": 14564,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 699,
+             "outputTokenDetails": {
+              "textTokens": 321,
+              "reasoningTokens": 378
+             },
+             "totalTokens": 16083,
+             "raw": {
+              "input_tokens": 820,
+              "output_tokens": 699,
+              "output_tokens_details": {
+               "thinking_tokens": 378
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14564,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 378,
+             "cachedInputTokens": 14564
+            },
+            "ms": 9728,
+            "flags": [
+             "named_trap: D's Fix is circular. It says to check whether the bonding involves unequal sharing or complete transfer, but gives no criterion for deciding. A concrete action would be to compute the electronegativity difference (3.4 − 2.6 = 0.8) or to note that C and O are both nonmetals and so share electrons rather than transfer them."
+            ]
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10171,
+             "inputTokenDetails": {
+              "noCacheTokens": 2089,
+              "cacheReadTokens": 8082
+             },
+             "outputTokens": 1252,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 990
+             },
+             "totalTokens": 11423,
+             "raw": {
+              "cachedContentTokenCount": 8082,
+              "thoughtsTokenCount": 990,
+              "promptTokenCount": 10171,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 11423,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 10171
+               }
+              ],
+              "cacheTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 8082
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 990,
+             "cachedInputTokens": 8082
+            },
+            "ms": 10475,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9408,
+             "inputTokenDetails": {
+              "noCacheTokens": 448,
+              "cacheReadTokens": 8960
+             },
+             "outputTokens": 4731,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 4512
+             },
+             "totalTokens": 14139,
+             "raw": {
+              "prompt_tokens": 9408,
+              "completion_tokens": 4731,
+              "prompt_cache_hit_tokens": 8960,
+              "prompt_cache_miss_tokens": 448,
+              "total_tokens": 14139,
+              "prompt_tokens_details": {
+               "cached_tokens": 8960
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 4512
+              }
+             },
+             "reasoningTokens": 4512,
+             "cachedInputTokens": 8960
+            },
+            "ms": 57503,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 8469,
+             "inputTokenDetails": {
+              "noCacheTokens": 8469,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 3525,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 3368
+             },
+             "totalTokens": 11994,
+             "raw": {
+              "input_tokens": 8469,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 3525,
+              "output_tokens_details": {
+               "reasoning_tokens": 3368
+              },
+              "total_tokens": 11994
+             },
+             "reasoningTokens": 3368,
+             "cachedInputTokens": 0
+            },
+            "ms": 16476,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "rejected",
+        "stage": "audit"
+       }
+      },
+      {
+       "id": "ap-chemistry__2.1__A__v1#r1-anthropic",
+       "kind": "variant",
+       "round": 1,
+       "author": "anthropic/claude-opus-5.5",
+       "author_family": "anthropic",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.1",
+        "topic_title": "Types of Chemical Bonds",
+        "stem": "Methanol, CH₃OH, contains a single bond between a carbon atom and an oxygen atom. The electronegativity values are shown in the table below.\n\nAtom | Electronegativity\nC | 2.6\nO | 3.4\n\nWhich claim about the C–O bond in methanol, including its justification, is best supported by these data?",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "The C–O bond is nonpolar covalent because carbon and oxygen are both nonmetals, so they share the bonding electrons equally.",
+          "is_correct": false,
+          "rationale": "Element-category shortcut: two nonmetals do form a covalent bond, but that says nothing about whether the sharing is equal. The 0.8 electronegativity difference between O and C makes the sharing unequal. Fix: Compare the two electronegativity values before deciding whether electrons are shared equally."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "The C–O bond is polar covalent because C pulls the shared electron pair more strongly than O does, so C carries a partial negative charge.",
+          "is_correct": false,
+          "rationale": "Reversed charge assignment: the atom with the higher electronegativity attracts the shared pair more strongly and carries the partial negative charge. Oxygen, not carbon, has the higher value. Fix: Place the partial negative charge on whichever atom has the larger electronegativity value."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "The C–O bond is polar covalent because O pulls the shared electron pair more strongly than C does, so O carries a partial negative charge.",
+          "is_correct": true,
+          "rationale": "Oxygen's electronegativity (3.4) exceeds carbon's (2.6), so the shared pair lies closer to O, giving O a partial negative charge and C a partial positive charge. The electrons are still shared, not transferred, so the bond is polar covalent with some ionic character."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "The C–O bond is ionic because any difference in electronegativity means an electron is completely transferred from C to O.",
+          "is_correct": false,
+          "rationale": "All-or-nothing bonding misconception: an electronegativity difference shifts the shared pair toward one atom but does not by itself mean full electron transfer. Bonding is a continuum, and the C–O electrons remain shared, only unequally. Fix: Ask whether electrons are shifted or fully transferred before labeling a bond ionic."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 366,
+             "inputTokenDetails": {
+              "noCacheTokens": 366,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 50,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 24
+             },
+             "totalTokens": 416,
+             "raw": {
+              "input_tokens": 366,
+              "input_tokens_details": {
+               "cache_write_tokens": 0,
+               "cached_tokens": 0
+              },
+              "output_tokens": 50,
+              "output_tokens_details": {
+               "reasoning_tokens": 24
+              },
+              "total_tokens": 416
+             },
+             "reasoningTokens": 24,
+             "cachedInputTokens": 0
+            },
+            "ms": 3517,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 439,
+             "inputTokenDetails": {
+              "noCacheTokens": 439,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 274,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 244
+             },
+             "totalTokens": 713,
+             "raw": {
+              "thoughtsTokenCount": 244,
+              "promptTokenCount": 439,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 713,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 439
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 244,
+             "cachedInputTokens": 0
+            },
+            "ms": 3516,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 501,
+             "inputTokenDetails": {
+              "noCacheTokens": 245,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 262,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 236
+             },
+             "totalTokens": 763,
+             "raw": {
+              "prompt_tokens": 501,
+              "completion_tokens": 262,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 245,
+              "total_tokens": 763,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 236
+              }
+             },
+             "reasoningTokens": 236,
+             "cachedInputTokens": 256
+            },
+            "ms": 4989,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "C",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 263,
+             "inputTokenDetails": {
+              "noCacheTokens": 263,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1103,
+             "outputTokenDetails": {
+              "textTokens": 25,
+              "reasoningTokens": 1078
+             },
+             "totalTokens": 1366,
+             "raw": {
+              "input_tokens": 263,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1103,
+              "output_tokens_details": {
+               "reasoning_tokens": 1078
+              },
+              "total_tokens": 1366
+             },
+             "reasoningTokens": 1078,
+             "cachedInputTokens": 0
+            },
+            "ms": 7843,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9292,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 9289
+             },
+             "outputTokens": 295,
+             "outputTokenDetails": {
+              "textTokens": 222,
+              "reasoningTokens": 73
+             },
+             "totalTokens": 9587,
+             "raw": {
+              "input_tokens": 9292,
+              "input_tokens_details": {
+               "cache_write_tokens": 9289,
+               "cached_tokens": 0
+              },
+              "output_tokens": 295,
+              "output_tokens_details": {
+               "reasoning_tokens": 73
+              },
+              "total_tokens": 9587
+             },
+             "reasoningTokens": 73,
+             "cachedInputTokens": 0
+            },
+            "ms": 6740,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10269,
+             "inputTokenDetails": {
+              "noCacheTokens": 10269,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1242,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 980
+             },
+             "totalTokens": 11511,
+             "raw": {
+              "thoughtsTokenCount": 980,
+              "promptTokenCount": 10269,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 11511,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 10269
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 980,
+             "cachedInputTokens": 0
+            },
+            "ms": 9658,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9504,
+             "inputTokenDetails": {
+              "noCacheTokens": 544,
+              "cacheReadTokens": 8960
+             },
+             "outputTokens": 5587,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 5368
+             },
+             "totalTokens": 15091,
+             "raw": {
+              "prompt_tokens": 9504,
+              "completion_tokens": 5587,
+              "prompt_cache_hit_tokens": 8960,
+              "prompt_cache_miss_tokens": 544,
+              "total_tokens": 15091,
+              "prompt_tokens_details": {
+               "cached_tokens": 8960
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 5368
+              }
+             },
+             "reasoningTokens": 5368,
+             "cachedInputTokens": 8960
+            },
+            "ms": 63799,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 8562,
+             "inputTokenDetails": {
+              "noCacheTokens": 8562,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 4062,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 3905
+             },
+             "totalTokens": 12624,
+             "raw": {
+              "input_tokens": 8562,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 4062,
+              "output_tokens_details": {
+               "reasoning_tokens": 3905
+              },
+              "total_tokens": 12624
+             },
+             "reasoningTokens": 3905,
+             "cachedInputTokens": 0
+            },
+            "ms": 42190,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.1",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 15494,
+             "inputTokenDetails": {
+              "noCacheTokens": 930,
+              "cacheReadTokens": 14564,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 566,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 354
+             },
+             "totalTokens": 16060,
+             "raw": {
+              "input_tokens": 930,
+              "output_tokens": 566,
+              "output_tokens_details": {
+               "thinking_tokens": 354
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14564,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 354,
+             "cachedInputTokens": 14564
+            },
+            "ms": 5980,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  }
+ ]
+}
