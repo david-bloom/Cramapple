@@ -1,0 +1,5 @@
+"""Print a hash-check query for chunk N (1-based) against manifest.json."""
+import json, sys
+rows = json.load(open('load_plan.json')); n = int(sys.argv[1]); part = rows[(n - 1) * 10:n * 10]
+kl = ",".join(f"('{r['content_key']}','{r['hash']}')" for r in part)
+print(f"with exp(k,h) as (values {kl}), got as (select ci.content_key k, md5(civ.stem||'|'||string_agg(c.choice_key||':'||c.choice_text||':'||c.is_correct::text||':'||c.rationale,'|' order by c.choice_key)) h from app.content_items ci join app.content_item_versions civ on civ.content_item_id=ci.id and civ.version_num=1 join app.mcq_choices c on c.content_item_version_id=civ.id where ci.exam_pack_version_id='2d88ba5e-a6a3-43b8-bfae-9e5505a178a7' and ci.content_key in (select k from exp) group by ci.content_key, civ.stem) select (select count(*) from exp) expected, (select count(*) from got) loaded, (select count(*) from exp join got using(k) where exp.h=got.h) matching, (select string_agg(coalesce(exp.k,got.k),',') from exp full join got using(k) where exp.h is distinct from got.h) mismatched;")

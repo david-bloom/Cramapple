@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- 82 AP Biology Unit 1 Seed-Pilot MCQs Published to Production (APPROVAL-0131) (2026-10-07): 21 seeds + 61 variants from the no-edit generate-and-select pipeline; loaded as drafts, hash-matched 82/82, rehearsed, published; the real Biology selector serves all 82; Biology published MCQs 79 → 161.
 - Human Review Removed for Generate-and-Select Items (DECISION-0102) (2026-10-07): Product Owner removed the per-subject human spot-check (protocol §0.3 rule 6) and made human confirmation of judge-dispute adjudications optional; the Production Hard-Gate approval remains.
 - TASK-0065 Pipeline Cost Levers and Biology Unit 1 Seed Pilot (2026-10-07): Muse Spark replaced Kimi as the fourth checker and the unit-scoped fact pack became the default ($0.28 -> $0.20/item, blind re-judge 0 defects). Seed pilot (no DB writes): 21/21 seeds + 61/63 variants accepted with no edits; blind held-out judges 0 defects in 21 seeds + 21 sampled variants, planted 4/4 caught; $25.73 on the pre-lever config; difficulty targeting failed (no item voted Hard). Results: `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`.
 - Three Defective Live Teaching Items Replaced; Statistics 2.12 Brief Fixed (APPROVAL-0129) (2026-10-07): pipeline-made replacements for Stats 1.10, Stats 2.12, Bio 2.10 loaded to Dev and Prod (rehearsed, hash-verified, real RPC serves them); old items retired; 2.12 brief brought back to CED 2.12

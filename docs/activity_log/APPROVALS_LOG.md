@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0131 — Publish 82 AP Biology Unit 1 Practice MCQs From the Generate-and-Select Seed Pilot (21 Seeds, 61 Variants; Production) — TASK-0065
 - APPROVAL-0130 — Assistance-Events Write Path: `public.attempt_assistance_events` View (INSERT/SELECT for Signed-In Students) and the `topic_hint` Event Kind (Dev + Production)
 - APPROVAL-0129 — Replace Three Defective Live Open Hand Teaching Items (Stats 1.10, Stats 2.12, Bio 2.10); Fix the AP Statistics 2.12 Topic Point Brief (Dev + Production) — TASK-0065
 - APPROVAL-0128 — Remove Repeated Answer Choices From 198 Published MCQ Stems (Label Carry-Forward)
@@ -1887,3 +1888,42 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Rollback:** `drop view public.attempt_assistance_events; revoke select, insert on app.attempt_assistance_events from authenticated;` and, if the kind must go, `delete from app.assistance_event_policy where event_kind = 'topic_hint'` and restore the five-value CHECK constraints. The frontend's insert fails soft, so a rollback does not break grading.
 
 **Not approved by this entry:** any edge-function change; writing `attempts.submitted_at` (never set by any function today, noted as W10); publishing the Lovable build (David's step).
+
+## APPROVAL-0131 — Publish 82 AP Biology Unit 1 Practice MCQs From the Generate-and-Select Seed Pilot (21 Seeds, 61 Variants; Production) — TASK-0065
+
+**Date:** 2026-10-07  
+**Approved By:** David Bloom (2026-10-07 Claude session: "load the pilot's 82 questions"; human review removed for this protocol by DECISION-0102, same session)  
+**Related:** `DECISION-0099` (generate-and-select), `DECISION-0101` (labels: difficulty provisional, practice-level skills, variants inherit), `DECISION-0102` (no human review), `DECISION-0096` (variant difficulty inheritance); `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md` and `load/`  
+**Decision:** Approved
+
+**Approved scope:** Production only (`pcntajvbdfqhbeewmdry`), AP Biology pack `2d88ba5e-…`.
+- **Items:** 82 MCQs, all in Unit 1 (topics 1.1–1.7), loaded as drafts and then walked through the standard publish path. The path is: owner review assignment and `approve` decision → `reviewed_approved` → validated serving label (`required_units {1}`) → validated primary topic cell → skill cell → difficulty row → `published`.
+- **Keys:** seeds `APBIO-MCQ-101`…`121`; variants `APBIO-MCQ-SV-<seed>-v<k>`, which resolve to their seed under DECISION-0096.
+- **Skill cells:** 74 in total, 66 validated and 8 `provisional_model`.
+  - Seeds carry the four-family vote; variants inherit their seed's cell.
+  - Seeds `APBIO-MCQ-104` and `114` (and their variants) had no skill majority and have no skill cell.
+- **Difficulty:** Medium 70, Easy 12.
+  - Seeds: `calibrated_judgement`, confidence `low`, provisional.
+  - Variants: `translated` from their seed.
+- **Not written:** no Development write and no migration ledger row, because this is a content load and not a schema change.
+
+**Evidence:**
+- 21/21 seeds and 61/63 variants were accepted by generate-and-select with no hand edits. Each passed four non-author checker families and the own-family veto; planted-defect controls caught 6/6.
+- Held-out judges (Mistral, GLM, MiniMax; two samples each) found 0 defects in all 21 seeds and a random 21-variant sample, and caught 4/4 planted defects.
+- Every computable key among the 82 was recomputed deterministically: 14/14 correct (`judging/recompute.py`).
+
+**Verification:**
+- After loading the drafts, all 82 rows matched the locally built md5 manifest (82/82).
+- The publish transaction was rehearsed and rolled back (`REHEARSAL OK: published=82, skill_cells=74, validated_skill_cells=66`), then committed.
+- An independent post-commit query confirmed 82 published (version and item), 82 validated serving labels, 82 validated topic cells, 74 skill cells and 82 difficulty rows.
+- Published Biology MCQs went from 79 to 161.
+- The real selector `app.select_biology_practice_items` (as `service_role`, `targeted_drill`, 60 seeds × 50) served all 82 new items, about 20 per draw of 50.
+
+**Known weaknesses shipped, regenerate rather than edit:**
+- `APBIO-MCQ-SV-121-v3`: "the first amino acid" is an ambiguous referent; the key holds under either reading.
+- `APBIO-MCQ-112`: three rationales are missing a space before "Fix:".
+
+**Rollback:** set `status='retired'` on the 82 `content_items` and their `content_item_versions` (keys above). Labels, cells and difficulty rows can stay with the retired items.
+
+**Not approved by this entry:** Units 2+ seeds; any Development mirror; any change to the 79 previously published Biology MCQs.
+
