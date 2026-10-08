@@ -6,7 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
-- Student Hub Slice 1 Built in Lovable Preview (DECISION-0103) (2026-10-08): evidence reads scoped to the active pack; unit-only saves clear the topic; save on change replaces the Confirm buttons in both stages; the Learn door gates on the saved topic, treats lookup failure as unknown and honours the resolver; one unit-only rule (heading, first available example, unit notes list). Lovable `a509b7d7`, 755 tests; publication and signed-in screenshots pending with David.
+- Student Hub Slice 1 Built in Lovable Preview (DECISION-0103) (2026-10-08): evidence reads scoped to the active pack; unit-only saves clear the topic; save on change replaces the Confirm buttons in both stages; the Learn door gates on the saved topic, treats lookup failure as unknown and honours the resolver; one unit-only rule (heading, first available example, unit notes list). Lovable `a509b7d7`, 755 tests; published to production on David's instruction (deployment `10c9fc3b`, carries PR #380 packages 1–3 too); signed-in screenshots pending with David.
 - Open Hand + Practice QA Findings Executed: Answer-Key Revoke Applied, Practice Queue Selector Live, Lovable Fix Packages Built in Preview (APPROVAL-0135) (2026-10-08): TASK-0056b revoke finally applied to Dev and Prod (view projects `prompt_json` as null); `select_student_practice_items` excludes answered/revealed items, topic-first, paged; `student-session-items` v28/v34; Lovable packages for delivery/safety, attempt integrity and flow built in Preview, publication by David.
 - Chemistry Unit 2 Filled: 18 MCQs Published (APPROVAL-0134); Seed-vs-Seed Duplicate Gate Added (2026-10-08): Unit 2 practice MCQs 19 → 37; topics 2.2–2.4 went from 0 to 4 each; two same-concept seeds caught on read-through, a calibrated seed-vs-seed gate added, both regenerated before publish; the general selector serves all 18.
 - Biology Unit 3 Filled: 20 MCQs Published to Production (APPROVAL-0133) (2026-10-07): via publish_mcq_batch.py; verified 20/20 on text, labels, cells and difficulty; the selector serves all 20; Biology Unit 3 practice MCQs 0 → 20 (Unit 2 has 22); Biology published MCQs 183.
@@ -401,10 +401,12 @@ Most recent entries (full reverse-chronological list follows below):
 
 **What landed:** see `handoffs/STUDENT_HUB_SLICE1_EXECUTION_2026_10_08.md`. Lovable connector commit `a509b7d7` on baseline `926ac3fb`, Preview only: attempts and sessions reads scoped by `exam_pack_version_id`; unit-only saves send `topicCode: null`; save on change through one shared hook with a latest-wins gate and an inline Saving/Saved/retry line, Confirm buttons removed; Learn door with checking/available/unavailable/unknown states gated on the saved topic, honouring a `practice` resolver answer; "Studying: …" heading, unit-only Learn opens the first topic with an example and the plate says so, unit-only Notes lists the unit's topics with notes. 81 files / 755 tests, `tsgo` and build pass (agent report); Fable reviewed the diff.
 
+**Published:** David instructed "Publish the Preview build to production"; deployment `10c9fc3b` requested ~15:27 UTC. The publish carries the whole Preview head, so PR #380 Lovable packages 1–3 went live with it. Live commit not confirmable from the sandbox.
+
 **Still open:** signed-in screenshots at desktop/390/320 (slice 2, David); Sol's independent re-QA of slice 1; slices 3–4.
 
 **Next Owner:** David Bloom
-**Next Required Action:** Publish or open the Preview at `a509b7d7` signed in and run the slice 2 screenshot row.
+**Next Required Action:** Confirm `app.cramapple.com/home` shows the "Studying: …" heading, then run the slice 2 screenshot row.
 
 ## Open Hand + Practice QA Findings Executed — 2026-10-08
 

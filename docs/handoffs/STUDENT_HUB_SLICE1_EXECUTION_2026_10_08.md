@@ -1,6 +1,6 @@
 # Student Hub Slice 1 — Execution Record
 
-**Status:** Built in Lovable Preview; diff reviewed; publication and signed-in QA pending (David publishes)
+**Status:** Built in Lovable Preview; diff reviewed; **publication to production requested by David 2026-10-08 ~15:27 UTC** (Lovable deployment `10c9fc3b-06cd-4530-abdb-09286e8303aa`, status "pending" at request; Lovable reports the project published; the live commit could not be confirmed from the sandbox because `app.cramapple.com` is outside its egress policy). Signed-in QA pending.
 **Date:** 2026-10-08
 **Owner / Conductor:** Claude (Fable), session `claude/studenthub-qa-optimization-v8j16i`
 **Authorization:** David Bloom, 2026-10-08: "Go ahead and implement slice 1 in Lovable." Contracts per `DECISION-0103`.
@@ -9,7 +9,7 @@
 **Baseline:** `926ac3fbb0876bc10d97916441980afb3dcabccc` (PR #380 packages 2–3)
 **Connector commit (authoritative):** `a509b7d7e722cdb871a85b614bd6c19b50ecde9c` (agent-reported internal hash `d21b0ab2` is not the external checkpoint)
 **Preview:** https://id-preview--56cae479-f7c9-4988-b536-56538c38ee4e.lovable.app
-**Tier:** Standard. Frontend only. No backend, migration, grading, content, dependency or publication change.
+**Tier:** Standard. Frontend only. No backend, migration, grading, content or dependency change. Published on David's instruction ("Publish the Preview build to production"); the publish carries everything on the Preview head, which includes PR #380 Lovable packages 1–3 as well as slice 1.
 
 ## What was built
 
@@ -47,6 +47,6 @@ Files: new `src/lib/use-course-position-save.ts`, `src/components/home/PositionS
 
 ## Next
 
-**Slice 2 (David, ten minutes):** publish or open the Preview at `a509b7d7` signed in and take: desktop, 390px and 320px of Stage A with and without a saved lesson, Stage B, the notes overlay open, a long lesson name, 200% zoom; check the console and network for errors. Pass conditions are in the consolidated plan §4 and §6 (doors visible on a phone without scrolling past the form is a slice 3 condition, not this one). Then Sol re-QAs slice 1 against this commit.
+**Slice 2 (David, ten minutes):** on `app.cramapple.com` (now at `a509b7d7` if the deployment completed; the hub shows a "Studying: …" heading above the doors when it has) take: desktop, 390px and 320px of Stage A with and without a saved lesson, Stage B, the notes overlay open, a long lesson name, 200% zoom; check the console and network for errors. Pass conditions are in the consolidated plan §4 and §6 (doors visible on a phone without scrolling past the form is a slice 3 condition, not this one). Then Sol re-QAs slice 1 against this commit.
 
-**Approval state:** owner-authorized frontend implementation completed in Preview. No publication instruction granted. **Next owner:** David (publish / screenshots), then Sol (independent re-QA).
+**Approval state:** owner-authorized frontend implementation completed in Preview and published on the owner's instruction. **Next owner:** David (publish / screenshots), then Sol (independent re-QA).
