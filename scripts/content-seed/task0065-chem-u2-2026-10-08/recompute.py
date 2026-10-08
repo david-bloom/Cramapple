@@ -12,7 +12,6 @@ d = {150: 300, 180: -150, 199: -242, 230: -200, 300: -80, 500: -3}; R["apchem-mc
 sub = lambda a, b: abs(a - b) / max(a, b) < 0.15
 R["apchem-mcq-076"] = sub(128, 135)                # key D substitutional
 R["apchem-mcq-sv-076-v1"] = not sub(126, 77)       # key C interstitial
-R["apchem-mcq-sv-077-v1"] = sub(128, 134)          # key D substitutional
 # Lewis electron counts
 R["apchem-mcq-078"] = 6 + 1 + 1 == 2 + 3 * 2       # OH-: one bond + 3 lone pairs on O
 R["apchem-mcq-sv-078-v1"] = 5 + 1 + 1 + 1 == 2 * 2 + 2 * 2  # NH2-: two bonds + 2 lone pairs

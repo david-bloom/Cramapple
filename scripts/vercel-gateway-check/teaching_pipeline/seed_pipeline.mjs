@@ -28,7 +28,7 @@ const BAND = {
 
 // ---- prompts: the cached prefix is the standard author prefix; only the suffix changes ----
 const practiceSkills = (skills, practice) => skills.filter(([k]) => k.split('.')[0] === String(practice));
-function seedPrompt(t, slot, skills) {
+function seedPrompt(t, slot, skills, earlier = []) {
   const p = authorPrompt(t);
   // A slot may narrow its practice to the skills an MCQ can exercise (e.g. drop 4.A, constructing a graph).
   const ps = slot.skills ? skills.filter(([k]) => slot.skills.includes(k)) : practiceSkills(skills, slot.practice);
@@ -36,7 +36,10 @@ function seedPrompt(t, slot, skills) {
 Target skill practice ${slot.practice}. The question must clearly exercise one of these skills:
 ${ps.map(([k, v]) => `${k}: ${v}`).join('\n')}
 If the skill involves data, give the data as a small plain-text table or list in the stem; never require a figure.
-
+${earlier.length ? `
+Seeds already written for this topic are listed below. Yours must test a DIFFERENT idea, phenomenon or learning objective within the topic, not the same concept in new words or a new context:
+${earlier.map((e, i) => `${i + 1}. ${e.stem}  [correct: ${e.choices.find((c) => c.is_correct).choice_text}]`).join('\n')}
+` : ''}
 Write the question for the designated topic now.`) };
 }
 const itemText = (it) => `Stem: ${it.stem}\n${it.choices.map((c) => `${c.choice_key}. ${c.choice_text}${c.is_correct ? '   [KEYED CORRECT]' : ''}\n   Rationale: ${c.rationale}`).join('\n')}`;
@@ -56,6 +59,11 @@ Write the variant now.`) };
 const grams = (it) => { const w = (it.stem + ' ' + it.choices.map((c) => c.choice_text).join(' ')).toLowerCase().match(/[a-z0-9]+/g) || []; const g = new Set(); for (let i = 0; i + 2 < w.length; i++) g.add(w.slice(i, i + 3).join(' ')); return g; };
 const jaccard = (a, b) => { const A = grams(a), B = grams(b); let n = 0; for (const x of A) if (B.has(x)) n++; return n / Math.max(1, A.size + B.size - n); };
 const SIM_MAX = 0.35; // 3-gram Jaccard; above this the variant reuses too much of the seed's or a sibling's wording
+// Seed vs earlier seeds of the same topic. Calibrated 2026-10-08 on 29 same-topic seed pairs: distinct pairs reached at most
+// words 0.40 / 3-gram 0.09; the two same-concept Chemistry pairs were 0.51/0.18 and 0.60/0.31.
+const words = (it) => new Set((it.stem + ' ' + it.choices.map((c) => c.choice_text).join(' ')).toLowerCase().match(/[a-z0-9]+/g) || []);
+const wordJaccard = (a, b) => { const A = words(a), B = words(b); let n = 0; for (const x of A) if (B.has(x)) n++; return n / Math.max(1, A.size + B.size - n); };
+const SEED_WORDS_MAX = 0.45, SEED_3GRAM_MAX = 0.12;
 
 // ---- label vote: skill + difficulty from the four non-author families (short prompt, no fact pack) ----
 const LABEL = z.object({ skill_code: z.string(), difficulty: z.enum(['Easy', 'Medium', 'Hard']), reason: z.string() });
@@ -113,7 +121,15 @@ async function runTopic(batch, t, nVariants, rounds, allSkills) {
   for (const slot of t.slots) {
     if (st.seeds.find((s) => s.slot.slot === slot.slot && s.done)) continue;
     const base = `${t.subject_key}__${t.topic_code}__${slot.slot}`;
-    const seedRun = await produce('seed', t, `${base}__seed`, () => seedPrompt(t, slot, skills), null, rounds);
+    const earlier = st.seeds.filter((x) => x.slot.slot !== slot.slot && x.seed).map((x) => x.seed.item);
+    const seedGate = (item) => {
+      for (const e of earlier) {
+        const w = wordJaccard(item, e), g = jaccard(item, e);
+        if (w > SEED_WORDS_MAX || g > SEED_3GRAM_MAX) return `too similar to an earlier seed of this topic (words ${w.toFixed(2)}, 3-gram ${g.toFixed(2)})`;
+      }
+      return null;
+    };
+    const seedRun = await produce('seed', t, `${base}__seed`, () => seedPrompt(t, slot, skills, earlier), seedGate, rounds);
     const rec = { slot, seed: null, seed_candidates: seedRun.candidates, variants: [], done: false };
     if (seedRun.accepted) {
       rec.seed = { ...seedRun.accepted, slot, label: await labelVote(seedRun.accepted.item, seedRun.accepted.author_family, skills, `${base}__seed`) };
