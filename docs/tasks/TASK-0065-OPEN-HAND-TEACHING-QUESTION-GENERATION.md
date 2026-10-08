@@ -340,3 +340,9 @@ MiniMax) against CED PDF text, with 4 planted defects mixed in (all 4 caught):
 - whether to load the pilot items (Hard-Gate, needs approval);
 - human confirmation of the 15 provisional adjudications;
 - whether to run the Orly spec-guided seed A/B on Chemistry or Calculus.
+
+## Biology Unit 1 seed-pilot items published — 2026-10-07 (APPROVAL-0131)
+
+- All 82 pilot items (21 seeds, 61 variants) are now published Production practice MCQs, with labels set per DECISION-0101 and no human review per DECISION-0102.
+- Biology's published MCQs went from 79 to 161, and the real selector serves all 82.
+- Load scripts: `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/load/`.
