@@ -250,6 +250,32 @@ node ../../vercel-gateway-check/teaching_pipeline/run.mjs report --batch=<dir>
 The `report` command writes `accepted.json` (ready for the loader) and `summary.json`. Every model call is
 logged to `<batch>/calls.jsonl` for cost. See the README for sharding, resuming and the veto back-fill.
 
+**Publishing practice MCQs (seeds and variants):** use `scripts/content-seed/publish_mcq_batch.py`. Do not
+hand-carry SQL.
+
+The script sends each chunk to the Supabase Management API with the CLI's stored access token. It does not
+use a database password, and it never relinks the CLI (which stays linked to Dev).
+
+Each chunk is one transaction: insert the drafts, hash-check the stored text against the local plan, then walk the
+publish path. The path is: review decision → serving label → topic cell → skill cell → difficulty → `published`,
+with post-checks after it. A failure leaves nothing behind.
+
+```bash
+python3 scripts/content-seed/publish_mcq_batch.py plan-from-seed-batch --batch <seed batch> --key-prefix APBIO-MCQ --first-seed <n> --source <tag> --out <dir>/plan.json
+python3 scripts/content-seed/publish_mcq_batch.py preflight --plan <dir>/plan.json --env prod
+python3 scripts/content-seed/publish_mcq_batch.py rehearse  --plan <dir>/plan.json --env prod
+python3 scripts/content-seed/publish_mcq_batch.py publish   --plan <dir>/plan.json --env prod --approval APPROVAL-NNNN --confirm-production
+```
+
+- **Before `publish`:** record the Hard-Gate approval first. `publish` rehearses each chunk before committing it,
+  verifies it after committing, and finishes with an independent `verify`.
+- **Re-runs are safe:** a re-run skips chunks that are already published with identical text. It refuses any
+  chunk that is partial or has mismatched text.
+- **After `publish`:** call the subject's real selector (for example `app.select_biology_practice_items` as
+  `service_role`) to confirm the items are served.
+- **Development** lacks the Biology skill grid (Dev/Prod drift). A Dev rehearsal of skill-tagged Biology items
+  therefore stops at the skill guard; rehearse on Production instead, since a rehearsal always rolls back.
+
 ---
 
 ## 1. Current state, stated plainly
