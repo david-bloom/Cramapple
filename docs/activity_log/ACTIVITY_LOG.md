@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Open Hand + Practice QA Findings Executed: Answer-Key Revoke Applied, Practice Queue Selector Live, Lovable Fix Packages Built in Preview (APPROVAL-0135) (2026-10-08): TASK-0056b revoke finally applied to Dev and Prod (view projects `prompt_json` as null); `select_student_practice_items` excludes answered/revealed items, topic-first, paged; `student-session-items` v28/v34; Lovable packages for delivery/safety, attempt integrity and flow built in Preview, publication by David.
 - Chemistry Unit 2 Filled: 18 MCQs Published (APPROVAL-0134); Seed-vs-Seed Duplicate Gate Added (2026-10-08): Unit 2 practice MCQs 19 → 37; topics 2.2–2.4 went from 0 to 4 each; two same-concept seeds caught on read-through, a calibrated seed-vs-seed gate added, both regenerated before publish; the general selector serves all 18.
 - Biology Unit 3 Filled: 20 MCQs Published to Production (APPROVAL-0133) (2026-10-07): via publish_mcq_batch.py; verified 20/20 on text, labels, cells and difficulty; the selector serves all 20; Biology Unit 3 practice MCQs 0 → 20 (Unit 2 has 22); Biology published MCQs 183.
 - Legacy Retired MCQs Re-Checked (2 of 13 Pass, Republished Under APPROVAL-0132); Biology Unit 3 Batch Generated (20 MCQs, Controls 6/6) (2026-10-07): the 2026-08-08 retirements were mostly right (11 of 13 have real defects: old-CED content, factual errors); APBIO-MCQ-001/007 republished unchanged; Biology Unit 3 had 0 practice MCQs, so 10 seeds + 10 variants were generated across 3.1–3.5 and rehearsed on Production, awaiting the Product Owner's publish approval.
@@ -393,6 +394,17 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Open Hand + Practice QA Findings Executed — 2026-10-08
+
+**Context:** David asked for the findings of `qa/QA_OPEN_HAND_PRACTICE_TEMPLATES_2026_10_08.md` and the challenge review to be executed "to make the user experience as easy and helpful as possible." Decisions in-session: database changes to Development and Production without further check-in (`APPROVAL-0135`); Lovable built in Preview, David publishes; "Worked example" is the student-facing name everywhere; the practice selector fixed server-side.
+
+**What landed:** see `handoffs/OPEN_HAND_PRACTICE_QA_EXECUTION_2026_10_08.md` for the full record. In short: TASK-0056b answer-key revoke applied in both environments (F10); new paged, answered-excluding practice selector and FRQ availability count (F2, A2, A3); `get_open_hand_item` revoked (F9); `student-session-items` redeployed; Lovable packages 1–3 covering stimulus rendering, mode-aware titles, paging, retired `/open-hand-frq`, attempt-integrity and the flow/copy findings.
+
+**Still open:** topic resolution for FRQ packs and Calc AB Unit 1 MCQs (F1b, content pipeline); FRQ teaching pool (§2b); signed-in browser certification after David publishes.
+
+**Next Owner:** David Bloom
+**Next Required Action:** Publish the Lovable Preview build, then run §6 of the QA report on a screen.
+
 ## TASK-0065 Pipeline Cost Levers and Biology Unit 1 Seed Pilot — 2026-10-07
 
 **Cost levers** (`scripts/content-seed/task0065-cost-levers-2026-10-07/RESULTS.md`):
