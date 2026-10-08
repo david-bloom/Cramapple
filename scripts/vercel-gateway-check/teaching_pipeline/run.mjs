@@ -49,6 +49,12 @@ const SUBJECTS = {
   'ap-statistics': { name: 'AP Statistics', brief: 'ap_statistics', pack: 'AP_STATISTICS_2027_CED_FACT_PACK.md' },
   'ap-chemistry': { name: 'AP Chemistry', brief: 'ap_chemistry', pack: 'AP_CHEMISTRY_CED_FACT_PACK.md' },
   'ap-calculus-ab': { name: 'AP Calculus AB', brief: 'ap_calculus_ab', pack: 'AP_CALCULUS_AB_BC_CED_FACT_PACK.md' },
+  'ap-calculus-bc': { name: 'AP Calculus BC', brief: 'ap_calculus_bc', pack: 'AP_CALCULUS_AB_BC_CED_FACT_PACK.md' },
+  'ap-precalculus': { name: 'AP Precalculus', brief: 'ap_precalculus', pack: 'AP_PRECALCULUS_CED_FACT_PACK.md' },
+  'ap-physics-1': { name: 'AP Physics 1', brief: 'ap_physics_1', pack: 'AP_PHYSICS_1_CED_FACT_PACK.md' },
+  'ap-physics-2': { name: 'AP Physics 2', brief: 'ap_physics_2', pack: 'AP_PHYSICS_2_CED_FACT_PACK.md' },
+  'ap-physics-c-mechanics': { name: 'AP Physics C: Mechanics', brief: 'ap_physics_c_mechanics', pack: 'AP_PHYSICS_C_MECHANICS_CED_FACT_PACK.md' },
+  'ap-physics-c-em': { name: 'AP Physics C: Electricity and Magnetism', brief: 'ap_physics_c_em', pack: 'AP_PHYSICS_C_EM_CED_FACT_PACK.md' },
 };
 const packCache = {};
 const fullPack = (s) => (packCache[s] ??= fs.readFileSync(path.resolve(HERE, '../../../docs/product', SUBJECTS[s].pack), 'utf8'));
@@ -65,10 +71,14 @@ export function scopedPack(s, unit) {
     if (h) { const u = line.match(/^### Unit (\d+)\b/); skipping = !!(u && Number(u[1]) > unit); }
     if (!skipping) out.push(line);
   }
+  // Refuse to author or check against a unit the CED pack does not cover (e.g. Precalculus Unit 4, not on the AP exam).
+  if (!out.some((l) => new RegExp(`^### Unit ${unit}\\b`).test(l))) throw new Error(`${SUBJECTS[s].pack} has no "### Unit ${unit}" section; not generating for it`);
   return (scopedCache[key] = out.join('\n'));
 }
 const factPack = (s, unit) => (PACK_MODE === 'scoped' && unit ? scopedPack(s, unit) : fullPack(s));
-const BRIEFS = JSON.parse(fs.readFileSync(path.join(HERE, 'inputs/briefs_u1-3.json'), 'utf8'));
+// All 603 published topic point briefs, all units, all ten subjects (exported from Production app.topic_point_briefs
+// 2026-10-08; briefs_u1-3.json is the older Units 1-3 snapshot kept for the method-test judge).
+const BRIEFS = JSON.parse(fs.readFileSync(path.join(HERE, 'inputs/briefs_all.json'), 'utf8'));
 const CED_TOPICS = { biology: JSON.parse(fs.readFileSync(path.join(HERE, 'inputs/ced_topics_biology.json'), 'utf8')) };
 const briefFor = (s, code) => BRIEFS.find((b) => b.subject_key === SUBJECTS[s].brief && b.topic_code === code);
 function unitTopicList(s, unit) {

@@ -99,3 +99,16 @@ Each plan slot names a skill **practice** (for example `"practice": "4"`). An op
 - They **inherit the seed's labels** and are not re-voted (DECISION-0101).
 
 Evidence: `scripts/content-seed/task0065-seed-pilot-bio-u1-2026-10-07/RESULTS.md`.
+
+## Subjects and inputs (2026-10-08)
+
+**Subjects:** all ten are registered in `run.mjs` `SUBJECTS`: Biology, Statistics, Chemistry, Calculus AB, Calculus BC, Precalculus, Physics 1, Physics 2, Physics C: Mechanics and Physics C: E&M. Each points at its CED fact pack in `docs/product/`.
+
+**Inputs:**
+- `inputs/briefs_all.json`: all 603 published topic point briefs, every unit of all ten subjects, exported from Production `app.topic_point_briefs`. Re-export it when briefs change. `briefs_u1-3.json` is the older Units 1–3 snapshot, still used by the method-test judge.
+- `inputs/skills/<subject>.json`: each subject's skill list (code → description) from Production `app.taxonomy_skills`. Pass it to `seed_pipeline.mjs --skills=`.
+
+**Rules:**
+- **Unit numbering** follows the registry. Physics 2 runs from Unit 9 and Physics C: E&M from Unit 8, and the packs use the same numbers.
+- **Unsupported units:** the pipeline refuses any unit with no `### Unit N` section in its fact pack. For example, Precalculus Unit 4 is not assessed on the AP exam and is not in the pack.
+- **Per-topic skill grids:** Calculus AB/BC, Chemistry and Statistics restrict skills per topic. Pick plan slots whose practice has a skill allowed for that topic. The publish script's skill-grid guard rejects any voted skill that is outside the grid.
