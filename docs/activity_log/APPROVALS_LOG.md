@@ -6,6 +6,8 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0135 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9) (2026-10-08)
+- APPROVAL-0134 — Publish 18 AP Chemistry Unit 2 Practice MCQs (9 Seeds, 9 Variants; Topics 2.1–2.6) From the Generate-and-Select Pipeline (Production) — TASK-0065
 - APPROVAL-0133 — Publish 20 AP Biology Unit 3 Practice MCQs (10 Seeds, 10 Variants; Topics 3.1–3.5) From the Generate-and-Select Pipeline (Production) — TASK-0065
 - APPROVAL-0132 — Republish 2 AP Biology MCQs Retired 2026-08-08 (`APBIO-MCQ-001`, `APBIO-MCQ-007`) Unchanged After a Five-Family Correctness Re-Check (Production) — TASK-0065
 - APPROVAL-0131 — Publish 82 AP Biology Unit 1 Practice MCQs From the Generate-and-Select Seed Pilot (21 Seeds, 61 Variants; Production) — TASK-0065
@@ -1986,7 +1988,31 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 
 **Rollback:** set the 20 items and their published versions to `retired`.
 
-## APPROVAL-0134 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9)
+## APPROVAL-0134 — Publish 18 AP Chemistry Unit 2 Practice MCQs (9 Seeds, 9 Variants; Topics 2.1–2.6) From the Generate-and-Select Pipeline (Production) — TASK-0065
+
+**Date:** 2026-10-08  
+**Approved By:** David Bloom (2026-10-08 Claude session: "Do chem unit 2", then "1", choosing to regenerate the two duplicate seeds and then publish all 18 together). No human review, per DECISION-0102.  
+**Related:** `DECISION-0099`, `DECISION-0101`, `DECISION-0102`, `DECISION-0096`; `scripts/content-seed/task0065-chem-u2-2026-10-08/`  
+**Decision:** Approved
+
+**Why:** Chemistry Unit 2 had 19 practice MCQs, against 35 in Unit 1 and 58 in Unit 3. Topics 2.2, 2.3 and 2.4 had none.
+
+**Approved scope:** Production. 18 MCQs published through `publish_mcq_batch.py publish`:
+- **Seeds:** `apchem-mcq-071`–`079`. That is two seeds each for 2.2, 2.3 and 2.4, and one each for 2.1, 2.5 and 2.6. Topic 2.7 already had 7 and was skipped.
+- **Variants:** `apchem-mcq-sv-<seed>-v1`.
+- **Skill cells (18):** all validated, each inside the topic's allowed skill grid. Votes were restricted to the grid through the plan's `allowed_skills`.
+- **Difficulty (provisional, DECISION-0101):** Medium 12, Hard 4, Easy 2.
+
+**Evidence:**
+- All 18 were accepted by generate-and-select with no hand edits. Planted-defect controls caught 6/6.
+- All 10 computable keys were recomputed (`recompute.py`): electronegativity differences, potential-energy minima, alloy radii, Lewis electron counts, and formal charges for OCN⁻ and SCN⁻.
+- **Duplicate seeds found and fixed:** a read of all 18 showed that the second seeds on 2.3 and 2.4 tested the same concept as the first (word overlap 0.51 and 0.60). A new seed-vs-seed gate was added, calibrated on 29 same-topic pairs: distinct pairs reach at most 0.40 / 0.09, and the threshold is 0.45 / 0.12. Those two seed slots and their variants were regenerated (ionic-solid melting point; metal malleability). The originals are kept in the batch files under `superseded_seeds`.
+- The Production rehearsal passed and rolled back.
+- Cost: about $4.30.
+
+**Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0135 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9)
 
 **Date:** 2026-10-08  
 **Approved By:** David Bloom (2026-10-08 Claude session, answer to the execution check-in: database changes go to "Dev and Production, no further check-in").  

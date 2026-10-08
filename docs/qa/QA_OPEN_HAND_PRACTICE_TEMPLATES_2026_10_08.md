@@ -10,7 +10,7 @@
 
 ---
 
-**Execution status (2026-10-08, same day):** David asked for these findings to be executed. The database and edge-function repairs (F10, F2, F9, A2, A3) are live in Development and Production under `APPROVAL-0134`; the student-app repairs are built in the Lovable Preview in three packages and await David's publish. The record, with what each package changed and what stays open (F1b topic data, the FRQ teaching pool in §2b), is `docs/handoffs/OPEN_HAND_PRACTICE_QA_EXECUTION_2026_10_08.md`. The findings below are left as written so the before state stays on the record.
+**Execution status (2026-10-08, same day):** David asked for these findings to be executed. The database and edge-function repairs (F10, F2, F9, A2, A3) are live in Development and Production under `APPROVAL-0135`; the student-app repairs are built in the Lovable Preview in three packages and await David's publish. The record, with what each package changed and what stays open (F1b topic data, the FRQ teaching pool in §2b), is `docs/handoffs/OPEN_HAND_PRACTICE_QA_EXECUTION_2026_10_08.md`. The findings below are left as written so the before state stays on the record.
 
 ---
 
