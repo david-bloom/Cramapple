@@ -1,6 +1,6 @@
 # Student Hub Slice 1 — Execution Record
 
-**Status:** Built in Lovable Preview; diff reviewed; **publication to production requested by David 2026-10-08 ~15:27 UTC** (Lovable deployment `10c9fc3b-06cd-4530-abdb-09286e8303aa`, status "pending" at request; Lovable reports the project published; the live commit could not be confirmed from the sandbox because `app.cramapple.com` is outside its egress policy). Signed-in QA pending.
+**Status:** Built in Lovable Preview; diff reviewed; **publication to production requested by David 2026-10-08 ~15:27 UTC** (Lovable deployment `10c9fc3b-06cd-4530-abdb-09286e8303aa`, status "pending" at request; Lovable reports the project published; **confirmed live by David 2026-10-08 ~16:20 UTC: the "Studying: …" heading shows on `app.cramapple.com/home`**). Signed-in screenshot pass (slice 2) pending.
 **Date:** 2026-10-08
 **Owner / Conductor:** Claude (Fable), session `claude/studenthub-qa-optimization-v8j16i`
 **Authorization:** David Bloom, 2026-10-08: "Go ahead and implement slice 1 in Lovable." Contracts per `DECISION-0103`.
