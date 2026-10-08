@@ -1,6 +1,6 @@
 # Student Hub — Independent Challenge QA
 
-STATUS: PROPOSED — findings and improvement plan; not QA acceptance
+STATUS: EVIDENCE RECORD — findings H1–H15 stand; the recommendation sections are consolidated with Fable's assessment in `QA_STUDENT_HUB_CONSOLIDATED_PLAN_2026_10_08.md`, which governs where the two differ (Sol's review of PR #381/#382, 2026-10-08)
 DATE: 2026-10-08
 AUTHOR: Codex
 OWNER: David Bloom
