@@ -81,6 +81,10 @@ type StudentSessionItemsDeps = {
 // early-return literal continues to narrow correctly.
 type EmptyQueueReason = "no_matching_content" | "all_items_omitted";
 
+// The selector caps a page at 50 (51 with the look-ahead row). Clients page
+// with `offset`; answered items never come back, so a page is always fresh.
+const UNIT_GATED_PAGE_SIZE = 50;
+
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -135,7 +139,9 @@ function withHandDrawnFlag(
 // items were showing a value, hypothesis or conclusion as the question text.
 // Safe to widen because extractQuestionParts is all-or-nothing -- an item with
 // no authored parts keeps its existing behaviour unchanged.
-const EXAM_CODES_WITH_AUTHORED_PARTS = new Set([
+// Superseded 2026-10-08: authored parts are now read for every subject (see
+// the withHandDrawnFlag call below). Kept as the record of the original rollout.
+export const EXAM_CODES_WITH_AUTHORED_PARTS = new Set([
   "ap_calculus_ab",
   "ap_statistics",
   "ap_biology",
@@ -411,6 +417,15 @@ export async function handleStudentSessionItems(
     );
   }
   const limit = asPositiveInt(input.limit, MAX_ITEMS);
+  // 2026-10-08 (QA F2 / A3): the unit-gated queue takes the topic the student
+  // chose on Home, so matching items come first, and an offset so the client
+  // can page past items it skipped. Both optional; absent means "as before".
+  const topicCode = typeof input.topic === "string" && input.topic.trim()
+    ? input.topic.trim()
+    : null;
+  const offset = Number.isInteger(Number(input.offset)) && Number(input.offset) > 0
+    ? Number(input.offset)
+    : 0;
 
   // "unit_gated" additionally serves mcq/quantitative alongside frq, scoped by
   // the student's real course-position unit via select_unit_gated_practice_items
@@ -587,6 +602,8 @@ export async function handleStudentSessionItems(
     // ── Ordinary queue path ─────────────────────────────────────────────────
     let selected: unknown[] | null;
     let selectError: { message: string } | null;
+    // Only the unit-gated queue knows whether more items remain beyond this page.
+    let hasMore: boolean | null = null;
 
     if (ordinaryMode === "unit_gated") {
       // Real course position drives real unit-gating. A student who has never
@@ -608,16 +625,28 @@ export async function handleStudentSessionItems(
       }
       const currentUnit = positionRow?.unit_id ?? 1;
 
+      // select_student_practice_items (2026-10-08) is the same selector plus:
+      // the session owner's submitted items and Open-Hand-revealed items are
+      // excluded server-side, a requested topic sorts first, and an offset
+      // pages past skipped items. One extra row is requested so the response
+      // can say whether more remain without a second query.
       ({ data: selected, error: selectError } = await service.rpc(
-        "select_unit_gated_practice_items",
+        "select_student_practice_items",
         {
           _exam_pack_version_id: session.exam_pack_version_id,
           _current_unit: currentUnit,
+          _user_id: session.user_id,
           _practice_format: session.practice_format ?? null,
           _item_type: itemTypeFilter,
-          _limit: limit,
+          _topic_code: topicCode,
+          _limit: Math.min(limit, UNIT_GATED_PAGE_SIZE) + 1,
+          _offset: offset,
         },
       ));
+      if (!selectError && Array.isArray(selected)) {
+        hasMore = selected.length > Math.min(limit, UNIT_GATED_PAGE_SIZE);
+        selected = selected.slice(0, Math.min(limit, UNIT_GATED_PAGE_SIZE));
+      }
     } else if (ordinaryMode === "cell_scoped") {
       // Mirrors buildPublishedMcqQuery's filters (src/lib/use-published-mcq.ts,
       // Lovable "New Cramapple App"): published MCQ content_items joined to
@@ -777,8 +806,13 @@ export async function handleStudentSessionItems(
       return respond({ error: "item_selection_failed" }, { status: 500 });
     }
 
+    // 2026-10-08 (QA challenge A2): authored part prompts are read for every
+    // subject. extractQuestionParts is all-or-nothing and reads only the
+    // authored `prompt` / `prompt_text` fields, never criteria, so widening
+    // it exposes no scoring text; it stops the FRQ adapter rejecting whole
+    // subjects (Calc BC, Precalculus) whose prompts were already authored.
     const rows = withHandDrawnFlag((selected ?? []) as SelectedRow[], {
-      questionParts: EXAM_CODES_WITH_AUTHORED_PARTS.has(sessionExamCode ?? ""),
+      questionParts: true,
     });
     const delivered = await deliverRows(service, rows, qaMode);
     if (!delivered.ok) {
@@ -825,6 +859,10 @@ export async function handleStudentSessionItems(
         items: annotatedItems,
         omitted: delivered.omitted,
         reason: emptyQueueReason,
+        // unit_gated only: paging contract for the client (2026-10-08).
+        offset: ordinaryMode === "unit_gated" ? offset : null,
+        has_more: hasMore,
+        topic: ordinaryMode === "unit_gated" ? topicCode : null,
       },
     });
   } catch (error) {
