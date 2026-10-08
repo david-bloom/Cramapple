@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0133 — Publish 20 AP Biology Unit 3 Practice MCQs (10 Seeds, 10 Variants; Topics 3.1–3.5) From the Generate-and-Select Pipeline (Production) — TASK-0065
 - APPROVAL-0132 — Republish 2 AP Biology MCQs Retired 2026-08-08 (`APBIO-MCQ-001`, `APBIO-MCQ-007`) Unchanged After a Five-Family Correctness Re-Check (Production) — TASK-0065
 - APPROVAL-0131 — Publish 82 AP Biology Unit 1 Practice MCQs From the Generate-and-Select Seed Pilot (21 Seeds, 61 Variants; Production) — TASK-0065
 - APPROVAL-0130 — Assistance-Events Write Path: `public.attempt_assistance_events` View (INSERT/SELECT for Signed-In Students) and the `topic_hint` Event Kind (Dev + Production)
@@ -1959,4 +1960,29 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - the 11 failing items, which stay retired;
 - the 17 items with reviewer edit requests and the 5 rejected items;
 - the 4 unchecked Physics 2 and Precalculus items.
+
+## APPROVAL-0133 — Publish 20 AP Biology Unit 3 Practice MCQs (10 Seeds, 10 Variants; Topics 3.1–3.5) From the Generate-and-Select Pipeline (Production) — TASK-0065
+
+**Date:** 2026-10-07  
+**Approved By:** David Bloom (2026-10-07 Claude session: "Approved. publish the 20 Unit 3 questions to Production"). No human review, per DECISION-0102.  
+**Related:** `DECISION-0099`, `DECISION-0101`, `DECISION-0102`, `DECISION-0096`; `scripts/content-seed/task0065-bio-u3-2026-10-07/`; PR #377  
+**Decision:** Approved
+
+**Why:** Biology Unit 3 had 0 practice MCQs. Its only four had been retired on 2026-08-08, and the 2026-10-02 Units 1–3 run only made variants of published seeds. The target was Unit 2's 22 MCQs. Unit 3 already had 10 FRQs against Unit 2's 9, so only MCQs were needed.
+
+**Approved scope:** Production. 20 MCQs published through `publish_mcq_batch.py publish`:
+- **Seeds:** `APBIO-MCQ-122`–`131`, two per topic for 3.1–3.5.
+- **Variants:** `APBIO-MCQ-SV-<seed>-v1`.
+- **Labels (DECISION-0101):**
+  - 20 skill cells: 18 validated, 2 provisional (`122` and its variant).
+  - Difficulty: Medium for all 20, provisional, from the four-family vote; variants inherit it.
+
+**Evidence:**
+- All 20 were accepted by generate-and-select with no hand edits: four non-author families plus the own-family veto.
+- Planted-defect controls caught 6/6.
+- All 5 data-table keys were recomputed (`recompute.py`).
+- The Production rehearsal passed and rolled back.
+- Cost: $3.60.
+
+**Rollback:** set the 20 items and their published versions to `retired`.
 
