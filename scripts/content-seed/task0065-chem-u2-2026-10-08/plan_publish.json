@@ -1,0 +1,745 @@
+{
+ "subject_key": "ap-chemistry",
+ "source": "task0065_chem_u2_2026_10_08",
+ "run_note": "AP Chemistry Unit 2 fill (TASK-0065, generate-and-select seeds and variants)",
+ "items": [
+  {
+   "seed_key": "apchem-mcq-071",
+   "unit": 2,
+   "topic": "2.1",
+   "title": "Types of Chemical Bonds",
+   "skill": "6.D",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-071",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.1__A__seed#r1-openai",
+   "stem": "The electronegativities of hydrogen and chlorine are given below.\n\nAtom | Electronegativity\nH | 2.2\nCl | 3.2\n\nWhich statement best describes the H–Cl bond and explains how its bonding electrons are distributed?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The bond is polar covalent because Cl attracts the shared electrons more strongly than H, giving Cl a partial negative charge.",
+     "is_correct": true,
+     "rationale": "Cl has the higher electronegativity, so the bonding electrons are shared unequally and pulled toward Cl. This produces a polar covalent bond with some ionic character, rather than complete electron transfer."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The bond is nonpolar covalent because both atoms are nonmetals and therefore share the bonding electrons equally.",
+     "is_correct": false,
+     "rationale": "Element-category shortcut: Two nonmetals can share electrons unequally. The different electronegativities of H and Cl make this bond polar, not nonpolar. Fix: Compare the atoms’ electronegativities before deciding whether electrons are shared equally."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The bond is polar covalent because H attracts the shared electrons more strongly than Cl, giving H a partial negative charge.",
+     "is_correct": false,
+     "rationale": "Reversed charge assignment: The more electronegative atom attracts the shared electrons more strongly and carries the partial negative charge. Cl, not H, has the higher electronegativity. Fix: Assign the partial negative charge to the atom with the higher electronegativity."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The bond is ionic because any difference in electronegativity means an electron is completely transferred between the atoms.",
+     "is_correct": false,
+     "rationale": "All-or-nothing bonding misconception: Unequal electronegativities do not automatically imply complete electron transfer. In H–Cl, the electrons remain shared, but the sharing is unequal. Fix: Distinguish unequal sharing from complete transfer when classifying a bond."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 6.D 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-071",
+   "unit": 2,
+   "topic": "2.1",
+   "title": "Types of Chemical Bonds",
+   "skill": "6.D",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-sv-071-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.1__A__v1#r1-anthropic",
+   "stem": "Methanol, CH₃OH, contains a single bond between a carbon atom and an oxygen atom. The electronegativity values are shown in the table below.\n\nAtom | Electronegativity\nC | 2.6\nO | 3.4\n\nWhich claim about the C–O bond in methanol, including its justification, is best supported by these data?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The C–O bond is nonpolar covalent because carbon and oxygen are both nonmetals, so they share the bonding electrons equally.",
+     "is_correct": false,
+     "rationale": "Element-category shortcut: two nonmetals do form a covalent bond, but that says nothing about whether the sharing is equal. The 0.8 electronegativity difference between O and C makes the sharing unequal. Fix: Compare the two electronegativity values before deciding whether electrons are shared equally."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The C–O bond is polar covalent because C pulls the shared electron pair more strongly than O does, so C carries a partial negative charge.",
+     "is_correct": false,
+     "rationale": "Reversed charge assignment: the atom with the higher electronegativity attracts the shared pair more strongly and carries the partial negative charge. Oxygen, not carbon, has the higher value. Fix: Place the partial negative charge on whichever atom has the larger electronegativity value."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "The C–O bond is polar covalent because O pulls the shared electron pair more strongly than C does, so O carries a partial negative charge.",
+     "is_correct": true,
+     "rationale": "Oxygen's electronegativity (3.4) exceeds carbon's (2.6), so the shared pair lies closer to O, giving O a partial negative charge and C a partial positive charge. The electrons are still shared, not transferred, so the bond is polar covalent with some ionic character."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "The C–O bond is ionic because any difference in electronegativity means an electron is completely transferred from C to O.",
+     "is_correct": false,
+     "rationale": "All-or-nothing bonding misconception: an electronegativity difference shifts the shared pair toward one atom but does not by itself mean full electron transfer. Bonding is a continuum, and the C–O electrons remain shared, only unequally. Fix: Ask whether electrons are shifted or fully transferred before labeling a bond ionic."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-071 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-071 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-072",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Intramolecular Force and Potential Energy",
+   "skill": "3.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-072",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.2__A__seed#r1-anthropic",
+   "stem": "A student is given potential energy (PE) data for two hydrogen atoms as a function of internuclear distance. PE is defined as 0 kJ/mol for fully separated atoms. Data (distance in pm, PE in kJ/mol): 40, +250; 60, −380; 74, −436; 100, −360; 150, −150; 300, −5. The student plots internuclear distance on the x-axis. Which description of the correctly drawn graph is accurate?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "With x in pm and y in kJ/mol, the curve rises steeply below about 50 pm, reaches a minimum at (74 pm, −436 kJ/mol), and levels off toward 0 kJ/mol at large distances.",
+     "is_correct": true,
+     "rationale": "The lowest point marks the equilibrium bond length, 74 pm, and the well depth below the separated-atom zero, 436 kJ/mol, is the bond energy. Nuclear repulsion makes PE climb at short range, and the curve approaches 0 as the atoms stop interacting."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "With x in pm and y in kJ/mol, the curve reaches a minimum at 74 pm and then levels off at −436 kJ/mol at large distances.",
+     "is_correct": false,
+     "rationale": "This confuses the well depth with the long-distance asymptote. The data show PE rising back toward 0 kJ/mol by 300 pm, because separated atoms have zero PE by definition. Fix: Check where the curve should flatten by asking what PE the separated atoms were assigned."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "With x in pm and y in kJ/mol, the bond length is shown where the curve crosses 0 kJ/mol, near 50 pm, and the minimum marks where the atoms separate.",
+     "is_correct": false,
+     "rationale": "This misreads the zero crossing as the bond length. At about 50 pm repulsion and attraction give PE equal to that of separated atoms; the stable bond length is at the lowest PE, 74 pm. Fix: Locate the x-value of the lowest plotted point and label that as bond length."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "With x in pm and y in kJ/mol, the curve rises to a maximum of +436 kJ/mol at 74 pm, because energy must be added to break the bond.",
+     "is_correct": false,
+     "rationale": "This sign error treats the positive bond energy as a plotted peak. The tabulated PE at 74 pm is −436 kJ/mol, so the bond is an energy well, and 436 kJ/mol is the depth needed to climb out to 0. Fix: Plot each point with the sign given in the table before interpreting the curve."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 3.A 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-072",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Intramolecular Force and Potential Energy",
+   "skill": "3.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-sv-072-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.2__A__v1#r1-anthropic",
+   "stem": "A chemistry student models the bond in a Cl₂ molecule using calculated potential energy values for two chlorine atoms at several internuclear distances. The potential energy of two completely separated Cl atoms is set at 0 kJ/mol. Data (internuclear distance in pm, potential energy in kJ/mol): 150, +300; 180, −150; 199, −242; 230, −200; 300, −80; 500, −3. The student will put internuclear distance on the horizontal axis. Which statement correctly describes the graph the student should draw?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "With distance in pm and energy in kJ/mol, the curve bottoms out at 199 pm and then flattens at −242 kJ/mol as the distance keeps increasing.",
+     "is_correct": false,
+     "rationale": "This confuses the depth of the well with the long-range asymptote. The data rise back to −3 kJ/mol by 500 pm, since separated atoms were assigned 0 kJ/mol. Fix: Ask what energy the fully separated atoms were assigned and flatten the curve there."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "With distance in pm and energy in kJ/mol, the curve climbs steeply at distances below about 180 pm, bottoms out at (199 pm, −242 kJ/mol), and flattens toward 0 kJ/mol at large distances.",
+     "is_correct": true,
+     "rationale": "The lowest point gives the equilibrium bond length, 199 pm, and its depth below the separated-atom zero, 242 kJ/mol, is the bond energy. Nucleus–nucleus repulsion raises the energy at short range, and the energy returns toward 0 as the atoms stop interacting."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "With distance in pm and energy in kJ/mol, the bond length is shown where the curve crosses 0 kJ/mol, near 170 pm, and the lowest point marks where the atoms separate.",
+     "is_correct": false,
+     "rationale": "This misreads the zero crossing as the bond length. Near 170 pm the energy merely equals that of separated atoms; the stable bond length is at the minimum energy, 199 pm. Fix: Find the x-value of the lowest plotted point and label it as bond length."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "With distance in pm and energy in kJ/mol, the curve rises to a peak of +242 kJ/mol at 199 pm, because energy must be added to break the bond.",
+     "is_correct": false,
+     "rationale": "This sign error plots the positive bond energy as a peak. The tabulated energy at 199 pm is −242 kJ/mol, so the bond is a well, and 242 kJ/mol is the energy needed to climb out to 0. Fix: Plot every point with the sign shown in the table before interpreting."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-072 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-072 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-073",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Intramolecular Force and Potential Energy",
+   "skill": "3.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-073",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.2__B__seed#r1-openai",
+   "stem": "A student is constructing a potential-energy-versus-internuclear-distance model comparing a C–C single bond with a C=C double bond. Both curves use zero potential energy for fully separated atoms. How should the student represent the double-bond curve relative to the single-bond curve?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Place its minimum at a smaller internuclear distance and a more negative potential energy.",
+     "is_correct": true,
+     "rationale": "The minimum’s position represents equilibrium bond length, and its depth below zero represents bond energy. The higher-order double bond is shorter and stronger, so its minimum lies at a smaller distance and requires more energy to reach zero."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Place its minimum at a greater internuclear distance and a more negative potential energy.",
+     "is_correct": false,
+     "rationale": "Length–strength reversal: This correctly represents greater bond energy but incorrectly makes the double bond longer. Higher bond order produces a shorter equilibrium bond length. Fix: Move the minimum toward smaller internuclear distance when bond order increases."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Place its minimum at a smaller internuclear distance and a less negative potential energy.",
+     "is_correct": false,
+     "rationale": "Potential-energy sign confusion: A less negative minimum is closer to zero, so it represents less energy needed to separate the atoms. That would incorrectly model the double bond as weaker. Fix: Compare the vertical gaps between the minima and zero, not their signed energy values."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Place its minimum at the same internuclear distance and a more negative potential energy.",
+     "is_correct": false,
+     "rationale": "Energy-only bond-order misconception: This represents the increased bond energy but ignores the change in equilibrium bond length. Increasing bond order also brings the bonded atoms closer together. Fix: Adjust both the horizontal position and the depth when modeling increased bond order."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 3.A 3, 3.B 1",
+   "difficulty_note": "Four non-author model families voted; tally Medium 3, Hard 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-073",
+   "unit": 2,
+   "topic": "2.2",
+   "title": "Intramolecular Force and Potential Energy",
+   "skill": "3.A",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-sv-073-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.2__B__v1#r1-anthropic",
+   "stem": "For a lab report, a student sketches two potential-energy-versus-internuclear-distance curves on one set of axes: one for the N–N single bond in hydrazine and one for the N≡N triple bond in nitrogen gas. Potential energy is set to zero for fully separated atoms. How should the student draw the triple-bond curve compared with the single-bond curve?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Its minimum should sit at a shorter internuclear distance and lie farther below zero.",
+     "is_correct": true,
+     "rationale": "The x-value of a curve's minimum represents equilibrium bond length, and the well depth below zero represents bond energy. A triple bond is shorter and stronger than a single bond between the same atoms, so its minimum sits at smaller distance and lies deeper below zero."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Its minimum should sit at a longer internuclear distance and lie farther below zero.",
+     "is_correct": false,
+     "rationale": "Length–strength reversal: this deepens the well correctly but makes the triple bond longer. Higher bond order pulls the nuclei closer together, so the minimum must shift to a smaller distance. Fix: Shift the minimum toward smaller distance whenever bond order increases."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Its minimum should sit at a shorter internuclear distance and lie closer to zero.",
+     "is_correct": false,
+     "rationale": "Potential-energy sign confusion: a minimum closer to zero means less energy is needed to separate the atoms, which would model the triple bond as weaker. The stronger bond needs the deeper well. Fix: Measure the vertical gap from each minimum up to zero before comparing bond strengths."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Its minimum should sit at the same internuclear distance and lie farther below zero.",
+     "is_correct": false,
+     "rationale": "Energy-only bond-order misconception: this shows the larger bond energy but ignores the shorter equilibrium bond length. Raising bond order changes both the position and the depth of the minimum. Fix: Adjust both the horizontal position and the depth of the minimum when bond order changes."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-073 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-073 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-074",
+   "unit": 2,
+   "topic": "2.3",
+   "title": "Structure of Ionic Solids",
+   "skill": "4.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-074",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.3__A__seed#r1-openai",
+   "stem": "When struck, a crystal of an ionic compound fractures rather than bending. Which explanation best connects this behavior to the arrangement of particles in the solid?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "The crystal consists of separate neutral molecules whose weak attractions allow them to pull apart when struck.",
+     "is_correct": false,
+     "rationale": "Discrete-molecule misconception: an ionic crystal contains an extended array of ions, not separate neutral molecules. Its brittleness results from repulsion after lattice displacement, not weak attractions between molecules. Fix: Identify the particles as cations and anions before explaining how they interact."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Displacement of a layer can bring like-charged ions next to one another, and their repulsion causes the crystal to fracture.",
+     "is_correct": true,
+     "rationale": "An ionic solid is an extended, repeating array of cations and anions. Displacing a layer can disrupt the favorable arrangement of opposite charges and place like charges close together, producing repulsion that splits the crystal."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Layers of ions slide freely while maintaining their attractive interactions, allowing the crystal to fracture.",
+     "is_correct": false,
+     "rationale": "Sliding-versus-fracture confusion: freely sliding layers that maintain their attractions would explain deformation, not brittle fracture. In the ionic-lattice model, displacement can instead bring like charges together and create repulsion. Fix: Check whether your explanation predicts a change in shape or separation into pieces."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Displacement of a layer brings like-charged ions together, and their attraction pulls the crystal apart.",
+     "is_correct": false,
+     "rationale": "Charge-interaction reversal: like-charged ions repel rather than attract. The displacement can cause fracture, but the force responsible is repulsion between newly adjacent like charges. Fix: Label the neighboring charges and determine whether their interaction is attractive or repulsive."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 4.C 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-074",
+   "unit": 2,
+   "topic": "2.3",
+   "title": "Structure of Ionic Solids",
+   "skill": "4.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-sv-074-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.3__A__v1#r1-anthropic",
+   "stem": "A student taps a small chisel against a crystal of potassium bromide, KBr. Instead of flattening or denting, the crystal shatters into smaller pieces with flat faces. Which particle-level explanation best accounts for this observation?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Solid KBr is made of individual neutral KBr molecules held together by weak forces, so the molecules separate easily when the crystal is struck.",
+     "is_correct": false,
+     "rationale": "Discrete-molecule misconception: solid KBr has no separate KBr molecules, only one continuous array of K⁺ and Br⁻ ions. Shattering comes from repulsion after the lattice shifts, not from weak forces between molecules. Fix: Identify the particles as cations and anions before describing how they interact."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The blow shifts one plane of ions relative to the next so that K⁺ ions sit beside K⁺ ions and Br⁻ beside Br⁻, and the resulting repulsion splits the crystal.",
+     "is_correct": true,
+     "rationale": "Solid KBr is an extended lattice of alternating K⁺ and Br⁻ ions. A small shift of one plane lines up like charges across the boundary, replacing attraction with repulsion, so the crystal separates along that plane instead of deforming."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Planes of K⁺ and Br⁻ ions glide past one another while each ion keeps oppositely charged neighbors, so the crystal breaks apart.",
+     "is_correct": false,
+     "rationale": "Sliding-versus-fracture confusion: planes that glide while keeping attractive neighbors would let the solid change shape without breaking. In the ionic lattice, a shift instead aligns like charges and causes repulsion. Fix: Check whether your explanation predicts bending into a new shape or separation into pieces."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Shifting a plane of ions places like-charged ions side by side, and the attraction between those like charges pulls the crystal apart.",
+     "is_correct": false,
+     "rationale": "Charge-interaction reversal: ions with the same charge repel rather than attract. The shift does bring like charges together, but repulsion between them is what drives the fracture. Fix: Label the charges on newly adjacent ions and decide whether they attract or repel."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-074 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-074 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-075",
+   "unit": 2,
+   "topic": "2.3",
+   "title": "Structure of Ionic Solids",
+   "skill": "4.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-075",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.3__B__seed#r1-openai",
+   "stem": "An ionic crystal fractures rather than bends when struck. A model represents the crystal as a repeating three-dimensional array of cations and anions. Which explanation best uses this model to account for the crystal’s brittleness?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "A shift of ion layers brings oppositely charged ions together, and their repulsion causes the crystal to fracture.",
+     "is_correct": false,
+     "rationale": "Charge-sign reversal: Oppositely charged ions attract rather than repel. Repulsion that contributes to fracture occurs when a shift brings like-charged ions close together. Fix: Identify the neighboring ions’ charge signs before deciding whether they attract or repel."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "The crystal consists of separate neutral ion pairs, and a shift pulls these pairs apart by overcoming weak attractions between them.",
+     "is_correct": false,
+     "rationale": "Discrete-pair misconception: An ionic crystal is an extended lattice, not a collection of separate neutral pairs. Each ion interacts with surrounding ions, so fracture must be explained using the lattice arrangement. Fix: Treat each ion as part of an extended array, not an isolated pair."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "A shift of ion layers can bring like-charged ions next to one another, and their repulsion causes the crystal to fracture.",
+     "is_correct": true,
+     "rationale": "The lattice arrangement ordinarily favors attractions between opposite charges while minimizing repulsions between like charges. Shifting a layer can disrupt this arrangement, bringing like charges close together so that repulsion separates parts of the crystal."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Ion layers slide while preserving their attractive interactions, allowing the crystal to bend without breaking.",
+     "is_correct": false,
+     "rationale": "Unrestricted-sliding misconception: This predicts bending rather than the observed fracture. Shifting layers in an ionic lattice can bring like charges together instead of preserving favorable attractions. Fix: Check whether shifting a layer changes which charge signs become neighbors."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 4.C 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 4. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-075",
+   "unit": 2,
+   "topic": "2.3",
+   "title": "Structure of Ionic Solids",
+   "skill": "4.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-sv-075-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.3__B__v1#r1-openai",
+   "stem": "A materials researcher passes a lithium fluoride crystal between rollers to make a thin sheet, but the crystal cracks instead of flattening. A particle model shows Li⁺ and F⁻ ions arranged in an extended, repeating three-dimensional lattice. Which explanation connects the arrangement of ions to the cracking observed during rolling?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Displacement of part of the lattice places Li⁺ beside F⁻, producing repulsion that separates portions of the crystal.",
+     "is_correct": false,
+     "rationale": "Charge-sign reversal: Li⁺ and F⁻ attract because their charges have opposite signs. The repulsion responsible for cracking arises when displacement brings ions with matching charge signs close together. Fix: Compare the neighboring ions’ charge signs before identifying their interaction."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Rolling separates individual neutral LiF pairs by breaking the weak attractions holding those pairs together.",
+     "is_correct": false,
+     "rationale": "Discrete-pair misconception: Solid lithium fluoride contains an extended ionic lattice, not independent neutral pairs held together weakly. Its response to rolling depends on interactions among ions throughout that lattice. Fix: Trace each ion’s interactions with surrounding ions rather than grouping ions into isolated pairs."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Rolling lets the ion layers move past one another without changing their attractive interactions, so the crystal forms an unbroken sheet.",
+     "is_correct": false,
+     "rationale": "Unrestricted-sliding misconception: Unchanged attractions during sliding would support flattening, not the observed cracking. Displacing ionic layers can instead create unfavorable neighboring arrangements of like charges. Fix: Track which charge signs become neighbors after a layer moves."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Displacement of part of the lattice can place ions of the same charge beside each other, producing repulsion that separates portions of the crystal.",
+     "is_correct": true,
+     "rationale": "The undisturbed lattice favors attractions between neighboring cations and anions and limits repulsions between like charges. Rolling can shift layers so that like-charged ions become neighbors, creating repulsion that contributes to cracking."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-075 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-075 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-076",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Structure of Metals and Alloys",
+   "skill": "4.C",
+   "skill_status": "validated",
+   "difficulty": "Hard",
+   "content_key": "apchem-mcq-076",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.4__A__seed#r1-openai",
+   "stem": "A solid alloy contains metals X and Y. Their atomic radii are X: 128 pm and Y: 135 pm. The alloy conducts electricity. Which particulate-level model best explains both the alloy’s structure and its electrical conductivity?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Y atoms occupy gaps between X atoms, and mobile, delocalized valence electrons carry current throughout the solid.",
+     "is_correct": false,
+     "rationale": "This is the interstitial-versus-substitutional trap: it places similarly sized atoms in lattice gaps. Interstitial alloys instead involve atoms significantly smaller than the host atoms; the conductivity explanation is sound. Fix: Compare atomic radii before deciding whether added atoms fill gaps or replace host atoms."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Y atoms replace some X atoms at lattice positions, and positive metal ions move through the solid to carry current.",
+     "is_correct": false,
+     "rationale": "This is the mobile-ion trap: it assigns electrical conduction in a solid metal to moving positive ions. The substitutional structure fits the radii, but current is carried by mobile, delocalized electrons, not ions traveling through the lattice. Fix: Identify which charged particles can move throughout a solid metal."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Y atoms replace some X atoms at lattice positions, and valence electrons confined to individual metal atoms carry current throughout the solid.",
+     "is_correct": false,
+     "rationale": "This is the localized-electron trap: it treats metallic valence electrons as belonging to individual atoms. Electrons confined to individual atoms cannot account for conduction throughout the solid; metallic valence electrons are delocalized and mobile. Fix: Check whether the model lets valence electrons move throughout the entire solid."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Y atoms replace some X atoms at lattice positions, and mobile, delocalized valence electrons carry current throughout the solid.",
+     "is_correct": true,
+     "rationale": "The comparable atomic radii favor a substitutional alloy, in which Y atoms occupy some host lattice positions. Valence electrons are delocalized and mobile throughout the solid, allowing them to carry electrical current."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 4.C 3, 4.B 1",
+   "difficulty_note": "Four non-author model families voted; tally Hard 3, Medium 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-076",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Structure of Metals and Alloys",
+   "skill": "4.C",
+   "skill_status": "validated",
+   "difficulty": "Hard",
+   "content_key": "apchem-mcq-sv-076-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.4__A__v1#r1-openai",
+   "stem": "A steel wire carries current in an electrical circuit. The steel consists mainly of iron with a small amount of carbon added. For this model, the atomic radii are 126 pm for iron and 77 pm for carbon. Which description connects the wire’s alloy structure with its ability to conduct electricity?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Carbon atoms substitute for iron atoms at lattice sites; delocalized valence electrons move through the wire and transport charge.",
+     "is_correct": false,
+     "rationale": "The interstitial-versus-substitutional trap assigns the smaller carbon atoms to replacement sites. Their substantially smaller radius supports occupancy of gaps instead, although the electron-based explanation of conductivity is sound. Fix: Compare the added atoms’ size with the host atoms’ size before assigning their positions."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Carbon atoms fit into spaces within the iron framework; positive iron ions travel through the wire and transport charge.",
+     "is_correct": false,
+     "rationale": "The mobile-ion trap mistakes the metal ions for the moving charge carriers. The interstitial structure fits the radii, but solid-metal conduction involves mobile electrons, not ions traveling through the framework. Fix: Identify the mobile charge carriers in the solid before explaining its conductivity."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Carbon atoms fit into spaces within the iron framework; delocalized valence electrons move through the wire and transport charge.",
+     "is_correct": true,
+     "rationale": "Carbon atoms are substantially smaller than iron atoms, supporting an interstitial structure with carbon in the gaps. The mobile valence electrons belong to the metallic solid as a whole, so they can transport charge through the wire."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Carbon atoms fit into spaces within the iron framework; valence electrons remain attached to individual iron atoms while transporting charge through the wire.",
+     "is_correct": false,
+     "rationale": "The localized-electron trap confines valence electrons to separate atoms. Although the alloy structure fits the radii, electrons restricted to individual atoms cannot explain charge transport throughout the wire. Fix: Check whether the proposed electrons can travel beyond individual atoms throughout the wire."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-076 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-076 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-077",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Structure of Metals and Alloys",
+   "skill": "4.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-077",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.4__B__seed#r1-openai",
+   "stem": "A solid alloy is made by adding a small amount of metal Y to metal X. X and Y have comparable atomic radii, and the alloy conducts electricity. Which particulate model is consistent with both the alloy’s structure and its electrical conductivity?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Y atoms replace X atoms at lattice sites, and mobile, delocalized valence electrons carry charge throughout the solid.",
+     "is_correct": true,
+     "rationale": "Comparable atomic radii allow Y atoms to replace X atoms at lattice sites, forming a substitutional alloy. Mobile valence electrons are delocalized throughout the solid, allowing electrical charge to flow."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Y atoms occupy gaps between X atoms, and mobile, delocalized valence electrons carry charge throughout the solid.",
+     "is_correct": false,
+     "rationale": "Interstitial-alloy trap: Occupying gaps requires atoms significantly smaller than the host atoms. Comparable atomic radii support substitution at lattice sites, not insertion into gaps. Fix: Compare atomic radii before deciding whether added atoms replace host atoms or fill gaps."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Y atoms replace X atoms at lattice sites, and positive metal ions move throughout the solid to carry charge.",
+     "is_correct": false,
+     "rationale": "Ion-migration trap: This assigns electrical conduction in a solid metal to moving positive ions. The ions remain in the metallic array; mobile, delocalized electrons carry the current. Fix: Identify which charged particles can move throughout a solid metal."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Y atoms replace X atoms at lattice sites, and valence electrons confined to individual atoms carry charge throughout the solid.",
+     "is_correct": false,
+     "rationale": "Localized-electron trap: Electrons confined to individual atoms cannot carry charge throughout the solid. Metallic conduction requires mobile valence electrons that are delocalized across the solid. Fix: Check whether the model lets electrons move between regions of the solid."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 4.C 4",
+   "difficulty_note": "Four non-author model families voted; tally Medium 2, Hard 2. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-077",
+   "unit": 2,
+   "topic": "2.4",
+   "title": "Structure of Metals and Alloys",
+   "skill": "4.C",
+   "skill_status": "validated",
+   "difficulty": "Medium",
+   "content_key": "apchem-mcq-sv-077-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.4__B__v1#r1-openai",
+   "stem": "A copper-rich brass strip serves as an electrical connector. Copper and zinc have approximate atomic radii of 128 pm and 134 pm, respectively. The strip carries electric current while remaining solid. Which particulate model explains both the zinc atoms’ locations and the strip’s electrical conductivity?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Zinc atoms fit into spaces between copper atoms in the metallic array; delocalized valence electrons move through the solid to transport charge.",
+     "is_correct": false,
+     "rationale": "Interstitial-alloy trap: This model places similarly sized atoms into gaps that accommodate much smaller atoms. Zinc’s radius is close to copper’s, supporting replacement rather than gap filling. Fix: Compare the added atoms’ radii with the host atoms’ radii before assigning their locations."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Zinc atoms take the places of some copper atoms in the metallic array; positive metal ions travel through the solid to transport charge.",
+     "is_correct": false,
+     "rationale": "Ion-migration trap: This explanation mistakes positive metal ions for the mobile charge carriers. During electrical conduction, the ions remain in the solid’s array while delocalized electrons transport charge. Fix: Identify the mobile charge carriers in the solid before explaining its conductivity."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Zinc atoms take the places of some copper atoms in the metallic array; valence electrons restricted to their individual atoms transport charge through the solid.",
+     "is_correct": false,
+     "rationale": "Localized-electron trap: Restricting valence electrons to individual atoms prevents them from transporting charge across the strip. The metallic model instead allows delocalized electrons to move throughout the solid. Fix: Test whether the proposed electrons can travel across the entire connector."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "Zinc atoms take the places of some copper atoms in the metallic array; delocalized valence electrons move through the solid to transport charge.",
+     "is_correct": true,
+     "rationale": "The similar atomic radii support a substitutional structure, with zinc occupying sites otherwise occupied by copper. The mobility of delocalized valence electrons throughout the metallic solid explains its electrical conductivity."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-077 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-077 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-078",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Lewis Diagrams",
+   "skill": "3.B",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apchem-mcq-078",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.5__A__seed#r2-openai",
+   "stem": "Which description represents a complete, correct Lewis diagram for OH⁻? In every description, the entire structure is enclosed in brackets with a − charge written outside. Each lone pair contains two electrons.",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "One O–H single bond, three lone pairs on O, and no lone pairs on H.",
+     "is_correct": true,
+     "rationale": "The ion has 6 + 1 + 1 = 8 valence electrons. The single bond accounts for two electrons, and the three lone pairs account for six, giving O an octet and H two electrons."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "One O–H single bond, two lone pairs on O, and no lone pairs on H.",
+     "is_correct": false,
+     "rationale": "Reversed charge adjustment: This diagram contains six electrons, the total obtained by subtracting one electron instead of adding one for the negative charge. Oxygen also lacks an octet. Fix: Add one electron for each negative charge before distributing the electrons."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "One O–H single bond and no lone pairs on either atom.",
+     "is_correct": false,
+     "rationale": "Omitted lone pairs: Showing only the bond accounts for just two of the ion’s eight valence electrons. The six remaining electrons must also appear in a complete Lewis diagram. Fix: Subtract bonding electrons from the total, then place all remaining electrons as lone pairs."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "One O=H double bond, two lone pairs on O, and no lone pairs on H.",
+     "is_correct": false,
+     "rationale": "Hydrogen octet-rule error: Although this diagram contains eight electrons overall, the double bond places four electrons around H. Hydrogen can have only two electrons in its valence shell. Fix: Check that each hydrogen has only one single bond and no lone pairs."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 3.B 4",
+   "difficulty_note": "Four non-author model families voted; tally Easy 3, Medium 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-078",
+   "unit": 2,
+   "topic": "2.5",
+   "title": "Lewis Diagrams",
+   "skill": "3.B",
+   "skill_status": "validated",
+   "difficulty": "Easy",
+   "content_key": "apchem-mcq-sv-078-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.5__A__v1#r1-anthropic",
+   "stem": "The amide ion, NH₂⁻, has nitrogen as its central atom. Which description gives a complete, correct Lewis diagram for this ion? Assume each description shows the whole structure inside brackets with a − charge written outside, and that every lone pair holds two electrons.",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Two N–H single bonds, one lone pair on N, and no lone pairs on either H.",
+     "is_correct": false,
+     "rationale": "Reversed charge adjustment: this diagram has six electrons, which is the total you get by subtracting one electron for the negative charge instead of adding one. Nitrogen is also left with only six electrons. Fix: Add one electron to the valence total for each negative charge before you draw."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Two N–H single bonds, two lone pairs on N, and no lone pairs on either H.",
+     "is_correct": true,
+     "rationale": "The valence total is 5 (N) + 1 + 1 (two H) + 1 (negative charge) = 8 electrons. Two single bonds use four electrons and two lone pairs use the other four. Nitrogen therefore has an octet, and each hydrogen has two electrons."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Two N–H single bonds and no lone pairs on any atom.",
+     "is_correct": false,
+     "rationale": "Omitted lone pairs: drawing only the bonds shows four of the ion's eight valence electrons. The four nonbonding electrons must appear as lone pairs on nitrogen. Fix: Subtract the bonding electrons from the total, then place every remaining electron as a lone pair."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "One N=H double bond, one N–H single bond, one lone pair on N, and no lone pairs on either H.",
+     "is_correct": false,
+     "rationale": "Hydrogen octet-rule error: the diagram does contain eight electrons, but the double bond puts four electrons around one hydrogen. Hydrogen can hold only two valence electrons. Fix: Check that each hydrogen has exactly one single bond and no lone pairs."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-078 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-078 (DECISION-0096)."
+  },
+  {
+   "seed_key": "apchem-mcq-079",
+   "unit": 2,
+   "topic": "2.6",
+   "title": "Resonance and Formal Charge",
+   "skill": "6.D",
+   "skill_status": "validated",
+   "difficulty": "Hard",
+   "content_key": "apchem-mcq-079",
+   "kind": "seed",
+   "pipeline_id": "ap-chemistry__2.6__A__seed#r1-anthropic",
+   "stem": "The cyanate ion, OCN⁻ (16 valence electrons), has carbon as the central atom. Three candidate Lewis structures are described below. Electronegativity order: O > N > C.\n\nStructure I: O=C=N, with 2 lone pairs on O and 2 lone pairs on N\nStructure II: O≡C–N, with 1 lone pair on O and 3 lone pairs on N\nStructure III: O–C≡N, with 3 lone pairs on O and 1 lone pair on N\n\nWhich claim about the best representation of OCN⁻ is supported by formal-charge reasoning?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Structure I, because it has the fewest nonzero formal charges, with only −1 on nitrogen.",
+     "is_correct": false,
+     "rationale": "This stops at the first criterion. Structures I and III tie, each with a single −1 charge, and the tiebreak favors negative charge on oxygen, which is more electronegative than nitrogen. Fix: When structures tie on formal charges, check which one puts the negative charge on the more electronegative atom."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Structure III, because its only nonzero formal charge is −1 and it sits on oxygen, the most electronegative atom.",
+     "is_correct": true,
+     "rationale": "Formal charge = valence − lone-pair electrons − ½ bonding electrons. In III, O = 6 − 6 − 1 = −1, C = 4 − 0 − 4 = 0, N = 5 − 2 − 3 = 0. This ties for the fewest nonzero charges and places the negative charge on the most electronegative atom."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Structure II, because its formal charges add up to −1, matching the charge of the ion.",
+     "is_correct": false,
+     "rationale": "This treats the total as the test. Every valid structure of OCN⁻ has formal charges summing to −1, and II actually has the largest charges, +1 on O and −2 on N. Fix: Compute each atom's formal charge and compare their sizes and locations, not just the total."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "No structure is best, because the ion rapidly switches among all three structures and spends equal time in each.",
+     "is_correct": false,
+     "rationale": "This is the resonance-as-switching misconception. The real ion is one averaged structure, and nonequivalent structures do not contribute equally, so the one with the best formal charges represents it most closely. Fix: Ask whether the structures are equivalent, and if not, rank them by formal charge."
+    }
+   ],
+   "skill_note": "four non-author families voted (validated at 3 or more of 4); tally 6.D 3, 6.C 1",
+   "difficulty_note": "Four non-author model families voted; tally Hard 3, Medium 1. Provisional until recalibrated from student attempts (DECISION-0101)."
+  },
+  {
+   "seed_key": "apchem-mcq-079",
+   "unit": 2,
+   "topic": "2.6",
+   "title": "Resonance and Formal Charge",
+   "skill": "6.D",
+   "skill_status": "validated",
+   "difficulty": "Hard",
+   "content_key": "apchem-mcq-sv-079-v1",
+   "kind": "variant",
+   "pipeline_id": "ap-chemistry__2.6__A__v1#r1-anthropic",
+   "stem": "The thiocyanate ion, SCN⁻, has 16 valence electrons and a central carbon atom. Three candidate Lewis structures are listed. Structure I: S=C=N, with 2 lone pairs on S and 2 lone pairs on N. Structure II: S≡C–N, with 1 lone pair on S and 3 lone pairs on N. Structure III: S–C≡N, with 3 lone pairs on S and 1 lone pair on N. Electronegativities increase in the order C < S < N. Which claim about the best Lewis representation of SCN⁻ does formal-charge reasoning support?",
+   "choices": [
+    {
+     "choice_key": "A",
+     "choice_text": "Structure III, because it has only one nonzero formal charge, −1 on sulfur.",
+     "is_correct": false,
+     "rationale": "This stops after the first criterion. Structures I and III tie with a single −1 charge each, and the tiebreak favors the negative charge on nitrogen, which is more electronegative than sulfur. Fix: When structures tie on formal charges, check which places the negative charge on the more electronegative atom."
+    },
+    {
+     "choice_key": "B",
+     "choice_text": "Structure II, because its formal charges sum to −1, equal to the charge of the ion.",
+     "is_correct": false,
+     "rationale": "This uses the total as the deciding test. Every valid structure of SCN⁻ has formal charges summing to −1, and Structure II has the largest charges, +1 on S and −2 on N. Fix: Compute each atom's formal charge and compare magnitudes and locations, not just the sum."
+    },
+    {
+     "choice_key": "C",
+     "choice_text": "Structure I, because its only nonzero formal charge is −1, located on nitrogen, the most electronegative atom.",
+     "is_correct": true,
+     "rationale": "Formal charge = valence − lone-pair electrons − ½ bonding electrons. In Structure I, S = 6 − 4 − 2 = 0, C = 4 − 0 − 4 = 0, and N = 5 − 4 − 2 = −1. It ties for the fewest nonzero charges and places the negative charge on the most electronegative atom."
+    },
+    {
+     "choice_key": "D",
+     "choice_text": "None of the structures is best, because the ion rapidly flips among all three and spends equal time in each.",
+     "is_correct": false,
+     "rationale": "This is the resonance-as-switching misconception. The real ion is a single averaged structure, and nonequivalent structures do not contribute equally, so the one with the best formal charges represents it most closely. Fix: Ask whether the structures are equivalent, and if not, rank them by formal charge."
+    }
+   ],
+   "skill_note": "inherits seed apchem-mcq-079 (DECISION-0101)",
+   "difficulty_note": "Inherited from seed apchem-mcq-079 (DECISION-0096)."
+  }
+ ]
+}

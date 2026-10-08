@@ -1,0 +1,3322 @@
+{
+ "topic": {
+  "subject_key": "ap-chemistry",
+  "unit_number": 2,
+  "topic_code": "2.5",
+  "topic_title": "Lewis Diagrams",
+  "allowed_skills": [
+   "3.A",
+   "3.B",
+   "3.C"
+  ],
+  "slots": [
+   {
+    "slot": "A",
+    "practice": "3",
+    "skills": [
+     "3.B"
+    ]
+   }
+  ]
+ },
+ "seeds": [
+  {
+   "slot": {
+    "slot": "A",
+    "practice": "3",
+    "skills": [
+     "3.B"
+    ]
+   },
+   "seed": {
+    "id": "ap-chemistry__2.5__A__seed#r2-openai",
+    "kind": "seed",
+    "round": 2,
+    "author": "openai/gpt-6.1-sol",
+    "author_family": "openai",
+    "gen_ok": true,
+    "item": {
+     "subject_key": "ap-chemistry",
+     "unit_number": 2,
+     "topic_code": "2.5",
+     "topic_title": "Lewis Diagrams",
+     "stem": "Which description represents a complete, correct Lewis diagram for OH⁻? In every description, the entire structure is enclosed in brackets with a − charge written outside. Each lone pair contains two electrons.",
+     "choices": [
+      {
+       "choice_key": "A",
+       "choice_text": "One O–H single bond, three lone pairs on O, and no lone pairs on H.",
+       "is_correct": true,
+       "rationale": "The ion has 6 + 1 + 1 = 8 valence electrons. The single bond accounts for two electrons, and the three lone pairs account for six, giving O an octet and H two electrons."
+      },
+      {
+       "choice_key": "B",
+       "choice_text": "One O–H single bond, two lone pairs on O, and no lone pairs on H.",
+       "is_correct": false,
+       "rationale": "Reversed charge adjustment: This diagram contains six electrons, the total obtained by subtracting one electron instead of adding one for the negative charge. Oxygen also lacks an octet. Fix: Add one electron for each negative charge before distributing the electrons."
+      },
+      {
+       "choice_key": "C",
+       "choice_text": "One O–H single bond and no lone pairs on either atom.",
+       "is_correct": false,
+       "rationale": "Omitted lone pairs: Showing only the bond accounts for just two of the ion’s eight valence electrons. The six remaining electrons must also appear in a complete Lewis diagram. Fix: Subtract bonding electrons from the total, then place all remaining electrons as lone pairs."
+      },
+      {
+       "choice_key": "D",
+       "choice_text": "One O=H double bond, two lone pairs on O, and no lone pairs on H.",
+       "is_correct": false,
+       "rationale": "Hydrogen octet-rule error: Although this diagram contains eight electrons overall, the double bond places four electrons around H. Hydrogen can have only two electrons in its valence shell. Fix: Check that each hydrogen has only one single bond and no lone pairs."
+      }
+     ]
+    },
+    "eval": {
+     "lint": [],
+     "solve": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 668,
+          "inputTokenDetails": {
+           "noCacheTokens": 668,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 30,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 0
+          },
+          "totalTokens": 698,
+          "raw": {
+           "input_tokens": 668,
+           "output_tokens": 30,
+           "output_tokens_details": {
+            "thinking_tokens": 0
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 0,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 0,
+          "cachedInputTokens": 0
+         },
+         "ms": 4489,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 368,
+          "inputTokenDetails": {
+           "noCacheTokens": 368,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 349,
+          "outputTokenDetails": {
+           "textTokens": 30,
+           "reasoningTokens": 319
+          },
+          "totalTokens": 717,
+          "raw": {
+           "thoughtsTokenCount": 319,
+           "promptTokenCount": 368,
+           "candidatesTokenCount": 30,
+           "totalTokenCount": 717,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 368
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 30
+            }
+           ]
+          },
+          "reasoningTokens": 319,
+          "cachedInputTokens": 0
+         },
+         "ms": 5291,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 427,
+          "inputTokenDetails": {
+           "noCacheTokens": 171,
+           "cacheReadTokens": 256
+          },
+          "outputTokens": 460,
+          "outputTokenDetails": {
+           "textTokens": 26,
+           "reasoningTokens": 434
+          },
+          "totalTokens": 887,
+          "raw": {
+           "prompt_tokens": 427,
+           "completion_tokens": 460,
+           "prompt_cache_hit_tokens": 256,
+           "prompt_cache_miss_tokens": 171,
+           "total_tokens": 887,
+           "prompt_tokens_details": {
+            "cached_tokens": 256
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 434
+           }
+          },
+          "reasoningTokens": 434,
+          "cachedInputTokens": 256
+         },
+         "ms": 8152,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "chosen_label": "A",
+          "other_defensible_labels": [],
+          "defect": ""
+         },
+         "usage": {
+          "inputTokens": 195,
+          "inputTokenDetails": {
+           "noCacheTokens": 195,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1031,
+          "outputTokenDetails": {
+           "textTokens": 25,
+           "reasoningTokens": 1006
+          },
+          "totalTokens": 1226,
+          "raw": {
+           "input_tokens": 195,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 1031,
+           "output_tokens_details": {
+            "reasoning_tokens": 1006
+           },
+           "total_tokens": 1226
+          },
+          "reasoningTokens": 1006,
+          "cachedInputTokens": 0
+         },
+         "ms": 16959,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "audit": {
+      "anthropic/claude-opus-5.5": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.5",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 15322,
+          "inputTokenDetails": {
+           "noCacheTokens": 758,
+           "cacheReadTokens": 14564,
+           "cacheWriteTokens": 0
+          },
+          "outputTokens": 515,
+          "outputTokenDetails": {
+           "textTokens": 212,
+           "reasoningTokens": 303
+          },
+          "totalTokens": 15837,
+          "raw": {
+           "input_tokens": 758,
+           "output_tokens": 515,
+           "output_tokens_details": {
+            "thinking_tokens": 303
+           },
+           "cache_creation_input_tokens": 0,
+           "cache_read_input_tokens": 14564,
+           "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+           },
+           "service_tier": "standard",
+           "inference_geo": "global"
+          },
+          "reasoningTokens": 303,
+          "cachedInputTokens": 14564
+         },
+         "ms": 4829,
+         "flags": []
+        }
+       ]
+      },
+      "google/gemini-3.8-flash": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.5",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 10158,
+          "inputTokenDetails": {
+           "noCacheTokens": 10158,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 1195,
+          "outputTokenDetails": {
+           "textTokens": 262,
+           "reasoningTokens": 933
+          },
+          "totalTokens": 11353,
+          "raw": {
+           "thoughtsTokenCount": 933,
+           "promptTokenCount": 10158,
+           "candidatesTokenCount": 262,
+           "totalTokenCount": 11353,
+           "trafficType": "ON_DEMAND",
+           "promptTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 10158
+            }
+           ],
+           "candidatesTokensDetails": [
+            {
+             "modality": "TEXT",
+             "tokenCount": 262
+            }
+           ]
+          },
+          "reasoningTokens": 933,
+          "cachedInputTokens": 0
+         },
+         "ms": 9809,
+         "flags": []
+        }
+       ]
+      },
+      "deepseek/deepseek-v4-pro": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.5",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9384,
+          "inputTokenDetails": {
+           "noCacheTokens": 552,
+           "cacheReadTokens": 8832
+          },
+          "outputTokens": 6173,
+          "outputTokenDetails": {
+           "textTokens": 219,
+           "reasoningTokens": 5954
+          },
+          "totalTokens": 15557,
+          "raw": {
+           "prompt_tokens": 9384,
+           "completion_tokens": 6173,
+           "prompt_cache_hit_tokens": 8832,
+           "prompt_cache_miss_tokens": 552,
+           "total_tokens": 15557,
+           "prompt_tokens_details": {
+            "cached_tokens": 8832
+           },
+           "completion_tokens_details": {
+            "reasoning_tokens": 5954
+           }
+          },
+          "reasoningTokens": 5954,
+          "cachedInputTokens": 8832
+         },
+         "ms": 75936,
+         "flags": []
+        }
+       ]
+      },
+      "meta/muse-spark-1.3": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.5",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 8456,
+          "inputTokenDetails": {
+           "noCacheTokens": 8456,
+           "cacheReadTokens": 0
+          },
+          "outputTokens": 2853,
+          "outputTokenDetails": {
+           "textTokens": 157,
+           "reasoningTokens": 2696
+          },
+          "totalTokens": 11309,
+          "raw": {
+           "input_tokens": 8456,
+           "input_tokens_details": {
+            "cached_tokens": 0
+           },
+           "output_tokens": 2853,
+           "output_tokens_details": {
+            "reasoning_tokens": 2696
+           },
+           "total_tokens": 11309
+          },
+          "reasoningTokens": 2696,
+          "cachedInputTokens": 0
+         },
+         "ms": 26622,
+         "flags": []
+        }
+       ]
+      }
+     },
+     "verdict": "accepted",
+     "stage": "done",
+     "veto": {
+      "openai/gpt-6.1-sol": {
+       "pass": true,
+       "samples": [
+        {
+         "ok": true,
+         "object": {
+          "primary_topic_code": "2.5",
+          "rules": {
+           "on_topic": {
+            "pass": true,
+            "issue": ""
+           },
+           "ced_scope": {
+            "pass": true,
+            "issue": ""
+           },
+           "one_answer": {
+            "pass": true,
+            "issue": ""
+           },
+           "self_contained": {
+            "pass": true,
+            "issue": ""
+           },
+           "stem_clean": {
+            "pass": true,
+            "issue": ""
+           },
+           "keyed_rationale": {
+            "pass": true,
+            "issue": ""
+           },
+           "named_trap": {
+            "pass": true,
+            "issue": ""
+           },
+           "accurate": {
+            "pass": true,
+            "issue": ""
+           },
+           "concise": {
+            "pass": true,
+            "issue": ""
+           },
+           "style": {
+            "pass": true,
+            "issue": ""
+           }
+          }
+         },
+         "usage": {
+          "inputTokens": 9164,
+          "inputTokenDetails": {
+           "noCacheTokens": 3,
+           "cacheReadTokens": 0,
+           "cacheWriteTokens": 9161
+          },
+          "outputTokens": 241,
+          "outputTokenDetails": {
+           "textTokens": 172,
+           "reasoningTokens": 69
+          },
+          "totalTokens": 9405,
+          "raw": {
+           "input_tokens": 9164,
+           "input_tokens_details": {
+            "cache_write_tokens": 9161,
+            "cached_tokens": 0
+           },
+           "output_tokens": 241,
+           "output_tokens_details": {
+            "reasoning_tokens": 69
+           },
+           "total_tokens": 9405
+          },
+          "reasoningTokens": 69,
+          "cachedInputTokens": 0
+         },
+         "ms": 8438,
+         "flags": []
+        }
+       ]
+      }
+     }
+    },
+    "slot": {
+     "slot": "A",
+     "practice": "3",
+     "skills": [
+      "3.B"
+     ]
+    },
+    "label": {
+     "votes": [
+      {
+       "model": "anthropic/claude-opus-5.5",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Easy",
+       "reason": "The question asks for the correct Lewis diagram of a simple diatomic ion, which is a diagram representation (3.B). It takes only a quick valence-electron count (6 + 1 + 1 = 8) and the routine placement of one bond and three lone pairs, so it is near-recall."
+      },
+      {
+       "model": "google/gemini-3.8-flash",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Easy",
+       "reason": "The question asks for the correct Lewis diagram of a simple diatomic ion (OH⁻), which tests the basic model/diagram representation of a chemical substance (Skill 3.B) by counting valence electrons and applying standard duet and octet rules with no multi-step reasoning."
+      },
+      {
+       "model": "deepseek/deepseek-v4-pro",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Medium",
+       "reason": "The question requires applying Lewis structure rules—counting valence electrons including the negative charge and checking octet/duet—to evaluate descriptions and select the correct diagram, which is a single-concept application rather than simple recall."
+      },
+      {
+       "model": "meta/muse-spark-1.3",
+       "ok": true,
+       "skill_code": "3.B",
+       "difficulty": "Easy",
+       "reason": "The task is recognizing the correct Lewis diagram/model for OH-, which is Skill 3.B. It requires only recall/recognition of the single standard structure (O-H bond with three lone pairs on O for 8 valence electrons) with no multi-step reasoning or application to a new situation."
+      }
+     ],
+     "skill": "3.B",
+     "skill_status": "validated",
+     "skill_tally": [
+      [
+       "3.B",
+       4
+      ]
+     ],
+     "practice": "3",
+     "practice_status": "validated",
+     "practice_tally": [
+      [
+       "3",
+       4
+      ]
+     ],
+     "difficulty": "Easy",
+     "difficulty_status": "provisional_model",
+     "difficulty_tally": [
+      [
+       "Easy",
+       3
+      ],
+      [
+       "Medium",
+       1
+      ]
+     ]
+    }
+   },
+   "seed_candidates": [
+    {
+     "id": "ap-chemistry__2.5__A__seed#r1-openai",
+     "kind": "seed",
+     "round": 1,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.5",
+      "topic_title": "Lewis Diagrams",
+      "stem": "Oxygen has 6 valence electrons, and hydrogen has 1 valence electron. Which description represents a complete, correct Lewis diagram for H₃O⁺? In each description, oxygen is the central atom, and the entire structure is enclosed in brackets with a + charge outside.",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "Three O–H single bonds and two lone pairs on oxygen.",
+        "is_correct": false,
+        "rationale": "Charge-sign reversal: this diagram contains 10 electrons, as if an electron were added rather than removed for the + charge. H₃O⁺ requires only 8 valence electrons, and this diagram also exceeds oxygen’s octet. Fix: Subtract the positive charge when calculating the total valence-electron count."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "Three O–H single bonds and no lone pairs on oxygen.",
+        "is_correct": false,
+        "rationale": "Lone-pair omission: the bonds show only 6 of the required 8 valence electrons. The missing lone pair leaves oxygen without an octet. Fix: Count all drawn electrons and place any remaining electrons as lone pairs."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "One O=H double bond, two O–H single bonds, and no lone pairs on oxygen.",
+        "is_correct": false,
+        "rationale": "Hydrogen-octet trap: although this diagram uses 8 electrons and gives oxygen an octet, the double-bonded hydrogen has four shared electrons. Hydrogen’s filled valence shell contains only two electrons. Fix: Check that each hydrogen has exactly one single bond."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "Three O–H single bonds and one lone pair on oxygen.",
+        "is_correct": true,
+        "rationale": "The ion has 6 + 3(1) − 1 = 8 valence electrons. Three single bonds account for 6 electrons, and one lone pair accounts for the remaining 2; oxygen has an octet, and each hydrogen has two electrons."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": false,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": "The total valence electron count is 6 + 3(1) − 1 = 8 electrons. Three O–H single bonds use 6 electrons, leaving 2 electrons, or one lone pair, on oxygen. This gives oxygen an octet and a formal charge of +1, so D is correct. A has 10 electrons, B has only 6, and C exceeds hydrogen's duet. The question has no defect."
+          },
+          "usage": {
+           "inputTokens": 692,
+           "inputTokenDetails": {
+            "noCacheTokens": 692,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 162,
+           "outputTokenDetails": {
+            "textTokens": 162,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 854,
+           "raw": {
+            "input_tokens": 692,
+            "output_tokens": 162,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 2738,
+          "flags": [
+           "defect: The total valence electron count is 6 + 3(1) − 1 = 8 electrons. Three O–H single bonds use 6 electrons, leaving 2 electrons, or one lone pair, on oxygen. This gives oxygen an octet and a formal charge of +1, so D is correct. A has 10 electrons, B has only 6, and C exceeds hydrogen's duet. The question has no defect."
+          ]
+         },
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": "Choice D is the one correct answer. H3O+ has 6 + 3(1) − 1 = 8 valence electrons. Three O–H single bonds use 6 of them, leaving one lone pair on oxygen. A has 10 electrons, B has 6, and C gives hydrogen an impossible double bond."
+          },
+          "usage": {
+           "inputTokens": 692,
+           "inputTokenDetails": {
+            "noCacheTokens": 692,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 132,
+           "outputTokenDetails": {
+            "textTokens": 132,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 824,
+           "raw": {
+            "input_tokens": 692,
+            "output_tokens": 132,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 2345,
+          "flags": [
+           "defect: Choice D is the one correct answer. H3O+ has 6 + 3(1) − 1 = 8 valence electrons. Three O–H single bonds use 6 of them, leaving one lone pair on oxygen. A has 10 electrons, B has 6, and C gives hydrogen an impossible double bond."
+          ]
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 370,
+           "inputTokenDetails": {
+            "noCacheTokens": 370,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 321,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 291
+           },
+           "totalTokens": 691,
+           "raw": {
+            "thoughtsTokenCount": 291,
+            "promptTokenCount": 370,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 691,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 370
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 291,
+           "cachedInputTokens": 0
+          },
+          "ms": 5105,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 432,
+           "inputTokenDetails": {
+            "noCacheTokens": 176,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 694,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 668
+           },
+           "totalTokens": 1126,
+           "raw": {
+            "prompt_tokens": 432,
+            "completion_tokens": 694,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 176,
+            "total_tokens": 1126,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 668
+            }
+           },
+           "reasoningTokens": 668,
+           "cachedInputTokens": 256
+          },
+          "ms": 12146,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "D",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 199,
+           "inputTokenDetails": {
+            "noCacheTokens": 199,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1058,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 1028
+           },
+           "totalTokens": 1257,
+           "raw": {
+            "input_tokens": 199,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1058,
+            "output_tokens_details": {
+             "reasoning_tokens": 1028
+            },
+            "total_tokens": 1257
+           },
+           "reasoningTokens": 1028,
+           "cachedInputTokens": 0
+          },
+          "ms": 13090,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "solve"
+     }
+    },
+    {
+     "id": "ap-chemistry__2.5__A__seed#r1-anthropic",
+     "kind": "seed",
+     "round": 1,
+     "author": "anthropic/claude-opus-5.5",
+     "author_family": "anthropic",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.5",
+      "topic_title": "Lewis Diagrams",
+      "stem": "The cyanide ion, CN⁻, contains one carbon atom bonded to one nitrogen atom. Which description matches the correct Lewis diagram of CN⁻?",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "A C≡N triple bond, one lone pair on C and one lone pair on N, enclosed in brackets with a 1− charge outside",
+        "is_correct": true,
+        "rationale": "The valence total is 4 (C) + 5 (N) + 1 (charge) = 10 electrons. A triple bond (6) plus one lone pair on each atom (4) uses all 10 and gives both atoms an octet. Brackets with the 1− charge mark it as an ion."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "A C–N single bond, three lone pairs on C and three lone pairs on N, enclosed in brackets with a 1− charge outside",
+        "is_correct": false,
+        "rationale": "This trap fills octets with lone pairs without checking the electron budget. The drawing uses 2 + 12 = 14 electrons, but CN⁻ has only 10. Fix: Count the electrons in your finished drawing and confirm the count equals the valence total."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "A C=N double bond, one lone pair on C and two lone pairs on N, enclosed in brackets with a 1− charge outside",
+        "is_correct": false,
+        "rationale": "This uses the correct 10 electrons but stops converting lone pairs to bonds too early. Carbon is surrounded by only 6 electrons, so it lacks an octet. Fix: Check each atom's octet, and convert another lone pair into a bond if one falls short."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "A C≡N triple bond with no lone pairs, enclosed in brackets with a 1− charge outside",
+        "is_correct": false,
+        "rationale": "This is the common error of drawing only the bonds and forgetting lone pairs. It shows just 6 electrons, leaving 4 of the 10 valence electrons unplaced and neither atom with an octet. Fix: Subtract the bonding electrons from the total and place the remainder as lone pairs."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [
+       "rationale A refers to a choice by letter"
+      ],
+      "solve": {},
+      "audit": {},
+      "verdict": "rejected",
+      "stage": "lint"
+     }
+    },
+    {
+     "id": "ap-chemistry__2.5__A__seed#r2-openai",
+     "kind": "seed",
+     "round": 2,
+     "author": "openai/gpt-6.1-sol",
+     "author_family": "openai",
+     "gen_ok": true,
+     "item": {
+      "subject_key": "ap-chemistry",
+      "unit_number": 2,
+      "topic_code": "2.5",
+      "topic_title": "Lewis Diagrams",
+      "stem": "Which description represents a complete, correct Lewis diagram for OH⁻? In every description, the entire structure is enclosed in brackets with a − charge written outside. Each lone pair contains two electrons.",
+      "choices": [
+       {
+        "choice_key": "A",
+        "choice_text": "One O–H single bond, three lone pairs on O, and no lone pairs on H.",
+        "is_correct": true,
+        "rationale": "The ion has 6 + 1 + 1 = 8 valence electrons. The single bond accounts for two electrons, and the three lone pairs account for six, giving O an octet and H two electrons."
+       },
+       {
+        "choice_key": "B",
+        "choice_text": "One O–H single bond, two lone pairs on O, and no lone pairs on H.",
+        "is_correct": false,
+        "rationale": "Reversed charge adjustment: This diagram contains six electrons, the total obtained by subtracting one electron instead of adding one for the negative charge. Oxygen also lacks an octet. Fix: Add one electron for each negative charge before distributing the electrons."
+       },
+       {
+        "choice_key": "C",
+        "choice_text": "One O–H single bond and no lone pairs on either atom.",
+        "is_correct": false,
+        "rationale": "Omitted lone pairs: Showing only the bond accounts for just two of the ion’s eight valence electrons. The six remaining electrons must also appear in a complete Lewis diagram. Fix: Subtract bonding electrons from the total, then place all remaining electrons as lone pairs."
+       },
+       {
+        "choice_key": "D",
+        "choice_text": "One O=H double bond, two lone pairs on O, and no lone pairs on H.",
+        "is_correct": false,
+        "rationale": "Hydrogen octet-rule error: Although this diagram contains eight electrons overall, the double bond places four electrons around H. Hydrogen can have only two electrons in its valence shell. Fix: Check that each hydrogen has only one single bond and no lone pairs."
+       }
+      ]
+     },
+     "eval": {
+      "lint": [],
+      "solve": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 668,
+           "inputTokenDetails": {
+            "noCacheTokens": 668,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 30,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 0
+           },
+           "totalTokens": 698,
+           "raw": {
+            "input_tokens": 668,
+            "output_tokens": 30,
+            "output_tokens_details": {
+             "thinking_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 0,
+           "cachedInputTokens": 0
+          },
+          "ms": 4489,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 368,
+           "inputTokenDetails": {
+            "noCacheTokens": 368,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 349,
+           "outputTokenDetails": {
+            "textTokens": 30,
+            "reasoningTokens": 319
+           },
+           "totalTokens": 717,
+           "raw": {
+            "thoughtsTokenCount": 319,
+            "promptTokenCount": 368,
+            "candidatesTokenCount": 30,
+            "totalTokenCount": 717,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 368
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 30
+             }
+            ]
+           },
+           "reasoningTokens": 319,
+           "cachedInputTokens": 0
+          },
+          "ms": 5291,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 427,
+           "inputTokenDetails": {
+            "noCacheTokens": 171,
+            "cacheReadTokens": 256
+           },
+           "outputTokens": 460,
+           "outputTokenDetails": {
+            "textTokens": 26,
+            "reasoningTokens": 434
+           },
+           "totalTokens": 887,
+           "raw": {
+            "prompt_tokens": 427,
+            "completion_tokens": 460,
+            "prompt_cache_hit_tokens": 256,
+            "prompt_cache_miss_tokens": 171,
+            "total_tokens": 887,
+            "prompt_tokens_details": {
+             "cached_tokens": 256
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 434
+            }
+           },
+           "reasoningTokens": 434,
+           "cachedInputTokens": 256
+          },
+          "ms": 8152,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "chosen_label": "A",
+           "other_defensible_labels": [],
+           "defect": ""
+          },
+          "usage": {
+           "inputTokens": 195,
+           "inputTokenDetails": {
+            "noCacheTokens": 195,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1031,
+           "outputTokenDetails": {
+            "textTokens": 25,
+            "reasoningTokens": 1006
+           },
+           "totalTokens": 1226,
+           "raw": {
+            "input_tokens": 195,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 1031,
+            "output_tokens_details": {
+             "reasoning_tokens": 1006
+            },
+            "total_tokens": 1226
+           },
+           "reasoningTokens": 1006,
+           "cachedInputTokens": 0
+          },
+          "ms": 16959,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "audit": {
+       "anthropic/claude-opus-5.5": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.5",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 15322,
+           "inputTokenDetails": {
+            "noCacheTokens": 758,
+            "cacheReadTokens": 14564,
+            "cacheWriteTokens": 0
+           },
+           "outputTokens": 515,
+           "outputTokenDetails": {
+            "textTokens": 212,
+            "reasoningTokens": 303
+           },
+           "totalTokens": 15837,
+           "raw": {
+            "input_tokens": 758,
+            "output_tokens": 515,
+            "output_tokens_details": {
+             "thinking_tokens": 303
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 14564,
+            "cache_creation": {
+             "ephemeral_5m_input_tokens": 0,
+             "ephemeral_1h_input_tokens": 0
+            },
+            "service_tier": "standard",
+            "inference_geo": "global"
+           },
+           "reasoningTokens": 303,
+           "cachedInputTokens": 14564
+          },
+          "ms": 4829,
+          "flags": []
+         }
+        ]
+       },
+       "google/gemini-3.8-flash": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.5",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 10158,
+           "inputTokenDetails": {
+            "noCacheTokens": 10158,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 1195,
+           "outputTokenDetails": {
+            "textTokens": 262,
+            "reasoningTokens": 933
+           },
+           "totalTokens": 11353,
+           "raw": {
+            "thoughtsTokenCount": 933,
+            "promptTokenCount": 10158,
+            "candidatesTokenCount": 262,
+            "totalTokenCount": 11353,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 10158
+             }
+            ],
+            "candidatesTokensDetails": [
+             {
+              "modality": "TEXT",
+              "tokenCount": 262
+             }
+            ]
+           },
+           "reasoningTokens": 933,
+           "cachedInputTokens": 0
+          },
+          "ms": 9809,
+          "flags": []
+         }
+        ]
+       },
+       "deepseek/deepseek-v4-pro": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.5",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9384,
+           "inputTokenDetails": {
+            "noCacheTokens": 552,
+            "cacheReadTokens": 8832
+           },
+           "outputTokens": 6173,
+           "outputTokenDetails": {
+            "textTokens": 219,
+            "reasoningTokens": 5954
+           },
+           "totalTokens": 15557,
+           "raw": {
+            "prompt_tokens": 9384,
+            "completion_tokens": 6173,
+            "prompt_cache_hit_tokens": 8832,
+            "prompt_cache_miss_tokens": 552,
+            "total_tokens": 15557,
+            "prompt_tokens_details": {
+             "cached_tokens": 8832
+            },
+            "completion_tokens_details": {
+             "reasoning_tokens": 5954
+            }
+           },
+           "reasoningTokens": 5954,
+           "cachedInputTokens": 8832
+          },
+          "ms": 75936,
+          "flags": []
+         }
+        ]
+       },
+       "meta/muse-spark-1.3": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.5",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 8456,
+           "inputTokenDetails": {
+            "noCacheTokens": 8456,
+            "cacheReadTokens": 0
+           },
+           "outputTokens": 2853,
+           "outputTokenDetails": {
+            "textTokens": 157,
+            "reasoningTokens": 2696
+           },
+           "totalTokens": 11309,
+           "raw": {
+            "input_tokens": 8456,
+            "input_tokens_details": {
+             "cached_tokens": 0
+            },
+            "output_tokens": 2853,
+            "output_tokens_details": {
+             "reasoning_tokens": 2696
+            },
+            "total_tokens": 11309
+           },
+           "reasoningTokens": 2696,
+           "cachedInputTokens": 0
+          },
+          "ms": 26622,
+          "flags": []
+         }
+        ]
+       }
+      },
+      "verdict": "accepted",
+      "stage": "done",
+      "veto": {
+       "openai/gpt-6.1-sol": {
+        "pass": true,
+        "samples": [
+         {
+          "ok": true,
+          "object": {
+           "primary_topic_code": "2.5",
+           "rules": {
+            "on_topic": {
+             "pass": true,
+             "issue": ""
+            },
+            "ced_scope": {
+             "pass": true,
+             "issue": ""
+            },
+            "one_answer": {
+             "pass": true,
+             "issue": ""
+            },
+            "self_contained": {
+             "pass": true,
+             "issue": ""
+            },
+            "stem_clean": {
+             "pass": true,
+             "issue": ""
+            },
+            "keyed_rationale": {
+             "pass": true,
+             "issue": ""
+            },
+            "named_trap": {
+             "pass": true,
+             "issue": ""
+            },
+            "accurate": {
+             "pass": true,
+             "issue": ""
+            },
+            "concise": {
+             "pass": true,
+             "issue": ""
+            },
+            "style": {
+             "pass": true,
+             "issue": ""
+            }
+           }
+          },
+          "usage": {
+           "inputTokens": 9164,
+           "inputTokenDetails": {
+            "noCacheTokens": 3,
+            "cacheReadTokens": 0,
+            "cacheWriteTokens": 9161
+           },
+           "outputTokens": 241,
+           "outputTokenDetails": {
+            "textTokens": 172,
+            "reasoningTokens": 69
+           },
+           "totalTokens": 9405,
+           "raw": {
+            "input_tokens": 9164,
+            "input_tokens_details": {
+             "cache_write_tokens": 9161,
+             "cached_tokens": 0
+            },
+            "output_tokens": 241,
+            "output_tokens_details": {
+             "reasoning_tokens": 69
+            },
+            "total_tokens": 9405
+           },
+           "reasoningTokens": 69,
+           "cachedInputTokens": 0
+          },
+          "ms": 8438,
+          "flags": []
+         }
+        ]
+       }
+      }
+     }
+    }
+   ],
+   "variants": [
+    {
+     "v": 1,
+     "accepted": {
+      "id": "ap-chemistry__2.5__A__v1#r1-anthropic",
+      "kind": "variant",
+      "round": 1,
+      "author": "anthropic/claude-opus-5.5",
+      "author_family": "anthropic",
+      "gen_ok": true,
+      "item": {
+       "subject_key": "ap-chemistry",
+       "unit_number": 2,
+       "topic_code": "2.5",
+       "topic_title": "Lewis Diagrams",
+       "stem": "The amide ion, NH₂⁻, has nitrogen as its central atom. Which description gives a complete, correct Lewis diagram for this ion? Assume each description shows the whole structure inside brackets with a − charge written outside, and that every lone pair holds two electrons.",
+       "choices": [
+        {
+         "choice_key": "A",
+         "choice_text": "Two N–H single bonds, one lone pair on N, and no lone pairs on either H.",
+         "is_correct": false,
+         "rationale": "Reversed charge adjustment: this diagram has six electrons, which is the total you get by subtracting one electron for the negative charge instead of adding one. Nitrogen is also left with only six electrons. Fix: Add one electron to the valence total for each negative charge before you draw."
+        },
+        {
+         "choice_key": "B",
+         "choice_text": "Two N–H single bonds, two lone pairs on N, and no lone pairs on either H.",
+         "is_correct": true,
+         "rationale": "The valence total is 5 (N) + 1 + 1 (two H) + 1 (negative charge) = 8 electrons. Two single bonds use four electrons and two lone pairs use the other four. Nitrogen therefore has an octet, and each hydrogen has two electrons."
+        },
+        {
+         "choice_key": "C",
+         "choice_text": "Two N–H single bonds and no lone pairs on any atom.",
+         "is_correct": false,
+         "rationale": "Omitted lone pairs: drawing only the bonds shows four of the ion's eight valence electrons. The four nonbonding electrons must appear as lone pairs on nitrogen. Fix: Subtract the bonding electrons from the total, then place every remaining electron as a lone pair."
+        },
+        {
+         "choice_key": "D",
+         "choice_text": "One N=H double bond, one N–H single bond, one lone pair on N, and no lone pairs on either H.",
+         "is_correct": false,
+         "rationale": "Hydrogen octet-rule error: the diagram does contain eight electrons, but the double bond puts four electrons around one hydrogen. Hydrogen can hold only two valence electrons. Fix: Check that each hydrogen has exactly one single bond and no lone pairs."
+        }
+       ]
+      },
+      "eval": {
+       "lint": [],
+       "solve": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 313,
+            "inputTokenDetails": {
+             "noCacheTokens": 313,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 58,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 32
+            },
+            "totalTokens": 371,
+            "raw": {
+             "input_tokens": 313,
+             "input_tokens_details": {
+              "cache_write_tokens": 0,
+              "cached_tokens": 0
+             },
+             "output_tokens": 58,
+             "output_tokens_details": {
+              "reasoning_tokens": 32
+             },
+             "total_tokens": 371
+            },
+            "reasoningTokens": 32,
+            "cachedInputTokens": 0
+           },
+           "ms": 3452,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 393,
+            "inputTokenDetails": {
+             "noCacheTokens": 393,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 299,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 269
+            },
+            "totalTokens": 692,
+            "raw": {
+             "thoughtsTokenCount": 269,
+             "promptTokenCount": 393,
+             "candidatesTokenCount": 30,
+             "totalTokenCount": 692,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 393
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 30
+              }
+             ]
+            },
+            "reasoningTokens": 269,
+            "cachedInputTokens": 0
+           },
+           "ms": 3937,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 453,
+            "inputTokenDetails": {
+             "noCacheTokens": 197,
+             "cacheReadTokens": 256
+            },
+            "outputTokens": 563,
+            "outputTokenDetails": {
+             "textTokens": 26,
+             "reasoningTokens": 537
+            },
+            "totalTokens": 1016,
+            "raw": {
+             "prompt_tokens": 453,
+             "completion_tokens": 563,
+             "prompt_cache_hit_tokens": 256,
+             "prompt_cache_miss_tokens": 197,
+             "total_tokens": 1016,
+             "prompt_tokens_details": {
+              "cached_tokens": 256
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 537
+             }
+            },
+            "reasoningTokens": 537,
+            "cachedInputTokens": 256
+           },
+           "ms": 8697,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "chosen_label": "B",
+            "other_defensible_labels": [],
+            "defect": ""
+           },
+           "usage": {
+            "inputTokens": 221,
+            "inputTokenDetails": {
+             "noCacheTokens": 221,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 1183,
+            "outputTokenDetails": {
+             "textTokens": 30,
+             "reasoningTokens": 1153
+            },
+            "totalTokens": 1404,
+            "raw": {
+             "input_tokens": 221,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 1183,
+             "output_tokens_details": {
+              "reasoning_tokens": 1153
+             },
+             "total_tokens": 1404
+            },
+            "reasoningTokens": 1153,
+            "cachedInputTokens": 0
+           },
+           "ms": 6257,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "audit": {
+        "openai/gpt-6.1-sol": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.5",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9216,
+            "inputTokenDetails": {
+             "noCacheTokens": 3,
+             "cacheReadTokens": 0,
+             "cacheWriteTokens": 9213
+            },
+            "outputTokens": 291,
+            "outputTokenDetails": {
+             "textTokens": 222,
+             "reasoningTokens": 69
+            },
+            "totalTokens": 9507,
+            "raw": {
+             "input_tokens": 9216,
+             "input_tokens_details": {
+              "cache_write_tokens": 9213,
+              "cached_tokens": 0
+             },
+             "output_tokens": 291,
+             "output_tokens_details": {
+              "reasoning_tokens": 69
+             },
+             "total_tokens": 9507
+            },
+            "reasoningTokens": 69,
+            "cachedInputTokens": 0
+           },
+           "ms": 6813,
+           "flags": []
+          }
+         ]
+        },
+        "google/gemini-3.8-flash": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.5",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 10205,
+            "inputTokenDetails": {
+             "noCacheTokens": 10205,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 2334,
+            "outputTokenDetails": {
+             "textTokens": 262,
+             "reasoningTokens": 2072
+            },
+            "totalTokens": 12539,
+            "raw": {
+             "thoughtsTokenCount": 2072,
+             "promptTokenCount": 10205,
+             "candidatesTokenCount": 262,
+             "totalTokenCount": 12539,
+             "trafficType": "ON_DEMAND",
+             "promptTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 10205
+              }
+             ],
+             "candidatesTokensDetails": [
+              {
+               "modality": "TEXT",
+               "tokenCount": 262
+              }
+             ]
+            },
+            "reasoningTokens": 2072,
+            "cachedInputTokens": 0
+           },
+           "ms": 14944,
+           "flags": []
+          }
+         ]
+        },
+        "deepseek/deepseek-v4-pro": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.5",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 9432,
+            "inputTokenDetails": {
+             "noCacheTokens": 600,
+             "cacheReadTokens": 8832
+            },
+            "outputTokens": 6597,
+            "outputTokenDetails": {
+             "textTokens": 219,
+             "reasoningTokens": 6378
+            },
+            "totalTokens": 16029,
+            "raw": {
+             "prompt_tokens": 9432,
+             "completion_tokens": 6597,
+             "prompt_cache_hit_tokens": 8832,
+             "prompt_cache_miss_tokens": 600,
+             "total_tokens": 16029,
+             "prompt_tokens_details": {
+              "cached_tokens": 8832
+             },
+             "completion_tokens_details": {
+              "reasoning_tokens": 6378
+             }
+            },
+            "reasoningTokens": 6378,
+            "cachedInputTokens": 8832
+           },
+           "ms": 84477,
+           "flags": []
+          }
+         ]
+        },
+        "meta/muse-spark-1.3": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.5",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 8506,
+            "inputTokenDetails": {
+             "noCacheTokens": 8506,
+             "cacheReadTokens": 0
+            },
+            "outputTokens": 3173,
+            "outputTokenDetails": {
+             "textTokens": 157,
+             "reasoningTokens": 3016
+            },
+            "totalTokens": 11679,
+            "raw": {
+             "input_tokens": 8506,
+             "input_tokens_details": {
+              "cached_tokens": 0
+             },
+             "output_tokens": 3173,
+             "output_tokens_details": {
+              "reasoning_tokens": 3016
+             },
+             "total_tokens": 11679
+            },
+            "reasoningTokens": 3016,
+            "cachedInputTokens": 0
+           },
+           "ms": 12869,
+           "flags": []
+          }
+         ]
+        }
+       },
+       "verdict": "accepted",
+       "stage": "done",
+       "veto": {
+        "anthropic/claude-opus-5.5": {
+         "pass": true,
+         "samples": [
+          {
+           "ok": true,
+           "object": {
+            "primary_topic_code": "2.5",
+            "rules": {
+             "on_topic": {
+              "pass": true,
+              "issue": ""
+             },
+             "ced_scope": {
+              "pass": true,
+              "issue": ""
+             },
+             "one_answer": {
+              "pass": true,
+              "issue": ""
+             },
+             "self_contained": {
+              "pass": true,
+              "issue": ""
+             },
+             "stem_clean": {
+              "pass": true,
+              "issue": ""
+             },
+             "keyed_rationale": {
+              "pass": true,
+              "issue": ""
+             },
+             "named_trap": {
+              "pass": true,
+              "issue": ""
+             },
+             "accurate": {
+              "pass": true,
+              "issue": ""
+             },
+             "concise": {
+              "pass": true,
+              "issue": ""
+             },
+             "style": {
+              "pass": true,
+              "issue": ""
+             }
+            }
+           },
+           "usage": {
+            "inputTokens": 15395,
+            "inputTokenDetails": {
+             "noCacheTokens": 831,
+             "cacheReadTokens": 14564,
+             "cacheWriteTokens": 0
+            },
+            "outputTokens": 406,
+            "outputTokenDetails": {
+             "textTokens": 212,
+             "reasoningTokens": 194
+            },
+            "totalTokens": 15801,
+            "raw": {
+             "input_tokens": 831,
+             "output_tokens": 406,
+             "output_tokens_details": {
+              "thinking_tokens": 194
+             },
+             "cache_creation_input_tokens": 0,
+             "cache_read_input_tokens": 14564,
+             "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+             },
+             "service_tier": "standard",
+             "inference_geo": "global"
+            },
+            "reasoningTokens": 194,
+            "cachedInputTokens": 14564
+           },
+           "ms": 8500,
+           "flags": []
+          }
+         ]
+        }
+       }
+      },
+      "label": {
+       "inherited_from": "ap-chemistry__2.5__A__seed#r2-openai",
+       "skill": "3.B",
+       "skill_status": "validated",
+       "practice": "3",
+       "practice_status": "validated",
+       "difficulty": "Easy",
+       "difficulty_status": "provisional_model"
+      },
+      "sim_to_seed": 0.12396694214876033
+     },
+     "candidates": [
+      {
+       "id": "ap-chemistry__2.5__A__v1#r1-openai",
+       "kind": "variant",
+       "round": 1,
+       "author": "openai/gpt-6.1-sol",
+       "author_family": "openai",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.5",
+        "topic_title": "Lewis Diagrams",
+        "stem": "For NH₂⁻, which description gives a complete Lewis diagram with the correct electron count and allowed electron arrangement? Assume each described structure has brackets around it and an overall − charge outside; a lone pair represents two electrons.",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Two N–H single bonds, one lone pair on N, and no lone pairs on either H.",
+          "is_correct": false,
+          "rationale": "Reversed charge adjustment: The six electrons shown match subtracting one electron for the negative charge instead of adding one. Nitrogen has only six electrons around it rather than an octet. Fix: Add the negative charge’s extra electron to the valence-electron total before placing electrons."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Two N–H single bonds, two lone pairs on N, and no lone pairs on either H.",
+          "is_correct": true,
+          "rationale": "NH₂⁻ has 5 + 2(1) + 1 = 8 valence electrons. The two single bonds use four electrons, and the two lone pairs use the remaining four, completing nitrogen’s octet and giving each hydrogen two electrons."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "Two N–H single bonds and no lone pairs on any atom.",
+          "is_correct": false,
+          "rationale": "Omitted lone pairs: The bonds show only four of the ion’s eight valence electrons. A complete diagram must also show the remaining four electrons as lone pairs on nitrogen. Fix: Subtract the bonding electrons from your total and place every remaining electron."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "One N=H double bond, one N–H single bond, one lone pair on N, and no lone pairs on either H.",
+          "is_correct": false,
+          "rationale": "Hydrogen octet-rule error: This arrangement uses eight electrons overall, but the double-bonded hydrogen has four electrons around it. Hydrogen’s valence shell holds only two electrons. Fix: Check each hydrogen for exactly one single bond and no lone pairs."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "anthropic/claude-opus-5.5": {
+          "pass": false,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": "The question is well posed. NH₂⁻ has 5 + 2(1) + 1 = 8 valence electrons. Choice B uses two N–H bonds (4 electrons) plus two lone pairs on N (4 electrons), for 8 electrons and a complete octet on N. Choice A has only 6 electrons, C has only 4, and D gives H a double bond, which hydrogen cannot form."
+            },
+            "usage": {
+             "inputTokens": 694,
+             "inputTokenDetails": {
+              "noCacheTokens": 694,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 162,
+             "outputTokenDetails": {
+              "textTokens": 162,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 856,
+             "raw": {
+              "input_tokens": 694,
+              "output_tokens": 162,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 5065,
+            "flags": [
+             "defect: The question is well posed. NH₂⁻ has 5 + 2(1) + 1 = 8 valence electrons. Choice B uses two N–H bonds (4 electrons) plus two lone pairs on N (4 electrons), for 8 electrons and a complete octet on N. Choice A has only 6 electrons, C has only 4, and D gives H a double bond, which hydrogen cannot form."
+            ]
+           },
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": "In NH₂⁻ the valence electron count is 5 + 2(1) + 1 = 8. Two N–H single bonds use 4 electrons, so the remaining 4 go on N as two lone pairs. This gives N an octet, each H a duet, and a formal charge of −1 on N, so B is correct. A has only 6 electrons, which is the neutral NH₂ radical. C has only 4 electrons. D gives H four bonding electrons, which H cannot have."
+            },
+            "usage": {
+             "inputTokens": 694,
+             "inputTokenDetails": {
+              "noCacheTokens": 694,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 185,
+             "outputTokenDetails": {
+              "textTokens": 185,
+              "reasoningTokens": 0
+             },
+             "totalTokens": 879,
+             "raw": {
+              "input_tokens": 694,
+              "output_tokens": 185,
+              "output_tokens_details": {
+               "thinking_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 0,
+             "cachedInputTokens": 0
+            },
+            "ms": 2947,
+            "flags": [
+             "defect: In NH₂⁻ the valence electron count is 5 + 2(1) + 1 = 8. Two N–H single bonds use 4 electrons, so the remaining 4 go on N as two lone pairs. This gives N an octet, each H a duet, and a formal charge of −1 on N, so B is correct. A has only 6 electrons, which is the neutral NH₂ radical. C has only 4 electrons. D gives H four bonding electrons, which H cannot have."
+            ]
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 384,
+             "inputTokenDetails": {
+              "noCacheTokens": 384,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 284,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 254
+             },
+             "totalTokens": 668,
+             "raw": {
+              "thoughtsTokenCount": 254,
+              "promptTokenCount": 384,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 668,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 384
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 254,
+             "cachedInputTokens": 0
+            },
+            "ms": 3868,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 443,
+             "inputTokenDetails": {
+              "noCacheTokens": 187,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 1172,
+             "outputTokenDetails": {
+              "textTokens": 20,
+              "reasoningTokens": 1152
+             },
+             "totalTokens": 1615,
+             "raw": {
+              "prompt_tokens": 443,
+              "completion_tokens": 1172,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 187,
+              "total_tokens": 1615,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 1152
+              }
+             },
+             "reasoningTokens": 1152,
+             "cachedInputTokens": 256
+            },
+            "ms": 17165,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 211,
+             "inputTokenDetails": {
+              "noCacheTokens": 211,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1597,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 1567
+             },
+             "totalTokens": 1808,
+             "raw": {
+              "input_tokens": 211,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1597,
+              "output_tokens_details": {
+               "reasoning_tokens": 1567
+              },
+              "total_tokens": 1808
+             },
+             "reasoningTokens": 1567,
+             "cachedInputTokens": 0
+            },
+            "ms": 8781,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {},
+        "verdict": "rejected",
+        "stage": "solve"
+       }
+      },
+      {
+       "id": "ap-chemistry__2.5__A__v1#r1-anthropic",
+       "kind": "variant",
+       "round": 1,
+       "author": "anthropic/claude-opus-5.5",
+       "author_family": "anthropic",
+       "gen_ok": true,
+       "item": {
+        "subject_key": "ap-chemistry",
+        "unit_number": 2,
+        "topic_code": "2.5",
+        "topic_title": "Lewis Diagrams",
+        "stem": "The amide ion, NH₂⁻, has nitrogen as its central atom. Which description gives a complete, correct Lewis diagram for this ion? Assume each description shows the whole structure inside brackets with a − charge written outside, and that every lone pair holds two electrons.",
+        "choices": [
+         {
+          "choice_key": "A",
+          "choice_text": "Two N–H single bonds, one lone pair on N, and no lone pairs on either H.",
+          "is_correct": false,
+          "rationale": "Reversed charge adjustment: this diagram has six electrons, which is the total you get by subtracting one electron for the negative charge instead of adding one. Nitrogen is also left with only six electrons. Fix: Add one electron to the valence total for each negative charge before you draw."
+         },
+         {
+          "choice_key": "B",
+          "choice_text": "Two N–H single bonds, two lone pairs on N, and no lone pairs on either H.",
+          "is_correct": true,
+          "rationale": "The valence total is 5 (N) + 1 + 1 (two H) + 1 (negative charge) = 8 electrons. Two single bonds use four electrons and two lone pairs use the other four. Nitrogen therefore has an octet, and each hydrogen has two electrons."
+         },
+         {
+          "choice_key": "C",
+          "choice_text": "Two N–H single bonds and no lone pairs on any atom.",
+          "is_correct": false,
+          "rationale": "Omitted lone pairs: drawing only the bonds shows four of the ion's eight valence electrons. The four nonbonding electrons must appear as lone pairs on nitrogen. Fix: Subtract the bonding electrons from the total, then place every remaining electron as a lone pair."
+         },
+         {
+          "choice_key": "D",
+          "choice_text": "One N=H double bond, one N–H single bond, one lone pair on N, and no lone pairs on either H.",
+          "is_correct": false,
+          "rationale": "Hydrogen octet-rule error: the diagram does contain eight electrons, but the double bond puts four electrons around one hydrogen. Hydrogen can hold only two valence electrons. Fix: Check that each hydrogen has exactly one single bond and no lone pairs."
+         }
+        ]
+       },
+       "eval": {
+        "lint": [],
+        "solve": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 313,
+             "inputTokenDetails": {
+              "noCacheTokens": 313,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 58,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 32
+             },
+             "totalTokens": 371,
+             "raw": {
+              "input_tokens": 313,
+              "input_tokens_details": {
+               "cache_write_tokens": 0,
+               "cached_tokens": 0
+              },
+              "output_tokens": 58,
+              "output_tokens_details": {
+               "reasoning_tokens": 32
+              },
+              "total_tokens": 371
+             },
+             "reasoningTokens": 32,
+             "cachedInputTokens": 0
+            },
+            "ms": 3452,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 393,
+             "inputTokenDetails": {
+              "noCacheTokens": 393,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 299,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 269
+             },
+             "totalTokens": 692,
+             "raw": {
+              "thoughtsTokenCount": 269,
+              "promptTokenCount": 393,
+              "candidatesTokenCount": 30,
+              "totalTokenCount": 692,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 393
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 30
+               }
+              ]
+             },
+             "reasoningTokens": 269,
+             "cachedInputTokens": 0
+            },
+            "ms": 3937,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 453,
+             "inputTokenDetails": {
+              "noCacheTokens": 197,
+              "cacheReadTokens": 256
+             },
+             "outputTokens": 563,
+             "outputTokenDetails": {
+              "textTokens": 26,
+              "reasoningTokens": 537
+             },
+             "totalTokens": 1016,
+             "raw": {
+              "prompt_tokens": 453,
+              "completion_tokens": 563,
+              "prompt_cache_hit_tokens": 256,
+              "prompt_cache_miss_tokens": 197,
+              "total_tokens": 1016,
+              "prompt_tokens_details": {
+               "cached_tokens": 256
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 537
+              }
+             },
+             "reasoningTokens": 537,
+             "cachedInputTokens": 256
+            },
+            "ms": 8697,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "chosen_label": "B",
+             "other_defensible_labels": [],
+             "defect": ""
+            },
+            "usage": {
+             "inputTokens": 221,
+             "inputTokenDetails": {
+              "noCacheTokens": 221,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 1183,
+             "outputTokenDetails": {
+              "textTokens": 30,
+              "reasoningTokens": 1153
+             },
+             "totalTokens": 1404,
+             "raw": {
+              "input_tokens": 221,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 1183,
+              "output_tokens_details": {
+               "reasoning_tokens": 1153
+              },
+              "total_tokens": 1404
+             },
+             "reasoningTokens": 1153,
+             "cachedInputTokens": 0
+            },
+            "ms": 6257,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "audit": {
+         "openai/gpt-6.1-sol": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.5",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9216,
+             "inputTokenDetails": {
+              "noCacheTokens": 3,
+              "cacheReadTokens": 0,
+              "cacheWriteTokens": 9213
+             },
+             "outputTokens": 291,
+             "outputTokenDetails": {
+              "textTokens": 222,
+              "reasoningTokens": 69
+             },
+             "totalTokens": 9507,
+             "raw": {
+              "input_tokens": 9216,
+              "input_tokens_details": {
+               "cache_write_tokens": 9213,
+               "cached_tokens": 0
+              },
+              "output_tokens": 291,
+              "output_tokens_details": {
+               "reasoning_tokens": 69
+              },
+              "total_tokens": 9507
+             },
+             "reasoningTokens": 69,
+             "cachedInputTokens": 0
+            },
+            "ms": 6813,
+            "flags": []
+           }
+          ]
+         },
+         "google/gemini-3.8-flash": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.5",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 10205,
+             "inputTokenDetails": {
+              "noCacheTokens": 10205,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 2334,
+             "outputTokenDetails": {
+              "textTokens": 262,
+              "reasoningTokens": 2072
+             },
+             "totalTokens": 12539,
+             "raw": {
+              "thoughtsTokenCount": 2072,
+              "promptTokenCount": 10205,
+              "candidatesTokenCount": 262,
+              "totalTokenCount": 12539,
+              "trafficType": "ON_DEMAND",
+              "promptTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 10205
+               }
+              ],
+              "candidatesTokensDetails": [
+               {
+                "modality": "TEXT",
+                "tokenCount": 262
+               }
+              ]
+             },
+             "reasoningTokens": 2072,
+             "cachedInputTokens": 0
+            },
+            "ms": 14944,
+            "flags": []
+           }
+          ]
+         },
+         "deepseek/deepseek-v4-pro": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.5",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 9432,
+             "inputTokenDetails": {
+              "noCacheTokens": 600,
+              "cacheReadTokens": 8832
+             },
+             "outputTokens": 6597,
+             "outputTokenDetails": {
+              "textTokens": 219,
+              "reasoningTokens": 6378
+             },
+             "totalTokens": 16029,
+             "raw": {
+              "prompt_tokens": 9432,
+              "completion_tokens": 6597,
+              "prompt_cache_hit_tokens": 8832,
+              "prompt_cache_miss_tokens": 600,
+              "total_tokens": 16029,
+              "prompt_tokens_details": {
+               "cached_tokens": 8832
+              },
+              "completion_tokens_details": {
+               "reasoning_tokens": 6378
+              }
+             },
+             "reasoningTokens": 6378,
+             "cachedInputTokens": 8832
+            },
+            "ms": 84477,
+            "flags": []
+           }
+          ]
+         },
+         "meta/muse-spark-1.3": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.5",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 8506,
+             "inputTokenDetails": {
+              "noCacheTokens": 8506,
+              "cacheReadTokens": 0
+             },
+             "outputTokens": 3173,
+             "outputTokenDetails": {
+              "textTokens": 157,
+              "reasoningTokens": 3016
+             },
+             "totalTokens": 11679,
+             "raw": {
+              "input_tokens": 8506,
+              "input_tokens_details": {
+               "cached_tokens": 0
+              },
+              "output_tokens": 3173,
+              "output_tokens_details": {
+               "reasoning_tokens": 3016
+              },
+              "total_tokens": 11679
+             },
+             "reasoningTokens": 3016,
+             "cachedInputTokens": 0
+            },
+            "ms": 12869,
+            "flags": []
+           }
+          ]
+         }
+        },
+        "verdict": "accepted",
+        "stage": "done",
+        "veto": {
+         "anthropic/claude-opus-5.5": {
+          "pass": true,
+          "samples": [
+           {
+            "ok": true,
+            "object": {
+             "primary_topic_code": "2.5",
+             "rules": {
+              "on_topic": {
+               "pass": true,
+               "issue": ""
+              },
+              "ced_scope": {
+               "pass": true,
+               "issue": ""
+              },
+              "one_answer": {
+               "pass": true,
+               "issue": ""
+              },
+              "self_contained": {
+               "pass": true,
+               "issue": ""
+              },
+              "stem_clean": {
+               "pass": true,
+               "issue": ""
+              },
+              "keyed_rationale": {
+               "pass": true,
+               "issue": ""
+              },
+              "named_trap": {
+               "pass": true,
+               "issue": ""
+              },
+              "accurate": {
+               "pass": true,
+               "issue": ""
+              },
+              "concise": {
+               "pass": true,
+               "issue": ""
+              },
+              "style": {
+               "pass": true,
+               "issue": ""
+              }
+             }
+            },
+            "usage": {
+             "inputTokens": 15395,
+             "inputTokenDetails": {
+              "noCacheTokens": 831,
+              "cacheReadTokens": 14564,
+              "cacheWriteTokens": 0
+             },
+             "outputTokens": 406,
+             "outputTokenDetails": {
+              "textTokens": 212,
+              "reasoningTokens": 194
+             },
+             "totalTokens": 15801,
+             "raw": {
+              "input_tokens": 831,
+              "output_tokens": 406,
+              "output_tokens_details": {
+               "thinking_tokens": 194
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 14564,
+              "cache_creation": {
+               "ephemeral_5m_input_tokens": 0,
+               "ephemeral_1h_input_tokens": 0
+              },
+              "service_tier": "standard",
+              "inference_geo": "global"
+             },
+             "reasoningTokens": 194,
+             "cachedInputTokens": 14564
+            },
+            "ms": 8500,
+            "flags": []
+           }
+          ]
+         }
+        }
+       }
+      }
+     ]
+    }
+   ],
+   "done": true
+  }
+ ]
+}

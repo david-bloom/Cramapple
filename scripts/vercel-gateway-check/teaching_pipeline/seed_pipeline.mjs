@@ -10,7 +10,7 @@
 // Nothing is written to any database.
 //
 //   node seed_pipeline.mjs run --batch=<dir> --plan=<plan.json> [--variants=3] [--rounds=2] [--conc=4] [--pack=scoped] [--fourth=<model>]
-//   plan.json: [{ subject_key, unit_number, topic_code, topic_title, slots: [{ slot, practice, skills? }] }]   (practice = "4"; optional skills narrows it, e.g. ["4.B"])
+//   plan.json: [{ subject_key, unit_number, topic_code, topic_title, allowed_skills?, slots: [{ slot, practice, skills? }] }]   (practice = "4"; optional skills narrows it, e.g. ["4.B"])
 import { generateObject } from 'ai';
 import { z } from 'zod';
 import fs from 'node:fs';
@@ -103,7 +103,11 @@ async function produce(kind, t, idBase, promptFn, gate, rounds) {
   return { accepted: null, candidates };
 }
 
-async function runTopic(batch, t, nVariants, rounds, skills) {
+async function runTopic(batch, t, nVariants, rounds, allSkills) {
+  // Subjects with a per-topic skill grid (Calculus, Chemistry, Statistics): the plan lists the topic's allowed skills,
+  // and authoring targets and label votes are restricted to them so no vote can land outside the grid.
+  const skills = t.allowed_skills ? allSkills.filter(([k]) => t.allowed_skills.includes(k)) : allSkills;
+  if (!skills.length) throw new Error(`${t.topic_code}: no allowed skills`);
   const p = path.join(batch, 'topics', `${t.subject_key}__${t.topic_code}.json`);
   const st = readJson(p, { topic: t, seeds: [] });
   for (const slot of t.slots) {

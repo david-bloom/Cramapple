@@ -148,7 +148,7 @@ def cmd_plan_from_seed_batch(a):
             items.append(row(base['seed_key'], 'seed', s['seed']['item'], s['seed']['id']))
             for v in s['variants']:
                 if v.get('accepted'):
-                    items.append(row(f"{a.key_prefix}-SV-{n:03d}-v{v['v']}", 'variant', v['accepted']['item'], v['accepted']['id']))
+                    items.append(row(f"{a.key_prefix}-{'SV' if a.key_prefix.isupper() else 'sv'}-{n:03d}-v{v['v']}", 'variant', v['accepted']['item'], v['accepted']['id']))
             n += 1
     subj = {it['item']['subject_key'] for st in topics for s in st['seeds'] if s.get('seed') for it in [s['seed']]}
     assert len(subj) == 1, f'batch spans subjects {subj}'
