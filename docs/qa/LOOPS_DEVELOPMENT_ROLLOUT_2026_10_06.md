@@ -4,6 +4,33 @@ STATUS: IN PROGRESS - ten templates published; Development deployed; activation 
 DATE: 2026-10-06
 RELATED: TASK-0060; merged PR #344
 
+## Session Close - 2026-10-08
+
+David requested session end. GitHub independently confirms rollout
+[PR #358](https://github.com/david-bloom/Cramapple/pull/358) merged on
+2026-10-07 at 08:20:43 America/New_York. Minimal CI, Vercel deployment and
+Vercel Agent Review checks succeeded on the final PR head
+`f3dfc92db4b611cb9d4684e115f96825ffc0c1bf`. The source and evidence below are
+present on main. The implementation worktree was clean before this closeout.
+
+This closeout checked GitHub and canonical documentation only. It did not
+re-query Loops, Supabase, Stripe or inboxes, rerun tests, or change service
+configuration. Development settings below are last verified rollout evidence,
+not newly asserted live state as of October 8. A merged PR is not evidence of
+Production activation or full checkout acceptance. No new approval is inferred.
+
+Next owner: Codex/implementation. Single best next action: audit every enabled
+Development Supabase Auth email action against the three implemented mappings,
+and record the coverage gaps before activating the hook. Then continue the
+remaining Development frontend, scheduler and payment/replay QA gates below.
+David retains reminder-policy decisions and reviewed Production cutover approval.
+
+Do not touch Production settings, disable current SMTP/Stripe receipts, enable
+automatic-send flags, reset real accounts, or send fictional financial notices
+to the supplied inboxes during restart. Preserve private credentials and keep
+exact inbox addresses out of GitHub. The durable restart source is this report,
+the morning checklist and merged PR #358, not an ephemeral local checkout.
+
 ## Owner Authorization
 
 David instructed "execute 3-6" after providing the ten HTML designs, enabling
