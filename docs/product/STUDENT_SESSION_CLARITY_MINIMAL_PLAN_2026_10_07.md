@@ -1,15 +1,15 @@
 # Student Session Clarity — Minimal Execution Plan
 
-**Status:** Proposed — revised after Fable's second opinion; implementation not started
+**Status:** Approved — finalized after Fable's re-review; implementation authorized by David 2026-10-07 22:57 EDT
 **Date:** 2026-10-07 (America/New_York)
 **Product Owner:** David Bloom
 **Prepared by:** Codex
-**Documentation tier:** Micro; proposed implementation tier: Standard, subject to conductor classification
+**Documentation tier:** Micro; implementation tier: Standard
 **Related work:** TASK-0048 / TASK-0052; DECISION-0100 and its amendment
 **Branch:** `codex/new-user-experience-second-pass`
 **PR:** #369
-**Next owner:** David / implementation conductor, for disposition of the revised proposed slice
-**Next required action:** Confirm the revised proposed slice and its explicit notes-storage/export deferral; record the agreed slice before dispatching it to Lovable. Fable's review is received, not an execution approval.
+**Next owner:** Codex (conductor), Lovable (implementation)
+**Next required action:** Execute the finalized frontend slice, verify source and Preview checks, and record the implementation result.
 
 ## 1. Outcome and scope decision
 
@@ -17,7 +17,7 @@ Make the smallest changes that let a student answer four questions: What am I st
 
 Cramapple helps students lock in lessons through targeted information and practice directed toward class tests and the AP exam. Learning from an answered question is recommended, never required. Direct practice, existing supplemental notes and help understanding a student's own question remain legitimate paths.
 
-David's latest direction is to defer a larger rebuild and create no new educational content. This plan is a deliberately limited implementation slice of the [unified recommendation](STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md), not a replacement for it. Deferred recommendations remain deferred, not rejected. No application edits, deployment, migrations or account changes are authorized by writing this proposed plan.
+David's latest direction is to defer a larger rebuild and create no new educational content. This plan is a deliberately limited implementation slice of the [unified recommendation](STUDENT_HUB_UNIFIED_RECOMMENDATION_2026_10_07.md), not a replacement for it. Deferred recommendations remain deferred, not rejected. David instructed: 'Final PR comment Read and finalize the plan. Then execute it.' on 2026-10-07 22:57 EDT. This authorizes implementation of the finalized frontend slice. Production publication, migrations and account changes are not included.
 
 **Keep the current responsive frame, pane order, typography, colors, content and serving/grading contracts.** The Claude Design HTML files are references for labels, orientation and progress, not build templates. Do not copy their fixed 1440×900 dimensions or unavailable controls into the app. Swapping outer panes and rebuilding the reference panel are deferred with the broader layout work.
 
@@ -54,9 +54,9 @@ Reuse the existing masthead/breadcrumb; do not add a new banner region.
 - Display the delivered question's subject, unit when known, topic code and readable title. Existing taxonomy/guide fields only; no generated lesson synopsis. If a field is absent, omit it rather than borrowing another lesson's title.
 - On Open Hand show the agreed interface sentence: **See how a test-style question is asked and scored.** Keep **Your work isn't scored here** clear. For MCQs explain answer/rationale rather than implying an FRQ rubric exists.
 - Add one short reading cue using existing material: **Read the question, then compare the answer with its explanation.** This is interface guidance, not a new worked solution.
-- Add the hub purpose sentence: **Lock in each lesson with targeted information and practice for class tests and the AP exam.** At the existing start-action location expose four compact, equally accessible actions: **Learn from a question** (recommended, with its reason), **Practice on my own**, **Read lesson notes**, and **Bring a question**. No four-card redesign or new lesson picker. Reword Stage B's practice-only hero lede to describe learning or practice, matching the destination. Never require an example visit first.
+- Add the hub purpose sentence: **Prepare for tests and the AP exam, one lesson at a time.** At the existing start-action location expose four compact, equally accessible actions: **Learn from a question** (recommended, with its reason), **Practice on my own**, **Read lesson notes**, and **Bring a question**. No four-card redesign or new lesson picker. Reword Stage B's practice-only hero lede to describe learning or practice, matching the destination. Never require an example visit first. Before Stage A has a saved position, Bring a question stays active; the other three actions stay visible with 'Set your position first' rather than disappearing.
 - Promote the existing BYOQ entry, with **Understand your homework question without being given the answer.** Reuse its existing route and behavior.
-- The notes action opens the existing selected-topic Deep Dive using the existing content reader/overlay and functioning copy control; do not route through a required example or reveal a scored question key. Verify the current hub's content fields and reuse the existing topic-content query if needed. If no notes exist, state that accurately and retain the other choices. Saved-notes storage and new export formats are explicitly deferred. This is partial delivery of DECISION-0100's notes promise, not a declaration that save/export is complete.
+- The notes action opens the existing selected-topic Deep Dive using the existing content reader/overlay and functioning copy control; do not route through a required example or reveal a scored question key. Verify the current hub's content fields and reuse the existing topic-content query if needed. If no notes exist, state that accurately and retain the other choices. Saved-notes storage and new export formats are explicitly deferred. This is partial delivery of DECISION-0100's notes promise, not a declaration that save/export is complete. Show **Copied** or **Couldn't copy** inline for clipboard results. With a saved unit but no topic, label the notes action **Pick a topic to read its notes** and focus the topic picker; never silently choose the unit's first topic.
 
 ### B. Visible, truthful progress
 
@@ -90,7 +90,7 @@ Include the already-decided light pause after **three successfully graded attemp
 ### D. Answer visibility and unavailable controls
 
 - Open Hand stays face-up, with existing answer/rationales or supported rubric visible immediately; nothing the student does there is graded.
-- Practice keeps answers, correctness and grading feedback unrevealed until successful submission. On the **first practice question of a learning session**, existing aids are free and open on the first click, without the confirmation step, as already decided. Opening an aid remains optional and must use the same assistance receipt/event path; it still records guided/coached work. Later questions retain existing aid behavior. Do not make every new set's first question ungated. Determine the first question against the actual session ID and existing attempt/history state; a resumed session is not automatically a fresh first question. If current state cannot establish that, flag the implementation dependency rather than silently substituting per-mount semantics. Preserve optional scoring-help access and assistance recording. The earlier suggestion to hide the rubric must not accidentally remove the already-governed optional rubric-preview aid or reveal it automatically.
+- Practice keeps answers, correctness and grading feedback unrevealed until successful submission. On the **first practice question of a visit** (index 0 of the first set after the practice screen mounts), existing aids open on the first click without the confirmation step. In this slice, 'session' in the DECISION-0100 amendment means the student's visit, not the stored learning-session row. Opening an aid remains optional, uses the same assistance receipt/event path, and still records guided/coached work. Every later question in the visit, including the first question of each later set, keeps the existing gate. A reload starts a new visit; that is accepted because the gate is a consent step, not a scoring boundary, and the attempt is recorded as guided either way. No session-ID or attempt-history read is added for this. Preserve optional scoring-help access and assistance recording. The earlier suggestion to hide the rubric must not accidentally remove the already-governed optional rubric-preview aid or reveal it automatically.
 - Hide unavailable comparison tabs, missing-equation sections and nonfunctional export actions **if present in the real app**. Do not implement controls merely because they appear in the HTML reference.
 - Keep existing working Deep Dive, reference, copy and BYOQ entry points. No new Full credit/Common mistake/Vague answers, Google Docs/PDF export, equations or study tips.
 
@@ -100,7 +100,7 @@ Keep the existing hub link as the stop action, labelled **Return to student hub*
 
 For practice show concise factual copy near the response/action area: **Submitted answers are saved. Unsubmitted work isn't saved when you leave.** Preserve the existing discard confirmation and in-flight navigation block for hub, topic and subject changes. Open Hand does not need a fictitious saved-work message.
 
-Remove the redundant format-only **Resume session** hub button. Practice on my own is the direct return action; its existing session-start helper may reuse a session under the current rules. Do not relabel the topic-less resume URL as a meaningful continuation. Preserve topic context on the ordinary hub entry where known. Exact lesson/phase/input/queue restoration remains deferred; returning may rebuild the queue and unsubmitted input is not recovered.
+Remove the redundant format-only **Resume session** hub button. Practice on my own is the direct return action; its existing session-start helper may reuse a session under the current rules. Do not relabel the topic-less resume URL as a meaningful continuation. Preserve topic context on the ordinary hub entry where known. Exact lesson/phase/input/queue restoration remains deferred; returning may rebuild the queue and unsubmitted input is not recovered. Preserve FRQ reachability with a quiet **Practice FRQs** link under Practice on my own for subjects with published FRQ practice, carrying the same topic context. Reuse existing availability information/query; no new backend contract. Retire the obsolete `src/lib/__tests__/home-resume-secondary.test.ts` assertion in the same change and verify the replacement FRQ entry.
 
 ## 4. Implementation sequence and likely touchpoints
 
@@ -122,7 +122,7 @@ Likely files: the baseline files above, plus actual hub entry components (`HomeS
 | Practice sets / returning after first ten | Fetch cap forwarded; answered first ten excluded; later available items reachable through sets of up to ten; N reflects current set; Next set only when more fetched items remain. |
 | Skip / excluded item / retry | Position/count stays accurate; skip is not submission; retries do not inflate graded count. |
 | Third successful grade | Once per mount; Continue primary; no recommendation claim; retry deduplicated and skipped/example items excluded. |
-| First-question aids / continued or resumed session | First session question opens an aid on one click and records its real event; later sets do not restart the exception; resumed sessions do not silently reset it. |
+| First-question aids | First question of the visit opens an aid on one click and records its real event; question 2 onward and first questions of later sets show the existing gate. Reload is a new visit. |
 | Practice before/after submit, MCQ and reachable FRQ | Key unrevealed before submit; optional aids behave as governed; real assistance events preserved; feedback remains readable after submit. |
 | Example → practice with numeric-looking topic such as 1.10 | Topic string survives; scored item is not the exposed example; no stronger alignment claim than the selector supports. |
 | Stop with unsent response / grading in flight | Existing discard confirmation / in-flight block remains; no silent loss or false save promise. |
@@ -130,7 +130,7 @@ Likely files: the baseline files above, plus actual hub entry components (`HomeS
 | Empty batch / missing guide / availability failure | Specific honest state; no fabricated total, bank-exhaustion or mastery claim; usable hub/practice/retry exit. |
 | Desktop and narrow phone width | Breadcrumb, activity, count and action readable without horizontal overflow; existing responsive behavior retained. |
 
-Run existing project typecheck, build and relevant tests. Add focused tests for set slicing and returning beyond the first ten, progress under skip/removal, unit remaining-count calculation, first-session-question aid behavior, third-grade deduplication and preserved topic handoff; avoid tests that only assert changed prose. Use controlled Preview accounts and record source versus observed behavior separately.
+Run existing project typecheck, build and relevant tests. Add focused tests for set slicing and returning beyond the first ten, progress under skip/removal, unit remaining-count calculation, first-question-of-visit aid behavior, third-grade deduplication and preserved topic handoff; avoid tests that only assert changed prose. Use controlled Preview accounts and record source versus observed behavior separately.
 
 For comprehension, give a student the neutral task of using a recently covered lesson for a few minutes. Before they act, ask what activity they expect; later ask how much remains, what happens if they leave, and where they would return. Record misunderstanding and hesitation; do not claim measured learning gains from this small usability check.
 
@@ -142,7 +142,7 @@ The regression mockup still asks for association/slope while its rubric awards i
 
 ## 7. Fable review disposition — 2026-10-07
 
-Review: [PR #369 comment](https://github.com/david-bloom/Cramapple/pull/369#issuecomment-6051091678). This revision incorporates the review as a **proposal**, not owner approval or implementation dispatch.
+Review: [PR #369 comment](https://github.com/david-bloom/Cramapple/pull/369#issuecomment-6051091678). Final re-review: [Fable comment](https://github.com/david-bloom/Cramapple/pull/369#issuecomment-6051227020), checking revision `85fe9f62`. Edits 1–3 and optional edit 4 incorporated; shorter purpose sentence selected. David's subsequent explicit instruction to finalize and execute authorizes the finalized slice.
 
 | Finding | Disposition |
 | --- | --- |
@@ -150,8 +150,8 @@ Review: [PR #369 comment](https://github.com/david-bloom/Cramapple/pull/369#issu
 | Deterministic first-ten wall | Fetch supported cap and expose filtered results in sets of ten. Acknowledge remaining cap limitation. |
 | Subject-wide example boundary | Replace with unit remaining-count using existing cache; preserve selector; label unit crossing explicitly. |
 | Redundant topic-less Resume | Remove; use ordinary contextual practice entry. |
-| Recommendation claim and visit ambiguity | Omit claim entirely; pause once per mount. First-question aid policy remains actual-session scoped. |
+| Recommendation claim and visit ambiguity | Omit claim entirely; pause once per mount. First-question aid policy is visit scoped as clarified by final review. |
 | Open Hand masthead conflict | Preserve masthead per DECISION-0100; use Learn from a question for the door and explanatory copy. |
 | Optional copy/cache suggestions | Shorten practice count, retain Try one on your own, correct hero lede, explicitly reuse cached teaching topics. |
 
-**Remaining disposition:** the owner/conductor must record agreement to this revised slice, including partial delivery of the notes save/export promise. No need to re-decide the already-approved first-question aids or masthead wording. Fable's review has been received; the revised plan has not been independently re-reviewed and application implementation has not started.
+**Final disposition:** Accepted under David's instruction to finalize and execute after the final review: first-question = visit; compact four doors; cap-50 practice fetch in sets of ten; unit-only Open Hand count; Resume removed with quiet contextual FRQ entry retained; masthead Open Hand preserved; shorter purpose sentence selected. Partial notes save/export delivery is explicitly deferred against DECISION-0100. Implementation proceeds in Preview; Production publication is separate.
