@@ -99,3 +99,4 @@ Note for publication: the App project carries other sessions' unpublished edits 
   - SOL-08 P3 — hint confirmation copy on BYOQ practice reads as graded ("Sure you need a hint?… listed on feedback"). Pre-existing (TASK-0039); App asked to pass BYOQ copy only if the shared gate already supports it.
   - SOL-09 P3 — caret exponents (`10^-5`) kept as printed. The fixtures print carets; the model transcribes what is visible. Accepted.
   - Invalid-link message: fixed before Sol's inventory time? No — Sol tested at ~12:42 UTC; the fix published ~12:58 UTC. Verified live afterwards.
+- 13:20 UTC — David: Sol's eight Production test questions stay until the 30-day anonymous purge ("they will be helpful for testing and training"); Sol will re-QA later. No deletion performed.
