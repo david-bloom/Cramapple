@@ -17,6 +17,22 @@ import {
 } from "../_shared/manual-grading.ts";
 import { recordGrowthEvent } from "../_shared/growth-events.ts";
 import { persistGradingMemory } from "../_shared/grading-memory.ts";
+import {
+  buildTranscriptRecord,
+  runDrawnResponseTranscript,
+  transcriptKey,
+  type TranscriptMediaType,
+} from "../_shared/drawn-response-extraction.ts";
+import {
+  buildConfirmedResponseParts,
+  deriveItemParts,
+  inferStudentAdded,
+  readResponseParts,
+  readTranscriptRecord,
+  transcriptRequiredBeforeSubmit,
+  transcriptView,
+  validateConfirmedParts,
+} from "../_shared/response-transcript.ts";
 
 type Operation =
   | "create_attempt"
@@ -25,7 +41,11 @@ type Operation =
   | "attach_capture"
   | "record_manual_grade"
   | "list_manual_grading_queue"
-  | "get_manual_grading_context";
+  | "get_manual_grading_context"
+  // Hand-drawn responses on every FRQ (2026-10-09, DECISION-0110/0111).
+  | "propose_transcript"
+  | "confirm_transcript"
+  | "redact_attachment";
 
 const ALLOWED_OPERATIONS = new Set<Operation>([
   "create_attempt",
@@ -35,8 +55,30 @@ const ALLOWED_OPERATIONS = new Set<Operation>([
   "record_manual_grade",
   "list_manual_grading_queue",
   "get_manual_grading_context",
+  "propose_transcript",
+  "confirm_transcript",
+  "redact_attachment",
 ]);
 const ATTACHMENT_KINDS = new Set<AttachmentKind>(["original", "derived"]);
+
+// Hand-drawn responses on every FRQ (docs/product/HAND_DRAWN_RESPONSES_ALL_FRQS_PLAN_2026_10_09.md).
+// Off by default: the transcript ops refuse and the submit gate below is
+// inert, so a deploy with the flag unset changes nothing for students.
+const FRQ_PHOTO_RESPONSES_ENABLED =
+  (Deno.env.get("FRQ_PHOTO_RESPONSES_ENABLED") ?? "false").toLowerCase() === "true";
+const FRQ_TRANSCRIPT_API_KEY = Deno.env.get("OPENAI_API_KEY") ?? null;
+const FRQ_TRANSCRIPT_MODEL = Deno.env.get("FRQ_TRANSCRIPT_MODEL") ??
+  Deno.env.get("OPENAI_MODEL") ?? "gpt-4.1-mini";
+const FRQ_TRANSCRIPT_TIMEOUT_MS = Number(Deno.env.get("FRQ_TRANSCRIPT_TIMEOUT_MS")) || 45_000;
+// One fixed reservation per model call through the shared ledger; the
+// shared daily cap is REQUIRED (fail closed), same as BYOQ extraction.
+const FRQ_TRANSCRIPT_RESERVED_COST_USD = Number(Deno.env.get("FRQ_TRANSCRIPT_RESERVED_COST_USD")) || 0.03;
+const FRQ_TRANSCRIPT_SHARED_CAP_USD = Number(Deno.env.get("OPENAI_DAILY_CAP_USD")) || 0;
+// Plan D5 defaults (proposed, not yet decided): per-student daily reads and a
+// feature-level USD breaker, both failing closed to "type your answer".
+const FRQ_TRANSCRIPT_DAILY_RUNS = Number(Deno.env.get("FRQ_TRANSCRIPT_DAILY_RUNS")) || 30;
+const FRQ_PHOTO_DAILY_CAP_USD = Number(Deno.env.get("FRQ_PHOTO_DAILY_CAP_USD")) || 50;
+const LEARNER_UPLOADS_BUCKET = "learner-uploads";
 
 // Entitlement gating on SUBMISSION (2026-09-20), closing a gap
 // `evaluate-attempt` already closed for grading (TASK-0026, 2026-08-15) but
@@ -322,6 +364,62 @@ type Service = ReturnType<typeof createServiceClient>;
 export interface AttemptResponseDeps {
   service?: Service;
   requireProfile?: typeof requireProfile;
+  /** Model call for propose_transcript; injectable so tests never hit a vendor. */
+  transcribe?: typeof runDrawnResponseTranscript;
+}
+
+type CurrentAttachmentRow = {
+  id: string;
+  kind: AttachmentKind;
+  storage_bucket: string;
+  storage_path: string;
+  media_type: string;
+  sha256_digest: string;
+  redacted_at: string | null;
+};
+
+/**
+ * The current original (and, when capture-pairing stored one, the
+ * metadata-stripped derived copy) bound to a response version. Null original
+ * means no photo is attached.
+ */
+async function loadCurrentAttachments(
+  service: Service,
+  responseVersionId: string,
+): Promise<{ original: CurrentAttachmentRow | null; derived: CurrentAttachmentRow | null }> {
+  const { data, error } = await service.schema("app")
+    .from("response_attachments")
+    .select("id, kind, storage_bucket, storage_path, media_type, sha256_digest, redacted_at, created_at")
+    .eq("response_version_id", responseVersionId)
+    .eq("is_current", true)
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(`load_attachments:${error.message}`);
+  const rows = (data ?? []) as Array<CurrentAttachmentRow & { created_at: string }>;
+  return {
+    original: rows.find((r) => r.kind === "original") ?? null,
+    derived: rows.find((r) => r.kind === "derived") ?? null,
+  };
+}
+
+async function transcriptRunsToday(service: Service, userId: string) {
+  const today = new Date().toISOString().slice(0, 10);
+  const r = await service.schema("app").from("model_usage_ledger")
+    .select("id", { count: "exact", head: true })
+    .like("request_id", `frq_transcript:${userId}:%`)
+    .eq("usage_date_utc", today);
+  if (r.error) throw new Error(`transcript_runs:${r.error.message}`);
+  return r.count ?? 0;
+}
+
+async function transcriptSpendToday(service: Service) {
+  const today = new Date().toISOString().slice(0, 10);
+  const r = await service.schema("app").from("model_usage_ledger")
+    .select("reserved_cost_usd, actual_cost_usd")
+    .like("request_id", "frq_transcript:%")
+    .eq("usage_date_utc", today);
+  if (r.error) throw new Error(`transcript_spend:${r.error.message}`);
+  return ((r.data ?? []) as Array<{ reserved_cost_usd: number | null; actual_cost_usd: number | null }>)
+    .reduce((sum, row) => sum + Number(row.actual_cost_usd ?? row.reserved_cost_usd ?? 0), 0);
 }
 
 // Extracted from Deno.serve's inline callback (2026-09-20), plus the `deps`
@@ -908,6 +1006,264 @@ export async function handleAttemptResponse(
       });
     }
 
+    // ------------------------------------------------------------------
+    // Hand-drawn responses on every FRQ: transcript propose/confirm
+    // (DECISION-0110). The student photographs their work (capture-pairing
+    // binds it to an UNSUBMITTED response version), the model proposes a
+    // per-part transcript, the student confirms or completes it, and only the
+    // confirmed text is ever submitted and graded. Both ops are owner-only:
+    // the attachment lives in the owner's storage namespace and the
+    // transcript is the owner's own answer.
+    // ------------------------------------------------------------------
+    if (operation === "propose_transcript" || operation === "confirm_transcript") {
+      if (!FRQ_PHOTO_RESPONSES_ENABLED) {
+        return respond({ error: "feature_disabled" }, { status: 409 });
+      }
+      const tAttemptId = asUuid(b.attempt_id ?? b.attemptId);
+      const tResponseVersionId = asUuid(b.response_version_id ?? b.responseVersionId);
+      if (!tAttemptId || !tResponseVersionId) {
+        return respond(
+          { error: "missing_required_fields", required: ["attempt_id", "response_version_id"] },
+          { status: 400 },
+        );
+      }
+      const { data: tAttempt, error: tAttemptError } = await service.schema("app")
+        .from("attempts")
+        .select("id, user_id, status, content_item_version_id")
+        .eq("id", tAttemptId)
+        .maybeSingle();
+      if (tAttemptError || !tAttempt) {
+        return respond({ error: "attempt_not_found" }, { status: 404 });
+      }
+      if (tAttempt.user_id !== user.id) {
+        return respond({ error: "forbidden" }, { status: 403 });
+      }
+      if (!["draft", "failed"].includes(tAttempt.status as string)) {
+        return respond(
+          { error: "attempt_not_editable", attempt_status: tAttempt.status },
+          { status: 409 },
+        );
+      }
+      const { data: tVersion, error: tVersionError } = await service.schema("app")
+        .from("response_versions")
+        .select("id, attempt_id, is_submitted, response_text, response_parts")
+        .eq("id", tResponseVersionId)
+        .maybeSingle();
+      if (tVersionError || !tVersion) {
+        return respond({ error: "response_not_found" }, { status: 404 });
+      }
+      if (tVersion.attempt_id !== tAttemptId) {
+        return respond({ error: "response_attempt_mismatch" }, { status: 409 });
+      }
+      if (tVersion.is_submitted) {
+        return respond({ error: "response_already_submitted" }, { status: 409 });
+      }
+      const attachments = await loadCurrentAttachments(service, tResponseVersionId);
+      if (!attachments.original) {
+        return respond({ error: "no_attachment" }, { status: 409 });
+      }
+      if (attachments.original.redacted_at) {
+        return respond({ error: "attachment_redacted" }, { status: 409 });
+      }
+      const { data: tContent, error: tContentError } = await service.schema("app")
+        .from("content_item_versions")
+        .select("id, stem, prompt_json")
+        .eq("id", tAttempt.content_item_version_id)
+        .maybeSingle();
+      if (tContentError || !tContent) {
+        return respond({ error: "content_not_found" }, { status: 404 });
+      }
+      const itemParts = deriveItemParts(tContent.prompt_json);
+      const existingParts = readResponseParts(tVersion.response_parts);
+
+      if (operation === "propose_transcript") {
+        const force = b.force === true;
+        const digests = [attachments.original.sha256_digest];
+        const key = await transcriptKey(digests, FRQ_TRANSCRIPT_MODEL);
+        const prior = readTranscriptRecord(existingParts);
+        if (prior && prior.key === key && prior.status === "proposed" && !force) {
+          const reused = { transcript: transcriptView(prior), parts: itemParts, reused: true };
+          return respond({ status: "ok", function: "attempt-response", operation, result: reused });
+        }
+
+        // Caps (plan D5 defaults). Both fail closed to an "unavailable"
+        // record so the student is told to type instead of being blocked.
+        let unavailable: "cost_cap_reached" | null = null;
+        try {
+          if ((await transcriptRunsToday(service, user.id)) >= FRQ_TRANSCRIPT_DAILY_RUNS) {
+            unavailable = "cost_cap_reached";
+          } else if ((await transcriptSpendToday(service)) >= FRQ_PHOTO_DAILY_CAP_USD) {
+            unavailable = "cost_cap_reached";
+          }
+        } catch (capError) {
+          console.error("frq_transcript_cap_check_failed", capError);
+          unavailable = "cost_cap_reached";
+        }
+
+        const transcribe = deps.transcribe ?? runDrawnResponseTranscript;
+        const now = new Date().toISOString();
+        let outcome: Awaited<ReturnType<typeof runDrawnResponseTranscript>>;
+        if (unavailable) {
+          outcome = { kind: "unavailable", failure: unavailable };
+        } else {
+          // Prefer the metadata-stripped derived copy when capture-pairing
+          // stored one; the original is the immutable record.
+          const source = attachments.derived ?? attachments.original;
+          const { data: blob, error: downloadError } = await service.storage
+            .from(LEARNER_UPLOADS_BUCKET)
+            .download(source.storage_path);
+          if (downloadError || !blob) {
+            return respond({ error: "capture_object_not_found" }, { status: 404 });
+          }
+          const bytes = new Uint8Array(await blob.arrayBuffer());
+          const mediaType = (["image/jpeg", "image/png", "image/webp"].includes(source.media_type)
+            ? source.media_type
+            : "image/jpeg") as TranscriptMediaType;
+          const ledgerRequestId = `frq_transcript:${user.id}:${tResponseVersionId}:${key.slice(0, 12)}:${Date.now()}`;
+          const ledgerRequestHash = await sha256Hex(ledgerRequestId);
+          let reserved = false;
+          outcome = await transcribe({
+            pages: [{ bytes, mediaType }],
+            parts: itemParts,
+            stem: typeof tContent.stem === "string" ? tContent.stem : "",
+            subjectName: null,
+            modelId: FRQ_TRANSCRIPT_MODEL,
+            apiKey: FRQ_TRANSCRIPT_API_KEY,
+            timeoutMs: FRQ_TRANSCRIPT_TIMEOUT_MS,
+            reserveCost: async () => {
+              if (!(FRQ_TRANSCRIPT_SHARED_CAP_USD > 0)) return false;
+              const r = await service.schema("app").rpc("reserve_model_usage", {
+                p_request_id: ledgerRequestId,
+                p_request_hash: ledgerRequestHash,
+                p_model_id: FRQ_TRANSCRIPT_MODEL,
+                p_reserved_cost_usd: FRQ_TRANSCRIPT_RESERVED_COST_USD,
+                p_cap_usd: FRQ_TRANSCRIPT_SHARED_CAP_USD,
+              });
+              reserved = !r.error && Boolean(r.data);
+              return reserved;
+            },
+          });
+          if (reserved) {
+            const r = await service.schema("app").rpc("complete_model_usage", {
+              p_request_id: ledgerRequestId,
+              p_request_hash: ledgerRequestHash,
+              p_status: outcome.kind === "proposed" ? "completed" : "failed",
+              p_actual_cost_usd: FRQ_TRANSCRIPT_RESERVED_COST_USD,
+              p_input_tokens: outcome.kind === "proposed" ? outcome.usage.input_tokens : null,
+              p_output_tokens: outcome.kind === "proposed" ? outcome.usage.output_tokens : null,
+            });
+            if (r.error) console.error("frq_transcript_release_failed", r.error.message);
+          }
+          if (outcome.kind === "failed") {
+            console.error("frq_transcript_failed", { failure: outcome.failure, detail: outcome.detail });
+          }
+        }
+
+        const record = buildTranscriptRecord({ outcome, key, pageDigests: digests, modelId: FRQ_TRANSCRIPT_MODEL, at: now });
+        const { error: storeError } = await service.schema("app")
+          .from("response_versions")
+          .update({ response_parts: { ...existingParts, _transcript: record } })
+          .eq("id", tResponseVersionId)
+          .eq("is_submitted", false);
+        if (storeError) {
+          return respond({ error: "transcript_store_failed" }, { status: 500 });
+        }
+        const result = { transcript: transcriptView(record), parts: itemParts, reused: false };
+        await recordIdempotentResult(service, idempotencyKey, requestHash, operation, user.id, "response_version", tResponseVersionId, result);
+        return respond({ status: "ok", function: "attempt-response", operation, result });
+      }
+
+      // confirm_transcript
+      const validation = validateConfirmedParts({
+        itemParts,
+        submitted: b.parts,
+        studentAdded: b.student_added ?? b.studentAdded,
+      });
+      if (!validation.ok) {
+        return respond({ error: validation.reason }, { status: 422 });
+      }
+      const priorRecord = readTranscriptRecord(existingParts);
+      const proposedMap: Record<string, string> = {};
+      for (const part of priorRecord?.proposed?.parts ?? []) proposedMap[part.part_key] = part.text;
+      const inferred = inferStudentAdded({ proposed: proposedMap, confirmed: validation.parts });
+      const studentAdded: Record<string, string[]> = { ...inferred };
+      for (const [k, spans] of Object.entries(validation.studentAdded)) {
+        studentAdded[k] = [...new Set([...(studentAdded[k] ?? []), ...spans])];
+      }
+      const confirmedAt = new Date().toISOString();
+      const nextParts = buildConfirmedResponseParts({ existing: existingParts, parts: validation.parts, studentAdded, confirmedAt });
+      const { data: confirmedRow, error: confirmError } = await service.schema("app")
+        .from("response_versions")
+        .update({ response_text: validation.responseText, response_parts: nextParts })
+        .eq("id", tResponseVersionId)
+        .eq("is_submitted", false)
+        .select("id, attempt_id, response_text, version_number, is_submitted")
+        .maybeSingle();
+      if (confirmError || !confirmedRow) {
+        return respond({ error: "transcript_confirm_failed" }, { status: 500 });
+      }
+      const result = {
+        response_version: {
+          id: confirmedRow.id,
+          attempt_id: confirmedRow.attempt_id,
+          response_text: confirmedRow.response_text,
+          version_number: confirmedRow.version_number,
+          is_submitted: confirmedRow.is_submitted,
+          confirmed_at: confirmedAt,
+          student_added_parts: Object.keys(studentAdded),
+        },
+      };
+      await recordIdempotentResult(service, idempotencyKey, requestHash, operation, user.id, "response_version", tResponseVersionId, result);
+      return respond({ status: "ok", function: "attempt-response", operation, result });
+    }
+
+    // Retention by redaction (DECISION-0111): removes the image bytes of one
+    // attachment lineage (original + derived) and stamps redacted_at. The
+    // row survives for audit. Admin-only and service-role: the only write
+    // the immutability trigger permits beyond the quality/current/reviewed
+    // columns.
+    if (operation === "redact_attachment") {
+      if (profile.role !== "admin") {
+        return respond({ error: "forbidden" }, { status: 403 });
+      }
+      const rAttachmentId = asUuid(b.attachment_id ?? b.attachmentId);
+      if (!rAttachmentId) {
+        return respond({ error: "missing_required_fields", required: ["attachment_id"] }, { status: 400 });
+      }
+      const { data: target, error: targetError } = await service.schema("app")
+        .from("response_attachments")
+        .select("id, response_version_id, storage_bucket, storage_path, kind, redacted_at")
+        .eq("id", rAttachmentId)
+        .maybeSingle();
+      if (targetError || !target) {
+        return respond({ error: "attachment_not_found" }, { status: 404 });
+      }
+      const { data: lineage } = await service.schema("app")
+        .from("response_attachments")
+        .select("id, storage_bucket, storage_path, kind, redacted_at")
+        .eq("response_version_id", target.response_version_id);
+      const rows = (lineage ?? []) as Array<{ id: string; storage_bucket: string; storage_path: string; kind: string; redacted_at: string | null }>;
+      const pending = rows.filter((r) => !r.redacted_at);
+      const paths = pending.map((r) => r.storage_path);
+      if (paths.length) {
+        const { error: removeError } = await service.storage.from(LEARNER_UPLOADS_BUCKET).remove(paths);
+        if (removeError) {
+          return respond({ error: "redaction_storage_failed" }, { status: 500 });
+        }
+      }
+      const redacted: string[] = [];
+      for (const r of pending) {
+        const { error: stampError } = await service.schema("app").rpc("redact_response_attachment", { p_attachment_id: r.id });
+        if (stampError) {
+          return respond({ error: "redaction_stamp_failed", redacted }, { status: 500 });
+        }
+        redacted.push(r.id);
+      }
+      const result = { redacted, already_redacted: rows.filter((r) => r.redacted_at).map((r) => r.id) };
+      await recordIdempotentResult(service, idempotencyKey, requestHash, operation, user.id, "response_attachment", rAttachmentId, result);
+      return respond({ status: "ok", function: "attempt-response", operation, result });
+    }
+
     if (operation === "record_manual_grade") {
       // TASK-0020 Program C: no automated method is qualified to grade a
       // hand-drawn image. This operation lets an admin record a real human
@@ -1242,7 +1598,7 @@ export async function handleAttemptResponse(
       const { data: responseVersionRow } = await service
         .schema("app")
         .from("response_versions")
-        .select("id")
+        .select("id, response_text, response_parts")
         .eq("attempt_id", contextAttemptId)
         .eq("is_submitted", true)
         .maybeSingle();
@@ -1253,17 +1609,36 @@ export async function handleAttemptResponse(
       const { data: attachment } = await service
         .schema("app")
         .from("response_attachments")
-        .select("storage_bucket, storage_path")
+        .select("id, storage_bucket, storage_path, media_type, redacted_at")
         .eq("response_version_id", responseVersionRow.id)
         .eq("is_current", true)
+        .eq("kind", "original")
         .maybeSingle();
 
+      // judgement_kind (2026-10-09): tells the grader which criteria the
+      // confirmed transcript can settle and which need the picture.
       const { data: criteriaRows } = await service
         .schema("app")
         .from("frq_criteria")
-        .select("criterion_key, learner_facing_text, points_possible")
+        .select("criterion_key, learner_facing_text, points_possible, judgement_kind")
         .eq("content_item_version_id", attempt.content_item_version_id)
         .order("criterion_key", { ascending: true });
+
+      const { data: contextContent } = await service.schema("app")
+        .from("content_item_versions")
+        .select("stem, prompt_json, content_items!inner(content_key, title)")
+        .eq("id", attempt.content_item_version_id)
+        .maybeSingle();
+      const contextItem = contextContent
+        ? (Array.isArray(contextContent.content_items) ? contextContent.content_items[0] : contextContent.content_items) as { content_key?: string; title?: string | null } | null
+        : null;
+      const contextParts = readResponseParts(responseVersionRow.response_parts);
+      const itemParts = deriveItemParts(contextContent?.prompt_json ?? null);
+      const transcriptParts: Record<string, string> = {};
+      for (const part of itemParts) {
+        const value = contextParts[part.part_key];
+        transcriptParts[part.part_key] = typeof value === "string" ? value : "";
+      }
 
       return respond({
         status: "ok",
@@ -1272,8 +1647,22 @@ export async function handleAttemptResponse(
         result: {
           attempt_status: attempt.status,
           response_version_id: responseVersionRow.id,
+          content_key: contextItem?.content_key ?? null,
+          title: contextItem?.title ?? null,
+          stem: typeof contextContent?.stem === "string" ? contextContent.stem : null,
+          attachment_id: attachment?.id ?? null,
           storage_bucket: attachment?.storage_bucket ?? null,
           storage_path: attachment?.storage_path ?? null,
+          media_type: attachment?.media_type ?? null,
+          attachment_redacted_at: attachment?.redacted_at ?? null,
+          // The student's response of record: typed text, or the confirmed
+          // transcript of their photographed work (DECISION-0110).
+          response_text: typeof responseVersionRow.response_text === "string" ? responseVersionRow.response_text : null,
+          response_source: typeof contextParts._source === "string" ? contextParts._source : (attachment ? "photo" : "typed"),
+          transcript_parts: transcriptParts,
+          student_added: contextParts._student_added ?? null,
+          transcript_confirmed_at: typeof contextParts._confirmed_at === "string" ? contextParts._confirmed_at : null,
+          item_parts: itemParts,
           criteria: (criteriaRows ?? []).filter((c) =>
             c.learner_facing_text != null
           ),
@@ -1293,6 +1682,29 @@ export async function handleAttemptResponse(
         },
         { status: 400 },
       );
+    }
+
+    // DECISION-0110 item 1: a response that carries a bound photo is never
+    // submitted (and so never graded) until its transcript is confirmed.
+    // Inert while the feature flag is off, so the legacy Stage D2 capture
+    // path on /session is unchanged until the Practice FRQ screen ships.
+    if (FRQ_PHOTO_RESPONSES_ENABLED) {
+      const gateAttachments = await loadCurrentAttachments(service, responseVersionId);
+      if (gateAttachments.original) {
+        const { data: gateVersion } = await service.schema("app")
+          .from("response_versions")
+          .select("response_parts")
+          .eq("id", responseVersionId)
+          .maybeSingle();
+        if (
+          transcriptRequiredBeforeSubmit({
+            hasCurrentAttachment: true,
+            responseParts: readResponseParts(gateVersion?.response_parts),
+          })
+        ) {
+          return respond({ error: "transcript_confirmation_required" }, { status: 409 });
+        }
+      }
     }
 
     // Admin calls are operational and intentionally bypass learner

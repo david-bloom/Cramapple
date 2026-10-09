@@ -914,13 +914,19 @@ export async function handleCapturePairing(
       // showed "Waiting for your phone" for the entire time the student framed
       // the shot. Idempotent and attempt-free: only 'issued' advances, and a
       // reload while already 'paired' is a no-op.
+      // The phone may declare how it got here ("SAME_DEVICE" when the
+      // student's own phone minted the pairing, DECISION-0109); otherwise the
+      // historical default 'QR' stands until the upload claim says otherwise.
+      const declaredAccessPath = isPairingAccessPath(b.access_path ?? b.accessPath)
+        ? (b.access_path ?? b.accessPath) as PairingAccessPath
+        : null;
       if (describeRow.state === "issued") {
         const { data: paired } = await service.schema("app")
           .from("capture_pairing_tokens")
           .update({
             state: "paired",
             paired_at: new Date().toISOString(),
-            access_path: describeRow.access_path ?? "QR",
+            access_path: declaredAccessPath ?? describeRow.access_path ?? "QR",
           })
           .eq("id", describeRow.id)
           .eq("state", "issued")

@@ -55,6 +55,10 @@ export type SelectedRow = {
   // expected_graph_spec) never has to flow through this type. TASK-0038
   // Phase 3.
   hand_drawn?: boolean;
+  // app.content_items.response_policy, returned by select_student_practice_items
+  // (2026-10-09). Absent on the older selectors; buildRenderItem then derives
+  // it from hand_drawn / item_type.
+  response_policy?: string | null;
   // Authored student-facing part prompts (prompt_json.parts[].prompt), derived
   // by the caller the same way as hand_drawn: only part_key/prompt/points are
   // copied, never the rest of prompt_json. Present only when the caller opted
@@ -156,6 +160,12 @@ export type RenderItem = {
   // (attach_capture) instead of typed text. Only ever "hand_drawn" for rows
   // select_hand_drawn_pilot_items returns -- see SelectedRow.hand_drawn.
   response_mode: "typed" | "hand_drawn";
+  // Hand-drawn responses on every FRQ (2026-10-09, plan §3). What the answer
+  // control offers: "photo_allowed" (typed, photographed, or both -- every
+  // ordinary FRQ), "photo_required" (the rubric needs a constructed visual --
+  // the hand-drawn items), "typed_only" (MCQ/quantitative, or an FRQ that
+  // opted out). Derived from the item row, never from prompt_json.
+  response_policy: "typed_only" | "photo_allowed" | "photo_required";
   // TASK-0051 / DECISION-0086. True when this student has already been shown
   // this item's full answer key in Open Hand, which permanently excludes the
   // item from scoring for them. Additive and default false; annotated after
@@ -588,6 +598,20 @@ export function toLearnerFacingParts(
  * on AP Biology items it carries a `criteria` key, and grading-only fields
  * such as expected_graph_spec must not reach a student.
  */
+export function deriveResponsePolicy(
+  row: Pick<SelectedRow, "response_policy" | "hand_drawn" | "item_type">,
+): RenderItem["response_policy"] {
+  const explicit = row.response_policy;
+  if (explicit === "typed_only" || explicit === "photo_allowed" || explicit === "photo_required") {
+    // A hand-drawn construction item always requires a photo, whatever the
+    // row says (same rule the publish gate enforces).
+    return row.hand_drawn === true ? "photo_required" : explicit;
+  }
+  if (row.hand_drawn === true) return "photo_required";
+  const itemType = row.item_type ?? "frq";
+  return itemType === "frq" ? "photo_allowed" : "typed_only";
+}
+
 export function buildRenderItem(
   row: SelectedRow,
   asset: AssetMetadata | null,
@@ -638,6 +662,7 @@ export function buildRenderItem(
     choices: choices && choices.length ? [...choices] : null,
     media,
     response_mode: row.hand_drawn === true ? "hand_drawn" : "typed",
+    response_policy: deriveResponsePolicy(row),
     // Default false; annotateOpenHandExclusions flips it after selection.
     open_hand_excluded: false,
     cell,
