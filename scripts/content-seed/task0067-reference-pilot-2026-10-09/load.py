@@ -19,6 +19,7 @@ def main():
     ap.add_argument("--subject-key", required=True); ap.add_argument("--unit", type=int, required=True)
     ap.add_argument("--max-hooks", type=int, default=8)
     ap.add_argument("--batch", required=True)   # e.g. task0067-reference-pilot-2026-10-09
+    ap.add_argument("--po-accept", default=None)  # JSON: {"entries": [candidate_id], "hooks": [[candidate_id, hook_text]], "note": "..."}
     a = ap.parse_args()
     out = HERE / "out"
     cands, verdicts = {}, []
@@ -27,6 +28,13 @@ def main():
     for vp in sorted(out.glob(f"verdicts_{a.subject_key}_u{a.unit}*.json")):
         if "_pre_recompute" in vp.name or "_void" in vp.name: continue
         verdicts += json.loads(vp.read_text())
+    po = json.loads(pathlib.Path(a.po_accept).read_text()) if a.po_accept else {"entries": [], "hooks": [], "note": ""}
+    for v in verdicts:
+        if v["candidate_id"] in po.get("entries", []):
+            v["accepted"] = True; v["po_override"] = po.get("note")
+        for cid, ht in po.get("hooks", []):
+            if v["candidate_id"] == cid:
+                v["accepted"] = True; v["hooks_accepted"][ht] = True; v["po_override"] = po.get("note")
     accepted = [v for v in verdicts if v["accepted"] and not v["control"] and v["candidate_id"] in cands]
     rejected = [v for v in verdicts if not v["accepted"] and not v["control"]]
     def tkey(c):
@@ -38,7 +46,7 @@ def main():
     hooks_written = 0
     for v in accepted:
         c = cands[v["candidate_id"]]
-        src = f"generated-checked; extractor={c.get('extractor')}; batch={a.batch}; candidate={c['candidate_id']}; ced={c.get('ced_evidence','')[:200]}"
+        src = f"generated-checked; extractor={c.get('extractor')}; batch={a.batch}; candidate={c['candidate_id']}; ced={c.get('ced_evidence','')[:200]}" + (f"; po-override={v['po_override']}" if v.get("po_override") else "")
         lines.append(
             "insert into app.unit_reference_entries (subject_key, unit_number, owner_topic_code, topic_codes, kind, title, body, items, visual_asset_ref, caution, status, source_note)\n"
             f"values ({q(c['subject_key'])}, {c['unit_number']}, {q(c['owner_topic_code'])}, array[{', '.join(q(t) for t in c['topic_codes'])}]::text[], {q(c['kind'])}, {q(c['title'])}, {q(c['body'])}, {j(c.get('items') or [])}, NULL, {q(c.get('caution'))}, 'published', {q(src)})\n"

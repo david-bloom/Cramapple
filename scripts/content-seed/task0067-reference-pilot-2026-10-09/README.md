@@ -68,3 +68,15 @@ for Units 2+.
 codes; owner units match the taxonomy; both views emit the registry subject key; `get_topic_point_guides`
 returns `reference[]` (18 for Stats 1.7 including entries owned by 1.1/1.2/1.6, 79 for Unit 1, 4 for
 Chem 4.9) and `memoryHooks[]`, and empty arrays with unchanged briefs for a subject with no entries.
+
+## Product Owner decisions, 2026-10-09 (`DECISION-0106`)
+
+1. **SOCS: the CED wins.** The Statistics CED names SOCS; the veto's objection (hook order differs from
+   the entry's item order) does not override a CED-named hook. Loaded to Development via `load.py
+   --po-accept po_accept_ap_statistics_u1.json` (provenance carries `po-override=…`). Development now holds
+   **80 Statistics entries, 22 Chemistry entries, 3 hooks** (SOCS, z-score formula sentence, OIL RIG).
+2. **Escalation: 1.13 stays the owner** of "Scope of conclusions from an experiment". Loaded the same way.
+3. **Veto model: Opus 5.5 is retired from this pipeline.** The veto must stay in the extractor's family
+   (reject-only own-family audit), so GPT-6 Sol cannot take it while Sonnet extracts; Haiku 5.5 does the job
+   at list price $0.10/$0.50 per M (recost of the pilot's veto calls: $0.28 vs $11.37). `check.py` now uses
+   `anthropic/claude-haiku-5.5`; it must pass the smoke test before its first batch.

@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- DECISION-0106 Recorded (SOCS Loaded, 1.13 Owner, Veto → Haiku 5.5); TASK-0067/0066 Phase C Sent to Lovable Preview (2026-10-09): Development 102 entries + 3 hooks; Phase C brief covers the fetch/mapping layer, reference pane, Deep Dive, unit reference, Learn More page, tests; Production untouched.
 - TASK-0067 + TASK-0066 Phase A and B Done in Development: Reference Tables + Hooks Schema (20261009003237), 101 Entries + 2 Hooks Loaded for Stats U1 / Chem U4, $20.29 (2026-10-09): two-checker + veto pipeline, controls 6/6 both units after one flawed control was replaced; aggregation bug fixed and recomputed; SOCS and one escalation for the PO; Production untouched; PR open for David.
 - TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended (DECISION-0105, APPROVAL-0137) (2026-10-08): R1–R4 as recommended; one Development migration for both tables; hooks require a reference entry. Docs only; nothing built.
 - TASK-0066 Blocked on Companion Content; TASK-0067 (Unit Reference Content: Formulas, Vocabulary, Lists, Diagrams) Drafted as Proposed (2026-10-08): David's point checked against the schema and task records; nothing structured exists for hooks to attach to; R1–R4 await David. Docs only.
@@ -400,6 +401,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## DECISION-0106 Recorded; Phase C Sent to Lovable Preview — 2026-10-09
+
+**Decisions (David):** SOCS loaded (CED names it; CED wins over the veto's order objection); 1.13 confirmed as owner of the escalated entry; veto moves to Haiku 5.5 (GPT-6 Sol cannot be the veto while Sonnet extracts, because the veto is the own-family audit). Loader gained `--po-accept`, which records each override in the row's `source_note`. Development: **102 entries, 3 hooks**.
+
+**Phase C:** the Lovable app (`56cae479`) reads Production, where the two RPC keys do not exist yet, so the brief requires every surface to render exactly today's output when `reference`/`memoryHooks` are absent, with a test for it. Scope sent: `topic-content.ts` types and mapping; `presentation.ts` (vocabulary from entries, `rememberIt`, `lookUp`, "Remember it" summary, "Formulas and rules" / "Lists and sequences" full sections, "Unit N reference" from a unit-level call); `deep-dive-export.ts`; `ReferencePane.jsx`; the Learn More route; a vitest file on a fixture taken from the Development payload. Preview only; no publish; no `.env` change. The tool call timed out waiting, but the project shows the agent running.
+
+**Verification plan:** read the diff by commit SHA; run the tests; the preview cannot show real rows until the Production migration is applied (separate Hard Gate), so visual verification with data waits on that approval.
+
 ## TASK-0067 + TASK-0066 Phase A and B Done in Development — 2026-10-09
 
 **Context:** David: "Go ahead and start the implementation branch." Branch `claude/task-0067-0066-phase-a`.
