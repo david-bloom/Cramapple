@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Hand-Drawn Responses on Every FRQ: Session Opened, Stranded TASK-0038 Frontend Found, Plan Drafted, D1/D2(conditioned)/D4 Approved (DECISION-0109/0110/0111, APPROVAL-0142) (2026-10-09): live-verified that TASK-0038's Phase 3/4 frontend never reached the Lovable App (committed to `exam-buddy-wireframe` the day after the split); `response_attachments` still 0 rows; wrote `docs/product/HAND_DRAWN_RESPONSES_ALL_FRQS_PLAN_2026_10_09.md` (photo on every FRQ, student-confirmed transcript graded by the existing text grader, image-judgeable criteria to the human queue until Engine 4 gates pass, `response_policy` on every current and future FRQ, redaction-based retention). **Next Owner:** David Bloom. **Next Action:** answer D3, D5–D8; authorize Phase 0 (port the five frontend pieces, publish, run DECISION-0059 Stage 1).
 - Session Close: TASK-0068 BYOQ Photo Extraction — Live for Students, QA Cycle Complete, Hand-Drawn Leverage Analysis (2026-10-09): plan → build → backend QA (Fail→Pass) → Sol browser QA (Fail→rerun pass; draft-routing P2 fixed) → Vercel review defect fixed → PR #393 merged. Open: Done decision (topic-ranking gate, S9 expiry checks), SOL-08 hint copy. Close record: `docs/handoffs/SESSION_CLOSE_2026_10_09_TASK0068_BYOQ_PHOTO_EXTRACTION.md`.
 - TASK-0068 BYOQ Photo Extraction Built, QA'd and Deployed to Production for All Students (APPROVAL-0141) (2026-10-09): migration + extraction module + extract_question + phone review ops; benchmark 210 pages, gpt-4.1-mini chosen; backend QA Fail → three fixes → Pass; Dev and Prod smokes green; Lovable App published; Sol browser QA script written. Topic top-3 below gate, recorded.
 - Unit Reference Content + Memory Hooks Moved to Production (APPROVAL-0140): Migration, 102 Entries + 3 Hooks, Lovable Publish of 71a9b751 (2026-10-09): CLI-driven apply and loads (no retyping), objects md5-identical to Development, data QA and RPC probes pass; PR #390 merged by David; CLI relinked to Development.
@@ -406,6 +407,23 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Hand-Drawn Responses on Every FRQ: Session Opened, Stranded Frontend Found, Plan Drafted, Three Decisions Approved — 2026-10-09
+
+**Context:** David: "Start a cramapple session focused on hand drawn response deployment", then "create a plan for bringing Hand Drawn Responses to all FRQs and any FRQs we create in the future, including the workflow, image management, grading and storage", then approvals of D1, D4, and D2 with a condition.
+
+**Found (verified against Production `pcntajvbdfqhbeewmdry` and Lovable App `56cae479`):**
+- TASK-0038 Phases 1–4 are complete on the backend (selector, `hand_drawn_pilot` mode, `list_manual_grading_queue`/`get_manual_grading_context`, admin `sign_download`), and `APBIO-HDG-2026-GRAPH-002` is `human_graded_pilot_approved`. The matching frontend (`/session-hand-drawn-pilot`, grading queue, RLS-safe per-attempt page, `handDrawnPilot` serve branch, consent notice) exists only in `exam-buddy-wireframe` commits `e16c72d`/`d50a403`/`677728c` (2026-09-23) and was **never ported to the live Lovable App**. The App still carries the old single-attempt admin page that reads `attempts`/`response_attachments` directly, the read Phase 4 found blocked by owner-only RLS. `DECISION-0059` Stage 1 therefore cannot run until the port is done.
+- Live counts: `response_attachments` 0, manual-review `grading_results` 0, attempts on the pilot item 0, `capture_pairing_tokens` 1 (David, 2026-08-21). 1,090 published FRQs, 40 hand-drawn-flagged; the Practice FRQ screen (`/practice-frq`) has no photo affordance.
+- `docs/INDEX.md` has no hand-drawn topic row.
+
+**Written:** `docs/product/HAND_DRAWN_RESPONSES_ALL_FRQS_PLAN_2026_10_09.md` — every FRQ (current and future) accepts a photographed answer; the model proposes a per-part transcript, the student confirms or completes it, the existing text grader scores the confirmed transcript; plotted values and scales become deterministic checks; image-judgeable criteria go to the human queue until Engine 4 gates pass per cell; `response_policy` is written on every FRQ by backfill and by the generation pipeline, enforced at publish; images are validated, metadata-stripped, quality-checked, bound immutably, and redacted (not deleted) on retention rules; phases 0–4 with gates; decisions D1–D8.
+
+**Decided:** David approved D1 (same-device capture on phones, `DECISION-0109`), D2 with the condition that the confirmation screen prompts the student to confirm or add missing content so Cramapple can help (`DECISION-0110`), and D4 (retention by redaction, `DECISION-0111`); recorded as `APPROVAL-0142`. D3, D5–D8 remain open; no build, deployment, or publish is approved.
+
+**Branch:** `claude/hand-drawn-deployment-2026-10-09` (worktree; the main checkout holds another session's uncommitted files and was not touched). Memory note written for the stranded-frontend finding.
+
+**Next Owner:** David Bloom. **Next Action:** answer D3, D5–D8; authorize Phase 0 (port the five frontend pieces to the Lovable App, publish, run `DECISION-0059` Stage 1); then open the Hard-Gate task for Phase 1.
+
 ## Session Close: TASK-0068 BYOQ Photo Extraction — 2026-10-09
 
 **Context:** David: "document according to end of session protocol with extra attention on how BYOQ can be leveraged by the hand drawn response system. Then end the session."

@@ -1,6 +1,6 @@
 # Hand-Drawn Responses on Every FRQ — Plan
 
-**Status:** Draft for Product Owner review (not approved; no code changed).
+**Status:** Draft for Product Owner review. **D1, D2 (with condition), D4 approved 2026-10-09** (`DECISION-0109`/`0110`/`0111`, `APPROVAL-0142`); D3, D5–D8 open; no build or deployment approved; no code changed.
 **Owner / Product Owner:** David Bloom. **Author:** Claude (Fable 5.1), session of 2026-10-09.
 **Tier:** Hard-Gate (production frontend and functions, student photos, grading truth, privacy).
 **Extends:** `TASK-0016` Phase D (Engine 4), `TASK-0025` (attachment schema), `TASK-0038` (human-graded pilot), `DECISION-0051` (QR capture), `DECISION-0059` (pilot grading commitment). Reuses `TASK-0068` (BYOQ photo extraction) as code and as a product pattern.
@@ -36,6 +36,7 @@ On every FRQ, in the Practice FRQ screen (the live student path), under the answ
    - Multiple pages: up to N photos per response (BYOQ allows pages; default N=3). Each is its own attachment under one response version.
 3. **Quality gate.** Existing check runs on upload: generic retake copy for a poor photo, blameless copy for a checker fault, continue allowed on "indeterminate". No change.
 4. **"Is this your answer?"** We read the page and show a per-part transcript beside the photo: written text, numbers, equations in plain Unicode, and for graph items the plotted points, axis labels, and scale we can read. Every field is editable; unreadable spans are marked `[unreadable]`; a drawn element we cannot transcribe is `[see photo]`. The student confirms. This is the BYOQ review loop (`ByoqReview`, `proposalPatch`, re-read-then-fill semantics) with a response schema instead of a question schema.
+   **Condition (David, 2026-10-09, `DECISION-0110`):** the screen does not only ask "is this right?"; it asks the student to **confirm or add anything missing so Cramapple can help**. Concretely: each `[unreadable]` span is an inline prompt ("We couldn't read this — type what you wrote"); a part with no transcribed answer says so ("We didn't find an answer for part (b) in your photo. Add it here, or leave it blank"); and the screen closes with "Anything we missed? Add it so we can score your whole answer and show you what to fix." Text the student adds is stored as `student_added` alongside the model's read, so audits can tell what was photographed from what was typed at review.
 5. **Submit.** The confirmed transcript becomes the response text; the photo stays bound. Grading runs immediately (section 5). If any criterion must be judged from the image itself, the student sees the graded text criteria now and "a reviewer will check your drawn work" for the rest, with the usual result card updating when it lands.
 6. **Afterwards.** The student can open their photo from the feedback card and dispute a criterion (existing `grade_disputes`). Retake before submit is unlimited; after submit, one response per attempt as today.
 
@@ -94,7 +95,7 @@ Why this is sound:
 1. **The grader never sees an unverified read.** The transcript the student confirmed is the response of record, stored in `response_versions.response_text` with `response_parts.source='photo_transcript'`, the model's raw proposal kept alongside for audit, and `normalized_response_sha256` computed on the confirmed text as it is for typed answers.
 2. **Spatial values become deterministic checks.** For `PLOT_VALUES`, axis labels, and scale, the confirmed transcript is compared to `expected_graph_spec` by code, not a model — the same move the Statistics deterministic fallback already makes in `evaluate-attempt`. The Engine 4 investigation found these are exactly the criteria where the model over-credits.
 3. **Remaining image-judgeable criteria stay honest.** They go to the human queue (`DECISION-0059` machinery, now with a real reason to exist) until Engine 4's gates pass per cell. "Partially graded, reviewer checking the rest" is a real state (`attempts.status='partially_graded'`, new) the UI shows, replacing today's all-or-nothing `human_review_pending`.
-4. **Student-confirmed does not mean student-trusted.** The transcript is what the student *claims* the page says. A confirm step that lets a student type an answer they never wrote is a practice-integrity question, not a scoring one — the photo is preserved, and a spot-check comparing transcript to image on a sample (the benchmark scorer, section 7) measures drift. Practice scores are not high-stakes.
+4. **Student-confirmed does not mean student-trusted.** The transcript is what the student *claims* the page says, and `student_added` spans are text the student typed at review rather than photographed. A confirm step that lets a student type an answer they never wrote is a practice-integrity question, not a scoring one — the photo is preserved, and a spot-check comparing transcript to image on a sample (the benchmark scorer, section 7) measures drift. Practice scores are not high-stakes.
 
 **Human queue.** Unchanged ops, two additions: the grader sees the confirmed transcript beside the photo and only decides the image-judgeable criteria (text ones are pre-filled from the automated pass, editable), and `record_manual_grade` learns to write a partial result that merges with the automated one. Repair authoring: `highest_value_gap` is produced by the automated pass for the text criteria, so a photographed answer gets the same repair prompt a typed one does — the TASK-0038 "score but no repair" gap closes for free.
 
@@ -106,7 +107,7 @@ Why this is sound:
 | --- | --- |
 | `content_item_versions.prompt_json` | `response_policy` (section 3); backfill migration; publish-gate check. |
 | `app.frq_criteria` | `judgement_kind text default 'text'` (`text` / `image`); backfill the 40 spatial items by criterion key (`PLOT_VALUES`, `X_SCALE`, `Y_SCALE`, labels → `text`; shape/placement/shading → `image`). |
-| `app.response_versions.response_parts` | Convention, no DDL: `{ "<part>": text, "_source": "typed"|"photo_transcript"|"mixed", "_proposal": {...}, "_confirmed_at": ts }`. |
+| `app.response_versions.response_parts` | Convention, no DDL: `{ "<part>": text, "_source": "typed"|"photo_transcript"|"mixed", "_proposal": {...}, "_student_added": { "<part>": [spans] }, "_confirmed_at": ts }`. |
 | `app.response_attachments` | `slot_id text`, `redacted_at timestamptz`, `transcript_status text` (`none`/`proposed`/`confirmed`); uniqueness becomes per (response version, slot). Immutability trigger allows only the redaction function to touch `redacted_at`. |
 | `app.capture_pairing_tokens` | No change; `upload_purpose='DRAWN_RESPONSE'` still correct. `access_path` gains `same_device`. |
 | `app.attempts.status` | Add `partially_graded`. |
@@ -135,10 +136,10 @@ Build order: schema and backfill → extraction module + benchmark → `attempt-
 
 ## 8. Decisions needed from David
 
-- **D1 — Same-device capture on phones.** Amend `DECISION-0051` narrowly: QR remains the path from a desktop; a student already on a phone uses that phone's camera. Recommendation: yes; BYOQ shipped it and the "awkward laptop camera" rationale does not apply.
-- **D2 — Transcript confirmation is mandatory before grading a photo.** Recommendation: yes. It is the whole safety argument in section 5. Cost is one screen per photo.
+- **D1 — Same-device capture on phones.** **Approved 2026-10-09 (`DECISION-0109`).** `DECISION-0051` amended narrowly: QR remains the path from a desktop; a student already on a phone uses that phone's camera.
+- **D2 — Transcript confirmation is mandatory before grading a photo.** **Approved with a condition 2026-10-09 (`DECISION-0110`):** the confirmation screen must prompt the student to confirm *or add missing content* so Cramapple can help (section 2, step 4).
 - **D3 — Default `photo_allowed` on all 1,050 non-spatial FRQs at launch**, versus allow-listing subjects first. Recommendation: flag-gated subject allow-list for two weeks, then all.
-- **D4 — Photo retention.** Proposed: keep while the account exists; redact bytes 24 months after the attempt or on account deletion or erasure request; row and digest kept for audit. Needs counsel's read against the policy's retention section.
+- **D4 — Photo retention.** **Approved 2026-10-09 (`DECISION-0111`):** keep while the account exists; redact bytes 24 months after the attempt or on account deletion or erasure request; row and digest kept for audit. A counsel read against the policy's retention section is still recommended before Phase 1 ships; it does not block the build.
 - **D5 — Spend and rate limits.** Proposed: 30 photos per student per day, `FRQ_PHOTO_DAILY_CAP_USD` 50, both fail closed to "type your answer instead".
 - **D6 — Partial grading as a visible state.** Students see text criteria graded now and image criteria "with a reviewer". Alternative: hold the whole result until the reviewer finishes. Recommendation: partial, with the 24-hour SLA shown.
 - **D7 — Grader roster.** `DECISION-0059` names David alone. Phase 1 can run that way for two subjects; Phase 2 or a third subject needs a second qualified grader.
