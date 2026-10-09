@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
 - APPROVAL-0137 — Open TASK-0067 (Unit Reference Content) and Amend TASK-0066 D3 So Hooks Require a Reference Entry — DECISION-0105 (2026-10-08)
@@ -2015,6 +2016,25 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108
+
+**Date:** 2026-10-09  
+**Approved By:** David Bloom (2026-10-09 Claude session): "finish executing the plan and moving the new capabilities to production for use by students."  
+**Related:** `docs/product/BYOQ_PHOTO_EXTRACTION_PLAN_V2_2026_10_08.md`, `docs/tasks/TASK-0068-BYOQ-PHOTO-EXTRACTION.md`, `docs/handoffs/TASK0068_BYOQ_PHOTO_EXTRACTION_EXECUTION_2026_10_09.md`, `docs/qa/QA_TASK0068_BACKEND_2026_10_09.md`, `docs/qa/QA_TASK0068_SOL_BROWSER_SCRIPT_2026_10_09.md`, `DECISION-0108`, `APPROVAL-0139`, PR #393, Lovable App commit `ea999aad`  
+**Decision:** Approved
+
+**Approved scope:** Gates B, C and D of the plan in one direction, with the pilot gate (D) taken as "on for all students" rather than a named pilot. Executed the same day:
+- Migrations on `app.byoq_items`: `task0068_byoq_extraction` (Development `20261009112941`, Production `20261009113605`) and `task0068_byoq_column_grants` (Development `20261009115159`, Production `20261009115128`).
+- `byoq` edge function deployed to Development and Production with extraction on by default (`BYOQ_EXTRACTION_ENABLED` unset = on).
+- Secrets: `BYOQ_EXTRACT_MODEL=gpt-4.1-mini` set in both environments; Development's invalid `OPENAI_API_KEY` reset from the repo-local key file (Production's key untouched).
+- Lovable App `56cae479` published (commit `ea999aad`).
+
+**Evidence:** 55 Deno tests; independent backend QA round 1 Fail (three Major), round 2 **Pass** after fixes; live smokes on Development and Production 27/27 and 24/24; benchmark over 210 rendered pages (type 100%, choices 97.5%, 0 answer leaks, blank page abstains; topic top-3 86.5–88.8% against a 90% gate, recorded as a miss).
+
+**Not covered by this entry:** the frontend browser QA (Sol's script) and the Done decision; the code PR #393 merge (David).
+
+**Rollback:** `supabase secrets set BYOQ_EXTRACTION_ENABLED=false --project-ref pcntajvbdfqhbeewmdry` returns the shipped photo-then-type flow with no redeploy; the columns stay, unused.
 
 ## APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066)
 

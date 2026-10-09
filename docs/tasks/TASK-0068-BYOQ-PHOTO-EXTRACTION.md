@@ -4,12 +4,12 @@
 **Title:** Read a photographed question with a model, propose type, text, choices, and topic; the student edits every field and confirms before the item is practice-ready
 **Owner:** Claude session (implementation). **Product Owner:** David Bloom
 **Tier:** Hard-Gate (model processing of student uploads, schema migration, new capability-scoped ops, Production deploy)
-**Status:** Approved at Gate A, not started (2026-10-08, `DECISION-0108` / `APPROVAL-0139`). Gate B (Development build) not yet requested.
+**Status:** **Deployed to Production for all students, 2026-10-09** (`APPROVAL-0141`, Gates B–D under David's direction). Backend QA Pass (round 2); Sol's browser QA pending; Done pending.
 **Priority:** High
 **Created Date:** 2026-10-08
 **Approved Date:** 2026-10-08 (Gate A only: plan, benchmark design, capability design)
-**Branch:** `claude/task-0068-byoq-photo-extraction-plan` (plan, PR #391). The build opens its own branch, `claude/task-0068-byoq-photo-extraction`, on the first implementation session and records it here.
-**PR:** #391 (plan). Build PR: none yet.
+**Branch:** `claude/task-0068-byoq-photo-extraction` (build, PR #393); plan was PR #391 (merged).
+**PR:** #393 (build, open for David's merge).
 **Design:** `docs/product/BYOQ_PHOTO_EXTRACTION_PLAN_V2_2026_10_08.md` (governing). Critique and David's answers: `docs/product/BYOQ_ATTACHMENT_EXTRACTION_PLAN_CRITIQUE_2026_10_08.md`. Superseded: v1 plan, `BYOQ_WORKSHEET_PARSING_DESIGN.md`, `TASK-0039` Phase 3.
 **Related:** `TASK-0039` (shipped baseline, Done), `DECISION-0057`, `DECISION-0077`, `DECISION-0084`, `DECISION-0108`, `APPROVAL-0139`
 
@@ -71,17 +71,17 @@ Independent context, per plan §7.3: contract tests (schema closure, allowlist r
 | Gate | State | Authorises |
 | --- | --- | --- |
 | A — Plan | **Approved 2026-10-08** (`APPROVAL-0139`) | Slice 1 design and benchmark work; no app or schema change |
-| B — Development build | Pending | Development migration, function deploy, Lovable preview work |
-| C — Production pilot | Pending | Production migration and deploy with the pilot flag on |
-| D — Expand | Pending | General availability or hold |
+| B — Development build | **Approved and executed 2026-10-09** (`APPROVAL-0141`) | Development migration, function deploy, Lovable preview work |
+| C — Production pilot | **Approved and executed 2026-10-09** (`APPROVAL-0141`) | Production migration and deploy; capability on |
+| D — Expand | **Approved 2026-10-09** (`APPROVAL-0141`): on for all students, no named pilot | General availability |
 
 ## Implementation Notes
 
-None yet.
+See `docs/handoffs/TASK0068_BYOQ_PHOTO_EXTRACTION_EXECUTION_2026_10_09.md` (what was built, benchmark, deployments, status log). Backend on PR #393; frontend in Lovable App commit `ea999aad` (published 2026-10-09).
 
 ## QA Review
 
-**QA Verdict:** Pending.
+**QA Verdict:** Backend — **Pass** (round 2, `docs/qa/QA_TASK0068_BACKEND_2026_10_09.md`; round 1 Fail with three Major findings, all fixed). Frontend/browser — pending Sol (`docs/qa/QA_TASK0068_SOL_BROWSER_SCRIPT_2026_10_09.md`).
 
 ## Done Decision
 
