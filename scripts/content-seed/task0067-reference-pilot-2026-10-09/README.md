@@ -69,7 +69,7 @@ codes; owner units match the taxonomy; both views emit the registry subject key;
 returns `reference[]` (18 for Stats 1.7 including entries owned by 1.1/1.2/1.6, 79 for Unit 1, 4 for
 Chem 4.9) and `memoryHooks[]`, and empty arrays with unchanged briefs for a subject with no entries.
 
-## Product Owner decisions, 2026-10-09 (`DECISION-0106`)
+## Product Owner decisions, 2026-10-09 (`DECISION-0107`)
 
 1. **SOCS: the CED wins.** The Statistics CED names SOCS; the veto's objection (hook order differs from
    the entry's item order) does not override a CED-named hook. Loaded to Development via `load.py

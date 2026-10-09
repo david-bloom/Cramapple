@@ -8,7 +8,7 @@ from gateway import chat_json, ced_pages
 
 HERE = pathlib.Path(__file__).resolve().parent
 CHECKERS = ["google/gemini-3.5-flash", "openai/gpt-6-sol"]   # protocol §3.2 menu slots B and A, picked 2026-10-09
-VETO = "anthropic/claude-haiku-5.5"                            # extractor family, reject-only (DECISION-0106: Opus 5.5 was 56% of the pilot spend; Haiku 5.5 recosts the same calls at $0.28 vs $11.37)
+VETO = "anthropic/claude-haiku-5.5"                            # extractor family, reject-only (DECISION-0107: Opus 5.5 was 56% of the pilot spend; Haiku 5.5 recosts the same calls at $0.28 vs $11.37)
 
 SYSTEM = """You are a strict checker of AP reference content against the College Board CED. You never approve on
 style; you reject on substance. Return only JSON."""
