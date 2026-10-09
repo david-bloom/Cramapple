@@ -77,3 +77,9 @@ Totals: 126 of 271 Unit 1-3 topics have no FRQ.
 - Calculus AB coverage rests on `provisional_model` cells, not validated ones.
 - AP Precalculus 1.8: the only FRQ leaning there (`apprecalc-frq-np2-010`) mixes three unrelated topics and was left without a primary topic.
 - Evidence: `docs/qa/evidence/frq_units13_audit_2026_10_09/` (raw votes per model, resolved primary topics, report JSON).
+
+## Written to Production (APPROVAL-0143, 2026-10-09)
+181 of these probe labels (Units 1-3 only) were written as `validated` primary topic cells. Two were held because the
+probe topic contradicts the item's unit label: `apcalcbc-frq-u13-015` (3.6 vs Unit 2) and `apprecalc-frq-np2-004`
+(3.10 vs Unit 2). Until those are resolved, Calculus BC 3.6 and Precalculus 3.10 have no FRQ topic cell in the database,
+so the database shows 128 missing topics where this audit shows 126.
