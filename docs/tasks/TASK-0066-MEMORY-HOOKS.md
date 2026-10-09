@@ -1,13 +1,13 @@
 # TASK-0066 — Memory Hooks: Schema, Pilot Authoring, and Student Surfaces
 
-**Status:** Approved, not started (2026-10-08).
+**Status:** Approved, not started (2026-10-08). **BLOCKED 2026-10-08 on companion content:** David: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them." Checked: no structured formulas, vocabulary, lists, or topic-level diagrams exist as student content (see `TASK-0067` §Why). Proposed resolution: `TASK-0067` builds `app.unit_reference_entries`; hooks gain a required `reference_entry_id` and inherit scope from the entry (amends D3). Awaiting the Product Owner's answer to `TASK-0067` R1–R4. Do not start Phase A until then.
 **Tier:** Standard for schema design and Development apply, pilot authoring in Development, and the Lovable preview build; **Hard-Gate** for the Production migration apply, any Production publish of hook rows, and the Lovable publish.
 **Owner:** Claude session (schema, authoring run, Lovable messages); outside-family checkers via AI Gateway.
 **Product Owner:** David Bloom.
 **Date opened:** 2026-10-08. **Approved:** 2026-10-08, `DECISION-0104` / `APPROVAL-0136`.
 **Branch:** none yet (open on first implementation session). **PR:** none yet.
 **Source:** `docs/product/MEMORY_HOOKS_PROPOSAL_2026_10_08.md` (approved as recommended, with the §12 amendment). Idea: Micah Bloom.
-**Related:** `TASK-0054` (reference content on the taxonomy), `TASK-0006` (visual stimulus and rendering), `TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md`, `research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` v0.6 §0, `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3.
+**Related:** `TASK-0067` (companion content, blocker), `TASK-0054` (reference content on the taxonomy), `TASK-0006` (visual stimulus and rendering), `TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md`, `research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` v0.6 §0, `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3.
 
 ## Product goal
 
