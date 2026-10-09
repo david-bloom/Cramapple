@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0108 — BYOQ Photo Extraction With Student Confirmation Replaces Typed Transcription and TASK-0039 Phase 3: Photos Only, Subject/Unit From Context, OpenAI Build-Measure-Switch, Student Answer Marks Stored, Phone-Side Review, No Policy Change, No Spend Cap; TASK-0068 Opened
 - DECISION-0107 — Memory Hooks Pilot Rulings: a CED-Named Hook Overrides the Veto's Order Objection (SOCS Loaded); 1.13 Owns "Scope of Conclusions"; the Own-Family Veto Moves from Opus 5.5 to Haiku 5.5 on Cost
 - DECISION-0105 — Unit Reference Content (Formulas, Vocabulary, Lists, Conventions, Diagrams) Is the Companion Content for Memory Hooks: TASK-0067 Opened, Hooks Require a Reference Entry (Amends DECISION-0104 D3), Fact-Pack Extraction First, Diagrams Text-Only Until TASK-0006 Renders
 - DECISION-0104 — Memory Hooks Approved as Proposed (D1–D7): Topic-Owned Grain, CED Point-Bearing Inclusion Rule, Option B Table, Songs Out of v1, Three Surfaces, Stats Unit 1 + Chem Unit 4 Pilot; Amended to Include Diagram Parts
@@ -59,10 +60,31 @@ Most recent entries (full chronological list follows below):
 
 <!-- INDEX_END -->
 
+## DECISION-0108 — BYOQ Photo Extraction With Student Confirmation Replaces Typed Transcription and TASK-0039 Phase 3: Photos Only, Subject/Unit From Context, OpenAI Build-Measure-Switch, Student Answer Marks Stored, Phone-Side Review, No Policy Change, No Spend Cap; TASK-0068 Opened
+
+- **Date:** 2026-10-08
+- **Decided by:** David Bloom (Product Owner), in session, answering the eleven questions in `docs/product/BYOQ_ATTACHMENT_EXTRACTION_PLAN_CRITIQUE_2026_10_08.md` and then: "option 2 approved, go ahead with slice 0". On motivation: students "loved the idea but pretty obviously would not invest the time needed to accurately enter all the information. And in many cases, they cannot enter mathematic or scientific equations with a regular QWERTY keyboard."
+- **Context:** `TASK-0039` shipped BYOQ Phases 1–2 on 2026-09-28 (`DECISION-0084`) with a deliberate no-OCR default: photograph, then type the transcription. Production holds three items, all internal tests, two with a photo and no typed stem. Codex drafted a Hard-Gate extraction plan (v1, PR #387) proposing a ten-subject vendor bake-off, subject/unit/topic inference from the image, staging tables, PDFs, and worksheet splitting. A source-checked critique found that OpenAI already processes student photos for the capture-quality check with `store: false`, that the live privacy policy already covers extracted content, that 2,170 published MCQs and 583 FRQs give a rights-clean benchmark with free ground truth, that the App has no formula renderer, and that the phone leg holds only a pairing capability. The plan was re-cut as v2 (`docs/product/BYOQ_PHOTO_EXTRACTION_PLAN_V2_2026_10_08.md`, PR #391).
+- **Decision:**
+  1. **Direction is firm.** A photographed question is read by a model and the student verifies; typing is the fallback and the editor, never the default after a photo. Production usage to date is disregarded as internal testing.
+  2. **Vendor:** build-measure-switch on OpenAI, reusing the `capture-quality-check.ts` call pattern (`store: false`, strict JSON schema, timeout, cost reservation). No offline bake-off before the first build.
+  3. **Privacy policy: no change.** The live policy is comprehensive and covers BYOQ. There is no deletion promise and none will be added; `store: false` is an engineering default, not a promise to students. The intake consent notice keeps its existing policy link.
+  4. **Taxonomy:** subject and unit come from context (signed-in: active subject and saved unit position; anonymous: the intake selects, prefilled from `?subject=`). The model parses the question, detects MCQ vs FRQ, extracts stem and choices, and proposes a topic from the known unit's list (`unsure` allowed). The model never infers subject or unit.
+  5. **Inputs:** photos only in v1 (multi-page photo capture already shipped). PDFs later only if usage warrants.
+  6. **Review on the same device through the QR code:** capture and review on the phone; the QR remains the desktop handoff. This needs one new screen (`ByoqReview`, assembled from existing controls, shared with the desktop) and three capability-scoped ops bound to the pairing's item, with a one-time pairing-window extension (v2 §5.3). Approved with that cost known.
+  7. **Student answer marks are stored.** Marks on the page that are not the question (own work, a circled option, a printed answer line) go to a new `captured_work` field, never into stem or choices; stored but not displayed in v1 (the practice screen already shows the photo). A printed answer key is dropped with a warning. The regex leak gate and the DB `ready` CHECK are unchanged. `DECISION-0057` is unchanged: nothing is graded, nothing is shown as correct.
+  8. **Schema:** single photo, proposal stored on the draft `byoq_items` row (`extraction` jsonb + `captured_work` text). No staging tables, no new RLS.
+  9. **Supersession:** this work supersedes all remaining `TASK-0039` work. Phases 1–2 close as Done; Phase 3 (worksheets) and `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s open decisions are superseded, not carried forward.
+  10. **Pilot testers:** Micah and Orly (plus David), named Production pilot behind a config flag.
+  11. **Spend:** no product cap on extraction ("we will see how it goes"); a high technical daily breaker that pages David and falls back to typing is kept.
+  12. **Per-field editability is critical, including a prompt to confirm the content is correct.** Every proposed field is editable; "Yes, this is my question" is the only path to `ready`; no per-field confidence bands in v1.
+- **Unchanged:** `DECISION-0057` (never graded, never Open Hand, never a canonical answer); `DECISION-0077` (identity-agnostic); `DECISION-0084` launch defaults (quotas, 30-day anonymous purge, private-until-promoted); the Hard Gates on migration, deployment, secrets, and Production.
+- **Consequences:** `APPROVAL-0139` records Gate A; `TASK-0068` opened; `TASK-0039` → Done; v1 plan and the worksheet design annotated superseded; one-pager D9 amended. Gate B (Development build) is a separate approval.
+
 ## DECISION-0107 — Memory Hooks Pilot Rulings: a CED-Named Hook Overrides the Veto's Order Objection (SOCS Loaded); 1.13 Owns "Scope of Conclusions"; the Own-Family Veto Moves from Opus 5.5 to Haiku 5.5 on Cost
 
 - **Date:** 2026-10-09
-- **Numbering note:** first drafted as DECISION-0106; renumbered to 0107 before merge because open PR #391 (BYOQ photo extraction plan v2, 2026-10-08) had already reserved DECISION-0106 and APPROVAL-0138 for its approval. No record was ever merged under 0106 from this branch.
+- **Numbering note:** first drafted as DECISION-0106; renumbered to 0107 before merge because open PR #391 (BYOQ photo extraction plan v2, 2026-10-08) had reserved DECISION-0106 for its approval; that PR finally merged as DECISION-0108 / APPROVAL-0139, so 0106 is unused and 0107 is this record.
 - **Decided by:** David Bloom (Product Owner): "1. SOCS is verified by the CED. CED wins. 2. 1.13. 3. We need to find a less expensive option. Opus is one of the most expensive models out there. What about Sol-6?"
 - **Context:** `TASK-0067`/`TASK-0066` Phase B pilot (`scripts/content-seed/task0067-reference-pilot-2026-10-09/README.md`). Both checkers accepted SOCS because the Statistics CED names it; the Opus 5.5 veto rejected it twice because the extracted entry's items follow the CED sentence order rather than the SOCS order. GPT-6 Sol held in two rounds that 1.10 first requires the scope-of-conclusions distinction. The veto was 56% of the $20.29 batch.
 - **Decision:**

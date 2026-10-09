@@ -7,11 +7,14 @@ photo capture, and worksheet upload with multi-question parsing
 **Owner:** Claude (implementation), Technical Owner (review)
 **Product Owner:** David Bloom
 **Tier:** Hard-Gate
-**Status:** **Phases 1–2 live in Production (2026-09-28)** under
-`APPROVAL-0058`/`DECISION-0084`: typed fallback, phone/QR capture, and the BYOQ Practice screen at
-`app.cramapple.com/byoq`, with a homepage link on `cramapple.com`. **Phase 3 (worksheet upload) is
-blocked** on `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s open decisions. See "Production Release
-(2026-09-28)" below.
+**Status:** **Done (2026-10-08, `DECISION-0108` / `APPROVAL-0139`).** Phases 1–2 have been live in Production since
+2026-09-28 under `APPROVAL-0058`/`DECISION-0084`: typed fallback, phone/QR capture, and the BYOQ
+Practice screen at `app.cramapple.com/byoq`, with a homepage link on `cramapple.com`. **Phase 3
+(worksheet upload) is superseded, not carried forward:** David, 2026-10-08, "This work supersedes
+remaining work from 0039." The successor is `TASK-0068` /
+`docs/product/BYOQ_PHOTO_EXTRACTION_PLAN_V2_2026_10_08.md` (model-assisted extraction from a question
+photo with student confirmation). The real-phone Production check listed below is absorbed into
+`TASK-0068`'s pilot. See "Production Release (2026-09-28)" below.
 **Branch:** `claude/cramapple-task-0039-wfgs2q`
 **Priority:** High
 **Created Date:** 2026-09-25
@@ -745,9 +748,8 @@ are in `DECISION-0084`.
 
 **Still Pending:**
 - None of the `DECISION-0084` defaults remain open. On 2026-09-28 David confirmed access, quotas, 30-day retention and deferred stuck-routing, and chose topic-level step-by-step hints, which are shipped in the App.
-- Phase 3 (worksheet upload). It needs `docs/product/BYOQ_WORKSHEET_PARSING_DESIGN.md`'s Open
-  Decisions resolved (parsing vendor, candidate cap, retention window) before it can start.
-  Post-launch.
+- ~~Phase 3 (worksheet upload)~~ — **superseded 2026-10-08** by `TASK-0068` (`DECISION-0108`). Not
+  carried forward; the worksheet design's open decisions are closed without being resolved.
 
 ## Production Release (2026-09-28)
 
@@ -846,6 +848,7 @@ capture, is still recommended before this task is marked Done.
 
 ## Done Decision
 
-**Decision:** Pending. Phases 1–2 are in Production; Done awaits Product Owner confirmation of the
-`DECISION-0084` defaults and a real-phone check. Phase 3 is blocked (post-launch).
-**Date:** Pending
+**Decision:** **Done.** Phases 1–2 are in Production and the `DECISION-0084` defaults were confirmed by
+David on 2026-09-28. Phase 3 is superseded by `TASK-0068` (`DECISION-0108`); the remaining real-phone
+Production check moves to that task's pilot. Recorded under `APPROVAL-0139`.
+**Date:** 2026-10-08
