@@ -59,6 +59,14 @@ Deno.test("normalizeProposal strips choice labels, keeps order, drops unknown to
   assertEquals(p.captured_work, "Option B is circled.");
 });
 
+Deno.test("normalizeProposal strips a printed question number from the stem but not a number that is content", () => {
+  assertEquals(normalizeProposal(okRaw({ stem: "7. Which value of r is largest?" }), TOPICS)!.stem, "Which value of r is largest?");
+  assertEquals(normalizeProposal(okRaw({ stem: "(12) Find the limit." }), TOPICS)!.stem, "Find the limit.");
+  assertEquals(normalizeProposal(okRaw({ stem: "Q3. Explain." }), TOPICS)!.stem, "Explain.");
+  assertEquals(normalizeProposal(okRaw({ stem: "2.5 is the value of r. What does it mean?" }), TOPICS)!.stem, "2.5 is the value of r. What does it mean?");
+  assertEquals(normalizeProposal(okRaw({ stem: "3x + 1 = 7. Solve for x." }), TOPICS)!.stem, "3x + 1 = 7. Solve for x.");
+});
+
 Deno.test("normalizeProposal rejects missing or mistyped fields instead of defaulting", () => {
   assertEquals(normalizeProposal(null, TOPICS), null);
   assertEquals(normalizeProposal({ ...okRaw(), is_question: "yes" }, TOPICS), null);

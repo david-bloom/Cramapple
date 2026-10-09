@@ -195,6 +195,8 @@ export function buildExtractionUserText(input: Pick<ExtractionInput, "subjectNam
 /* -------------------------------------------------------------------------- */
 
 const CHOICE_LABEL = /^\s*(?:\(?[A-Ha-h]\)?[.):]|\(?\d{1,2}\)?[.):])\s+/;
+// A printed question number at the start of the stem ("7.", "12)", "Q3.", "(4)") is layout, not question.
+const QUESTION_NUMBER = /^\s*(?:Q(?:uestion)?\s*)?\(?\d{1,3}\)?[.):]\s+(?=\S)/i;
 
 function cleanText(v: unknown): string {
   return typeof v === "string" ? v.replace(/\r\n?/g, "\n").replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim() : "";
@@ -231,7 +233,7 @@ export function normalizeProposal(raw: unknown, topics: ExtractionTopicOption[])
   return {
     is_question: r.is_question as boolean,
     item_type: r.item_type,
-    stem: cleanText(r.stem).slice(0, BYOQ_LIMITS.stemMaxChars),
+    stem: cleanText(r.stem).replace(QUESTION_NUMBER, "").slice(0, BYOQ_LIMITS.stemMaxChars),
     choices,
     topic_code: topic,
     alternatives,
