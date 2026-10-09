@@ -5,6 +5,7 @@
 // resolved and checked ownership before calling anything here.
 
 import type { ChoiceInput, LeakFlag } from "../_shared/byoq.ts";
+import type { ExtractionRecord } from "../_shared/byoq-extraction.ts";
 
 export interface OwnerRow {
   id: string;
@@ -33,6 +34,10 @@ export interface ItemRow {
   updated_at: string;
   confirmed_at: string | null;
   last_practiced_at: string | null;
+  // TASK-0068 (nullable; absent on rows written before the migration).
+  extraction?: ExtractionRecord | null;
+  captured_work?: string | null;
+  context_unit_number?: number | null;
 }
 
 export interface ResponseRow {
@@ -89,6 +94,7 @@ export interface AttachmentRow {
   byte_size: number;
   pixel_width: number | null;
   pixel_height: number | null;
+  sha256_digest?: string;
   is_current: boolean;
   created_at: string;
 }
@@ -169,6 +175,12 @@ export interface ByoqStore {
   getAttachment(id: string): Promise<AttachmentRow | null>;
   deleteAttachment(id: string): Promise<void>;
   attachmentPathsForOwner(ownerId: string): Promise<string[]>;
+
+  /** TASK-0068: model spend accounting through the shared ledger (app.reserve_model_usage). */
+  reserveModelUsage(p: { requestId: string; requestHash: string; modelId: string; reservedCostUsd: number; capUsd: number }): Promise<boolean>;
+  completeModelUsage(p: { requestId: string; requestHash: string; status: "completed" | "failed"; actualCostUsd: number }): Promise<void>;
+  /** Sum of today's BYOQ extraction reservations (USD), for the BYOQ-specific breaker. */
+  byoqExtractionSpendToday(): Promise<number>;
 }
 
 export interface ByoqStorage {
@@ -519,6 +531,38 @@ export function createSupabaseStore(client: Client): ByoqStore {
         storage_path: string;
       }[];
       return rows.map((r) => r.storage_path);
+    },
+
+    async reserveModelUsage(p) {
+      const r = await app().rpc("reserve_model_usage", {
+        p_request_id: p.requestId,
+        p_request_hash: p.requestHash,
+        p_model_id: p.modelId,
+        p_reserved_cost_usd: p.reservedCostUsd,
+        p_cap_usd: p.capUsd,
+      });
+      // "daily cap exceeded" raises; any other error is also a refusal (fail closed).
+      return !r.error && Boolean(r.data);
+    },
+    async completeModelUsage(p) {
+      const r = await app().rpc("complete_model_usage", {
+        p_request_id: p.requestId,
+        p_request_hash: p.requestHash,
+        p_status: p.status,
+        p_actual_cost_usd: p.actualCostUsd,
+        p_input_tokens: null,
+        p_output_tokens: null,
+      });
+      if (r.error) console.error("byoq_extraction_release_failed", r.error.message);
+    },
+    async byoqExtractionSpendToday() {
+      const today = new Date().toISOString().slice(0, 10);
+      const rows = must(
+        await app().from("model_usage_ledger").select("reserved_cost_usd, actual_cost_usd")
+          .like("request_id", "byoq_extract:%").eq("usage_date_utc", today),
+        "byoq_spend",
+      ) as { reserved_cost_usd: number | null; actual_cost_usd: number | null }[];
+      return rows.reduce((sum, r) => sum + Number(r.actual_cost_usd ?? r.reserved_cost_usd ?? 0), 0);
     },
   };
 }
