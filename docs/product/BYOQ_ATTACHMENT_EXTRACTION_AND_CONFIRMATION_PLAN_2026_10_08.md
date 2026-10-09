@@ -1,6 +1,11 @@
 # BYOQ Attachment Extraction and Student Confirmation Plan
 
-**Status:** Proposed — review required before implementation  
+> **SUPERSEDED (2026-10-08, same day).** David answered this plan's §14 questions in session; the
+> answers and a source-checked critique (`BYOQ_ATTACHMENT_EXTRACTION_PLAN_CRITIQUE_2026_10_08.md`)
+> led to a re-cut: `BYOQ_PHOTO_EXTRACTION_PLAN_V2_2026_10_08.md` is the governing plan. This v1 is
+> retained as the record of the original proposal. Do not cite it as current.
+
+**Status:** Superseded by v2 (was: Proposed — review required before implementation)
 **Date:** 2026-10-08  
 **Product Owner:** David Bloom  
 **Prepared by:** Codex  
