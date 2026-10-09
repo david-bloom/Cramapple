@@ -8,6 +8,7 @@
 import "./_test_setup.ts";
 import { assert, assertEquals } from "jsr:@std/assert@1";
 import { handleByoq } from "./index.ts";
+import { BYOQ_LIMITS } from "../_shared/byoq.ts";
 import {
   type AttachmentRow,
   type ByoqStorage,
@@ -255,7 +256,7 @@ class Mem implements ByoqStore, ByoqStorage {
     const a = {
       id: this.id(), owner_id: t.owner_id, item_id: t.item_id, capture_role: t.capture_role, response_id: t.response_id,
       part_key: t.part_key, page_sequence: page, storage_path: p.storagePath, media_type: p.mediaType, byte_size: p.byteSize,
-      pixel_width: p.width, pixel_height: p.height, is_current: true, created_at: this.ts(), pairing_token_id: t.id,
+      pixel_width: p.width, pixel_height: p.height, sha256_digest: p.sha256, is_current: true, created_at: this.ts(), pairing_token_id: t.id,
     };
     this.attachments.push(a);
     t.state = "uploaded";
@@ -266,6 +267,20 @@ class Mem implements ByoqStore, ByoqStorage {
   async getAttachment(id: string) { const a = this.attachments.find((x) => x.id === id); return a ? { ...a } : null; }
   async deleteAttachment(id: string) { this.attachments = this.attachments.filter((a) => a.id !== id); }
   async attachmentPathsForOwner(o: string) { return this.attachments.filter((a) => a.owner_id === o).map((a) => a.storage_path); }
+  // TASK-0068 ledger
+  ledger: { requestId: string; status: string; cost: number }[] = [];
+  reserveShouldFail = false;
+  async reserveModelUsage(p: { requestId: string; reservedCostUsd: number }) {
+    if (this.reserveShouldFail) return false;
+    if (!this.ledger.some((l) => l.requestId === p.requestId)) this.ledger.push({ requestId: p.requestId, status: "reserved", cost: p.reservedCostUsd });
+    return true;
+  }
+  async completeModelUsage(p: { requestId: string; status: string }) {
+    const l = this.ledger.find((x) => x.requestId === p.requestId);
+    if (l) l.status = p.status;
+  }
+  async byoqExtractionSpendToday() { return this.ledger.reduce((s, l) => s + l.cost, 0); }
+  async countByoqExtractionRunsToday(ownerId: string) { return this.ledger.filter((l) => l.requestId.startsWith(`byoq_extract:${ownerId}:`)).length; }
 
   // --- storage
   async signUpload(path: string) { return { signedUrl: `https://upload/${path}`, token: "tok" }; }
@@ -638,4 +653,291 @@ Deno.test("unknown operations and malformed capabilities are rejected", async ()
   assertEquals((await call({ operation: "grade" })).status, 400);
   assertEquals((await call({ operation: "describe_capture", pairing_handle: "cap_x" })).json.error, "invalid_pairing_handle");
   assertEquals((await call({ operation: "start", owner_key: "nope" })).json.error, "invalid_owner_key");
+});
+
+/* -------------------------------------------------------------------------- */
+/* TASK-0068: extraction and phone-side review                                 */
+/* -------------------------------------------------------------------------- */
+
+import { type ExtractionInput, type ExtractionOutcome, warningsFor } from "../_shared/byoq-extraction.ts";
+
+function proposed(over: Record<string, unknown> = {}): ExtractionOutcome {
+  const out: ExtractionOutcome = {
+    kind: "proposed",
+    proposal: {
+      is_question: true,
+      item_type: "mcq",
+      stem: "Which value of r indicates the strongest linear relationship?",
+      choices: ["r = 0.2", "r = −0.9", "r = 0.5", "r = −0.1"],
+      topic_code: "2.5",
+      alternatives: [],
+      captured_work: "Option B is circled.",
+      answer_key_present: false,
+      possible_personal_information: false,
+      unreadable_regions: [],
+      visual_only_regions: [],
+      looks_like_subject: true,
+      ...over,
+    },
+    warnings: [],
+    modelId: "test-model",
+    latencyMs: 10,
+    usage: { input_tokens: 1, output_tokens: 1 },
+  };
+  if (out.kind === "proposed") out.warnings = warningsFor(out.proposal, true);
+  return out;
+}
+
+/** Harness with an injectable model; records every call's input. */
+function extractionHarness(outcome: () => ExtractionOutcome | Promise<ExtractionOutcome>, cfg: Record<string, unknown> = {}) {
+  const base = harness();
+  const calls: ExtractionInput[] = [];
+  const call = async (body: Record<string, unknown>, opts: Parameters<typeof base.call>[1] = {}) => {
+    const headers: Record<string, string> = { "content-type": "application/json", ...(opts.headers ?? {}) };
+    if (opts.ip !== null) headers["cf-connecting-ip"] = opts.ip ?? "203.0.113.9";
+    if (opts.jwt) headers.authorization = `Bearer ${opts.jwt}`;
+    const res = await handleByoq(new Request("https://fn/byoq", { method: "POST", headers, body: JSON.stringify(body) }), {
+      store: base.mem,
+      storage: base.mem,
+      serviceRoleKey: "svc-key",
+      ipHmacKey: "hmac-key",
+      verifyUser: async (jwt) => JSON.parse(atob(jwt.split(".")[1].replaceAll("-", "+").replaceAll("_", "/"))).sub,
+      extract: async (input) => {
+        calls.push(input);
+        if (!(await input.reserveCost())) return { kind: "unavailable", failure: "cost_cap_reached" };
+        return await outcome();
+      },
+      extraction: { enabled: true, apiKey: "k", modelId: "test-model", timeoutMs: 1000, reservedCostUsd: 0.03, sharedCapUsd: 10, byoqCapUsd: 100, ...cfg },
+    });
+    const text = await res.text();
+    return { status: res.status, text, json: JSON.parse(text) };
+  };
+  return { mem: base.mem, call, calls };
+}
+
+/** Desktop mints a question pairing, the phone uploads one page and finishes. */
+async function photoItem(h: ReturnType<typeof extractionHarness>, fields: Record<string, unknown> = {}) {
+  const { call } = h;
+  const created = await call({ operation: "create_item", source_kind: "photo_single", ...fields });
+  assertEquals(created.status, 200, created.text);
+  const key = created.json.result.owner_key as string;
+  const item = created.json.result.item;
+  const minted = await call({ operation: "mint_pairing", owner_key: key, item_id: item.id, capture_role: "question" });
+  assertEquals(minted.status, 200, minted.text);
+  const handle = minted.json.result.pairing_handle as string;
+  await call({ operation: "describe_capture", pairing_handle: handle });
+  const ticket = await call({ operation: "create_capture_upload", pairing_handle: handle, media_type: "image/png" });
+  assertEquals(ticket.status, 200, ticket.text);
+  await h.mem.upload(ticket.json.result.storage_path, pngWithMetadata());
+  const submitted = await call({ operation: "submit_capture", pairing_handle: handle, storage_path: ticket.json.result.storage_path });
+  assertEquals(submitted.status, 200, submitted.text);
+  return { key, item, handle };
+}
+
+Deno.test("finish_capture runs extraction and fills only the empty fields; captured_work never leaves the function", async () => {
+  const h = extractionHarness(() => proposed());
+  const { key, item, handle } = await photoItem(h, { subject_key: "ap_statistics", unit_number: 2 });
+  const finished = await h.call({ operation: "finish_capture", pairing_handle: handle });
+  assertEquals(finished.status, 200, finished.text);
+  assertEquals(finished.json.result.extraction.status, "proposed");
+  assertEquals(finished.json.result.extraction.filled, ["item_type", "stem", "choices", "topic"]);
+  assertEquals(h.calls.length, 1);
+  // Context, not the photo, supplied the subject and unit; the unit narrowed the topics.
+  assertEquals(h.calls[0].subjectName, "AP Statistics");
+  assertEquals(h.calls[0].unitLabel, "Unit 2: Exploring Two-Variable Data");
+  assertEquals(h.calls[0].topics, [{ code: "2.5", title: "Correlation" }]);
+  assertEquals(h.calls[0].pages.length, 1);
+
+  const got = await h.call({ operation: "get_item", owner_key: key, item_id: item.id });
+  const it = got.json.result.item;
+  assertEquals(it.item_type, "mcq");
+  assertEquals(it.stem, "Which value of r indicates the strongest linear relationship?");
+  assertEquals(it.choices.map((c: { choice_key: string }) => c.choice_key), ["A", "B", "C", "D"]);
+  assertEquals(it.topic.topic_code, "2.5");
+  assertEquals(it.context_unit_number, 2);
+  assertEquals(it.status, "draft", "a proposal never confirms itself");
+  assert(!got.text.includes("circled"), "captured_work must not be returned");
+  assertEquals(h.mem.items[0].captured_work, "Option B is circled.");
+  assertEquals(h.mem.ledger.length, 1);
+  assertEquals(h.mem.ledger[0].status, "completed");
+});
+
+Deno.test("a student's edit is never overwritten by a re-run; a repeat with the same photos makes no model call", async () => {
+  const h = extractionHarness(() => proposed());
+  const { key, item, handle } = await photoItem(h, { subject_key: "ap_statistics", unit_number: 2 });
+  await h.call({ operation: "finish_capture", pairing_handle: handle });
+  const edited = await h.call({ operation: "update_item", owner_key: key, item_id: item.id, stem: "My own wording", choices: ["one", "two"] });
+  assertEquals(edited.status, 200, edited.text);
+  const again = await h.call({ operation: "extract_question", owner_key: key, item_id: item.id });
+  assertEquals(again.status, 200, again.text);
+  assertEquals(h.calls.length, 1, "same digests, same model, same prompt: no second call");
+  const forced = await h.call({ operation: "extract_question", owner_key: key, item_id: item.id, force: true });
+  assertEquals(forced.status, 200, forced.text);
+  assertEquals(h.calls.length, 2);
+  assertEquals(forced.json.result.item.stem, "My own wording");
+  assertEquals(forced.json.result.item.choices.map((c: { choice_text: string }) => c.choice_text), ["one", "two"]);
+  assertEquals(forced.json.result.item.extraction.filled, []);
+});
+
+Deno.test("proposed text passes the same leak gate as typed text; a printed answer key is dropped", async () => {
+  const h = extractionHarness(() => proposed({ stem: "What is 2 + 2?\nAnswer: 4", answer_key_present: true, captured_work: null }));
+  const { key, item, handle } = await photoItem(h, { subject_key: "ap_statistics" });
+  const finished = await h.call({ operation: "finish_capture", pairing_handle: handle });
+  assert(finished.json.result.extraction.warnings.includes("answer_key_present"));
+  const got = await h.call({ operation: "get_item", owner_key: key, item_id: item.id });
+  assertEquals(got.json.result.item.answer_text_detected, true);
+  assertEquals(got.json.result.item.text_masked, true);
+  assert(!got.json.result.item.stem.includes("Answer: 4"));
+  assertEquals(h.mem.items[0].captured_work, null);
+  const confirm = await h.call({ operation: "confirm_item", owner_key: key, item_id: item.id });
+  assertEquals(confirm.status, 409);
+  assertEquals(confirm.json.readiness_problem, "answer_text_detected");
+});
+
+Deno.test("extraction off, no key, or breaker tripped records `unavailable` and the typed flow still works", async () => {
+  const off = extractionHarness(() => proposed(), { enabled: false });
+  const a = await photoItem(off, {});
+  const fa = await off.call({ operation: "finish_capture", pairing_handle: a.handle });
+  assertEquals(fa.status, 200, fa.text);
+  assertEquals(fa.json.result.extraction, { ...fa.json.result.extraction, status: "unavailable", failure: "disabled" });
+  assertEquals(off.calls.length, 0);
+  const typed = await off.call({ operation: "update_item", owner_key: a.key, item_id: a.item.id, item_type: "frq", stem: "typed instead", confirm: true });
+  assertEquals(typed.json.result.item.status, "ready");
+
+  const capped = extractionHarness(() => proposed(), { byoqCapUsd: 0.01 });
+  const b = await photoItem(capped, {});
+  const fb = await capped.call({ operation: "finish_capture", pairing_handle: b.handle });
+  assertEquals(fb.json.result.extraction.status, "unavailable");
+  assertEquals(fb.json.result.extraction.failure, "cost_cap_reached");
+  assertEquals(capped.mem.ledger.length, 0, "no reservation when the BYOQ breaker refuses");
+
+  const broken = extractionHarness(() => ({ kind: "failed", failure: "timeout", detail: "slow", modelId: "m", latencyMs: 1 }));
+  const c = await photoItem(broken, {});
+  const fc = await broken.call({ operation: "finish_capture", pairing_handle: c.handle });
+  assertEquals(fc.status, 200);
+  assertEquals(fc.json.result.extraction.status, "failed");
+  assertEquals(broken.mem.ledger[0].status, "failed");
+  assertEquals(broken.mem.items[0].stem, null);
+});
+
+Deno.test("phone review ops act only on the pairing's own item, through the capability, inside the review window", async () => {
+  const h = extractionHarness(() => proposed());
+  const a = await photoItem(h, { subject_key: "ap_statistics", unit_number: 2 });
+  const b = await photoItem(h, { subject_key: "ap_statistics" }); // a second item, another owner
+  await h.call({ operation: "finish_capture", pairing_handle: a.handle });
+
+  // The handle alone (no owner key) reads the item, and a foreign item_id is ignored.
+  const got = await h.call({ operation: "capture_review_get", pairing_handle: a.handle, item_id: b.item.id });
+  assertEquals(got.status, 200, got.text);
+  assertEquals(got.json.result.item.id, a.item.id);
+  assertEquals(got.json.result.item.stem, "Which value of r indicates the strongest linear relationship?");
+  assert(!got.text.includes("owner_key"));
+
+  // Edit and confirm through the capability.
+  const upd = await h.call({ operation: "capture_review_update", pairing_handle: a.handle, stem: "Edited on the phone", topic_code: "2.5", confirm: true });
+  assertEquals(upd.status, 200, upd.text);
+  assertEquals(upd.json.result.item.status, "ready");
+  assertEquals(upd.json.result.item.stem, "Edited on the phone");
+  assertEquals(h.mem.items.find((i) => i.id === b.item.id)!.stem, null, "the other item is untouched");
+
+  // The other item's handle cannot see item A.
+  const cross = await h.call({ operation: "capture_review_get", pairing_handle: b.handle });
+  assertEquals(cross.json.result.item.id, b.item.id);
+
+  // A response-role pairing is not reviewable.
+  const resp = await h.call({ operation: "save_response", owner_key: a.key, item_id: a.item.id, selected_choice_key: "A", is_final: true });
+  assertEquals(resp.status, 200, resp.text);
+  const rm = await h.call({ operation: "mint_pairing", owner_key: a.key, item_id: a.item.id, capture_role: "response", response_id: resp.json.result.response.id });
+  const rr = await h.call({ operation: "capture_review_get", pairing_handle: rm.json.result.pairing_handle });
+  assertEquals(rr.status, 409);
+  assertEquals(rr.json.error, "pairing_not_reviewable");
+
+  // Garbage, cancelled, and out-of-window handles are refused.
+  assertEquals((await h.call({ operation: "capture_review_get", pairing_handle: "nope" })).status, 400);
+  const tok = h.mem.tokens.find((t) => t.item_id === a.item.id && t.capture_role === "question")!;
+  (tok as TokenRow & { consumed_at?: string }).consumed_at = new Date(Date.now() - 31 * 60_000).toISOString();
+  const late = await h.call({ operation: "capture_review_get", pairing_handle: a.handle });
+  assertEquals(late.status, 409);
+  assertEquals(late.json.error, "review_window_closed");
+  const cancelled = await h.call({ operation: "capture_review_get", pairing_handle: b.handle });
+  assertEquals(cancelled.status, 200);
+  tok.state = "cancelled";
+  const tokB = h.mem.tokens.find((t) => t.item_id === b.item.id)!;
+  tokB.state = "cancelled";
+  assertEquals((await h.call({ operation: "capture_review_get", pairing_handle: b.handle })).json.error, "pairing_cancelled");
+});
+
+Deno.test("remove_flagged_text through the capability clears the backstop flag and lets the student confirm", async () => {
+  const h = extractionHarness(() => proposed({ stem: "What is 2 + 2?\nAnswer: 4", item_type: "frq", choices: [] }));
+  const a = await photoItem(h, { subject_key: "ap_statistics" });
+  await h.call({ operation: "finish_capture", pairing_handle: a.handle });
+  const cleaned = await h.call({ operation: "capture_review_remove_flagged_text", pairing_handle: a.handle });
+  assertEquals(cleaned.status, 200, cleaned.text);
+  assertEquals(cleaned.json.result.item.answer_text_detected, false);
+  assertEquals(cleaned.json.result.item.stem, "What is 2 + 2?");
+  const ok = await h.call({ operation: "capture_review_update", pairing_handle: a.handle, confirm: true });
+  assertEquals(ok.json.result.item.status, "ready");
+});
+
+Deno.test("extract_question refuses an archived item and is capped per owner per day; every run is reserved", async () => {
+  const h = extractionHarness(() => proposed());
+  const a = await photoItem(h, { subject_key: "ap_statistics" });
+  await h.call({ operation: "finish_capture", pairing_handle: a.handle });
+  for (let i = 1; i < BYOQ_LIMITS.extractionRunsPerOwnerPerDay; i++) {
+    const r = await h.call({ operation: "extract_question", owner_key: a.key, item_id: a.item.id, force: true });
+    assertEquals(r.status, 200, r.text);
+  }
+  assertEquals(h.calls.length, BYOQ_LIMITS.extractionRunsPerOwnerPerDay);
+  assertEquals(h.mem.ledger.length, BYOQ_LIMITS.extractionRunsPerOwnerPerDay, "one reservation per model call");
+  const capped = await h.call({ operation: "extract_question", owner_key: a.key, item_id: a.item.id, force: true });
+  assertEquals(capped.status, 429);
+  assertEquals(capped.json.error, "rate_limited");
+  assertEquals(h.calls.length, BYOQ_LIMITS.extractionRunsPerOwnerPerDay, "no model call past the cap");
+  await h.call({ operation: "archive_item", owner_key: a.key, item_id: a.item.id });
+  const r = await h.call({ operation: "extract_question", owner_key: a.key, item_id: a.item.id, force: true });
+  assertEquals(r.status, 409);
+  assertEquals(r.json.error, "item_archived");
+});
+
+Deno.test("a retry after a failed run takes a fresh reservation; no shared cap means no model call", async () => {
+  let fail = true;
+  const h = extractionHarness(() => fail ? { kind: "failed", failure: "timeout", detail: "slow", modelId: "m", latencyMs: 1 } : proposed());
+  const a = await photoItem(h, { subject_key: "ap_statistics" });
+  await h.call({ operation: "finish_capture", pairing_handle: a.handle });
+  assertEquals(h.mem.ledger.map((l) => l.status), ["failed"]);
+  fail = false;
+  const again = await h.call({ operation: "extract_question", owner_key: a.key, item_id: a.item.id });
+  assertEquals(again.json.result.item.extraction.status, "proposed");
+  assertEquals(h.calls.length, 2);
+  assertEquals(h.mem.ledger.map((l) => l.status), ["failed", "completed"], "the retry is its own ledger row");
+
+  const unmetered = extractionHarness(() => proposed(), { sharedCapUsd: 0 });
+  const b = await photoItem(unmetered, {});
+  const fb = await unmetered.call({ operation: "finish_capture", pairing_handle: b.handle });
+  assertEquals(fb.json.result.extraction.status, "unavailable");
+  assertEquals(fb.json.result.extraction.failure, "not_configured");
+  assertEquals(unmetered.calls.length, 0);
+});
+
+Deno.test("an edit saved while the model is running is kept, and its leak flags are computed from the real text", async () => {
+  // The fake model performs the student's edit mid-flight (before returning its proposal).
+  let hRef: ReturnType<typeof extractionHarness> | null = null;
+  let edit: Record<string, unknown> | null = null;
+  const h = extractionHarness(async () => {
+    if (edit) await hRef!.call(edit);
+    return proposed({ stem: "Proposed stem", item_type: "mcq" });
+  });
+  hRef = h;
+  const a = await photoItem(h, { subject_key: "ap_statistics" });
+  edit = { operation: "update_item", owner_key: a.key, item_id: a.item.id, item_type: "frq", stem: "My own words\nAnswer: 4" };
+  const finished = await h.call({ operation: "finish_capture", pairing_handle: a.handle });
+  assertEquals(finished.status, 200, finished.text);
+  edit = null;
+  const got = await h.call({ operation: "get_item", owner_key: a.key, item_id: a.item.id });
+  const it = got.json.result.item;
+  assertEquals(it.item_type, "frq", "the student's type edit survives the proposal");
+  assert(it.stem.startsWith("My own words"), "the student's stem edit survives the proposal");
+  assertEquals(it.answer_text_detected, true, "leak flags describe the real text, not the pre-call snapshot");
+  const confirm = await h.call({ operation: "confirm_item", owner_key: a.key, item_id: a.item.id });
+  assertEquals(confirm.status, 409);
 });

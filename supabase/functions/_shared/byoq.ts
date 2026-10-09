@@ -43,6 +43,8 @@ export const BYOQ_LIMITS = {
   maxCurrentPages: 10,
   /** Anonymous (never-recognized) owners are purged after this much inactivity. */
   anonymousRetentionDays: 30,
+  /** TASK-0068: model extraction runs per owner per UTC day (finish_capture + extract_question). */
+  extractionRunsPerOwnerPerDay: 40,
 } as const;
 
 /** 20 minutes: enough to find a phone, scan, and shoot a few pages. */

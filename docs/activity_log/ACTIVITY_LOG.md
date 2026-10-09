@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0068 BYOQ Photo Extraction Built, QA'd and Deployed to Production for All Students (APPROVAL-0141) (2026-10-09): migration + extraction module + extract_question + phone review ops; benchmark 210 pages, gpt-4.1-mini chosen; backend QA Fail → three fixes → Pass; Dev and Prod smokes green; Lovable App published; Sol browser QA script written. Topic top-3 below gate, recorded.
 - Unit Reference Content + Memory Hooks Moved to Production (APPROVAL-0140): Migration, 102 Entries + 3 Hooks, Lovable Publish of 71a9b751 (2026-10-09): CLI-driven apply and loads (no retyping), objects md5-identical to Development, data QA and RPC probes pass; PR #390 merged by David; CLI relinked to Development.
 - TASK-0067/0066 Phase C Built in Lovable Preview (commit 71a9b751), Tests 770/770 (2026-10-09): reference pane, Deep Dive, Copy notes, Learn More; baseline fixture pins today's output for Production's payload; DECISION-0106 renumbered to 0107 (PR #391 had reserved 0106). Not published; Production untouched.
 - DECISION-0107 Recorded (SOCS Loaded, 1.13 Owner, Veto → Haiku 5.5); TASK-0067/0066 Phase C Sent to Lovable Preview (2026-10-09): Development 102 entries + 3 hooks; Phase C brief covers the fetch/mapping layer, reference pane, Deep Dive, unit reference, Learn More page, tests; Production untouched.
@@ -404,6 +405,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0068 BYOQ Photo Extraction Built, QA'd and Deployed to Production — 2026-10-09
+
+**Context:** David: "finish executing the plan and moving the new capabilities to production for use by students." Recorded as `APPROVAL-0141` (Gates B–D).
+
+**Built:** see `docs/handoffs/TASK0068_BYOQ_PHOTO_EXTRACTION_EXECUTION_2026_10_09.md` §1 (backend), §3 (benchmark), §4 (Lovable frontend, commit `ea999aad`). Independent backend QA (`docs/qa/QA_TASK0068_BACKEND_2026_10_09.md`): round 1 Fail — a write race that could overwrite a mid-call student edit and clear a live leak flag, the raw proposal and `captured_work` readable by a signed-in owner over PostgREST, and unmetered retries plus no per-owner run cap; all fixed (re-read-then-fill, explicit column grants, fresh reservation per call, 40 runs per owner per day, fail closed without the shared cap) and round 2 Pass.
+
+**Deployed:** migrations and the function to Development and Production; `BYOQ_EXTRACT_MODEL=gpt-4.1-mini` in both; Development's invalid OpenAI key reset; Lovable App published. Smokes on Production: extraction 27/27, TASK-0039 regression 24/24.
+
+**Open:** Sol's browser QA (`docs/qa/QA_TASK0068_SOL_BROWSER_SCRIPT_2026_10_09.md`); benchmark topic top-3 86.5–88.8% vs the 90% gate (Statistics and Calculus weakest; topic is optional and editable); PR #393 merge; the Done decision. **Next owner:** Sol (browser QA), then David. **Next action:** run the Sol script against `app.cramapple.com/byoq`; merge PR #393.
+
 ## Unit Reference Content + Memory Hooks Moved to Production — 2026-10-09
 
 **Direction:** David: "let's move it all to production." Recorded as `APPROVAL-0140` (all three Hard Gates).
