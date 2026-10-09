@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended (DECISION-0105, APPROVAL-0137) (2026-10-08): R1–R4 as recommended; one Development migration for both tables; hooks require a reference entry. Docs only; nothing built.
 - TASK-0066 Blocked on Companion Content; TASK-0067 (Unit Reference Content: Formulas, Vocabulary, Lists, Diagrams) Drafted as Proposed (2026-10-08): David's point checked against the schema and task records; nothing structured exists for hooks to attach to; R1–R4 await David. Docs only.
 - Memory Hooks Approved (DECISION-0104, APPROVAL-0136) and TASK-0066 Opened; Diagram Parts Added at Micah's Request (2026-10-08): D1–D7 as recommended; formulas were already in scope; `diagram_parts` kind added with a reference to existing visual-stimulus assets. Docs only; nothing built.
 - Memory Hooks (Mnemonics / Acronyms / Phrases) Scoped as a Content Element, Awaiting PO Decisions (2026-10-08): Micah's idea placed against the records; the KPCOFGS example is not in the AP Biology CED, which yields the inclusion rule; topic-owned grain proposed; `docs/product/MEMORY_HOOKS_PROPOSAL_2026_10_08.md`. Docs only.
@@ -398,6 +399,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended — 2026-10-08
+
+**Context:** David: "Approve R1-R4 as recommended and open TASK-0067."
+
+**Recorded:** `DECISION-0105` (R1 one shared Development migration; R2 hooks require `reference_entry_id`, own `topic_codes[]` dropped; R3 fact-pack extraction first, then v0.6 checks; R4 diagrams text-only until `TASK-0006` renders), `APPROVAL-0137` (scope only; Production apply, publish, and Lovable publish remain Hard Gates), `TASK-0067` → Approved, `TASK-0066` → unblocked with the D3 amendment written into its schema phase, `MASTER_TODO` register rows, `docs/INDEX.md` row.
+
+**Not done:** no branch, migration, extraction run, or Lovable message.
+
+**Next owner:** Claude session. **Next action:** open one implementation branch for `TASK-0067` + `TASK-0066` Phase A: read `TASK-0054`'s key state, draft the migration with both tables, the public views, and the `get_topic_point_guides` extension, apply to Development, then run the Stats Unit 1 / Chem Unit 4 fact-pack extraction with two checker families.
+
 ## TASK-0066 Blocked on Companion Content; TASK-0067 Drafted as Proposed — 2026-10-08
 
 **Context:** David, after `DECISION-0104`: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them."
