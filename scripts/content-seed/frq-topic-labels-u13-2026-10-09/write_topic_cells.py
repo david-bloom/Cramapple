@@ -22,11 +22,17 @@ PREFIX = {'ap_calculus_bc': 'apcalcbc', 'ap_chemistry': 'apchem', 'ap_physics_1'
           'ap_calculus_ab': 'apcalcab', 'ap_biology': 'apbio'}
 U13 = {'ap_physics_2': [9, 10, 11], 'ap_physics_c_em': [8, 9, 10]}
 
+INPUT = 'write_candidates.json'
+
 def rows():
     out = []
-    for c in json.load(open(os.path.join(HERE, 'write_candidates.json'))):
+    for c in json.load(open(os.path.join(HERE, INPUT))):
         p = PREFIX[c['sk']]
-        if c['src'] == 'ced_text_tiebreak':
+        if c['src'] == 'course_pdf_unit_resolution':
+            src = f"{p}_{RUN}:course_pdf_unit_resolution"
+            note = (f"{p}-frq-topic-probe-2026-10-09 (six-vote probe {c['votes_note']}; held for a unit-label conflict, then "
+                    f"resolved by Claude reading the official course and exam description PDF in subject packs/)")
+        elif c['src'] == 'ced_text_tiebreak':
             src = f"{p}_{RUN}:ced_text_tiebreak"
             note = f"{p}-frq-topic-probe-2026-10-09 (six-vote probe below 5 of 6; tiebreak by Claude reading the item against the CED topic text)"
         else:
@@ -78,7 +84,7 @@ def verify(ref, rs):
     got = pmb.query(ref, f"""select ci.content_key k, c.topic_code t, c.assignment_status s, c.is_primary p, c.source src
       from app.content_item_cells c join app.content_items ci on ci.id=c.content_item_id
       join app.content_item_versions v on v.id=c.content_item_version_id and v.status='published'
-      where c.source like '%{RUN}%' and c.superseded_by is null order by ci.content_key""")
+      where c.source like '%{RUN}%' and c.superseded_by is null and ci.content_key in ({keys}) order by ci.content_key""")
     h = hashlib.md5('\n'.join(f"{g['k']}:{g['t']}" for g in got).encode()).hexdigest()
     ok = h == plan_hash(rs) and len(got) == len(rs) and all(g['s'] == 'validated' and g['p'] for g in got)
     print(f"verify: {len(got)} cells on published versions, hash {h}, plan {plan_hash(rs)} -> {'MATCH' if ok else 'MISMATCH'}")
@@ -87,7 +93,8 @@ def verify(ref, rs):
 def main():
     a = argparse.ArgumentParser(); a.add_argument('cmd', choices=['plan', 'rehearse', 'commit', 'verify'])
     a.add_argument('--env', choices=['dev', 'prod'], default='prod'); a.add_argument('--approval', default='')
-    a.add_argument('--confirm-production', action='store_true'); a = a.parse_args()
+    a.add_argument('--confirm-production', action='store_true'); a.add_argument('--input', default='write_candidates.json')
+    a = a.parse_args(); global INPUT; INPUT = a.input
     rs = rows(); ref = pmb.ENVS[a.env]
     if a.cmd == 'plan':
         print(f"{len(rs)} rows, plan hash {plan_hash(rs)}"); return

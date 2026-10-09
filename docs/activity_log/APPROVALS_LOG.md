@@ -2025,11 +2025,16 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Related:** `docs/qa/FRQ_UNITS_1_3_TOPIC_COVERAGE_AUDIT_2026_10_09.md`, batch `scripts/content-seed/frq-topic-labels-u13-2026-10-09/`, `handoffs/UNITS_1_3_PIPELINE_RUNBOOK_AND_SESSION_CLOSE_2026_10_04.md` §2-§3 (topic probe and voting rule). Number note: `APPROVAL-0142` is held by open PR #395.  
 **Decision:** Approved
 
-**Approved scope:** insert one `validated`, primary, topic-only row in `app.content_item_cells` on the published version of each of 181 published FRQs whose primary topic falls in Units 1-3 (Physics 2 registry units 9-11, Physics C: E&M 8-10). Nothing else changes: no content, no versions, no serving labels (`content_taxonomy_labels`), no skill cells.
+**Approved scope:** insert one `validated`, primary, topic-only row in `app.content_item_cells` on the published version of each of 181 published FRQs whose primary topic falls in Units 1-3 (183 after the amendment below) (Physics 2 registry units 9-11, Physics C: E&M 8-10). Nothing else changes: no content, no versions, no serving labels (`content_taxonomy_labels`), no skill cells.
 - Labels: the runbook topic probe (`subject_label_probe.mjs --mode=serving`, gemini-3.8-flash + deepseek-v4-pro + gpt-6.1-sol, 2 samples each, student-visible text, closed CED topic list): 154 at 6 of 6, 21 at 5 of 6; 6 CED-text tiebreaks by Claude where the vote was below 5 of 6 (source suffix `:ced_text_tiebreak`).
 - By subject: Precalculus 55, Physics 1 38, Physics C: E&M 29, Calculus BC 26, Physics C: Mechanics 17, Physics 2 14, Chemistry 2.
 - Held out, not written: `apcalcbc-frq-u13-015` (probe 3.6, serving label Unit 2) and `apprecalc-frq-np2-004` (probe 3.10, serving label Unit 2). The topic contradicts the item's existing unit label; resolve the unit first.
 - Method: one transaction behind an advisory lock; guards (each key resolves to one published FRQ version, topic exists at the stated unit, unit in 1-3, no existing topic or primary cell on the version); Production rehearsal raised and rolled back (`REHEARSAL OK: topic_cells=181`); commit; independent verify of `md5(content_key:topic_code)` against the local plan hash `189c15736205f01f633f003fedca9f09`.
+
+**Amendment (same day):** David: "For the two held back FRQs look at the official course and exam description which is in the subject folder." Read against the official course and exam description PDFs in `subject packs/Calculus BC/` and `subject packs/Pre-calculus/`. Both are Unit 3, so the two held cells are written under this approval with source suffix `:course_pdf_unit_resolution` (`held_resolved_course_pdf.json`, plan hash `42673b7fec220200413ee4342a2616dd`):
+- `apcalcbc-frq-u13-015` → **3.6**. Part a (4 points) is Topic 2.10 (FUN-3.B.3); parts b and c (5 points) are Topic 3.6, higher-order derivatives (FUN-3.F.1).
+- `apprecalc-frq-np2-004` → **3.10**. Parts: 2.13 (2.13.A.1–A.2), 3.10 (3.10.A.1), 3.12 (3.12.A.2 names tan²θ = sec²θ − 1); 4 of 6 points are Unit 3; 3.10 had five of six votes.
+- Not changed: both items' serving labels (`provisional_model`) still give primary unit 2. Their required units already include 3, so serving is unaffected, but the primary unit is wrong and is left as an open item.
 
 **Rollback:** delete the rows where `source like '%frq_topic_probe_2026_10_09%'`. They are new rows, nothing references them, and the table has no triggers.
 
