@@ -22,7 +22,7 @@ David answered the eleven questions in `BYOQ_ATTACHMENT_EXTRACTION_PLAN_CRITIQUE
 | --- | --- | --- | --- |
 | 1 | Motivation | Disregard Production usage (internal testing). Students "loved the idea but pretty obviously would not invest the time needed to accurately enter all the information", and often cannot type mathematical or scientific notation on a QWERTY keyboard. | Direction is firm. Notation handling becomes an explicit requirement (§4.4). |
 | 2 | Vendor | "Build-measure-switch is fine... for now stick with OpenAI." | No bake-off. Reuse the existing OpenAI call pattern (§5.2). |
-| 3 | Privacy policy | Updated; add a link in the UI element. | Link already exists in the consent notice. One sentence still missing (§8.1). |
+| 3 | Privacy policy | Updated; comprehensive; covers BYOQ; no deletion promise and none planned. | No policy change. Link already exists in the consent notice (§8.1). |
 | 4 | Taxonomy | "Accept subject/unit from context, parse the question itself. We should be able to tell if it is an MCQ or FRQ." | The model does not infer subject or unit. It extracts type, stem, choices, and proposes a topic within the known unit (§4.2). |
 | 5 | Inputs | Photos only for v1; PDFs later if usage warrants. | No PDF path. Multi-page photo capture (already shipped, up to 10 pages) covers multi-page questions. |
 | 6 | Where review happens | "Same device through a QR code." | Capture and review on the phone; QR remains the desktop-to-phone handoff (§4.1, §6.3). |
@@ -243,7 +243,7 @@ The pilot's own gate (Gate D) is different and is the one that matters: fraction
 
 ### Slice 0 — record and open (docs only)
 
-Record `DECISION-0106` and `APPROVAL-0138`; open `TASK-0068` with this document as its design; close `TASK-0039` Phases 1–2 as Done with a note that Phase 3 is superseded; mark `BYOQ_WORKSHEET_PARSING_DESIGN.md` superseded in `docs/INDEX.md`; draft the privacy-policy sentence (§8.1) for David to place. Fix the gates in §6.3.
+Record `DECISION-0106` and `APPROVAL-0138`; open `TASK-0068` with this document as its design; close `TASK-0039` Phases 1–2 as Done with a note that Phase 3 is superseded; mark `BYOQ_WORKSHEET_PARSING_DESIGN.md` superseded in `docs/INDEX.md`. Fix the gates in §6.3.
 
 **Exit:** records merged to `main`. Gate A.
 
@@ -278,13 +278,9 @@ QA proposes Pass/Fail; it does not authorise Production.
 
 ### 8.1 Privacy policy
 
-The live policy covers extraction and processing providers. It does not say an AI model reads the photo. Proposed sentence for §2.3 ("User-Provided Content"), for David to place in the Lovable copy (and to sync `docs/legal/PRIVACY_POLICY.md`, which is a stale copy):
+**Decided (David, 2026-10-08): no policy change for this work.** The live policy already covers it: §2.2 collects "upload metadata and extracted content from images, screenshots, or documents"; §2.3 collects the content of a submitted image "and any text we extract from it"; §5 permits using submitted content, including uploaded materials, to operate the service, to test and calibrate model behaviour, and to improve content; §7 names storage and processing providers. **No deletion promise exists and none will be added.** The shipped 30-day anonymous purge is operational behaviour, not a policy commitment, and this plan does not turn it into one.
 
-> When you photograph or upload a question, we use an automated model from a third-party AI provider to read the image and suggest the question's text and type for you to check. The image is sent only for that purpose and the provider does not keep it or use it to train its models.
-
-The second clause must be true of the configured provider account and should be confirmed against OpenAI's API data-usage terms for the account in use before the pilot (the call already sets `store: false`). Timing: before the Production pilot (Slice 2), since Micah and Orly are real students.
-
-The intake consent notice keeps its link and adds nothing else.
+The intake consent notice keeps its existing link to the policy and adds nothing. `docs/legal/PRIVACY_POLICY.md` is an older copy than the live one and should not be cited for current wording; the live Lovable copy governs. The extraction call keeps `store: false` as an engineering default, not as a promise to students.
 
 ### 8.2 Rights
 
@@ -313,7 +309,7 @@ David: no product cap on extraction. Recorded. Two things remain true regardless
 | --- | --- | --- |
 | A — Plan | This revision accepted; §6.3 gates fixed; records in Slice 0 merged | Slice 1 design and benchmark work, no app or schema change |
 | B — Development build | Task open; migration reviewed; capability design (§5.3) reviewed | Development migration, function deploy, Lovable preview work |
-| C — Production pilot | QA Pass; benchmark report; privacy sentence live; rollback rehearsed (flag off) | Production migration and deploy with the flag on for the pilot |
+| C — Production pilot | QA Pass; benchmark report; rollback rehearsed (flag off) | Production migration and deploy with the flag on for the pilot |
 | D — Expand | Pilot report; David's call | General availability or hold |
 
 ---
@@ -337,5 +333,5 @@ David: no product cap on extraction. Recorded. Two things remain true regardless
 1. **"Subject/unit from context" for anonymous visitors:** the intake screen keeps its subject and unit selects, prefilled from a `?subject=` parameter when arriving from a subject page. Agreed? (Signed-in students get the active subject and saved unit position automatically.)
 2. **Phone review via capability-scoped ops (§5.3):** this is the one new security surface. Alternative with less surface: the phone shows "Photos received — finish on your computer" and review happens only on the desktop, prefilled. Which do you want for v1?
 3. **Spend breaker (§8.3):** keep a high technical ceiling with a page to you, or none at all?
-4. **Privacy sentence (§8.1):** place as drafted, or edit?
+4. ~~Privacy sentence~~ — resolved 2026-10-08: no policy change (§8.1).
 5. **`captured_work` (§4.5):** stored but not displayed in v1, since the photo is already on the practice screen. Agreed?
