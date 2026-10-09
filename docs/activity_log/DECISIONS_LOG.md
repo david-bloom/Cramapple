@@ -6,6 +6,7 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0104 — Memory Hooks Approved as Proposed (D1–D7): Topic-Owned Grain, CED Point-Bearing Inclusion Rule, Option B Table, Songs Out of v1, Three Surfaces, Stats Unit 1 + Chem Unit 4 Pilot; Amended to Include Diagram Parts
 - DECISION-0103 — Student Hub Slice 1 Contracts: Save on Change, Unit-Wide Study Scope, "Asked and Scored" Door Line, Revisit Queue Removed, No Dismissible First-Use Panel
 - DECISION-0102 — Items Made by Generate-and-Select (Protocol §0) Need No Human Review Before Load; the Production Hard-Gate Approval Remains
 - DECISION-0101 — Seeds and Variants (§0): Difficulty Is Not an Author Target and Stays a Provisional Label; Skills Targeted at Practice Level; Variants Inherit the Seed's Labels Instead of Re-Voting
@@ -55,6 +56,23 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0104 — Memory Hooks Approved as Proposed (D1–D7): Topic-Owned Grain, CED Point-Bearing Inclusion Rule, Option B Table, Songs Out of v1, Three Surfaces, Stats Unit 1 + Chem Unit 4 Pilot; Amended to Include Diagram Parts
+
+- **Date:** 2026-10-08
+- **Decided by:** David Bloom (Product Owner): "Approve D1-D7 as recommended and open the task", and, relaying Micah Bloom, "Micah was also interested in memory hooks for formulas and parts of diagrams. Why not include those?"
+- **Context:** `docs/product/MEMORY_HOOKS_PROPOSAL_2026_10_08.md` (PR #385) scoped Micah's idea of connecting important formulas and lists to mnemonics, acronyms, phrases and songs. It resolved the "memory aid" grain left OPEN in `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3 and derived an inclusion rule from the finding that the KPCOFGS example is not in the AP Biology CED.
+- **Decision:**
+  1. **D1 Grain:** topic-owned with `topic_codes[]` and unit roll-up; no skill grain.
+  2. **D2 Inclusion rule:** a hook is admissible only for an ordered sequence, list, formula structure, sign or direction convention, **or the labelled parts of a diagram** that a CED learning objective or scoring guideline requires. The hook is for recall; the answer is written in CED language, and a `caution` says so when they differ.
+  3. **D3 Data model:** Option B, a new `app.topic_memory_hooks` table with a public view and `get_topic_point_guides` returning `memoryHooks[]`.
+  4. **D4 Songs:** out of v1; no lyrics ever, no audio pipeline.
+  5. **D5 Surfaces:** Deep Dive "Remember it" block, unit-reference list, Open Hand reference pane; not hints and not post-miss feedback. `diagram_parts` hooks render only through the existing visual-stimulus path.
+  6. **D6 Pilot:** AP Statistics Unit 1 and AP Chemistry Unit 4, at most 8 hooks, before any wider survey.
+  7. **D7 Priority:** not launch gating; the schema lands on the key `TASK-0054` settles.
+- **Amendment (same day):** formulas were already in scope through the `acrostic` and `formula_sentence` kinds; diagram parts are added as kind `diagram_parts` with a nullable `visual_asset_ref` to an existing visual-stimulus asset (`TASK-0006`). Checkers gain a fifth check for it.
+- **Unchanged:** INV-3; the generate-and-select authoring method (protocol v0.6 §0); every Production apply, publish, and Lovable publish stays a Hard Gate.
+- **Consequences:** `TASK-0066` opened; `APPROVAL-0136` records the scope approval.
 
 ## DECISION-0103 — Student Hub Slice 1 Contracts: Save on Change, Unit-Wide Study Scope, "Asked and Scored" Door Line, Revisit Queue Removed, No Dismissible First-Use Panel
 

@@ -1,6 +1,6 @@
 # Memory Hooks: Mnemonics, Acronyms, Phrases, and Songs as a Content Element
 
-STATUS: PROPOSED — awaiting Product Owner decisions (§9). Nothing here is built, published, or approved.
+STATUS: APPROVED 2026-10-08 — D1–D7 approved as recommended by David Bloom (`DECISION-0104`, `APPROVAL-0136`), with the §12 amendment. Execution: `tasks/TASK-0066-MEMORY-HOOKS.md`. Nothing is built or published yet.
 DATE: 2026-10-08
 OWNER: Product Owner (David Bloom). Idea source: Micah Bloom (co-founder, marketing / go-to-market).
 RELATED: `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3 (skill scaffolds, "memory aid" element, grain OPEN);
@@ -196,3 +196,20 @@ consistent with the inclusion rule, not a gap to fill.
 No schema change, no content authored or published, no frontend change, no Lovable message, no
 approval claimed. The Deep Dive protocol's row-limit table is not edited; the proposed "Memory
 hook" row (2 + 2) is added there only if D5 is approved.
+
+## 12. Amendment, 2026-10-08: formulas and diagram parts (David, relaying Micah)
+
+David asked why formulas and parts of diagrams were not included.
+
+- **Formulas were already in scope.** The `acrostic` and `formula_sentence` kinds exist to carry a
+  formula's structure or the order of its terms (the quotient-rule chant, OIL RIG). The formula
+  itself stays in the unit reference's formula list; the hook is the device for recalling it.
+  No change.
+- **Diagram parts are now in scope.** They were left out only because of a rendering dependency,
+  not on principle. A labelled diagram that a CED learning objective requires (cell structures,
+  the regions of a titration curve, the five parts of a boxplot) passes the §3 inclusion rule.
+  Added: kind `diagram_parts`, with `expands_to` naming the parts in order and a nullable
+  `visual_asset_ref` that points at an **existing** visual-stimulus asset (`TASK-0006`). No new
+  rendering path; where a surface cannot show the asset, the hook renders as text. D2 and D5 are
+  amended accordingly; the checkers gain a fifth check (the asset exists and the parts named are
+  the ones the CED requires).
