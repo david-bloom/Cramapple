@@ -87,8 +87,8 @@ records.
 | `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
 | `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |
 | `UX-004` | Student-Provided Question Intake | High | In Progress | Learning Quality, accessibility, security, privacy, rights, academic-integrity, and Product Owner review |
-| `TASK-0066` | Memory Hooks: Schema, Pilot Authoring, and Student Surfaces | Medium | Approved, not started; sequenced with `TASK-0067` (`DECISION-0105`) | Production migration, Production publish, and Lovable publish are each Hard Gates |
-| `TASK-0067` | Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams | Medium | Approved, not started (`DECISION-0105` / `APPROVAL-0137`) | Production migration, Production publish, and Lovable publish are each Hard Gates |
+| `TASK-0066` | Memory Hooks: Schema, Pilot Authoring, and Student Surfaces | Medium | Shipped to Production 2026-10-09 (`APPROVAL-0140`); 3 hooks live | Product Owner look at the live surfaces; Units 2+ as new batches |
+| `TASK-0067` | Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams | Medium | Shipped to Production 2026-10-09 (`APPROVAL-0140`); 102 entries live (Stats U1, Chem U4) | Product Owner look; row limits + formula renderer open; Units 2+ |
 | `TASK-0068` | BYOQ Photo Extraction With Student Confirmation | High | Approved at Gate A, not started (`DECISION-0108` / `APPROVAL-0139`); supersedes `TASK-0039` Phase 3 | Gate B (Development build), Gate C (Production pilot), Gate D (expand) are each Hard Gates |
 
 ## 5. P0 Legal, Privacy, and Trust Backlog

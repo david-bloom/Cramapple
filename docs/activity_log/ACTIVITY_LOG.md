@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Unit Reference Content + Memory Hooks Moved to Production (APPROVAL-0140): Migration, 102 Entries + 3 Hooks, Lovable Publish of 71a9b751 (2026-10-09): CLI-driven apply and loads (no retyping), objects md5-identical to Development, data QA and RPC probes pass; PR #390 merged by David; CLI relinked to Development.
 - TASK-0067/0066 Phase C Built in Lovable Preview (commit 71a9b751), Tests 770/770 (2026-10-09): reference pane, Deep Dive, Copy notes, Learn More; baseline fixture pins today's output for Production's payload; DECISION-0106 renumbered to 0107 (PR #391 had reserved 0106). Not published; Production untouched.
 - DECISION-0107 Recorded (SOCS Loaded, 1.13 Owner, Veto → Haiku 5.5); TASK-0067/0066 Phase C Sent to Lovable Preview (2026-10-09): Development 102 entries + 3 hooks; Phase C brief covers the fetch/mapping layer, reference pane, Deep Dive, unit reference, Learn More page, tests; Production untouched.
 - TASK-0067 + TASK-0066 Phase A and B Done in Development: Reference Tables + Hooks Schema (20261009003237), 101 Entries + 2 Hooks Loaded for Stats U1 / Chem U4, $20.29 (2026-10-09): two-checker + veto pipeline, controls 6/6 both units after one flawed control was replaced; aggregation bug fixed and recomputed; SOCS and one escalation for the PO; Production untouched; PR open for David.
@@ -403,6 +404,20 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Unit Reference Content + Memory Hooks Moved to Production — 2026-10-09
+
+**Direction:** David: "let's move it all to production." Recorded as `APPROVAL-0140` (all three Hard Gates).
+
+**Done, in order:**
+1. Pre-check on Production: no new tables; `get_topic_point_guides` md5 unchanged (`dfa85170…`); `app.set_updated_at()` present; both pilot subjects active.
+2. CLI temporarily linked to Production; migration file applied with `supabase db query --linked -f` (begin/commit stripped), ledger row inserted under `20261009003237` with the full statement text (20,662 chars). Post-check: tables, views, RLS forced, no anon grants, triggers; RPC md5 `a76f2f71…` equal to Development; both guard functions and both views md5-equal to Development.
+3. Rows loaded from `out/load_ap_statistics_u1.sql` and `out/load_ap_chemistry_u4.sql`: 102 entries, 3 hooks. Data QA all green; read-only RPC probes as expected (Stats 1.6: 9 entries + SOCS; Chem 4.9: 4 entries + OIL RIG; Biology: empty arrays, briefs unchanged).
+4. CLI relinked to Development. PR #390 found already merged by David (`431cb9b8`).
+5. Lovable `deploy_project` on `56cae479` at `71a9b751` (deployment `fb797370…`, status `pending` at call time; a second call returned the same published URL). **Not independently verified over HTTP:** every route on `app.cramapple.com` and the `lovable.app` host redirects anonymous requests (302 to the marketing site), and the preview host returns 401, so no asset of the new build could be fetched without a student session. The Product Owner's look at the live app is the confirming step.
+6. Development's SOCS entry provenance aligned with Production's (the override marker had been added after Development's first load).
+
+**Not done:** no visual check as a signed-in student; the Product Owner should look at Stats 1.6/1.7 and Chem 4.9 in the live app.
+
 ## TASK-0067/0066 Phase C Built in Lovable Preview — 2026-10-09
 
 **Built (Lovable `56cae479`, commit `71a9b751`, "Added reference content & hooks", preview only):** nine files; details in `TASK-0067` §Phase C. Reviewed by diff: mapping tolerant of camel/snake and absent keys; `reference.rememberIt`/`lookUp` only present when content exists, so older payloads keep their exact shape; new vitest file with a baseline fixture asserting unchanged output for brief/explainer-only input. The agent ran the suite on request: 83 files, 770 passed, 0 failed; `tsgo --noEmit` clean.
