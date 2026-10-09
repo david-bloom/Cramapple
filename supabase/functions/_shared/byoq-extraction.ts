@@ -29,7 +29,7 @@
 import { BYOQ_LIMITS, type ChoiceInput } from "./byoq.ts";
 
 /** Bump when the prompt or schema changes: it is part of the idempotency key. */
-export const BYOQ_EXTRACTION_PROMPT_VERSION = "2026-10-09.2";
+export const BYOQ_EXTRACTION_PROMPT_VERSION = "2026-10-09.3";
 export const BYOQ_EXTRACTION_ENDPOINT = "https://api.openai.com/v1/responses";
 export const BYOQ_EXTRACTION_MIN_TIMEOUT_MS = 5_000;
 export const BYOQ_EXTRACTION_MAX_TIMEOUT_MS = 60_000;
@@ -170,7 +170,7 @@ export function buildExtractionSystemPrompt() {
     "UNREADABLE. If part of the question is cut off, blurred, or hidden by glare, write '[unreadable]' at that point in the stem and list what is affected in `unreadable_regions`. Never guess at unreadable text.",
     "TYPE. `item_type` is 'mcq' when the question offers printed answer options to pick from, 'frq' when it asks for a written, numerical, or drawn response, and 'unsure' only when you genuinely cannot tell.",
     "ONE QUESTION. If the page holds more than one question, transcribe only the most prominent complete one (the one framed or in the centre) and ignore the rest. If there is no question at all (a blank page, notes, a title page), set `is_question` to false and leave `stem` empty.",
-    "TOPIC. `topic_code` must be one of the listed topic codes for the question's main idea, or 'unsure'. `alternatives` lists up to two other plausible codes from the list, most likely first, or is empty. Never choose a code that is not listed.",
+    "TOPIC. `topic_code` must be one of the listed topic codes, or 'unsure'. Choose the topic whose title best matches the task the question sets (what the student must find, show, or decide), rather than the broader concept it rests on: a question about where a function is continuous on an interval belongs to the interval topic, not the point topic; a question that asks for a graph of summary statistics belongs to the graphical topic, not the summary-statistics topic. `alternatives` lists up to two other plausible codes from the list, most likely first, or is empty. Never choose a code that is not listed.",
     "SUBJECT. `looks_like_subject` is false when the question clearly belongs to a different subject from the one named (e.g. a history question when the subject is AP Chemistry).",
     "PERSONAL INFORMATION. `possible_personal_information` is true if a student's name, a school name, a teacher's name, contact details, or a face is visible.",
   ].join("\n");
