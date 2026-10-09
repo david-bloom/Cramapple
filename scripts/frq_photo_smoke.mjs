@@ -229,12 +229,15 @@ async function main() {
     assistance_condition: "independent", assistance_state: { attempt_condition: "cold", independent_diagnostic_evidence: true, help_level_used: null },
   }, student.token);
   const gradeStatus = result(graded).status ?? graded.json?.status;
-  // "graded" or "uncertain" both mean the grader ran on the confirmed text (the
-  // fixture page does not answer whichever FRQ this environment served, so an
-  // honest "unable to determine" is expected); what matters is that the
-  // evidence it cites is the transcript, not the photo.
-  const citesTranscript = JSON.stringify(result(graded).criteria ?? []).includes("Mean = (4 + 6 + 9 + 11)");
-  check("evaluate-attempt grades the confirmed transcript", (graded.status === 200 || graded.status === 202) && (gradeStatus === "graded" || gradeStatus === "uncertain") && citesTranscript, `${graded.status} ${graded.text.slice(0, 400)}`);
+  // "graded" or "uncertain" both mean the grader ran (the fixture page does not
+  // answer whichever FRQ this environment served, so an honest "unable to
+  // determine" is expected). What matters is that it graded the CONFIRMED
+  // version: a grading_results row exists for this attempt and this response
+  // version, whose response_text is the confirmed transcript.
+  const gradedRow = await rest(`grading_results?attempt_id=eq.${attemptId}&response_version_id=eq.${rvId}&select=id,status,response_version_id`, { schema: "app" });
+  const versionRow = await rest(`response_versions?id=eq.${rvId}&select=is_submitted,response_text`, { schema: "app" });
+  const gradedConfirmed = Array.isArray(gradedRow.json) && gradedRow.json.length === 1 && versionRow.json?.[0]?.is_submitted === true && (versionRow.json?.[0]?.response_text ?? "").includes(addedLine);
+  check("evaluate-attempt grades the confirmed transcript", (graded.status === 200 || graded.status === 202) && (gradeStatus === "graded" || gradeStatus === "uncertain") && gradedConfirmed, `${graded.status} ${graded.text.slice(0, 300)} | rows=${gradedRow.text.slice(0, 200)}`);
   console.log(`  grade: ${result(graded).points_earned}/${result(graded).points_available} (${gradeStatus})`);
 
   // --- admin: context + redaction ------------------------------------------------
@@ -267,8 +270,8 @@ async function main() {
     check("the admin redacts the photo lineage", redacted.status === 200 && (result(redacted).redacted ?? []).includes(attachmentId), `${redacted.status} ${redacted.text}`);
     const row = await rest(`response_attachments?id=eq.${attachmentId}&select=id,redacted_at,sha256_digest,storage_path`, { schema: "app" });
     check("the row survives with redacted_at set and its digest intact", Boolean(row.json?.[0]?.redacted_at) && row.json?.[0]?.sha256_digest?.length === 64, row.text);
-    const objects = await rest(`objects?bucket_id=eq.learner-uploads&name=eq.${encodeURIComponent(row.json?.[0]?.storage_path ?? "")}&select=name`, { schema: "storage" });
-    check("the storage object is gone", Array.isArray(objects.json) && objects.json.length === 0, objects.text);
+    const gone = await fetch(`${URL_BASE}/storage/v1/object/learner-uploads/${row.json?.[0]?.storage_path ?? ""}`, { headers: { apikey: SECRET, authorization: `Bearer ${SECRET}` } });
+    check("the storage object is gone", gone.status === 400 || gone.status === 404, `storage GET returned ${gone.status}`);
   }
   completed = true;
 }
