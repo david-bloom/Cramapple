@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
 - APPROVAL-0137 — Open TASK-0067 (Unit Reference Content) and Amend TASK-0066 D3 So Hooks Require a Reference Entry — DECISION-0105 (2026-10-08)
 - APPROVAL-0136 — Memory Hooks Scope (D1–D7 Plus Diagram Parts) and Opening of TASK-0066 — DECISION-0104 (2026-10-08)
@@ -2014,6 +2015,20 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066)
+
+**Date:** 2026-10-09  
+**Approved By:** David Bloom (2026-10-09 Claude session): "let's move it all to production."  
+**Related:** `TASK-0067`, `TASK-0066`, `DECISION-0104`/`0105`/`0107`, `APPROVAL-0136`/`0137`, PR #390 (merged by David), batch `scripts/content-seed/task0067-reference-pilot-2026-10-09/`  
+**Decision:** Approved — all three Hard Gates at once.
+
+**Executed:**
+1. **Production migration.** `supabase/migrations/20261009003237_task0067_unit_reference_entries_and_memory_hooks.sql` applied to Production `pcntajvbdfqhbeewmdry` through `supabase db query --linked -f` (CLI temporarily linked to Production, relinked to Development afterwards); ledger row inserted under the same version `20261009003237` with the full statement text, so one file satisfies both ledgers. Pre-check: no new tables, RPC md5 unchanged. Post-check: tables, views, RLS forced, no anon grants, triggers; RPC, both guard functions and both views md5-identical to Development.
+2. **Production publish.** `out/load_ap_statistics_u1.sql` and `out/load_ap_chemistry_u4.sql` run the same way: 80 Statistics Unit 1 + 22 Chemistry Unit 4 entries, 3 hooks (SOCS, z-score formula sentence, OIL RIG). Data QA: zero orphan topic codes, owner units match the taxonomy, published hooks on published entries, `published_at` set, public views 102 / 3, two rows carry the `DECISION-0107` override in provenance. Read-only RPC probe: Stats 1.6 → 9 entries + SOCS; Chem 4.9 → 4 entries + OIL RIG; Stats Unit 1 → 80 entries, 2 unit-owned hooks; Biology 1.1 → empty arrays, briefs unchanged.
+3. **Lovable publish.** `deploy_project` on `56cae479` at commit `71a9b751` (deployment `fb797370-01ee-4f87-807f-84dc494b1c32`). Triggered, not independently verified: the app has no anonymous route to fetch the new build from; the Product Owner confirms by opening Stats 1.6 or Chem 4.9 in the live app.
+
+**Rollback:** `update app.topic_memory_hooks set status='retired'` then `update app.unit_reference_entries set status='retired'` hides every row from the views and the RPC (the guard requires hooks first); the migration can be reverted by dropping the two tables, the two views and the two guard functions and re-creating `get_topic_point_guides` from `20260820213000`. The frontend renders exactly the previous output when the keys are empty, so no frontend rollback is needed for a data rollback.
 
 ## APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108
 
