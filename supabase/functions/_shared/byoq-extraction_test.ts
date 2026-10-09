@@ -120,6 +120,33 @@ Deno.test("proposalPatch fills only null fields and never overwrites a student's
   assertEquals(notQuestion.filled, []);
 });
 
+Deno.test("proposalPatch refreshes a field that still equals the previous proposal, but never a student edit", () => {
+  const p1 = normalizeProposal(okRaw(), TOPICS)!;
+  const prev = { item_type: p1.item_type, stem: p1.stem, choices: p1.choices, topic_code: p1.topic_code };
+  const p2 = normalizeProposal(okRaw({ stem: "A better read of the same question", choices: ["r = 0.3", "r = −0.9", "r = 0.5", "r = −0.1"], topic_code: "2.6" }), TOPICS)!;
+  // Untouched since the first run: everything refreshes.
+  const untouched = { item_type: "mcq" as const, stem: p1.stem, choices: p1.choices.map((t, i) => ({ choice_key: String.fromCharCode(65 + i), choice_text: t })), taxonomy_topic_id: "t1", topic_code: "2.5" };
+  const a = proposalPatch(untouched, p2, prev);
+  assertEquals(a.filled, ["stem", "choices", "topic"]);
+  assertEquals(a.stem, "A better read of the same question");
+  // Student edited the stem and the topic: those are kept; choices still refresh.
+  const edited = { ...untouched, stem: "MY EDIT", topic_code: "2.6", taxonomy_topic_id: "t2" };
+  const b = proposalPatch(edited, p2, prev);
+  assertEquals(b.filled, ["choices"]);
+  assertEquals(b.stem, undefined);
+  // Without a previous proposal, non-empty fields are never touched (first-run rule).
+  const c = proposalPatch(untouched, p2, null);
+  assertEquals(c.filled, []);
+  // Identical re-read: nothing to fill.
+  assertEquals(proposalPatch(untouched, p1, prev).filled, []);
+});
+
+Deno.test("subject_mismatch is not raised when no subject was named", () => {
+  const p = normalizeProposal(okRaw({ looks_like_subject: false }), TOPICS)!;
+  assert(warningsFor(p, true, true).includes("subject_mismatch"));
+  assert(!warningsFor(p, true, false).includes("subject_mismatch"));
+});
+
 Deno.test("extractOutputText reads output_text or the first text piece and refuses a refusal", () => {
   assertEquals(extractOutputText({ output_text: "{}" }), "{}");
   assertEquals(extractOutputText({ output: [{ content: [{ type: "output_text", text: "{\"a\":1}" }] }] }), "{\"a\":1}");

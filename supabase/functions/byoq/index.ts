@@ -1168,7 +1168,19 @@ async function extractForItem(ctx: Ctx, item: ItemRow, opts: { force: boolean })
   const patch: Partial<ItemRow> = {};
   let filled: ReturnType<typeof proposalPatch>["filled"] = [];
   if (outcome.kind === "proposed") {
-    const p = proposalPatch(fresh, outcome.proposal);
+    // A field still equal to the previous proposal was never edited: a re-run
+    // (after a retake, or "Try reading it again") may refresh it. Anything the
+    // student changed is kept.
+    const prev = fresh.extraction?.status === "proposed" && fresh.extraction.proposed
+      ? {
+        item_type: fresh.extraction.proposed.item_type,
+        stem: fresh.extraction.proposed.stem,
+        choices: fresh.extraction.proposed.choices,
+        topic_code: fresh.extraction.proposed.topic_code,
+      }
+      : null;
+    const currentTopic = await topicFor(ctx, fresh);
+    const p = proposalPatch({ ...fresh, topic_code: currentTopic?.topic_code ?? null }, outcome.proposal, prev);
     filled = p.filled;
     if (p.item_type) patch.item_type = p.item_type;
     if (p.stem !== undefined) patch.stem = p.stem;

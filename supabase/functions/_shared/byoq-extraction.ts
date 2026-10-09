@@ -247,14 +247,15 @@ export function normalizeProposal(raw: unknown, topics: ExtractionTopicOption[])
   };
 }
 
-export function warningsFor(p: ExtractionProposal, hadTopics: boolean): ExtractionWarning[] {
+export function warningsFor(p: ExtractionProposal, hadTopics: boolean, hadSubject = true): ExtractionWarning[] {
   const w: ExtractionWarning[] = [];
   if (!p.is_question || !p.stem) w.push("not_a_question");
   if (p.unreadable_regions.length) w.push("unreadable");
   if (p.visual_only_regions.length) w.push("visual_only");
   if (p.answer_key_present) w.push("answer_key_present");
   if (p.possible_personal_information) w.push("possible_personal_information");
-  if (!p.looks_like_subject) w.push("subject_mismatch");
+  // No subject was named, so there is nothing to mismatch (Sol SOL-06).
+  if (hadSubject && !p.looks_like_subject) w.push("subject_mismatch");
   if (hadTopics && !p.topic_code) w.push("no_topic");
   if (p.item_type === "unsure") w.push("type_unsure");
   if (p.choices.length > BYOQ_LIMITS.choicesMax) w.push("too_many_choices");
@@ -270,6 +271,20 @@ export interface ProposalTarget {
   stem: string | null;
   choices: ChoiceInput[];
   taxonomy_topic_id: string | null;
+  /** The item's current topic code (resolved by the caller), for comparison with a previous proposal. */
+  topic_code?: string | null;
+}
+
+/** What the previous run proposed; a field still equal to it was never edited by the student. */
+export interface PreviousProposal {
+  item_type: ExtractionProposal["item_type"];
+  stem: string;
+  choices: string[];
+  topic_code: string | null;
+}
+
+function sameChoices(a: ChoiceInput[], b: string[]) {
+  return a.length === b.length && a.every((c, i) => c.choice_text === b[i]);
 }
 
 export interface ProposalPatch {
@@ -282,28 +297,36 @@ export interface ProposalPatch {
 }
 
 /**
- * Fills only what the student has not already set. A student's edit is never
- * overwritten by a re-run or a second page (plan §4.3). Choices are assigned
- * keys by position, exactly as a typed submission is.
+ * Fills only what the student has not already set. A field counts as unset
+ * when it is empty, or when it still holds exactly what the previous run
+ * proposed (the student never touched it), so a re-run after a retake can
+ * refresh an untouched proposal while a student's edit is never overwritten
+ * (plan §4.3; Sol SOL-01). Choices are assigned keys by position, exactly as
+ * a typed submission is.
  */
-export function proposalPatch(item: ProposalTarget, p: ExtractionProposal): ProposalPatch {
+export function proposalPatch(item: ProposalTarget, p: ExtractionProposal, previous: PreviousProposal | null = null): ProposalPatch {
   const patch: ProposalPatch = { filled: [] };
   if (!p.is_question) return patch;
-  if (item.item_type === null && p.item_type !== "unsure") {
+  const typeUnset = item.item_type === null || (previous !== null && item.item_type === previous.item_type);
+  if (typeUnset && p.item_type !== "unsure" && p.item_type !== item.item_type) {
     patch.item_type = p.item_type;
     patch.filled.push("item_type");
   }
   const effectiveType = patch.item_type ?? item.item_type;
-  if ((!item.stem || !item.stem.trim()) && p.stem) {
+  const stemUnset = !item.stem || !item.stem.trim() || (previous !== null && item.stem === previous.stem);
+  if (stemUnset && p.stem && p.stem !== item.stem) {
     patch.stem = p.stem;
     patch.filled.push("stem");
   }
-  if (effectiveType === "mcq" && item.choices.length === 0 && p.choices.length >= BYOQ_LIMITS.choicesMin) {
+  const choicesUnset = item.choices.length === 0 || (previous !== null && sameChoices(item.choices, previous.choices));
+  if (effectiveType === "mcq" && choicesUnset && p.choices.length >= BYOQ_LIMITS.choicesMin && !sameChoices(item.choices, p.choices)) {
     patch.choices = p.choices.slice(0, BYOQ_LIMITS.choicesMax)
       .map((text, i) => ({ choice_key: String.fromCharCode(65 + i), choice_text: text }));
     patch.filled.push("choices");
   }
-  if (item.taxonomy_topic_id === null && p.topic_code) {
+  const topicUnset = item.taxonomy_topic_id === null ||
+    (previous !== null && previous.topic_code !== null && item.topic_code === previous.topic_code);
+  if (topicUnset && p.topic_code && p.topic_code !== item.topic_code) {
     patch.topic_code = p.topic_code;
     patch.filled.push("topic");
   }
@@ -426,7 +449,7 @@ export async function runByoqExtraction(input: ExtractionInput): Promise<Extract
   }
   const proposal = normalizeProposal(parsed, topics);
   if (!proposal) return { kind: "failed", failure: "invalid_output", detail: "byoq_extraction_schema_mismatch", modelId: input.modelId, latencyMs };
-  return { kind: "proposed", proposal, warnings: warningsFor(proposal, topics.length > 0), modelId: input.modelId, latencyMs, usage: usageOf(raw) };
+  return { kind: "proposed", proposal, warnings: warningsFor(proposal, topics.length > 0, input.subjectName !== null), modelId: input.modelId, latencyMs, usage: usageOf(raw) };
 }
 
 /* -------------------------------------------------------------------------- */
