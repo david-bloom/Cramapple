@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0136 — Memory Hooks Scope (D1–D7 Plus Diagram Parts) and Opening of TASK-0066 — DECISION-0104 (2026-10-08)
 - APPROVAL-0135 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9) (2026-10-08)
 - APPROVAL-0134 — Publish 18 AP Chemistry Unit 2 Practice MCQs (9 Seeds, 9 Variants; Topics 2.1–2.6) From the Generate-and-Select Pipeline (Production) — TASK-0065
 - APPROVAL-0133 — Publish 20 AP Biology Unit 3 Practice MCQs (10 Seeds, 10 Variants; Topics 3.1–3.5) From the Generate-and-Select Pipeline (Production) — TASK-0065
@@ -2011,6 +2012,19 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0136 — Memory Hooks Scope (D1–D7 Plus Diagram Parts) and Opening of TASK-0066 — DECISION-0104
+
+**Date:** 2026-10-08  
+**Approved By:** David Bloom (2026-10-08 Claude session): "Approve D1-D7 as recommended and open the task."  
+**Related:** `docs/product/MEMORY_HOOKS_PROPOSAL_2026_10_08.md` (§9, §12), `docs/tasks/TASK-0066-MEMORY-HOOKS.md`, `DECISION-0104`, PR #385  
+**Decision:** Approved
+
+**Approved scope:** the seven recommendations in the proposal's §9 as written, plus the §12 amendment adding diagram parts as a hook kind. `TASK-0066` is opened at Standard tier for schema design, Development apply, pilot authoring in Development, and the Lovable preview build.
+
+**Not approved by this entry:** the Production migration apply, any Production publish of hook rows, and the Lovable publish. Each is its own Hard-Gate approval. No content exists yet; nothing is deployed.
+
+**Rollback:** none needed; docs only.
 
 ## APPROVAL-0135 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9)
 

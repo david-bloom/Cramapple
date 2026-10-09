@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Memory Hooks Approved (DECISION-0104, APPROVAL-0136) and TASK-0066 Opened; Diagram Parts Added at Micah's Request (2026-10-08): D1–D7 as recommended; formulas were already in scope; `diagram_parts` kind added with a reference to existing visual-stimulus assets. Docs only; nothing built.
 - Memory Hooks (Mnemonics / Acronyms / Phrases) Scoped as a Content Element, Awaiting PO Decisions (2026-10-08): Micah's idea placed against the records; the KPCOFGS example is not in the AP Biology CED, which yields the inclusion rule; topic-owned grain proposed; `docs/product/MEMORY_HOOKS_PROPOSAL_2026_10_08.md`. Docs only.
 - Student Hub Slice 1 Built in Lovable Preview (DECISION-0103) (2026-10-08): evidence reads scoped to the active pack; unit-only saves clear the topic; save on change replaces the Confirm buttons in both stages; the Learn door gates on the saved topic, treats lookup failure as unknown and honours the resolver; one unit-only rule (heading, first available example, unit notes list). Lovable `a509b7d7`, 755 tests; published to production on David's instruction (deployment `10c9fc3b`, carries PR #380 packages 1–3 too); signed-in screenshots pending with David.
 - Open Hand + Practice QA Findings Executed: Answer-Key Revoke Applied, Practice Queue Selector Live, Lovable Fix Packages Built in Preview (APPROVAL-0135) (2026-10-08): TASK-0056b revoke finally applied to Dev and Prod (view projects `prompt_json` as null); `select_student_practice_items` excludes answered/revealed items, topic-first, paged; `student-session-items` v28/v34; Lovable packages for delivery/safety, attempt integrity and flow built in Preview, publication by David.
@@ -396,6 +397,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Memory Hooks Approved (DECISION-0104, APPROVAL-0136) and TASK-0066 Opened; Diagram Parts Added — 2026-10-08
+
+**Context:** After PR #385 merged, David: "Approve D1-D7 as recommended and open the task. Micah was also interested in memory hooks for formulas and parts of diagrams. Why not include those?"
+
+**Answered:** formulas were already in scope (the `acrostic` and `formula_sentence` kinds carry a formula's structure; the formula itself stays in the unit reference). Diagram parts had been left out for a rendering dependency, not on principle; a CED-required labelled diagram passes the inclusion rule. Added kind `diagram_parts` with a nullable `visual_asset_ref` to an existing visual-stimulus asset (`TASK-0006`), no new rendering path, text-only fallback.
+
+**Recorded:** `DECISION-0104` (D1–D7 plus the amendment), `APPROVAL-0136` (scope approval; Production apply, publish, and Lovable publish remain Hard Gates), `docs/tasks/TASK-0066-MEMORY-HOOKS.md` (Phase A schema keyed to whatever `TASK-0054` settles, Phase B pilot authoring by generate-and-select with five checks, Phase C three surfaces in Lovable preview), proposal STATUS → APPROVED with §12, `docs/INDEX.md` row, `MASTER_TODO` register row.
+
+**Not done:** no branch, migration, content, or Lovable message. **Next owner:** Claude session. **Next action:** start `TASK-0066` Phase A by reading `TASK-0054`'s state, then draft the migration in Development.
+
 ## Memory Hooks (Mnemonics / Acronyms / Phrases) Scoped as a Content Element — 2026-10-08
 
 **Context:** David opened the session with Micah's idea: connect important formulas and lists to mnemonics, acronyms, songs, and phrases (example: "Kings Play Chess On Funny Glass Stools" for the Linnaean ranks).
