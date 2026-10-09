@@ -4,7 +4,7 @@
 **Owner / Product Owner:** David Bloom. **Author:** Claude (Fable 5.1), session of 2026-10-09.
 **Tier:** Hard-Gate (production frontend and functions, student photos, grading truth, privacy).
 **Extends:** `TASK-0016` Phase D (Engine 4), `TASK-0025` (attachment schema), `TASK-0038` (human-graded pilot), `DECISION-0051` (QR capture), `DECISION-0059` (pilot grading commitment). Reuses `TASK-0068` (BYOQ photo extraction) as code and as a product pattern.
-**Branch:** `claude/hand-drawn-deployment-2026-10-09`.
+**Branch:** `claude/hand-drawn-deployment-2026-10-09` (plan and records). **Build:** `TASK-0069`, branch `claude/hand-drawn-frq-build-2026-10-09`, record `docs/handoffs/TASK0069_FRQ_PHOTO_EXECUTION_2026_10_09.md`.
 
 ## 0. Goal
 
