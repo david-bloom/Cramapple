@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0067/0066 Phase C Built in Lovable Preview (commit 71a9b751), Tests 770/770 (2026-10-09): reference pane, Deep Dive, Copy notes, Learn More; baseline fixture pins today's output for Production's payload; DECISION-0106 renumbered to 0107 (PR #391 had reserved 0106). Not published; Production untouched.
 - DECISION-0107 Recorded (SOCS Loaded, 1.13 Owner, Veto → Haiku 5.5); TASK-0067/0066 Phase C Sent to Lovable Preview (2026-10-09): Development 102 entries + 3 hooks; Phase C brief covers the fetch/mapping layer, reference pane, Deep Dive, unit reference, Learn More page, tests; Production untouched.
 - TASK-0067 + TASK-0066 Phase A and B Done in Development: Reference Tables + Hooks Schema (20261009003237), 101 Entries + 2 Hooks Loaded for Stats U1 / Chem U4, $20.29 (2026-10-09): two-checker + veto pipeline, controls 6/6 both units after one flawed control was replaced; aggregation bug fixed and recomputed; SOCS and one escalation for the PO; Production untouched; PR open for David.
 - TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended (DECISION-0105, APPROVAL-0137) (2026-10-08): R1–R4 as recommended; one Development migration for both tables; hooks require a reference entry. Docs only; nothing built.
@@ -401,6 +402,16 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0067/0066 Phase C Built in Lovable Preview — 2026-10-09
+
+**Built (Lovable `56cae479`, commit `71a9b751`, "Added reference content & hooks", preview only):** nine files; details in `TASK-0067` §Phase C. Reviewed by diff: mapping tolerant of camel/snake and absent keys; `reference.rememberIt`/`lookUp` only present when content exists, so older payloads keep their exact shape; new vitest file with a baseline fixture asserting unchanged output for brief/explainer-only input. The agent ran the suite on request: 83 files, 770 passed, 0 failed; `tsgo --noEmit` clean.
+
+**Not verified visually with data:** the app reads Production, which has neither the tables nor the RPC keys until the migration's Hard-Gate apply. The absent-key path is what the preview exercises today.
+
+**Numbering:** DECISION-0106 renumbered to DECISION-0107 across this branch and the Development provenance rows; open PR #391 had reserved 0106.
+
+**Next owner:** David Bloom. **Next action:** approve or defer the three Hard Gates (Production migration, Production publish of 102 + 3 rows, Lovable publish). PR #390 carries the migration and the batch; it is David's to merge.
+
 ## DECISION-0107 Recorded; Phase C Sent to Lovable Preview — 2026-10-09
 
 **Decisions (David):** SOCS loaded (CED names it; CED wins over the veto's order objection); 1.13 confirmed as owner of the escalated entry; veto moves to Haiku 5.5 (GPT-6 Sol cannot be the veto while Sonnet extracts, because the veto is the own-family audit). Loader gained `--po-accept`, which records each override in the row's `source_note`. Development: **102 entries, 3 hooks**.

@@ -1,6 +1,6 @@
 # TASK-0067 — Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams (Companion to Memory Hooks)
 
-**Status:** Phase A (schema) and Phase B (pilot content) **done in Development** 2026-10-09; Production apply and publish awaiting Hard-Gate approval; Phase C (Lovable surfaces) not started. Approved 2026-10-08 (`DECISION-0105` / `APPROVAL-0137`).
+**Status:** Phases A, B and C done 2026-10-09: schema and 102 entries + 3 hooks in Development; Lovable surfaces built in **preview** (commit `71a9b751`, not published). Awaiting three Hard Gates: Production migration, Production publish, Lovable publish. Approved 2026-10-08 (`DECISION-0105` / `APPROVAL-0137`).
 **Tier:** Standard for schema design, Development apply, and authoring in Development; **Hard-Gate** for the Production migration, Production publish, and Lovable publish.
 **Owner:** Claude session. **Product Owner:** David Bloom.
 **Branch / PR:** `claude/task-0067-0066-phase-a` (shared with `TASK-0066`).
@@ -117,12 +117,28 @@ owner unit matches taxonomy, published hooks on published entries, `published_at
 registry subject keys). RPC probes for Stats 1.7, Stats Unit 1, Chem 4.9 and a subject with no entries
 behaved as specified. Functional test of both guard triggers passed and was rolled back.
 
-## Open for the Product Owner
+## Phase C (2026-10-09, Lovable preview, commit `71a9b751`)
 
-1. Ratify the checker pick (Gemini 3.5 Flash + GPT-6 Sol; veto Opus 5.5), made by the session.
-2. SOCS: round-3 re-extraction of its entry, or allow hook order to differ from entry order when the CED names the hook.
-3. Escalated Statistics 1.13 "Scope of conclusions from an experiment": owner 1.10 or 1.13.
-4. Production migration apply, Production publish of the 101 + 2 rows, and the Lovable publish: three Hard Gates.
+`topic-content.ts` maps `reference[]`/`memoryHooks[]` (camel or snake, `[]` when absent);
+`presentation.ts` fills the pane's Vocabulary from `vocabulary` entries, adds `rememberIt` and `lookUp`,
+a "Remember it" summary in the Deep Dive, "Formulas and rules" / "Lists and sequences" full sections,
+and a closing "Unit N reference" built from a second unit-level RPC call; `ReferencePane.jsx` renders
+"Remember it" and "Look up"; the Learn More route shows the same two blocks as cards;
+`deep-dive-export.ts` includes "Remember it" in Copy notes. A baseline fixture pins the pre-change output
+so Production's current payload (no new keys) renders exactly as before. Tests: 770/770, `tsc` clean
+(reported by the Lovable agent, 2026-10-09). Known limits: formulas display as LaTeX source in monospace
+(no renderer in the app); a topic's "Look up" lists every entry the topic reuses (Stats 1.7 shows seven
+formulas), so row limits may be wanted before publish.
+
+## Resolved by the Product Owner (`DECISION-0107`)
+
+Checker pick stands; SOCS loaded (CED names it); 1.13 owns "Scope of conclusions"; veto moves to Haiku 5.5.
+
+## Remaining Hard Gates
+
+1. Production migration apply (`20261009003237`), which also makes the preview show real rows.
+2. Production publish of the 102 entries + 3 hooks (load SQL files in the batch `out/`).
+3. Lovable publish of commit `71a9b751` or later.
 
 ## QA result / Done decision
 
