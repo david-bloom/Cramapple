@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0137 — Open TASK-0067 (Unit Reference Content) and Amend TASK-0066 D3 So Hooks Require a Reference Entry — DECISION-0105 (2026-10-08)
 - APPROVAL-0136 — Memory Hooks Scope (D1–D7 Plus Diagram Parts) and Opening of TASK-0066 — DECISION-0104 (2026-10-08)
 - APPROVAL-0135 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9) (2026-10-08)
 - APPROVAL-0134 — Publish 18 AP Chemistry Unit 2 Practice MCQs (9 Seeds, 9 Variants; Topics 2.1–2.6) From the Generate-and-Select Pipeline (Production) — TASK-0065
@@ -2012,6 +2013,19 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0137 — Open TASK-0067 (Unit Reference Content) and Amend TASK-0066 D3 So Hooks Require a Reference Entry — DECISION-0105
+
+**Date:** 2026-10-08  
+**Approved By:** David Bloom (2026-10-08 Claude session): "Approve R1-R4 as recommended and open TASK-0067."  
+**Related:** `docs/tasks/TASK-0067-UNIT-REFERENCE-CONTENT.md`, `docs/tasks/TASK-0066-MEMORY-HOOKS.md`, `DECISION-0105`, `DECISION-0104`, PR #388  
+**Decision:** Approved
+
+**Approved scope:** `TASK-0067` at Standard tier for schema design, Development apply, and fact-pack extraction plus checker verification in Development, for AP Statistics Unit 1 and AP Chemistry Unit 4; `TASK-0066` Phase A merged into the same Development migration with the D3 amendment.
+
+**Not approved by this entry:** the Production migration apply, any Production publish of reference entries or hooks, and the Lovable publish. Each is its own Hard-Gate approval. Nothing is built yet.
+
+**Rollback:** none needed; docs only.
 
 ## APPROVAL-0136 — Memory Hooks Scope (D1–D7 Plus Diagram Parts) and Opening of TASK-0066 — DECISION-0104
 

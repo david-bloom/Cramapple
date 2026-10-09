@@ -87,7 +87,8 @@ records.
 | `UX-002` | Question and Answer Review Portal | High | In Progress | Tutor, AP Reader, Learning Quality, accessibility, security, and Product Owner review |
 | `UX-003` | Content Authoring and Revision Workbench | High | In Progress | Author, Learning Quality, accessibility, security, rights, and Product Owner review |
 | `UX-004` | Student-Provided Question Intake | High | In Progress | Learning Quality, accessibility, security, privacy, rights, academic-integrity, and Product Owner review |
-| `TASK-0066` | Memory Hooks: Schema, Pilot Authoring, and Student Surfaces | Medium | Approved, not started (`DECISION-0104` / `APPROVAL-0136`) | Production migration apply, Production publish of pilot hooks, and Lovable publish are each Hard Gates; schema sequenced after `TASK-0054`'s key decision |
+| `TASK-0066` | Memory Hooks: Schema, Pilot Authoring, and Student Surfaces | Medium | Approved, not started; sequenced with `TASK-0067` (`DECISION-0105`) | Production migration, Production publish, and Lovable publish are each Hard Gates |
+| `TASK-0067` | Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams | Medium | Approved, not started (`DECISION-0105` / `APPROVAL-0137`) | Production migration, Production publish, and Lovable publish are each Hard Gates |
 
 ## 5. P0 Legal, Privacy, and Trust Backlog
 
