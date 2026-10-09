@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Close: TASK-0068 BYOQ Photo Extraction — Live for Students, QA Cycle Complete, Hand-Drawn Leverage Analysis (2026-10-09): plan → build → backend QA (Fail→Pass) → Sol browser QA (Fail→rerun pass; draft-routing P2 fixed) → Vercel review defect fixed → PR #393 merged. Open: Done decision (topic-ranking gate, S9 expiry checks), SOL-08 hint copy. Close record: `docs/handoffs/SESSION_CLOSE_2026_10_09_TASK0068_BYOQ_PHOTO_EXTRACTION.md`.
 - TASK-0068 BYOQ Photo Extraction Built, QA'd and Deployed to Production for All Students (APPROVAL-0141) (2026-10-09): migration + extraction module + extract_question + phone review ops; benchmark 210 pages, gpt-4.1-mini chosen; backend QA Fail → three fixes → Pass; Dev and Prod smokes green; Lovable App published; Sol browser QA script written. Topic top-3 below gate, recorded.
 - Unit Reference Content + Memory Hooks Moved to Production (APPROVAL-0140): Migration, 102 Entries + 3 Hooks, Lovable Publish of 71a9b751 (2026-10-09): CLI-driven apply and loads (no retyping), objects md5-identical to Development, data QA and RPC probes pass; PR #390 merged by David; CLI relinked to Development.
 - TASK-0067/0066 Phase C Built in Lovable Preview (commit 71a9b751), Tests 770/770 (2026-10-09): reference pane, Deep Dive, Copy notes, Learn More; baseline fixture pins today's output for Production's payload; DECISION-0106 renumbered to 0107 (PR #391 had reserved 0106). Not published; Production untouched.
@@ -405,6 +406,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Session Close: TASK-0068 BYOQ Photo Extraction — 2026-10-09
+
+**Context:** David: "document according to end of session protocol with extra attention on how BYOQ can be leveraged by the hand drawn response system. Then end the session."
+
+**Recorded:** `docs/handoffs/SESSION_CLOSE_2026_10_09_TASK0068_BYOQ_PHOTO_EXTRACTION.md` (what happened, where things are, open items, and eight concrete ways the hand-drawn response path can reuse BYOQ: student-confirmed transcript before grading, the extraction module as a drawn-response reader template, the benchmark harness with synthetic drawn fixtures, capability-scoped phone review, re-read-then-fill semantics, spend accounting, same-device QA technique, and what not to carry over). `docs/INDEX.md` row; `TASK-0068` points at the close record.
+
+**State:** BYOQ photo extraction is live in Production for all students (`APPROVAL-0141`); PR #393 merged (`21836c4f`). **Open:** the Done decision (Sol's sign-off withheld on topic ranking and S9 expiry checks), SOL-08 hint copy (needs a `HintGate` copy prop), Sol's eight test questions kept until the 30-day purge. **Next owner:** David. **Next action:** decide the topic-accuracy gate (amend or invest) and the Done decision; optionally open the drawn-response transcript task sketched in the close record.
+
 ## TASK-0068 BYOQ Photo Extraction Built, QA'd and Deployed to Production — 2026-10-09
 
 **Context:** David: "finish executing the plan and moving the new capabilities to production for use by students." Recorded as `APPROVAL-0141` (Gates B–D).

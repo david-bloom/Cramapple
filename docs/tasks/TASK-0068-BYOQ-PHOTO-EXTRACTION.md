@@ -77,7 +77,7 @@ Independent context, per plan §7.3: contract tests (schema closure, allowlist r
 
 ## Implementation Notes
 
-See `docs/handoffs/TASK0068_BYOQ_PHOTO_EXTRACTION_EXECUTION_2026_10_09.md` (what was built, benchmark, deployments, status log). Backend on PR #393; frontend in Lovable App commit `ea999aad` (published 2026-10-09).
+Session close: `docs/handoffs/SESSION_CLOSE_2026_10_09_TASK0068_BYOQ_PHOTO_EXTRACTION.md`. See `docs/handoffs/TASK0068_BYOQ_PHOTO_EXTRACTION_EXECUTION_2026_10_09.md` (what was built, benchmark, deployments, status log). Backend on PR #393; frontend in Lovable App commit `ea999aad` (published 2026-10-09).
 
 ## QA Review
 
