@@ -1,9 +1,9 @@
 # TASK-0067 — Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams (Companion to Memory Hooks)
 
-**Status:** Approved, not started (2026-10-08, `DECISION-0105` / `APPROVAL-0137`; R1–R4 as recommended). Runs together with `TASK-0066` Phase A in one Development migration.
+**Status:** Phase A (schema) and Phase B (pilot content) **done in Development** 2026-10-09; Production apply and publish awaiting Hard-Gate approval; Phase C (Lovable surfaces) not started. Approved 2026-10-08 (`DECISION-0105` / `APPROVAL-0137`).
 **Tier:** Standard for schema design, Development apply, and authoring in Development; **Hard-Gate** for the Production migration, Production publish, and Lovable publish.
 **Owner:** Claude session. **Product Owner:** David Bloom.
-**Branch / PR:** none yet (open on the first implementation session; shared with `TASK-0066`).
+**Branch / PR:** `claude/task-0067-0066-phase-a` (shared with `TASK-0066`).
 **Source:** David, 2026-10-08: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them."
 **Related:** `TASK-0066` (memory hooks), `TASK-0054` (reference content on the taxonomy), `TASK-0006` (visual stimulus and rendering), `TASK-0021` (Biology prompt visuals), `TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md` (unit reference, Phase 0), `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3 (skill scaffolds), `docs/new_design/CONTENT_AND_PEDAGOGY.md` (reference materials: topic, skills, vocabulary).
 
@@ -96,6 +96,34 @@ notes; any change to `topic_explainers` fields; a diagram-rendering system (that
 Scope approved (`APPROVAL-0137`). The Production migration, the Production publish of pilot
 entries, and the Lovable publish are each a separate Hard Gate.
 
-## Implementation summary / Test results / QA result / Done decision
+## Implementation summary (2026-10-09)
 
-None yet.
+- **Phase A:** migration `supabase/migrations/20261009003237_task0067_unit_reference_entries_and_memory_hooks.sql`
+  (filename = the version Development recorded): `app.unit_reference_entries`, `app.topic_memory_hooks`
+  (required `reference_entry_id`), RLS forced, publish guards, `public.unit_reference_entries` and
+  `public.topic_memory_hooks` views in the same migration, `public.get_topic_point_guides` gains
+  `reference[]` and `memoryHooks[]` only. Keyed as `topic_explainers` (TASK-0054's FK has not landed).
+  QA script `scripts/qa/unit_reference_and_memory_hooks_qa.sql`.
+- **Phase B:** batch `scripts/content-seed/task0067-reference-pilot-2026-10-09/` (README has provenance,
+  method, results, cost). Extractor Claude Sonnet 5.5; checkers Gemini 3.5 Flash + GPT-6 Sol; reject-only
+  veto Claude Opus 5.5. Loaded to Development: **79 Statistics Unit 1 entries, 22 Chemistry Unit 4 entries,
+  2 hooks** (z-score formula sentence; OIL RIG). One Statistics entry escalated; SOCS hook not loaded
+  (see README). $20.29.
+
+## Test results
+
+Development: QA checks pass (objects, RLS forced, no anon grants, RPC keys, triggers; zero orphans,
+owner unit matches taxonomy, published hooks on published entries, `published_at` set, 101/2 via views,
+registry subject keys). RPC probes for Stats 1.7, Stats Unit 1, Chem 4.9 and a subject with no entries
+behaved as specified. Functional test of both guard triggers passed and was rolled back.
+
+## Open for the Product Owner
+
+1. Ratify the checker pick (Gemini 3.5 Flash + GPT-6 Sol; veto Opus 5.5), made by the session.
+2. SOCS: round-3 re-extraction of its entry, or allow hook order to differ from entry order when the CED names the hook.
+3. Escalated Statistics 1.13 "Scope of conclusions from an experiment": owner 1.10 or 1.13.
+4. Production migration apply, Production publish of the 101 + 2 rows, and the Lovable publish: three Hard Gates.
+
+## QA result / Done decision
+
+Not yet. Phase C unbuilt; Production untouched.

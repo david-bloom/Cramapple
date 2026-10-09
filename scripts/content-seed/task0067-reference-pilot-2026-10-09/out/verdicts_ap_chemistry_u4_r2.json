@@ -1,0 +1,131 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u4-r2-001",
+    "control": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the three reaction types (acid-base, redox, and precipitation) and their definitions as explicitly stated in EK 4.7.A.1 through 4.7.A.5. The topic codes are correct and belong to Unit 4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 4.7 first requires identifying reactions as \u201cacid-base, oxidation-reduction, or precipitation.\u201d The items match 4.7.A.1\u2013A.5: acid-base reactions transfer protons; redox reactions transfer electrons, indicated by oxidation-number changes; and precipitation reactions frequently produce an \u201cinsoluble or sparingly soluble ionic compound\u201d when aqueous ions are mixed. Topics 4.8 and 4.9 further use acid-base and redox concepts, respectively. The entry\u2019s wording does not require a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a: Each item matches the CED. The list order follows LO 4.7.A, 'Identify a reaction as acid-base, oxidation-reduction, or precipitation.' Acid-base matches 4.7.A.1: 'Acid-base reactions involve transfer of one or more protons (H+ ions) between chemical species.' Redox matches 4.7.A.2: 'transfer of one or more electrons between chemical species, as indicated by changes in oxidation numbers'. It also matches 4.7.A.3: 'electrons are transferred from the species that is oxidized to the species that is reduced.' The combustion clause matches 4.7.A.2: 'In the case of hydrocarbons, carbon dioxide and water are products of complete combustion.' Precipitation matches 4.7.A.5: 'mixing ions in aqueous solution to produce an insoluble or sparingly soluble ionic compound. All sodium, potassium, ammonium, and nitrate salts are soluble in water.' The entry drops 'in which a species reacts with oxygen gas' and 'in water', but neither omission makes a statement wrong. b: Topic 4.7 is the first place the unit requires classifying reactions; 4.1\u20134.6 never define these types. Topic 4.8 uses the proton-transfer definition: 4.8.A.1 says 'a Br\u00f8nsted-Lowry acid is a proton donor and a Br\u00f8nsted-Lowry base is a proton acceptor.' Topic 4.9 uses the electron-transfer definition through half-reactions: 4.9.A.1 says 'Balanced chemical equations for redox reactions can be constructed from half-reactions.' All three codes are Unit 4 topics. c: LO 4.7.A directly requires students to identify these three reaction types. d: The wording closely tracks the CED. It avoids the excluded terms 'reducing agent' and 'oxidizing agent'. It lists only the solubility rules that 4.7.A.5 itself states, consistent with that topic's exclusion statement. No caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u4-r2-002",
+    "control": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements of Topic 4.9 (Oxidation-Reduction Reactions), specifically Learning Objective 4.9.A and Essential Knowledge 4.9.A.1, which state that balanced chemical equations for redox reactions can be constructed from half-reactions. The caution correctly addresses common student errors regarding electron placement in half-reactions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 4.9.A.1 states, \u201cBalanced chemical equations for redox reactions can be constructed from half-reactions.\u201d CED 4.2.A.2 states that equations demonstrate conservation of mass and charge, and 4.7.A.3 states that electrons are transferred from the species oxidized to the species reduced. The body and caution are consistent with those requirements. Topic 4.9 is the first listed topic requiring construction of a redox equation from half-reactions."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a: The body ('Write the oxidation and reduction half-reactions and combine them into one balanced redox equation that conserves atoms and charge') matches 4.9.A.1, 'Balanced chemical equations for redox reactions can be constructed from half-reactions.' It is also consistent with 4.2.A.2, 'Equations thus demonstrate that mass and charge are conserved in chemical reactions,' and with 4.7.A.3, 'electrons are transferred from the species that is oxidized to the species that is reduced.' b: Topic 4.9 is the first place in this unit that requires half-reaction construction. Topic 4.7 covers identifying redox reactions and assigning oxidation numbers, not half-reactions. topic_codes ['4.9'] is correct. c: LO 4.9.A, 'Represent a balanced redox reaction equation using half-reactions,' directly requires students to apply this. d: The body wording already closely follows the CED, so no caution is needed. The caution that is present imports out-of-unit content. Its example '(e.g., at the anode)' relies on electrochemical-cell context that appears nowhere in these Unit 4 pages, whose redox scope is limited to 4.7.A.2\u20134.7.A.4 and 4.9.A.1. The claim 'electrons appear as a product' in oxidation is chemically correct. However, the cell-electrode framing is not grounded in these pages. It also adds a directional rule tied to cell electrodes rather than the point-earning idea in this unit: balancing atoms and charge so that the electrons lost equal the electrons gained. Remove the anode reference, or replace the caution with one grounded in 4.9.A.1 and 4.2.A.2, for example: multiply the half-reactions so the electrons cancel before adding them."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a: The body agrees with 4.9.A.1, \"Balanced chemical equations for redox reactions can be constructed from half-reactions.\" Its requirement that the combined equation conserve atoms and charge matches 4.2.A.2, \"Equations thus demonstrate that mass and charge are conserved in chemical reactions.\" Requiring charge conservation implicitly covers equalizing electrons lost and gained. The body adds no symbols or list members that contradict the CED. b: Topic 4.9 is the first topic in Unit 4 to require building redox equations from half-reactions. LO 4.9.A reads \"Represent a balanced redox reaction equation using half-reactions.\" Topic 4.7 only covers identifying redox reactions through electron transfer and oxidation numbers (4.7.A.2\u20134.7.A.4), so 4.9 is the correct owner. topic_codes [\"4.9\"] is a topic of this unit. c: LO 4.9.A and EK 4.9.A.1 directly require students to produce this. d: The caution is chemically correct. Oxidation means electron loss, so electrons appear on the product side of the oxidation half-reaction, consistent with 4.7.A.3, \"electrons are transferred from the species that is oxidized to the species that is reduced.\" Writing an oxidized species in the reduction direction is a real error. The \"(e.g., at the anode)\" example draws on electrochemistry from a later unit and is not on these pages. It is accurate, though, and only a parenthetical, so it does not make the caution incorrect. The body's wording matches the CED's phrasing, so no point-earning wording mismatch needs a caution."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

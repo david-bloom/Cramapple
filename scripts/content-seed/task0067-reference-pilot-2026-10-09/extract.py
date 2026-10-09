@@ -46,21 +46,25 @@ def main():
     ap.add_argument("--pages", required=True)            # e.g. 28-59
     ap.add_argument("--factpack", required=True)         # path to a text file with the unit's fact-pack section
     ap.add_argument("--model", default=EXTRACTOR)
+    ap.add_argument("--only", default=None)   # JSON file: [{"owner_topic_code","title"}] -> extract these only (round 2)
+    ap.add_argument("--round", type=int, default=1)
     a = ap.parse_args()
     first, last = [int(x) for x in a.pages.split("-")]
     ced = ced_pages(a.subject, first, last)
     fp = pathlib.Path(a.factpack).read_text()
+    only = json.loads(pathlib.Path(a.only).read_text()) if a.only else None
+    only_txt = ("" if not only else "\n\n=== EXTRACT ONLY THESE ENTRIES (one each; same schema; tag topic_codes only with topics of this unit whose learning objectives actually use the entry) ===\n" + json.dumps(only, indent=1))
     user = (f"SUBJECT: {a.subject_key}  UNIT: {a.unit}\n\n=== CED UNIT PAGES (governs) ===\n{ced}\n\n"
             f"=== CRAMAPPLE FACT-PACK SECTION (paraphrase; the CED governs where they differ) ===\n{fp}\n\n"
-            f"=== OUTPUT SCHEMA ===\n{SCHEMA}")
+            f"=== OUTPUT SCHEMA ===\n{SCHEMA}" + only_txt)
     out_dir = HERE / "out"; out_dir.mkdir(exist_ok=True)
     parsed, raw = chat_json(a.model, SYSTEM, user, out_dir / "logs_extract", f"{a.subject_key}_u{a.unit}", max_tokens=16000)
     entries = parsed.get("entries", [])
     for i, e in enumerate(entries):
-        e["candidate_id"] = f"{a.subject_key}-u{a.unit}-{i+1:03d}"
+        e["candidate_id"] = f"{a.subject_key}-u{a.unit}-r{a.round}-{i+1:03d}"
         e["subject_key"] = a.subject_key; e["unit_number"] = a.unit
         e["extractor"] = a.model
-    path = out_dir / f"candidates_{a.subject_key}_u{a.unit}.json"
+    path = out_dir / (f"candidates_{a.subject_key}_u{a.unit}.json" if a.round == 1 else f"candidates_{a.subject_key}_u{a.unit}_r{a.round}.json")
     path.write_text(json.dumps(entries, indent=2))
     kinds = {}
     for e in entries: kinds[e.get("kind")] = kinds.get(e.get("kind"), 0) + 1

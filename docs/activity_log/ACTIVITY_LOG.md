@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0067 + TASK-0066 Phase A and B Done in Development: Reference Tables + Hooks Schema (20261009003237), 101 Entries + 2 Hooks Loaded for Stats U1 / Chem U4, $20.29 (2026-10-09): two-checker + veto pipeline, controls 6/6 both units after one flawed control was replaced; aggregation bug fixed and recomputed; SOCS and one escalation for the PO; Production untouched; PR open for David.
 - TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended (DECISION-0105, APPROVAL-0137) (2026-10-08): R1–R4 as recommended; one Development migration for both tables; hooks require a reference entry. Docs only; nothing built.
 - TASK-0066 Blocked on Companion Content; TASK-0067 (Unit Reference Content: Formulas, Vocabulary, Lists, Diagrams) Drafted as Proposed (2026-10-08): David's point checked against the schema and task records; nothing structured exists for hooks to attach to; R1–R4 await David. Docs only.
 - Memory Hooks Approved (DECISION-0104, APPROVAL-0136) and TASK-0066 Opened; Diagram Parts Added at Micah's Request (2026-10-08): D1–D7 as recommended; formulas were already in scope; `diagram_parts` kind added with a reference to existing visual-stimulus assets. Docs only; nothing built.
@@ -399,6 +400,26 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0067 + TASK-0066 Phase A and B Done in Development — 2026-10-09
+
+**Context:** David: "Go ahead and start the implementation branch." Branch `claude/task-0067-0066-phase-a`.
+
+**Phase A (schema, Development):** one migration, two tables (`app.unit_reference_entries`, `app.topic_memory_hooks` with a required `reference_entry_id`), RLS forced, publish guards, two `security_invoker` views in the same migration, `public.get_topic_point_guides` returns `reference[]` and `memoryHooks[]` with every existing key unchanged (Dev and Prod definitions were md5-identical before the change). Keyed as `topic_explainers` because `TASK-0054`'s FK has not landed. Applied through the MCP; file renamed to the recorded version `20261009003237`. QA script added; 6/6 checks; guard triggers exercised and rolled back.
+
+**Phase B (pilot content, Development):** `scripts/content-seed/task0067-reference-pilot-2026-10-09/`. Extraction from the CED PDF pages (pdftotext) plus the fact-pack section by Claude Sonnet 5.5; checkers Gemini 3.5 Flash and GPT-6 Sol (picked by the session from the live roster, pending David's ratification); reject-only veto Claude Opus 5.5; smoke 12/12. Loaded: **79 Statistics Unit 1 entries, 22 Chemistry Unit 4 entries, 2 hooks** via `supabase db query --linked -f` (no retyping). Verified independently after load (counts, orphans, units, views, RPC probes).
+
+**Found on the way:**
+- One of my Chemistry controls was wrong (CED 4.5 does name the ideal gas law); batch voided, control replaced with Hess's law, controls re-run 6/6. Checkers were right.
+- A checker-aggregation bug let a rejected hook reject its entry; fixed, every verdict recomputed from stored samples, one entry changed.
+- The Statistics CED names SOCS itself; both checkers accepted it; the veto rejected it twice on an entry-order mismatch. Not loaded under the no-hand-edit rule; for David.
+- One escalation (Statistics 1.13 scope of conclusions: owner 1.10 vs 1.13); for David.
+- 11 of 14 round-1 Statistics rejections were over-tagged `topic_codes`; a stateless round 2 cleared 12 of 13.
+- Cost $20.29, 56% of it the Opus veto.
+
+**Not done:** Production migration, Production publish, Phase C (Lovable surfaces). Each is its own Hard Gate / next step. The PR carries a migration, so it is David's to merge.
+
+**Next owner:** David Bloom (ratify checkers; decide SOCS and the escalation; approve or defer the Production apply). **Next engineering action:** Phase C in Lovable preview (Deep Dive "Remember it" block, unit-reference list, Open Hand pane) reading `reference[]`/`memoryHooks[]` from the RPC on Development.
+
 ## TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended — 2026-10-08
 
 **Context:** David: "Approve R1-R4 as recommended and open TASK-0067."

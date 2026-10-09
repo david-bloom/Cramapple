@@ -1,23 +1,142 @@
 [
-  {"candidate_id": "ctrl-chem-01-wrong-def", "control": "wrong definition (acid as proton acceptor)", "subject_key": "ap_chemistry", "unit_number": 4,
-   "owner_topic_code": "4.8", "topic_codes": ["4.8"], "kind": "vocabulary", "title": "Brønsted-Lowry acid",
-   "body": "A species that accepts a proton in a reaction.", "items": [], "caution": null, "ced_evidence": "4.8", "hooks": []},
-  {"candidate_id": "ctrl-chem-02-excluded", "control": "explicitly excluded by the CED (reducing/oxidizing agent terms)", "subject_key": "ap_chemistry", "unit_number": 4,
-   "owner_topic_code": "4.7", "topic_codes": ["4.7", "4.9"], "kind": "vocabulary", "title": "Oxidizing agent",
-   "body": "The species that is reduced and so causes another species to be oxidized.", "items": [], "caution": null, "ced_evidence": "4.7", "hooks": []},
-  {"candidate_id": "ctrl-chem-03-wrong-owner", "control": "wrong owner topic (titration vocabulary is 4.6, not 4.2)", "subject_key": "ap_chemistry", "unit_number": 4,
-   "owner_topic_code": "4.2", "topic_codes": ["4.2", "4.6"], "kind": "vocabulary", "title": "Equivalence point",
-   "body": "The point in a titration at which the analyte has been completely consumed by the titrant.", "items": [], "caution": null, "ced_evidence": "4.6", "hooks": []},
-  {"candidate_id": "ctrl-chem-04-bad-hook", "control": "hook expansion inverted (OIL as oxidation is gain)", "subject_key": "ap_chemistry", "unit_number": 4,
-   "owner_topic_code": "4.9", "topic_codes": ["4.7", "4.9"], "kind": "convention", "title": "Oxidation and reduction by electron transfer",
-   "body": "Oxidation is loss of electrons; reduction is gain of electrons. In an oxidation half-reaction the electrons lost appear as a product.", "items": [], "caution": null, "ced_evidence": "4.7, 4.9",
-   "hooks": [{"kind": "acronym", "hook_text": "OIL RIG", "expands_to": [{"cue": "OIL", "means": "oxidation is gain"}, {"cue": "RIG", "means": "reduction is loss"}], "when_to_use": "when writing half-reactions", "caution": null, "source_note": "public-domain-common"}]},
-  {"candidate_id": "ctrl-chem-05-wrong-list", "control": "wrong list member (Ca2+ is not among the always-soluble ions the CED names)", "subject_key": "ap_chemistry", "unit_number": 4,
-   "owner_topic_code": "4.7", "topic_codes": ["4.7"], "kind": "list_sequence", "title": "Ions whose salts are always soluble",
-   "body": "The ions the CED names as forming soluble salts.",
-   "items": [{"label": "Na+", "meaning": "sodium"}, {"label": "Ca2+", "meaning": "calcium"}, {"label": "NH4+", "meaning": "ammonium"}, {"label": "NO3-", "meaning": "nitrate"}],
-   "caution": null, "ced_evidence": "4.7.A.5", "hooks": []},
-  {"candidate_id": "ctrl-chem-06-other-unit", "control": "content from another unit (ideal gas law is Unit 3)", "subject_key": "ap_chemistry", "unit_number": 4,
-   "owner_topic_code": "4.5", "topic_codes": ["4.5"], "kind": "formula", "title": "Ideal gas law",
-   "body": "PV = nRT", "items": [], "caution": null, "ced_evidence": "4.5", "hooks": []}
+  {
+    "candidate_id": "ctrl-chem-01-wrong-def",
+    "control": "wrong definition (acid as proton acceptor)",
+    "subject_key": "ap_chemistry",
+    "unit_number": 4,
+    "owner_topic_code": "4.8",
+    "topic_codes": [
+      "4.8"
+    ],
+    "kind": "vocabulary",
+    "title": "Brønsted-Lowry acid",
+    "body": "A species that accepts a proton in a reaction.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "4.8",
+    "hooks": []
+  },
+  {
+    "candidate_id": "ctrl-chem-02-excluded",
+    "control": "explicitly excluded by the CED (reducing/oxidizing agent terms)",
+    "subject_key": "ap_chemistry",
+    "unit_number": 4,
+    "owner_topic_code": "4.7",
+    "topic_codes": [
+      "4.7",
+      "4.9"
+    ],
+    "kind": "vocabulary",
+    "title": "Oxidizing agent",
+    "body": "The species that is reduced and so causes another species to be oxidized.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "4.7",
+    "hooks": []
+  },
+  {
+    "candidate_id": "ctrl-chem-03-wrong-owner",
+    "control": "wrong owner topic (titration vocabulary is 4.6, not 4.2)",
+    "subject_key": "ap_chemistry",
+    "unit_number": 4,
+    "owner_topic_code": "4.2",
+    "topic_codes": [
+      "4.2",
+      "4.6"
+    ],
+    "kind": "vocabulary",
+    "title": "Equivalence point",
+    "body": "The point in a titration at which the analyte has been completely consumed by the titrant.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "4.6",
+    "hooks": []
+  },
+  {
+    "candidate_id": "ctrl-chem-04-bad-hook",
+    "control": "hook expansion inverted (OIL as oxidation is gain)",
+    "subject_key": "ap_chemistry",
+    "unit_number": 4,
+    "owner_topic_code": "4.9",
+    "topic_codes": [
+      "4.7",
+      "4.9"
+    ],
+    "kind": "convention",
+    "title": "Oxidation and reduction by electron transfer",
+    "body": "Oxidation is loss of electrons; reduction is gain of electrons. In an oxidation half-reaction the electrons lost appear as a product.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "4.7, 4.9",
+    "hooks": [
+      {
+        "kind": "acronym",
+        "hook_text": "OIL RIG",
+        "expands_to": [
+          {
+            "cue": "OIL",
+            "means": "oxidation is gain"
+          },
+          {
+            "cue": "RIG",
+            "means": "reduction is loss"
+          }
+        ],
+        "when_to_use": "when writing half-reactions",
+        "caution": null,
+        "source_note": "public-domain-common"
+      }
+    ]
+  },
+  {
+    "candidate_id": "ctrl-chem-05-wrong-list",
+    "control": "wrong list member (Ca2+ is not among the always-soluble ions the CED names)",
+    "subject_key": "ap_chemistry",
+    "unit_number": 4,
+    "owner_topic_code": "4.7",
+    "topic_codes": [
+      "4.7"
+    ],
+    "kind": "list_sequence",
+    "title": "Ions whose salts are always soluble",
+    "body": "The ions the CED names as forming soluble salts.",
+    "items": [
+      {
+        "label": "Na+",
+        "meaning": "sodium"
+      },
+      {
+        "label": "Ca2+",
+        "meaning": "calcium"
+      },
+      {
+        "label": "NH4+",
+        "meaning": "ammonium"
+      },
+      {
+        "label": "NO3-",
+        "meaning": "nitrate"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "4.7.A.5",
+    "hooks": []
+  },
+  {
+    "candidate_id": "ctrl-chem-06b-other-unit",
+    "control": "content from another unit (Hess's law is Unit 6 thermochemistry)",
+    "subject_key": "ap_chemistry",
+    "unit_number": 4,
+    "owner_topic_code": "4.5",
+    "topic_codes": [
+      "4.5"
+    ],
+    "kind": "formula",
+    "title": "Hess's law",
+    "body": "\\Delta H_{rxn} = \\sum \\Delta H_{steps}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "4.5",
+    "hooks": []
+  }
 ]

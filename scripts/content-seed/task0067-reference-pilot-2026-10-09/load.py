@@ -21,8 +21,12 @@ def main():
     ap.add_argument("--batch", required=True)   # e.g. task0067-reference-pilot-2026-10-09
     a = ap.parse_args()
     out = HERE / "out"
-    cands = {c["candidate_id"]: c for c in json.loads((out / f"candidates_{a.subject_key}_u{a.unit}.json").read_text())}
-    verdicts = json.loads((out / f"verdicts_{a.subject_key}_u{a.unit}.json").read_text())
+    cands, verdicts = {}, []
+    for cp in sorted(out.glob(f"candidates_{a.subject_key}_u{a.unit}*.json")):
+        for c in json.loads(cp.read_text()): cands[c["candidate_id"]] = c
+    for vp in sorted(out.glob(f"verdicts_{a.subject_key}_u{a.unit}*.json")):
+        if "_pre_recompute" in vp.name or "_void" in vp.name: continue
+        verdicts += json.loads(vp.read_text())
     accepted = [v for v in verdicts if v["accepted"] and not v["control"] and v["candidate_id"] in cands]
     rejected = [v for v in verdicts if not v["accepted"] and not v["control"]]
     def tkey(c):

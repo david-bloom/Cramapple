@@ -33,14 +33,28 @@ def judge(model, ced, entry, log_dir, tag):
     return parsed
 
 
+def _entry_flag(v):
+    return not v.get("entry", {}).get("accept", False)
+
+
+def _hook_flags(v):
+    return {h.get("hook_text"): not h.get("accept", False) for h in v.get("hooks", [])}
+
+
 def verdict_for(model, ced, entry, log_dir, cid):
+    """Entry and hook verdicts are independent. A flag on either is re-sampled once; only a repeated
+    flag counts. Returns {"accept": entry_ok, "hooks": {hook_text: ok}, "samples": [...]}."""
     v1 = judge(model, ced, entry, log_dir, f"{cid}:1")
-    flagged = not v1.get("entry", {}).get("accept", False) or any(not h.get("accept", False) for h in v1.get("hooks", []))
-    if not flagged:
-        return {"accept": True, "samples": [v1]}
-    v2 = judge(model, ced, entry, log_dir, f"{cid}:2")   # re-sample once; only a repeated flag counts
-    flagged2 = not v2.get("entry", {}).get("accept", False) or any(not h.get("accept", False) for h in v2.get("hooks", []))
-    return {"accept": not flagged2, "samples": [v1, v2]}
+    e1, h1 = _entry_flag(v1), _hook_flags(v1)
+    if not e1 and not any(h1.values()):
+        return {"accept": True, "hooks": {k: True for k in h1}, "samples": [v1]}
+    v2 = judge(model, ced, entry, log_dir, f"{cid}:2")
+    e2, h2 = _entry_flag(v2), _hook_flags(v2)
+    hooks = {}
+    for h in entry.get("hooks") or []:
+        k = h.get("hook_text")
+        hooks[k] = not (h1.get(k, True) and h2.get(k, True))   # rejected only if flagged twice (missing = flagged)
+    return {"accept": not (e1 and e2), "hooks": hooks, "samples": [v1, v2]}
 
 
 def main():
@@ -50,16 +64,18 @@ def main():
     ap.add_argument("--controls", default=None)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--workers", type=int, default=6)
+    ap.add_argument("--round", type=int, default=1)
     a = ap.parse_args()
     first, last = [int(x) for x in a.pages.split("-")]
     ced = ced_pages(a.subject, first, last)
     out = HERE / "out"
-    cands = json.loads((out / f"candidates_{a.subject_key}_u{a.unit}.json").read_text())
+    sfx = "" if a.round == 1 else f"_r{a.round}"
+    cands = json.loads((out / f"candidates_{a.subject_key}_u{a.unit}{sfx}.json").read_text())
     if a.limit: cands = cands[:a.limit]
     if a.controls:
         cands = cands + json.loads(pathlib.Path(a.controls).read_text())
     log_dir = out / f"logs_check_{a.subject_key}_u{a.unit}"
-    vpath = out / f"verdicts_{a.subject_key}_u{a.unit}.json"
+    vpath = out / f"verdicts_{a.subject_key}_u{a.unit}{sfx}.json"
     results = json.loads(vpath.read_text()) if vpath.exists() else []
     done = {r["candidate_id"] for r in results}
     todo = [c for c in cands if c["candidate_id"] not in done]
@@ -76,12 +92,8 @@ def main():
         accepted = both and (veto is None or veto["accept"])
         hook_ok = {}
         for h in c.get("hooks") or []:
-            ok = True
-            for m, v in list(per.items()) + ([(VETO, veto)] if veto else []):
-                last_s = v["samples"][-1]
-                hv = next((x for x in last_s.get("hooks", []) if x.get("hook_text") == h.get("hook_text")), None)
-                ok = ok and bool(hv and hv.get("accept"))
-            hook_ok[h["hook_text"]] = ok
+            k = h["hook_text"]
+            hook_ok[k] = accepted and all(v["hooks"].get(k, False) for v in list(per.values()) + ([veto] if veto else []))
         return {"candidate_id": cid, "control": c.get("control"), "accepted": accepted,
                 "hooks_accepted": hook_ok, "checkers": per, "veto": veto}
 
