@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production) (2026-10-09)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
@@ -2016,6 +2017,21 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production)
+
+**Date:** 2026-10-09  
+**Approved By:** David Bloom (2026-10-09 Claude session), after the Units 1-3 FRQ coverage audit: "Write the labels to the database." Earlier instruction in the same session: "We have a question labeling protocol. Find it and use it. Do only units 1-3 for every subject and then stop."  
+**Related:** `docs/qa/FRQ_UNITS_1_3_TOPIC_COVERAGE_AUDIT_2026_10_09.md`, batch `scripts/content-seed/frq-topic-labels-u13-2026-10-09/`, `handoffs/UNITS_1_3_PIPELINE_RUNBOOK_AND_SESSION_CLOSE_2026_10_04.md` §2-§3 (topic probe and voting rule). Number note: `APPROVAL-0142` is held by open PR #395.  
+**Decision:** Approved
+
+**Approved scope:** insert one `validated`, primary, topic-only row in `app.content_item_cells` on the published version of each of 181 published FRQs whose primary topic falls in Units 1-3 (Physics 2 registry units 9-11, Physics C: E&M 8-10). Nothing else changes: no content, no versions, no serving labels (`content_taxonomy_labels`), no skill cells.
+- Labels: the runbook topic probe (`subject_label_probe.mjs --mode=serving`, gemini-3.8-flash + deepseek-v4-pro + gpt-6.1-sol, 2 samples each, student-visible text, closed CED topic list): 154 at 6 of 6, 21 at 5 of 6; 6 CED-text tiebreaks by Claude where the vote was below 5 of 6 (source suffix `:ced_text_tiebreak`).
+- By subject: Precalculus 55, Physics 1 38, Physics C: E&M 29, Calculus BC 26, Physics C: Mechanics 17, Physics 2 14, Chemistry 2.
+- Held out, not written: `apcalcbc-frq-u13-015` (probe 3.6, serving label Unit 2) and `apprecalc-frq-np2-004` (probe 3.10, serving label Unit 2). The topic contradicts the item's existing unit label; resolve the unit first.
+- Method: one transaction behind an advisory lock; guards (each key resolves to one published FRQ version, topic exists at the stated unit, unit in 1-3, no existing topic or primary cell on the version); Production rehearsal raised and rolled back (`REHEARSAL OK: topic_cells=181`); commit; independent verify of `md5(content_key:topic_code)` against the local plan hash `189c15736205f01f633f003fedca9f09`.
+
+**Rollback:** delete the rows where `source like '%frq_topic_probe_2026_10_09%'`. They are new rows, nothing references them, and the table has no triggers.
 
 ## APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108
 
