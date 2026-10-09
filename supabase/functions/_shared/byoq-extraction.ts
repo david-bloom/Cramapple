@@ -313,6 +313,12 @@ export function proposalPatch(item: ProposalTarget, p: ExtractionProposal, previ
     patch.filled.push("item_type");
   }
   const effectiveType = patch.item_type ?? item.item_type;
+  // A re-run that turns an untouched MCQ into an FRQ must not leave the old
+  // proposed choices behind (an FRQ with choices fails readiness).
+  if (patch.item_type === "frq" && item.choices.length > 0 && previous !== null && sameChoices(item.choices, previous.choices)) {
+    patch.choices = [];
+    patch.filled.push("choices");
+  }
   const stemUnset = !item.stem || !item.stem.trim() || (previous !== null && item.stem === previous.stem);
   if (stemUnset && p.stem && p.stem !== item.stem) {
     patch.stem = p.stem;

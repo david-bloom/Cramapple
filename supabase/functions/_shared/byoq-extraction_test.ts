@@ -141,6 +141,21 @@ Deno.test("proposalPatch refreshes a field that still equals the previous propos
   assertEquals(proposalPatch(untouched, p1, prev).filled, []);
 });
 
+Deno.test("a re-run that flips an untouched MCQ to FRQ clears the stale proposed choices", () => {
+  const p1 = normalizeProposal(okRaw(), TOPICS)!;
+  const prev = { item_type: p1.item_type, stem: p1.stem, choices: p1.choices, topic_code: p1.topic_code };
+  const item = { item_type: "mcq" as const, stem: p1.stem, choices: p1.choices.map((t, i) => ({ choice_key: String.fromCharCode(65 + i), choice_text: t })), taxonomy_topic_id: null, topic_code: null };
+  const frq = normalizeProposal(okRaw({ item_type: "frq", choices: [] }), TOPICS)!;
+  const patch = proposalPatch(item, frq, prev);
+  assertEquals(patch.item_type, "frq");
+  assertEquals(patch.choices, []);
+  assert(patch.filled.includes("choices"));
+  // Student-edited choices are kept even when the type flips.
+  const edited = { ...item, choices: [{ choice_key: "A", choice_text: "mine" }, { choice_key: "B", choice_text: "also mine" }] };
+  const kept = proposalPatch(edited, frq, prev);
+  assertEquals(kept.choices, undefined);
+});
+
 Deno.test("subject_mismatch is not raised when no subject was named", () => {
   const p = normalizeProposal(okRaw({ looks_like_subject: false }), TOPICS)!;
   assert(warningsFor(p, true, true).includes("subject_mismatch"));
