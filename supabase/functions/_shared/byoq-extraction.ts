@@ -29,7 +29,7 @@
 import { BYOQ_LIMITS, type ChoiceInput } from "./byoq.ts";
 
 /** Bump when the prompt or schema changes: it is part of the idempotency key. */
-export const BYOQ_EXTRACTION_PROMPT_VERSION = "2026-10-09.1";
+export const BYOQ_EXTRACTION_PROMPT_VERSION = "2026-10-09.2";
 export const BYOQ_EXTRACTION_ENDPOINT = "https://api.openai.com/v1/responses";
 export const BYOQ_EXTRACTION_MIN_TIMEOUT_MS = 5_000;
 export const BYOQ_EXTRACTION_MAX_TIMEOUT_MS = 60_000;
@@ -160,6 +160,7 @@ export function buildExtractionSchema(topics: ExtractionTopicOption[]) {
 export function buildExtractionSystemPrompt() {
   return [
     "You transcribe a photographed homework or test question for a study app. The student will check and edit everything you return, so be exact and never invent.",
+    "VISIBLE TEXT ONLY. Every word you return in `stem`, `choices` and `captured_work` must be legible in the photo. Never complete, paraphrase, or supply text from memory. If the photo is blank, dark, out of focus, or shows no readable text at all, set `is_question` to false, leave `stem` empty and `choices` empty, and put 'no readable text' in `unreadable_regions`.",
     "Return only the JSON object that matches the schema.",
     "QUESTION ONLY. `stem` is the question as printed: the prompt, any passage, table, data, or set-up it needs, and sub-part labels like (a), (b). `choices` are the printed answer options in printed order with their letter or number labels removed. Keep sentence breaks as newlines.",
     "NOT THE QUESTION. Anything on the page that is not the question goes in `captured_work`, never in `stem` or `choices`: handwritten work, a circled, ticked, boxed, or underlined option, a written answer, an 'Answer:' line, a teacher's mark or comment. Describe briefly (e.g. 'Option C is circled. Working: 2x = 10, x = 5.'). Use an empty string when there is nothing.",
