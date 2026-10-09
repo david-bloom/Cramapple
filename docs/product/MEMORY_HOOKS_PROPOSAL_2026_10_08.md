@@ -181,7 +181,7 @@ before authoring. This list exists to show the element is thin by design, not a 
 | AP Chemistry | OIL RIG | oxidation = loss, reduction = gain | 4.9 (live) |
 | AP Chemistry | HOFBrINCl ("Have No Fear Of Ice Cold Beer") | the seven diatomic elements | ? |
 | AP Chemistry | "like dissolves like" | solubility by IMF similarity; **caution required** | 3.10 |
-| AP Biology | PMAT | mitosis phase order | 4.5? |
+| AP Biology | PMAT | mitosis phase order | 4.5 (EK 4.5.B.1 gives the P→M→A→T order) |
 | AP Biology | KPCOFGS | Linnaean ranks | **excluded, not in CED** |
 | AP Calculus AB/BC | "lo d-hi minus hi d-lo, over lo lo" | quotient rule structure | 2.9 |
 | AP Calculus BC | LIATE | integration-by-parts choice of u | 6.11 (BC) |
