@@ -81,7 +81,7 @@ See `docs/handoffs/TASK0068_BYOQ_PHOTO_EXTRACTION_EXECUTION_2026_10_09.md` (what
 
 ## QA Review
 
-**QA Verdict:** Backend — **Pass** (round 2, `docs/qa/QA_TASK0068_BACKEND_2026_10_09.md`; round 1 Fail with three Major findings, all fixed). Frontend/browser — pending Sol (`docs/qa/QA_TASK0068_SOL_BROWSER_SCRIPT_2026_10_09.md`).
+**QA Verdict:** Backend — **Pass** (round 2, `docs/qa/QA_TASK0068_BACKEND_2026_10_09.md`; round 1 Fail with three Major findings, all fixed). Frontend/browser — Sol round 1 proposed **Fail** (`docs/qa/QA_TASK0068_SOL_BROWSER_REPORT_2026_10_09.md`: SOL-01 P1 retry dropped an unsaved edit, plus P2 link/resume findings); all fixed and published; Sol rerun (`docs/qa/QA_TASK0068_SOL_BROWSER_RERUN_2026_10_09.md`) **passes** the retry, links, resume, context and layout checks; sign-off withheld on the topic-ranking gap (SOL-05) and a draft-practice routing P2 (fix in progress), with S9's expiry portions untested.
 
 ## Done Decision
 
