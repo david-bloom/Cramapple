@@ -81,5 +81,5 @@ Totals: 126 of 271 Unit 1-3 topics have no FRQ.
 ## Written to Production (APPROVAL-0143, 2026-10-09)
 181 of these probe labels (Units 1-3 only) were written as `validated` primary topic cells. Two were held because the
 probe topic contradicts the item's unit label: `apcalcbc-frq-u13-015` (3.6 vs Unit 2) and `apprecalc-frq-np2-004`
-(3.10 vs Unit 2). Until those are resolved, Calculus BC 3.6 and Precalculus 3.10 have no FRQ topic cell in the database,
-so the database shows 128 missing topics where this audit shows 126.
+(3.10 vs Unit 2). Both topics have other FRQs with written cells (`apcalcbc-frq-u13-020`; `apprecalc-frq-015`,
+`-034`, `-035`), so the database also shows 126 missing topics.

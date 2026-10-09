@@ -415,7 +415,7 @@ Most recent entries (full reverse-chronological list follows below):
 
 **Production write (`APPROVAL-0143`):** 181 `validated` primary topic-only cells in `app.content_item_cells` (154 at 6/6, 21 at 5/6, 6 `ced_text_tiebreak`), one per published FRQ version whose topic is in Units 1-3. Rehearsed on Production (rolled back), committed in one transaction, verified by `md5(content_key:topic_code)` = plan `189c15736205f01f633f003fedca9f09`, and re-read independently: 181/181 on published versions and in `content_item_topic_resolution`. Held, not written: `apcalcbc-frq-u13-015` and `apprecalc-frq-np2-004` (probe topic in Unit 3, serving label says Unit 2). Script: `scripts/content-seed/frq-topic-labels-u13-2026-10-09/write_topic_cells.py`.
 
-**Not done:** probe results for FRQs in Units 4+ (158 FRQs) were not written, per the Units 1-3 instruction; no serving labels or skills changed; no FRQs authored. The audit counts the two held items as covering Calculus BC 3.6 and Precalculus 3.10; in the database those two topics still have no FRQ cell.
+**Not done:** probe results for FRQs in Units 4+ (158 FRQs) were not written, per the Units 1-3 instruction; no serving labels or skills changed; no FRQs authored. The two held items do not change coverage: Calculus BC 3.6 and Precalculus 3.10 each have other FRQs with written cells.
 
 **Next Owner:** David Bloom. **Next Action:** merge the PR; decide the two unit conflicts; then the FRQ generation run on the missing topics.
 
