@@ -8,6 +8,7 @@
 import "./_test_setup.ts";
 import { assert, assertEquals } from "jsr:@std/assert@1";
 import { handleByoq } from "./index.ts";
+import { BYOQ_LIMITS } from "../_shared/byoq.ts";
 import {
   type AttachmentRow,
   type ByoqStorage,
@@ -279,6 +280,7 @@ class Mem implements ByoqStore, ByoqStorage {
     if (l) l.status = p.status;
   }
   async byoqExtractionSpendToday() { return this.ledger.reduce((s, l) => s + l.cost, 0); }
+  async countByoqExtractionRunsToday(ownerId: string) { return this.ledger.filter((l) => l.requestId.startsWith(`byoq_extract:${ownerId}:`)).length; }
 
   // --- storage
   async signUpload(path: string) { return { signedUrl: `https://upload/${path}`, token: "tok" }; }
@@ -687,7 +689,7 @@ function proposed(over: Record<string, unknown> = {}): ExtractionOutcome {
 }
 
 /** Harness with an injectable model; records every call's input. */
-function extractionHarness(outcome: () => ExtractionOutcome, cfg: Record<string, unknown> = {}) {
+function extractionHarness(outcome: () => ExtractionOutcome | Promise<ExtractionOutcome>, cfg: Record<string, unknown> = {}) {
   const base = harness();
   const calls: ExtractionInput[] = [];
   const call = async (body: Record<string, unknown>, opts: Parameters<typeof base.call>[1] = {}) => {
@@ -702,9 +704,8 @@ function extractionHarness(outcome: () => ExtractionOutcome, cfg: Record<string,
       verifyUser: async (jwt) => JSON.parse(atob(jwt.split(".")[1].replaceAll("-", "+").replaceAll("_", "/"))).sub,
       extract: async (input) => {
         calls.push(input);
-        const o = outcome();
         if (!(await input.reserveCost())) return { kind: "unavailable", failure: "cost_cap_reached" };
-        return o;
+        return await outcome();
       },
       extraction: { enabled: true, apiKey: "k", modelId: "test-model", timeoutMs: 1000, reservedCostUsd: 0.03, sharedCapUsd: 10, byoqCapUsd: 100, ...cfg },
     });
@@ -878,11 +879,65 @@ Deno.test("remove_flagged_text through the capability clears the backstop flag a
   assertEquals(ok.json.result.item.status, "ready");
 });
 
-Deno.test("extract_question is rate-limited with the pairing-mint window and refuses an archived item", async () => {
+Deno.test("extract_question refuses an archived item and is capped per owner per day; every run is reserved", async () => {
   const h = extractionHarness(() => proposed());
   const a = await photoItem(h, { subject_key: "ap_statistics" });
+  await h.call({ operation: "finish_capture", pairing_handle: a.handle });
+  for (let i = 1; i < BYOQ_LIMITS.extractionRunsPerOwnerPerDay; i++) {
+    const r = await h.call({ operation: "extract_question", owner_key: a.key, item_id: a.item.id, force: true });
+    assertEquals(r.status, 200, r.text);
+  }
+  assertEquals(h.calls.length, BYOQ_LIMITS.extractionRunsPerOwnerPerDay);
+  assertEquals(h.mem.ledger.length, BYOQ_LIMITS.extractionRunsPerOwnerPerDay, "one reservation per model call");
+  const capped = await h.call({ operation: "extract_question", owner_key: a.key, item_id: a.item.id, force: true });
+  assertEquals(capped.status, 429);
+  assertEquals(capped.json.error, "rate_limited");
+  assertEquals(h.calls.length, BYOQ_LIMITS.extractionRunsPerOwnerPerDay, "no model call past the cap");
   await h.call({ operation: "archive_item", owner_key: a.key, item_id: a.item.id });
   const r = await h.call({ operation: "extract_question", owner_key: a.key, item_id: a.item.id, force: true });
   assertEquals(r.status, 409);
   assertEquals(r.json.error, "item_archived");
+});
+
+Deno.test("a retry after a failed run takes a fresh reservation; no shared cap means no model call", async () => {
+  let fail = true;
+  const h = extractionHarness(() => fail ? { kind: "failed", failure: "timeout", detail: "slow", modelId: "m", latencyMs: 1 } : proposed());
+  const a = await photoItem(h, { subject_key: "ap_statistics" });
+  await h.call({ operation: "finish_capture", pairing_handle: a.handle });
+  assertEquals(h.mem.ledger.map((l) => l.status), ["failed"]);
+  fail = false;
+  const again = await h.call({ operation: "extract_question", owner_key: a.key, item_id: a.item.id });
+  assertEquals(again.json.result.item.extraction.status, "proposed");
+  assertEquals(h.calls.length, 2);
+  assertEquals(h.mem.ledger.map((l) => l.status), ["failed", "completed"], "the retry is its own ledger row");
+
+  const unmetered = extractionHarness(() => proposed(), { sharedCapUsd: 0 });
+  const b = await photoItem(unmetered, {});
+  const fb = await unmetered.call({ operation: "finish_capture", pairing_handle: b.handle });
+  assertEquals(fb.json.result.extraction.status, "unavailable");
+  assertEquals(fb.json.result.extraction.failure, "not_configured");
+  assertEquals(unmetered.calls.length, 0);
+});
+
+Deno.test("an edit saved while the model is running is kept, and its leak flags are computed from the real text", async () => {
+  // The fake model performs the student's edit mid-flight (before returning its proposal).
+  let hRef: ReturnType<typeof extractionHarness> | null = null;
+  let edit: Record<string, unknown> | null = null;
+  const h = extractionHarness(async () => {
+    if (edit) await hRef!.call(edit);
+    return proposed({ stem: "Proposed stem", item_type: "mcq" });
+  });
+  hRef = h;
+  const a = await photoItem(h, { subject_key: "ap_statistics" });
+  edit = { operation: "update_item", owner_key: a.key, item_id: a.item.id, item_type: "frq", stem: "My own words\nAnswer: 4" };
+  const finished = await h.call({ operation: "finish_capture", pairing_handle: a.handle });
+  assertEquals(finished.status, 200, finished.text);
+  edit = null;
+  const got = await h.call({ operation: "get_item", owner_key: a.key, item_id: a.item.id });
+  const it = got.json.result.item;
+  assertEquals(it.item_type, "frq", "the student's type edit survives the proposal");
+  assert(it.stem.startsWith("My own words"), "the student's stem edit survives the proposal");
+  assertEquals(it.answer_text_detected, true, "leak flags describe the real text, not the pre-call snapshot");
+  const confirm = await h.call({ operation: "confirm_item", owner_key: a.key, item_id: a.item.id });
+  assertEquals(confirm.status, 409);
 });

@@ -181,6 +181,8 @@ export interface ByoqStore {
   completeModelUsage(p: { requestId: string; requestHash: string; status: "completed" | "failed"; actualCostUsd: number }): Promise<void>;
   /** Sum of today's BYOQ extraction reservations (USD), for the BYOQ-specific breaker. */
   byoqExtractionSpendToday(): Promise<number>;
+  /** Today's extraction runs for one owner (ledger rows `byoq_extract:<owner>:…`). */
+  countByoqExtractionRunsToday(ownerId: string): Promise<number>;
 }
 
 export interface ByoqStorage {
@@ -563,6 +565,13 @@ export function createSupabaseStore(client: Client): ByoqStore {
         "byoq_spend",
       ) as { reserved_cost_usd: number | null; actual_cost_usd: number | null }[];
       return rows.reduce((sum, r) => sum + Number(r.actual_cost_usd ?? r.reserved_cost_usd ?? 0), 0);
+    },
+    async countByoqExtractionRunsToday(ownerId) {
+      const today = new Date().toISOString().slice(0, 10);
+      const r = await app().from("model_usage_ledger").select("id", { count: "exact", head: true })
+        .like("request_id", `byoq_extract:${ownerId}:%`).eq("usage_date_utc", today);
+      if (r.error) throw new Error(`byoq_runs: ${r.error.message}`);
+      return r.count ?? 0;
     },
   };
 }

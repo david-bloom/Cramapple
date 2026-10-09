@@ -409,8 +409,9 @@ export async function runByoqExtraction(input: ExtractionInput): Promise<Extract
 
   const latencyMs = Date.now() - startedAt;
   if (!response.ok) {
-    const detail = await response.text().catch(() => "");
-    return { kind: "failed", failure: "http_error", detail: `byoq_extraction_http_${response.status}:${detail.slice(0, 200)}`, modelId: input.modelId, latencyMs };
+    // Status only: a vendor error body is logged by the caller, never stored or shown.
+    await response.text().catch(() => "");
+    return { kind: "failed", failure: "http_error", detail: `byoq_extraction_http_${response.status}`, modelId: input.modelId, latencyMs };
   }
   const raw = await response.json().catch(() => null);
   const text = extractOutputText(raw);

@@ -606,9 +606,8 @@ async function ownerOperation(ctx: Ctx, caller: Caller, operation: string): Prom
       // Re-run (or a first run for a photo attached while extraction was off).
       const item = await ownedItem(ctx, caller, b.item_id);
       if (item.status === "archived") throw new HttpError(409, "item_archived");
-      const windowStart = new Date(ctx.now().getTime() - BYOQ_LIMITS.pairingMintWindowSeconds * 1000).toISOString();
-      if (await store.countMintsSince(item.owner_id, windowStart) >= BYOQ_LIMITS.pairingMintMaxPerWindow) {
-        throw new HttpError(429, "rate_limited", { retry_after_seconds: BYOQ_LIMITS.pairingMintWindowSeconds });
+      if (await extractionRunsExhausted(ctx, item.owner_id)) {
+        throw new HttpError(429, "rate_limited", { retry_after_seconds: 3600 });
       }
       const updated = await extractForItem(ctx, item, { force: b.force === true });
       return { item: itemView(updated, { topic: await topicFor(ctx, updated) }) };
@@ -665,7 +664,9 @@ async function ownerOperation(ctx: Ctx, caller: Caller, operation: string): Prom
       let token = await store.getTokenById(id);
       if (!token || !caller.ownerIds.includes(token.owner_id)) throw new HttpError(404, "pairing_not_found");
       if (operation === "cancel_pairing") {
-        token = await store.transitionToken(token.id, [...LIVE_STATES], {
+        // Live states close the upload channel; a consumed question pairing may
+        // also be cancelled by its owner to end the phone review window early.
+        token = await store.transitionToken(token.id, [...LIVE_STATES, "consumed"], {
           state: "cancelled",
           closed_at: ctx.now().toISOString(),
         }) ?? token;
@@ -1052,11 +1053,22 @@ async function removeFlaggedTextResult(ctx: Ctx, item: ItemRow): Promise<Json> {
   return { item: itemView(updated, { topic: await topicFor(ctx, updated) }) };
 }
 
+/** Per-owner daily ceiling on model runs, counted from the shared ledger. */
+async function extractionRunsExhausted(ctx: Ctx, ownerId: string): Promise<boolean> {
+  if (ctx.extraction.sharedCapUsd <= 0) return true; // no ledger, no accounting: fail closed
+  return (await ctx.store.countByoqExtractionRunsToday(ownerId)) >= BYOQ_LIMITS.extractionRunsPerOwnerPerDay;
+}
+
 /**
  * Runs extraction over the item's current question pages and writes the
  * proposal onto the draft item. Fills only fields the student has not set
  * (plan §4.3). Idempotent on (page digests, model, prompt version) unless
  * `force`. Never throws for a model problem: the outcome is recorded.
+ *
+ * Every model call is reserved under a fresh request id (a retry after a
+ * failure is a new charge, never a silent replay), and the fill is computed
+ * against the row as it is AFTER the model returns, so an edit the student
+ * saved during the call is kept and the leak flags describe the real text.
  */
 async function extractForItem(ctx: Ctx, item: ItemRow, opts: { force: boolean }): Promise<ItemRow> {
   const { store, storage, extraction: cfg } = ctx;
@@ -1071,6 +1083,14 @@ async function extractForItem(ctx: Ctx, item: ItemRow, opts: { force: boolean })
 
   if (!cfg.enabled) {
     return await store.updateItem(item.id, { extraction: record({ kind: "unavailable", failure: "disabled" }, []) });
+  }
+  // Spend accounting needs the shared daily ledger (OPENAI_DAILY_CAP_USD); without it
+  // nothing is metered or rate-limited, so the call is refused rather than run blind.
+  if (cfg.sharedCapUsd <= 0 || !cfg.apiKey) {
+    return await store.updateItem(item.id, { extraction: record({ kind: "unavailable", failure: "not_configured" }, []) });
+  }
+  if (await extractionRunsExhausted(ctx, item.owner_id)) {
+    return await store.updateItem(item.id, { extraction: record({ kind: "unavailable", failure: "cost_cap_reached" }, []) });
   }
   if (!pages.length) {
     return await store.updateItem(item.id, { extraction: record({ kind: "unavailable", failure: "no_pages" }, []) });
@@ -1102,12 +1122,13 @@ async function extractForItem(ctx: Ctx, item: ItemRow, opts: { force: boolean })
 
   // Spend: one fixed reservation per call against the shared daily ledger
   // (fail closed), plus a BYOQ-only ceiling that is high by design
-  // (DECISION-0108 item 11). Either refusal returns `unavailable`.
-  const requestId = `byoq_extract:${item.id}:${key.slice(0, 16)}:${opts.force ? at : "1"}`;
+  // (DECISION-0108 item 11). Either refusal returns `unavailable`. The request
+  // id carries the owner (for the per-owner run count) and a nonce (so a retry
+  // after a failure is reserved again instead of replaying the old row).
+  const requestId = `byoq_extract:${item.owner_id}:${item.id}:${at}:${crypto.randomUUID().slice(0, 8)}`;
   let reserved = false;
   const reserveCost = async () => {
     if (cfg.byoqCapUsd > 0 && (await store.byoqExtractionSpendToday()) + cfg.reservedCostUsd > cfg.byoqCapUsd) return false;
-    if (cfg.sharedCapUsd <= 0) return true;
     reserved = await store.reserveModelUsage({
       requestId,
       requestHash: key,
@@ -1137,16 +1158,23 @@ async function extractForItem(ctx: Ctx, item: ItemRow, opts: { force: boolean })
     });
   }
 
+  if (outcome.kind === "failed") {
+    console.error("byoq_extraction_model_failed", outcome.failure, outcome.detail);
+  }
+
+  // Re-read: the student may have saved an edit while the model was running.
+  const fresh = (await store.getItem(item.id)) ?? item;
+  if (fresh.status === "archived") return fresh;
   const patch: Partial<ItemRow> = {};
   let filled: ReturnType<typeof proposalPatch>["filled"] = [];
   if (outcome.kind === "proposed") {
-    const p = proposalPatch(item, outcome.proposal);
+    const p = proposalPatch(fresh, outcome.proposal);
     filled = p.filled;
     if (p.item_type) patch.item_type = p.item_type;
     if (p.stem !== undefined) patch.stem = p.stem;
     if (p.choices) patch.choices = p.choices;
-    if (p.topic_code && item.subject_key) {
-      const topic = await store.resolveTopic(item.subject_key, item.context_unit_number ?? null, p.topic_code);
+    if (p.topic_code && fresh.subject_key) {
+      const topic = await store.resolveTopic(fresh.subject_key, fresh.context_unit_number ?? null, p.topic_code);
       if (topic) {
         patch.taxonomy_topic_id = topic.taxonomy_topic_id;
         patch.context_unit_number = topic.unit_number;
@@ -1157,13 +1185,15 @@ async function extractForItem(ctx: Ctx, item: ItemRow, opts: { force: boolean })
       filled = filled.filter((f) => f !== "topic");
     }
     patch.captured_work = outcome.proposal.captured_work;
-    // The backstop: proposed text passes the same leak gate as typed text.
-    const stem = patch.stem !== undefined ? patch.stem : item.stem;
-    const choices = patch.choices ?? item.choices;
-    patch.leak_flags = detectAnswerLeaks(stem, choices, { title: item.title, source_note: item.source_note });
+    // The backstop: the text that will actually be on the row (the student's
+    // latest edit plus any fill) passes the same leak gate as typed text.
+    const stem = patch.stem !== undefined ? patch.stem : fresh.stem;
+    const choices = patch.choices ?? fresh.choices;
+    patch.leak_flags = detectAnswerLeaks(stem, choices, { title: fresh.title, source_note: fresh.source_note });
+    if (fresh.status === "ready" && readinessProblem({ ...fresh, ...patch } as ItemRow)) patch.status = "draft";
   }
   patch.extraction = record(outcome, filled);
-  return await store.updateItem(item.id, patch);
+  return await store.updateItem(fresh.id, patch);
 }
 
 function subjectDisplayName(key: string) {
