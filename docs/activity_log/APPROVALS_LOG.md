@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
 - APPROVAL-0137 — Open TASK-0067 (Unit Reference Content) and Amend TASK-0066 D3 So Hooks Require a Reference Entry — DECISION-0105 (2026-10-08)
 - APPROVAL-0136 — Memory Hooks Scope (D1–D7 Plus Diagram Parts) and Opening of TASK-0066 — DECISION-0104 (2026-10-08)
 - APPROVAL-0135 — Apply the TASK-0056b Answer-Key Revoke and the Student Practice Queue Selector to Development and Production (F10, F2, F9) (2026-10-08)
@@ -2013,6 +2014,19 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108
+
+**Date:** 2026-10-08  
+**Approved By:** David Bloom (2026-10-08 Claude session): the eleven answers recorded in `DECISION-0108`, then "1,3,4 I approve", then "option 2 approved, go ahead with slice 0".  
+**Related:** `docs/product/BYOQ_PHOTO_EXTRACTION_PLAN_V2_2026_10_08.md`, `docs/product/BYOQ_ATTACHMENT_EXTRACTION_PLAN_CRITIQUE_2026_10_08.md`, `docs/tasks/TASK-0068-BYOQ-PHOTO-EXTRACTION.md`, `docs/tasks/TASK-0039-BYOQ-PRODUCTION-OPERATIONAL.md`, `DECISION-0108`, `DECISION-0084`, PR #391 (supersedes PR #387)  
+**Decision:** Approved
+
+**Approved scope (Gate A of the plan):** plan v2 as the governing design, with its §6.3 benchmark gates fixed; `TASK-0068` opened at Hard-Gate tier; Slice 1 design and benchmark work (rendering published items to a fixture set, prompt and schema design, capability-op design) with no app or schema change; `TASK-0039` closed as Done for Phases 1–2 with Phase 3 superseded.
+
+**Not approved by this entry:** Gate B (the Development migration adding `extraction` and `captured_work`, the extraction module and ops, the Lovable review screen), Gate C (Production migration and deploy with the pilot flag), and Gate D (expansion). Each is its own Hard-Gate approval. Nothing is built.
+
+**Rollback:** none needed; docs only.
 
 ## APPROVAL-0137 — Open TASK-0067 (Unit Reference Content) and Amend TASK-0066 D3 So Hooks Require a Reference Entry — DECISION-0105
 

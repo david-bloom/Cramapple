@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- BYOQ Photo Extraction Plan v2 Approved at Gate A (DECISION-0108, APPROVAL-0139); TASK-0068 Opened; TASK-0039 Closed (2026-10-08): Codex's v1 critiqued against live sources; David answered eleven questions (photos only, subject/unit from context, OpenAI build-measure-switch, student answer marks stored, phone-side review, no policy change, no spend cap, Micah + Orly pilot); plan re-cut to three slices; PR #391 supersedes #387. Docs only; nothing built.
 - TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended (DECISION-0105, APPROVAL-0137) (2026-10-08): R1–R4 as recommended; one Development migration for both tables; hooks require a reference entry. Docs only; nothing built.
 - TASK-0066 Blocked on Companion Content; TASK-0067 (Unit Reference Content: Formulas, Vocabulary, Lists, Diagrams) Drafted as Proposed (2026-10-08): David's point checked against the schema and task records; nothing structured exists for hooks to attach to; R1–R4 await David. Docs only.
 - Memory Hooks Approved (DECISION-0104, APPROVAL-0136) and TASK-0066 Opened; Diagram Parts Added at Micah's Request (2026-10-08): D1–D7 as recommended; formulas were already in scope; `diagram_parts` kind added with a reference to existing visual-stimulus assets. Docs only; nothing built.
@@ -399,6 +400,18 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## BYOQ Photo Extraction Plan v2 Approved at Gate A; TASK-0068 Opened; TASK-0039 Closed — 2026-10-08
+
+**Context:** David asked for a planning session on Codex's BYOQ attachment-extraction plan (PR #387) with the instruction "critique the plan, find weakness, ask questions, challenge assumptions. The goal is not to implement — it is to make a great plan."
+
+**Checked, read-only:** the shipped `byoq_*` schema and `byoq` edge function; the Lovable App's BYOQ screens (`ByoqIntake`, `ByoqCapturePhone`, `ByoqPractice`, `shared`), which showed stems render as plain text with no formula renderer and that the phone leg holds only a pairing handle; `capture-pairing` already sends student photos to OpenAI with `store: false`; Production `app.byoq_*` counts (3 items, all internal, 2 photo-only, 0 responses) and published content counts (2,170 MCQ, 583 FRQ) as a rights-clean benchmark; the live privacy policy. Findings in `docs/product/BYOQ_ATTACHMENT_EXTRACTION_PLAN_CRITIQUE_2026_10_08.md`.
+
+**Recorded:** `DECISION-0108` (the eleven answers plus the editability requirement), `APPROVAL-0139` (Gate A only), `TASK-0068` opened, `TASK-0039` → Done (Phases 1–2; Phase 3 superseded), v1 plan and `BYOQ_WORKSHEET_PARSING_DESIGN.md` annotated superseded, `docs/INDEX.md` row, one-pager D9 amended. Record numbers 0106/0107/0138 were already claimed by open PR #390, so this entry uses 0108/0139.
+
+**Not done:** no migration, no extraction code, no Lovable message, no benchmark run. Gate B is a separate approval.
+
+**Next owner:** Claude session. **Next action:** Slice 1 on a fresh implementation branch: render a stratified fixture set from published items, design the output schema and prompt, design the three capability-scoped review ops, then request Gate B with the migration and function diff.
+
 ## TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended — 2026-10-08
 
 **Context:** David: "Approve R1-R4 as recommended and open TASK-0067."

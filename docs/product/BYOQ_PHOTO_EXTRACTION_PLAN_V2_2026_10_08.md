@@ -1,13 +1,13 @@
 # BYOQ Photo Extraction and Confirmation Plan (v2)
 
-**Status:** Proposed — revision 2, awaiting David's review of this cut  
-**Date:** 2026-10-08  
-**Product Owner:** David Bloom  
-**Prepared by:** Claude (Fable 5.1), revising Codex's v1 (`BYOQ_ATTACHMENT_EXTRACTION_AND_CONFIRMATION_PLAN_2026_10_08.md`) after David's answers of 2026-10-08  
-**Supersedes:** v1 of this plan; the remaining scope of `TASK-0039` (Phase 3 worksheet upload) and `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s open decisions  
-**Governing rule unchanged:** `DECISION-0057` — a BYOQ item is never graded, never Open Hand, and never shows the student a canonical answer  
-**Records to create on approval of this revision:** `DECISION-0106` (direction and the eleven answers below), `APPROVAL-0138` (Gate A), `TASK-0068` (implementation), closure note on `TASK-0039`  
-**Tier:** Hard-Gate  
+**Status:** Approved — Gate A (`DECISION-0108` / `APPROVAL-0139`, David, 2026-10-08). Gate B (Development build) not yet approved.
+**Date:** 2026-10-08
+**Product Owner:** David Bloom
+**Prepared by:** Claude (Fable 5.1), revising Codex's v1 (`BYOQ_ATTACHMENT_EXTRACTION_AND_CONFIRMATION_PLAN_2026_10_08.md`) after David's answers of 2026-10-08
+**Supersedes:** v1 of this plan; the remaining scope of `TASK-0039` (Phase 3 worksheet upload) and `BYOQ_WORKSHEET_PARSING_DESIGN.md`'s open decisions
+**Governing rule unchanged:** `DECISION-0057` — a BYOQ item is never graded, never Open Hand, and never shows the student a canonical answer
+**Records:** `DECISION-0108` (direction and the answers below), `APPROVAL-0139` (Gate A), `TASK-0068` (implementation task), `TASK-0039` closed. (0106/0107 and 0138 were already claimed by PR #390, so the numbers reserved in an earlier draft moved.)
+**Tier:** Hard-Gate
 **Branch:** `claude/task-0068-byoq-photo-extraction-plan`
 
 > **Boundary.** This revision is still a plan. It authorises no migration, deployment, secret, Production write, or launch. Gate B (below) is the first implementation authorisation.
@@ -223,7 +223,7 @@ Built from Cramapple-authored content, so there is no rights question and ground
 
 ### 6.3 Gates for Gate C (Production pilot)
 
-Starting proposals, to be fixed in this document before the build so QA does not invent them afterwards:
+Fixed at Gate A (`APPROVAL-0139`, 2026-10-08). QA tests against these; changing one is a documented amendment, not a QA judgement call:
 
 | Measure | Gate |
 | --- | --- |
@@ -241,9 +241,9 @@ The pilot's own gate (Gate D) is different and is the one that matters: fraction
 
 ## 7. Slices and QA
 
-### Slice 0 — record and open (docs only)
+### Slice 0 — record and open (docs only) — **done 2026-10-08** (`DECISION-0108`, `APPROVAL-0139`, `TASK-0068`, PR #391)
 
-Record `DECISION-0106` and `APPROVAL-0138`; open `TASK-0068` with this document as its design; close `TASK-0039` Phases 1–2 as Done with a note that Phase 3 is superseded; mark `BYOQ_WORKSHEET_PARSING_DESIGN.md` superseded in `docs/INDEX.md`. Fix the gates in §6.3.
+Record `DECISION-0108` and `APPROVAL-0139`; open `TASK-0068` with this document as its design; close `TASK-0039` Phases 1–2 as Done with a note that Phase 3 is superseded; mark `BYOQ_WORKSHEET_PARSING_DESIGN.md` superseded in `docs/INDEX.md`. Fix the gates in §6.3.
 
 **Exit:** records merged to `main`. Gate A.
 
@@ -301,13 +301,13 @@ David: no product cap on extraction. Recorded. Two things remain true regardless
 - `BYOQ_WORKSHEET_PARSING_DESIGN.md`: superseded for vendor and schema decisions; its §6 answer-key analysis remains the reference if worksheets return (§10).
 - `STUDENT_PROVIDED_QUESTION_INTAKE_DESIGN.md` (2026-06): only Stage 2 (Original vs Captured, completeness checklist), §5.1 (PII warning), §5.2 (extraction failure), and §12 (accessibility) are still live. Its help modes, "Check my work", rubric calibration, and Open Hand routing are retired by `DECISION-0057`/`0084`.
 - `ARCHITECTURE_AND_DESIGN_DECISIONS_CURRENT.md` D9: amend to "photo capture with model-assisted extraction and student confirmation; worksheet upload not planned".
-- New task `TASK-0068` carries branch, PR, acceptance criteria (§6.3, §7.3), and the pilot report.
+- `TASK-0068` (`docs/tasks/TASK-0068-BYOQ-PHOTO-EXTRACTION.md`) carries branch, PR, acceptance criteria (§6.3, §7.3), and the pilot report.
 
 ### Approval gates
 
 | Gate | Evidence | Authorises |
 | --- | --- | --- |
-| A — Plan | This revision accepted; §6.3 gates fixed; records in Slice 0 merged | Slice 1 design and benchmark work, no app or schema change |
+| A — Plan | **Passed 2026-10-08** (`APPROVAL-0139`): this revision accepted; §6.3 gates fixed; Slice 0 records | Slice 1 design and benchmark work, no app or schema change |
 | B — Development build | Task open; migration reviewed; capability design (§5.3) reviewed | Development migration, function deploy, Lovable preview work |
 | C — Production pilot | QA Pass; benchmark report; rollback rehearsed (flag off) | Production migration and deploy with the flag on for the pilot |
 | D — Expand | Pilot report; David's call | General availability or hold |
@@ -328,10 +328,10 @@ David: no product cap on extraction. Recorded. Two things remain true regardless
 
 ---
 
-## 11. Remaining questions for David on this revision
+## 11. Questions on this revision (all resolved 2026-10-08)
 
 1. ~~Subject/unit for anonymous visitors~~ — **approved 2026-10-08:** selects stay, prefilled from `?subject=`; signed-in students get active subject and saved unit automatically.
-2. **Phone review via capability-scoped ops (§5.3):** this is the one new security surface. Alternative with less surface: the phone shows "Photos received — finish on your computer" and review happens only on the desktop, prefilled. Which do you want for v1? *(David asked 2026-10-08 whether this needs a new screen: yes, one — `ByoqReview.jsx`, assembled from the existing intake form controls and page thumbnails, used on both phone and desktop; the desktop-only alternative needs no new screen, only prefill and confirm wording on the existing form. See §5.4.)*
+2. ~~Phone review via capability-scoped ops (§5.3)~~ — **approved 2026-10-08** after confirming it needs one new screen (`ByoqReview.jsx`, assembled from the existing intake form controls and page thumbnails, used on both phone and desktop) plus the three capability-scoped ops and the pairing-window extension in §5.3.
 3. ~~Spend breaker~~ — **approved 2026-10-08:** high technical ceiling that pages David and falls back to typing (§8.3).
 4. ~~Privacy sentence~~ — resolved 2026-10-08: no policy change (§8.1).
 5. ~~`captured_work`~~ — **approved 2026-10-08:** stored, not displayed in v1 (§4.5).
