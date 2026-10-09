@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Reference Pack Build Protocol + Proposed Shared Question-Page Template Documented; Lovable Not Sent (2026-10-09): AP Chemistry's 91-topic inventory now carries the repeatable vocabulary/equation/memory-hook workflow, checker and control gates, Notes-vs-question projection rules, and BYOQ boundary; the compact three-pane template and `2/5`-only header are recorded in a session-close handoff. Docs and local rendering only; no app, database, Lovable, or Production change.
 - Unit Reference Content + Memory Hooks Moved to Production (APPROVAL-0140): Migration, 102 Entries + 3 Hooks, Lovable Publish of 71a9b751 (2026-10-09): CLI-driven apply and loads (no retyping), objects md5-identical to Development, data QA and RPC probes pass; PR #390 merged by David; CLI relinked to Development.
 - TASK-0067/0066 Phase C Built in Lovable Preview (commit 71a9b751), Tests 770/770 (2026-10-09): reference pane, Deep Dive, Copy notes, Learn More; baseline fixture pins today's output for Production's payload; DECISION-0106 renumbered to 0107 (PR #391 had reserved 0106). Not published; Production untouched.
 - DECISION-0107 Recorded (SOCS Loaded, 1.13 Owner, Veto → Haiku 5.5); TASK-0067/0066 Phase C Sent to Lovable Preview (2026-10-09): Development 102 entries + 3 hooks; Phase C brief covers the fetch/mapping layer, reference pane, Deep Dive, unit reference, Learn More page, tests; Production untouched.
@@ -404,6 +405,121 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Reference Pack Build Protocol + Proposed Shared Question-Page Template Documented — 2026-10-09
+
+**Direction:** David asked to document the protocol for building the Reference Pack (equations,
+vocabulary, and memory hooks), document the question-page template changes, write a thorough activity
+log, and close the session.
+
+**Durable record added:**
+`docs/product/AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md` now contains a seven-part
+**Reference Pack build protocol** directly above the 91-topic inventory. The repo index now identifies
+the file as both the AP Chemistry scope map and the pack-building protocol. A full closeout is in
+`docs/handoffs/REFERENCE_PACK_AND_QUESTION_PAGE_SESSION_CLOSE_2026_10_09.md`.
+
+### How Reference Packs are made
+
+The protocol makes the CED PDF authoritative and uses the AP Chemistry fact pack only as an indexed
+aid, the 91-topic inventory as the completeness/boundary checklist, and current taxonomy rows as valid
+keys. Work is one unit per batch. Unit 4's 22 already-checked Production entries are reused rather than
+regenerated.
+
+Inventory phrases are not cards. They are consolidated into one-entry/one-lookup-need candidates.
+Synonyms and inseparable ideas combine; ideas with different meanings, conditions, or uses split. Each
+entry is owned by the first topic that requires it, and later `topic_codes` are added only when those
+topics' own CED objectives or essential knowledge use the entry. The candidate manifest carries stable
+identity, kind, student content, use/non-use boundary, CED page and LO/EK evidence, provenance, equation
+metadata, and hook linkage/no-hook disposition.
+
+**Vocabulary:** use CED meaning and exam-safe language, define the useful distinction, include the
+condition that prevents the predictable misconception, and put classroom-shorthand warnings in
+`caution`.
+
+**Equations and relationships:** include the accepted name, correct LaTeX, every symbol, units and
+constraints, sign/temperature/standard-state conditions, what evidence calls for the relationship, and
+when not to use it. Do not turn a proportional or qualitative relationship into a false equality.
+Equation-sheet availability is recorded metadata, not an inclusion/exclusion rule.
+
+**Memory hooks:** attach to exactly one accepted reference entry, inherit its topic scope, and expand
+completely and in the right order. Use public-domain-common or Cramapple-authored phrasing with recorded
+provenance; no publisher-specific novel wording, songs, lyrics, or audio. A hook is recall language, not
+the exam answer, so it carries a caution when translation into CED language is required. “No hook” is
+expected and must not be treated as missing work.
+
+The checking workflow is generate-and-select, not hand repair:
+
+1. Extract candidates from the unit's CED pages plus fact-pack section.
+2. Create and CED-verify six planted defects: wrong formula/definition, excluded or non-CED content,
+   wrong owner, wrong list/order, wrong hook expansion, and another-unit content.
+3. Run two independent checker families against factual accuracy, CED inclusion, topic ownership/reuse,
+   conditions/cautions, and evidence. Hooks are checked separately for expansion/order, linkage,
+   admissibility, and provenance.
+4. Run an extractor-family reject-only audit. It cannot rewrite content or rescue a checker rejection;
+   rejecting a hook does not reject the linked entry.
+5. Re-sample a flag once; only a repeated flag counts. Both checkers must accept and the audit must not
+   repeatedly veto. All six controls must be rejected.
+6. Re-extract rejected rows statelessly in Round 2 without checker reasons and without hand edits.
+7. Escalate persistent disagreement to the Product Owner with the CED evidence and all reasons. Resolve
+   against evidence; do not ask models to debate until they agree.
+
+The documented 2026-10-09 roster remains Claude Sonnet 5.5 for extraction, Gemini 3.5 Flash and GPT-6
+Sol as the independent checkers, and Claude Haiku 5.5 as the own-family reject-only audit. A changed
+roster needs the protocol smoke test and batch-level Product Owner ratification.
+
+A pack is complete only when every inventory phrase has an accepted/consolidated/excluded disposition,
+ownership and reuse validate, duplicates are resolved, no-hook outcomes and all verdicts are retained,
+controls pass, and the pack is compared back to every topic row and boundary. Generated SQL loads first
+to Development; the zero-orphan/owner/linkage/view/RPC QA and populated/hook/unit/empty probes must pass.
+Production remains a named approval plus same-SQL load and repeated QA. Hooks retire before their
+entries.
+
+### Lesson Notes versus a question page
+
+The complete accepted pack belongs in Lesson Notes. A question page is only a relevance projection:
+maximum three vocabulary terms, relevant equations/visuals, and at most one directly relevant memory
+hook. Empty sections are omitted. The presentation limit never removes CED-required content from the
+full Notes pack.
+
+### Proposed question-page template
+
+The compact shell is intended to be shared by Worked Example MCQ/FRQ, graded Practice MCQ/FRQ, and
+BYOQ without sharing their grading behavior.
+
+- **Orange bar:** Return to student hub, Change topic, and subject selector.
+- **Lesson strip:** subject/unit/topic breadcrumb, lesson title/subtitle, mode label, and plain
+  `current/total` only (example `2/5`). Remove `exam in __ days`, mastery summary, segmented progress,
+  and `Save and stop` from the work page; leave the exam countdown on the Student Hub and preserve
+  attempt persistence.
+- **Left:** Worked Example choices/rationales or FRQ rubric plus what earns points/common point loss;
+  Practice shows no answer truth before submission and only authorized feedback after; BYOQ shows
+  ungraded topic guidance with no score/correctness/canonical-answer claim.
+- **Center:** stimulus, question, response/worked response, and primary actions. Worked Example remains
+  illustrative, Practice scored, BYOQ read-only support.
+- **Right:** Skills; up to three vocabulary terms; relevant equations/graphs/diagrams/visuals; one
+  Memory Hook; one Full Lesson Note link. Omit empty or placeholder sections.
+- **BYOQ:** before both unit and topic confirmation, show a confirmation state and no guessed content.
+  After both are confirmed, use `fetchTopicGuides` or the current equivalent to populate both support
+  panes. Never call grading, expose `is_correct`, or fabricate missing content.
+- **Responsive/accessibility:** desktop left/center/right; narrow screens center then left then right;
+  wrapped navigation, semantic accordions, visible focus, and no color-only state.
+
+### Verification and boundaries
+
+The local 1440×900 @2x rendering was regenerated and visually checked: the top lesson strip now shows
+the mode plus `2/5` only. The Lovable implementation prompt was prepared locally but **not sent**; the
+question page was **not built in Preview or Production**. No model content run, database change, RPC
+change, deployment, or Production action occurred. The local `output/` rendering/prompt are convenience
+artifacts, not durable source of truth.
+
+**Open:** deterministic relevance selection for the three vocabulary terms and one hook; MCQ, Practice,
+BYOQ, mobile, and accessibility implementation/QA; existing Full Lesson Note destination; formula
+rendering; AP Chemistry units outside the checked Unit 4 pilot.
+
+**Next owner:** David Bloom or the next Lovable implementation session. **Next action:** review the
+session-close handoff, send the documented shared-shell implementation to Lovable Preview, wait for its
+commit/tests, and inspect the diff. Do not change backend/scoring contracts, remove the Student Hub exam
+countdown, build the Notes page, publish Production, or touch unrelated dirty-tree files.
+
 ## Unit Reference Content + Memory Hooks Moved to Production — 2026-10-09
 
 **Direction:** David: "let's move it all to production." Recorded as `APPROVAL-0140` (all three Hard Gates).
