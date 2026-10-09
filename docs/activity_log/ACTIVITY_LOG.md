@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Memory Hooks (Mnemonics / Acronyms / Phrases) Scoped as a Content Element, Awaiting PO Decisions (2026-10-08): Micah's idea placed against the records; the KPCOFGS example is not in the AP Biology CED, which yields the inclusion rule; topic-owned grain proposed; `docs/product/MEMORY_HOOKS_PROPOSAL_2026_10_08.md`. Docs only.
 - Student Hub Slice 1 Built in Lovable Preview (DECISION-0103) (2026-10-08): evidence reads scoped to the active pack; unit-only saves clear the topic; save on change replaces the Confirm buttons in both stages; the Learn door gates on the saved topic, treats lookup failure as unknown and honours the resolver; one unit-only rule (heading, first available example, unit notes list). Lovable `a509b7d7`, 755 tests; published to production on David's instruction (deployment `10c9fc3b`, carries PR #380 packages 1–3 too); signed-in screenshots pending with David.
 - Open Hand + Practice QA Findings Executed: Answer-Key Revoke Applied, Practice Queue Selector Live, Lovable Fix Packages Built in Preview (APPROVAL-0135) (2026-10-08): TASK-0056b revoke finally applied to Dev and Prod (view projects `prompt_json` as null); `select_student_practice_items` excludes answered/revealed items, topic-first, paged; `student-session-items` v28/v34; Lovable packages for delivery/safety, attempt integrity and flow built in Preview, publication by David.
 - Chemistry Unit 2 Filled: 18 MCQs Published (APPROVAL-0134); Seed-vs-Seed Duplicate Gate Added (2026-10-08): Unit 2 practice MCQs 19 → 37; topics 2.2–2.4 went from 0 to 4 each; two same-concept seeds caught on read-through, a calibrated seed-vs-seed gate added, both regenerated before publish; the general selector serves all 18.
@@ -395,6 +396,25 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Memory Hooks (Mnemonics / Acronyms / Phrases) Scoped as a Content Element — 2026-10-08
+
+**Context:** David opened the session with Micah's idea: connect important formulas and lists to mnemonics, acronyms, songs, and phrases (example: "Kings Play Chess On Funny Glass Stools" for the Linnaean ranks).
+
+**Found in the records before writing anything:**
+- The idea already exists as the "memory aid" element of the skill-scaffold proposal in `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3, with its grain flagged OPEN by review and never resolved.
+- One hook is already live in prose: the AP Chemistry 4.9 explainer's `practice_bridge` says "write OIL RIG in electron-placement form". It is not listable or QA-able as a hook.
+- The AP Chemistry fact pack records that the CED states solubility in IMF-similarity language "rather than the mnemonic itself". A hook is for recall; the points come from CED language.
+- The Deep Dive protocol's Unit reference is already scoped to hold shared formulas and vocabulary, and the Open Hand screen already renders a reference pane from the topic guide.
+- **Micah's example is not in the AP Biology CED.** Topic 7.9 is cladograms and phylogenetic trees, not Linnaean ranks. That produced the proposal's inclusion rule: a hook is admissible only for a sequence, list, formula structure, or sign convention that a CED learning objective or scoring guideline requires.
+
+**Wrote:** `docs/product/MEMORY_HOOKS_PROPOSAL_2026_10_08.md` (STATUS: PROPOSED). Topic-owned grain with `topic_codes[]` and unit roll-up, no skill grain; three student surfaces (Deep Dive "Remember it" block, unit-reference list, Open Hand pane), not hints; Option B table + public view + `get_topic_point_guides` extension recommended; songs excluded from v1 (no lyrics, no audio pipeline); authoring via the v0.6 generate-and-select method with a `source_note` rights value per row; a candidate inventory of eleven unvetted rows across seven subjects, one of them (KPCOFGS) explicitly excluded. Added a row to `docs/INDEX.md`.
+
+**Not done:** no schema change, no content, no Lovable message, no approval. Seven Product Owner decisions (D1–D7) are listed in the proposal's §9.
+
+**Dirty state noted, not mine:** this checkout carried an uncommitted 138-line addition to `docs/product/TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md` (Sequential Unit Authoring, Phase 0, Phase 1 website pilot, row limits) plus untracked `AP_STATS_1_7_DEEP_DIVE_*` / `DEEP_DIVE_SIMPLE*` files from a separate Deep Dive session. Left untouched and uncommitted on this branch.
+
+**Next owner:** David Bloom. **Next action:** answer D1–D7 in the proposal; if approved, open a Standard task for the Option B schema (sequenced after `TASK-0054`'s FK decision) and a content line item for the Stats Unit 1 + Chemistry Unit 4 pilot.
+
 ## Student Hub Slice 1 Built in Lovable Preview — 2026-10-08
 
 **Context:** David answered the five Product Owner questions in the consolidated hub plan (`DECISION-0103`) and then: "Go ahead and implement slice 1 in Lovable." Slice 1 is truthfulness and route reliability: H1/N5, H3/N6, N1/H8, N2, H2 from `qa/QA_STUDENT_HUB_CONSOLIDATED_PLAN_2026_10_08.md`.
