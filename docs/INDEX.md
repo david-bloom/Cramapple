@@ -43,6 +43,7 @@ decision that was on record.
 | Session modes / consolidation | `product/COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` | One mode "Learn." Course Mode is retired as a *mode*. |
 | Mastery rule | `activity_log/DECISIONS_LOG.md` → `DECISION-0074` | 2 MCQ + 1 FRQ, no pre-submission hint; unbuilt. |
 | Student interaction schema | `product/STUDENT_INTERACTION_DATA_SCHEMA_PLAN_2026_09_27.md` | Plan only; hard-gated on hint-use definition. |
+| **BYOQ attachment extraction + confirmation (PROPOSED)** | `product/BYOQ_ATTACHMENT_EXTRACTION_AND_CONFIRMATION_PLAN_2026_10_08.md` | Review-first Hard-Gate plan: infer subject/unit/topic, question text/type and MCQ choices from photos or worksheets; student confirms before a BYOQ item is created. No implementation authorization. |
 | Launch execution (Oct 2) | `product/LAUNCH_RUNBOOK_2026_10_02.md`, `product/APP_LAUNCH_READINESS_INDEX_2026_09_26.md` | Runbook = short surface; index = full reasoning. |
 | Numbered decisions / approvals / activity | `activity_log/DECISIONS_LOG.md`, `APPROVALS_LOG.md`, `ACTIVITY_LOG.md` | Highest decision as of 2026-09-27: `DECISION-0074`. |
 | Governance / roles / workflow | `team_charter/` (`AI_COLLABORATION_RULES.md`, `TASK_WORKFLOW.md`, `AGENT_OPERATING_MODEL.md`, `DEFINITION_OF_DONE.md`) | — |
