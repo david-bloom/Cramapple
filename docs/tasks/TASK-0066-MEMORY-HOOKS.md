@@ -1,6 +1,6 @@
 # TASK-0066 — Memory Hooks: Schema, Pilot Authoring, and Student Surfaces
 
-**Status:** Approved, not started (2026-10-08). **BLOCKED 2026-10-08 on companion content:** David: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them." Checked: no structured formulas, vocabulary, lists, or topic-level diagrams exist as student content (see `TASK-0067` §Why). Proposed resolution: `TASK-0067` builds `app.unit_reference_entries`; hooks gain a required `reference_entry_id` and inherit scope from the entry (amends D3). Awaiting the Product Owner's answer to `TASK-0067` R1–R4. Do not start Phase A until then.
+**Status:** Approved, not started (2026-10-08). Was blocked the same day on companion content (David: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them"); **unblocked by `DECISION-0105` / `APPROVAL-0137`**: `TASK-0067` builds `app.unit_reference_entries`, and Phase A of both tasks runs in one Development migration. D3 amended: a hook requires a `reference_entry_id` and inherits its scope from the entry; the hook's own `topic_codes[]` is dropped.
 **Tier:** Standard for schema design and Development apply, pilot authoring in Development, and the Lovable preview build; **Hard-Gate** for the Production migration apply, any Production publish of hook rows, and the Lovable publish.
 **Owner:** Claude session (schema, authoring run, Lovable messages); outside-family checkers via AI Gateway.
 **Product Owner:** David Bloom.
@@ -23,7 +23,7 @@ written in CED language, and the hook says so when the two differ.
 | --- | --- | --- |
 | D1 | Grain | Topic-owned (`owner_topic_code`) with `topic_codes[]`, unit roll-up, no skill grain. |
 | D2 | Inclusion rule | CED point-bearing sequences, lists, formula structures, sign conventions; **amended** to add labelled parts of a CED-required diagram. |
-| D3 | Data model | Option B: `app.topic_memory_hooks` + public view + `get_topic_point_guides` returns `memoryHooks[]`. |
+| D3 | Data model | Option B: `app.topic_memory_hooks` + public view + `get_topic_point_guides` returns `memoryHooks[]`. **Amended by `DECISION-0105`:** `reference_entry_id` (required, FK to `app.unit_reference_entries`); no `topic_codes[]` on the hook; scope and unit roll-up come from the entry. |
 | D4 | Songs | Out of v1. No lyrics, no audio. |
 | D5 | Surfaces | Deep Dive "Remember it" block, unit-reference "Memory hooks" list, Open Hand reference pane. Not hints, not post-miss feedback. |
 | D6 | Pilot | AP Statistics Unit 1 + AP Chemistry Unit 4, at most 8 hooks, before any wider survey. |
@@ -37,8 +37,8 @@ written in CED language, and the hook says so when the two differ.
    table the same way. If it has not, key on `(subject_key, topic_code)` text exactly as
    `topic_explainers` does, reuse its check constraints, and record the migration path to the FK in
    the migration header so the two tables convert together.
-2. Migration creating `app.topic_memory_hooks`:
-   `memory_hook_id`, `subject_key`, `owner_topic_code`, `topic_codes text[]` (must contain the owner),
+2. Migration (shared with `TASK-0067` Phase A) creating `app.topic_memory_hooks`:
+   `memory_hook_id`, `reference_entry_id` (required FK to `app.unit_reference_entries`; `subject_key`, owner topic, `topic_codes[]`, and unit come from the entry),
    `kind` in (`acronym`, `acrostic`, `phrase`, `formula_sentence`, `visual`, `diagram_parts`),
    `hook_text`, `expands_to jsonb` (ordered `[{"cue","means"}]`), `when_to_use`, `caution` (nullable),
    `visual_asset_ref` (nullable; `diagram_parts` and `visual` only; references an existing
@@ -51,8 +51,7 @@ written in CED language, and the hook says so when the two differ.
    `memoryHooks[]` (published rows whose `topic_codes` contains the topic, owner first), and a unit
    variant or parameter for the unit-reference list. Existing callers must see an unchanged shape
    except for the added key.
-5. Extend the `TASK-0054` zero-orphan QA script: every element of `topic_codes` exists in the
-   subject's taxonomy; `owner_topic_code` is in `topic_codes`; unit roll-up count matches.
+5. Extend the `TASK-0054` zero-orphan QA script for the entries table (every element of `topic_codes` exists in the subject's taxonomy; owner in `topic_codes`); for hooks, assert every `reference_entry_id` resolves to a published entry before the hook can be published.
 6. Apply to Development; verify with the QA script and one RPC call per surface. Production apply is
    a separate Hard-Gate approval with the migration file under the Production version
    (`feedback_apply_migration_timestamp_drift` trap).

@@ -1,9 +1,9 @@
 # TASK-0067 — Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams (Companion to Memory Hooks)
 
-**Status:** PROPOSED, 2026-10-08. Not approved. Drafted because `TASK-0066` cannot run without it.
+**Status:** Approved, not started (2026-10-08, `DECISION-0105` / `APPROVAL-0137`; R1–R4 as recommended). Runs together with `TASK-0066` Phase A in one Development migration.
 **Tier:** Standard for schema design, Development apply, and authoring in Development; **Hard-Gate** for the Production migration, Production publish, and Lovable publish.
-**Owner:** Claude session (proposed). **Product Owner:** David Bloom.
-**Branch / PR:** none.
+**Owner:** Claude session. **Product Owner:** David Bloom.
+**Branch / PR:** none yet (open on the first implementation session; shared with `TASK-0066`).
 **Source:** David, 2026-10-08: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them."
 **Related:** `TASK-0066` (memory hooks), `TASK-0054` (reference content on the taxonomy), `TASK-0006` (visual stimulus and rendering), `TASK-0021` (Biology prompt visuals), `TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md` (unit reference, Phase 0), `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3 (skill scaffolds), `docs/new_design/CONTENT_AND_PEDAGOGY.md` (reference materials: topic, skills, vocabulary).
 
@@ -82,11 +82,20 @@ notes; any change to `topic_explainers` fields; a diagram-rendering system (that
   Chemistry topic; the Open Hand reference pane's vocabulary section is populated from it.
 - `TASK-0066` hooks attach to entries and render beside them.
 
-## Decisions needed (Product Owner)
+## Decisions (Product Owner, 2026-10-08: "Approve R1-R4 as recommended and open TASK-0067")
 
-| # | Decision | Recommendation |
+| # | Decision | Approved as |
 | --- | --- | --- |
 | R1 | Open this task and sequence it before `TASK-0066` Phase A (or run both Phase As in one migration) | Yes; one migration, two tables, hooks FK to entries. |
 | R2 | Amend `TASK-0066` D3 so hooks require a `reference_entry_id` | Yes. |
 | R3 | Extraction-first from fact packs with v0.6 checks, rather than fresh authoring | Yes. |
 | R4 | Diagram entries ship text-only until `TASK-0006` renders them | Yes. |
+
+## Approval state
+
+Scope approved (`APPROVAL-0137`). The Production migration, the Production publish of pilot
+entries, and the Lovable publish are each a separate Hard Gate.
+
+## Implementation summary / Test results / QA result / Done decision
+
+None yet.
