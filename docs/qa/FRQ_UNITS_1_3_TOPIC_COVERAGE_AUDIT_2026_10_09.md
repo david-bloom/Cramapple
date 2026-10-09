@@ -83,3 +83,5 @@ Totals: 126 of 271 Unit 1-3 topics have no FRQ.
 probe topic contradicts the item's unit label: `apcalcbc-frq-u13-015` (3.6 vs Unit 2) and `apprecalc-frq-np2-004`
 (3.10 vs Unit 2). Both topics have other FRQs with written cells (`apcalcbc-frq-u13-020`; `apprecalc-frq-015`,
 `-034`, `-035`), so the database also shows 126 missing topics.
+
+**Update, same day:** both held items were resolved from the official course and exam description PDFs in `subject packs/` and written: `apcalcbc-frq-u13-015` → 3.6 (parts b-c, 5 of 9 points, are FUN-3.F higher-order derivatives) and `apprecalc-frq-np2-004` → 3.10 (4 of 6 points in Unit 3). 183 cells in total. Their serving labels still give primary unit 2.
