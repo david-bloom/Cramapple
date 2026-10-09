@@ -330,8 +330,8 @@ David: no product cap on extraction. Recorded. Two things remain true regardless
 
 ## 11. Remaining questions for David on this revision
 
-1. **"Subject/unit from context" for anonymous visitors:** the intake screen keeps its subject and unit selects, prefilled from a `?subject=` parameter when arriving from a subject page. Agreed? (Signed-in students get the active subject and saved unit position automatically.)
-2. **Phone review via capability-scoped ops (§5.3):** this is the one new security surface. Alternative with less surface: the phone shows "Photos received — finish on your computer" and review happens only on the desktop, prefilled. Which do you want for v1?
-3. **Spend breaker (§8.3):** keep a high technical ceiling with a page to you, or none at all?
+1. ~~Subject/unit for anonymous visitors~~ — **approved 2026-10-08:** selects stay, prefilled from `?subject=`; signed-in students get active subject and saved unit automatically.
+2. **Phone review via capability-scoped ops (§5.3):** this is the one new security surface. Alternative with less surface: the phone shows "Photos received — finish on your computer" and review happens only on the desktop, prefilled. Which do you want for v1? *(David asked 2026-10-08 whether this needs a new screen: yes, one — `ByoqReview.jsx`, assembled from the existing intake form controls and page thumbnails, used on both phone and desktop; the desktop-only alternative needs no new screen, only prefill and confirm wording on the existing form. See §5.4.)*
+3. ~~Spend breaker~~ — **approved 2026-10-08:** high technical ceiling that pages David and falls back to typing (§8.3).
 4. ~~Privacy sentence~~ — resolved 2026-10-08: no policy change (§8.1).
-5. **`captured_work` (§4.5):** stored but not displayed in v1, since the photo is already on the practice screen. Agreed?
+5. ~~`captured_work`~~ — **approved 2026-10-08:** stored, not displayed in v1 (§4.5).
