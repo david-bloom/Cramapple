@@ -1,6 +1,6 @@
 # TASK-0067 — Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams (Companion to Memory Hooks)
 
-**Status:** Phases A, B and C done 2026-10-09: schema and 102 entries + 3 hooks in Development; Lovable surfaces built in **preview** (commit `71a9b751`, not published). Awaiting three Hard Gates: Production migration, Production publish, Lovable publish. Approved 2026-10-08 (`DECISION-0105` / `APPROVAL-0137`).
+**Status:** **Shipped to Production 2026-10-09** (`APPROVAL-0140`): migration, 102 entries + 3 hooks, Lovable publish of `71a9b751`. Done decision pending the Product Owner's own look at the live surfaces; Units 2+ are a new batch. Approved 2026-10-08 (`DECISION-0105` / `APPROVAL-0137`).
 **Tier:** Standard for schema design, Development apply, and authoring in Development; **Hard-Gate** for the Production migration, Production publish, and Lovable publish.
 **Owner:** Claude session. **Product Owner:** David Bloom.
 **Branch / PR:** `claude/task-0067-0066-phase-a` (shared with `TASK-0066`).
@@ -134,11 +134,17 @@ formulas), so row limits may be wanted before publish.
 
 Checker pick stands; SOCS loaded (CED names it); 1.13 owns "Scope of conclusions"; veto moves to Haiku 5.5.
 
-## Remaining Hard Gates
+## Hard Gates (all executed under `APPROVAL-0140`, 2026-10-09)
 
-1. Production migration apply (`20261009003237`), which also makes the preview show real rows.
-2. Production publish of the 102 entries + 3 hooks (load SQL files in the batch `out/`).
-3. Lovable publish of commit `71a9b751` or later.
+1. Production migration `20261009003237`: applied, ledgered under the same version, objects md5-identical to Development.
+2. Production publish: 102 entries + 3 hooks loaded from the batch's generated SQL; data QA and RPC probes pass.
+3. Lovable publish: `deploy_project` at `71a9b751` — triggered; confirm by opening the live app (no anonymous route exists to verify over HTTP).
+
+## Next
+
+- Product Owner look at the live Open Hand pane, Deep Dive and Learn More for Stats 1.6/1.7 and Chem 4.9 (first real memory hooks a student can see).
+- Row limits for the pane's "Look up" block and a formula renderer are open design items.
+- Units 2+ for Statistics and Chemistry, then the other subjects, as new batches with the Haiku 5.5 veto (`DECISION-0107`).
 
 ## QA result / Done decision
 
