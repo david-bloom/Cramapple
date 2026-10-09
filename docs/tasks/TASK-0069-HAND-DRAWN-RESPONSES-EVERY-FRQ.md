@@ -4,7 +4,7 @@
 **Title:** Any student can photograph a handwritten or drawn answer to any FRQ (current or future), confirm what we read from it, and get it graded; image management and retention included
 **Owner:** Claude session (implementation). **Product Owner:** David Bloom
 **Tier:** Hard-Gate (model processing of student photos, schema migrations, new owner/admin ops, production frontend publish, retention rule)
-**Status:** **In Progress.** Backend built, applied to Development, Development smoke passes end to end (2026-10-09). Frontend being built in the Lovable App (preview, unpublished). Production execution is gated on David's merge of the build PR (his stated go-ahead mechanism).
+**Status:** **Ready for Review.** Backend built, independently reviewed (8 findings fixed), applied to Development, Development smoke passes end to end; frontend built in the Lovable App preview (unpublished, dark default); build PR open for David. Codex QA handoff written. Production execution is gated on David's merge of the build PR (his stated go-ahead mechanism).
 **Priority:** High
 **Created Date:** 2026-10-09
 **Approved Date:** 2026-10-09 for the three plan decisions D1, D2 (conditioned), D4 (`APPROVAL-0142`); David then directed "execute the build including Lovable front end work, and move hand drawn responses to production as a PR. I will review and merge the PR." Open plan decisions D3, D5–D8 are taken at the plan's recommended defaults and recorded below as assumptions for his review.
@@ -42,7 +42,7 @@ BYOQ; worksheet upload; Engine 4 automated grading of image-judgeable criteria (
 
 ## Routes / Components / Systems Affected
 
-- Supabase: migrations `20261009230917_frq_photo_responses_content`, `20261009230918_frq_photo_responses_attachments`, `20261009231314_capture_access_path_phone_reported` (Development versions); functions `attempt-response`, `student-session-items`, `capture-pairing`; new env `FRQ_PHOTO_RESPONSES_ENABLED`, `FRQ_TRANSCRIPT_MODEL`, `FRQ_TRANSCRIPT_DAILY_RUNS`, `FRQ_PHOTO_DAILY_CAP_USD`, `FRQ_TRANSCRIPT_RESERVED_COST_USD`, `FRQ_TRANSCRIPT_TIMEOUT_MS`.
+- Supabase: migrations `20261009230917_frq_photo_responses_content`, `20261009230918_frq_photo_responses_attachments`, `20261009231314_capture_access_path_phone_reported`, `20261009233521_frq_photo_responses_hardening`, `20261009233645_merge_response_parts_invoker` (Development versions); functions `attempt-response`, `student-session-items`, `capture-pairing`; new env `FRQ_PHOTO_RESPONSES_ENABLED`, `FRQ_TRANSCRIPT_MODEL`, `FRQ_TRANSCRIPT_DAILY_RUNS`, `FRQ_PHOTO_DAILY_CAP_USD`, `FRQ_TRANSCRIPT_RESERVED_COST_USD`, `FRQ_TRANSCRIPT_TIMEOUT_MS`.
 - Lovable App: `PracticeFrqScreen`, `LivePracticeFrq`, new `ResponseCapture` / `CapturePhoneFlow`, `capture-phone` route, `live-practice-frq/{adapt,photo,photo-review}.ts`, `feature-flags.ts`, `posthog.ts`, `admin.grade-response.index.tsx`, `admin.grade-response.$attemptId.tsx`.
 
 ## Data / Security / Integration Impact
@@ -55,9 +55,10 @@ Student photos continue to live in the private `learner-uploads` bucket under th
 - [x] A photo bound to a response cannot be submitted until its transcript is confirmed; confirmation writes the response text; the grader scores the confirmed text (Development smoke).
 - [x] Same-device capture is recorded as `SAME_DEVICE` (Development smoke).
 - [x] An admin can read the grading context with transcript and judgement kinds, and redact a photo; the row survives with its digest; the object is gone (Development smoke).
-- [ ] Frontend: capture control, confirm-or-add review, pending-review state, admin queue, consent copy, flag — built in preview with tests passing.
+- [x] Frontend: capture control, confirm-or-add review, pending-review state, admin queue, consent copy, flag — built in preview (Lovable commits `42c5028e`, `700965bd`), 834 vitest passing, `tsc` and `vite build` clean; read against the brief.
 - [ ] Production: migrations, secrets, functions, publish; live admin run on `app.cramapple.com` (one typed+photo FRQ graded; one `photo_required` item reaching the queue and graded by David).
-- [ ] Independent QA (fresh context) on the frontend before students see it.
+- [x] Independent backend review (fresh-context agent, 2026-10-09): two High, four Medium, three Low findings; all but one Low (cap overshoot under concurrency, accepted) fixed and re-verified by the extended smoke.
+- [ ] Independent QA (Codex, fresh context) per `docs/handoffs/HANDOFF_TASK0069_CODEX_QA_2026_10_09.md`, before students see it.
 
 ## QA Plan
 
@@ -69,7 +70,7 @@ See `docs/handoffs/TASK0069_FRQ_PHOTO_EXECUTION_2026_10_09.md` (status log, Deve
 
 ## Test Results
 
-Deno: 587 passed, 0 failed (`deno test --allow-env --allow-read --allow-net supabase/functions`). Development smoke (`scripts/frq_photo_smoke.mjs`): all checks passed; the unit-gated serving check is skipped on Development (no labelled, servable FRQs there) and is covered on Production.
+Deno: 587 passed, 0 failed (`deno test --allow-env --allow-read --allow-net supabase/functions`). Development smoke (`scripts/frq_photo_smoke.mjs`, 23:40 UTC): all checks passed, including the PostgREST forgery refusal and the retake-after-confirm gate; the unit-gated serving check is skipped on Development (no labelled, servable FRQs there) and is covered on Production. Lovable App: 834 vitest passing across 92 files, `tsc --noEmit` and `vite build` clean.
 
 ## Risks / Issues
 

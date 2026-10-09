@@ -24,7 +24,9 @@ import {
   type TranscriptMediaType,
 } from "../_shared/drawn-response-extraction.ts";
 import {
-  buildConfirmedResponseParts,
+  buildConfirmationPatch,
+  CONFIRMATION_KEYS,
+  confirmationIsStale,
   deriveItemParts,
   inferStudentAdded,
   readResponseParts,
@@ -204,12 +206,17 @@ async function loadIdempotentResult(
   requestId: string,
   requestHash: string,
   operation: Operation,
+  actorId: string,
 ) {
+  // Scoped to the caller (TASK-0069 review M3): a replayed key belonging to
+  // another user must not hand back that user's stored result, which now
+  // carries transcript text.
   const { data, error } = await service.schema("app")
     .from("audit_events")
     .select("metadata")
     .eq("request_id", requestId)
     .eq("reason_code", operation)
+    .eq("actor_id", actorId)
     .maybeSingle();
   if (error) throw error;
   if (!data) return null;
@@ -482,6 +489,7 @@ export async function handleAttemptResponse(
         idempotencyKey,
         requestHash,
         operation,
+        user.id,
       );
       if (existing) {
         if ("conflict" in existing) {
@@ -1081,7 +1089,11 @@ export async function handleAttemptResponse(
         const digests = [attachments.original.sha256_digest];
         const key = await transcriptKey(digests, FRQ_TRANSCRIPT_MODEL);
         const prior = readTranscriptRecord(existingParts);
-        if (prior && prior.key === key && prior.status === "proposed" && !force) {
+        // A confirmation given for a DIFFERENT photo (the student retook the
+        // page after confirming) is cleared here and refused by the submit
+        // gate, so a stale transcript can never be graded (review H1).
+        const staleConfirmation = confirmationIsStale(existingParts, attachments.original.sha256_digest);
+        if (prior && prior.key === key && prior.status === "proposed" && !force && !staleConfirmation) {
           const reused = { transcript: transcriptView(prior), parts: itemParts, reused: true };
           return respond({ status: "ok", function: "attempt-response", operation, result: reused });
         }
@@ -1110,10 +1122,14 @@ export async function handleAttemptResponse(
           // stored one; the original is the immutable record.
           const source = attachments.derived ?? attachments.original;
           const { data: blob, error: downloadError } = await service.storage
-            .from(LEARNER_UPLOADS_BUCKET)
+            .from(source.storage_bucket || LEARNER_UPLOADS_BUCKET)
             .download(source.storage_path);
           if (downloadError || !blob) {
-            return respond({ error: "capture_object_not_found" }, { status: 404 });
+            const notFound = /not.?found|404/i.test(downloadError?.message ?? "");
+            return respond(
+              { error: notFound ? "capture_object_not_found" : "capture_download_failed" },
+              { status: notFound ? 404 : 502 },
+            );
           }
           const bytes = new Uint8Array(await blob.arrayBuffer());
           const mediaType = (["image/jpeg", "image/png", "image/webp"].includes(source.media_type)
@@ -1160,12 +1176,18 @@ export async function handleAttemptResponse(
         }
 
         const record = buildTranscriptRecord({ outcome, key, pageDigests: digests, modelId: FRQ_TRANSCRIPT_MODEL, at: now });
-        const { error: storeError } = await service.schema("app")
-          .from("response_versions")
-          .update({ response_parts: { ...existingParts, _transcript: record } })
-          .eq("id", tResponseVersionId)
-          .eq("is_submitted", false);
+        // Atomic merge (review H2): a confirm that landed during the model
+        // call survives; a stale confirmation for a replaced photo is dropped.
+        const { error: storeError } = await service.schema("app").rpc("merge_response_parts", {
+          p_response_version_id: tResponseVersionId,
+          p_patch: { _transcript: record },
+          p_response_text: null,
+          p_drop_keys: staleConfirmation ? [...CONFIRMATION_KEYS] : [],
+        });
         if (storeError) {
+          if (/already_submitted/.test(storeError.message)) {
+            return respond({ error: "response_already_submitted" }, { status: 409 });
+          }
           return respond({ error: "transcript_store_failed" }, { status: 500 });
         }
         const result = { transcript: transcriptView(record), parts: itemParts, reused: false };
@@ -1191,15 +1213,26 @@ export async function handleAttemptResponse(
         studentAdded[k] = [...new Set([...(studentAdded[k] ?? []), ...spans])];
       }
       const confirmedAt = new Date().toISOString();
-      const nextParts = buildConfirmedResponseParts({ existing: existingParts, parts: validation.parts, studentAdded, confirmedAt });
+      // The confirmation names the photo it was given for (review H1); the
+      // write is an atomic merge that drops only the draft placeholder (H2).
+      const patch = buildConfirmationPatch({
+        parts: validation.parts,
+        studentAdded,
+        confirmedAt,
+        confirmedDigest: attachments.original.sha256_digest,
+      });
       const { data: confirmedRow, error: confirmError } = await service.schema("app")
-        .from("response_versions")
-        .update({ response_text: validation.responseText, response_parts: nextParts })
-        .eq("id", tResponseVersionId)
-        .eq("is_submitted", false)
-        .select("id, attempt_id, response_text, version_number, is_submitted")
-        .maybeSingle();
+        .rpc("merge_response_parts", {
+          p_response_version_id: tResponseVersionId,
+          p_patch: patch,
+          p_response_text: validation.responseText,
+          p_drop_keys: ["capture"],
+        })
+        .single<{ id: string; attempt_id: string; response_text: string | null; version_number: number; is_submitted: boolean }>();
       if (confirmError || !confirmedRow) {
+        if (/already_submitted/.test(confirmError?.message ?? "")) {
+          return respond({ error: "response_already_submitted" }, { status: 409 });
+        }
         return respond({ error: "transcript_confirm_failed" }, { status: 500 });
       }
       const result = {
@@ -1244,12 +1277,28 @@ export async function handleAttemptResponse(
         .eq("response_version_id", target.response_version_id);
       const rows = (lineage ?? []) as Array<{ id: string; storage_bucket: string; storage_path: string; kind: string; redacted_at: string | null }>;
       const pending = rows.filter((r) => !r.redacted_at);
-      const paths = pending.map((r) => r.storage_path);
-      if (paths.length) {
-        const { error: removeError } = await service.storage.from(LEARNER_UPLOADS_BUCKET).remove(paths);
+      // Remove per bucket and require every requested object to come back in
+      // the removed list; a silently missing object is never stamped as
+      // redacted (review M4).
+      const byBucket = new Map<string, string[]>();
+      for (const r of pending) {
+        const bucket = r.storage_bucket || LEARNER_UPLOADS_BUCKET;
+        byBucket.set(bucket, [...(byBucket.get(bucket) ?? []), r.storage_path]);
+      }
+      const removedPaths = new Set<string>();
+      for (const [bucket, paths] of byBucket) {
+        const { data: removedObjects, error: removeError } = await service.storage.from(bucket).remove(paths);
         if (removeError) {
-          return respond({ error: "redaction_storage_failed" }, { status: 500 });
+          return respond({ error: "redaction_storage_failed" }, { status: 502 });
         }
+        for (const obj of removedObjects ?? []) {
+          const name = (obj as { name?: string }).name;
+          if (name) removedPaths.add(name);
+        }
+      }
+      const notRemoved = pending.filter((r) => !removedPaths.has(r.storage_path)).map((r) => r.id);
+      if (notRemoved.length) {
+        return respond({ error: "redaction_object_missing", attachments: notRemoved }, { status: 409 });
       }
       const redacted: string[] = [];
       for (const r of pending) {
@@ -1700,6 +1749,7 @@ export async function handleAttemptResponse(
           transcriptRequiredBeforeSubmit({
             hasCurrentAttachment: true,
             responseParts: readResponseParts(gateVersion?.response_parts),
+            currentDigest: gateAttachments.original.sha256_digest,
           })
         ) {
           return respond({ error: "transcript_confirmation_required" }, { status: 409 });

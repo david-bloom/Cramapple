@@ -13,6 +13,10 @@
 | 23:13 | Fixes: `isPairingAccessPath` reads the constant; `describe_capture` accepts a declared `access_path`; migration `20261009231314_capture_access_path_phone_reported` (phone's declared path wins). Applied to Development; `capture-pairing` redeployed. |
 | 23:19 | Frontend brief sent to the Lovable App agent (`docs/handoffs/FRQ_PHOTO_FRONTEND_PROMPT_2026_10_09.md`). |
 | 23:30 | Development smoke: **all checks pass** (serving check skipped on Development by design). |
+| 23:25 | Lovable App frontend built in preview: commit `42c5028e` (feature, 813 tests), follow-up `700965bd` (dark default `none`, reviewer score shown when it arrives, graded-state on the admin page; 834 tests, `tsc` and `vite build` clean). Nothing published. |
+| 23:33 | Independent backend review (fresh-context agent): H1 stale confirmation after a retake; H2 propose/confirm overwrite race; M1 trigger-function search_path dropped; M2 reserved `_` keys writable by the owner through PostgREST (`app` is an exposed schema); M3 idempotency replay not actor-scoped; M4 redaction stamped without verifying removal; L1 error mapping; L3 constraint drop by auto-name. All fixed: confirmation now carries the photo digest and the gate compares it (H1); writes go through `app.merge_response_parts()` (H2); `app.response_versions_guard_reserved_parts` trigger (M2); actor-scoped lookup (M3); per-bucket removal verified against the returned list (M4); 409/502 mappings (L1); drop-by-definition in the Production file (L3); search_path restored (M1). L2 (cap read-then-act can overshoot by a few cents under concurrency) accepted. |
+| 23:35 | Migrations `frq_photo_responses_hardening` (`20261009233521`) and `merge_response_parts_invoker` (`20261009233645`; the merge function must be SECURITY INVOKER or the reserved-keys trigger refuses it) applied to Development; `attempt-response` redeployed. |
+| 23:40 | Development smoke extended (PostgREST forgery refused; retake after confirm re-closes the gate; re-propose is a fresh read; re-confirm succeeds): **all checks pass**. Deno 587/587. |
 
 ## What is built (backend, this repo)
 
@@ -21,6 +25,7 @@
 | Content model, publish gate, criteria kinds, live selector | `supabase/migrations/20261009230917_frq_photo_responses_content.sql` |
 | Redaction, retention selector, immutability guard, `SAME_DEVICE` | `supabase/migrations/20261009230918_frq_photo_responses_attachments.sql` |
 | Phone-declared access path wins | `supabase/migrations/20261009231314_capture_access_path_phone_reported.sql` |
+| Hardening after review: atomic `merge_response_parts`, reserved-keys trigger, search_path | `supabase/migrations/20261009233521_frq_photo_responses_hardening.sql`, `20261009233645_merge_response_parts_invoker.sql` |
 | Transcript reader (model call, schema, prompt, normalisation) | `supabase/functions/_shared/drawn-response-extraction.ts`, `_test.ts` |
 | Confirmation rules, submit gate, `student_added` | `supabase/functions/_shared/response-transcript.ts`, `_test.ts` |
 | Ops and gate | `supabase/functions/attempt-response/index.ts` (`propose_transcript`, `confirm_transcript`, `redact_attachment`, submit gate, extended `get_manual_grading_context`) |
@@ -47,7 +52,7 @@ Deno: `587 passed | 0 failed`.
 
 ## Production runbook (after David merges the build PR; each step is Hard-Gate and is recorded in an APPROVAL entry when run)
 
-1. Migrations on `pcntajvbdfqhbeewmdry`, in order, through `apply_migration` with the same names (Production records its own versions; note them here): `frq_photo_responses_content`, `frq_photo_responses_attachments`, `capture_access_path_phone_reported`. Pre-check: `select count(*) from app.content_items where item_type='frq' and status='published'` (expect 1,090) and after: `response_policy` null count 0, `photo_required` count 40.
+1. Migrations on `pcntajvbdfqhbeewmdry`, in order, through `apply_migration` with the same names (Production records its own versions; note them here): `frq_photo_responses_content`, `frq_photo_responses_attachments`, `capture_access_path_phone_reported`, `frq_photo_responses_hardening`, `merge_response_parts_invoker`. Pre-check: `select count(*) from app.content_items where item_type='frq' and status='published'` (expect 1,090) and after: `response_policy` null count 0, `photo_required` count 40.
 2. Secrets on Production: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`; `FRQ_PHOTO_RESPONSES_ENABLED=true` (this turns the submit gate and the transcript ops on; the student-facing control is still governed by the frontend flag). Confirm `OPENAI_DAILY_CAP_USD` is set (it is, for BYOQ).
 3. Functions: `supabase functions deploy <fn> --project-ref pcntajvbdfqhbeewmdry --no-verify-jwt --use-api --workdir <repo root>` for `attempt-response`, `student-session-items`, `capture-pairing`; compare deployed content with local as TASK-0038/0068 did.
 4. Smoke on Production: `scripts/frq_photo_smoke.mjs` with the Production URL/keys and an existing admin (creates one `smoke+frqphoto-*` student; the serving check runs here). Leave the student in place, same as `student_grade_smoke.mjs`.
@@ -57,9 +62,13 @@ Deno: `587 passed | 0 failed`.
 
 **Rollback:** `supabase secrets set FRQ_PHOTO_RESPONSES_ENABLED=false --project-ref pcntajvbdfqhbeewmdry` (no redeploy): transcript ops refuse with `feature_disabled`, the submit gate is inert, the frontend hides the control on that code. Columns and functions stay. The selector change (hand-drawn items served to Practice) is independent of the flag; if it must be reverted, re-apply the 2026-10-08 selector body.
 
+## Frontend (Lovable App `56cae479`, preview only)
+
+Commits `42c5028e` and `700965bd`. New: `src/screens/parts/FrqPhotoPanel.jsx`, `src/components/session/ResponseCapture.tsx`, `src/components/session/CapturePhoneFlow.tsx`, `src/lib/live-practice-frq/photo.ts`, `src/lib/live-practice-frq/photo-review.ts`, `src/routes/admin.grade-response.index.tsx`, tests in `src/lib/live-practice-frq/__tests__/frq-photo.test.ts`. Changed: `PracticeFrqScreen.jsx`, `LivePracticeFrq.jsx`, `adapt.ts`, `grade.ts` (shared `evaluateLiveFrq`, `recordedAttemptFromGradingRow`), `feature-flags.ts` (default `none`), `posthog.ts`, `capture.functions.ts`, `capture-schema.ts`, `capture-phone.tsx`, `admin.grade-response.$attemptId.tsx`, `FeedbackCard.jsx`. Read by Claude against the brief; deviations from the brief: none material (the agent put the row-to-attempt mapping in `grade.ts` to keep `photo.ts` out of the test import graph).
+
 ## Open items
 
-- Frontend build in progress (Lovable agent). Tests, `tsc`, and `vite build` are part of the brief.
+- Independent QA by Codex: `docs/handoffs/HANDOFF_TASK0069_CODEX_QA_2026_10_09.md`.
 - Independent frontend QA (fresh context) before the student default widens.
 - Follow-ups deferred from the plan: multi-page photos; downscaled derived copy for model calls; scheduled retention sweep (needs a function invoker like BYOQ's purge); partial grading for `photo_required` items (Phase 2).
 - Development admin `smoke+frqphoto-admin@cramapple.test` exists for smoke runs; delete when no longer needed.

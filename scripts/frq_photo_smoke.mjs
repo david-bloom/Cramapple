@@ -197,7 +197,8 @@ async function main() {
   const proposed = await fn("attempt-response", { operation: "propose_transcript", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId }, student.token);
   const transcript = result(proposed).transcript;
   check("propose_transcript returns a record", proposed.status === 200 && transcript && typeof transcript.status === "string", `${proposed.status} ${proposed.text}`);
-  console.log(`  transcript: status=${transcript?.status} failure=${transcript?.failure ?? "-"} warnings=${JSON.stringify(transcript?.warnings ?? [])} (${Date.now() - t0} ms, model ${transcript?.model ?? "-"})`);
+  console.log(`  transcript: status=${transcript?.status ?? "-"} failure=${transcript?.failure ?? "-"} warnings=${JSON.stringify(transcript?.warnings ?? [])} (${Date.now() - t0} ms, model ${transcript?.model ?? "-"})`);
+  if (!transcript) { console.log(`  propose body: ${proposed.text.slice(0, 300)}`); return; }
   const proposedParts = {};
   for (const p of transcript?.proposed?.parts ?? []) proposedParts[p.part_key] = p.text;
   check("the reader proposed text", transcript?.status === "proposed" && Object.values(proposedParts).some((t) => t && t.trim()), JSON.stringify(transcript).slice(0, 400));
@@ -220,9 +221,44 @@ async function main() {
   check("confirm_transcript writes the response text", confirmed.status === 200 && typeof rv?.response_text === "string" && rv.response_text.includes(addedLine), `${confirmed.status} ${confirmed.text}`);
   check("student-added text is recorded against its part", Array.isArray(rv?.student_added_parts) && rv.student_added_parts.includes(firstKey), JSON.stringify(rv?.student_added_parts));
 
+  // --- a student cannot forge a confirmation through PostgREST (review M2) -----
+  const forged = await fetch(`${URL_BASE}/rest/v1/response_versions?id=eq.${rvId}`, {
+    method: "PATCH",
+    headers: { apikey: PUB, authorization: `Bearer ${student.token}`, "content-type": "application/json", "accept-profile": "app", "content-profile": "app", prefer: "return=representation" },
+    body: JSON.stringify({ response_parts: { _confirmed_at: new Date().toISOString(), _confirmed_digest: "0".repeat(64), response: "forged" } }),
+  });
+  const forgedText = await forged.text();
+  check("a student cannot write reserved transcript keys through PostgREST", forged.status >= 400 && /reserved_keys_are_server_only/.test(forgedText), `${forged.status} ${forgedText.slice(0, 200)}`);
+
+  // --- a retake after confirming re-closes the gate (review H1) -----------------
+  const minted2 = await fn("capture-pairing", { operation: "mint_pairing", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId, submission_slot_id: "slot-1" }, student.token);
+  const handle2 = result(minted2).pairing_handle;
+  if (check("a second pairing (retake) can be minted", Boolean(handle2), `${minted2.status} ${minted2.text}`)) {
+    await fn("capture-pairing", { operation: "describe_capture", pairing_handle: handle2, access_path: "SAME_DEVICE" });
+    const ticket2 = await fn("capture-pairing", { operation: "create_capture_upload", pairing_handle: handle2, media_type: "image/png", access_path: "SAME_DEVICE" });
+    // A different page: flip one byte region of the PNG by re-encoding? Simplest: upload the same bytes plus a trailing comment chunk is invalid PNG; instead reuse the fixture but with one extra zero-length tEXt chunk is complex -- so use the digest change produced by appending nothing is impossible. Use a second fixture if present, else the same bytes (digest unchanged -> gate stays open; checked below).
+    let png2 = png;
+    try { png2 = await readFile(new URL("./frq-photo-smoke/fixtures/answer-page-2.png", import.meta.url).pathname); } catch { /* same page */ }
+    const put2 = await fetch(result(ticket2).signed_url, { method: "PUT", headers: { "content-type": "image/png", "x-upsert": "true", authorization: `Bearer ${result(ticket2).upload_token}` }, body: png2 });
+    const bound2 = await fn("capture-pairing", { operation: "submit_capture", pairing_handle: handle2, storage_path: result(ticket2).storage_path, media_type: "image/png", explicit_confirmation: true });
+    check("the retake binds as the new current original", put2.ok && Boolean(result(bound2).attachment_id), `${bound2.status} ${bound2.text}`);
+    const differentPage = png2 !== png;
+    const afterRetake = await fn("attempt-response", { operation: "submit_response", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId }, student.token);
+    if (differentPage) {
+      check("submit after a retake is refused until the new photo is confirmed", afterRetake.status === 409 && afterRetake.json?.error === "transcript_confirmation_required", `${afterRetake.status} ${afterRetake.text}`);
+      const reread = await fn("attempt-response", { operation: "propose_transcript", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId }, student.token);
+      check("re-propose after a retake is a fresh read", reread.status === 200 && result(reread).reused !== true, `${reread.status} ${reread.text.slice(0, 200)}`);
+      const reconfirm = await fn("attempt-response", { operation: "confirm_transcript", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId, parts: confirmedParts }, student.token);
+      check("re-confirm after a retake succeeds", reconfirm.status === 200, `${reconfirm.status} ${reconfirm.text.slice(0, 200)}`);
+    } else {
+      console.log("SKIP  retake-with-a-different-page gate check (no second fixture; same bytes keep the same digest)");
+      check("submit after a same-photo retake is still allowed (digest unchanged)", afterRetake.status === 200, `${afterRetake.status} ${afterRetake.text}`);
+    }
+  }
+
   // --- submit + grade ----------------------------------------------------------
   const submitted = await fn("attempt-response", { operation: "submit_response", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId }, student.token);
-  if (!check("submit_response succeeds after confirmation", submitted.status === 200, `${submitted.status} ${submitted.text}`)) return;
+  if (!check("submit_response succeeds after confirmation", submitted.status === 200 || submitted.json?.error === "response_already_submitted", `${submitted.status} ${submitted.text}`)) return;
   const graded = await fn("evaluate-attempt", {
     operation: "grade_initial_attempt", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId,
     content_item_version_id: item.content_item_version_id, rubric_version_id: item.content_item_version_id,

@@ -33,6 +33,7 @@ comment on column app.response_attachments.redacted_at is
 create or replace function app.response_attachments_guard_immutable_fields()
 returns trigger
 language plpgsql
+set search_path = 'app', 'pg_catalog'
 as $$
 begin
   if new.response_version_id is distinct from old.response_version_id
@@ -114,8 +115,26 @@ comment on function app.response_attachments_due_for_redaction(interval) is
 -- ---------------------------------------------------------------------------
 -- 2. Same-device access path
 -- ---------------------------------------------------------------------------
-alter table app.capture_pairing_tokens
-  drop constraint if exists capture_pairing_tokens_access_path_check;
+-- Drop the existing access_path check by DEFINITION, not by its auto-assigned
+-- name (the Production migration ledger has drifted; a differently named
+-- leftover check would otherwise reject SAME_DEVICE).
+do $$
+declare
+  v_name text;
+begin
+  for v_name in
+    select con.conname
+      from pg_constraint con
+      join pg_class rel on rel.oid = con.conrelid
+      join pg_namespace nsp on nsp.oid = rel.relnamespace
+     where nsp.nspname = 'app'
+       and rel.relname = 'capture_pairing_tokens'
+       and con.contype = 'c'
+       and pg_get_constraintdef(con.oid) ilike '%access_path%'
+  loop
+    execute format('alter table app.capture_pairing_tokens drop constraint %I', v_name);
+  end loop;
+end $$;
 alter table app.capture_pairing_tokens
   add constraint capture_pairing_tokens_access_path_check
   check (access_path is null or access_path in ('QR', 'FALLBACK_DIRECT', 'SAME_DEVICE'));

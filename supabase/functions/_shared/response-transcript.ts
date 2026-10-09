@@ -10,8 +10,15 @@
 //     "_source": "photo_transcript",
 //     "_transcript": { ...TranscriptRecord },      -- the model's proposal, kept
 //     "_student_added": { "<part_key>": [spans] }, -- typed at review, not read
-//     "_confirmed_at": "<iso timestamp>"
+//     "_confirmed_at": "<iso timestamp>",
+//     "_confirmed_digest": "<sha256 of the original photo the student confirmed>"
 //   }
+//
+// Keys beginning with "_" are reserved: app.response_versions_guard_reserved_parts
+// refuses them from any non-service-role writer, so a student cannot PATCH a
+// confirmation into existence through PostgREST. The confirmed digest ties the
+// confirmation to ONE photo: a retake supersedes the original, the digest no
+// longer matches, and the gate closes again until the student re-confirms.
 //
 // Before confirmation the row holds `{ capture: "pending" }` (the draft the
 // capture capability was bound to) plus `_transcript` once a proposal exists.
@@ -85,15 +92,35 @@ export function isTranscriptConfirmed(responseParts: Record<string, unknown>): b
 }
 
 /**
+ * True when a confirmation exists but was given for a different photo than
+ * the one currently bound (the student retook the page after confirming).
+ */
+export function confirmationIsStale(
+  responseParts: Record<string, unknown>,
+  currentDigest: string | null,
+): boolean {
+  if (!isTranscriptConfirmed(responseParts)) return false;
+  const confirmed = responseParts._confirmed_digest;
+  return typeof confirmed !== "string" || confirmed.length === 0 || confirmed !== currentDigest;
+}
+
+/**
  * The submit gate (DECISION-0110 item 1): a response that carries a bound
- * photo may only be submitted once its transcript is confirmed.
+ * photo may only be submitted once its transcript is confirmed FOR THAT PHOTO.
  */
 export function transcriptRequiredBeforeSubmit(params: {
   hasCurrentAttachment: boolean;
   responseParts: Record<string, unknown>;
+  /** sha256 of the current original attachment; null when none is bound. */
+  currentDigest?: string | null;
 }): boolean {
-  return params.hasCurrentAttachment && !isTranscriptConfirmed(params.responseParts);
+  if (!params.hasCurrentAttachment) return false;
+  if (!isTranscriptConfirmed(params.responseParts)) return true;
+  return confirmationIsStale(params.responseParts, params.currentDigest ?? null);
 }
+
+/** Reserved keys a re-propose for a NEW photo clears, so a stale confirmation cannot survive a retake. */
+export const CONFIRMATION_KEYS = ["_confirmed_at", "_confirmed_digest", "_source", "_student_added"] as const;
 
 export type ConfirmValidation =
   | {
@@ -158,6 +185,8 @@ export function buildConfirmedResponseParts(params: {
   parts: Record<string, string>;
   studentAdded: Record<string, string[]>;
   confirmedAt: string;
+  /** sha256 of the original photo being confirmed. */
+  confirmedDigest: string;
 }): Record<string, unknown> {
   const { capture: _capture, ...rest } = params.existing;
   return {
@@ -166,6 +195,23 @@ export function buildConfirmedResponseParts(params: {
     _source: "photo_transcript",
     _student_added: params.studentAdded,
     _confirmed_at: params.confirmedAt,
+    _confirmed_digest: params.confirmedDigest,
+  };
+}
+
+/** The jsonb patch confirm_transcript sends to app.merge_response_parts (same keys, no spread of the old row). */
+export function buildConfirmationPatch(params: {
+  parts: Record<string, string>;
+  studentAdded: Record<string, string[]>;
+  confirmedAt: string;
+  confirmedDigest: string;
+}): Record<string, unknown> {
+  return {
+    ...params.parts,
+    _source: "photo_transcript",
+    _student_added: params.studentAdded,
+    _confirmed_at: params.confirmedAt,
+    _confirmed_digest: params.confirmedDigest,
   };
 }
 
