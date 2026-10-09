@@ -1,7 +1,12 @@
 # BYOQ Worksheet Parsing Design
 
-**Status:** Proposed for Product Owner, Learning Quality, security, privacy,
-and rights review
+> **STATUS: SUPERSEDED (2026-10-08, `DECISION-0108`).** `TASK-0039` Phase 3 was not carried forward; the
+> governing BYOQ plan is `BYOQ_PHOTO_EXTRACTION_PLAN_V2_2026_10_08.md` (photos only, single question).
+> This document's open decisions (vendor, candidate cap, staging retention) are closed without being
+> resolved. Its §6 answer-key analysis remains the reference if worksheet splitting is ever revived.
+
+**Status:** Superseded (was: Proposed for Product Owner, Learning Quality, security, privacy,
+and rights review)
 **Related Task:** `TASK-0039` Phase 3 (this document is that phase's required
 design pass — Phase 3 does not start until this is approved)
 **Related Decisions:** `DECISION-0057` (a BYOQ item never exposes a canonical
