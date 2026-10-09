@@ -6,6 +6,9 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0067/0066 Phase C Built in Lovable Preview (commit 71a9b751), Tests 770/770 (2026-10-09): reference pane, Deep Dive, Copy notes, Learn More; baseline fixture pins today's output for Production's payload; DECISION-0106 renumbered to 0107 (PR #391 had reserved 0106). Not published; Production untouched.
+- DECISION-0107 Recorded (SOCS Loaded, 1.13 Owner, Veto → Haiku 5.5); TASK-0067/0066 Phase C Sent to Lovable Preview (2026-10-09): Development 102 entries + 3 hooks; Phase C brief covers the fetch/mapping layer, reference pane, Deep Dive, unit reference, Learn More page, tests; Production untouched.
+- TASK-0067 + TASK-0066 Phase A and B Done in Development: Reference Tables + Hooks Schema (20261009003237), 101 Entries + 2 Hooks Loaded for Stats U1 / Chem U4, $20.29 (2026-10-09): two-checker + veto pipeline, controls 6/6 both units after one flawed control was replaced; aggregation bug fixed and recomputed; SOCS and one escalation for the PO; Production untouched; PR open for David.
 - BYOQ Photo Extraction Plan v2 Approved at Gate A (DECISION-0108, APPROVAL-0139); TASK-0068 Opened; TASK-0039 Closed (2026-10-08): Codex's v1 critiqued against live sources; David answered eleven questions (photos only, subject/unit from context, OpenAI build-measure-switch, student answer marks stored, phone-side review, no policy change, no spend cap, Micah + Orly pilot); plan re-cut to three slices; PR #391 supersedes #387. Docs only; nothing built.
 - TASK-0067 Approved and Opened; TASK-0066 Unblocked with D3 Amended (DECISION-0105, APPROVAL-0137) (2026-10-08): R1–R4 as recommended; one Development migration for both tables; hooks require a reference entry. Docs only; nothing built.
 - TASK-0066 Blocked on Companion Content; TASK-0067 (Unit Reference Content: Formulas, Vocabulary, Lists, Diagrams) Drafted as Proposed (2026-10-08): David's point checked against the schema and task records; nothing structured exists for hooks to attach to; R1–R4 await David. Docs only.
@@ -400,6 +403,44 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0067/0066 Phase C Built in Lovable Preview — 2026-10-09
+
+**Built (Lovable `56cae479`, commit `71a9b751`, "Added reference content & hooks", preview only):** nine files; details in `TASK-0067` §Phase C. Reviewed by diff: mapping tolerant of camel/snake and absent keys; `reference.rememberIt`/`lookUp` only present when content exists, so older payloads keep their exact shape; new vitest file with a baseline fixture asserting unchanged output for brief/explainer-only input. The agent ran the suite on request: 83 files, 770 passed, 0 failed; `tsgo --noEmit` clean.
+
+**Not verified visually with data:** the app reads Production, which has neither the tables nor the RPC keys until the migration's Hard-Gate apply. The absent-key path is what the preview exercises today.
+
+**Numbering:** DECISION-0106 renumbered to DECISION-0107 across this branch and the Development provenance rows; open PR #391 had reserved 0106.
+
+**Next owner:** David Bloom. **Next action:** approve or defer the three Hard Gates (Production migration, Production publish of 102 + 3 rows, Lovable publish). PR #390 carries the migration and the batch; it is David's to merge.
+
+## DECISION-0107 Recorded; Phase C Sent to Lovable Preview — 2026-10-09
+
+**Decisions (David):** SOCS loaded (CED names it; CED wins over the veto's order objection); 1.13 confirmed as owner of the escalated entry; veto moves to Haiku 5.5 (GPT-6 Sol cannot be the veto while Sonnet extracts, because the veto is the own-family audit). Loader gained `--po-accept`, which records each override in the row's `source_note`. Development: **102 entries, 3 hooks**.
+
+**Phase C:** the Lovable app (`56cae479`) reads Production, where the two RPC keys do not exist yet, so the brief requires every surface to render exactly today's output when `reference`/`memoryHooks` are absent, with a test for it. Scope sent: `topic-content.ts` types and mapping; `presentation.ts` (vocabulary from entries, `rememberIt`, `lookUp`, "Remember it" summary, "Formulas and rules" / "Lists and sequences" full sections, "Unit N reference" from a unit-level call); `deep-dive-export.ts`; `ReferencePane.jsx`; the Learn More route; a vitest file on a fixture taken from the Development payload. Preview only; no publish; no `.env` change. The tool call timed out waiting, but the project shows the agent running.
+
+**Verification plan:** read the diff by commit SHA; run the tests; the preview cannot show real rows until the Production migration is applied (separate Hard Gate), so visual verification with data waits on that approval.
+
+## TASK-0067 + TASK-0066 Phase A and B Done in Development — 2026-10-09
+
+**Context:** David: "Go ahead and start the implementation branch." Branch `claude/task-0067-0066-phase-a`.
+
+**Phase A (schema, Development):** one migration, two tables (`app.unit_reference_entries`, `app.topic_memory_hooks` with a required `reference_entry_id`), RLS forced, publish guards, two `security_invoker` views in the same migration, `public.get_topic_point_guides` returns `reference[]` and `memoryHooks[]` with every existing key unchanged (Dev and Prod definitions were md5-identical before the change). Keyed as `topic_explainers` because `TASK-0054`'s FK has not landed. Applied through the MCP; file renamed to the recorded version `20261009003237`. QA script added; 6/6 checks; guard triggers exercised and rolled back.
+
+**Phase B (pilot content, Development):** `scripts/content-seed/task0067-reference-pilot-2026-10-09/`. Extraction from the CED PDF pages (pdftotext) plus the fact-pack section by Claude Sonnet 5.5; checkers Gemini 3.5 Flash and GPT-6 Sol (picked by the session from the live roster, pending David's ratification); reject-only veto Claude Opus 5.5; smoke 12/12. Loaded: **79 Statistics Unit 1 entries, 22 Chemistry Unit 4 entries, 2 hooks** via `supabase db query --linked -f` (no retyping). Verified independently after load (counts, orphans, units, views, RPC probes).
+
+**Found on the way:**
+- One of my Chemistry controls was wrong (CED 4.5 does name the ideal gas law); batch voided, control replaced with Hess's law, controls re-run 6/6. Checkers were right.
+- A checker-aggregation bug let a rejected hook reject its entry; fixed, every verdict recomputed from stored samples, one entry changed.
+- The Statistics CED names SOCS itself; both checkers accepted it; the veto rejected it twice on an entry-order mismatch. Not loaded under the no-hand-edit rule; for David.
+- One escalation (Statistics 1.13 scope of conclusions: owner 1.10 vs 1.13); for David.
+- 11 of 14 round-1 Statistics rejections were over-tagged `topic_codes`; a stateless round 2 cleared 12 of 13.
+- Cost $20.29, 56% of it the Opus veto.
+
+**Not done:** Production migration, Production publish, Phase C (Lovable surfaces). Each is its own Hard Gate / next step. The PR carries a migration, so it is David's to merge.
+
+**Next owner:** David Bloom (ratify checkers; decide SOCS and the escalation; approve or defer the Production apply). **Next engineering action:** Phase C in Lovable preview (Deep Dive "Remember it" block, unit-reference list, Open Hand pane) reading `reference[]`/`memoryHooks[]` from the RPC on Development.
+
 ## BYOQ Photo Extraction Plan v2 Approved at Gate A; TASK-0068 Opened; TASK-0039 Closed — 2026-10-08
 
 **Context:** David asked for a planning session on Codex's BYOQ attachment-extraction plan (PR #387) with the instruction "critique the plan, find weakness, ask questions, challenge assumptions. The goal is not to implement — it is to make a great plan."

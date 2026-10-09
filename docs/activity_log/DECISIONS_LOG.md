@@ -7,6 +7,7 @@ This log records product, architecture, operating, security, design, and workflo
 Most recent entries (full chronological list follows below):
 
 - DECISION-0108 — BYOQ Photo Extraction With Student Confirmation Replaces Typed Transcription and TASK-0039 Phase 3: Photos Only, Subject/Unit From Context, OpenAI Build-Measure-Switch, Student Answer Marks Stored, Phone-Side Review, No Policy Change, No Spend Cap; TASK-0068 Opened
+- DECISION-0107 — Memory Hooks Pilot Rulings: a CED-Named Hook Overrides the Veto's Order Objection (SOCS Loaded); 1.13 Owns "Scope of Conclusions"; the Own-Family Veto Moves from Opus 5.5 to Haiku 5.5 on Cost
 - DECISION-0105 — Unit Reference Content (Formulas, Vocabulary, Lists, Conventions, Diagrams) Is the Companion Content for Memory Hooks: TASK-0067 Opened, Hooks Require a Reference Entry (Amends DECISION-0104 D3), Fact-Pack Extraction First, Diagrams Text-Only Until TASK-0006 Renders
 - DECISION-0104 — Memory Hooks Approved as Proposed (D1–D7): Topic-Owned Grain, CED Point-Bearing Inclusion Rule, Option B Table, Songs Out of v1, Three Surfaces, Stats Unit 1 + Chem Unit 4 Pilot; Amended to Include Diagram Parts
 - DECISION-0103 — Student Hub Slice 1 Contracts: Save on Change, Unit-Wide Study Scope, "Asked and Scored" Door Line, Revisit Queue Removed, No Dismissible First-Use Panel
@@ -79,6 +80,19 @@ Most recent entries (full chronological list follows below):
   12. **Per-field editability is critical, including a prompt to confirm the content is correct.** Every proposed field is editable; "Yes, this is my question" is the only path to `ready`; no per-field confidence bands in v1.
 - **Unchanged:** `DECISION-0057` (never graded, never Open Hand, never a canonical answer); `DECISION-0077` (identity-agnostic); `DECISION-0084` launch defaults (quotas, 30-day anonymous purge, private-until-promoted); the Hard Gates on migration, deployment, secrets, and Production.
 - **Consequences:** `APPROVAL-0139` records Gate A; `TASK-0068` opened; `TASK-0039` → Done; v1 plan and the worksheet design annotated superseded; one-pager D9 amended. Gate B (Development build) is a separate approval.
+
+## DECISION-0107 — Memory Hooks Pilot Rulings: a CED-Named Hook Overrides the Veto's Order Objection (SOCS Loaded); 1.13 Owns "Scope of Conclusions"; the Own-Family Veto Moves from Opus 5.5 to Haiku 5.5 on Cost
+
+- **Date:** 2026-10-09
+- **Numbering note:** first drafted as DECISION-0106; renumbered to 0107 before merge because open PR #391 (BYOQ photo extraction plan v2, 2026-10-08) had reserved DECISION-0106 for its approval; that PR finally merged as DECISION-0108 / APPROVAL-0139, so 0106 is unused and 0107 is this record.
+- **Decided by:** David Bloom (Product Owner): "1. SOCS is verified by the CED. CED wins. 2. 1.13. 3. We need to find a less expensive option. Opus is one of the most expensive models out there. What about Sol-6?"
+- **Context:** `TASK-0067`/`TASK-0066` Phase B pilot (`scripts/content-seed/task0067-reference-pilot-2026-10-09/README.md`). Both checkers accepted SOCS because the Statistics CED names it; the Opus 5.5 veto rejected it twice because the extracted entry's items follow the CED sentence order rather than the SOCS order. GPT-6 Sol held in two rounds that 1.10 first requires the scope-of-conclusions distinction. The veto was 56% of the $20.29 batch.
+- **Decision:**
+  1. When the CED itself names a memory hook, the hook is admissible and the veto's entry-order objection does not block it. SOCS is loaded (Development) under a recorded Product Owner override; the rule applies to future batches.
+  2. Statistics 1.13 is the owner of "Scope of conclusions from an experiment"; the entry is loaded (Development).
+  3. The own-family veto uses `anthropic/claude-haiku-5.5`. GPT-6 Sol stays a checker: the veto must share the extractor's family (reject-only audit of its own family's output), so it cannot be an OpenAI model while Sonnet 5.5 extracts. Haiku 5.5 must pass the structured-output smoke test before its first batch.
+- **Unchanged:** the no-hand-edit rule (overrides are acceptance decisions recorded in provenance, never content edits); two non-author checker families; every Production apply and publish remains a Hard Gate.
+- **Consequences:** Development holds 102 entries and 3 hooks; Phase C builds against that payload; Unit 2+ batches run with the cheaper veto.
 
 ## DECISION-0105 — Unit Reference Content Is the Companion Content for Memory Hooks: TASK-0067 Opened, Hooks Require a Reference Entry (Amends DECISION-0104 D3), Fact-Pack Extraction First, Diagrams Text-Only Until TASK-0006 Renders
 

@@ -1,0 +1,407 @@
+[
+  {
+    "candidate_id": "ctrl-chem-01-wrong-def",
+    "control": "wrong definition (acid as proton acceptor)",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition provided for 'Br\u00f8nsted-Lowry acid' is factually incorrect. According to Essential Knowledge 4.8.A.1, 'a Br\u00f8nsted-Lowry acid is a proton donor and a Br\u00f8nsted-Lowry base is a proton acceptor.' The entry incorrectly defines the acid as a species that accepts a proton."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition provided in the body is factually incorrect according to the CED. Essential Knowledge 4.8.A.1 states: 'By definition, a Br\u00f8nsted-Lowry acid is a proton donor and a Br\u00f8nsted-Lowry base is a proton acceptor.' The entry incorrectly defines a Br\u00f8nsted-Lowry acid as a species that accepts a proton."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The definition is reversed. CED 4.8.A.1 states: \u201ca Br\u00f8nsted-Lowry acid is a proton donor and a Br\u00f8nsted-Lowry base is a proton acceptor.\u201d The body defines a base, not an acid. Topic 4.8 requires students to identify these species; a caution cannot fix the incorrect definition, and none is provided."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 4.8.A.1 states: \u201ca Br\u00f8nsted-Lowry acid is a proton donor and a Br\u00f8nsted-Lowry base is a proton acceptor.\u201d The body defines a base, not an acid. Topic 4.8 is the correct topic, and identifying acids and bases is required by 4.8.A. No caution corrects the reversed definition."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-02-excluded",
+    "control": "explicitly excluded by the CED (reducing/oxidizing agent terms)",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The CED contains an explicit exclusion statement under Topic 4.7 (EK 4.7.A.3): 'The meaning of the terms \"reducing agent\" and \"oxidizing agent\" will not be assessed on the AP Exam.' Therefore, this vocabulary term is not required and is explicitly excluded from assessment."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The term 'oxidizing agent' is explicitly excluded from the AP Chemistry curriculum. Under Topic 4.7, Essential Knowledge 4.7.A.3 contains the following exclusion statement: 'Exclusion Statement: The meaning of the terms \"reducing agent\" and \"oxidizing agent\" will not be assessed on the AP Exam.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The definition is chemically correct, but Topic 4.7 explicitly states: \u201cThe meaning of the terms \u2018reducing agent\u2019 and \u2018oxidizing agent\u2019 will not be assessed on the AP Exam.\u201d Topic 4.9 requires constructing balanced redox equations from half-reactions; it does not use or require this term. No caution flags the exclusion.",
+              "hooks": []
+            }
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The definition is chemically correct and consistent with 4.7.A.3: electrons transfer from the species oxidized to the species reduced. But the 4.7 exclusion explicitly states, \u201cThe meaning of the terms \u2018reducing agent\u2019 and \u2018oxidizing agent\u2019 will not be assessed on the AP Exam.\u201d Neither 4.7 nor 4.9 requires this term; 4.9.A.1 requires constructing balanced redox equations from half-reactions. The entry also lacks a caution about the exclusion."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-03-wrong-owner",
+    "control": "wrong owner topic (titration vocabulary is 4.6, not 4.2)",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '4.2' (Net Ionic Equations), but the concept of 'equivalence point' is first introduced and required in Topic 4.6 (Introduction to Titration). Topic 4.2 does not mention titrations or equivalence points in its required course content."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '4.2' (Net Ionic Equations), but the concept of 'equivalence point' is first introduced and required in Topic 4.6 (Introduction to Titration). Topic 4.2 does not mention titrations or equivalence points in its required course content."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition matches 4.6.A.1: \u201cThe equivalence point of the titration occurs when the analyte is totally consumed by the reacting species in the titrant.\u201d No wording caution is needed. However, the first requirement for this concept is Topic 4.6, not the listed owner Topic 4.2; 4.2 addresses balanced chemical and net ionic equations, not equivalence points."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition matches 4.6.A.1: \u201cThe equivalence point of the titration occurs when the analyte is totally consumed by the reacting species in the titrant.\u201d It is required by 4.6.A, which asks students to identify the equivalence point. However, its first required topic is 4.6, not the listed owner 4.2; 4.2 addresses balanced chemical and net ionic equations, not equivalence points. The paraphrase needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-05-wrong-list",
+    "control": "wrong list member (Ca2+ is not among the always-soluble ions the CED names)",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry incorrectly lists calcium (Ca2+) instead of potassium (K+). According to EK 4.7.A.5, 'All sodium, potassium, ammonium, and nitrate salts are soluble in water.'"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry incorrectly includes calcium (Ca2+) instead of potassium (K+). Essential Knowledge 4.7.A.5 states: 'All sodium, potassium, ammonium, and nitrate salts are soluble in water.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 4.7.A.5 states: \u201cAll sodium, potassium, ammonium, and nitrate salts are soluble in water.\u201d The list incorrectly includes calcium (Ca2+) and omits potassium (K+), so it also fails to reproduce the CED\u2019s list order. Topic 4.7 is the correct topic, and the list is required content. The title says \u201calways soluble\u201d rather than the CED\u2019s \u201csoluble in water\u201d; no caution clarifies that wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 4.7, EK 4.7.A.5 states: \u201cAll sodium, potassium, ammonium, and nitrate salts are soluble in water.\u201d The entry incorrectly lists Ca2+ (calcium) in place of K+ (potassium). The soluble-salts list belongs in 4.7 and is required content. No wording caution is needed, but a caution would not correct the wrong list member."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-04-bad-hook",
+    "control": "hook expansion inverted (OIL as oxidation is gain)",
+    "accepted": false,
+    "hooks_accepted": {
+      "OIL RIG": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body is factually correct and aligns with EK 4.7.A.3 ('electrons are transferred from the species that is oxidized to the species that is reduced') and EK 4.9.A.1 ('Balanced chemical equations for redox reactions can be constructed from half-reactions')."
+            },
+            "hooks": [
+              {
+                "hook_text": "OIL RIG",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The acronym expansion is factually incorrect and contradicts the entry body. 'OIL' stands for 'Oxidation Is Loss' (not 'gain') and 'RIG' stands for 'Reduction Is Gain' (not 'loss')."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body correctly describes oxidation as the loss of electrons and reduction as the gain of electrons, which is required by EK 4.7.A.3 and EK 4.9.A.1."
+            },
+            "hooks": [
+              {
+                "hook_text": "OIL RIG",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The acronym expansion is factually incorrect and reversed. 'OIL' stands for 'Oxidation Is Loss' (not 'oxidation is gain') and 'RIG' stands for 'Reduction Is Gain' (not 'reduction is loss')."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body agrees with 4.7.A.3: electrons are transferred from the species that is oxidized to the species that is reduced. Topic 4.9.A.1 requires constructing balanced redox equations from half-reactions. But 4.7.A.2\u20133 first requires electron transfer and identification of oxidized and reduced species, so the owner topic should be 4.7, not 4.9. No caution is needed for the body's equivalent, correct wording."
+            },
+            "hooks": [
+              {
+                "hook_text": "OIL RIG",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansions are reversed: oxidation is loss of electrons and reduction is gain. That follows from 4.7.A.3: electrons are transferred from the species that is oxidized to the species that is reduced. Electron-transfer direction is required content, but this hook as supplied teaches the opposite."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body correctly describes electron transfer and oxidation half-reactions. The CED says electrons move \u201cfrom the species that is oxidized to the species that is reduced\u201d (4.7.A.3), and requires constructing redox equations from half-reactions (4.9.A.1). No caution is needed for the body\u2019s equivalent wording. However, this content is first required in Topic 4.7, not the listed owner topic 4.9."
+            },
+            "hooks": [
+              {
+                "hook_text": "OIL RIG",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "Both expansions reverse the entry and the CED: oxidation loses electrons, while reduction gains them. The CED states that electrons move \u201cfrom the species that is oxidized to the species that is reduced\u201d (4.7.A.3). As expanded here, the hook does not recall the required direction correctly; its missing caution does not remedy the error."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-06-other-unit",
+    "control": "content from another unit (ideal gas law is Unit 3)",
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The ideal gas law (PV = nRT) is explicitly required in Topic 4.5 under Essential Knowledge 4.5.A.3, which states: 'Stoichiometric calculations can be combined with the ideal gas law and calculations involving molarity to quantitatively study gases and solutions.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "PV = nRT is the ideal gas law. Topic 4.5 is the relevant topic: EK 4.5.A.3 states, \u201cStoichiometric calculations can be combined with the ideal gas law and calculations involving molarity to quantitatively study gases and solutions.\u201d The CED names the law but does not print the equation; applying it is required. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a: PV = nRT is the standard, correct form of the ideal gas law. These pages name the law but do not print the equation, and nothing in them contradicts this form. b: Within Unit 4, the only mention is Topic 4.5, EK 4.5.A.3: \"Stoichiometric calculations can be combined with the ideal gas law and calculations involving molarity to quantitatively study gases and solutions.\" So 4.5 is the first and only Unit 4 topic that requires it, and topic_codes [\"4.5\"] is complete. The law originates in Unit 3, outside these pages, but the check asks where this unit first requires it, which is 4.5. c: EK 4.5.A.3 explicitly requires students to apply the ideal gas law in stoichiometric calculations, which serves LO 4.5.A: \"Explain changes in the amounts of reactants and products based on the balanced reaction equation.\" This is a direct CED requirement, not textbook completeness. d: The entry uses the standard equation form and does not conflict with CED wording, so no caution is needed. No hooks to evaluate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

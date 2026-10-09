@@ -1,9 +1,9 @@
 # TASK-0067 — Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams (Companion to Memory Hooks)
 
-**Status:** Approved, not started (2026-10-08, `DECISION-0105` / `APPROVAL-0137`; R1–R4 as recommended). Runs together with `TASK-0066` Phase A in one Development migration.
+**Status:** Phases A, B and C done 2026-10-09: schema and 102 entries + 3 hooks in Development; Lovable surfaces built in **preview** (commit `71a9b751`, not published). Awaiting three Hard Gates: Production migration, Production publish, Lovable publish. Approved 2026-10-08 (`DECISION-0105` / `APPROVAL-0137`).
 **Tier:** Standard for schema design, Development apply, and authoring in Development; **Hard-Gate** for the Production migration, Production publish, and Lovable publish.
 **Owner:** Claude session. **Product Owner:** David Bloom.
-**Branch / PR:** none yet (open on the first implementation session; shared with `TASK-0066`).
+**Branch / PR:** `claude/task-0067-0066-phase-a` (shared with `TASK-0066`).
 **Source:** David, 2026-10-08: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them."
 **Related:** `TASK-0066` (memory hooks), `TASK-0054` (reference content on the taxonomy), `TASK-0006` (visual stimulus and rendering), `TASK-0021` (Biology prompt visuals), `TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md` (unit reference, Phase 0), `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3 (skill scaffolds), `docs/new_design/CONTENT_AND_PEDAGOGY.md` (reference materials: topic, skills, vocabulary).
 
@@ -96,6 +96,50 @@ notes; any change to `topic_explainers` fields; a diagram-rendering system (that
 Scope approved (`APPROVAL-0137`). The Production migration, the Production publish of pilot
 entries, and the Lovable publish are each a separate Hard Gate.
 
-## Implementation summary / Test results / QA result / Done decision
+## Implementation summary (2026-10-09)
 
-None yet.
+- **Phase A:** migration `supabase/migrations/20261009003237_task0067_unit_reference_entries_and_memory_hooks.sql`
+  (filename = the version Development recorded): `app.unit_reference_entries`, `app.topic_memory_hooks`
+  (required `reference_entry_id`), RLS forced, publish guards, `public.unit_reference_entries` and
+  `public.topic_memory_hooks` views in the same migration, `public.get_topic_point_guides` gains
+  `reference[]` and `memoryHooks[]` only. Keyed as `topic_explainers` (TASK-0054's FK has not landed).
+  QA script `scripts/qa/unit_reference_and_memory_hooks_qa.sql`.
+- **Phase B:** batch `scripts/content-seed/task0067-reference-pilot-2026-10-09/` (README has provenance,
+  method, results, cost). Extractor Claude Sonnet 5.5; checkers Gemini 3.5 Flash + GPT-6 Sol; reject-only
+  veto Claude Opus 5.5. Loaded to Development: **79 Statistics Unit 1 entries, 22 Chemistry Unit 4 entries,
+  2 hooks** (z-score formula sentence; OIL RIG). One Statistics entry escalated; SOCS hook not loaded
+  (see README). $20.29.
+
+## Test results
+
+Development: QA checks pass (objects, RLS forced, no anon grants, RPC keys, triggers; zero orphans,
+owner unit matches taxonomy, published hooks on published entries, `published_at` set, 101/2 via views,
+registry subject keys). RPC probes for Stats 1.7, Stats Unit 1, Chem 4.9 and a subject with no entries
+behaved as specified. Functional test of both guard triggers passed and was rolled back.
+
+## Phase C (2026-10-09, Lovable preview, commit `71a9b751`)
+
+`topic-content.ts` maps `reference[]`/`memoryHooks[]` (camel or snake, `[]` when absent);
+`presentation.ts` fills the pane's Vocabulary from `vocabulary` entries, adds `rememberIt` and `lookUp`,
+a "Remember it" summary in the Deep Dive, "Formulas and rules" / "Lists and sequences" full sections,
+and a closing "Unit N reference" built from a second unit-level RPC call; `ReferencePane.jsx` renders
+"Remember it" and "Look up"; the Learn More route shows the same two blocks as cards;
+`deep-dive-export.ts` includes "Remember it" in Copy notes. A baseline fixture pins the pre-change output
+so Production's current payload (no new keys) renders exactly as before. Tests: 770/770, `tsc` clean
+(reported by the Lovable agent, 2026-10-09). Known limits: formulas display as LaTeX source in monospace
+(no renderer in the app); a topic's "Look up" lists every entry the topic reuses (Stats 1.7 shows seven
+formulas), so row limits may be wanted before publish.
+
+## Resolved by the Product Owner (`DECISION-0107`)
+
+Checker pick stands; SOCS loaded (CED names it); 1.13 owns "Scope of conclusions"; veto moves to Haiku 5.5.
+
+## Remaining Hard Gates
+
+1. Production migration apply (`20261009003237`), which also makes the preview show real rows.
+2. Production publish of the 102 entries + 3 hooks (load SQL files in the batch `out/`).
+3. Lovable publish of commit `71a9b751` or later.
+
+## QA result / Done decision
+
+Not yet. Phase C unbuilt; Production untouched.

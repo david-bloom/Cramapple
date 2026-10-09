@@ -1,11 +1,11 @@
 # TASK-0066 — Memory Hooks: Schema, Pilot Authoring, and Student Surfaces
 
-**Status:** Approved, not started (2026-10-08). Was blocked the same day on companion content (David: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them"); **unblocked by `DECISION-0105` / `APPROVAL-0137`**: `TASK-0067` builds `app.unit_reference_entries`, and Phase A of both tasks runs in one Development migration. D3 amended: a hook requires a `reference_entry_id` and inherits its scope from the entry; the hook's own `topic_codes[]` is dropped.
+**Status:** Phase A done in Development 2026-10-09 with `TASK-0067` (shared migration `20261009003237`); Phase B pilot: 3 hooks published in Development (SOCS, z-score formula sentence, OIL RIG; SOCS by `DECISION-0107`); Phase C built in Lovable preview 2026-10-09 (commit `71a9b751`): "Remember it" in the reference pane, the Deep Dive summaries, Copy notes, and the Learn More page; tests 770/770. Production untouched; three Hard Gates remain (see `TASK-0067`). Earlier: approved 2026-10-08. Was blocked the same day on companion content (David: "Task 0066 only works if we have the formula, diagrams, lists, etc to accompany them"); **unblocked by `DECISION-0105` / `APPROVAL-0137`**: `TASK-0067` builds `app.unit_reference_entries`, and Phase A of both tasks runs in one Development migration. D3 amended: a hook requires a `reference_entry_id` and inherits its scope from the entry; the hook's own `topic_codes[]` is dropped.
 **Tier:** Standard for schema design and Development apply, pilot authoring in Development, and the Lovable preview build; **Hard-Gate** for the Production migration apply, any Production publish of hook rows, and the Lovable publish.
 **Owner:** Claude session (schema, authoring run, Lovable messages); outside-family checkers via AI Gateway.
 **Product Owner:** David Bloom.
 **Date opened:** 2026-10-08. **Approved:** 2026-10-08, `DECISION-0104` / `APPROVAL-0136`.
-**Branch:** none yet (open on first implementation session). **PR:** none yet.
+**Branch:** `claude/task-0067-0066-phase-a` (shared with `TASK-0067`). **PR:** opened 2026-10-09.
 **Source:** `docs/product/MEMORY_HOOKS_PROPOSAL_2026_10_08.md` (approved as recommended, with the §12 amendment). Idea: Micah Bloom.
 **Related:** `TASK-0067` (companion content, blocker), `TASK-0054` (reference content on the taxonomy), `TASK-0006` (visual stimulus and rendering), `TOPIC_BRIEFS_AND_LEARN_MORE_PRODUCTION_PROTOCOL.md`, `research/CONTENT_AUTHORING_AND_QA_PROTOCOL.md` v0.6 §0, `COURSE_HOMEWORK_CONSOLIDATION_PLAN.md` §3.
 
@@ -115,6 +115,10 @@ Independent re-read of the Development rows against the CED fact packs; row-limi
 Scope approved (`APPROVAL-0136`). Production apply, Production publish, and Lovable publish: not
 approved, each a separate Hard Gate.
 
-## Implementation summary / Test results / QA result / Done decision
+## Implementation summary / Test results
 
-None yet.
+See `TASK-0067` (shared migration, shared batch). Hook-specific: the publish guard refuses a hook on a draft entry and refuses retiring an entry that still has a published hook (both exercised in Development and rolled back). Hook verdicts are independent of entry verdicts; a hook survives only if both checkers and the veto accept it. 3 hooks proposed by extraction, 2 accepted and published in Development, 1 (SOCS) rejected by the veto on an order mismatch despite the CED naming it.
+
+## QA result / Done decision
+
+Not yet.
