@@ -1,0 +1,121 @@
+{
+ "id": "ap_statistics__2.12__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 2,
+  "unit_title": "Probability, Random Variables, and Probability Distributions",
+  "topic_code": "2.12",
+  "topic_title": "Sampling Distributions and the Central Limit Theorem",
+  "existing": [
+   "apstats-frq-u12-019"
+  ],
+  "need": 1
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.668Z",
+   "item": {
+    "title": "Randomization Distribution for a Fertilizer Experiment",
+    "calculator": "not_permitted",
+    "stimulus": "A horticulture class tested whether a new liquid fertilizer increases the growth of basil seedlings. Twenty seedlings of similar size were randomly assigned, 10 to receive the fertilizer and 10 to receive plain water (control). After 4 weeks, the height gained by each seedling was measured in centimeters (cm). The mean height gained was 18.4 cm for the fertilizer group and 15.4 cm for the control group. The observed difference (fertilizer mean minus control mean) is 3.0 cm.\n\nTo see what differences could arise from random assignment alone, the class used a computer to create a randomization distribution. The computer generated 200 values of the difference (fertilizer mean minus control mean). The results are summarized below.\n\nSimulated difference (cm) | Frequency\n-4 to less than -3 | 2\n-3 to less than -2 | 9\n-2 to less than -1 | 27\n-1 to less than 0 | 62\n0 to less than 1 | 61\n1 to less than 2 | 28\n2 to less than 3 | 9\n3 to less than 4 | 2\nTotal | 200",
+    "model_answer": "(a) Assuming the fertilizer has no effect, each seedling's height gain would have been the same no matter which group it was in. So the computer keeps the 20 observed height gains, randomly shuffles them, and assigns 10 to a group labeled fertilizer and the other 10 to a group labeled control. It then computes the mean of the fertilizer group minus the mean of the control group and records that difference. Repeating this 200 times gives the randomization distribution.\n\n(b) The randomization distribution is roughly symmetric and unimodal (mound-shaped), with its center near 0 cm; the two tallest bins (62 and 61) are on either side of 0, and the frequencies decrease about equally in each direction. The center is near 0 because the reallocations assume the fertilizer has no effect, so the group labels are arbitrary and a simulated difference is just as likely to be positive as negative.\n\n(c) Only the 2 values in the 3 to less than 4 bin are at least 3.0 cm, so the estimated proportion is 2/200 = 0.01. If the fertilizer had no effect, a difference in mean height gain of 3.0 cm or more would occur in only about 1% of random assignments. Because the observed difference is so unusual under the no-effect assumption, the experiment provides convincing evidence that the fertilizer increases height gain for basil seedlings like these.",
+    "verification_python": "from fractions import Fraction\nfreq=[2,9,27,62,61,28,9,2]\nlowers=[-4,-3,-2,-1,0,1,2,3]\nassert sum(freq)==200\nobs=Fraction(184,10)-Fraction(154,10)\nassert obs==3\ncount=sum(f for f,l in zip(freq,lowers) if l>=obs)\nassert count==2\nassert Fraction(count,200)==Fraction(1,100)\n# symmetry check\nassert freq==freq[::-1] or all(abs(freq[i]-freq[-1-i])<=1 for i in range(4))\n# approximate center from midpoints\nmids=[l+0.5 for l in lowers]\nm=sum(f*x for f,x in zip(freq,mids))/200\nassert abs(m)<0.1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe how the computer would generate one of the 200 simulated differences in the randomization distribution, assuming the fertilizer has no effect on growth.",
+      "criteria": [
+       {
+        "text": "States that the 20 observed height gains are kept fixed and randomly reallocated (reassigned) into two groups of 10, one labeled fertilizer and one labeled control.",
+        "evidence": "Response says the same 20 measured height gains are randomly reassigned or reshuffled into two groups of 10; it does not resample from a new population or change the values.",
+        "fix": "Say the 20 actual response values stay fixed and are randomly reshuffled into two groups of 10, matching the original group sizes.",
+        "accepted_variants": [
+         "shuffle the 20 values and deal 10 to each group",
+         "randomly re-randomize the 20 measurements into groups of 10",
+         "write the 20 gains on cards, mix, and draw 10 for fertilizer"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the table, describe the shape and center of the randomization distribution. Explain why the center is located where it is.",
+      "criteria": [
+       {
+        "text": "Describes the distribution as roughly symmetric and unimodal (mound-shaped) with center near 0 cm.",
+        "evidence": "Response gives both a shape (roughly symmetric, single-peaked) and a center near 0 cm, consistent with the frequencies peaking in the bins next to 0.",
+        "fix": "State both shape and center explicitly, reading the peak and balance point from the frequencies; here the peak is beside 0 and tails mirror each other.",
+        "accepted_variants": [
+         "approximately normal shaped centered at about 0",
+         "bell-shaped centered around 0 cm",
+         "symmetric, single peak, centered close to 0"
+        ]
+       },
+       {
+        "text": "Explains that the center is near 0 because the reallocations assume the fertilizer has no effect, so group labels are arbitrary and differences are equally likely to be positive or negative.",
+        "evidence": "Response links the center of 0 to the no-effect assumption built into random reallocation, not to a property of the fertilizer itself.",
+        "fix": "Connect the center to the simulation assumption: if treatment has no effect, reshuffled labels give differences that balance around 0.",
+        "accepted_variants": [
+         "because each reallocation assumes no treatment effect",
+         "because under random reassignment neither group is favored"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the randomization distribution to estimate the proportion of reallocations that produce a difference of at least 3.0 cm. Then explain what this suggests about whether the fertilizer increases seedling growth.",
+      "criteria": [
+       {
+        "text": "Estimates the proportion as 2/200 = 0.01 using the 3 to less than 4 bin.",
+        "evidence": "Response identifies the 2 simulated differences at or above 3.0 cm and computes 2/200 = 0.01 (1%).",
+        "fix": "Count only simulated differences at least as large as the observed 3.0 cm, then divide by the total number of simulations, 200.",
+        "accepted_variants": [
+         "0.01",
+         "1%",
+         "2 out of 200"
+        ]
+       },
+       {
+        "text": "Concludes in context that a difference of 3.0 cm would rarely occur by random assignment alone if the fertilizer had no effect, so the result provides evidence that the fertilizer increases height gain for seedlings like these, using non-definitive language.",
+        "evidence": "Response states the observed difference is unusual under the no-effect assumption (about 1% of reallocations) and that this gives evidence, not proof, that the fertilizer increases basil seedling growth.",
+        "fix": "Compare the observed value to the simulated values, call it unusual if rare, and state evidence for the fertilizer effect without saying it proves anything.",
+        "accepted_variants": [
+         "convincing evidence the fertilizer increases growth",
+         "the result is unlikely due to chance alone, suggesting the fertilizer helps"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.3": 4,
+     "2.12": 1,
+     "3.6": 1
+    },
+    "onTarget": 1,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6,
+     "3": 1,
+     "4": 3
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ]
+}

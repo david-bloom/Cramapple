@@ -1,0 +1,410 @@
+{
+ "id": "ap_precalculus__3.4__1",
+ "slot": {
+  "subject_key": "ap_precalculus",
+  "tsv": "16383753-6775-430d-960a-544cd6ee0972",
+  "unit": 3,
+  "unit_title": "Trigonometric and Polar Functions",
+  "topic_code": "3.4",
+  "topic_title": "Sine and Cosine Function Graphs",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.668Z",
+   "item": {
+    "title": "Unit Circle Motion and the Sine and Cosine Graphs",
+    "calculator": "not_permitted",
+    "stimulus": "An angle of measure θ radians is drawn in standard position. Its terminal ray meets the unit circle centered at the origin at the point P. The functions f and g are defined by f(θ) = sin θ and g(θ) = cos θ for 0 ≤ θ ≤ 2π. As θ increases, P moves counterclockwise around the unit circle, starting at (1, 0) when θ = 0. No calculator is permitted. Give exact values.",
+    "model_answer": "(a) At θ = π/2, P = (0, 1); at θ = π, P = (−1, 0). As θ increases from π/2 to π, P moves along the circle down toward the x-axis and to the left. f(θ) = sin θ is the y-coordinate of P, its vertical displacement from the x-axis, which decreases from 1 to 0, so f is decreasing on this interval. g(θ) = cos θ is the x-coordinate of P, its horizontal displacement from the y-axis, which decreases from 0 to −1, so g is also decreasing on this interval.\n\n(b) The x-coordinate of a point on the unit circle is largest at (1, 0), where it equals 1. P is at (1, 0) when θ = 0 and when θ = 2π. So the maximum value of g is 1, at θ = 0 and θ = 2π. The y-coordinate is smallest at the lowest point (0, −1), where it equals −1. P is there only when θ = 3π/2. So the minimum value of f is −1, at θ = 3π/2.\n\n(c) f increases when P moves up: from θ = 0 to π/2 and from θ = 3π/2 to 2π. g increases when P moves right: from θ = π to 2π. Both increase on 3π/2 ≤ θ ≤ 2π. On this interval P moves from (0, −1) to (1, 0): its vertical displacement from the x-axis rises from −1 to 0, so f increases, and its horizontal displacement from the y-axis rises from 0 to 1, so g increases. On 0 to π/2 the x-coordinate decreases, and on π to 3π/2 the y-coordinate decreases, so no other interval works.",
+    "verification_python": "import sympy as sp\nth=sp.symbols('theta')\npi=sp.pi\n# (a) endpoints\nassert sp.sin(pi/2)==1 and sp.sin(pi)==0\nassert sp.cos(pi/2)==0 and sp.cos(pi)==-1\nimport math\ndef incr(fn,a,b,n=200):\n    xs=[a+(b-a)*k/n for k in range(n+1)]\n    return all(fn(xs[i+1])>fn(xs[i]) for i in range(n))\ndef decr(fn,a,b,n=200):\n    xs=[a+(b-a)*k/n for k in range(n+1)]\n    return all(fn(xs[i+1])<fn(xs[i]) for i in range(n))\nassert decr(math.sin,math.pi/2,math.pi)\nassert decr(math.cos,math.pi/2,math.pi)\n# (b)\nassert sp.cos(0)==1 and sp.cos(2*pi)==1\nsols=sp.solveset(sp.Eq(sp.cos(th),1),th,sp.Interval(0,2*pi))\nassert sols==sp.FiniteSet(0,2*pi)\nsols2=sp.solveset(sp.Eq(sp.sin(th),-1),th,sp.Interval(0,2*pi))\nassert sols2==sp.FiniteSet(3*pi/2)\n# (c)\nassert incr(math.sin,3*math.pi/2,2*math.pi) and incr(math.cos,3*math.pi/2,2*math.pi)\nassert sp.sin(3*pi/2)==-1 and sp.sin(2*pi)==0 and sp.cos(3*pi/2)==0 and sp.cos(2*pi)==1\n# other quarters fail\nassert not incr(math.cos,0,math.pi/2)\nassert not incr(math.sin,math.pi/2,math.pi)\nassert not incr(math.sin,math.pi,3*math.pi/2)\nassert incr(math.sin,0,math.pi/2) and incr(math.cos,math.pi,2*math.pi)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "As θ increases from π/2 to π, decide whether f is increasing or decreasing and whether g is increasing or decreasing on that interval. Justify each answer by describing how the position of P changes.",
+      "criteria": [
+       {
+        "text": "States that f is decreasing on π/2 to π, justified by the vertical displacement of P from the x-axis decreasing from 1 to 0.",
+        "evidence": "Says f is decreasing and explains that P moves from (0, 1) toward (−1, 0), so its y-coordinate (vertical displacement from the x-axis) drops from 1 to 0.",
+        "fix": "Track the y-coordinate of P from (0, 1) to (−1, 0); sin θ equals that y-coordinate, so watch whether it rises or falls.",
+        "accepted_variants": [
+         "f decreases because P moves down toward the x-axis",
+         "the y-coordinate of P goes from 1 to 0"
+        ]
+       },
+       {
+        "text": "States that g is decreasing on π/2 to π, justified by the x-coordinate of P going from 0 to −1 as P moves left of the y-axis.",
+        "evidence": "Says g is decreasing and explains that P's x-coordinate (horizontal displacement from the y-axis) goes from 0 to −1 as P moves left.",
+        "fix": "Remember cos θ is the x-coordinate of P; moving left on the circle makes the x-coordinate smaller, here from 0 to −1.",
+        "accepted_variants": [
+         "g decreases because P moves to the left",
+         "the x-coordinate of P goes from 0 to −1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the maximum value of g on 0 ≤ θ ≤ 2π and every value of θ in that interval where it occurs. Then find the minimum value of f on 0 ≤ θ ≤ 2π and every value of θ in that interval where it occurs. Give the location of P in each case.",
+      "criteria": [
+       {
+        "text": "Maximum value of g is 1, occurring at θ = 0 and θ = 2π, where P = (1, 0).",
+        "evidence": "States maximum 1 and lists both θ = 0 and θ = 2π, identifying P at (1, 0), the point farthest right of the y-axis.",
+        "fix": "Find the unit-circle point farthest right, (1, 0), and list every angle in 0 ≤ θ ≤ 2π that lands there, including both endpoints.",
+        "accepted_variants": [
+         "max g = 1 at θ = 0, 2π",
+         "cos θ = 1 when θ = 0 or 2π"
+        ]
+       },
+       {
+        "text": "Minimum value of f is −1, occurring only at θ = 3π/2, where P = (0, −1).",
+        "evidence": "States minimum −1 at θ = 3π/2 with P at (0, −1), the lowest point on the unit circle.",
+        "fix": "Find the lowest point of the unit circle, (0, −1); its y-coordinate is the minimum of sine, reached at θ = 3π/2.",
+        "accepted_variants": [
+         "min f = −1 at θ = 3π/2",
+         "sin θ = −1 when θ = 3π/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the interval of θ values in 0 ≤ θ ≤ 2π on which f and g are both increasing. Explain your answer using the vertical and horizontal displacements of P.",
+      "criteria": [
+       {
+        "text": "Identifies the interval 3π/2 to 2π as the interval where both f and g are increasing.",
+        "evidence": "Gives the interval from 3π/2 to 2π (open or closed endpoints both acceptable) and no other interval.",
+        "fix": "List where sine increases (0 to π/2, 3π/2 to 2π) and where cosine increases (π to 2π), then take the overlap.",
+        "accepted_variants": [
+         "3π/2 < θ < 2π",
+         "3π/2 ≤ θ ≤ 2π",
+         "[3π/2, 2π]",
+         "(3π/2, 2π)",
+         "fourth quadrant, from 3π/2 to 2π"
+        ]
+       },
+       {
+        "text": "Justifies that on this interval P moves from (0, −1) to (1, 0), so its y-coordinate rises from −1 to 0 and its x-coordinate rises from 0 to 1.",
+        "evidence": "Explains that in this quarter-turn P moves up (vertical displacement from the x-axis increases from −1 to 0) and right (horizontal displacement from the y-axis increases from 0 to 1), and notes that on other intervals at least one coordinate is not increasing.",
+        "fix": "For each quarter-turn, record whether P moves up or down and left or right; both functions increase only when P moves up and right.",
+        "accepted_variants": [
+         "P moves up and to the right from (0, −1) to (1, 0)",
+         "sin θ goes from −1 to 0 while cos θ goes from 0 to 1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criteria b1 and b2: the “Also accept” responses omit the explicitly requested location of P, although each criterion's main statement and evidence require it. These alternatives incorrectly award credit for incomplete responses; require P = (1, 0) for b1 and P = (0, −1) for b2."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criteria b1 and b2: the “Also accept” responses omit the explicitly requested location of P, although each criterion's main statement and evidence require it. These alternatives incorrectly award credit for incomplete responses; require P = (1, 0) for b1 and P = (0, −1) for b2."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criteria b1 and b2: the 'Also accept' examples omit the explicitly requested locations of P, although the criteria and evidence require them. Require P = (1, 0) and P = (0, −1), respectively. Part (c), criterion c2: the evidence additionally requires discussing other intervals, while the criterion and accepted examples require only explaining why both coordinates increase on the identified interval. Remove this additional requirement so a complete direct justification earns the point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criteria b1 and b2: the 'Also accept' examples omit the explicitly requested locations of P, although the criteria and evidence require them. Require P = (1, 0) and P = (0, −1), respectively. Part (c), criterion c2: the evidence additionally requires discussing other intervals, while the criterion and accepted examples require only explaining why both coordinates increase on the identified interval. Remove this additional requirement so a complete direct justification earns the point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "google/gemini-3.8-flash",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "meta/muse-spark-1.3",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}
