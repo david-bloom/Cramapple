@@ -1,0 +1,283 @@
+[
+  {
+    "owner_topic_code": "8.1",
+    "topic_codes": [
+      "8.1"
+    ],
+    "kind": "convention",
+    "title": "Neutral water and temperature",
+    "body": "In pure water pH = pOH (a neutral solution), which gives pH = pOH = 7.0 only at 25\u00b0C, because Kw depends on temperature and neutral pH deviates from 7.0 at other temperatures.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.1.A.3\u20138.1.A.4 The value of Kw is temperature dependent",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-001",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.1",
+    "topic_codes": [
+      "8.1",
+      "8.2",
+      "8.3"
+    ],
+    "kind": "formula",
+    "title": "Water autoionization constant, Kw",
+    "body": "K_w = [H_3O^+][OH^-] = 1.0\\times10^{-14}\\ \\text{at } 25^\\circ\\text{C}, \\qquad pK_w = 14 = pH + pOH",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.1.A.2 Water autoionizes with an equilibrium constant Kw",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-002",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.2",
+    "topic_codes": [
+      "8.2"
+    ],
+    "kind": "convention",
+    "title": "Strong base: [OH\u2212] from group I vs group II hydroxides",
+    "body": "A strong base dissociates completely, so [OH\u2212] equals the initial concentration for a group I hydroxide and double the initial concentration for a group II hydroxide.",
+    "items": [],
+    "caution": "Taking \u2212log[OH\u2212] gives pOH, not pH; convert to pH using pH + pOH = 14 at 25\u00b0C before reporting.",
+    "ced_evidence": "8.2.A.2 double the initial concentration of a group II hydroxide",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-003",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.3",
+    "topic_codes": [
+      "8.3",
+      "8.4"
+    ],
+    "kind": "formula",
+    "title": "Base ionization constant, Kb",
+    "body": "K_b = \\frac{[OH^-][HB^+]}{[B]}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.3.A.4 EQN: Kb = [OH\u2212][HB+]/[B]",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-004",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.3",
+    "topic_codes": [
+      "8.3",
+      "8.7"
+    ],
+    "kind": "formula",
+    "title": "pKb",
+    "body": "pK_b = -\\log K_b",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.3.A.4 EQN: pKb = \u2212log Kb",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-005",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.3",
+    "topic_codes": [
+      "8.3",
+      "8.4",
+      "8.5",
+      "8.7",
+      "8.9"
+    ],
+    "kind": "formula",
+    "title": "Acid ionization constant, Ka",
+    "body": "K_a = \\frac{[H_3O^+][A^-]}{[HA]}, \\qquad pK_a = -\\log K_a",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.3.A.2 EQN: Ka = [H3O+][A\u2212]/[HA]",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-006",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.3",
+    "topic_codes": [
+      "8.3",
+      "8.4",
+      "8.5"
+    ],
+    "kind": "formula",
+    "title": "Conjugate pair: Ka, Kb and Kw",
+    "body": "K_w = K_a \\times K_b, \\qquad pK_w = pK_a + pK_b",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.3.A.6 For any conjugate acid-base pair \u2026 Kw = Ka \u00d7 Kb",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-007",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.4",
+    "topic_codes": [
+      "8.4",
+      "8.5"
+    ],
+    "kind": "list_sequence",
+    "title": "Weak base + strong acid: three cases",
+    "body": "B(aq) + H3O+(aq) \u2192 HB+(aq) + H2O(l) goes quantitatively, and the pH depends on which species is left in excess.",
+    "items": [
+      {
+        "label": "Weak base in excess",
+        "meaning": "A buffer forms; pH comes from the Henderson-Hasselbalch equation."
+      },
+      {
+        "label": "Strong acid in excess",
+        "meaning": "pH comes from the moles of excess hydronium ion and the total volume of solution."
+      },
+      {
+        "label": "Equimolar",
+        "meaning": "Slightly acidic; pH comes from the equilibrium HB+(aq) + H2O(l) \u21cc B(aq) + H3O+(aq)."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "8.4.A.3 If the strong acid is in excess",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-008",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.5",
+    "topic_codes": [
+      "8.5",
+      "8.7"
+    ],
+    "kind": "diagram",
+    "title": "Titration curve (pH vs. volume of titrant)",
+    "body": "A plot of pH (y-axis) against volume of titrant added (x-axis) that summarizes titration results and is read for the equivalence and half-equivalence points.",
+    "items": [
+      {
+        "label": "Axes",
+        "meaning": "pH against volume of titrant added."
+      },
+      {
+        "label": "Equivalence point",
+        "meaning": "Moles of titrant equal moles of analyte originally present; used to find the analyte concentration; the pH here is set by the major species (neutral for strong\u2013strong, basic for weak acid, acidic for weak base)."
+      },
+      {
+        "label": "Half-equivalence point",
+        "meaning": "For a weak acid or base, [HA] = [A\u2212], so pH = pKa and pKa can be read from the curve."
+      },
+      {
+        "label": "Buffering region",
+        "meaning": "Region of the weak acid or base titration where both members of the conjugate pair are present."
+      }
+    ],
+    "caution": "Do not confuse the half-equivalence point (pH = pKa) with the equivalence point; the pH at the equivalence point is not the pKa.",
+    "ced_evidence": "8.5.A.1 A titration curve, plotting pH against the volume of titrant added",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-009",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.5",
+    "topic_codes": [
+      "8.5"
+    ],
+    "kind": "list_sequence",
+    "title": "Polyprotic acid titration curves",
+    "body": "A titration curve of a polyprotic acid can be read for the following information.",
+    "items": [
+      {
+        "label": "Number of acidic protons",
+        "meaning": "Determined from the titration curve."
+      },
+      {
+        "label": "Major species",
+        "meaning": "The major species present at any point along the curve can be identified."
+      },
+      {
+        "label": "pKa of each proton",
+        "meaning": "The pKa associated with each proton of a weak polyprotic acid."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "8.5.A.5 titration curves can be used to determine the number of acidic protons",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-010",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.8",
+    "topic_codes": [
+      "8.8",
+      "8.9",
+      "8.10"
+    ],
+    "kind": "vocabulary",
+    "title": "Buffer solution",
+    "body": "A buffer solution contains a large concentration of both members of a conjugate acid-base pair, so the conjugate acid reacts with added base and the conjugate base reacts with added acid, which stabilizes pH.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.8.A.1 A buffer solution contains a large concentration of both members in a conjugate acid-base pair",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-011",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.4",
+    "topic_codes": [
+      "8.4",
+      "8.5",
+      "8.9",
+      "8.10"
+    ],
+    "kind": "formula",
+    "title": "Henderson-Hasselbalch equation",
+    "body": "pH = pK_a + \\log\\frac{[A^-]}{[HA]}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.9.A.1 EQN: pH = pKa + log([A\u2212]/[HA])",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-012",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "8.9",
+    "topic_codes": [
+      "8.9"
+    ],
+    "kind": "convention",
+    "title": "Why small additions barely change buffer pH",
+    "body": "Adding small amounts of acid or base does not significantly change the ratio [A\u2212]/[HA], so the buffer's pH changes much less than it would without the buffer.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "8.9.A.1 does not significantly change the ratio of [A\u2212]/[HA]",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u8-r2-013",
+    "subject_key": "ap_chemistry",
+    "unit_number": 8,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

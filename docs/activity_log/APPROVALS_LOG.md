@@ -2052,6 +2052,14 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 
 **Units 5–9:** to be loaded unit by unit after each Development batch completes. Each unit needs controls 6/6 caught, both checkers plus the veto, the Development load and QA. Any unit with open escalations loads only its accepted rows; escalations wait for a Product Owner decision. Each load is recorded as an amendment below.
 
+**Amendment (same day), Units 5, 6, 7, 9 loaded:** each Development batch passed (controls 6/6 caught, both checkers plus the Haiku veto, the Development load, QA checks 4–7 ok). Each loaded to Production from its generated `out/load_ap_chemistry_u<n>.sql` in `scripts/content-seed/task0067-chem-u5-u9-2026-10-10/`, with no edits, and the Production counts matched Development:
+- Unit 5: 27 entries + 1 hook (md5 `ca7d8ba2…`)
+- Unit 6: 20 entries (md5 `5caf7385…`)
+- Unit 7: 20 entries (md5 `a0c0acb5…`)
+- Unit 9: 23 entries + 1 hook "An Ox, Red Cat" (md5 `75336ff8…`)
+
+QA checks 4–7 ok in Production after each load. **Unit 8 is held in Development** (29 entries): round 2 loaded two content duplicates (pKa, pKw), and the five escalations cover Henderson–Hasselbalch, Kb, buffer, titration curve, and weak base + strong acid. It needs a Product Owner decision before Production. Escalations awaiting decision: Unit 5 ×3, Unit 6 ×1, Unit 7 ×1 (Kp), Unit 8 ×5, Unit 9 ×1 (batch READMEs `out/README_u<n>.md`). Batch cost about $8.73 (Unit 5 $1.78, Unit 6 $1.21, Unit 7 $1.40, Unit 8 $2.79, Unit 9 $1.55).
+
 **Rollback (any unit):** `update app.unit_reference_entries set status='retired' where subject_key='ap_chemistry' and unit_number = <n> and source_note like '%batch=<batch id>%';` (retire hooks first when present).
 
 ## APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production

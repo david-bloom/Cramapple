@@ -1,0 +1,21 @@
+[
+  {"candidate_id": "ctrl-chem-u6-01-wrong-formula", "control": "wrong formula (reactants minus products; CED 6.8.A.1 reads 'EQN: ΔH°reaction = ΣΔHf °products − ΣΔHf °reactants')", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 6, "owner_topic_code": "6.8", "topic_codes": ["6.8"], "kind": "formula",
+   "title": "Standard enthalpy of reaction from enthalpies of formation", "body": "\\Delta H^\\circ_{reaction} = \\sum \\Delta H_f^\\circ(\\text{reactants}) - \\sum \\Delta H_f^\\circ(\\text{products})", "items": [], "caution": null, "ced_evidence": "6.8.A.1", "hooks": []},
+  {"candidate_id": "ctrl-chem-u6-02-excluded", "control": "explicitly excluded by the CED (6.6 Exclusion Statement: 'The technical distinctions between enthalpy and internal energy will not be assessed on the AP Exam.')", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 6, "owner_topic_code": "6.6", "topic_codes": ["6.6"], "kind": "formula",
+   "title": "Enthalpy versus internal energy", "body": "\\Delta H = \\Delta E + P\\Delta V; \\text{ enthalpy differs from internal energy by the pressure-volume work term}", "items": [], "caution": null, "ced_evidence": "6.6.A.1", "hooks": []},
+  {"candidate_id": "ctrl-chem-u6-03-wrong-owner", "control": "wrong owner topic (bond-enthalpy estimate belongs to 6.7, LO 6.7.A 'Calculate the enthalpy change of a reaction based on the average bond energies of bonds broken and formed'; 6.8 is enthalpy of formation)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 6, "owner_topic_code": "6.8", "topic_codes": ["6.8"], "kind": "formula",
+   "title": "Enthalpy of reaction from average bond energies", "body": "\\Delta H_{rxn} \\approx \\sum E(\\text{bonds broken}) - \\sum E(\\text{bonds formed})", "items": [], "caution": null, "ced_evidence": "6.7.A.2", "hooks": []},
+  {"candidate_id": "ctrl-chem-u6-04-wrong-member", "control": "wrong list member (CED 6.9.B.2 ii: 'When a reaction is multiplied by a factor c, the enthalpy change is multiplied by the same factor c' — control says divided)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 6, "owner_topic_code": "6.9", "topic_codes": ["6.9"], "kind": "list_sequence",
+   "title": "Hess's law rules for manipulating thermochemical equations", "body": "How the enthalpy change follows each manipulation of a reaction.", "items": [{"label": "Reverse the reaction", "meaning": "same magnitude of ΔH, opposite sign"}, {"label": "Multiply the reaction by a factor c", "meaning": "ΔH is divided by c"}, {"label": "Add two or more reactions", "meaning": "add their ΔH values to get the overall ΔH"}], "caution": null, "ced_evidence": "6.9.B.2", "hooks": []},
+  {"candidate_id": "ctrl-chem-u6-05-bad-hook", "control": "hook expansion wrong (entry is correct per CED 6.4.A.1 'EQN: q = mcΔT'; hook expands m as molar mass, but m is mass of the substance)", "control_target": "hook",
+   "subject_key": "ap_chemistry", "unit_number": 6, "owner_topic_code": "6.4", "topic_codes": ["6.4"], "kind": "formula",
+   "title": "Heat transfer equation", "body": "q = mc\\Delta T", "items": [], "caution": null, "ced_evidence": "6.4.A.1",
+   "hooks": [{"kind": "formula_sentence", "hook_text": "q is em-cat", "expands_to": [{"cue": "m", "means": "molar mass of the substance (g/mol)"}, {"cue": "c", "means": "specific heat capacity"}, {"cue": "-at (ΔT)", "means": "ΔT, the change in temperature"}], "when_to_use": "when recalling the heat transfer equation for heating or cooling a substance", "caution": null, "source_note": "cramapple-authored"}]},
+  {"candidate_id": "ctrl-chem-u6-06-other-unit", "control": "content from another unit (Gibbs free energy is Unit 9 thermodynamics; no 'Gibbs', 'entropy', or 'ΔG' appears anywhere on CED pages 114-129)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 6, "owner_topic_code": "6.6", "topic_codes": ["6.6"], "kind": "formula",
+   "title": "Gibbs free energy change", "body": "\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ", "items": [], "caution": null, "ced_evidence": "6.6", "hooks": []}
+]
