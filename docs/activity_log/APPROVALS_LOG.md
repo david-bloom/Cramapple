@@ -11,6 +11,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0145 — Question Experience Read Model Migration + BYOQ Topic Reference for Signed-Out Visitors (Production) (2026-10-10)
 - APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production (2026-10-10)
 - APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion) (2026-10-10)
+- APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
@@ -2037,6 +2038,23 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Not approved by this entry:** the plan as a whole; D3 (default `photo_allowed` on all FRQs at launch vs. subject allow-list), D5 (spend and rate limits), D6 (partial grading as a visible state), D7 (grader roster), D8 (which FRQ surface hosts capture); any build, migration, deployment, or Lovable publish, including Phase 0 (porting the stranded TASK-0038 frontend). Each of those remains a separate Product Owner gate.
 
 **Next gates:** D3, D5–D8 answers; a Hard-Gate task record for the plan; go-ahead for Phase 0 (port + `DECISION-0059` Stage 1 run) and the Phase 1 Development build.
+
+## APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session), on the recommendation "fix the extraction prompt, then re-run every Chemistry formula entry through the pipeline": "Go ahead with 5".  
+**Related:** `scripts/content-seed/task0067-chem-formula-symbols-2026-10-10/README.md`; `APPROVAL-0147`, `APPROVAL-0148`.  
+**Decision:** Approved
+
+**Scope:**
+- Re-extract all 46 AP Chemistry `formula` entries with REQUIRED symbol definitions in `items` (meanings + units) and use conditions in `caution`, then re-check them (two checkers + veto; 3/3 symbol-defect controls caught).
+- Write the 44 accepted rows in place on the unique key, changing only body/items/caution plus a `fmt=` provenance note. Topic tags, ids and hooks are unchanged.
+- Two rows (Unit 1 Coulomb's law; Unit 8 conjugate pair Ka·Kb = Kw) were not accepted and keep their current version.
+- Applied to Development (44 rows) and Production (37 rows; Unit 8 is not in Production).
+
+**Verified:** Development 44/46 and Production 37/38 formulas carry symbol definitions; QA checks 4–7 ok in both; the RPC serves the new `items`.
+
+**Rollback:** the prior body/caution for each row is in the batch's `out/current_formulas_dev.json` (Development values; the Production rows were loaded from the same SQL), with `items = '[]'`. Restore by the same unique key.
 
 ## APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion)
 

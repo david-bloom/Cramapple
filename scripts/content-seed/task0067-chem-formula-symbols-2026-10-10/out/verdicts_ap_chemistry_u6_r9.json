@@ -1,0 +1,244 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u6-r9-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the standard enthalpy of reaction formula from Topic 6.8 of the AP Chemistry CED (6.8.A.1). All symbols in the formula are defined correctly, and the caution provides necessary guidance on using stoichiometric coefficients and avoiding the common mistake of reversing reactants and products."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 6.8.A.1 gives the same products-minus-reactants equation: \u201c\u0394H\u00b0reaction = \u03a3\u0394Hf\u00b0products \u2212 \u03a3\u0394Hf\u00b0reactants.\u201d The items define its symbols, and the caution correctly specifies using coefficients from the balanced equation when summing. Topic 6.8 is where the CED requires this calculation (6.8.A)."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED equation verbatim: \"EQN: \u0394H\u00b0reaction = \u03a3\u0394Hf\u00b0products \u2212 \u03a3\u0394Hf\u00b0reactants\" (6.8.A.1, p. 120). All four symbols (\u0394H\u00b0reaction, \u03a3, \u0394Hf\u00b0products, \u0394Hf\u00b0reactants) are defined in items, in formula order, with no extra or missing symbols. The kJ/mol units are not printed in the CED, but they are not contradicted and are implied by the molar-enthalpy language in 6.5.A and 6.6.A. b_topic_codes: 6.8 is the first topic that requires this equation; 6.6 and 6.7 cover enthalpy of reaction and bond enthalpies without it. topic_codes ['6.8'] is correct. c_ced_required: Learning objective 6.8.A requires students to 'Calculate the enthalpy change for a chemical or physical process based on the standard enthalpies of formation,' and 6.8.A.1 gives this equation. d_caution: The caution's content is correct chemistry (products minus reactants; multiply by stoichiometric coefficients). The CED does not state the coefficient rule, but the caution does not contradict the CED and the rule is needed to apply the equation correctly, so a caution is appropriate. Note that the item for \u03a3 says 'sum over all species on that side,' which is a paraphrase, not CED wording; this is acceptable because the caution and item together state the point-earning use."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r9-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the relationship between heat, moles, and molar enthalpy as required by Learning Objectives 6.5.A and 6.6.A. The formula symbols are fully defined with correct units and sign conventions. The caution correctly notes that the CED presents this as a conceptual relationship rather than an explicit equation on the formula sheet, and details the physical constraints (such as constant temperature during phase changes)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula and symbol definitions correctly express the relationships required in 6.5.A and 6.6.A: heat q depends on the amount in moles and the molar enthalpy of a phase transition or reaction. The caution correctly distinguishes this derived equation from CED wording. It also matches 6.5.A.1, which says the temperature of a pure substance remains constant during a phase change, and 6.5.A.2, which says condensation enthalpy is the negative of vaporization enthalpy."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED requires calculating heat \"based on the amount of the substance in moles and the molar enthalpy of the phase transition\" (6.5.A) and \"the amount of the reacting substance in moles and the molar enthalpy of reaction\" (6.6.A). The CED never prints q = n\u0394H as an equation, but the entry's caution says so, and the formula restates the CED relationship. All three symbols (q, n, \u0394H_molar) are defined, and no symbol is missing or extra. Units (kJ, mol, kJ/mol) are consistent with the CED's energy-per-mole framing. The sign convention matches 6.6.A.1: \"released (for negative values) or absorbed (for positive values)\". The caution's note that \u0394H_condensation = \u2212\u0394H_vaporization matches 6.5.A.2. The note that q = mc\u0394T does not apply during a phase change matches 6.5.A.1 (temperature remains constant). b_topic_codes: 6.5 is the first unit topic that requires the phase-transition form (6.5.A), and 6.6 uses the reaction form (6.6.A). Both listed codes are correct topics in this unit. c_ced_required: 6.5.A and 6.6.A both explicitly require this calculation. d_caution: the CED wording is a verbal relationship, not a formula, so the caution correctly flags that the equation form is an entry-level restatement. No hooks are present, so none are evaluated.",
+            "hooks_status": "no hooks"
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r9-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the calculation of enthalpy change from average bond energies as described in Topic 6.7 (specifically EK 6.7.A.2). All symbols are defined with correct units, and the caution accurately reflects the estimation nature and sign conventions of bond enthalpy calculations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.7 first requires this calculation: 6.7.A says to calculate reaction enthalpy from average bond energies of bonds broken and formed. 6.7.A.2 describes adding the energies required for bonds in reactants and comparing them with energy released when bonds form in products. The formula, definitions, coefficient-counting caution, approximate result, and sign convention agree with that statement. The stated kJ/mol refers to a mole of reaction as written. The caution is correct."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED gives no explicit equation, but 6.7.A.2 states that the energy required to break reactant bonds is estimated by adding average bond energies of the reactant bonds, and the energy released in forming product bonds is estimated the same way. It also says that if energy released is greater than energy required the reaction is exothermic, and if energy required is greater than energy released it is endothermic. \u0394H = \u03a3E(broken) \u2212 \u03a3E(formed) matches this sign convention. Every symbol is defined: \u0394H_reaction, \u03a3E_bonds broken, and \u03a3E_bonds formed. The \u2248 is justified by the CED's 'can be estimated.' Units (kJ/mol of reaction, kJ/mol per bond sum) are consistent with average bond energies. b_topic_codes: 6.7 is the topic where bond-energy enthalpy estimation is first required in Unit 6 (6.6 covers enthalpy of reaction generally, not bond energies), and only topic 6.7 is listed. c_ced_required: Learning Objective 6.7.A ('Calculate the enthalpy change of a reaction based on the average bond energies of bonds broken and formed in the reaction') directly requires this. d_caution: The CED does not write the formula, so the caution is needed to state the sign and estimation conditions. The caution's exothermic/endothermic sign statements match 6.7.A.2 exactly. The instruction to count every bond using the balanced coefficients is not verbatim CED text but is consistent with the CED's 'bonds broken and formed in the reaction' and the Preparing for the AP Exam note on counting bonds, so it does not make the entry wrong.",
+            "hooks_note": "No hooks present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u6-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the heat transfer equation q = mc\u0394T as explicitly required by Essential Knowledge 6.4.A.1. All symbols are correctly defined with appropriate units, and the caution correctly addresses common student errors regarding total mass in calorimetry and the distinction between specific and molar heat capacity as referenced in 6.4.A.5."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 6.4 states, \u201cEQN: q = mc\u0394T,\u201d and learning objective 6.4.A requires calculating heat from the amount of substance, heat capacity, and temperature change. The symbols, units, and sign convention are correct. The caution is consistent with 6.4.A.5, which says both specific and molar heat capacity are used in energy calculations, and 6.4.A.7, which refers to temperature changes of the mixture in dissolution calorimetry. No additional wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED gives 'EQN: q = mc\u0394T' (6.4.A.1), and the entry reproduces it exactly. All four symbols (q, m, c, \u0394T) are defined. The sign convention for q (+ absorbed, \u2212 released) is consistent with 6.1.A.3 and 6.6.A.1. \u0394T as final minus initial, with the same size on the \u00b0C and K scales, is standard. The units given (g, J/(g\u00b7\u00b0C) or J/(g\u00b7K)) are correct for specific heat, and the CED's 6.4.A.5 distinguishes specific from molar heat capacity, so the unit constraints are correct. b_topic_codes: 6.4.A.1 is the first place in Unit 6 where this equation is stated, and it appears under Topic 6.4 and nowhere else in these pages, so owner 6.4 and topic_codes [6.4] are correct. c_ced_required: Learning objective 6.4.A asks students to 'Calculate the heat q absorbed or released by a system undergoing heating/cooling based on the amount of the substance, the heat capacity, and the change in temperature,' and 6.4.A.1 gives the equation. d_caution: The caution is present. Its mass-based guidance (use the total mass that changes temperature) and its molar-heat-capacity substitution (use moles with molar heat capacity, per 6.4.A.5) are correct applications and do not contradict the CED. The significant-figures note is consistent with skill 5.F. Because the caution is present and correct, the entry passes.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  }
+]

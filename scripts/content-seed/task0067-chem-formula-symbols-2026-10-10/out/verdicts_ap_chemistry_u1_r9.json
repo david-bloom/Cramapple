@@ -1,0 +1,254 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u1-r9-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula 'n = m/M' is explicitly required by the CED under Topic 1.1 (EQN: n = m/M). All symbols (n, m, M) are correctly defined with appropriate units (mol, g, g/mol) and the connection to amu is factually aligned with Essential Knowledge 1.1.A.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.1 states \u201cEQN: n = m/M.\u201d Its essential knowledge connects the mass of a substance to the number of particles it contains and says that average mass in amu of one particle or formula unit is numerically equal to molar mass in grams. The symbols and units are consistent with that relationship, and the unit-cancellation caution is correct. Topic 1.1 is the listed topic for this equation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED states 1.1.A EQN: n = m/M, and the formula matches. All three symbols are defined: n (amount of substance, mol), m (mass, g), and M (molar mass, g/mol). The M definition matches 1.1.A.3, which says the amu mass of one particle or formula unit 'will always be numerically equal to the molar mass of that substance in grams.' No symbol is missing or extra. The units are correct: the CED's 'molar mass in grams' implies g/mol, and n in mol follows from n = m/M. b_topic_codes: 1.1 is the topic where this equation first appears (1.1.A EQN under Topic 1.1 'Moles and Molar Mass'), and topic_codes lists only 1.1, which uses it. c_ced_required: Learning Objective 1.1.A ('Calculate quantities of a substance or its relative number of particles using dimensional analysis and the mole concept') requires students to apply this relationship. d_caution: The CED's EQN line does not state units, so the caution ('Use mass in grams with molar mass in g/mol so that the units cancel to give moles') supplies a needed and correct condition consistent with 1.1.A.3. Because the caution is present and correct, this is true.",
+            "entry_checks_note": "No hooks supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Avogadro's number as defined in EK 1.1.A.2 ('Avogadro\u2019s number (NA = 6.022 \u00d7 10^23 mol\u22121) provides the connection between the number of moles in a pure sample of a substance and the number of constituent particles...'). All symbols are defined, and the caution correctly describes its application."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.1, EK 1.1.A.2 states, \u201cAvogadro\u2019s number (NA = 6.022 \u00d7 10\u00b2\u00b3 mol\u207b\u00b9) provides the connection between the number of moles in a pure sample of a substance and the number of constituent particles (or formula units).\u201d The formula, definition, unit, topic assignment, and caution match that requirement."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body N_A = 6.022 \u00d7 10^23 mol^-1 matches 1.1.A.2 ('Avogadro's number (NA = 6.022 \u00d7 10^23 mol\u22121)'). The single symbol N_A is defined, and its meaning (number of constituent particles per mole of a pure substance) is consistent with 1.1.A.2 ('the number of moles in a pure sample of a substance and the number of constituent particles (or formula units) of that substance'). The unit mol^-1 is the CED unit. The parenthetical unit placement in the meaning is unusual but not wrong. b_topic_codes: Avogadro's number is first required in Topic 1.1 (1.1.A.2), and owner_topic_code and topic_codes are both 1.1, which is correct. c_ced_required: 1.1.A.2 explicitly states the constant and its role, and LO 1.1.A requires calculating particle quantities using the mole concept, so the entry is required content. d_caution: The CED wording is 'provides the connection between the number of moles... and the number of constituent particles,' and the caution restates this with the operational direction (particles = moles \u00d7 N_A), which is consistent with the CED. The caution is present and correct. hooks: none supplied, so none to evaluate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r9-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the weighted average calculation described in EK 1.2.A.2 ('The average atomic mass of an element can be estimated from the weighted average of the isotopic masses using the mass of each isotope and its relative abundance'). All symbols are defined, and the caution correctly references the exclusion statement regarding single elements and singly charged monatomic ions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.2.A.2 states that average atomic mass can be estimated from the \u201cweighted average of the isotopic masses using the mass of each isotope and its relative abundance.\u201d The formula and all its symbols express that relationship. Topic 1.2 is the appropriate code. The caution also matches the exclusion of spectra from samples containing multiple elements or peaks from species other than singly charged monatomic ions."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (1.2.A.2) states that the average atomic mass 'can be estimated from the weighted average of the isotopic masses using the mass of each isotope and its relative abundance.' The expression m\u0304 = \u03a3 m_i f_i is that weighted average. All four symbols are defined (m\u0304, \u03a3_i, m_i, f_i), none are missing or extra, and f_i as a fraction summing to 1 is consistent with 'relative abundance.' The amu unit is consistent with the CED's use of amu for atomic masses (1.1.A.3). b_topic_codes: Topic 1.2 (Mass Spectra of Elements) is the topic whose essential knowledge 1.2.A.2 introduces this calculation, and the entry's owner and only topic code are both 1.2. Topic 1.1 covers molar mass and amu but not isotope-weighted averages. c_ced_required: LO 1.2.A ('Explain the quantitative relationship between the mass spectrum of an element and the masses of the element's isotopes') and 1.2.A.2 require students to apply this weighted-average relationship. d_caution: The formula is a symbolic rendering rather than the CED's verbal wording, so a caution is needed. The caution states the 'estimate' qualifier that 1.2.A.2 uses ('can be estimated') and the scope limit matching the 1.2 exclusion statement (multi-element spectra and species other than singly charged monatomic ions are not assessed). Both match the CED.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r9-004",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Coulomb's law as specified in Topic 1.5 (1.5.A.2) of the AP Chemistry CED: 'EQN: Fcoulombic \u221d q1q2/r^2'. All symbols are correctly defined, and the topic codes are appropriate as Coulomb's law is explicitly referenced in Topic 1.5 and Topic 1.7 (1.7.A.2) for explaining periodic trends."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 1.5.A.2: \u201cFcoulombic \u221d q1q2/r\u00b2,\u201d and every symbol is defined. Topic 1.5 first requires Coulomb\u2019s law; 1.6.A requires explaining electron\u2013nucleus interactions in PES, and 1.7.A.2 explicitly uses Coulomb\u2019s law to explain periodic trends. The caution correctly preserves the proportionality and reflects 1.5.A.4\u2019s qualitative application to ionization energy using distance and effective nuclear charge."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches the CED EQN in 1.5.A.2 verbatim (\"EQN: Fcoulombic \u221d q1q2/r^2\"). All four symbols (F_coulombic, q1, q2, r) are defined, and the meanings are physically correct. The CED gives no units, so none are wrongly stated. b_topic_codes: owner_topic_code 1.5 is correct, since 1.5.A.2 is the first place Coulomb's law appears. Topic 1.7 is correct, since 1.7.A.2 says trends are 'qualitatively understood using Coulomb's law'. Topic 1.6 is wrong: 1.6.A.1 covers PES peak positions, energies, and relative heights, and mentions 'interactions between the electrons and the nucleus' but never invokes Coulomb's law or this equation. The 1.6 code should be removed. c_ced_required: 1.5.A.2 explicitly requires the student to use this relationship, so it is required. d_caution: The CED states the relation as a proportionality (EQN with \u221d), so the caution correctly flags that it is not an equality. Its statement that the CED applies it qualitatively to ionization energy matches 1.5.A.4, so the caution is present and correct."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body F_coulombic \u221d q1q2/r^2 matches the CED EQN line in 1.5.A.2 ('EQN: Fcoulombic \u221d q1q2/r^2'). All four symbols (F_coulombic, q1, q2, r) are defined, and the meanings are correct. The sign convention in the F_coulombic meaning is standard physics, not CED wording, but it is correct. b_topic_codes: fails. owner_topic_code 1.5 is correct, since Coulomb's law first appears in 1.5.A.2. Topic 1.7 is correct: 1.7.A.2 says trends are 'qualitatively understood using Coulomb's law, the shell model, and the concepts of shielding and effective nuclear charge.' Topic 1.6 does not use it. Topic 1.6 (1.6.A.1) covers PES peak positions, subshell energies, and peak heights, and says nothing about Coulomb's law. The only related wording is LO ii, 'interactions between the electrons and the nucleus,' which does not name the law, so 1.6 must be removed from topic_codes. c_ced_required: passes. 1.5.A.2 states 'Coulomb's law is used to calculate the force between two charged particles,' which requires students to apply it. d_caution: passes. The caution states the proportionality explicitly, matches the CED's \u221d form, and correctly notes the qualitative application to ionization energy (1.5.A.4). Hooks: none present, so no hook checks apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]
