@@ -2078,6 +2078,14 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 
 QA checks 4–7 ok in Production after each load. **Unit 8 is held in Development** (29 entries): round 2 loaded two content duplicates (pKa, pKw), and the five escalations cover Henderson–Hasselbalch, Kb, buffer, titration curve, and weak base + strong acid. It needs a Product Owner decision before Production. Escalations awaiting decision: Unit 5 ×3, Unit 6 ×1, Unit 7 ×1 (Kp), Unit 8 ×5, Unit 9 ×1 (batch READMEs `out/README_u<n>.md`). Batch cost about $8.73 (Unit 5 $1.78, Unit 6 $1.21, Unit 7 $1.40, Unit 8 $2.79, Unit 9 $1.55).
 
+**Amendment 2 (same day), Unit 8 and the escalations (`DECISION-0113`):** Unit 8 loaded to Production complete. The steps, in order:
+1. Original batch SQL
+2. Its 7 formula symbol-definition updates
+3. Retire the 2 duplicates
+4. The round-3 rows
+
+Nine escalated rows were re-extracted, checked and loaded to Development and Production (`task0067-chem-escalations-r3-2026-10-10`). Production equals Development: U1 26 · U2 21 · U3 32 · U4 22 · U5 29 · U6 20 · U7 21 · U8 32 · U9 24 = **227 published AP Chemistry entries, all nine units**. QA checks 1–8 ok; RPC counts identical. No AP Chemistry escalation is open: catalysis types stays out (failed on content); Unit 6 thermal-energy-flow was dropped.
+
 **Rollback (any unit):** `update app.unit_reference_entries set status='retired' where subject_key='ap_chemistry' and unit_number = <n> and source_note like '%batch=<batch id>%';` (retire hooks first when present).
 
 ## APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production

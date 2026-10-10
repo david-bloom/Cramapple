@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u7-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the equilibrium expression for Kp as defined in EK 7.3.A.1. All symbols are correctly defined, and the caution accurately reflects the exclusion statements and rules regarding solids and pure liquids from EK 7.3.A.1 and EK 7.3.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 7.3.A.1 gives the same Kp expression for aA + bB \u21cc cC + dD and states that, at equilibrium, Kp = Qp. Every symbol in the formula is defined correctly. The caution matches 7.3.A.2\u2019s exclusion of solids and pure liquids and 7.3.A.1\u2019s statement that conversion between Kc and Kp will not be assessed. Topic 7.3 first requires the expression; 7.4.A requires calculating Kp from equilibrium pressures, and 7.7.A requires predicting equilibrium partial pressures using K."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body Kp = (PC)^c(PD)^d / (PA)^a(PB)^b matches 7.3.A.1, which gives the (Kp, Qp) expression for aA + bB \u21cc cC + dD as (PC)^c(PD)^d / (PA)^a(PB)^b. All nine symbols in the body (Kp, PC, c, PD, d, PA, a, PB, b) are defined in items, with no extras and no missing symbols. Each meaning is correct: C and D are gaseous products, A and B are gaseous reactants, and the lowercase letters are the stoichiometric exponents. The CED gives no unit constraint beyond partial pressure, and the entry does not state a wrong one. b_topic_codes: 7.3 is the first unit topic that requires Kp and Qp (7.3.A.1), so it is the correct owner. 7.4 (7.4.A.1, calculating Kc or Kp from measured partial pressures) and 7.7 (7.7.A.1, predicting partial pressures from 'the appropriate K') both use this expression. c_ced_required: 7.3.A.1 explicitly requires students to 'represent the reaction quotient Qc or Qp ... and the corresponding equilibrium expressions Kc = Qc or Kp = Qp', so reproducing this expression is required. d_caution: The caution matches the CED. It states the reaction form aA + bB \u21cc cC + dD, which is the form used in 7.3.A.1. It states that solids and pure liquids are excluded, which matches 7.3.A.2 ('does not include substances whose concentrations (or partial pressures) are independent of the amount, such as for solids and pure liquids'). It states that Kc/Kp conversion is not assessed and that the student should attend to whether Kc or Kp is used, which matches the 7.3.A.1 exclusion statement. The caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]
