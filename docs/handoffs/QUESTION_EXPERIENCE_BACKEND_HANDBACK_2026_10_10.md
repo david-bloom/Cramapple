@@ -1,7 +1,7 @@
 # Question Experience Backend — Hand-back for Approval
 
-**STATUS:** Applied and probed in **Development only** (`wmgjsdkphcyhngaffbqf`). Production untouched.
-Awaiting Product Owner approval before any Production apply (Hard Gate).
+**STATUS:** **Live in Production (APPROVAL-0145, 2026-10-10).** The migration was applied and probed read-only, `byoq` is
+v15 and `student-session-items` is v39. The Development-only history below is kept as written.
 
 **DATE:** 2026-10-10 · **BRANCH:** `claude/chem-reference-pack-u1`
 
@@ -102,11 +102,10 @@ supabase.rpc('get_question_experience', {
 | `reference` | object keyed by kind (`vocabulary`, `formula`, `list_sequence`, `convention`, `diagram`); each an array of `{ id, subjectKey, unitNumber, ownerTopicCode, topicCodes, kind, title, body, items[{label,meaning}], visualAssetRef, caution, sourceNote, memoryHooks }` | The same objects `get_topic_point_guides` returns for this topic, in RPC order. Kinds with no entries are absent. Diagrams are text `items` only (TASK-0006). |
 | `memoryHooks` | `[{ id, referenceEntryId, referenceTitle, referenceKind, ownerTopicCode, unitNumber, kind, hookText, expandsTo[{cue,means}], whenToUse, caution, sourceNote }]` | Passed through from `get_topic_point_guides`. |
 
-**Wiring the client still needs (not done; flagged for the next step):** the item-delivery path must call
-`app.append_learning_session_items` when it serves a page. That's a small edit to
-`supabase/functions/student-session-items/index.ts` after `deliverRows`, with `{ error }` captured. Until
-it ships, real sessions have `counter: null` and `resume.action: 'no_items'`. Only the Dev seed rows have
-items. I left the edge function alone so this hand-back stays DB-only, as asked.
+**Item recording (done, 2026-10-10):** `student-session-items` records each served page through
+`app.append_learning_session_items`. It only logs an error if that fails, and it checks `{ error }` (commit `919ad68f`,
+Production v39). Sessions started before v39 have no stored items, so they return `counter: null` and
+`resume.action: 'no_items'`.
 
 ## 4. Probes (Development, 2026-10-10)
 
