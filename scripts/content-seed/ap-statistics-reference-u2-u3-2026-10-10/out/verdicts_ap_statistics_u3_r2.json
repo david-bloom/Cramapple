@@ -1,0 +1,679 @@
+[
+  {
+    "candidate_id": "ap_statistics-u3-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the mean of the sampling distribution of a sample proportion as stated in Essential Knowledge 3.2.A.1: 'the sampling distribution of a sample proportion p-hat has a mean mu_{p-hat} = p'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.2, EK 3.2.A.1 states that the sampling distribution of a sample proportion \u201chas a mean \u03bc_p\u0302 = p.\u201d LO 3.2.A requires students to calculate that mean. The entry uses the CED formula and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body \\mu_{\\hat{p}} = p matches CED 3.2.A.1, which states the sampling distribution of a sample proportion 'has a mean \\mu_{\\hat p} = p' when the sampled values are independent. The symbols and direction are correct. b_topic_codes: 3.2 is the topic where the sampling distribution of a sample proportion is first introduced, and 3.2.A.1 is in Topic 3.2 under skill 3.D, which matches the entry's skill tag. The entry lists only 3.2, which is correct. c_ced_required: Learning objective 3.2.A ('Calculate the mean and standard deviation of a sampling distribution for a sample proportion') requires students to know and apply this mean. d_caution: The CED wording is 'has a mean \u03bc_p\u0302 = p', which is essentially the same as the entry. No caution is needed, so caution: null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches Essential Knowledge 3.2.A.1 exactly, which states that the sampling distribution of a sample proportion \\hat{p} has a standard deviation of \\sqrt{p(1-p)/n} when sampled values are independent."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.2.A.1 states that, when sampled values are independent, the sampling distribution of p\u0302 has standard deviation \u221a[p(1\u2212p)/n]. Topic 3.2 first requires this calculation in 3.2.A. The caution correctly distinguishes the population proportion p and states the independence requirement."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (Topic 3.2, 3.2.A.1) states that for a population with proportion p and independent sampled values, the sampling distribution of p\u0302 has standard deviation \u03c3_p\u0302 = \u221a(p(1\u2212p)/n). The body matches this, including the symbols and the use of population p. b_topic_codes: 3.2.A.1 is the first place the CED requires this formula, and Topic 3.2 is the only topic listed, which uses it (learning objective 3.2.A, skill 3.D). c_ced_required: Learning objective 3.2.A reads 'Calculate the mean and standard deviation of a sampling distribution for a sample proportion' [Skill 3.D], so a student must reproduce and apply this. d_caution: The CED conditions the formula on independent sampled values ('when the sampled values are independent'). The caution states this and correctly notes that p is the population proportion. The CED's 10% condition for sampling without replacement (3.2.B.1) is separate, and the caution does not need to restate it. The caution is present and accurate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the relationship described in Essential Knowledge 3.4.C.2, which states: 'Increasing the sample size decreases the standard error. Thus, when all other things remain the same, the width of the confidence interval for a population proportion tends to decrease as the sample size increases. For a confidence interval for a population proportion with a given confidence level, the width of the interval is approximately proportional to 1/\\sqrt{n}.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.4.C.2 states: \u201cIncreasing the sample size decreases the standard error. Thus, when all other things remain the same, the width of the confidence interval for a population proportion tends to decrease as the sample size increases.\u201d It also states that, for a given confidence level, the width is approximately proportional to 1/\u221an. Topic 3.4 is the correct owner, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 3.4.C.2 states that increasing n decreases the standard error, so with other things held constant the CI width tends to decrease, and that for a given confidence level the width is approximately proportional to 1/\u221an. The body matches this, including the direction of the effect and the 1/\u221an form. b_topic_codes: 3.4.C.2 sits under Topic 3.4, which is where the CI-width/sample-size relationship first appears; 3.3.D.4 covers n for a target margin of error but not width. Owner 3.4 is correct and topic_codes lists only 3.4. c_ced_required: Learning Objective 3.4.C ('Identify the relationships among sample size, confidence interval width, confidence level, and margin of error') requires this relationship. d_caution: the body is essentially the CED wording, so no caution is needed. The 'tends to' hedge is preserved. The ced_evidence field is consistent with the CED text."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the distinction between interpreting a confidence level (EK 3.2.A.2) and interpreting a confidence interval (EK 3.4.A.3). The caution correctly addresses the common student misconception regarding probability vs. long-run capture rate, which is highlighted in the Unit 3 overview on page 81."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.4.A.2 states that in repeated random sampling with the same sample size, approximately C% of calculated confidence intervals will capture the population proportion. Topic 3.4 is where this interpretation is required. The caution correctly distinguishes that long-run capture rate from interpreting a specific interval; 3.4.A.1 says a computed interval may or may not contain the parameter, and 3.4.A.3 uses the form \u201cwe are C% confident\u201d for a specific interval."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 3.4.A.2: \"in repeated random sampling with the same sample size, approximately C% of confidence intervals calculated will capture the population proportion.\" The entry adds no incorrect symbols or definitions. b_topic_codes: 3.4.A.2 is in Topic 3.4 (Justifying a Claim Based on a Confidence Interval for a Population Proportion), so owner_topic_code 3.4 is where the content is first required, and the single topic_codes entry 3.4 is correct. c_ced_required: 3.4.A.2 explicitly requires students to know the long-run interpretation of the confidence level, and 3.4.A.3 requires the per-interval interpretation. d_caution: The CED does not state the 'not the probability that one computed interval contains the parameter' point in those words, but the caution is correct and needed. The Unit 3 narrative notes that 'Students often interpret confidence intervals and confidence levels incorrectly', and 3.4.A.1 says a computed interval 'may or may not contain' the parameter. The caution also gives the CED 3.4.A.3 sentence starter, 'We are C% confident that the interval from a to b captures...'. No hooks are present to evaluate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the CED requirements for identifying the procedure and parameter for one-sample proportion inference. Specifically, 3.3.A.1 and 3.3.A.2 specify the 'one-sample z-interval for a population proportion' and that the parameter must reference the proportion, response variable, and population in context. Topic 3.5 (3.5.A.1 and 3.5.A.2) establishes the parallel requirements for the 'one-sample z-test for a population proportion'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.3 first requires this: 3.3.A.1 names the \u201cone-sample z-interval for a population proportion,\u201d and 3.3.A.2 requires the proportion, response variable, and population in context. Topic 3.5 also uses it: 3.5.A.1 names the \u201cone-sample z-test for a population proportion,\u201d and 3.5.A.2 requires the parameter, response variable, and population in context. The caution correctly emphasizes defining the parameter in context rather than giving only p."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 3.3.A.1 says \"The appropriate confidence interval procedure is a one-sample z-interval for a population proportion,\" and 3.3.A.2 says the parameter \"should reference the proportion, the response variable, and the population in context.\" The body matches both. One wording nuance: the body says the parameter \"must\" name these elements, while the CED says \"should.\" This is a minor strength difference, not a factual error. b_topic_codes: owner 3.3 is the first topic in Unit 3 to require the one-sample z-interval and its parameter. Topic 3.5 also uses the parameter wording (3.5.A.1 one-sample z-test; 3.5.A.2 parameter references the population parameter, response variable, and population in context), so listing 3.5 is justified. c_ced_required: 3.3.A.1 and 3.3.A.2 directly require students to identify the procedure and reference the parameter in context. d_caution: the caution warns that a bare symbol like p is insufficient, which is consistent with 3.3.A.2 and 3.5.A.2. It also correctly extends the point to the one-sample z-test for hypothesis testing (3.5.A.1, 3.5.A.2). The caution is present and needed because the body's wording is not the full point-earning standard. e/f: no hooks supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 3.2.C.1 ('The mean, standard deviation, and probabilities for a sampling distribution of a sample proportion should be interpreted in the context of a specific population.'). The caution is well-supported by the 'Preparing for the AP Exam' section on page 82, which warns against using the word 'it' or making broad generalizations like 'larger samples have less variability' without distinguishing between the population, sample, and sampling distribution."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.2.C requires students to interpret these results. EK 3.2.C.1 says the mean, standard deviation, and probabilities for a sampling distribution of a sample proportion \u201cshould be interpreted in the context of a specific population.\u201d The caution matches the exam guidance to distinguish a population, a sample of values, and a sample statistic from repeated samples; it also warns that \u201cit\u201d and \u201clarger samples have less variability\u201d can be ambiguous."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body changes the CED modal verb. Essential knowledge 3.2.C.1 reads \"The mean, standard deviation, and probabilities for a sampling distribution of a sample proportion should be interpreted in the context of a specific population.\" The entry says \"must be interpreted,\" which overstates the CED requirement. The substance is otherwise correct, but the stated body is not the CED's wording, so this fails the factual check. b_topic_codes: 3.2 is where sampling distributions for sample proportions are first introduced (3.2.C.1), and topic_codes lists only 3.2, so this passes. c_ced_required: LO 3.2.C requires students to interpret the mean, standard deviation, and probabilities of this sampling distribution in context, so this passes. d_caution: The caution matches the Preparing for the AP Exam guidance that vague statements such as \"larger samples have less variability\" and an ambiguous \"it\" can refer to the wrong distribution. Because the body wording differs from the CED, the caution is needed and present, so this passes. Fixing the body to \"should be interpreted\" would clear the entry."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual fails on modality. The body says the mean, standard deviation, and probabilities 'must be interpreted in the context of a specific population.' CED 3.2.C.1 reads: 'The mean, standard deviation, and probabilities for a sampling distribution of a sample proportion should be interpreted in the context of a specific population.' The entry turns a 'should' into a 'must', and its own ced_evidence field quotes 'should', so the body and its cited evidence disagree. The substance is right, but the body is not stated as the CED states it. b_topic_codes passes: 3.2.C is a learning objective of Topic 3.2, and owner_topic_code 3.2 matches topic_codes. c_ced_required passes: LO 3.2.C (skill 4.D) requires students to interpret the mean, standard deviation, and probabilities of a sampling distribution of a sample proportion in context. d_caution passes: the caution ('Say clearly whether you mean the population, one sample of values, or the sample proportion across repeated samples'; avoid vague 'it' and 'larger samples have less variability') matches the CED 'Preparing for the AP Exam' passage, which warns that such broad generalizations leave the reader unsure which distribution is meant. The entry has no hooks, so there are none to evaluate. Fix: change 'must' to 'should' in the body, or cite the CED wording consistently."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 3.4.B.1, which states that a confidence interval for a population proportion provides a range of plausible values that may serve as convincing evidence to support a particular claim about the population proportion."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.4.B.1 states that a confidence interval for a population proportion provides \u201ca range of plausible values that may serve as convincing evidence to support a particular claim about the population proportion.\u201d The entry accurately restates this required content, places it in Topic 3.4, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 3.4.B.1: a CI for a population proportion provides a range of plausible values that may serve as convincing evidence to support a claim about the population proportion. 'Gives' for 'provides' and 'can' for 'may' are wording differences only, with the same meaning. b_topic_codes: 3.4 is the unit topic where justifying a claim from a CI for a proportion is first required (3.4.B), and the entry lists only 3.4. c_ced_required: Learning objective 3.4.B ('Justify a claim based on a confidence interval for a population proportion') requires students to apply this. d_caution: The entry's wording is essentially the CED's own wording, and it carries the non-definitive 'can/may serve as convincing evidence' framing, so no caution is needed. The caution field is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the standard deviation of the difference between two sample proportions is factually correct and matches the formula given in Essential Knowledge 3.9.A.1 exactly. The topic code is correct, and the caution addresses a common student error (subtracting variances or adding standard deviations directly)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.9.A.1 gives this standard deviation for the sampling distribution of the difference between sample proportions from two independent populations when the sampled values are independent. Topic 3.9 first requires students to calculate it. The caution correctly preserves those conditions and clarifies that the variances are added under the radical."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (Topic 3.9, 3.9.A.1) gives the standard deviation of the sampling distribution of p\u03021 \u2212 p\u03022 as \u221a[p1(1\u2212p1)/n1 + p2(1\u2212p2)/n2] for two independent populations with independent sampled values. The entry's formula matches this, with the same symbols and the variances placed under one radical. b_topic_codes: The formula first appears as required content in 3.9.A.1, so owner 3.9 is correct. Topic 3.9 is the only listed topic, and it is the topic that uses this formula. c_ced_required: 3.9.A.1 requires students to know this standard deviation, and Skill 3.D (calculate means, standard deviations, and parameters for probability distributions) applies to it. d_caution: The CED does not state the caution's wording. The caution targets a real error the CED's formula structure implies (combining variances under one root, not subtracting variances or adding standard deviations), so it is correct and needed. No hooks were provided."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly states the formula for the mean of the sampling distribution of the difference between two sample proportions, which is explicitly required by Essential Knowledge 3.9.A.1: 'the sampling distribution for the difference in sample proportions, p\u03021 - p\u03022, has a mean, \u03bc_{p\u03021 - p\u03022} = p1 - p2'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.9.A.1 states that the sampling distribution for the difference in sample proportions has mean \u03bc_(p\u0302\u2081\u2212p\u0302\u2082) = p\u2081\u2212p\u2082. Topic 3.9 is where this is required, and the formula uses the CED's notation without needing a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body \\mu_{\\hat p_1-\\hat p_2} = p_1 - p_2 matches CED 3.9.A.1, which states the difference in sample proportions has a mean \\mu_{\\hat p_1-\\hat p_2} = p_1 - p_2 (for independent populations with independent sampled values). b_topic_codes: Topic 3.9 is the first unit topic that requires the sampling distribution of the difference between two sample proportions, and the entry's only topic code is 3.9, which uses it. c_ced_required: LO 3.9.A (Skill 3.D) requires students to calculate the mean and standard deviation of this sampling distribution, so the mean is required content. d_caution: The CED states the mean without any extra wording that would change the point-earning answer. The independence requirement sits in the same essential knowledge statement (3.9.A.1) and in 3.9.B, but the formula itself is stated as the CED gives it, so no caution is needed. Note: the entry is a bare formula with no conditions; that is acceptable because the conditions are covered by 3.9.B and are not part of this entry's claim. hooks: none supplied, so no hook checks apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-008",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the CED guidelines for writing conclusions for hypothesis tests across Unit 3 (Topics 3.7, 3.13, and 3.15). The body and caution align perfectly with EK 3.7.B.6, 3.7.B.4, 3.13.C.3, and 3.15.D.3, which emphasize using non-definitive language, referencing the parameter and population, and never accepting or proving the null hypothesis."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The conclusion convention is required in all three listed topics, beginning with 3.7. However, the body applies a reference to 'the parameter' across all three tests. For a two-proportion test, 3.13.C.3 requires reference to 'the parameters and the populations'; for a chi-square test, 3.15.D.3 requires reference to 'the population(s)' but not a parameter. The caution correctly reflects 3.7.B.4: a test can never prove the null hypothesis true."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The conclusion convention is required in 3.7.B.6, 3.13.C.3, and 3.15.D.3, and 3.7 is its first listed topic. But the body applies a requirement to refer to a parameter across all three tests. For chi-square conclusions, 3.15.D.3 requires a reference to the population(s), not a parameter; for two-proportion conclusions, 3.13.C.3 specifies the parameters and populations. The caution correctly reflects 3.7.B.4: failing to reject does not establish that the null is true."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_statistics-u3-r2-011",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for the standard error of the difference between two sample proportions is factually correct and matches the formula given in Essential Knowledge 3.10.D.1 of the AP Statistics CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 3.10.D.1, which gives the standard error for the difference between two population proportions as the square root of p\u0302\u2081(1\u2212p\u0302\u2081)/n\u2081 + p\u0302\u2082(1\u2212p\u0302\u2082)/n\u2082. Topic 3.10 is the first topic that requires this calculation: 3.10.D says to \u201cCalculate the standard error and margin of error.\u201d The entry needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The formula structure matches 3.10.D.1, SE = sqrt(p1(1-p1)/n1 + p2(1-p2)/n2), with the two terms summed under a single radical and each term's denominator matching its sample size. The hats on p1 and p2 are not visible in the extracted CED text, but the sample-based form is the standard SE used for the interval in 3.10.C.2 and 3.3.D.1, so the body is accepted as correct. b_topic_codes: 3.10.D.1 is the first place this SE is required, so owner 3.10 is correct, and 3.10 is the only listed topic. c_ced_required: 3.10.D.1 requires the student to 'calculate the standard error and margin of error for estimating the difference between two population proportions' [Skill 3.E], so the formula is required. d_caution: The CED defines this quantity as 'the standard error (SE) for the difference between two population proportions' and states it in terms of the population proportions. The entry's body substitutes sample proportions with no caution. A caution is needed to state that the sample proportions p\u03021 and p\u03022 are substituted for the unknown population proportions when computing the SE for the interval, so the caution field must be filled, not null. Hooks: none supplied."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The formula matches the CED's 3.10.D.1 structure, SE = sqrt(p1(1-p1)/n1 + p2(1-p2)/n2), with the two-proportion sum under the root and n1 and n2 in the denominators. The hats were lost in text extraction, so the sample-proportion notation is taken as the intended form. b_topic_codes: 3.10.D.1 is where the standard error for the difference first appears, so owner 3.10 is correct and no other topic_codes apply. c_ced_required: 3.10.D.1 requires students to calculate the standard error for the difference between two population proportions (Skill 3.E), so the entry is required content. d_caution: The CED defines this SE as the standard error for the difference between two population proportions, and its formula must be estimated by plugging in sample proportions (the same estimation logic as SE_p-hat in 3.3.D.1). The body uses p-hat without any caution saying this is the estimated SE computed from sample data, and the title does not signal that. The caution is therefore needed and missing, so the entry fails."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

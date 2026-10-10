@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-bio-u3-01-reversed", "control": "reversed fact (CED 3.1.A.1: enzymes facilitate reactions by LOWERING the activation energy)", "control_target": "entry",
+   "subject_key": "ap_biology", "unit_number": 3, "owner_topic_code": "3.1", "topic_codes": ["3.1"], "kind": "vocabulary",
+   "title": "Enzyme", "body": "A protein that acts as a biological catalyst, facilitating chemical reactions in cells by raising the activation energy of the reaction.", "items": [], "caution": null, "ced_evidence": "3.1.A.1: \"biological catalysts that facilitate chemical reactions in cells by lowering the activation energy\"", "hooks": []},
+
+  {"candidate_id": "ctrl-bio-u3-02-excluded", "control": "explicitly excluded by the CED (3.3.A.2 EXCLUSION STATEMENT: the equation for Gibbs free energy is beyond the scope of the AP Exam)", "control_target": "entry",
+   "subject_key": "ap_biology", "unit_number": 3, "owner_topic_code": "3.3", "topic_codes": ["3.3"], "kind": "formula",
+   "title": "Gibbs free energy change", "body": "\\Delta G = \\Delta H - T\\Delta S", "items": [], "caution": null, "ced_evidence": "3.3.A.2", "hooks": []},
+
+  {"candidate_id": "ctrl-bio-u3-03-wrong-owner", "control": "wrong owner topic (photosystems I and II are CED 3.4.B.3 under Photosynthesis; 3.5 is Cellular Respiration)", "control_target": "entry",
+   "subject_key": "ap_biology", "unit_number": 3, "owner_topic_code": "3.5", "topic_codes": ["3.5"], "kind": "convention",
+   "title": "Photosystems I and II", "body": "Photosystems I and II are embedded in the thylakoid membranes of chloroplasts and are connected by the transfer of electrons through an electron transport chain.", "items": [], "caution": null, "ced_evidence": "3.4.B.3", "hooks": []},
+
+  {"candidate_id": "ctrl-bio-u3-04-swapped", "control": "swapped list values (CED 3.2.B.3: COMPETITIVE inhibitors bind reversibly to the active site; NONCOMPETITIVE inhibitors bind to allosteric sites)", "control_target": "entry",
+   "subject_key": "ap_biology", "unit_number": 3, "owner_topic_code": "3.2", "topic_codes": ["3.2"], "kind": "list_sequence",
+   "title": "Enzyme inhibitors by binding site", "body": "Where each type of enzyme inhibitor binds.", "items": [{"label": "Competitive inhibitor", "meaning": "binds to allosteric sites, changing the activity of the enzyme"}, {"label": "Noncompetitive inhibitor", "meaning": "binds reversibly to the active site of the enzyme"}], "caution": null, "ced_evidence": "3.2.B.3", "hooks": []},
+
+  {"candidate_id": "ctrl-bio-u3-05-bad-hook", "control": "hook expansion contradicts the CED (3.4.A.2: the Calvin cycle occurs in the STROMA and the light reactions occur in the GRANA; the hook swaps them). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_biology", "unit_number": 3, "owner_topic_code": "3.4", "topic_codes": ["3.4"], "kind": "list_sequence",
+   "title": "Where each stage of photosynthesis occurs", "body": "The chloroplast compartment in which each set of photosynthetic reactions takes place.", "items": [{"label": "Stroma", "meaning": "the fluid inside the inner chloroplast membrane and outside the thylakoid, where the carbon fixation (Calvin cycle) reactions occur"}, {"label": "Grana", "meaning": "stacks of thylakoids, where the light reactions occur"}], "caution": null, "ced_evidence": "3.4.A.2.i and 3.4.A.2.iii",
+   "hooks": [{"kind": "phrase", "hook_text": "Light in the liquid, carbon in the stacks", "expands_to": [{"cue": "Light in the liquid", "means": "the light reactions occur in the stroma"}, {"cue": "carbon in the stacks", "means": "the Calvin cycle occurs in the grana"}], "when_to_use": "when saying where each stage of photosynthesis happens", "caution": "Name the compartment in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-bio-u3-06-other-unit", "control": "content from another unit (Hardy-Weinberg is Unit 7 natural selection; 'Hardy', 'allele frequenc' and 'natural selection' do not appear in the Unit 3 pages)", "control_target": "entry",
+   "subject_key": "ap_biology", "unit_number": 3, "owner_topic_code": "3.3", "topic_codes": ["3.3"], "kind": "formula",
+   "title": "Hardy-Weinberg equilibrium", "body": "p^2 + 2pq + q^2 = 1 \\quad\\text{and}\\quad p + q = 1", "items": [], "caution": null, "ced_evidence": "3.3.B.1", "hooks": []}
+]

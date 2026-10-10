@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-precalc-u2-01-wrong-formula", "control": "wrong formula (CED 2.12.A.2 power property: log_b(x^n) = n log_b x, not (log_b x)^n)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 2, "owner_topic_code": "2.12", "topic_codes": ["2.12"], "kind": "formula",
+   "title": "Power property for logarithms", "body": "\\log_b\\left(x^n\\right) = \\left(\\log_b x\\right)^n", "items": [], "caution": null, "ced_evidence": "2.12.A.2: \"The power property for logarithms states that log_b x^n = n log_b x\"", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u2-02-non-ced", "control": "non-CED content (the CED's only regression-validation criterion in 2.6.B.1 is a residual plot without pattern; it never introduces r^2 or a correlation coefficient as a model-selection rule)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 2, "owner_topic_code": "2.6", "topic_codes": ["2.6"], "kind": "convention",
+   "title": "Choosing a model by the coefficient of determination", "body": "Compare candidate regression models by their coefficient of determination r^2 and select the model whose r^2 is closest to 1.", "items": [], "caution": null, "ced_evidence": "2.6.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u2-03-wrong-owner", "control": "wrong owner topic (the change of base property is CED 2.12.A.3 under rewriting logarithmic expressions; 2.9 only covers evaluating logarithmic expressions)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 2, "owner_topic_code": "2.9", "topic_codes": ["2.9"], "kind": "formula",
+   "title": "Change of base property for logarithms", "body": "\\log_b x = \\frac{\\log_a x}{\\log_a b}", "items": [], "caution": null, "ced_evidence": "2.12.A.3", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u2-04-swapped", "control": "swapped definitions (CED 2.1.A.2: an arithmetic sequence has a common DIFFERENCE; 2.1.B.1: a geometric sequence has a common RATIO)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 2, "owner_topic_code": "2.1", "topic_codes": ["2.1"], "kind": "list_sequence",
+   "title": "Arithmetic and geometric sequences", "body": "What successive terms of each kind of sequence share.", "items": [{"label": "Arithmetic sequence", "meaning": "successive terms have a common ratio, a constant proportional change"}, {"label": "Geometric sequence", "meaning": "successive terms have a common difference, a constant rate of change"}], "caution": null, "ced_evidence": "2.1.A.2 and 2.1.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u2-05-bad-hook", "control": "hook expansion contradicts the CED (2.15.A.1: on a semi-log plot with a logarithmically scaled y-axis, EXPONENTIAL data appear linear). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_precalculus", "unit_number": 2, "owner_topic_code": "2.15", "topic_codes": ["2.15"], "kind": "convention",
+   "title": "Semi-log plots and exponential models", "body": "When the y-axis of a semi-log plot is logarithmically scaled, data or functions that demonstrate exponential characteristics will appear linear.", "items": [], "caution": null, "ced_evidence": "2.15.A.1",
+   "hooks": [{"kind": "phrase", "hook_text": "Straight on semi-log means linear data", "expands_to": [{"cue": "Straight on semi-log", "means": "the data plot as a straight line on a semi-log plot"}, {"cue": "means linear data", "means": "so the underlying data are modeled by a linear function"}], "when_to_use": "when deciding whether an exponential model fits a data set", "caution": "State the conclusion in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-precalc-u2-06-other-unit", "control": "content from another unit (the Pythagorean identity is Unit 3 trigonometric functions; it is not part of the Unit 2 pages)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 2, "owner_topic_code": "2.13", "topic_codes": ["2.13"], "kind": "formula",
+   "title": "Pythagorean identity", "body": "\\sin^2\\theta + \\cos^2\\theta = 1", "items": [], "caution": null, "ced_evidence": "2.13.A.1", "hooks": []}
+]

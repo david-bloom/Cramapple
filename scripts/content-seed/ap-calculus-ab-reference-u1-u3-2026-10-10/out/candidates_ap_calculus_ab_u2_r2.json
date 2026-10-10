@@ -1,0 +1,128 @@
+[
+  {
+    "owner_topic_code": "2.1",
+    "topic_codes": [
+      "2.1",
+      "2.2",
+      "2.7"
+    ],
+    "kind": "formula",
+    "title": "Derivative at a point: two equivalent limit forms",
+    "body": "f'(a)=\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}=\\lim_{x\\to a}\\frac{f(x)-f(a)}{x-a}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "CHA-2.B.1: \"These are equivalent forms of the definition of the derivative\" (provided the limit exists)",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r2-001",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.3",
+    "topic_codes": [
+      "2.3"
+    ],
+    "kind": "convention",
+    "title": "Calculator answers: rounding",
+    "body": "Present the expression you evaluated on the calculator, round or truncate to three places after the decimal point, and store intermediate calculations to avoid accumulated rounding error.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "Preparing for the AP Exam: \"rounding or truncating to three places after the decimal point\"; CHA-2.D.2",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r2-002",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.2",
+    "topic_codes": [
+      "2.2",
+      "2.8",
+      "2.9"
+    ],
+    "kind": "convention",
+    "title": "Keep notation precise: parentheses and defined names",
+    "body": "Write derivatives with standard notation (f\u2032(x), y\u2032, or dy/dx), keep parentheses around grouped factors, and do not rename a derivative to a new symbol without defining it.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "Skill 4.C \"Use appropriate mathematical symbols and notation\"; CHA-2.B.3; \"students may drop important notation, such as a parenthesis\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r2-003",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7",
+      "2.10"
+    ],
+    "kind": "formula",
+    "title": "Derivatives of sin x, cos x, e^x, ln x",
+    "body": "\\frac{d}{dx}[\\sin x]=\\cos x,\\quad \\frac{d}{dx}[\\cos x]=-\\sin x,\\quad \\frac{d}{dx}[e^{x}]=e^{x},\\quad \\frac{d}{dx}[\\ln x]=\\frac{1}{x}\\ (x>0)",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "FUN-3.A.4: \"Specific rules can be used to find the derivatives for sine, cosine, exponential, and logarithmic functions.\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r2-004",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.9",
+    "topic_codes": [
+      "2.9",
+      "2.10"
+    ],
+    "kind": "formula",
+    "title": "Quotient rule",
+    "body": "\\frac{d}{dx}\\left[\\frac{u(x)}{v(x)}\\right]=\\frac{v(x)\\,u'(x)-u(x)\\,v'(x)}{\\left[v(x)\\right]^{2}}",
+    "items": [],
+    "caution": "The numerator order matters (the denominator's factor times u\u2032 comes first). Show this rule structure as a separate step before substituting values.",
+    "ced_evidence": "FUN-3.B.2: \"Derivatives of quotients of differentiable functions can be found using the quotient rule.\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r2-005",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.8",
+    "topic_codes": [
+      "2.8",
+      "2.10"
+    ],
+    "kind": "formula",
+    "title": "Product rule",
+    "body": "\\frac{d}{dx}\\left[u(x)\\,v(x)\\right]=u(x)\\,v'(x)+v(x)\\,u'(x)",
+    "items": [],
+    "caution": "The derivative of a product is not the product of the derivatives. Show the product rule structure, e.g. f\u2032(3) = u(3)v\u2032(3) + v(3)u\u2032(3), before substituting values.",
+    "ced_evidence": "FUN-3.B.1: \"Derivatives of products of differentiable functions can be found using the product rule\"; \"f \u2032(3) = u(3)v\u2032(3) + v(3)u\u2032(3)\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r2-006",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "2.7",
+    "topic_codes": [
+      "2.7"
+    ],
+    "kind": "convention",
+    "title": "Evaluate a limit by recognizing a derivative",
+    "body": "If a limit has the form of the difference quotient defining the derivative of a function whose derivative is known, evaluate the limit as that derivative at the indicated point.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "LIM-3.A.1: \"recognizing an expression for the definition of the derivative of a function whose derivative is known offers a strategy for determining a limit\"",
+    "hooks": [],
+    "candidate_id": "ap_calculus_ab-u2-r2-007",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 2,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

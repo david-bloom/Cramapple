@@ -1,0 +1,994 @@
+[
+  {
+    "candidate_id": "ap_precalculus-u1-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's body accurately reflects the exact definition and approximation method of the rate of change at a point as specified in Essential Knowledge 1.2.A.2 of the AP Precalculus CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 1.2.A.2: \u201cThe rate of change of a function at a point quantifies the rate at which output values would change were the input values to change at that point\u201d and \u201ccan be approximated by the average rates of change of the function over small intervals containing the point, if such values exist.\u201d Topic 1.2 first requires this concept. No caution is needed because the wording closely follows the CED."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.2.A.2 (p. 31) with the two sentences merged: the rate of change at a point 'quantifies the rate at which output values would change were the input values to change at that point' and 'can be approximated by the average rates of change of the function over small intervals containing the point, if such values exist.' No symbols, lists, or order are involved, and nothing is misstated. b_topic_codes: Rate of change at a point is first introduced in Topic 1.2 (Rates of Change, 1.2.A.2), so owner_topic_code 1.2 is correct. The only topic code listed is 1.2, which is the topic that uses it. c_ced_required: Learning objective 1.2.A ('Compare the rates of change at two points using average rates of change near the points') requires students to apply this concept, and 1.2.A.2 states it directly. d_caution: The entry wording is essentially the CED's own wording, so the point is earned without a caution and caution: null is correct. The ced_evidence quotation is accurate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the relationship between changing average rates of change and concavity as defined in EK 1.3.B.3: 'When the average rate of change over equal-length input-value intervals is increasing for all small-length intervals, the graph of the function is concave up. When the average rate of change over equal-length input-value intervals is decreasing for all small-length intervals, the graph of the function is concave down.' It is also supported by EK 1.1.B.3, 1.1.B.4, and 1.4.A.5."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The owner topic is 1.3, where EK 1.3.B.3 first states this average-rate criterion; Topic 1.4 also uses changing rates to identify concavity. The body omits a necessary condition: the CED says the average rate of change must be increasing or decreasing \u201cfor all small-length intervals.\u201d Increasing rates observed over unspecified equal-length intervals do not establish concavity. No caution flags that difference."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.3.B.3 requires the average rates of change to be increasing or decreasing \u201cfor all small-length intervals\u201d before concluding concavity. The body omits that essential condition, so its unqualified claim is not what the CED states. Topic 1.3 first requires this equal-length-interval criterion; Topic 1.4.A.5 also uses changing rates of change to identify concavity changes. No caution flags the wording difference, though a caution alone would not correct the body."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definitions of 'image' and 'preimage' are factually accurate and match the exact wording in EK 1.1.A.2. The topic codes are correct as the terms are introduced in Topic 1.1 and reused in Topic 1.12 (EK 1.12.A.5)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body reproduces the definitions in 1.1.A.2, so 1.1 is the correct owner topic and no caution is needed. But 1.12.A.5 uses image and preimage for different objects: \u201cThe set of points prior to the transformations is called the preimage ... and the set of points after the transformations is called the image.\u201d It does not use this entry\u2019s definition of the image of an input value or the preimage of an output value. Remove 1.12 from topic_codes."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body matches 1.1.A.2: \u201cThe image of an input value is the single output value yielded by the function rule. The preimage of an output value is the set of input values for which the function rule yields that output value.\u201d Topic 1.1 is the correct owner. But 1.12.A.5 uses the terms for transformations of sets of points: \u201cThe set of points prior to the transformations is called the preimage ... and the set of points after ... is called the image.\u201d It does not use the input-value/output-value definition in this entry, so 1.12 should not be a topic code. No caution is needed for the CED-matching body.",
+              "hooks": []
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definitions of positive and negative rates of change as stated in EK 1.2.B.2 and EK 1.2.B.3 of the AP Precalculus CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.2, EK 1.2.B.2 states that a positive rate of change means that as one quantity increases or decreases, the other does the same. EK 1.2.B.3 states that a negative rate of change means that as one quantity increases, the other decreases. The entry accurately paraphrases both required statements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 1.2.B.2 and 1.2.B.3. CED 1.2.B.2: \"A positive rate of change indicates that as one quantity increases or decreases, the other quantity does the same.\" CED 1.2.B.3: \"A negative rate of change indicates that as one quantity increases, the other decreases.\" The paraphrase keeps both directions and the same meaning. b_topic_codes: The sign convention is introduced in Topic 1.2 (Rates of Change), and 1.2 is the only listed topic, so owner_topic_code and topic_codes are correct. c_ced_required: Learning objective 1.2.B asks students to \"Describe how two quantities vary together at different points and over different intervals,\" which requires applying the sign meaning of a rate of change. d_caution: The wording is a faithful paraphrase of the CED statements, and the point-earning meaning (same direction for positive, opposite direction for negative) is fully preserved, so no caution is needed. ced_evidence quotes the CED accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body matches the exact wording of Essential Knowledge 1.4.A.3 in the AP Precalculus CED: 'Between every two distinct real zeros of a nonconstant polynomial function, there must be at least one input value corresponding to a local maximum or local minimum.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Topic 1.4, Essential Knowledge 1.4.A.3: \u201cBetween every two distinct real zeros of a nonconstant polynomial function, there must be at least one input value corresponding to a local maximum or local minimum.\u201d Topic 1.4 is the correct owner and only listed topic. No caution is needed because the wording matches the CED."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches Essential Knowledge 1.4.A.3 word for word: \"Between every two distinct real zeros of a nonconstant polynomial function, there must be at least one input value corresponding to a local maximum or local minimum.\" No symbols, list members, or definitions are altered. b_topic_codes: The CED places 1.4.A.3 under Topic 1.4 (Polynomial Functions and Rates of Change), and it is first required there, so owner_topic_code \"1.4\" and topic_codes [\"1.4\"] are correct. c_ced_required: 1.4.A.3 is essential knowledge supporting LO 1.4.A (\"Identify key characteristics of polynomial functions related to rates of change\"), so it is required course content and not trivia or another unit's content. d_caution: The entry wording is the CED wording, so no caution is needed and caution: null is correct. hooks: The entry has no hooks, so there are none to judge."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the analytical form of a nonconstant polynomial function as defined in EK 1.4.A.1. The topic codes are correct, as this standard form is introduced in Topic 1.4 and subsequently used in Topics 1.5, 1.6, 1.7 (rational functions as quotients of polynomials), and 1.11 (standard form of a polynomial)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula and conditions on n and a_n match 1.4.A.1, but the body omits its requirement that \u201ca_i is a real number for each i from 0 to n.\u201d Without that condition, the stated form also permits complex coefficients. Topic 1.4 first requires the form; the other listed topics use polynomial forms or their terms. No caution about alternate point-earning wording is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula omits a defining restriction in 1.4.A.1: \u201ca_i is a real number for each i from 0 to n.\u201d Topic 1.4 first requires this form; the other listed topics use polynomial degree, leading terms, or standard form. No caution is needed, but the omitted restriction must be added to the formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 1.4.A.4, which states: 'A polynomial function of even degree has either a global maximum or a global minimum. For a quadratic function, the global maximum or global minimum occurs at the vertex.' The topic codes are correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Topic 1.4, EK 1.4.A.4: \u201cA polynomial function of even degree has either a global maximum or a global minimum. For a quadratic function, the global maximum or global minimum occurs at the vertex.\u201d Topic 1.4 is the correct owner and only listed topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 1.4.A.4 states 'A polynomial function of even degree has either a global maximum or a global minimum. For a quadratic function, the global maximum or global minimum occurs at the vertex.' The body matches this sentence for sentence in substance, with no added or altered claims. b_topic_codes: 1.4.A.4 is the first place in the unit that requires this; 1.3 covers quadratic rates of change and concavity but never the vertex as an extremum. Owner and sole topic code 1.4 is correct. c_ced_required: 1.4.A.4 is an essential-knowledge statement under LO 1.4.A, which asks students to 'identify key characteristics of polynomial functions related to rates of change,' so the point is required. d_caution: the entry wording is the CED wording, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statements from the CED. Specifically, EK 1.5.A.3 states that 'real zeros of a polynomial can be endpoints for intervals satisfying polynomial inequalities,' and EK 1.8.A.2 states that 'The real zeros of both polynomial functions of a rational function r are endpoints or asymptotes for intervals satisfying the rational function inequalities r(x) \u2265 0 or r(x) \u2264 0.' The topic codes are correct and map to Unit 1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 1.5.A.3 states that real polynomial zeros \u201ccan be endpoints for intervals satisfying polynomial inequalities.\u201d CED 1.8.A.2 states that the real zeros of both polynomials in a rational function \u201care endpoints or asymptotes for intervals satisfying\u201d r(x) \u2265 0 or r(x) \u2264 0. Topic 1.5 introduces the convention, and topic 1.8 applies it to rational functions. The entry accurately paraphrases both statements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The polynomial claim matches 1.5.A.3: \"real zeros of a polynomial can be endpoints for intervals satisfying polynomial inequalities.\" The rational claim matches 1.8.A.2: \"The real zeros of both polynomial functions of a rational function r are endpoints or asymptotes for intervals satisfying the rational function inequalities r(x) \u2265 0 or r(x) \u2264 0.\" The body's 'real zeros of the numerator and denominator' is an equivalent restatement of 'both polynomial functions,' and 'endpoints or asymptotes' is verbatim. b_topic_codes: 1.5 is the first unit topic that introduces polynomial zeros as inequality endpoints (1.5.A.3), so owner 1.5 is correct. 1.8 is a rational-function topic in this unit that uses the same idea (1.8.A.2), so both topic_codes are valid. c_ced_required: 1.5.A.3 and 1.8.A.2 are essential-knowledge statements that students must apply to solve polynomial and rational inequalities, so the entry is CED-required. d_caution: The body paraphrases the CED but keeps its point-earning content (zeros as endpoints; asymptotes for rational functions; the \u2265 0 / \u2264 0 inequality forms). No point-earning wording is changed in a way that would mislead, so no caution is needed and a null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'multiplicity' using the exact phrasing from EK 1.5.A.2. The topic codes are correct: multiplicity is introduced in Topic 1.5 and subsequently applied in Topic 1.9 (EK 1.9.A.1) and Topic 1.10 (EK 1.10.A.1) to determine vertical asymptotes and holes."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 1.5.A.2 states: \u201cIf a linear factor (x \u2212 a) is repeated n times, the corresponding zero of the polynomial function has a multiplicity n. A polynomial function of degree n has exactly n complex zeros when counting multiplicities.\u201d Topic 1.5 first requires this concept; 1.9.A.1 and 1.10.A.1 also use multiplicity to distinguish vertical asymptotes from holes. The body follows the CED wording closely, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 1.5.A.2: \"If a linear factor ( x - a ) is repeated n times, the corresponding zero of the polynomial function has a multiplicity n.\" and \"A polynomial function of degree n has exactly n complex zeros when counting multiplicities.\" The body drops the article in \"has a multiplicity n\" and the phrase \"of the polynomial function\", but the meaning and list order are unchanged. b_topic_codes: owner 1.5 is where 1.5.A.2 first requires multiplicity. 1.9.A.1 uses multiplicity in the denominator versus numerator (\"its multiplicity as a real zero in the denominator is greater than its multiplicity as a real zero in the numerator\"), and 1.10.A.1 uses multiplicity comparison for holes (\"multiplicity of a real zero in the numerator is greater than or equal to its multiplicity in the denominator\"). So 1.9 and 1.10 use it. c_ced_required: 1.5.A.2 directly requires students to apply multiplicity of zeros. d_caution: the body paraphrases the CED wording closely and the point-earning content (repeated linear factor gives multiplicity n; degree n gives n complex zeros counting multiplicity) is stated, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-011",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statements 1.11.A.1 and 1.11.A.2 from the AP Precalculus CED. It correctly identifies that the factored form provides information about real zeros, x-intercepts, asymptotes, holes, domain, and range, while the standard form reveals information about end behaviors."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.11.A.1 says factored form 'readily provides information about real zeros' and therefore 'can reveal information about x-intercepts, asymptotes, holes, domain, and range.' The entry incorrectly extends 'readily provides' to that entire list. Its standard-form statement matches 1.11.A.2. Topic 1.11 is the correct code, and both statements are required essential knowledge. No caution flags the changed wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.11 is the correct placement, and EK 1.11.A.1\u20132 requires this distinction. But the body overstates what factored form readily provides. The CED says it \"readily provides information about real zeros\" and therefore \"can reveal information about x-intercepts, asymptotes, holes, domain, and range.\" It does not say factored form readily provides information about every item in that list. The statement about standard form matches EK 1.11.A.2. No caution flags the changed wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-010",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the mathematical notation for the end behavior of polynomial functions as explicitly required in EK 1.6.A.1 and EK 1.6.A.2. Topic 1.7 is also appropriate as rational function end behavior can depend on the end behavior of a polynomial (EK 1.7.A.3)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula needs the qualifier \u201cnonconstant.\u201d CED 1.6.A.1 and 1.6.A.2 state that a \u201cnonconstant polynomial function\u201d has these infinite end-behavior limits; a constant polynomial has finite limits. Topic 1.6 first requires this notation, and 1.7.A.3 uses the end behavior of a nonconstant polynomial to describe a rational function. No separate wording caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The limits are correct for nonconstant polynomials, but the entry says only \u201cpolynomials\u201d and leaves p unrestricted. CED 1.6.A.1 and 1.6.A.2 expressly say \u201ca nonconstant polynomial function\u201d; a constant polynomial does not have either stated limit. No caution supplies that missing restriction. Topic 1.6 first requires the notation, and 1.7.A.3 uses polynomial end behavior to describe certain rational functions."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-012",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the limit notation and conditions for the location of a hole in a rational function as specified in EK 1.10.A.2, which states: 'If input values sufficiently close to c correspond to output values arbitrarily close to L, then the hole is located at the point with coordinates (c, L). The corresponding mathematical notation is lim r(x) = L. It should be noted that lim_{x->c-} r(x) = lim_{x->c+} r(x) = lim_{x->c} r(x) = L.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The implication is reversed: a finite limit alone does not establish a hole; a function may be defined at c. CED 1.10.A.2 begins, \u201cIf the graph of a rational function r has a hole at x = c,\u201d and then uses nearby output values to locate it. Locating holes is required by 1.10.A, and 1.11.A.1 also identifies holes as information revealed by factored forms. The entry omits the prerequisite that a hole has been established, with no caution noting it."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The implication is missing a necessary condition: a finite limit alone does not establish a hole. For example, r(x)=x has limit 0 as x approaches 0 but no hole there. CED 1.10.A.2 begins, \u201cIf the graph of a rational function r has a hole at x = c,\u201d before explaining how to locate it; 1.10.A.1 gives the multiplicity condition for a hole. Topic 1.10 first requires this content, and 1.11.A.1 also identifies holes as information revealed by factored form. No caution flags the entry\u2019s incorrect unconditional implication."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the polynomial long division identity as specified in Essential Knowledge 1.11.B.1: 'If the polynomial f is divided by the polynomial g, then f can be rewritten as f(x) = g(x)q(x) + r(x), where q is the quotient, r is the remainder, and the degree of r is less than the degree of g.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.11, EK 1.11.B.1 states that polynomial long division rewrites f(x) = g(x)q(x) + r(x), where q is the quotient, r is the remainder, and the degree of r is less than the degree of g. The entry gives that identity and degree condition under the correct topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body f(x)=g(x)q(x)+r(x) with deg r < deg g matches CED 1.11.B.1 exactly: \"If the polynomial f is divided by the polynomial g, then f can be rewritten as f(x) = g(x)q(x) + r(x), where q is the quotient, r is the remainder, and the degree of r is less than the degree of g.\" The ced_evidence quote is accurate. b_topic_codes: Polynomial long division is introduced in 1.11 (1.11.B.1), and 1.11 is the only topic listed. Topic 1.7 covers end behavior via leading-term quotients without long division, and the slant-asymptote use appears later in 1.11.B.2, so 1.11 is where it is first required. c_ced_required: LO 1.11.B (\"Determine the quotient of two polynomial functions using long division\") requires students to apply this identity. d_caution: The entry's formula uses the CED's own symbols and degree condition, so the wording earns the point and no caution is needed; caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-014",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the function types and their corresponding modeling criteria as specified in EK 1.13.A.1 through 1.13.A.7. The mapping is precise, factual, and directly aligned with the AP Precalculus CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The sequence follows 1.13.A.1\u20131.13.A.7, and 1.14.A also uses these function types in constructing models. However, the quadratic and cubic entries make their geometric-context matches sound unconditional. The CED says geometric contexts involving area or two dimensions, and those involving volume or three dimensions, \u201ccan often be modeled\u201d by quadratic and cubic functions, respectively (1.13.A.3). The quadratic entry also omits \u201cgeometric\u201d before two-dimensional contexts. No caution preserves those qualifications."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The list follows 1.13.A.1\u20131.13.A.7, and Topic 1.14 applies function types in model construction. However, the quadratic and cubic items overstate 1.13.A.3: the CED says geometric contexts involving area or two dimensions, and volume or three dimensions, \u201ccan often be modeled\u201d by those functions\u2014not that those contexts generally identify the function type. No caution is needed for a faithful paraphrase, but the missing qualifications must be corrected rather than cautioned."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-016",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the four essential knowledge statements under Learning Objective 1.13.B (1.13.B.1 through 1.13.B.4) regarding model assumptions and restrictions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The four items follow 1.13.B.1\u20131.13.B.4 in order: the CED identifies assumptions about \u201cwhat is consistent\u201d and \u201chow quantities change together,\u201d then domain and range restrictions. It specifically gives \u201crounding values\u201d as a possible range restriction. Topic 1.13 first requires this content; 1.14.A.1 uses restrictions when constructing a model. The paraphrases preserve the CED\u2019s meaning, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body and the four items match the CED. Item 1 matches 1.13.B.1 ('A model may have underlying assumptions about what is consistent in the model'), item 2 matches 1.13.B.2 ('about how quantities change together'), item 3 matches 1.13.B.3 (domain restrictions 'based on mathematical clues, contextual clues, or extreme values in the data set'), and item 4 matches 1.13.B.4 (range restrictions 'such as rounding values'). The order is correct. Minor issue: ced_evidence is labelled '1.13.B.1\u20131.13.B.4' but quotes only the B.3 sentence. The quote itself is accurate, so this is a citation imprecision, not a factual error. b_topic_codes: 1.13 is the unit's first requirement of this content (1.13.B), and 1.14.A.1 ('A model can be constructed based on restrictions identified in a mathematical or contextual scenario') draws on the same restrictions, so listing 1.14 is defensible. c_ced_required: Learning objective 1.13.B ('Describe assumptions and restrictions related to building a function model') directly requires students to describe these. d_caution: The labels are faithful paraphrases ('Domain restrictions' and 'Range restrictions' are the CED's own terms), so no caution is needed and caution null is correct. Hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-017",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists and describes the four methods of constructing a function model as specified in Essential Knowledge statements 1.14.A.1 through 1.14.A.4 of the AP Precalculus CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.14 is the appropriate owner. The four items match 1.14.A.1\u20131.14.A.4 in order: construction from identified restrictions, transformations of a parent function, technology and regressions, and combined modeling techniques for a piecewise-defined model. The CED expressly requires students to \u201cConstruct a linear, quadratic, cubic, quartic, polynomial of degree n, or related piecewise-defined function model.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body and the four items match the CED. Learning objective 1.14.A requires constructing a linear, quadratic, cubic, quartic, polynomial of degree n, or related piecewise-defined function model. Items 1 to 4 map in order to 1.14.A.1 (model based on identified restrictions), 1.14.A.2 (transformations of the parent function), 1.14.A.3 (technology and regressions, including linear, quadratic, cubic, and quartic) and 1.14.A.4 (piecewise-defined model through a combination of modeling techniques). Item 3 writes 'or' where the CED writes 'including'. That is a harmless paraphrase of the same list. The ced_evidence field is mislabeled: it cites the range '1.14.A.1\u20131.14.A.4' but quotes only the 1.14.A.3 sentence. This is a citation defect and does not change the factual content. b_topic_codes: 1.14 is the topic where 1.14.A is first required, and it is the only listed topic. c_ced_required: 1.14.A is a Required Course Content objective in Topic 1.14. d_caution: the items are close paraphrases of the CED sentences, and the substance that earns the point (the four construction routes) is intact, so no caution is needed. Fixing the ced_evidence citation to 1.14.A.3 would be a good cleanup."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u1-r2-015",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The CED (1.12.A.3 and 1.12.A.4) defines the dilation factors as 'a' and '1/b' respectively, rather than '|a|' and '1/|b|'. While using absolute values is mathematically standard, the entry deviates from the CED's literal wording without providing a caution to clarify this discrepancy."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the additive and multiplicative transformations defined in EK 1.12.A.1 through 1.12.A.4. The use of absolute values for dilation factors is mathematically standard and consistent with the CED's separate treatment of reflections when a < 0 or b < 0. Topic 1.14 is also appropriate as EK 1.14.A.2 explicitly mentions constructing models using transformations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.12.A.1\u20131.12.A.4 requires these four forms, and 1.14.A.2 uses transformations to construct models. The absolute-value dilation factors paired with separate reflections are mathematically correct, but they differ from the CED\u2019s phrasing: it specifies a vertical dilation \u201cby a factor of a\u201d and a horizontal dilation \u201cby a factor of 1/b,\u201d followed by the respective reflection conditions. Because the entry uses different factor wording, it needs a caution; none is present."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.12.A.1\u20131.12.A.4 requires all four forms; 1.14.A.2 also uses transformations to construct models. The absolute-value factors correctly describe the scale when the listed reflection is applied. However, the CED phrases the factors as \u201ca factor of a\u201d and \u201ca factor of 1/b,\u201d with a separate reflection when the parameter is negative. Because this entry instead says |a| and 1/|b|, it needs a caution explaining that difference."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

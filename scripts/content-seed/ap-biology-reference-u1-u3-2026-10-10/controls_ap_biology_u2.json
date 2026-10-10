@@ -1,0 +1,141 @@
+[
+ {
+  "candidate_id": "ctrl-bio-u2-01-wrong-formula",
+  "control": "wrong formula (CED 2.7.B.2 gives solute potential as psi_s = -iCRT; the negative sign is dropped here)",
+  "control_target": "entry",
+  "subject_key": "ap_biology",
+  "unit_number": 2,
+  "owner_topic_code": "2.7",
+  "topic_codes": [
+   "2.7"
+  ],
+  "kind": "formula",
+  "title": "Solute potential of a solution",
+  "body": "\\psi_s = iCRT",
+  "items": [],
+  "caution": null,
+  "ced_evidence": "2.7.B.2: \"Solute Potential of a Solution: psi_s = -iCRT\"",
+  "hooks": []
+ },
+ {
+  "candidate_id": "ctrl-bio-u2-02-non-ced",
+  "control": "non-CED detail. CED 2.8.A.1.ii names the Na+/K+ pump and ATPase only as contributors to the maintenance of the membrane potential (the string is superscripted in the PDF, which is why a plain text search missed it). The pumping stoichiometry (three sodium out, two potassium in, one ATP per cycle) appears nowhere in the CED, and 2.6 is not where the pump is introduced.",
+  "control_target": "entry",
+  "subject_key": "ap_biology",
+  "unit_number": 2,
+  "owner_topic_code": "2.6",
+  "topic_codes": [
+   "2.6"
+  ],
+  "kind": "convention",
+  "title": "Stoichiometry of the sodium-potassium pump",
+  "body": "The Na+/K+ ATPase moves three sodium ions out of the cell for every two potassium ions it moves in, using one ATP per cycle.",
+  "items": [],
+  "caution": null,
+  "ced_evidence": "2.6.A.1",
+  "hooks": []
+ },
+ {
+  "candidate_id": "ctrl-bio-u2-03-wrong-owner",
+  "control": "wrong owner topic (water potential and osmosis are CED 2.7.A.1 under Tonicity and Osmoregulation; 2.9 covers cell compartmentalization)",
+  "control_target": "entry",
+  "subject_key": "ap_biology",
+  "unit_number": 2,
+  "owner_topic_code": "2.9",
+  "topic_codes": [
+   "2.9"
+  ],
+  "kind": "formula",
+  "title": "Water potential",
+  "body": "\\psi = \\psi_p + \\psi_s",
+  "items": [],
+  "caution": null,
+  "ced_evidence": "2.7.A.1",
+  "hooks": []
+ },
+ {
+  "candidate_id": "ctrl-bio-u2-04-reversed",
+  "control": "reversed direction (CED 2.7.A.1: water moves by osmosis from regions of HIGH water potential to regions of LOW water potential, and from hypotonic to hypertonic regions)",
+  "control_target": "entry",
+  "subject_key": "ap_biology",
+  "unit_number": 2,
+  "owner_topic_code": "2.7",
+  "topic_codes": [
+   "2.7"
+  ],
+  "kind": "convention",
+  "title": "Direction of osmotic water movement",
+  "body": "Water moves by osmosis from regions of low water potential to regions of high water potential, which is from hypertonic to hypotonic regions.",
+  "items": [],
+  "caution": null,
+  "ced_evidence": "2.7.A.1",
+  "hooks": []
+ },
+ {
+  "candidate_id": "ctrl-bio-u2-05-bad-hook",
+  "control": "hook expansion contradicts the CED (2.2.A.2.i: SMALLER cells have a higher surface area-to-volume ratio and more efficient exchange). The entry is correct, so only the hook should be rejected.",
+  "control_target": "hook",
+  "subject_key": "ap_biology",
+  "unit_number": 2,
+  "owner_topic_code": "2.2",
+  "topic_codes": [
+   "2.2"
+  ],
+  "kind": "convention",
+  "title": "Surface area-to-volume ratio and cell size",
+  "body": "Smaller cells typically have a higher surface area-to-volume ratio and a more efficient exchange of materials with the environment than larger cells; as cells increase in volume the ratio decreases and the demand for internal resources increases.",
+  "items": [],
+  "caution": null,
+  "ced_evidence": "2.2.A.2.i-ii",
+  "hooks": [
+   {
+    "kind": "phrase",
+    "hook_text": "Big and bulky trades best",
+    "expands_to": [
+     {
+      "cue": "Big and bulky",
+      "means": "larger cells have the higher surface area-to-volume ratio"
+     },
+     {
+      "cue": "trades best",
+      "means": "so larger cells exchange materials with the environment more efficiently"
+     }
+    ],
+    "when_to_use": "when comparing exchange efficiency across cell sizes",
+    "caution": "State the ratio comparison in CED terms when answering.",
+    "source_note": "cramapple-authored"
+   }
+  ]
+ },
+ {
+  "candidate_id": "ctrl-bio-u2-06-other-unit",
+  "control": "content from another unit (glycolysis and the citric acid cycle are Unit 3 cellular energetics; 'glycolysis', 'Krebs' and 'citric acid' do not appear in the Unit 2 pages)",
+  "control_target": "entry",
+  "subject_key": "ap_biology",
+  "unit_number": 2,
+  "owner_topic_code": "2.9",
+  "topic_codes": [
+   "2.9"
+  ],
+  "kind": "list_sequence",
+  "title": "Stages of cellular respiration",
+  "body": "The ordered stages by which glucose is oxidized to produce ATP.",
+  "items": [
+   {
+    "label": "Glycolysis",
+    "meaning": "glucose is split in the cytosol"
+   },
+   {
+    "label": "Citric acid cycle",
+    "meaning": "acetyl-CoA is oxidized in the mitochondrial matrix"
+   },
+   {
+    "label": "Oxidative phosphorylation",
+    "meaning": "the electron transport chain and chemiosmosis"
+   }
+  ],
+  "caution": null,
+  "ced_evidence": "2.9.A.1",
+  "hooks": []
+ }
+]

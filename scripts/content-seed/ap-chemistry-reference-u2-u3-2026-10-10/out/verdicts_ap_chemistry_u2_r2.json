@@ -1,0 +1,428 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u2-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 2.1.A.1, which states: 'Electronegativity values for the representative elements increase going from left to right across a period and decrease going down a group. These trends can be understood qualitatively through the electronic structure of the atoms, the shell model, and Coulomb\u2019s law.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.1.A.1 states that electronegativity values for representative elements \u201cincrease going from left to right across a period and decrease going down a group\u201d and that these trends can be understood qualitatively through \u201cthe electronic structure of the atoms, the shell model, and Coulomb\u2019s law.\u201d Topic 2.1 is the relevant topic. The entry\u2019s wording preserves the CED meaning, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.1.A.1 ('Electronegativity values for the representative elements increase going from left to right across a period and decrease going down a group'). The added qualitative explanation (electronic structure, shell model, Coulomb's law) matches the CED's second sentence in 2.1.A.1. No symbols, list members, or definitions are wrong. b_topic_codes: owner_topic_code '2.1' and topic_codes ['2.1'] are correct. Topic 2.1 (Types of Chemical Bonds) is where this unit's CED pages first require the electronegativity trend, and 2.1.A.1 is the only topic in these pages that uses it. c_ced_required: 2.1.A.1 is an essential-knowledge statement that requires students to know and apply the electronegativity trend, so the entry is CED-required. d_caution: The wording ('values' omitted, 'decreases' instead of 'decrease going') is a paraphrase that keeps the same trend direction and scope, so the point-earning content is preserved and no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u2-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statement 2.6.A.1 from the AP Chemistry CED, which states that resonance must be included as a refinement when multiple equivalent Lewis structures can be constructed to ensure qualitatively accurate predictions of molecular structure and properties."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.6 is correct, and 2.6.A.1 requires resonance when more than one equivalent Lewis structure can be constructed. But the body omits the CED\u2019s qualification: \u201cIn many such cases, this refinement is needed to provide qualitatively accurate predictions of molecular structure and properties.\u201d Its unqualified \u201cso that predictions ... are qualitatively accurate\u201d overstates that claim. The caution is null and does not address the changed qualification."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 2.6.A.1 requires resonance when more than one equivalent Lewis structure can be constructed. But the body overstates its effect on predictions: the CED says, \u201cIn many such cases, this refinement is needed to provide qualitatively accurate predictions,\u201d not that including resonance makes predictions qualitatively accurate in every such case. Topic 2.6 is the correct code. No wording caution is needed; the problem is substantive."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u2-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for formal charge is factually correct and directly supports Topic 2.6 (Resonance and Formal Charge), specifically EK 2.6.A.2 and the Unit 2 'Preparing for the AP Exam' section which explicitly mentions 'calculating and connecting formal charges in Lewis structures'. The caution correctly notes that the formula itself is not printed in the CED but is required for calculations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formal-charge formula is correct. Topic 2.6 is where the CED requires its use: 2.6.A.2 says that \u201cthe octet rule and formal charge can be used as criteria for determining which of several possible valid Lewis diagrams provides the best model.\u201d The Unit 2 exam-preparation text explicitly calls for \u201ccalculating and connecting formal charges in Lewis structures.\u201d The caution correctly notes that the CED does not print the formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula FC = (valence e- of the free atom) - (nonbonding e-) - 1/2(bonding e-) is the standard formal-charge definition, and its symbols are correct. The CED does not print it, but the entry's caution says so, and nothing in the formula conflicts with the CED. b_topic_codes: Formal charge first appears in Topic 2.6 (2.6.A.2: \"The octet rule and formal charge can be used as criteria...\"), so owner 2.6 is correct and topic_codes ['2.6'] is the only topic that uses it. c_ced_required: 2.6.A.2 requires students to use formal charge to choose among valid Lewis diagrams, and the Unit 2 'Preparing for the AP Exam' text requires \"calculating and connecting formal charges in Lewis structures.\" d_caution: The CED does not print the formula, and the caution says so. It also flags the wrong-valence-electron mistake, which the CED names directly: \"Mistakes include: using the incorrect number of valence electrons.\" The caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u2-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the relationship between hybridization types (sp, sp2, sp3) and their ideal bond angles (180\u00b0, 120\u00b0, 109.5\u00b0) as explicitly stated in Essential Knowledge 2.7.A.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.7, EK 2.7.A.3 states: \u201cWhen the central atom is sp hybridized, its ideal bond angles are 180\u00b0; for sp2 hybridized atoms the bond angles are 120\u00b0; and for sp3 hybridized atoms the bond angles are 109.5\u00b0.\u201d The entry gives the same labels, angles, and order. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body, items, and values match 2.7.A.3 exactly: \"When the central atom is sp hybridized, its ideal bond angles are 180\u00b0; for sp2 hybridized atoms the bond angles are 120\u00b0; and for sp3 hybridized atoms the bond angles are 109.5\u00b0.\" The labels, members, order, and values are all correct. b_topic_codes: Hybridization is introduced and used only in Topic 2.7 (Learning Objective 2.7.A, item vi, \"Hybridization of valence orbitals for atoms within a molecule or polyatomic ion\"), so owner_topic_code 2.7 and topic_codes [\"2.7\"] are correct. c_ced_required: 2.7.A.3 is an essential-knowledge statement that gives these ideal bond angles, and LO 2.7.A requires students to explain structural properties of molecules, including bond angles (2.7.A.2 ii). The exclusion statement removes only the derivation and depiction of hybrid orbitals, not the sp/sp2/sp3 nomenclature or the associated angles. d_caution: The entry's wording (\"ideal bond angles\" tied to the sp, sp2, sp3 labels for a central atom) is essentially the CED's wording, and it keeps the word \"ideal,\" so no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u2-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the potential energy vs. internuclear distance graph as described in EK 2.2.A.1 and EK 2.2.A.2, including the definitions of equilibrium bond length, bond energy, and the effect of bond order."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.2 is the first required location. EK 2.2.A.1 describes a \u201cgraph of potential energy versus the distance between atoms (internuclear distance)\u201d and identifies the equilibrium bond length as the separation at which potential energy is lowest and bond energy as the energy required to separate the atoms. EK 2.2.A.2 states that bonds with a higher order are shorter and have larger bond energies. The entry is consistent with those statements, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.2.A.1 ('graph of potential energy versus the distance between atoms (internuclear distance)'; 'equilibrium bond length (the separation between atoms at which the potential energy is lowest)'; 'bond energy (the energy required to separate the atoms)'). The bond-order item matches 2.2.A.2 ('Bonds with a higher order are shorter and have larger bond energies'). The axis labels and the 'depth of the well' label are consistent with these definitions. The bond-order item omits the 'covalent bond' qualifier from 2.2.A.2, but it is a faithful summary. b_topic_codes: Potential energy vs. internuclear distance and bond order/bond energy first appear in Topic 2.2 (2.2.A.1 and 2.2.A.2). Topic 2.1 covers only electronegativity and bond type, so owner 2.2 is correct and topic_codes [2.2] is the only unit topic that uses it. c_ced_required: LO 2.2.A ('Represent the relationship between potential energy and distance between atoms') and 2.2.A.1 require students to represent and interpret this graph, equilibrium bond length, and bond energy. d_caution: The entry's wording ('distance between two atoms', 'energy required to separate the atoms') is the CED's own wording, so no caution is needed. The 'depth of the energy well' label is a visual description of bond energy and does not conflict with the CED definition."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u2-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 2.6.A.2, which states that the octet rule and formal charge can be used as criteria for determining which of several possible valid Lewis diagrams provides the best model for predicting molecular structure and properties."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6, EK 2.6.A.2 states: \u201cThe octet rule and formal charge can be used as criteria for determining which of several possible valid Lewis diagrams provides the best model for predicting molecular structure and properties.\u201d LO 2.6.A explicitly addresses selecting between nonequivalent structures. The entry conveys that required content, is assigned to the correct topic, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches 2.6.A.2: \"The octet rule and formal charge can be used as criteria for determining which of several possible valid Lewis diagrams provides the best model for predicting molecular structure and properties.\" The content is correct. b_topic_codes: 2.6 is the topic that owns 2.6.A.2 (Resonance and Formal Charge), and topic_codes [\"2.6\"] is correct. c_ced_required: 2.6.A.2 requires students to apply the octet rule and formal charge to choose the best of several valid Lewis diagrams, so this is required content. d_caution: The entry changes the CED wording. The CED says the octet rule and formal charge \"can be used as criteria\" and \"for determining\" the best model. The entry says \"use\" them \"to decide\", which turns a permissive statement into a prescriptive rule. The CED also flags limitations of the Lewis model (2.6.A.3, especially odd-electron cases), and the entry does not mention them. The entry needs a caution stating that the octet rule and formal charge are criteria that can guide the choice, not an automatic rule, and that the CED point is the criteria for selecting the best model. Caution is null, so the entry fails d_caution and is not accepted as written.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (2.6.A.2) states: \"The octet rule and formal charge can be used as criteria for determining which of several possible valid Lewis diagrams provides the best model for predicting molecular structure and properties.\" The entry's body makes the same claim: for non-equivalent valid Lewis diagrams, the octet rule and formal charge are the criteria for choosing the best model for predicting structure and properties. The entry's 'use ... as the criteria' is a directive paraphrase of CED's 'can be used as criteria', but it does not change the substance. b_topic_codes: The criterion appears in Topic 2.6 (Resonance and Formal Charge), and owner_topic_code 2.6 matches topic_codes [2.6]. Topic 2.5 covers only constructing Lewis diagrams (2.5.A.1), so 2.6 is the first unit topic that requires choosing among diagrams. c_ced_required: Directly required by 2.6.A.2 (\"The octet rule and formal charge can be used as criteria...\"). d_caution: The entry paraphrases rather than quoting CED wording, but the paraphrase expresses the same idea and does not invert or weaken it, so no caution is needed. Caution is null, which is appropriate.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u2-r2-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the 11 molecular geometries specified in Topic 2.7 (EK 2.7.A.2.i) in the exact order they appear in the CED. The caution correctly references the exclusion statement regarding central atoms with more than four electron pairs."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The items reproduce the geometries in the order given in 2.7.A.2.i: \u201clinear, trigonal planar, tetrahedral, trigonal pyramidal, bent, trigonal bipyramidal, seesaw, T-shaped, octahedral, square pyramidal, square planar.\u201d Topic 2.7 requires students to predict molecular geometry using Lewis diagrams and VSEPR theory. The caution correctly distinguishes geometry from the separately listed \u201cBond angles\u201d and reflects the exclusion statement that, with more than four electron pairs around the central atom, \u201cstudents are only responsible for the shape of the resulting molecule.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED's 2.7.A.2.i reads \"Molecular geometry (linear, trigonal planar, tetrahedral, trigonal pyramidal, bent, trigonal bipyramidal, seesaw, T-shaped, octahedral, square pyramidal, square planar)\". The entry's 11 items match that list in the same order, with no omissions or additions. b_topic_codes: The geometries are required in Topic 2.7 (VSEPR and Hybridization), so owner_topic_code \"2.7\" and topic_codes [\"2.7\"] are correct. c_ced_required: 2.7.A.2 states \"Both Lewis diagrams and VSEPR theory must be used for predicting electronic and structural properties,\" and lists molecular geometry as the first item. d_caution: The caution matches the CED. Clause ii lists bond angles separately from molecular geometry, so a bond angle alone is not the geometry name. The statement that only the molecular shape is required for more than four electron pairs matches the 2.7.A.2 exclusion statement. The caution is present and correct because the entry's wording (geometry names) is the point-earning wording, and the caution clarifies the boundary."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

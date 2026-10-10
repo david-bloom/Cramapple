@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-precalc-u3-01-wrong-fact", "control": "wrong fact (CED 3.5.A.3: the amplitude is HALF the difference between the maximum and minimum values, not the whole difference)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 3, "owner_topic_code": "3.5", "topic_codes": ["3.5"], "kind": "convention",
+   "title": "Amplitude of a sinusoidal function", "body": "The amplitude of a sinusoidal function is the difference between its maximum and minimum values.", "items": [], "caution": null, "ced_evidence": "3.5.A.3: \"The amplitude of a sinusoidal function is half the difference between its maximum and minimum values.\"", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u3-02-wrong-formula", "control": "wrong formula (CED 3.8.A.2: tan theta = sin theta / cos theta; this inverts the ratio)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 3, "owner_topic_code": "3.8", "topic_codes": ["3.8"], "kind": "formula",
+   "title": "Tangent as a ratio", "body": "\\tan\\theta = \\frac{\\cos\\theta}{\\sin\\theta}, \\text{ where } \\sin\\theta \\neq 0", "items": [], "caution": null, "ced_evidence": "3.8.A.2", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u3-03-wrong-owner", "control": "wrong owner topic (the Pythagorean identity is CED 3.12.A.1 under rewriting trigonometric expressions; 3.2 covers the unit-circle definitions of sine, cosine and tangent)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 3, "owner_topic_code": "3.2", "topic_codes": ["3.2"], "kind": "formula",
+   "title": "Pythagorean identity", "body": "\\sin^2\\theta + \\cos^2\\theta = 1", "items": [], "caution": null, "ced_evidence": "3.12.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u3-04-wrong-member", "control": "wrong list values (CED 3.6.A.6: for y = a sin(b(theta + c)) + d the amplitude is |a|, the period is 2pi/|b|, the midline shift is d and the phase shift is -c; the period and amplitude are swapped here)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 3, "owner_topic_code": "3.6", "topic_codes": ["3.6"], "kind": "list_sequence",
+   "title": "Reading a sinusoidal function's parameters", "body": "What each constant controls in y = a sin(b(theta + c)) + d.", "items": [{"label": "a", "meaning": "the period of the function"}, {"label": "b", "meaning": "the amplitude of the function"}, {"label": "c", "meaning": "a phase shift of -c units"}, {"label": "d", "meaning": "a midline vertical shift of d units from y = 0"}], "caution": null, "ced_evidence": "3.6.A.6", "hooks": []},
+
+  {"candidate_id": "ctrl-precalc-u3-05-bad-hook", "control": "hook expansion contradicts the CED (3.5.A.2: period and frequency are reciprocals, and the period of sine and cosine is 2pi while the frequency is 1/(2pi)). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_precalculus", "unit_number": 3, "owner_topic_code": "3.5", "topic_codes": ["3.5"], "kind": "convention",
+   "title": "Period and frequency of a sinusoidal function", "body": "The period and frequency of a sinusoidal function are reciprocals. The period of sine and cosine is 2 pi and the frequency is 1/(2 pi).", "items": [], "caution": null, "ced_evidence": "3.5.A.2",
+   "hooks": [{"kind": "phrase", "hook_text": "Period times frequency is two pi", "expands_to": [{"cue": "Period times frequency", "means": "multiply the period by the frequency"}, {"cue": "is two pi", "means": "the product equals 2 pi"}], "when_to_use": "when converting between period and frequency", "caution": "State the relationship in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-precalc-u3-06-other-unit", "control": "content from another unit (vectors and matrices are Unit 4 functions involving parameters, vectors and matrices; they are not in the Unit 3 pages)", "control_target": "entry",
+   "subject_key": "ap_precalculus", "unit_number": 3, "owner_topic_code": "3.13", "topic_codes": ["3.13"], "kind": "formula",
+   "title": "Magnitude of a vector", "body": "\\left\\|\\langle a, b \\rangle\\right\\| = \\sqrt{a^2 + b^2}", "items": [], "caution": null, "ced_evidence": "3.13.A.3", "hooks": []}
+]

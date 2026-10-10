@@ -1,0 +1,183 @@
+[
+  {
+    "candidate_id": "ap_physics_2-u9-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'Thermal equilibrium' using the exact phrasing from Essential Knowledge 9.3.A.4: 'Thermal equilibrium results when no net energy is transferred by thermal processes between two systems in thermal contact with each other.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition matches Essential Knowledge 9.3.A.4: \u201cThermal equilibrium results when no net energy is transferred by thermal processes between two systems in thermal contact with each other.\u201d Topic 9.3 is the correct owner and topic code. No caution is needed because the entry uses the CED\u2019s wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body paraphrases 9.3.A.4 ('Thermal equilibrium results when no net energy is transferred by thermal processes between two systems in thermal contact with each other.'). The paraphrase ('is the condition in which') changes the grammar but not the physics: the condition is no net thermal energy transfer between two systems in thermal contact. b_topic_codes: 9.3.A.4 first appears under Topic 9.3 (Thermal Energy Transfer and Equilibrium), so owner_topic_code '9.3' and topic_codes ['9.3'] are correct. The 'thermodynamic equilibrium' in 9.6.A.2.iii is a different concept and does not change this. c_ced_required: 9.3.A4 is an essential-knowledge statement under LO 9.3.A ('Describe the transfer of energy between two systems in thermal contact due to temperature differences'), so applying the thermal-equilibrium condition is required content. d_caution: The point-earning content is the concept of no net thermal energy transfer between systems in thermal contact, and the body carries that verbatim. The wording difference is a harmless paraphrase, so no caution is needed. The ced_evidence field quotes the CED exactly, which supports the entry.",
+            "hooks_note": "No hooks present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u9-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the first law of thermodynamics as defined in AP Physics 2 (Topic 9.4, EK 9.4.B.1.ii). The caution is highly relevant and correct, as it clarifies the sign convention of work ($W$ being work done ON the system), which is a common point of confusion since some general physics curricula use the opposite convention ($W$ as work done BY the system)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.4.B.1.ii states that, for a closed system, the change in internal energy is the sum of energy transferred by heating and work done on the system. \u0394U = Q + W is consistent with that statement when W means work done on the system. The caution correctly makes that sign convention explicit and reflects 9.4.B.1.i: for an isolated system, total energy is constant."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 9.4.B.1.ii states the closed-system relation as 'the change in internal energy is the sum of energy transferred to or from the system by heating, or work done on the system', with its relevant equation (rendered as an image, not in the extracted text) being the standard \u0394U = Q + W with W as work done on the system. The symbols and their meanings match. b_topic_codes: 9.4 is the topic where the first law is introduced (Topic 9.4, LO 9.4.B), and it is the only listed code, so owner and topic_codes are correct. c_ced_required: LO 9.4.B ('Describe the behavior of a system using thermodynamic processes') and EK 9.4.B.1.ii require students to apply the first law to a closed system. d_caution: the CED wording differs from the entry body (it uses 'conservation of energy', 'closed system', and 'work done on the system' rather than a symbolic sign rule). The caution correctly cites 9.4.B.1 ('restatement of conservation of energy'), 9.4.B.1.ii ('For a closed system'), and 9.4.B.1.i ('For an isolated system, the total energy is constant'), and it states the work-on-system sign convention that the W in the formula depends on. The caution is present and accurate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u9-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the components and features of a PV diagram as specified in Topic 9.4 (EK 9.4.B.2, 9.4.B.2.i, 9.4.B.2.ii, and 9.4.B.3). The caution correctly addresses the sign convention of work done on/by a gas during expansion or compression, which is a common point of confusion since the area under the curve only yields the absolute value."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.4.B.2 requires PV diagrams as representations of thermodynamic processes. The listed processes match 9.4.B.2.i and 9.4.B.3. Section 9.4.B.2.ii states that the absolute value of work done on a gas during expansion or compression equals the area under its pressure\u2013volume curve. The caution correctly distinguishes that magnitude from the sign of work done on the gas."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body and items match the CED. 9.4.B.2 defines PV diagrams as representations of thermodynamic processes. 9.4.B.2.i defines isotherms as lines of constant temperature. 9.4.B.2.ii states that the absolute value of the work done on a gas when it expands or compresses equals the area under the P vs. V curve. 9.4.B.3 lists isovolumetric (constant volume), isobaric (constant pressure), isothermal (constant temperature), and adiabatic (no energy transferred by thermal processes). The vertical-axis-P and horizontal-axis-V items follow the 'pressure vs. volume' phrasing in 9.4.B.2.ii. b_topic_codes: 9.4.B.2 is the first place in these pages that requires PV diagrams, so owner 9.4 is correct. 9.2 only asks for pressure, temperature and volume graphs generally (9.2.A.3), and the entry is limited to topic 9.4. c_ced_required: 9.4.B.2 and 9.4.B.2.ii directly require students to represent processes on PV diagrams and to read work as the area under the curve. d_caution: The caution's sign convention (W > 0 when compressed, W < 0 when expanded) is consistent with 9.4.B.1.ii, which defines the energy change as heat plus work done on the system. The explicit work equation for 9.4.B.1.iii is an image not present in the extracted text, so the sign convention is only implicitly verifiable from the visible text. The caution is still needed because the area alone gives only the absolute value, as 9.4.B.2.ii says."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

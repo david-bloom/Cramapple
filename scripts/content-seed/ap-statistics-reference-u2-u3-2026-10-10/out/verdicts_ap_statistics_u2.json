@@ -1,0 +1,3107 @@
+[
+  {
+    "candidate_id": "ap_statistics-u2-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition of joint relative frequency as stated in Essential Knowledge 2.2.A.1: 'A joint relative frequency in a two-way table is a cell frequency divided by the total for the entire table.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.2.A.1 states: \u201cA joint relative frequency in a two-way table is a cell frequency divided by the total for the entire table.\u201d Topic 2.2 is the required location, and the formula matches the CED wording; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.2.A.1 verbatim in substance: \"A joint relative frequency in a two-way table is a cell frequency divided by the total for the entire table.\" The formula (cell frequency / total for the entire table) is the same definition, with no symbols or ordering to get wrong. b_topic_codes: Joint relative frequency is first defined in Topic 2.2 (2.2.A.1), so owner_topic_code \"2.2\" is correct. Topic 2.1 only mentions relative frequencies generically as table entries (2.1.A.1), so the owner is not 2.1. topic_codes [\"2.2\"] is the only topic that uses it. c_ced_required: 2.2.A.1 is required content under Learning Objective 2.2.A (\"Calculate summary statistics from two-way tables,\" [Skill 3.B]), so students must calculate and apply this. d_caution: The entry wording is essentially the CED wording, so no caution is needed and caution: null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition and calculation of marginal relative frequency as specified in EK 2.2.A.2: 'A marginal relative frequency in a two-way table is a row total divided by the total for the entire table or a column total divided by the total for the entire table.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.2.A.2 defines marginal relative frequency as \u201ca row total divided by the total for the entire table or a column total divided by the total for the entire table.\u201d The formula matches, and Topic 2.2 requires calculating summary statistics from two-way tables. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.2.A.2 exactly in substance: \"A marginal relative frequency in a two-way table is a row total divided by the total for the entire table or a column total divided by the total for the entire table.\" The formula shows row total (or column total) over total for the entire table, with no symbol or structure errors. b_topic_codes: 2.2.A.2 is the first place the CED defines marginal relative frequency. Topic 2.1 only covers frequencies and relative frequencies in general (2.1.A.1), not marginals. Listing 2.2 as both owner and sole topic code is correct. c_ced_required: Learning objective 2.2.A (\"Calculate summary statistics from two-way tables\", Skill 3.B) requires students to compute marginal relative frequencies, and 2.2.C.1 relies on them. d_caution: The term \"marginal relative frequency\" and the row/column-total-over-table-total wording are the CED's own, so the point-earning wording is present and no caution is needed.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines a two-way (contingency) table, matching the exact wording and concepts in EK 2.1.A.1. The topic codes are correct as Topic 2.1 is the first topic in Unit 2 to introduce this concept, and Topic 2.2 builds directly upon it with summary statistics from two-way tables."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.1.A.1 states that a two-way table, also called a contingency table, summarizes data for two categorical variables and that its cells can contain frequencies (counts) or relative frequencies (proportions). Topic 2.2 also uses two-way tables to calculate summary statistics (2.2.A). No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.1.A.1 states that a two-way table, also called a contingency table, can summarize and compare data for two categorical variables, with cell entries that are frequencies (counts) or relative frequencies (proportions). The body's 'summarizes data for two categorical variables' and the counts/proportions statement match. b_topic_codes: 2.1.A.1 first appears in Topic 2.1, so owner 2.1 is correct. Topic 2.2 also uses two-way tables (2.2.A.1 joint relative frequency 'in a two-way table'; 2.2.A.2 marginal; 2.2.A.3 conditional), so listing 2.2 is valid. Both are topics of Unit 2. c_ced_required: 2.1.A.1 is essential knowledge that students must apply to summarize and compare two categorical variables, so the entry is required content. d_caution: the body is a close paraphrase that keeps the CED's key terms ('contingency table', 'frequencies', 'relative frequencies'), so no caution is needed. hooks: none are present in the entry."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements of Topic 2.1 (specifically 2.1.A.3 and 2.1.B.1) and Topic 2.2 (specifically 2.2.B.1 and 2.2.C.1) regarding comparing distributions of categorical variables to determine association and justify claims in context."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.1 first requires this: 2.1.A.3 says graphical representations can compare a categorical variable across levels of another and \u201cdetermine whether the two variables are associated.\u201d Topic 2.2 also uses it: 2.2.B.1 says summary statistics can compare distributions \u201cfor evidence of association.\u201d Justifying claims in context is supported by 2.1.B.1 and 2.2.C.1. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.1.A.3 ('Graphical representations of two categorical variables can be used to compare the relationship of one categorical variable across the levels of the other categorical variable and determine whether the two variables are associated') and 2.2.B.1 ('Summary statistics for two categorical variables can be used to compare distributions for evidence of association between the two variables'). The 'justify claims in context' clause matches 2.1.B.1 and 2.2.C.1. No formula or list is stated, so there is nothing else to check. b_topic_codes: 2.1 is the first unit topic that requires association judgment (2.1.A.3), so owner 2.1 is correct. 2.2 is listed correctly because 2.2.B.1 uses the same idea with summary statistics. Both topic codes are topics of Unit 2. c_ced_required: 2.1.A.3 and 2.2.B.1 directly require students to compare distributions across levels to determine association, and 2.1.B.1 / 2.2.C.1 require using that evidence to justify claims. d_caution: The wording is a close paraphrase ('decide' for 'determine'), and the point is earned by the same content, so no caution is needed and caution null is correct.",
+            "hook_check": "none"
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately describes side-by-side bar charts, segmented bar charts, and mosaic plots, which are explicitly required by Essential Knowledge 2.1.A.2 to display the relationship between two categorical variables."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.1.A.2 names \u201cSide-by-side bar charts, segmented bar charts, and mosaic plots\u201d and says they display the frequency or relative frequency of levels of one categorical variable for each category of the other. The entry\u2019s descriptions are consistent with that statement. Topic 2.1 is the relevant required topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.1.A.2 names exactly these three graphs (\"Side-by-side bar charts, segmented bar charts, and mosaic plots\") as displays of the relationship between two categorical variables, where \"the frequency or relative frequency of each category, or level, of one of the categorical variables is displayed for each category of the other.\" The body and the side-by-side and mosaic items restate that accurately. The segmented bar chart item (one bar per category, segmented by the other variable's levels) is a standard, non-contradictory description that the CED does not spell out. b_topic_codes: 2.1.A.2 sits under Topic 2.1 (LO 2.1.A, Skill 4.A), so owner 2.1 and topic_codes [2.1] are correct. c_ced_required: LO 2.1.A requires students to \"Compare tabular and graphical representations for the relationship between two categorical variables,\" and 2.1.A.2 requires recognizing these graph types. d_caution: the entry's paraphrase does not change the point-earning content, so no caution is needed; the mosaic and segmented descriptions are consistent with the CED's meaning."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definitions of random process, outcome, and event are perfectly aligned with EK 2.3.A.1, 2.3.A.2, and 2.3.A.3. The topic codes are accurate as Topic 2.3 introduces these terms and Topic 2.4 builds upon them with sample spaces and probability calculations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definitions match 2.3.A.1\u20132.3.A.3: a random process generates results determined by chance; an outcome is the result of one trial; and an event is a collection of outcomes. Topic 2.3 first requires them, and 2.4.A.1\u20132.4.A.2 uses random processes, outcomes, and events to define the sample space and calculate probabilities. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "The body matches CED 2.3.A.1-2.3.A.3: 'A random process generates results that are determined by chance' (2.3.A.1), 'An outcome is the result of one trial of a random process' (2.3.A.2), and 'An event is a collection of outcomes' (2.3.A.3). The body drops only the word 'that are' in the first clause, which does not change the meaning. owner_topic_code 2.3 is correct because 2.3.A.1-2.3.A.3 first introduce these terms there. topic_codes 2.4 is valid because 2.4.A.2 uses 'event E' in its probability definition. These are the CED's own definitions, so no caution is needed. The ced_evidence string quotes only 2.3.A.3, but the range cited covers the other two statements, so it is acceptable. Required content: essential knowledge 2.3.A.1-2.3.A.3 is explicitly required course content, so it is not trivia or out-of-unit material.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition of conditional relative frequency as stated in EK 2.2.A.3: 'A conditional relative frequency can be a cell frequency in a row divided by the total for that row or it can be a cell frequency in a column divided by the total for that column.' The topic codes are correct, as Topic 2.2 introduces the concept and Topic 2.6 applies it to conditional probability."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 2.2.A.3: a conditional relative frequency can be \u201ca cell frequency in a row divided by the total for that row\u201d or the corresponding cell frequency divided by its column total. Topic 2.2 first requires it; topic 2.6 uses the same conditional structure to calculate conditional probabilities under 2.6.A.1. The wording matches the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 2.2.A.3 ('A conditional relative frequency can be a cell frequency in a row divided by the total for that row or it can be a cell frequency in a column divided by the total for that column'). The formula symbols and the row/column alternatives are correct. b_topic_codes: owner 2.2 is correct, since 2.2.A.3 is where conditional relative frequency is first required. Topic 2.6 is rejected. 2.6.A.1 defines conditional probability as P(A|B) = P(A\u2229B)/P(B), which is a probability concept, not a conditional relative frequency from a two-way table, and 2.6 does not require this entry. c_ced_required: Yes. 2.2.A.3 and Skill 3.B (calculate summary statistics from two-way tables) require students to compute conditional relative frequencies. d_caution: Acceptable as is. The body closely follows the CED wording, and no caution is needed. The entry is rejected because of topic code 2.6, not because of the caution."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The formula matches 2.2.A.3 ('A conditional relative frequency can be a cell frequency in a row divided by the total for that row or it can be a cell frequency in a column divided by the total for that column'). The symbols and the row/column alternatives are correct. b_topic_codes: owner_topic_code 2.2 is correct, since 2.2.A.3 first requires this in Topic 2.2. The topic_codes entry 2.6 fails. Topic 2.6 (Conditional Probability) covers P(A|B) = P(A\u2229B)/P(B) (2.6.A.1), which is a probability, not a conditional relative frequency from a two-way table. Topic 2.6 does not use this concept, so it should be removed from topic_codes. c_ced_required: Learning objective 2.2.A ('Calculate summary statistics from two-way tables') and 2.2.C require students to compute and apply conditional relative frequencies, so this is required. d_caution: The entry's wording is essentially the CED wording in formula form, so no caution is needed and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines probability as long-run relative frequency and explains how empirical data estimates true probability, directly reflecting Essential Knowledge statements 2.3.A.5 and 2.3.A.6."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.3 is the correct placement. CED 2.3.A.5 states that probability is an outcome\u2019s or event\u2019s \u201clong-run relative frequency\u2014that is, its relative frequency over a large number of trials.\u201d CED 2.3.A.6 states that relative frequency from empirical data can estimate the actual, or true, probability. The entry uses the CED\u2019s terminology, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.3.A.5 states 'The probability of an outcome or event is its long-run relative frequency\u2014that is, its relative frequency over a large number of trials.' The entry matches this. CED 2.3.A.6 states that empirical relative frequency 'can be used to estimate the actual, or true, probability.' The entry's 'estimates the true probability' drops 'can be used to' but is a faithful paraphrase, not a factual error. b_topic_codes: 2.3.A.5 and 2.3.A.6 first appear under Topic 2.3 (Estimating Probabilities Using Simulation), and no earlier unit or topic uses them, so owner 2.3 is correct and topic_codes ['2.3'] is accurate. c_ced_required: these are essential-knowledge statements under LO 2.3.A ('Estimate probabilities using simulations', Skill 3.C), so students must know and apply them. d_caution: the body wording is essentially the CED wording ('long-run relative frequency... over a large number of trials'), so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines the law of large numbers exactly as stated in Essential Knowledge 2.3.A.7 of the AP Statistics CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body reproduces the definition in Topic 2.3, EK 2.3.A.7: \u201cThe law of large numbers states that for independent trials, as the number of trials increases, the long-run relative frequency of the outcome or event gets closer and closer to a single value.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.3.A.7 ('The law of large numbers states that for independent trials, as the number of trials increases, the long-run relative frequency of the outcome or event gets closer and closer to a single value'). The only difference is the dropped 'the' before 'outcome or event', which does not change the meaning. b_topic_codes: 2.3 is the first topic in the CED that requires this concept (2.3.A.7, Topic 2.3 'Estimating Probabilities Using Simulation'), and no other topic in Unit 2 uses it, so owner_topic_code and topic_codes are correct. c_ced_required: 2.3.A.7 is an essential-knowledge statement under LO 2.3.A, so a student must know it. d_caution: The entry's wording is essentially the CED wording, so no caution is needed and caution: null is correct. The ced_evidence quote is accurate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately summarizes the steps of a simulation as defined in EK 2.3.A.4 ('All possible outcomes are associated with a value to be determined by chance. Record the counts of simulated outcomes and the count total') and its application to estimating probabilities and distributions as referenced in EK 2.3.A.6, EK 2.8.A.3, and EK 2.10.D.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.3 first requires estimating probabilities using simulation. CED 2.3.A.4 says to associate outcomes with values determined by chance and to \u201crecord the counts of simulated outcomes and the count total\u201d; 2.3.A.6 says relative frequency can estimate probability. Simulation also appears in 2.8.A.3 and 2.10.D.1. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.3.A.4, which says all possible outcomes are associated with a value determined by chance and that the counts of simulated outcomes and the count total are recorded. The use of relative frequency to estimate probability matches 2.3.A.5 and 2.3.A.6. b_topic_codes: 2.3 is the owner and first requires the idea in 2.3.A.4. 2.8 is valid because 2.8.A.3 says a discrete probability distribution 'can be determined using the rules of probability or estimated with a simulation.' 2.10 is valid because 2.10.D.1 says a binomial distribution 'can be constructed using the rules of probability or estimated with a simulation.' c_ced_required: 2.3.A.4 requires students to apply simulation to model random events and record counts. d_caution: The paraphrase keeps the CED meaning intact and does not conflict with any CED wording that earns a point, so no caution is needed. Hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry is factually correct and directly matches Essential Knowledge 2.4.A.3: 'The probability of an event is a number between 0 and 1, inclusive.' The topic code is correct and the content is required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.4.A.3 states exactly: \u201cThe probability of an event is a number between 0 and 1, inclusive.\u201d This is required under Topic 2.4, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.4.A.3 verbatim: \"The probability of an event is a number between 0 and 1, inclusive.\" No symbols, lists, or formulas are involved, so nothing is misstated. b_topic_codes: 2.4.A.3 appears under Topic 2.4 (Introduction to Probability), and this is the first place the CED states the probability range. The owner code 2.4 and the topic_codes list [\"2.4\"] are therefore correct. c_ced_required: 2.4.A.3 is an essential-knowledge statement on these pages, and Learning Objective 2.4.A (\"Calculate probabilities for events and their complements\") requires students to apply it. The entry is not trivia and does not come from another unit. d_caution: The entry's wording is the CED's own wording, so the point is earned as written and no caution is needed. A null caution is correct here."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-012",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for theoretical probability under equally likely outcomes as defined in EK 2.4.A.2. The caution correctly highlights the condition 'If all outcomes in the sample space are equally likely' specified in the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.4.A.2 gives this formula for theoretical probability when \u201call outcomes in the sample space are equally likely.\u201d Topic 2.4 first requires it, and the caution correctly states the condition."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.4.A.2 exactly: P(E) = (number of outcomes in event E) / (total number of outcomes in the sample space), under the stated condition that all outcomes are equally likely. b_topic_codes: 2.4 is where this formula first appears in the unit (Topic 2.4, Introduction to Probability, LO 2.4.A, 'Calculate probabilities for events and their complements'). Topic 2.3 covers simulation-based estimation, not this formula, so 2.4 is the correct owner and the only topic code. c_ced_required: 2.4.A.2 states the theoretical probability formula for equally likely outcomes, and LO 2.4.A requires students to calculate probabilities, so the entry is required content. d_caution: The CED states the equally-likely condition as part of 2.4.A.2 ('If all outcomes in the sample space are equally likely, then...'). The caution 'Applies only when all outcomes in the sample space are equally likely' carries that condition, so it is present and correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-011",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'sample space' and its probability as stated in EK 2.4.A.1: 'The sample space of a random process is the set of all possible nonoverlapping outcomes. The probability of the sample space is 1.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 2.4.A.1: \u201cThe sample space of a random process is the set of all possible nonoverlapping outcomes. The probability of the sample space is 1.\u201d Topic 2.4 first requires the term; Topic 2.8 uses the rules of probability to construct discrete probability distributions (2.8.A.3). The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 2.4.A.1 verbatim in substance: \"The sample space of a random process is the set of all possible nonoverlapping outcomes. The probability of the sample space is 1.\" b_topic_codes: owner_topic_code 2.4 is correct, since 2.4.A.1 is where the sample space is first required. However, topic code 2.8 does not use the sample space. Topic 2.8's essential knowledge (2.8.A.1 to 2.8.A.5) covers random variables, probability distributions, and cumulative distributions, and never references the sample space. The list therefore fails the requirement that every listed topic uses it. c_ced_required: LO 2.4.A (\"Calculate probabilities for events and their complements\") is supported by 2.4.A.1, which states the sample space definition, so this is required content. d_caution: The entry's wording matches the CED wording (\"set of all possible nonoverlapping outcomes\"), so no caution is needed and caution is null. Entry is rejected only because of the topic_codes error (2.8)."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 2.4.A.1 ('The sample space of a random process is the set of all possible nonoverlapping outcomes. The probability of the sample space is 1.'). The paraphrase 'its probability is 1' is equivalent. b_topic_codes: owner 2.4 is correct, since 2.4.A.1 is the first place the sample space is required. Topic 2.8 is listed in topic_codes but does not use the sample space. Its essential knowledge (2.8.A.1-2.8.A.5) covers random variables and probability distributions and never mentions the sample space, so the 2.8 code fails. c_ced_required: 2.4.A.1 requires students to know the sample space definition and that its probability is 1. d_caution: The wording is essentially the CED wording, so no caution is needed and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-014",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the complement rule as defined in EK 2.4.A.4, which states that the probability of the complement of an event E (written as E^C) is equal to 1 - P(E)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.4.A.4 states that the probability of the complement of E, including notation E^C, is \u201cequal to 1 \u2212 P(E).\u201d Topic 2.4 first requires this rule in 2.4.A, which asks students to \u201cCalculate probabilities for events and their complements.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.4.A.4 states that the complement of event E, written E\u2032, \u0112, or E^C, has probability 'equal to 1 - P(E)'. The entry's formula P(E^C)=1-P(E) matches this, with the symbols and order the CED uses. b_topic_codes: Complement probability first appears in Topic 2.4 (LO 2.4.A, 'Calculate probabilities for events and their complements'). No other topic in Unit 2 is listed, and the entry lists only 2.4, so this is correct. c_ced_required: LO 2.4.A ('Calculate probabilities for events and their complements') and its essential knowledge 2.4.A.4 require students to apply the complement rule. d_caution: The entry's wording is the CED's own wording, with the E^C notation and the 1 - P(E) relationship. No caution is needed, and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-015",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of joint probability is factual and directly supported by EK 2.5.A.1, which states: 'The probability that events A and B both will occur, sometimes called the joint probability, is the probability of the intersection of A and B. Joint probability is defined as P(A intersect B) or P(A \u2229 B).'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.5.A.1 states that the probability events A and B both occur is the probability of their intersection, written P(A \u2229 B). Topic 2.5 first requires this concept; 2.6 uses P(A \u2229 B) in conditional probability, and 2.7 uses it in the independence and union formulas. The wording matches the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.5.A.1: \"The probability that events A and B both will occur, sometimes called the joint probability, is the probability of the intersection of A and B. Joint probability is defined as P(A \u2229 B).\" The notation P(A \u2229 B) is correct. b_topic_codes: 2.5 is the first topic that requires the term, since 2.5.A.1 introduces joint probability. 2.6 (2.6.A.2, P(A \u2229 B) = P(A)\u00b7P(B|A)) and 2.7 (2.7.A.3, P(A \u222a B) = P(A) + P(B) \u2212 P(A \u2229 B)) both use the intersection, so the additional topic codes are defensible. The term 'joint probability' itself appears only in 2.5, so this is a borderline call that passes. c_ced_required: 2.5.A.1 is required content, and the Topic 2.5 learning objective 2.5.A asks students to justify mutual exclusivity using joint probability (Skill 4.B). d_caution: The entry wording closely tracks the CED phrasing, so no caution is needed. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-016",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition and implication of mutually exclusive (disjoint) events as stated in Essential Knowledge 2.5.A.2: 'if two events are mutually exclusive, then P(A \u2229 B) = 0'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.5.A.2 states, \u201cif two events are mutually exclusive, then P(A \u2229 B) = 0.\u201d Topic 2.5 is the required topic, and the entry uses the CED\u2019s wording and implication. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.5.A.2 verbatim in substance: \"if two events are mutually exclusive, then P(A \u2229 B) = 0.\" The symbols (A \u2229 B, P(\u00b7)) and the implication direction match the CED. b_topic_codes: Mutually exclusive events are introduced in Topic 2.5 (Mutually Exclusive Events, LO 2.5.A), so owner_topic_code 2.5 is the first unit location and the only topic_codes entry is correct. c_ced_required: LO 2.5.A requires students to 'justify why two events are mutually exclusive (or disjoint) using joint probability,' and 2.5.A.2 states the P(A \u2229 B) = 0 property. The entry is a direct statement of that required content. d_caution: The entry's \u21d2 conveys the same 'if ... then' wording the CED uses, so no caution is needed to earn the point. Non-blocking note: the CED's skill is applied in both directions (showing P(A \u2229 B) = 0 justifies disjointness), and the entry states only the forward direction; a caution is not required by the checks, but it would be useful.",
+            "hooks": []
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-020",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the addition rule for the union of two events as specified in Essential Knowledge 2.7.A.3: 'P(A \u222a B) = P(A) + P(B) - P(A \u2229 B)'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.7.A.3 states \u201cP(A \u222a B) = P(A) + P(B) \u2212 P(A \u2229 B),\u201d exactly matching the entry. Topic 2.7 is the first and listed topic requiring this rule; 2.7.A requires calculating probabilities for the union of two events. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED gives 2.7.A.3 as P(A union B) = P(A) + P(B) - P(A intersect B), or P(A \u222a B) = P(A) + P(B) - P(A \u2229 B). The entry's formula matches the symbolic form with the same terms and signs. b_topic_codes: Topic 2.7 (Independent Events and Unions of Events) is where the union rule is first required, and the entry lists only 2.7. c_ced_required: Learning objective 2.7.A ('Calculate probabilities for independent events and for the union of two events') and essential knowledge 2.7.A.3 require students to apply this rule. d_caution: The entry uses the \u222a/\u2229 symbolic wording that the CED itself gives in 2.7.A.3, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-017",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for conditional probability is factually correct and matches the definition in EK 2.6.A.1: 'Conditional probability is defined as P(A | B) = P(A \\cap B) / P(B)'. The topic codes are appropriate as Topic 2.6 introduces it and Topic 2.7 uses conditional probability to define independent events."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6.A.1 defines conditional probability as P(A | B) = P(A \u2229 B) / P(B), exactly as shown. Topic 2.7.A.1 also uses conditional probabilities to characterize independence, including P(A | B) = P(A). The CED requires this formula, and no wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.6.A.1 states 'Conditional probability is defined as P(A|B) = P(A\u2229B)/P(B)'. The body P(A\\mid B)=\\frac{P(A\\cap B)}{P(B)} matches the symbols, the numerator, and the denominator. b_topic_codes: 2.6 is the first topic that defines conditional probability (2.4 and 2.5 do not use it), so owner 2.6 is correct. Topic 2.7 uses the same notation in 2.7.A.1 ('When events A and B are independent, then P(A|B) = P(A)'), so listing 2.7 is justified. c_ced_required: LO 2.6.A ('Calculate conditional probabilities') requires students to apply this formula. d_caution: the entry wording is the CED's own wording and formula, so no caution is needed. No caution is present, and none is required."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-018",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the general multiplication rule as defined in EK 2.6.A.2: 'The multiplication rule is defined as P ( A \u2229 B ) = P ( A ) . P (B | A)'. The topic codes are correct, as the formula is introduced in Topic 2.6 and is highly relevant to Topic 2.7 (Independent Events)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.6.A.2 defines the general multiplication rule as P(A \u2229 B) = P(A) \u00b7 P(B | A), exactly as given. Topic 2.6 first requires it; 2.7.A.1 uses its independent-events case, P(A \u2229 B) = P(A) \u00b7 P(B). No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body P(A\u2229B)=P(A)\u00b7P(B|A) matches the CED formula in 2.6.A.2 ('P(A \u2229 B) = P(A) . P(B | A)'), and the title matches the CED's 'general multiplication rule' wording. b_topic_codes: 2.6.A.2 is the first place in Unit 2 that states the rule, so owner 2.6 is correct. Topic 2.7 (2.7.A.1) uses it in the special case P(A\u2229B)=P(A)\u00b7P(B) for independent events, so listing 2.7 is defensible, though that use is a specialization rather than the general rule itself. c_ced_required: 2.6.A.2 is essential knowledge under LO 2.6.A ('Calculate conditional probabilities'), and calculating conditional and joint probabilities requires applying this rule, so it is required content. d_caution: The CED wording ('the probability that events A and B both will occur is equal to the probability that event A will occur multiplied by the conditional probability...') is paraphrased by the formula and title, and the formula itself is the point-earning content, so no caution is needed. Minor note: ced_evidence quotes only a fragment ('The multiplication rule is defined as') and omits the word 'general'; this does not affect acceptance."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-021",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a random variable is factually accurate and directly aligned with EK 2.8.A.1: 'A random variable is a variable whose values have numerical outcomes that result from a random phenomenon.' The topic codes are appropriate as Unit 2 introduces random variables in 2.8, calculates their parameters in 2.9, and applies them to the binomial distribution in 2.10."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition matches 2.8.A.1: \u201cA random variable is a variable whose values have numerical outcomes that result from a random phenomenon.\u201d Topic 2.8 first requires the concept; 2.9 addresses parameters of random variables, and 2.10 defines a binomial random variable. The paraphrase does not change the point-earning meaning, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body, 'A random variable is a variable whose values are numerical outcomes of a random phenomenon,' matches CED 2.8.A.1 ('A random variable is a variable whose values have numerical outcomes that result from a random phenomenon'). The wording is a close paraphrase with the same meaning, and the body drops only the words 'that result from'. No formulas or list members are involved. b_topic_codes: 2.8 is the owner because 2.8.A.1 is where the term is first defined in this unit. 2.9 uses random variables in 2.9.A.2 ('The expected value (or mean) of a probability distribution...' for a discrete random variable X) and 2.9.A.3. 2.10 uses them in 2.10.A.1 ('A binomial random variable, X, is a discrete random variable that counts the number of successes...'). c_ced_required: 2.8.A.1 directly requires students to know what a random variable is. d_caution: The entry paraphrases the CED rather than quoting it, but the meaning is identical and no point-earning wording is changed, so no caution is needed. The ced_evidence quote is accurate, though truncated.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-022",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements of Topic 2.8 (specifically EK 2.8.A.2 and EK 2.8.A.4), which state that a discrete probability distribution shows the probability associated with every possible value of the random variable, can be represented as a graph, table, or function, and that the sum of these probabilities is 1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.8 first requires this: 2.8.A.2 says a discrete probability distribution shows the probability associated with every possible value and that those probabilities sum to 1. Topic 2.8.A.4 permits a graph, table, or function. Topic 2.9 uses discrete probability distributions to calculate and interpret their parameters (2.9.A\u2013B). The wording is consistent with the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.8.A.2 states \"A probability distribution for a discrete random variable shows the probability associated with every possible value of the random variable. The sum of the probabilities over all possible values of a discrete random variable is 1.\" The entry matches this. 2.8.A.4 supports the graph/table/function representations. b_topic_codes: 2.8.A.2 first appears in Topic 2.8, so owner 2.8 is correct. Topic 2.9 is a legitimate second code because its objectives (2.9.A.1) treat parameters as characteristics of a probability distribution, and the mean and SD formulas in 2.9.A.2\u2013A.3 operate on that distribution. c_ced_required: 2.8.A.2 is essential knowledge under LO 2.8.A, which requires students to construct a discrete probability distribution, so the valid-distribution property is required. d_caution: the entry wording is a close paraphrase of the CED wording and expresses the same two properties (every value has a probability; probabilities sum to 1), so no caution is needed.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-023",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines a cumulative probability distribution based on EK 2.8.A.5, which states: 'A cumulative probability distribution can be represented as a table or function and shows the probability of being less than or equal to each value of the discrete random variable.' The caution is highly relevant for discrete random variables."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The body matches 2.8.A.5: a cumulative probability distribution \u201cshows the probability of being less than or equal to each value of the discrete random variable.\u201d Topic 2.8 requires it. The caution is not generally correct: a discrete random variable need not have integer values, so P(X < 3) need not equal P(X \u2264 2). That equivalence requires no possible values between 2 and 3."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The body matches 2.8.A.5: a cumulative probability distribution shows the probability of being \u201cless than or equal to each value of the discrete random variable.\u201d Topic 2.8 requires this. The caution is not generally correct: \u201cfewer than 3\u201d means P(X < 3), not necessarily P(X \u2264 2). A discrete random variable can have a value between 2 and 3; the CED does not restrict its values to integers."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-024",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a parameter matches EK 2.9.A.1 exactly ('A numerical value measuring a characteristic of a probability distribution of a random variable, or a population, is a parameter. The value of a parameter is a single, fixed value.'). The topic codes are correct as parameters are discussed in 2.9, 2.10, and 2.11 (e.g., EK 2.11.A.5 mentions the two parameters of the normal distribution)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition matches 2.9.A.1: \u201cA numerical value measuring a characteristic of a probability distribution of a random variable, or a population, is a parameter. The value of a parameter is a single, fixed value.\u201d Topic 2.9 first requires the definition; 2.10 uses distribution parameters, and 2.11.A.5 explicitly identifies the mean and standard deviation as parameters of a normal distribution. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.9.A.1: 'A numerical value measuring a characteristic of a probability distribution of a random variable, or a population, is a parameter. The value of a parameter is a single, fixed value.' The entry shortens 'of a random variable' but keeps the definition correct. b_topic_codes: 2.9 is the first unit topic that defines parameter (2.9.A.1). 2.10 uses parameters for binomial distributions, as the 2.10 skill text ('Calculate means, standard deviations, and parameters for probability distributions') shows. 2.11 states the normal curve 'is identified by two parameters, the mean, \u00b5, and the standard deviation, \u03c3' (2.11.A.5). c_ced_required: 2.9.A.1 requires students to recognize and apply the parameter definition. d_caution: The entry's wording is essentially the CED's wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-019",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition and mathematical conditions for independent events as specified in EK 2.7.A.1, including the conditional probability equalities and the multiplication rule for independent events."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 2.7.A.1 requires independence and states that when events are independent, P(A|B)=P(A), P(B|A)=P(B), and P(A\u2229B)=P(A)\u00b7P(B). The entry makes all three equations an unconditional \u2018if and only if\u2019 test. That is not valid when P(A)=0 or P(B)=0, because a conditional probability is then undefined under the definition in 2.6.A.1. Topic code 2.7 is correct, and the caution accurately describes the idea of independence, but it does not resolve the formula\u2019s missing qualification."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.7.A.1 states that events are independent when knowing whether one occurred does not change the probability of the other, and gives P(A|B)=P(A), P(B|A)=P(B), and P(A\u2229B)=P(A)\u00b7P(B) for independent events. Topic 2.7.A requires students to calculate probabilities for independent events. The topic code is correct, and the caution correctly distinguishes independence from a dependent calculation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.7.A.1 exactly: \"When events A and B are independent, then P(A|B)=P(A), P(B|A)=P(B), and P(A\u2229B)=P(A)\u00b7P(B).\" The \"if and only if\" direction in the body matches the CED's \"Events A and B are independent if and only if...\" wording. b_topic_codes: Independence is introduced in Topic 2.7 (Independent Events and Unions of Events), so owner_topic_code 2.7 is where the unit first requires it, and 2.7 is the only topic_codes entry. c_ced_required: LO 2.7.A, \"Calculate probabilities for independent events and for the union of two events,\" requires students to apply these relations. d_caution: The CED defines independence as \"knowing whether event A has occurred (or will occur) does not change the probability that event B will occur.\" The caution paraphrases this point and adds a correct warning against a without-replacement (dependent) calculation. The caution is present and accurate, so the wording check passes."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-025",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula and its interpretation are fully aligned with Topic 2.9 (specifically EK 2.9.A.2), which defines the expected value of a discrete random variable as \\mu_X = \\sum x_i \\cdot P(x_i) and notes that it represents the long-run average outcome."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.9.A.2 states that for a discrete random variable, \u201c\u03bcX = \u2211 xi \u00b7 P(xi)\u201d and interprets expected value as the \u201clong-run average outcome.\u201d Topic 2.9 is where calculating this mean is required (2.9.A). The caution correctly emphasizes probability weighting and contextual interpretation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body \\mu_X=E(X)=\\sum x_i\\cdot P(x_i) matches CED 2.9.A.2, which gives the expected value as \"\u03bc X = \u2211 xi \u00b7 P(xi), where xi is the possible value of the random variable and P(xi) is the probability of the possible value.\" The E(X) and \u03bcX notation is also stated there. b_topic_codes: 2.9.A.2 is the first place the CED defines the mean of a discrete random variable. Topic 2.8 covers only probability distributions (2.8.A.1\u20132.8.A.5) and does not define a mean, so owner 2.9 is correct. topic_codes [2.9] is the only topic that uses it. c_ced_required: LO 2.9.A, \"Calculate the mean and standard deviation for a discrete random variable,\" requires students to apply this formula. d_caution: The entry's formula wording matches the CED, so no caution was strictly needed. The caution is still accurate: CED 2.9.A.2 defines the expected value as a weighted sum, and it says \"The expected value can be interpreted as the long-run average outcome of the random variable.\" CED 2.9.B.1 also says the mean should be interpreted in context. The caution adds no incorrect content."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-026",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches the definition in EK 2.9.A.3 exactly. The caution correctly incorporates the interpretation guidelines from EK 2.9.A.3 ('typical deviation of the values... from the mean... over the long run') and the Unit 2 Developing Understanding guidelines ('use appropriate units and relate to the context of the situation')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.9.A requires students to calculate the standard deviation of a discrete random variable. EK 2.9.A.3 gives the standard-deviation formula using the squared deviations (x\u1d62 \u2212 \u03bc\u2093)\u00b2 weighted by P(x\u1d62). It also describes standard deviation as the typical deviation from the mean over the long run; EK 2.9.B.1 requires interpretation in context."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.9.A.3 exactly: \u03c3X = \u221a(\u03a3(xi \u2212 \u03bcX)\u00b2 \u00b7 P(xi)), with xi the possible value, \u03bcX the mean, and P(xi) its probability. The symbols and structure are correct. b_topic_codes: Topic 2.9 (Parameters of Random Variables) is where LO 2.9.A requires the standard deviation of a discrete random variable, and it is the only listed code. c_ced_required: LO 2.9.A ('Calculate the mean and standard deviation for a discrete random variable') and 2.9.A.3 require this formula. d_caution: The caution ('typical deviation of the values from the mean over the long run, in context and with units') paraphrases the CED interpretation in 2.9.A.3 ('typical deviation of the values of the random variable from the mean value ... over the long run') and 2.9.B.1 (interpret in the context of a specific population). The caution is present and correct for a formula entry whose point-earning wording is the formula itself. No hooks are present, so there are no hook judgments."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-027",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition and notation of the variance of a random variable as specified in EK 2.9.A.3: 'The square of the standard deviation of a random variable is called the variance of the random variable and is denoted as V(X) or \\sigma_X^2.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.9, EK 2.9.A.3 states: \u201cThe square of the standard deviation of a random variable is called the variance of the random variable and is denoted as V(X) or \u03c3_X\u00b2.\u201d The formula matches, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.9.A.3 states that 'The square of the standard deviation of a random variable is called the variance of the random variable and is denoted as V(X) or \u03c3\u00b2_X.' The body V(X)=\u03c3_X^2 matches that symbol and relationship exactly. b_topic_codes: Variance is introduced in Topic 2.9 (2.9.A.3, under LO 2.9.A, 'Calculate the mean and standard deviation for a discrete random variable'), so owner 2.9 is the first place it is required, and 2.9 is the only listed topic code. c_ced_required: 2.9.A.3 defines variance and its notation as essential knowledge, and LO 2.9.A requires students to work with the variance-linked standard deviation, so reproducing the V(X)=\u03c3_X\u00b2 relationship is required content. d_caution: the entry's wording matches the CED's own 'denoted as V(X) or \u03c3\u00b2_X' phrasing, so no caution is needed for the point-earning wording."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-030",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly identifies the formula for the mean of a binomial distribution (\\mu_X = np) as required by Essential Knowledge 2.10.B.1: 'If a random variable is binomial, its mean, \u03bcX, is np'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.10.B.1 states, \u201cIf a random variable is binomial, its mean, \u03bc_X, is np.\u201d Topic 2.10 is the correct owner and use topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.10.B.1 states \"If a random variable is binomial, its mean, \u00b5X, is np\". The entry's \\mu_X=np matches the symbol and the formula. b_topic_codes: 2.10 is the only topic that uses the binomial mean; it first appears in Topic 2.10 (LO 2.10.B, skill 3.D), and the entry's owner_topic_code and topic_codes are both 2.10. c_ced_required: LO 2.10.B requires students to \"Calculate the mean and standard deviation for a binomial distribution\", and EK 2.10.B.1 gives the mean as np. d_caution: the CED's wording is the formula itself (\"its mean, \u00b5X, is np\"), so the formula is the point-earning wording and no caution is needed. The null caution is correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-029",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the binomial probability function as defined in EK 2.10.E.1: 'The probability that a binomial random variable, X, has exactly x successes for n independent trials, when the probability of success is p, is calculated as P(X = x) = ... This is called the binomial probability function.' The caution regarding calculator syntax is highly relevant to AP Statistics exam grading standards."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.10.E.1 gives P(X = x) = (n choose x)p^x(1\u2212p)^(n\u2212x), x = 0, 1, 2, ..., n, and calls it the binomial probability function. Topic 2.10 is where the CED requires students to calculate binomial probabilities. The formula matches the CED; the caution correctly identifies n as the number of trials and p as the probability of success."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula matches 2.10.E.1 exactly: P(X = x) = (n choose x) p^x (1 - p)^(n-x), with x = 0, 1, 2, ..., n, and the CED names it the binomial probability function. b_topic_codes: 2.10 is correct. The binomial probability function is first required in Topic 2.10 (Learning Objective 2.10.E), and no other topic in Unit 2 uses it. c_ced_required: Learning Objective 2.10.E, 'Calculate probabilities for a binomial distribution [Skill 3.C]', requires students to apply this function. d_caution: The entry wording matches the CED wording, so no caution is needed. The caution ('If calculator syntax is used, label n and p in words') is not contradicted by the CED but is not grounded in any CED statement. It is harmless advice, so the check passes under the 'no caution needed \u2192 true' rule, though it is superfluous."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-031",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents the standard deviation of a binomial distribution as defined in Topic 2.10 (specifically Essential Knowledge 2.10.B.1: 'its standard deviation, \u03c3_X, is \u221anp(1-p)')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.10.B.1 states that for a binomial random variable, \u201cits standard deviation, \u03c3_X, is \u221a[np(1\u2212p)].\u201d Topic 2.10 is where this binomial-specific formula is required. The entry matches the formula, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body \\sigma_X=\\sqrt{np(1-p)} matches CED 2.10.B.1, which states that for a binomial random variable 'its standard deviation, \u03c3X, is \u221anp(1-p)'. The symbols and structure are correct. b_topic_codes: Topic 2.10 (The Binomial Distribution) is where the binomial mean and standard deviation are first required, under LO 2.10.B, so owner_topic_code 2.10 and topic_codes [2.10] are correct. c_ced_required: LO 2.10.B ('Calculate the mean and standard deviation for a binomial distribution') and EK 2.10.B.1 require students to apply this formula. d_caution: The entry's wording matches the CED's point-earning wording, so no caution is needed and caution null is correct. Minor note: the title and the formula apply only when X is binomial, as EK 2.10.B.1 specifies ('If a random variable is binomial'). The title's 'of a binomial distribution' carries this condition, so it is not an error."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-032",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a continuous random variable matches the exact wording of Essential Knowledge 2.11.A.1: 'A continuous random variable is a variable that can take on any value within a specified domain. Every interval within the domain has a probability associated with it.' The topic codes are correct as Topic 2.11 is the first topic in Unit 2 to introduce this concept, and Topic 2.12 uses it in the context of sampling distributions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body matches 2.11.A.1: a continuous random variable \u201ccan take on any value within a specified domain\u201d and \u201cevery interval within the domain has a probability associated with it.\u201d Topic 2.11 first requires this definition. Topic 2.12 discusses sampling distributions and the central limit theorem but does not use the definition of a continuous random variable, so 2.12 should not be listed. No caution is needed because the wording matches the CED."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body matches 2.11.A.1: a continuous random variable \u201ccan take on any value within a specified domain\u201d and \u201cEvery interval within the domain has a probability associated with it.\u201d Topic 2.11 first requires the definition. Topic 2.12 discusses sampling distributions and normal approximations but does not use or require this definition, so 2.12 should not be listed. No caution is needed because the wording follows the CED."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-034",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines the standard normal distribution using the exact parameters specified in Essential Knowledge 2.11.B.1: 'mean \u03bc = 0 and standard deviation \u03c3 = 1'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry matches Topic 2.11, EK 2.11.B.1: \u201cA standard normal distribution is a normal distribution with mean \u03bc = 0 and standard deviation \u03c3 = 1.\u201d The wording is identical, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.11.B.1 states 'A standard normal distribution is a normal distribution with mean \u03bc = 0 and standard deviation \u03c3 = 1.' The body matches this wording and symbols exactly. b_topic_codes: 2.11.B.1 sits under Topic 2.11 (The Normal Distribution), so owner_topic_code '2.11' is where the CED first requires it, and topic_codes ['2.11'] is the only unit topic that uses it. c_ced_required: 2.11.B.1 is an essential-knowledge statement on these pages, and 2.11.E.1 relies on z-scores and a standard normal table, so students must know this definition. This is not trivia or another unit's content. d_caution: the entry wording is the CED wording, so no caution is needed and caution is null, which is correct. The entry has no items and no hooks, so there are no hook judgments to make.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-036",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 2.11.D.1, which states that the probability of a random variable taking on values within a particular interval is determined by the area under the normal curve within that interval, and that the total probability or area under the normal curve is 1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.11.D.1 states that, for an approximately normal random variable, the probability of values within an interval is determined by the area under the normal curve within that interval, and that the total probability or area is 1. Topic 2.11 is the applicable topic. The wording does not require a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.11.D.1 states that for an approximately normal random variable, the probability that the variable takes values within an interval 'is determined by the area under the normal curve within that interval,' and that 'the total probability or area under the normal curve is 1.' The entry matches both claims. b_topic_codes: 2.11 is the topic where the normal distribution and 2.11.D appear, and the owner code, topic_codes list, and unit_number 2 are consistent with the CED pages. c_ced_required: Learning objective 2.11.D ('Calculate the probability that a particular value lies within a given interval of a normal distribution') requires students to apply exactly this area-as-probability idea. d_caution: the entry's wording is essentially the CED's wording, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-033",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines a normal distribution using the exact descriptors from EK 2.11.A.3 ('continuous, unimodal, bell-shaped, and symmetric curve') and EK 2.11.A.5 ('identified by two parameters, the mean, \u00b5, and the standard deviation, \u03c3'). The caution correctly reflects the relationship between the standard deviation and the concentration/height of the curve as detailed in EK 2.11.A.5."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.11.A.3 describes a normal distribution as a \u201ccontinuous, unimodal, bell-shaped, and symmetric curve\u201d; 2.11.A.5 says it is identified by its mean \u03bc and standard deviation \u03c3 and supports the caution about how \u03c3 affects the curve. Topic 2.11 first requires this content, and 2.12.A.4 uses the normal distribution to describe the CLT."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.11.A.3 gives the normal distribution as \"a continuous, unimodal, bell-shaped, and symmetric curve,\" and 2.11.A.5 says it \"is identified by two parameters, the mean, \u00b5, and the standard deviation, \u03c3.\" The body matches both. b_topic_codes: 2.11 is where the normal distribution is first defined (2.11.A.1-2.11.A.5). 2.12 is valid because 2.12.A.4 states the CLT's sampling distribution 'can be approximated by a normal distribution,' so 2.12 uses it. c_ced_required: 2.11.A.3 and 2.11.A.5 require students to describe a normal distribution and its two parameters. d_caution: the caution (smaller \u03c3 gives taller, more concentrated curve; larger \u03c3 gives shorter, less concentrated curve) is a correct restatement of 2.11.A.5 ('The smaller the standard deviation, the taller and more concentrated the normal curve is around its mean. The larger ... shorter and less concentrated'), and it is present where the entry's wording departs from the CED's point-earning wording about \u03c3's effect."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-035",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the empirical rule (68-95-99.7 rule) as specified in Essential Knowledge 2.11.C.1, including the correct percentages and standard deviations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.11.C.1 gives the empirical rule for a normal distribution: approximately 68%, 95%, and 99.7% of observations are within 1, 2, and 3 standard deviations of the mean, respectively. Topic 2.11 first requires it. The entry\u2019s wording matches the CED; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.11.C.1 states that for a normal distribution approximately 68% of observations are within 1 SD of the mean, approximately 95% within 2 SD, and approximately 99.7% within 3 SD. The body, the three items, their order, and their values all match. b_topic_codes: 2.11.C.1 sits under Topic 2.11 (The Normal Distribution), and this is the only topic in Unit 2 that uses the empirical rule, so owner_topic_code 2.11 is correct. c_ced_required: LO 2.11.C asks students to 'calculate percentages from a normal distribution using the empirical rule', so reproducing the 68-95-99.7 values is required. d_caution: the entry wording ('approximate percentages of observations lie within 1, 2, and 3 standard deviations of the mean' for a normal distribution) is close to the CED phrasing, and the 'For a normal distribution' qualifier is present, so no caution is needed and null is correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-038",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 2.11.F.1, which states that percentiles and proportions may be used to compare relative positions of individual values within a normal distribution or between normal distributions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.11.F.1 states: \u201cPercentiles and proportions may be used to compare relative positions of individual values within a normal distribution or between normal distributions.\u201d The entry accurately restates this requirement, belongs to Topic 2.11, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.11.F.1 in substance: 'Percentiles and proportions may be used to compare relative positions of individual values within a normal distribution or between normal distributions.' The entry changes 'may' to 'can' and adds 'the', but makes no factual change. No items or formula are present to check. b_topic_codes: 2.11.F sits under Topic 2.11 (The Normal Distribution), so owner_topic_code 2.11 is where the content is first required, and topic_codes ['2.11'] is the only topic that uses it. c_ced_required: Learning objective 2.11.F ('Compare measures of relative position for distributions', Skill 4.C) and essential knowledge 2.11.F.1 require students to compare relative positions of values within or between normal distributions using percentiles and proportions. d_caution: The entry wording is nearly verbatim the CED statement, and the point-earning idea (comparing relative position with percentiles/proportions within or between normal distributions) is fully present. No caution is needed, so the null caution is correct. ced_evidence quote is an accurate, abridged excerpt of 2.11.F.1."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-039",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a sampling distribution matches the exact wording of Essential Knowledge 2.12.A.1 in the CED: 'A sampling distribution of a statistic is the distribution of values of the statistic for all possible samples of a given size from a given population.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Essential Knowledge 2.12.A.1 verbatim: \u201cA sampling distribution of a statistic is the distribution of values of the statistic for all possible samples of a given size from a given population.\u201d Topic 2.12 requires this definition. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches Essential Knowledge 2.12.A.1 word for word: \"A sampling distribution of a statistic is the distribution of values of the statistic for all possible samples of a given size from a given population.\" b_topic_codes: 2.12 is the topic where 2.12.A.1 first appears in Unit 2, and 2.12 is the only listed topic code. c_ced_required: Learning Objective 2.12.A (\"Describe sampling distributions with simulations\") requires students to describe sampling distributions, and 2.12.A.1 defines the term. d_caution: The entry's wording is the CED's own wording, so no caution is needed. The ced_evidence quote is a truncated but accurate excerpt of 2.12.A.1."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-040",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the steps to simulate a sampling distribution as described in Essential Knowledge 2.12.A.2: 'The sampling distribution of a statistic can be simulated by repeatedly generating a large number of random samples from the population assuming known value(s) for the parameter(s). The value of the statistic is determined and recorded for each sample. The resulting distribution of the sample statistic values approximates the sampling distribution of the statistic.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The three items follow 2.12.A.2 in order: repeatedly generate random samples, determine and record the statistic for each sample, and use the resulting distribution to approximate its sampling distribution. Topic 2.12 is the cited topic. No caution is needed because the wording preserves the CED\u2019s meaning."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The three items match CED 2.12.A.2 in content and order: (1) \"repeatedly generating a large number of random samples from the population assuming known value(s) for the parameter(s)\"; (2) \"The value of the statistic is determined and recorded for each sample\"; (3) \"The resulting distribution of the sample statistic values approximates the sampling distribution of the statistic.\" No formula or definition is misstated. b_topic_codes: Topic 2.12 (Sampling Distributions and the Central Limit Theorem) is where the CED first requires simulating a sampling distribution, and the entry's topic_codes is [2.12], so the code is correct. c_ced_required: LO 2.12.A (\"Describe sampling distributions with simulations\") and its essential knowledge 2.12.A.2 require students to reproduce this simulation procedure. d_caution: The entry's wording is a close paraphrase of the CED wording, with the same steps and the same key terms (\"approximates the sampling distribution\"). No point-earning wording differs from the CED, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-037",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the notation and definitions of intervals and areas under a normal curve as specified in EK 2.11.E.2 (i-iv), including the definition of p as a percentage (0 to 100) rather than a proportion."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.11.E.2 defines p as a number between 0 and 100; 2.11.E.2.i\u2013iii give the left-tail, between-boundaries, and right-tail interpretations stated here. CED 2.11.E.2.iv divides the most extreme p% equally between the two tails, giving p/200 in each tail. CED 2.11.E.1 supports the caution about technology or z-scores and a standard normal table. Topic 2.11 is the required location."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The four forms match 2.11.E.2.i-iv. P(X < x_a) = p/100 gives the lowest p% left of x_a, P(x_a < X < x_b) = p/100 gives p% between the bounds, and P(X > x_b) = p/100 gives the highest p% right of x_b. For the most extreme p% on both sides, the CED says each tail is 1(p)/2(100), which is p/200 per tail, as the entry states. b_topic_codes: The entry is about normal-distribution interval areas, which is Topic 2.11 (2.11.E). The owner and only topic code is 2.11, and no other topic uses this convention. c_ced_required: 2.11.E.2 requires students to 'Calculate the associated intervals and areas of a normal distribution' and to assign inequalities to bounds for a given p. d_caution: The CED defines p as 'a number between 0 and 100', not a proportion. The entry's caution states this explicitly and also gives the CED's method (technology or z-scores with a standard normal table, per 2.11.E.1), so the caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-042",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definition of the Central Limit Theorem (CLT) as stated in Essential Knowledge 2.12.A.4: 'The central limit theorem (CLT) states that the sampling distribution of a mean of a random sample has a shape that can be approximated by a normal distribution. The larger the sample is, the better the approximation will be.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body accurately paraphrases 2.12.A.4: \u201cThe central limit theorem (CLT) states that the sampling distribution of a mean of a random sample has a shape that can be approximated by a normal distribution. The larger the sample is, the better the approximation will be.\u201d Topic 2.12 is the cited topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.12.A.4 verbatim in substance: \"the sampling distribution of a mean of a random sample has a shape that can be approximated by a normal distribution\" and \"the larger the sample is, the better the approximation will be.\" No formula or list is involved. b_topic_codes: Topic 2.12 (Sampling Distributions and the Central Limit Theorem) is the only topic in Unit 2 that carries the CLT statement, so owner_topic_code 2.12 and topic_codes [\"2.12\"] are correct. c_ced_required: 2.12.A.4 is an essential-knowledge statement under LO 2.12.A (describe sampling distributions, Skill 4.C), so students must know and apply the CLT. d_caution: The entry wording is essentially the CED wording, so the point-earning wording is already present and no caution is needed (caution is null, which is correct). The sentence splits the CED's two sentences with a comma and 'and', which is a stylistic change that does not alter the content."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-041",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'randomization distribution' as specified in Essential Knowledge 2.12.A.3 of the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.12.A.3 defines a randomization distribution as one generated by repeatedly randomly reallocating response values to treatment groups; the statistic is determined and recorded for each reallocation. The entry preserves that definition, and Topic 2.12 is the relevant topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 2.12.A.3: a randomization distribution is a statistic's distribution generated by simulation from repeatedly randomly reallocating (reassigning) the response values to treatment groups, with the statistic recorded each time. Nothing in the body contradicts the CED. b_topic_codes: 2.12.A.3 appears only in Topic 2.12, so owner 2.12 is correct and topic_codes [\"2.12\"] is accurate. c_ced_required: CED 2.12.A.3 requires students to know this term, so it is required content. d_caution: The entry omits the CED's stated purpose of the definition: 'The resulting distribution of the statistic values approximates the sampling distribution of the statistic.' That link to the sampling distribution is what distinguishes a randomization distribution in the CED, and the entry does not say it. The wording also differs from the CED ('randomly reallocating, or reassigning'), yet caution is null. A caution noting that the randomization distribution approximates the sampling distribution (and that the CED's point-earning wording is 'reallocating, or reassigning') is required. Without it, d_caution fails and the entry is rejected."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.12.A.3: \"the distribution of a statistic generated by simulation from repeatedly randomly reallocating, or reassigning, the response values to treatment groups\" and recording the statistic for each reallocation. The body omits the CED's closing clause that the resulting distribution \"approximates the sampling distribution of the statistic,\" but omitting it does not make the body incorrect. b_topic_codes: The term is defined only under Topic 2.12 (2.12.A.3) in these pages, and 2.12 is the owning topic in Unit 2. c_ced_required: 2.12.A.3 is an essential-knowledge statement under LO 2.12.A (\"Describe sampling distributions with simulations\"), so students are required to know this definition. d_caution: The entry's wording (\"randomly reallocating ... to treatment groups\") is the CED's own wording, so no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_statistics-u2-r1-028",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {
+      "BINS": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "BINS": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the conditions for a binomial random variable as defined in EK 2.10.A.1, which is required for LO 2.10.A (Justify why a random variable is or is not a binomial random variable)."
+            },
+            "hooks": [
+              {
+                "hook_text": "BINS",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The BINS acronym is a standard, highly effective mnemonic that directly maps to the four conditions of a binomial setting required by EK 2.10.A.1."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "BINS": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.10.A requires students to justify whether a random variable is binomial. CED 2.10.A.1 defines it as counting successes in repeated independent trials, n, with only two outcomes and success probability p (failure probability 1 \u2212 p). The listed conditions express that definition. The caution correctly distinguishes a discrete binomial count from a normal distribution, which 2.11.A.3 describes as continuous."
+            },
+            "hooks": [
+              {
+                "hook_text": "BINS",
+                "e_expansion": true,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The cues map in order to the entry\u2019s four conditions and recall the definition required by 2.10.A.1. But \u201cBINS,\u201d including \u201cBinary\u201d and \u201cSame probability,\u201d is mnemonic wording rather than the CED\u2019s point-earning definition, and the hook has no caution directing students to state the conditions explicitly."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 2.10.A.1 describes a binomial random variable as counting successes in repeated independent trials, n, with two outcomes and success probability p (failure probability 1 \u2212 p). Topic 2.10.A requires students to justify whether a variable is binomial. The caution's example, however, is misleading: counting rock songs played in one hour does not establish a fixed number of trials, n, so it is not necessarily a binomial count."
+            },
+            "hooks": [
+              {
+                "hook_text": "BINS",
+                "e_expansion": true,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The cues correctly recall the conditions in CED 2.10.A.1. But BINS is a mnemonic, not the CED's point-earning justification; the hook has no caution telling students to state the actual conditions when justifying whether a variable is binomial."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "BINS": true
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The four items (two outcomes, independent trials, fixed n, constant p) match the CED. CED 2.10.A.1 defines a binomial variable as counting successes in repeated independent trials, n, with two possible outcomes, success probability p and failure probability 1 \u2212 p. The constant-p condition is implied by that definition, and the list order is consistent. b_topic_codes: 2.10 is the unit's first place the binomial distribution is required (Topic 2.10, LO 2.10.A). c_ced_required: LO 2.10.A requires students to justify why a random variable is or is not binomial, which this entry supports. d_caution: The first sentence of the caution (define X as a count in context and name the distribution with n and p) is consistent with LO 2.10.C, which requires interpretation in context. The second sentence, 'A binomial count is not normally distributed,' is an unqualified claim that the CED does not state. A binomial distribution is well approximated by a normal distribution when n is large and np and n(1 \u2212 p) are sufficiently large, and the CED's normal-model material (2.11.A.2) concerns continuous variables. The caution therefore asserts an overgeneralization that is not supported by the pages, so it is not correct as written."
+          },
+          "hooks": [
+            {
+              "hook_text": "BINS",
+              "e_expansion": true,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: B = two outcomes, I = independent trials, N = fixed number of trials, S = same probability of success each trial. Each cue maps to the matching entry item in the same order, and S corresponds to 'constant p'. f_admissible: The acronym recalls the ordered list of binomial conditions that the CED's 2.10.A.1 implies, so the content type is admissible. However, the acronym's wording is not the point-earning wording (the points require stating the conditions in full, not the mnemonic). The hook has caution: null, so no caution tells the student that BINS is only a memory aid and that the full conditions must be written out. The caution is required and absent."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.10.A.1 defines a binomial random variable as a count of successes 'in repeated independent trials, n, that have only two possible outcomes (success or failure), with the probability of success p and the probability of failure 1\u2212 p.' The four items (two outcomes, independent trials, fixed n, constant p) are all drawn from that definition, and the constant-p condition is implied by the single success probability p. The items are unordered in the CED, so the list order is a presentation choice, not a factual error. b_topic_codes: 2.10 is the topic where the binomial distribution is introduced (2.10.A), and it is the only topic code listed. c_ced_required: LO 2.10.A requires students to 'Justify why a random variable is or is not a binomial random variable,' which means applying these conditions. d_caution: the entry's wording ('Fixed n', 'Constant p') is a paraphrase rather than the CED's exact sentence, and the caution supplies the instruction to define X in context and name the distribution with stated n and p, which matches CED 2.10.C.1 ('should be interpreted in context'). The clause 'A binomial count is not normally distributed' is an oversimplification (the binomial is discrete and only approximately normal for large n), but it is a teaching caution, not a point-earning claim, so it does not block acceptance."
+          },
+          "hooks": [
+            {
+              "hook_text": "BINS",
+              "e_expansion": true,
+              "f_admissible": true,
+              "accept": true,
+              "reasons": "e_expansion: B\u2192Binary (two outcomes), I\u2192Independent trials, N\u2192Number of trials fixed, S\u2192Same probability of success each trial. This is the same order as the entry's items (Two outcomes, Independent trials, Fixed n, Constant p) and each cue maps to the correct member. f_admissible: the acronym recalls the four conditions that CED 2.10.A.1 requires students to apply when justifying whether a random variable is binomial (LO 2.10.A). It is a mnemonic, not a song lyric. The expansions paraphrase the CED wording, but the point is the conditions themselves, so a null caution is acceptable."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-stats-u2-01-wrong-formula",
+    "control": "wrong formula (binomial standard deviation given as sqrt(np); CED 2.10.B.1 says sigma_X = sqrt(np(1-p)))",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for the standard deviation of a binomial distribution in the body is incorrect. It is written as \\sigma_X = \\sqrt{np}, but according to CED 2.10.B.1, it must be \\sigma_X = \\sqrt{np(1-p)}."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for the standard deviation of a binomial distribution in the body is incorrect. It is written as \\sigma_X = \\sqrt{np}, but according to CED 2.10.B.1, it must be \\sigma_X = \\sqrt{np(1-p)}."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The standard deviation formula is incorrect. CED 2.10.B.1 states that a binomial random variable has mean np and standard deviation \u221a(np(1\u2212p)), not \u221a(np). Topic 2.10 is the correct topic, and 2.10.B requires these formulas. No wording caution is needed; the formula itself must be corrected."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The standard deviation formula omits the factor (1\u2212p). CED 2.10.B.1 states that a binomial random variable has mean np and standard deviation \u221a(np(1\u2212p)), not \u221a(np). Topic 2.10 is correct, and 2.10.B requires applying these formulas. A caution cannot correct an incorrect formula."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-stats-u2-03-wrong-owner",
+    "control": "wrong owner topic (binomial mean and standard deviation are 2.10.B, not 2.4 Introduction to Probability)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '2.4' (Introduction to Probability), but the binomial distribution's mean and standard deviation are first introduced and required in Topic 2.10 (The Binomial Distribution), specifically under EK 2.10.B.1. The owner_topic_code and topic_codes should be updated to '2.10'."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '2.4' (Introduction to Probability), but the binomial distribution mean and standard deviation are first introduced and required in Topic '2.10' (The Binomial Distribution, EK 2.10.B.1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "CED 2.10.B.1 states that a binomial random variable\u2019s mean is np and its standard deviation is \u221a(np(1\u2212p)), so the formula is correct and required. It first appears under Topic 2.10, not the listed owner Topic 2.4, which covers introductory probability. No wording caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula matches 2.10.B.1: a binomial random variable has mean np and standard deviation \u221a[np(1\u2212p)]. The CED requires students to calculate these in Topic 2.10, so the owner_topic_code and topic_codes should identify 2.10, not 2.4. Topic 2.4 instead requires calculating probabilities for events and their complements (2.4.A). No caution is needed for the formula\u2019s wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-stats-u2-02-non-ced",
+    "control": "non-CED content (the geometric distribution is a confirmed removal from the current CED; the string 'geometric' does not appear anywhere in the CED PDF)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The geometric distribution is not mentioned or required in the provided Unit 2 CED pages. The cited CED evidence (2.10.A.1) defines a binomial random variable, not a geometric random variable."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The geometric distribution is not mentioned or required anywhere in the provided Unit 2 CED pages. Topic 2.10 is strictly dedicated to 'The Binomial Distribution' (see Learning Objectives 2.10.A-E). The cited CED evidence (2.10.A.1) defines a binomial random variable, not a geometric one."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.10 requires the binomial distribution, not the geometric distribution. CED 2.10.A.1 defines a binomial random variable as counting successes in a fixed number n of independent trials; 2.10.E.1 gives P(X = x) = C(n, x)p^x(1-p)^(n-x). The entry\u2019s geometric formula is not stated or required on these pages, so 2.10 is not a supported topic code for it. No caution identifies the mismatch."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The geometric probability formula is not stated or required on these CED pages. Topic 2.10 requires the binomial distribution: 2.10.A.1 describes a variable that 'counts the number of successes in repeated independent trials,' and 2.10.E.1 gives its probability as P(X = x) = (n choose x)p^x(1-p)^(n-x). Thus 2.10.A.1 does not support this entry or its topic assignment. No caution flags that the entry is not CED-required wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-stats-u2-06-other-unit",
+    "control": "content from another unit (the least-squares regression line is Unit 5 regression analysis; 'least squares' does not appear in the Unit 2 pages)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The least-squares regression line formula (\\hat{y} = b_0 + b_1 x) is not part of Unit 2 (Probability, Random Variables, and Probability Distributions). Topic 2.12 covers 'Sampling Distributions and the Central Limit Theorem' and its EK 2.12.A.1 defines a sampling distribution of a statistic, which has no relation to linear regression."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The least-squares regression line formula (\\hat{y} = b_0 + b_1 x) is not part of Unit 2 (Probability, Random Variables, and Probability Distributions). Topic 2.12 covers 'Sampling Distributions and the Central Limit Theorem' (specifically 2.12.A.1 defines a sampling distribution of a statistic), which has no relation to linear regression."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The supplied CED pages do not state or require the least-squares regression line. Topic 2.12 instead defines a sampling distribution as the \u201cdistribution of values of the statistic for all possible samples of a given size from a given population\u201d (2.12.A.1) and addresses simulations and the central limit theorem. Thus 2.12 is not a supported topic code, and 2.12.A.1 does not support the formula. This is not a case where a caution could resolve different point-earning wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The cited 2.12.A.1 defines a sampling distribution as the distribution of a statistic over all possible samples of a given size. Topic 2.12 does not state or require the least-squares regression-line formula, so the formula cannot be verified against the cited CED content and 2.12 is not an appropriate topic code. No caution about alternate point-earning wording is applicable."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-stats-u2-04-wrong-member",
+    "control": "wrong list member (a sample size of at least 30 is not a binomial condition; CED 2.10.A.1 gives repeated independent trials n, two possible outcomes, and probability of success p)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Item 4 ('Sample size at least 30') is factually incorrect. A binomial random variable does not require a sample size of at least 30; n can be any positive integer. The condition n >= 30 is associated with the Central Limit Theorem for sample means (Topic 2.12 / 2.12.A.4), not the definition of a binomial random variable in 2.10.A.1."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The item 'Sample size at least 30' is factually incorrect. A binomial random variable does not require a sample size of at least 30; it can have any fixed number of trials n. According to EK 2.10.A.1, the defining characteristics are repeated independent trials (n), two possible outcomes (success/failure), and a constant probability of success (p)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 2.10.A requires students to justify whether a random variable is binomial. CED 2.10.A.1 describes a count of successes in 'repeated independent trials, n, that have only two possible outcomes' with success probability p. It does not require n to be at least 30. The 'Sample size at least 30' item is false and must be removed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.10 is the correct location. CED 2.10.A.1 defines a binomial random variable as counting successes in \u201crepeated independent trials, n, that have only two possible outcomes (success or failure), with the probability of success p.\u201d It does not require n to be at least 30. The entry presents that false requirement as a condition, without a caution, so the list as written is not CED-required."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-stats-u2-05-bad-hook",
+    "control": "hook expansion swapped (68% is within 1 SD and 95% within 2 SD; CED 2.11.C.1). The entry itself is correct, so the entry should be accepted and only the hook rejected.",
+    "control_target": "hook",
+    "accepted": true,
+    "hooks_accepted": {
+      "68-95-99.7": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "68-95-99.7": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body accurately reflects the empirical rule (68-95-99.7 rule) as defined in Essential Knowledge statement 2.11.C.1."
+            },
+            "hooks": [
+              {
+                "hook_text": "68-95-99.7",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The expansion contains factual errors: 68% is mapped to 'within 2 standard deviations' and 95% is mapped to 'within 1 standard deviation'. In reality, 68% of observations are within 1 standard deviation of the mean, and 95% are within 2 standard deviations."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body accurately reflects the empirical rule as stated in EK 2.11.C.1."
+            },
+            "hooks": [
+              {
+                "hook_text": "68-95-99.7",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The expansion incorrectly swaps the meanings of 68 and 95. 68% corresponds to within 1 standard deviation of the mean, and 95% corresponds to within 2 standard deviations of the mean."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "68-95-99.7": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Topic 2.11, EK 2.11.C.1: approximately 68%, 95%, and 99.7% of observations are within 1, 2, and 3 standard deviations of the mean, respectively. The wording needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "68-95-99.7",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The CED explicitly calls this the \u201c68\u201395\u201399.7 rule,\u201d so a hook recalling that ordered sequence is admissible. But EK 2.11.C.1 pairs 68% with 1 standard deviation and 95% with 2 standard deviations; the hook reverses those two mappings."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 2.11.C.1: approximately 68%, 95%, and 99.7% of observations are within 1, 2, and 3 standard deviations of the mean, respectively. Topic 2.11 requires students to use the empirical rule to calculate percentages. No caution is needed for the entry's wording."
+            },
+            "hooks": [
+              {
+                "hook_text": "68-95-99.7",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The hook recalls the ordered percentages required by 2.11.C.1, but its expansion reverses the first two distances. The CED says approximately 68% are within 1 standard deviation and approximately 95% are within 2 standard deviations, not the reverse."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "68-95-99.7": false
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.11.C.1 exactly: \"approximately 68% of observations are within 1 standard deviation of the mean, approximately 95% of observations are within 2 standard deviations of the mean, and approximately 99.7% of observations are within 3 standard deviations of the mean.\" b_topic_codes: The empirical rule first appears in Topic 2.11 (LO 2.11.C, skill 3.C), and 2.11 is the only topic listed, so owner_topic_code 2.11 and topic_codes [2.11] are correct. c_ced_required: LO 2.11.C requires students to \"Calculate percentages from a normal distribution using the empirical rule,\" so the entry is required content. d_caution: The entry's wording is the CED's own wording (\"empirical rule, or the 68-95-99.7 rule\"), so no caution is needed and caution null is correct."
+          },
+          "hooks": [
+            {
+              "hook_text": "68-95-99.7",
+              "e_expansion": false,
+              "f_admissible": true,
+              "accept": false,
+              "reasons": "e_expansion fails: the cue \"68\" is mapped to \"within 2 standard deviations of the mean\" and the cue \"95\" is mapped to \"within 1 standard deviation of the mean\". The CED (2.11.C.1) states 68% is within 1 SD and 95% is within 2 SD, so these two expansions are swapped. Only \"99.7 -> within 3 standard deviations\" is correct. The cue order is right, but the meanings are wrong and contradict the entry body. f_admissible passes: the hook recalls the numeric percentage-to-standard-deviation pairing that 2.11.C.1 requires, it is not a song lyric, and the hook text is the CED's own label, so no caution is needed. The hook fails overall because its expansion is wrong; it must be corrected to 68 -> 1 SD, 95 -> 2 SD, 99.7 -> 3 SD before it can be accepted."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "The body matches CED 2.11.C.1: 'approximately 68% of observations are within 1 standard deviation of the mean, approximately 95% of observations are within 2 standard deviations of the mean, and approximately 99.7% of observations are within 3 standard deviations of the mean.' The entry uses the CED's own 'approximately' qualifier and correct SD multiples. 2.11.C.1 is an essential-knowledge statement tied to Skill 3.C, so the rule is required content. First appearance is topic 2.11, so owner_topic_code and topic_codes are correct. The body uses the CED's wording closely enough that no caution is needed."
+          },
+          "hooks": [
+            {
+              "hook_text": "68-95-99.7",
+              "e_expansion": false,
+              "f_admissible": true,
+              "accept": false,
+              "reasons": "The expansion is wrong. The cue '68' is mapped to 'within 2 standard deviations', but CED 2.11.C.1 gives 68% within 1 SD. The cue '95' is mapped to 'within 1 standard deviation', but CED 2.11.C.1 gives 95% within 2 SD. Only '99.7' \u2192 3 SD is correct. The hook recalls the CED's own named rule ('the 68\u201395\u201399.7 rule') in its ordered percentage-to-SD structure, so it is admissible in kind and no caution is required. It fails only on the expansion mapping, which must be corrected to 68\u21921 SD and 95\u21922 SD."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

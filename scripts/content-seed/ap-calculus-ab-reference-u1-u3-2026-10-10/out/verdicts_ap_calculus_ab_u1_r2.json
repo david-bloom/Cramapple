@@ -1,0 +1,373 @@
+[
+  {
+    "candidate_id": "ap_calculus_ab-u1-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a one-sided limit is mathematically accurate and directly supported by LIM-1.C.1 ('The concept of a limit includes one sided limits'), LIM-1.C.4 ('if the limit from the left does not equal the limit from the right'), and LIM-1.D.1 ('One-sided limits can be determined analytically or graphically'). Topic 1.3 is the correct owner topic as it is the first topic where one-sided limits are introduced."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.3 first requires one-sided limits: LIM-1.C.1 says, \u201cThe concept of a limit includes one sided limits.\u201d LIM-1.C.4 identifies unequal left- and right-hand limits as a reason a limit might not exist. Topic 1.5 also uses the concept: LIM-1.D.1 says, \u201cOne-sided limits can be determined analytically or graphically.\u201d The entry accurately states these ideas, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. LIM-1.C.1 says \"The concept of a limit includes one sided limits.\" LIM-1.C.4 lists \"if the limit from the left does not equal the limit from the right\" as a way the limit might not exist. The body's statement that unequal one-sided limits mean the two-sided limit does not exist is consistent with that. The left/right notation (x\u2192c\u207b, x\u2192c\u207a) is standard. b_topic_codes: owner 1.3 is the first topic where one-sided limits appear (LIM-1.C.1 and LIM-1.C.4 are in Topic 1.3). Topic 1.5 is correct as a second topic, since LIM-1.D.1 \"One-sided limits can be determined analytically or graphically\" is in Topic 1.5. c_ced_required: LIM-1.C.1, LIM-1.C.4 and LIM-1.D.1 each require students to work with one-sided limits. d_caution: the body is a paraphrase rather than the CED's exact sentences, but the CED does not hinge a point on a particular wording here, and the content is correct, so no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u1-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the three-part definition of continuity at a point as specified in LIM-2.A.2: 'A function f is continuous at x = c provided that f(c) exists, lim f(x) exists, and lim f(x) = f(c)'. The topic codes are correct and relevant to Unit 1 topics that apply continuity."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "LIM-2.A.2 in Topic 1.11 states that f is continuous at x = c provided that f(c) exists, lim f(x) exists as x approaches c, and that limit equals f(c). The formula reproduces those three conditions. Topic 1.12 defines continuity on an interval through continuity at each point; Topic 1.13 addresses making functions continuous at a point; and Topic 1.16 requires continuity on a closed interval to apply the IVT. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches LIM-2.A.2 exactly: \"A function f is continuous at x = c provided that f(c) exists, lim f(x) exists, and lim f(x) = f(c).\" The three conditions and their order are correct. b_topic_codes: 1.11 is the first unit topic that requires the pointwise definition (LIM-2.A.2 appears under Topic 1.11, 'Defining Continuity at a Point'). 1.12 (LIM-2.B, continuity over an interval) and 1.13 (LIM-2.C, removing discontinuities by requiring lim f(x) = f(c)) both apply the definition. 1.16 is the weakest link: its IVT hypothesis (LIM/FUN-1.A.1, 'f is a continuous function on the closed interval [a, b]') relies on continuity, but it does not restate the pointwise definition. It is acceptable as a use of the concept, but it is not a core use. c_ced_required: LIM-2.A is a learning objective requiring students to 'Justify conclusions about continuity at a point using the definition,' so reproducing or applying this definition is required. d_caution: The entry uses the CED's own wording, so the point-earning wording is the same and no caution is needed; caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u1-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statements LIM-2.D.3 ('The concept of a limit can be extended to include limits at infinity') and LIM-2.D.4 ('Limits at infinity describe end behavior') from Topic 1.15 of the AP Calculus CED. The caution is highly relevant to common student errors regarding end behavior."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.15 states, \u201cThe concept of a limit can be extended to include limits at infinity\u201d (LIM-2.D.3) and \u201cLimits at infinity describe end behavior\u201d (LIM-2.D.4). The body matches both statements, and 1.15 is the applicable topic. The caution correctly distinguishes limits at infinity from limits as the variable approaches 0; its t\u2192\u221e notation is an example, not an exclusion of \u2212\u221e."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. Topic 1.15 (LIM-2.D.3) states \"The concept of a limit can be extended to include limits at infinity,\" and LIM-2.D.4 states \"Limits at infinity describe end behavior.\" The body's description of x increasing or decreasing without bound is a correct paraphrase. The items list is empty and there is no formula to check. b_topic_codes: Topic 1.15, 'Connecting Limits at Infinity and Horizontal Asymptotes,' is where LIM-2.D.3 and LIM-2.D.4 first appear. Topic 1.14 covers only infinite limits and vertical asymptotes, so 1.15 is the correct owner and the only topic code. c_ced_required: LIM-2.D.4 requires students to interpret function behavior using limits involving infinity, which is end behavior. d_caution: The CED does not contain the caution's wording. The caution (end behavior is a limit as the variable approaches infinity, not as it approaches 0) is accurate and addresses a real misconception that the CED's 'limits at infinity' language implies, so its presence is correct. ced_evidence quotes match LIM-2.D.3 and LIM-2.D.4 verbatim.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u1-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the three types of discontinuities explicitly named in LIM-2.A.1 ('Types of discontinuities include removable discontinuities, jump discontinuities, and discontinuities due to vertical asymptotes') and integrates their definitions from LIM-2.C.1, LIM-1.C.4, and LIM-2.D.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "LIM-2.A.1 names removable discontinuities, jump discontinuities, and discontinuities due to vertical asymptotes. LIM-2.C.1 supports the removable-discontinuity explanation; LIM-1.C.4 supports the unequal one-sided limits explanation; and LIM-2.D.1\u20132 connects infinite limits with asymptotic and unbounded behavior. Topic 1.10 first requires the list, while 1.13 and 1.14 use its removable and vertical-asymptote members. No caution is needed. For a vertical asymptote, the infinite limit may be one-sided."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: LIM-2.A.1 reads \"Types of discontinuities include removable discontinuities, jump discontinuities, and discontinuities due to vertical asymptotes\", and the entry gives the same three members in the same order. The item glosses match the CED: LIM-2.C.1 says a removable discontinuity is one where the limit exists and the function can be redefined to equal it; LIM-1.C.4 says the limit fails to exist when the left and right limits differ or the function is unbounded. b_topic_codes: LIM-2.A.1 first appears in Topic 1.10, so owner 1.10 is correct. Topic 1.13 uses the removable-discontinuity idea (LIM-2.C.1) and Topic 1.14 covers the vertical-asymptote case (LIM-2.D.2), so both listed codes use it. c_ced_required: LIM-2.A.1 is an essential-knowledge statement that names these types, and LO LIM-2.A (justify continuity conclusions using the definition) requires students to classify discontinuities. d_caution: the CED says \"include\", not \"names three types\", and the jump and asymptote glosses are paraphrases rather than CED wording. The point-earning content is the three-item list, which the entry states as the CED does, so no caution is strictly needed. Minor wording note only."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u1-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the list of function types that are continuous on all points in their domains as explicitly stated in LIM-2.B.2 of Topic 1.12. The caution correctly clarifies the distinction between continuity on the domain and continuity everywhere, which is a common point of confusion."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.12, LIM-2.B.2 states: \u201cPolynomial, rational, power, exponential, logarithmic, and trigonometric functions are continuous on all points in their domains.\u201d The entry preserves the function types and their order. Its caution correctly limits the claim to points in the domain."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: LIM-2.B.2 states 'Polynomial, rational, power, exponential, logarithmic, and trigonometric functions are continuous on all points in their domains.' The body, the six items, and their order match that list, and each meaning restates the same claim. b_topic_codes: LIM-2.B.2 appears under Topic 1.12 (Confirming Continuity over an Interval), so owner_topic_code 1.12 is correct and the only topic code is correct. c_ced_required: LIM-2.B ('Determine intervals over which a function is continuous') is a Topic 1.12 learning objective, and LIM-2.B.2 is its essential knowledge, so students must apply this classification. d_caution: the entry's wording ('continuous on all points in its domain') is close to the CED wording, but the caution ('not continuous where its denominator is zero') is accurate and correctly flags the domain restriction that the CED's 'in their domains' phrasing implies. Its presence is correct, so the caution check passes."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_calculus_ab-u1-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statement LIM-2.C.2 from Topic 1.13 of the AP Calculus CED, which states that for a piecewise-defined function to be continuous at a boundary, the values of the expressions on both sides of the boundary must equal each other and the value of the function at the boundary."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.13, LIM-2.C.2 states that, for continuity at a boundary, \u201cthe value of the expression defining the function on one side of the boundary must equal the value of the expression defining the other side of the boundary, as well as the value of the function at the boundary.\u201d The entry accurately restates this requirement. Topic 1.13 is the cited topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches LIM-2.C.2 in substance: the one-side expression, the other-side expression, and the function's value at the boundary must agree. b_topic_codes: LIM-2.C.2 sits under Topic 1.13 (Removing Discontinuities), so owner 1.13 is correct and the only topic code is right. c_ced_required: LIM-2.C.2 states the requirement for a piecewise function to be continuous at a partition boundary, so a student must apply it. d_caution: Caution is null, but the body is a paraphrase, not the CED wording. The CED says the two defining expressions must each equal the function's value at the boundary, i.e. they are evaluated at the boundary point. The body says the expressions and the function value 'must all be equal' without saying the expressions are evaluated at the boundary. Read literally, that suggests the two formulas must be identical as expressions, which is wrong. A caution specifying evaluation at the boundary point is needed and is missing. Rejected on d_caution."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: LIM-2.C.2 states that for a piecewise-defined function to be continuous at a boundary of its partition, the expression on one side must equal the expression on the other side, and both must equal the function's value at the boundary. The body says all three must be equal, which matches. The ced_evidence quote matches the CED text verbatim. b_topic_codes: LIM-2.C.2 first appears in Topic 1.13 (Removing Discontinuities), which is the owner, and the entry is in Unit 1. c_ced_required: LIM-2.C.2 is an essential-knowledge statement, and the Topic 1.13 learning objective LIM-2.C ('Determine values of x or solve for parameters that make discontinuous functions continuous, if possible') requires applying it. d_caution: the entry's wording is a faithful paraphrase of the CED's point-earning condition, so no caution is needed and null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

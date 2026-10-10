@@ -1,0 +1,70 @@
+{
+  "accepted": [
+    "ap_physics_2-u11-r1-002",
+    "ap_physics_2-u11-r1-001",
+    "ap_physics_2-u11-r1-004",
+    "ap_physics_2-u11-r1-003",
+    "ap_physics_2-u11-r1-008",
+    "ap_physics_2-u11-r1-005",
+    "ap_physics_2-u11-r1-006",
+    "ap_physics_2-u11-r1-007",
+    "ap_physics_2-u11-r1-012",
+    "ap_physics_2-u11-r1-013",
+    "ap_physics_2-u11-r1-009",
+    "ap_physics_2-u11-r1-011",
+    "ap_physics_2-u11-r1-010",
+    "ap_physics_2-u11-r1-014",
+    "ap_physics_2-u11-r1-017",
+    "ap_physics_2-u11-r1-015",
+    "ap_physics_2-u11-r1-016",
+    "ap_physics_2-u11-r1-022",
+    "ap_physics_2-u11-r1-025",
+    "ap_physics_2-u11-r1-021",
+    "ap_physics_2-u11-r1-020",
+    "ap_physics_2-u11-r1-023",
+    "ap_physics_2-u11-r1-027",
+    "ap_physics_2-u11-r1-024",
+    "ap_physics_2-u11-r1-026",
+    "ap_physics_2-u11-r1-028",
+    "ap_physics_2-u11-r1-030",
+    "ap_physics_2-u11-r1-029",
+    "ap_physics_2-u11-r1-031",
+    "ap_physics_2-u11-r1-034",
+    "ap_physics_2-u11-r1-037",
+    "ap_physics_2-u11-r1-038",
+    "ap_physics_2-u11-r1-033",
+    "ap_physics_2-u11-r1-032",
+    "ap_physics_2-u11-r1-036"
+  ],
+  "rejected": {
+    "ap_physics_2-u11-r1-018": {
+      "google/gemini-3.5-flash": "The definition of a series connection is highly accurate and directly matches the wording in Essential Knowledge 11.5.A.1.i: 'A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The c",
+      "openai/gpt-6-sol": "The body accurately reproduces 11.5.A.1.i: a charge passing through one element in a series connection must proceed through all elements, with no other path, and the current in each is the same. Topic 11.5 is the correct owner and requires this definition. Topic 11.7 instead requires Kirchhoff\u2019s jun"
+    },
+    "ap_physics_2-u11-r1-019": {
+      "google/gemini-3.5-flash": "The definition of a parallel connection is factually accurate and directly supported by EK 11.5.A.1.ii: 'A parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.'",
+      "openai/gpt-6-sol": "The body matches 11.5.A.1.ii: \u201cA parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.\u201d Topic 11.5 first requires the definition; 11.7 applies charge conservation at junctions where paths meet. The wording needs",
+      "veto": "a_factual: The body matches CED 11.5.A.1.ii: \"A parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.\" The meaning is preserved and no symbols or formulas are involved. b_topic_codes: fails. owner_topic_code 11."
+    },
+    "ap_physics_2-u11-r1-035": {
+      "google/gemini-3.5-flash": "The entry accurately represents the formula for the RC time constant as defined in Topic 11.8 (specifically 11.8.B.1.i), where the time constant is defined as \\tau = RC (or \\tau = R_{eq}C_{eq} for equivalent resistance and capacitance).",
+      "openai/gpt-6-sol": "Topic 11.8 is the right location: 11.8.B.1.i says the RC time constant measures how quickly a capacitor charges or discharges and gives its defining equation. The entry instead states an unconditional product of equivalent resistance and equivalent capacitance. That form requires specifying the effe"
+    },
+    "ap_physics_2-u11-r2-002": {
+      "google/gemini-3.5-flash": "The definition of a parallel connection matches the CED statement 11.5.A.1.ii exactly: 'A parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.' The topic codes are appropriate as parallel connections are introd",
+      "openai/gpt-6-sol": "The body matches 11.5.A.1.ii: \u201ccharges may flow through one of two or more paths. Across each path, the potential difference is the same.\u201d Topic 11.5 first requires the definition; Topic 11.7 uses branching paths when applying Kirchhoff\u2019s junction rule. No caution is needed because the wording match",
+      "veto": "a_factual: The body matches CED 11.5.A.1.ii, \"A parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.\" The paraphrase is faithful. b_topic_codes: owner_topic_code 11.5 is correct, since 11.5.A.1.ii is the first "
+    },
+    "ap_physics_2-u11-r2-001": {
+      "google/gemini-3.5-flash": "The entry accurately defines 'series connection' using the exact phrasing from Essential Knowledge 11.5.A.1.i ('A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The current in each",
+      "openai/gpt-6-sol": "The body closely follows 11.5.A.1.i: in a series connection, charge passing through one element must proceed through all elements with no other path available, and the current in each element is the same. Topic 11.5 first requires the definition. Topic 11.7 uses it in analyzing currents in mixed cir",
+      "veto": "a_factual: The body matches 11.5.A.1.i: \"A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The current in each element in series must be the same.\" The entry's 'so the current in ea"
+    },
+    "ap_physics_2-u11-r2-003": {
+      "google/gemini-3.5-flash": "The entry is factual and directly supported by the CED. Under Topic 11.8 (Resistor-Capacitor (RC) Circuits), Essential Knowledge 11.8.B.1.i defines the time constant as \\tau = RC (or \\tau = R_{eq}C_{eq} for combinations). The caution correctly notes that only qualitative descriptions of charging/dis",
+      "openai/gpt-6-sol": "Topic 11.8 requires the RC time constant: 11.8.B.1.i says it measures how quickly a capacitor charges or discharges and gives its definition. But the entry presents \u03c4 = R_eq C_eq without restricting it to a circuit reducible to one equivalent resistance and capacitance; the CED does not state that a"
+    }
+  },
+  "hooks_written": 0,
+  "schema_rejected": {}
+}

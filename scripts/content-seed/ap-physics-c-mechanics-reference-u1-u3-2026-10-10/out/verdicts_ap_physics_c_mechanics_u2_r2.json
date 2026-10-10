@@ -1,0 +1,303 @@
+[
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of tension matches the CED Essential Knowledge statement 2.3.A.3 exactly. The topic codes are correct, as tension is introduced in Topic 2.3 and applied to circular motion (conical pendulum) in Topic 2.10. The caution accurately reflects the CED's distinction between ideal and nonnegligible mass strings (2.3.A.3.i-iii)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 2.3.A.3: \u201cTension is the macroscopic net result of forces that infinitesimal segments of a string, cable, chain, or similar system exert on each other in response to an external force.\u201d Topic 2.3 first requires it; 2.10.A.2.iii also uses tension for a conical pendulum. The caution agrees with 2.3.A.3.i\u2013iii: tension is the same at all points in an ideal string but may vary in a string with nonnegligible mass."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.3.A.3 word for word: \"Tension is the macroscopic net result of forces that infinitesimal segments of a string, cable, chain, or similar system exert on each other in response to an external force.\" No items or formula are present to check. b_topic_codes: owner 2.3 is where the unit first requires tension (2.3.A.3). Topic 2.10 also uses it: 2.10.A.2.iii states \"A component of tension contributes to the net force producing centripetal acceleration experienced by a conical pendulum.\" Both codes are correct. c_ced_required: 2.3.A.3 and its sub-statements (2.3.A.3.i\u2013iii) require students to apply tension in ideal and nonideal strings, so this is CED-required content. d_caution: The CED phrases the ideal-string condition differently. 2.3.A.3.ii says tension in an ideal string is the same at all points, and 2.3.A.3.iii says tension in a string with nonnegligible mass \"may not be the same at all points.\" The caution restates this correctly and is needed, since the body alone omits the uniformity condition. The 'only for an ideal string' wording is consistent with the CED's 'may not be' phrasing."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the concept of translational equilibrium and net force as defined in Topic 2.4 (Newton's First Law). The formula matches the derived equation shown under EK 2.4.A.2, and the caution correctly incorporates the details from EK 2.4.A.1, 2.4.A.2, and 2.4.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula gives the translational-equilibrium condition, not a claim that net force is always zero. CED 2.4.A.1 states that net force is \u201cthe vector sum of all forces exerted on the system,\u201d and 2.4.A.2 defines translational equilibrium as the condition in which that net force \u201cis zero.\u201d Topic 2.4 first requires this; Topic 2.5 also uses net force in Newton\u2019s second law (2.5.A.2). The caution correctly distinguishes the general definition from the zero-net-force case and reflects 2.4.A.3\u20134 on constant velocity and forces balanced in only one dimension."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED defines net force as the vector sum of all forces (2.4.A.1: \"The net force on a system is the vector sum of all forces exerted on the system\"). The body's \\vec{F}_{net}=\\sum_i \\vec{F}_i and the '= 0' end state match the 2.4.A.2 translational-equilibrium definition and its derived equation (net force zero). Symbols and order are correct. b_topic_codes: 2.4 is the first unit topic that requires net force and translational equilibrium (Topic 2.4, Newton's First Law). 2.5 uses the same net-force concept in 2.5.A.1 (\"net force exerted on a system is not equal to zero\") and 2.5.A.2 (Newton's second law), so listing 2.5 is justified. c_ced_required: 2.4.A.1 and 2.4.A.2 explicitly require students to know and apply this relation. d_caution: The CED wording is \"Translational equilibrium is the configuration of forces such that the net force exerted on a system is zero\" and the entry paraphrases it. The caution restates the same content and adds the 2.4.A.4 point (\"Forces may be balanced in one dimension but unbalanced in another... velocity will change only in the direction of the unbalanced force\"), so the caution is present and accurate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the magnitude of the gravitational field strength as described in EK 2.6.A.2.i and EK 2.6.A.2.ii. The formula correctly uses magnitudes to resolve the vector/scalar inconsistency present in the CED's printed equation, and the caution correctly explains the distinction between the source mass M and test mass m, as well as the equivalence of acceleration and field strength."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.6.A.2.i gives gravitational field magnitude as gravitational force divided by test-object mass, equal to GM/r\u00b2. Topic 2.6 first requires this relationship. The caution correctly distinguishes the source mass M from the test mass m and reflects 2.6.A.2.ii: when gravity is the only force, acceleration in m/s\u00b2 is numerically equal to field strength in N/kg."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.6.A.2.i gives the field magnitude as the ratio of gravitational force on a test object to the test object's mass, and its derived equation is g = F_g/m = GM/r^2. The entry's |g| = |F_g|/m = GM/r^2 matches that structure and the symbols (M = mass creating the field, m = test object). Also consistent with 2.6.A.1 (F_g = G m1 m2 / r^2). b_topic_codes: 2.6 is the first unit topic that introduces gravitational field strength (2.6.A.2), and no other topic in Unit 2 uses it, so owner_topic_code and topic_codes are correct. c_ced_required: 2.6.A.2.i and 2.6.A.2.ii are essential knowledge under learning objective 2.6.A ('Describe the gravitational interaction between two objects or systems with mass'), so students must know and apply this relation. d_caution: the CED says 'magnitude of the gravitational field created by a system of mass M ... ratio of the gravitational force ... to the mass of the test object' and, separately, 2.6.A.2.ii says observed acceleration in m/s^2 is numerically equal to g in N/kg when gravity is the only force. The caution reproduces both points with the same meaning, so a caution is present and correct. Minor note, not a failing defect: r is not defined in the body or caution; the CED's equation uses the distance between the centers of mass, so an explicit definition would help but is not required for acceptance.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately and sequentially outlines the steps for solving motion under a resistive force as detailed in Topic 2.9 (Resistive Forces). Specifically, it aligns with EK 2.9.A.2 (differential equation for velocity), EK 2.9.A.2.i (separation of variables and integration limits), EK 2.9.A.2.ii (using calculus and initial conditions for position/acceleration), EK 2.9.A.2.iii (exponential functions and asymptotes for Fr = -kv), and EK 2.9.A.3 (terminal velocity condition where net force is zero)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.9 is the correct placement. The sequence follows 2.9.A.2, which says applying Newton\u2019s second law with a resistive force produces a differential equation for velocity; 2.9.A.2.i specifies separation of variables and integration over proper limits; and 2.9.A.2.ii specifies using initial conditions and calculus to find position or acceleration. Item 5 matches 2.9.A.2.iii\u2019s statement that, for F_r = \u2212kv, position, velocity, and acceleration are exponential functions of time with asymptotes determined by initial conditions and forces. Item 6 matches 2.9.A.3: terminal velocity is the maximum speed under opposing constant and resistive forces, reached when the net force is zero. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Step 1 matches 2.9.A.2 ('Applying Newton's second law to an object upon which a resistive force is exerted results in a differential equation for velocity'). Step 2 and step 3 match 2.9.A.2.i ('Using the method of separation of variables, the velocity can be determined by integrating over the proper limits of integration'). Step 4 matches 2.9.A.2.ii (position or acceleration 'may be determined using initial conditions ... and methods of calculus, once a function for velocity is determined'). Step 5 matches 2.9.A.2.iii (exponential functions with asymptotes set by initial conditions and forces) and the F_r = -kv scope. Step 6 matches 2.9.A.3 ('The terminal condition is reached when the net force exerted on the object is zero'). The CED does not give an explicit step sequence, so the ordering is a pedagogical synthesis of 2.9.A.2 to 2.9.A.3, not a CED-stated order; the content of every step is correct. b_topic_codes: resistive forces are introduced in Topic 2.9, the only topic listed, and 2.9 is the owner. c_ced_required: learning objective 2.9.A ('Describe the motion of an object subject to a resistive force') and its essential knowledge 2.9.A.2 to 2.9.A.3 require this procedure. d_caution: the entry paraphrases the CED ('results in' vs 'results in a differential equation for velocity'), but the points are conceptual and the paraphrase carries the same meaning, so no caution is required. Step 5 is labelled 'Check the result' and is an instructional addition, but its content is CED-correct. hooks: none."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the specific cases of centripetal acceleration sources outlined in Topic 2.10 (specifically EK 2.10.A.2.i, 2.10.A.2.ii, 2.10.A.2.iii, and 2.10.B.1). The caution correctly addresses a major AP Physics misconception regarding free-body diagrams."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.10.A.2 says centripetal acceleration can result from \u201ca single force, more than one force, or components of forces.\u201d Its subpoints identify gravity alone at the minimum speed atop a vertical loop, static friction and normal-force components on a banked surface, and a tension component for a conical pendulum. Topic 2.10.B.1 says a circular-orbit satellite\u2019s centripetal acceleration is \u201ccaused only by gravitational attraction.\u201d The items follow that CED order. The caution correctly distinguishes the actual forces shown on a free-body diagram from centripetal force as a separate force.",
+              "reasons_formula": "The minimum-speed relation v = \u221a(gr) follows from gravity alone supplying mv\u00b2/r at the top of the loop."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Each item matches its CED statement and the order follows CED 2.10.A.2.i, 2.10.A.2.ii, 2.10.A.2.iii, then 2.10.B.1. (i) CED 2.10.A.2.i: at the top of a vertical loop, minimum speed is needed and 'the gravitational force is the only force that causes the centripetal acceleration.' The CED derived equation is printed as 'v = gr' in this extraction, but the radical was lost in text extraction. Setting mg = mv\u00b2/r gives v = \u221a(gr), so the entry's \u221a(gr) is physically correct and consistent with the CED. (ii) CED 2.10.A.2.ii: 'Components of the static friction force and the normal force can contribute to the net force producing centripetal acceleration... on a banked surface.' (iii) CED 2.10.A.2.iii: 'A component of tension contributes to the net force producing centripetal acceleration experienced by a conical pendulum.' (iv) CED 2.10.B.1: for a satellite in circular orbit, 'centripetal acceleration is caused only by gravitational attraction.' b_topic_codes: Centripetal acceleration is first required in Topic 2.10 (2.10.A.1), so owner 2.10 is correct, and 2.10 is the only topic listed and it uses the content. c_ced_required: Learning objective 2.10.A ('Describe the motion of an object traveling in a circular path') requires students to identify the sources of centripetal acceleration (2.10.A.2, 2.10.A.2.i\u2013iii), and 2.10.B.1 covers the satellite case. d_caution: The caution is not in CED wording, but it is consistent with 2.10.A.2 ('Centripetal acceleration can result from a single force, more than one force, or components of forces'), so it is correct to include. It is not contradicted by the CED. No hooks are present, so the hook checks do not apply.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  }
+]

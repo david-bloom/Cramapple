@@ -1,0 +1,1216 @@
+[
+  {
+    "owner_topic_code": "3.1",
+    "topic_codes": [
+      "3.1"
+    ],
+    "kind": "vocabulary",
+    "title": "Unbiased estimator",
+    "body": "An estimator is unbiased if, on average, its value does not underestimate or overestimate the population parameter.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.1.A.1 \"an estimator is unbiased if, on average, the value of the estimator does not underestimate or overestimate the population parameter\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-001",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.1",
+    "topic_codes": [
+      "3.1",
+      "3.3",
+      "3.10"
+    ],
+    "kind": "vocabulary",
+    "title": "Point estimator",
+    "body": "A sample statistic is a point estimator of the corresponding population parameter; for example, the sample proportion \\hat{p} is a point estimator for the population proportion p.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.1.B.1 \"A sample statistic is a point estimator of the corresponding population parameter\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-002",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2",
+      "3.3",
+      "3.5"
+    ],
+    "kind": "formula",
+    "title": "Mean of the sampling distribution of a sample proportion",
+    "body": "\\mu_{\\hat{p}} = p",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.A.1 \"mean \\mu_{\\hat p} = p\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-003",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2",
+      "3.5"
+    ],
+    "kind": "formula",
+    "title": "Standard deviation of the sampling distribution of a sample proportion",
+    "body": "\\sigma_{\\hat{p}} = \\sqrt{\\frac{p(1-p)}{n}}",
+    "items": [],
+    "caution": "This requires the sampled values to be independent and uses the population proportion p, not \\hat{p}.",
+    "ced_evidence": "3.2.A.1 \"when the sampled values are independent... standard deviation\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-004",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "list_sequence",
+    "title": "Conditions for the sampling distribution of \\hat{p}",
+    "body": "Conditions for using the sampling distribution of a sample proportion: randomization, 10%, and a large enough sample size.",
+    "items": [
+      {
+        "label": "Randomization",
+        "meaning": "The data should be collected using a random sample."
+      },
+      {
+        "label": "10% condition",
+        "meaning": "When sampling without replacement, the population size must be at least 10 times the sample size: n \\le 10%N."
+      },
+      {
+        "label": "Large sample size",
+        "meaning": "np \\ge 10 and n(1-p) \\ge 10, the expected numbers of successes and failures."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "3.2.B.1, 3.2.B.2 \"np \\ge 10 and n(1-p) \\ge 10\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-005",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2",
+      "3.9"
+    ],
+    "kind": "convention",
+    "title": "Interpret sampling distribution results in context",
+    "body": "The mean, standard deviation, and probabilities of a sampling distribution of a sample proportion must be interpreted in the context of a specific population.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.2.C.1 \"interpreted in the context of a specific population\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-006",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3",
+      "3.4"
+    ],
+    "kind": "vocabulary",
+    "title": "Confidence interval",
+    "body": "A confidence interval is an interval estimate for a population parameter, calculated from a sample, so it may or may not contain the parameter's value.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.A.1 \"A confidence interval is an interval estimate for a population parameter\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-007",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3",
+      "3.4"
+    ],
+    "kind": "vocabulary",
+    "title": "Critical value z*",
+    "body": "The critical value z* is such that -z* and z* bound the middle C% of the standard normal distribution, where C% is the confidence level.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.C.1 \"z denotes a critical value, such that z and -z represent the boundaries enclosing the middle C%\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-008",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3",
+      "3.4"
+    ],
+    "kind": "convention",
+    "title": "Identify the procedure and parameter for one proportion",
+    "body": "The procedure is a one-sample z-interval for a population proportion, and the parameter must name the proportion, the response variable, and the population in context.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.A.1, 3.3.A.2 \"should reference the proportion, the response variable, and the population in context\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-009",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3"
+    ],
+    "kind": "list_sequence",
+    "title": "Conditions for a one-sample z-interval for p",
+    "body": "A one-sample z-interval for a population proportion requires three conditions.",
+    "items": [
+      {
+        "label": "Randomization",
+        "meaning": "The data should be collected using a random sample."
+      },
+      {
+        "label": "10% condition",
+        "meaning": "When sampling without replacement, n \\le 10%N."
+      },
+      {
+        "label": "Normality",
+        "meaning": "The observed numbers of successes n\\hat{p} and failures n(1-\\hat{p}) are each at least 10."
+      }
+    ],
+    "caution": "The interval condition uses observed counts from \\hat{p}; the test of one proportion uses np_0 and n(1-p_0).",
+    "ced_evidence": "3.3.B.1.i-iii",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-010",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3",
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "One-sample z-interval for a population proportion",
+    "body": "\\hat{p} \\pm z^{*}\\sqrt{\\frac{\\hat{p}(1-\\hat{p})}{n}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.C.2 \"point estimate \u00b1 (margin of error)\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-011",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3",
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Standard error of a sample proportion",
+    "body": "SE_{\\hat{p}} = \\sqrt{\\frac{\\hat{p}(1-\\hat{p})}{n}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.D.1 \"standard error (SE) of a statistic is an estimate of the standard deviation of the sampling distribution\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-012",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3",
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Margin of error for a proportion",
+    "body": "MOE = z^{*}\\cdot SE_{\\hat{p}} = z^{*}\\sqrt{\\frac{\\hat{p}(1-\\hat{p})}{n}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.D.3 \"margin of error of \\hat p is half the width of the confidence interval\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-013",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.3"
+    ],
+    "kind": "formula",
+    "title": "Minimum sample size for a given margin of error",
+    "body": "n = \\left(\\frac{z^{*}}{MOE}\\right)^{2}\\hat{p}(1-\\hat{p})",
+    "items": [],
+    "caution": "If \\hat{p} is not available, use 0.5 to get the upper bound on the required sample size.",
+    "ced_evidence": "3.3.D.4 \"use p = 0.5 in order to find the upper bound for the sample size\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-014",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.3",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "vocabulary",
+    "title": "Standard error",
+    "body": "The standard error quantifies the typical amount that a statistic will vary from the value of the corresponding population parameter.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.3.D.2 \"quantifies the typical amount that a statistic will vary\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-015",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4",
+      "3.11"
+    ],
+    "kind": "convention",
+    "title": "Interpreting the confidence level",
+    "body": "In repeated random sampling with the same sample size, approximately C% of the confidence intervals calculated will capture the population proportion.",
+    "items": [],
+    "caution": "The confidence level describes the long-run capture rate of the method, not the probability that one computed interval contains the parameter.",
+    "ced_evidence": "3.4.A.2 \"approximately C% of confidence intervals calculated will capture the population proportion\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-016",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "convention",
+    "title": "Interpreting a C% confidence interval",
+    "body": "Say \"We are C% confident that the interval (a, b) contains the true value of the parameter,\" naming the parameter and population in context.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.4.A.3 \"we are C% confident that the interval (a, b) contains the true value of the parameter\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-017",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4",
+      "3.11"
+    ],
+    "kind": "convention",
+    "title": "Justify a claim from a confidence interval",
+    "body": "A confidence interval gives a range of plausible values for the parameter, and a claim is supported when the claimed value is among those values.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.4.B.1 \"provides a range of plausible values that may serve as convincing evidence\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-018",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "list_sequence",
+    "title": "Effect of increasing the confidence level (same sample)",
+    "body": "For a given sample, raising the confidence level changes three quantities, all in the same direction.",
+    "items": [
+      {
+        "label": "Critical value",
+        "meaning": "Increases."
+      },
+      {
+        "label": "Margin of error",
+        "meaning": "Increases."
+      },
+      {
+        "label": "Interval width",
+        "meaning": "Increases."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "3.4.C.1.i-iii",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-019",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "convention",
+    "title": "Sample size and interval width",
+    "body": "Increasing the sample size decreases the standard error, so the interval width tends to decrease and is approximately proportional to 1/\\sqrt{n}.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.4.C.2 \"approximately proportional to 1/\\sqrt{n}\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-020",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.5",
+    "topic_codes": [
+      "3.5",
+      "3.7",
+      "3.12"
+    ],
+    "kind": "vocabulary",
+    "title": "Null and alternative hypotheses",
+    "body": "The null hypothesis H0 is the status quo statement about a parameter, assumed correct unless there is convincing evidence otherwise; the alternative Ha is the claim for which evidence is being collected.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.5.B.1 \"null hypothesis, H0, is the statement about a parameter that is assumed to be correct\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-021",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.5",
+    "topic_codes": [
+      "3.5",
+      "3.6",
+      "3.7"
+    ],
+    "kind": "convention",
+    "title": "Hypotheses for a one-sample z-test for p",
+    "body": "H_0: p = p_0 with Ha one-sided (p < p_0 or p > p_0) or two-sided (p \\ne p_0); the test is run at the boundary of equality and the parameter is described in context.",
+    "items": [],
+    "caution": "Write hypotheses with the parameter p, not a statistic or undefined symbol, and define p with its population.",
+    "ced_evidence": "3.5.B.2, 3.5.B.3 \"H0: p = p0\"; 3.5.A.2",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-022",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.5",
+    "topic_codes": [
+      "3.5"
+    ],
+    "kind": "list_sequence",
+    "title": "Conditions for a one-sample z-test for p",
+    "body": "A one-sample z-test for a population proportion requires three conditions.",
+    "items": [
+      {
+        "label": "Randomization",
+        "meaning": "The data should be collected using a random sample."
+      },
+      {
+        "label": "10% condition",
+        "meaning": "When sampling without replacement, n \\le 10%N."
+      },
+      {
+        "label": "Normality",
+        "meaning": "The expected numbers of successes np_0 and failures n(1-p_0) are each at least 10."
+      }
+    ],
+    "caution": "The test uses the null value p_0, not \\hat{p}, in the normality condition.",
+    "ced_evidence": "3.5.C.1.i-iii",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-023",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.6",
+    "topic_codes": [
+      "3.6",
+      "3.7",
+      "3.13",
+      "3.15"
+    ],
+    "kind": "vocabulary",
+    "title": "p-value",
+    "body": "The p-value is the probability of obtaining a test statistic as extreme or more extreme (in the direction of Ha) than the one observed, given that the null hypothesis is true.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.6.A.1 \"probability of obtaining a test statistic as extreme or more extreme\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-024",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.6",
+    "topic_codes": [
+      "3.6",
+      "3.7"
+    ],
+    "kind": "list_sequence",
+    "title": "p-value by direction of the alternative (z-test)",
+    "body": "The p-value is found in the tail(s) of the null distribution indicated by Ha.",
+    "items": [
+      {
+        "label": "Ha: >",
+        "meaning": "P(z \\ge x), the probability at or above the observed test statistic."
+      },
+      {
+        "label": "Ha: <",
+        "meaning": "P(z \\le x), the probability at or below the observed test statistic."
+      },
+      {
+        "label": "Ha: \\ne",
+        "meaning": "P(z \\le -|x|) + P(z \\ge |x|), both tails."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "3.6.A.1.i-iii",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-025",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.6",
+    "topic_codes": [
+      "3.6"
+    ],
+    "kind": "convention",
+    "title": "Simulated p-value",
+    "body": "If the test statistic's distribution is simulated, the p-value is the proportion of simulated values in the null distribution as extreme or more extreme than the observed value, in the direction of Ha.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.6.A.2 \"the p-value is the proportion of values in the null distribution that are as extreme or more extreme\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-026",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.6",
+    "topic_codes": [
+      "3.6",
+      "3.13",
+      "3.15"
+    ],
+    "kind": "convention",
+    "title": "Interpreting a p-value",
+    "body": "An interpretation must state that the p-value is computed assuming the null hypothesis is true, in context.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.6.A.3 \"computed by assuming the null hypothesis is true\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-027",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.6",
+    "topic_codes": [
+      "3.6",
+      "3.7"
+    ],
+    "kind": "convention",
+    "title": "Small versus not-small p-values",
+    "body": "A small p-value means the observed statistic would be unusual if H0 were true and provides evidence for Ha; a p-value that is not small gives no convincing evidence for Ha and is not evidence that H0 is true.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.6.A.4, 3.6.A.5 \"nor do they provide evidence that the null hypothesis is true\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-028",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.7",
+    "topic_codes": [
+      "3.7"
+    ],
+    "kind": "formula",
+    "title": "Test statistic for a one-sample z-test for p",
+    "body": "z = \\frac{\\hat{p} - p_0}{\\sqrt{\\frac{p_0(1-p_0)}{n}}}",
+    "items": [],
+    "caution": "p_0 (not \\hat{p}) goes under the radical.",
+    "ced_evidence": "3.7.A.1 \"The test statistic for testing a population proportion\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-029",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.7",
+    "topic_codes": [
+      "3.7",
+      "3.8",
+      "3.13",
+      "3.15"
+    ],
+    "kind": "vocabulary",
+    "title": "Significance level",
+    "body": "The significance level \\alpha is the predetermined probability of rejecting the null hypothesis given that it is true.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.7.B.1 \"predetermined probability of rejecting the null hypothesis given that it is true\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-030",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.7",
+    "topic_codes": [
+      "3.7",
+      "3.13",
+      "3.15"
+    ],
+    "kind": "convention",
+    "title": "Decision rule comparing p-value to \\alpha",
+    "body": "If the p-value \\le \\alpha, reject H0; if the p-value > \\alpha, fail to reject H0.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.7.B.2 \"If the p-value \u2264 \u03b1, then reject the null hypothesis\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-031",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.7",
+    "topic_codes": [
+      "3.7",
+      "3.13",
+      "3.15"
+    ],
+    "kind": "convention",
+    "title": "Conclusion wording for a hypothesis test",
+    "body": "State the conclusion in context, in terms of Ha, with non-definitive language, referencing the parameter and population; never conclude H0 is true or proven.",
+    "items": [],
+    "caution": "Say \"convincing statistical evidence\" or \"not convincing evidence,\" never \"accept H0\" or \"prove.\"",
+    "ced_evidence": "3.7.B.4, 3.7.B.6 \"using non-definitive language\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-032",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.8",
+    "topic_codes": [
+      "3.8"
+    ],
+    "kind": "vocabulary",
+    "title": "Type I error",
+    "body": "A Type I error occurs when there is convincing evidence that Ha is true (small p-value) but it is not, i.e., rejecting a true H0.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.8.A.1 \"convincing statistical evidence that the alternative hypothesis is true... but it is not\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-033",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.8",
+    "topic_codes": [
+      "3.8"
+    ],
+    "kind": "vocabulary",
+    "title": "Type II error",
+    "body": "A Type II error occurs when there is not convincing evidence that Ha is true (large p-value) but it is true, i.e., failing to reject a false H0.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.8.A.2 \"not convincing statistical evidence that the alternative hypothesis is true\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-034",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.8",
+    "topic_codes": [
+      "3.8"
+    ],
+    "kind": "vocabulary",
+    "title": "Power of a test",
+    "body": "The power of a hypothesis test is the probability that it correctly rejects a false null hypothesis.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.8.A.3 \"probability that a hypothesis test will correctly reject the false null hypothesis\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-035",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.8",
+    "topic_codes": [
+      "3.8"
+    ],
+    "kind": "formula",
+    "title": "Probabilities of Type I and Type II errors",
+    "body": "P(\\text{Type I error}) = \\alpha, \\qquad P(\\text{Type II error}) = 1 - \\text{power}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.8.B.1, 3.8.B.2 \"probability of making a Type II error is 1 \u2212 power\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-036",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.8",
+    "topic_codes": [
+      "3.8"
+    ],
+    "kind": "list_sequence",
+    "title": "Factors that decrease P(Type II) and increase power",
+    "body": "Each of these increases power (others held fixed).",
+    "items": [
+      {
+        "label": "Sample size",
+        "meaning": "Sample size(s) increase."
+      },
+      {
+        "label": "Standard error",
+        "meaning": "Standard error decreases."
+      },
+      {
+        "label": "True parameter",
+        "meaning": "True parameter value is farther from the null value."
+      },
+      {
+        "label": "Significance level",
+        "meaning": "\\alpha of the test increases."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "3.8.C.1.i-iv",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-037",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.8",
+    "topic_codes": [
+      "3.8"
+    ],
+    "kind": "convention",
+    "title": "Consequences of errors guide design choices",
+    "body": "The consequences of a Type I error influence the choice of \\alpha, and the consequences of a Type II error influence how large the sample size should be.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.8.D.2, 3.8.D.3",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-038",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.9",
+    "topic_codes": [
+      "3.9",
+      "3.10"
+    ],
+    "kind": "formula",
+    "title": "Mean of the sampling distribution of \\hat{p}_1 - \\hat{p}_2",
+    "body": "\\mu_{\\hat{p}_1-\\hat{p}_2} = p_1 - p_2",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.9.A.1 \"mean, \\mu_{\\hat p_1 - \\hat p_2}\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-039",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.9",
+    "topic_codes": [
+      "3.9",
+      "3.10"
+    ],
+    "kind": "formula",
+    "title": "Standard deviation of the sampling distribution of \\hat{p}_1 - \\hat{p}_2",
+    "body": "\\sigma_{\\hat{p}_1-\\hat{p}_2} = \\sqrt{\\frac{p_1(1-p_1)}{n_1} + \\frac{p_2(1-p_2)}{n_2}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.9.A.1 \"standard deviation\" for two independent populations",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-040",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.9",
+    "topic_codes": [
+      "3.9"
+    ],
+    "kind": "list_sequence",
+    "title": "Conditions for the sampling distribution of \\hat{p}_1 - \\hat{p}_2",
+    "body": "Conditions for an approximately normal sampling distribution of a difference in sample proportions.",
+    "items": [
+      {
+        "label": "Randomization",
+        "meaning": "Two independent random samples; for an experiment, treatments randomly assigned to experimental units."
+      },
+      {
+        "label": "10% condition",
+        "meaning": "n_1 \\le 10%N_1 and n_2 \\le 10%N_2 when sampling without replacement."
+      },
+      {
+        "label": "Large samples",
+        "meaning": "n_1p_1, n_1(1-p_1), n_2p_2, n_2(1-p_2) are all at least 10."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "3.9.B.1, 3.9.B.2, 3.9.B.3",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-041",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.10",
+    "topic_codes": [
+      "3.10",
+      "3.11"
+    ],
+    "kind": "convention",
+    "title": "Identify the procedure and parameter for a difference of proportions",
+    "body": "The procedure is a two-sample z-interval for a difference between population proportions, and the parameter names the difference in proportions, the response variable, and the populations in context.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.10.A.1, 3.10.A.2",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-042",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.10",
+    "topic_codes": [
+      "3.10"
+    ],
+    "kind": "list_sequence",
+    "title": "Conditions for a two-sample z-interval for p1 \u2212 p2",
+    "body": "A two-sample z-interval for a difference between proportions requires three conditions.",
+    "items": [
+      {
+        "label": "Randomization",
+        "meaning": "Two independent random samples or a randomized experiment."
+      },
+      {
+        "label": "10% condition",
+        "meaning": "n_1 \\le 10%N_1 and n_2 \\le 10%N_2 when sampling without replacement; unnecessary for a randomized experiment."
+      },
+      {
+        "label": "Normality",
+        "meaning": "Observed successes and failures in both samples, n_1\\hat{p}_1, n_1(1-\\hat{p}_1), n_2\\hat{p}_2, n_2(1-\\hat{p}_2), are all at least 10."
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "3.10.B.1.i-iii",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-043",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.10",
+    "topic_codes": [
+      "3.10",
+      "3.11"
+    ],
+    "kind": "formula",
+    "title": "Two-sample z-interval for a difference of proportions",
+    "body": "(\\hat{p}_1 - \\hat{p}_2) \\pm z^{*}\\sqrt{\\frac{\\hat{p}_1(1-\\hat{p}_1)}{n_1} + \\frac{\\hat{p}_2(1-\\hat{p}_2)}{n_2}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.10.C.2 \"interval estimate for the difference between two population proportions\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-044",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.10",
+    "topic_codes": [
+      "3.10",
+      "3.11"
+    ],
+    "kind": "formula",
+    "title": "Standard error of \\hat{p}_1 - \\hat{p}_2",
+    "body": "SE_{\\hat{p}_1-\\hat{p}_2} = \\sqrt{\\frac{\\hat{p}_1(1-\\hat{p}_1)}{n_1} + \\frac{\\hat{p}_2(1-\\hat{p}_2)}{n_2}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.10.D.1 \"standard error (SE) for the difference between two population proportions\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-045",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.10",
+    "topic_codes": [
+      "3.10"
+    ],
+    "kind": "formula",
+    "title": "Margin of error for a difference of proportions",
+    "body": "MOE = z^{*}\\cdot SE_{\\hat{p}_1-\\hat{p}_2}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.10.D.2 \"critical value z times the standard error\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-046",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.11",
+    "topic_codes": [
+      "3.11"
+    ],
+    "kind": "convention",
+    "title": "Interpreting a confidence interval for p1 \u2212 p2",
+    "body": "Say \"We are C% confident that the interval (a, b) contains the difference between the population proportions,\" naming the parameter and both populations in context.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.11.A.3 \"we are C% confident that the interval (a, b) contains the parameter for the difference\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-047",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.11",
+    "topic_codes": [
+      "3.11"
+    ],
+    "kind": "convention",
+    "title": "Claim about a difference from an interval and 0",
+    "body": "If the interval contains 0 there is insufficient evidence of a difference between the population proportions; if it does not contain 0 there is sufficient evidence of a difference.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.11.B.1 \"if the interval contains 0, then there is insufficient evidence\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-048",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.12",
+    "topic_codes": [
+      "3.12",
+      "3.13"
+    ],
+    "kind": "convention",
+    "title": "Hypotheses for a two-sample z-test for p1 \u2212 p2",
+    "body": "H_0: p_1 = p_2 (or p_1 - p_2 = 0) with Ha p_1 > p_2, p_1 < p_2, or p_1 \\ne p_2 (equivalently, difference >, <, \\ne 0); parameters are named with populations in context.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.12.B.1 \"null hypothesis indicates no difference\"; 3.12.A.1-2",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-049",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.12",
+    "topic_codes": [
+      "3.12",
+      "3.13"
+    ],
+    "kind": "formula",
+    "title": "Combined (pooled) proportion",
+    "body": "\\hat{p}_c = \\frac{n_1\\hat{p}_1 + n_2\\hat{p}_2}{n_1 + n_2}",
+    "items": [],
+    "caution": "The pooled proportion is used for the test (assuming H0 true), not for the confidence interval.",
+    "ced_evidence": "3.12.C.1.iii \"combined (or pooled) proportion assuming that H0 is true\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-050",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.12",
+    "topic_codes": [
+      "3.12"
+    ],
+    "kind": "list_sequence",
+    "title": "Conditions for a two-sample z-test for p1 \u2212 p2",
+    "body": "A two-sample z-test for a difference between proportions requires three conditions.",
+    "items": [
+      {
+        "label": "Randomization",
+        "meaning": "Two independent random samples or a randomized experiment."
+      },
+      {
+        "label": "10% condition",
+        "meaning": "n_1 \\le 10%N_1 and n_2 \\le 10%N_2 when sampling without replacement; unnecessary for a randomized experiment."
+      },
+      {
+        "label": "Normality",
+        "meaning": "n_1\\hat{p}_c, n_1(1-\\hat{p}_c), n_2\\hat{p}_c, n_2(1-\\hat{p}_c) are all at least 10."
+      }
+    ],
+    "caution": "The test's normality condition uses the pooled \\hat{p}_c, unlike the interval's use of each \\hat{p}_i.",
+    "ced_evidence": "3.12.C.1.i-iii",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-051",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.13",
+    "topic_codes": [
+      "3.13"
+    ],
+    "kind": "formula",
+    "title": "Test statistic for a two-sample z-test for p1 \u2212 p2",
+    "body": "z = \\frac{(\\hat{p}_1 - \\hat{p}_2) - 0}{\\sqrt{\\hat{p}_c(1-\\hat{p}_c)\\left(\\frac{1}{n_1}+\\frac{1}{n_2}\\right)}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.13.A.1 \"The test statistic for the difference between two population proportions\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-052",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.14",
+    "topic_codes": [
+      "3.14",
+      "3.15"
+    ],
+    "kind": "vocabulary",
+    "title": "Chi-square statistic",
+    "body": "The chi-square statistic measures the distance between observed and expected counts relative to expected counts.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.14.A.1 \"measures the distance between observed and expected counts relative to expected counts\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-053",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.14",
+    "topic_codes": [
+      "3.14",
+      "3.15"
+    ],
+    "kind": "convention",
+    "title": "Shape of chi-square distributions",
+    "body": "Chi-square distributions take only positive values and are skewed right, with the skew less pronounced as degrees of freedom increase.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.14.A.2 \"positive values and are skewed right\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-054",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.14",
+    "topic_codes": [
+      "3.14",
+      "3.15"
+    ],
+    "kind": "convention",
+    "title": "Homogeneity versus independence",
+    "body": "Use a chi-square test for homogeneity to compare the distributions of one categorical variable across two or more populations or treatments; use a test for independence to ask whether two categorical variables are associated in a single population.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.14.B.1, 3.14.B.3",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-055",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.14",
+    "topic_codes": [
+      "3.14",
+      "3.15"
+    ],
+    "kind": "convention",
+    "title": "Hypotheses for chi-square tests",
+    "body": "Homogeneity: H0 is no difference in the distributions of the categorical variable across populations or treatments, Ha is a difference. Independence: H0 is no association (independent) between the two categorical variables in the population, Ha is an association.",
+    "items": [],
+    "caution": "Reference the variables and the population(s) in context.",
+    "ced_evidence": "3.14.C.1, 3.14.C.2; 3.14.B.2, 3.14.B.4",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-056",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.14",
+    "topic_codes": [
+      "3.14"
+    ],
+    "kind": "list_sequence",
+    "title": "Conditions for a chi-square test",
+    "body": "A chi-square test for homogeneity or independence requires three conditions.",
+    "items": [
+      {
+        "label": "Randomization",
+        "meaning": "Independence: a random sample. Homogeneity: independent random samples or a randomized experiment."
+      },
+      {
+        "label": "10% condition",
+        "meaning": "When sampling without replacement, n \\le 10%N; unnecessary for a randomized experiment."
+      },
+      {
+        "label": "Expected counts",
+        "meaning": "All expected counts should be greater than 5."
+      }
+    ],
+    "caution": "Check expected counts, not observed counts. The unit overview words the threshold as \"at least 5\", while 3.14.D.1.iii says \"greater than 5\".",
+    "ced_evidence": "3.14.D.1.i-iii \"all expected counts should be greater than 5\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-057",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.15",
+    "topic_codes": [
+      "3.15"
+    ],
+    "kind": "formula",
+    "title": "Expected count in a two-way table",
+    "body": "\\text{expected count} = \\frac{(\\text{row total})(\\text{column total})}{\\text{table total}}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.15.A.1 \"expected count = row total \u00b7 column total / total table\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-058",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.15",
+    "topic_codes": [
+      "3.15"
+    ],
+    "kind": "formula",
+    "title": "Chi-square test statistic",
+    "body": "\\chi^{2} = \\sum \\frac{(\\text{Observed} - \\text{Expected})^{2}}{\\text{Expected}}",
+    "items": [],
+    "caution": "The sum is taken over all cells of the two-way table.",
+    "ced_evidence": "3.15.B.1 \"chi-square statistic\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-059",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.15",
+    "topic_codes": [
+      "3.15"
+    ],
+    "kind": "formula",
+    "title": "Degrees of freedom for a chi-square test",
+    "body": "df = (\\text{number of rows} - 1)(\\text{number of columns} - 1)",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.15.B.1 \"degrees of freedom equal to (number of rows \u2212 1)(number of columns \u2212 1)\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-060",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.15",
+    "topic_codes": [
+      "3.15"
+    ],
+    "kind": "convention",
+    "title": "Chi-square conclusion",
+    "body": "Reject H0 if the p-value \\le \\alpha and fail to reject if the p-value > \\alpha, stating the conclusion in context in terms of Ha with non-definitive language and a reference to the population(s).",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "3.15.D.1, 3.15.D.3 \"using non-definitive language\"",
+    "hooks": [],
+    "candidate_id": "ap_statistics-u3-r1-061",
+    "subject_key": "ap_statistics",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

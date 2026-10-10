@@ -1,0 +1,528 @@
+[
+  {
+    "candidate_id": "ap_physics_2-u10-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches the relevant equation under Essential Knowledge 10.3.A.2 exactly: E = F_E / q (with vector arrows)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 10.3.A.2 states that the electric field at a point is \u201cthe ratio of the electric force exerted on a test charge at that point to the charge of the test charge\u201d and gives the vector equation E = F_E/q. Topic 10.3 is the correct owner and only listed topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED 10.3.A.2 defines the field as \"the ratio of the electric force exerted on a test charge at that point to the charge of the test charge. Relevant equation: E = F_E/q\" (the extracted page shows \"FE E= q\"). The entry's vector form \\vec{E}=\\vec{F}_E/q has the same symbols and meaning. b_topic_codes: Topic 10.1 covers electric force (F_E) but not the field. The field is first introduced in 10.3 (LO 10.3.A), so owner 10.3 is correct and 10.3 is the only topic_codes entry. c_ced_required: LO 10.3.A (\"Describe the electric field produced by a charged object or configuration of point charges\") and EK 10.3.A.2 state this relation as required content. d_caution: The CED's point-earning wording is the words-plus-equation definition in 10.3.A.2, and the entry gives the equation with its symbols. The entry does not reproduce the verbal definition, but the equation itself is the point-earning content, so no caution is needed. The test-charge conditions in 10.3.A.2.i are context, not wording the entry gets wrong."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the properties of charged conductors in electrostatic equilibrium as specified in Topic 10.3 (specifically EK 10.3.B.1, 10.3.B.1.i, and 10.3.B.1.ii)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 10.3.B.1 states that, in electrostatic equilibrium, a solid conductor\u2019s excess charge is distributed on its surface and the electric field within it is zero. 10.3.B.1.i says the field at the surface is perpendicular to the surface; 10.3.B.1.ii gives the stated point-charge model for the field outside an isolated sphere with spherically symmetric charge. All items are in CED order, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 10.3.B.1 ('While in electrostatic equilibrium, the excess charge of a solid conductor is distributed on the surface of the conductor, and the electric field within the conductor is zero'). The four items match, in CED order: surface distribution (10.3.B.1), zero field inside (10.3.B.1), perpendicular field at the surface (10.3.B.1.i), and outside-sphere field equal to a point charge at center (10.3.B.1.ii). No formula is present and none is misstated. b_topic_codes: 10.3.B.1 first appears in Topic 10.3 (LO 10.3.B, 'Describe the electric field generated by charged conductors or insulators'), and 10.3 is the only topic_codes entry, so owner_topic_code 10.3 is correct. c_ced_required: LO 10.3.B and essential knowledge 10.3.B.1, 10.3.B.1.i and 10.3.B.1.ii require students to apply these conductor field facts. d_caution: 'sits on its surface' paraphrases 'distributed on the surface' but carries the same meaning, and the items use the CED wording, so no caution is needed. The ced_evidence quotations are accurate.",
+            "hooks_note": "No hooks were supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statement 10.1.A.1.iii regarding the charges of electrons, protons, and neutrons, as well as 10.1.A.1.ii regarding the elementary charge e."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The particle charges match 10.1.A.1.iii: \u201cThe charge of an electron is \u2212e, the charge of a proton is +e, and a neutron has no electric charge.\u201d However, the body states without qualification that e \u201cis the smallest indivisible amount of charge.\u201d 10.1.A.1.ii says e \u201ccan be considered to be the smallest indivisible amount of charge.\u201d That qualification is substantive, and no caution preserves it. Topic 10.1 is the correct required topic."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The particle charges match 10.1.A.1.iii: \u201cThe charge of an electron is \u2212e, the charge of a proton is +e, and a neutron has no electric charge.\u201d Topic 10.1 also requires the elementary-charge concept. However, 10.1.A.1.ii says e \u201ccan be considered to be the smallest indivisible amount of charge\u201d; the body states this without that qualification. No caution supplies the missing qualification."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the properties of equipotential lines (isolines) and electric field vectors as explicitly detailed in Essential Knowledge 10.5.B.2.i\u2013iv of the AP Physics 2 CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 10.5.B.2.i\u2013iv defines isolines as lines of equal electric potential, states that they are perpendicular to electric field vectors, that an electric field vector points in the direction of decreasing potential, and that there is no electric-field component along an isoline. It also says an isoline map can be constructed from an electric field vector map and vice versa. Topic 10.5 is the correct owner and sole topic code. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 10.5.B.2.ii: 'An isoline map of electric potential can be constructed from an electric field vector map, and an electric field map may be constructed from an isoline map.' The four items match, in order, 10.5.B.2.i (isolines are lines of equal electric potential), 10.5.B.2.ii ('Isolines are perpendicular to electric field vectors'), 10.5.B.2.iii ('An electric field vector points in the direction of decreasing potential'), and 10.5.B.2.iv ('There is no component of an electric field along an isoline'). No symbols or formulas are involved. b_topic_codes: Isolines and equipotential maps are first required in Topic 10.5 (10.5.B.2). Topic 10.3 covers field maps but not isolines, so owner 10.5 is correct and the single topic code is correct. c_ced_required: Learning objective 10.5.B asks students to describe the relationship between electric potential and electric field, and 10.5.B.2 makes isoline and vector-map relationships required content. d_caution: 'complementary representations' is paraphrase, but the substantive statements are in CED wording and the point-earning content is the stated relationships, so no caution is needed. The null caution is correct. The entry has no hooks, so no hook evaluation applies."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the electric potential energy stored in a capacitor as required by Essential Knowledge 10.6.A.5, which states: 'The electric potential energy stored in a capacitor is described by the equation'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 10.6.A.5 states, \u201cThe electric potential energy stored in a capacitor is described by the equation.\u201d U_C = \u00bdQ\u0394V is the capacitor-energy relation. Topic 10.6.A.4 also identifies this energy as the work done to separate charge on the capacitor. Topic 10.6 is the appropriate owner and only listed topic; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED line 10.6.A.5 reads \"The electric potential energy stored in a capacitor is described by the equation\", with the equation itself rendered as an image that the text extraction does not show. The standard CED expression for this statement is U_C = \u00bdQ\u0394V, which matches the entry's symbols (U_C, Q, \u0394V). b_topic_codes: The entry belongs to topic 10.6 (Capacitors), which is where 10.6.A.4 and 10.6.A.5 appear, and it is the only topic code listed. c_ced_required: Essential knowledge 10.6.A.5 directly requires students to apply this equation for capacitor energy. d_caution: The entry uses the CED's own equation without rewording, so no caution is needed and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of EK 10.6.A.3 and EK 10.6.A.3.ii regarding the constant electric field between parallel plates and the resulting projectile-like motion of a charged particle."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 10.6 requires both ideas, but the entry omits limiting conditions. CED 10.6.A.3 specifies plates \u201cwith uniformly distributed electric charge\u201d for a field constant except near the edges. CED 10.6.A.3.ii compares the particle\u2019s motion with projectile motion \u201cin the gravitational field near Earth\u2019s surface,\u201d not Earth\u2019s gravitational field generally. No caution supplies those qualifications."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 10.6 requires both the uniform-field and constant-acceleration ideas. However, 10.6.A.3 specifies that the plates have \u201cuniformly distributed electric charge\u201d for the field to be constant except near the edges. The entry omits that condition and states the field is constant between oppositely charged parallel plates generally. Its motion statement matches 10.6.A.3.ii."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r2-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the relationship between kinetic energy change, potential energy change, and potential difference as described in EK 10.7.A.1 and 10.7.A.2. The owner topic code is correct, and the caution appropriately warns about the conditions under which this specific conservation equation applies."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 10.7 is the first topic requiring the kinetic-energy change associated with a potential difference. CED 10.7.A.2 states that movement between points with different electric potentials \u201cresults in a change in kinetic energy of the object consistent with the conservation of energy.\u201d Together with 10.7.A.1\u2019s relationship between potential difference and electric potential energy, this supports \u0394K = \u2212\u0394U_E = \u2212q\u0394V when the electric force is the only force doing work. The caution correctly states that condition and preserves the CED\u2019s conservation-of-energy framing."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED equation images are not extractable, so this is judged on the text. 10.5.A.3 defines the potential difference as the change in electric potential energy per unit charge, which gives \u0394U_E = q\u0394V. 10.7.A.1 says the change in electric PE of the object-field system 'is given by the following equation' for motion between locations with different potentials. Conservation of energy (10.7.A.2) then gives \u0394K = -\u0394U_E = -q\u0394V. The body is physically correct and its symbols match the CED. b_topic_codes: 10.7 is the unit's topic that relates \u0394U_E to a potential difference and to kinetic energy change, and it is the only topic code listed, which the entry uses. c_ced_required: 10.7.A.2 requires students to relate the kinetic energy change to conservation of energy, which is exactly \u0394K = -\u0394U_E, and 10.7.A.1 requires the \u0394U_E = q\u0394V relation. d_caution: The CED wording ('results in a change in kinetic energy of the object consistent with the conservation of energy') does not state the sign form or the 'electric force is the only force doing work' condition. The caution supplies both, and the condition is necessary for \u0394K = -\u0394U_E to hold, so the caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r2-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the electric field between the plates of a parallel-plate capacitor as required by Essential Knowledge 10.6.A.3.i. The caution correctly incorporates the boundary conditions specified in 10.6.A.3.i and the Topic 10.6 Boundary Statement regarding edge effects."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 10.6.A.3.i requires the magnitude of the electric field between charged parallel plates, with plate separation much smaller than the plate dimensions; 10.6.A.2.ii identifies \u03ba as the dielectric constant of the material between the plates. The formula is consistent with those statements. The caution correctly states the separation condition, and the topic is 10.6."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The equation image is not reproduced in the text pages, so the symbols are checked against the CED's stated relationships. 10.6.A.2.ii says capacitance is proportional to area and the constant of proportionality is the dielectric constant \u03ba times \u03b50. For a free charge Q on plates of area A, the field is E = \u03c3/(\u03ba\u03b50) = Q/(\u03ba\u03b50A), which matches the entry. The subscript in 'E_C' is not defined on these pages and cannot be verified. b_topic_codes: 10.6.A.3.i ('The magnitude of the electric field between two charged parallel plates...') is the first place this field is required, and it sits in Topic 10.6, so owner_topic_code 10.6 and topic_codes ['10.6'] are correct. c_ced_required: 10.6.A.3.i explicitly requires students to describe the magnitude of the field between parallel plates with an equation, so this is required content. d_caution: The CED conditions the equation on 'plate separation is much smaller than the dimensions of the plates', and the Topic 10.6 boundary statement says edge effects are ignored unless stated otherwise. The entry's caution states both conditions, so it is present and needed.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u10-r2-009",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the change in electric potential energy of a charge moving through a potential difference, which is explicitly referenced as a relevant equation under Essential Knowledge 10.7.A.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula follows from 10.5.A.3, which defines electric potential difference as the change in electric potential energy per unit charge, and is applied in 10.7.A.1. But 10.5.A.3 first requires this relationship, so the owner should be 10.5 and topic_codes should include both 10.5 and 10.7. The title says potential energy 'of a charge,' whereas 10.7.A.1 calls it the energy of the 'object-field system'; a caution is needed to preserve that distinction."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is correct and is required by 10.7.A.1. However, 10.5.A.3 first requires the same relationship: \u201cThe electric potential difference between two points is the change in electric potential energy per unit charge.\u201d The owner should therefore be 10.5, with both 10.5 and 10.7 listed as topic codes. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

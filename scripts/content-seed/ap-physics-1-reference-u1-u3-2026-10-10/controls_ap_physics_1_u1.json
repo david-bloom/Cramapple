@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-phys1-u1-01-wrong-formula", "control": "wrong formula (CED 1.3.A.2 gives x = x_0 + v_x0 t + (1/2) a_x t^2; the factor of one half is dropped here)", "control_target": "entry",
+   "subject_key": "ap_physics_1", "unit_number": 1, "owner_topic_code": "1.3", "topic_codes": ["1.3"], "kind": "formula",
+   "title": "Position with constant acceleration", "body": "x = x_0 + v_{x0} t + a_x t^2", "items": [], "caution": null, "ced_evidence": "1.3.A.2: \"x = x_0 + v_x0 t + (1/2) a_x t^2\"", "hooks": []},
+
+  {"candidate_id": "ctrl-phys1-u1-02-excluded", "control": "explicitly excluded by the CED (1.3 BOUNDARY STATEMENT: AP Physics 1 does not expect students to quantitatively analyze nonuniform acceleration)", "control_target": "entry",
+   "subject_key": "ap_physics_1", "unit_number": 1, "owner_topic_code": "1.3", "topic_codes": ["1.3"], "kind": "formula",
+   "title": "Jerk: the rate of change of acceleration", "body": "j = \\frac{\\Delta a}{\\Delta t}, \\text{ used to analyze motion with nonuniform acceleration quantitatively}", "items": [], "caution": null, "ced_evidence": "1.3.A.4", "hooks": []},
+
+  {"candidate_id": "ctrl-phys1-u1-03-wrong-owner", "control": "wrong owner topic (resolving vectors into perpendicular components is topic 1.5, EK 1.5.A.1-3; 1.1 covers only scalars, vectors and one-dimensional vector sums)", "control_target": "entry",
+   "subject_key": "ap_physics_1", "unit_number": 1, "owner_topic_code": "1.1", "topic_codes": ["1.1"], "kind": "convention",
+   "title": "Resolving a vector into perpendicular components", "body": "A vector can be modeled as the resultant of two perpendicular components, resolved using trigonometric functions in a chosen coordinate system.", "items": [], "caution": null, "ced_evidence": "1.5.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-phys1-u1-04-swapped", "control": "swapped graph relationships (CED 1.3.A.4.iii: displacement is the area under a velocity-time graph; 1.3.A.4.i: instantaneous velocity is the slope of a tangent to a position-time graph)", "control_target": "entry",
+   "subject_key": "ap_physics_1", "unit_number": 1, "owner_topic_code": "1.3", "topic_codes": ["1.3"], "kind": "list_sequence",
+   "title": "Reading kinematic graphs", "body": "What the slope and the area give on each motion graph.", "items": [{"label": "Position-time graph", "meaning": "the area under the curve gives the instantaneous velocity"}, {"label": "Velocity-time graph", "meaning": "the slope of a tangent gives the displacement"}, {"label": "Acceleration-time graph", "meaning": "the area under the curve gives the change in velocity"}], "caution": null, "ced_evidence": "1.3.A.4.i-iv", "hooks": []},
+
+  {"candidate_id": "ctrl-phys1-u1-05-bad-hook", "control": "hook expansion contradicts the CED (1.1.A.3: distance and speed are scalars while displacement and velocity are vectors). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_physics_1", "unit_number": 1, "owner_topic_code": "1.1", "topic_codes": ["1.1"], "kind": "list_sequence",
+   "title": "Scalar and vector kinematic quantities", "body": "Scalars are described by magnitude only; vectors by both magnitude and direction.", "items": [{"label": "Scalars", "meaning": "distance and speed"}, {"label": "Vectors", "meaning": "position, displacement, velocity and acceleration"}], "caution": null, "ced_evidence": "1.1.A.1 and 1.1.A.3",
+   "hooks": [{"kind": "phrase", "hook_text": "Speed has direction, velocity does not", "expands_to": [{"cue": "Speed has direction", "means": "speed is a vector quantity"}, {"cue": "velocity does not", "means": "velocity is a scalar quantity"}], "when_to_use": "when sorting kinematic quantities into scalars and vectors", "caution": "Use the CED's scalar and vector terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-phys1-u1-06-other-unit", "control": "content from another unit (Newton's second law is Unit 2 force and translational dynamics; it is not in the Unit 1 pages)", "control_target": "entry",
+   "subject_key": "ap_physics_1", "unit_number": 1, "owner_topic_code": "1.2", "topic_codes": ["1.2"], "kind": "formula",
+   "title": "Newton's second law", "body": "\\vec{a} = \\frac{\\sum \\vec{F}}{m}", "items": [], "caution": null, "ced_evidence": "1.2.B.3", "hooks": []}
+]

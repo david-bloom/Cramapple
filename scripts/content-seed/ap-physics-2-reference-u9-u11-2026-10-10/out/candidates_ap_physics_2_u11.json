@@ -1,0 +1,730 @@
+[
+  {
+    "owner_topic_code": "11.1",
+    "topic_codes": [
+      "11.1"
+    ],
+    "kind": "formula",
+    "title": "Electric current",
+    "body": "I = \\frac{\\Delta q}{\\Delta t}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.1.A.1 \"Current is the rate at which charge passes through a cross-sectional area of a wire.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-001",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.1",
+    "topic_codes": [
+      "11.1",
+      "11.2"
+    ],
+    "kind": "convention",
+    "title": "Direction of conventional current",
+    "body": "Conventional current is drawn in the direction positive charge would move, even though current in common circuits is actually due to moving electrons; schematics use conventional current unless otherwise specified.",
+    "items": [],
+    "caution": "Current is not a vector. Its direction is tied to the motion of positive charge, not to any coordinate system.",
+    "ced_evidence": "11.1.A.2.i \"The direction of conventional current is chosen to be the direction in which positive charge would move.\"; 11.2 boundary statement",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-002",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.1",
+    "topic_codes": [
+      "11.1"
+    ],
+    "kind": "convention",
+    "title": "Zero current means zero net motion of charge carriers",
+    "body": "If the current in a section of wire is zero, the net motion of charge carriers is zero, although individual charge carriers still have nonzero speed.",
+    "items": [],
+    "caution": "Do not say the charge carriers are stationary. Say the net motion is zero.",
+    "ced_evidence": "11.1.A.1.ii \"the net motion of charge carriers in the wire is also zero, although individual charge carriers will not have zero speed\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-003",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.1",
+    "topic_codes": [
+      "11.1",
+      "11.5"
+    ],
+    "kind": "vocabulary",
+    "title": "Electromotive force (emf)",
+    "body": "Emf (\\mathcal{E}) is the electric potential difference that drives charge to move in a circuit; for a battery it is the potential difference the battery would supply if it were ideal, measured across its terminals when there is no current in the battery.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.1.A.1.i \"electromotive force, or emf\"; 11.5.B.1.iii",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-004",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.2",
+    "topic_codes": [
+      "11.2"
+    ],
+    "kind": "vocabulary",
+    "title": "Closed circuit",
+    "body": "A closed circuit is one in which charges would be able to flow.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.2.A.2.i \"A closed circuit is one in which charges would be able to flow.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-005",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.2",
+    "topic_codes": [
+      "11.2"
+    ],
+    "kind": "vocabulary",
+    "title": "Open circuit",
+    "body": "An open circuit is one in which charges would not be able to flow.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.2.A.2.ii \"An open circuit is one in which charges would not be able to flow.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-006",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.2",
+    "topic_codes": [
+      "11.2"
+    ],
+    "kind": "vocabulary",
+    "title": "Short circuit",
+    "body": "A short circuit is one in which charges would be able to flow with no change in potential difference.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.2.A.2.iii \"charges would be able to flow with no change in potential difference\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-007",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.2",
+    "topic_codes": [
+      "11.2",
+      "11.5"
+    ],
+    "kind": "diagram",
+    "title": "Circuit schematic symbols",
+    "body": "Standard symbols used to draw circuit schematics; a variable element has a diagonal strikethrough arrow across its standard symbol.",
+    "items": [
+      {
+        "label": "Battery",
+        "meaning": "Source of potential difference (emf)"
+      },
+      {
+        "label": "Bulb",
+        "meaning": "Lightbulb"
+      },
+      {
+        "label": "Switch",
+        "meaning": "Opens or closes a path for charge"
+      },
+      {
+        "label": "Capacitor",
+        "meaning": "Capacitor"
+      },
+      {
+        "label": "Resistor",
+        "meaning": "Resistor"
+      },
+      {
+        "label": "Ammeter (A)",
+        "meaning": "Measures current"
+      },
+      {
+        "label": "Voltmeter (V)",
+        "meaning": "Measures potential difference"
+      },
+      {
+        "label": "Variable element",
+        "meaning": "Standard symbol with a diagonal strikethrough arrow"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "11.2.A.4.ii \"Circuit elements have common symbols that are used to create schematic diagrams.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-008",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.3",
+    "topic_codes": [
+      "11.3"
+    ],
+    "kind": "vocabulary",
+    "title": "Resistance",
+    "body": "Resistance is a measure of the degree to which an object opposes the movement of electric charge.",
+    "items": [],
+    "caution": "Resistance belongs to an object. Resistivity belongs to a material.",
+    "ced_evidence": "11.3.A.1 \"Resistance is a measure of the degree to which an object opposes the movement of electric charge.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-009",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.3",
+    "topic_codes": [
+      "11.3"
+    ],
+    "kind": "vocabulary",
+    "title": "Resistivity",
+    "body": "Resistivity is a fundamental property of a material, depending on its atomic and molecular structure, that quantifies how strongly the material opposes the motion of electric charge; for a conductor it typically increases with temperature.",
+    "items": [],
+    "caution": "Do not confuse resistivity with resistance. Resistivity does not depend on the object's length or cross-sectional area.",
+    "ced_evidence": "11.3.A.2.i; 11.3.A.2.ii \"The resistivity of a conductor typically increases with temperature.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-010",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.3",
+    "topic_codes": [
+      "11.3"
+    ],
+    "kind": "formula",
+    "title": "Resistance of a uniform resistor",
+    "body": "R = \\frac{\\rho \\ell}{A}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.3.A.2 \"proportional to its resistivity and length and is inversely proportional to its cross-sectional area\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-011",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.3",
+    "topic_codes": [
+      "11.3"
+    ],
+    "kind": "formula",
+    "title": "Ohm's law",
+    "body": "I = \\frac{\\Delta V}{R}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.3.B.1 \"Ohm's law relates current, resistance, and potential difference across a conductive element\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-012",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.3",
+    "topic_codes": [
+      "11.3"
+    ],
+    "kind": "convention",
+    "title": "Ohmic materials and the I\u2013\u0394V graph",
+    "body": "Ohmic materials have constant resistance for all currents, and the resistance of an ohmic element is found from the slope of its graph of current versus potential difference.",
+    "items": [],
+    "caution": "On a graph of I (vertical) versus \u0394V (horizontal), the slope equals 1/R, not R.",
+    "ced_evidence": "11.3.B.1.i \"Materials that obey Ohm's law have constant resistance for all currents\"; 11.3.B.1.iv",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-013",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.3",
+    "topic_codes": [
+      "11.3",
+      "11.4"
+    ],
+    "kind": "convention",
+    "title": "Resistors convert electrical energy to thermal energy",
+    "body": "Resistors can convert electrical energy to thermal energy, which may change the temperature of the resistor and its environment.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.3.B.1.iii \"Resistors can also convert electrical energy to thermal energy\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-014",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.4",
+    "topic_codes": [
+      "11.4"
+    ],
+    "kind": "formula",
+    "title": "Electric power",
+    "body": "P = I\\,\\Delta V",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.4.A.1 \"depends on the current in the element and the electric potential difference across it\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-015",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.4",
+    "topic_codes": [
+      "11.4"
+    ],
+    "kind": "formula",
+    "title": "Power in a resistor (derived forms)",
+    "body": "P = I^{2}R = \\frac{(\\Delta V)^{2}}{R}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.4.A.1 \"Derived equations\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-016",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.4",
+    "topic_codes": [
+      "11.4"
+    ],
+    "kind": "convention",
+    "title": "Bulb brightness follows power",
+    "body": "The brightness of a bulb increases with the power it dissipates, so compare powers to predict relative brightness.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.4.A.2 \"The brightness of a bulb increases with power\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-017",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5",
+      "11.7"
+    ],
+    "kind": "vocabulary",
+    "title": "Series connection",
+    "body": "In a series connection, any charge passing through one element must proceed through all elements in that connection, with no other path available, so the current in each element is the same.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.A.1.i \"The current in each element in series must be the same.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-018",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5",
+      "11.7"
+    ],
+    "kind": "vocabulary",
+    "title": "Parallel connection",
+    "body": "In a parallel connection, charges may flow through one of two or more paths, and the potential difference is the same across each path.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.A.1.ii \"Across each path, the potential difference is the same.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-019",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5"
+    ],
+    "kind": "formula",
+    "title": "Equivalent resistance in series",
+    "body": "R_{eq} = \\sum_i R_i",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.A.2.i \"The equivalent resistance of a set of resistors in series is the sum of the individual resistances.\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-020",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5"
+    ],
+    "kind": "formula",
+    "title": "Equivalent resistance in parallel",
+    "body": "\\frac{1}{R_{eq}} = \\sum_i \\frac{1}{R_i}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.A.2.ii \"The inverse of the equivalent resistance ... is equal to the sum of the inverses\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-021",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5"
+    ],
+    "kind": "convention",
+    "title": "Adding parallel paths lowers equivalent resistance",
+    "body": "When resistors are connected in parallel, the number of paths available to charges increases and the equivalent resistance of the group decreases.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.A.2.iii",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-022",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5"
+    ],
+    "kind": "convention",
+    "title": "Ideal batteries, wires, and meters",
+    "body": "Unless otherwise stated, batteries, wires, and meters are assumed ideal. Ideal batteries have negligible internal resistance, and ideal wires have negligible resistance, which may be neglected only if the circuit contains other elements that do have resistance.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.B.1, 11.5.B.1.ii; boundary statement \"all batteries, wires, and meters are assumed to be ideal\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-023",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5"
+    ],
+    "kind": "formula",
+    "title": "Terminal potential difference of a nonideal battery",
+    "body": "\\Delta V_{terminal} = \\mathcal{E} - I r",
+    "items": [],
+    "caution": "Model internal resistance r as a resistor in series with an ideal battery. The terminal potential difference is reduced only when there is current in the battery.",
+    "ced_evidence": "11.5.B.3 \"the potential difference across the terminals of the battery is reduced\"; 11.5.B.2",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-024",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5"
+    ],
+    "kind": "convention",
+    "title": "Ammeter connection",
+    "body": "An ammeter measures current at a specific point and must be connected in series with the element being measured; an ideal ammeter has zero resistance.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.C.1.i \"Ammeters must be connected in series\"; 11.5.C.1.ii",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-025",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5"
+    ],
+    "kind": "convention",
+    "title": "Voltmeter connection",
+    "body": "A voltmeter measures potential difference between two points and must be connected in parallel with the element being measured; an ideal voltmeter has infinite resistance so no charge flows through it.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.C.2.i \"Voltmeters must be connected in parallel\"; 11.5.C.2.ii",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-026",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.5",
+    "topic_codes": [
+      "11.5"
+    ],
+    "kind": "convention",
+    "title": "Nonideal meters change the circuit (qualitative only)",
+    "body": "Nonideal ammeters and voltmeters change the properties of the circuit being measured, and AP Physics 2 expects only a qualitative discussion of how they affect measurements.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.5.C.3 \"Nonideal ammeters and voltmeters will change the properties of the circuit\"; boundary statement",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-027",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.6",
+    "topic_codes": [
+      "11.6"
+    ],
+    "kind": "formula",
+    "title": "Energy change of a charge in a potential difference",
+    "body": "\\Delta U_E = q\\,\\Delta V",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.6.A.1 \"charges moving through electric potential differences within circuit elements\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-028",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.6",
+    "topic_codes": [
+      "11.6"
+    ],
+    "kind": "formula",
+    "title": "Kirchhoff's loop rule",
+    "body": "\\sum \\Delta V = 0",
+    "items": [],
+    "caution": "State that the loop rule follows from conservation of energy, and that the sum is taken around a single closed loop.",
+    "ced_evidence": "11.6.A.3 \"the sum of potential differences across all circuit elements in a single closed loop must equal zero\"; 11.6.A.2",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-029",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.6",
+    "topic_codes": [
+      "11.6"
+    ],
+    "kind": "diagram",
+    "title": "Graph of electric potential versus position in a loop",
+    "body": "A graph showing the electric potential at points in a circuit as a function of position within a loop.",
+    "items": [
+      {
+        "label": "Horizontal axis",
+        "meaning": "Position within the loop"
+      },
+      {
+        "label": "Vertical axis",
+        "meaning": "Electric potential"
+      },
+      {
+        "label": "Changes along the graph",
+        "meaning": "Potential differences across each circuit element"
+      },
+      {
+        "label": "End of loop",
+        "meaning": "Net change in potential around the closed loop is zero"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "11.6.A.4 \"graph of electric potential as a function of position within a loop\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-030",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.7",
+    "topic_codes": [
+      "11.7"
+    ],
+    "kind": "formula",
+    "title": "Kirchhoff's junction rule",
+    "body": "\\sum I_{in} = \\sum I_{out}",
+    "items": [],
+    "caution": "State that the junction rule follows from conservation of electric charge.",
+    "ced_evidence": "11.7.A.2 \"total amount of charge entering a junction per unit time must equal the total amount of charge exiting\"; 11.7.A.1",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-031",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.8",
+    "topic_codes": [
+      "11.8"
+    ],
+    "kind": "formula",
+    "title": "Equivalent capacitance in series",
+    "body": "\\frac{1}{C_{eq}} = \\sum_i \\frac{1}{C_i}",
+    "items": [],
+    "caution": "The series equivalent capacitance is less than the capacitance of the smallest capacitor.",
+    "ced_evidence": "11.8.A.1.i; 11.8.A.1.ii \"less than the capacitance of the smallest capacitor\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-032",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.8",
+    "topic_codes": [
+      "11.8"
+    ],
+    "kind": "formula",
+    "title": "Equivalent capacitance in parallel",
+    "body": "C_{eq} = \\sum_i C_i",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.8.A.1.iii \"the sum of the individual capacitances\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-033",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.8",
+    "topic_codes": [
+      "11.8"
+    ],
+    "kind": "convention",
+    "title": "Capacitors in series carry equal charge",
+    "body": "By conservation of charge, each capacitor in series has the same magnitude of charge on each plate.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.8.A.2 \"each of the capacitors in series must have the same magnitude of charge on each plate\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-034",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.8",
+    "topic_codes": [
+      "11.8"
+    ],
+    "kind": "formula",
+    "title": "RC time constant",
+    "body": "\\tau = R_{eq} C_{eq}",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.8.B.1.i \"The time constant of an RC circuit is a measure of how quickly the capacitor will charge or discharge\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-035",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.8",
+    "topic_codes": [
+      "11.8"
+    ],
+    "kind": "convention",
+    "title": "Meaning of one time constant",
+    "body": "Charging: in one time constant the capacitor's charge rises from zero to about 63% of its final asymptotic value. Discharging: in one time constant the charge falls from fully charged to about 37% of its initial value.",
+    "items": [],
+    "caution": null,
+    "ced_evidence": "11.8.B.1.ii \"approximately 63 percent\"; 11.8.B.1.iii \"approximately 37 percent\"",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-036",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.8",
+    "topic_codes": [
+      "11.8"
+    ],
+    "kind": "list_sequence",
+    "title": "Charging capacitor: initial to final state",
+    "body": "How an initially uncharged capacitor behaves from the moment it is placed in a circuit until steady state.",
+    "items": [
+      {
+        "label": "Immediately after connection",
+        "meaning": "Uncharged capacitor acts like a wire; charge flows easily to the plates"
+      },
+      {
+        "label": "While charging",
+        "meaning": "Capacitor potential difference, plate charge, and stored energy change over time and asymptotically approach steady state; branch current also changes"
+      },
+      {
+        "label": "After a long time (t >> \u03c4)",
+        "meaning": "Fully charged, with maximum potential difference and zero current in the capacitor's branch"
+      }
+    ],
+    "caution": "Describe these states qualitatively; no mathematical model with respect to time is expected.",
+    "ced_evidence": "11.8.B.2.i; 11.8.B.2.iv \"zero current in the circuit branch\"; boundary statement",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-037",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "11.8",
+    "topic_codes": [
+      "11.8"
+    ],
+    "kind": "list_sequence",
+    "title": "Discharging capacitor: initial to final state",
+    "body": "How a charged capacitor behaves from the start of discharge until steady state.",
+    "items": [
+      {
+        "label": "Immediately after discharge begins",
+        "meaning": "Charge on the plates and stored energy begin to decrease"
+      },
+      {
+        "label": "While discharging",
+        "meaning": "Capacitor charge, potential difference, and branch current all decrease toward steady state"
+      },
+      {
+        "label": "After a long time (t >> \u03c4)",
+        "meaning": "Capacitor and its branch may be modeled with steady-state conditions"
+      }
+    ],
+    "caution": "Describe these states qualitatively; no mathematical model with respect to time is expected.",
+    "ced_evidence": "11.8.B.2.v; 11.8.B.2.vi; 11.8.B.2.vii",
+    "hooks": [],
+    "candidate_id": "ap_physics_2-u11-r1-038",
+    "subject_key": "ap_physics_2",
+    "unit_number": 11,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

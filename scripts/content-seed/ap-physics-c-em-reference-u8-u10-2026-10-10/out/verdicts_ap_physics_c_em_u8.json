@@ -1,0 +1,2567 @@
+[
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definitions of elementary charge and the charges of electrons, protons, and neutrons as explicitly detailed in Essential Knowledge statements 8.1.A.1.ii and 8.1.A.1.iii."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 8.1 is correct, and 8.1.A.1.ii\u2013iii requires the particle charges stated. But the body removes a substantive qualification: the CED says the elementary charge \u201ccan be considered to be the smallest indivisible amount of charge,\u201d not that it unconditionally is. No caution preserves that qualification."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 8.1.A.1.ii says the elementary charge \u201ccan be considered to be the smallest indivisible amount of charge.\u201d The entry omits that qualification and states it as an absolute fact. Its particle charges match 8.1.A.1.iii, and Topic 8.1 is the correct topic. Because the qualification matters, the unqualified wording needs correction; the null caution does not address it."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Coulomb's law as described in Essential Knowledge 8.1.A.2, which states that the electrostatic force is directly proportional to the product of the charges and inversely proportional to the square of the distance between them, and references a 'Relevant equation'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.1.A.2 states that Coulomb\u2019s law gives an electrostatic force \u201cdirectly proportional to the magnitude of each of the charges and inversely proportional to the square of the distance between the objects.\u201d The magnitude formula expresses that relationship, and 8.1.A.2 identifies it as a relevant equation. Topic 8.1 is the appropriate code; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 8.1.A.2 states that the electrostatic force is directly proportional to the magnitude of each charge and inversely proportional to the square of the separation, and gives a 'Relevant equation' that does not survive text extraction. The body, |F| = (1/4\u03c0\u03b50)|q1q2|/r\u00b2 = k|q1q2|/r\u00b2, matches that proportionality with the absolute values giving the magnitude. The symbols are standard, so the formula is correct as stated, though the CED's own equation image could not be checked directly. b_topic_codes: Coulomb's law first appears in this unit under Topic 8.1 (8.1.A.2), which is the owner and only topic code. c_ced_required: LO 8.1.A requires students to describe the electric force between charged objects, and 8.1.A.2 is the essential knowledge that states the law and its relevant equation. d_caution: the entry is a formula whose point-earning content is the equation itself, and the CED's wording (proportionality statement) is supplied by the evidence field rather than the entry's wording, so no caution is needed and null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the direction of electrostatic forces as described in EK 8.1.A.3, 8.1.A.3.i, and 8.1.A.3.ii of the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.1.A.3 says the force is \u201calong the line of separation between the objects\u201d and depends on the signs of their charges. 8.1.A.3.i\u2013ii specify that same-sign charges repel and opposite-sign charges attract. Topic 8.1 is the correct owner and only listed topic. \u201cLike signs\u201d is equivalent to \u201ccharges of the same sign\u201d; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 8.1.A.3 states that the force direction 'depends on the signs of the charges of the interacting objects and is along the line of separation between the objects.' 8.1.A.3.i says same-sign charges 'exert repulsive forces' and 8.1.A.3.ii says opposite-sign charges 'exert attractive forces.' The body matches this, and 'like signs repel, opposite signs attract' is a faithful plain-language restatement. b_topic_codes: 8.1 is the only topic listed, and 8.1.A.3 sits in Topic 8.1, so the owner code is correct. c_ced_required: LO 8.1.A ('Describe the electric force that results from the interactions between charged objects or systems') and its essential knowledge 8.1.A.3 require students to apply this direction convention. d_caution: the CED says 'repulsive' and 'attractive' and 'same sign'/'opposite signs'; the entry uses 'repel'/'attract' and 'like signs'. This is a paraphrase of the same convention, not a different claim, so no caution is needed and the null caution is acceptable.",
+            "hooks_note": "No hooks were supplied, so none were evaluated."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 8.1.A.1.i ('Charge is a scalar quantity and is described as positive or negative.') and is correctly mapped to Topic 8.1 and Topic 8.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 8.1.A.1.i: \u201cCharge is a scalar quantity and is described as positive or negative.\u201d Topic 8.1 first requires this concept; Topic 8.2 uses charge in its treatment of net charge and charge transfer (8.2.A.2). No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 8.1.A.1.i verbatim: \"Charge is a scalar quantity and is described as positive or negative.\" No formula or list is involved. b_topic_codes: owner 8.1 is correct, since 8.1.A.1.i is the first place the scalar nature of charge appears. The added topic 8.2 is not supported by these pages. Topic 8.2 (8.2.A.1 to 8.2.A.3) covers charge redistribution, induced separation, transfer, and grounding, and never mentions charge being a scalar. The entry's topic_codes must list only topics that use this content, so 8.2 must be removed or justified against the CED. c_ced_required: 8.1.A.1.i is an essential-knowledge statement a student must know, so this passes. d_caution: The entry wording is the CED wording, so no caution is needed and the null caution is correct."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: Body matches 8.1.A.1.i, \"Charge is a scalar quantity and is described as positive or negative.\" The only dropped words are \"and is\", so the meaning is unchanged. b_topic_codes: owner 8.1 is correct, since 8.1.A.1.i is the first place the scalar nature of charge is required. The topic_codes entry 8.2 fails the test. Topic 8.2 covers conservation of charge, net charge changing through transfer, and charging. Its statements do not say charge is a scalar or restate the sign description. The entry is therefore not something 8.2 uses. c_ced_required: 8.1.A.1.i is an essential-knowledge statement that students must know. d_caution: The wording is essentially the CED wording, so no caution is needed and the null caution is correct. accept is false only because of the 8.2 topic code."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'point charge' is taken verbatim from Essential Knowledge 8.1.A.1.iv. The topic codes are correct as the term is introduced in Topic 8.1 and applied to electric fields of point charges in Topic 8.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body reproduces 8.1.A.1.iv: \u201cA point charge is a model in which the physical size of a charged object or system is negligible in the context of the situation being analyzed.\u201d Topic 8.1 first requires the definition; Topic 8.3 uses point charges in learning objective 8.3.A and in its definition of a test charge. The wording matches the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.1.A.1.iv verbatim: \"A point charge is a model in which the physical size of a charged object or system is negligible in the context of the situation being analyzed.\" No formula or list is involved. b_topic_codes: 8.1 is the first topic that requires the term (8.1.A.1.iv), so it is the correct owner. Topic 8.3 also uses it in LO 8.3.A (\"configuration of point charges\"), so both listed codes are unit 8 topics that use it. c_ced_required: 8.1.A.1.iv is an essential-knowledge statement under LO 8.1.A (\"Describe the electric force that results from the interactions between charged objects or systems\"), and the boundary statement relies on the point-charge model. d_caution: the entry wording is the CED wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge statements 8.1.B.1, 8.1.B.2, and 8.1.B.3 regarding the comparison between electrostatic and gravitational forces."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.1 requires this comparison in 8.1.B. CED 8.1.B.1 states that electrostatic forces can be attractive or repulsive while gravitational forces are always attractive; 8.1.B.2 says gravitational force between objects with mass and charge is usually much smaller; and 8.1.B.3 says gravity dominates at larger scales because such systems tend to be electrically neutral. The entry accurately paraphrases all three, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. Essential knowledge 8.1.B.1 says \"Electrostatic forces can be attractive or repulsive, while gravitational forces are always attractive.\" 8.1.B.2 says the gravitational force \"is usually much smaller than the magnitude of the electrostatic force.\" 8.1.B.3 says gravity dominates at larger scales \"because systems at large scales tend to be electrically neutral.\" Nothing is misstated. b_topic_codes: 8.1.B (describing electric and gravitational forces between charged objects with mass) is a Topic 8.1 learning objective, so owner_topic_code 8.1 and topic_codes [8.1] are correct. c_ced_required: 8.1.B.1\u20138.1.B.3 are essential knowledge statements that students must apply to describe these forces. d_caution: The entry wording is a close paraphrase of the CED sentences, with no change in meaning, so no caution is needed. The entry's own claims need no caveat."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the Boundary Statement in Topic 8.1 on page 29 of the CED, which limits calculations of electric force to four or fewer interacting charged objects or systems, except in situations of high symmetry."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Topic 8.1 boundary states that calculations of electric force involve \u201cfour or fewer interacting charged objects or systems\u201d and that analysis with more charges is allowed \u201cin situations of high symmetry.\u201d The entry accurately summarizes that scope limit and is assigned to the correct topic. However, the boundary limits what students may be asked to calculate; no learning objective or essential-knowledge statement requires students to reproduce or apply the limit itself. No caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The limit belongs to Topic 8.1, but the body conflates two different permissions. The boundary says the course \u201conly expects students to make calculations of the electric force between four or fewer interacting charged objects or systems\u201d; for more charges, it allows \u201canalysis of the resulting electric force\u201d in situations of high symmetry. It does not say calculations involving more charges are expected. The numerical limit appears in a boundary statement, not in a learning objective or essential-knowledge statement requiring students to reproduce or apply the limit. No caution preserves the calculation-versus-analysis distinction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines conductors and insulators based on Essential Knowledge 8.1.C.4.ii. The topic codes are correct as conductors and insulators are introduced in Topic 8.1 and their electric fields are analyzed in Topic 8.3 (8.3.B.1 and 8.3.B.2)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition matches 8.1.C.4.ii: conductors have charge carriers that \u201cmove easily,\u201d while insulators have charge carriers that \u201ccannot move easily.\u201d Topic 8.1 first requires the distinction; 8.3.B applies it to electric fields in charged conductors and insulators. The wording does not change the CED meaning, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.1.C.4.ii reads 'Conductors are made from electrically conducting materials in which charge carriers move easily; insulators are made from electrically nonconducting materials in which charge carriers cannot move easily.' The entry says the same thing with 'made of' for 'made from' and drops 'electrically' before 'nonconducting'. Neither change alters meaning, and the key phrase 'charge carriers move easily' / 'cannot move easily' is verbatim. b_topic_codes: 8.1.C.4.ii is first required in Topic 8.1 (owner 8.1 is correct). Topic 8.3 also uses the distinction in 8.3.B.1 (conductors: excess charge on surface, field zero inside) and 8.3.B.2 (insulators: excess charge throughout interior, field may be nonzero), so 8.3 is a valid secondary code. c_ced_required: 8.1.C.4.ii is an essential-knowledge statement on the CED pages, and it underlies the 8.1.C and 8.3.B content. d_caution: the wording is a close paraphrase of the CED, with the substance identical and the CED's key phrases preserved, so no caution is strictly needed. If the grader requires verbatim wording for the point, a caution would be needed; that is the only borderline item.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines electric permittivity and its free space constant value in accordance with Essential Knowledge statements 8.1.C.1 and 8.1.C.3. The topic codes are appropriate as permittivity is introduced in 8.1 and used in the equations of 8.4 and 8.6."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "8.1.C.1 defines permittivity as a measure of the degree to which a material or medium is polarized in an electric field; 8.1.C.3 states that free space has a constant value of permittivity. Topic 8.1 first requires the concept. The electric-field expressions in 8.4 and Gauss\u2019s law in 8.6 also use free-space permittivity. The entry closely follows the CED wording, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 8.1.C.1 ('Electric permittivity is a measurement of the degree to which a material or medium is polarized in the presence of an electric field') and 8.1.C.3 ('Free space has a constant value of electric permittivity, \u03b50'). Nothing is misstated. b_topic_codes: owner 8.1 is correct, since 8.1.C is where permittivity is first required. Topic 8.6 is plausible because Gauss's law is conventionally written with \u03b50, but the 8.6 pages only say 'Relevant equations:' and the equation is not shown, so the use is not evidenced in these pages. Topic 8.4 is not supported: its learning objective and essential knowledge (8.4.A.1 integration and superposition, 8.4.A.2 symmetry) never mention permittivity, and the pages show no permittivity-bearing equation there. Remove 8.4 at minimum. c_ced_required: 8.1.C.1 and 8.1.C.3 under LO 8.1.C ('Describe the electric permittivity of a material or medium') require this content. d_caution: the wording is close to the CED wording, and no alternate phrasing needs a caution, so none is required. accept is false because b_topic_codes fails on 8.4 (and is unevidenced for 8.6).",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: 8.1.C.1 states 'Electric permittivity is a measurement of the degree to which a material or medium is polarized in the presence of an electric field,' and 8.1.C.3 states 'Free space has a constant value of electric permittivity, \u03b50.' The body matches both. b_topic_codes: owner 8.1 is correct, since 8.1.C is the first place the CED requires permittivity. However, topic 8.4 (Electric Fields of Charge Distributions) has no permittivity statement in its essential knowledge (8.4.A.1 covers integration and superposition, 8.4.A.2 covers symmetry), and the entry's own ced_evidence cites nothing from 8.4. Topic 8.6 has a Gauss's law relevant equation that is not legible in the extracted pages, and its essential knowledge (8.6.A.1\u20138.6.A.6) never names permittivity. Neither 8.4 nor 8.6 is shown on these pages as using the concept, so the topic_codes list is unsupported. c_ced_required: learning objective 8.1.C ('Describe the electric permittivity of a material or medium') with 8.1.C.1 and 8.1.C.3 requires this. d_caution: the body is close to the CED wording, so no caution is needed and the entry is correctly uncautioned."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of electric polarization is highly accurate and directly matches the wording in EK 8.1.C.2 ('induced rearrangement of electrons by an external electric field, resulting in a separation of positive and negative charges within a material or medium'). The topic codes are correct as Topic 8.1 introduces the concept and Topic 8.2 applies it to the process of charging and induced charge separation (EK 8.2.A.1.ii)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.1.C.2 defines electric polarization as the \u201cinduced rearrangement of electrons by an external electric field, resulting in a separation of positive and negative charges within a material or medium.\u201d Topic 8.1 introduces it, and 8.2.A.1.ii also uses polarization to describe induced charge separation. The entry preserves the definition, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches the substance of 8.1.C.2 (\"induced rearrangement of electrons by an external electric field\" resulting in \"a separation of positive and negative charges within a material or medium\"). It drops the CED's model qualifier, which reads \"Electric polarization can be modeled as...\", so the body states a modeling statement as a flat definition. The science is not wrong, so a_factual is true. b_topic_codes: 8.1.C.2 sits in Topic 8.1, so owner 8.1 is correct. 8.2.A.1.ii (\"resulting in the polarization of one or both systems\") uses the concept in Topic 8.2, so topic_codes [8.1, 8.2] is correct. c_ced_required: 8.1.C.2 is an essential-knowledge statement under LO 8.1.C (\"Describe the electric permittivity of a material or medium\"), so it is required. d_caution: false. The CED's point-earning wording is \"Electric polarization can be modeled as the induced rearrangement...\", and the entry's wording (\"Polarization is the induced rearrangement...\") is not that wording. The entry needs a caution noting the model framing and the term \"electric polarization\", but caution is null. Reject until a caution is added or the body is reworded to match the CED's modeling phrasing."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches the substance of 8.1.C.2 (\"induced rearrangement of electrons by an external electric field, resulting in a separation of positive and negative charges within a material or medium\"). It is a faithful paraphrase, with no wrong symbols, list members, or definitions. b_topic_codes: owner 8.1 is correct because 8.1.C.2 first appears in Topic 8.1. Topic 8.2 is also valid because 8.2.A.1.ii states \"induced charge separation ... resulting in the polarization of one or both systems.\" c_ced_required: 8.1.C.2 is required course content in the learning objective 8.1.C (\"Describe the electric permittivity of a material or medium\"). d_caution: The CED frames polarization as a model (\"Electric polarization can be modeled as the induced rearrangement...\"). The body drops the \"can be modeled as\" qualifier and states it as a flat definition (\"Polarization is ...\"). The wording that earns the point is the modeling framing, so a caution is required. caution is null, so this fails."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-012",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'Induced charge separation' using the exact concepts and phrasing from Essential Knowledge statements 8.2.A.1.ii and 8.2.A.1.iii in the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.2, EK 8.2.A.1.ii states that induced charge separation occurs when the electrostatic force between two systems alters charge distribution, resulting in polarization of one or both systems. EK 8.2.A.1.iii adds: \u201cInduced charge separation can occur in neutral systems.\u201d The entry accurately combines these required statements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.2.A.1.ii reads \"Induced charge separation occurs when the electrostatic force between two systems alters the distribution of charges within the systems, resulting in the polarization of one or both systems.\" CED 8.2.A.1.iii reads \"Induced charge separation can occur in neutral systems.\" The body matches both statements in meaning and content. b_topic_codes: the term first appears in Topic 8.2 (8.2.A.1.ii-iii), so owner 8.2 is correct and it is the only topic code needed. Topic 8.1.C.2 covers polarization generally but does not name induced charge separation, so it does not make 8.1 the owner. c_ced_required: 8.2.A.1.ii-iii state the concept as essential knowledge under LO 8.2.A, so students must know and apply it. d_caution: the body is a close paraphrase (\"polarizing one or both\" for \"resulting in the polarization of one or both systems\"; \"within them\" for \"within the systems\"). The point-earning content (force between systems alters charge distribution, polarization of one or both, can occur in neutral systems) is fully preserved, so no caution is needed. hooks: none supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-011",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statements 8.2.A.2, 8.2.A.2.i, and 8.2.A.2.ii regarding the conservation of charge and the transfer of electrons."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.2 states that \u201cAny change to a system\u2019s net charge is due to a transfer of charge between the system and its surroundings\u201d (8.2.A.2), that charging \u201ctypically involves the transfer of electrons\u201d (8.2.A.2.i), and that net charge \u201cwill be constant unless there is a transfer of charge\u201d (8.2.A.2.ii). The entry accurately combines these required statements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches the CED. 8.2.A.2 states that any change to a system's net charge is due to a transfer of charge between the system and its surroundings, and 8.2.A.2.ii states that net charge stays constant unless charge is transferred to or from the system. The parenthetical '(typically electrons)' is consistent with 8.2.A.2.i, which says charging 'typically involves the transfer of electrons to and from the system.' b_topic_codes: owner 8.2 is correct. Topic 8.1 covers charge as a property and Coulomb's law, not conservation, and 8.2.A.2 sits in Topic 8.2. c_ced_required: 8.2.A.2 and 8.2.A.2.ii require students to apply this principle. d_caution: the body paraphrases the CED rather than using its point-earning wording. The CED's general statement is 'a transfer of charge between the system and its surroundings,' with no electron qualifier. The electron qualifier comes from 8.2.A.2.i, which applies to charging specifically. Folding it into the general conservation statement without a caution blurs the two statements, and caution is null. A caution is needed, so d_caution fails and the entry is rejected until one is added or the wording is aligned to the CED."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.2.A.2: \"Any change to a system's net charge is due to a transfer of charge between the system and its surroundings.\" The parenthetical \"(typically electrons)\" matches 8.2.A.2.i (\"The charging of a system typically involves the transfer of electrons to and from the system\"). The closing clause \"otherwise the net charge stays constant\" matches 8.2.A.2.ii (\"The net charge of a system will be constant unless there is a transfer of charge to or from the system\"). b_topic_codes: Topic 8.2 (Conservation of Electric Charge and the Process of Charging) is where conservation of charge is first required in Unit 8, and 8.2.A.2 is the objective that uses it. c_ced_required: Learning objective 8.2.A (\"Describe the behavior of a system using conservation of charge\") and essential knowledge 8.2.A.2/8.2.A.2.ii require this. d_caution: The body paraphrases the CED rather than quoting it verbatim, but the paraphrase keeps the point-earning content (change in net charge requires transfer with surroundings; otherwise constant). No caution is needed, so true is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'Grounding' based on Essential Knowledge 8.2.A.3, which states: 'Grounding involves electrically connecting a charged object to a much larger and approximately neutral system (e.g., Earth).'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.2, essential knowledge 8.2.A.3 states: \u201cGrounding involves electrically connecting a charged object to a much larger and approximately neutral system (e.g., Earth).\u201d The entry accurately reproduces this definition. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 8.2.A.3, \"Grounding involves electrically connecting a charged object to a much larger and approximately neutral system (e.g., Earth).\" The entry uses \"is\" instead of \"involves\" and \"such as Earth\" instead of \"(e.g., Earth)\", but the substance is identical and there is no formula or list to get wrong. b_topic_codes: Grounding first appears in Topic 8.2 (8.2.A.3), and 8.2 is the only topic code listed, which is correct. c_ced_required: 8.2.A.3 is an essential-knowledge statement under learning objective 8.2.A (\"Describe the behavior of a system using conservation of charge\"), so a student is required to know this. d_caution: The wording is a close paraphrase of the CED, and the point-earning content (connecting a charged object to a much larger, approximately neutral system such as Earth) is preserved. No caution is needed. Minor note: the entry presents the CED's 'involves' description as a strict definition ('is'), which is acceptable for a vocabulary entry."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-014",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition and formula for the electric field as explicitly stated in Essential Knowledge 8.3.A.2 of the AP Physics C: Electricity and Magnetism CED ('The electric field at a given point is the ratio of the electric force exerted on a test charge... Relevant equation: \\vec E = \\vec F_E / q')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.3, essential knowledge 8.3.A.2 states that the electric field at a point is the ratio of the electric force exerted on a test charge to the charge of that test charge, and gives the vector equation E\u20d7 = F\u20d7_E/q. The entry uses that equation and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.3.A.2 gives the relevant equation for the electric field as the force on a test charge divided by the test charge, E = F_E/q, with E and F_E as vectors. The body matches this, with symbols and structure correct. b_topic_codes: 8.3 is the topic where the electric field definition is first required (8.3.A.2), and it is the only listed topic code, so it is correct. c_ced_required: Learning Objective 8.3.A ('Describe the electric field produced by a charged object or configuration of point charges') is supported by Essential Knowledge 8.3.A.2, which states the ratio definition and its relevant equation. This is required course content in Unit 8. d_caution: the entry's wording matches the CED's own wording and equation (ced_evidence quotes 8.3.A.2 directly), so no caution is needed to earn the point. The test-charge conditions (8.3.A.2.i) and force direction (8.3.A.2.iii) are separate statements that this formula entry does not claim, so omitting a caution for them is acceptable."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-016",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the direction conventions of electric fields and forces as specified in Essential Knowledge 8.3.A.2.ii and 8.3.A.2.iii."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.3 first requires this convention. CED 8.3.A.2.ii states that an electric field points away from isolated positive charges and toward isolated negative charges; 8.3.A.2.iii states that the electric force on a positive test charge is in the same direction as the field. The entry preserves both directions, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.3.A.2.ii states that an electric field 'points away from isolated positive charges and toward isolated negative charges,' and 8.3.A.2.iii states that 'the electric force exerted on a positive test charge by an electric field is in the same direction as the electric field.' The body matches both statements, including the 'isolated' qualifier. b_topic_codes: this direction convention is first introduced under Topic 8.3 (Electric Fields), which is the owner, and 8.3 is the only listed code, so the mapping is correct. c_ced_required: 8.3.A.2.ii and 8.3.A.2.iii are essential-knowledge statements under LO 8.3.A, which require students to know and apply this sign/direction convention. d_caution: the body is a close paraphrase ('is in the direction of the field' for 'same direction as the electric field'). The meaning is identical and an answer stating the CED direction convention earns the point, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-015",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a test charge is highly accurate and directly supported by Essential Knowledge 8.3.A.2.i: 'A test charge is a point charge of small enough magnitude such that its presence does not significantly affect an electric field in its vicinity.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Essential Knowledge 8.3.A.2.i: \u201cA test charge is a point charge of small enough magnitude such that its presence does not significantly affect an electric field in its vicinity.\u201d Topic 8.3 is the correct owner and sole topic code. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.3.A.2.i: \"A test charge is a point charge of small enough magnitude such that its presence does not significantly affect [the] electric field in its vicinity.\" The entry's paraphrase is substantively identical. b_topic_codes: 8.3.A.2.i is the first place the term appears, under LO 8.3.A, so owner_topic_code 8.3 is correct and the only topic code is 8.3. c_ced_required: 8.3.A.2.i is an essential-knowledge statement that students must know, so the definition is required. d_caution: The wording is close enough to the CED phrasing that no caution is needed, so a null caution is correct. The entry has no hooks."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-017",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 8.3.A.3.i ('The net electric field at a given location is the vector sum of individual electric fields created by nearby charged objects') and is correctly mapped to Topic 8.3 and Topic 8.4 where the principle of superposition is applied to charge distributions (EK 8.4.A.1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 8.3.A.3.i: \u201cThe net electric field at a given location is the vector sum of individual electric fields created by nearby charged objects.\u201d Topic 8.3 first requires it; 8.4.A.1 also requires use of \u201cthe principle of superposition.\u201d The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.3.A.3.i: \"The net electric field at a given location is the vector sum of individual electric fields created by nearby charged objects.\" The entry's wording differs only trivially (\"at a location\", \"the individual fields\"), and the substance is identical. b_topic_codes: 8.3.A.3.i first requires superposition in Topic 8.3, so owner 8.3 is correct. Topic 8.4 also uses it: 8.4.A.1 says \"Expressions for the electric field of specified charge distributions can be found using integration and the principle of superposition,\" so listing 8.4 is valid. c_ced_required: 8.3.A.3.i is an essential-knowledge statement under LO 8.3.A (\"Describe the electric field produced by a charged object or configuration of point charges\"), so it is required content. d_caution: The entry's phrasing carries the point-earning idea (\"vector sum\" of individual fields from nearby charged objects), so no caution is needed. ced_evidence quotes the CED accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-018",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definitions and distinctions between electric field maps and electric field line diagrams as specified in Essential Knowledge statements 8.3.A.3.ii and 8.3.A.3.iii."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.3 requires both representations. CED 8.3.A.3.ii states that electric field maps use vectors to depict magnitude and direction at many locations; 8.3.A.3.iii states that field line diagrams are simplified models used to determine relative magnitude and direction at any position. The entry accurately paraphrases these statements, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body tracks CED 8.3.A.3.ii, \"Electric field maps use vectors to depict the magnitude and direction of the electric field at many locations within a given region,\" and 8.3.A.3.iii, \"Electric field line diagrams are simplified models of electric field maps and can be used to determine the relative magnitude and direction of the electric field at any position in the diagram.\" The items match these statements. The one soft point is that the CED never says arrow length encodes magnitude; the item asserts this as a convention, which is standard for vector maps but not stated in the CED. This is not enough to fail the entry. b_topic_codes: Field maps and field line diagrams are introduced in Topic 8.3 (8.3.A.3); Topic 8.4 and later topics use fields but do not introduce these representations, so owner 8.3 and topic_codes [\"8.3\"] are correct. c_ced_required: LO 8.3.A (\"Describe the electric field produced by a charged object or configuration of point charges\") is supported by 8.3.A.3.ii\u2013iii, which require students to use maps and field line diagrams to read magnitude and direction. d_caution: The entry's wording closely follows the CED, so no caution is needed. ced_evidence is a slightly trimmed quotation of 8.3.A.3.ii but accurately identifies the source. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-019",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately summarizes the properties of a conductor in electrostatic equilibrium as specified in EK 8.3.B.1 ('the excess charge of a conductor is distributed on the surface of the conductor, and the electric field within the conductor is zero') and EK 8.3.B.1.i ('At the surface of a charged conductor, the electric field is perpendicular to the surface'). The topic codes are correct, as these properties are introduced in Topic 8.3 and are heavily utilized in Topic 8.6 (Gauss's Law) applications."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.3.B.1 states that, in electrostatic equilibrium, excess charge is on a conductor\u2019s surface and the electric field within it is zero; 8.3.B.1.i states that the field at the surface of a charged conductor is perpendicular to the surface. Topic 8.6 applies Gauss\u2019s law to charge distributions, including those with spherical, cylindrical, or planar symmetry, for which these conductor properties can be used. The entry closely follows the CED wording, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 8.3.B.1 and 8.3.B.1.i. The CED says that in electrostatic equilibrium 'the excess charge of a conductor is distributed on the surface of the conductor, and the electric field within the conductor is zero,' and that 'at the surface of a charged conductor, the electric field is perpendicular to the surface.' The body's 'the field inside the conductor is zero' is an acceptable paraphrase. The body omits the 'while in electrostatic equilibrium' qualifier, but the title carries it. b_topic_codes: owner 8.3 is correct, since 8.3.B.1 is where the conductor content first appears. Topic 8.6 fails: none of the 8.6 learning objectives or essential knowledge statements (8.6.A.1 to 8.6.A.6) mention conductors or the field of a conductor. 8.6 covers Gaussian surfaces, flux, and Gauss's law applied to point, spherical, cylindrical, or planar distributions, so the 8.6 code is not supported by these pages. c_ced_required: 8.3.B.1 requires students to describe the electric field generated by conductors, so the entry is required content. d_caution: the wording differs only trivially from the CED and the meaning is the same, so no caution is needed. accept is false solely because of the unsupported 8.6 topic code."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches 8.3.B.1 and 8.3.B.1.i. The excess charge is on the surface, the field within the conductor is zero, and the surface field is perpendicular to the surface. b_topic_codes: owner 8.3 is correct, since 8.3.B.1 sits in Topic 8.3. However, topic_codes includes 8.6, and the CED 8.6 pages (8.6.A.1\u20138.6.A.6, boundary statement) do not reference conductors or conductor field behavior. 8.6 therefore does not use this content as stated in these pages. c_ced_required: 8.3.B.1 explicitly requires students to describe this conductor behavior, so this is true. d_caution: The CED conditions the statement with 'While in electrostatic equilibrium' (8.3.B.1). The entry drops that qualifier and carries no caution. Without the condition, the claim that the field inside is zero and the excess charge sits on the surface is not true for a conductor that is not in equilibrium. The wording needs either the qualifier or a caution."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-022",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the integration formula for the electric field of a charge distribution as specified in Topic 8.4 (Essential Knowledge 8.4.A.1: 'Expressions for the electric field of specified charge distributions can be found using integration and the principle of superposition. Relevant equation: ...')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula gives the vector electric field by integrating contributions from charge elements, consistent with 8.4.A.1: \u201cExpressions for the electric field of specified charge distributions can be found using integration and the principle of superposition.\u201d Topic 8.4 is where this integration is required. No caution is needed for the formula as stated; applications remain subject to the topic\u2019s boundary statement on specified distributions and locations."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body \\vec E=\\frac{1}{4\\pi\\epsilon_0}\\int\\frac{dq}{r^2}\\,\\hat r is the standard superposition integral for a continuous charge distribution, with the symbols and vector form correct. The CED's 8.4.A.1 'Relevant equation' is an image that does not survive in the extracted text, so the exact typesetting cannot be checked against the page, but the physics matches the stated method. b_topic_codes: 8.4 is the topic where 8.4.A.1 ('Expressions for the electric field of specified charge distributions can be found using integration and the principle of superposition') first appears in Unit 8, and it is the only code listed. c_ced_required: 8.4.A.1 explicitly requires students to find electric field expressions for charge distributions by integration and superposition, which this formula encodes. d_caution: The entry's wording ('Electric field of a charge distribution by integration') closely tracks the CED phrasing, and the formula is the earning content itself, so no caution is needed. Hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-021",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 8.3.B.1.ii, which states that the electric field outside an isolated sphere with a spherically symmetric charge distribution is the same as that of a point charge with the same net charge located at the center of the sphere."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body accurately restates 8.3.B.1.ii: the field outside an isolated sphere with a spherically symmetric charge distribution is \u201cthe same as the electric field due to a point charge with the same net charge as the sphere located at the center of the sphere.\u201d Topic 8.3 states the result first; Topic 8.6 uses spherical symmetry in applying Gauss\u2019s law. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 8.3.B.1.ii: the field outside an isolated sphere with spherically symmetric charge distribution equals the field of a point charge with the same net charge at the sphere's center. Symbols, definitions and the 'isolated' condition are all correct. b_topic_codes: owner 8.3 is correct, since 8.3.B.1.ii is the only CED statement of this result. The second code, 8.6, fails: no 8.6 learning objective or essential knowledge statement (8.6.A.1\u20138.6.A.6) states or uses this result. The 8.6 boundary statement only says Gauss's law is applied quantitatively to spherical, cylindrical or planar symmetry. The 8.6 code should be removed or justified by a CED line. c_ced_required: true, because 8.3.B.1.ii is an essential-knowledge statement that students must apply. d_caution: true. The entry paraphrases 'spherically symmetric charge distribution' as 'spherically symmetric charge' and 'is the same as the electric field due to a point charge' as 'equals that of a point charge', but the point-earning content (isolated, outside, same net charge, at center) is intact, so no caution is required."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 8.3.B.1.ii: \"The electric field outside an isolated sphere with spherically symmetric charge distribution is the same as the electric field due to a point charge with the same net charge as the sphere located at the center of the sphere.\" The 'outside' scope is preserved. b_topic_codes: owner 8.3 is correct, since 8.3.B.1.ii is the first place this statement is required. However, topic 8.6 does not state or require this point-charge equivalence. Its pages (8.6.A.1-8.6.A.6 and the boundary statement) only mention applying Gauss's law to spherical, cylindrical, or planar symmetry. Listing 8.6 as a topic that uses this specific statement is not supported by the CED pages. c_ced_required: 8.3.B.1.ii is an essential-knowledge statement in these pages, so it is required. d_caution: The paraphrase ('charge' for 'charge distribution', 'the field equals' for 'is the same as') keeps the point-earning meaning, including the 'outside' condition and the center location, so no caution is needed. Recommend removing 8.6 from topic_codes or justifying it with a CED line that actually uses this equivalence."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-020",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 8.3.B.2 regarding the distribution of excess charge and the electric field inside an insulator in electrostatic equilibrium. The topic codes are correct as Topic 8.3 introduces this concept and Topic 8.6 applies it to Gauss's Law calculations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The title and body accurately state 8.3.B.2: \u201cWhile in electrostatic equilibrium, the excess charge of an insulator is distributed throughout the interior of the insulator as well as at the surface, and the electric field within the insulator may have a nonzero value.\u201d Topic 8.3 first requires this. It is also relevant to 8.6, which applies Gauss\u2019s law to charge distributions and, in 8.6.A.5, determines enclosed charge by integrating volume charge density. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 8.3.B.2: \"While in electrostatic equilibrium, the excess charge of an insulator is distributed throughout the interior of the insulator as well as at the surface, and the electric field within the insulator may have a nonzero value.\" b_topic_codes: owner 8.3 is correct, since 8.3.B.2 sits under Topic 8.3. However, 8.6 is listed in topic_codes, and nothing in Topic 8.6 states or requires this insulator behavior. 8.6 covers Gauss's law, its Gaussian surfaces, and its symmetry-based applications, and it does not restate 8.3.B.2. The 8.6 entry is therefore unsupported. c_ced_required: Learning objective 8.3.B (\"Describe the electric field generated by charged conductors or insulators\") and 8.3.B.2 require this. d_caution: The wording is a close paraphrase with the same substance (\"may have a nonzero value\" vs. \"may be nonzero\"), so no caution is needed."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 8.3.B.2 in substance: \"While in electrostatic equilibrium, the excess charge of an insulator is distributed throughout the interior of the insulator as well as at the surface, and the electric field within the insulator may have a nonzero value.\" b_topic_codes: owner 8.3 is correct, since 8.3.B.2 sits in Topic 8.3. The added 8.6 tag fails. Topic 8.6 (Gauss's Law) covers 8.6.A.1\u20138.6.A.6 and never mentions insulator charge distribution or interior fields; the only insulator-related statement is in 8.3.B.2. c_ced_required: True. 8.3.B.2 is an essential-knowledge statement that students must apply when describing the field generated by insulators. d_caution: True. \"may be nonzero\" is an equivalent paraphrase of \"may have a nonzero value,\" and the entry does not assert anything that needs a caution to correct it. Rejected solely on the unsupported 8.6 topic code."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-023",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the exact charge distributions and locations specified in the Topic 8.4 Boundary Statement on page 33 of the CED, which defines the limits of calculus-based electric field derivations for the exam."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.4\u2019s boundary statement lists these charge distributions and locations in this order, with the two finite-wire locations stated together. It says students are expected to \u201cuse calculus to find the electric field\u201d for them. Essential Knowledge 8.4.A.1 also states that field expressions for specified charge distributions can be found \u201cusing integration and the principle of superposition.\u201d The paraphrases preserve the CED meaning, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The five items match the Topic 8.4 Boundary Statement in the same order: (1) infinitely long, uniformly charged wire or cylinder at a distance from its central axis; (2) thin ring of charge along the ring's axis; (3) semicircular arc or part of one at its center; (4) finite wire or line charge at a point collinear with it; (5) finite wire or line charge along its perpendicular bisector. The ced_evidence quote (\"only expects students to use calculus to find the electric field\") is an accurate prefix of the CED boundary text. b_topic_codes: The boundary statement sits under Topic 8.4 (Electric Fields of Charge Distributions), which is where calculus-based field derivation first appears, and 8.4 is the only listed topic. c_ced_required: The boundary statement limits Learning Objective 8.4.A (\"Describe the electric field resulting from a given charge distribution\") and Essential Knowledge 8.4.A.1 (\"Expressions for the electric field of specified charge distributions can be found using integration\"), so students are expected to apply these cases. d_caution: The entry wording tracks the CED boundary statement nearly verbatim, so the point-earning wording is preserved and no caution is needed. The abbreviated title is not point-earning content."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-026",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the general surface integral for electric flux as defined in Essential Knowledge 8.5.A.3 ('The total electric flux passing through a surface is defined by the surface integral of the electric field over the surface'). It is first introduced in Topic 8.5 and is directly applied in Topic 8.6 (Gauss's Law)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.5.A.3 states that total electric flux through a surface is defined by the surface integral of the electric field over the surface. Topic 8.6 uses that flux in Gauss\u2019s law (8.6.A.1). Topic 8.5 is therefore the first required location, and both topic codes apply. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 8.5.A.3 defines total flux as 'the surface integral of the electric field over the surface' and lists a 'Relevant equation' that is an image absent from the extracted text. The entry's \\Phi_E = \\int \\vec E \\cdot d\\vec A matches the standard CED form (flux as the dot product of E with the area element), so symbols and structure check out, but the exact CED image could not be verified from the text provided. b_topic_codes: 8.5.A.3 is the first unit location requiring the general flux integral, so owner 8.5 is correct. 8.6 uses it because 8.6.A.1 defines Gauss's law as a relation between flux through a Gaussian surface and enclosed charge, and that flux is this same surface integral. c_ced_required: 8.5.A.3 explicitly requires students to know the surface-integral definition of total electric flux. d_caution: the CED wording ('defined by the surface integral of the electric field over the surface') is paraphrased by the entry title 'general surface integral'. The formula carries the point-earning content, so no caution is needed. No hooks are present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-024",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects EK 8.4.A.2 ('Symmetry considerations of certain charge distributions can simplify analysis of the electric field resulting from those charge distributions') and is also highly relevant to Topic 8.6 (Gauss's Law boundary statement regarding spherical, cylindrical, or planar symmetry)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.4 first states the general principle: 8.4.A.2 says, \u201cSymmetry considerations of certain charge distributions can simplify analysis of the electric field resulting from those charge distributions.\u201d Topic 8.6 also uses symmetry: its boundary statement limits quantitative applications of Gauss\u2019s law to charge distributions with \u201cspherical, cylindrical, or planar symmetry.\u201d The entry accurately paraphrases the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body is consistent with 8.4.A.2 (\"Symmetry considerations of certain charge distributions can simplify analysis of the electric field resulting from those charge distributions\"). No formula or list is involved. b_topic_codes: 8.4 is the first unit topic that states the symmetry-simplification idea (8.4.A.2). 8.6 also uses it, since 8.6.A.4 requires Gaussian surfaces chosen so the field is perpendicular or parallel to regions of the surface, and the 8.6 boundary statement limits Gauss's law to spherical, cylindrical, or planar symmetry. c_ced_required: 8.4.A.2 is an essential-knowledge statement that students must apply to analyze fields. d_caution: The body drops the CED qualifier \"certain\" and says \"Symmetry of a charge distribution can simplify...\", which implies every charge distribution has useful symmetry. The CED does not say that. The wording is not the point-earning wording and no caution is present, so the caution check fails. Fix: restore \"certain charge distributions\" in the body, or add a caution stating that only certain distributions have symmetry that simplifies the analysis.",
+            "reasons_summary": "Rejected for the missing qualifier \"certain\" and the absence of a caution."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body is a paraphrase of 8.4.A.2, \"Symmetry considerations of certain charge distributions can simplify analysis of the electric field resulting from those charge distributions.\" It contains no incorrect claim, and \"can simplify\" carries the same hedge. b_topic_codes: 8.4.A.2 first appears in Topic 8.4, so owner 8.4 is correct. Topic 8.6 also uses symmetry: 8.6.A.4 says Gaussian surfaces are chosen so the field is perpendicular or parallel to regions of the surface, and the 8.6 boundary statement limits Gauss's law to spherical, cylindrical, or planar symmetry. The cited evidence is 8.4.A.2 alone, though, so 8.6's use rests on other statements. c_ced_required: Topic 8.4 learning objective 8.4.A (\"Describe the electric field resulting from a given charge distribution\") requires applying symmetry, per 8.4.A.2. d_caution: The entry's wording is a close paraphrase. It drops the qualifier \"certain\" but keeps the hedge \"can\", so no caution is needed for the point to be earned."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-028",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry definition matches the exact wording of Essential Knowledge 8.5.A.1: 'Flux describes the amount of a given quantity that passes through a given area.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body exactly matches Topic 8.5, Essential Knowledge 8.5.A.1: \u201cFlux describes the amount of a given quantity that passes through a given area.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.5.A.1 word for word: \"Flux describes the amount of a given quantity that passes through a given area.\" The title and vocabulary kind are consistent with that statement. b_topic_codes: Topic 8.5 (Electric Flux) is where flux is introduced in this unit, and 8.5.A.1 sits under LO 8.5.A, so owner_topic_code \"8.5\" is correct, and topic_codes [\"8.5\"] is the only topic that uses it. c_ced_required: LO 8.5.A asks students to \"Describe the electric flux through an arbitrary area or geometric shape,\" and 8.5.A.1 is the essential knowledge that defines flux, so the entry is required content. d_caution: The entry's wording is the CED's own wording, so the point-earning wording is already present and no caution is needed (caution is null, which is correct)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-027",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the conventions for the area vector and the sign of electric flux as defined in EK 8.5.A.2.i and 8.5.A.2.ii."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 8.5.A.2.i: the area vector is \u201cperpendicular to the plane of the surface and outward from a closed surface,\u201d and 8.5.A.2.ii: \u201cThe sign of flux is given by the dot product of the electric field vector and the area vector.\u201d Topic 8.5 first requires this convention; Topic 8.6 uses electric flux through closed Gaussian surfaces. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.5.A.2.i says the area vector is 'defined as perpendicular to the plane of the surface and outward from a closed surface,' and 8.5.A.2.ii says 'the sign of flux is given by the dot product of the electric field vector and the area vector.' The body matches both statements. b_topic_codes: 8.5 is the owner and the first unit topic where the area-vector convention appears (8.5.A.2.i-ii). 8.6 is a valid secondary code because 8.6.A.2 requires a closed Gaussian surface and 8.6.A.4 requires applying the flux integral over that surface, which relies on the same outward-normal convention. The CED does not restate the convention in 8.6, so this link is implicit rather than stated. c_ced_required: 8.5.A.2.i-ii are essential knowledge under learning objective 8.5.A ('Describe the electric flux through an arbitrary area or geometric shape'), so students are required to apply this convention. d_caution: the wording is a close paraphrase of the CED ('perpendicular to the plane of the surface and outward from a closed surface'; 'sign of flux is given by the dot product'). It does not change the point-earning content, so no caution is needed and null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-025",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for electric flux through a flat area in a uniform electric field, as defined in Essential Knowledge 8.5.A.2 ('For an electric field E that is constant across an area A, the electric flux through the area is defined as...'). The topic codes 8.5 and 8.6 are correct as Gauss's Law (8.6) directly builds upon the definition of electric flux."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.5.A.2 defines electric flux for an electric field constant across an area using the dot product of the electric-field and area vectors; 8.5.A.2.ii says the sign of flux is given by that dot product. Topic 8.6.A.1 uses electric flux through a Gaussian surface in Gauss\u2019s law. The formula is first required in 8.5, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: CED 8.5.A.2 defines flux for a field E 'constant across an area A' as the dot product of the field and area vectors (8.5.A.2.ii: 'The sign of flux is given by the dot product of the electric field vector and the area vector'). The body \\Phi_E=\\vec E\\cdot\\vec A matches. b_topic_codes: 8.5 is where flux is first required (Topic 8.5, Electric Flux). 8.6 is in this unit and uses flux through Gaussian surfaces (8.6.A.1, 8.6.A.4), so the 8.6 code is defensible. c_ced_required: 8.5.A.2 requires students to apply this relation for a constant field over an area. d_caution: the title 'Electric flux, uniform field' uses 'uniform', while the CED says 'constant across an area'. The entry also has caution: null and omits the area-vector direction convention in 8.5.A.2.i (perpendicular to the surface, outward from a closed surface), which governs the sign of flux in 8.5.A.2.ii. A caution is needed to state the point-earning wording and convention, so the entry fails d_caution and is rejected as written."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 8.5.A.2 defines electric flux for a field E that is constant across an area A, and the entry's formula \u03a6_E = E\u00b7A matches that definition (the vector arrows are lost in the text extraction, but the dot-product form is what 8.5.A.2.ii describes: 'The sign of flux is given by the dot product of the electric field vector and the area vector'). b_topic_codes: owner 8.5 is where the constant-field flux is first required (8.5.A.2). Topic 8.6 is a unit topic that uses flux through Gaussian surfaces, and 8.6.A.4 says Gaussian surfaces are chosen so the field is perpendicular or parallel to regions of the surface, which simplifies the surface integral to a product of field and area. This is a defensible but indirect use; the 8.6 relevant-equation image is not legible in the extracted pages, so this is accepted on the basis of 8.6.A.4 alone. c_ced_required: 8.5.A.2 directly requires students to define and apply flux for a constant field. d_caution: the entry uses the CED's own formula, so no wording differs from the point-earning wording and no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-029",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents Gauss's law as required by Topic 8.6 (specifically EK 8.6.A.1, which states 'Gauss\u2019s law relates electric flux through a Gaussian surface to the charge enclosed by that surface' and lists the corresponding integral equation under 'Relevant equations')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly states Gauss\u2019s law for a closed surface. Topic 8.6 is its first required topic: 8.6.A.1 says, \u201cGauss\u2019s law relates electric flux through a Gaussian surface to the charge enclosed by that surface,\u201d and 8.6.A.2 defines a Gaussian surface as \u201ca three-dimensional, closed surface.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula \u222eE\u00b7dA = q_enc/\u03b50 is the standard integral form of Gauss's law, and it matches the CED's 8.6.A.1 statement that Gauss's law relates electric flux through a Gaussian surface to the enclosed charge. The CED equation image is not extractable from the pages, but the symbols (E field, dA area element, q_enc enclosed charge, \u03b50 free-space permittivity referenced in 8.1.C.3) are consistent with the CED. b_topic_codes: Gauss's law is first required in Topic 8.6 (LO 8.6.A), and owner_topic_code and topic_codes are both 8.6, which is correct. c_ced_required: LO 8.6.A ('Describe the properties of a charge distribution by applying Gauss's law') and EK 8.6.A.1 ('Gauss's law relates electric flux through a Gaussian surface to the charge enclosed by that surface. Relevant equations:') require students to reproduce and apply this. d_caution: The entry's title and body use the CED's own phrasing for the law and the formula is the point-earning content, so no caution is needed and caution null is correct. The ced_evidence quote matches 8.6.A.1 verbatim. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-030",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a Gaussian surface and its properties are directly supported by Essential Knowledge statements 8.6.A.2 and 8.6.A.3 in the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.6 states that \u201cA Gaussian surface is a three-dimensional, closed surface\u201d (8.6.A.2) and that \u201cThe total electric flux through a Gaussian surface is independent of the size of the Gaussian surface if the amount of enclosed charge remains constant\u201d (8.6.A.3). The entry accurately combines these required statements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED defines a Gaussian surface as a 'three-dimensional, closed surface' (8.6.A.2), and states that 'the total electric flux through a Gaussian surface is independent of the size of the Gaussian surface if the amount of enclosed charge remains constant' (8.6.A.3). The body matches both in substance. It drops the word 'electric' before 'flux', which is harmless here because Unit 8 concerns only electric flux. b_topic_codes: 8.6 is the first topic in this unit to introduce Gaussian surfaces (8.5 covers flux through arbitrary areas and never mentions Gaussian surfaces), and 8.6 is the only topic code listed, which is where it is used. c_ced_required: 8.6.A.2 and 8.6.A.3 are essential knowledge statements that require students to know and apply this definition and its size-independence property. d_caution: The body paraphrases 8.6.A.3 ('does not depend on its size' for 'is independent of the size'). This is an equivalent statement, and the point-earning concept (size-independence when enclosed charge is constant) is fully present, so no caution is required. The entry has no items, so there are no list-order or formula checks to make."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-031",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately summarizes Essential Knowledge 8.6.A.4 regarding the construction of Gaussian surfaces (perpendicular or parallel fields) and the Topic 8.6 Boundary Statement restricting quantitative applications to spherical, cylindrical, or planar symmetry."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.6.A.4 says Gaussian surfaces are typically constructed so the field generated by the enclosed charge is \u201ceither perpendicular or parallel to different regions\u201d of the surface, simplifying the integral. The Topic 8.6 boundary limits quantitative application to point charges and distributions with \u201cspherical, cylindrical, or planar symmetry\u201d; a point charge has spherical symmetry. This is Topic 8.6 content, and the close paraphrase needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.6.A.4, which says Gaussian surfaces are constructed so the field of the enclosed charge is 'either perpendicular or parallel to different regions of the Gaussian surface, resulting in a simplified surface integral.' The Boundary Statement for Topic 8.6 limits quantitative application to 'spherical, cylindrical, or planar symmetry', which the body also states. Minor nuance: the CED says 'typically constructed' and the body reads as an imperative, but the entry is a convention and the rule is the one the CED describes, so this is not a factual error. b_topic_codes: 8.6 is the unit and topic where Gauss's law and Gaussian surfaces are first required (8.6.A.1, 8.6.A.4), and topic_codes lists only 8.6. c_ced_required: 8.6.A.4 and the Topic 8.6 Boundary Statement require students to apply this construction and symmetry restriction. d_caution: The entry's wording expresses the CED point (perpendicular/parallel field and symmetry restriction) closely enough that no caution is needed. The CED's 'typically' hedge is not a point-earning requirement that the wording misses."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-032",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately describes the application of Gauss's law to cylindrical symmetry, which is explicitly required by the Topic 8.6 Boundary Statement ('quantitatively apply Gauss's law to... cylindrical... symmetry') and Essential Knowledge 8.6.A.4 ('simplified surface integral') and 8.6.A.5 ('integrating the charge density over the length, area, or volume'). The caution correctly addresses a common student error regarding the distinction between the Gaussian radius r and the physical radius R."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "For a coaxial cylindrical Gaussian surface around a cylindrically symmetric charge distribution, the radial field gives flux through the curved lateral area 2\u03c0rl, not the end caps. A charged shell\u2019s enclosed surface charge is calculated using its actual radius R when the Gaussian surface encloses it. Topic 8.6 requires application of Gauss\u2019s law to cylindrical symmetry (boundary statement); 8.6.A.4 describes choosing a surface that simplifies the flux integral, and 8.6.A.5 requires determining charge by integrating density over area or volume. The caution correctly distinguishes the shell radius from the Gaussian radius."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body is correct physics. For a cylindrical Gaussian surface of radius r and length l, the curved lateral area is 2\u03c0rl, and the flux through it is E\u00b72\u03c0rl. Charge is found by integrating density, as in 8.6.A.5 (\"charge can be determined by integrating the charge density over the length, area, or volume\"). The CED does not write the 2\u03c0rl formula explicitly, but nothing in the body contradicts it. b_topic_codes: 8.6 is where Gauss's law and Gaussian-surface construction are taught (8.6.A.4 \"Gaussian surfaces are typically constructed such that...\"), and the boundary statement for 8.6 names cylindrical symmetry. Topic list ['8.6'] is correct. c_ced_required: 8.6.A.4 requires a simplified surface integral for Gaussian surfaces, 8.6.A.5 requires charge from density, and the 8.6 boundary statement says students must \"quantitatively apply Gauss's law to ... charge distributions that have spherical, cylindrical, or planar symmetry.\" d_caution: The CED does not use the phrase 'lateral area 2\u03c0rl' or the R-versus-r warning, so the caution is needed. It is correct: for a surface charge the enclosed charge uses the shell radius R (q = \u03c3\u00b72\u03c0Rl), not the Gaussian radius r."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-034",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 8.6.A.6, which states: 'Maxwell\u2019s equations are the collection of equations that fully describe electromagnetism. Gauss\u2019s law is Maxwell\u2019s first equation.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Topic 8.6 essential knowledge 8.6.A.6: \u201cMaxwell\u2019s equations are the collection of equations that fully describe electromagnetism. Gauss\u2019s law is Maxwell\u2019s first equation.\u201d Topic 8.6 is the correct owner and only listed topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 8.6.A.6 in substance: \"Maxwell's equations are the collection of equations that fully describe electromagnetism. Gauss's law is Maxwell's first equation.\" The entry merges the two sentences with 'and' but changes no content. b_topic_codes: 8.6.A.6 appears under Topic 8.6 (Gauss's Law) in Unit 8, so owner_topic_code '8.6' is correct and the only topic_codes entry is valid. c_ced_required: 8.6.A.6 is an essential-knowledge statement in these pages, so a student is expected to know it. d_caution: The entry's wording is essentially the CED's own wording, so the point-earning wording is already present and no caution is needed (caution is null, which is correct)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_em-u8-r1-033",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the mathematical formulation of Essential Knowledge 8.6.A.5, which states that the total charge can be determined by integrating the charge density over the length (one dimension), area (two dimensions), or volume (three dimensions) of the charge distribution."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 8.6.A.5 states that total charge is determined by integrating charge density over a distribution\u2019s \u201clength (one dimension), area (two dimensions), or volume (three dimensions),\u201d in the same order as the entry. The line, area, and volume integrals correctly express that requirement. Topic 8.6 is the appropriate owner, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 8.6.A.5 states that 'If a function of charge density is given for a charge distribution, the total charge can be determined by integrating the charge density over the length (one dimension), area (two dimensions), or volume (three dimensions) of the charge distribution. For example:'. The entry's three forms map correctly to 1D (\u03bb d\u2113), 2D (\u03c3 dA) and 3D (\u03c1 dV), in that order. The CED example equations are rendered as images and are not in the extracted text, so the symbols are checked against the standard conventions the CED text implies rather than against the printed equations. b_topic_codes: owner 8.6 is correct. 8.6.A.5 sits under Topic 8.6, and topic_codes ['8.6'] matches. Topic 8.4 integrates charge distributions only to find electric fields (8.4.A.1), not total charge, so 8.6 is the first place this is required. c_ced_required: 8.6.A.5 explicitly requires determining total charge by integrating charge density over length, area or volume, so a student must apply this. d_caution: the entry's wording ('Total charge from a charge density') is a close paraphrase of the CED sentence. The math mapping is unambiguous, so no caution is needed and caution: null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-pcem-u8-01-swapped",
+    "control": "swapped signs (CED 8.1.A.3.i-ii: like charges repel and opposite charges attract)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry contains a major factual error: it states that objects with the same sign exert attractive forces and objects with opposite signs exert repulsive forces. According to CED 8.1.A.3.i and 8.1.A.3.ii, two objects with charges of the same sign exert repulsive forces on each other, and two objects with charges of opposite signs exert attractive forces on each other."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry has the physical facts reversed. According to CED 8.1.A.3.i-ii, two objects with charges of the same sign exert repulsive forces on each other, and two objects with charges of opposite signs exert attractive forces on each other. The entry incorrectly states that same sign charges attract and opposite sign charges repel."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The items reverse the required directions. CED 8.1.A.3.i states that charges of the same sign exert repulsive forces; 8.1.A.3.ii states that charges of opposite signs exert attractive forces. Topic 8.1 is correct, and these distinctions are required content. The incorrect wording has no caution, though a caution would not fix the reversal."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The meanings are reversed. CED 8.1.A.3.i says, \u201cTwo objects with charges of the same sign exert repulsive forces on each other\u201d; 8.1.A.3.ii says, \u201cTwo objects with charges of opposite signs exert attractive forces on each other.\u201d Topic 8.1 is correct, and no wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u8-03-wrong-owner",
+    "control": "wrong owner topic (electric flux is topic 8.5, EK 8.5.A.1-2; 8.3 covers the electric field produced by charges)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code and topic_codes are set to '8.3' (Electric Fields), but 'Electric flux' is first introduced and required in Topic 8.5 (Electric Flux), specifically under Learning Objective 8.5.A (Essential Knowledge 8.5.A.1 and 8.5.A.2). The topic codes must be updated to '8.5'."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to 8.3 (Electric Fields), but Electric Flux is first introduced and required in Topic 8.5 (Electric Flux), as supported by the CED evidence 8.5.A.1 and 8.5.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition matches 8.5.A.1: \u201cFlux describes the amount of a given quantity that passes through a given area.\u201d The constant-field dot-product statement matches 8.5.A.2. However, electric flux is first required in Topic 8.5, \u201cElectric Flux,\u201d not Topic 8.3, \u201cElectric Fields.\u201d The owner_topic_code and topic_codes should therefore identify 8.5. No caution is needed for the entry\u2019s wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The body matches Topic 8.5: 8.5.A.1 says, \u201cFlux describes the amount of a given quantity that passes through a given area,\u201d and 8.5.A.2 defines electric flux for a constant field across an area using the field\u2013area-vector dot product. The CED first requires this content in 8.5, not the assigned owner topic 8.3; the topic code should be 8.5. The wording is equivalent to the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u8-04-wrong-fact",
+    "control": "wrong fact (CED 8.6.A.6: Gauss's law is Maxwell's FIRST equation)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry states that Gauss's law is Maxwell's fourth equation, but the CED (8.6.A.6) explicitly states: 'Gauss\u2019s law is Maxwell\u2019s first equation.'"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry's body states that 'Gauss's law is Maxwell's fourth equation.' However, the CED under Essential Knowledge 8.6.A.6 explicitly states: 'Gauss\u2019s law is Maxwell\u2019s first equation.' This is a factual contradiction of the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 8.6.A.6 states: \u201cMaxwell\u2019s equations are the collection of equations that fully describe electromagnetism. Gauss\u2019s law is Maxwell\u2019s first equation.\u201d The entry incorrectly says \u201cfourth equation.\u201d Topic 8.6 is the correct topic, but the CED does not require students to reproduce or apply the incorrect ordering. No caution flags the departure from the CED wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 8.6 is the correct location, but Essential Knowledge 8.6.A.6 states: \u201cGauss\u2019s law is Maxwell\u2019s first equation.\u201d The entry says \u201cfourth equation.\u201d The CED does not require that incorrect claim, and the entry has no caution identifying the mismatch."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u8-02-excluded",
+    "control": "explicitly excluded by the CED (8.6 BOUNDARY STATEMENT: AP Physics C: E&M only expects students to quantitatively apply Gauss's law to point charges and distributions with spherical, cylindrical or planar symmetry)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The boundary statement for Topic 8.6 on page 36 explicitly limits the quantitative application of Gauss's law: 'AP Physics C: Electricity & Magnetism only expects students to quantitatively apply Gauss\u2019s law to point charges and charge distributions that have spherical, cylindrical, or planar symmetry.' A toroidal charge distribution is outside this scope."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry proposes applying Gauss's law to a toroidal charge distribution. However, the Boundary Statement for Topic 8.6 (page 36) explicitly restricts the scope of Gauss's law applications: 'AP Physics C: Electricity & Magnetism only expects students to quantitatively apply Gauss\u2019s law to point charges and charge distributions that have spherical, cylindrical, or planar symmetry.' Toroidal distributions are outside the required course content."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The Topic 8.6 boundary states that students are expected to quantitatively apply Gauss\u2019s law only to point charges and distributions with \u201cspherical, cylindrical, or planar symmetry.\u201d It does not include a toroidal distribution. A toroidal Gaussian surface does not, in general, make the flux integral sufficient to find the torus\u2019s electric field. Thus 8.6 does not use the proposed application, and citing 8.6.A.1\u2014which says Gauss\u2019s law relates flux to enclosed charge\u2014does not support it. No caution flags the departure from the CED."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 8.6 is the Gauss\u2019s law topic, but the proposed application is outside its stated quantitative scope: the CED expects quantitative application only to \u201cpoint charges and charge distributions that have spherical, cylindrical, or planar symmetry.\u201d Gauss\u2019s law relates total flux to enclosed charge (8.6.A.1); choosing a toroidal Gaussian surface does not, in general, let a student determine the electric field of a charged torus. The entry has no caution distinguishing this unsupported instruction from the CED-required applications."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u8-05-bad-hook",
+    "control": "hook expansion contradicts the CED (8.5.A.2.i: the area vector is defined as perpendicular to the plane of the surface). The entry is correct, so only the hook should be rejected.",
+    "control_target": "hook",
+    "accepted": false,
+    "hooks_accepted": {
+      "Area vector lies in the surface": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Area vector lies in the surface": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body correctly states that the area vector is perpendicular to the plane of the surface, which directly aligns with Essential Knowledge 8.5.A.2.i."
+            },
+            "hooks": [
+              {
+                "hook_text": "Area vector lies in the surface",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook expansion defines 'lies in the surface' as meaning 'the area vector points along the plane of the surface'. This is physically incorrect and directly contradicts the entry and CED 8.5.A.2.i, which state that the area vector is perpendicular to the plane of the surface."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body accurately reflects the definition of the area vector's direction as perpendicular to the surface, as stated in EK 8.5.A.2.i."
+            },
+            "hooks": [
+              {
+                "hook_text": "Area vector lies in the surface",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook teaches an incorrect physics concept. The area vector is perpendicular to the plane of the surface (EK 8.5.A.2.i); it does not lie in or point along the plane of the surface. This would lead to incorrect flux calculations (e.g., dot product of E and A)."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {
+          "Area vector lies in the surface": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 8.5.A.2.i requires the area vector to be perpendicular to the plane of the surface \u201cand outward from a closed surface.\u201d The body omits the closed-surface direction, and no caution supplies it."
+            },
+            "hooks": [
+              {
+                "hook_text": "Area vector lies in the surface",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The cue says the vector points along the surface, directly contradicting 8.5.A.2.i: its direction is \u201cperpendicular to the plane of the surface.\u201d The hook\u2019s caution does not correct that contradiction."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 8.5 requires this convention in 8.5.A.2.i, but the body omits part of its definition: the area vector is perpendicular to the surface \u201cand outward from a closed surface.\u201d With no caution, the entry does not flag that limitation."
+            },
+            "hooks": [
+              {
+                "hook_text": "Area vector lies in the surface",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The cue and expansion say the vector points along the surface. CED 8.5.A.2.i says it is \u201cperpendicular to the plane of the surface.\u201d The caution to use CED terms does not correct the contradictory direction."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcem-u8-06-other-unit",
+    "control": "content from another unit (capacitance of a parallel-plate capacitor is Unit 10 conductors and capacitors, EK 10.3.A.2; it is not in the Unit 8 pages)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for the capacitance of a parallel-plate capacitor (C = \\varepsilon_0 A / d) is not introduced or required in Unit 8 (Electric Charges, Fields, and Gauss's Law). Unit 8 covers electric charges, forces, fields, flux, and Gauss's law, but does not cover capacitance or capacitors, which are typically covered in Unit 9 (Conductors, Capacitors, Dielectrics). The cited evidence 8.3.A.2 actually defines the electric field as E = F_E / q and does not mention capacitance."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for the capacitance of a parallel-plate capacitor (C = \\varepsilon_0 A / d) is not part of Unit 8 (Electric Charges, Fields, and Gauss's Law). It belongs to a later unit on Capacitors (typically Unit 9). Furthermore, the cited CED evidence (8.3.A.2) defines the electric field as E = F_E / q, which has no relation to capacitance."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 8.3 does not state a capacitance formula. Its cited 8.3.A.2 defines electric field as the ratio of electric force on a test charge to that charge (E = F_E/q). The entry instead gives a parallel-plate capacitance formula, which requires assumptions such as vacuum between the plates that its title does not specify. No learning objective or essential-knowledge statement on these Unit 8 pages requires this formula. The issue is substantive, not a missing wording caution."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The cited 8.3.A.2 defines electric field as the ratio of electric force on a test charge to the test charge\u2019s charge; it does not state a capacitance formula. Topic 8.3 does not require this formula, so it cannot support the owner or topic code. The equation also assumes a vacuum between ideal plates, a qualification absent from the entry. No alternative CED point-earning wording calls for a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

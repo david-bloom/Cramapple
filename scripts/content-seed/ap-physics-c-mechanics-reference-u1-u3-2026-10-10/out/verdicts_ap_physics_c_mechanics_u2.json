@@ -1,0 +1,3331 @@
+[
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for calculating the center of mass of discrete masses along an axis, as explicitly required by Essential Knowledge 2.1.B.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The discrete-mass formula gives the mass-weighted position along one axis. Topic 2.1.B.2 states: \u201cThe location of a system\u2019s center of mass along a given axis can be calculated using the equation.\u201d Topic 2.1 is the correct owner and only listed topic; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula x_cm = (\u03a3 m_i x_i)/(\u03a3 m_i) is the standard discrete center-of-mass expression. The CED equation for 2.1.B.2 is rendered as an image that does not survive text extraction, so this check relies on the standard form, which matches the wording 'location of a system's center of mass along a given axis can be calculated using the equation'. b_topic_codes: owner and only topic code are 2.1 (Systems and Center of Mass), the topic where 2.1.B.2 sits in Unit 2. c_ced_required: Learning Objective 2.1.B ('Describe the location of a system's center of mass with respect to the system's constituent parts') and Essential Knowledge 2.1.B.2 require calculating the center-of-mass location along an axis from this equation. d_caution: No caution is needed. The entry is a formula, not a paraphrase, and the CED equation is the same expression, so no point-earning wording differs. ced_evidence quotes 2.1.B.2 accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 2.1.A.2 from the CED: 'If the properties or interactions of the constituent objects within a system are not important in modeling the behavior of the macroscopic system, the system can itself be treated as a single object.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.1.A.2 states: \u201cIf the properties or interactions of the constituent objects within a system are not important in modeling the behavior of the macroscopic system, the system can itself be treated as a single object.\u201d The entry accurately paraphrases this required knowledge, belongs to Topic 2.1, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body restates 2.1.A.2 without changing its meaning. The CED reads \"If the properties or interactions of the constituent objects within a system are not important in modeling the behavior of the macroscopic system, the system can itself be treated as a single object.\" The entry drops \"within a system\" and \"macroscopic\", which narrows nothing in the core claim, so the statement is still correct. The ced_evidence quote matches the CED text verbatim. b_topic_codes: 2.1.A.2 sits under Topic 2.1 (Systems and Center of Mass), so owner 2.1 is correct and the only topic code is correct. c_ced_required: 2.1.A.2 is essential knowledge under LO 2.1.A (\"Describe the properties and interactions of a system\"). Students must apply this idea, and it is reinforced by 2.1.B.4 (\"A system can be modeled as a singular object that is located at the system's center of mass\"). d_caution: The entry's wording differs from the CED's, but the point being earned (a system may be treated as a single object when constituent details do not matter) survives the paraphrase. A caution is not strictly required. Reviewers may still prefer the CED's \"macroscopic\" qualifier to be restored in the body, but this is not a substantive error. No hooks are present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statements 2.1.B.1 ('For objects or systems with symmetrical mass distributions, the center of mass is located on lines of symmetry') and 2.1.B.4 ('A system can be modeled as a singular object that is located at the system\u2019s center of mass'). The topic codes are correct as Topic 2.1 introduces center of mass, and Topic 2.2 applies it to free-body diagrams (2.2.B.3)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 2.1.B.1: \u201cthe center of mass is located on lines of symmetry,\u201d and 2.1.B.4: \u201cA system can be modeled as a singular object that is located at the system\u2019s center of mass.\u201d Topic 2.1 first requires these ideas; 2.2.B.3 also uses the center-of-mass model. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Essential knowledge 2.1.B.1 states that for objects or systems with symmetrical mass distributions, 'the center of mass is located on lines of symmetry.' The body's 'lies on' is a synonymous rewording. The second clause, 'a system can be modeled as a single object located at its center of mass,' matches 2.1.B.4 ('A system can be modeled as a singular object that is located at the system's center of mass'). No formula or items are present to check. b_topic_codes: owner 2.1 is the first unit topic that requires the symmetry and single-object-at-COM content (2.1.B.1, 2.1.B.4). 2.2 is a valid secondary code because 2.2.B.3 states that 'a system is treated as though all of its mass is located at the center of mass,' which relies on the same modeling idea, although 2.2 does not itself state the symmetry rule. c_ced_required: 2.1.B.1 requires students to describe the location of a system's center of mass for symmetric mass distributions, so the content is required by the CED. d_caution: the body's wording is essentially the CED's point-earning wording ('located on lines of symmetry'), so no caution is needed and a null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the integration of mass density to find total mass as described in Essential Knowledge 2.1.B.3.ii, which explicitly mentions integrating over length, area, or volume."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.1.B.3.ii states that total mass can be determined by integrating mass density over the solid\u2019s length, area, or volume, depending on dimension. The formula is correct for volume density, and the caution correctly identifies the other integration domains. This content is required in Topic 2.1."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (2.1.B.3.ii) states that 'the total mass can be determined by integrating the mass density over the length (one dimension), area (two dimensions), or volume (three dimensions) of the solid.' M_total = \u222b\u03c1 dV is the correct volume form of that statement. The CED example equation is an image that does not appear in the extracted text, so the exact symbols could not be checked against it directly, but the expression is consistent with the stated wording. b_topic_codes: 2.1.B.3.ii sits under Topic 2.1 (Systems and Center of Mass) in Unit 2, so owner_topic_code '2.1' is correct and the only topic_codes entry is correct. c_ced_required: 2.1.B.3.ii requires students to determine total mass by integrating a given density function, which is a required application. d_caution: The caution ('Integrate over length, area, or volume depending on whether the density is given in one, two, or three dimensions') matches the CED's wording that mass is found by integrating over length, area, or volume. Since the body shows only the volume case, the caution is needed and correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents the formula for calculating the center of mass of a continuous object (nonuniform solid) using integration over differential mass elements ($dm$), as required by Essential Knowledge 2.1.B.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.1 is the correct location. The CED requires calculating center of mass for a solid treated as a collection of differential masses (2.1.B.3), but describes the calculation along a given axis (2.1.B.2). The entry instead gives an unrestricted vector formula without noting that distinction. The vector formula is mathematically valid, but reproducing or applying that generalization is not established as required by the supplied CED text; it needs a caution identifying the CED\u2019s axis-based framing."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.1.B.3 states that for a solid treated as a \u201ccollection of differential masses, dm,\u201d its center of mass can be calculated by integration. The formula gives that mass-weighted position divided by total mass in vector form. Topic 2.1 is the appropriate topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body r_cm = \u222br dm / \u222bdm is the standard continuous center-of-mass formula. The CED states 2.1.B.3: \"For a nonuniform solid that can be considered as a collection of differential masses, dm, the solid's center of mass can be calculated using the equation\". The equation itself is an image that does not survive text extraction, so the match rests on the standard form and the surrounding CED wording, not on a visible transcription. b_topic_codes: owner_topic_code 2.1 is the first topic in Unit 2 and is the only topic listed; 2.1.B.3 sits under Topic 2.1 (Systems and Center of Mass). c_ced_required: Learning Objective 2.1.B (\"Describe the location of a system's center of mass with respect to the system's constituent parts\") and EK 2.1.B.3 require students to apply the differential-mass center-of-mass equation. d_caution: The CED expresses this as a calculation over a \"collection of differential masses, dm\" and does not use a total-mass denominator, so the entry's \u222bdm denominator is an acceptable rendering and no caution is strictly required. Hooks: none supplied, so no hook checks apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry is factual and directly supported by Essential Knowledge 2.1.B.3.i, which defines linear mass density as the derivative of the rod's mass with respect to position."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.1.B.3.i defines linear mass density as \u201cthe derivative of the rod\u2019s mass with respect to the position of the differential mass element on the rigid body.\u201d The formula \u03bb = dm/d\u2113 expresses that definition, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The substance is correct. CED 2.1.B.3.i states that the linear mass density of a rod or other linear rigid body is the derivative of the rod's mass with respect to the position of the differential mass element (\"derivative of the rod's mass with respect to the position of the differential mass element on the rigid body\"), so lambda = dm/dl matches that definition. The CED's 'Relevant equation' is an image that did not extract, so the exact position symbol (l versus x) cannot be confirmed from these pages; the physics is correct. b_topic_codes: 2.1.B.3.i sits in Topic 2.1 (Systems and Center of Mass), which is the only topic listed and is where the concept first appears in this unit. c_ced_required: 2.1.B.3.i is an essential-knowledge statement that requires students to apply the linear mass density relation, with a 'Relevant equation' listed. d_caution: The entry body is a bare formula with no point-earning prose wording, so no caution is needed. The CED's verbal definition (derivative with respect to position) is carried by the formula itself. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of force is factually accurate and directly aligned with the CED under Topic 2.2 (EK 2.2.A.1 and EK 2.2.A.1.ii). The topic codes are appropriate as forces are central to both Topic 2.2 and Topic 2.3 (Newton's Third Law)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition matches 2.2.A.1: \u201cForces are vector quantities that describe the interactions between objects or systems,\u201d and 2.2.A.1.ii: \u201cAn object or system cannot exert a net force on itself.\u201d Topic 2.2 first requires it; 2.3.A.1 also uses forces to describe interactions between two objects or systems. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.2.A.1 (\"Forces are vector quantities that describe the interactions between objects or systems\") and 2.2.A.1.ii (\"An object or system cannot exert a net force on itself\"). No formula or list is present to contradict. b_topic_codes: 2.2 is where the unit first requires force (2.2.A.1 sits under Topic 2.2, Forces and Free-Body Diagrams). 2.3 is listed as a topic that uses the concept, since 2.3.A.1 describes paired forces between two objects, so the 2.3 entry is valid. c_ced_required: LO 2.2.A (\"Describe a force as an interaction between two objects or systems\") and 2.2.A.1.ii directly require students to know force as a vector interaction and that a system cannot exert a net force on itself. d_caution: The body's phrasing (\"an interaction between two objects or systems\") is the wording of LO 2.2.A itself, so it earns the point. The CED's plural \"Forces are...\" in 2.2.A.1 is equivalent, so no caution is required and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of contact force is highly accurate and directly matches Essential Knowledge statement 2.2.A.2 ('Contact forces describe the interaction of an object or system touching another object or system and are macroscopic effects of interatomic electric forces.')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.2.A.2 states that contact forces describe interactions involving touching objects or systems and are \u201cmacroscopic effects of interatomic electric forces.\u201d The entry accurately restates this required content, assigns it to Topic 2.2, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.2.A.2 ('Contact forces describe the interaction of an object or system touching another object or system and are macroscopic effects of interatomic electric forces'). The singular/plural difference ('a contact force... is a macroscopic effect' vs 'contact forces... are macroscopic effects') does not change the content. b_topic_codes: 2.2.A.2 sits under Topic 2.2 (Forces and Free-Body Diagrams), the first unit-2 topic that treats forces as interactions, so owner_topic_code 2.2 is correct and topic_codes ['2.2'] is correct. c_ced_required: 2.2.A.2 is an essential-knowledge statement under learning objective 2.2.A ('Describe a force as an interaction between two objects or systems'), so students are required to know contact forces and their origin. d_caution: The wording is a close paraphrase of the CED sentence with no change in meaning, so no caution is needed and the null caution is correct. No hooks are present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Newton's third law mathematically as described in Essential Knowledge 2.3.A.1 ('paired forces that each exerts on the other'). The caution correctly addresses a common student misconception regarding free-body diagrams and third-law pairs."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.3 requires students to describe an interaction using Newton\u2019s third law and \u201ca representation of paired forces exerted on each object or system\u201d (2.3.A). The equation represents that pair with equal magnitudes and opposite directions. The caution correctly distinguishes forces on different objects; a free-body diagram shows forces exerted on a single object or system (2.2.B.1\u20132)."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula F_{A on B} = -F_{B on A} is the standard mathematical form of the law. CED 2.3.A.1 states that Newton's third law 'describes the interaction of two objects or systems in terms of the paired forces that each exerts on the other,' which the equation expresses with correct symbols and sign. b_topic_codes: Topic 2.3 (Newton's Third Law) is where the CED introduces this law, and the entry's only topic code is 2.3. The pages provided cover only Unit 2, so Unit 1 coverage cannot be checked here. c_ced_required: LO 2.3.A ('Describe the interaction of two objects or systems using Newton's third law and a representation of paired forces exerted on each object or system') and EK 2.3.A.1 require students to apply this pairing. d_caution: The caution ('The paired forces act on different objects, so they never cancel in a single object's free-body diagram') is not verbatim CED wording, but it is physically correct and consistent with CED 2.2.B.2 (an FBD shows forces exerted on the object by the environment) and 2.3.A.2 (internal forces considered at the system level). Because the entry's wording differs from the CED's phrasing, the caution is appropriately present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-011",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry perfectly matches Essential Knowledge 2.3.A.2: 'Interactions between objects within a system (internal forces) do not influence the motion of a system\u2019s center of mass.' The topic codes are correct and relevant to both Newton's Third Law (2.3) and Newton's Second Law (2.5)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 2.3.A.2: \u201cInteractions between objects within a system (internal forces) do not influence the motion of a system\u2019s center of mass.\u201d Topic 2.3 requires it first; Topic 2.5 also uses it in 2.5.A.3, which states that the center-of-mass velocity changes only if a nonzero net external force acts on the system. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.3.A.2 (\"Interactions between objects within a system (internal forces) do not influence the motion of a system's center of mass.\"). The only difference is \"the system's\" versus \"a system's,\" which does not change the meaning. b_topic_codes: owner 2.3 is where 2.3.A.2 first appears. 2.5 is also acceptable because 2.5.A.3 (\"The velocity of a system's center of mass will only change if a nonzero net external force is exerted on that system\") applies the same principle that only external forces move the center of mass, though 2.5 does not restate the internal-force wording. c_ced_required: 2.3.A.2 is an essential-knowledge statement in these pages, so students are required to know it. d_caution: The entry's wording is essentially the CED wording, so no caution is needed and its absence is correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-012",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of tension matches the exact wording of Essential Knowledge 2.3.A.3 in the CED: 'Tension is the macroscopic net result of forces that infinitesimal segments of a string, cable, chain, or similar system exert on each other in response to an external force.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.3, EK 2.3.A.3 requires this definition, but the entry omits a member of the CED's list: \u201ca string, cable, chain, or similar system.\u201d Its narrower wording has no caution."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "CED 2.3.A.3 defines tension for segments of a \u201cstring, cable, chain, or similar system.\u201d The entry omits \u201cor similar system,\u201d narrowing the definition, and has no caution about the difference. Topic 2.3 is correct, and 2.3.A.3 explicitly requires this content."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definitions of an ideal string, tension in an ideal string, a string with nonnegligible mass, and an ideal pulley as explicitly detailed in Essential Knowledge statements 2.3.A.3.i through 2.3.A.3.iv of the AP Physics C: Mechanics CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.3, EK 2.3.A.3.i\u2013iv lists these four points in this order: an ideal string \u201chas negligible mass and does not stretch when under tension\u201d; its tension \u201cis the same at all points\u201d; tension in a string with nonnegligible mass \u201cmay not be the same at all points\u201d; and an ideal pulley has \u201cnegligible mass\u201d and rotates about an axle through its center of mass \u201cwith negligible friction.\u201d The entry accurately paraphrases required content, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Each item matches its CED statement in the same order. 2.3.A.3.i: \"An ideal string has negligible mass and does not stretch when under tension.\" 2.3.A.3.ii: \"The tension in an ideal string is the same at all points within the string.\" 2.3.A.3.iii: \"In a string with nonnegligible mass, tension may not be the same at all points within the string.\" 2.3.A.3.iv: \"An ideal pulley is a pulley that has negligible mass and rotates about an axle through its center of mass with negligible friction.\" The body and the ced_evidence range 2.3.A.3.i-2.3.A.3.iv are also correct. b_topic_codes: The ideal string and pulley content sits under Topic 2.3 (Newton's Third Law), where the CED introduces tension, and it is used only there in these pages, so owner_topic_code and topic_codes are correct. c_ced_required: These are essential knowledge statements under LO 2.3.A (\"Describe the interaction of two objects or systems using Newton's third law and a representation of paired forces\"), and they are required content. d_caution: The entry paraphrases the CED with equivalent wording (\"does not stretch under tension\" vs. \"does not stretch when under tension\"; \"Same at all points\" vs. \"the same at all points\"). The CED does not phrase any point differently in a way that would need a caution, so caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-015",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately states Newton's first law as defined in EK 2.4.A.3: 'Newton\u2019s first law states that if the net force exerted on a system is zero, the velocity of that system will remain constant.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches Topic 2.4, EK 2.4.A.3: \u201cNewton\u2019s first law states that if the net force exerted on a system is zero, the velocity of that system will remain constant.\u201d Topic 2.4 is the correct owner and sole listed topic. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 2.4.A.3 states \"Newton's first law states that if the net force exerted on a system is zero, the velocity of that system will remain constant.\" The entry matches in substance. The only difference is \"remains\" vs. \"will remain\", which does not change the meaning. b_topic_codes: Newton's first law is taught in Topic 2.4 (Unit 2), and 2.4 is the only listed code, so owner_topic_code 2.4 is correct and first required here. c_ced_required: 2.4.A.3 is an essential-knowledge statement under learning objective 2.4.A, which asks students to \"Describe the conditions under which a system's velocity remains constant.\" d_caution: The entry wording is the CED wording with a negligible tense variation, so the point-earning wording is effectively reproduced and no caution is needed; caution is null and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-014",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition of translational equilibrium from EK 2.4.A.2, which states that the net force is zero, and references the derived equation \\sum \\vec{F} = 0."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula correctly states the condition for translational equilibrium: 2.4.A.1 defines net force as the \u201cvector sum of all forces,\u201d and 2.4.A.2 says equilibrium occurs when \u201cthe net force exerted on a system is zero.\u201d Topic 2.4 is the correct owner. Topic 2.5 instead addresses unbalanced forces, for which 2.5.A.1 says the net force \u201cis not equal to zero,\u201d so it should not be listed as using this equilibrium equation. No wording caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 2.4 supports the formula in the title\u2019s equilibrium context: 2.4.A.1 defines net force as the vector sum of all forces, and 2.4.A.2 states that in translational equilibrium the net force is zero. Topic 2.5 does not use the equality to zero as stated; 2.5.A.1 defines unbalanced forces as having a net force that is not equal to zero. Remove 2.5 from topic_codes."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-016",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 2.4.A.4 from the CED: 'Forces may be balanced in one dimension but unbalanced in another. The system\u2019s velocity will change only in the direction of the unbalanced force.' The topic codes are correct and the content is directly required."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body closely matches 2.4.A.4: \u201cForces may be balanced in one dimension but unbalanced in another. The system\u2019s velocity will change only in the direction of the unbalanced force.\u201d Topic 2.4 first requires this statement; 2.5.A.1\u20132 addresses unbalanced forces and the resulting acceleration. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Matches 2.4.A.4 exactly in substance: \"Forces may be balanced in one dimension but unbalanced in another. The system's velocity will change only in the direction of the unbalanced force.\" The entry drops 'system's' but changes nothing substantive. b_topic_codes: owner 2.4 is correct, since 2.4.A.4 is first required in Topic 2.4. The secondary 2.5 is marginal but defensible: 2.5.A.1 defines unbalanced forces and 2.5.A.2 states acceleration is in the direction of the net force, so the 2.5 content uses this idea. c_ced_required: 2.4.A.4 is an essential-knowledge statement under learning objective 2.4.A (conditions under which velocity remains constant), so students are required to apply it. d_caution: The entry paraphrases the CED sentence closely and states no point-earning wording that a student could confuse, so no caution is needed and none is present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-017",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry definition matches the exact wording of Essential Knowledge 2.4.A.5 ('An inertial reference frame is one from which an observer would verify Newton\u2019s first law of motion.'). The topic codes are correct, as Topic 2.4 introduces the concept and Topic 2.6 references noninertial reference frames in the context of the equivalence principle (2.6.C.4)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 2.4.A.5: \u201cAn inertial reference frame is one from which an observer would verify Newton\u2019s first law of motion.\u201d Topic 2.4 first requires the definition, and 2.6.C.4 uses the distinction by referring to \u201can observer in a noninertial reference frame.\u201d The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.4.A.5 word for word: \"An inertial reference frame is one from which an observer would verify Newton's first law of motion.\" The ced_evidence string also matches the CED. b_topic_codes: owner 2.4 is the first unit-2 topic that requires the concept, since 2.4.A.5 sits in Topic 2.4. The second code, 2.6, is weaker. Its only related statement is 2.6.C.4, which refers to a noninertial reference frame, so 2.6 uses the concept indirectly. The ced_evidence cites only 2.4, so the 2.6 tag is defensible but thin. c_ced_required: 2.4.A.5 is an essential-knowledge statement in these pages, so a student is expected to reproduce this definition. Trivia or other-unit content is not involved. d_caution: the entry wording is the CED wording, so no caution is needed and caution is null, which is correct. hooks: none are present, so no hook evaluation applies.",
+            "reasons_note": "Optional tightening: 2.6 could be dropped from topic_codes unless the entry is meant to cover the noninertial-frame usage in 2.6.C.4."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-018",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches the 'Relevant equation' under Essential Knowledge 2.5.A.2 exactly. The topic codes are correct and belong to Unit 2, where Newton's second law is applied (including resistive forces in 2.9 and circular motion in 2.10). The caution correctly emphasizes that the acceleration is that of the center of mass and is directional, which aligns with the CED text."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula expresses 2.5.A.2: the acceleration of a system\u2019s center of mass is proportional to, and in the same direction as, the net force exerted on the system. Topic 2.5 first requires the law; 2.9.A.2 explicitly applies Newton\u2019s second law to resistive-force motion, and 2.10.A.2 applies net force to centripetal acceleration. The caution correctly identifies center-of-mass acceleration and direction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body a_sys = \u03a3F/m_sys = F_net/m_sys is the standard rearrangement of Newton's second law, and it matches 2.5.A.2 ('acceleration of a system's center of mass has a magnitude proportional to the magnitude of the net force exerted on the system and is in the same direction as that net force'). The CED's 'Relevant equation' for 2.5.A.2 is an image not present in the extracted text, so the exact symbolic form cannot be checked against the page itself; the physics is correct. b_topic_codes: 2.5 is the first place in Unit 2 where Newton's second law is stated (2.4 covers only the zero-net-force case), so owner 2.5 is correct. 2.9.A.2 explicitly says 'Applying Newton's second law to an object upon which a resistive force is exerted', so 2.9 uses it. 2.10 uses it through centripetal acceleration produced by net force (2.10.A.2). All three codes are Unit 2 topics that use the law. c_ced_required: 2.5.A.2 requires students to apply the law to a system's center-of-mass acceleration, so the entry is required. d_caution: The CED wording is 'acceleration of a system's center of mass' with direction 'the same direction as that net force'. The caution states both points (center-of-mass acceleration, direction of net force), so the caution is present and correct for a formula whose bare form omits them.",
+            "hooks": []
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-019",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry perfectly matches Essential Knowledge 2.5.A.3: 'The velocity of a system\u2019s center of mass will only change if a nonzero net external force is exerted on that system.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body closely matches essential knowledge 2.5.A.3: \u201cThe velocity of a system\u2019s center of mass will only change if a nonzero net external force is exerted on that system.\u201d Topic 2.5 explicitly requires this statement. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.5.A.3, which states \"The velocity of a system's center of mass will only change if a nonzero net external force is exerted on that system.\" The entry's paraphrase keeps the same condition (nonzero net external force) and the same direction (only if). b_topic_codes: 2.5 is the topic that introduces this idea. 2.5.A.3 sits under Topic 2.5 (Newton's Second Law), and topic_codes lists only 2.5. c_ced_required: 2.5.A.3 is an essential-knowledge statement under learning objective 2.5.A (\"Describe the conditions under which a system's velocity changes\"), so students must apply it. d_caution: The wording differs only in phrasing (\"changes only if\" vs. \"will only change if\"), and the point-earning condition is the same, so no caution is needed. The ced_evidence quote is an exact substring of 2.5.A.3."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-020",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches the relevant equation under 2.6.A.1. The topic codes are correct as universal gravitation is introduced in 2.6 and applied to circular orbits in 2.10.B.1. The caution accurately reflects the details in 2.6.A.1.i and 2.6.A.1.ii."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.6.A.1 gives the gravitational-force formula and states that the force is proportional to both masses and inversely proportional to the square of the distance between centers of mass. It also states that the force is attractive and acts along the line connecting those centers, as the caution specifies. Topic 2.6 first requires the law; 2.10.B.1 uses gravitational attraction to describe circular orbits."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED Relevant equation for 2.6.A.1 is F_g = G m1 m2 / r^2 (the rendered text shows 'mm' over r^2 with G), and the verbal statement in 2.6.A.1 matches: 'directly proportional to each of their masses and inversely proportional to the square of the distance between the systems' centers of mass.' b_topic_codes: owner 2.6 is where the law is first introduced in this unit (2.6.A.1 with its relevant equation). Topic 2.10 is a legitimate secondary use: 2.10.B.1 requires that a satellite's centripetal acceleration 'is caused only by gravitational attraction' and that its period and radius are related to the central body's mass, a derivation that relies on this law. The CED does not state the link explicitly, so this is a reasonable but not verbatim association. c_ced_required: 2.6.A.1 lists the relevant equation and 2.6.A.1.i-iii require students to apply it (attractive, along the line between centers of mass, acting at the center of mass). d_caution: the caution states that r is the distance between the systems' centers of mass, that the force is attractive, and that it acts along the line connecting the centers. These match 2.6.A.1 ('distance between the systems' centers of mass'), 2.6.A.1.i ('The gravitational force is attractive') and 2.6.A.1.ii ('always exerted along the line connecting the center of mass of the two interacting systems'). The caution is present and correct, and it is needed because the bare formula does not show the attractive sign or the centers-of-mass definition of r.",
+            "hook_text_note": "no hooks"
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-022",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the derived equation for weight (Weight = Fg = mg) as explicitly defined in Essential Knowledge statement 2.6.A.3. The caution correctly references the equivalence of gravitational field strength and acceleration when gravity is the only force (EK 2.6.A.2.ii) and the approximate value of g near Earth's surface (EK 2.6.B.2)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6.A.3 states that the gravitational force exerted by an astronomical body on a relatively small nearby object is called weight and gives the derived equation \u201cWeight = Fg = mg.\u201d Topic 2.6.A.2.ii supports the caution\u2019s statement about acceleration when gravity is the only force. Weight is required in Topic 2.6, and the entry uses the CED\u2019s wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.6.A.3 defines weight as 'The gravitational force exerted by an astronomical body on a relatively small nearby object' with 'Derived equation: Weight = Fg = mg'. The entry's body, symbols, and definition match. b_topic_codes: Weight is first defined in this unit at 2.6.A.3, and the entry's only topic code, 2.6, is the topic where it appears. Topics 2.1-2.5 do not define weight. c_ced_required: LO 2.6.A requires students to describe the gravitational interaction, and 2.6.A.3 requires knowing weight = mg, so the entry is required content. d_caution: the entry body uses the CED's wording, so no caution is strictly needed, and the caution is not contradicted by the CED. Its second sentence restates 2.6.A.2.ii ('the observed acceleration... is numerically equal to the magnitude of the gravitational field strength'). Its first sentence, 'about 10 N/kg', is not verifiable from these pages: the value in 2.6.B.2 is blank in the extracted text. The CED's own value is typically 9.8 N/kg, so the caution should say 9.8 N/kg or be marked approximate. This is a minor precision issue, not a failure, so the entry is accepted with that note."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-023",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 2.6.B.1 from the CED, which states that the gravitational force can be considered constant if the change is negligible as the relative position changes."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately paraphrases Topic 2.6, EK 2.6.B.1: if the gravitational force between two systems\u2019 centers of mass has a negligible change as their relative position changes, it \u201ccan be considered constant at all points between the initial and final positions.\u201d No caution is needed because the paraphrase preserves the CED\u2019s condition and conclusion."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.6.B.1, which reads: \"If the gravitational force between two systems' centers of mass has a negligible change as the relative position of the two systems changes, the gravitational force can be considered constant at all points between the initial and final positions of the systems.\" The body paraphrases this without changing the condition or the conclusion. b_topic_codes: 2.6.B.1 is the first place this appears, and it sits under Topic 2.6 (Gravitational Force), which is the only topic listed. c_ced_required: Learning objective 2.6.B, \"Describe situations in which the gravitational force can be considered constant,\" requires students to apply this condition directly. d_caution: The entry's wording is a close paraphrase of the CED statement with the same condition and conclusion, so the point is earned without a caution. The entry omits the phrase \"at all points,\" but this does not change the meaning. No caution is needed, so the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-021",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the derived equation for gravitational field strength as specified in EK 2.6.A.2.i on page 50 of the CED. The topic codes are correct as gravitational field strength is introduced in Topic 2.6 and applied to circular orbits in Topic 2.10."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6.A.2.i gives the gravitational field strength as the gravitational force on a test object divided by its mass, with the derived equation g = F_g/m = GM/r\u00b2. Topic 2.10 uses gravitational attraction to provide centripetal acceleration in a circular orbit (2.10.B.1) and uses g for the minimum-speed condition at the top of a loop (2.10.A.2.i). The title specifies field strength, so scalar notation is appropriate; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: CED 2.6.A.2.i gives the derived equation 'g = F_g/m = GM/r^2' with g as the magnitude of the field created by mass M, defined as the ratio of gravitational force on a test object of mass m to that mass. The body matches the symbols, order, and definition. b_topic_codes: owner 2.6 is correct, since 2.6.A.2.i is where the field-strength equation first appears. The topic_codes entry '2.10' fails. The 2.10 pages never use the gravitational field g or the expression GM/r^2. Their only gravitational content is 2.10.B.1, where a satellite's centripetal acceleration 'is caused only by gravitational attraction' and the period-radius relation follows from that force. That is not the field-strength equation, so 2.10 should be removed from topic_codes. c_ced_required: 2.6.A.2.i and 2.6.A.2.ii state the field-strength relation and its use (g equals the observed acceleration when gravity is the only force), and skill 2.A (derive a symbolic expression) applies to it. d_caution: the entry's wording matches the CED derived equation verbatim, so no caution is needed and the null caution is correct. The entry is rejected only because of the unsupported 2.10 topic code."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body g = F_g/m = GM/r^2 matches the CED derived equation in 2.6.A.2.i (\"g = F_g/m = G M/r^2\"), and the definition as the ratio of gravitational force on a test mass to that mass matches 2.6.A.2.i. b_topic_codes: owner 2.6 is correct because field strength first appears in 2.6.A.2.i. However, 2.10 does not require the field-strength concept. Its only gravitational content is 2.10.B.1 (circular orbits and Kepler's third law), which uses gravitational attraction for satellite centripetal acceleration and never mentions a gravitational field or g = F_g/m. The shared expression GM/r^2 does not make 2.10 a topic that uses this entry, so 2.10 should be removed from topic_codes. c_ced_required: 2.6.A.2.i and 2.6.A.2.ii require students to describe the field and apply g as the ratio of force to test mass, and the derived equation is listed in the CED, so this is required. d_caution: the entry's wording matches the CED derived equation, so no caution is needed and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-025",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 2.6.C.3 from the CED: 'A system appears weightless when there are no forces exerted on the system or when the force of gravity is the only force exerted on the system.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6, essential knowledge 2.6.C.3 states: \u201cA system appears weightless when there are no forces exerted on the system or when the force of gravity is the only force exerted on the system.\u201d The entry accurately restates this required content. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.6.C.3, \"A system appears weightless when there are no forces exerted on the system or when the force of gravity is the only force exerted on the system.\" The body says \"no forces are exerted on it\" instead of \"there are no forces exerted on the system,\" but the two statements carry the same meaning and the same two conditions in the same order. b_topic_codes: The concept appears only under Topic 2.6 (2.6.C.3), so owner_topic_code \"2.6\" and topic_codes [\"2.6\"] are correct. c_ced_required: 2.6.C.3 is an essential-knowledge statement under learning objective 2.6.C (\"Describe the conditions under which the magnitude of a system's apparent weight is different from the magnitude of the gravitational force exerted on that system\"), so the entry is required content. d_caution: The wording is a paraphrase that expresses the same meaning, so a student using it would earn the point and no caution is needed. Null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-024",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definition of apparent weight as the magnitude of the normal force (2.6.C.1) and its difference from the gravitational force when accelerating (2.6.C.2)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6.C.1 states that \u201cthe magnitude of the apparent weight of a system is the magnitude of the normal force exerted on the system.\u201d Topic 2.6.C.2 states that if the system is accelerating, its apparent weight is not equal to the magnitude of the gravitational force. The entry and caution convey those distinctions; Topic 2.6 is the required topic."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.6.C.1 reads \"The magnitude of the apparent weight of a system is the magnitude of the normal force exerted on the system.\" The body states the same relationship. CED 2.6.C.2 says \"If the system is accelerating, the apparent weight of the system is not equal to the magnitude of the gravitational force exerted on the system,\" which matches the body's 'differs from the gravitational force when the system accelerates.' No formula or list is involved. b_topic_codes: Apparent weight is introduced under Topic 2.6 (LO 2.6.C, essential knowledge 2.6.C.1-2.6.C.4), which is the only topic code listed, and it is a Unit 2 topic. c_ced_required: LO 2.6.C requires students to 'Describe the conditions under which the magnitude of a system's apparent weight is different from the magnitude of the gravitational force exerted on that system,' so the entry supports a required application. d_caution: The caution's substance is correct and guards a real misconception (apparent weight is not the gravitational force). It is a little loose, though. It says 'Apparent weight is the normal force,' omitting 'magnitude,' while CED 2.6.C.1 specifies magnitude equals magnitude of the normal force. The caution is acceptable, but it would be tighter as 'The magnitude of apparent weight is the magnitude of the normal force, not the gravitational force.'"
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements for free-body diagrams as detailed in LO 2.2.B, EK 2.2.B.1 through 2.2.B.4, and the accompanying Boundary Statement. The caution correctly warns against drawing force components, which is a critical exam-taking rule specified in the CED's Boundary Statement."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.2.B.2 says a free-body diagram shows each force exerted on a single object or system by the environment; 2.2.B.3 places force vectors at the representation of its center of mass. The boundary statement requires individual straight arrows originating on the dot, with same-direction forces side by side rather than overlapping, and excludes force components. Topic 2.2.B.4 supports the suggested coordinate-axis choice. The owner is 2.2; topics 2.3\u20132.5 also use force representations to analyze interactions, equilibrium, or acceleration. The caution correctly states the exam boundary."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body, items, and caution match the CED. 2.2.B.2 says the FBD 'shows each of the forces exerted on the object or system by the environment.' 2.2.B.3 says forces 'originat[e] from the representation of the center of mass, such as a dot.' The Boundary Statement says individual forces 'must be drawn as individual straight arrows, originating on the dot... Individual forces that are in the same direction must be drawn side by side, not overlapping.' 2.2.B.4 says one axis parallel to the direction of acceleration, e.g., 'parallel to the surface of the incline.' b_topic_codes: owner 2.2 is correct, since 2.2.B introduces the FBD and the Unit 2 essential-question text says the unit builds on 'the introduction of the free-body diagram.' The list is overstated. Topic 2.4 (Newton's First Law) and 2.5 (Newton's Second Law) never mention free-body diagrams in their required content (LO 2.4.A, 2.5.A and their essential knowledge). Topic 2.3 names an FBD only in optional Sample Activity 3, not in its required content (2.3.A says 'a representation of paired forces'). Prune topic_codes to 2.2 and, at most, 2.3 with the activity-only support noted. c_ced_required: 2.2.B.1 says 'Free-body diagrams are useful tools for visualizing forces being exerted on a single object or system,' and LO 2.2.B requires describing forces with an FBD. d_caution: The CED says the exam expects students 'to depict the forces exerted on objects, not the force components,' so the caution is needed, present, and correct. Entry rejected because of the topic_codes overreach (b). Fixing the topic list would likely allow acceptance.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.2.B.2 ('shows each of the forces exerted on the object or system by the environment'). Each item matches the CED: the dot is the center of mass, with forces 'represented as vectors originating from the representation of the center of mass, such as a dot' (2.2.B.3). The Boundary Statement requires individual forces 'as individual straight arrows, originating on the dot and pointing in the direction of the force' and says 'Individual forces that are in the same direction must be drawn side by side, not overlapping.' The axis item matches 2.2.B.4 ('one axis parallel to the direction of acceleration'; 'set one axis parallel to the surface of the incline'). No formula is present, so there is nothing to misstate. b_topic_codes: 2.2 is the first unit-2 topic that introduces the free-body diagram (2.2.B.1, and the unit overview: 'through the introduction of the free-body diagram'). 2.3 uses FBDs explicitly in Sample Activity 3 and in the paired-force interaction LO. 2.4 and 2.5 apply net-force equations, and 2.2.B.1 says FBDs are 'useful tools ... for determining the equations that represent a physical situation,' so they are supported, though the CED does not name FBDs in those two topics' own LOs. c_ced_required: LO 2.2.B ('Describe the forces exerted on an object or system using a free-body diagram') requires students to apply this. d_caution: the CED phrases the limit as 'depict the forces exerted on objects, not the force components on free-body diagrams' (Boundary Statement). The entry's caution, 'draw individual forces only, not force components,' carries that point and is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-026",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines the equivalence principle as stated in Essential Knowledge 2.6.C.4: 'The equivalence principle states that an observer in a noninertial reference frame is unable to distinguish between an object\u2019s apparent weight and the gravitational force exerted on the object by a gravitational field.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately restates essential knowledge 2.6.C.4: an observer in a noninertial reference frame is unable to distinguish between an object\u2019s apparent weight and the gravitational force exerted on it by a gravitational field. Topic 2.6 is the relevant topic. The minor paraphrase does not change the meaning, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.6.C.4 reads \"The equivalence principle states that an observer in a noninertial reference frame is unable to distinguish between an object's apparent weight and the gravitational force exerted on the object by a gravitational field.\" The body says \"cannot distinguish\" in place of \"is unable to distinguish\" and drops the \"states that\" framing. The meaning is identical, and the list and relationship are intact. b_topic_codes: 2.6.C.4 sits under Topic 2.6 (Gravitational Force), the first unit-2 location of the principle, so owner_topic_code \"2.6\" and topic_codes [\"2.6\"] are correct. c_ced_required: 2.6.C.4 is essential knowledge under LO 2.6.C, which requires students to describe apparent weight versus gravitational force, so the principle is required CED content. d_caution: the body is a faithful paraphrase whose concept matches the CED point, so no caution is needed. The caution is null, which is correct under this rule. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-027",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately and directly reflects the definitions and relationship between inertial and gravitational mass as specified in Essential Knowledge statements 2.6.D.1, 2.6.D.2, and 2.6.D.3 on page 51 of the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6, essential knowledge 2.6.D.1\u20132.6.D.3, states that inertial mass determines how much an object\u2019s motion resists changes when interacting with another object, gravitational mass is related to the attractive force between systems with mass, and the two have been experimentally verified to be equivalent. The entry accurately paraphrases these required statements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED. 2.6.D.1 says inertial mass is 'a property that determines how much an object's motion resists changes when interacting with another object,' and the body says the same. 2.6.D.2 says 'Gravitational mass is related to the force of attraction between two systems with mass,' which the body reproduces. 2.6.D.3 says inertial and gravitational mass 'have been experimentally verified to be equivalent,' which matches the body's final clause. No formula or list is involved. b_topic_codes: owner_topic_code 2.6 is the topic that introduces Learning Objective 2.6.D ('Describe inertial and gravitational mass') in Unit 2, and topic_codes ['2.6'] is the only code listed, which is correct. c_ced_required: Learning Objective 2.6.D ('Describe inertial and gravitational mass') with essential knowledge 2.6.D.1-2.6.D.3 on CED p. 51 requires students to describe both kinds of mass and their equivalence. d_caution: The entry's wording closely follows the CED statements, and the point-earning content (inertia as resistance to change in motion, gravitational mass tied to attraction, experimental equivalence) is fully present in the body. No caution is needed, so null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-030",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the magnitude of the kinetic friction force as defined in Essential Knowledge 2.7.A.2, which states that the magnitude is the product of the normal force and the coefficient of kinetic friction."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.7.A.2 states that the magnitude of kinetic friction is \u201cthe product of the normal force ... and the coefficient of kinetic friction\u201d and gives F_{f,k} = \u03bc_k F_N. The entry uses that formula and the correct topic code. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED gives the relevant equation for 2.7.A.2 as F_{f,k} = \u00b5_k F_N. The entry's symbols (F_{f,k}, \u00b5_k, F_N) match that line, and the body agrees with the statement that the magnitude of kinetic friction is the product of the normal force and the coefficient of kinetic friction. b_topic_codes: Kinetic friction is introduced in Topic 2.7 (Unit 2), which is the owner and only topic code, and 2.7.A.2 uses the equation. c_ced_required: 2.7.A.2 lists this equation as a 'Relevant equation,' and 2.7.A is a required learning objective (describe kinetic friction), so the formula is required content. d_caution: The entry's wording is the CED's own equation, so the point-earning wording is the formula itself and no caution is needed. The ced_evidence quotes 2.7.A.2 accurately. Note that F_N is the normal force, not weight, per 2.7.A.2.ii, but the entry needs no caution for that because the symbol is the CED's own notation."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-028",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the three cases of Newton's shell theorem as detailed in Essential Knowledge 2.6.E.2.i, 2.6.E.2.ii, and 2.6.E.2.iii. The caution correctly references the Boundary Statement which states that students are not expected to mathematically prove or derive the theorem."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6 states that the force inside a thin spherical shell is zero (2.6.E.2.i), that an outside object can treat the shell as a mass at its center (2.6.E.2.ii), and that an object inside a uniform sphere experiences force from only a partial mass (2.6.E.2.iii). Statement 2.6.E.2.iv specifies that this mass lies at distances less than or equal to the object's distance from the center. The caution is consistent with the boundary statement that students are not expected to mathematically prove or derive Newton's shell theorem. The cited evidence should also include 2.6.E.2.iv."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The three items match the CED. 2.6.E.2.i: \"The net gravitational force exerted on an object inside a thin spherical shell is zero.\" 2.6.E.2.ii: \"The net gravitational force exerted on an object outside a thin spherical shell can be determined by treating the shell as a single massive object located at the center of the shell.\" 2.6.E.2.iii and 2.6.E.2.iv: an object inside a uniform sphere feels a net force only from the partial mass at distances less than or equal to its own distance from the center. The body text matches the scope of 2.6.E. b_topic_codes: The shell results first appear in Topic 2.6 (2.6.E), and 2.6 is the only listed code, so owner and topic codes are correct. c_ced_required: Learning objective 2.6.E requires students to \"Describe the gravitational force exerted on an object by a uniform spherical distribution of mass,\" and 2.6.E.2.i-iii state the results the entry lists. d_caution: The CED boundary statement says \"AP Physics C: Mechanics does not expect students to mathematically prove or derive Newton's shell theorem.\" The entry's caution (\"Do not prove or derive... state and apply the results\") reflects this, and the wording differs from the CED, so the caution is needed and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-029",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the derived equations from 2.6.E.2.iv ($M_{partial} = \\rho \\frac{4}{3} \\pi r_{partial}^3$) and 2.6.E.3 ($F_{g,partial} = -k r_{partial}$) as specified in the CED for Unit 2, Topic 2.6."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.6.E.2.iv says the contributing partial mass is the mass within the object's distance from the sphere's center and \"can be calculated using the density of the sphere\"; for uniform density, that mass is \u03c1(4/3)\u03c0r_partial\u00b3. Topic 2.6.E.3 gives the derived equation F_g,partial = \u2212kr_partial. Both belong to Topic 2.6, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED gives the partial-mass relation only as an image-based 'Derived equation' under 2.6.E.2.iv, so the exact formula is not in the extracted text. The stated physics is consistent with 2.6.E.2.iv ('can be calculated using the density of the sphere') and 2.6.E.3 ('Fg,partial = \u2212k r_partial', force proportional to distance from center). Substituting m_partial = \u03c1(4/3)\u03c0r\u00b3 into Newton's gravitation gives F = \u2212(G\u03c1(4/3)\u03c0m) r, so the formula and the negative (restoring, toward-center) sign are correct. The entry does not define \u03c1 or k, but the CED does not define them either, so this does not make the entry incorrect. b_topic_codes: 2.6.E.2.iv and 2.6.E.3 both sit under Topic 2.6 (Gravitational Force) in Unit 2, so owner_topic_code '2.6' and topic_codes ['2.6'] are correct. c_ced_required: 2.6.E.2.iv and 2.6.E.3 require students to know that partial mass is computed from density and that the force inside a uniform sphere is proportional to distance from center, with a derived equation. The boundary statement only excludes proving the shell theorem, not applying this result. d_caution: The entry's wording matches the CED's derived equation (Fg,partial = \u2212k r_partial). No caution is needed because the point-earning wording is the equation itself. hooks: none supplied, so no hook evaluation is required."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-034",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's body matches the exact wording of Essential Knowledge 2.7.B.3 ('The coefficient of static friction is typically greater than the coefficient of kinetic friction for a given pair of surfaces.'). The caution correctly highlights the word 'typically' as specified in the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.7.B.3 states: \u201cThe coefficient of static friction is typically greater than the coefficient of kinetic friction for a given pair of surfaces.\u201d The entry reproduces this under Topic 2.7, and its caution correctly preserves \u201ctypically,\u201d rather than implying \u201calways.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.7.B.3 word for word: \"The coefficient of static friction is typically greater than the coefficient of kinetic friction for a given pair of surfaces.\" The entry has no formula, list, or symbols to misstate. b_topic_codes: The statement appears only under Topic 2.7 (Kinetic and Static Friction) in these pages, so owner_topic_code \"2.7\" is where it first appears, and topic_codes [\"2.7\"] is correct. c_ced_required: 2.7.B.3 is an essential-knowledge statement under learning objective 2.7.B (\"Describe static friction between two surfaces\"), so the CED requires students to know it. d_caution: The entry's wording is the CED's wording, including \"typically,\" so no caution is strictly needed. The caution (\"The CED says 'typically,' not always\") is accurate and does no harm, so it is treated as correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-031",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'Normal force' is highly accurate and directly supported by EK 2.7.A.2.ii ('Normal force is the perpendicular component of the force exerted on an object by the surface with which it is in contact; it is directed away from the surface.'). The topic codes are correct, as normal force is defined in Topic 2.7 and its components are used in Topic 2.10 (EK 2.10.A.2.ii)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 2.7.A.2.ii: \u201cNormal force is the perpendicular component of the force exerted on an object by the surface with which it is in contact; it is directed away from the surface.\u201d Topic 2.7 first requires the definition, and 2.10.A.2.ii uses the normal force in circular motion on a banked surface. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 2.7.A.2.ii, which states 'Normal force is the perpendicular component of the force exerted on an object by the surface with which it is in contact; it is directed away from the surface.' The definition is accurate. b_topic_codes fails. The normal force is first required in Topic 2.6, not 2.7. 2.6.C.1 states 'The magnitude of the apparent weight of a system is the magnitude of the normal force exerted on the system,' and Topic 2.6 precedes Topic 2.7. The formal definition is given in 2.7, but the first use the unit requires is in 2.6, so owner_topic_code should arguably be 2.6 (or the entry must justify 2.7 as the definitional home). In addition, topic_codes omits 2.6, which uses the concept in 2.6.C.1. The 2.10 entry is valid: 2.10.A.2.ii names 'the normal force' contributing to centripetal acceleration on a banked surface. c_ced_required passes: 2.7.A.2.ii requires the definition, and 2.6.C.1 and 2.10.A.2.ii apply it. d_caution passes: the wording is essentially the CED's own wording, so no caution is needed."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.7.A.2.ii, which states 'Normal force is the perpendicular component of the force exerted on an object by the surface with which it is in contact; it is directed away from the surface.' The entry's wording is a close paraphrase with the same substance: perpendicular component, exerted by the surface, in contact, directed away. b_topic_codes: 2.7 is the first unit-2 topic that defines normal force (2.7.A.2 uses F_N in the kinetic friction equation, and 2.7.A.2.ii defines it). 2.10 is valid because 2.10.A.2.ii names 'the normal force' as a contributor to centripetal acceleration on a banked surface. c_ced_required: 2.7.A.2.ii is a required essential-knowledge statement that a student must know the definition, so the entry is CED-required. d_caution: The entry's phrasing is substantively the CED's point-earning wording ('perpendicular component' and 'directed away from the surface' both appear), so no caution is needed and the null caution is correct.",
+            "hooks_note": "No hooks supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-032",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately summarizes the direction, surface area independence, and material dependence of kinetic friction as specified in Essential Knowledge statements 2.7.A.1.i, 2.7.A.1.ii, and 2.7.A.2.i."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.7 requires all three claims: 2.7.A.1.i says kinetic friction acts opposite \u201cthe motion of each surface relative to the other surface\u201d; 2.7.A.1.ii says friction \u201cdoes not depend on the size of the surface area of contact\u201d; and 2.7.A.2.i says the coefficient of kinetic friction depends on the surfaces\u2019 \u201cmaterial properties.\u201d The paraphrase preserves those meanings, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED states that 'The kinetic friction force is exerted in a direction opposite the motion of each surface relative to the other surface' (2.7.A.1.i). The entry's 'opposes each surface's motion relative to the other' matches this. The CED also says 'The force of friction between two surfaces does not depend on the size of the surface area of contact' (2.7.A.1.ii), and 'The coefficient of kinetic friction depends on the material properties of the surfaces that are in contact' (2.7.A.2.i). Both match the entry. No formula is given in the entry, and the relevant equation Ff,k = \u00b5k FN is not stated in the body, so nothing is misstated. b_topic_codes: Kinetic friction is introduced in Topic 2.7 (Kinetic and Static Friction) of Unit 2, so owner_topic_code '2.7' is correct and the only topic code is correct. c_ced_required: Learning objective 2.7.A ('Describe kinetic friction between two surfaces') requires students to apply these direction, area-independence, and coefficient conventions. d_caution: The entry's wording is essentially the CED's own wording for these statements, so the point-earning wording is present and no caution is needed. Hooks: none provided, so no hook evaluation applies."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-033",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formulas for static friction ($F_{f,s} \\le \\mu_s F_N$ and $F_{f,s,max} = \\mu_s F_N$) are explicitly provided in the CED under Essential Knowledge 2.7.B.2 and 2.7.B.2.ii. The topic codes are correct, as static friction is introduced in Topic 2.7 and applied to circular motion scenarios (such as a car on a banked curve or a coin on a rotating meterstick) in Topic 2.10."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.7.B.2 states that static friction \u201cadopts the value and direction required to prevent an object from slipping,\u201d and 2.7.B.2.ii gives its maximum as F_{f,s,max} = \u03bc_s F_N. The inequality expresses that the friction magnitude can be below that maximum; the caution correctly reserves equality for the slipping threshold. Topic 2.7 first requires this content, and 2.10.A.2.ii uses static friction in circular motion on a banked surface."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The maximum-value equation matches the CED text exactly: 2.7.B.2.ii 'There exists a maximum value for which static friction will prevent an object from slipping' and the derived equation 'Ff,s,max = \u00b5s FN'. The inequality Ff,s \u2264 \u00b5s FN is the 2.7.B.2 'Relevant equation', which is an image in the extracted text, so its exact rendering can't be confirmed from the text alone, but it is consistent with 2.7.B.2 ('adopts the value and direction required to prevent an object from slipping'). Symbols and order are correct. b_topic_codes: owner 2.7 is where static friction is first required (2.7.B). Topic 2.10 is valid because 2.10.A.2.ii states 'Components of the static friction force and the normal force can contribute to the net force producing centripetal acceleration of an object traveling in a circle on a banked surface.' c_ced_required: 2.7.B.2 requires students to describe static friction as taking whatever value and direction prevents slipping, and 2.7.B.2.ii requires the maximum value, so both the inequality and the equality are CED content. d_caution: The CED wording is 'adopts the value and direction required to prevent an object from slipping or sliding' and 'maximum value'. It never uses the word 'inequality' or says 'use the equality only at the slipping threshold'. The caution correctly flags that the equality applies only at the threshold, which is the point the CED's maximum-value statement makes. The caution is present and correct.",
+            "hooks_note": "No hooks supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-036",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines an ideal and nonideal spring according to Essential Knowledge 2.8.A.1 of the AP Physics C: Mechanics CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.8.A.1 states: \u201cAn ideal spring has negligible mass and exerts a force that is proportional to the change in its length as measured from its relaxed length.\u201d It also defines a nonideal spring as having nonnegligible mass or a force not proportional to that change. The entry accurately paraphrases this required content, uses the correct topic code, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.8.A.1, which states 'An ideal spring has negligible mass and exerts a force that is proportional to the change in its length as measured from its relaxed length. A nonideal spring either has nonnegligible mass or exerts a force that is not proportional to the change in its length.' The body keeps the same members and the same either/or structure, and drops only the phrase 'as measured'. b_topic_codes: The definition of an ideal spring is first required in Topic 2.8 (LO 2.8.A, 'Describe the force exerted on an object by an ideal spring'), and topic_codes lists only 2.8, which is correct. c_ced_required: LO 2.8.A requires students to describe the force exerted by an ideal spring, and 2.8.A.1 supplies the defining property, so the definition is required. d_caution: The body is a close paraphrase that keeps the point-earning content (negligible mass, force proportional to displacement from relaxed length, and the nonideal conditions). No caution is needed, so the null caution is acceptable."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-037",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the equivalent spring constant of springs in series as described in EK 2.8.B.1.i. The caution correctly incorporates the qualitative relationship from EK 2.8.B.1.ii ('smaller than the smallest constituent spring constant') and the restriction from the Topic 2.8 Boundary Statement (only pure series or parallel, no mixed combinations)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.8.B.1.i states that the inverse of the equivalent spring constant for springs in series equals the sum of the inverses of the individual spring constants. Topic 2.8.B.1.ii states that the equivalent constant is smaller than the smallest constituent spring constant. The Topic 2.8 boundary statement limits expectations to springs arranged either in series or in parallel, not mixed arrangements. No additional wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula 1/k_eq = sum(1/k_i) = 1/k1 + 1/k2 + ... matches CED 2.8.B.1.i: \"The inverse of the equivalent spring constant of a set of springs in series is equal to the sum of the inverses of the individual spring constants.\" (Derived equation, p.55-56.) No items are present, so no list-order issue arises. b_topic_codes: Springs in series appear under Topic 2.8 (Spring Forces, LO 2.8.B). No earlier topic in Unit 2 uses springs, so owner 2.8 is where the unit first requires it, and topic_codes ['2.8'] is the only topic that uses it. c_ced_required: LO 2.8.B (\"Describe the equivalent spring constant of a combination of springs exerting forces on an object\") with EK 2.8.B.1.i requires this relation. The Boundary Statement on p.56 says students must find effective spring constants for series or parallel arrangements, so the series formula is required. d_caution: The caution restates EK 2.8.B.1.ii, \"The equivalent spring constant of a set of springs arranged in series is smaller than the smallest constituent spring constant,\" and the Boundary Statement, \"does not expect students to find the effective spring constant of a system in which springs are arranged in both series and parallel.\" The caution is present, accurate, and supports the point-earning wording, so the check passes. hooks: none present, so no hook evaluation is required."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-035",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Hooke's law as described in Topic 2.8 (Spring Forces), specifically referencing Essential Knowledge 2.8.A.2 and 2.8.A.3. The caution correctly notes the reference point for displacement and the restoring nature of the spring force."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.8 requires Hooke\u2019s law: 2.8.A.2 states that the magnitude of the force exerted by an ideal spring is given by Hooke\u2019s law. The vector form includes the restoring-force sign. The caution reflects 2.8.A.1, which measures the change in length from the spring\u2019s relaxed length, and quotes 2.8.A.3: the force is \u201cdirected toward the equilibrium position of the object\u2013spring system.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 2.8.A.2 states that 'The magnitude of the force exerted by an ideal spring on an object is given by Hooke's law' and the equation itself is an image not recoverable from the extracted text. The entry's vector form F_s = -k \u0394x is the standard Hooke's law and is consistent with 2.8.A.3 ('always directed toward the equilibrium position'). The sign encodes that direction. Symbols (k, \u0394x) are standard and not contradicted by the pages. b_topic_codes: Hooke's law first appears in Topic 2.8 (Spring Forces), so owner_topic_code '2.8' is correct and topic_codes ['2.8'] is the only unit topic that uses it. c_ced_required: learning objective 2.8.A ('Describe the force exerted on an object by an ideal spring') and essential knowledge 2.8.A.2 explicitly require this law. d_caution: 2.8.A.1 defines the displacement as 'the change in its length as measured from its relaxed length', and 2.8.A.3 gives the direction toward the equilibrium position. The caution states both, so it is present and correct. ced_evidence cites 2.8.A.2 and 2.8.A.3 accurately.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-038",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formula for the equivalent spring constant of springs in parallel, as required by Essential Knowledge 2.8.B.1.iii ('The equivalent spring constant of a set of springs arranged in parallel is the sum of the individual spring constants')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.8.B.1.iii states: \u201cThe equivalent spring constant of a set of springs arranged in parallel is the sum of the individual spring constants.\u201d The formula expresses that sum, belongs to Topic 2.8, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.8.B.1.iii states that 'The equivalent spring constant of a set of springs arranged in parallel is the sum of the individual spring constants.' The body k_eq = \u03a3k_i = k_1 + k_2 + ... matches this, and the symbol k_eq matches the CED's 'keq' in 2.8.B.1. b_topic_codes: Topic 2.8 (Spring Forces) is the only place this relation appears in Unit 2, so owner_topic_code '2.8' and topic_codes ['2.8'] are correct. c_ced_required: 2.8.B.1.iii requires the parallel-spring result, and the Topic 2.8 Boundary Statement says students must 'find the effective spring constant of systems of springs that are arranged either in series or in parallel', so the entry is required content. d_caution: the CED gives the parallel rule as a derived equation, and the formula here is that equation, so the formula itself earns the point and no caution is needed. Note that the series rule (2.8.B.1.i, reciprocals) is a separate result and is not contradicted by this entry."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-039",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula \\vec{F}_r = -k\\vec{v} is explicitly provided as an example of a resistive force in Essential Knowledge 2.9.A.1 on page 57 of the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.9, EK 2.9.A.1 defines a resistive force as a \u201cvelocity-dependent force in the opposite direction of an object\u2019s velocity\u201d and gives the example F\u20d7r = \u2212k v\u20d7. The entry\u2019s formula and caution match; Topic 2.9 is the correct placement."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED defines a resistive force in 2.9.A.1 as \"a velocity-dependent force in the opposite direction of an object's velocity, for example: F_r = -kv\". The body \\vec{F}_r=-k\\vec{v} matches the CED symbols and form. b_topic_codes: The entry is owned by 2.9, and 2.9.A.1 and 2.9.A.2 are in Topic 2.9, Resistive Forces, which is the only topic that uses it. c_ced_required: LO 2.9.A requires describing the motion of an object subject to a resistive force, and 2.9.A.2.iii names the form \"Fr = -kv\". The entry is therefore required content. d_caution: The caution \"A resistive force is velocity-dependent and opposite the object's velocity\" closely tracks the 2.9.A.1 definition, which is the point-earning wording. It is correct and present. The CED says -kv is 'for example', so the caution is what keeps the general definition distinct from the specific linear form, and it does this adequately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-041",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'terminal velocity' in accordance with Essential Knowledge 2.9.A.3, which states: 'Terminal velocity is defined as the maximum speed achieved by an object moving under the influence of a constant force and a resistive force that are exerted on the object in opposite directions. The terminal condition is reached when the net force exerted on the object is zero.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.9, EK 2.9.A.3 defines terminal velocity as the \u201cmaximum speed achieved by an object\u201d under a constant force and an opposing resistive force, and states that the terminal condition is reached when \u201cthe net force exerted on the object is zero.\u201d The entry preserves that definition; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.9.A.3: \"Terminal velocity is defined as the maximum speed achieved by an object moving under the influence of a constant force and a resistive force that are exerted on the object in opposite directions. The terminal condition is reached when the net force exerted on the object is zero.\" The entry paraphrases this without changing the meaning: the maximum speed, the constant opposing force, and the zero-net-force condition are all correct. The ced_evidence quote matches the CED wording. b_topic_codes: 2.9.A.3 is in Topic 2.9 (Resistive Forces), so owner_topic_code \"2.9\" is where the unit first requires it, and topic_codes [\"2.9\"] is the only topic that uses it. c_ced_required: Learning objective 2.9.A (\"Describe the motion of an object subject to a resistive force\") and essential knowledge 2.9.A.3 require students to know and apply the terminal velocity definition and terminal condition. d_caution: The entry's wording is a close paraphrase of the CED sentence, and the point-earning content (maximum speed, opposing resistive force, zero net force) is fully present, so no caution is needed. hooks: none supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-040",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the sequence of steps and physical characteristics described in Essential Knowledge 2.9.A.2.i, 2.9.A.2.ii, and 2.9.A.2.iii for solving a differential equation for an object subject to a resistive force using the method of separation of variables."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.9 requires applying Newton\u2019s second law, separating variables, and using initial conditions as described in 2.9.A.2\u20132.9.A.2.ii. But item 4 makes the exponential result unconditional. CED 2.9.A.2.iii limits that result to an object under a resistive force \u201cof the form F\u1d63 = \u2212kv.\u201d The entry must state that condition; it has no caution addressing the difference."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Items 1\u20133 match 2.9.A.2 and 2.9.A.2.i\u2013ii. Item 4 omits a necessary condition: 2.9.A.2.iii says the position, velocity, and acceleration functions are exponential for a resistive force \u201cof the form F\u20d7r = \u2212kv\u20d7,\u201d not for resistive forces in general. Topic 2.9 is correct, and the sequence is required content. With no caution, the entry leaves its broader claim unqualified."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-042",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for centripetal acceleration is explicitly required by Essential Knowledge 2.10.A.1.i, which lists the relevant equation as ac = v^2 / r. The caution correctly addresses the common misconception that centripetal force is a separate force, aligning with 2.10.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.10.A.1.i gives a_c = v\u00b2/r for the magnitude of centripetal acceleration. Topic 2.10 is where this unit requires it. The caution correctly reflects 2.10.A.1.ii, which says the acceleration is directed toward the center, and 2.10.A.2, which says it can result from one force, multiple forces, or force components."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.10.A.1.i gives the magnitude of centripetal acceleration as 'the ratio of the object's tangential speed squared to the radius of the circular path,' with the relevant equation a_c = v^2/r (2.10.A.1). The body matches the CED formula and symbols. b_topic_codes: 2.10 is the only code, and this is the topic that defines and uses centripetal acceleration on these pages. c_ced_required: 2.10.A.1 and 2.10.A.2 require students to state and apply a_c = v^2/r. d_caution: the caution ('directed toward the center ... can come from one force, several forces, or force components, not a separate extra force') is consistent with 2.10.A.1.ii ('directed toward the center of an object's circular path') and 2.10.A.2 ('can result from a single force, more than one force, or components of forces'). It adds no contradicting claim, so the caution is correct and appropriate. The ced_evidence quote is an accurate truncation of 2.10.A.1.i.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-043",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the definitions of tangential acceleration and net acceleration as stated in Essential Knowledge statements 2.10.A.3 and 2.10.A.4 of the AP Physics C: Mechanics CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.10 is the correct owner and only listed topic. CED 2.10.A.3 states that tangential acceleration is the rate at which an object\u2019s speed changes and is directed tangent to its circular path. CED 2.10.A.4 states that net acceleration is the vector sum of centripetal and tangential acceleration. The entry accurately paraphrases both; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.10.A.3 states 'Tangential acceleration is the rate at which an object's speed changes and is directed tangent to the object's circular path.' The entry matches this. CED 2.10.A.4 states 'The net acceleration of an object moving in a circle is the vector sum of the centripetal acceleration and tangential acceleration.' The entry matches this, and no formula or list is misstated. b_topic_codes: Topic 2.10 (Circular Motion) is the unit topic where 2.10.A.3-2.10.A.4 appear, and owner_topic_code and topic_codes are both 2.10, which is correct. c_ced_required: 2.10.A.3 and 2.10.A.4 are essential knowledge statements under learning objective 2.10.A ('Describe the motion of an object traveling in a circular path'), so students are required to know this. ced_evidence '2.10.A.3-2.10.A.4' cites the correct statements. d_caution: the entry's wording is a close paraphrase of the CED's point-earning wording ('speed changes', 'tangent to the circular path', 'vector sum of the centripetal and tangential accelerations'). No CED-distinct phrasing requires a caution, so caution: null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-045",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the specific cases of centripetal acceleration sources detailed in Essential Knowledge statements 2.10.A.2.i, 2.10.A.2.ii, and 2.10.A.2.iii of the AP Physics C: Mechanics CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.10 requires all three cases, but the entry reverses their CED order: 2.10.A.2.i gives the top of a vertical loop, .ii a banked surface, and .iii a conical pendulum. The body also incorrectly describes every case as involving force components: at minimum speed atop the loop, the CED says gravitational force is the only force causing centripetal acceleration. For a banked surface, it says normal-force and static-friction components 'can contribute,' not that both necessarily do. The entry has no caution addressing those wording differences."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.10.A.2 requires these three cases, but the items reverse the CED sequence: 2.10.A.2.i gives the top of a vertical loop, .ii a banked surface, and .iii a conical pendulum. The banked-surface item also overstates the claim. The CED says components of static friction and the normal force *can contribute* to the net force producing centripetal acceleration, not that both always do. With no caution, that distinction is left unaddressed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-046",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the formulas for period and frequency in uniform circular motion as required by Topic 2.10. Specifically, 2.10.A.5.ii explicitly lists the relevant equation 'T = 1/f', and 2.10.A.5.iii refers to the derived equation for the period of an object traveling at a constant speed in a circular path, which is T = 2*pi*r/v."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 2.10.A.5.ii gives T = 1/f. Topic 2.10.A.5.iii states that, for an object traveling at constant speed in a circular path, the period is given by a derived equation; T = 2\u03c0r/v is that relationship. Both formulas belong to Topic 2.10, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "The first formula matches the CED exactly. 2.10.A.5.ii states 'Relevant equation: T = 1/f' (the symbols and form match). The second formula, T = 2\u03c0r/v, is the derived equation for constant-speed circular motion that 2.10.A.5.iii refers to ('the period is given by the derived equation'). The equation image did not survive text extraction, so the CED's literal derived form cannot be read from these pages. T = 2\u03c0r/v is the correct period for an object at constant speed on a circle of radius r (circumference divided by speed), so the body is factually correct. Owner code 2.10 is correct: period and frequency are introduced in 2.10.A.5, and topic 2.10 is the only topic in these pages that uses them. The CED requires students to apply T = 1/f and the derived period (2.10.A.5.ii, 2.10.A.5.iii). The entry's wording and the CED's wording align closely enough that no caution is needed. The entry has no items, so there are no list-order issues. No hooks were supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-047",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Kepler's third law for circular orbits as specified in Topic 2.10 (Learning Objective 2.10.B and Essential Knowledge 2.10.B.1). The caution correctly reflects the Boundary Statement on page 60 regarding Kepler's first and second laws."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula gives the circular-orbit relationship among period, orbital radius, and central-body mass described in 2.10.B.1: \u201cThe period and radius of the circular orbit are related to the mass of the central body.\u201d Topic 2.10 is the appropriate owner. The caution matches 2.10.B.1\u2019s statement that centripetal acceleration \u201cis caused only by gravitational attraction\u201d and the boundary statement excluding Kepler\u2019s first and second laws."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula T^2 = 4\u03c0^2 R^3/(GM) is the correct circular-orbit form. It follows from v^2/R = GM/R^2 with v = 2\u03c0R/T. The CED's 2.10.B.1  'Derived equation' image is not extractable from the text, so the form is checked against physics rather than the rendered CED equation. The symbol R where the CED uses r for radius is a notational difference only. b_topic_codes: Kepler's third law appears in the CED only under Topic 2.10 (LO 2.10.B.1, Unit 2), so owner_topic_code '2.10' is correct and topic_codes ['2.10'] is correct. c_ced_required: CED 2.10.B.1 states 'For a satellite in circular orbit around a central body, the satellite's centripetal acceleration is caused only by gravitational attraction. The period and radius of the circular orbit are related to the mass of the central body. Derived equation:', so students are required to apply this relation. d_caution: The Boundary Statement reads 'AP Physics C: Mechanics does not expect students to know Kepler's first or second laws of planetary motion.' The caution states this correctly, and its centripetal-acceleration point matches the 2.10.B.1 wording. hooks: none present, so there are no hook evaluations.",
+            "reasons_note": "see reasons"
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_c_mechanics-u2-r1-044",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents the derived equation v = \\sqrt{gr} for the minimum speed at the top of a vertical loop as explicitly stated in Essential Knowledge 2.10.A.2.i on page 58 of the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 2.10.A.2.i requires the minimum speed at the top of a vertical loop and states that, at that speed, \u201cthe gravitational force is the only force that causes the centripetal acceleration.\u201d This gives v = \u221a(gr). Topic 2.10 is the correct owner and sole listed topic. The caution correctly limits the formula to the stated condition."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 2.10.A.2.i states the minimum speed at the top of a vertical loop as a derived equation, and the entry's v = sqrt(gr) is the correct form. The CED text layer shows 'v = gr' with the radical dropped, which looks like an extraction artifact rather than a different equation. Symbols and the single-member form match. b_topic_codes: 2.10 is the only topic that requires this, and the entry is owned by 2.10 with unit_number 2. c_ced_required: 2.10.A.2.i ('At the top of a vertical, circular loop, an object requires a minimum speed to maintain circular motion... the gravitational force is the only force that causes the centripetal acceleration') and its 'Derived equation' require students to know and apply this. d_caution: the CED wording is a condition ('at the top... gravity is the only force'), not the bare formula, so the entry's caution ('Valid only at the top of the loop, where gravity alone supplies the centripetal acceleration') is needed and matches CED 2.10.A.2.i."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-pcm-u2-03-wrong-owner",
+    "control": "wrong owner topic (centripetal acceleration is topic 2.10, EK 2.10.A.1; 2.8 covers forces exerted by springs)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '2.8' (Spring Forces), but centripetal acceleration is introduced and required in Topic 2.10 (Circular Motion) as shown in CED evidence 2.10.A.1.i."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '2.8' (Spring Forces), but centripetal acceleration is introduced and required in Topic '2.10' (Circular Motion) as shown in CED evidence 2.10.A.1.i."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula matches Topic 2.10, EK 2.10.A.1.i: \u201cThe magnitude of centripetal acceleration ... is the ratio of the object\u2019s tangential speed squared to the radius,\u201d with the relevant equation a_c = v\u00b2/r. It is required content, and no caution is needed. However, the entry assigns it to Topic 2.8, which covers spring forces; its owner_topic_code and topic_codes should be 2.10."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula matches 2.10.A.1.i: \u201cThe magnitude of centripetal acceleration ... is the ratio of the object\u2019s tangential speed squared to the radius of the circular path,\u201d with the relevant equation a_c = v\u00b2/r. But its owner_topic_code and topic_codes specify 2.8 (Spring Forces); the CED places this formula in 2.10 (Circular Motion). No caution is needed for the formula as written."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcm-u2-01-reversed",
+    "control": "reversed fact (CED 2.8.B.1.ii: the equivalent spring constant of springs in SERIES is smaller than the smallest constituent constant; 2.8.B.1.iii: in PARALLEL it is the sum)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry has swapped the physical descriptions of springs in series and parallel. According to CED 2.8.B.1.ii, the equivalent spring constant of a set of springs arranged in series is smaller than the smallest constituent spring constant. According to CED 2.8.B.1.iii, the equivalent spring constant of a set of springs arranged in parallel is the sum of the individual spring constants. The entry incorrectly associates series with the sum and parallel with being smaller than the smallest."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The entry has swapped the physical properties of series and parallel spring combinations. According to CED 2.8.B.1.ii, the equivalent spring constant of a set of springs arranged in series is smaller than the smallest constituent spring constant, whereas 2.8.B.1.iii states that the equivalent spring constant of a set of springs arranged in parallel is the sum of the individual spring constants."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The two arrangements are reversed. CED 2.8.B.1.i says that for springs in series, the inverse of the equivalent spring constant is the sum of the inverses of the individual constants; 2.8.B.1.ii says the series equivalent is \u201csmaller than the smallest constituent spring constant.\u201d CED 2.8.B.1.iii says the parallel equivalent \u201cis the sum of the individual spring constants.\u201d Topic 2.8 is the correct topic, and 2.8.B requires this content. The incorrect meanings would not earn the point, and no caution is present; a caution would not make them correct."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The two meanings are reversed. CED 2.8.B.1.ii says springs in series have an equivalent spring constant \u201csmaller than the smallest constituent spring constant\u201d; 2.8.B.1.iii says springs in parallel have an equivalent spring constant that \u201cis the sum of the individual spring constants.\u201d Topic 2.8 requires these relationships. This is a substantive error, not a wording difference that a caution could address."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcm-u2-02-excluded",
+    "control": "explicitly excluded by the CED (2.6 BOUNDARY STATEMENT: AP Physics C: Mechanics does not expect students to mathematically prove or derive Newton's shell theorem)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry requires students to derive Newton's shell theorem ('Integrate the gravitational contributions... to prove...'). However, the Boundary Statement on page 52 of the CED explicitly states: 'AP Physics C: Mechanics does not expect students to mathematically prove or derive Newton\u2019s shell theorem.' Therefore, this content is explicitly excluded from the required course content."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry describes deriving/proving Newton's shell theorem. However, the Boundary Statement on page 52 of the CED explicitly states: 'AP Physics C: Mechanics does not expect students to mathematically prove or derive Newton\u2019s shell theorem.' Therefore, this content is excluded from the required course content."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.6.E.2.i states that the net gravitational force on an object inside a thin spherical shell is zero, so the proposed conclusion is correct and the topic code fits. But the boundary statement explicitly says AP Physics C: Mechanics \u201cdoes not expect students to mathematically prove or derive Newton\u2019s shell theorem.\u201d The entry instead directs students to prove it by integration. No caution flags that departure from the required content."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 2.6.E.2.i states that the net gravitational force on an object inside a thin spherical shell is zero, so the conclusion is correct and the topic code fits. But the boundary statement says AP Physics C: Mechanics \u201cdoes not expect students to mathematically prove or derive Newton\u2019s shell theorem.\u201d The entry instead directs students to prove it by integration, and has no caution identifying that distinction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcm-u2-04-excluded2",
+    "control": "explicitly excluded by the CED (2.6 BOUNDARY STATEMENT: AP Physics C: Mechanics does not expect students to know Kepler's first or second laws of planetary motion)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The Boundary Statement on page 60 of the CED explicitly states: 'AP Physics C: Mechanics does not expect students to know Kepler\u2019s first or second laws of planetary motion.' Therefore, this content is not required and is explicitly excluded from the course framework."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry covers Kepler's first and second laws of planetary motion. However, the Unit 2 CED Topic 2.10 Boundary Statement (page 60) explicitly states: 'AP Physics C: Mechanics does not expect students to know Kepler\u2019s first or second laws of planetary motion.' Therefore, this content is explicitly excluded from the required course content."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The two laws are stated correctly, but Topic 2.6 does not require them. The cited 2.6.E.3 concerns gravitational force within a uniform sphere, not orbits. Topic 2.10.B covers Kepler\u2019s third law for circular orbits, and its boundary statement explicitly says, \u201cAP Physics C: Mechanics does not expect students to know Kepler\u2019s first or second laws of planetary motion.\u201d No wording caution would make this excluded content required."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The two descriptions are scientifically accurate, but they are not required content. The Topic 2.10 boundary states that AP Physics C: Mechanics \u201cdoes not expect students to know Kepler\u2019s first or second laws of planetary motion.\u201d Topic 2.6.E.3 instead concerns gravitational force within a uniform sphere; Topic 2.10.B addresses circular orbits using Kepler\u2019s third law. The entry cites 2.6.E.3 and provides no caution that its content is explicitly outside the stated expectation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcm-u2-06-other-unit",
+    "control": "content from another unit (the work done by a variable force as an integral is Unit 3 work, energy and power, EK 3.2.A.3; it is not in the Unit 2 pages)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Work ($W = \\int \\vec{F} \\cdot d\\vec{r}$) is a Unit 3 concept (Work, Energy, and Power) and is not introduced or required in Unit 2 (Force and Translational Dynamics). Topic 2.8 focuses on Spring Forces (Hooke's Law) and does not mention or require the calculation of work."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Work done by a variable force ($W = \\int \\vec{F} \\cdot d\\vec{r}$) is a Unit 3 concept (Work, Energy, and Power) and is not required or mentioned in Unit 2 (Force and Translational Dynamics). Topic 2.8 (Spring Forces) and its essential knowledge 2.8.A.1 focus on the force exerted by ideal and nonideal springs, not the integration of force to find work."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The integral is a correct expression for work by a variable force, but Topic 2.8 does not require it. CED 2.8.A.1 says an ideal spring exerts a force \u201cproportional to the change in its length,\u201d and 2.8.A.2 requires Hooke\u2019s law for the force\u2019s magnitude. Neither requires a work integral. Thus 2.8 is not a supported owner topic, and the cited evidence does not support this entry. A caution cannot make out-of-scope content required."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The line integral is a correct general expression for work, but Topic 2.8 does not require it. Cited EK 2.8.A.1 says an ideal spring exerts a force proportional to its change in length; 2.8.A.2 specifies Hooke\u2019s law. Neither requires calculating work, so 2.8 is not a supported owner or topic code for this entry. A caution would not remedy the missing CED requirement."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-pcm-u2-05-bad-hook",
+    "control": "hook expansion contradicts the CED (2.6.C.3: a system appears weightless when no forces are exerted on it or when gravity is the only force exerted on it). The entry is correct, so only the hook should be rejected.",
+    "control_target": "hook",
+    "accepted": true,
+    "hooks_accepted": {
+      "Weightless means gravity switched off": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Weightless means gravity switched off": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body perfectly matches the text of Essential Knowledge 2.6.C.3 in the CED."
+            },
+            "hooks": [
+              {
+                "hook_text": "Weightless means gravity switched off",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook expansion states that 'apparent weightlessness happens only when no gravitational force acts on the system', which is physically incorrect and directly contradicts the CED (2.6.C.3), which states that a system also appears weightless 'when the force of gravity is the only force exerted on the system' (e.g., in free fall or orbit)."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry body accurately reflects the definition of apparent weightlessness as stated in EK 2.6.C.3."
+            },
+            "hooks": [
+              {
+                "hook_text": "Weightless means gravity switched off",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook's expansion ('apparent weightlessness happens only when no gravitational force acts on the system') is factually incorrect and directly contradicts EK 2.6.C.3, which states that a system appears weightless when gravity is the only force exerted on it (such as in free fall or orbit)."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Weightless means gravity switched off": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body restates 2.6.C.3: \u201cA system appears weightless when there are no forces exerted on the system or when the force of gravity is the only force exerted on the system.\u201d Topic 2.6 is the correct location, and the wording needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "Weightless means gravity switched off",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The cue and expansion incorrectly say apparent weightlessness occurs only without gravitational force. CED 2.6.C.3 explicitly also includes the case \u201cwhen the force of gravity is the only force exerted on the system.\u201d The caution does not correct that contradiction."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 2.6.C.3: \u201cA system appears weightless when there are no forces exerted on the system or when the force of gravity is the only force exerted on the system.\u201d Topic 2.6 requires this condition, and the body needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "Weightless means gravity switched off",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The expansion says apparent weightlessness occurs \u201conly when no gravitational force acts,\u201d but 2.6.C.3 also includes the case \u201cwhen the force of gravity is the only force exerted on the system.\u201d The hook teaches the opposite of that required case; its caution does not correct the false cue."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Weightless means gravity switched off": false
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 2.6.C.3 verbatim in substance: \"A system appears weightless when there are no forces exerted on the system or when the force of gravity is the only force exerted on the system.\" b_topic_codes: 2.6.C.3 sits under Topic 2.6 (Gravitational Force), which is the owner and only topic code, so owner and topic_codes are consistent. c_ced_required: Learning objective 2.6.C asks students to \"Describe the conditions under which the magnitude of a system's apparent weight is different from the magnitude of the gravitational force exerted on that system,\" and 2.6.C.3 is the essential knowledge that states those conditions. d_caution: The entry wording is essentially the CED wording, so no caution is needed; caution is null, which is correct."
+          },
+          "hooks": [
+            {
+              "hook_text": "Weightless means gravity switched off",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: The cue \"gravity switched off\" is mapped to \"apparent weightlessness happens only when no gravitational force acts on the system.\" This contradicts CED 2.6.C.3, which gives two conditions: no forces at all, OR gravity is the only force exerted on the system. Gravity is still acting in the second case (e.g., free fall), so the expansion mis-maps the cue to the wrong member and adds an 'only when' restriction the CED does not state. f_admissible: The hook is meant to recall the two-part condition list the CED requires, but its phrase collapses the list to a single, incorrect scenario (gravity absent) and drops the 'gravity is the only force' case. Its caution (\"State the condition in CED terms\") does not repair the misleading cue, so the hook does not recall the required content correctly."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 2.6.C.3 ('A system appears weightless when there are no forces exerted on the system or when the force of gravity is the only force exerted on the system'). The entry says 'it' instead of 'the system', which does not change the content. b_topic_codes: 2.6.C.3 first appears in Topic 2.6 (Gravitational Force), and 2.6 is the only listed topic. c_ced_required: 2.6.C is a learning objective ('Describe the conditions under which the magnitude of a system's apparent weight is different from the magnitude of the gravitational force exerted on that system'), and 2.6.C.3 is its essential knowledge. d_caution: The entry's wording is essentially the CED wording, so no caution is needed and none is required."
+          },
+          "hooks": [
+            {
+              "hook_text": "Weightless means gravity switched off",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: The cue 'gravity switched off' maps to 'no gravitational force acts on the system', which contradicts 2.6.C.3. The CED's second condition is that gravity IS the only force exerted on the system (e.g., free fall), so gravity is still acting. The expansion also omits the 'no forces exerted on the system' case, so it does not map to the entry's two members. f_admissible: The hook is meant to recall the two-condition list required by 2.6.C.3, but its core claim is factually wrong ('gravity switched off'). It therefore does not recall the CED-required condition. The caution ('State the condition in CED terms when answering') is present, but it cannot rescue a hook whose stated condition is incorrect."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

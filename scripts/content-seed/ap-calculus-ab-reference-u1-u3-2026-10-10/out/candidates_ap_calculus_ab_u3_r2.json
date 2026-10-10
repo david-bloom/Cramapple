@@ -1,0 +1,37 @@
+[
+  {
+    "owner_topic_code": "3.2",
+    "topic_codes": [
+      "3.2"
+    ],
+    "kind": "formula",
+    "title": "Chain rule applied to y in implicit differentiation",
+    "body": "\\frac{d}{dx}\\left[g(y)\\right]=g'(y)\\cdot\\frac{dy}{dx}\\qquad\\text{e.g. }\\frac{d}{dx}\\left(y^{2}\\right)=2y\\,\\frac{dy}{dx}",
+    "items": [],
+    "caution": "Because y depends on x, every term containing y needs the factor dy/dx. Differentiate the whole equation, and write dy/dx, not dy. Use parentheses when collecting dy/dx terms.",
+    "ced_evidence": "FUN-3.D.1: \"The chain rule is the basis for implicit differentiation.\" Also the unit overview: \"students must recognize that the chain rule applies to y because y depends on x.\"",
+    "hooks": [
+      {
+        "kind": "phrase",
+        "hook_text": "Times the derivative of what's inside",
+        "expands_to": [
+          {
+            "cue": "times the derivative of",
+            "means": "multiply by the derivative of the inner function"
+          },
+          {
+            "cue": "what's inside",
+            "means": "for a term in y, the inner function is y(x), so the factor is dy/dx"
+          }
+        ],
+        "when_to_use": "Use it each time you differentiate a term containing y with respect to x.",
+        "caution": "The phrase is only a reminder. In your work, write the factor dy/dx explicitly and show the differentiated equation.",
+        "source_note": "public-domain-common"
+      }
+    ],
+    "candidate_id": "ap_calculus_ab-u3-r2-001",
+    "subject_key": "ap_calculus_ab",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

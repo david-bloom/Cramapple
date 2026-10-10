@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-phys2-u10-01-wrong-formula", "control": "wrong formula (CED 10.3.A.2: the electric field is the ratio of the electric force on a test charge to that charge, E = F_E / q, not the product)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 10, "owner_topic_code": "10.3", "topic_codes": ["10.3"], "kind": "formula",
+   "title": "Electric field from the force on a test charge", "body": "\\vec{E} = \\vec{F}_E \\cdot q", "items": [], "caution": null, "ced_evidence": "10.3.A.2: \"Relevant equation: E = F_E / q\"", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u10-02-excluded", "control": "explicitly excluded by the CED (10.6 BOUNDARY STATEMENT: only the analysis and descriptions of parallel-plate capacitors are required for AP Physics 2)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 10, "owner_topic_code": "10.6", "topic_codes": ["10.6"], "kind": "formula",
+   "title": "Capacitance of a cylindrical capacitor", "body": "C = \\frac{2\\pi\\varepsilon_0 L}{\\ln(b/a)}", "items": [], "caution": null, "ced_evidence": "10.6.A.2", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u10-03-wrong-owner", "control": "wrong owner topic (the relationship between the average electric field and potential difference is topic 10.5, EK 10.5.B.1; 10.3 covers the electric field produced by charges)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 10, "owner_topic_code": "10.3", "topic_codes": ["10.3"], "kind": "convention",
+   "title": "Average electric field from potential difference", "body": "The average electric field between two points equals the electric potential difference between them divided by the distance between them.", "items": [], "caution": null, "ced_evidence": "10.5.B.1", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u10-04-swapped", "control": "swapped signs (CED 10.1.A.3.i-ii: like charges repel and opposite charges attract)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 10, "owner_topic_code": "10.1", "topic_codes": ["10.1"], "kind": "list_sequence",
+   "title": "Direction of the electrostatic force by charge sign", "body": "How the signs of two charges determine whether the force between them is attractive or repulsive.", "items": [{"label": "Same sign", "meaning": "the two objects exert attractive forces on each other"}, {"label": "Opposite signs", "meaning": "the two objects exert repulsive forces on each other"}], "caution": null, "ced_evidence": "10.1.A.3.i-ii", "hooks": []},
+
+  {"candidate_id": "ctrl-phys2-u10-05-bad-hook", "control": "hook expansion contradicts the CED (10.5.A.1: electric potential is electric potential energy PER UNIT CHARGE, not the same thing as potential energy). The entry is correct, so only the hook should be rejected.", "control_target": "hook",
+   "subject_key": "ap_physics_2", "unit_number": 10, "owner_topic_code": "10.5", "topic_codes": ["10.5"], "kind": "vocabulary",
+   "title": "Electric potential", "body": "Electric potential describes the electric potential energy per unit charge at a point in space.", "items": [], "caution": null, "ced_evidence": "10.5.A.1",
+   "hooks": [{"kind": "phrase", "hook_text": "Potential is just potential energy", "expands_to": [{"cue": "Potential is just potential energy", "means": "electric potential and electric potential energy are the same quantity"}], "when_to_use": "when distinguishing electric potential from electric potential energy", "caution": "Use the CED's per-unit-charge wording when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-phys2-u10-06-other-unit", "control": "content from another unit (equivalent resistance of resistors in parallel is Unit 11 electric circuits; it is not in the Unit 10 pages)", "control_target": "entry",
+   "subject_key": "ap_physics_2", "unit_number": 10, "owner_topic_code": "10.6", "topic_codes": ["10.6"], "kind": "formula",
+   "title": "Equivalent resistance in parallel", "body": "\\frac{1}{R_{eq}} = \\sum_i \\frac{1}{R_i}", "items": [], "caution": null, "ced_evidence": "10.6.A.2", "hooks": []}
+]

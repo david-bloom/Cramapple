@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Reference Packs Built for Units 1-3 of Nine Subjects: 786 Entries + 6 Hooks Loaded to Development, Controls 150/150, $37.80 (2026-10-10): David scoped units 1-3 for all subjects, Development only, and supplied the four missing Physics CEDs that had blocked Physics 1 / 2 / C Mechanics / C E&M; 25 unit batches run through the two-checker plus reject-only Haiku veto pipeline with six CED-verified controls each (6/6 every batch). Development now holds 912 entries and 10 hooks; all 8 QA checks ok and RPC probes correct. `load.py` gained a schema guard after one bad `topic_codes` row silently voided a whole batch load; `extract.py` now requires a caution on mnemonic hooks. Calculus BC units 1-3 left to a Product Owner call (identical taxonomy and CED to AB, re-key SQL generated not applied); 45 escalations open, grouped into three patterns. Production untouched.
 - Reference Pack Build Protocol + Proposed Shared Question-Page Template Documented; Lovable Not Sent (2026-10-09): AP Chemistry's 91-topic inventory now carries the repeatable vocabulary/equation/memory-hook workflow, checker and control gates, Notes-vs-question projection rules, and BYOQ boundary; the compact three-pane template and `2/5`-only header are recorded in a session-close handoff. Docs and local rendering only; no app, database, Lovable, or Production change.
 - Unit Reference Content + Memory Hooks Moved to Production (APPROVAL-0140): Migration, 102 Entries + 3 Hooks, Lovable Publish of 71a9b751 (2026-10-09): CLI-driven apply and loads (no retyping), objects md5-identical to Development, data QA and RPC probes pass; PR #390 merged by David; CLI relinked to Development.
 - TASK-0067/0066 Phase C Built in Lovable Preview (commit 71a9b751), Tests 770/770 (2026-10-09): reference pane, Deep Dive, Copy notes, Learn More; baseline fixture pins today's output for Production's payload; DECISION-0106 renumbered to 0107 (PR #391 had reserved 0106). Not published; Production untouched.
@@ -405,6 +406,51 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Reference Packs Built for Units 1-3 of Nine Subjects — 2026-10-10
+
+**What happened.** David scoped the session to **units 1-3 for all subjects, Development only**, ruled the two
+AP Chemistry Unit 1 escalations carried in from PR #399, and then supplied the four Physics CEDs
+(`ap-physics-1`, `ap-physics-2`, `ap-physics-c-mechanics`, `ap-physics-c-electricity-and-magnetism`) that had
+been the one hard blocker: those subjects had fact packs but no CED PDF, and the protocol makes the PDF the
+authority. They were copied from his gitignored `subject packs/` into `docs/teaching/` alongside the other six.
+
+**Twenty-five unit batches** were taken through the governed pipeline (controls first, Claude Sonnet 5.5
+extraction, independent Gemini 3.5 Flash and GPT-6 Sol checkers, reject-only Claude Haiku 5.5 own-family
+veto, stateless Round 2, escalate rather than patch): Statistics 2-3, Chemistry 2-3, Biology 1-3, Calculus AB
+1-3, Precalculus 1-3, Physics 1 1-3, Physics 2 9-11, Physics C: Mechanics 1-3, Physics C: E&M 8-10.
+**786 entries and 6 hooks loaded**, taking Development to **912 published entries and 10 hooks**.
+
+**Controls: 150 planted defects, 150 caught — 6/6 in every batch.** One control was found wrong *before* its
+run and corrected rather than voiding it: the Biology Unit 2 "non-CED" control claimed the Na+/K+ pump is
+absent from the CED, but it is at 2.8.A.1.ii and only the PDF's superscripts hid it from a text search. The
+CED gives no pumping stoichiometry, so the planted defect stood and its justification was rewritten.
+
+**Two script defects found and fixed.** `load.py` now refuses any accepted row that breaks a schema invariant
+the checkers do not police: a Statistics Unit 3 row had `owner_topic_code` 3.3 with `topic_codes` `{3.4}`, all
+three models passed its topic codes, and because the load is one transaction the whole batch silently wrote
+nothing until the row was pulled. `extract.py` now requires a `caution` on any hook whose wording is not the
+CED's point-earning wording — the Statistics Unit 2 BINS hook was otherwise correct and was rejected twice for
+exactly that omission.
+
+**Verified.** All 8 checks in `scripts/qa/unit_reference_and_memory_hooks_qa.sql` returned ok. Read-only RPC
+probes (rolled back) returned 9 and 11 entries for two Physics 1 topics (3 hooks on 1.5), 47 for the Physics
+C: Mechanics unit 2 roll-up, and empty arrays with unchanged briefs for Calculus BC. The RPC is
+`public.get_topic_point_guides(_subject_key, _unit_number, _topic_code)`; earlier records naming
+`app.get_topic_point_guides` with two arguments are wrong on both counts.
+
+**Cost.** 4,012 gateway calls, **$37.80** at list prices, about $1.45 per unit against roughly $10 in the
+pilot — the Haiku veto is 1,169 calls for $2.55 where GPT-6 Sol's pass alone is $21.99.
+
+**Open for the Product Owner.** Calculus BC units 1-3 are not loaded: BC and AB units 1-3 share one CED and an
+identical 32-topic taxonomy set (measured, zero difference either way), so a re-key of AB's checked rows would
+produce the same content at no model cost, but the protocol describes no re-key path — the SQL is generated and
+unapplied. 45 escalations are open, falling into three patterns (modality and hedging, over-generalised reuse
+tags, missing qualifying caution) and best ruled by pattern.
+
+**Not done.** No Production change, migration, schema change, Lovable build or frontend publish. Record:
+`docs/handoffs/REFERENCE_PACKS_UNITS_1_3_ALL_SUBJECTS_2026_10_10.md`; per-batch READMEs under
+`scripts/content-seed/ap-*-reference-*-2026-10-10/`.
+
 ## Reference Pack Build Protocol + Proposed Shared Question-Page Template Documented — 2026-10-09
 
 **Direction:** David asked to document the protocol for building the Reference Pack (equations,

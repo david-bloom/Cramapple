@@ -1,6 +1,6 @@
 # TASK-0067 — Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams (Companion to Memory Hooks)
 
-**Status:** **Shipped to Production 2026-10-09** (`APPROVAL-0140`): migration, 102 entries + 3 hooks, Lovable publish of `71a9b751`. Done decision pending the Product Owner's own look at the live surfaces; Units 2+ are a new batch. Approved 2026-10-08 (`DECISION-0105` / `APPROVAL-0137`).
+**Status:** **Shipped to Production 2026-10-09** (`APPROVAL-0140`): migration, 102 entries + 3 hooks, Lovable publish of `71a9b751`. **Units 1-3 built in Development for nine subjects on 2026-10-10**: 25 batches, 786 entries + 6 hooks, controls 150/150, $37.80 — Development now holds 912 entries and 10 hooks (`docs/handoffs/REFERENCE_PACKS_UNITS_1_3_ALL_SUBJECTS_2026_10_10.md`). Production for those batches is an open Hard Gate; Calculus BC units 1-3 and 45 escalations await the Product Owner. Done decision still pending the Product Owner's own look at the live surfaces. Approved 2026-10-08 (`DECISION-0105` / `APPROVAL-0137`).
 **Tier:** Standard for schema design, Development apply, and authoring in Development; **Hard-Gate** for the Production migration, Production publish, and Lovable publish.
 **Owner:** Claude session. **Product Owner:** David Bloom.
 **Branch / PR:** `claude/task-0067-0066-phase-a` (shared with `TASK-0066`).

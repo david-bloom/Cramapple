@@ -1,0 +1,12 @@
+# Fact-pack excerpt (paraphrase; the CED governs)
+
+### Unit 9 — Electric Potential (10-20%)
+
+*Exclusion, boxed and verbatim (topic 9.2, calculus-based potential derivation) — same five geometries as Unit 8's field exclusion, applied to potential instead:* "AP Physics C: Electricity & Magnetism only expects students to use calculus to find the electric potential resulting from the following charge distributions and locations: an infinitely long, uniformly charged wire or cylinder at a distance from its central axis, a thin ring of charge at a location along the axis of the ring, a semicircular arc or part of a semicircular arc at its center, and a finite wire or line charge at a point collinear with the line charge or at a location along its perpendicular bisector."
+
+*Key formulas confirmed:* potential energy of a pair `U_E = (1/4πε₀)(q₁q₂/r) = kq₁q₂/r`; potential via superposition/integration `V = (1/4πε₀)∫(dq/r)`; point-charge potential `V = q/(4πε₀r)`; multi-charge superposition `V = (1/4πε₀)Σ(qᵢ/rᵢ)`; potential difference `ΔV = ΔU_E/q`; field-potential relationship `E_x = -dV/dx` and `ΔV = V_b - V_a = -∫[a→b]E⃗·dr⃗`; energy change `ΔU_E = qΔV` (topic 9.3).
+
+*Real scoring architecture, confirmed from 2025 Q1 Part A(ii) (deriving ΔV from a previously-derived E(r)):* the substitution-into-the-integral point and the correct-integration-limits point are scored **separately**, and both carry explicit leniency: "vector notation is not required" and "the sign of ΔV is not considered" for the substitution point; the limits-of-integration point "may be earned regardless of the order of the limits" (R₁→R₂ or R₂→R₁ both count, as long as the correct pair of radii is used). **Explicit follow-through/consistency credit confirmed**: real graded responses that got the upstream E(r) wrong (Unit 8 Gauss's-law error) still earned both ΔV-integral points by correctly carrying their own (wrong) E(r) through the integration mechanics — an incorrect earlier answer, applied correctly downstream, still earns credit.
+
+*Documented misconception directly reusable for a "vector vs. scalar superposition" contrast item:* E-field superposition is vector addition (magnitude and direction both matter); potential superposition is scalar addition (no direction). The 2026 Q2 FRQ (no official scoring guide yet, but confirms current item-writing framing) explicitly contrasts these — Part A asks for direction of net E⃗ (vector), Part C/D ask about V (scalar, magnitude/shape only) from the same two-rod configuration.
+

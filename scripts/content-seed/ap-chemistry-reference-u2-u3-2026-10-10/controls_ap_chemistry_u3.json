@@ -1,0 +1,26 @@
+[
+  {"candidate_id": "ctrl-chem-u3-01-wrong-formula", "control": "wrong formula (Beer-Lambert law given as A = epsilon*b/c; CED 3.13.A.1 says A = epsilon*b*c)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 3, "owner_topic_code": "3.13", "topic_codes": ["3.13"], "kind": "formula",
+   "title": "Beer-Lambert law", "body": "A = \\frac{\\varepsilon b}{c}", "items": [], "caution": null, "ced_evidence": "3.13.A.1: \"EQN: A = epsilon b c\"", "hooks": []},
+
+  {"candidate_id": "ctrl-chem-u3-02-excluded", "control": "explicitly excluded by the CED (3.8 Exclusion Statement: colligative properties will not be assessed on the AP Exam)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 3, "owner_topic_code": "3.8", "topic_codes": ["3.8"], "kind": "formula",
+   "title": "Boiling-point elevation of a solution", "body": "\\Delta T_b = i K_b m", "items": [], "caution": null, "ced_evidence": "3.8.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-chem-u3-03-wrong-owner", "control": "wrong owner topic (partial pressures and mole fraction are CED 3.4.A.2 under the Ideal Gas Law; 3.6 covers only deviations from ideal behavior)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 3, "owner_topic_code": "3.6", "topic_codes": ["3.6"], "kind": "formula",
+   "title": "Partial pressure and mole fraction", "body": "P_A = P_{total} \\times X_A \\quad\\text{where}\\quad X_A = \\frac{\\text{moles A}}{\\text{total moles}}", "items": [], "caution": null, "ced_evidence": "3.4.A.2", "hooks": []},
+
+  {"candidate_id": "ctrl-chem-u3-04-wrong-member", "control": "wrong list mapping (CED 3.11.A.1: microwave = rotational, infrared = vibrational, UV/visible = electronic; the rotational and vibrational assignments are swapped here)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 3, "owner_topic_code": "3.11", "topic_codes": ["3.11"], "kind": "list_sequence",
+   "title": "Spectral region and type of transition", "body": "Which molecular or electronic transition each region of the electromagnetic spectrum excites.", "items": [{"label": "Microwave", "meaning": "transitions in molecular vibrational levels"}, {"label": "Infrared", "meaning": "transitions in molecular rotational levels"}, {"label": "Ultraviolet/visible", "meaning": "transitions in electronic energy levels"}], "caution": null, "ced_evidence": "3.11.A.1", "hooks": []},
+
+  {"candidate_id": "ctrl-chem-u3-05-bad-hook", "control": "hook expansion contradicts the CED (3.11.A.1 assigns infrared to vibrational transitions, not electronic). The entry is correct, so the entry should be accepted and only the hook rejected.", "control_target": "hook",
+   "subject_key": "ap_chemistry", "unit_number": 3, "owner_topic_code": "3.11", "topic_codes": ["3.11"], "kind": "list_sequence",
+   "title": "Transitions by spectral region", "body": "Each region of the electromagnetic spectrum is associated with a different type of transition.", "items": [{"label": "Microwave", "meaning": "transitions in molecular rotational levels"}, {"label": "Infrared", "meaning": "transitions in molecular vibrational levels"}, {"label": "Ultraviolet/visible", "meaning": "transitions in electronic energy levels"}], "caution": null, "ced_evidence": "3.11.A.1",
+   "hooks": [{"kind": "acronym", "hook_text": "MIU: Rotate, Excite, Vibrate", "expands_to": [{"cue": "M", "means": "microwave excites rotation"}, {"cue": "I", "means": "infrared excites electronic transitions"}, {"cue": "U", "means": "ultraviolet excites vibration"}], "when_to_use": "when matching a spectral region to the transition it causes", "caution": "Name the transition type in CED terms when answering.", "source_note": "cramapple-authored"}]},
+
+  {"candidate_id": "ctrl-chem-u3-06-other-unit", "control": "content from another unit (the rate law is Unit 5 kinetics; 'rate law' and 'half-life' do not appear in the Unit 3 pages)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 3, "owner_topic_code": "3.5", "topic_codes": ["3.5"], "kind": "formula",
+   "title": "Rate law for a chemical reaction", "body": "\\text{rate} = k[A]^m[B]^n", "items": [], "caution": null, "ced_evidence": "3.5.A.2", "hooks": []}
+]

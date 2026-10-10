@@ -1,0 +1,57 @@
+[
+  {
+    "candidate_id": "ap_physics_1-u1-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula v_x = v_{x0} + a_x t is explicitly required by EK 1.3.A.2 for constant acceleration in one dimension. The topic codes are correct as Topic 1.3 introduces it and Topic 1.5 applies it to two-dimensional components (EK 1.5.B.1). The caution accurately reflects the boundary statement regarding nonuniform acceleration."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula matches 1.3.A.2 and is used for components of two-dimensional motion under 1.5.B.1. However, its first appearance is in Topic 1.1: 1.1.A.3.ii gives the derived equation v_x = v_x0 + a_x t, so the owner_topic_code should be 1.1. The caution is too restrictive: the 1.3 boundary statement expects students to 'qualitatively analyze, sketch appropriate graphs of, and discuss' situations with nonuniform acceleration, not only analyze and sketch them."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula and constant-acceleration caution agree with 1.3.A.2, which lists \u201cv_x = v_x0 + a_x t\u201d among the equations for constant acceleration. Topic 1.5.B.1 supports applying one-dimensional relationships to components of two-dimensional motion. However, the CED first gives this exact component equation in 1.1.A.3.ii as a \u201cDerived equation.\u201d The owner should therefore be 1.1, which is also missing from topic_codes."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

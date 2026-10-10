@@ -1,0 +1,172 @@
+[
+  {
+    "candidate_id": "ap_biology-u1-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's definition of dehydration synthesis and polymerization is highly accurate and directly matches the language and concepts in EK 1.3.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.3, EK 1.3.A.2 states that dehydration synthesis joins two smaller molecules through covalent bonding, removes a hydrogen ion from one monomer and a hydroxyl group from the other, and causes the loss of the equivalent of a water molecule. It also states, \u201cThe connection of many monomers is known as polymerization.\u201d The entry follows this wording closely; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 1.3.A.2 on the CED page: 'Dehydration synthesis occurs when two smaller molecules are joined together through covalent bonding. A hydrogen ion is removed from one monomer and a hydroxyl group is removed from the other. This causes the loss of the equivalent of a water molecule... The connection of many monomers is known as polymerization.' The entry's sequence (H+ from one monomer, OH from the other, loss of water, polymerization) is correct and complete. b_topic_codes: Dehydration synthesis is first required in Topic 1.3 (EK 1.3.A.2). Topic 1.1 mentions it only in a sample activity, which is not required content. Listing 1.3 alone is correct. c_ced_required: LO 1.3.A ('Describe the chemical reactions that build and break biological macromolecules') and EK 1.3.A.2 require students to describe this reaction. d_caution: The entry paraphrases the CED with the same content and the key term 'polymerization', so no caution is needed. No wording in the entry would fail to earn the point."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_biology-u1-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the illustrative examples of polysaccharides (Cellulose, Starch, Glycogen) specified in EK 1.4.A.1 of the AP Biology CED. It correctly identifies them as complex carbohydrates made of monosaccharide monomers connected by covalent bonds, and notes the exclusion statement regarding their specific molecular structures."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 1.4 lists Cellulose, Starch, and Glycogen, in that order, as illustrative examples. EK 1.4.A.1 states that monosaccharides are monomers for polysaccharides and excludes the molecular structure of specific carbohydrate polymers from the AP Exam. However, the three names appear only under \u201cILLUSTRATIVE EXAMPLES\u201d; the learning objective and essential knowledge do not require students to reproduce this list."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 1.4 lists cellulose, starch, and glycogen as illustrative examples and states that monosaccharides are the monomers for polysaccharides, connected by covalent bonds. Its exclusion statement also says, \u201cThe molecular structure of specific carbohydrate polymers is beyond the scope of the AP Exam.\u201d However, EK 1.4.A.1 does not require students to reproduce this named list; the names appear only under \u201cILLUSTRATIVE EXAMPLES.\u201d No caution is needed because the entry identifies them as illustrative."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_biology-u1-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines hydrogen bonding as described in Topic 1.1 (EK 1.1.A.1 and 1.1.A.2). The topic codes are correct, as hydrogen bonding is also explicitly required in Topic 1.6 (EK 1.6.A.3 for DNA base pairing) and Topic 1.7 (EK 1.7.A.4 and 1.7.A.5 for protein secondary and tertiary structures)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The CED says water\u2019s polarity \u201ccontributes to hydrogen bonding between and within biological molecules\u201d (1.1.A.1), not that hydrogen bonding throughout biological molecules arises from water\u2019s H\u2013O bonds. \u201cArises from\u201d overstates that relationship, and no caution qualifies it. Topic 1.1 first requires hydrogen bonding; 1.6.A.3 and 1.7.A.4\u20135 also use it."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry incorrectly defines hydrogen bonding generally as arising from the polarity of water\u2019s H\u2013O bonds. The CED says that water\u2019s polarity \u201ccontributes to hydrogen bonding between and within biological molecules\u201d (1.1.A.1), not that all hydrogen bonding arises from water\u2019s bonds. The CED also identifies hydrogen bonding in DNA base pairs (1.6.A.3) and protein structures (1.7.A.4\u20135), supporting the listed topic codes. Hydrogen bonding is required content under 1.1.A.1\u20132. No caution addresses the entry\u2019s misleading definition."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

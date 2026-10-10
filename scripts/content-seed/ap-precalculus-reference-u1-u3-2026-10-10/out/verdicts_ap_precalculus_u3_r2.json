@@ -1,0 +1,358 @@
+[
+  {
+    "candidate_id": "ap_precalculus-u3-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's body matches the exact wording of Essential Knowledge 3.5.A.5: 'As input values increase, the graphs of sinusoidal functions oscillate between concave down and concave up.' The caution is highly appropriate for AP Precalculus, where students are expected to describe concavity directly rather than using calculus-based rate-of-change descriptions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The body matches Topic 3.5, essential knowledge 3.5.A.5: \u201cAs input values increase, the graphs of sinusoidal functions oscillate between concave down and concave up.\u201d The caution is not supported by the supplied CED pages: they do not say that scoring guidelines require calculus for the phrase \u201cincreasing at an increasing rate,\u201d or prohibit that wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The body reproduces Topic 3.5 essential knowledge 3.5.A.5: \u201cAs input values increase, the graphs of sinusoidal functions oscillate between concave down and concave up.\u201d Topic 3.5 is the appropriate owner. The caution correctly names the CED's concavity terms, but its claim that scoring guidelines prohibit \u201cincreasing at an increasing rate\u201d because it requires calculus is not supported by the supplied CED pages. The CED also refers to \u201cdifferent concavities, and various rates of change\u201d in 3.1.B.3."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u3-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of EK 3.5.A.2, which states: 'The period and frequency of a sinusoidal function are reciprocals. The period of f(\u03b8) = sin \u03b8 and g(\u03b8) = cos \u03b8 is 2\u03c0, and the frequency is 1/(2\u03c0).'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.5 first requires this relationship. CED 3.5.A.2 states, \u201cThe period and frequency of a sinusoidal function are reciprocals\u201d and gives period 2\u03c0 and frequency 1/(2\u03c0) for sine and cosine. Topic 3.6 uses period in sinusoidal transformations, and 3.7.A.1 requires determining or estimating \u201cthe period and frequency for a sinusoidal function model.\u201d The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: CED 3.5.A.2 states \"The period and frequency of a sinusoidal function are reciprocals. The period of f(\u03b8) = sin \u03b8 and g(\u03b8) = cos \u03b8 is 2\u03c0, and the frequency is 1/(2\u03c0).\" The body's formulas (frequency = 1/period, period = 1/frequency, period 2\u03c0, frequency 1/(2\u03c0)) match this. b_topic_codes: owner 3.5 is correct, since 3.5.A.2 is the first place the reciprocal relationship appears. Topic 3.6 is listed but never uses frequency or the reciprocal relation; it only identifies period through the 2\u03c0/b form in 3.6.A.5\u20133.6.A.6. Topic 3.7 does use it (3.7.A.1: \"determine or estimate the period and frequency\"). Because 3.6 does not use this entry's content, the topic_codes list fails the 'every topic_codes entry ... uses it' test. c_ced_required: 3.5.A.2 directly requires students to know the reciprocal relationship and the sin/cos period and frequency values, so this is required content. d_caution: the entry wording (formulas) is equivalent to the CED's 'reciprocals' statement and the specific values match, so no caution is needed. Reject on b_topic_codes; remove 3.6 or justify its use of frequency.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 3.5.A.2 exactly: \"The period and frequency of a sinusoidal function are reciprocals. The period of f(\u03b8)=sin\u03b8 and g(\u03b8)=cos\u03b8 is 2\u03c0, and the frequency is 1/(2\u03c0).\" The formula symbols and values are correct. b_topic_codes: owner 3.5 is correct because 3.5.A.2 is the first place the relationship appears. topic_codes 3.7 is correct because 3.7.A.1 uses the period and frequency for model construction. topic_codes 3.6 fails: 3.6.A.5 and 3.6.A.6 refer only to period (as 2\u03c0/b), and frequency and the reciprocal relationship never appear in the 3.6 statements. Remove 3.6 or justify it from a period-only statement. c_ced_required: 3.5.A.2 is an essential-knowledge statement under LO 3.5.A (\"Identify key characteristics of the sine and cosine functions\"), so students must apply it. d_caution: The entry's wording (\"reciprocals\") is the CED's wording, so no caution is needed and none is present. Accept is false only because of the topic_codes error."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u3-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly relates the parameter b to frequency using the reciprocal relationship defined in 3.5.A.2 and the period formula in 3.6.A.6. This is directly required to construct sinusoidal models from frequency data as described in 3.7.A.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The formula follows from 3.5.A.2, which says period and frequency are reciprocals, and 3.6.A.6, which relates period to b; it is useful for the modeling in 3.7.A.1. But 3.6 is the first topic that requires applying the parameter b, so 3.7 is not the correct owner topic. The caution also overstates the example: 3.6.A.1 permits any nonzero real b. A frequency of 200 cycles per second determines |b| = 400\u03c0, not necessarily b = 400\u03c0."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The body correctly combines 3.5.A.2, which says period and frequency are reciprocals, with 3.6.A.6's period formula. Topic 3.7.A.1 uses period and frequency to construct sinusoidal models. However, the caution says a frequency of 200 cycles per second 'gives b = 2\u03c0\u00b7200.' The body correctly specifies |b|: a negative b has the same period and frequency, so the caution must say |b| = 2\u03c0\u00b7200 or identify positive b as a choice."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_precalculus-u3-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately synthesizes EK 3.7.A.5 and EK 3.10.A.3 regarding contextual domains and domain restrictions in trigonometric models and equations. The topic codes are correct and both belong to Unit 3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.7.A.5 states that sinusoidal functions modeling a data set are \u201cfrequently only useful over their contextual domain.\u201d CED 3.10.A.3 states that a contextual trigonometric equation or inequality often has an implied domain restriction \u201cwhich limits the number of solutions.\u201d Topic 3.7 is the first of these topics, both topic codes apply, and the paraphrase needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches both CED statements. 3.7.A.5 says sinusoidal functions that model a data set are \"frequently only useful over their contextual domain.\" 3.10.A.3 says that in equations and inequalities from a contextual scenario there is \"often a domain restriction that can be implied from the context, which limits the number of solutions.\" The entry's \"often\" and \"limits the number of solutions\" are faithful to these lines. b_topic_codes: The contextual-domain idea for sinusoidal models is first required in Topic 3.7 (3.7.A.5), which is in Unit 3, so 3.7 is the correct owner. Topic 3.10 uses the same idea for trigonometric equations and inequalities (3.10.A.3), so both topic_codes are correct. c_ced_required: Both 3.7.A.5 and 3.10.A.3 state this idea as essential knowledge, so it is CED-required. d_caution: The entry paraphrases the CED closely and expresses the same concept, so the point is earned by the concept rather than exact wording. No caution is needed, and the null caution is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u3-r2-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately summarizes the steps to construct a sinusoidal model from data as outlined in Topic 3.7 (EK 3.7.A.1 through 3.7.A.4), including references to Topic 3.5 for the definitions of amplitude and midline."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.7.A requires students to construct sinusoidal models. Its essential knowledge specifies consecutive maxima or minima for estimating period and frequency (3.7.A.1), maximum and minimum values for amplitude and vertical shift (3.7.A.2), comparison with an actual input-output pair for phase shift (3.7.A.3), and estimating key values or using sinusoidal regressions with technology (3.7.A.4). The amplitude and midline definitions also match 3.5.A.3\u20133.5.A.4. The entry\u2019s wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body and all four items match the CED. Item 1 uses the 3.7.A.1 wording, 'input-value interval between consecutive maxima or consecutive minima'. Item 2 matches 3.7.A.2 (maximum and minimum output values estimate amplitude and vertical shift) and the definitions in 3.5.A.3 (amplitude is half the difference between maximum and minimum) and 3.5.A.4 (midline is their average). Item 3 matches 3.7.A.3 (compare an actual input-output pair with model pairs to estimate phase shift). Item 4 matches 3.7.A.4 (estimate key values or use sinusoidal regressions with technology). b_topic_codes: The model-construction objective 3.7.A ('Construct sinusoidal function models of periodic phenomena') first requires this in Topic 3.7, and 3.7 is the only listed code, which uses it. c_ced_required: 3.7.A.1 through 3.7.A.4 require a student to determine or estimate period, amplitude, vertical shift, phase shift, and to construct models with technology or regression. d_caution: The entry paraphrases the CED rather than reusing a point-earning wording that differs from it, so no caution is needed. The wording is consistent with the CED statements."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_precalculus-u3-r2-006",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formulas accurately represent the definitions of secant, cosecant, and cotangent as specified in Essential Knowledge statements 3.11.A.1, 3.11.A.2, and 3.11.A.4, including the correct domain restrictions (non-zero denominators)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "CED 3.11.A.1\u20133.11.A.4 requires these reciprocal definitions, and Topic 3.12 uses equivalent trigonometric forms. However, the cotangent formula applies the combined restriction tan \u03b8 \u2260 0 and sin \u03b8 \u2260 0 to both expressions. CED 3.11.A.4 states separately: cot \u03b8 is the reciprocal of tangent \u201cwhere tan \u03b8 \u2260 0,\u201d and, equivalently, cot \u03b8 = cos \u03b8/sin \u03b8 \u201cwhere sin \u03b8 \u2260 0.\u201d The combined restriction incorrectly excludes angles with cos \u03b8 = 0 from the cos \u03b8/sin \u03b8 form."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "Topic 3.11 first requires these definitions, and Topic 3.12 uses equivalent trigonometric forms. However, the body applies \u201ctan \u03b8\u22600\u201d to the entire cotangent equality. CED 3.11.A.4 gives the forms separately: cot \u03b8 is the reciprocal of tangent \u201cwhere tan \u03b8\u22600\u201d; equivalently, \u201ccot \u03b8 = cos \u03b8 / sin \u03b8, where sin \u03b8\u22600.\u201d The quotient form is defined when cos \u03b8=0, even though 1/tan \u03b8 is not. No wording caution is otherwise needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

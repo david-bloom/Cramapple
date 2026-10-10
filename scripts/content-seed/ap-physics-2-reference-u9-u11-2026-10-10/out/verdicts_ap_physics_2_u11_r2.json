@@ -1,0 +1,210 @@
+[
+  {
+    "candidate_id": "ap_physics_2-u11-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of a parallel connection matches the CED statement 11.5.A.1.ii exactly: 'A parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.' The topic codes are appropriate as parallel connections are introduced in Topic 11.5 and are highly relevant to Kirchhoff's Junction Rule in Topic 11.7."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 11.5.A.1.ii: \u201ccharges may flow through one of two or more paths. Across each path, the potential difference is the same.\u201d Topic 11.5 first requires the definition; Topic 11.7 uses branching paths when applying Kirchhoff\u2019s junction rule. No caution is needed because the wording matches the CED."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 11.5.A.1.ii: \"A parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.\" The paraphrase merges the two sentences without changing the meaning. b_topic_codes: owner 11.5 is correct, since 11.5.A.1.ii is the first place the CED defines parallel connection. The topic_codes entry 11.7 fails. The 11.7 learning objective and essential knowledge (11.7.A.1, 11.7.A.2) cover only Kirchhoff's junction rule as a conservation-of-charge statement and never mention parallel connections. The term is used in 11.5 (11.5.A.1.ii, 11.5.A.2.ii) and in 11.8 for capacitors (11.8.A.1.iii), but 11.7 does not use it per the CED pages. c_ced_required: 11.5.A.1.ii is a required essential-knowledge statement that students must recognize and apply. d_caution: The wording is an equivalent paraphrase of the CED sentence, so no point-earning wording issue requires a caution; caution null is correct. Entry rejected because topic code 11.7 is not supported by the CED pages."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches CED 11.5.A.1.ii, \"A parallel connection is one in which charges may flow through one of two or more paths. Across each path, the potential difference is the same.\" The paraphrase is faithful. b_topic_codes: owner_topic_code 11.5 is correct, since 11.5.A.1.ii is the first place the CED defines a parallel connection. The topic_codes entry 11.7 fails. Topic 11.7 (Kirchhoff's Junction Rule, 11.7.A.1-11.7.A.2) never uses the parallel-connection concept; it covers conservation of charge at junctions. The 11.7 entry should be removed. c_ced_required: 11.5.A.1.ii is an essential-knowledge statement under LO 11.5.A, which requires students to describe equivalent resistance in circuits, so the concept is CED-required. d_caution: the body wording is effectively the CED's wording, so no caution is needed and null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u11-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines 'series connection' using the exact phrasing from Essential Knowledge 11.5.A.1.i ('A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The current in each element in series must be the same.')."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition matches 11.5.A.1.i: a charge passing through one element in a series connection \u201cmust proceed through all elements in that connection and has no other path available,\u201d and \u201cthe current in each element in series must be the same.\u201d Topic 11.5 is the correct owner, but 11.7 requires Kirchhoff\u2019s junction rule, not the definition of a series connection; remove 11.7 from topic_codes. No caution is needed because the body closely follows the CED wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body closely follows 11.5.A.1.i: in a series connection, charge passing through one element must proceed through all elements with no other path available, and the current in each element is the same. Topic 11.5 first requires the definition. Topic 11.7 uses it in analyzing currents in mixed circuits with Kirchhoff\u2019s junction rule; the CED\u2019s 11.7 sample activity asks students to explain a mixed circuit using Kirchhoff\u2019s principles. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 11.5.A.1.i: \"A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The current in each element in series must be the same.\" The entry merges the two sentences with \"so\", which is a causal rephrasing of the CED's separate statements but does not change the meaning. b_topic_codes: owner 11.5 is correct, since series connection is first defined in 11.5.A.1.i. The entry also lists 11.7, but the 11.7 pages (11.7.A.1, 11.7.A.2) cover only Kirchhoff's junction rule and never mention series connections. The only related sample activity under 11.7 refers to a \"mixed circuit\", not a series connection. So 11.7 does not use this entry's content and the code should be removed. c_ced_required: 11.5.A.1 (\"Circuit elements may be connected in series and/or in parallel\") and LO 11.5.A (equivalent resistance of resistors connected in a circuit) require students to apply this definition. d_caution: The entry's wording is close to the CED's, and the CED's own phrasing is preserved in substance, so no caution is needed."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 11.5.A.1.i: \"A series connection is one in which any charge passing through one circuit element must proceed through all elements in that connection and has no other path available. The current in each element in series must be the same.\" The entry's 'so the current in each element is the same' is a faithful paraphrase of the second sentence. b_topic_codes: owner 11.5 is correct, since series is first defined in 11.5.A.1.i. The 11.7 code fails. Topic 11.7 (Kirchhoff's Junction Rule, 11.7.A.1-2) never mentions series connections or the equal-current property of series elements, so 11.7 is not a topic of this unit that uses this content. c_ced_required: 11.5.A.1.i is an essential-knowledge statement under learning objective 11.5.A (equivalent resistance of resistors in a circuit), and the series definition is needed to apply it. d_caution: The entry's wording is essentially the CED wording, so no caution is required and caution: null is correct. accept is false solely because of the unsupported topic code 11.7."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_physics_2-u11-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry is factual and directly supported by the CED. Under Topic 11.8 (Resistor-Capacitor (RC) Circuits), Essential Knowledge 11.8.B.1.i defines the time constant as \\tau = RC (or \\tau = R_{eq}C_{eq} for combinations). The caution correctly notes that only qualitative descriptions of charging/discharging are required, as explicitly stated in the Topic 11.8 Boundary Statement: 'Descriptions of charging/discharging RC circuits in AP Physics 2 are limited to qualitative descriptions and representations... students are not expected to mathematically model these behaviors with respect to time.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 11.8 requires the RC time constant and states that it is defined by an equation (11.8.B.1.i); the equivalent-resistance and equivalent-capacitance form applies when those are the effective values for the RC circuit. The caution overstates the boundary by saying \"Only qualitative use is required.\" The CED limits descriptions of charging and discharging over time to qualitative representations, but explicitly says students should be able to \"mathematically describe initial and final states of RC circuits.\" Its restriction is that students are \"not expected to mathematically model these behaviors with respect to time,\" not that all use of the time constant must be qualitative."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 11.8 requires the RC time constant: 11.8.B.1.i says it measures how quickly a capacitor charges or discharges and gives its definition. But the entry presents \u03c4 = R_eq C_eq without restricting it to a circuit reducible to one equivalent resistance and capacitance; the CED does not state that as a general rule for every combination. The caution also overstates the boundary. The CED excludes mathematical modeling of charging and discharging *with respect to time*, not quantitative use of the time constant itself. Its 63% and 37% descriptions support the rest of the caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]
