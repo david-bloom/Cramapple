@@ -9,7 +9,7 @@
 // earlier siblings. Variants are NOT re-voted: they inherit the seed's labels (DECISION-0096, DECISION-0101).
 // Nothing is written to any database.
 //
-//   node seed_pipeline.mjs run --batch=<dir> --plan=<plan.json> [--variants=3] [--rounds=2] [--conc=4] [--pack=scoped] [--fourth=<model>]
+//   node seed_pipeline.mjs run --batch=<dir> --plan=<plan.json> [--bank=<published.json>] [--variants=3] [--rounds=2] [--conc=4] [--pack=scoped] [--fourth=<model>]
 //   plan.json: [{ subject_key, unit_number, topic_code, topic_title, allowed_skills?, slots: [{ slot, practice, skills? }] }]   (practice = "4"; optional skills narrows it, e.g. ["4.B"])
 import { generateObject } from 'ai';
 import { z } from 'zod';
@@ -20,6 +20,7 @@ import { AUTHOR_SCHEMA, RUBRIC_TEXT } from './rubric.mjs';
 import { call, assemble, authorPrompt, SUBJECTS, evaluate, checkersFor, AUTHORS, AUTHOR_ORDER, readJson, writeJson, claim, release, setCallLog } from './run.mjs';
 
 const arg = (n, d = '') => (process.argv.slice(3).find((a) => a.startsWith(`--${n}=`)) || '').slice(n.length + 3) || d;
+const BANK = arg('bank') ? JSON.parse(fs.readFileSync(arg('bank'), 'utf8')) : [];
 const BAND = {
   Easy: 'recall or recognition of a single fact, term or structure, or reading one value, with no multi-step reasoning',
   Medium: 'apply one concept to a new situation, or interpret given information to reach a single conclusion',
@@ -121,7 +122,11 @@ async function runTopic(batch, t, nVariants, rounds, allSkills) {
   for (const slot of t.slots) {
     if (st.seeds.find((s) => s.slot.slot === slot.slot && s.done)) continue;
     const base = `${t.subject_key}__${t.topic_code}__${slot.slot}`;
-    const earlier = st.seeds.filter((x) => x.slot.slot !== slot.slot && x.seed).map((x) => x.seed.item);
+    // --bank=<json>: already-published items ([{topic_code, stem, choices:[{choice_text, is_correct}]}]). Those on this
+    // topic join the earlier-seed list in the prompt and the seed-vs-seed gate, so a seed cannot duplicate the bank
+    // (added 2026-10-10 after Chemistry 1.2/1.8 seeds matched the topics' Open Hand teaching items).
+    const bank = BANK.filter((b) => b.topic_code === t.topic_code);
+    const earlier = [...bank, ...st.seeds.filter((x) => x.slot.slot !== slot.slot && x.seed).map((x) => x.seed.item)];
     const seedGate = (item) => {
       for (const e of earlier) {
         const w = wordJaccard(item, e), g = jaccard(item, e);
