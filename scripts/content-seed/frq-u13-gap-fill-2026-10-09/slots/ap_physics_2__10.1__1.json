@@ -1,0 +1,660 @@
+{
+ "id": "ap_physics_2__10.1__1",
+ "slot": {
+  "subject_key": "ap_physics_2",
+  "tsv": "b3e41b93-95d8-40c6-bef5-98cc99111915",
+  "unit": 10,
+  "unit_title": "Electric Force, Field, and Potential",
+  "topic_code": "10.1",
+  "topic_title": "Electric Charge and Electric Force",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:51:43.655Z",
+   "source": "given",
+   "item": {
+    "title": "Coulomb Force and Gravity Between Two Charged Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two small spheres, A and B, are held at rest on insulating stands so that their centers are 0.030 m apart. Sphere A has charge +4.0 × 10⁻⁹ C and sphere B has charge −2.0 × 10⁻⁹ C. Each sphere has mass 2.0 × 10⁻³ kg. The spheres are small compared with their separation, so each can be modeled as a point charge and a point mass.\n\nUse k = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "parts": [
+     {
+      "prompt": "Calculate the magnitude of the electric force that sphere A exerts on sphere B, and state the direction of that force.",
+      "criteria": [
+       {
+        "text": "Calculates the electric force magnitude as 8.0 × 10⁻⁵ N using Coulomb's law.",
+        "evidence": "Response substitutes into |F| = k|q_A q_B|/r² with r = 0.030 m and obtains 8.0 × 10⁻⁵ N (or an equivalent value).",
+        "fix": "Square the separation before dividing, and use the magnitudes of both charges in Coulomb's law.",
+        "accepted_variants": [
+         "8 × 10⁻⁵ N",
+         "0.000080 N",
+         "80 μN"
+        ]
+       },
+       {
+        "text": "States that the force on B is directed toward A (attractive), along the line joining the centers.",
+        "evidence": "Response says the force on B points toward A, or describes it as attractive.",
+        "fix": "After finding the magnitude, compare the signs of the two charges: opposite signs attract along the line joining them.",
+        "accepted_variants": [
+         "toward sphere A",
+         "attractive"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the magnitude of the gravitational force between the two spheres.",
+      "criteria": [
+       {
+        "text": "Calculates the gravitational force magnitude as about 3.0 × 10⁻¹³ N.",
+        "evidence": "Response substitutes into F_G = G m_A m_B / r² with m = 2.0 × 10⁻³ kg and r = 0.030 m and obtains about 2.96 × 10⁻¹³ N.",
+        "fix": "Multiply the two masses, divide by the separation squared, then multiply by G; keep the powers of ten carefully.",
+        "accepted_variants": [
+         "2.96 × 10⁻¹³ N",
+         "3.0 × 10⁻¹³ N",
+         "3 × 10⁻¹³ N"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The spheres are moved apart until their centers are 0.090 m apart; the charges and masses are unchanged. By what factor does the magnitude of the electric force change? Does the ratio of the electric force magnitude to the gravitational force magnitude increase, decrease, or stay the same? Justify your answers.",
+      "criteria": [
+       {
+        "text": "States that the electric force becomes 1/9 of its original value because it is inversely proportional to the square of the separation, which tripled.",
+        "evidence": "Response identifies the separation tripling and uses the inverse-square dependence to give a factor of 1/9.",
+        "fix": "When the distance changes by a factor n, an inverse-square force changes by 1/n²; here n = 3.",
+        "accepted_variants": [
+         "1/9",
+         "decreases by a factor of 9",
+         "one ninth"
+        ]
+       },
+       {
+        "text": "States that the ratio stays the same (about 2.7 × 10⁸) because both forces are inversely proportional to the square of the separation.",
+        "evidence": "Response answers 'stays the same' and justifies it by noting both the electric and gravitational forces depend on 1/r², so the factor cancels in the ratio.",
+        "fix": "Check how each force depends on r; if both scale as 1/r², the distance cancels when you divide them.",
+        "accepted_variants": [
+         "unchanged",
+         "same"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) |F_E| = k|q_A q_B|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁹)(2.0 × 10⁻⁹)/(0.030)² = (7.2 × 10⁻⁸)/(9.0 × 10⁻⁴) = 8.0 × 10⁻⁵ N.\nThe charges have opposite signs, so the force is attractive: the force on B points toward A, along the line joining the centers.\n\n(b) F_G = G m_A m_B / r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.030)² = (2.668 × 10⁻¹⁶)/(9.0 × 10⁻⁴) ≈ 2.96 × 10⁻¹³ N.\n\n(c) The separation triples from 0.030 m to 0.090 m. The electric force is inversely proportional to r², so it changes by a factor of 1/3² = 1/9, to about 8.9 × 10⁻⁶ N.\nThe ratio stays the same. The gravitational force is also inversely proportional to r², so it also becomes 1/9 as large. In the ratio F_E/F_G the factor 1/9 cancels, and the ratio remains about 8.0 × 10⁻⁵ / 2.96 × 10⁻¹³ ≈ 2.7 × 10⁸ at both separations.",
+    "verification_python": "import math\nk=9.0e9; G=6.67e-11\nqA=4.0e-9; qB=-2.0e-9; m=2.0e-3; r=0.030\nFE=k*abs(qA*qB)/r**2\nassert abs(FE-8.0e-5)<1e-9\nassert abs(k*abs(qA*qB)-7.2e-8)<1e-12\nassert abs(r**2-9.0e-4)<1e-12\nFG=G*m*m/r**2\nassert abs(G*m*m-2.668e-16)<1e-19\nassert abs(FG-2.96e-13)<0.01e-13\nassert qA*qB<0\nr2=0.090\nFE2=k*abs(qA*qB)/r2**2\nassert abs(FE2/FE-1/9)<1e-12\nassert abs(FE2-8.9e-6)<0.05e-6\nFG2=G*m*m/r2**2\nratio1=FE/FG; ratio2=FE2/FG2\nassert abs(ratio1-ratio2)/ratio1<1e-12\nassert abs(ratio1-2.7e8)<0.01e8\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "10.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     10
+    ],
+    "unitCount": {
+     "10": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Coulomb Force and Gravity Between Two Charged Spheres",
+   "calculator": "permitted",
+   "stimulus": "Two small spheres, A and B, are held at rest on insulating stands so that their centers are 0.030 m apart. Sphere A has charge +4.0 × 10⁻⁹ C and sphere B has charge −2.0 × 10⁻⁹ C. Each sphere has mass 2.0 × 10⁻³ kg. The spheres are small compared with their separation, so each can be modeled as a point charge and a point mass.\n\nUse k = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+   "parts": [
+    {
+     "prompt": "Calculate the magnitude of the electric force that sphere A exerts on sphere B, and state the direction of that force.",
+     "criteria": [
+      {
+       "text": "Calculates the electric force magnitude as 8.0 × 10⁻⁵ N using Coulomb's law.",
+       "evidence": "Response substitutes into |F| = k|q_A q_B|/r² with r = 0.030 m and obtains 8.0 × 10⁻⁵ N (or an equivalent value).",
+       "fix": "Square the separation before dividing, and use the magnitudes of both charges in Coulomb's law.",
+       "accepted_variants": [
+        "8 × 10⁻⁵ N",
+        "0.000080 N",
+        "80 μN"
+       ]
+      },
+      {
+       "text": "States that the force on B is directed toward A (attractive), along the line joining the centers.",
+       "evidence": "Response says the force on B points toward A, or describes it as attractive.",
+       "fix": "After finding the magnitude, compare the signs of the two charges: opposite signs attract along the line joining them.",
+       "accepted_variants": [
+        "toward sphere A",
+        "attractive"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the magnitude of the gravitational force between the two spheres.",
+     "criteria": [
+      {
+       "text": "Calculates the gravitational force magnitude as about 3.0 × 10⁻¹³ N.",
+       "evidence": "Response substitutes into F_G = G m_A m_B / r² with m = 2.0 × 10⁻³ kg and r = 0.030 m and obtains about 2.96 × 10⁻¹³ N.",
+       "fix": "Multiply the two masses, divide by the separation squared, then multiply by G; keep the powers of ten carefully.",
+       "accepted_variants": [
+        "2.96 × 10⁻¹³ N",
+        "3.0 × 10⁻¹³ N",
+        "3 × 10⁻¹³ N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The spheres are moved apart until their centers are 0.090 m apart; the charges and masses are unchanged. By what factor does the magnitude of the electric force change? Does the ratio of the electric force magnitude to the gravitational force magnitude increase, decrease, or stay the same? Justify your answers.",
+     "criteria": [
+      {
+       "text": "States that the electric force becomes 1/9 of its original value because it is inversely proportional to the square of the separation, which tripled.",
+       "evidence": "Response identifies the separation tripling and uses the inverse-square dependence to give a factor of 1/9.",
+       "fix": "When the distance changes by a factor n, an inverse-square force changes by 1/n²; here n = 3.",
+       "accepted_variants": [
+        "1/9",
+        "decreases by a factor of 9",
+        "one ninth"
+       ]
+      },
+      {
+       "text": "States that the ratio stays the same (about 2.7 × 10⁸) because both forces are inversely proportional to the square of the separation.",
+       "evidence": "Response answers 'stays the same' and justifies it by noting both the electric and gravitational forces depend on 1/r², so the factor cancels in the ratio.",
+       "fix": "Check how each force depends on r; if both scale as 1/r², the distance cancels when you divide them.",
+       "accepted_variants": [
+        "unchanged",
+        "same"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) |F_E| = k|q_A q_B|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁹)(2.0 × 10⁻⁹)/(0.030)² = (7.2 × 10⁻⁸)/(9.0 × 10⁻⁴) = 8.0 × 10⁻⁵ N.\nThe charges have opposite signs, so the force is attractive: the force on B points toward A, along the line joining the centers.\n\n(b) F_G = G m_A m_B / r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.030)² = (2.668 × 10⁻¹⁶)/(9.0 × 10⁻⁴) ≈ 2.96 × 10⁻¹³ N.\n\n(c) The separation triples from 0.030 m to 0.090 m. The electric force is inversely proportional to r², so it changes by a factor of 1/3² = 1/9, to about 8.9 × 10⁻⁶ N.\nThe ratio stays the same. The gravitational force is also inversely proportional to r², so it also becomes 1/9 as large. In the ratio F_E/F_G the factor 1/9 cancels, and the ratio remains about 8.0 × 10⁻⁵ / 2.96 × 10⁻¹³ ≈ 2.7 × 10⁸ at both separations.",
+   "verification_python": "import math\nk=9.0e9; G=6.67e-11\nqA=4.0e-9; qB=-2.0e-9; m=2.0e-3; r=0.030\nFE=k*abs(qA*qB)/r**2\nassert abs(FE-8.0e-5)<1e-9\nassert abs(k*abs(qA*qB)-7.2e-8)<1e-12\nassert abs(r**2-9.0e-4)<1e-12\nFG=G*m*m/r**2\nassert abs(G*m*m-2.668e-16)<1e-19\nassert abs(FG-2.96e-13)<0.01e-13\nassert qA*qB<0\nr2=0.090\nFE2=k*abs(qA*qB)/r2**2\nassert abs(FE2/FE-1/9)<1e-12\nassert abs(FE2-8.9e-6)<0.05e-6\nFG2=G*m*m/r2**2\nratio1=FE/FG; ratio2=FE2/FG2\nassert abs(ratio1-ratio2)/ratio1<1e-12\nassert abs(ratio1-2.7e8)<0.01e8\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.866089Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics2_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (a), criterion a2 requires explaining that opposite signs attract, although the part only asks students to calculate the magnitude and state",
+      "ruling": "accept",
+      "reason": "Both halves valid. Part (a) asks only for the direction, so the 'because opposite signs' requirement was dropped from a2. Part (c) asks for a factor; the force value 8.9 × 10⁻⁶ N is not an equivalent form of 1/9, so it was removed from c1's evidence and variants."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "rubric_points: Part (a) criterion a2 requires the response to connect the direction to the charges having opposite signs, but part (a) only asks for the directi",
+      "ruling": "accept",
+      "reason": "Same defect as the first objection: a2 no longer requires the unrequested opposite-signs justification."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:11:26.107Z",
+   "source": "given",
+   "item": {
+    "title": "Coulomb Force and Gravity Between Two Charged Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two small spheres, A and B, are held at rest on insulating stands so that their centers are 0.030 m apart. Sphere A has charge +4.0 × 10⁻⁹ C and sphere B has charge −2.0 × 10⁻⁹ C. Each sphere has mass 2.0 × 10⁻³ kg. The spheres are small compared with their separation, so each can be modeled as a point charge and a point mass.\n\nUse k = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "parts": [
+     {
+      "prompt": "Calculate the magnitude of the electric force that sphere A exerts on sphere B, and state the direction of that force.",
+      "criteria": [
+       {
+        "text": "Calculates the electric force magnitude as 8.0 × 10⁻⁵ N using Coulomb's law.",
+        "evidence": "Response substitutes into |F| = k|q_A q_B|/r² with r = 0.030 m and obtains 8.0 × 10⁻⁵ N (or an equivalent value).",
+        "fix": "Square the separation before dividing, and use the magnitudes of both charges in Coulomb's law.",
+        "accepted_variants": [
+         "8 × 10⁻⁵ N",
+         "0.000080 N",
+         "80 μN"
+        ]
+       },
+       {
+        "text": "States that the force on B is directed toward A (attractive), along the line joining the centers, because the charges have opposite signs.",
+        "evidence": "Response says the force on B points toward A, or is attractive, and connects this to the charges having opposite signs.",
+        "fix": "After finding the magnitude, compare the signs of the two charges: opposite signs attract along the line joining them.",
+        "accepted_variants": [
+         "toward sphere A",
+         "attractive"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the magnitude of the gravitational force between the two spheres.",
+      "criteria": [
+       {
+        "text": "Calculates the gravitational force magnitude as about 3.0 × 10⁻¹³ N.",
+        "evidence": "Response substitutes into F_G = G m_A m_B / r² with m = 2.0 × 10⁻³ kg and r = 0.030 m and obtains about 2.96 × 10⁻¹³ N.",
+        "fix": "Multiply the two masses, divide by the separation squared, then multiply by G; keep the powers of ten carefully.",
+        "accepted_variants": [
+         "2.96 × 10⁻¹³ N",
+         "3.0 × 10⁻¹³ N",
+         "3 × 10⁻¹³ N"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The spheres are moved apart until their centers are 0.090 m apart; the charges and masses are unchanged. By what factor does the magnitude of the electric force change? Does the ratio of the electric force magnitude to the gravitational force magnitude increase, decrease, or stay the same? Justify your answers.",
+      "criteria": [
+       {
+        "text": "States that the electric force becomes 1/9 of its original value (8.9 × 10⁻⁶ N) because it is inversely proportional to the square of the separation, which tripled.",
+        "evidence": "Response identifies the separation tripling and uses the inverse-square dependence to give a factor of 1/9 (or a new value of about 8.9 × 10⁻⁶ N).",
+        "fix": "When the distance changes by a factor n, an inverse-square force changes by 1/n²; here n = 3.",
+        "accepted_variants": [
+         "1/9",
+         "decreases by a factor of 9",
+         "8.9 × 10⁻⁶ N"
+        ]
+       },
+       {
+        "text": "States that the ratio stays the same (about 2.7 × 10⁸) because both forces are inversely proportional to the square of the separation.",
+        "evidence": "Response answers 'stays the same' and justifies it by noting both the electric and gravitational forces depend on 1/r², so the factor cancels in the ratio.",
+        "fix": "Check how each force depends on r; if both scale as 1/r², the distance cancels when you divide them.",
+        "accepted_variants": [
+         "unchanged",
+         "same"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) |F_E| = k|q_A q_B|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁹)(2.0 × 10⁻⁹)/(0.030)² = (7.2 × 10⁻⁸)/(9.0 × 10⁻⁴) = 8.0 × 10⁻⁵ N.\nThe charges have opposite signs, so the force is attractive: the force on B points toward A, along the line joining the centers.\n\n(b) F_G = G m_A m_B / r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.030)² = (2.668 × 10⁻¹⁶)/(9.0 × 10⁻⁴) ≈ 2.96 × 10⁻¹³ N.\n\n(c) The separation triples from 0.030 m to 0.090 m. The electric force is inversely proportional to r², so it changes by a factor of 1/3² = 1/9, to about 8.9 × 10⁻⁶ N.\nThe ratio stays the same. The gravitational force is also inversely proportional to r², so it also becomes 1/9 as large. In the ratio F_E/F_G the factor 1/9 cancels, and the ratio remains about 8.0 × 10⁻⁵ / 2.96 × 10⁻¹³ ≈ 2.7 × 10⁸ at both separations.",
+    "verification_python": "import math\nk=9.0e9; G=6.67e-11\nqA=4.0e-9; qB=-2.0e-9; m=2.0e-3; r=0.030\nFE=k*abs(qA*qB)/r**2\nassert abs(FE-8.0e-5)<1e-9\nassert abs(k*abs(qA*qB)-7.2e-8)<1e-12\nassert abs(r**2-9.0e-4)<1e-12\nFG=G*m*m/r**2\nassert abs(G*m*m-2.668e-16)<1e-19\nassert abs(FG-2.96e-13)<0.01e-13\nassert qA*qB<0\nr2=0.090\nFE2=k*abs(qA*qB)/r2**2\nassert abs(FE2/FE-1/9)<1e-12\nassert abs(FE2-8.9e-6)<0.05e-6\nFG2=G*m*m/r2**2\nratio1=FE/FG; ratio2=FE2/FG2\nassert abs(ratio1-ratio2)/ratio1<1e-12\nassert abs(ratio1-2.7e8)<0.01e8\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "10.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     10
+    ],
+    "unitCount": {
+     "10": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a2 requires explaining that opposite signs attract, although part (a) asks only for the magnitude and direction, not a justification. Criterion c1 accepts a new force magnitude instead of the requested factor of change; 8.9 × 10⁻⁶ N is not an equivalent form of 1/9. Remove the unrequested explanation requirement from a2, and require the factor of change in c1."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a2 requires explaining that opposite signs attract, although part (a) asks only for the magnitude and direction, not a justification. Criterion c1 accepts a new force magnitude instead of the requested factor of change; 8.9 × 10⁻⁶ N is not an equivalent form of 1/9. Remove the unrequested explanation requirement from a2, and require the factor of change in c1."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2 requires explaining that opposite signs attract, although the part only asks students to calculate the magnitude and state the direction. A correct direction without that explanation should earn the point. Part (c), criterion c1 accepts the new force magnitude, 8.9 × 10⁻⁶ N, instead of the requested factor of change. A force magnitude is not an equivalent form of the dimensionless factor 1/9; require the factor and its inverse-square justification."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2 requires explaining that opposite signs attract, although the part only asks students to calculate the magnitude and state the direction. A correct direction without that explanation should earn the point. Part (c), criterion c1 accepts the new force magnitude, 8.9 × 10⁻⁶ N, instead of the requested factor of change. A force magnitude is not an equivalent form of the dimensionless factor 1/9; require the factor and its inverse-square justification."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2: the part only asks the student to state the direction, but the criterion also requires connecting the direction to the opposite signs. A response that correctly states 'toward A' would not earn the point as written. Remove the sign-connection requirement from the criterion or add a justification instruction to part (a)."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2: the part only asks the student to state the direction, but the criterion also requires connecting the direction to the opposite signs. A response that correctly states 'toward A' would not earn the point as written. Remove the sign-connection requirement from the criterion or add a justification instruction to part (a)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a) criterion a2 requires the response to connect the direction to the charges having opposite signs, but part (a) only asks for the direction. This rewards an unrequested justification."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a) criterion a2 requires the response to connect the direction to the charges having opposite signs, but part (a) only asks for the direction. This rewards an unrequested justification."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

@@ -1,0 +1,1197 @@
+{
+ "id": "ap_chemistry__1.3__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.3",
+  "topic_title": "Elemental Composition of Pure Substances",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:44.975Z",
+   "source": "given",
+   "item": {
+    "title": "Composition and Empirical Formulas of Two Sulfur Oxides",
+    "calculator": "permitted",
+    "stimulus": "A chemist analyzes three samples. Each sample is a pure compound that contains only sulfur and oxygen. The masses of sulfur and oxygen in each sample are listed below. Use the molar masses S = 32.06 g/mol and O = 16.00 g/mol.\n\nSample | Mass of sulfur (g) | Mass of oxygen (g)\n1 | 1.603 | 1.600\n2 | 0.6412 | 0.6400\n3 | 0.8015 | 1.200\n\nAnswer the following.",
+    "parts": [
+     {
+      "prompt": "Calculate the percent by mass of sulfur in sample 1.",
+      "criteria": [
+       {
+        "text": "Calculates 50.05% sulfur by mass in sample 1.",
+        "evidence": "Response divides the mass of sulfur by the total mass of sample 1 (1.603 g ÷ 3.203 g) and reports 50.05%.",
+        "fix": "Add the masses of all the elements to get the sample mass, divide the element's mass by it, and multiply by 100.",
+        "accepted_variants": [
+         "50.05 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the empirical formula of the compound in sample 1. Show the work that supports your answer.",
+      "criteria": [
+       {
+        "text": "Determines the empirical formula SO₂ from a 1 : 2 ratio of sulfur atoms to oxygen atoms.",
+        "evidence": "Response converts the masses to amounts (0.05000 mol S and 0.1000 mol O) or uses an equivalent ratio calculation, shows that the S : O atom ratio is 1 : 2, and writes SO₂.",
+        "fix": "Convert each element's mass to moles with its molar mass, then express the mole ratio as the lowest whole numbers.",
+        "accepted_variants": [
+         "SO2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Do the data support the claim that sample 2 is the same compound as sample 1? Justify your answer using the law of definite proportions.",
+      "criteria": [
+       {
+        "text": "Answers yes: sample 2 has the same composition as sample 1 (50.05% S by mass, or 0.9981 g O per 1 g S, or a 1 : 2 S : O atom ratio), which is what the law of definite proportions requires for samples of one compound.",
+        "evidence": "Response shows that sample 2 has the same composition as sample 1, either by calculating a matching composition value (percent S, mass ratio or atom ratio) or by showing that both elemental masses scale by the same factor, and states that one compound always has the same mass ratio of its elements.",
+        "fix": "Show the composition matches, by a matching value or by both masses scaling by one factor, then cite the law.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Sample 3 is a different pure compound of sulfur and oxygen. Determine its empirical formula. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Determines the empirical formula SO₃ from a 1 : 3 ratio of sulfur atoms to oxygen atoms.",
+        "evidence": "Response finds 0.02500 mol S and 0.07500 mol O (or an equivalent ratio calculation) and writes SO₃.",
+        "fix": "Find the moles of each element, compare them as an atom ratio, and write that ratio as the lowest whole-number subscripts.",
+        "accepted_variants": [
+         "SO3"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Mass of sample 1 = 1.603 g + 1.600 g = 3.203 g. Percent S = (1.603 g ÷ 3.203 g) × 100% = 50.05% S.\n\n(b) Moles of S = 1.603 g ÷ 32.06 g/mol = 0.05000 mol. Moles of O = 1.600 g ÷ 16.00 g/mol = 0.1000 mol. The ratio S : O = 0.05000 : 0.1000 = 1 : 2, so the empirical formula is SO₂.\n\n(c) Yes. Percent S in sample 2 = 0.6412 g ÷ (0.6412 g + 0.6400 g) × 100% = 50.05%, the same as sample 1 (equivalently, both samples contain 0.9981 g O per 1 g S). According to the law of definite proportions, every pure sample of a given compound has the same mass ratio of its elements, so the data are consistent with sample 2 being the same compound as sample 1.\n\n(d) Moles of S = 0.8015 g ÷ 32.06 g/mol = 0.02500 mol. Moles of O = 1.200 g ÷ 16.00 g/mol = 0.07500 mol. The ratio S : O = 1 : 3, so the empirical formula is SO₃.",
+    "verification_python": "from fractions import Fraction\nS,O=32.06,16.00\ns1,o1=1.603,1.600\ns2,o2=0.6412,0.6400\ns3,o3=0.8015,1.200\nassert abs(s1+o1-3.203)<1e-9\npS1=s1/(s1+o1)*100\nassert abs(pS1-50.05)<0.005\npS2=s2/(s2+o2)*100\nassert abs(pS2-50.05)<0.005\nassert abs(o1/s1-0.9981)<0.00005 and abs(o2/s2-0.9981)<0.00005\nnS1,nO1=s1/S,o1/O\nassert abs(nS1-0.05000)<1e-6 and abs(nO1-0.1000)<1e-6\nassert Fraction(nO1/nS1).limit_denominator(10)==2\nnS3,nO3=s3/S,o3/O\nassert abs(nS3-0.02500)<1e-6 and abs(nO3-0.07500)<1e-6\nassert Fraction(nO3/nS3).limit_denominator(10)==3\nassert abs((s2/S)/(o2/O)-0.5)<1e-6\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:47:05.310Z",
+   "item": {
+    "title": "Empirical Formula and Definite Proportions of an Iron Oxide",
+    "calculator": "permitted",
+    "stimulus": "A student analyzes two samples of a red-brown solid that is a pure compound containing only iron and oxygen. Each sample is collected from a different supplier. For each sample, the masses of iron and oxygen are determined. The results are shown below.\n\nSample | Mass of sample (g) | Mass of Fe (g) | Mass of O (g)\n1 | 2.500 | 1.749 | 0.751\n2 | 4.000 | 2.798 | 1.202\n\nUse molar masses Fe = 55.85 g/mol and O = 16.00 g/mol.",
+    "model_answer": "(a) Percent Fe = (1.749 g ÷ 2.500 g) × 100 = 69.96% Fe.\n\n(b) mol Fe = 1.749 g ÷ 55.85 g/mol = 0.03132 mol Fe. mol O = 0.751 g ÷ 16.00 g/mol = 0.0469 mol O. Dividing by the smaller amount: Fe = 0.03132/0.03132 = 1.00; O = 0.0469/0.03132 = 1.50. Multiplying both by 2 gives Fe:O = 2:3, so the empirical formula is Fe2O3.\n\n(c) Sample 2: percent Fe = (2.798 g ÷ 4.000 g) × 100 = 69.95% Fe, essentially identical to 69.96% for Sample 1. (Equivalently, the Fe:O mass ratio is 2.798/1.202 = 2.33 for Sample 2 and 1.749/0.751 = 2.33 for Sample 1.) Because the composition by mass is the same within measurement precision, the data are consistent with both samples being the same compound, as required by the law of definite proportions. The classmate's claim is not supported.\n\n(d) In the compound, Fe and O are always combined in the fixed ratio of 2 Fe to 3 O in every formula unit. Each Fe atom and each O atom has a characteristic average mass, so the mass of Fe per formula unit to mass of O per formula unit is always (2 × 55.85)/(3 × 16.00) = 2.33. A larger sample simply contains more formula units, which multiplies both masses by the same factor, so the mass ratio does not change.",
+    "verification_python": "import math\nFe=55.85; O=16.00\nm1,fe1,o1=2.500,1.749,0.751\nm2,fe2,o2=4.000,2.798,1.202\nassert abs(fe1+o1-m1)<1e-9 and abs(fe2+o2-m2)<1e-9\np1=fe1/m1*100\nassert round(p1,2)==69.96\nnFe=fe1/Fe; nO=o1/O\nassert abs(nFe-0.03132)<5e-6\nassert abs(nO-0.0469)<5e-5\nr=nO/nFe\nassert abs(r-1.50)<0.01\nassert round(r*2)==3\np2=fe2/m2*100\nassert round(p2,2)==69.95\nr1=fe1/o1; r2=fe2/o2\nassert round(r1,2)==2.33 and round(r2,2)==2.33\nassert round(r2,3)==2.328\nth=(2*Fe)/(3*O)\nassert round(th,3)==2.327 and round(th,2)==2.33\nassert abs(2*Fe/(2*Fe+3*O)*100-69.94)<0.01\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the percent by mass of iron in Sample 1. Report your answer to the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Mass percent of Fe in Sample 1 is 69.96%",
+        "evidence": "Shows (1.749 g ÷ 2.500 g) × 100 and reports 69.96% (four significant figures).",
+        "fix": "Divide the mass of the element by the total sample mass, multiply by 100, and keep the significant figures of the least precise measurement.",
+        "accepted_variants": [
+         "69.96 %",
+         "0.6996"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data for Sample 1, determine the empirical formula of the compound. Show your work.",
+      "criteria": [
+       {
+        "text": "Converts both masses to moles: about 0.03132 mol Fe and 0.04694 mol O",
+        "evidence": "Divides 1.749 g by 55.85 g/mol and 0.751 g by 16.00 g/mol, obtaining approximately 0.0313 mol Fe and 0.0469 mol O.",
+        "fix": "Convert each element's mass to moles using its molar mass before comparing amounts; never compare masses directly.",
+        "accepted_variants": [
+         "0.0313 mol Fe and 0.0469 mol O"
+        ]
+       },
+       {
+        "text": "Empirical formula is Fe2O3, from a mole ratio O:Fe of about 1.50, doubled to the lowest whole-number ratio 2:3",
+        "evidence": "Divides by the smaller mole amount to get Fe:O = 1:1.50, multiplies by 2 to get 2:3, and writes Fe2O3.",
+        "fix": "Divide all mole amounts by the smallest; if a ratio ends in .5, multiply every ratio by 2 to reach whole numbers.",
+        "accepted_variants": [
+         "Fe₂O₃"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A classmate claims that because the two samples came from different suppliers, they might be different compounds. Using the data for Sample 2, determine whether the data are consistent with the two samples being the same compound. Justify your answer with a calculation.",
+      "criteria": [
+       {
+        "text": "Claims the samples are the same compound, supported by a matching composition (Sample 2 is 69.95% Fe, or Fe:O mass ratio 2.33 in both samples)",
+        "evidence": "Calculates a composition quantity for Sample 2 (69.95% Fe or mass ratio 2.798/1.202 = 2.33) and compares it to Sample 1 (69.96% Fe or 2.33), concluding they agree, consistent with the law of definite proportions.",
+        "fix": "Compare a size-independent quantity, such as mass percent or mass ratio, between samples and cite the law of definite proportions.",
+        "accepted_variants": [
+         "69.95%",
+         "2.33",
+         "2.328"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, in terms of atoms and their masses, why every pure sample of this compound must have the same ratio of mass of Fe to mass of O regardless of the size of the sample.",
+      "criteria": [
+       {
+        "text": "Explains that the fixed 2:3 atom ratio in every formula unit, combined with the fixed average mass of Fe and O atoms, gives a fixed mass ratio of about 2.327",
+        "evidence": "States that every formula unit (or the whole solid) has Fe and O in a fixed 2:3 ratio and that each Fe and O atom has a characteristic average mass, so mass Fe/mass O = (2 × 55.85)/(3 × 16.00) ≈ 2.33 for any sample size.",
+        "fix": "Link the fixed atom ratio in the formula to the fixed average mass of each atom type to explain a constant mass ratio.",
+        "accepted_variants": [
+         "2.33",
+         "2.327"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b2 prescribes dividing by the smaller mole amount and then multiplying by 2, rejecting other valid calculations establishing the lowest whole-number ratio. Part (c), criterion c1 restricts evidence to mass percent or mass ratio, excluding the valid mole-ratio comparison in the independent solution. Part (d), criterion d1 requires a numerical mass-ratio calculation although the prompt asks only for an explanation; a complete qualitative explanation using fixed atom proportions and characteristic atomic masses should earn credit.",
+       "solution: The numerical results and chemical explanations agree with the rubric. However, the independent solution correctly answers part (c) by calculating Sample 2's mole ratio and comparing its empirical formula with Sample 1's. Criterion c1 does not accept this valid evidence pathway. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b2 prescribes dividing by the smaller mole amount and then multiplying by 2, rejecting other valid calculations establishing the lowest whole-number ratio. Part (c), criterion c1 restricts evidence to mass percent or mass ratio, excluding the valid mole-ratio comparison in the independent solution. Part (d), criterion d1 requires a numerical mass-ratio calculation although the prompt asks only for an explanation; a complete qualitative explanation using fixed atom proportions and characteristic atomic masses should earn credit."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical results and chemical explanations agree with the rubric. However, the independent solution correctly answers part (c) by calculating Sample 2's mole ratio and comparing its empirical formula with Sample 1's. Criterion c1 does not accept this valid evidence pathway. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b2 prescribes dividing by the smaller mole amount, rejecting valid alternatives such as directly calculating the Fe:O mole ratio. Criterion c1 limits its evidence to mass percent or mass ratio; determining and comparing empirical formulas from mole ratios also correctly answers part (c). Criterion d1 requires a numerical mass-ratio calculation although part (d) requests only an explanation; a complete explanation linking the fixed atom ratio and characteristic average atomic masses should earn credit without that calculation.",
+       "accurate: Criterion a1 lists 0.6996 as an equivalent form of the requested percentage. It is the mass fraction, not the percent by mass; the equivalent percentage is 69.96%. The evidence requirement still demands 69.96%, making this accepted variant internally inconsistent.",
+       "solution: The independent solution agrees with the rubric's substantive chemistry and numerical results: 69.96% Fe, Fe₂O₃, matching compositions within measurement precision, and a fixed Fe:O mass ratio of approximately 2.327. However, its valid part (c) calculation compares empirical formulas using mole ratios rather than either calculation specified by c1, exposing an overly restrictive evidence requirement. Also, 0.6996 is a mass fraction rather than an equivalent percentage."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b2 prescribes dividing by the smaller mole amount, rejecting valid alternatives such as directly calculating the Fe:O mole ratio. Criterion c1 limits its evidence to mass percent or mass ratio; determining and comparing empirical formulas from mole ratios also correctly answers part (c). Criterion d1 requires a numerical mass-ratio calculation although part (d) requests only an explanation; a complete explanation linking the fixed atom ratio and characteristic average atomic masses should earn credit without that calculation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion a1 lists 0.6996 as an equivalent form of the requested percentage. It is the mass fraction, not the percent by mass; the equivalent percentage is 69.96%. The evidence requirement still demands 69.96%, making this accepted variant internally inconsistent."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's substantive chemistry and numerical results: 69.96% Fe, Fe₂O₃, matching compositions within measurement precision, and a fixed Fe:O mass ratio of approximately 2.327. However, its valid part (c) calculation compares empirical formulas using mole ratios rather than either calculation specified by c1, exposing an overly restrictive evidence requirement. Also, 0.6996 is a mass fraction rather than an equivalent percentage.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:51:25.845Z",
+   "item": {
+    "title": "Iron Oxide Composition and the Law of Definite Proportions",
+    "calculator": "permitted",
+    "stimulus": "A student analyzes samples of a pure solid compound that contains only iron and oxygen. Samples 1 and 2 are taken from the same reagent bottle. Sample 3 is a dark solid from a different bottle that also contains only iron and oxygen. For each sample, the student determines the total mass of the sample and the mass of iron it contains. The mass of oxygen is found by difference. Use molar masses Fe = 55.85 g/mol and O = 16.00 g/mol.\n\nSample | Mass of sample (g) | Mass of Fe (g) | Mass of O (g)\n1 | 2.000 | 1.399 | 0.601\n2 | 5.000 | 3.497 | 1.503\n3 | 3.000 | 2.171 | 0.829",
+    "model_answer": "(a) Sample 1: (1.399 g / 2.000 g) × 100 = 69.95% Fe. Sample 2: (3.497 g / 5.000 g) × 100 = 69.94% Fe. The two samples differ in mass, yet they have the same percent iron within measurement precision. The law of definite proportions says that every pure sample of a compound has the same mass ratio of its elements, and these results match that.\n\n(b) The moles of each element are:\nn(Fe) = 1.399 g ÷ 55.85 g/mol = 0.02505 mol\nn(O) = 0.601 g ÷ 16.00 g/mol = 0.0376 mol\nDividing each amount by 0.02505 mol gives Fe = 1.00 and O = 1.50. Multiplying both by 2 gives Fe 2 : O 3. The empirical formula is Fe2O3.\n\n(c) Sample 3: (2.171 g / 3.000 g) × 100 = 72.37% Fe. This differs from the 69.9% Fe in Samples 1 and 2, so Sample 3 is not the same compound. A pure compound always has the same composition by mass. As a check, the moles in Sample 3 are 2.171/55.85 = 0.03887 mol Fe and 0.829/16.00 = 0.0518 mol O. This gives O:Fe = 1.33, which corresponds to Fe3O4.\n\n(d) In Fe2O3, iron and oxygen are combined in a fixed proportion of 2 Fe for every 3 O in each formula unit. Every atom (ion) of a given element has the same characteristic average mass. A larger sample simply contains more formula units. As a result, the total masses of Fe and O increase in the same proportion, and the ratio of iron mass to oxygen mass stays constant for any sample size.",
+    "verification_python": "import math\nFe=55.85;O=16.00\n# data consistency\nassert abs(2.000-1.399-0.601)<1e-9\nassert abs(5.000-3.497-1.503)<1e-9\nassert abs(3.000-2.171-0.829)<1e-9\np1=1.399/2.000*100;p2=3.497/5.000*100;p3=2.171/3.000*100\nassert abs(p1-69.95)<0.005\nassert abs(p2-69.94)<0.005\nassert abs(p3-72.37)<0.005\n# mass ratio Fe:O\nassert abs(1.399/0.601-2.33)<0.01 and abs(3.497/1.503-2.33)<0.01\n# theoretical Fe2O3 percent\nth=2*Fe/(2*Fe+3*O)*100\nassert abs(th-69.94)<0.01\nnFe=1.399/Fe;nO=0.601/O\nassert abs(nFe-0.02505)<0.000005\nassert abs(nO-0.0376)<0.00005\nassert abs(nO-0.03756)<0.000005\nr=nO/nFe\nassert abs(r-1.50)<0.005\nassert round(r*2)==3\n# sample 3\nnFe3=2.171/Fe;nO3=0.829/O\nassert abs(nFe3-0.03887)<0.000005\nassert abs(nO3-0.0518)<0.00005\nr3=nO3/nFe3\nassert abs(r3-1.33)<0.005\nassert round(r3*3)==4\nth3=3*Fe/(3*Fe+4*O)*100\nassert abs(th3-72.36)<0.01\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the mass percent of iron in Sample 1 and in Sample 2. Explain how these results are consistent with the law of definite proportions.",
+      "criteria": [
+       {
+        "text": "Mass percent Fe is 69.95% in Sample 1 and 69.94% in Sample 2, and the student states that equal percentages in different-sized samples are consistent with a constant mass ratio.",
+        "evidence": "Shows 1.399/2.000 × 100 = 69.95% and 3.497/5.000 × 100 = 69.94%. States that the composition by mass is the same even though the sample masses differ, as the law of definite proportions requires.",
+        "fix": "Divide each element's mass by the total sample mass. Then state that a pure compound keeps the same percent composition regardless of sample size.",
+        "accepted_variants": [
+         "69.9%",
+         "0.6995 and 0.6994",
+         "Fe:O mass ratio 2.33 in both samples"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data for Sample 1, determine the empirical formula of the compound. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct moles of each element: 0.02505 mol Fe and 0.0376 mol O.",
+        "evidence": "Converts 1.399 g Fe ÷ 55.85 g/mol = 0.02505 mol and 0.601 g O ÷ 16.00 g/mol = 0.0376 mol, with units.",
+        "fix": "Convert each element's mass to moles by dividing by its molar mass before comparing the amounts of the elements.",
+        "accepted_variants": [
+         "0.0250 mol Fe",
+         "0.025 mol Fe",
+         "0.03756 mol O"
+        ]
+       },
+       {
+        "text": "Mole ratio O:Fe = 1.50:1, which converts to the lowest whole-number ratio 2:3, giving the empirical formula Fe2O3.",
+        "evidence": "Divides by the smaller mole amount to get Fe 1 : O 1.50. Multiplies by 2 to reach whole numbers and reports Fe2O3.",
+        "fix": "When a mole ratio gives a value like 1.5, multiply all subscripts by the smallest integer that makes every subscript whole.",
+        "accepted_variants": [
+         "Fe₂O₃",
+         "2 Fe : 3 O"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine whether Sample 3 is the same compound as Samples 1 and 2. Justify your answer with a calculation.",
+      "criteria": [
+       {
+        "text": "Sample 3 is not the same compound because its mass percent Fe (72.37%) differs from the 69.9% of Samples 1 and 2.",
+        "evidence": "Calculates 2.171/3.000 × 100 = 72.37% Fe, or an equivalent mole ratio of O:Fe = 1.33. Concludes that a different composition by mass means a different compound. Stating the formula Fe3O4 is acceptable but not required.",
+        "fix": "Compare the percent composition of the unknown with the known compound. A pure compound must have identical composition, so a difference means a different compound.",
+        "accepted_variants": [
+         "72.4%",
+         "O:Fe mole ratio 1.33",
+         "Fe3O4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain at the particle level why every pure sample of the compound in Samples 1 and 2 has the same ratio of iron mass to oxygen mass, regardless of the size of the sample.",
+      "criteria": [
+       {
+        "text": "The compound always contains Fe and O atoms (ions) in a fixed 2:3 ratio in its formula units, and each element's atoms have a fixed average mass, so the mass ratio is constant.",
+        "evidence": "States that the number ratio of Fe to O particles is fixed by the formula unit. Connects this to each Fe and O particle having a characteristic average mass, so total masses scale together for any sample size.",
+        "fix": "Link the fixed atom ratio in a formula to fixed atomic masses. Explain that more formula units add Fe and O mass proportionally.",
+        "accepted_variants": [
+         "fixed proportions in formula unit",
+         "constant atom ratio"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 bundles two percentage calculations and a separate explanation into one point rather than awarding one specific observable element. Criterion b2 prescribes dividing by the smaller mole amount and multiplying by 2, although part (b) permits any valid calculation establishing the lowest whole-number ratio. Criterion a1 also lists an Fe:O mass ratio as an equivalent form of a mass percentage; these are different quantities.",
+       "accurate: Criterion b2 incorrectly says the O:Fe ratio converts to 2:3. O:Fe = 1.50:1 converts to 3:2; Fe:O = 2:3. Its evidence statement and empirical formula are correct.",
+       "solution: The independent calculations agree with the rubric's percentages, mole amounts, empirical formula Fe₂O₃, Sample 3 comparison, and particle-level explanation. The disagreement is criterion b2's reversed whole-number ratio: O:Fe must be 3:2, not 2:3."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles two percentage calculations and a separate explanation into one point rather than awarding one specific observable element. Criterion b2 prescribes dividing by the smaller mole amount and multiplying by 2, although part (b) permits any valid calculation establishing the lowest whole-number ratio. Criterion a1 also lists an Fe:O mass ratio as an equivalent form of a mass percentage; these are different quantities."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b2 incorrectly says the O:Fe ratio converts to 2:3. O:Fe = 1.50:1 converts to 3:2; Fe:O = 2:3. Its evidence statement and empirical formula are correct."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent calculations agree with the rubric's percentages, mole amounts, empirical formula Fe₂O₃, Sample 3 comparison, and particle-level explanation. The disagreement is criterion b2's reversed whole-number ratio: O:Fe must be 3:2, not 2:3.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (c): Sample 3 is not clearly identified as pure. Its different composition establishes that it is not a pure sample of the same compound, but does not distinguish another compound from a mixture. Explicitly state that Sample 3 is a pure compound, or ask whether it could be a pure sample of the same compound.",
+       "rubric_points: Parts (b), criteria b1 and b2: The evidence requirements prescribe calculating the actual sample's mole amounts, dividing by the smaller amount, and multiplying by 2. The prompt only requires a justified empirical formula; valid alternatives include using percent composition with a 100 g basis or directly establishing the 2:3 mole ratio. Accept equivalent justified computational pathways.",
+       "rubric_evidence: Criteria a1 and d1 each give two separate corrective actions rather than one: a1 says to divide and then state a conclusion; d1 says to link and then explain. Their fixes meet the word limit but should each be rewritten as one concrete action.",
+       "accurate: Criterion b2 incorrectly says O:Fe = 1.50:1 converts to 2:3; O:Fe converts to 3:2, whereas Fe:O is 2:3. Criterion c1 also overstates the inference: without establishing Sample 3's purity, a different elemental composition does not necessarily mean a different compound; it could indicate a mixture.",
+       "solution: The calculations agree: 69.95% and 69.94% Fe, Fe₂O₃ for Sample 1, and 72.37% Fe for Sample 3. Criterion b2 reverses the whole-number O:Fe ratio in its summary, although its evidence correctly uses Fe:O = 2:3. For part (c), the independent solution appropriately conditions the Fe₃O₄ identification on Sample 3 being pure; criterion c1 unconditionally identifies it as a different compound."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c): Sample 3 is not clearly identified as pure. Its different composition establishes that it is not a pure sample of the same compound, but does not distinguish another compound from a mixture. Explicitly state that Sample 3 is a pure compound, or ask whether it could be a pure sample of the same compound."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Parts (b), criteria b1 and b2: The evidence requirements prescribe calculating the actual sample's mole amounts, dividing by the smaller amount, and multiplying by 2. The prompt only requires a justified empirical formula; valid alternatives include using percent composition with a 100 g basis or directly establishing the 2:3 mole ratio. Accept equivalent justified computational pathways."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criteria a1 and d1 each give two separate corrective actions rather than one: a1 says to divide and then state a conclusion; d1 says to link and then explain. Their fixes meet the word limit but should each be rewritten as one concrete action."
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b2 incorrectly says O:Fe = 1.50:1 converts to 2:3; O:Fe converts to 3:2, whereas Fe:O is 2:3. Criterion c1 also overstates the inference: without establishing Sample 3's purity, a different elemental composition does not necessarily mean a different compound; it could indicate a mixture."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The calculations agree: 69.95% and 69.94% Fe, Fe₂O₃ for Sample 1, and 72.37% Fe for Sample 3. Criterion b2 reverses the whole-number O:Fe ratio in its summary, although its evidence correctly uses Fe:O = 2:3. For part (c), the independent solution appropriately conditions the Fe₃O₄ identification on Sample 3 being pure; criterion c1 unconditionally identifies it as a different compound.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:55:54.525Z",
+   "item": {
+    "title": "Empirical and Molecular Formula of an Organic Acid",
+    "calculator": "permitted",
+    "stimulus": "A chemist isolates a white crystalline organic acid that contains only carbon, hydrogen, and oxygen. Two samples of the acid, obtained from different sources, are purified and analyzed to find the mass of each element they contain. The results are shown below.\n\nSample | Mass of sample (g) | Mass of C (g) | Mass of H (g) | Mass of O (g)\nA | 3.000 | 1.220 | 0.154 | 1.626\nB | 5.000 | 2.034 | 0.256 | 2.710\n\nIn a separate experiment, the molar mass of the acid is found to be 118.1 g/mol. Use the molar masses C = 12.01 g/mol, H = 1.008 g/mol, and O = 16.00 g/mol.",
+    "model_answer": "(a) Mass ratio of C to O: sample A, 1.220 g / 1.626 g = 0.7503; sample B, 2.034 g / 2.710 g = 0.7506. Mass fraction of C: A, 1.220/3.000 = 0.4067; B, 2.034/5.000 = 0.4068. The ratios of the masses of the elements are the same in both samples (within measurement precision), which is what the law of definite proportions requires of any pure sample of one compound. The data are consistent with the claim.\n\n(b) Moles in sample A:\nC: 1.220 g / 12.01 g/mol = 0.1016 mol\nH: 0.154 g / 1.008 g/mol = 0.153 mol\nO: 1.626 g / 16.00 g/mol = 0.1016 mol\nDivide by the smallest (0.1016): C = 1.00, H = 1.50, O = 1.00. Multiply by 2 to get whole numbers: C : H : O = 2 : 3 : 2. Empirical formula: C2H3O2.\n\n(c) Empirical formula mass = 2(12.01) + 3(1.008) + 2(16.00) = 59.04 g/mol. 118.1 / 59.04 = 2.00. Molecular formula = (C2H3O2) × 2 = C4H6O4.\n\n(d) Solid CaCl2 is not made of individual molecules. It is an extended array of Ca²⁺ and Cl⁻ ions held together by electrostatic attractions in a fixed proportion of one Ca²⁺ for every two Cl⁻. Because there is no discrete particle with a definite number of atoms, the formula can only express the lowest whole-number ratio of ions, the formula unit CaCl2. The organic acid, by contrast, consists of discrete molecules each containing exactly 4 C, 6 H, and 4 O atoms, so it has a molecular formula that can be a whole-number multiple of its empirical formula.",
+    "verification_python": "from fractions import Fraction\nC,H,O=12.01,1.008,16.00\nA=(3.000,1.220,0.154,1.626)\nB=(5.000,2.034,0.256,2.710)\nassert abs(sum(A[1:])-A[0])<1e-9\nassert abs(sum(B[1:])-B[0])<1e-9\nrA=A[1]/A[3]; rB=B[1]/B[3]\nassert abs(rA-0.7503)<1e-4 and abs(rB-0.7506)<1e-4\nfA=A[1]/A[0]; fB=B[1]/B[0]\nassert abs(fA-0.4067)<1e-4 and abs(fB-0.4068)<1e-4\nassert abs(rA-rB)/rA<0.001\nassert abs(B[3]/B[1]-1.33)<0.01\nnC=A[1]/C; nH=A[2]/H; nO=A[3]/O\nassert abs(nC-0.1016)<1e-4\nassert abs(nH-0.153)<1e-3\nassert abs(nO-0.1016)<1e-4\nsm=min(nC,nH,nO)\nratio=[nC/sm,nH/sm,nO/sm]\nassert abs(ratio[0]-1)<0.01 and abs(ratio[1]-1.5)<0.01 and abs(ratio[2]-1)<0.01\nsub=[round(2*x) for x in ratio]\nassert sub==[2,3,2]\nemp=2*C+3*H+2*O\nassert abs(emp-59.04)<0.01\nn=118.1/emp\nassert abs(n-2.00)<0.01\nassert [2*s for s in sub]==[4,6,4]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "The chemist claims that samples A and B are the same pure compound. Using the data in the table, show by calculation that the data are consistent with the law of definite proportions.",
+      "criteria": [
+       {
+        "text": "Calculates a mass ratio (or mass fraction) of the elements for both samples, shows the values are equal (for example C:O mass ratio 0.7503 for A and 0.7506 for B, or C mass fraction 0.4067 for both), and links this to the law of definite proportions.",
+        "evidence": "A response must compute the same type of mass ratio or mass fraction for both samples, note that they agree within experimental precision, and state that a pure compound has a fixed mass ratio of its elements.",
+        "fix": "Divide the mass of one element by another element's mass (or the sample mass) for each sample, then compare and cite the fixed-ratio law.",
+        "accepted_variants": [
+         "mass C / mass O ≈ 0.750 for both",
+         "C is 40.7% of each sample by mass",
+         "mass O / mass C ≈ 1.33 for both"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data for sample A, determine the empirical formula of the acid. Show your work.",
+      "criteria": [
+       {
+        "text": "Converts the mass of each element in sample A to moles: C 0.1016 mol, H 0.153 mol, O 0.1016 mol.",
+        "evidence": "A response must divide each element's mass by its molar mass, giving moles of C ≈ 0.1016, H ≈ 0.153, and O ≈ 0.1016.",
+        "fix": "Convert each element's mass to moles with n = m/M before comparing; never compare masses directly to find atom ratios.",
+        "accepted_variants": [
+         "0.102 mol C, 0.153 mol H, 0.102 mol O"
+        ]
+       },
+       {
+        "text": "Divides by the smallest mole amount to get a ratio of about 1 : 1.5 : 1, multiplies by 2, and reports the empirical formula C2H3O2.",
+        "evidence": "A response must show the mole ratio near 1 : 1.5 : 1, scale it to the lowest whole-number ratio 2 : 3 : 2, and state C2H3O2.",
+        "fix": "When a mole ratio ends near .5, multiply all subscripts by 2 to reach the lowest whole-number ratio.",
+        "accepted_variants": [
+         "C2H3O2",
+         "H3C2O2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the molar mass of the acid given above and your answer to the previous part, determine the molecular formula of the acid.",
+      "criteria": [
+       {
+        "text": "Calculates the empirical formula mass as 59.04 g/mol, finds 118.1 / 59.04 = 2.00, and reports the molecular formula C4H6O4.",
+        "evidence": "A response must compute the empirical formula mass, divide the molar mass by it to get a whole number near 2, and multiply the empirical subscripts by that number to give C4H6O4 (or a result consistent with an incorrect empirical formula from the previous part).",
+        "fix": "Divide the measured molar mass by the empirical formula mass, then multiply every subscript in the empirical formula by that whole number.",
+        "accepted_variants": [
+         "C4H6O4",
+         "H6C4O4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calcium chloride, an ionic compound, is always described by the formula CaCl2, and chemists do not report a separate molecular formula for it. Explain why, at the particle level, CaCl2 is described only by a formula unit, in contrast to the organic acid.",
+      "criteria": [
+       {
+        "text": "Explains that solid CaCl2 is an extended array of Ca²⁺ and Cl⁻ ions in a fixed 1:2 ratio with no discrete molecules, so its formula gives only the lowest whole-number ion ratio (a formula unit), whereas the acid consists of discrete molecules with a definite number of atoms each.",
+        "evidence": "A response must state that CaCl2 contains no individual molecules but ions held together in a fixed proportion, so the formula is the lowest whole-number ratio of ions, and contrast this with the acid's discrete molecules.",
+        "fix": "Contrast ionic solids as repeating ion arrays with fixed ratios against molecular substances made of discrete molecules with countable atoms.",
+        "accepted_variants": [
+         "formula unit gives the ratio of ions",
+         "no discrete CaCl2 molecules exist"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Composition and Empirical Formulas of Two Sulfur Oxides",
+   "calculator": "permitted",
+   "stimulus": "A chemist analyzes three samples. Each sample is a pure compound that contains only sulfur and oxygen. The masses of sulfur and oxygen in each sample are listed below. Use the molar masses S = 32.06 g/mol and O = 16.00 g/mol.\n\nSample | Mass of sulfur (g) | Mass of oxygen (g)\n1 | 1.603 | 1.600\n2 | 0.6412 | 0.6400\n3 | 0.8015 | 1.200\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the percent by mass of sulfur in sample 1.",
+     "criteria": [
+      {
+       "text": "Calculates 50.05% sulfur by mass in sample 1.",
+       "evidence": "Response divides the mass of sulfur by the total mass of sample 1 (1.603 g ÷ 3.203 g) and reports 50.05%.",
+       "fix": "Add the masses of all the elements to get the sample mass, divide the element's mass by it, and multiply by 100.",
+       "accepted_variants": [
+        "50.05 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the empirical formula of the compound in sample 1. Show the work that supports your answer.",
+     "criteria": [
+      {
+       "text": "Determines the empirical formula SO₂ from a 1 : 2 ratio of sulfur atoms to oxygen atoms.",
+       "evidence": "Response converts the masses to amounts (0.05000 mol S and 0.1000 mol O) or uses an equivalent ratio calculation, shows that the S : O atom ratio is 1 : 2, and writes SO₂.",
+       "fix": "Convert each element's mass to moles with its molar mass, then express the mole ratio as the lowest whole numbers.",
+       "accepted_variants": [
+        "SO2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Do the data support the claim that sample 2 is the same compound as sample 1? Justify your answer using the law of definite proportions.",
+     "criteria": [
+      {
+       "text": "Answers yes: sample 2 has the same composition as sample 1 (50.05% S by mass, or 0.9981 g O per 1 g S, or a 1 : 2 S : O atom ratio), which is what the law of definite proportions requires for samples of one compound.",
+       "evidence": "Response shows that sample 2 has the same composition as sample 1, either by calculating a matching composition value (percent S, mass ratio or atom ratio) or by showing that both elemental masses scale by the same factor, and states that one compound always has the same mass ratio of its elements.",
+       "fix": "Show the composition matches, by a matching value or by both masses scaling by one factor, then cite the law.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Sample 3 is a different pure compound of sulfur and oxygen. Determine its empirical formula. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Determines the empirical formula SO₃ from a 1 : 3 ratio of sulfur atoms to oxygen atoms.",
+       "evidence": "Response finds 0.02500 mol S and 0.07500 mol O (or an equivalent ratio calculation) and writes SO₃.",
+       "fix": "Find the moles of each element, compare them as an atom ratio, and write that ratio as the lowest whole-number subscripts.",
+       "accepted_variants": [
+        "SO3"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Mass of sample 1 = 1.603 g + 1.600 g = 3.203 g. Percent S = (1.603 g ÷ 3.203 g) × 100% = 50.05% S.\n\n(b) Moles of S = 1.603 g ÷ 32.06 g/mol = 0.05000 mol. Moles of O = 1.600 g ÷ 16.00 g/mol = 0.1000 mol. The ratio S : O = 0.05000 : 0.1000 = 1 : 2, so the empirical formula is SO₂.\n\n(c) Yes. Percent S in sample 2 = 0.6412 g ÷ (0.6412 g + 0.6400 g) × 100% = 50.05%, the same as sample 1 (equivalently, both samples contain 0.9981 g O per 1 g S). According to the law of definite proportions, every pure sample of a given compound has the same mass ratio of its elements, so the data are consistent with sample 2 being the same compound as sample 1.\n\n(d) Moles of S = 0.8015 g ÷ 32.06 g/mol = 0.02500 mol. Moles of O = 1.200 g ÷ 16.00 g/mol = 0.07500 mol. The ratio S : O = 1 : 3, so the empirical formula is SO₃.",
+   "verification_python": "from fractions import Fraction\nS,O=32.06,16.00\ns1,o1=1.603,1.600\ns2,o2=0.6412,0.6400\ns3,o3=0.8015,1.200\nassert abs(s1+o1-3.203)<1e-9\npS1=s1/(s1+o1)*100\nassert abs(pS1-50.05)<0.005\npS2=s2/(s2+o2)*100\nassert abs(pS2-50.05)<0.005\nassert abs(o1/s1-0.9981)<0.00005 and abs(o2/s2-0.9981)<0.00005\nnS1,nO1=s1/S,o1/O\nassert abs(nS1-0.05000)<1e-6 and abs(nO1-0.1000)<1e-6\nassert Fraction(nO1/nS1).limit_denominator(10)==2\nnS3,nO3=s3/S,o3/O\nassert abs(nS3-0.02500)<1e-6 and abs(nO3-0.07500)<1e-6\nassert Fraction(nO3/nS3).limit_denominator(10)==3\nassert abs((s2/S)/(o2/O)-0.5)<1e-6\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.844851Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "c1 accepts proportional-scaling evidence; part (d) now asks for the work its criterion scores (rubric_points)."
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:05:15.827Z",
+   "source": "given",
+   "item": {
+    "title": "Composition and Empirical Formulas of Two Sulfur Oxides",
+    "calculator": "permitted",
+    "stimulus": "A chemist analyzes three samples. Each sample is a pure compound that contains only sulfur and oxygen. The masses of sulfur and oxygen in each sample are listed below. Use the molar masses S = 32.06 g/mol and O = 16.00 g/mol.\n\nSample | Mass of sulfur (g) | Mass of oxygen (g)\n1 | 1.603 | 1.600\n2 | 0.6412 | 0.6400\n3 | 0.8015 | 1.200\n\nAnswer the following.",
+    "parts": [
+     {
+      "prompt": "Calculate the percent by mass of sulfur in sample 1.",
+      "criteria": [
+       {
+        "text": "Calculates 50.05% sulfur by mass in sample 1.",
+        "evidence": "Response divides the mass of sulfur by the total mass of sample 1 (1.603 g ÷ 3.203 g) and reports 50.05%.",
+        "fix": "Add the masses of all the elements to get the sample mass, divide the element's mass by it, and multiply by 100.",
+        "accepted_variants": [
+         "50.05 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the empirical formula of the compound in sample 1. Show the work that supports your answer.",
+      "criteria": [
+       {
+        "text": "Determines the empirical formula SO₂ from a 1 : 2 ratio of sulfur atoms to oxygen atoms.",
+        "evidence": "Response converts the masses to amounts (0.05000 mol S and 0.1000 mol O) or uses an equivalent ratio calculation, shows that the S : O atom ratio is 1 : 2, and writes SO₂.",
+        "fix": "Convert each element's mass to moles with its molar mass, then express the mole ratio as the lowest whole numbers.",
+        "accepted_variants": [
+         "SO2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Do the data support the claim that sample 2 is the same compound as sample 1? Justify your answer using the law of definite proportions.",
+      "criteria": [
+       {
+        "text": "Answers yes: sample 2 has the same composition as sample 1 (50.05% S by mass, or 0.9981 g O per 1 g S, or a 1 : 2 S : O atom ratio), which is what the law of definite proportions requires for samples of one compound.",
+        "evidence": "Response calculates a composition value for sample 2 that matches the corresponding value for sample 1 and states that a pure compound always has the same mass ratio of its elements, so the data are consistent with the same compound.",
+        "fix": "Compute the same composition value for both samples; matching mass ratios are what the law of definite proportions predicts for one compound.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Sample 3 is a different pure compound of sulfur and oxygen. Determine its empirical formula.",
+      "criteria": [
+       {
+        "text": "Determines the empirical formula SO₃ from a 1 : 3 ratio of sulfur atoms to oxygen atoms.",
+        "evidence": "Response finds 0.02500 mol S and 0.07500 mol O (or an equivalent ratio calculation) and writes SO₃.",
+        "fix": "Find the moles of each element, compare them as an atom ratio, and write that ratio as the lowest whole-number subscripts.",
+        "accepted_variants": [
+         "SO3"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Mass of sample 1 = 1.603 g + 1.600 g = 3.203 g. Percent S = (1.603 g ÷ 3.203 g) × 100% = 50.05% S.\n\n(b) Moles of S = 1.603 g ÷ 32.06 g/mol = 0.05000 mol. Moles of O = 1.600 g ÷ 16.00 g/mol = 0.1000 mol. The ratio S : O = 0.05000 : 0.1000 = 1 : 2, so the empirical formula is SO₂.\n\n(c) Yes. Percent S in sample 2 = 0.6412 g ÷ (0.6412 g + 0.6400 g) × 100% = 50.05%, the same as sample 1 (equivalently, both samples contain 0.9981 g O per 1 g S). According to the law of definite proportions, every pure sample of a given compound has the same mass ratio of its elements, so the data are consistent with sample 2 being the same compound as sample 1.\n\n(d) Moles of S = 0.8015 g ÷ 32.06 g/mol = 0.02500 mol. Moles of O = 1.200 g ÷ 16.00 g/mol = 0.07500 mol. The ratio S : O = 1 : 3, so the empirical formula is SO₃.",
+    "verification_python": "from fractions import Fraction\nS,O=32.06,16.00\ns1,o1=1.603,1.600\ns2,o2=0.6412,0.6400\ns3,o3=0.8015,1.200\nassert abs(s1+o1-3.203)<1e-9\npS1=s1/(s1+o1)*100\nassert abs(pS1-50.05)<0.005\npS2=s2/(s2+o2)*100\nassert abs(pS2-50.05)<0.005\nassert abs(o1/s1-0.9981)<0.00005 and abs(o2/s2-0.9981)<0.00005\nnS1,nO1=s1/S,o1/O\nassert abs(nS1-0.05000)<1e-6 and abs(nO1-0.1000)<1e-6\nassert Fraction(nO1/nS1).limit_denominator(10)==2\nnS3,nO3=s3/S,o3/O\nassert abs(nS3-0.02500)<1e-6 and abs(nO3-0.07500)<1e-6\nassert Fraction(nO3/nS3).limit_denominator(10)==3\nassert abs((s2/S)/(o2/O)-0.5)<1e-6\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 requires mole calculations or an equivalent ratio calculation, but the part only asks for the empirical formula. Unlike part (b), it does not ask students to show supporting work. Either add that instruction to part (d) or award the point for the correct empirical formula alone."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 requires mole calculations or an equivalent ratio calculation, but the part only asks for the empirical formula. Unlike part (b), it does not ask students to show supporting work. Either add that instruction to part (d) or award the point for the correct empirical formula alone."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 requires calculating matching composition values, excluding the valid justification that both elemental masses scale by the same factor, 0.4000. Criterion d1 requires supporting mole or ratio calculations although part (d) asks only for the empirical formula, not supporting work. Accept proportional-scaling evidence in (c), and either request work in (d) or award its point for the correct formula.",
+       "solution: The numerical and chemical answers agree: (a) 50.05% sulfur; (b) SO₂; (c) yes, the data are consistent with the same compound; (d) SO₃. However, the independent solution's valid proportional-scaling justification in (c) does not satisfy c1's narrowly stated requirement to calculate matching composition values."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires calculating matching composition values, excluding the valid justification that both elemental masses scale by the same factor, 0.4000. Criterion d1 requires supporting mole or ratio calculations although part (d) asks only for the empirical formula, not supporting work. Accept proportional-scaling evidence in (c), and either request work in (d) or award its point for the correct formula."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical and chemical answers agree: (a) 50.05% sulfur; (b) SO₂; (c) yes, the data are consistent with the same compound; (d) SO₃. However, the independent solution's valid proportional-scaling justification in (c) does not satisfy c1's narrowly stated requirement to calculate matching composition values.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

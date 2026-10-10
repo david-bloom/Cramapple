@@ -1,0 +1,1610 @@
+{
+ "id": "ap_calculus_bc__1.15__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.15",
+  "topic_title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:15.810Z",
+   "source": "given",
+   "item": {
+    "title": "End Behavior, Two Horizontal Asymptotes and Comparing Growth",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = √(16x² + 9) / (2x + 5).\n\nTwo computer programs each process a list of n items. Program A takes a(n) = 200n² + 50 microseconds and program B takes b(n) = n³ + 10 microseconds, where n > 0.",
+    "parts": [
+     {
+      "prompt": "Find lim x→∞ f(x). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Shows valid work for x → ∞, such as dividing the numerator and denominator by x, using x = √(x²) for x > 0, to get √(16 + 9/x²) / (2 + 5/x).",
+        "evidence": "Response gives a valid algebraic or end-behavior argument for x → ∞: for example, dividing the numerator and denominator by x (with x = √(x²) for x > 0), or explaining that for large positive x, √(16x² + 9) behaves like 4x and 2x + 5 behaves like 2x.",
+        "fix": "For large positive x, divide the numerator and denominator by x, writing x as √(x²) inside the root.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→∞ f(x) = 2.",
+        "evidence": "Response gives the value 2 for the limit as x → ∞.",
+        "fix": "As x → ∞, terms like 9/x² and 5/x approach 0, so the quotient approaches √16 / 2 = 2.",
+        "accepted_variants": [
+         "2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→−∞ f(x). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Shows valid work for x → −∞ that accounts for x being negative.",
+        "evidence": "Any valid argument earns the point: dividing by x with √(x²) = |x| = −x, a dominant-term argument (√(16x² + 9) behaves like −4x while 2x + 5 behaves like 2x), or showing f(x)² → 4 with f(x) < 0 for large negative x.",
+        "fix": "When x is negative, √(x²) equals −x, not x; carry that negative sign when dividing by x.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→−∞ f(x) = −2.",
+        "evidence": "Response gives the value −2 for the limit as x → −∞.",
+        "fix": "Check the sign: for large negative x the numerator is positive and the denominator is negative, so the limit is negative.",
+        "accepted_variants": [
+         "−2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write an equation for each horizontal asymptote of the curve y = f(x). Explain how your answers to parts (a) and (b) determine them.",
+      "criteria": [
+       {
+        "text": "States the horizontal asymptotes are y = 2 and y = −2, because the limits of f as x → ∞ and as x → −∞ are 2 and −2.",
+        "evidence": "Response names both lines y = 2 and y = −2 and links each to the corresponding limit at infinity (y = 2 from x → ∞ and y = −2 from x → −∞), or names the lines that follow correctly from the response's own limits in parts (a) and (b).",
+        "fix": "Each finite limit as x → ∞ or x → −∞ gives a horizontal asymptote; check both directions, since they can differ.",
+        "accepted_variants": [
+         "y = 2 and y = −2",
+         "y = ±2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim n→∞ a(n)/b(n), showing the work that leads to your answer. Explain what this limit tells you about the two programs for very long lists.",
+      "criteria": [
+       {
+        "text": "Shows valid work for the limit, such as dividing the numerator and denominator by n³ to get (200/n + 50/n³) / (1 + 10/n³), or any other valid limit argument.",
+        "evidence": "Any valid argument earns the point: dividing by n³; dividing by n² to get (200 + 50/n²)/(n + 10/n²), numerator → 200, denominator → ∞; or comparing degrees (3 for b(n), 2 for a(n)).",
+        "fix": "Divide every term by the highest power of n in the denominator, then let each term with n in a denominator approach 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim n→∞ a(n)/b(n) = 0.",
+        "evidence": "Response gives the value 0.",
+        "fix": "When the denominator's degree is larger than the numerator's, the ratio approaches 0 as n → ∞.",
+        "accepted_variants": [
+         "0"
+        ]
+       },
+       {
+        "text": "Interprets the limit: for very long lists, program A's time is a negligible fraction of program B's time, so program A is much faster.",
+        "evidence": "Response explains in context that the ratio approaching 0 means b(n) grows much faster than a(n), so for large n program A takes far less time than program B.",
+        "fix": "Translate a ratio approaching 0 into context: the denominator's quantity becomes far larger than the numerator's quantity.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) For x > 0, x = √(x²). Dividing the numerator and denominator by x gives f(x) = [√(16x² + 9)/√(x²)] / [(2x + 5)/x] = √(16 + 9/x²) / (2 + 5/x). As x → ∞, 9/x² → 0 and 5/x → 0, so lim x→∞ f(x) = √16 / 2 = 4/2 = 2.\n\n(b) For x < 0, √(x²) = |x| = −x, so x = −√(x²) and √(16x² + 9)/x = −√(16x² + 9)/√(x²) = −√(16 + 9/x²). Dividing the numerator and denominator by x gives f(x) = −√(16 + 9/x²) / (2 + 5/x). As x → −∞, 9/x² → 0 and 5/x → 0, so lim x→−∞ f(x) = −√16 / 2 = −2.\n\n(c) Because lim x→∞ f(x) = 2, the line y = 2 is a horizontal asymptote, and because lim x→−∞ f(x) = −2, the line y = −2 is also a horizontal asymptote. The horizontal asymptotes are y = 2 and y = −2.\n\n(d) a(n)/b(n) = (200n² + 50)/(n³ + 10). Dividing the numerator and denominator by n³ gives (200/n + 50/n³) / (1 + 10/n³). As n → ∞ the numerator approaches 0 and the denominator approaches 1, so lim n→∞ a(n)/b(n) = 0. For very long lists, program A's running time becomes a negligible fraction of program B's running time: b(n) grows much faster than a(n), so program A is far faster than program B for large n.",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nxp = sp.symbols('xp', positive=True)\nn = sp.symbols('n', positive=True)\nf = sp.sqrt(16*x**2 + 9)/(2*x + 5)\nassert sp.limit(f, x, sp.oo) == 2\nassert sp.limit(f, x, -sp.oo) == -2\nassert sp.simplify(f.subs(x, xp) - sp.sqrt(16 + 9/xp**2)/(2 + 5/xp)) == 0\n# for x = -xp < 0, the rewritten form is -sqrt(16 + 9/x^2)/(2 + 5/x)\nassert sp.simplify(f.subs(x, -xp) - (-sp.sqrt(16 + 9/xp**2)/(2 + 5/(-xp)))) == 0\nassert sp.sqrt(16)/2 == 2\nr = (200*n**2 + 50)/(n**3 + 10)\nassert sp.simplify(r - (200/n + 50/n**3)/(1 + 10/n**3)) == 0\nassert sp.limit(r, n, sp.oo) == 0\nassert sp.simplify(r - (200 + 50/n**2)/(n + 10/n**2)) == 0\nassert sp.limit(200 + 50/n**2, n, sp.oo) == 200 and sp.limit(n + 10/n**2, n, sp.oo) == sp.oo\nassert sp.degree(n**3 + 10, n) == 3 and sp.degree(200*n**2 + 50, n) == 2\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.15": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:35:39.803Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "End Behavior, Horizontal Asymptotes, and Relative Growth"
+  },
+  {
+   "at": "2026-10-10T01:36:26.057Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Limits at Infinity, Horizontal Asymptotes, and Growth Comparison"
+  },
+  {
+   "at": "2026-10-10T01:37:10.933Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "End Behavior and Horizontal Asymptotes of Rational Functions"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.211Z",
+   "item": {
+    "title": "End Behavior, Horizontal Asymptotes, and Comparing Growth",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = (6x² − 5x + 1)/(2x² + 3) and g(x) = (3x + 2)/√(4x² + 1), both defined for all real x. Let p(x) = x² + 100x and q(x) = x³/1000.",
+    "model_answer": "(a) f(x) = (6x² − 5x + 1)/(2x² + 3) = (6 − 5/x + 1/x²)/(2 + 3/x²) for x ≠ 0. As x→∞, each term with x in the denominator goes to 0, so lim x→∞ f(x) = 6/2 = 3. The same terms go to 0 as x→−∞, so lim x→−∞ f(x) = 3. The only horizontal asymptote is y = 3.\n\n(b) f(x) = 3 means 6x² − 5x + 1 = 3(2x² + 3) = 6x² + 9 (the denominator is never 0). Then −5x + 1 = 9, so −5x = 8 and x = −8/5. The graph of f crosses its horizontal asymptote once, at x = −8/5.\n\n(c) √(4x² + 1) = √(x²)·√(4 + 1/x²) = |x|√(4 + 1/x²).\nFor x > 0, |x| = x, so g(x) = x(3 + 2/x)/(x√(4 + 1/x²)) = (3 + 2/x)/√(4 + 1/x²) → 3/√4 = 3/2 as x→∞.\nFor x < 0, |x| = −x, so g(x) = x(3 + 2/x)/(−x√(4 + 1/x²)) = −(3 + 2/x)/√(4 + 1/x²) → −3/2 as x→−∞.\nHorizontal asymptotes: y = 3/2 (as x→∞) and y = −3/2 (as x→−∞).\n\n(d) p(x)/q(x) = (x² + 100x)/(x³/1000) = 1000(x² + 100x)/x³ = 1000/x + 100000/x². As x→∞, both terms go to 0, so lim x→∞ p(x)/q(x) = 0. Since the ratio approaches 0, p(x)/q(x) < 1 for all sufficiently large x, so q(x) > p(x) eventually. The cubic q grows faster than p even though its coefficient is only 1/1000.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nf=(6*x**2-5*x+1)/(2*x**2+3)\nassert sp.limit(f,x,sp.oo)==3\nassert sp.limit(f,x,-sp.oo)==3\nsol=sp.solve(sp.Eq(f,3),x)\nassert sol==[sp.Rational(-8,5)]\nassert sp.simplify(f.subs(x,sp.Rational(-8,5))-3)==0\ng=(3*x+2)/sp.sqrt(4*x**2+1)\nassert sp.limit(g,x,sp.oo)==sp.Rational(3,2)\nassert sp.limit(g,x,-sp.oo)==sp.Rational(-3,2)\np=x**2+100*x\nq=x**3/1000\nassert sp.simplify(p/q-(1000/x+100000/x**2))==0\nassert sp.limit(p/q,x,sp.oo)==0\nassert sp.Rational(6,2)==3\nassert abs(float(sp.Rational(-8,5))+1.6)<1e-12\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→∞ f(x) and lim x→−∞ f(x), showing the algebra. State the equation of each horizontal asymptote of the graph of f.",
+      "criteria": [
+       {
+        "text": "Shows the algebra (dividing numerator and denominator by x², or equivalent) that gives lim x→∞ f(x) = 3.",
+        "evidence": "Work such as (6 − 5/x + 1/x²)/(2 + 3/x²) → 6/2 = 3, or an equivalent comparison of leading terms, with the value 3.",
+        "fix": "Divide every term by the highest power of x in the denominator, then let each term c/xⁿ go to 0.",
+        "accepted_variants": [
+         "6/2"
+        ]
+       },
+       {
+        "text": "States that lim x→−∞ f(x) = 3 as well, so the only horizontal asymptote is y = 3.",
+        "evidence": "Both limits at infinity given as 3 and the asymptote written as the equation y = 3.",
+        "fix": "Check the limit as x→−∞ separately, then write the horizontal asymptote as an equation y = L.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find every value of x for which f(x) equals the horizontal asymptote value found in part (a).",
+      "criteria": [
+       {
+        "text": "Solves f(x) = 3 to get x = −8/5 as the only solution.",
+        "evidence": "Sets 6x² − 5x + 1 = 3(2x² + 3), simplifies to −5x = 8, and concludes x = −8/5.",
+        "fix": "Set f(x) equal to the asymptote value, clear the denominator, and solve; the x² terms cancel here.",
+        "accepted_variants": [
+         "−1.6",
+         "x = −1.6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→∞ g(x) and lim x→−∞ g(x), showing the algebra. State the equation of each horizontal asymptote of the graph of g.",
+      "criteria": [
+       {
+        "text": "Shows lim x→∞ g(x) = 3/2.",
+        "evidence": "For x > 0 uses √(4x² + 1) = x√(4 + 1/x²) (or equivalent) to get (3 + 2/x)/√(4 + 1/x²) → 3/2.",
+        "fix": "Factor x² out of the square root, using √(x²) = x when x > 0, then take the limit.",
+        "accepted_variants": [
+         "1.5"
+        ]
+       },
+       {
+        "text": "Shows lim x→−∞ g(x) = −3/2, using √(x²) = |x| = −x for x < 0.",
+        "evidence": "Explicitly treats √(x²) as −x for negative x (or divides by −x), leading to (3 + 2/x)/(−√(4 + 1/x²)) → −3/2.",
+        "fix": "Remember √(x²) = |x|, which equals −x when x < 0; this flips the sign of the limit as x→−∞.",
+        "accepted_variants": [
+         "−1.5"
+        ]
+       },
+       {
+        "text": "States the two horizontal asymptotes y = 3/2 and y = −3/2.",
+        "evidence": "Both equations stated, each linked to the correct direction (y = 3/2 as x→∞, y = −3/2 as x→−∞).",
+        "fix": "A function can have two horizontal asymptotes; write one equation for each direction whose limit is finite.",
+        "accepted_variants": [
+         "y = 1.5 and y = −1.5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Evaluate lim x→∞ p(x)/q(x). Use the result to explain which of p or q is larger for sufficiently large x.",
+      "criteria": [
+       {
+        "text": "Shows lim x→∞ p(x)/q(x) = 0.",
+        "evidence": "Writes p(x)/q(x) = 1000(x² + 100x)/x³ = 1000/x + 100000/x² (or equivalent) and concludes the limit is 0.",
+        "fix": "Rewrite the quotient term by term over x³, then let each term go to 0 as x→∞.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes from the limit that q(x) is larger than p(x) for sufficiently large x (q grows faster).",
+        "evidence": "States that a limit of 0 for p/q means p(x)/q(x) < 1 eventually, so q eventually exceeds p, despite the small coefficient 1/1000.",
+        "fix": "Connect the limit to the ratio: if p/q → 0, the ratio is eventually less than 1, so q dominates p.",
+        "accepted_variants": [
+         "q dominates p",
+         "q grows faster than p"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.15": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2 requires the positive-infinity limit to be 3, duplicating the value already scored in a1. Score the negative-infinity limit and its asymptote conclusion without requiring the positive-infinity value again. Part (b), criterion b1 prescribes a particular cross-multiplication sequence even though the part does not require that method; allow equivalent algebra, such as rewriting f(x) − 3 = (−5x − 8)/(2x² + 3) and setting the numerator equal to zero."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2 requires the positive-infinity limit to be 3, duplicating the value already scored in a1. Score the negative-infinity limit and its asymptote conclusion without requiring the positive-infinity value again. Part (b), criterion b1 prescribes a particular cross-multiplication sequence even though the part does not require that method; allow equivalent algebra, such as rewriting f(x) − 3 = (−5x − 8)/(2x² + 3) and setting the numerator equal to zero."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 prescribes clearing the denominator and obtaining −5x = 8, although the part does not require that method. A valid alternative is to write f(x) − 3 = (−5x − 8)/(2x² + 3), then set the numerator equal to zero. The evidence requirement should explicitly accept equivalent algebraic solutions."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 prescribes clearing the denominator and obtaining −5x = 8, although the part does not require that method. A valid alternative is to write f(x) − 3 = (−5x − 8)/(2x² + 3), then set the numerator equal to zero. The evidence requirement should explicitly accept equivalent algebraic solutions."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:47:06.991Z",
+   "item": {
+    "title": "End Behavior and Horizontal Asymptotes of Two Functions",
+    "calculator": "not_permitted",
+    "stimulus": "Let f and g be the functions defined for all real numbers by\n\nf(x) = (6x² − x + 4)/(3x² + 5)\n\ng(x) = (5x − 2)/√(4x² + 1)",
+    "model_answer": "(a) Dividing numerator and denominator by x²: f(x) = (6 − 1/x + 4/x²)/(3 + 5/x²). As x→∞ or x→−∞, 1/x and 1/x² approach 0, so lim x→∞ f(x) = 6/3 = 2 and lim x→−∞ f(x) = 2. The only horizontal asymptote of the graph of f is y = 2.\n\n(b) √(4x² + 1) = √(x²)·√(4 + 1/x²) = |x|√(4 + 1/x²).\nFor x > 0, |x| = x, so g(x) = (5 − 2/x)/√(4 + 1/x²) → 5/√4 = 5/2 as x→∞.\nFor x < 0, |x| = −x, so g(x) = (5x − 2)/(−x√(4 + 1/x²)) = −(5 − 2/x)/√(4 + 1/x²) → −5/2 as x→−∞.\nSo lim x→∞ g(x) = 5/2 and lim x→−∞ g(x) = −5/2. The horizontal asymptotes of g are y = 5/2 and y = −5/2.\n\n(c) Yes. Set f(x) = 2. Since 3x² + 5 > 0 for all x, multiply through: 6x² − x + 4 = 6x² + 10, so −x = 6 and x = −6. This is the only solution, so the graph of f crosses y = 2 exactly once, at x = −6 (the point (−6, 2)).\n\n(d) f(x) − 2 = (6x² − x + 4 − 6x² − 10)/(3x² + 5) = (−x − 6)/(3x² + 5).\nThen x·(f(x) − 2) = (−x² − 6x)/(3x² + 5). Dividing by x² gives (−1 − 6/x)/(3 + 5/x²) → −1/3 as x→∞. So lim x→∞ x·(f(x) − 2) = −1/3.\nFor x > −6, the numerator −x − 6 is negative and the denominator 3x² + 5 is positive, so f(x) − 2 < 0, meaning f(x) < 2. Therefore f(x) approaches 2 from below as x→∞.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nf=(6*x**2-x+4)/(3*x**2+5)\ng=(5*x-2)/sp.sqrt(4*x**2+1)\nassert sp.limit(f,x,sp.oo)==2\nassert sp.limit(f,x,-sp.oo)==2\nassert sp.limit(g,x,sp.oo)==sp.Rational(5,2)\nassert sp.limit(g,x,-sp.oo)==-sp.Rational(5,2)\nsols=sp.solve(sp.Eq(f,2),x)\nassert sols==[-6]\nassert sp.simplify(f-2-(-x-6)/(3*x**2+5))==0\nassert sp.limit(x*(f-2),x,sp.oo)==-sp.Rational(1,3)\nfor t in [-5,0,1,10,100,1000]:\n    assert f.subs(x,t)<2\nassert f.subs(x,-7)>2\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→∞ f(x) and lim x→−∞ f(x). Show the work that leads to your answers, and write an equation for each horizontal asymptote of the graph of f.",
+      "criteria": [
+       {
+        "text": "Finds lim x→∞ f(x) = 2 and lim x→−∞ f(x) = 2 with supporting algebra",
+        "evidence": "Shows a valid method, such as dividing numerator and denominator by x² or comparing leading coefficients of equal-degree polynomials, and gives the value 2 for both limits",
+        "fix": "Divide every term by the highest power of x in the denominator, then let terms like 1/x and 1/x² approach 0.",
+        "accepted_variants": [
+         "6/3"
+        ]
+       },
+       {
+        "text": "States that y = 2 is the only horizontal asymptote of the graph of f",
+        "evidence": "Writes the equation y = 2 and connects it to the limits at infinity found in this part",
+        "fix": "A horizontal asymptote is a line y = L, where L is a finite limit of f(x) as x→∞ or x→−∞; write it as an equation.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→∞ g(x) and lim x→−∞ g(x). Show the work that leads to your answers, and write an equation for each horizontal asymptote of the graph of g.",
+      "criteria": [
+       {
+        "text": "Finds lim x→∞ g(x) = 5/2 with supporting algebra",
+        "evidence": "Factors √(4x² + 1) = |x|√(4 + 1/x²), or divides by x = √(x²) for x > 0, and obtains 5/2",
+        "fix": "Rewrite √(4x² + 1) as |x|√(4 + 1/x²) before dividing numerator and denominator by x.",
+        "accepted_variants": [
+         "2.5"
+        ]
+       },
+       {
+        "text": "Finds lim x→−∞ g(x) = −5/2 with correct sign reasoning",
+        "evidence": "Uses that |x| = −x (equivalently √(x²) = −x) when x < 0, producing a negative sign, and obtains −5/2",
+        "fix": "For x→−∞ remember √(x²) = |x| = −x, so dividing by x introduces a negative sign.",
+        "accepted_variants": [
+         "−2.5"
+        ]
+       },
+       {
+        "text": "States both horizontal asymptotes y = 5/2 and y = −5/2",
+        "evidence": "Writes both equations y = 5/2 and y = −5/2 as the horizontal asymptotes of g",
+        "fix": "When the limits as x→∞ and x→−∞ differ, report a separate horizontal asymptote for each direction.",
+        "accepted_variants": [
+         "y = 2.5 and y = −2.5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Does the graph of f intersect its horizontal asymptote? If so, find the x-coordinate of every intersection point. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Determines that the graph of f intersects y = 2 exactly once, at x = −6",
+        "evidence": "Solves (6x² − x + 4)/(3x² + 5) = 2, simplifies to 6x² − x + 4 = 6x² + 10 (valid since 3x² + 5 > 0), and concludes x = −6 is the only solution",
+        "fix": "Set f(x) equal to the asymptote value and solve; a horizontal asymptote describes end behavior only, so the graph may cross it.",
+        "accepted_variants": [
+         "(−6, 2)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→∞ x·(f(x) − 2). Then determine whether f(x) approaches 2 from above or from below as x→∞, and give a reason for your answer.",
+      "criteria": [
+       {
+        "text": "Finds lim x→∞ x·(f(x) − 2) = −1/3 with supporting work",
+        "evidence": "Shows f(x) − 2 = (−x − 6)/(3x² + 5), forms x(−x − 6)/(3x² + 5) = (−x² − 6x)/(3x² + 5), and evaluates the limit as −1/3",
+        "fix": "Combine f(x) − 2 into one fraction over 3x² + 5 first, then multiply by x and compare leading coefficients.",
+        "accepted_variants": [
+         "−0.333…"
+        ]
+       },
+       {
+        "text": "Concludes f(x) approaches 2 from below, with a valid reason",
+        "evidence": "Reasons that f(x) − 2 = (−x − 6)/(3x² + 5) < 0 for all x > −6, or that x·(f(x) − 2) → −1/3 < 0 with x > 0 forces f(x) − 2 < 0 for large x, so f(x) < 2",
+        "fix": "Check the sign of f(x) − 2 for large positive x; a negative difference means the function approaches from below.",
+        "accepted_variants": [
+         "from underneath",
+         "f(x) < 2 for large x"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 26 words"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:47:59.006Z",
+   "item": {
+    "title": "End Behavior and Horizontal Asymptotes of Three Functions",
+    "calculator": "not_permitted",
+    "stimulus": "Consider the following functions.\n\nf(x) = (6x³ − 5x + 1)/(4 − 2x³)\n\ng(x) = √(9x² + 4x)/(x − 1), defined for x ≤ −4/9 and for x ≥ 0 with x ≠ 1\n\nq(x) = (3eˣ + x²)/(eˣ + 4x⁵), considered for values of x where the denominator is not zero",
+    "model_answer": "(a) Divide numerator and denominator by x³: f(x) = (6 − 5/x² + 1/x³)/(4/x³ − 2). As x→∞, 5/x², 1/x³ and 4/x³ all approach 0, so lim x→∞ f(x) = 6/(−2) = −3. The horizontal asymptote is y = −3.\n\n(b) For x > 0, √(9x² + 4x) = √(x²)·√(9 + 4/x) = x√(9 + 4/x). So g(x) = x√(9 + 4/x)/(x(1 − 1/x)) = √(9 + 4/x)/(1 − 1/x) → √9/1 = 3. Thus lim x→∞ g(x) = 3.\nFor x < 0, √(x²) = |x| = −x, so √(9x² + 4x) = −x√(9 + 4/x). Then g(x) = −x√(9 + 4/x)/(x(1 − 1/x)) = −√(9 + 4/x)/(1 − 1/x) → −3. Thus lim x→−∞ g(x) = −3.\nThe graph of g has two horizontal asymptotes: y = 3 (as x→∞) and y = −3 (as x→−∞).\n\n(c) As x→∞, divide by eˣ: q(x) = (3 + x²/eˣ)/(1 + 4x⁵/eˣ). Exponential functions grow faster than any polynomial, so x²/eˣ → 0 and x⁵/eˣ → 0. Hence lim x→∞ q(x) = 3/1 = 3, and y = 3 is a horizontal asymptote.\nAs x→−∞, eˣ → 0, so the polynomial terms dominate. Divide by x⁵: q(x) = (3eˣ/x⁵ + 1/x³)/(eˣ/x⁵ + 4). Each of 3eˣ/x⁵, 1/x³ and eˣ/x⁵ approaches 0, so lim x→−∞ q(x) = 0/4 = 0, and y = 0 is a horizontal asymptote.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nf=(6*x**3-5*x+1)/(4-2*x**3)\ng=sp.sqrt(9*x**2+4*x)/(x-1)\nq=(3*sp.exp(x)+x**2)/(sp.exp(x)+4*x**5)\nassert sp.limit(f,x,sp.oo)==-3\nassert sp.limit(f,x,-sp.oo)==-3\nassert sp.limit(g,x,sp.oo)==3\nassert sp.limit(g,x,-sp.oo)==-3\nassert sp.limit(q,x,sp.oo)==3\nassert sp.limit(q,x,-sp.oo)==0\nassert sp.limit(x**2/sp.exp(x),x,sp.oo)==0\nassert sp.limit(x**5/sp.exp(x),x,sp.oo)==0\nassert sp.Rational(6,-2)==-3\n# domain check for g: 9x^2+4x>=0 iff x<=-4/9 or x>=0\nassert sp.solve(9*x**2+4*x,x)==[-sp.Rational(4,9),0] or set(sp.solve(9*x**2+4*x,x))=={-sp.Rational(4,9),0}\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→∞ f(x), showing the algebraic work that supports your answer. Then write the equation of the horizontal asymptote of the graph of f.",
+      "criteria": [
+       {
+        "text": "Correct value lim x→∞ f(x) = −3, with supporting algebra",
+        "evidence": "Shows dividing numerator and denominator by x³ (or comparing leading terms 6x³ and −2x³) and obtains −3.",
+        "fix": "Divide every term by the highest power of x in the denominator, then let the terms with x in the denominator go to 0.",
+        "accepted_variants": [
+         "-3",
+         "−6/2"
+        ]
+       },
+       {
+        "text": "States the horizontal asymptote y = −3",
+        "evidence": "Writes the equation y = −3 (consistent with the limit found) as the horizontal asymptote.",
+        "fix": "Write a horizontal asymptote as an equation y = L, where L is the finite limit of the function as x→∞ or x→−∞.",
+        "accepted_variants": [
+         "y=-3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→∞ g(x) and lim x→−∞ g(x). Show the work that supports each answer, then give the equation of each horizontal asymptote of the graph of g.",
+      "criteria": [
+       {
+        "text": "Correct value lim x→∞ g(x) = 3, with supporting algebra",
+        "evidence": "Rewrites √(9x² + 4x) as x√(9 + 4/x) for x > 0 (or divides by x = √(x²)) and obtains √9/1 = 3.",
+        "fix": "For x > 0, factor x² out of the radical so √(x²) = x, then simplify and take the limit.",
+        "accepted_variants": [
+         "3"
+        ]
+       },
+       {
+        "text": "Correct value lim x→−∞ g(x) = −3, using √(x²) = |x| = −x for x < 0",
+        "evidence": "Explicitly uses that √(x²) = −x when x is negative (or equivalent sign reasoning) and obtains −3.",
+        "fix": "Remember √(x²) = |x|; when x→−∞, replace |x| with −x before simplifying, which changes the sign of the limit.",
+        "accepted_variants": [
+         "-3"
+        ]
+       },
+       {
+        "text": "States both horizontal asymptotes y = 3 and y = −3",
+        "evidence": "Writes both equations y = 3 and y = −3, consistent with the two limits found.",
+        "fix": "Check end behavior in both directions; a function can have a different horizontal asymptote as x→∞ than as x→−∞.",
+        "accepted_variants": [
+         "y=3 and y=-3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→∞ q(x) and lim x→−∞ q(x). Justify each answer by comparing the relative magnitudes of the terms involved, and give the equation of each horizontal asymptote of the graph of q.",
+      "criteria": [
+       {
+        "text": "lim x→∞ q(x) = 3 with a dominance justification, giving asymptote y = 3",
+        "evidence": "Divides by eˣ (or argues eˣ dominates), states x²/eˣ → 0 and x⁵/eˣ → 0 because exponential functions grow faster than polynomials, obtains 3, and writes y = 3.",
+        "fix": "As x→∞, divide by eˣ and state that eˣ grows faster than any power of x, so polynomial-over-eˣ terms go to 0.",
+        "accepted_variants": [
+         "3",
+         "y=3"
+        ]
+       },
+       {
+        "text": "lim x→−∞ q(x) = 0 with justification, giving asymptote y = 0",
+        "evidence": "States eˣ → 0 as x→−∞ so q behaves like x²/(4x⁵) (or divides by x⁵), obtains 0, and writes y = 0.",
+        "fix": "As x→−∞, use eˣ → 0 so the polynomial terms dominate, then compare the degrees of the remaining numerator and denominator.",
+        "accepted_variants": [
+         "0",
+         "y=0"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.15": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criteria c1 and c2 each bundle a justified limit calculation with a separately requested horizontal-asymptote equation into one point. Score each asymptote equation separately from the corresponding justified limit, as in parts (a) and (b)."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criteria c1 and c2 each bundle a justified limit calculation with a separately requested horizontal-asymptote equation into one point. Score each asymptote equation separately from the corresponding justified limit, as in parts (a) and (b)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1, b1, and b2 combine algebraic setup and correct execution into single all-or-nothing points, contrary to the fact pack’s required separation of these elements in multi-step calculations. Criteria c1 and c2 additionally bundle a justified limit and a separately requested horizontal-asymptote equation into each single point. Separate the setup, limit evaluation, and asymptote identification into independently scored elements."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1, b1, and b2 combine algebraic setup and correct execution into single all-or-nothing points, contrary to the fact pack’s required separation of these elements in multi-step calculations. Criteria c1 and c2 additionally bundle a justified limit and a separately requested horizontal-asymptote equation into each single point. Separate the setup, limit evaluation, and asymptote identification into independently scored elements."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Hard",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Hard",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Hard"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "End Behavior, Two Horizontal Asymptotes and Comparing Growth",
+   "calculator": "not_permitted",
+   "stimulus": "Let f be the function defined by f(x) = √(16x² + 9) / (2x + 5).\n\nTwo computer programs each process a list of n items. Program A takes a(n) = 200n² + 50 microseconds and program B takes b(n) = n³ + 10 microseconds, where n > 0.",
+   "parts": [
+    {
+     "prompt": "Find lim x→∞ f(x). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Shows valid work for x → ∞, such as dividing the numerator and denominator by x, using x = √(x²) for x > 0, to get √(16 + 9/x²) / (2 + 5/x).",
+       "evidence": "Response gives a valid algebraic or end-behavior argument for x → ∞: for example, dividing the numerator and denominator by x (with x = √(x²) for x > 0), or explaining that for large positive x, √(16x² + 9) behaves like 4x and 2x + 5 behaves like 2x.",
+       "fix": "For large positive x, divide the numerator and denominator by x, writing x as √(x²) inside the root.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim x→∞ f(x) = 2.",
+       "evidence": "Response gives the value 2 for the limit as x → ∞.",
+       "fix": "As x → ∞, terms like 9/x² and 5/x approach 0, so the quotient approaches √16 / 2 = 2.",
+       "accepted_variants": [
+        "2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim x→−∞ f(x). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Shows valid work for x → −∞ that accounts for x being negative.",
+       "evidence": "Any valid argument earns the point: dividing by x with √(x²) = |x| = −x, a dominant-term argument (√(16x² + 9) behaves like −4x while 2x + 5 behaves like 2x), or showing f(x)² → 4 with f(x) < 0 for large negative x.",
+       "fix": "When x is negative, √(x²) equals −x, not x; carry that negative sign when dividing by x.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim x→−∞ f(x) = −2.",
+       "evidence": "Response gives the value −2 for the limit as x → −∞.",
+       "fix": "Check the sign: for large negative x the numerator is positive and the denominator is negative, so the limit is negative.",
+       "accepted_variants": [
+        "−2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write an equation for each horizontal asymptote of the curve y = f(x). Explain how your answers to parts (a) and (b) determine them.",
+     "criteria": [
+      {
+       "text": "States the horizontal asymptotes are y = 2 and y = −2, because the limits of f as x → ∞ and as x → −∞ are 2 and −2.",
+       "evidence": "Response names both lines y = 2 and y = −2 and links each to the corresponding limit at infinity (y = 2 from x → ∞ and y = −2 from x → −∞), or names the lines that follow correctly from the response's own limits in parts (a) and (b).",
+       "fix": "Each finite limit as x → ∞ or x → −∞ gives a horizontal asymptote; check both directions, since they can differ.",
+       "accepted_variants": [
+        "y = 2 and y = −2",
+        "y = ±2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim n→∞ a(n)/b(n), showing the work that leads to your answer. Explain what this limit tells you about the two programs for very long lists.",
+     "criteria": [
+      {
+       "text": "Shows valid work for the limit, such as dividing the numerator and denominator by n³ to get (200/n + 50/n³) / (1 + 10/n³), or any other valid limit argument.",
+       "evidence": "Any valid argument earns the point: dividing by n³; dividing by n² to get (200 + 50/n²)/(n + 10/n²), numerator → 200, denominator → ∞; or comparing degrees (3 for b(n), 2 for a(n)).",
+       "fix": "Divide every term by the highest power of n in the denominator, then let each term with n in a denominator approach 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim n→∞ a(n)/b(n) = 0.",
+       "evidence": "Response gives the value 0.",
+       "fix": "When the denominator's degree is larger than the numerator's, the ratio approaches 0 as n → ∞.",
+       "accepted_variants": [
+        "0"
+       ]
+      },
+      {
+       "text": "Interprets the limit: for very long lists, program A's time is a negligible fraction of program B's time, so program A is much faster.",
+       "evidence": "Response explains in context that the ratio approaching 0 means b(n) grows much faster than a(n), so for large n program A takes far less time than program B.",
+       "fix": "Translate a ratio approaching 0 into context: the denominator's quantity becomes far larger than the numerator's quantity.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) For x > 0, x = √(x²). Dividing the numerator and denominator by x gives f(x) = [√(16x² + 9)/√(x²)] / [(2x + 5)/x] = √(16 + 9/x²) / (2 + 5/x). As x → ∞, 9/x² → 0 and 5/x → 0, so lim x→∞ f(x) = √16 / 2 = 4/2 = 2.\n\n(b) For x < 0, √(x²) = |x| = −x, so x = −√(x²) and √(16x² + 9)/x = −√(16x² + 9)/√(x²) = −√(16 + 9/x²). Dividing the numerator and denominator by x gives f(x) = −√(16 + 9/x²) / (2 + 5/x). As x → −∞, 9/x² → 0 and 5/x → 0, so lim x→−∞ f(x) = −√16 / 2 = −2.\n\n(c) Because lim x→∞ f(x) = 2, the line y = 2 is a horizontal asymptote, and because lim x→−∞ f(x) = −2, the line y = −2 is also a horizontal asymptote. The horizontal asymptotes are y = 2 and y = −2.\n\n(d) a(n)/b(n) = (200n² + 50)/(n³ + 10). Dividing the numerator and denominator by n³ gives (200/n + 50/n³) / (1 + 10/n³). As n → ∞ the numerator approaches 0 and the denominator approaches 1, so lim n→∞ a(n)/b(n) = 0. For very long lists, program A's running time becomes a negligible fraction of program B's running time: b(n) grows much faster than a(n), so program A is far faster than program B for large n.",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nxp = sp.symbols('xp', positive=True)\nn = sp.symbols('n', positive=True)\nf = sp.sqrt(16*x**2 + 9)/(2*x + 5)\nassert sp.limit(f, x, sp.oo) == 2\nassert sp.limit(f, x, -sp.oo) == -2\nassert sp.simplify(f.subs(x, xp) - sp.sqrt(16 + 9/xp**2)/(2 + 5/xp)) == 0\n# for x = -xp < 0, the rewritten form is -sqrt(16 + 9/x^2)/(2 + 5/x)\nassert sp.simplify(f.subs(x, -xp) - (-sp.sqrt(16 + 9/xp**2)/(2 + 5/(-xp)))) == 0\nassert sp.sqrt(16)/2 == 2\nr = (200*n**2 + 50)/(n**3 + 10)\nassert sp.simplify(r - (200/n + 50/n**3)/(1 + 10/n**3)) == 0\nassert sp.limit(r, n, sp.oo) == 0\nassert sp.simplify(r - (200 + 50/n**2)/(n + 10/n**2)) == 0\nassert sp.limit(200 + 50/n**2, n, sp.oo) == 200 and sp.limit(n + 10/n**2, n, sp.oo) == sp.oo\nassert sp.degree(n**3 + 10, n) == 3 and sp.degree(200*n**2 + 50, n) == 2\nprint('ALL_CHECKS_PASSED')\n"
+  },
+  "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.834713Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "b1 now accepts any valid argument that handles the sign for negative x (rubric_points)."
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "calc_physics12_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (d), criterion d1: The evidence requirement restricts credit to dividing by n³ or comparing degrees, although the question permits any valid",
+      "ruling": "accept",
+      "reason": "Valid: the prompt asks only for the work that leads to the answer, not a specific method. Dividing by n² gives (200 + 50/n²)/(n + 10/n²), equal to a(n)/b(n) (checked in sympy), with numerator → 200 and denominator → ∞, so the limit is 0. d1 now accepts any valid limit argument. c1 also accepts follow-through from the response's own parts (a) and (b) (round 3 addendum)."
+     }
+    ],
+    "accept_as_is": false
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:05.351Z",
+   "source": "given",
+   "item": {
+    "title": "End Behavior, Two Horizontal Asymptotes and Comparing Growth",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = √(16x² + 9) / (2x + 5).\n\nTwo computer programs each process a list of n items. Program A takes a(n) = 200n² + 50 microseconds and program B takes b(n) = n³ + 10 microseconds, where n > 0.",
+    "parts": [
+     {
+      "prompt": "Find lim x→∞ f(x). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Shows valid work for x → ∞, such as dividing the numerator and denominator by x, using x = √(x²) for x > 0, to get √(16 + 9/x²) / (2 + 5/x).",
+        "evidence": "Response gives a valid algebraic or end-behavior argument for x → ∞: for example, dividing the numerator and denominator by x (with x = √(x²) for x > 0), or explaining that for large positive x, √(16x² + 9) behaves like 4x and 2x + 5 behaves like 2x.",
+        "fix": "For large positive x, divide the numerator and denominator by x, writing x as √(x²) inside the root.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→∞ f(x) = 2.",
+        "evidence": "Response gives the value 2 for the limit as x → ∞.",
+        "fix": "As x → ∞, terms like 9/x² and 5/x approach 0, so the quotient approaches √16 / 2 = 2.",
+        "accepted_variants": [
+         "2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→−∞ f(x). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Shows valid work for x → −∞ that uses √(x²) = −x for x < 0, giving f(x) = −√(16 + 9/x²) / (2 + 5/x).",
+        "evidence": "Response uses √(x²) = |x| = −x for x < 0 when dividing by x (or explains that for large negative x, √(16x² + 9) behaves like 4|x| = −4x while 2x + 5 behaves like 2x), so that a negative sign appears.",
+        "fix": "When x is negative, √(x²) equals −x, not x; carry that negative sign when dividing by x.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→−∞ f(x) = −2.",
+        "evidence": "Response gives the value −2 for the limit as x → −∞.",
+        "fix": "Check the sign: for large negative x the numerator is positive and the denominator is negative, so the limit is negative.",
+        "accepted_variants": [
+         "−2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write an equation for each horizontal asymptote of the curve y = f(x). Explain how your answers to parts (a) and (b) determine them.",
+      "criteria": [
+       {
+        "text": "States the horizontal asymptotes are y = 2 and y = −2, because the limits of f as x → ∞ and as x → −∞ are 2 and −2.",
+        "evidence": "Response names both lines y = 2 and y = −2 and links each to the corresponding limit at infinity (y = 2 from x → ∞ and y = −2 from x → −∞).",
+        "fix": "Each finite limit as x → ∞ or x → −∞ gives a horizontal asymptote; check both directions, since they can differ.",
+        "accepted_variants": [
+         "y = 2 and y = −2",
+         "y = ±2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim n→∞ a(n)/b(n), showing the work that leads to your answer. Explain what this limit tells you about the two programs for very long lists.",
+      "criteria": [
+       {
+        "text": "Shows valid work, such as dividing the numerator and denominator by n³ to get (200/n + 50/n³) / (1 + 10/n³), or noting that the denominator has the higher degree.",
+        "evidence": "Response divides by n³, the highest power in the denominator, or compares the degrees (3 for b(n) and 2 for a(n)) to support the value of the limit.",
+        "fix": "Divide every term by the highest power of n in the denominator, then let each term with n in a denominator approach 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim n→∞ a(n)/b(n) = 0.",
+        "evidence": "Response gives the value 0.",
+        "fix": "When the denominator's degree is larger than the numerator's, the ratio approaches 0 as n → ∞.",
+        "accepted_variants": [
+         "0"
+        ]
+       },
+       {
+        "text": "Interprets the limit: for very long lists, program A's time is a negligible fraction of program B's time, so program A is much faster.",
+        "evidence": "Response explains in context that the ratio approaching 0 means b(n) grows much faster than a(n), so for large n program A takes far less time than program B.",
+        "fix": "Translate a ratio approaching 0 into context: the denominator's quantity becomes far larger than the numerator's quantity.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) For x > 0, x = √(x²). Dividing the numerator and denominator by x gives f(x) = [√(16x² + 9)/√(x²)] / [(2x + 5)/x] = √(16 + 9/x²) / (2 + 5/x). As x → ∞, 9/x² → 0 and 5/x → 0, so lim x→∞ f(x) = √16 / 2 = 4/2 = 2.\n\n(b) For x < 0, √(x²) = |x| = −x, so x = −√(x²) and √(16x² + 9)/x = −√(16x² + 9)/√(x²) = −√(16 + 9/x²). Dividing the numerator and denominator by x gives f(x) = −√(16 + 9/x²) / (2 + 5/x). As x → −∞, 9/x² → 0 and 5/x → 0, so lim x→−∞ f(x) = −√16 / 2 = −2.\n\n(c) Because lim x→∞ f(x) = 2, the line y = 2 is a horizontal asymptote, and because lim x→−∞ f(x) = −2, the line y = −2 is also a horizontal asymptote. The horizontal asymptotes are y = 2 and y = −2.\n\n(d) a(n)/b(n) = (200n² + 50)/(n³ + 10). Dividing the numerator and denominator by n³ gives (200/n + 50/n³) / (1 + 10/n³). As n → ∞ the numerator approaches 0 and the denominator approaches 1, so lim n→∞ a(n)/b(n) = 0. For very long lists, program A's running time becomes a negligible fraction of program B's running time: b(n) grows much faster than a(n), so program A is far faster than program B for large n.",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nxp = sp.symbols('xp', positive=True)\nn = sp.symbols('n', positive=True)\nf = sp.sqrt(16*x**2 + 9)/(2*x + 5)\nassert sp.limit(f, x, sp.oo) == 2\nassert sp.limit(f, x, -sp.oo) == -2\nassert sp.simplify(f.subs(x, xp) - sp.sqrt(16 + 9/xp**2)/(2 + 5/xp)) == 0\n# for x = -xp < 0, the rewritten form is -sqrt(16 + 9/x^2)/(2 + 5/x)\nassert sp.simplify(f.subs(x, -xp) - (-sp.sqrt(16 + 9/xp**2)/(2 + 5/(-xp)))) == 0\nassert sp.sqrt(16)/2 == 2\nr = (200*n**2 + 50)/(n**3 + 10)\nassert sp.simplify(r - (200/n + 50/n**3)/(1 + 10/n**3)) == 0\nassert sp.limit(r, n, sp.oo) == 0\nassert sp.degree(n**3 + 10, n) == 3 and sp.degree(200*n**2 + 50, n) == 2\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.15": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria b1 and d1 restrict valid alternative methods through their evidence requirements. For b1, a student can show f(x)² → 4 and f(x) < 0 for sufficiently negative x, concluding f(x) → −2 without using the specified square-root identity. For d1, dividing by n² gives (200 + 50/n²)/(n + 10/n²) → 0, but the evidence requires division by n³ or a degree comparison. Both criteria should accept any valid end-behavior argument."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria b1 and d1 restrict valid alternative methods through their evidence requirements. For b1, a student can show f(x)² → 4 and f(x) < 0 for sufficiently negative x, concluding f(x) → −2 without using the specified square-root identity. For d1, dividing by n² gives (200 + 50/n²)/(n + 10/n²) → 0, but the evidence requires division by n³ or a degree comparison. Both criteria should accept any valid end-behavior argument."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 prescribes work using √(x²) = −x or the corresponding dominant-term argument, rather than accepting every valid justification. A student could instead show f(x)² → 4 and use f(x) < 0 for sufficiently negative x to conclude f(x) → −2. Broaden b1 to accept any valid algebraic or end-behavior argument."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 prescribes work using √(x²) = −x or the corresponding dominant-term argument, rather than accepting every valid justification. A student could instead show f(x)² → 4 and use f(x) < 0 for sufficiently negative x to conclude f(x) → −2. Broaden b1 to accept any valid algebraic or end-behavior argument."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:43.197Z",
+   "source": "given",
+   "item": {
+    "title": "End Behavior, Two Horizontal Asymptotes and Comparing Growth",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = √(16x² + 9) / (2x + 5).\n\nTwo computer programs each process a list of n items. Program A takes a(n) = 200n² + 50 microseconds and program B takes b(n) = n³ + 10 microseconds, where n > 0.",
+    "parts": [
+     {
+      "prompt": "Find lim x→∞ f(x). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Shows valid work for x → ∞, such as dividing the numerator and denominator by x, using x = √(x²) for x > 0, to get √(16 + 9/x²) / (2 + 5/x).",
+        "evidence": "Response gives a valid algebraic or end-behavior argument for x → ∞: for example, dividing the numerator and denominator by x (with x = √(x²) for x > 0), or explaining that for large positive x, √(16x² + 9) behaves like 4x and 2x + 5 behaves like 2x.",
+        "fix": "For large positive x, divide the numerator and denominator by x, writing x as √(x²) inside the root.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→∞ f(x) = 2.",
+        "evidence": "Response gives the value 2 for the limit as x → ∞.",
+        "fix": "As x → ∞, terms like 9/x² and 5/x approach 0, so the quotient approaches √16 / 2 = 2.",
+        "accepted_variants": [
+         "2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→−∞ f(x). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Shows valid work for x → −∞ that accounts for x being negative.",
+        "evidence": "Any valid argument earns the point: dividing by x with √(x²) = |x| = −x, a dominant-term argument (√(16x² + 9) behaves like −4x while 2x + 5 behaves like 2x), or showing f(x)² → 4 with f(x) < 0 for large negative x.",
+        "fix": "When x is negative, √(x²) equals −x, not x; carry that negative sign when dividing by x.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→−∞ f(x) = −2.",
+        "evidence": "Response gives the value −2 for the limit as x → −∞.",
+        "fix": "Check the sign: for large negative x the numerator is positive and the denominator is negative, so the limit is negative.",
+        "accepted_variants": [
+         "−2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write an equation for each horizontal asymptote of the curve y = f(x). Explain how your answers to parts (a) and (b) determine them.",
+      "criteria": [
+       {
+        "text": "States the horizontal asymptotes are y = 2 and y = −2, because the limits of f as x → ∞ and as x → −∞ are 2 and −2.",
+        "evidence": "Response names both lines y = 2 and y = −2 and links each to the corresponding limit at infinity (y = 2 from x → ∞ and y = −2 from x → −∞).",
+        "fix": "Each finite limit as x → ∞ or x → −∞ gives a horizontal asymptote; check both directions, since they can differ.",
+        "accepted_variants": [
+         "y = 2 and y = −2",
+         "y = ±2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim n→∞ a(n)/b(n), showing the work that leads to your answer. Explain what this limit tells you about the two programs for very long lists.",
+      "criteria": [
+       {
+        "text": "Shows valid work, such as dividing the numerator and denominator by n³ to get (200/n + 50/n³) / (1 + 10/n³), or noting that the denominator has the higher degree.",
+        "evidence": "Response divides by n³, the highest power in the denominator, or compares the degrees (3 for b(n) and 2 for a(n)) to support the value of the limit.",
+        "fix": "Divide every term by the highest power of n in the denominator, then let each term with n in a denominator approach 0.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim n→∞ a(n)/b(n) = 0.",
+        "evidence": "Response gives the value 0.",
+        "fix": "When the denominator's degree is larger than the numerator's, the ratio approaches 0 as n → ∞.",
+        "accepted_variants": [
+         "0"
+        ]
+       },
+       {
+        "text": "Interprets the limit: for very long lists, program A's time is a negligible fraction of program B's time, so program A is much faster.",
+        "evidence": "Response explains in context that the ratio approaching 0 means b(n) grows much faster than a(n), so for large n program A takes far less time than program B.",
+        "fix": "Translate a ratio approaching 0 into context: the denominator's quantity becomes far larger than the numerator's quantity.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) For x > 0, x = √(x²). Dividing the numerator and denominator by x gives f(x) = [√(16x² + 9)/√(x²)] / [(2x + 5)/x] = √(16 + 9/x²) / (2 + 5/x). As x → ∞, 9/x² → 0 and 5/x → 0, so lim x→∞ f(x) = √16 / 2 = 4/2 = 2.\n\n(b) For x < 0, √(x²) = |x| = −x, so x = −√(x²) and √(16x² + 9)/x = −√(16x² + 9)/√(x²) = −√(16 + 9/x²). Dividing the numerator and denominator by x gives f(x) = −√(16 + 9/x²) / (2 + 5/x). As x → −∞, 9/x² → 0 and 5/x → 0, so lim x→−∞ f(x) = −√16 / 2 = −2.\n\n(c) Because lim x→∞ f(x) = 2, the line y = 2 is a horizontal asymptote, and because lim x→−∞ f(x) = −2, the line y = −2 is also a horizontal asymptote. The horizontal asymptotes are y = 2 and y = −2.\n\n(d) a(n)/b(n) = (200n² + 50)/(n³ + 10). Dividing the numerator and denominator by n³ gives (200/n + 50/n³) / (1 + 10/n³). As n → ∞ the numerator approaches 0 and the denominator approaches 1, so lim n→∞ a(n)/b(n) = 0. For very long lists, program A's running time becomes a negligible fraction of program B's running time: b(n) grows much faster than a(n), so program A is far faster than program B for large n.",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nxp = sp.symbols('xp', positive=True)\nn = sp.symbols('n', positive=True)\nf = sp.sqrt(16*x**2 + 9)/(2*x + 5)\nassert sp.limit(f, x, sp.oo) == 2\nassert sp.limit(f, x, -sp.oo) == -2\nassert sp.simplify(f.subs(x, xp) - sp.sqrt(16 + 9/xp**2)/(2 + 5/xp)) == 0\n# for x = -xp < 0, the rewritten form is -sqrt(16 + 9/x^2)/(2 + 5/x)\nassert sp.simplify(f.subs(x, -xp) - (-sp.sqrt(16 + 9/xp**2)/(2 + 5/(-xp)))) == 0\nassert sp.sqrt(16)/2 == 2\nr = (200*n**2 + 50)/(n**3 + 10)\nassert sp.simplify(r - (200/n + 50/n**3)/(1 + 10/n**3)) == 0\nassert sp.limit(r, n, sp.oo) == 0\nassert sp.degree(n**3 + 10, n) == 3 and sp.degree(200*n**2 + 50, n) == 2\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.15": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: Although the criterion says 'valid work, such as,' its mandatory evidence restricts credit to dividing by n³ or comparing degrees. Dividing by n² gives (200 + 50/n²)/(n + 10/n²) → 0 and is also valid. Broaden the evidence to accept any valid algebraic or end-behavior argument."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: Although the criterion says 'valid work, such as,' its mandatory evidence restricts credit to dividing by n³ or comparing degrees. Dividing by n² gives (200 + 50/n²)/(n + 10/n²) → 0 and is also valid. Broaden the evidence to accept any valid algebraic or end-behavior argument."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: The evidence requirement restricts credit to dividing by n³ or comparing degrees, although the question permits any valid work. Dividing by n² gives (200 + 50/n²)/(n + 10/n²), whose numerator approaches 200 and denominator approaches ∞, also correctly establishing the limit. Explicitly accept any valid limit argument."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: The evidence requirement restricts credit to dividing by n³ or comparing degrees, although the question permits any valid work. Dividing by n² gives (200 + 50/n²)/(n + 10/n²), whose numerator approaches 200 and denominator approaches ∞, also correctly establishing the limit. Explicitly accept any valid limit argument."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.15",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

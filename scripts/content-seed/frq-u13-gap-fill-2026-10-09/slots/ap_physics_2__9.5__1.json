@@ -1,0 +1,709 @@
+{
+ "id": "ap_physics_2__9.5__1",
+ "slot": {
+  "subject_key": "ap_physics_2",
+  "tsv": "b3e41b93-95d8-40c6-bef5-98cc99111915",
+  "unit": 9,
+  "unit_title": "Thermodynamics",
+  "topic_code": "9.5",
+  "topic_title": "Specific Heat and Thermal Conductivity",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:51:43.361Z",
+   "source": "given",
+   "item": {
+    "title": "Heating Water, Conduction Through a Window, and Specific Heat",
+    "calculator": "permitted",
+    "stimulus": "Specific heats: water 4190 J/(kg·°C), aluminum 900 J/(kg·°C), copper 385 J/(kg·°C).\n\nA glass window pane has area 1.2 m², thickness 4.0 × 10⁻³ m, and thermal conductivity 0.80 W/(m·K). The inner surface of the glass is at 15 °C and the outer surface is at 5 °C, and these temperatures stay constant. Specific heats are independent of temperature.",
+    "parts": [
+     {
+      "prompt": "Calculate the energy that must be transferred to 0.50 kg of water to raise its temperature from 20 °C to 80 °C.",
+      "criteria": [
+       {
+        "text": "Calculates Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(60 °C) ≈ 1.26 × 10⁵ J.",
+        "evidence": "Response uses ΔT = 60 °C and obtains 125,700 J (about 1.26 × 10⁵ J).",
+        "fix": "Use the temperature change, not a single temperature, in Q = mcΔT, and check the units of c.",
+        "accepted_variants": [
+         "125700 J",
+         "1.26 × 10⁵ J",
+         "1.3 × 10⁵ J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the rate at which energy is conducted through the window pane.",
+      "criteria": [
+       {
+        "text": "Calculates Q/Δt = kAΔT/L = (0.80)(1.2)(10)/(4.0 × 10⁻³) = 2400 W.",
+        "evidence": "Response uses ΔT = 10 K (or 10 °C) and L = 4.0 × 10⁻³ m to obtain 2400 W (2.4 × 10³ W).",
+        "fix": "In Q/Δt = kAΔT/L use the temperature difference across the material and its thickness in meters.",
+        "accepted_variants": [
+         "2400 W",
+         "2.4 × 10³ W",
+         "2.4 kW"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The pane is replaced by a pane of the same glass and area but twice the thickness, and the temperature difference across it becomes 20 °C. Determine the new rate of energy conduction.",
+      "criteria": [
+       {
+        "text": "Finds the new rate is 2400 W (unchanged): doubling ΔT doubles the rate while doubling L halves it.",
+        "evidence": "Response obtains 2400 W either by applying the factors (2 for ΔT, 1/2 for L) or by substituting ΔT = 20 K and L = 8.0 × 10⁻³ m into kAΔT/L.",
+        "fix": "The rate is proportional to ΔT and inversely proportional to thickness; apply both changes as factors, or substitute the new values directly.",
+        "accepted_variants": [
+         "2400 W",
+         "unchanged",
+         "same rate"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Equal masses of aluminum and copper each absorb the same amount of energy. Which block has the larger temperature increase? Determine the ratio of the copper block's temperature increase to the aluminum block's temperature increase.",
+      "criteria": [
+       {
+        "text": "States that the copper block has the larger temperature increase.",
+        "evidence": "Response identifies copper as the block with the larger temperature increase.",
+        "fix": "With the same energy and mass, ΔT = Q/(mc), so the material with the smaller specific heat warms more.",
+        "accepted_variants": [
+         "copper"
+        ]
+       },
+       {
+        "text": "Determines ΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+        "evidence": "Response uses ΔT = Q/(mc) with equal Q and m to obtain a ratio c_Al/c_Cu of about 2.3.",
+        "fix": "Write ΔT = Q/(mc) for each block, divide the two expressions, and cancel Q and m to leave a ratio of specific heats.",
+        "accepted_variants": [
+         "2.34",
+         "2.3"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(80 °C − 20 °C) = (0.50)(4190)(60) = 125,700 J ≈ 1.26 × 10⁵ J.\n\n(b) ΔT = 15 °C − 5 °C = 10 °C, which is a difference of 10 K.\nQ/Δt = kAΔT/L = (0.80 W/(m·K))(1.2 m²)(10 K)/(4.0 × 10⁻³ m) = 2400 W.\n\n(c) The rate is proportional to ΔT and inversely proportional to L. ΔT doubles (10 °C to 20 °C), multiplying the rate by 2, and L doubles, multiplying the rate by 1/2. The net factor is 1, so the rate is unchanged: 2400 W.\n\n(d) ΔT = Q/(mc). With the same Q and m, ΔT is inversely proportional to c. Copper has the smaller specific heat, so copper has the larger temperature increase.\nΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+    "verification_python": "Q=0.50*4190*(80-20)\nassert abs(Q-125700)<1e-9\nassert abs(Q-1.26e5)<0.01e5\nrate=0.80*1.2*10/4.0e-3\nassert abs(rate-2400)<1e-9\nrate2=0.80*1.2*20/(2*4.0e-3)\nassert abs(rate2-2400)<1e-9\nratio=900/385\nassert abs(ratio-2.34)<0.005\nassert round(ratio,1)==2.3\nassert abs(2*4.0e-3-8.0e-3)<1e-15\nassert 385<900\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "9.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     9
+    ],
+    "unitCount": {
+     "9": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_evidence: Criterion d1's fix explains the relationship but gives no concrete action. Replace it with: 'Compare the specific heats and choose the smaller one, since ΔT = Q/(mc) for equal Q and m.'"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion d1's fix explains the relationship but gives no concrete action. Replace it with: 'Compare the specific heats and choose the smaller one, since ΔT = Q/(mc) for equal Q and m.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Heating Water, Conduction Through a Window, and Specific Heat",
+   "calculator": "permitted",
+   "stimulus": "Specific heats: water 4190 J/(kg·°C), aluminum 900 J/(kg·°C), copper 385 J/(kg·°C).\n\nA glass window pane has area 1.2 m², thickness 4.0 × 10⁻³ m, and thermal conductivity 0.80 W/(m·K). The inner surface of the glass is at 15 °C and the outer surface is at 5 °C, and these temperatures stay constant. Specific heats are independent of temperature.",
+   "parts": [
+    {
+     "prompt": "Calculate the energy that must be transferred to 0.50 kg of water to raise its temperature from 20 °C to 80 °C.",
+     "criteria": [
+      {
+       "text": "Calculates Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(60 °C) ≈ 1.26 × 10⁵ J.",
+       "evidence": "Response uses ΔT = 60 °C and obtains 125,700 J (about 1.26 × 10⁵ J).",
+       "fix": "Use the temperature change, not a single temperature, in Q = mcΔT, and check the units of c.",
+       "accepted_variants": [
+        "125700 J",
+        "1.26 × 10⁵ J",
+        "1.3 × 10⁵ J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the rate at which energy is conducted through the window pane.",
+     "criteria": [
+      {
+       "text": "Calculates Q/Δt = kAΔT/L = (0.80)(1.2)(10)/(4.0 × 10⁻³) = 2400 W.",
+       "evidence": "Response uses ΔT = 10 K (or 10 °C) and L = 4.0 × 10⁻³ m to obtain 2400 W (2.4 × 10³ W).",
+       "fix": "In Q/Δt = kAΔT/L use the temperature difference across the material and its thickness in meters.",
+       "accepted_variants": [
+        "2400 W",
+        "2.4 × 10³ W",
+        "2.4 kW"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The pane is replaced by a pane of the same glass and area but twice the thickness, and the temperature difference across it becomes 20 °C. Determine the new rate of energy conduction.",
+     "criteria": [
+      {
+       "text": "Finds the new rate is 2400 W (unchanged): doubling ΔT doubles the rate while doubling L halves it.",
+       "evidence": "Response obtains 2400 W either by applying the factors (2 for ΔT, 1/2 for L) or by substituting ΔT = 20 K and L = 8.0 × 10⁻³ m into kAΔT/L.",
+       "fix": "The rate is proportional to ΔT and inversely proportional to thickness; apply both changes as factors, or substitute the new values directly.",
+       "accepted_variants": [
+        "2400 W",
+        "unchanged",
+        "same rate"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Equal masses of aluminum and copper each absorb the same amount of energy. Which block has the larger temperature increase? Determine the ratio of the copper block's temperature increase to the aluminum block's temperature increase.",
+     "criteria": [
+      {
+       "text": "States that the copper block has the larger temperature increase.",
+       "evidence": "Response identifies copper as the block with the larger temperature increase.",
+       "fix": "With the same energy and mass, ΔT = Q/(mc), so the material with the smaller specific heat warms more.",
+       "accepted_variants": [
+        "copper"
+       ]
+      },
+      {
+       "text": "Determines ΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+       "evidence": "Response uses ΔT = Q/(mc) with equal Q and m to obtain a ratio c_Al/c_Cu of about 2.3.",
+       "fix": "Write ΔT = Q/(mc) for each block, divide the two expressions, and cancel Q and m to leave a ratio of specific heats.",
+       "accepted_variants": [
+        "2.34",
+        "2.3"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(80 °C − 20 °C) = (0.50)(4190)(60) = 125,700 J ≈ 1.26 × 10⁵ J.\n\n(b) ΔT = 15 °C − 5 °C = 10 °C, which is a difference of 10 K.\nQ/Δt = kAΔT/L = (0.80 W/(m·K))(1.2 m²)(10 K)/(4.0 × 10⁻³ m) = 2400 W.\n\n(c) The rate is proportional to ΔT and inversely proportional to L. ΔT doubles (10 °C to 20 °C), multiplying the rate by 2, and L doubles, multiplying the rate by 1/2. The net factor is 1, so the rate is unchanged: 2400 W.\n\n(d) ΔT = Q/(mc). With the same Q and m, ΔT is inversely proportional to c. Copper has the smaller specific heat, so copper has the larger temperature increase.\nΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+   "verification_python": "Q=0.50*4190*(80-20)\nassert abs(Q-125700)<1e-9\nassert abs(Q-1.26e5)<0.01e5\nrate=0.80*1.2*10/4.0e-3\nassert abs(rate-2400)<1e-9\nrate2=0.80*1.2*20/(2*4.0e-3)\nassert abs(rate2-2400)<1e-9\nratio=900/385\nassert abs(ratio-2.34)<0.005\nassert round(ratio,1)==2.3\nassert abs(2*4.0e-3-8.0e-3)<1e-15\nassert 385<900\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.868732Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics2_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion c1 requires proportional-factor reasoning even though part (c) only asks for the new rate. Direct substitution using L′ = 8.0 × 10⁻³ m ",
+      "ruling": "accept",
+      "reason": "Valid on both: c1 now accepts direct substitution (ΔT = 20 K, L = 8.0 × 10⁻³ m). The item had 4 points, so d1 was split into identifying copper and the ratio 2.3 (now 5 points)."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:11:10.140Z",
+   "source": "given",
+   "item": {
+    "title": "Heating Water, Conduction Through a Window, and Specific Heat",
+    "calculator": "permitted",
+    "stimulus": "Specific heats: water 4190 J/(kg·°C), aluminum 900 J/(kg·°C), copper 385 J/(kg·°C).\n\nA glass window pane has area 1.2 m², thickness 4.0 × 10⁻³ m, and thermal conductivity 0.80 W/(m·K). The inner surface of the glass is at 15 °C and the outer surface is at 5 °C, and these temperatures stay constant. Specific heats are independent of temperature.",
+    "parts": [
+     {
+      "prompt": "Calculate the energy that must be transferred to 0.50 kg of water to raise its temperature from 20 °C to 80 °C.",
+      "criteria": [
+       {
+        "text": "Calculates Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(60 °C) ≈ 1.26 × 10⁵ J.",
+        "evidence": "Response uses ΔT = 60 °C and obtains 125,700 J (about 1.26 × 10⁵ J).",
+        "fix": "Use the temperature change, not a single temperature, in Q = mcΔT, and check the units of c.",
+        "accepted_variants": [
+         "125700 J",
+         "1.26 × 10⁵ J",
+         "1.3 × 10⁵ J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the rate at which energy is conducted through the window pane.",
+      "criteria": [
+       {
+        "text": "Calculates Q/Δt = kAΔT/L = (0.80)(1.2)(10)/(4.0 × 10⁻³) = 2400 W.",
+        "evidence": "Response uses ΔT = 10 K (or 10 °C) and L = 4.0 × 10⁻³ m to obtain 2400 W (2.4 × 10³ W).",
+        "fix": "In Q/Δt = kAΔT/L use the temperature difference across the material and its thickness in meters.",
+        "accepted_variants": [
+         "2400 W",
+         "2.4 × 10³ W",
+         "2.4 kW"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The pane is replaced by a pane of the same glass and area but twice the thickness, and the temperature difference across it becomes 20 °C. Determine the new rate of energy conduction.",
+      "criteria": [
+       {
+        "text": "Finds the rate is unchanged at 2400 W, because doubling ΔT doubles the rate while doubling L halves it.",
+        "evidence": "Response applies the proportional dependence on ΔT and on 1/L (factor 2 × 1/2 = 1) and gives 2400 W.",
+        "fix": "Apply each change as a factor: the rate is proportional to ΔT and inversely proportional to thickness.",
+        "accepted_variants": [
+         "2400 W",
+         "unchanged",
+         "same rate"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Equal masses of aluminum and copper each absorb the same amount of energy. Which block has the larger temperature increase? Determine the ratio of the copper block's temperature increase to the aluminum block's temperature increase.",
+      "criteria": [
+       {
+        "text": "States that copper has the larger temperature increase, with ΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+        "evidence": "Response uses ΔT = Q/(mc) with equal Q and m to show ΔT is inversely proportional to c, identifies copper, and gives a ratio of about 2.3.",
+        "fix": "With the same energy and mass, ΔT = Q/(mc), so the material with the smaller specific heat warms more.",
+        "accepted_variants": [
+         "2.34",
+         "2.3",
+         "copper"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(80 °C − 20 °C) = (0.50)(4190)(60) = 125,700 J ≈ 1.26 × 10⁵ J.\n\n(b) ΔT = 15 °C − 5 °C = 10 °C, which is a difference of 10 K.\nQ/Δt = kAΔT/L = (0.80 W/(m·K))(1.2 m²)(10 K)/(4.0 × 10⁻³ m) = 2400 W.\n\n(c) The rate is proportional to ΔT and inversely proportional to L. ΔT doubles (10 °C to 20 °C), multiplying the rate by 2, and L doubles, multiplying the rate by 1/2. The net factor is 1, so the rate is unchanged: 2400 W.\n\n(d) ΔT = Q/(mc). With the same Q and m, ΔT is inversely proportional to c. Copper has the smaller specific heat, so copper has the larger temperature increase.\nΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+    "verification_python": "Q=0.50*4190*(80-20)\nassert abs(Q-125700)<1e-9\nassert abs(Q-1.26e5)<0.01e5\nrate=0.80*1.2*10/4.0e-3\nassert abs(rate-2400)<1e-9\nrate2=0.80*1.2*20/(2*4.0e-3)\nassert abs(rate2-2400)<1e-9\nratio=900/385\nassert abs(ratio-2.34)<0.005\nassert round(ratio,1)==2.3\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "9.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     9
+    ],
+    "unitCount": {
+     "9": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 requires proportional-factor reasoning even though part (c) only asks for the new rate; direct substitution into kAΔT/L is an equally valid method and must earn credit. Criterion d1 combines two independently requested answer elements—identifying copper and calculating the ratio—into one point rather than awarding one specific observable element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires proportional-factor reasoning even though part (c) only asks for the new rate; direct substitution into kAΔT/L is an equally valid method and must earn credit. Criterion d1 combines two independently requested answer elements—identifying copper and calculating the ratio—into one point rather than awarding one specific observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 requires proportional-factor reasoning even though part (c) only asks for the new rate. Direct substitution using L′ = 8.0 × 10⁻³ m and ΔT′ = 20 K is a valid alternative method and must earn credit. Criterion d1 combines two separately requested answer elements—identifying copper and calculating the temperature-increase ratio—into one point rather than awarding one specific observable element."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires proportional-factor reasoning even though part (c) only asks for the new rate. Direct substitution using L′ = 8.0 × 10⁻³ m and ΔT′ = 20 K is a valid alternative method and must earn credit. Criterion d1 combines two separately requested answer elements—identifying copper and calculating the temperature-increase ratio—into one point rather than awarding one specific observable element."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c) criterion c1 requires the proportional-reasoning factor (applies proportional dependence, factor 2 × 1/2 = 1) even though part (c) only asks to determine the rate, so a direct substitution into Q/Δt = kAΔT/L with doubled values is a valid alternative and is not explicitly accepted."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c) criterion c1 requires the proportional-reasoning factor (applies proportional dependence, factor 2 × 1/2 = 1) even though part (c) only asks to determine the rate, so a direct substitution into Q/Δt = kAΔT/L with doubled values is a valid alternative and is not explicitly accepted."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "9.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

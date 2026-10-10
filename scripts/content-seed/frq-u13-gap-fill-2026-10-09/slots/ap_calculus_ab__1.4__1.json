@@ -1,0 +1,564 @@
+{
+ "id": "ap_calculus_ab__1.4__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.4",
+  "topic_title": "Estimating Limit Values from Tables",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:27:36.866Z",
+   "item": {
+    "title": "Estimating One-Sided and Two-Sided Limits from Tables",
+    "calculator": "not_permitted",
+    "stimulus": "The function f is defined for all real numbers. Selected values of f(x) for x near 2 are given in the table below. It is also known that f(2) = 1.\n\nx: 1.9 | 1.99 | 1.999 | 2.001 | 2.01 | 2.1\nf(x): 0.25158 | 0.25016 | 0.25002 | 0.24998 | 0.24984 | 0.24846\n\nThe function g is defined for all real numbers except x = 0. Selected values of g(x) for x near 0 are given in the table below.\n\nx: −0.1 | −0.01 | −0.001 | 0.001 | 0.01 | 0.1\ng(x): −2.9 | −2.99 | −2.999 | 2.001 | 2.01 | 2.1\n\nAssume that the values of f and g behave between and beyond the listed x-values in the way the tables suggest.",
+    "model_answer": "(a) As x approaches 2 from the left, x = 1.9, 1.99, 1.999, the values of f(x) are 0.25158, 0.25016, 0.25002, which are getting closer to 0.25. So lim x→2⁻ f(x) ≈ 0.25.\nAs x approaches 2 from the right, x = 2.1, 2.01, 2.001, the values of f(x) are 0.24846, 0.24984, 0.24998, which are getting closer to 0.25. So lim x→2⁺ f(x) ≈ 0.25.\n\n(b) Since lim x→2⁻ f(x) ≈ 0.25 and lim x→2⁺ f(x) ≈ 0.25 are equal, lim x→2 f(x) ≈ 0.25.\nFor f to be continuous at x = 2, lim x→2 f(x) must equal f(2). Here f(2) = 1, but lim x→2 f(x) ≈ 0.25, and 1 ≠ 0.25. Therefore f is not continuous at x = 2.\n\n(c) From the left, g(−0.1) = −2.9, g(−0.01) = −2.99, g(−0.001) = −2.999, which approach −3, so lim x→0⁻ g(x) ≈ −3.\nFrom the right, g(0.1) = 2.1, g(0.01) = 2.01, g(0.001) = 2.001, which approach 2, so lim x→0⁺ g(x) ≈ 2.\nBecause the left-hand limit (−3) and the right-hand limit (2) are not equal, lim x→0 g(x) does not exist.",
+    "verification_python": "import math\nimport sympy as sp\n\ndef f(x):\n    return (math.sqrt(x+2)-2)/(x-2)\n\nxs=[1.9,1.99,1.999,2.001,2.01,2.1]\ntable=[0.25158,0.25016,0.25002,0.24998,0.24984,0.24846]\nfor x,v in zip(xs,table):\n    assert abs(round(f(x),5)-v)<1e-9, (x,f(x))\n# left values increase toward 0.25 from above, right values approach from below\nassert table[0]>table[1]>table[2]>0.25\nassert table[5]<table[4]<table[3]<0.25\nX=sp.symbols('x')\nexpr=(sp.sqrt(X+2)-2)/(X-2)\nL=sp.limit(expr,X,2,'-')\nR=sp.limit(expr,X,2,'+')\nassert L==sp.Rational(1,4) and R==sp.Rational(1,4)\nassert abs(float(L)-0.25)<1e-12\nf2=1\nassert f2!=0.25\n\ndef g(x):\n    return -3-x if x<0 else 2+x\ngx=[-0.1,-0.01,-0.001,0.001,0.01,0.1]\ngt=[-2.9,-2.99,-2.999,2.001,2.01,2.1]\nfor x,v in zip(gx,gt):\n    assert abs(g(x)-v)<1e-9\ngl=sp.limit(-3-X,X,0,'-')\ngr=sp.limit(2+X,X,0,'+')\nassert gl==-3 and gr==2 and gl!=gr\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the table to estimate lim x→2⁻ f(x) and lim x→2⁺ f(x). For each estimate, explain which table values you used.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→2⁻ f(x) = 0.25, supported by the values at x = 1.9, 1.99, 1.999.",
+        "evidence": "States 0.25 (or 1/4) for the left-hand limit and refers to the f-values for x less than 2 (0.25158, 0.25016, 0.25002) approaching 0.25.",
+        "fix": "For a left-hand limit, read only the x-values below the target, list their outputs in order, and name the number they approach.",
+        "accepted_variants": [
+         "1/4",
+         "0.250"
+        ]
+       },
+       {
+        "text": "Estimates lim x→2⁺ f(x) = 0.25, supported by the values at x = 2.1, 2.01, 2.001.",
+        "evidence": "States 0.25 (or 1/4) for the right-hand limit and refers to the f-values for x greater than 2 (0.24846, 0.24984, 0.24998) approaching 0.25.",
+        "fix": "For a right-hand limit, use the x-values just above the target, moving closer, and state the number their outputs approach.",
+        "accepted_variants": [
+         "1/4",
+         "0.250"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Estimate lim x→2 f(x), giving a reason based on your answers to part (a). Then, using the given value f(2) = 1, determine whether f is continuous at x = 2. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→2 f(x) = 0.25 because the left- and right-hand limit estimates are equal.",
+        "evidence": "States the two-sided limit is approximately 0.25 and gives the reason that both one-sided limits are approximately 0.25.",
+        "fix": "A two-sided limit exists when the one-sided limits agree; state that agreement explicitly as your reason.",
+        "accepted_variants": [
+         "1/4",
+         "0.250"
+        ]
+       },
+       {
+        "text": "Concludes f is not continuous at x = 2 because f(2) = 1 ≠ 0.25 = lim x→2 f(x).",
+        "evidence": "States f is not continuous at 2 and justifies by comparing f(2) = 1 with the limit value 0.25, citing that continuity requires the limit to equal the function value.",
+        "fix": "For continuity, check that the limit exists and equals f(c); write the comparison lim x→c f(x) versus f(c) explicitly.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table for g to estimate lim x→0⁻ g(x) and lim x→0⁺ g(x). Based on these estimates, does lim x→0 g(x) exist? Explain.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→0⁻ g(x) = −3 from the values at x = −0.1, −0.01, −0.001.",
+        "evidence": "States −3 for the left-hand limit, referring to the outputs −2.9, −2.99, −2.999 approaching −3.",
+        "fix": "Track the outputs as x approaches 0 from the negative side; the pattern −2.9, −2.99, −2.999 points to the target value.",
+        "accepted_variants": [
+         "-3"
+        ]
+       },
+       {
+        "text": "Estimates lim x→0⁺ g(x) = 2 from the values at x = 0.1, 0.01, 0.001.",
+        "evidence": "States 2 for the right-hand limit, referring to the outputs 2.1, 2.01, 2.001 approaching 2.",
+        "fix": "Track the outputs as x approaches 0 from the positive side; the pattern 2.1, 2.01, 2.001 points to the target value.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes lim x→0 g(x) does not exist because the one-sided limit estimates −3 and 2 are not equal.",
+        "evidence": "States the limit does not exist and gives the reason that the left-hand and right-hand limits differ.",
+        "fix": "When one-sided limits differ, say the two-sided limit does not exist and name both unequal one-sided values as the reason.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Part (b), criterion b2, requires applying the definition of continuity at a point, which belongs to later Topic 1.11. Although at least half the points assess table-based limit estimation, the rule prohibits requiring a later topic."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Part (b), criterion b2, requires applying the definition of continuity at a point, which belongs to later Topic 1.11. Although at least half the points assess table-based limit estimation, the rule prohibits requiring a later topic."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Part (b), criterion b2, requires determining and justifying continuity at a point, which is later Topic 1.11. Although at least half the points assess table-based limit estimation, the rule also prohibits requiring a later topic."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Part (b), criterion b2, requires determining and justifying continuity at a point, which is later Topic 1.11. Although at least half the points assess table-based limit estimation, the rule also prohibits requiring a later topic."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Part (b) second criterion requires continuity at a point, Topic 1.11, which is later than Topic 1.4; a student who has studied only 1.4 cannot answer every part."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Part (b) second criterion requires continuity at a point, Topic 1.11, which is later than Topic 1.4; a student who has studied only 1.4 cannot answer every part."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Part (b), criterion b2, asks the student to determine whether f is continuous at x=2, which requires Topic 1.11 (Defining Continuity at a Point), a later topic than designated Topic 1.4. A student who has studied only through Topic 1.4 cannot answer that part."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Part (b), criterion b2, asks the student to determine whether f is continuous at x=2, which requires Topic 1.11 (Defining Continuity at a Point), a later topic than designated Topic 1.4. A student who has studied only through Topic 1.4 cannot answer that part."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:33:16.435Z",
+   "item": {
+    "title": "Estimating One-Sided and Two-Sided Limits from Tables",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f and g are defined for all real numbers. Selected values of f near x = 1 and selected values of g near x = 2 are shown in the tables below. Assume that the trends shown in each table continue as x gets closer to the indicated value. It is also given that f(1) = 5.\n\nTable for f:\nx    | 0.9  | 0.99   | 0.999    | 1.001    | 1.01   | 1.1\nf(x) | 2.71 | 2.9701 | 2.997001 | 3.003001 | 3.0301 | 3.31\n\nTable for g:\nx    | 1.9 | 1.99 | 1.999 | 2.001  | 2.01  | 2.1\ng(x) | 3.8 | 3.98 | 3.998 | −0.997 | −0.97 | −0.7",
+    "model_answer": "(a) As x approaches 1 from the left, f(0.9) = 2.71, f(0.99) = 2.9701, f(0.999) = 2.997001, which get closer to 3. As x approaches 1 from the right, f(1.1) = 3.31, f(1.01) = 3.0301, f(1.001) = 3.003001, which also get closer to 3. Since the values approach 3 from both sides, lim x→1 f(x) = 3.\n\n(b) The limit as x→1 is determined by the values of f(x) for x close to 1 but not equal to 1. The value f(1) = 5 is the function value at x = 1 itself and does not affect the limit. The table shows f(x) approaching 3 near x = 1, so lim x→1 f(x) = 3, not 5.\n\n(c) For x < 2: g(1.9) = 3.8, g(1.99) = 3.98, g(1.999) = 3.998, approaching 4, so lim x→2⁻ g(x) = 4. For x > 2: g(2.1) = −0.7, g(2.01) = −0.97, g(2.001) = −0.997, approaching −1, so lim x→2⁺ g(x) = −1.\n\n(d) No. lim x→2 g(x) does not exist because the left-hand limit, 4, is not equal to the right-hand limit, −1.",
+    "verification_python": "from fractions import Fraction as F\nf=lambda x: x**2+x+1\nxs=[F('0.9'),F('0.99'),F('0.999'),F('1.001'),F('1.01'),F('1.1')]\nfv=[F('2.71'),F('2.9701'),F('2.997001'),F('3.003001'),F('3.0301'),F('3.31')]\nfor x,v in zip(xs,fv): assert f(x)==v\nassert f(F(1))==3\nd=[abs(v-3) for v in fv]\nassert d[0]>d[1]>d[2] and d[5]>d[4]>d[3]\ngl=lambda x:2*x\ngr=lambda x:3*x-7\nxl=[F('1.9'),F('1.99'),F('1.999')]\nxr=[F('2.001'),F('2.01'),F('2.1')]\nassert [gl(x) for x in xl]==[F('3.8'),F('3.98'),F('3.998')]\nassert [gr(x) for x in xr]==[F('-0.997'),F('-0.97'),F('-0.7')]\nassert gl(F(2))==4 and gr(F(2))==-1\nassert gl(F(2))!=gr(F(2))\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the table to estimate lim x→1 f(x). Explain your reasoning using values from the table.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→1 f(x) = 3.",
+        "evidence": "States that the limit of f(x) as x approaches 1 is 3.",
+        "fix": "Look at the f(x) values in the columns closest to x = 1 and identify the single number they approach.",
+        "accepted_variants": [
+         "3.0"
+        ]
+       },
+       {
+        "text": "Supports the estimate with table values from both sides of x = 1 approaching 3.",
+        "evidence": "Cites values for x < 1 (such as f(0.999) = 2.997001) and values for x > 1 (such as f(1.001) = 3.003001) and notes that both sets get closer to 3.",
+        "fix": "Quote at least one table value from each side of x = 1 and state that both sides approach the same number.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims that because f(1) = 5, the answer to part (a) must be 5. Explain why the student is incorrect.",
+      "criteria": [
+       {
+        "text": "Explains that a limit depends on the values of f near x = 1, not on the value at x = 1, so the limit remains 3.",
+        "evidence": "States that lim x→1 f(x) describes the values f(x) approaches as x gets close to (but not equal to) 1, so f(1) = 5 does not affect the limit, which is still 3.",
+        "fix": "Remember that a limit as x→c uses inputs close to c but not equal to c; the value f(c) is irrelevant.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to estimate lim x→2⁻ g(x) and lim x→2⁺ g(x).",
+      "criteria": [
+       {
+        "text": "Estimates lim x→2⁻ g(x) = 4, based on values for x < 2.",
+        "evidence": "States the left-hand limit is 4 and refers to values such as g(1.99) = 3.98 and g(1.999) = 3.998 approaching 4.",
+        "fix": "For a left-hand limit, use only the table columns with x less than 2 and identify the number they approach.",
+        "accepted_variants": [
+         "4.0"
+        ]
+       },
+       {
+        "text": "Estimates lim x→2⁺ g(x) = −1, based on values for x > 2.",
+        "evidence": "States the right-hand limit is −1 and refers to values such as g(2.01) = −0.97 and g(2.001) = −0.997 approaching −1.",
+        "fix": "For a right-hand limit, use only the table columns with x greater than 2 and identify the number they approach.",
+        "accepted_variants": [
+         "-1",
+         "−1.0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on your answers to part (c), does lim x→2 g(x) exist? Explain.",
+      "criteria": [
+       {
+        "text": "Concludes lim x→2 g(x) does not exist because the one-sided limits are not equal.",
+        "evidence": "States the limit does not exist and gives the reason that the left-hand limit (4) and right-hand limit (−1) are different (or consistent with the student's part (c) values).",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare your two one-sided estimates.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 2
+}

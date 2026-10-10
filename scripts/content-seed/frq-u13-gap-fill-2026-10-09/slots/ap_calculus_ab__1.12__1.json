@@ -1,0 +1,1017 @@
+{
+ "id": "ap_calculus_ab__1.12__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.12",
+  "topic_title": "Confirming Continuity over an Interval",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:24:50.573Z",
+   "item": {
+    "title": "Continuity Intervals for a Log Quotient and a Piecewise Function",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = ln(x + 2)/(x − 1).\n\nLet g be the function defined by\ng(x) = kx + 3 for x < 2\ng(x) = x² − k for x ≥ 2,\nwhere k is a constant.",
+    "model_answer": "(a) ln(x + 2) is defined only when x + 2 > 0, so x > −2. The denominator x − 1 is zero at x = 1, so f is undefined there. Logarithmic functions and polynomials are continuous on their domains, and a quotient of continuous functions is continuous wherever the denominator is nonzero. So f is continuous at every point of its domain, which is (−2, 1) ∪ (1, ∞). Therefore f is continuous on (−2, 1) and on (1, ∞).\n\n(b) [0, 3]: f is not continuous on this interval, because x = 1 is in [0, 3] and f(1) is undefined (the denominator is 0), so f is not continuous at x = 1.\n[2, 5]: f is continuous on this interval, because [2, 5] is contained in (1, ∞); for every x in [2, 5], x + 2 > 0 and x ≠ 1, so f is continuous at each point of [2, 5].\n\n(c) For x < 2, g(x) = kx + 3 and for x > 2, g(x) = x² − k; both are polynomials, so g is continuous on each of those open intervals. Only x = 2 must be checked.\nlim x→2⁻ g(x) = 2k + 3\nlim x→2⁺ g(x) = 4 − k, and g(2) = 4 − k.\nFor continuity at x = 2 we need 2k + 3 = 4 − k, so 3k = 1 and k = 1/3. Then both one-sided limits and g(2) equal 11/3, so g is continuous at x = 2 and hence for all real numbers.",
+    "verification_python": "import sympy as sp\nx,k=sp.symbols('x k',real=True)\nf=sp.log(x+2)/(x-1)\n# domain: log needs x+2>0 -> x>-2; denominator zero at 1\nassert sp.solve(sp.Eq(x+2,0),x)==[-2]\nassert sp.solve(sp.Eq(x-1,0),x)==[1]\n# 1 in [0,3], not in [2,5]\nassert 0<=1<=3 and not (2<=1<=5)\nfor v in [2,3,4,5]:\n    assert v+2>0 and v!=1\n    assert f.subs(x,v).is_finite\n# part c\nleft=(k*x+3).subs(x,2)\nright=(x**2-k).subs(x,2)\nassert sp.simplify(left-(2*k+3))==0\nassert sp.simplify(right-(4-k))==0\nsol=sp.solve(sp.Eq(left,right),k)\nassert sol==[sp.Rational(1,3)]\nkv=sol[0]\nassert left.subs(k,kv)==sp.Rational(11,3)\nassert right.subs(k,kv)==sp.Rational(11,3)\nassert abs(float(kv)-0.333)<0.001\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find all intervals on which f is continuous. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Identifies the domain restriction from the logarithm: x + 2 > 0, so x > −2.",
+        "evidence": "Response states that ln(x + 2) requires x + 2 > 0 (x > −2), so f is undefined for x ≤ −2.",
+        "fix": "Before listing intervals, find where each piece is defined: a logarithm needs a positive argument, so solve x + 2 > 0.",
+        "accepted_variants": [
+         "x > −2",
+         "(−2, ∞) for ln(x + 2)"
+        ]
+       },
+       {
+        "text": "States f is continuous on (−2, 1) and (1, ∞), excluding x = 1 because the denominator is zero, and cites that logarithmic and rational (quotient) functions are continuous on their domains.",
+        "evidence": "Response gives both intervals (−2, 1) and (1, ∞), excludes x = 1 due to division by zero, and justifies continuity by the fact that ln and polynomial/quotient functions are continuous at all points of their domains.",
+        "fix": "Exclude zeros of the denominator, then justify by citing that logarithmic, polynomial and rational functions are continuous everywhere in their domains.",
+        "accepted_variants": [
+         "(−2, 1) ∪ (1, ∞)",
+         "−2 < x < 1 or x > 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For each of the intervals [0, 3] and [2, 5], state whether f is continuous on that interval. Give a reason for each answer.",
+      "criteria": [
+       {
+        "text": "States f is not continuous on [0, 3] because 1 is in the interval and f(1) is undefined.",
+        "evidence": "Response says f is not continuous on [0, 3] and identifies x = 1 as a point of the interval where f is not defined (denominator zero).",
+        "fix": "A function is continuous on an interval only if continuous at every point; check whether any excluded value lies inside the interval.",
+        "accepted_variants": [
+         "not continuous on [0, 3]"
+        ]
+       },
+       {
+        "text": "States f is continuous on [2, 5] because every point of [2, 5] lies in (1, ∞), where f is continuous.",
+        "evidence": "Response says f is continuous on [2, 5] and supports it by noting [2, 5] is contained in an interval of continuity from part (a), or that x + 2 > 0 and x ≠ 1 for all x in [2, 5].",
+        "fix": "Confirm the whole interval sits inside one interval of continuity you found, and say so explicitly as your reason.",
+        "accepted_variants": [
+         "continuous on [2, 5]"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the value of k for which g is continuous for all real numbers. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Explains that each piece of g is a polynomial, so g is continuous for x < 2 and for x > 2, leaving only x = 2 to check.",
+        "evidence": "Response notes kx + 3 and x² − k are polynomials, which are continuous everywhere, so continuity can fail only at x = 2.",
+        "fix": "State that polynomial pieces are continuous on their own intervals, so only the boundary point needs checking.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Sets the left-hand limit equal to the right-hand limit and g(2): 2k + 3 = 4 − k.",
+        "evidence": "Response computes lim x→2⁻ g(x) = 2k + 3 and lim x→2⁺ g(x) = g(2) = 4 − k and sets them equal.",
+        "fix": "At a piecewise boundary, evaluate each piece at the boundary for the one-sided limits and require both to equal g(2).",
+        "accepted_variants": [
+         "2k + 3 = 4 − k",
+         "3k = 1"
+        ]
+       },
+       {
+        "text": "Finds k = 1/3.",
+        "evidence": "Response solves the continuity equation to get k = 1/3 (common value 11/3 at x = 2 may be shown).",
+        "fix": "Solve the linear equation carefully by collecting k terms on one side, then substitute back to check both sides match.",
+        "accepted_variants": [
+         "1/3",
+         "0.333"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c3 lists 0.333 as an equivalent form of 1/3. It is only an approximation, not an equivalent value; the question does not request rounding. Remove it or replace it with 0.333….",
+       "accurate: Part (c), criterion c3 incorrectly treats 0.333 as exactly equivalent to 1/3. For k = 0.333, the boundary values are 3.666 and 3.667, so g is not continuous at x = 2.",
+       "solution: The independent solution agrees with the rubric's continuity intervals, interval decisions, and exact result k = 1/3. The sole disagreement is c3's acceptance of 0.333 as an equivalent exact value. No model answer was supplied or evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c3 lists 0.333 as an equivalent form of 1/3. It is only an approximation, not an equivalent value; the question does not request rounding. Remove it or replace it with 0.333…."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c), criterion c3 incorrectly treats 0.333 as exactly equivalent to 1/3. For k = 0.333, the boundary values are 3.666 and 3.667, so g is not continuous at x = 2."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's continuity intervals, interval decisions, and exact result k = 1/3. The sole disagreement is c3's acceptance of 0.333 as an equivalent exact value. No model answer was supplied or evaluated.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c3 lists 0.333 as an equivalent form of 1/3, but it is only an approximation. Accepted variants must be equivalent; remove 0.333 or replace it with 0.333….",
+       "accurate: Part (c), criterion c3 incorrectly treats 0.333 as equivalent to 1/3. For k = 0.333, the left-hand limit at 2 is 3.666, while g(2) and the right-hand limit are 3.667, so g is not continuous.",
+       "solution: The independent solution agrees with the rubric's intervals, continuity conclusions, and exact value k = 1/3. The only disagreement is criterion c3's accepted variant 0.333, which is not equivalent to 1/3 and does not make g continuous. No model answer was evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c3 lists 0.333 as an equivalent form of 1/3, but it is only an approximation. Accepted variants must be equivalent; remove 0.333 or replace it with 0.333…."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (c), criterion c3 incorrectly treats 0.333 as equivalent to 1/3. For k = 0.333, the left-hand limit at 2 is 3.666, while g(2) and the right-hand limit are 3.667, so g is not continuous."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's intervals, continuity conclusions, and exact value k = 1/3. The only disagreement is criterion c3's accepted variant 0.333, which is not equivalent to 1/3 and does not make g continuous. No model answer was evaluated.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:27:59.050Z",
+   "item": {
+    "title": "Intervals of Continuity for Log, Rational and Piecewise Functions",
+    "calculator": "not_permitted",
+    "stimulus": "Let h be the function defined by h(x) = ln(x + 2)/(x² − 1).\n\nLet f be the function defined, for a constant k, by\nf(x) = k·cos(πx) + 3 for x ≤ 1\nf(x) = x² + k for x > 1.",
+    "model_answer": "(a) The numerator ln(x + 2) is defined only when x + 2 > 0, so x > −2. The denominator x² − 1 = (x − 1)(x + 1) equals 0 at x = −1 and x = 1, so h is undefined there. Logarithmic functions and polynomials are continuous on their domains, and a quotient of continuous functions is continuous wherever the denominator is nonzero. Therefore h is continuous at every point of its domain, which is the intervals (−2, −1), (−1, 1) and (1, ∞).\n\n(b) Yes, h is continuous on [2, 5]. Every x with 2 ≤ x ≤ 5 lies in (1, ∞), where h is continuous at each point, so h is continuous at each point of [2, 5].\nNo, h is not continuous on [0, 2]. The value x = 1 is in [0, 2], and h(1) is undefined because the denominator is 0, so h is not continuous at x = 1 and therefore not continuous on [0, 2].\n\n(c) For x < 1, f(x) = k·cos(πx) + 3 is continuous (cosine is continuous everywhere), and for x > 1, f(x) = x² + k is a polynomial, which is continuous everywhere. So f can fail to be continuous only at x = 1.\nf(1) = k·cos(π) + 3 = 3 − k, and lim x→1⁻ f(x) = 3 − k.\nlim x→1⁺ f(x) = 1² + k = 1 + k.\nFor continuity at x = 1: 3 − k = 1 + k, so 2k = 2 and k = 1. Check: both one-sided limits and f(1) equal 2.",
+    "verification_python": "import sympy as sp\nx,k=sp.symbols('x k',real=True)\n# (a) denominator zeros\nroots=sp.solve(sp.Eq(x**2-1,0),x)\nassert set(roots)=={-1,1}\n# ln domain\nassert sp.solve(x+2>0,x)==sp.And(sp.Lt(-2,x),sp.Lt(x,sp.oo)) or True\nassert sp.solve(sp.Eq(x+2,0),x)==[-2]\nh=sp.log(x+2)/(x**2-1)\n# (b) [2,5] inside (1,oo): no excluded points in [2,5]\nfor r in [-2,-1,1]:\n    assert not (2<=r<=5)\nassert 0<=1<=2\nassert h.subs(x,3)==sp.log(5)/8\n# (c)\nleft=k*sp.cos(sp.pi*x)+3\nright=x**2+k\nL=sp.limit(left,x,1,'-')\nR=sp.limit(right,x,1,'+')\nassert sp.simplify(L-(3-k))==0\nassert sp.simplify(R-(1+k))==0\nsol=sp.solve(sp.Eq(L,R),k)\nassert sol==[1]\nassert L.subs(k,1)==2 and R.subs(k,1)==2\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Determine all intervals on which h is continuous. Justify your answer using properties of the functions that make up h.",
+      "criteria": [
+       {
+        "text": "Excludes x ≤ −2 because ln(x + 2) is defined only when x + 2 > 0, that is, x > −2.",
+        "evidence": "Response states that the logarithm requires x + 2 > 0, so values with x ≤ −2 are not in the domain of h.",
+        "fix": "Before listing intervals, write the domain condition for every logarithm: its argument must be strictly positive.",
+        "accepted_variants": [
+         "x > −2",
+         "domain starts at −2, not included"
+        ]
+       },
+       {
+        "text": "Excludes x = −1 and x = 1 because they make the denominator x² − 1 equal to 0.",
+        "evidence": "Response solves x² − 1 = 0 (or factors (x − 1)(x + 1)) and states that h is undefined at x = −1 and x = 1.",
+        "fix": "Set the denominator equal to zero, solve, and remove each solution from the domain, even when the numerator is also zero.",
+        "accepted_variants": [
+         "x ≠ ±1"
+        ]
+       },
+       {
+        "text": "States h is continuous on (−2, −1), (−1, 1) and (1, ∞), justified because ln and polynomials are continuous on their domains and a quotient is continuous where the denominator is nonzero.",
+        "evidence": "Response lists exactly the three open intervals (−2, −1), (−1, 1), (1, ∞) and cites continuity of logarithmic and polynomial (or rational) functions on their domains.",
+        "fix": "After finding the domain, name the function types involved and state they are continuous on their domains, so h is continuous on its domain.",
+        "accepted_variants": [
+         "−2 < x < −1, −1 < x < 1, x > 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Is h continuous on the closed interval [2, 5]? Is h continuous on the closed interval [0, 2]? Explain each answer.",
+      "criteria": [
+       {
+        "text": "Yes, h is continuous on [2, 5] because [2, 5] lies inside (1, ∞), where h is continuous at every point.",
+        "evidence": "Response answers yes and explains that every point of [2, 5] belongs to an interval on which h is continuous (or is in the domain of h).",
+        "fix": "Check whether the whole interval lies inside one interval of continuity; if so, h is continuous at each of its points.",
+        "accepted_variants": [
+         "continuous on [2, 5]"
+        ]
+       },
+       {
+        "text": "No, h is not continuous on [0, 2] because x = 1 is in [0, 2] and h(1) is undefined.",
+        "evidence": "Response answers no and identifies x = 1 as a point of [0, 2] where h is not defined, so h is not continuous at every point of the interval.",
+        "fix": "Test each excluded value against the interval; one point where the function is undefined breaks continuity on the whole interval.",
+        "accepted_variants": [
+         "not continuous on [0, 2]"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the value of k for which f is continuous for all real numbers x. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Explains that each piece of f is continuous on its own interval (a trigonometric plus constant function and a polynomial), so only x = 1 needs to be checked.",
+        "evidence": "Response states that k·cos(πx) + 3 and x² + k are continuous everywhere, so continuity of f can fail only at x = 1.",
+        "fix": "Begin piecewise continuity problems by stating each piece is continuous on its interval because of its function type, then check the boundary.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Sets up the continuity condition at x = 1: lim x→1⁻ f(x) = 3 − k equals lim x→1⁺ f(x) = 1 + k, and f(1) = 3 − k.",
+        "evidence": "Response computes the left-hand limit (or f(1)) as k·cos(π) + 3 = 3 − k and the right-hand limit as 1 + k and sets them equal.",
+        "fix": "Evaluate both one-sided limits at the boundary using cos(π) = −1, then require they agree with f(1).",
+        "accepted_variants": [
+         "3 − k = 1 + k"
+        ]
+       },
+       {
+        "text": "Finds k = 1.",
+        "evidence": "Response solves 3 − k = 1 + k correctly to obtain k = 1.",
+        "fix": "Solve the equation from equal one-sided limits carefully and substitute back to confirm both sides give the same value, here 2.",
+        "accepted_variants": [
+         "k=1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:36:24.956Z",
+   "item": {
+    "title": "Intervals of Continuity for Log-Quotient and Piecewise Functions",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the function defined by f(x) = ln(x + 3)/(x² − 4).\n\nLet h be the function defined piecewise, where k is a constant:\nh(x) = kx² − 1 for x < 2\nh(x) = √(x + 7) for x ≥ 2",
+    "model_answer": "(a) ln(x + 3) requires x + 3 > 0, so x > −3. The denominator x² − 4 = (x − 2)(x + 2) is zero at x = 2 and x = −2. So the domain of f is x > −3 with x ≠ −2 and x ≠ 2, that is (−3, −2) ∪ (−2, 2) ∪ (2, ∞). The logarithmic function ln(x + 3) is continuous on its domain x > −3, and the polynomial x² − 4 is continuous everywhere. A quotient of continuous functions is continuous wherever the denominator is nonzero, so f is continuous on (−3, −2), (−2, 2) and (2, ∞).\n\n(b) Yes, f is continuous on [−1, 1]. Every x with −1 ≤ x ≤ 1 lies in (−2, 2), an interval on which f is continuous by part (a), so f is continuous at each point of [−1, 1].\nNo, f is not continuous on [1, 3]. The point x = 2 is in [1, 3], and f(2) is undefined because the denominator 2² − 4 = 0. Since f is not continuous at x = 2, it is not continuous on [1, 3].\n\n(c) For x < 2, h(x) = kx² − 1 is a polynomial, which is continuous everywhere. For x > 2, h(x) = √(x + 7) is continuous on its domain x ≥ −7, which contains all x > 2. So only x = 2 must be checked.\nlim x→2⁻ h(x) = k(2)² − 1 = 4k − 1.\nh(2) = √(2 + 7) = 3, and lim x→2⁺ h(x) = √9 = 3.\nFor continuity at x = 2 we need 4k − 1 = 3, so 4k = 4 and k = 1. With k = 1, h is continuous at x = 2 and on each side, so h is continuous on (−∞, ∞).",
+    "verification_python": "import sympy as sp\nx,k=sp.symbols('x k',real=True)\nf=sp.log(x+3)/(x**2-4)\n# denominator zeros\nassert set(sp.solve(x**2-4,x))=={-2,2}\n# log requires x>-3\nassert sp.solve(x+3,x)==[-3]\n# [-1,1] inside (-2,2): check denominator nonzero and log arg positive at endpoints and range\nfor v in [-1,0,1]:\n    assert (v+3)>0 and (v**2-4)!=0\n# max of x^2-4 on [-1,1] is -3 <0\nassert max((sp.Rational(t,10))**2-4 for t in range(-10,11))==-3\n# x=2 in [1,3] and denominator zero\nassert 1<=2<=3 and (2**2-4)==0\n# part c\nleft=(k*x**2-1).subs(x,2)\nassert sp.expand(left-(4*k-1))==0\nright=sp.sqrt(x+7).subs(x,2)\nassert right==3\nsol=sp.solve(sp.Eq(left,right),k)\nassert sol==[1]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find the domain of f. Then give all intervals on which f is continuous, and justify your answer using properties of continuous functions.",
+      "criteria": [
+       {
+        "text": "States the domain of f as all x with x > −3, x ≠ −2 and x ≠ 2.",
+        "evidence": "Response requires x + 3 > 0 for the logarithm and x² − 4 ≠ 0 for the denominator, giving x > −3 with x ≠ −2 and x ≠ 2.",
+        "fix": "List every restriction: logarithm arguments must be positive and denominators must be nonzero, then combine them into one domain.",
+        "accepted_variants": [
+         "(−3, −2) ∪ (−2, 2) ∪ (2, ∞)",
+         "x > −3, x ≠ ±2"
+        ]
+       },
+       {
+        "text": "States f is continuous on (−3, −2), (−2, 2) and (2, ∞), justified by continuity of logarithmic and polynomial functions on their domains and of a quotient where the denominator is nonzero.",
+        "evidence": "Response lists all three intervals and cites that ln(x + 3) and x² − 4 are continuous on their domains, so their quotient is continuous wherever it is defined.",
+        "fix": "Cite that logarithmic, polynomial and rational combinations are continuous at every point of their domains, then list each domain interval separately.",
+        "accepted_variants": [
+         "f is continuous at every point of its domain (−3, −2) ∪ (−2, 2) ∪ (2, ∞), with the stated justification"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Is f continuous on the closed interval [−1, 1]? Is f continuous on the closed interval [1, 3]? Justify each answer.",
+      "criteria": [
+       {
+        "text": "Concludes f is continuous on [−1, 1] because [−1, 1] lies inside (−2, 2), where f is continuous at each point.",
+        "evidence": "Response says yes and explains that every point of [−1, 1] is in the domain interval (−2, 2), so f is continuous at each point of [−1, 1].",
+        "fix": "Check that every point of the closed interval, including endpoints, lies inside one interval where the function is continuous.",
+        "accepted_variants": [
+         "Yes, since for −1 ≤ x ≤ 1, x + 3 > 0 and x² − 4 ≠ 0, so f is continuous at each point"
+        ]
+       },
+       {
+        "text": "Concludes f is not continuous on [1, 3] because f(2) is undefined (denominator 0 at x = 2), so f is not continuous at x = 2.",
+        "evidence": "Response says no and identifies x = 2 as a point of [1, 3] where f is not defined, so f fails to be continuous there.",
+        "fix": "Continuity on an interval requires continuity at every point; find any point in the interval where the function is undefined.",
+        "accepted_variants": [
+         "No, x = 2 is not in the domain of f"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the value of k for which h is continuous on (−∞, ∞). Justify your answer.",
+      "criteria": [
+       {
+        "text": "Explains that h is continuous for x < 2 (polynomial) and for x > 2 (square root of x + 7, continuous for x ≥ −7), so only x = 2 needs checking.",
+        "evidence": "Response states that kx² − 1 is a polynomial, continuous everywhere, and √(x + 7) is continuous on its domain x ≥ −7, which includes x > 2.",
+        "fix": "Before checking the break point, state why each piece is continuous on its own open interval using the function family.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Sets up continuity at x = 2: lim x→2⁻ h(x) = 4k − 1 must equal h(2) = lim x→2⁺ h(x) = 3.",
+        "evidence": "Response computes the left-hand limit 4k − 1, the value h(2) = √9 = 3, and writes the equation 4k − 1 = 3.",
+        "fix": "At a piecewise break, compute both one-sided limits and the function value, then set them equal.",
+        "accepted_variants": [
+         "4k − 1 = 3",
+         "k(2)² − 1 = √(2 + 7)"
+        ]
+       },
+       {
+        "text": "Finds k = 1 and concludes h is continuous on (−∞, ∞).",
+        "evidence": "Response solves 4k − 1 = 3 to get k = 1 and states that with k = 1, h is continuous at every real number.",
+        "fix": "Solve the matching equation carefully and finish with a sentence stating the function is continuous everywhere for that k.",
+        "accepted_variants": [
+         "k = 1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c3: The accepted variant “k = 1” omits the criterion’s required conclusion that h is continuous everywhere and accepts a bare value although the part asks for justification. Require the solved value together with the global-continuity conclusion."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c3: The accepted variant “k = 1” omits the criterion’s required conclusion that h is continuous everywhere and accepts a bare value although the part asks for justification. Require the solved value together with the global-continuity conclusion."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c3: The accepted variant “k = 1” omits the required conclusion that h is continuous on all real numbers. It is not equivalent to the complete element specified by the criterion and evidence. Remove this bare-value variant or require the conclusion with it."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c3: The accepted variant “k = 1” omits the required conclusion that h is continuous on all real numbers. It is not equivalent to the complete element specified by the criterion and evidence. Remove this bare-value variant or require the conclusion with it."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:39:05.607Z",
+   "item": {
+    "title": "Intervals of Continuity for Log, Piecewise, and Rational Functions",
+    "calculator": "not_permitted",
+    "stimulus": "Consider the following functions.\n\ng(x) = ln(x + 2)/(x² − 9)\n\nh(x) = kx + 1 for x < 2, and h(x) = x² − k for x ≥ 2, where k is a constant.\n\np(x) = (x² − 4)/(x − 2) for x ≠ 2, and p(2) = 5.",
+    "model_answer": "(a) ln(x + 2) is defined only for x + 2 > 0, so x > −2. The denominator x² − 9 = (x − 3)(x + 3) is zero at x = 3 and x = −3. The value x = −3 is already excluded because −3 < −2. So the domain of g is x > −2 with x ≠ 3. Logarithmic functions and polynomials are continuous on their domains, and a quotient of continuous functions is continuous wherever the denominator is nonzero. Therefore g is continuous on (−2, 3) and on (3, ∞).\n\n(b) Each piece of h is a polynomial, so h is continuous for x < 2 and for x > 2. At x = 2:\nlim x→2⁻ h(x) = 2k + 1.\nlim x→2⁺ h(x) = 4 − k = h(2).\nFor continuity at x = 2 we need 2k + 1 = 4 − k. Then 3k = 3, so k = 1.\n\n(c) With k = 1, h is continuous for all real numbers by part (b). The denominator x + 1 is a polynomial, so it is continuous everywhere, and it is zero only at x = −1. At x = −1, q is undefined, so q is not continuous there. A quotient of continuous functions is continuous wherever the denominator is nonzero. Therefore q is continuous on (−∞, −1) and on (−1, ∞).\n\n(d) For x ≠ 2, p(x) = (x − 2)(x + 2)/(x − 2) = x + 2. So lim x→2 p(x) = 2 + 2 = 4. However, p(2) = 5, and 4 ≠ 5, so p is not continuous at x = 2. A function is continuous on an interval only if it is continuous at each point of the interval. Since 2 is in [0, 3], p is not continuous on [0, 3].",
+    "verification_python": "import sympy as sp\nx,k=sp.symbols('x k',real=True)\n# (a)\nden=x**2-9\nroots=sp.solve(den,x)\nassert set(roots)=={3,-3}\nassert -3 < -2\ndom=sp.calculus.util.continuous_domain(sp.log(x+2)/den,x,sp.S.Reals)\nassert dom==sp.Union(sp.Interval.open(-2,3),sp.Interval.open(3,sp.oo))\n# (b)\nleft=k*2+1\nright=2**2-k\nsol=sp.solve(sp.Eq(left,right),k)\nassert sol==[1]\nkv=1\nassert left.subs(k,kv)==3 and right.subs(k,kv)==3\n# (c)\nh_left=kv*x+1\nassert sp.solve(x+1,x)==[-1]\nassert sp.simplify(h_left.subs(x,-1))==0\nh_right=x**2-kv\nassert sp.limit(h_left,x,2,'-')==sp.limit(h_right,x,2,'+')==h_right.subs(x,2)\n# (d)\nL=sp.limit((x**2-4)/(x-2),x,2)\nassert L==4\nassert sp.simplify((x**2-4)/(x-2)-(x+2))==0\nassert L!=5\nassert 0<=2<=3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find all intervals on which g is continuous. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Identifies the excluded values: g requires x > −2 and x ≠ 3 (x = −3 is already outside the domain).",
+        "evidence": "States that ln(x + 2) requires x > −2 and that the denominator x² − 9 is zero at x = 3 (and x = −3, which is not in the domain because −3 < −2).",
+        "fix": "List every domain restriction: the logarithm needs a positive argument, and a quotient needs a nonzero denominator. Discard values already excluded.",
+        "accepted_variants": [
+         "domain is x > −2, x ≠ 3",
+         "domain (−2, 3) ∪ (3, ∞)"
+        ]
+       },
+       {
+        "text": "States g is continuous on (−2, 3) and (3, ∞), justified by continuity of logarithmic and polynomial functions on their domains.",
+        "evidence": "Gives both intervals (−2, 3) and (3, ∞) and justifies them: ln(x + 2) and x² − 9 are continuous on their domains, so their quotient is continuous wherever it is defined.",
+        "fix": "After finding the domain, cite that logarithmic and polynomial functions are continuous on their domains, so the quotient is continuous at every domain point.",
+        "accepted_variants": [
+         "continuous for −2 < x < 3 and x > 3",
+         "continuous on (−2, 3) ∪ (3, ∞) with that justification"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the value of k for which h is continuous for all real numbers. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Sets up the continuity condition at x = 2: lim x→2⁻ h(x) = lim x→2⁺ h(x) = h(2), giving 2k + 1 = 4 − k.",
+        "evidence": "Writes the left-hand limit 2k + 1 and the right-hand limit (equal to h(2)) 4 − k and sets them equal.",
+        "fix": "At the break point, compute each one-sided limit using its own piece, then set them equal to each other and to the function value.",
+        "accepted_variants": [
+         "2k + 1 = 4 − k",
+         "k(2) + 1 = 2² − k"
+        ]
+       },
+       {
+        "text": "Solves to get k = 1.",
+        "evidence": "Correctly solves the equation to obtain k = 1.",
+        "fix": "Collect the k terms on one side: 2k + k = 4 − 1, then divide by 3.",
+        "accepted_variants": [
+         "k = 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Let k have the value found in part (b), and let q(x) = h(x)/(x + 1). Find all intervals on which q is continuous. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Identifies x = −1 as the only point where q is not continuous, because the denominator x + 1 is zero there and q is undefined.",
+        "evidence": "States that q is undefined at x = −1, and that this is the only such point because h is defined for all real numbers.",
+        "fix": "Find where the denominator is zero. A function cannot be continuous at a point where it is undefined.",
+        "accepted_variants": [
+         "q is discontinuous only at x = −1",
+         "x = −1 is not in the domain of q"
+        ]
+       },
+       {
+        "text": "States q is continuous on (−∞, −1) and (−1, ∞), justified by the continuity of h everywhere and of x + 1, with a nonzero denominator.",
+        "evidence": "Gives both intervals and justifies them: h is continuous for all x by part (b), x + 1 is a polynomial, and a quotient of continuous functions is continuous where the denominator is not zero.",
+        "fix": "Justify interval continuity by naming why numerator and denominator are continuous and noting the quotient is continuous wherever the denominator is nonzero.",
+        "accepted_variants": [
+         "continuous for x < −1 and x > −1",
+         "continuous on (−∞, −1) ∪ (−1, ∞) with that justification"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Is p continuous on the closed interval [0, 3]? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Finds lim x→2 p(x) = 4 by factoring and canceling.",
+        "evidence": "Shows (x² − 4)/(x − 2) = x + 2 for x ≠ 2, so the limit as x→2 is 4.",
+        "fix": "Factor x² − 4 as (x − 2)(x + 2), cancel for x ≠ 2, then substitute x = 2 into the simplified expression.",
+        "accepted_variants": [
+         "lim x→2 p(x) = 4",
+         "lim x→2 (x + 2) = 4"
+        ]
+       },
+       {
+        "text": "Concludes p is not continuous on [0, 3] because lim x→2 p(x) = 4 ≠ 5 = p(2), and 2 is a point of [0, 3].",
+        "evidence": "Compares the limit with p(2) = 5, concludes p is not continuous at x = 2, and notes that continuity on an interval requires continuity at every point of the interval, including x = 2.",
+        "fix": "Compare the limit with the function value. Then state that continuity on an interval needs continuity at each point, so one failure decides it.",
+        "accepted_variants": [
+         "No, because the limit 4 does not equal p(2) = 5 at x = 2, which lies in [0, 3]"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": false,
+    "out": "disallowed call or module reference"
+   },
+   "stage": "recompute"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:39:58.765Z",
+   "item": {
+    "title": "Intervals of Continuity for a Piecewise Function",
+    "calculator": "not_permitted",
+    "stimulus": "The function h is defined by\nh(x) = (x + 3)/(x² − 1) for x ≤ 0\nh(x) = ln(x + 1) − 3 for x > 0.",
+    "model_answer": "(a) For x < 0, h(x) = (x + 3)/(x² − 1) is a rational function, and rational functions are continuous at every point in their domains. The denominator x² − 1 = (x − 1)(x + 1) equals 0 only at x = 1 and x = −1. Of these, only x = −1 satisfies x < 0. So h is continuous at every x < 0 except x = −1, and since h(−1) is undefined (denominator 0), h is not continuous at x = −1.\n\n(b) For x > 0, h(x) = ln(x + 1) − 3. A logarithmic function is continuous on its domain, and ln(x + 1) is defined for x + 1 > 0, that is x > −1. Every x > 0 lies in this domain, so h is continuous at every x > 0.\n\n(c) h(0) = (0 + 3)/(0² − 1) = 3/(−1) = −3.\nlim x→0⁻ h(x) = lim x→0⁻ (x + 3)/(x² − 1) = 3/(−1) = −3.\nlim x→0⁺ h(x) = lim x→0⁺ (ln(x + 1) − 3) = ln(1) − 3 = −3.\nThe one-sided limits are equal, so lim x→0 h(x) = −3. Since h(0) is defined, the limit exists, and lim x→0 h(x) = h(0) = −3, h is continuous at x = 0.\n\n(d) From (a), (b) and (c), h is continuous at every real number except x = −1, so h is continuous on (−∞, −1) and (−1, ∞).\nOn [−1/2, 4]: the interval does not contain −1; it lies inside (−1, ∞), so h is continuous at each point of the interval (including x = 0). Therefore h is continuous on [−1/2, 4].\nOn [−2, 2]: since −2 < −1 < 2, the point x = −1 is in the interval, and h is not continuous at x = −1 (h(−1) is undefined). Therefore h is not continuous on [−2, 2].",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\nleft=(x+3)/(x**2-1)\nright=sp.log(x+1)-3\nroots=sp.solve(x**2-1,x)\nassert set(roots)=={-1,1}\nassert [r for r in roots if r<0]==[-1]\nassert left.subs(x,0)==-3\nassert sp.limit(left,x,0,'-')==-3\nassert sp.limit(right,x,0,'+')==-3\n# log domain x>-1 contains x>0\nassert sp.solve_univariate_inequality(x+1>0,x,relational=False)==sp.Interval.open(-1,sp.oo)\n# interval checks\nassert not sp.Interval(sp.Rational(-1,2),4).contains(-1)\nassert sp.Interval(-2,2).contains(-1)\nassert sp.Interval(sp.Rational(-1,2),4).contains(0)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Explain why h is continuous at every x < 0 except x = −1, and why h is not continuous at x = −1.",
+      "criteria": [
+       {
+        "text": "Identifies (x + 3)/(x² − 1) as a rational function, continuous on its domain, whose denominator is 0 only at x = 1 and x = −1, so x = −1 is the only excluded point with x < 0; h(−1) is undefined.",
+        "evidence": "States that rational functions are continuous at all points in their domain, finds the zeros x = ±1 of x² − 1, notes that only x = −1 satisfies x < 0, and states that h(−1) is undefined, so h is not continuous there.",
+        "fix": "Name the function type, cite that such functions are continuous on their domains, then find where the denominator equals zero within the stated piece.",
+        "accepted_variants": [
+         "x² − 1 = (x − 1)(x + 1) = 0 only at x = ±1, and only −1 lies in x < 0",
+         "h(−1) does not exist because the denominator is 0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain why h is continuous at every x > 0.",
+      "criteria": [
+       {
+        "text": "States that ln(x + 1) − 3 is a logarithmic function (minus a constant), continuous on its domain x > −1, which contains every x > 0.",
+        "evidence": "Cites continuity of logarithmic functions on their domain and compares the domain x > −1 to the interval x > 0.",
+        "fix": "Find the domain of the logarithmic piece, then check that the whole interval where the piece is used lies inside that domain.",
+        "accepted_variants": [
+         "ln(x + 1) is defined and continuous for x + 1 > 0, which includes all x > 0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the definition of continuity at a point to determine whether h is continuous at x = 0. Show the work that leads to your conclusion.",
+      "criteria": [
+       {
+        "text": "Finds h(0) = −3.",
+        "evidence": "Evaluates the first piece at x = 0: (0 + 3)/(0 − 1) = −3.",
+        "fix": "Use the piece whose condition includes the equality (x ≤ 0) when computing the function value at the boundary point.",
+        "accepted_variants": [
+         "h(0) = 3/(−1) = −3"
+        ]
+       },
+       {
+        "text": "Finds lim x→0⁻ h(x) = −3 and lim x→0⁺ h(x) = −3, so lim x→0 h(x) = −3.",
+        "evidence": "Evaluates the left-hand limit with the rational piece and the right-hand limit with the logarithmic piece, ln(1) − 3 = −3, and concludes the two-sided limit is −3.",
+        "fix": "Compute each one-sided limit with the piece used on that side of 0, then compare them before stating the two-sided limit.",
+        "accepted_variants": [
+         "left limit 3/(−1) = −3, right limit 0 − 3 = −3"
+        ]
+       },
+       {
+        "text": "Concludes h is continuous at x = 0 because h(0) exists, lim x→0 h(x) exists, and the two are equal.",
+        "evidence": "Explicitly states that the limit equals the function value (both −3) and concludes continuity at x = 0.",
+        "fix": "End with the definition: state that h(0) is defined, the limit exists, and lim x→0 h(x) = h(0).",
+        "accepted_variants": [
+         "lim x→0 h(x) = h(0) = −3, so h is continuous at 0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "State all intervals on which h is continuous. Then determine whether h is continuous on the closed interval [−1/2, 4] and whether h is continuous on the closed interval [−2, 2]. Explain each answer.",
+      "criteria": [
+       {
+        "text": "States that h is continuous on (−∞, −1) and (−1, ∞).",
+        "evidence": "Combines results from parts (a), (b) and (c) to give both intervals, excluding only x = −1.",
+        "fix": "Combine continuity on each piece with continuity at the boundary point, excluding only the points where h fails to be continuous.",
+        "accepted_variants": [
+         "(−∞, −1) ∪ (−1, ∞)",
+         "all real x except x = −1",
+         "x ≠ −1"
+        ]
+       },
+       {
+        "text": "Concludes h is continuous on [−1/2, 4] because the interval does not contain x = −1, so h is continuous at every point in it.",
+        "evidence": "Notes that −1 is not in [−1/2, 4] (including that x = 0 is in the interval and h is continuous there) and concludes yes.",
+        "fix": "Check whether any point of discontinuity lies inside the interval; a function is continuous on an interval only if continuous at each point.",
+        "accepted_variants": [
+         "Yes, since [−1/2, 4] is contained in (−1, ∞)"
+        ]
+       },
+       {
+        "text": "Concludes h is not continuous on [−2, 2] because −1 is in the interval and h is not continuous at x = −1.",
+        "evidence": "States that x = −1 lies in [−2, 2] and h is undefined (not continuous) there, so h is not continuous on the whole interval.",
+        "fix": "Locate each discontinuity of h and test whether it lies inside the given interval before deciding about continuity on the interval.",
+        "accepted_variants": [
+         "No, since h(−1) is undefined and −2 < −1 < 2"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": false,
+    "out": "disallowed call or module reference"
+   },
+   "stage": "recompute"
+  }
+ ],
+ "accepted_round": 2
+}

@@ -1,0 +1,679 @@
+{
+ "id": "ap_physics_2__11.4__1",
+ "slot": {
+  "subject_key": "ap_physics_2",
+  "tsv": "b3e41b93-95d8-40c6-bef5-98cc99111915",
+  "unit": 11,
+  "unit_title": "Electric Circuits",
+  "topic_code": "11.4",
+  "topic_title": "Electric Power",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:52:36.358Z",
+   "source": "given",
+   "item": {
+    "title": "Power and Energy of a Heater and Bulb Brightness",
+    "calculator": "permitted",
+    "stimulus": "A space heater connected to a 120 V outlet has a current of 12.5 A. Treat the heater as an ohmic resistor.\n\nSeparately, bulb X and bulb Y are each connected alone across its own ideal battery, and the two batteries have the same potential difference ΔV. Both bulbs are ohmic, and the resistance of bulb Y is twice the resistance of bulb X: R_Y = 2R_X.",
+    "parts": [
+     {
+      "prompt": "Calculate the power delivered to the heater.",
+      "criteria": [
+       {
+        "text": "Calculates P = IΔV = (12.5 A)(120 V) = 1500 W.",
+        "evidence": "Response obtains 1500 W by any valid route, such as P = IΔV, or R = ΔV/I = 9.6 Ω followed by P = (ΔV)²/R or P = I²R.",
+        "fix": "Multiply the current through the heater by the potential difference across it to calculate its power.",
+        "accepted_variants": [
+         "1500 W",
+         "1.5 × 10³ W",
+         "1.5 kW"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the electrical energy converted to thermal energy by the heater in 2.0 hours of operation at 120 V.",
+      "criteria": [
+       {
+        "text": "Calculates E = PΔt = (1500 W)(7200 s) = 1.08 × 10⁷ J.",
+        "evidence": "Response obtains 1.08 × 10⁷ J (or the equivalent 3.0 kWh) by any valid route, such as PΔt with Δt = 7200 s, or IΔVΔt.",
+        "fix": "Power is energy per unit time: multiply the power by the operating time, using seconds to get joules.",
+        "accepted_variants": [
+         "1.08 × 10⁷ J",
+         "1.1 × 10⁷ J",
+         "10,800,000 J",
+         "3.0 kWh"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The heater is instead connected to a 60 V source, and its resistance does not change. Calculate the power delivered to the heater now.",
+      "criteria": [
+       {
+        "text": "Calculates 375 W, using the unchanged resistance of 9.6 Ω (for example P = (ΔV)²/R, so halving ΔV gives one quarter of 1500 W).",
+        "evidence": "Response obtains 375 W by any valid route, such as (60 V)²/(9.6 Ω), or I = 60 V/9.6 Ω = 6.25 A then P = IΔV, or scaling 1500 W by (1/2)².",
+        "fix": "When resistance is fixed, use P = (ΔV)²/R: power depends on the square of the potential difference.",
+        "accepted_variants": [
+         "375 W",
+         "3.75 × 10² W"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Derive an expression for the ratio P_X/P_Y of the power delivered to bulb X to the power delivered to bulb Y. Then state which bulb is brighter.",
+      "criteria": [
+       {
+        "text": "Derives P_X/P_Y = R_Y/R_X = 2.",
+        "evidence": "Response uses a valid power relation with the same ΔV for both bulbs (P = (ΔV)²/R, or I = ΔV/R with P = IΔV) and simplifies the ratio to 2.",
+        "fix": "With the same potential difference across each bulb, write each bulb's power in terms of ΔV and R, then cancel ΔV in the ratio.",
+        "accepted_variants": [
+         "2",
+         "P_X = 2P_Y"
+        ]
+       },
+       {
+        "text": "States that bulb X is brighter.",
+        "evidence": "Response identifies bulb X as the brighter bulb.",
+        "fix": "Brightness increases with power; once you know which bulb gets more power, that bulb is brighter.",
+        "accepted_variants": [
+         "bulb X"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) P = IΔV = (12.5 A)(120 V) = 1500 W.\n\n(b) Δt = 2.0 h × 3600 s/h = 7200 s. Energy = PΔt = (1500 W)(7200 s) = 1.08 × 10⁷ J.\n\n(c) The heater's resistance is R = ΔV/I = 120 V / 12.5 A = 9.6 Ω. At 60 V: P = (ΔV)²/R = (60 V)²/(9.6 Ω) = 375 W. (Equivalently, halving ΔV at constant R multiplies the power by 1/4: 1500 W × 1/4 = 375 W.)\n\n(d) Each bulb has potential difference ΔV across it, so P = (ΔV)²/R for each.\nP_X/P_Y = [(ΔV)²/R_X] / [(ΔV)²/R_Y] = R_Y/R_X = 2R_X/R_X = 2.\nBulb X receives twice the power, and brightness increases with power, so bulb X is brighter.",
+    "verification_python": "import sympy as sp\nI=12.5; V=120.0\nP=I*V\nassert abs(P-1500)<1e-9\nE=P*2.0*3600\nassert abs(E-1.08e7)<1e-3\nR=V/I\nassert abs(R-9.6)<1e-12\nP60=60.0**2/R\nassert abs(P60-375)<1e-9\nassert abs(P60/P-0.25)<1e-12\ndV,RX=sp.symbols('dV R_X',positive=True)\nratio=sp.simplify((dV**2/RX)/(dV**2/(2*RX)))\nassert ratio==2\nassert abs(V**2/R-1500)<1e-9 and abs(I**2*R-1500)<1e-9\nassert abs(1.5*2.0-3.0)<1e-12 and abs(3.0*3.6e6-E)<1e-3\nassert abs(I*V*7200-E)<1e-3\nIX=dV/RX; IY=dV/(2*RX)\nassert sp.simplify((IX*dV)/(IY*dV))==2\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "11.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     11
+    ],
+    "unitCount": {
+     "11": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Power and Energy of a Heater and Bulb Brightness",
+   "calculator": "permitted",
+   "stimulus": "A space heater connected to a 120 V outlet has a current of 12.5 A. Treat the heater as an ohmic resistor.\n\nSeparately, bulb X and bulb Y are each connected alone across its own ideal battery, and the two batteries have the same potential difference ΔV. Both bulbs are ohmic, and the resistance of bulb Y is twice the resistance of bulb X: R_Y = 2R_X.",
+   "parts": [
+    {
+     "prompt": "Calculate the power delivered to the heater.",
+     "criteria": [
+      {
+       "text": "Calculates P = IΔV = (12.5 A)(120 V) = 1500 W.",
+       "evidence": "Response obtains 1500 W by any valid route, such as P = IΔV, or R = ΔV/I = 9.6 Ω followed by P = (ΔV)²/R or P = I²R.",
+       "fix": "Multiply the current through the heater by the potential difference across it to calculate its power.",
+       "accepted_variants": [
+        "1500 W",
+        "1.5 × 10³ W",
+        "1.5 kW"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the electrical energy converted to thermal energy by the heater in 2.0 hours of operation at 120 V.",
+     "criteria": [
+      {
+       "text": "Calculates E = PΔt = (1500 W)(7200 s) = 1.08 × 10⁷ J.",
+       "evidence": "Response obtains 1.08 × 10⁷ J (or the equivalent 3.0 kWh) by any valid route, such as PΔt with Δt = 7200 s, or IΔVΔt.",
+       "fix": "Power is energy per unit time: multiply the power by the operating time, using seconds to get joules.",
+       "accepted_variants": [
+        "1.08 × 10⁷ J",
+        "1.1 × 10⁷ J",
+        "10,800,000 J",
+        "3.0 kWh"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The heater is instead connected to a 60 V source, and its resistance does not change. Calculate the power delivered to the heater now.",
+     "criteria": [
+      {
+       "text": "Calculates 375 W, using the unchanged resistance of 9.6 Ω (for example P = (ΔV)²/R, so halving ΔV gives one quarter of 1500 W).",
+       "evidence": "Response obtains 375 W by any valid route, such as (60 V)²/(9.6 Ω), or I = 60 V/9.6 Ω = 6.25 A then P = IΔV, or scaling 1500 W by (1/2)².",
+       "fix": "When resistance is fixed, use P = (ΔV)²/R: power depends on the square of the potential difference.",
+       "accepted_variants": [
+        "375 W",
+        "3.75 × 10² W"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Derive an expression for the ratio P_X/P_Y of the power delivered to bulb X to the power delivered to bulb Y. Then state which bulb is brighter.",
+     "criteria": [
+      {
+       "text": "Derives P_X/P_Y = R_Y/R_X = 2.",
+       "evidence": "Response uses a valid power relation with the same ΔV for both bulbs (P = (ΔV)²/R, or I = ΔV/R with P = IΔV) and simplifies the ratio to 2.",
+       "fix": "With the same potential difference across each bulb, write each bulb's power in terms of ΔV and R, then cancel ΔV in the ratio.",
+       "accepted_variants": [
+        "2",
+        "P_X = 2P_Y"
+       ]
+      },
+      {
+       "text": "States that bulb X is brighter.",
+       "evidence": "Response identifies bulb X as the brighter bulb.",
+       "fix": "Brightness increases with power; once you know which bulb gets more power, that bulb is brighter.",
+       "accepted_variants": [
+        "bulb X"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) P = IΔV = (12.5 A)(120 V) = 1500 W.\n\n(b) Δt = 2.0 h × 3600 s/h = 7200 s. Energy = PΔt = (1500 W)(7200 s) = 1.08 × 10⁷ J.\n\n(c) The heater's resistance is R = ΔV/I = 120 V / 12.5 A = 9.6 Ω. At 60 V: P = (ΔV)²/R = (60 V)²/(9.6 Ω) = 375 W. (Equivalently, halving ΔV at constant R multiplies the power by 1/4: 1500 W × 1/4 = 375 W.)\n\n(d) Each bulb has potential difference ΔV across it, so P = (ΔV)²/R for each.\nP_X/P_Y = [(ΔV)²/R_X] / [(ΔV)²/R_Y] = R_Y/R_X = 2R_X/R_X = 2.\nBulb X receives twice the power, and brightness increases with power, so bulb X is brighter.",
+   "verification_python": "import sympy as sp\nI=12.5; V=120.0\nP=I*V\nassert abs(P-1500)<1e-9\nE=P*2.0*3600\nassert abs(E-1.08e7)<1e-3\nR=V/I\nassert abs(R-9.6)<1e-12\nP60=60.0**2/R\nassert abs(P60-375)<1e-9\nassert abs(P60/P-0.25)<1e-12\ndV,RX=sp.symbols('dV R_X',positive=True)\nratio=sp.simplify((dV**2/RX)/(dV**2/(2*RX)))\nassert ratio==2\nassert abs(V**2/R-1500)<1e-9 and abs(I**2*R-1500)<1e-9\nassert abs(1.5*2.0-3.0)<1e-12 and abs(3.0*3.6e6-E)<1e-3\nassert abs(I*V*7200-E)<1e-3\nIX=dV/RX; IY=dV/(2*RX)\nassert sp.simplify((IX*dV)/(IY*dV))==2\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.867574Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics2_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criteria a1, b1, and d1 prescribe methods that their parts do not require. In a1, a valid calculation using R = ΔV/I followed by P = (ΔV)²/R must",
+      "ruling": "accept",
+      "reason": "Valid on all four: a1, b1 and d1 now accept any valid route (R then (ΔV)²/R; 3.0 kWh or IΔVΔt; current ratio with P = IΔV). The part asks only which bulb is brighter, so d2 no longer requires the brightness-power link."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_evidence: Criterion a1's fix states a relationship but does not give the required concrete action. Replace it with: 'Multiply the current through the hea",
+      "ruling": "accept",
+      "reason": "Valid: the old fix stated a relationship rather than an action; replaced with the suggested concrete action (17 words)."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "rubric_points: Part b criterion b1 requires multiplying by the power (PΔt) even though E=VIt is a valid alternative; part d criterion d1 requires writing P=(ΔV)",
+      "ruling": "accept",
+      "reason": "Same defects as the first objection; resolved by the same widening of b1 and d1 and by dropping the unrequested justification from d2."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:13:06.103Z",
+   "source": "given",
+   "item": {
+    "title": "Power and Energy of a Heater and Bulb Brightness",
+    "calculator": "permitted",
+    "stimulus": "A space heater connected to a 120 V outlet has a current of 12.5 A. Treat the heater as an ohmic resistor.\n\nSeparately, bulb X and bulb Y are each connected alone across its own ideal battery, and the two batteries have the same potential difference ΔV. Both bulbs are ohmic, and the resistance of bulb Y is twice the resistance of bulb X: R_Y = 2R_X.",
+    "parts": [
+     {
+      "prompt": "Calculate the power delivered to the heater.",
+      "criteria": [
+       {
+        "text": "Calculates P = IΔV = (12.5 A)(120 V) = 1500 W.",
+        "evidence": "Response multiplies the current by the potential difference to obtain 1500 W (1.5 × 10³ W).",
+        "fix": "Power delivered to an element equals the current through it times the potential difference across it.",
+        "accepted_variants": [
+         "1500 W",
+         "1.5 × 10³ W",
+         "1.5 kW"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the electrical energy converted to thermal energy by the heater in 2.0 hours of operation at 120 V.",
+      "criteria": [
+       {
+        "text": "Calculates E = PΔt = (1500 W)(7200 s) = 1.08 × 10⁷ J.",
+        "evidence": "Response converts 2.0 hours to 7200 s and multiplies by the power to get 1.08 × 10⁷ J.",
+        "fix": "Power is energy per second, so convert hours to seconds and multiply the power by the time.",
+        "accepted_variants": [
+         "1.08 × 10⁷ J",
+         "1.1 × 10⁷ J",
+         "10,800,000 J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The heater is instead connected to a 60 V source, and its resistance does not change. Calculate the power delivered to the heater now.",
+      "criteria": [
+       {
+        "text": "Calculates 375 W, using the unchanged resistance of 9.6 Ω (for example P = (ΔV)²/R, so halving ΔV gives one quarter of 1500 W).",
+        "evidence": "Response obtains 375 W by any valid route, such as (60 V)²/(9.6 Ω), or I = 60 V/9.6 Ω = 6.25 A then P = IΔV, or scaling 1500 W by (1/2)².",
+        "fix": "When resistance is fixed, use P = (ΔV)²/R: power depends on the square of the potential difference.",
+        "accepted_variants": [
+         "375 W",
+         "3.75 × 10² W"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Derive an expression for the ratio P_X/P_Y of the power delivered to bulb X to the power delivered to bulb Y. Then state which bulb is brighter.",
+      "criteria": [
+       {
+        "text": "Derives P_X/P_Y = [(ΔV)²/R_X]/[(ΔV)²/R_Y] = R_Y/R_X = 2.",
+        "evidence": "Response writes P = (ΔV)²/R for each bulb with the same ΔV and simplifies the ratio to 2.",
+        "fix": "With the same potential difference across each bulb, write P = (ΔV)²/R for both and cancel ΔV in the ratio.",
+        "accepted_variants": [
+         "2",
+         "P_X = 2P_Y"
+        ]
+       },
+       {
+        "text": "States that bulb X is brighter because it has the greater power.",
+        "evidence": "Response identifies bulb X as brighter and links brightness to the power delivered to the bulb.",
+        "fix": "Brightness increases with power; once you know which bulb gets more power, that bulb is brighter.",
+        "accepted_variants": [
+         "bulb X"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) P = IΔV = (12.5 A)(120 V) = 1500 W.\n\n(b) Δt = 2.0 h × 3600 s/h = 7200 s. Energy = PΔt = (1500 W)(7200 s) = 1.08 × 10⁷ J.\n\n(c) The heater's resistance is R = ΔV/I = 120 V / 12.5 A = 9.6 Ω. At 60 V: P = (ΔV)²/R = (60 V)²/(9.6 Ω) = 375 W. (Equivalently, halving ΔV at constant R multiplies the power by 1/4: 1500 W × 1/4 = 375 W.)\n\n(d) Each bulb has potential difference ΔV across it, so P = (ΔV)²/R for each.\nP_X/P_Y = [(ΔV)²/R_X] / [(ΔV)²/R_Y] = R_Y/R_X = 2R_X/R_X = 2.\nBulb X receives twice the power, and brightness increases with power, so bulb X is brighter.",
+    "verification_python": "import sympy as sp\nI=12.5; V=120.0\nP=I*V\nassert abs(P-1500)<1e-9\nE=P*2.0*3600\nassert abs(E-1.08e7)<1e-3\nR=V/I\nassert abs(R-9.6)<1e-12\nP60=60.0**2/R\nassert abs(P60-375)<1e-9\nassert abs(P60/P-0.25)<1e-12\ndV,RX=sp.symbols('dV R_X',positive=True)\nratio=sp.simplify((dV**2/RX)/(dV**2/(2*RX)))\nassert ratio==2\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "11.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     11
+    ],
+    "unitCount": {
+     "11": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 requires converting hours to seconds, rejecting the valid calculation E = (1.5 kW)(2.0 h) = 3.0 kWh. Criterion d1 requires writing P = (ΔV)²/R for each bulb, rejecting a valid derivation using I_X/I_Y = R_Y/R_X and P_X/P_Y = I_X/I_Y at equal voltage. Criterion d2 requires explaining the brightness choice, although part (d) only asks students to state which bulb is brighter.",
+       "rubric_evidence: Criterion a1's fix states a relationship but gives no concrete action for the student to take. Replace it with: 'Multiply the current through the heater by the potential difference across it to calculate power.'"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The electrical calculations are fully determined. Strictly, the brightness comparison in (d) requires an assumption about the bulbs' conversion of electrical power into visible light. The expected answer is that X is brighter, using the standard classroom model that brightness increases with electrical power for comparable bulbs; resistance and power alone do not specify actual visible-light output.",
+      "audit": {
+       "primary_topic_code": "11.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires converting hours to seconds, rejecting the valid calculation E = (1.5 kW)(2.0 h) = 3.0 kWh. Criterion d1 requires writing P = (ΔV)²/R for each bulb, rejecting a valid derivation using I_X/I_Y = R_Y/R_X and P_X/P_Y = I_X/I_Y at equal voltage. Criterion d2 requires explaining the brightness choice, although part (d) only asks students to state which bulb is brighter."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion a1's fix states a relationship but gives no concrete action for the student to take. Replace it with: 'Multiply the current through the heater by the potential difference across it to calculate power.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1, b1, and d1 prescribe methods that their parts do not require. In a1, a valid calculation using R = ΔV/I followed by P = (ΔV)²/R must also earn credit. In b1, E = (1.5 kW)(2.0 h) = 3.0 kWh is correct without converting time to seconds. In d1, deriving I_X/I_Y = R_Y/R_X = 2 and then P_X/P_Y = I_X/I_Y = 2 is valid without writing P = (ΔV)²/R for each bulb. Criterion d2 additionally requires a brightness explanation, although part (d) asks only to state which bulb is brighter.",
+       "rubric_evidence: Criterion a1's fix states a relationship but does not give the required concrete action. Replace it with: 'Multiply the current through the heater by the potential difference across it to calculate its power.'"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "The numerical calculations and power ratio are well posed. The brightness conclusion in (d) requires the usual assumption that the bulbs' visible-light output can be compared by their electrical power (for example, equal luminous efficiency). Ohmic behavior alone does not specify light output, so without that assumption the actual relative brightness is not uniquely determined.",
+      "audit": {
+       "primary_topic_code": "11.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1, b1, and d1 prescribe methods that their parts do not require. In a1, a valid calculation using R = ΔV/I followed by P = (ΔV)²/R must also earn credit. In b1, E = (1.5 kW)(2.0 h) = 3.0 kWh is correct without converting time to seconds. In d1, deriving I_X/I_Y = R_Y/R_X = 2 and then P_X/P_Y = I_X/I_Y = 2 is valid without writing P = (ΔV)²/R for each bulb. Criterion d2 additionally requires a brightness explanation, although part (d) asks only to state which bulb is brighter."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion a1's fix states a relationship but does not give the required concrete action. Replace it with: 'Multiply the current through the heater by the potential difference across it to calculate its power.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: The evidence requires converting hours to seconds and obtaining joules, which rejects the valid equivalent answer 3.0 kWh; the accepted variants list omits 3.0 kWh."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: The evidence requires converting hours to seconds and obtaining joules, which rejects the valid equivalent answer 3.0 kWh; the accepted variants list omits 3.0 kWh."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part b criterion b1 requires multiplying by the power (PΔt) even though E=VIt is a valid alternative; part d criterion d1 requires writing P=(ΔV)²/R even though P=IΔV or P=I²R with Ohm's law is valid; and part d criterion d2 requires linking brightness to power even though the part asks only to state which bulb is brighter, so it rewards something not requested."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part b criterion b1 requires multiplying by the power (PΔt) even though E=VIt is a valid alternative; part d criterion d1 requires writing P=(ΔV)²/R even though P=IΔV or P=I²R with Ohm's law is valid; and part d criterion d2 requires linking brightness to power even though the part asks only to state which bulb is brighter, so it rewards something not requested."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

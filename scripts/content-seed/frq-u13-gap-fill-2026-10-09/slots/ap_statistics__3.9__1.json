@@ -1,0 +1,657 @@
+{
+ "id": "ap_statistics__3.9__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 3,
+  "unit_title": "Inference for Categorical Data: Proportions",
+  "topic_code": "3.9",
+  "topic_title": "Sampling Distributions for the Difference Between Sample Proportions",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:03:43.727Z",
+   "source": "given",
+   "item": {
+    "title": "Sampling Distribution of a Difference in On-Campus Housing Rates",
+    "calculator": "permitted",
+    "stimulus": "At University X, which has 18,000 students, 62% of the students live on campus. At University Y, which has 25,000 students, 48% of the students live on campus. A researcher will select a random sample of 120 students from University X and, independently, a random sample of 100 students from University Y. Let p̂₁ be the proportion of the sampled University X students who live on campus, and let p̂₂ be the proportion of the sampled University Y students who live on campus.",
+    "parts": [
+     {
+      "prompt": "Find the mean and the standard deviation of the sampling distribution of p̂₁ − p̂₂.",
+      "criteria": [
+       {
+        "text": "Mean of p̂₁ − p̂₂ = 0.62 − 0.48 = 0.14.",
+        "evidence": "Response gives the mean as the difference in population proportions, 0.62 − 0.48 = 0.14.",
+        "fix": "The sampling distribution of p̂₁ − p̂₂ is centered at p₁ − p₂; subtract the two population proportions in the same order.",
+        "accepted_variants": [
+         "0.14"
+        ]
+       },
+       {
+        "text": "Standard deviation of p̂₁ − p̂₂ = √(0.62(0.38)/120 + 0.48(0.52)/100) ≈ 0.0668.",
+        "evidence": "Response adds the two variance terms p(1 − p)/n under one square root, using 0.62 with 120 and 0.48 with 100, to get about 0.0668.",
+        "fix": "Add the variances p₁(1 − p₁)/n₁ and p₂(1 − p₂)/n₂, then take the square root; never subtract them or add standard deviations.",
+        "accepted_variants": [
+         "0.0668",
+         "0.067"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The two samples will be independent random samples. Verify the remaining conditions that justify using this standard deviation formula and modeling the sampling distribution of p̂₁ − p̂₂ as approximately normal.",
+      "criteria": [
+       {
+        "text": "States that each sample is at most 10% of its population: 120 ≤ 0.10(18,000) = 1,800 and 100 ≤ 0.10(25,000) = 2,500.",
+        "evidence": "Response compares each sample size with 10% of its own university's enrollment and states that the 10% condition is met for both samples.",
+        "fix": "Check the 10% condition separately for each sample, comparing each sample size with 10% of its own population size.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that n₁p₁ = 74.4, n₁(1 − p₁) = 45.6, n₂p₂ = 48 and n₂(1 − p₂) = 52 are all at least 10, so the sampling distribution is approximately normal.",
+        "evidence": "Response computes all four expected counts using the population proportions (74.4, 45.6, 48, 52) and states that each is at least 10.",
+        "fix": "List all four expected counts, successes and failures for each sample, and confirm that each one is at least 10.",
+        "accepted_variants": [
+         "74.4, 45.6, 48, 52"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the probability that the proportion of sampled University X students who live on campus is less than the proportion of sampled University Y students who live on campus. Show your work.",
+      "criteria": [
+       {
+        "text": "Identifies the event as p̂₁ − p̂₂ < 0 and uses a normal model with mean 0.14 and standard deviation 0.0668, for example z = (0 − 0.14)/0.0668 ≈ −2.10.",
+        "evidence": "Response shows the event p̂₁ − p̂₂ < 0 with the normal model's mean 0.14 and standard deviation about 0.0668, either as a z-score or as labeled technology inputs.",
+        "fix": "Translate the comparison into p̂₁ − p̂₂ < 0, then standardize the boundary 0 using the mean and standard deviation found earlier.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Finds the probability ≈ 0.018.",
+        "evidence": "Response reports a probability of about 0.018 (0.0179 to 0.0180).",
+        "fix": "After finding z ≈ −2.10, use the standard normal table or technology for the area to the left, not the right.",
+        "accepted_variants": [
+         "0.018",
+         "0.0179",
+         "0.0180",
+         "1.8%"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Mean: μ(p̂₁ − p̂₂) = p₁ − p₂ = 0.62 − 0.48 = 0.14.\nStandard deviation: σ(p̂₁ − p̂₂) = √(0.62(0.38)/120 + 0.48(0.52)/100) = √(0.001963 + 0.002496) = √0.004459 ≈ 0.0668.\n\n(b) The 10% condition holds for each sample: 120 ≤ 0.10(18,000) = 1,800 and 100 ≤ 0.10(25,000) = 2,500, so the standard deviation formula applies.\nLarge counts: n₁p₁ = 120(0.62) = 74.4, n₁(1 − p₁) = 120(0.38) = 45.6, n₂p₂ = 100(0.48) = 48 and n₂(1 − p₂) = 100(0.52) = 52. All four are at least 10, so the sampling distribution of p̂₁ − p̂₂ is approximately normal.\n\n(c) The event is p̂₁ < p̂₂, that is, p̂₁ − p̂₂ < 0. Using the normal model with mean 0.14 and standard deviation 0.0668:\nz = (0 − 0.14)/0.0668 ≈ −2.10, and P(Z < −2.10) ≈ 0.018.\nThere is about a 0.018 probability that the sample proportion of University X students who live on campus is less than the sample proportion of University Y students who live on campus.",
+    "verification_python": "from math import sqrt\nfrom statistics import NormalDist\np1,p2,n1,n2=0.62,0.48,120,100\nm=p1-p2\nassert abs(m-0.14)<1e-12\nv1=p1*(1-p1)/n1;v2=p2*(1-p2)/n2\nassert abs(v1-0.001963)<5e-7 and abs(v2-0.002496)<5e-7 and abs(v1+v2-0.004459)<5e-7\nsd=sqrt(v1+v2)\nassert abs(sd-0.0668)<0.00005\nassert n1<=0.10*18000 and abs(0.10*18000-1800)<1e-9\nassert n2<=0.10*25000 and abs(0.10*25000-2500)<1e-9\nc=[n1*p1,n1*(1-p1),n2*p2,n2*(1-p2)]\nfor a,b in zip(c,[74.4,45.6,48,52]): assert abs(a-b)<1e-9 and a>=10\nz=(0-m)/sd\nassert abs(z-(-2.10))<0.005\nP=NormalDist(m,sd).cdf(0)\nassert abs(P-0.018)<0.0005\nassert abs(NormalDist().cdf(-2.10)-0.0179)<0.0001\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Sampling Distribution of a Difference in On-Campus Housing Rates",
+   "calculator": "permitted",
+   "stimulus": "At University X, which has 18,000 students, 62% of the students live on campus. At University Y, which has 25,000 students, 48% of the students live on campus. A researcher will select a random sample of 120 students from University X and, independently, a random sample of 100 students from University Y. Let p̂₁ be the proportion of the sampled University X students who live on campus, and let p̂₂ be the proportion of the sampled University Y students who live on campus.",
+   "parts": [
+    {
+     "prompt": "Find the mean and the standard deviation of the sampling distribution of p̂₁ − p̂₂.",
+     "criteria": [
+      {
+       "text": "Mean of p̂₁ − p̂₂ = 0.62 − 0.48 = 0.14.",
+       "evidence": "Response gives the mean as the difference in population proportions, 0.62 − 0.48 = 0.14.",
+       "fix": "The sampling distribution of p̂₁ − p̂₂ is centered at p₁ − p₂; subtract the two population proportions in the same order.",
+       "accepted_variants": [
+        "0.14"
+       ]
+      },
+      {
+       "text": "Standard deviation of p̂₁ − p̂₂ = √(0.62(0.38)/120 + 0.48(0.52)/100) ≈ 0.0668.",
+       "evidence": "Response adds the two variance terms p(1 − p)/n under one square root, using 0.62 with 120 and 0.48 with 100, to get about 0.0668.",
+       "fix": "Add the variances p₁(1 − p₁)/n₁ and p₂(1 − p₂)/n₂, then take the square root; never subtract them or add standard deviations.",
+       "accepted_variants": [
+        "0.0668",
+        "0.067"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The two samples will be independent random samples. Verify the remaining conditions that justify using this standard deviation formula and modeling the sampling distribution of p̂₁ − p̂₂ as approximately normal.",
+     "criteria": [
+      {
+       "text": "States that each sample is at most 10% of its population: 120 ≤ 0.10(18,000) = 1,800 and 100 ≤ 0.10(25,000) = 2,500.",
+       "evidence": "Response compares each sample size with 10% of its own university's enrollment and states that the 10% condition is met for both samples.",
+       "fix": "Check the 10% condition separately for each sample, comparing each sample size with 10% of its own population size.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that n₁p₁ = 74.4, n₁(1 − p₁) = 45.6, n₂p₂ = 48 and n₂(1 − p₂) = 52 are all at least 10, so the sampling distribution is approximately normal.",
+       "evidence": "Response computes all four expected counts using the population proportions (74.4, 45.6, 48, 52) and states that each is at least 10.",
+       "fix": "List all four expected counts, successes and failures for each sample, and confirm that each one is at least 10.",
+       "accepted_variants": [
+        "74.4, 45.6, 48, 52"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the probability that the proportion of sampled University X students who live on campus is less than the proportion of sampled University Y students who live on campus. Show your work.",
+     "criteria": [
+      {
+       "text": "Identifies the event as p̂₁ − p̂₂ < 0 and uses a normal model with mean 0.14 and standard deviation 0.0668, for example z = (0 − 0.14)/0.0668 ≈ −2.10.",
+       "evidence": "Response shows the event p̂₁ − p̂₂ < 0 with the normal model's mean 0.14 and standard deviation about 0.0668, either as a z-score or as labeled technology inputs.",
+       "fix": "Translate the comparison into p̂₁ − p̂₂ < 0, then standardize the boundary 0 using the mean and standard deviation found earlier.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Finds the probability ≈ 0.018.",
+       "evidence": "Response reports a probability of about 0.018 (0.0179 to 0.0180).",
+       "fix": "After finding z ≈ −2.10, use the standard normal table or technology for the area to the left, not the right.",
+       "accepted_variants": [
+        "0.018",
+        "0.0179",
+        "0.0180",
+        "1.8%"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Mean: μ(p̂₁ − p̂₂) = p₁ − p₂ = 0.62 − 0.48 = 0.14.\nStandard deviation: σ(p̂₁ − p̂₂) = √(0.62(0.38)/120 + 0.48(0.52)/100) = √(0.001963 + 0.002496) = √0.004459 ≈ 0.0668.\n\n(b) The 10% condition holds for each sample: 120 ≤ 0.10(18,000) = 1,800 and 100 ≤ 0.10(25,000) = 2,500, so the standard deviation formula applies.\nLarge counts: n₁p₁ = 120(0.62) = 74.4, n₁(1 − p₁) = 120(0.38) = 45.6, n₂p₂ = 100(0.48) = 48 and n₂(1 − p₂) = 100(0.52) = 52. All four are at least 10, so the sampling distribution of p̂₁ − p̂₂ is approximately normal.\n\n(c) The event is p̂₁ < p̂₂, that is, p̂₁ − p̂₂ < 0. Using the normal model with mean 0.14 and standard deviation 0.0668:\nz = (0 − 0.14)/0.0668 ≈ −2.10, and P(Z < −2.10) ≈ 0.018.\nThere is about a 0.018 probability that the sample proportion of University X students who live on campus is less than the sample proportion of University Y students who live on campus.",
+   "verification_python": "from math import sqrt\nfrom statistics import NormalDist\np1,p2,n1,n2=0.62,0.48,120,100\nm=p1-p2\nassert abs(m-0.14)<1e-12\nv1=p1*(1-p1)/n1;v2=p2*(1-p2)/n2\nassert abs(v1-0.001963)<5e-7 and abs(v2-0.002496)<5e-7 and abs(v1+v2-0.004459)<5e-7\nsd=sqrt(v1+v2)\nassert abs(sd-0.0668)<0.00005\nassert n1<=0.10*18000 and abs(0.10*18000-1800)<1e-9\nassert n2<=0.10*25000 and abs(0.10*25000-2500)<1e-9\nc=[n1*p1,n1*(1-p1),n2*p2,n2*(1-p2)]\nfor a,b in zip(c,[74.4,45.6,48,52]): assert abs(a-b)<1e-9 and a>=10\nz=(0-m)/sd\nassert abs(z-(-2.10))<0.005\nP=NormalDist(m,sd).cdf(0)\nassert abs(P-0.018)<0.0005\nassert abs(NormalDist().cdf(-2.10)-0.0179)<0.0001\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.881701Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "statistics_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 bundles two distinct observable elements into one point: verifying independent random samples and verifying the 10% condit",
+      "ruling": "accept",
+      "reason": "b1 bundled randomization and the 10% condition. With 6 points used, part (b) now states the independent random samples and asks for the remaining conditions; b1 scores the 10% condition only, b2 the large counts."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:29:09.654Z",
+   "source": "given",
+   "item": {
+    "title": "Sampling Distribution of a Difference in On-Campus Housing Rates",
+    "calculator": "permitted",
+    "stimulus": "At University X, which has 18,000 students, 62% of the students live on campus. At University Y, which has 25,000 students, 48% of the students live on campus. A researcher will select a random sample of 120 students from University X and, independently, a random sample of 100 students from University Y. Let p̂₁ be the proportion of the sampled University X students who live on campus, and let p̂₂ be the proportion of the sampled University Y students who live on campus.",
+    "parts": [
+     {
+      "prompt": "Find the mean and the standard deviation of the sampling distribution of p̂₁ − p̂₂.",
+      "criteria": [
+       {
+        "text": "Mean of p̂₁ − p̂₂ = 0.62 − 0.48 = 0.14.",
+        "evidence": "Response gives the mean as the difference in population proportions, 0.62 − 0.48 = 0.14.",
+        "fix": "The sampling distribution of p̂₁ − p̂₂ is centered at p₁ − p₂; subtract the two population proportions in the same order.",
+        "accepted_variants": [
+         "0.14"
+        ]
+       },
+       {
+        "text": "Standard deviation of p̂₁ − p̂₂ = √(0.62(0.38)/120 + 0.48(0.52)/100) ≈ 0.0668.",
+        "evidence": "Response adds the two variance terms p(1 − p)/n under one square root, using 0.62 with 120 and 0.48 with 100, to get about 0.0668.",
+        "fix": "Add the variances p₁(1 − p₁)/n₁ and p₂(1 − p₂)/n₂, then take the square root; never subtract them or add standard deviations.",
+        "accepted_variants": [
+         "0.0668",
+         "0.067"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Verify the conditions that justify using this standard deviation formula and modeling the sampling distribution of p̂₁ − p̂₂ as approximately normal.",
+      "criteria": [
+       {
+        "text": "States that the samples are independent random samples and that each sample is at most 10% of its population: 120 ≤ 0.10(18,000) = 1,800 and 100 ≤ 0.10(25,000) = 2,500.",
+        "evidence": "Response cites the two independent random samples and compares each sample size with 10% of its own university's enrollment.",
+        "fix": "Check the 10% condition separately for each sample, comparing each sample size with 10% of its own population size.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that n₁p₁ = 74.4, n₁(1 − p₁) = 45.6, n₂p₂ = 48 and n₂(1 − p₂) = 52 are all at least 10, so the sampling distribution is approximately normal.",
+        "evidence": "Response computes all four expected counts using the population proportions (74.4, 45.6, 48, 52) and states that each is at least 10.",
+        "fix": "List all four expected counts, successes and failures for each sample, and confirm that each one is at least 10.",
+        "accepted_variants": [
+         "74.4, 45.6, 48, 52"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the probability that the proportion of sampled University X students who live on campus is less than the proportion of sampled University Y students who live on campus. Show your work.",
+      "criteria": [
+       {
+        "text": "Identifies the event as p̂₁ − p̂₂ < 0 and uses a normal model with mean 0.14 and standard deviation 0.0668, for example z = (0 − 0.14)/0.0668 ≈ −2.10.",
+        "evidence": "Response shows the event p̂₁ − p̂₂ < 0 with the normal model's mean 0.14 and standard deviation about 0.0668, either as a z-score or as labeled technology inputs.",
+        "fix": "Translate the comparison into p̂₁ − p̂₂ < 0, then standardize the boundary 0 using the mean and standard deviation found earlier.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Finds the probability ≈ 0.018.",
+        "evidence": "Response reports a probability of about 0.018 (0.0179 to 0.0180).",
+        "fix": "After finding z ≈ −2.10, use the standard normal table or technology for the area to the left, not the right.",
+        "accepted_variants": [
+         "0.018",
+         "0.0179",
+         "0.0180",
+         "1.8%"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Mean: μ(p̂₁ − p̂₂) = p₁ − p₂ = 0.62 − 0.48 = 0.14.\nStandard deviation: σ(p̂₁ − p̂₂) = √(0.62(0.38)/120 + 0.48(0.52)/100) = √(0.001963 + 0.002496) = √0.004459 ≈ 0.0668.\n\n(b) The samples are independent random samples from the two universities. The 10% condition holds for each: 120 ≤ 0.10(18,000) = 1,800 and 100 ≤ 0.10(25,000) = 2,500, so the standard deviation formula applies.\nLarge counts: n₁p₁ = 120(0.62) = 74.4, n₁(1 − p₁) = 120(0.38) = 45.6, n₂p₂ = 100(0.48) = 48 and n₂(1 − p₂) = 100(0.52) = 52. All four are at least 10, so the sampling distribution of p̂₁ − p̂₂ is approximately normal.\n\n(c) The event is p̂₁ < p̂₂, that is, p̂₁ − p̂₂ < 0. Using the normal model with mean 0.14 and standard deviation 0.0668:\nz = (0 − 0.14)/0.0668 ≈ −2.10, and P(Z < −2.10) ≈ 0.018.\nThere is about a 0.018 probability that the sample proportion of University X students who live on campus is less than the sample proportion of University Y students who live on campus.",
+    "verification_python": "from math import sqrt\nfrom statistics import NormalDist\np1,p2,n1,n2=0.62,0.48,120,100\nm=p1-p2\nassert abs(m-0.14)<1e-12\nv1=p1*(1-p1)/n1;v2=p2*(1-p2)/n2\nassert abs(v1-0.001963)<5e-7 and abs(v2-0.002496)<5e-7 and abs(v1+v2-0.004459)<5e-7\nsd=sqrt(v1+v2)\nassert abs(sd-0.0668)<0.00005\nassert n1<=0.10*18000 and abs(0.10*18000-1800)<1e-9\nassert n2<=0.10*25000 and abs(0.10*25000-2500)<1e-9\nc=[n1*p1,n1*(1-p1),n2*p2,n2*(1-p2)]\nfor a,b in zip(c,[74.4,45.6,48,52]): assert abs(a-b)<1e-9 and a>=10\nz=(0-m)/sd\nassert abs(z-(-2.10))<0.005\nP=NormalDist(m,sd).cdf(0)\nassert abs(P-0.018)<0.0005\nassert abs(NormalDist().cdf(-2.10)-0.0179)<0.0001\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 bundles two distinct observable elements into one point: verifying independent random samples and verifying the 10% condition. Award these condition checks separate 1-point criteria."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 bundles two distinct observable elements into one point: verifying independent random samples and verifying the 10% condition. Award these condition checks separate 1-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 bundles two distinct observable elements into one point: verifying independent random samples and verifying the 10% condition. Award these separately to satisfy the one-element-per-criterion requirement."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 bundles two distinct observable elements into one point: verifying independent random samples and verifying the 10% condition. Award these separately to satisfy the one-element-per-criterion requirement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b) criterion b1 bundles the randomization condition and the 10% condition into one point; each criterion should award one specific, observable condition as required by the rubric rule.",
+       "rubric_evidence: Part (b) criterion b1's fix addresses only the 10% condition ('check the 10% condition separately...') and does not tell a student who missed the independent-random-samples element what to do, so the fix does not cover the full point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b) criterion b1 bundles the randomization condition and the 10% condition into one point; each criterion should award one specific, observable condition as required by the rubric rule."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (b) criterion b1's fix addresses only the 10% condition ('check the 10% condition separately...') and does not tell a student who missed the independent-random-samples element what to do, so the fix does not cover the full point."
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

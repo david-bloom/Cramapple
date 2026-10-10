@@ -1,0 +1,501 @@
+{
+ "id": "ap_chemistry__2.3__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 2,
+  "unit_title": "Compound Structure and Properties",
+  "topic_code": "2.3",
+  "topic_title": "Structure of Ionic Solids",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:53:23.787Z",
+   "item": {
+    "title": "Particulate Models of Solid KCl and CaCl2",
+    "calculator": "permitted",
+    "stimulus": "A student builds particulate models of two ionic solids, potassium chloride, KCl(s), and calcium chloride, CaCl2(s), using spheres to represent the ions. Each sphere's size is chosen to match the ion's radius. The ionic radii are listed below.\n\nIon | Number of protons | Number of electrons | Ionic radius (pm)\nK+ | 19 | 18 | 138\nCa2+ | 20 | 18 | 100\nCl− | 17 | 18 | 181\n\nMolar masses: Ca = 40.08 g/mol, Cl = 35.45 g/mol. Avogadro's number = 6.022 × 10²³ mol⁻¹.",
+    "model_answer": "(a) The ions form a systematic, repeating three-dimensional array in which cations and anions alternate. Each K+ ion is surrounded by Cl− ions as its nearest neighbors, and each Cl− is surrounded by K+ ions. By Coulomb's law, oppositely charged ions attract and like-charged ions repel, so placing opposite charges closest together maximizes attractions while keeping like charges farther apart minimizes repulsions.\n\n(b) The Cl− sphere should be larger (181 pm vs 138 pm). Both ions have 18 electrons, but K+ has 19 protons while Cl− has only 17. The greater nuclear charge of K+ attracts the same number of electrons more strongly, pulling them closer to the nucleus, so K+ is smaller.\n\n(c) There must be 2 Cl− spheres for every 1 Ca2+ sphere. Each Ca2+ carries a 2+ charge and each Cl− a 1− charge, so two Cl− ions are needed to balance one Ca2+: (+2) + 2(−1) = 0, making the solid electrically neutral.\n\n(d) Molar mass CaCl2 = 40.08 + 2(35.45) = 110.98 g/mol.\nmol CaCl2 = 2.50 g ÷ 110.98 g/mol = 0.02253 mol.\nformula units = 0.02253 mol × 6.022 × 10²³ mol⁻¹ = 1.357 × 10²² formula units.\nEach formula unit has 1 Ca2+ and 2 Cl−, so 3 ions: 3 × 1.357 × 10²² = 4.07 × 10²² ions.\n\n(e) CaCl2. By Coulomb's law, the attractive force is proportional to q1q2/r². Ca2+ has a charge of 2+ compared with 1+ for K+, which increases q1q2, and Ca2+ is smaller (100 pm vs 138 pm), so the distance between the centers of the cation and a neighboring Cl− is shorter. Both factors make the Ca2+–Cl− attraction stronger than the K+–Cl− attraction.",
+    "verification_python": "import math\nM = 40.08 + 2*35.45\nassert abs(M - 110.98) < 1e-9\nn = 2.50 / M\nassert abs(n - 0.02253) < 5e-6\nfu = n * 6.022e23\nassert abs(fu - 1.357e22) < 0.001e22\nions = 3 * fu\nassert abs(ions - 4.07e22) < 0.005e22\n# charge balance\nassert 2 + 2*(-1) == 0\n# Coulomb comparison (relative, using sum of radii)\nF_K = (1*1)/((138+181)**2)\nF_Ca = (2*1)/((100+181)**2)\nassert F_Ca > F_K\n# isoelectronic check\nassert 19 > 17 and 181 > 138\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe how the K+ and Cl− ions should be arranged relative to one another in the student's model of solid KCl, including which ions should be nearest neighbors of each K+ ion. Justify the arrangement using Coulomb's law.",
+      "criteria": [
+       {
+        "text": "States that ions form a repeating 3-D array in which each K+ is surrounded by Cl− nearest neighbors (and vice versa), justified by maximizing opposite-charge attractions and minimizing like-charge repulsions.",
+        "evidence": "Response must say the nearest neighbors of K+ are Cl− ions (alternating, periodic arrangement) and explain that oppositely charged ions attract while like-charged ions repel, so like ions are kept farther apart.",
+        "fix": "State that each ion is surrounded by oppositely charged ions, and explain that this maximizes attractions and minimizes repulsions between like charges.",
+        "accepted_variants": [
+         "alternating cations and anions",
+         "each K+ surrounded by Cl−"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In the KCl model, which sphere should be larger, the one for K+ or the one for Cl−? Using the proton and electron counts in the table, explain why.",
+      "criteria": [
+       {
+        "text": "Claims the Cl− sphere is larger, justified because both ions have 18 electrons but K+ has more protons (19 vs 17), so its electrons experience greater nuclear attraction and are held closer.",
+        "evidence": "Response must identify Cl− as larger and reference equal electron counts with K+ having greater nuclear charge (more protons) pulling electrons closer.",
+        "fix": "For isoelectronic ions, compare proton counts: more protons means stronger attraction on the same number of electrons and a smaller radius.",
+        "accepted_variants": [
+         "Cl− is larger",
+         "chloride sphere larger"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For the model of CaCl2 to be consistent with the formula of the compound, what must be the ratio of Cl− spheres to Ca2+ spheres? Explain in terms of the ion charges.",
+      "criteria": [
+       {
+        "text": "Ratio is 2 Cl− : 1 Ca2+, because two 1− charges are needed to balance one 2+ charge so the solid is electrically neutral.",
+        "evidence": "Response must give a 2:1 ratio of Cl− to Ca2+ and justify it with charge balance (2 × (−1) + (+2) = 0).",
+        "fix": "Balance total positive and negative charge: count how many anions of charge 1− cancel one cation of charge 2+.",
+        "accepted_variants": [
+         "2:1",
+         "2 to 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the total number of ions (cations plus anions) present in a 2.50 g sample of solid CaCl2. Report your answer with the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Total ions = 4.07 × 10²² ions, from 2.50 g ÷ 110.98 g/mol = 0.02253 mol CaCl2, × 6.022 × 10²³ = 1.357 × 10²² formula units, × 3 ions per formula unit.",
+        "evidence": "Response must show molar mass 110.98 g/mol, conversion to moles and formula units, multiplication by 3 ions per formula unit, and a final answer of 4.07 × 10²² ions (3 significant figures).",
+        "fix": "Convert grams to moles with molar mass, moles to formula units with Avogadro's number, then multiply by ions per formula unit.",
+        "accepted_variants": [
+         "4.07e22",
+         "4.07 × 10^22 ions"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Which solid has the stronger attraction between a cation and a neighboring anion, KCl or CaCl2? Justify your answer using Coulomb's law and the data in the table.",
+      "criteria": [
+       {
+        "text": "CaCl2 has the stronger cation–anion attraction because Ca2+ has a larger charge (2+ vs 1+) and a smaller radius (100 pm vs 138 pm), giving a shorter internuclear distance; by Coulomb's law force ∝ q1q2/r².",
+        "evidence": "Response must choose CaCl2 and cite both the greater cation charge and the smaller cation radius (shorter distance between ion centers) as increasing the Coulombic attraction.",
+        "fix": "Apply F ∝ q1q2/r²: compare both ion charges and ionic radii, explaining how each changes the attractive force.",
+        "accepted_variants": [
+         "CaCl2",
+         "calcium chloride"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 prescribes conversion through moles and formula units rather than accepting every valid calculation method. For example, a student could calculate mass per formula unit as 110.98/(6.022 × 10²³) g, divide the sample mass by that value, and multiply by three. This correctly yields 4.07 × 10²² ions without explicitly converting to moles. Require a valid quantitative pathway accounting for three ions per formula unit, not this particular sequence."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 prescribes conversion through moles and formula units rather than accepting every valid calculation method. For example, a student could calculate mass per formula unit as 110.98/(6.022 × 10²³) g, divide the sample mass by that value, and multiply by three. This correctly yields 4.07 × 10²² ions without explicitly converting to moles. Require a valid quantitative pathway accounting for three ions per formula unit, not this particular sequence."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 requires separate conversions to moles and formula units, prescribing a method the question does not require. A correct calculation using mass per formula unit, or directly converting to moles of ions, should also earn credit. Require a valid calculation supporting 4.07 × 10²² ions rather than these particular intermediate steps."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 requires separate conversions to moles and formula units, prescribing a method the question does not require. A correct calculation using mass per formula unit, or directly converting to moles of ions, should also earn credit. Require a valid calculation supporting 4.07 × 10²² ions rather than these particular intermediate steps."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:57:49.501Z",
+   "item": {
+    "title": "Particulate Models and Coulombic Forces in NaCl and MgO",
+    "calculator": "permitted",
+    "stimulus": "Sodium chloride, NaCl, and magnesium oxide, MgO, are ionic solids. In each crystal the ions are arranged in a repeating three-dimensional array. Every cation is surrounded by six nearest-neighbor anions, and every anion is surrounded by six nearest-neighbor cations. Treat the ions as hard spheres that touch their nearest neighbors. The magnitude of the Coulombic attraction between a cation and an anion is proportional to |q1q2|/r², where r is the distance between the ion centers.\n\nIon | Ionic radius (pm)\nNa+ | 102\nMg2+ | 72\nCl− | 181\nO2− | 140\n\nSubstance | Melting point (°C)\nNaCl | 801\nMgO | 2852",
+    "model_answer": "(a) In the accepted model, every Na+ is touching only Cl− ions and every Cl− is touching only Na+ ions. By Coulomb's law, opposite charges at short distance attract strongly, so this arrangement maximizes attractive forces. Ions of the same charge are never nearest neighbors, so they stay farther apart and repulsions are minimized. In the student's model, Na+ ions sit next to other Na+ ions at short distance, which produces strong repulsions and fewer attractions. That arrangement would be higher in energy and less stable.\n\n(b) The ions touch, so distance = cation radius + anion radius.\nNa+–Cl−: 102 pm + 181 pm = 283 pm\nMg2+–O2−: 72 pm + 140 pm = 212 pm\nRatio = (|2 × −2| / 212²) ÷ (|1 × −1| / 283²) = 4 × (283/212)² = 4 × 1.782 = 7.13\nThe attraction for one Mg2+–O2− pair is about 7.13 times that for one Na+–Cl− pair.\n\n(c) The ions in MgO have charges of 2+ and 2−, compared with 1+ and 1− in NaCl. They are also closer together (212 pm versus 283 pm). Both factors make the Coulombic attractions in the MgO array much stronger. Melting requires overcoming these attractions so the ions can move past one another. Much more energy is needed for MgO, so its melting point is much higher.\n\n(d) A sharp blow shifts one plane of ions relative to the plane next to it by about one ion position. After the shift, Na+ ions lie next to Na+ ions and Cl− ions lie next to Cl− ions. The strong repulsions between these like charges push the two planes apart, so the crystal breaks cleanly along that plane instead of bending.",
+    "verification_python": "import math\nr_na, r_mg, r_cl, r_o = 102, 72, 181, 140\nd_nacl = r_na + r_cl\nd_mgo = r_mg + r_o\nassert d_nacl == 283\nassert d_mgo == 212\nratio = (2*2/d_mgo**2)/(1*1/d_nacl**2)\nassert abs(ratio - 7.13) < 0.005\nassert abs((283/212)**2 - 1.782) < 0.0005\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "A student proposes a different particulate model for one layer of solid NaCl. In it, each Na+ ion has two Na+ ions and two Cl− ions as its nearest neighbors in the layer. The accepted model has only oppositely charged ions as nearest neighbors. Explain why the accepted model is more consistent with Coulomb's law than the student's model.",
+      "criteria": [
+       {
+        "text": "States that in the accepted model each ion's nearest neighbors are oppositely charged, maximizing cation–anion attractions, while like-charged ions are kept farther apart, minimizing repulsions.",
+        "evidence": "Response must refer to both attraction between nearest-neighbor opposite charges and reduced repulsion from like charges being farther apart. It must also state or imply that the student's model places like charges at short distance, causing strong repulsion.",
+        "fix": "Explain both effects: adjacent opposite charges maximize attraction, and keeping like charges farther apart minimizes repulsion, giving a lower-energy arrangement.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Using the ionic radii, determine the distance between the centers of adjacent Na+ and Cl− ions and between the centers of adjacent Mg2+ and O2− ions. Then calculate the ratio of the magnitude of the Coulombic attraction for one Mg2+–O2− pair to that for one Na+–Cl− pair. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct internuclear distances: 283 pm for Na+–Cl− and 212 pm for Mg2+–O2−, each found by adding the cation and anion radii.",
+        "evidence": "Response must show the sums 102 + 181 = 283 pm and 72 + 140 = 212 pm, with units.",
+        "fix": "For touching spheres, add the cation radius and the anion radius to get the center-to-center distance, and include units.",
+        "accepted_variants": [
+         "2.83 × 10² pm and 2.12 × 10² pm",
+         "0.283 nm and 0.212 nm"
+        ]
+       },
+       {
+        "text": "Correct ratio of attraction magnitudes, about 7.13, from (2×2/212²) ÷ (1×1/283²).",
+        "evidence": "Response must set up the ratio using the charge products (4 and 1) and the squared distances from part (b). It must report a value of about 7.13. An error carried forward from incorrect distances earns credit if the setup is correct.",
+        "fix": "Write |q1q2|/r² for each pair, divide MgO's value by NaCl's, and square the distances before dividing.",
+        "accepted_variants": [
+         "7.13",
+         "7.1",
+         "about 7"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, in terms of the particulate model and Coulombic attractions, why MgO has a much higher melting point than NaCl.",
+      "criteria": [
+       {
+        "text": "MgO ions attract each other more strongly, because they have larger charges and a smaller internuclear distance. More energy is therefore needed to overcome the attractions holding ions in the array, giving a higher melting point.",
+        "evidence": "Response must cite the larger charges (2+/2−) and/or the smaller distance as the cause of stronger Coulombic attraction. It must link that stronger attraction to more energy being needed to separate the ions during melting.",
+        "fix": "Connect ion charge and size to attraction strength, then state that stronger attractions require more energy to disrupt the ionic array during melting.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A crystal of NaCl shatters when struck sharply with a hammer. Use the particulate model of the ionic array to explain this behavior.",
+      "criteria": [
+       {
+        "text": "Striking the crystal shifts one layer of ions relative to the next, so that like-charged ions become nearest neighbors. The resulting strong repulsions push the layers apart, and the crystal cleaves.",
+        "evidence": "Response must describe the displacement of a layer or plane of ions. It must state that like charges are brought next to each other and that the resulting repulsion causes the crystal to break.",
+        "fix": "Describe what happens when ion layers slide: like charges line up next to each other, and their repulsion splits the crystal.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 1
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 2
+}

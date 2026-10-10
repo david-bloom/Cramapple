@@ -63,11 +63,12 @@ def cmd_plan(a):
                        'content_version': 1, 'source_policy': 'Original Cramapple authorship; CED structure and scope only.',
                        'provenance': {'batch': SRC, 'author': 'anthropic/claude-opus-5.5',
                                       'checkers': ['openai/gpt-6.1-sol', 'deepseek/deepseek-v4-pro'],
-                                      'topic_votes': probe['votes'], 'accepted_round': c['round']}}
+                                      'topic_votes': probe['votes'], 'topic_ruling': probe.get('overridden_by'), 'accepted_round': c['round']}}
         rows.append({'k': key, 'sk': sl['subject_key'], 'pack': epv[REGISTRY(sl['subject_key'])], 'tsv': sl['tsv'], 'unit': sl['unit'],
                      'topic': sl['topic_code'], 'title': it['title'], 'stem': stem, 'stimulus': it['stimulus'],
                      'answer': it['model_answer'], 'criteria': crit, 'prompt_json': prompt_json,
                      'required_units': probe['required_units'], 'votes': probe['onTarget'], 'difficulty': c['difficulty'],
+                     'cell_basis': 'ced_text_tiebreak' if probe.get('overridden_by') else f"{probe['onTarget']}/6",
                      'h': item_hash(stem, it['stimulus'], crit)})
     json.dump({'source': SRC, 'items': rows}, open(PLAN, 'w'), indent=1, ensure_ascii=False)
     by = {}
@@ -91,7 +92,7 @@ select pg_advisory_xact_lock(hashtext({lit('cramapple-' + SRC)}));
 create temporary table lab on commit drop as
 select x.*, gen_random_uuid() item_id, gen_random_uuid() version_id, gen_random_uuid() assignment_id, gen_random_uuid() label_id, gen_random_uuid() vd_id
 from jsonb_to_recordset({payload}::jsonb) as x(k text, sk text, pack uuid, tsv uuid, unit int, topic text, title text, stem text, stimulus text,
-  answer text, criteria jsonb, prompt_json jsonb, required_units int[], votes int, difficulty text, h text);
+  answer text, criteria jsonb, prompt_json jsonb, required_units int[], votes int, difficulty text, h text, cell_basis text);
 do $g$ begin
  if (select count(*) from lab)<>{N} then raise exception 'payload size'; end if;
  if not exists (select 1 from app.exam_pack_versions where id={lit(pack)} and status='published') then raise exception 'pack not published'; end if;
@@ -143,7 +144,7 @@ insert into app.content_taxonomy_validation_decisions (validation_decision_id, c
 select vd_id, label_id, {lit(OWNER)}::uuid, 'confirmed', 'automated_spot_check', unit, required_units,
  {lit('Hard-Gate approval ' + approval + '. Six-vote topic probe on target at >= 5 of 6; required units named by >= 4 of 6.')} from lab;
 insert into app.content_item_cells (content_item_version_id, content_item_id, taxonomy_source_version, topic_code, skill_code, is_primary, assignment_status, source, model_run_id, validated_by, validated_at, validation_decision_id)
-select version_id, item_id, tsv, topic, null, true, 'validated', {lit(SRC)}||':'||votes||'/6',
+select version_id, item_id, tsv, topic, null, true, 'validated', {lit(SRC)}||':'||cell_basis,
  {lit(SRC + ' six-vote topic probe (gemini-3.8-flash + deepseek-v4-pro + gpt-6.1-sol, 2 samples each; topic agreement >= 5 of 6) [' + approval + ']')}, null, now(), gen_random_uuid() from lab;
 insert into app.content_item_difficulty (content_item_version_id, difficulty, basis, source_value, rationale, confidence, proposal_run)
 select version_id, difficulty, 'calibrated_judgement', null, 'Majority of the two checker ratings (GPT-6.1 Sol, DeepSeek V4 Pro) for a student who has just studied the topic; provisional until attempts exist.', 'low', {lit(SRC)} from lab;

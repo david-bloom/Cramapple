@@ -1,0 +1,719 @@
+{
+ "id": "ap_precalculus__2.1__1",
+ "slot": {
+  "subject_key": "ap_precalculus",
+  "tsv": "16383753-6775-430d-960a-544cd6ee0972",
+  "unit": 2,
+  "unit_title": "Exponential and Logarithmic Functions",
+  "topic_code": "2.1",
+  "topic_title": "Change in Arithmetic and Geometric Sequences",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:58:01.847Z",
+   "source": "given",
+   "item": {
+    "title": "Comparing an Arithmetic and a Geometric Sequence",
+    "calculator": "not_permitted",
+    "stimulus": "The sequence a is arithmetic, with a₂ = 17 and a₅ = 32. The sequence g is geometric, all of its terms are positive, and g₁ = 12 and g₃ = 27. Both sequences are defined for the whole numbers n = 0, 1, 2, 3, ...",
+    "parts": [
+     {
+      "prompt": "Find the common difference of the sequence a, and write an expression for aₙ in terms of n.",
+      "criteria": [
+       {
+        "text": "The common difference is d = (32 − 17)/(5 − 2) = 5.",
+        "evidence": "Response divides the change in terms, 15, by the 3 steps from n = 2 to n = 5 to get d = 5.",
+        "fix": "Divide the change between two known terms by the number of steps between their indices.",
+        "accepted_variants": [
+         "5"
+        ]
+       },
+       {
+        "text": "aₙ = 7 + 5n.",
+        "evidence": "Response gives aₙ = 7 + 5n or an equivalent form such as aₙ = 17 + 5(n − 2); finding a₀ = 7 is not required.",
+        "fix": "Use aₙ = aₖ + d(n − k) with a known term, or find a₀ by stepping back to n = 0.",
+        "accepted_variants": [
+         "17 + 5(n − 2)",
+         "5n + 7"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the common ratio of the sequence g, and write an expression for gₙ in terms of n.",
+      "criteria": [
+       {
+        "text": "The common ratio is 3/2, because r² = 27/12 = 9/4 and r must be positive since all terms are positive.",
+        "evidence": "Response obtains r = 3/2 by a valid method, for example solving g₁r² = g₃ to get r² = 9/4 and using the positive terms to reject −3/2, or g₂ = √(12·27) = 18.",
+        "fix": "Two steps between g₁ and g₃ means dividing gives r²; use the sign information to choose the root.",
+        "accepted_variants": [
+         "1.5",
+         "3/2"
+        ]
+       },
+       {
+        "text": "gₙ = 8(3/2)ⁿ.",
+        "evidence": "Response gives gₙ = 8(3/2)ⁿ, with g₀ = 12/(3/2) = 8, or an equivalent form such as gₙ = 12(3/2)^(n − 1).",
+        "fix": "Use gₙ = gₖ·r^(n − k) with a known term, or divide g₁ by r to find g₀.",
+        "accepted_variants": [
+         "8(1.5)ⁿ",
+         "12(3/2)^(n − 1)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find a₃ − a₂, a₄ − a₃, g₃ − g₂ and g₄ − g₃. Use these values to explain how the change from one term to the next differs between the two sequences.",
+      "criteria": [
+       {
+        "text": "a₃ − a₂ = 5, a₄ − a₃ = 5, g₃ − g₂ = 9 and g₄ − g₃ = 13.5.",
+        "evidence": "Response gives the four differences 5, 5, 9 and 13.5, by computing the terms (a₃ = 22, a₄ = 27, g₂ = 18, g₄ = 40.5) or by any valid method, such as using d = 5 and g₄ = (3/2)g₃.",
+        "fix": "Subtract consecutive terms, found from your formulas, or use the common difference and the common ratio directly.",
+        "accepted_variants": [
+         "13.5",
+         "27/2"
+        ]
+       },
+       {
+        "text": "Explains that the arithmetic sequence increases by the same amount (5) each step, while the geometric sequence of positive terms with ratio 3/2 increases by a larger amount each step.",
+        "evidence": "Response contrasts a constant change for a with a growing change for g, referring to the computed differences.",
+        "fix": "State that arithmetic sequences change by a constant difference, while increasing geometric sequences change by increasing amounts.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) From n = 2 to n = 5 there are 3 steps, so d = (32 − 17)/3 = 15/3 = 5.\na₀ = a₂ − 2d = 17 − 10 = 7, so aₙ = 7 + 5n.\n\n(b) g₃ = g₁·r², so r² = 27/12 = 9/4. Since all terms are positive, r = 3/2.\ng₀ = g₁/r = 12/(3/2) = 8, so gₙ = 8(3/2)ⁿ.\n\n(c) a₂ = 17, a₃ = 22, a₄ = 27, so a₃ − a₂ = 5 and a₄ − a₃ = 5.\ng₂ = 8(3/2)² = 18, g₃ = 27, g₄ = 8(3/2)⁴ = 40.5, so g₃ − g₂ = 9 and g₄ − g₃ = 13.5.\nThe arithmetic sequence increases by the same amount, 5, at every step. The geometric sequence has positive terms and ratio 3/2 > 1, so it increases by a larger amount at each successive step (9, then 13.5).",
+    "verification_python": "from fractions import Fraction as F\nd=F(32-17,5-2); assert d==5\na=lambda n:7+5*n\nassert a(2)==17 and a(5)==32 and a(0)==7\nr2=F(27,12); assert r2==F(9,4)\nr=F(3,2); assert r*r==r2 and r>0\ng=lambda n:8*r**n\nassert g(1)==12 and g(3)==27 and g(0)==8\nassert g(2)==18 and g(4)==F(81,2)\nassert a(3)-a(2)==5 and a(4)-a(3)==5\nassert g(3)-g(2)==9 and g(4)-g(3)==F(27,2)\nassert all(12*r**(n-1)==g(n) for n in range(1,8))\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 requires division of the term difference by the index difference, although part (a) does not prescribe a method. A valid verification such as 17 + 3·5 = 32 establishes d = 5 without showing division. Accept any valid supporting method."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires division of the term difference by the index difference, although part (a) does not prescribe a method. A valid verification such as 17 + 3·5 = 32 establishes d = 5 without showing division. Accept any valid supporting method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Comparing an Arithmetic and a Geometric Sequence",
+   "calculator": "not_permitted",
+   "stimulus": "The sequence a is arithmetic, with a₂ = 17 and a₅ = 32. The sequence g is geometric, all of its terms are positive, and g₁ = 12 and g₃ = 27. Both sequences are defined for the whole numbers n = 0, 1, 2, 3, ...",
+   "parts": [
+    {
+     "prompt": "Find the common difference of the sequence a, and write an expression for aₙ in terms of n.",
+     "criteria": [
+      {
+       "text": "The common difference is d = (32 − 17)/(5 − 2) = 5.",
+       "evidence": "Response divides the change in terms, 15, by the 3 steps from n = 2 to n = 5 to get d = 5.",
+       "fix": "Divide the change between two known terms by the number of steps between their indices.",
+       "accepted_variants": [
+        "5"
+       ]
+      },
+      {
+       "text": "aₙ = 7 + 5n.",
+       "evidence": "Response gives aₙ = 7 + 5n or an equivalent form such as aₙ = 17 + 5(n − 2); finding a₀ = 7 is not required.",
+       "fix": "Use aₙ = aₖ + d(n − k) with a known term, or find a₀ by stepping back to n = 0.",
+       "accepted_variants": [
+        "17 + 5(n − 2)",
+        "5n + 7"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the common ratio of the sequence g, and write an expression for gₙ in terms of n.",
+     "criteria": [
+      {
+       "text": "The common ratio is 3/2, because r² = 27/12 = 9/4 and r must be positive since all terms are positive.",
+       "evidence": "Response obtains r = 3/2 by a valid method, for example solving g₁r² = g₃ to get r² = 9/4 and using the positive terms to reject −3/2, or g₂ = √(12·27) = 18.",
+       "fix": "Two steps between g₁ and g₃ means dividing gives r²; use the sign information to choose the root.",
+       "accepted_variants": [
+        "1.5",
+        "3/2"
+       ]
+      },
+      {
+       "text": "gₙ = 8(3/2)ⁿ.",
+       "evidence": "Response gives gₙ = 8(3/2)ⁿ, with g₀ = 12/(3/2) = 8, or an equivalent form such as gₙ = 12(3/2)^(n − 1).",
+       "fix": "Use gₙ = gₖ·r^(n − k) with a known term, or divide g₁ by r to find g₀.",
+       "accepted_variants": [
+        "8(1.5)ⁿ",
+        "12(3/2)^(n − 1)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find a₃ − a₂, a₄ − a₃, g₃ − g₂ and g₄ − g₃. Use these values to explain how the change from one term to the next differs between the two sequences.",
+     "criteria": [
+      {
+       "text": "a₃ − a₂ = 5, a₄ − a₃ = 5, g₃ − g₂ = 9 and g₄ − g₃ = 13.5.",
+       "evidence": "Response gives the four differences 5, 5, 9 and 13.5, by computing the terms (a₃ = 22, a₄ = 27, g₂ = 18, g₄ = 40.5) or by any valid method, such as using d = 5 and g₄ = (3/2)g₃.",
+       "fix": "Subtract consecutive terms, found from your formulas, or use the common difference and the common ratio directly.",
+       "accepted_variants": [
+        "13.5",
+        "27/2"
+       ]
+      },
+      {
+       "text": "Explains that the arithmetic sequence increases by the same amount (5) each step, while the geometric sequence of positive terms with ratio 3/2 increases by a larger amount each step.",
+       "evidence": "Response contrasts a constant change for a with a growing change for g, referring to the computed differences.",
+       "fix": "State that arithmetic sequences change by a constant difference, while increasing geometric sequences change by increasing amounts.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) From n = 2 to n = 5 there are 3 steps, so d = (32 − 17)/3 = 15/3 = 5.\na₀ = a₂ − 2d = 17 − 10 = 7, so aₙ = 7 + 5n.\n\n(b) g₃ = g₁·r², so r² = 27/12 = 9/4. Since all terms are positive, r = 3/2.\ng₀ = g₁/r = 12/(3/2) = 8, so gₙ = 8(3/2)ⁿ.\n\n(c) a₂ = 17, a₃ = 22, a₄ = 27, so a₃ − a₂ = 5 and a₄ − a₃ = 5.\ng₂ = 8(3/2)² = 18, g₃ = 27, g₄ = 8(3/2)⁴ = 40.5, so g₃ − g₂ = 9 and g₄ − g₃ = 13.5.\nThe arithmetic sequence increases by the same amount, 5, at every step. The geometric sequence has positive terms and ratio 3/2 > 1, so it increases by a larger amount at each successive step (9, then 13.5).",
+   "verification_python": "from fractions import Fraction as F\nd=F(32-17,5-2); assert d==5\na=lambda n:7+5*n\nassert a(2)==17 and a(5)==32 and a(0)==7\nr2=F(27,12); assert r2==F(9,4)\nr=F(3,2); assert r*r==r2 and r>0\ng=lambda n:8*r**n\nassert g(1)==12 and g(3)==27 and g(0)==8\nassert g(2)==18 and g(4)==F(81,2)\nassert a(3)-a(2)==5 and a(4)-a(3)==5\nassert g(3)-g(2)==9 and g(4)-g(3)==F(27,2)\nassert all(12*r**(n-1)==g(n) for n in range(1,8))\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.875949Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u12_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion a2 requires finding a₀ = 7 even when a student correctly uses the accepted anchored formula aₙ = 17 + 5(n − 2); that extra calculation ",
+      "ruling": "accept",
+      "reason": "Correct on all three: a2 read as requiring a₀ = 7 even for the accepted anchored form; b1 prescribed one derivation of r; c1 required listing every term. Evidence for a2, b1 and c1 widened to any valid method; values unchanged."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "rubric_points: Part (c), criterion c1: its evidence prescribes computing each term from the general formulas first. The part does not require that method, and a",
+      "ruling": "accept",
+      "reason": "Same as the Sol c1 point; c1 evidence and fix now accept using d = 5 and the ratio 3/2 directly."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:21:11.283Z",
+   "source": "given",
+   "item": {
+    "title": "Comparing an Arithmetic and a Geometric Sequence",
+    "calculator": "not_permitted",
+    "stimulus": "The sequence a is arithmetic, with a₂ = 17 and a₅ = 32. The sequence g is geometric, all of its terms are positive, and g₁ = 12 and g₃ = 27. Both sequences are defined for the whole numbers n = 0, 1, 2, 3, ...",
+    "parts": [
+     {
+      "prompt": "Find the common difference of the sequence a, and write an expression for aₙ in terms of n.",
+      "criteria": [
+       {
+        "text": "The common difference is d = (32 − 17)/(5 − 2) = 5.",
+        "evidence": "Response divides the change in terms, 15, by the 3 steps from n = 2 to n = 5 to get d = 5.",
+        "fix": "Divide the change between two known terms by the number of steps between their indices.",
+        "accepted_variants": [
+         "5"
+        ]
+       },
+       {
+        "text": "aₙ = 7 + 5n.",
+        "evidence": "Response gives aₙ = 7 + 5n, or an equivalent form such as aₙ = 17 + 5(n − 2), with a₀ = 7 found from a₂ − 2d.",
+        "fix": "Use aₙ = aₖ + d(n − k) with a known term, or find a₀ by stepping back to n = 0.",
+        "accepted_variants": [
+         "17 + 5(n − 2)",
+         "5n + 7"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the common ratio of the sequence g, and write an expression for gₙ in terms of n.",
+      "criteria": [
+       {
+        "text": "The common ratio is 3/2, because r² = 27/12 = 9/4 and r must be positive since all terms are positive.",
+        "evidence": "Response sets g₃ = g₁r², solves r² = 9/4, and rejects r = −3/2 because the terms are positive.",
+        "fix": "Two steps between g₁ and g₃ means dividing gives r²; use the sign information to choose the root.",
+        "accepted_variants": [
+         "1.5",
+         "3/2"
+        ]
+       },
+       {
+        "text": "gₙ = 8(3/2)ⁿ.",
+        "evidence": "Response gives gₙ = 8(3/2)ⁿ, with g₀ = 12/(3/2) = 8, or an equivalent form such as gₙ = 12(3/2)^(n − 1).",
+        "fix": "Use gₙ = gₖ·r^(n − k) with a known term, or divide g₁ by r to find g₀.",
+        "accepted_variants": [
+         "8(1.5)ⁿ",
+         "12(3/2)^(n − 1)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find a₃ − a₂, a₄ − a₃, g₃ − g₂ and g₄ − g₃. Use these values to explain how the change from one term to the next differs between the two sequences.",
+      "criteria": [
+       {
+        "text": "a₃ − a₂ = 5, a₄ − a₃ = 5, g₃ − g₂ = 9 and g₄ − g₃ = 13.5.",
+        "evidence": "Response computes a₂ = 17, a₃ = 22, a₄ = 27 and g₂ = 18, g₃ = 27, g₄ = 40.5 and gives the four differences 5, 5, 9, 13.5.",
+        "fix": "Compute each term from your general formulas first, then subtract consecutive terms.",
+        "accepted_variants": [
+         "13.5",
+         "27/2"
+        ]
+       },
+       {
+        "text": "Explains that the arithmetic sequence increases by the same amount (5) each step, while the geometric sequence of positive terms with ratio 3/2 increases by a larger amount each step.",
+        "evidence": "Response contrasts a constant change for a with a growing change for g, referring to the computed differences.",
+        "fix": "State that arithmetic sequences change by a constant difference, while increasing geometric sequences change by increasing amounts.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) From n = 2 to n = 5 there are 3 steps, so d = (32 − 17)/3 = 15/3 = 5.\na₀ = a₂ − 2d = 17 − 10 = 7, so aₙ = 7 + 5n.\n\n(b) g₃ = g₁·r², so r² = 27/12 = 9/4. Since all terms are positive, r = 3/2.\ng₀ = g₁/r = 12/(3/2) = 8, so gₙ = 8(3/2)ⁿ.\n\n(c) a₂ = 17, a₃ = 22, a₄ = 27, so a₃ − a₂ = 5 and a₄ − a₃ = 5.\ng₂ = 8(3/2)² = 18, g₃ = 27, g₄ = 8(3/2)⁴ = 40.5, so g₃ − g₂ = 9 and g₄ − g₃ = 13.5.\nThe arithmetic sequence increases by the same amount, 5, at every step. The geometric sequence has positive terms and ratio 3/2 > 1, so it increases by a larger amount at each successive step (9, then 13.5).",
+    "verification_python": "from fractions import Fraction as F\nd=F(32-17,5-2); assert d==5\na=lambda n:7+5*n\nassert a(2)==17 and a(5)==32 and a(0)==7\nr2=F(27,12); assert r2==F(9,4)\nr=F(3,2); assert r*r==r2 and r>0\ng=lambda n:8*r**n\nassert g(1)==12 and g(3)==27 and g(0)==8\nassert g(2)==18 and g(4)==F(81,2)\nassert a(3)-a(2)==5 and a(4)-a(3)==5\nassert g(3)-g(2)==9 and g(4)-g(3)==F(27,2)\nassert all(12*r**(n-1)==g(n) for n in range(1,8))\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2 requires finding a₀ = 7 even when a student correctly uses aₙ = 17 + 5(n − 2); that valid method does not require finding a₀. Part (b), criterion b1 mandates setting g₃ = g₁r² and explicitly rejecting the negative root, excluding valid reasoning such as directly taking the positive square root of g₃/g₁ because all terms are positive. Part (c), criterion c1 requires computing every listed term first, although students can correctly obtain the arithmetic differences directly from d = 5. These evidence requirements prescribe unnecessary methods or intermediate work.",
+       "solution: The independent solution agrees with every mathematical result: d = 5, aₙ = 5n + 7, r = 3/2, gₙ = 8(3/2)ⁿ, and consecutive differences 5, 5, 9, and 27/2. However, criterion a2's requirement to find a₀ explicitly would reject the independent solution's valid derivation from a₂. No model answer or existing comparison questions were supplied."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2 requires finding a₀ = 7 even when a student correctly uses aₙ = 17 + 5(n − 2); that valid method does not require finding a₀. Part (b), criterion b1 mandates setting g₃ = g₁r² and explicitly rejecting the negative root, excluding valid reasoning such as directly taking the positive square root of g₃/g₁ because all terms are positive. Part (c), criterion c1 requires computing every listed term first, although students can correctly obtain the arithmetic differences directly from d = 5. These evidence requirements prescribe unnecessary methods or intermediate work."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with every mathematical result: d = 5, aₙ = 5n + 7, r = 3/2, gₙ = 8(3/2)ⁿ, and consecutive differences 5, 5, 9, and 27/2. However, criterion a2's requirement to find a₀ explicitly would reject the independent solution's valid derivation from a₂. No model answer or existing comparison questions were supplied.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a2 requires finding a₀ = 7 even when a student correctly uses the accepted anchored formula aₙ = 17 + 5(n − 2); that extra calculation is unnecessary. Criterion b1 prescribes setting g₃ = g₁r² and explicitly rejecting the negative root, rather than accepting any valid supporting derivation of the positive ratio. Criterion c1 requires displaying all six individual terms, although the requested differences can be correctly obtained directly from the common difference and ratio. These evidence requirements can reject complete correct answers using valid alternative methods."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a2 requires finding a₀ = 7 even when a student correctly uses the accepted anchored formula aₙ = 17 + 5(n − 2); that extra calculation is unnecessary. Criterion b1 prescribes setting g₃ = g₁r² and explicitly rejecting the negative root, rather than accepting any valid supporting derivation of the positive ratio. Criterion c1 requires displaying all six individual terms, although the requested differences can be correctly obtained directly from the common difference and ratio. These evidence requirements can reject complete correct answers using valid alternative methods."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 prescribes a method not required by the part: it requires computing a₂ = 17, a₃ = 22, a₄ = 27 and g₂ = 18, g₃ = 27, g₄ = 40.5 first, but a valid response can use the common difference from part (a) to state a₃ − a₂ = 5 and a₄ − a₃ = 5 without listing those terms."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 prescribes a method not required by the part: it requires computing a₂ = 17, a₃ = 22, a₄ = 27 and g₂ = 18, g₃ = 27, g₄ = 40.5 first, but a valid response can use the common difference from part (a) to state a₃ − a₂ = 5 and a₄ − a₃ = 5 without listing those terms."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: its evidence prescribes computing each term from the general formulas first. The part does not require that method, and a valid alternative is to use the already-known common difference for the arithmetic differences and g4 = (3/2)g3 for the geometric difference."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: its evidence prescribes computing each term from the general formulas first. The part does not require that method, and a valid alternative is to use the already-known common difference for the arithmetic differences and g4 = (3/2)g3 for the geometric difference."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

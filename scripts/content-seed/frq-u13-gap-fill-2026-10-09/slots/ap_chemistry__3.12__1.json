@@ -1,0 +1,545 @@
+{
+ "id": "ap_chemistry__3.12__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 3,
+  "unit_title": "Properties of Substances and Mixtures",
+  "topic_code": "3.12",
+  "topic_title": "Properties of Photons",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:45.122Z",
+   "source": "given",
+   "item": {
+    "title": "Energy of Photons Emitted by a Mercury Lamp",
+    "calculator": "permitted",
+    "stimulus": "A mercury vapor lamp emits ultraviolet light of wavelength 253.7 nm and violet light of wavelength 435.8 nm. Each photon is emitted when a mercury atom changes from a higher electronic energy level to a lower one. Use c = 2.998 × 10⁸ m/s, h = 6.626 × 10⁻³⁴ J·s, and 1 nm = 1 × 10⁻⁹ m.\n\nAnswer the following. Report each calculated answer with units and an appropriate number of significant digits.",
+    "parts": [
+     {
+      "prompt": "Calculate the frequency of the 253.7 nm light.",
+      "criteria": [
+       {
+        "text": "Calculates a frequency of 1.182 × 10¹⁵ s⁻¹.",
+        "evidence": "Response uses c = λν with consistent units (for example converting 253.7 nm to 2.537 × 10⁻⁷ m, or using c = 2.998 × 10¹⁷ nm/s) and reports 1.182 × 10¹⁵ s⁻¹.",
+        "fix": "Use ν = c/λ with the wavelength and the speed of light in matching length units.",
+        "accepted_variants": [
+         "1.182 × 10¹⁵ Hz"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the energy of one photon of the 253.7 nm light.",
+      "criteria": [
+       {
+        "text": "Calculates a photon energy of 7.830 × 10⁻¹⁹ J.",
+        "evidence": "Response uses E = hν with the frequency from the previous part (or E = hc/λ) and reports 7.830 × 10⁻¹⁹ J per photon; 7.832 × 10⁻¹⁹ J from using the rounded frequency in (a) is also acceptable.",
+        "fix": "Multiply Planck's constant by the frequency, E = hν, and check that J·s × s⁻¹ leaves joules.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "When a mercury atom emits one photon of the 253.7 nm light, does the energy of the atom increase or decrease, and by how much?",
+      "criteria": [
+       {
+        "text": "States that the energy of the atom decreases by 7.830 × 10⁻¹⁹ J, the energy of the emitted photon.",
+        "evidence": "Response says the atom's energy decreases and gives the amount of the decrease as equal to the photon energy found in the previous part.",
+        "fix": "In emission the atom loses exactly the photon's energy; say the energy decreases and give the photon energy as the amount.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Is the energy of one photon of the 435.8 nm light greater than, less than, or equal to the energy of one photon of the 253.7 nm light? Justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the 435.8 nm photon has less energy because its longer wavelength corresponds to a lower frequency (c = λν), and photon energy is proportional to frequency (E = hν).",
+        "evidence": "Response answers less than and justifies it either by reasoning that a longer wavelength means a lower frequency and therefore a lower energy, or by calculating 4.558 × 10⁻¹⁹ J and comparing it with the 253.7 nm photon energy.",
+        "fix": "Combine c = λν and E = hν: photon energy is inversely proportional to wavelength, so a longer wavelength means less energy.",
+        "accepted_variants": [
+         "less than"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) λ = 253.7 nm × (1 × 10⁻⁹ m/nm) = 2.537 × 10⁻⁷ m. ν = c/λ = (2.998 × 10⁸ m/s) ÷ (2.537 × 10⁻⁷ m) = 1.182 × 10¹⁵ s⁻¹.\n\n(b) E = hν = (6.626 × 10⁻³⁴ J·s)(1.1817 × 10¹⁵ s⁻¹) = 7.830 × 10⁻¹⁹ J per photon.\n\n(c) The energy of the mercury atom decreases. When the atom emits the photon, its energy decreases by an amount equal to the energy of the photon, 7.830 × 10⁻¹⁹ J.\n\n(d) Less than. The 435.8 nm light has a longer wavelength than the 253.7 nm light. Because c = λν, a longer wavelength corresponds to a lower frequency, and because E = hν, a lower frequency means a lower photon energy. (Calculation check: E = hc/λ = 4.558 × 10⁻¹⁹ J, which is less than 7.830 × 10⁻¹⁹ J.)",
+    "verification_python": "c=2.998e8\nh=6.626e-34\nlam1=253.7e-9\nlam2=435.8e-9\nnu=c/lam1\nassert abs(nu-1.182e15)<0.0005e15\nassert abs(nu-1.1817e15)<0.00005e15\nE=h*nu\nassert abs(E-7.830e-19)<0.0005e-19\nassert abs(h*1.182e15-7.832e-19)<0.0005e-19\nE2=h*c/lam2\nassert abs(E2-4.558e-19)<0.0005e-19\nassert E2<E and lam2>lam1\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Energy of Photons Emitted by a Mercury Lamp",
+   "calculator": "permitted",
+   "stimulus": "A mercury vapor lamp emits ultraviolet light of wavelength 253.7 nm and violet light of wavelength 435.8 nm. Each photon is emitted when a mercury atom changes from a higher electronic energy level to a lower one. Use c = 2.998 × 10⁸ m/s, h = 6.626 × 10⁻³⁴ J·s, and 1 nm = 1 × 10⁻⁹ m.\n\nAnswer the following. Report each calculated answer with units and an appropriate number of significant digits.",
+   "parts": [
+    {
+     "prompt": "Calculate the frequency of the 253.7 nm light.",
+     "criteria": [
+      {
+       "text": "Calculates a frequency of 1.182 × 10¹⁵ s⁻¹.",
+       "evidence": "Response uses c = λν with consistent units (for example converting 253.7 nm to 2.537 × 10⁻⁷ m, or using c = 2.998 × 10¹⁷ nm/s) and reports 1.182 × 10¹⁵ s⁻¹.",
+       "fix": "Use ν = c/λ with the wavelength and the speed of light in matching length units.",
+       "accepted_variants": [
+        "1.182 × 10¹⁵ Hz"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the energy of one photon of the 253.7 nm light.",
+     "criteria": [
+      {
+       "text": "Calculates a photon energy of 7.830 × 10⁻¹⁹ J.",
+       "evidence": "Response uses E = hν with the frequency from the previous part (or E = hc/λ) and reports 7.830 × 10⁻¹⁹ J per photon; 7.832 × 10⁻¹⁹ J from using the rounded frequency in (a) is also acceptable.",
+       "fix": "Multiply Planck's constant by the frequency, E = hν, and check that J·s × s⁻¹ leaves joules.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "When a mercury atom emits one photon of the 253.7 nm light, does the energy of the atom increase or decrease, and by how much?",
+     "criteria": [
+      {
+       "text": "States that the energy of the atom decreases by 7.830 × 10⁻¹⁹ J, the energy of the emitted photon.",
+       "evidence": "Response says the atom's energy decreases and gives the amount of the decrease as equal to the photon energy found in the previous part.",
+       "fix": "In emission the atom loses exactly the photon's energy; say the energy decreases and give the photon energy as the amount.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Is the energy of one photon of the 435.8 nm light greater than, less than, or equal to the energy of one photon of the 253.7 nm light? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the 435.8 nm photon has less energy because its longer wavelength corresponds to a lower frequency (c = λν), and photon energy is proportional to frequency (E = hν).",
+       "evidence": "Response answers less than and justifies it either by reasoning that a longer wavelength means a lower frequency and therefore a lower energy, or by calculating 4.558 × 10⁻¹⁹ J and comparing it with the 253.7 nm photon energy.",
+       "fix": "Combine c = λν and E = hν: photon energy is inversely proportional to wavelength, so a longer wavelength means less energy.",
+       "accepted_variants": [
+        "less than"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) λ = 253.7 nm × (1 × 10⁻⁹ m/nm) = 2.537 × 10⁻⁷ m. ν = c/λ = (2.998 × 10⁸ m/s) ÷ (2.537 × 10⁻⁷ m) = 1.182 × 10¹⁵ s⁻¹.\n\n(b) E = hν = (6.626 × 10⁻³⁴ J·s)(1.1817 × 10¹⁵ s⁻¹) = 7.830 × 10⁻¹⁹ J per photon.\n\n(c) The energy of the mercury atom decreases. When the atom emits the photon, its energy decreases by an amount equal to the energy of the photon, 7.830 × 10⁻¹⁹ J.\n\n(d) Less than. The 435.8 nm light has a longer wavelength than the 253.7 nm light. Because c = λν, a longer wavelength corresponds to a lower frequency, and because E = hν, a lower frequency means a lower photon energy. (Calculation check: E = hc/λ = 4.558 × 10⁻¹⁹ J, which is less than 7.830 × 10⁻¹⁹ J.)",
+   "verification_python": "c=2.998e8\nh=6.626e-34\nlam1=253.7e-9\nlam2=435.8e-9\nnu=c/lam1\nassert abs(nu-1.182e15)<0.0005e15\nassert abs(nu-1.1817e15)<0.00005e15\nE=h*nu\nassert abs(E-7.830e-19)<0.0005e-19\nassert abs(h*1.182e15-7.832e-19)<0.0005e-19\nE2=h*c/lam2\nassert abs(E2-4.558e-19)<0.0005e-19\nassert E2<E and lam2>lam1\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.849951Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "a1 accepts any consistent-unit method (rubric_points); b1 states the rounded-frequency value 7.832 × 10⁻¹⁹ J explicitly. REJECTED the accuracy flag: with the given constants hc/λ = 7.830 × 10⁻¹⁹ J and 4.558 × 10⁻¹⁹ J (recomputed), so the original values stand; the checker used different constants."
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:07:37.010Z",
+   "source": "given",
+   "item": {
+    "title": "Energy of Photons Emitted by a Mercury Lamp",
+    "calculator": "permitted",
+    "stimulus": "A mercury vapor lamp emits ultraviolet light of wavelength 253.7 nm and violet light of wavelength 435.8 nm. Each photon is emitted when a mercury atom changes from a higher electronic energy level to a lower one. Use c = 2.998 × 10⁸ m/s, h = 6.626 × 10⁻³⁴ J·s, and 1 nm = 1 × 10⁻⁹ m.\n\nAnswer the following. Report each calculated answer with units and an appropriate number of significant digits.",
+    "parts": [
+     {
+      "prompt": "Calculate the frequency of the 253.7 nm light.",
+      "criteria": [
+       {
+        "text": "Calculates a frequency of 1.182 × 10¹⁵ s⁻¹.",
+        "evidence": "Response converts 253.7 nm to 2.537 × 10⁻⁷ m, uses c = λν, and reports 1.182 × 10¹⁵ s⁻¹.",
+        "fix": "Convert the wavelength to meters first, then divide the speed of light by the wavelength: ν = c/λ.",
+        "accepted_variants": [
+         "1.182 × 10¹⁵ Hz"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the energy of one photon of the 253.7 nm light.",
+      "criteria": [
+       {
+        "text": "Calculates a photon energy of 7.830 × 10⁻¹⁹ J.",
+        "evidence": "Response uses E = hν with the frequency from the previous part (or E = hc/λ) and reports 7.830 × 10⁻¹⁹ J per photon; a last-digit difference caused by using a rounded frequency is acceptable.",
+        "fix": "Multiply Planck's constant by the frequency, E = hν, and check that J·s × s⁻¹ leaves joules.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "When a mercury atom emits one photon of the 253.7 nm light, does the energy of the atom increase or decrease, and by how much?",
+      "criteria": [
+       {
+        "text": "States that the energy of the atom decreases by 7.830 × 10⁻¹⁹ J, the energy of the emitted photon.",
+        "evidence": "Response says the atom's energy decreases and gives the amount of the decrease as equal to the photon energy found in the previous part.",
+        "fix": "In emission the atom loses exactly the photon's energy; say the energy decreases and give the photon energy as the amount.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Is the energy of one photon of the 435.8 nm light greater than, less than, or equal to the energy of one photon of the 253.7 nm light? Justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the 435.8 nm photon has less energy because its longer wavelength corresponds to a lower frequency (c = λν), and photon energy is proportional to frequency (E = hν).",
+        "evidence": "Response answers less than and justifies it either by reasoning that a longer wavelength means a lower frequency and therefore a lower energy, or by calculating 4.558 × 10⁻¹⁹ J and comparing it with the 253.7 nm photon energy.",
+        "fix": "Combine c = λν and E = hν: photon energy is inversely proportional to wavelength, so a longer wavelength means less energy.",
+        "accepted_variants": [
+         "less than"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) λ = 253.7 nm × (1 × 10⁻⁹ m/nm) = 2.537 × 10⁻⁷ m. ν = c/λ = (2.998 × 10⁸ m/s) ÷ (2.537 × 10⁻⁷ m) = 1.182 × 10¹⁵ s⁻¹.\n\n(b) E = hν = (6.626 × 10⁻³⁴ J·s)(1.1817 × 10¹⁵ s⁻¹) = 7.830 × 10⁻¹⁹ J per photon.\n\n(c) The energy of the mercury atom decreases. When the atom emits the photon, its energy decreases by an amount equal to the energy of the photon, 7.830 × 10⁻¹⁹ J.\n\n(d) Less than. The 435.8 nm light has a longer wavelength than the 253.7 nm light. Because c = λν, a longer wavelength corresponds to a lower frequency, and because E = hν, a lower frequency means a lower photon energy. (Calculation check: E = hc/λ = 4.558 × 10⁻¹⁹ J, which is less than 7.830 × 10⁻¹⁹ J.)",
+    "verification_python": "c=2.998e8\nh=6.626e-34\nlam1=253.7e-9\nlam2=435.8e-9\nnu=c/lam1\nassert abs(nu-1.182e15)<0.0005e15\nassert abs(nu-1.1817e15)<0.00005e15\nE=h*nu\nassert abs(E-7.830e-19)<0.0005e-19\nassert abs(h*1.182e15-7.832e-19)<0.0005e-19\nE2=h*c/lam2\nassert abs(E2-4.558e-19)<0.0005e-19\nassert E2<E and lam2>lam1\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 requires converting the wavelength to meters, prescribing an unnecessary method. A valid alternative uses c = 2.998 × 10¹⁷ nm/s and ν = c/(253.7 nm), obtaining the same frequency. Accept any dimensionally consistent calculation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 requires converting the wavelength to meters, prescribing an unnecessary method. A valid alternative uses c = 2.998 × 10¹⁷ nm/s and ν = c/(253.7 nm), obtaining the same frequency. Accept any dimensionally consistent calculation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 requires converting the wavelength to meters, prescribing a method the part does not require. Using c = 2.998 × 10¹⁷ nm/s and dividing by 253.7 nm is an equally valid method and should earn credit.",
+       "accurate: Criteria b1 and c1 give 7.830 × 10⁻¹⁹ J instead of the correctly rounded 7.829 × 10⁻¹⁹ J. Using the rounded frequency from (a) gives 7.832 × 10⁻¹⁹ J, not 7.830 × 10⁻¹⁹ J. Criterion d1's numerical evidence should give 4.557 × 10⁻¹⁹ J, not 4.558 × 10⁻¹⁹ J.",
+       "solution: The independent solution agrees with (a) and all qualitative conclusions. For (b), hc/λ = 7.8292266 × 10⁻¹⁹ J, which rounds to 7.829 × 10⁻¹⁹ J, not the rubric's 7.830 × 10⁻¹⁹ J. Consequently, (c)'s decrease is also 7.829 × 10⁻¹⁹ J. For (d), the optional numerical comparison gives 4.5573089 × 10⁻¹⁹ J, rounding to 4.557 × 10⁻¹⁹ J rather than 4.558 × 10⁻¹⁹ J. No model answer was supplied or assessed."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires converting the wavelength to meters, prescribing a method the part does not require. Using c = 2.998 × 10¹⁷ nm/s and dividing by 253.7 nm is an equally valid method and should earn credit."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criteria b1 and c1 give 7.830 × 10⁻¹⁹ J instead of the correctly rounded 7.829 × 10⁻¹⁹ J. Using the rounded frequency from (a) gives 7.832 × 10⁻¹⁹ J, not 7.830 × 10⁻¹⁹ J. Criterion d1's numerical evidence should give 4.557 × 10⁻¹⁹ J, not 4.558 × 10⁻¹⁹ J."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with (a) and all qualitative conclusions. For (b), hc/λ = 7.8292266 × 10⁻¹⁹ J, which rounds to 7.829 × 10⁻¹⁹ J, not the rubric's 7.830 × 10⁻¹⁹ J. Consequently, (c)'s decrease is also 7.829 × 10⁻¹⁹ J. For (d), the optional numerical comparison gives 4.5573089 × 10⁻¹⁹ J, rounding to 4.557 × 10⁻¹⁹ J rather than 4.558 × 10⁻¹⁹ J. No model answer was supplied or assessed.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

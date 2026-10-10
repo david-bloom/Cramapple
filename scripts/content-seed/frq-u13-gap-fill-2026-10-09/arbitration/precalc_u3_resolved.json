@@ -1,0 +1,909 @@
+[
+ {
+  "slot_id": "ap_precalculus__3.11__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.11",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion a2 allows 1/tan θ but still requires explicit sine and cosine values, rejecting valid work using tan(7π/6) = √3/3 and its reciprocal. C",
+    "ruling": "accept",
+    "reason": "Valid: the part does not prescribe a method, and a2 still demanded sine and cosine values from a 1/tan θ route; evidence for a2 now accepts tan(7π/6) = √3/3 and its reciprocal. For c1, an explanation that |sec θ| ≥ 1 so 1/2 is not an output of secant is a valid AP-level reason; c1 evidence widened to accept it."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Values, Asymptotes and Range of Secant and Cotangent",
+   "calculator": "not_permitted",
+   "stimulus": "This question concerns the functions y = sec θ and y = cot θ. Give exact values.",
+   "parts": [
+    {
+     "prompt": "Find the exact values of sec(2π/3) and cot(7π/6). Show the work that leads to each answer.",
+     "criteria": [
+      {
+       "text": "sec(2π/3) = 1/cos(2π/3) = 1/(−1/2) = −2.",
+       "evidence": "Response writes secant as the reciprocal of cosine, uses cos(2π/3) = −1/2, and gets −2.",
+       "fix": "Rewrite secant as 1/cos θ, find the exact cosine with the correct quadrant sign, then take the reciprocal.",
+       "accepted_variants": [
+        "−2"
+       ]
+      },
+      {
+       "text": "cot(7π/6) = cos(7π/6)/sin(7π/6) = (−√3/2)/(−1/2) = √3.",
+       "evidence": "Response gets √3 using cot θ = cos θ/sin θ with cos(7π/6) = −√3/2 and sin(7π/6) = −1/2, or using cot θ = 1/tan θ with tan(7π/6) = √3/3 (or 1/√3).",
+       "fix": "Rewrite cotangent as cos θ/sin θ; in quadrant III both are negative, so the quotient is positive.",
+       "accepted_variants": [
+        "√3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find all values of θ in the interval 0 ≤ θ ≤ 2π at which the graph of y = cot θ has a vertical asymptote, and give a reason. Then state whether cot θ is increasing or decreasing on the interval between the first two of these values.",
+     "criteria": [
+      {
+       "text": "θ = 0, π and 2π, because there sin θ = 0 (equivalently tan θ = 0), so cot θ = cos θ/sin θ is undefined while cos θ is not 0.",
+       "evidence": "Response lists exactly θ = 0, π, 2π and gives the reason that sin θ = 0 (or tan θ = 0) at these values.",
+       "fix": "Write cot θ = cos θ/sin θ and find where the denominator sin θ is zero in the interval, including both endpoints.",
+       "accepted_variants": [
+        "0, π, 2π"
+       ]
+      },
+      {
+       "text": "cot θ is decreasing on 0 < θ < π.",
+       "evidence": "Response states that cot θ is decreasing on the interval between θ = 0 and θ = π.",
+       "fix": "Remember that cotangent decreases between consecutive asymptotes, the opposite of tangent; test two values such as π/4 and 3π/4.",
+       "accepted_variants": [
+        "decreasing"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the equation sec θ = 1/2 has no solution. Then give the range of y = sec θ.",
+     "criteria": [
+      {
+       "text": "Explains that sec θ = 1/cos θ and −1 ≤ cos θ ≤ 1 (cos θ not 0), so |sec θ| ≥ 1 and sec θ cannot equal 1/2; equivalently, sec θ = 1/2 would need cos θ = 2, which is impossible.",
+       "evidence": "Response gives a valid reason that rules out 1/2: secant is the reciprocal of cosine and −1 ≤ cos θ ≤ 1 (so cos θ = 2 is impossible), or |sec θ| ≥ 1 for every θ, so 1/2 is not an output of secant.",
+       "fix": "Rewrite sec θ = c as cos θ = 1/c and check whether 1/c lies between −1 and 1.",
+       "accepted_variants": []
+      },
+      {
+       "text": "The range of y = sec θ is (−∞, −1] ∪ [1, ∞).",
+       "evidence": "Response gives the range as all values less than or equal to −1 together with all values greater than or equal to 1.",
+       "fix": "Reciprocals of numbers between −1 and 1 (excluding 0) have absolute value at least 1, so the range excludes (−1, 1).",
+       "accepted_variants": [
+        "y ≤ −1 or y ≥ 1",
+        "|y| ≥ 1"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) sec(2π/3) = 1/cos(2π/3). The angle 2π/3 is in quadrant II with reference angle π/3, so cos(2π/3) = −1/2. Therefore sec(2π/3) = 1/(−1/2) = −2.\ncot(7π/6) = cos(7π/6)/sin(7π/6). The angle 7π/6 is in quadrant III with reference angle π/6, so cos(7π/6) = −√3/2 and sin(7π/6) = −1/2. Therefore cot(7π/6) = (−√3/2)/(−1/2) = √3.\n\n(b) cot θ = cos θ/sin θ, so the graph has vertical asymptotes where sin θ = 0 (where tan θ = 0), since cos θ is ±1 there. In 0 ≤ θ ≤ 2π this happens at θ = 0, θ = π and θ = 2π.\nBetween the consecutive asymptotes θ = 0 and θ = π, cot θ is decreasing. (For example, cot(π/4) = 1 and cot(3π/4) = −1.)\n\n(c) sec θ = 1/cos θ, and −1 ≤ cos θ ≤ 1 with cos θ ≠ 0 wherever secant is defined, so |sec θ| = 1/|cos θ| ≥ 1. A value of 1/2 would require cos θ = 2, which is impossible, so sec θ = 1/2 has no solution.\nThe range of y = sec θ is (−∞, −1] ∪ [1, ∞).",
+   "verification_python": "import sympy as sp\nassert sp.simplify(sp.sec(2*sp.pi/3) + 2) == 0\nassert sp.cos(2*sp.pi/3) == sp.Rational(-1, 2)\nassert sp.simplify(sp.cot(7*sp.pi/6) - sp.sqrt(3)) == 0\nassert sp.simplify(sp.cos(7*sp.pi/6) + sp.sqrt(3)/2) == 0 and sp.sin(7*sp.pi/6) == sp.Rational(-1, 2)\nth = sp.symbols('th')\nzs = sorted(sp.solveset(sp.sin(th), th, sp.Interval(0, 2*sp.pi)))\nassert zs == [0, sp.pi, 2*sp.pi]\nfor z in zs:\n    assert abs(sp.cos(z)) == 1\nassert sp.cot(sp.pi/4) == 1 and sp.cot(3*sp.pi/4) == -1\nimport math\nxs = [math.pi*k/500 for k in range(1, 500)]\ncot = lambda x: math.cos(x)/math.sin(x)\nassert all(cot(xs[i+1]) < cot(xs[i]) for i in range(len(xs)-1))\n# sec theta = 1/2 needs cos theta = 2\nassert 1/sp.Rational(1, 2) == 2 and 2 > 1\nassert all(abs(1/math.cos(x)) > 1 - 1e-12 for x in [k*0.01 for k in range(0, 629)] if abs(math.cos(x)) > 1e-9)\nassert sp.simplify(sp.tan(7*sp.pi/6) - sp.sqrt(3)/3) == 0 and sp.simplify(1/(sp.sqrt(3)/3) - sp.sqrt(3)) == 0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.12__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.12",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion a1 requires explicit use of sin²α + cos²α = 1, although part (a) does not prescribe that method. A correct reference-triangle calculati",
+    "ruling": "accept",
+    "reason": "Valid: the prompt did not require the Pythagorean identity, yet a1 did. Using the identity is the point of topic 3.12 (equivalent representations), so the prompt now says 'Use a Pythagorean identity to find the exact value of cos α', matching a1 and the model answer."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Using Pythagorean and Sum Identities to Evaluate and Solve",
+   "calculator": "not_permitted",
+   "stimulus": "Angle α satisfies sin α = 3/5 and π/2 < α < π.\nAngle β satisfies sin β = 12/13 and cos β = 5/13.",
+   "parts": [
+    {
+     "prompt": "Use a Pythagorean identity to find the exact value of cos α. Then find the exact value of tan α. Show the work that leads to your answers.",
+     "criteria": [
+      {
+       "text": "cos α = −4/5: from the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, and cos α < 0 because π/2 < α < π.",
+       "evidence": "Response uses sin²α + cos²α = 1 to get cos²α = 16/25 and chooses the negative root because α is in quadrant II.",
+       "fix": "After using sin²θ + cos²θ = 1, choose the sign of the square root from the quadrant of the angle.",
+       "accepted_variants": [
+        "−4/5",
+        "−0.8"
+       ]
+      },
+      {
+       "text": "tan α = sin α/cos α = (3/5)/(−4/5) = −3/4.",
+       "evidence": "Response divides sin α by cos α to get tan α = −3/4.",
+       "fix": "Compute tangent as sine divided by cosine using the signed values just found.",
+       "accepted_variants": [
+        "−3/4",
+        "−0.75"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use the sum identity for sine to find the exact value of sin(α + β). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Writes sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13).",
+       "evidence": "Response applies the sine sum identity and substitutes all four values, including cos α = −4/5.",
+       "fix": "Write sin(α + β) = sin α cos β + cos α sin β before substituting; never add the two sines.",
+       "accepted_variants": []
+      },
+      {
+       "text": "sin(α + β) = 15/65 − 48/65 = −33/65.",
+       "evidence": "Response simplifies the substituted expression to −33/65.",
+       "fix": "Put both products over the common denominator 65 and keep the negative sign from cos α.",
+       "accepted_variants": [
+        "−33/65"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use a Pythagorean identity to rewrite the equation 2cos²x + 3 sin x − 3 = 0 in terms of sin x only. Then find all solutions of the equation in the interval 0 ≤ x < 2π.",
+     "criteria": [
+      {
+       "text": "Replaces cos²x with 1 − sin²x to get 2sin²x − 3 sin x + 1 = 0, which factors as (2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.",
+       "evidence": "Response shows the substitution cos²x = 1 − sin²x, an equivalent quadratic in sin x, and the two values sin x = 1/2 and sin x = 1.",
+       "fix": "Substitute cos²x = 1 − sin²x, collect terms into a quadratic in sin x, then factor or use the quadratic formula.",
+       "accepted_variants": [
+        "2sin²x − 3sin x + 1 = 0"
+       ]
+      },
+      {
+       "text": "The solutions are x = π/6, π/2 and 5π/6.",
+       "evidence": "Response lists exactly π/6, π/2 and 5π/6, from sin x = 1/2 (two angles) and sin x = 1 (one angle).",
+       "fix": "For each sine value find every angle in 0 ≤ x < 2π; sin x = 1/2 has solutions in quadrants I and II.",
+       "accepted_variants": [
+        "π/6, π/2, 5π/6"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) By the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, so cos α = ±4/5. Because π/2 < α < π, α is in quadrant II, where cosine is negative, so cos α = −4/5.\ntan α = sin α/cos α = (3/5)/(−4/5) = −3/4.\n\n(b) sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13) = 15/65 − 48/65 = −33/65.\n\n(c) Using cos²x = 1 − sin²x:\n2(1 − sin²x) + 3 sin x − 3 = 0\n2 − 2sin²x + 3 sin x − 3 = 0\n−2sin²x + 3 sin x − 1 = 0\n2sin²x − 3 sin x + 1 = 0\n(2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.\nIn 0 ≤ x < 2π, sin x = 1/2 gives x = π/6 and x = 5π/6, and sin x = 1 gives x = π/2. The solutions are x = π/6, π/2 and 5π/6.",
+   "verification_python": "import sympy as sp\nsa = sp.Rational(3, 5)\nca = -sp.sqrt(1 - sa**2)\nassert ca == sp.Rational(-4, 5) and 1 - sa**2 == sp.Rational(16, 25)\nassert sa/ca == sp.Rational(-3, 4)\nsb, cb = sp.Rational(12, 13), sp.Rational(5, 13)\nassert sb**2 + cb**2 == 1\nval = sa*cb + ca*sb\nassert val == sp.Rational(-33, 65)\nassert sa*cb == sp.Rational(15, 65) and ca*sb == sp.Rational(-48, 65)\nalpha = sp.pi - sp.asin(sa); beta = sp.asin(sb)\nassert abs(float(sp.sin(alpha + beta)) - float(val)) < 1e-12\nx, s = sp.symbols('x s')\nassert sp.expand(2*(1 - s**2) + 3*s - 3 + (2*s**2 - 3*s + 1)) == 0\nassert sp.expand((2*s - 1)*(s - 1) - (2*s**2 - 3*s + 1)) == 0\nsols = sp.solveset(2*sp.cos(x)**2 + 3*sp.sin(x) - 3, x, sp.Interval.Ropen(0, 2*sp.pi))\nassert sols == sp.FiniteSet(sp.pi/6, sp.pi/2, 5*sp.pi/6)\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.13__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.13",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion a1 requires substitution with r = −4, rejecting the valid alternative of first rewriting A as (4, 5π/3) and then converting to rectangu",
+    "ruling": "accept",
+    "reason": "Valid on both counts. a1 evidence widened to accept rewriting A as (4, 5π/3) before converting (same point, valid method). Part (c) asks only to give the polar coordinates, so c2 evidence no longer requires an explanation; the criterion text keeps the reason as feedback."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Converting Between Polar, Rectangular and Complex Forms",
+   "calculator": "not_permitted",
+   "stimulus": "In the xy-plane, point A has polar coordinates (r, θ) = (−4, 2π/3), and point B has rectangular coordinates (−3, 3√3).\n\nIn the complex plane, the complex number w corresponds to the point with polar coordinates (4, 5π/4).",
+   "parts": [
+    {
+     "prompt": "Find the rectangular coordinates of point A. Then describe where A is located relative to the terminal ray of the angle 2π/3.",
+     "criteria": [
+      {
+       "text": "A = (2, −2√3), from x = r cos θ = −4cos(2π/3) = 2 and y = r sin θ = −4 sin(2π/3) = −2√3.",
+       "evidence": "Response obtains (2, −2√3) by a valid conversion, such as x = r cos θ and y = r sin θ with r = −4, or first rewriting A as (4, 5π/3) and then converting.",
+       "fix": "Substitute the negative r directly into x = r cos θ and y = r sin θ; do not drop its sign.",
+       "accepted_variants": [
+        "(2, −2√3)"
+       ]
+      },
+      {
+       "text": "Because r = −4 is negative, A is 4 units from the origin on the line containing the terminal ray of 2π/3, but in the direction opposite to that ray (so A is in quadrant IV).",
+       "evidence": "Response explains that a negative r places the point 4 units from the origin in the opposite direction of the terminal ray of 2π/3.",
+       "fix": "For negative r, go |r| units along the line through the terminal ray but on the opposite side of the origin.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find polar coordinates (r, θ) for point B with r > 0 and 0 ≤ θ < 2π. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "r = √((−3)² + (3√3)²) = √(9 + 27) = √36 = 6.",
+       "evidence": "Response computes r = √(x² + y²) = 6.",
+       "fix": "Use r = √(x² + y²) with both coordinates squared, then simplify the square root exactly.",
+       "accepted_variants": [
+        "6"
+       ]
+      },
+      {
+       "text": "θ = 2π/3: since x < 0, θ = arctan(3√3/(−3)) + π = arctan(−√3) + π = −π/3 + π = 2π/3.",
+       "evidence": "Response gives θ = 2π/3 with a reason that accounts for x < 0, such as adding π to arctan(y/x) or using cos θ = −1/2 and sin θ = √3/2.",
+       "fix": "When x < 0, add π to arctan(y/x); check that the angle's quadrant matches the signs of x and y.",
+       "accepted_variants": [
+        "2π/3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write w in the form a + bi, where a and b are exact real numbers. Then give polar coordinates (r, θ) for the point corresponding to w with r = −4 and 0 ≤ θ < 2π.",
+     "criteria": [
+      {
+       "text": "w = 4cos(5π/4) + i·4 sin(5π/4) = −2√2 − 2√2 i.",
+       "evidence": "Response uses (r cos θ) + i(r sin θ) with cos(5π/4) = sin(5π/4) = −√2/2 to get −2√2 − 2√2 i.",
+       "fix": "Write a complex number with polar coordinates (r, θ) as r cos θ + i·r sin θ, using exact values with correct signs.",
+       "accepted_variants": [
+        "−2√2 − 2√2i",
+        "−2√2 + (−2√2)i"
+       ]
+      },
+      {
+       "text": "(−4, π/4), because the terminal ray of π/4 points opposite to the point, so r = −4 along it reaches (−2√2, −2√2); π/4 = 5π/4 − π.",
+       "evidence": "Response gives the polar coordinates (−4, π/4).",
+       "fix": "To use a negative r, change the angle by π so the terminal ray points opposite the point, then check by converting back.",
+       "accepted_variants": [
+        "(−4, π/4)"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) x = r cos θ = −4cos(2π/3) = −4(−1/2) = 2 and y = r sin θ = −4 sin(2π/3) = −4(√3/2) = −2√3. So A = (2, −2√3).\nThe terminal ray of 2π/3 points into quadrant II. Because r = −4 is negative, A lies 4 units from the origin on the line containing that ray, but in the opposite direction from the ray, which places A in quadrant IV.\n\n(b) r = √((−3)² + (3√3)²) = √(9 + 27) = √36 = 6.\nSince x = −3 < 0, θ = arctan(y/x) + π = arctan(3√3/(−3)) + π = arctan(−√3) + π = −π/3 + π = 2π/3. Check: 6cos(2π/3) = −3 and 6 sin(2π/3) = 3√3. So B has polar coordinates (6, 2π/3).\n\n(c) w = 4cos(5π/4) + i·4 sin(5π/4) = 4(−√2/2) + i·4(−√2/2) = −2√2 − 2√2 i.\nWith r = −4, the point must lie opposite the terminal ray of θ. The point (−2√2, −2√2) is in direction 5π/4, so the opposite direction is 5π/4 − π = π/4, and the polar coordinates are (−4, π/4). Check: −4cos(π/4) = −2√2 and −4 sin(π/4) = −2√2.",
+   "verification_python": "import sympy as sp\nxA = sp.simplify(-4*sp.cos(2*sp.pi/3)); yA = sp.simplify(-4*sp.sin(2*sp.pi/3))\nassert xA == 2 and sp.simplify(yA + 2*sp.sqrt(3)) == 0\nassert xA > 0 and yA < 0\nassert sp.sqrt(xA**2 + yA**2) == 4\nx, y = -3, 3*sp.sqrt(3)\nr = sp.sqrt(x**2 + y**2)\nassert r == 6\nth = sp.atan(y/x) + sp.pi\nassert sp.simplify(th - 2*sp.pi/3) == 0\nassert sp.simplify(6*sp.cos(2*sp.pi/3) + 3) == 0 and sp.simplify(6*sp.sin(2*sp.pi/3) - 3*sp.sqrt(3)) == 0\nw = 4*sp.cos(5*sp.pi/4) + sp.I*4*sp.sin(5*sp.pi/4)\nassert sp.simplify(w - (-2*sp.sqrt(2) - 2*sp.sqrt(2)*sp.I)) == 0\nassert sp.simplify(-4*sp.cos(sp.pi/4) + 2*sp.sqrt(2)) == 0 and sp.simplify(-4*sp.sin(sp.pi/4) + 2*sp.sqrt(2)) == 0\nassert 5*sp.pi/4 - sp.pi == sp.pi/4\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.15__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.15",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion c1 requires the unasked value f(π) = −1 and prescribes a decreasing-to-increasing justification, excluding a valid justification using ",
+    "ruling": "accept",
+    "reason": "Valid. c1 required the unasked value f(π) = −1 and only one justification; it now accepts any valid reason (including cos θ ≥ −1 with equality at π) and does not require f(π). c2 now also accepts the increase-then-decrease of |f(θ)| around π. −1.910 removed from b1 accepted variants: it is an approximation, not an equivalent form of −6/π."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "solution: The independent solution agrees with all mathematical results: distance increases in (a), the average rate is −6/π and the estimate is 3/2 in (b), and",
+    "ruling": "accept",
+    "reason": "Same c2 point as the first objection: the increase-then-decrease explanation of distance is valid and is now named in c2's evidence. All mathematical results already agreed."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Distance from the Origin and Average Rate of Change of a Polar Function",
+   "calculator": "not_permitted",
+   "stimulus": "Let f be the function given by f(θ) = 1 + 2cos θ. Consider the polar curve r = f(θ) for 0 ≤ θ ≤ 2π. For each θ, the point on the curve has polar coordinates (f(θ), θ).",
+   "parts": [
+    {
+     "prompt": "On the interval 2π/3 < θ < π, is the distance between the point (f(θ), θ) and the origin increasing or decreasing? Give a reason for your answer.",
+     "criteria": [
+      {
+       "text": "On 2π/3 < θ < π, f(θ) is negative (its values go from 0 to −1) and f is decreasing (because cos θ is decreasing on 0 < θ < π).",
+       "evidence": "Response states both that f(θ) < 0 on the interval (for example f(2π/3) = 0 and f(π) = −1) and that f is decreasing there.",
+       "fix": "Check two things separately on the interval: the sign of r and whether r is increasing or decreasing.",
+       "accepted_variants": []
+      },
+      {
+       "text": "The distance from the origin is increasing, because f is negative and decreasing on this interval.",
+       "evidence": "Response concludes that the distance is increasing and bases this on r being negative and decreasing.",
+       "fix": "When r is negative and decreasing, |r| grows, so the point moves away from the origin.",
+       "accepted_variants": [
+        "increasing"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the average rate of change of r with respect to θ over the interval π/3 ≤ θ ≤ π/2. Then use this average rate of change to estimate f(5π/12).",
+     "criteria": [
+      {
+       "text": "Average rate of change = (f(π/2) − f(π/3))/(π/2 − π/3) = (1 − 2)/(π/6) = −6/π.",
+       "evidence": "Response evaluates f(π/3) = 2 and f(π/2) = 1 and divides the change in r by the change in θ, π/6, to get −6/π.",
+       "fix": "Divide the change in signed radius, f(b) − f(a), by the change in θ in radians, b − a.",
+       "accepted_variants": [
+        "−6/π"
+       ]
+      },
+      {
+       "text": "f(5π/12) ≈ f(π/3) + (−6/π)(5π/12 − π/3) = 2 − (6/π)(π/12) = 1.5.",
+       "evidence": "Response uses the average rate of change times the change in θ from a known endpoint to estimate f(5π/12) as 1.5.",
+       "fix": "Estimate a value inside the interval by starting at a known endpoint and adding the average rate times the change in θ.",
+       "accepted_variants": [
+        "3/2",
+        "1.5"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "On the interval 2π/3 < θ < 4π/3, the function f has exactly one relative extremum. Find the value of θ at which it occurs and state whether it is a relative minimum or a relative maximum of f, with a reason. Then determine whether the corresponding point on the curve is relatively closest to or relatively farthest from the origin, and explain.",
+     "criteria": [
+      {
+       "text": "At θ = π, f changes from decreasing to increasing (equivalently, f(θ) ≥ −1 = f(π) because cos θ ≥ −1), so f has a relative minimum at θ = π.",
+       "evidence": "Response identifies θ = π as a relative minimum with a valid reason, such as f changing from decreasing to increasing there, or 1 + 2cos θ ≥ −1 with equality only at θ = π. The value f(π) is not required.",
+       "fix": "Find where r switches from decreasing to increasing; that change, not the sign of r, decides minimum versus maximum.",
+       "accepted_variants": [
+        "θ = π, relative minimum"
+       ]
+      },
+      {
+       "text": "The point is relatively farthest from the origin: for θ near π in this interval, f(θ) is between −1 and 0, so its distance |f(θ)| from the origin is less than |f(π)| = 1.",
+       "evidence": "Response concludes relatively farthest and explains using distance |r|, for example that nearby r-values have absolute value less than 1, or that |f(θ)| increases before θ = π and decreases after it.",
+       "fix": "Distance from the origin is |r|; a negative relative minimum of r gives a point relatively farthest from the origin.",
+       "accepted_variants": [
+        "relatively farthest"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) f(2π/3) = 1 + 2(−1/2) = 0 and f(π) = 1 + 2(−1) = −1. Since cos θ is decreasing on 0 < θ < π, f(θ) = 1 + 2cos θ is decreasing on 2π/3 < θ < π, and its values go from 0 down to −1, so f(θ) is negative there. Because f is negative and decreasing, the distance between the point (f(θ), θ) and the origin is increasing on 2π/3 < θ < π.\n\n(b) f(π/3) = 1 + 2(1/2) = 2 and f(π/2) = 1 + 2(0) = 1.\nAverage rate of change = (f(π/2) − f(π/3))/(π/2 − π/3) = (1 − 2)/(π/6) = −6/π, about −1.910 units of r per radian.\nEstimate: f(5π/12) ≈ f(π/3) + (−6/π)(5π/12 − π/3) = 2 + (−6/π)(π/12) = 2 − 1/2 = 1.5.\n\n(c) cos θ is decreasing on 2π/3 < θ < π and increasing on π < θ < 4π/3, so f changes from decreasing to increasing at θ = π. Therefore f has a relative minimum at θ = π, with f(π) = −1.\nThe distance from the origin is |f(θ)|. For θ near π in this interval, f(θ) is between −1 and 0, so |f(θ)| < 1 = |f(π)|. The point on the curve at θ = π is relatively farthest from the origin.",
+   "verification_python": "import sympy as sp, math\nt = sp.symbols('t')\nf = 1 + 2*sp.cos(t)\nassert f.subs(t, 2*sp.pi/3) == 0 and f.subs(t, sp.pi) == -1\nfn = sp.lambdify(t, f, 'math')\nxs = [2*math.pi/3 + (math.pi/3)*k/300 for k in range(1, 300)]\nassert all(fn(x) < 0 for x in xs)\nassert all(fn(xs[i+1]) < fn(xs[i]) for i in range(len(xs)-1))\nassert all(abs(fn(xs[i+1])) > abs(fn(xs[i])) for i in range(len(xs)-1))\na, b = sp.pi/3, sp.pi/2\nassert f.subs(t, a) == 2 and f.subs(t, b) == 1\naroc = sp.simplify((f.subs(t, b) - f.subs(t, a))/(b - a))\nassert sp.simplify(aroc + 6/sp.pi) == 0\nassert abs(float(aroc) - (-1.910)) < 1e-3\nest = sp.simplify(f.subs(t, a) + aroc*(5*sp.pi/12 - a))\nassert est == sp.Rational(3, 2)\nest2 = sp.simplify(f.subs(t, b) + aroc*(5*sp.pi/12 - b))\nassert est2 == sp.Rational(3, 2)\nys = [2*math.pi/3 + (2*math.pi/3)*k/600 for k in range(1, 600)]\nvals = [fn(y) for y in ys]\nimin = min(range(len(vals)), key=lambda i: vals[i])\nassert abs(ys[imin] - math.pi) < 0.01 and abs(vals[imin] + 1) < 1e-4\nassert all(-1 - 1e-12 < v < 0 for v in vals)\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.1__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.1",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (c), criteria c1 and c2 prescribe methods not required by the prompt. A correct midpoint argument can find 2 and 8 without calculating the r",
+    "ruling": "accept",
+    "reason": "Valid: the part asks for the times with work but no method. c1 now accepts a midpoint argument (40 is halfway between 20 and 60 at a constant rate), and c2 accepts solving within each cycle as well as adding multiples of the period."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_evidence: Criterion a2's fix states a definition but gives no concrete action. Replace it with an actionable instruction, such as: 'Compare 20 with the s",
+    "ruling": "accept",
+    "reason": "Valid under rule 6: the old a2 fix restated the definition rather than giving an action. Replaced with: check whether a smaller positive k also repeats; the period is the smallest such k."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Periodic Water Level in a Storage Tank",
+   "calculator": "not_permitted",
+   "stimulus": "The height of the water in a storage tank follows a repeating schedule. Let h(t) be the height of the water, in centimeters, at time t minutes, for t ≥ 0.\n\nThe schedule starting at t = 0 is as follows.\nFrom t = 0 to t = 4, water is pumped in and the height increases at a constant rate from 20 centimeters to 60 centimeters.\nFrom t = 4 to t = 6, the height stays at 60 centimeters.\nFrom t = 6 to t = 10, water drains out and the height decreases at a constant rate from 60 centimeters to 20 centimeters.\n\nAfter this, the same pattern of filling, holding and draining repeats exactly, over and over, for all t ≥ 0.",
+   "parts": [
+    {
+     "prompt": "Find the period of h. A student claims that the period of h is 20 because h(t + 20) = h(t) for all t ≥ 0. Explain why the student's claim is incorrect.",
+     "criteria": [
+      {
+       "text": "States that the period of h is 10 minutes because the pattern of filling, holding and draining takes 10 minutes and then repeats, so h(t + 10) = h(t) for all t ≥ 0.",
+       "evidence": "Response gives 10 minutes as the period and connects it to one complete cycle of the schedule or to h(t + 10) = h(t).",
+       "fix": "Find where the output pattern starts repeating; the length of one complete cycle is the period.",
+       "accepted_variants": [
+        "10",
+        "10 minutes"
+       ]
+      },
+      {
+       "text": "Explains that the period is the smallest positive value k with h(t + k) = h(t) for all t, and 10 is such a value smaller than 20, so 20 is not the period.",
+       "evidence": "Response states that the period must be the smallest positive repeat length (smallest k) and notes that h(t + 10) = h(t) with 10 < 20.",
+       "fix": "Check whether a smaller positive k also gives h(t + k) = h(t); the period is the smallest such k, not a multiple of it.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For 20 ≤ t ≤ 30, give the interval on which h is increasing and the interval on which h is decreasing. Explain how the periodic behavior of h gives your answer.",
+     "criteria": [
+      {
+       "text": "h is increasing on 20 < t < 24, because this is the filling stage 0 < t < 4 shifted by two periods (20 minutes).",
+       "evidence": "Response gives 20 to 24 as the interval of increase (open or closed endpoints both accepted) and links it to the interval 0 to 4 shifted by 20, or to the characteristics repeating every period.",
+       "fix": "Shift each interval of increase in the first cycle by a whole number of periods to find the matching interval in a later cycle.",
+       "accepted_variants": [
+        "(20, 24)",
+        "[20, 24]",
+        "20 ≤ t ≤ 24"
+       ]
+      },
+      {
+       "text": "h is decreasing on 26 < t < 30, because this is the draining stage 6 < t < 10 shifted by two periods (20 minutes).",
+       "evidence": "Response gives 26 to 30 as the interval of decrease (open or closed endpoints both accepted) and links it to the interval 6 to 10 shifted by 20, or to the characteristics repeating every period.",
+       "fix": "Add the same multiple of the period to both endpoints of the draining interval, 6 and 10, to locate it in the later cycle.",
+       "accepted_variants": [
+        "(26, 30)",
+        "[26, 30]",
+        "26 ≤ t ≤ 30"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find all times t, for 0 ≤ t ≤ 30, at which the height of the water is 40 centimeters. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Finds the two times in the first cycle: t = 2 while filling (20 + 10t = 40) and t = 8 while draining (60 − 10(t − 6) = 40), using the constant rate of 10 centimeters per minute.",
+       "evidence": "Response finds t = 2 and t = 8 for 0 ≤ t ≤ 10 with valid supporting work, such as the rate of 10 centimeters per minute, or noting that 40 is midway between 20 and 60 so it is reached halfway through each 4-minute stage.",
+       "fix": "Find each stage's constant rate, 40 centimeters over 4 minutes, then solve for when the height equals 40 within the first cycle.",
+       "accepted_variants": [
+        "t = 2 and t = 8"
+       ]
+      },
+      {
+       "text": "Uses the period 10 to list all six times: t = 2, 8, 12, 18, 22 and 28 minutes.",
+       "evidence": "Response lists exactly 2, 8, 12, 18, 22 and 28, either by adding 10 and 20 to the first-cycle times or by solving within each 10-minute cycle.",
+       "fix": "After solving within one period, add each whole multiple of the period that keeps the time inside the given interval.",
+       "accepted_variants": [
+        "2, 8, 12, 18, 22, 28"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) In one cycle the height rises from 20 to 60 centimeters for 0 ≤ t ≤ 4, stays at 60 for 4 ≤ t ≤ 6, and falls back to 20 for 6 ≤ t ≤ 10; then the same pattern starts again. So h(t + 10) = h(t) for all t ≥ 0. No shorter length works, because within a cycle the height is 20 only at the start and at the end. The period of h is 10 minutes.\nThe student's claim is incorrect. The period is the smallest positive value k for which h(t + k) = h(t) for all t. It is true that h(t + 20) = h(t), but h(t + 10) = h(t) is also true and 10 < 20, so 20 is a multiple of the period, not the period.\n\n(b) Every characteristic of a periodic function in one period appears in every period. In the first cycle h is increasing on 0 < t < 4 and decreasing on 6 < t < 10. The interval 20 ≤ t ≤ 30 is the first cycle shifted by 20 = 2·10 minutes. So h is increasing on 20 < t < 24 and decreasing on 26 < t < 30 (h is constant at 60 on 24 < t < 26).\n\n(c) While filling, the height rises 40 centimeters in 4 minutes, which is 10 centimeters per minute: 20 + 10t = 40 gives t = 2. While draining, it falls 10 centimeters per minute: 60 − 10(t − 6) = 40 gives t − 6 = 2, so t = 8. Because the period is 10, h(t) = 40 also at 2 + 10 = 12, 8 + 10 = 18, 2 + 20 = 22 and 8 + 20 = 28. The times are t = 2, 8, 12, 18, 22 and 28 minutes.",
+   "verification_python": "from fractions import Fraction as F\ndef h(t):\n    t = F(t) % 10\n    if t < 4:\n        return 20 + 10*t\n    if t < 6:\n        return F(60)\n    return 60 - 10*(t - 6)\nassert h(0) == 20 and h(4) == 60 and h(6) == 60 and h(10) == 20\nassert (60 - 20) / F(4) == 10\n# period 10: h(t+10) == h(t) on a fine grid\ngrid = [F(k, 8) for k in range(0, 8*40)]\nassert all(h(t + 10) == h(t) for t in grid)\nassert all(h(t + 20) == h(t) for t in grid)\n# no smaller period: h(k) differs from h(0) for 0 < k < 10\nassert all(not (h(F(k, 8)) == h(0)) for k in range(1, 80))\n# (b) increasing on 20..24, constant 24..26, decreasing 26..30\ninc = [F(20) + F(k, 4) for k in range(0, 17)]\nassert all(h(inc[i+1]) > h(inc[i]) for i in range(len(inc)-1))\ndec = [F(26) + F(k, 4) for k in range(0, 16)]\nassert all(h(dec[i+1]) < h(dec[i]) for i in range(len(dec)-1))\nassert h(24) == 60 and h(F(25)) == 60\n# (c) solutions of h = 40 on [0, 30]\nsols = [t for t in [F(k, 8) for k in range(0, 8*30 + 1)] if h(t) == 40]\nassert sols == [2, 8, 12, 18, 22, 28]\nassert 20 + 10*2 == 40 and 60 - 10*(8 - 6) == 40\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.2__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.2",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion c2 lists −3.78 and −3.783 as equivalent forms, although they are approximations rather than equivalents of 5/2 − 2π. Its evidence expli",
+    "ruling": "accept",
+    "reason": "Valid: −3.78 and −3.783 are approximations, not equivalent forms of 5/2 − 2π. Removed from c2's accepted variants; the prompt now asks for the exact value, matching c2's evidence. The parenthetical approximation in the text and model answer is kept."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "accurate: Criterion c2 incorrectly labels −3.78 and −3.783 as equivalent forms of the exact angle 5/2 − 2π. They are only approximations; the parenthetical appr",
+    "ruling": "accept",
+    "reason": "Valid: −3.78 and −3.783 are approximations, not equivalent forms of 5/2 − 2π. Removed from c2's accepted variants; the prompt now asks for the exact value, matching c2's evidence. The parenthetical approximation in the text and model answer is kept."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "solution: The independent solution agrees with all six substantive scoring results: sin θ = 12/13, cos θ = −5/13, Q = (−5/13, 12/13), tan θ = −12/5 representing",
+    "ruling": "accept",
+    "reason": "Accepted for its only disagreement (the decimal accepted variants in c2), fixed as above. The checker's note that no model answer was provided is wrong: the item has one, and it earns every criterion."
+   },
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "rubric_points: Part (c), criterion c2: the Equivalent forms of the key value list includes decimal approximations −3.78 and −3.783, but the key value 5/2 − 2π h",
+    "ruling": "accept",
+    "reason": "Valid: −3.78 and −3.783 are approximations, not equivalent forms of 5/2 − 2π. Removed from c2's accepted variants; the prompt now asks for the exact value, matching c2's evidence. The parenthetical approximation in the text and model answer is kept."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Ratios on a Circle and Radian Measure",
+   "calculator": "not_permitted",
+   "stimulus": "An angle θ is in standard position. Its terminal ray intersects the circle of radius 13 centered at the origin at the point P = (−5, 12).\n\nA second angle α is in standard position. On the circle of radius 4 centered at the origin, the angle α subtends an arc of length 10, measured counterclockwise from the positive x-axis.",
+   "parts": [
+    {
+     "prompt": "Find the exact values of sin θ and cos θ. Show how each value is obtained from the coordinates of P.",
+     "criteria": [
+      {
+       "text": "sin θ = 12/13: the vertical displacement of P from the x-axis, 12, divided by the distance from the origin to P, 13.",
+       "evidence": "Response gives sin θ = 12/13 and shows it as the ratio of the y-coordinate 12 to the distance 13.",
+       "fix": "On a circle of radius r, divide the point's y-coordinate by r to get the sine, keeping the coordinate's sign.",
+       "accepted_variants": [
+        "12/13"
+       ]
+      },
+      {
+       "text": "cos θ = −5/13: the horizontal displacement of P from the y-axis, −5, divided by the distance from the origin to P, 13.",
+       "evidence": "Response gives cos θ = −5/13, keeping the negative sign from the x-coordinate of P, and shows the ratio to 13.",
+       "fix": "Divide the point's x-coordinate by the radius to get the cosine; a point left of the y-axis gives a negative cosine.",
+       "accepted_variants": [
+        "−5/13"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the coordinates of the point Q where the terminal ray of θ intersects the unit circle. Then find the exact value of tan θ and state what tan θ represents for the terminal ray.",
+     "criteria": [
+      {
+       "text": "Q = (−5/13, 12/13), because on the unit circle the point on the terminal ray has coordinates (cos θ, sin θ) (equivalently, P scaled by 1/13).",
+       "evidence": "Response gives Q = (−5/13, 12/13), from cos θ and sin θ or from dividing the coordinates of P by 13.",
+       "fix": "The point where the terminal ray meets the unit circle has x-coordinate cos θ and y-coordinate sin θ.",
+       "accepted_variants": [
+        "(−5/13, 12/13)"
+       ]
+      },
+      {
+       "text": "tan θ = −12/5, which is the slope of the terminal ray, (12 − 0)/(−5 − 0), equivalently sin θ/cos θ.",
+       "evidence": "Response gives tan θ = −12/5 and identifies it as the slope of the terminal ray.",
+       "fix": "Find tangent as the slope of the terminal ray: divide the y-coordinate by the x-coordinate of any point on the ray.",
+       "accepted_variants": [
+        "−12/5",
+        "−2.4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the radian measure of α. Then find the exact value of the negative angle that is coterminal with α and is closest to 0, and state the direction of rotation that this negative angle represents.",
+     "criteria": [
+      {
+       "text": "α = 10/4 = 2.5 radians, the arc length divided by the radius of the circle.",
+       "evidence": "Response divides the arc length 10 by the radius 4 to get α = 2.5 radians.",
+       "fix": "Radian measure equals arc length divided by the radius of the same circle; do not divide by the circumference.",
+       "accepted_variants": [
+        "5/2",
+        "2.5"
+       ]
+      },
+      {
+       "text": "The coterminal angle is 2.5 − 2π radians (approximately −3.78), because coterminal angles differ by whole revolutions of 2π, and a negative angle is a clockwise rotation from the positive x-axis.",
+       "evidence": "Response gives 2.5 − 2π (or an equivalent exact form) and states that the rotation is clockwise.",
+       "fix": "Subtract one full revolution, 2π, for a coterminal negative angle; negative measures mean clockwise rotation from the positive x-axis.",
+       "accepted_variants": [
+        "5/2 − 2π",
+        "2.5 − 2π"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) P is on the circle of radius 13, so the distance from the origin to P is 13 (check: √((−5)² + 12²) = √169 = 13).\nsin θ = (vertical displacement of P from the x-axis)/(distance from origin to P) = 12/13.\ncos θ = (horizontal displacement of P from the y-axis)/(distance from origin to P) = −5/13.\n\n(b) On the unit circle, the point on the terminal ray has coordinates (cos θ, sin θ), so Q = (−5/13, 12/13). This is P with both coordinates divided by 13.\ntan θ is the slope of the terminal ray: tan θ = (12 − 0)/(−5 − 0) = −12/5. Equivalently, tan θ = sin θ/cos θ = (12/13)/(−5/13) = −12/5.\n\n(c) The radian measure is the arc length divided by the radius: α = 10/4 = 2.5 radians.\nCoterminal angles differ by whole revolutions of 2π. Since 0 < 2.5 < 2π, subtracting one revolution gives the negative coterminal angle closest to 0: 2.5 − 2π radians, approximately −3.78. Because it is negative, it represents a clockwise rotation from the positive x-axis.",
+   "verification_python": "import sympy as sp\nx, y, r = -5, 12, 13\nassert sp.sqrt(x**2 + y**2) == r\ns = sp.Rational(y, r); c = sp.Rational(x, r)\nassert s == sp.Rational(12, 13) and c == sp.Rational(-5, 13)\nassert s**2 + c**2 == 1\nQ = (c, s)\nassert Q == (sp.Rational(-5, 13), sp.Rational(12, 13))\nt = sp.Rational(y - 0, x - 0)\nassert t == sp.Rational(-12, 5) and s / c == t\nassert abs(float(t) - (-2.4)) < 1e-12\nalpha = sp.Rational(10, 4)\nassert alpha == sp.Rational(5, 2)\nassert 0 < alpha < 2*sp.pi\nneg = alpha - 2*sp.pi\nassert neg < 0 and neg + 2*sp.pi > 0\nassert abs(float(neg) - (-3.783)) < 1e-3\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.3__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.3",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criteria a1, a2, and b2 require specific trigonometric calculations, excluding valid special-triangle work that establishes the same coordinates ",
+    "ruling": "accept",
+    "reason": "Valid: CED 3.3.A.2 itself names isosceles-right and equilateral-triangle geometry with quadrant signs as a method, so a1, a2, b1 and b2 now accept reference-triangle work, and b1 accepts locating B in quadrant III without writing a negative angle. Part (c) asks for a distance comparison, so c1 now requires the distance 4√3, not C's signed y-coordinate."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Exact Positions of Runners on a Circular Track",
+   "calculator": "not_permitted",
+   "stimulus": "A circular running track has radius 8 meters. A coordinate system, with distances in meters, is placed so that the center of the track is at the origin. Three runners each start at the point (8, 0) and run along the track. Each runner's final position is on the terminal ray of an angle θ in standard position, measured in radians.\n\nRunner A moves counterclockwise through an angle of 5π/6.\nRunner B moves clockwise through an angle of 3π/4.\nRunner C moves counterclockwise through an angle of 4π/3.\n\nGive all answers as exact values.",
+   "parts": [
+    {
+     "prompt": "Find the exact coordinates of runner A's final position. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "x-coordinate of A is 8cos(5π/6) = 8(−√3/2) = −4√3.",
+       "evidence": "Response gets −4√3 with valid work, such as x = 8cos(5π/6) with cos(5π/6) = −√3/2, or a reference triangle with angle π/6 and hypotenuse 8 and a negative sign for quadrant II.",
+       "fix": "Use (r cos θ, r sin θ); find the reference angle, π/6 here, then make cosine negative for a quadrant II angle.",
+       "accepted_variants": [
+        "−4√3"
+       ]
+      },
+      {
+       "text": "y-coordinate of A is 8 sin(5π/6) = 8(1/2) = 4.",
+       "evidence": "Response gets 4 with valid work, such as y = 8 sin(5π/6) with sin(5π/6) = 1/2, or the side opposite π/6 in a reference triangle with hypotenuse 8.",
+       "fix": "Multiply the radius by the sine of the angle; the sine of a quadrant II angle is positive, so use sin(π/6) = 1/2.",
+       "accepted_variants": [
+        "4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the exact coordinates of runner B's final position. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "x-coordinate of B is −4√2: the clockwise rotation of 3π/4 ends in quadrant III with reference angle π/4, so x = 8cos(−3π/4) = 8(−√2/2) = −4√2.",
+       "evidence": "Response locates B's terminal ray in quadrant III (for example with the angle −3π/4, the coterminal 5π/4, or a reference angle of π/4 below the negative x-axis) and gets x = −4√2.",
+       "fix": "Write a clockwise rotation as a negative angle, locate its quadrant (III here), then compute r cos θ with the correct sign.",
+       "accepted_variants": [
+        "−4√2"
+       ]
+      },
+      {
+       "text": "y-coordinate of B is 8 sin(−3π/4) = 8(−√2/2) = −4√2.",
+       "evidence": "Response gets y = −4√2 with valid work, such as sin(−3π/4) = −√2/2, or an isosceles right reference triangle with hypotenuse 8 and a negative sign below the x-axis.",
+       "fix": "Below the x-axis the sine is negative; use sin(π/4) = √2/2 from the isosceles right triangle, then attach the sign.",
+       "accepted_variants": [
+        "−4√2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Is runner C or runner A farther from the x-axis at their final positions? Justify your answer using exact values.",
+     "criteria": [
+      {
+       "text": "Runner C is 4√3 meters from the x-axis: |8 sin(4π/3)| = 8 sin(π/3) = 4√3 (C's position is (−4, −4√3)).",
+       "evidence": "Response finds C's distance from the x-axis as 4√3 with valid work, such as |8 sin(4π/3)|, or 8 sin(π/3) from the reference angle π/3.",
+       "fix": "Distance from the x-axis is the absolute value of the y-coordinate r sin θ; for 4π/3 use the reference angle π/3.",
+       "accepted_variants": [
+        "4√3"
+       ]
+      },
+      {
+       "text": "Runner C is farther, because 4√3 > 4, where 4 is runner A's distance from the x-axis.",
+       "evidence": "Response compares 4√3 with A's distance 4 (from part (a)) and concludes runner C is farther from the x-axis.",
+       "fix": "Compare absolute values of the y-coordinates, not the signed values, when asked about distance from the x-axis.",
+       "accepted_variants": [
+        "runner C"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) A point on a circle of radius 8 at angle θ has coordinates (8cos θ, 8 sin θ). The angle 5π/6 is in quadrant II with reference angle π/6, so cos(5π/6) = −√3/2 and sin(5π/6) = 1/2.\nA = (8(−√3/2), 8(1/2)) = (−4√3, 4).\n\n(b) A clockwise rotation of 3π/4 is the angle θ = −3π/4, whose terminal ray is in quadrant III with reference angle π/4. So cos(−3π/4) = −√2/2 and sin(−3π/4) = −√2/2.\nB = (8(−√2/2), 8(−√2/2)) = (−4√2, −4√2).\n\n(c) The angle 4π/3 is in quadrant III with reference angle π/3, so sin(4π/3) = −√3/2 and cos(4π/3) = −1/2. C = (8(−1/2), 8(−√3/2)) = (−4, −4√3).\nDistance from the x-axis is the absolute value of the y-coordinate. Runner C is 4√3 meters from the x-axis and runner A is 4 meters from it. Since √3 > 1, 4√3 > 4, so runner C is farther from the x-axis.",
+   "verification_python": "import sympy as sp\nr = 8\nA = (r*sp.cos(5*sp.pi/6), r*sp.sin(5*sp.pi/6))\nassert sp.simplify(A[0] + 4*sp.sqrt(3)) == 0 and sp.simplify(A[1] - 4) == 0\nB = (r*sp.cos(-3*sp.pi/4), r*sp.sin(-3*sp.pi/4))\nassert sp.simplify(B[0] + 4*sp.sqrt(2)) == 0 and sp.simplify(B[1] + 4*sp.sqrt(2)) == 0\nB2 = (r*sp.cos(5*sp.pi/4), r*sp.sin(5*sp.pi/4))\nassert sp.simplify(B2[0] - B[0]) == 0 and sp.simplify(B2[1] - B[1]) == 0\nCp = (r*sp.cos(4*sp.pi/3), r*sp.sin(4*sp.pi/3))\nassert sp.simplify(Cp[0] + 4) == 0 and sp.simplify(Cp[1] + 4*sp.sqrt(3)) == 0\nassert sp.Abs(Cp[1]) == 4*sp.sqrt(3) and sp.Abs(A[1]) == 4\nassert 4*sp.sqrt(3) > 4\nfor P in (A, B, Cp):\n    assert sp.simplify(P[0]**2 + P[1]**2 - 64) == 0\nassert sp.simplify(8*sp.sin(sp.pi/3) - 4*sp.sqrt(3)) == 0\nassert sp.simplify(8*sp.cos(sp.pi/6) - 4*sp.sqrt(3)) == 0 and 8*sp.sin(sp.pi/6) == 4\nassert sp.simplify(8*sp.cos(sp.pi/4) - 4*sp.sqrt(2)) == 0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.4__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.4",
+  "decisions": [
+   {
+    "source": "six-vote topic classifier",
+    "objection": "topic votes {'3.2': 4, '3.4': 2}, required units [3]",
+    "ruling": "reject",
+    "reason": "The item matches 3.4's CED text: every part treats f(θ) = sin θ and g(θ) = cos θ as functions of θ built from the unit circle (3.4.A.1, 3.4.A.3), asks how outputs change as inputs increase (increasing/decreasing intervals), and uses that outputs oscillate between −1 and 1 taking every value in between (3.4.A.2, 3.4.A.4). The unit-circle language that drew the 3.2 votes is how 3.4.A defines these functions; no part asks for a single angle's sine or cosine value."
+   }
+  ],
+  "topic_ruling": {
+   "required_units": [
+    3
+   ],
+   "reason": "On topic for 3.4 (Sine and Cosine Function Graphs): all six points assess 3.4.A.1-3.4.A.4 (function behavior and range of sine and cosine via the unit circle); only Unit 3 is needed."
+  },
+  "item": {
+   "title": "Sine and Cosine from a Point Moving Around the Unit Circle",
+   "calculator": "not_permitted",
+   "stimulus": "A point P moves counterclockwise around the unit circle centered at the origin. When P is where the terminal ray of an angle θ in standard position intersects the unit circle, the y-coordinate of P is sin θ and the x-coordinate of P is cos θ.\n\nLet f(θ) = sin θ and g(θ) = cos θ.",
+   "parts": [
+    {
+     "prompt": "As θ increases from π/2 to π, describe how the position of P changes. Use this to determine whether f is increasing or decreasing and whether g is increasing or decreasing on the interval π/2 < θ < π.",
+     "criteria": [
+      {
+       "text": "f is decreasing on π/2 < θ < π, because P moves from (0, 1) toward (−1, 0), so its vertical displacement from the x-axis decreases from 1 to 0.",
+       "evidence": "Response states f is decreasing and explains with P moving downward, its y-coordinate going from 1 to 0.",
+       "fix": "Track the y-coordinate of P as it moves through the quadrant; sine increases only while P moves upward.",
+       "accepted_variants": [
+        "sin θ decreasing"
+       ]
+      },
+      {
+       "text": "g is decreasing on π/2 < θ < π, because P moves to the left, so its horizontal displacement from the y-axis changes from 0 to −1.",
+       "evidence": "Response states g is decreasing and explains with P moving left, its x-coordinate going from 0 to −1.",
+       "fix": "Track the x-coordinate of P; cosine decreases whenever P moves to the left, even when the values are negative.",
+       "accepted_variants": [
+        "cos θ decreasing"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the equation sin θ = 0.7 has at least one solution, but the equation cos θ = 1.3 has no solution.",
+     "criteria": [
+      {
+       "text": "sin θ = 0.7 has a solution because, as θ increases, sin θ oscillates between −1 and 1 and takes every value in between, and 0.7 is between −1 and 1.",
+       "evidence": "Response states that sine takes on every value from −1 to 1 (the y-coordinate of P takes every such value) and that 0.7 is in this range.",
+       "fix": "State the output range of sine, −1 to 1, and that sine takes every value in it, then check the target value.",
+       "accepted_variants": []
+      },
+      {
+       "text": "cos θ = 1.3 has no solution because cos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1, and 1.3 > 1.",
+       "evidence": "Response states that cosine values are never greater than 1 (x-coordinates on the unit circle lie from −1 to 1) and that 1.3 is outside this range.",
+       "fix": "Before solving, compare the target value with the output range −1 to 1; values outside it give no solution.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the interval of θ values, with 0 ≤ θ ≤ 2π, on which f is decreasing and g is increasing at the same time. Explain your reasoning in terms of the motion of P.",
+     "criteria": [
+      {
+       "text": "Gives the interval π < θ < 3π/2.",
+       "evidence": "Response states π < θ < 3π/2 (open or closed endpoints both accepted) as the interval on which f decreases and g increases.",
+       "fix": "Find where P moves both downward and to the right at once, and write that set of angles as one interval.",
+       "accepted_variants": [
+        "(π, 3π/2)",
+        "[π, 3π/2]",
+        "π ≤ θ ≤ 3π/2"
+       ]
+      },
+      {
+       "text": "Justifies with the motion of P: P moves downward only for π/2 < θ < 3π/2 and to the right only for π < θ < 2π, so both happen only for π < θ < 3π/2, as P goes from (−1, 0) to (0, −1).",
+       "evidence": "Response explains that on this interval the y-coordinate of P decreases (0 to −1) while its x-coordinate increases (−1 to 0), and that outside it at least one of these fails.",
+       "fix": "List where each coordinate of P decreases or increases separately, then intersect the two sets of angles.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) As θ increases from π/2 to π, P moves along the unit circle from (0, 1) to (−1, 0), through quadrant II. P moves down toward the x-axis, so its y-coordinate decreases from 1 to 0: f(θ) = sin θ is decreasing on π/2 < θ < π. P also moves to the left, so its x-coordinate decreases from 0 to −1: g(θ) = cos θ is decreasing on π/2 < θ < π.\n\n(b) As θ increases, sin θ, the y-coordinate of P, oscillates between −1 and 1 and takes every value in between. Since −1 < 0.7 < 1, there is at least one angle with sin θ = 0.7.\ncos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1 for every θ. Since 1.3 > 1, no angle has cos θ = 1.3.\n\n(c) f is decreasing when P moves downward, which happens for π/2 < θ < 3π/2 (from the top of the circle to the bottom). g is increasing when P moves to the right, which happens for π < θ < 2π (from the leftmost point to the rightmost point). Both happen only for π < θ < 3π/2. On this interval P moves through quadrant III from (−1, 0) to (0, −1), so its y-coordinate falls from 0 to −1 while its x-coordinate rises from −1 to 0. The interval is π < θ < 3π/2.",
+   "verification_python": "import math\ndef inc(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) > fn(xs[i]) for i in range(len(xs)-1))\ndef dec(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) < fn(xs[i]) for i in range(len(xs)-1))\npi = math.pi\nassert dec(math.sin, pi/2, pi) and dec(math.cos, pi/2, pi)\nassert abs(math.sin(pi/2) - 1) < 1e-12 and abs(math.sin(pi)) < 1e-12\nassert abs(math.cos(pi/2)) < 1e-12 and abs(math.cos(pi) + 1) < 1e-12\nassert -1 < 0.7 < 1 and abs(math.sin(math.asin(0.7)) - 0.7) < 1e-12\nassert 1.3 > 1\nassert dec(math.sin, pi/2, 3*pi/2) and inc(math.cos, pi, 2*pi)\nassert dec(math.sin, pi, 3*pi/2) and inc(math.cos, pi, 3*pi/2)\n# outside (pi, 3pi/2) the two conditions are not both true\nN = 2000\nboth = []\nfor k in range(1, N):\n    t = 2*pi*k/N\n    h = 1e-6\n    sd = math.sin(t + h) - math.sin(t - h) < 0\n    ci = math.cos(t + h) - math.cos(t - h) > 0\n    if sd and ci:\n        both.append(t)\nassert abs(min(both) - pi) < 0.01 and abs(max(both) - 3*pi/2) < 0.01\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.8__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.8",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Criterion a2 requires the specific setup 2θ = π/2 + kπ, although part (a) only asks for the asymptote equations; other valid methods must be acce",
+    "ruling": "accept",
+    "reason": "Valid: part (a) asks only for the asymptote equations, so a2 now accepts any valid method (or the correct general answer). b2's evidence parenthetically named (0, 3), which part (b) never asks for; it now states that the coordinates are not required."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "accurate: Criterion a1's evidence incorrectly calls 2 the horizontal dilation factor. For tan(2θ), the horizontal dilation factor is 1/2; 2 is the input multipl",
+    "ruling": "accept",
+    "reason": "Valid: for tan(2θ) the horizontal dilation factor is 1/2; 2 is the input coefficient b. a1's evidence now says π divided by |b| = 2, with the dilation factor 1/2, and the model answer matches."
+   },
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "solution: The independent solution agrees with every scored mathematical result: period π/2; asymptotes θ = π/4 + kπ/2; decreasing behavior; concave up before θ",
+    "ruling": "accept",
+    "reason": "Same dilation-factor error as the second objection, fixed there. All scored results already agreed."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Period, Asymptotes and Behavior of a Transformed Tangent Function",
+   "calculator": "not_permitted",
+   "stimulus": "Let g be the function given by g(θ) = −2 tan(2θ) + 3.",
+   "parts": [
+    {
+     "prompt": "Find the period of g. Then find the equations of all vertical asymptotes of the graph of g.",
+     "criteria": [
+      {
+       "text": "The period of g is π/2, because a function of the form a·tan(bθ) + d has period π/|b|, and b = 2.",
+       "evidence": "Response gives the period π/2, from π divided by |b| = 2 (the horizontal dilation factor is 1/2).",
+       "fix": "For a·tan(b(θ + c)) + d the period is π/|b|; tangent's base period is π, not 2π.",
+       "accepted_variants": [
+        "π/2"
+       ]
+      },
+      {
+       "text": "The vertical asymptotes are θ = π/4 + kπ/2 for every integer k, where 2θ = π/2 + kπ (where cos(2θ) = 0).",
+       "evidence": "Response gives θ = π/4 + kπ/2 for all integers k (or an equivalent description of every asymptote), by any valid method, such as solving 2θ = π/2 + kπ or repeating θ = π/4 every period π/2.",
+       "fix": "Set the argument of tangent equal to π/2 + kπ, where cosine of the argument is zero, and solve for θ.",
+       "accepted_variants": [
+        "θ = π/4 + kπ/2",
+        "θ = (2k + 1)π/4",
+        "θ = π/4 + k(π/2)"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The interval −π/4 < θ < π/4 lies between two consecutive vertical asymptotes of the graph of g. On this interval, determine whether g is increasing or decreasing, and describe the concavity of the graph of g. Give a reason for each answer.",
+     "criteria": [
+      {
+       "text": "g is decreasing on −π/4 < θ < π/4, because tan(2θ) is increasing between consecutive asymptotes and the factor −2 is negative, which involves a reflection over the x-axis and reverses the direction.",
+       "evidence": "Response states g is decreasing and attributes this to the negative vertical dilation factor −2 applied to an increasing tangent function.",
+       "fix": "Tangent increases between consecutive asymptotes; a negative coefficient a reflects the graph, so the transformed function decreases there.",
+       "accepted_variants": [
+        "decreasing"
+       ]
+      },
+      {
+       "text": "The graph of g is concave up on −π/4 < θ < 0 and concave down on 0 < θ < π/4, changing at θ = 0; this reverses tangent's change from concave down to concave up because a = −2 < 0.",
+       "evidence": "Response states concave up then concave down, with the change at θ = 0, and links this to the reflection by the negative factor. The coordinates of the inflection point are not required.",
+       "fix": "Tangent goes from concave down to concave up between asymptotes; reflect this order when a is negative, switching at the center point.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the exact value of g(π/6). Then find the value of θ, with π/2 < θ < π, for which g(θ) = g(π/6), and explain how the period of g gives your answer.",
+     "criteria": [
+      {
+       "text": "g(π/6) = −2 tan(π/3) + 3 = 3 − 2√3, using tan(π/3) = sin(π/3)/cos(π/3) = √3.",
+       "evidence": "Response evaluates tan(π/3) = √3 and obtains g(π/6) = 3 − 2√3.",
+       "fix": "Substitute the input into 2θ first, then use tan = sin/cos with exact unit-circle values before multiplying by −2 and adding 3.",
+       "accepted_variants": [
+        "3 − 2√3",
+        "−2√3 + 3"
+       ]
+      },
+      {
+       "text": "θ = π/6 + π/2 = 2π/3, because g repeats every π/2, and 2π/3 is the only such value in π/2 < θ < π.",
+       "evidence": "Response adds the period π/2 to π/6 to get 2π/3 and notes that it lies in the interval π/2 < θ < π.",
+       "fix": "Add whole multiples of the period to a known input to find other inputs with the same output, then keep the one in the interval.",
+       "accepted_variants": [
+        "2π/3"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) g(θ) = −2 tan(2θ) + 3 has the form a·tan(bθ) + d with b = 2 (a horizontal dilation by a factor of 1/2), so its period is π/|b| = π/2.\nThe graph of tan u has vertical asymptotes where cos u = 0, that is u = π/2 + kπ for integers k. Setting 2θ = π/2 + kπ gives θ = π/4 + kπ/2. The vertical asymptotes are θ = π/4 + kπ/2 for every integer k.\n\n(b) Between consecutive asymptotes, tan(2θ) is increasing. Multiplying by −2 is a vertical dilation by a negative factor, which involves a reflection over the x-axis, so g is decreasing on −π/4 < θ < π/4.\nBetween consecutive asymptotes, the graph of tan(2θ) changes from concave down to concave up at θ = 0. The reflection reverses this, so the graph of g is concave up on −π/4 < θ < 0 and concave down on 0 < θ < π/4, with a point of inflection at (0, 3), since g(0) = −2·0 + 3 = 3.\n\n(c) g(π/6) = −2 tan(π/3) + 3. tan(π/3) = sin(π/3)/cos(π/3) = (√3/2)/(1/2) = √3, so g(π/6) = 3 − 2√3.\nBecause the period of g is π/2, g(π/6 + π/2) = g(π/6). π/6 + π/2 = 2π/3, which is between π/2 and π. (Check: g(2π/3) = −2 tan(4π/3) + 3 = 3 − 2√3.) The next value with the same output, 7π/6, is greater than π, so θ = 2π/3.",
+   "verification_python": "import sympy as sp\nt = sp.symbols('t', real=True)\ng = -2*sp.tan(2*t) + 3\nassert sp.periodicity(g, t) == sp.pi/2\n# asymptotes: cos(2t) = 0\nfor k in range(-3, 4):\n    a = sp.pi/4 + k*sp.pi/2\n    assert sp.simplify(sp.cos(2*a)) == 0\n# decreasing and concavity on (-pi/4, pi/4) checked numerically\nimport math\ngf = lambda x: -2*math.tan(2*x) + 3\nxs = [-math.pi/4 + (math.pi/2)*k/400 for k in range(1, 400)]\nassert all(gf(xs[i+1]) < gf(xs[i]) for i in range(len(xs)-1))\ndef second_diff(x, h=1e-4):\n    return gf(x + h) - 2*gf(x) + gf(x - h)\nassert all(second_diff(x) > 0 for x in xs if x < -0.01)\nassert all(second_diff(x) < 0 for x in xs if x > 0.01)\nassert g.subs(t, 0) == 3\n# (c)\nv = sp.simplify(g.subs(t, sp.pi/6))\nassert sp.simplify(v - (3 - 2*sp.sqrt(3))) == 0\nw = sp.simplify(g.subs(t, 2*sp.pi/3))\nassert sp.simplify(w - v) == 0\nassert sp.pi/2 < 2*sp.pi/3 < sp.pi\nassert sp.pi/6 + sp.pi/2 == 2*sp.pi/3 and sp.pi/6 + sp.pi > sp.pi\n# uniqueness on (pi/2, pi): solutions are pi/6 + k*pi/2\nsols = [sp.pi/6 + k*sp.pi/2 for k in range(-4, 5)]\ninside = [s for s in sols if sp.pi/2 < s < sp.pi]\nassert inside == [2*sp.pi/3]\n# horizontal dilation factor 1/b = 1/2 maps tan's period pi to pi/2\nassert sp.pi/sp.Abs(2) == sp.pi/2 and sp.Rational(1, 2)*sp.pi == sp.pi/2\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_precalculus__3.9__1",
+  "subject_key": "ap_precalculus",
+  "topic_code": "3.9",
+  "decisions": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (b), criterion b1 requires explicitly evaluating sin(5π/6) as 1/2, rejecting a valid alternative method. A complete answer can use sin(5π/6)",
+    "ruling": "accept",
+    "reason": "Valid: showing sin(5π/6) = sin(π/6) establishes the inner value without writing 1/2 and leads to π/6 by the arcsin range restriction; b1 evidence widened to accept it."
+   }
+  ],
+  "topic_ruling": null,
+  "item": {
+   "title": "Inverse Trigonometric Values on Restricted Domains",
+   "calculator": "not_permitted",
+   "stimulus": "The functions arcsin x, arccos x and arctan x are the inverse functions of sine, cosine and tangent, defined using the usual restricted domains of those functions. Give exact values.",
+   "parts": [
+    {
+     "prompt": "Find the exact values of arccos(−1/2) and arctan(−√3). For each, explain why your value is the correct output.",
+     "criteria": [
+      {
+       "text": "arccos(−1/2) = 2π/3, because cos(2π/3) = −1/2 and 2π/3 is in [0, π], the restricted domain of cosine.",
+       "evidence": "Response gives 2π/3, shows cos(2π/3) = −1/2, and states that 2π/3 lies in [0, π].",
+       "fix": "Look for the angle in [0, π] with the given cosine; arccos never outputs a negative angle.",
+       "accepted_variants": [
+        "2π/3"
+       ]
+      },
+      {
+       "text": "arctan(−√3) = −π/3, because tan(−π/3) = −√3 and −π/3 is in (−π/2, π/2), the restricted domain of tangent.",
+       "evidence": "Response gives −π/3, shows tan(−π/3) = −√3, and states that −π/3 lies in (−π/2, π/2).",
+       "fix": "Look for the angle strictly between −π/2 and π/2 with the given tangent; negative inputs give negative angles.",
+       "accepted_variants": [
+        "−π/3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the exact value of arcsin(sin(5π/6)). Explain why the answer is not 5π/6.",
+     "criteria": [
+      {
+       "text": "Evaluates the inner expression: sin(5π/6) = 1/2 (equivalently, sin(5π/6) = sin(π/6)).",
+       "evidence": "Response evaluates sin(5π/6) as 1/2, or shows that sin(5π/6) = sin(π/6) using the reference angle π/6, so the composition equals arcsin(sin(π/6)).",
+       "fix": "Evaluate the inner function first using the reference angle π/6, with sine positive in quadrant II.",
+       "accepted_variants": [
+        "1/2",
+        "0.5"
+       ]
+      },
+      {
+       "text": "arcsin(1/2) = π/6, because arcsin outputs only angles in [−π/2, π/2]; 5π/6 is outside this interval, and π/6 is the angle in it whose sine is 1/2.",
+       "evidence": "Response gives π/6 and explains that the output of arcsin must lie in [−π/2, π/2], which excludes 5π/6.",
+       "fix": "Check that the final angle lies in the restricted domain of sine, [−π/2, π/2]; if not, find the angle there with that sine.",
+       "accepted_variants": [
+        "π/6"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "State the domain and the range of y = arctan x. Then explain why arctan x is defined for every real number x, but arcsin x is defined only for −1 ≤ x ≤ 1.",
+     "criteria": [
+      {
+       "text": "The domain of arctan x is all real numbers, and its range is −π/2 < y < π/2.",
+       "evidence": "Response gives the domain as all real numbers and the range as the open interval (−π/2, π/2).",
+       "fix": "Swap inputs and outputs: the range of arctan is the restricted domain of tangent, (−π/2, π/2), with endpoints excluded.",
+       "accepted_variants": [
+        "(−π/2, π/2)",
+        "(−∞, ∞)"
+       ]
+      },
+      {
+       "text": "Explains that the inputs of an inverse function are the outputs of the original function: on (−π/2, π/2) tangent takes every real value, while sine takes only values from −1 to 1, so arcsin x needs −1 ≤ x ≤ 1.",
+       "evidence": "Response connects the domain of each inverse function to the range of the corresponding restricted function (tangent outputs all reals; sine outputs only [−1, 1]).",
+       "fix": "The domain of an inverse function is the range of the original; compare the output ranges of restricted tangent and sine.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) arccos(−1/2) = 2π/3. The output of arccos must be an angle in [0, π], the restricted domain of cosine, and cos(2π/3) = −1/2 with 2π/3 in [0, π]. Cosine is one-to-one on [0, π], so this is the only such angle.\narctan(−√3) = −π/3. The output of arctan must be in (−π/2, π/2), and tan(−π/3) = sin(−π/3)/cos(−π/3) = (−√3/2)/(1/2) = −√3, with −π/3 in (−π/2, π/2).\n\n(b) sin(5π/6) = 1/2, so arcsin(sin(5π/6)) = arcsin(1/2). The output of arcsin must be in [−π/2, π/2], the restricted domain of sine. 5π/6 is greater than π/2, so it cannot be the output. The angle in [−π/2, π/2] whose sine is 1/2 is π/6, so arcsin(sin(5π/6)) = π/6.\n\n(c) The domain of y = arctan x is all real numbers, and the range is −π/2 < y < π/2.\nFor an inverse function, the input and output values are switched, so the domain of the inverse is the range of the restricted original function. On (−π/2, π/2), tan θ takes every real value, so arctan x is defined for every real x. On [−π/2, π/2], sin θ takes only values from −1 to 1, so arcsin x is defined only for −1 ≤ x ≤ 1.",
+   "verification_python": "import sympy as sp\nassert sp.acos(sp.Rational(-1, 2)) == 2*sp.pi/3\nassert sp.cos(2*sp.pi/3) == sp.Rational(-1, 2) and 0 < 2*sp.pi/3 < sp.pi\nassert sp.atan(-sp.sqrt(3)) == -sp.pi/3\nassert sp.simplify(sp.tan(-sp.pi/3) + sp.sqrt(3)) == 0 and -sp.pi/2 < -sp.pi/3 < sp.pi/2\nassert sp.sin(5*sp.pi/6) == sp.Rational(1, 2)\nassert sp.asin(sp.sin(5*sp.pi/6)) == sp.pi/6\nassert 5*sp.pi/6 > sp.pi/2\nassert sp.limit(sp.atan(sp.Symbol('x')), sp.Symbol('x'), sp.oo) == sp.pi/2\nimport math\nassert all(abs(math.tan(math.atan(v)) - v) < 1e-9*max(1, abs(v)) for v in [-1e6, -3.0, 0.0, 2.5, 1e6])\nassert sp.sin(5*sp.pi/6) == sp.sin(sp.pi/6)\nprint('ALL_CHECKS_PASSED')"
+  }
+ }
+]

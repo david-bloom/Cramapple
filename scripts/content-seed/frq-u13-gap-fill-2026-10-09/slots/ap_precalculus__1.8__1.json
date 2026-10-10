@@ -1,0 +1,925 @@
+{
+ "id": "ap_precalculus__1.8__1",
+ "slot": {
+  "subject_key": "ap_precalculus",
+  "tsv": "16383753-6775-430d-960a-544cd6ee0972",
+  "unit": 1,
+  "unit_title": "Polynomial and Rational Functions",
+  "topic_code": "1.8",
+  "topic_title": "Rational Functions and Zeros",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:20.941Z",
+   "source": "given",
+   "item": {
+    "title": "Zeros and Sign of a Rational Function",
+    "calculator": "not_permitted",
+    "stimulus": "Let r be the rational function defined by r(x) = (x² − x − 6)/(x² − 4x − 5).",
+    "parts": [
+     {
+      "prompt": "Find all real zeros of r. Explain why each value you give is a zero of r.",
+      "criteria": [
+       {
+        "text": "Finds the numerator zeros x = 3 and x = −2 (for example, x² − x − 6 = (x − 3)(x + 2)).",
+        "evidence": "Response sets x² − x − 6 = 0 and finds x = 3 and x = −2 by any valid method, such as factoring, the quadratic formula or completing the square.",
+        "fix": "Find the real zeros of the numerator first; those are the only possible zeros of a rational function.",
+        "accepted_variants": [
+         "x = −2 and x = 3"
+        ]
+       },
+       {
+        "text": "Confirms that x = −2 and x = 3 are in the domain of r because the denominator is not zero there, so both are zeros of r.",
+        "evidence": "Response checks the denominator: (−2)² − 4(−2) − 5 = 7 and 3² − 4(3) − 5 = −8 (or notes the denominator zeros are 5 and −1), so r(−2) = 0 and r(3) = 0.",
+        "fix": "After finding numerator zeros, substitute each into the denominator to confirm it is nonzero before calling it a zero.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The real zeros of the numerator and the real zeros of the denominator of r divide the real number line into intervals. List these values in increasing order, and determine whether r(x) is positive or negative on each interval.",
+      "criteria": [
+       {
+        "text": "Lists the values −2, −1, 3 and 5, where −1 and 5 are the real zeros of the denominator x² − 4x − 5.",
+        "evidence": "Response finds the denominator zeros x = 5 and x = −1 by any valid method (factoring as (x − 5)(x + 1) or the quadratic formula) and lists −2, −1, 3, 5 in order.",
+        "fix": "Find the real zeros of both numerator and denominator, then list all of them in increasing order as the dividing points.",
+        "accepted_variants": [
+         "−2, −1, 3, 5"
+        ]
+       },
+       {
+        "text": "Gives the signs: r(x) > 0 for x < −2, r(x) < 0 for −2 < x < −1, r(x) > 0 for −1 < x < 3, r(x) < 0 for 3 < x < 5, r(x) > 0 for x > 5.",
+        "evidence": "Response gives the correct sign of r(x) on all five intervals. Supporting work is not required.",
+        "fix": "Test one value in each interval in the factored form, counting negative factors to get the sign of r.",
+        "accepted_variants": [
+         "positive, negative, positive, negative, positive"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Solve the inequality r(x) ≥ 0. Give your answer as a union of intervals, and explain which of the values from the previous part are included.",
+      "criteria": [
+       {
+        "text": "The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+        "evidence": "Response gives exactly this union of intervals, or the equivalent inequalities x ≤ −2 or −1 < x ≤ 3 or x > 5.",
+        "fix": "Combine the intervals where r is positive with the zeros of r, then write the union with correct brackets.",
+        "accepted_variants": [
+         "x ≤ −2 or −1 < x ≤ 3 or x > 5"
+        ]
+       },
+       {
+        "text": "Explains that −2 and 3 are included because r equals 0 there, which satisfies r(x) ≥ 0, while −1 and 5 are excluded because r is undefined there.",
+        "evidence": "Response justifies including the zeros of r and excluding the zeros of the denominator.",
+        "fix": "Include zeros of the numerator for a ≥ inequality; always exclude inputs that make the denominator zero.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The numerator factors as x² − x − 6 = (x − 3)(x + 2), which is 0 at x = 3 and x = −2. The denominator factors as x² − 4x − 5 = (x − 5)(x + 1), which is 0 only at x = 5 and x = −1, so it is not zero at x = −2 (value 7) or at x = 3 (value −8). Both values are in the domain of r and make the numerator 0, so the real zeros of r are x = −2 and x = 3.\n\n(b) r(x) = (x − 3)(x + 2)/((x − 5)(x + 1)). The dividing values are −2, −1, 3, 5.\nx < −2: factors (−)(−)/((−)(−)), so r(x) > 0.\n−2 < x < −1: (−)(+)/((−)(−)), so r(x) < 0.\n−1 < x < 3: (−)(+)/((−)(+)), so r(x) > 0.\n3 < x < 5: (+)(+)/((−)(+)), so r(x) < 0.\nx > 5: all factors positive, so r(x) > 0.\n\n(c) r(x) > 0 on x < −2, −1 < x < 3 and x > 5. The values x = −2 and x = 3 are included because r(x) = 0 there, which satisfies r(x) ≥ 0. The values x = −1 and x = 5 are excluded because the denominator is 0 there, so r is undefined. The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nN=x**2-x-6; D=x**2-4*x-5\nassert sp.factor(N)==(x-3)*(x+2)\nassert sp.factor(D)==(x-5)*(x+1)\nassert sorted(sp.solve(N,x))==[-2,3] and sorted(sp.solve(D,x))==[-1,5]\nassert D.subs(x,-2)==7 and D.subs(x,3)==-8\nassert sp.gcd(N,D)==1\nr=N/D\nsigns=[sp.sign(r.subs(x,v)) for v in (-3,sp.Rational(-3,2),0,4,6)]\nassert signs==[1,-1,1,-1,1]\nsol=sp.solve_univariate_inequality(r>=0,x,relational=False)\nexpected=sp.Union(sp.Interval(-sp.oo,-2),sp.Interval(-1,3,True,False),sp.Interval(5,sp.oo,True,True))\nassert sol==expected\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Zeros and Sign of a Rational Function",
+   "calculator": "not_permitted",
+   "stimulus": "Let r be the rational function defined by r(x) = (x² − x − 6)/(x² − 4x − 5).",
+   "parts": [
+    {
+     "prompt": "Find all real zeros of r. Explain why each value you give is a zero of r.",
+     "criteria": [
+      {
+       "text": "Finds the numerator zeros x = 3 and x = −2 (for example, x² − x − 6 = (x − 3)(x + 2)).",
+       "evidence": "Response sets x² − x − 6 = 0 and finds x = 3 and x = −2 by any valid method, such as factoring, the quadratic formula or completing the square.",
+       "fix": "Find the real zeros of the numerator first; those are the only possible zeros of a rational function.",
+       "accepted_variants": [
+        "x = −2 and x = 3"
+       ]
+      },
+      {
+       "text": "Confirms that x = −2 and x = 3 are in the domain of r because the denominator is not zero there, so both are zeros of r.",
+       "evidence": "Response checks the denominator: (−2)² − 4(−2) − 5 = 7 and 3² − 4(3) − 5 = −8 (or notes the denominator zeros are 5 and −1), so r(−2) = 0 and r(3) = 0.",
+       "fix": "After finding numerator zeros, substitute each into the denominator to confirm it is nonzero before calling it a zero.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The real zeros of the numerator and the real zeros of the denominator of r divide the real number line into intervals. List these values in increasing order, and determine whether r(x) is positive or negative on each interval.",
+     "criteria": [
+      {
+       "text": "Lists the values −2, −1, 3 and 5, where −1 and 5 are the real zeros of the denominator x² − 4x − 5.",
+       "evidence": "Response finds the denominator zeros x = 5 and x = −1 by any valid method (factoring as (x − 5)(x + 1) or the quadratic formula) and lists −2, −1, 3, 5 in order.",
+       "fix": "Find the real zeros of both numerator and denominator, then list all of them in increasing order as the dividing points.",
+       "accepted_variants": [
+        "−2, −1, 3, 5"
+       ]
+      },
+      {
+       "text": "Gives the signs: r(x) > 0 for x < −2, r(x) < 0 for −2 < x < −1, r(x) > 0 for −1 < x < 3, r(x) < 0 for 3 < x < 5, r(x) > 0 for x > 5.",
+       "evidence": "Response gives the correct sign of r(x) on all five intervals. Supporting work is not required.",
+       "fix": "Test one value in each interval in the factored form, counting negative factors to get the sign of r.",
+       "accepted_variants": [
+        "positive, negative, positive, negative, positive"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Solve the inequality r(x) ≥ 0. Give your answer as a union of intervals, and explain which of the values from the previous part are included.",
+     "criteria": [
+      {
+       "text": "The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+       "evidence": "Response gives exactly this union of intervals, or the equivalent inequalities x ≤ −2 or −1 < x ≤ 3 or x > 5.",
+       "fix": "Combine the intervals where r is positive with the zeros of r, then write the union with correct brackets.",
+       "accepted_variants": [
+        "x ≤ −2 or −1 < x ≤ 3 or x > 5"
+       ]
+      },
+      {
+       "text": "Explains that −2 and 3 are included because r equals 0 there, which satisfies r(x) ≥ 0, while −1 and 5 are excluded because r is undefined there.",
+       "evidence": "Response justifies including the zeros of r and excluding the zeros of the denominator.",
+       "fix": "Include zeros of the numerator for a ≥ inequality; always exclude inputs that make the denominator zero.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The numerator factors as x² − x − 6 = (x − 3)(x + 2), which is 0 at x = 3 and x = −2. The denominator factors as x² − 4x − 5 = (x − 5)(x + 1), which is 0 only at x = 5 and x = −1, so it is not zero at x = −2 (value 7) or at x = 3 (value −8). Both values are in the domain of r and make the numerator 0, so the real zeros of r are x = −2 and x = 3.\n\n(b) r(x) = (x − 3)(x + 2)/((x − 5)(x + 1)). The dividing values are −2, −1, 3, 5.\nx < −2: factors (−)(−)/((−)(−)), so r(x) > 0.\n−2 < x < −1: (−)(+)/((−)(−)), so r(x) < 0.\n−1 < x < 3: (−)(+)/((−)(+)), so r(x) > 0.\n3 < x < 5: (+)(+)/((−)(+)), so r(x) < 0.\nx > 5: all factors positive, so r(x) > 0.\n\n(c) r(x) > 0 on x < −2, −1 < x < 3 and x > 5. The values x = −2 and x = 3 are included because r(x) = 0 there, which satisfies r(x) ≥ 0. The values x = −1 and x = 5 are excluded because the denominator is 0 there, so r is undefined. The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+   "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nN=x**2-x-6; D=x**2-4*x-5\nassert sp.factor(N)==(x-3)*(x+2)\nassert sp.factor(D)==(x-5)*(x+1)\nassert sorted(sp.solve(N,x))==[-2,3] and sorted(sp.solve(D,x))==[-1,5]\nassert D.subs(x,-2)==7 and D.subs(x,3)==-8\nassert sp.gcd(N,D)==1\nr=N/D\nsigns=[sp.sign(r.subs(x,v)) for v in (-3,sp.Rational(-3,2),0,4,6)]\nassert signs==[1,-1,1,-1,1]\nsol=sp.solve_univariate_inequality(r>=0,x,relational=False)\nexpected=sp.Union(sp.Interval(-sp.oo,-2),sp.Interval(-1,3,True,False),sp.Interval(5,sp.oo,True,True))\nassert sol==expected\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.875743Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u12_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 requires factoring the denominator, although the question does not prescribe that method. A student could correctly find −",
+      "ruling": "accept",
+      "reason": "Correct: the part does not prescribe factoring; the quadratic formula gives the same zeros. b1 now accepts any valid method. The a1 text was aligned with its own evidence, which already accepted the quadratic formula."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "rubric_points: Part (b), criterion b1: the evidence statement requires factoring the denominator; a student using the quadratic formula to find the denominator ",
+      "ruling": "accept",
+      "reason": "Same defect as the Sol objection; b1 evidence and text now accept factoring or the quadratic formula."
+     }
+    ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "precalc_stats_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion a1's evidence requires factoring or the quadratic formula, excluding valid alternatives such as completing the square. Accept any valid",
+      "ruling": "accept",
+      "reason": "Valid on both counts. a1 now accepts any valid method for the numerator zeros. Part (b) asks only to determine the signs, so b2 no longer requires supporting factor signs or test values."
+     }
+    ],
+    "accept_as_is": false
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:20:57.465Z",
+   "source": "given",
+   "item": {
+    "title": "Zeros and Sign of a Rational Function",
+    "calculator": "not_permitted",
+    "stimulus": "Let r be the rational function defined by r(x) = (x² − x − 6)/(x² − 4x − 5).",
+    "parts": [
+     {
+      "prompt": "Find all real zeros of r. Explain why each value you give is a zero of r.",
+      "criteria": [
+       {
+        "text": "Factors the numerator as (x − 3)(x + 2), giving the numerator zeros x = 3 and x = −2.",
+        "evidence": "Response sets x² − x − 6 = 0, factors (or uses the quadratic formula), and finds x = 3 and x = −2.",
+        "fix": "Find the real zeros of the numerator first; those are the only possible zeros of a rational function.",
+        "accepted_variants": [
+         "x = −2 and x = 3"
+        ]
+       },
+       {
+        "text": "Confirms that x = −2 and x = 3 are in the domain of r because the denominator is not zero there, so both are zeros of r.",
+        "evidence": "Response checks the denominator: (−2)² − 4(−2) − 5 = 7 and 3² − 4(3) − 5 = −8 (or notes the denominator zeros are 5 and −1), so r(−2) = 0 and r(3) = 0.",
+        "fix": "After finding numerator zeros, substitute each into the denominator to confirm it is nonzero before calling it a zero.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The real zeros of the numerator and the real zeros of the denominator of r divide the real number line into intervals. List these values in increasing order, and determine whether r(x) is positive or negative on each interval.",
+      "criteria": [
+       {
+        "text": "Lists the values −2, −1, 3 and 5, where −1 and 5 come from factoring the denominator as (x − 5)(x + 1).",
+        "evidence": "Response factors the denominator, finds x = 5 and x = −1, and lists −2, −1, 3, 5 in order.",
+        "fix": "Factor both numerator and denominator and collect every real zero of each as a dividing point.",
+        "accepted_variants": [
+         "−2, −1, 3, 5"
+        ]
+       },
+       {
+        "text": "Gives the signs: r(x) > 0 for x < −2, r(x) < 0 for −2 < x < −1, r(x) > 0 for −1 < x < 3, r(x) < 0 for 3 < x < 5, r(x) > 0 for x > 5.",
+        "evidence": "Response gives the correct sign on all five intervals, supported by factor signs or a test value in each interval.",
+        "fix": "Test one value in each interval in the factored form, counting negative factors to get the sign of r.",
+        "accepted_variants": [
+         "positive, negative, positive, negative, positive"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Solve the inequality r(x) ≥ 0. Give your answer as a union of intervals, and explain which of the values from the previous part are included.",
+      "criteria": [
+       {
+        "text": "The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+        "evidence": "Response gives exactly this union of intervals, or the equivalent inequalities x ≤ −2 or −1 < x ≤ 3 or x > 5.",
+        "fix": "Combine the intervals where r is positive with the zeros of r, then write the union with correct brackets.",
+        "accepted_variants": [
+         "x ≤ −2 or −1 < x ≤ 3 or x > 5"
+        ]
+       },
+       {
+        "text": "Explains that −2 and 3 are included because r equals 0 there, which satisfies r(x) ≥ 0, while −1 and 5 are excluded because r is undefined there.",
+        "evidence": "Response justifies including the zeros of r and excluding the zeros of the denominator.",
+        "fix": "Include zeros of the numerator for a ≥ inequality; always exclude inputs that make the denominator zero.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The numerator factors as x² − x − 6 = (x − 3)(x + 2), which is 0 at x = 3 and x = −2. The denominator factors as x² − 4x − 5 = (x − 5)(x + 1), which is 0 only at x = 5 and x = −1, so it is not zero at x = −2 (value 7) or at x = 3 (value −8). Both values are in the domain of r and make the numerator 0, so the real zeros of r are x = −2 and x = 3.\n\n(b) r(x) = (x − 3)(x + 2)/((x − 5)(x + 1)). The dividing values are −2, −1, 3, 5.\nx < −2: factors (−)(−)/((−)(−)), so r(x) > 0.\n−2 < x < −1: (−)(+)/((−)(−)), so r(x) < 0.\n−1 < x < 3: (−)(+)/((−)(+)), so r(x) > 0.\n3 < x < 5: (+)(+)/((−)(+)), so r(x) < 0.\nx > 5: all factors positive, so r(x) > 0.\n\n(c) r(x) > 0 on x < −2, −1 < x < 3 and x > 5. The values x = −2 and x = 3 are included because r(x) = 0 there, which satisfies r(x) ≥ 0. The values x = −1 and x = 5 are excluded because the denominator is 0 there, so r is undefined. The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nN=x**2-x-6; D=x**2-4*x-5\nassert sp.factor(N)==(x-3)*(x+2)\nassert sp.factor(D)==(x-5)*(x+1)\nassert sorted(sp.solve(N,x))==[-2,3] and sorted(sp.solve(D,x))==[-1,5]\nassert D.subs(x,-2)==7 and D.subs(x,3)==-8\nassert sp.gcd(N,D)==1\nr=N/D\nsigns=[sp.sign(r.subs(x,v)) for v in (-3,sp.Rational(-3,2),0,4,6)]\nassert signs==[1,-1,1,-1,1]\nsol=sp.solve_univariate_inequality(r>=0,x,relational=False)\nexpected=sp.Union(sp.Interval(-sp.oo,-2),sp.Interval(-1,3,True,False),sp.Interval(5,sp.oo,True,True))\nassert sol==expected\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires factoring the denominator, although the part does not prescribe a method; finding its zeros using the quadratic formula is equally valid. Criterion b2 requires supporting factor signs or test values, although part (b) asks only for the dividing values and interval signs, not supporting work. Explicitly request justification in part (b) and allow any valid method in b1."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires factoring the denominator, although the part does not prescribe a method; finding its zeros using the quadratic formula is equally valid. Criterion b2 requires supporting factor signs or test values, although part (b) asks only for the dividing values and interval signs, not supporting work. Explicitly request justification in part (b) and allow any valid method in b1."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires factoring the denominator, although the question does not prescribe that method. A student could correctly find −1 and 5 using the quadratic formula and list all four dividing values in order. Accept any valid method for finding the denominator zeros."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires factoring the denominator, although the question does not prescribe that method. A student could correctly find −1 and 5 using the quadratic formula and list all four dividing values in order. Accept any valid method for finding the denominator zeros."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: The criterion/evidence requires factoring the denominator ('Response factors the denominator...') and the fix says 'Factor both numerator and denominator...', which rejects a valid alternative method such as using the quadratic formula to find the denominator zeros. The part only asks to list the dividing values, not to use a specific method."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: The criterion/evidence requires factoring the denominator ('Response factors the denominator...') and the fix says 'Factor both numerator and denominator...', which rejects a valid alternative method such as using the quadratic formula to find the denominator zeros. The part only asks to list the dividing values, not to use a specific method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1: the evidence statement requires factoring the denominator; a student using the quadratic formula to find the denominator zeros x = 5 and x = −1 would be correct, but the criterion as written rejects that valid alternative method."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1: the evidence statement requires factoring the denominator; a student using the quadratic formula to find the denominator zeros x = 5 and x = −1 would be correct, but the criterion as written rejects that valid alternative method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:57:54.456Z",
+   "source": "given",
+   "item": {
+    "title": "Zeros and Sign of a Rational Function",
+    "calculator": "not_permitted",
+    "stimulus": "Let r be the rational function defined by r(x) = (x² − x − 6)/(x² − 4x − 5).",
+    "parts": [
+     {
+      "prompt": "Find all real zeros of r. Explain why each value you give is a zero of r.",
+      "criteria": [
+       {
+        "text": "Finds the numerator zeros x = 3 and x = −2, for example by factoring x² − x − 6 as (x − 3)(x + 2).",
+        "evidence": "Response sets x² − x − 6 = 0, factors (or uses the quadratic formula), and finds x = 3 and x = −2.",
+        "fix": "Find the real zeros of the numerator first; those are the only possible zeros of a rational function.",
+        "accepted_variants": [
+         "x = −2 and x = 3"
+        ]
+       },
+       {
+        "text": "Confirms that x = −2 and x = 3 are in the domain of r because the denominator is not zero there, so both are zeros of r.",
+        "evidence": "Response checks the denominator: (−2)² − 4(−2) − 5 = 7 and 3² − 4(3) − 5 = −8 (or notes the denominator zeros are 5 and −1), so r(−2) = 0 and r(3) = 0.",
+        "fix": "After finding numerator zeros, substitute each into the denominator to confirm it is nonzero before calling it a zero.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The real zeros of the numerator and the real zeros of the denominator of r divide the real number line into intervals. List these values in increasing order, and determine whether r(x) is positive or negative on each interval.",
+      "criteria": [
+       {
+        "text": "Lists the values −2, −1, 3 and 5, where −1 and 5 are the real zeros of the denominator x² − 4x − 5.",
+        "evidence": "Response finds the denominator zeros x = 5 and x = −1 by any valid method (factoring as (x − 5)(x + 1) or the quadratic formula) and lists −2, −1, 3, 5 in order.",
+        "fix": "Find the real zeros of both numerator and denominator, then list all of them in increasing order as the dividing points.",
+        "accepted_variants": [
+         "−2, −1, 3, 5"
+        ]
+       },
+       {
+        "text": "Gives the signs: r(x) > 0 for x < −2, r(x) < 0 for −2 < x < −1, r(x) > 0 for −1 < x < 3, r(x) < 0 for 3 < x < 5, r(x) > 0 for x > 5.",
+        "evidence": "Response gives the correct sign on all five intervals, supported by factor signs or a test value in each interval.",
+        "fix": "Test one value in each interval in the factored form, counting negative factors to get the sign of r.",
+        "accepted_variants": [
+         "positive, negative, positive, negative, positive"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Solve the inequality r(x) ≥ 0. Give your answer as a union of intervals, and explain which of the values from the previous part are included.",
+      "criteria": [
+       {
+        "text": "The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+        "evidence": "Response gives exactly this union of intervals, or the equivalent inequalities x ≤ −2 or −1 < x ≤ 3 or x > 5.",
+        "fix": "Combine the intervals where r is positive with the zeros of r, then write the union with correct brackets.",
+        "accepted_variants": [
+         "x ≤ −2 or −1 < x ≤ 3 or x > 5"
+        ]
+       },
+       {
+        "text": "Explains that −2 and 3 are included because r equals 0 there, which satisfies r(x) ≥ 0, while −1 and 5 are excluded because r is undefined there.",
+        "evidence": "Response justifies including the zeros of r and excluding the zeros of the denominator.",
+        "fix": "Include zeros of the numerator for a ≥ inequality; always exclude inputs that make the denominator zero.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The numerator factors as x² − x − 6 = (x − 3)(x + 2), which is 0 at x = 3 and x = −2. The denominator factors as x² − 4x − 5 = (x − 5)(x + 1), which is 0 only at x = 5 and x = −1, so it is not zero at x = −2 (value 7) or at x = 3 (value −8). Both values are in the domain of r and make the numerator 0, so the real zeros of r are x = −2 and x = 3.\n\n(b) r(x) = (x − 3)(x + 2)/((x − 5)(x + 1)). The dividing values are −2, −1, 3, 5.\nx < −2: factors (−)(−)/((−)(−)), so r(x) > 0.\n−2 < x < −1: (−)(+)/((−)(−)), so r(x) < 0.\n−1 < x < 3: (−)(+)/((−)(+)), so r(x) > 0.\n3 < x < 5: (+)(+)/((−)(+)), so r(x) < 0.\nx > 5: all factors positive, so r(x) > 0.\n\n(c) r(x) > 0 on x < −2, −1 < x < 3 and x > 5. The values x = −2 and x = 3 are included because r(x) = 0 there, which satisfies r(x) ≥ 0. The values x = −1 and x = 5 are excluded because the denominator is 0 there, so r is undefined. The solution is (−∞, −2] ∪ (−1, 3] ∪ (5, ∞).",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x',real=True)\nN=x**2-x-6; D=x**2-4*x-5\nassert sp.factor(N)==(x-3)*(x+2)\nassert sp.factor(D)==(x-5)*(x+1)\nassert sorted(sp.solve(N,x))==[-2,3] and sorted(sp.solve(D,x))==[-1,5]\nassert D.subs(x,-2)==7 and D.subs(x,3)==-8\nassert sp.gcd(N,D)==1\nr=N/D\nsigns=[sp.sign(r.subs(x,v)) for v in (-3,sp.Rational(-3,2),0,4,6)]\nassert signs==[1,-1,1,-1,1]\nsol=sp.solve_univariate_inequality(r>=0,x,relational=False)\nexpected=sp.Union(sp.Interval(-sp.oo,-2),sp.Interval(-1,3,True,False),sp.Interval(5,sp.oo,True,True))\nassert sol==expected\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1: The evidence requires setting the numerator equal to zero and then factoring or using the quadratic formula. This unnecessarily rejects valid alternative methods, such as completing the square. Revise the evidence to accept any valid algebraic method that establishes both numerator zeros."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1: The evidence requires setting the numerator equal to zero and then factoring or using the quadratic formula. This unnecessarily rejects valid alternative methods, such as completing the square. Revise the evidence to accept any valid algebraic method that establishes both numerator zeros."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1's evidence requires factoring or the quadratic formula, excluding valid alternatives such as completing the square. Accept any valid method establishing the numerator zeros. Criterion b2 requires supporting factor signs or interval test values, although part (b) asks only for the values and interval signs, not supporting work. Either request justification in part (b) or remove that additional evidence requirement."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1's evidence requires factoring or the quadratic formula, excluding valid alternatives such as completing the square. Accept any valid method establishing the numerator zeros. Criterion b2 requires supporting factor signs or interval test values, although part (b) asks only for the values and interval signs, not supporting work. Either request justification in part (b) or remove that additional evidence requirement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

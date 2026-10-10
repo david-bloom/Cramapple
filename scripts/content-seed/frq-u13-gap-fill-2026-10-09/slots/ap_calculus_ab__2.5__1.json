@@ -1,0 +1,1304 @@
+{
+ "id": "ap_calculus_ab__2.5__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 2,
+  "unit_title": "Differentiation: Definition and Fundamental Properties",
+  "topic_code": "2.5",
+  "topic_title": "Applying the Power Rule",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:04.449Z",
+   "source": "given",
+   "item": {
+    "title": "Power Rule with Negative and Fractional Exponents",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = x⁴.\n\nLet g(x) = 1/x³ for x ≠ 0.\n\nLet h(x) = x·∛x for x > 0.",
+    "parts": [
+     {
+      "prompt": "Rewrite g(x) in the form x^r, then use the power rule to find g′(x). Find g′(2).",
+      "criteria": [
+       {
+        "text": "Rewrites g(x) = x^(−3).",
+        "evidence": "Response writes g(x) as x^(−3), that is, x raised to the power −3.",
+        "fix": "Move a power of x from the denominator to the numerator by changing the sign of its exponent: 1/xⁿ = x^(−n).",
+        "accepted_variants": [
+         "x^(−3)",
+         "x⁻³"
+        ]
+       },
+       {
+        "text": "Finds g′(x) = −3x^(−4) by the power rule.",
+        "evidence": "Response multiplies by the exponent −3 and lowers the exponent by 1 to −4, giving g′(x) = −3x^(−4), equivalently −3/x⁴.",
+        "fix": "For x^r, bring down r and subtract 1 from the exponent; with a negative r, the new exponent is more negative.",
+        "accepted_variants": [
+         "−3x^(−4)",
+         "−3x⁻⁴",
+         "−3/x⁴"
+        ]
+       },
+       {
+        "text": "Finds g′(2) = −3/16.",
+        "evidence": "Response substitutes x = 2 into its g′(x): −3/2⁴ = −3/16.",
+        "fix": "Substitute into the derivative and evaluate the negative power as a reciprocal: 2^(−4) = 1/16.",
+        "accepted_variants": [
+         "−3/16",
+         "−0.1875"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write h(x) in the form x^r, then use the power rule to find h′(x).",
+      "criteria": [
+       {
+        "text": "Rewrites h(x) = x^(4/3).",
+        "evidence": "Response writes ∛x as x^(1/3) and combines x·x^(1/3) = x^(1 + 1/3) = x^(4/3).",
+        "fix": "Write each root as a fractional power, then add the exponents when multiplying powers of x.",
+        "accepted_variants": [
+         "x^(4/3)"
+        ]
+       },
+       {
+        "text": "Finds h′(x) = (4/3)x^(1/3).",
+        "evidence": "Response applies the power rule with r = 4/3 to get (4/3)x^(1/3), equivalently (4/3)∛x.",
+        "fix": "Subtract 1 from a fractional exponent using a common denominator: 4/3 − 1 = 1/3.",
+        "accepted_variants": [
+         "(4/3)x^(1/3)",
+         "(4/3)∛x",
+         "4∛x/3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find all points on the curve y = f(x) at which the line tangent to the curve has slope −32.",
+      "criteria": [
+       {
+        "text": "Finds f′(x) = 4x³ using the power rule.",
+        "evidence": "Response states f′(x) = 4x³.",
+        "fix": "Apply the power rule to x⁴: bring down the 4 and lower the exponent to 3.",
+        "accepted_variants": [
+         "4x³"
+        ]
+       },
+       {
+        "text": "Solves 4x³ = −32 to get x = −2 and gives the point (−2, 16).",
+        "evidence": "Response sets its f′(x) equal to −32, obtains x³ = −8 so x = −2 (the only real solution), and gives the point (−2, 16) using f(−2) = (−2)⁴ = 16.",
+        "fix": "Set the derivative equal to the given slope, solve for x, then evaluate f at that x to get the point.",
+        "accepted_variants": [
+         "(−2, 16)",
+         "x = −2, y = 16"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) g(x) = 1/x³ = x^(−3). By the power rule, g′(x) = −3x^(−3 − 1) = −3x^(−4) = −3/x⁴. Then g′(2) = −3/2⁴ = −3/16.\n\n(b) h(x) = x·x^(1/3) = x^(1 + 1/3) = x^(4/3). By the power rule, h′(x) = (4/3)x^(4/3 − 1) = (4/3)x^(1/3) = (4/3)∛x for x > 0.\n\n(c) By the power rule, f′(x) = 4x³. Setting 4x³ = −32 gives x³ = −8, so x = −2, the only real solution. Since f(−2) = (−2)⁴ = 16, the only such point is (−2, 16).",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x', positive=True)\ny = sp.symbols('y', real=True)\ng = 1/x**3\nassert sp.simplify(g - x**-3) == 0\ngp = sp.diff(g, x)\nassert sp.simplify(gp - (-3*x**-4)) == 0\nassert gp.subs(x, 2) == sp.Rational(-3, 16)\nassert sp.Rational(-3, 16) == sp.Rational(-1875, 10000)\nassert sp.Integer(2)**-4 == sp.Rational(1, 16)\nh = x*sp.cbrt(x)\nassert sp.simplify(h - x**sp.Rational(4, 3)) == 0\nassert sp.Rational(4, 3) - 1 == sp.Rational(1, 3)\nhp = sp.diff(h, x)\nassert sp.simplify(hp - sp.Rational(4, 3)*x**sp.Rational(1, 3)) == 0\nf = y**4\nfp = sp.diff(f, y)\nassert fp == 4*y**3\nsols = sp.solve(sp.Eq(fp, -32), y)\nassert sols == [-2]\nassert f.subs(y, -2) == 16\nprint('ALL_CHECKS_PASSED')\n"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:33:19.597Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Power Rule with Integer, Negative, and Fractional Exponents"
+  },
+  {
+   "at": "2026-10-10T01:34:03.149Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Power Rule with Negative and Fractional Exponents"
+  },
+  {
+   "at": "2026-10-10T01:34:55.739Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Power Rule with Radicals, Tangent Lines, and Limits"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.211Z",
+   "item": {
+    "title": "Power Rule with Negative, Fractional, and Integer Exponents",
+    "calculator": "not_permitted",
+    "stimulus": "Consider the functions g(x) = 1/x⁴ for x ≠ 0, h(x) = ∛(x²) for all real x, f(x) = x³ for all real x, and p(x) = √x for x ≥ 0. Answer all parts of the following question. Show the work that leads to each answer.",
+    "model_answer": "(a) g(x) = 1/x⁴ = x^(−4). By the power rule, g′(x) = −4x^(−5) = −4/x⁵. Then g′(−1) = −4/(−1)⁵ = −4/(−1) = 4.\n\n(b) h(x) = ∛(x²) = x^(2/3), so h′(x) = (2/3)x^(−1/3). Since 8^(1/3) = 2, h′(8) = (2/3)(1/2) = 1/3. Also h(8) = 8^(2/3) = 4. The tangent line at x = 8 is y − 4 = (1/3)(x − 8).\n\n(c) f′(2) = lim h→0 [f(2 + h) − f(2)]/h = lim h→0 [(2 + h)³ − 8]/h = lim h→0 [8 + 12h + 6h² + h³ − 8]/h = lim h→0 (12h + 6h² + h³)/h = lim h→0 (12 + 6h + h²) = 12. The power rule gives f′(x) = 3x², so f′(2) = 3·4 = 12, which agrees.\n\n(d) p(x) = x^(1/2), so p′(x) = (1/2)x^(−1/2) = 1/(2√x). Setting 1/(2√x) = 1/6 gives 2√x = 6, so √x = 3 and x = 9.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\ng=x**-4\ngp=sp.diff(g,x)\nassert sp.simplify(gp-(-4*x**-5))==0\nassert gp.subs(x,-1)==4\nH=x**sp.Rational(2,3)\nHp=sp.diff(H,x)\nassert sp.simplify(Hp-sp.Rational(2,3)*x**sp.Rational(-1,3))==0\nassert sp.nsimplify(Hp.subs(x,8))==sp.Rational(1,3)\nassert sp.nsimplify(H.subs(x,8))==4\nline=4+sp.Rational(1,3)*(x-8)\nassert sp.expand(line-(sp.Rational(1,3)*x+sp.Rational(4,3)))==0\nf=x**3\ndq=sp.expand(((2+h)**3-8)/h)\nassert sp.simplify(dq-(12+6*h+h**2))==0\nassert sp.limit(dq,h,0)==12\nassert sp.diff(f,x).subs(x,2)==12\np=sp.sqrt(x)\nsol=sp.solve(sp.Eq(sp.diff(p,x),sp.Rational(1,6)),x)\nassert sol==[9]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write g(x) in the form x^r, find g′(x), and find the value of g′(−1).",
+      "criteria": [
+       {
+        "text": "Rewrites g(x) = x^(−4) and applies the power rule to get g′(x) = −4x^(−5).",
+        "evidence": "Response shows g(x) as x^(−4) and gives g′(x) = −4x^(−5) or an equivalent form such as −4/x⁵.",
+        "fix": "Rewrite 1/xⁿ as x^(−n) first, then multiply by the exponent and subtract 1 from it: −4 becomes −5.",
+        "accepted_variants": [
+         "−4/x⁵",
+         "-4x^(-5)"
+        ]
+       },
+       {
+        "text": "Evaluates g′(−1) = 4.",
+        "evidence": "Response substitutes x = −1 into its derivative and states g′(−1) = 4.",
+        "fix": "Remember (−1) raised to an odd power is −1, so −4·(−1)^(−5) = −4·(−1) = 4.",
+        "accepted_variants": [
+         "4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find h′(8). Then write an equation for the line tangent to the graph of h at x = 8.",
+      "criteria": [
+       {
+        "text": "Uses h(x) = x^(2/3), h′(x) = (2/3)x^(−1/3), and finds h′(8) = 1/3.",
+        "evidence": "Response shows the fractional-exponent form, the derivative (2/3)x^(−1/3) or equivalent, and the value 1/3 at x = 8.",
+        "fix": "Convert ∛(x²) to x^(2/3), apply the power rule to get (2/3)x^(−1/3), then use 8^(1/3) = 2.",
+        "accepted_variants": [
+         "1/3",
+         "0.333"
+        ]
+       },
+       {
+        "text": "Writes the tangent line y − 4 = (1/3)(x − 8).",
+        "evidence": "Response finds h(8) = 4 and writes a correct line through (8, 4) with slope equal to its h′(8).",
+        "fix": "Use point-slope form y − h(a) = h′(a)(x − a), computing h(8) = 8^(2/3) = 4 for the point.",
+        "accepted_variants": [
+         "y = (1/3)x + 4/3",
+         "y = 4 + (1/3)(x − 8)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the definition of the derivative, find f′(2). Do not use the power rule for this part. Then state whether your result agrees with the power rule.",
+      "criteria": [
+       {
+        "text": "Sets up lim h→0 [(2 + h)³ − 8]/h and simplifies it to lim h→0 (12 + 6h + h²).",
+        "evidence": "Response writes the difference-quotient limit for f at 2, expands (2 + h)³ = 8 + 12h + 6h² + h³, and cancels h.",
+        "fix": "Write f′(a) = lim h→0 [f(a + h) − f(a)]/h, expand the cube fully, then factor out and cancel h before taking the limit.",
+        "accepted_variants": [
+         "lim x→2 (x³ − 8)/(x − 2)",
+         "lim x→2 (x² + 2x + 4)"
+        ]
+       },
+       {
+        "text": "Finds f′(2) = 12 and notes it agrees with the power rule value 3·2² = 12.",
+        "evidence": "Response evaluates the simplified limit as 12 and states that the power rule gives 3x² = 12 at x = 2.",
+        "fix": "After canceling h, substitute h = 0 into the remaining polynomial, then check against 3x² from the power rule.",
+        "accepted_variants": [
+         "12"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the value of x at which p′(x) = 1/6.",
+      "criteria": [
+       {
+        "text": "Finds p′(x) = (1/2)x^(−1/2), sets it equal to 1/6, and solves to get x = 9.",
+        "evidence": "Response shows p′(x) = 1/(2√x) or equivalent, the equation 1/(2√x) = 1/6, and the solution x = 9.",
+        "fix": "Write √x as x^(1/2), differentiate to (1/2)x^(−1/2), set equal to 1/6, and solve √x = 3.",
+        "accepted_variants": [
+         "9"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "1": 3,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1, b1, and d1 bundle separable setup and execution outputs into single all-or-nothing points. Criterion c1 requires expanding (2 + h)³ and canceling h, rejecting a valid derivative-definition solution that instead factors (x³ − 8)/(x − 2), despite listing that form as an accepted variant.",
+       "accurate: Criterion b1 lists 0.333 as an equivalent form of 1/3. It is only an approximation, not an equivalent value; the noncalculator question supplies no rounding instruction.",
+       "solution: The independent solution agrees with all exact rubric results: (a) g′(x) = −4x⁻⁵ and g′(−1) = 4; (b) h′(8) = 1/3 and y − 4 = (1/3)(x − 8); (c) f′(2) = 12, agreeing with the power rule; (d) x = 9. The only numerical disagreement is b1's assertion that 0.333 is equivalent to 1/3. No model answer was provided."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1, b1, and d1 bundle separable setup and execution outputs into single all-or-nothing points. Criterion c1 requires expanding (2 + h)³ and canceling h, rejecting a valid derivative-definition solution that instead factors (x³ − 8)/(x − 2), despite listing that form as an accepted variant."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 lists 0.333 as an equivalent form of 1/3. It is only an approximation, not an equivalent value; the noncalculator question supplies no rounding instruction."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all exact rubric results: (a) g′(x) = −4x⁻⁵ and g′(−1) = 4; (b) h′(8) = 1/3 and y − 4 = (1/3)(x − 8); (c) f′(2) = 12, agreeing with the power rule; (d) x = 9. The only numerical disagreement is b1's assertion that 0.333 is equivalent to 1/3. No model answer was provided.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 combines two separately requested elements: rewriting g and finding its derivative. Criteria b1 and d1 bundle derivative setup and numerical execution into all-or-nothing points, contrary to the supplied scoring conventions. Criterion c1 requires expanding (2 + h)³ and canceling h, rejecting a valid definition-based solution using lim x→2 (x³ − 8)/(x − 2) and difference-of-cubes factorization. Listing that alternative under equivalent forms does not remove the mandatory evidence requirement.",
+       "accurate: Criterion b1 lists 0.333 as an equivalent form of 1/3. It is only an approximation, not an equivalent value; the question provides no rounding instruction or tolerance.",
+       "solution: The exact mathematical results agree: (a) g′(x) = −4/x⁵ and g′(−1) = 4; (b) h′(8) = 1/3 and y − 4 = (1/3)(x − 8); (c) f′(2) = 12, agreeing with the power rule; (d) x = 9. However, b1 incorrectly treats 0.333 as equivalent to 1/3, and c1's mandatory evidence excludes a valid difference-of-cubes solution using the derivative definition. No model answer was supplied."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 combines two separately requested elements: rewriting g and finding its derivative. Criteria b1 and d1 bundle derivative setup and numerical execution into all-or-nothing points, contrary to the supplied scoring conventions. Criterion c1 requires expanding (2 + h)³ and canceling h, rejecting a valid definition-based solution using lim x→2 (x³ − 8)/(x − 2) and difference-of-cubes factorization. Listing that alternative under equivalent forms does not remove the mandatory evidence requirement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 lists 0.333 as an equivalent form of 1/3. It is only an approximation, not an equivalent value; the question provides no rounding instruction or tolerance."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The exact mathematical results agree: (a) g′(x) = −4/x⁵ and g′(−1) = 4; (b) h′(8) = 1/3 and y − 4 = (1/3)(x − 8); (c) f′(2) = 12, agreeing with the power rule; (d) x = 9. However, b1 incorrectly treats 0.333 as equivalent to 1/3, and c1's mandatory evidence excludes a valid difference-of-cubes solution using the derivative definition. No model answer was supplied.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:47:25.190Z",
+   "item": {
+    "title": "Power Rule with Negative and Fractional Exponents",
+    "calculator": "not_permitted",
+    "stimulus": "Let f, g and p be the functions defined by f(x) = 1/x³ for x ≠ 0, g(x) = ∛(x²) for all real x, and p(x) = x²√x for x ≥ 0. Here ∛ denotes the real cube root, so g(x) = x^(2/3) is defined for negative x as well.",
+    "model_answer": "(a) p(x) = x² · x^(1/2) = x^(5/2). By the power rule, p′(x) = (5/2)x^(5/2 − 1) = (5/2)x^(3/2) for x > 0.\n\n(b) f(x) = x^(−3), so f′(x) = −3x^(−4) = −3/x⁴. Then f′(2) = −3/2⁴ = −3/16. Also f(2) = 1/2³ = 1/8. The tangent line at x = 2 is y − 1/8 = −(3/16)(x − 2), which is y = −(3/16)x + 1/2.\n\n(c) g(x) = x^(2/3), so g′(x) = (2/3)x^(2/3 − 1) = (2/3)x^(−1/3) = 2/(3∛x) for x ≠ 0. Then g′(8) = (2/3)·8^(−1/3) = (2/3)(1/2) = 1/3.\n\n(d) g(0) = 0, so g′(0) = lim h→0 [g(0 + h) − g(0)]/h = lim h→0 h^(2/3)/h = lim h→0 h^(−1/3) = lim h→0 1/∛h. As h→0⁺, 1/∛h → ∞, and as h→0⁻, 1/∛h → −∞. The difference quotient is unbounded, so the limit does not exist. Therefore g′(0) does not exist; g is not differentiable at x = 0.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h',positive=True)\np=x**2*sp.sqrt(x)\nassert sp.simplify(p-x**sp.Rational(5,2))==0\nassert sp.simplify(sp.diff(p,x)-sp.Rational(5,2)*x**sp.Rational(3,2))==0\nf=1/x**3\nfp=sp.diff(f,x)\nassert sp.simplify(fp+3*x**-4)==0\nassert fp.subs(x,2)==sp.Rational(-3,16)\nassert f.subs(x,2)==sp.Rational(1,8)\nX=sp.symbols('X')\nline=sp.Rational(1,8)-sp.Rational(3,16)*(X-2)\nassert sp.expand(line-(-sp.Rational(3,16)*X+sp.Rational(1,2)))==0\ng=x**sp.Rational(2,3)\ngp=sp.diff(g,x)\nassert sp.simplify(gp-sp.Rational(2,3)*x**sp.Rational(-1,3))==0\nassert sp.nsimplify(gp.subs(x,8))==sp.Rational(1,3)\nq=sp.simplify(h**sp.Rational(2,3)/h)\nassert sp.simplify(q-h**sp.Rational(-1,3))==0\nassert sp.limit(q,h,0,'+')==sp.oo\ny=sp.symbols('y')\nqneg=1/sp.real_root(y,3)\nfor val in [-1e-3,-1e-6,-1e-9]:\n    v=float(qneg.subs(y,val))\n    assert v<0\nassert float(qneg.subs(y,-1e-9))< -900\nassert abs(-3/16+0.1875)<1e-12\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write p(x) as a single power of x. Then find p′(x) for x > 0.",
+      "criteria": [
+       {
+        "text": "Rewrites p(x) = x^(5/2)",
+        "evidence": "Response shows x²√x = x² · x^(1/2) = x^(5/2), or states p(x) = x^(5/2) directly.",
+        "fix": "Write the root as a fractional exponent, √x = x^(1/2), then add exponents when multiplying powers of the same base.",
+        "accepted_variants": [
+         "x^(2.5)",
+         "x^(5/2)"
+        ]
+       },
+       {
+        "text": "Finds p′(x) = (5/2)x^(3/2)",
+        "evidence": "Response applies the power rule to x^(5/2), bringing down 5/2 and reducing the exponent by 1, to get (5/2)x^(3/2) or an equivalent form.",
+        "fix": "For x^r, multiply by r and subtract 1 from the exponent: 5/2 − 1 = 3/2.",
+        "accepted_variants": [
+         "2.5x^(1.5)",
+         "(5/2)x√x",
+         "(5/2)√(x³)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find f′(2). Then write an equation for the line tangent to the graph of f at x = 2.",
+      "criteria": [
+       {
+        "text": "Finds f′(2) = −3/16 using f′(x) = −3x^(−4)",
+        "evidence": "Response rewrites f(x) = x^(−3), finds f′(x) = −3x^(−4) (or −3/x⁴), and evaluates f′(2) = −3/16.",
+        "fix": "Rewrite 1/x³ as x^(−3) before differentiating; the new exponent is −3 − 1 = −4, not −2.",
+        "accepted_variants": [
+         "−0.1875",
+         "−3/16"
+        ]
+       },
+       {
+        "text": "Writes tangent line y = 1/8 − (3/16)(x − 2)",
+        "evidence": "Response uses the point (2, 1/8) with f(2) = 1/8 and slope f′(2) to write y − 1/8 = −(3/16)(x − 2) or an equivalent equation; consistent use of an incorrect f′(2) earns this point.",
+        "fix": "Compute the point (2, f(2)) and use point-slope form y − f(2) = f′(2)(x − 2).",
+        "accepted_variants": [
+         "y = −(3/16)x + 1/2",
+         "y = −0.1875x + 0.5",
+         "y − 0.125 = −0.1875(x − 2)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find g′(x) for x ≠ 0, and find g′(8).",
+      "criteria": [
+       {
+        "text": "Finds g′(x) = (2/3)x^(−1/3)",
+        "evidence": "Response writes g(x) = x^(2/3) and applies the power rule to get (2/3)x^(−1/3) or an equivalent such as 2/(3∛x).",
+        "fix": "Convert ∛(x²) to x^(2/3) first; then 2/3 − 1 = −1/3 gives the new exponent.",
+        "accepted_variants": [
+         "2/(3∛x)",
+         "(2/3)x^(−1/3)"
+        ]
+       },
+       {
+        "text": "Finds g′(8) = 1/3",
+        "evidence": "Response evaluates (2/3)·8^(−1/3) = (2/3)(1/2) = 1/3; consistent evaluation of an incorrect g′(x) of the form c·x^(−1/3) earns this point.",
+        "fix": "Evaluate 8^(−1/3) as 1/∛8 = 1/2 before multiplying by 2/3.",
+        "accepted_variants": [
+         "1/3",
+         "0.333"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the definition of the derivative, determine whether g′(0) exists. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Simplifies the difference quotient to h^(−1/3)",
+        "evidence": "Response writes g′(0) = lim h→0 [g(0 + h) − g(0)]/h = lim h→0 h^(2/3)/h and simplifies the quotient to h^(−1/3) = 1/∛h.",
+        "fix": "Write the limit [g(0 + h) − g(0)]/h with g(0) = 0, then simplify h^(2/3)/h by subtracting exponents.",
+        "accepted_variants": [
+         "1/∛h",
+         "h^(−1/3)"
+        ]
+       },
+       {
+        "text": "Concludes g′(0) does not exist because the limit is unbounded",
+        "evidence": "Response states that as h→0⁺, 1/∛h → ∞ and as h→0⁻, 1/∛h → −∞ (or that the quotient is unbounded), so the limit defining g′(0) does not exist.",
+        "fix": "Check both one-sided limits of the simplified quotient; an unbounded quotient means the derivative does not exist at that point.",
+        "accepted_variants": [
+         "g is not differentiable at x = 0",
+         "g′(0) DNE"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 bundles rewriting, derivative setup, and numerical evaluation into one all-or-nothing point, contrary to the fact pack’s separation of setup and execution. It also requires finding the general derivative and rewriting f as a power, although part (b) permits computing f′(2) directly from the derivative definition. Criteria a2 and c1 likewise mandate the power rule although those parts do not require a particular method. Criterion c2 lists 0.333 as an equivalent form of 1/3, but it is only an approximation.",
+       "accurate: Criterion c2 incorrectly labels 0.333 an equivalent form of 1/3. Write 0.333 ≈ 1/3 and identify it as an accepted approximation, rather than an equivalent value.",
+       "solution: The independent solution agrees with all derivative formulas, tangent-line equations, and the conclusion that g′(0) does not exist. The only numerical disagreement is criterion c2’s claim that 0.333 is equivalent to 1/3; it is a rounded approximation. No model answer was provided for comparison."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 bundles rewriting, derivative setup, and numerical evaluation into one all-or-nothing point, contrary to the fact pack’s separation of setup and execution. It also requires finding the general derivative and rewriting f as a power, although part (b) permits computing f′(2) directly from the derivative definition. Criteria a2 and c1 likewise mandate the power rule although those parts do not require a particular method. Criterion c2 lists 0.333 as an equivalent form of 1/3, but it is only an approximation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c2 incorrectly labels 0.333 an equivalent form of 1/3. Write 0.333 ≈ 1/3 and identify it as an accepted approximation, rather than an equivalent value."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all derivative formulas, tangent-line equations, and the conclusion that g′(0) does not exist. The only numerical disagreement is criterion c2’s claim that 0.333 is equivalent to 1/3; it is a rounded approximation. No model answer was provided for comparison.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a2, b1, and c1 require specific power-rule work although the parts only ask students to find derivatives; valid derivative-definition solutions must also receive credit. Criteria b1 and c1 additionally require explicit power rewrites that are not necessary for a correct solution. Criterion b1 bundles derivative setup and numerical evaluation into one all-or-nothing point, contrary to the supplied scoring conventions. Criterion c2 lists 0.333 as an equivalent form of 1/3, but it is only an approximation.",
+       "accurate: Criterion c2 incorrectly identifies 0.333 as equivalent to 1/3. Write 1/3 exactly, or explicitly identify 0.333 as an accepted rounded approximation rather than an equivalent value.",
+       "solution: The derivative formulas, tangent line, and conclusion that g′(0) does not exist agree with the independent solution. The only numerical disagreement is criterion c2's claim that 0.333 is equivalent to the exact value 1/3; it is a rounded approximation."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a2, b1, and c1 require specific power-rule work although the parts only ask students to find derivatives; valid derivative-definition solutions must also receive credit. Criteria b1 and c1 additionally require explicit power rewrites that are not necessary for a correct solution. Criterion b1 bundles derivative setup and numerical evaluation into one all-or-nothing point, contrary to the supplied scoring conventions. Criterion c2 lists 0.333 as an equivalent form of 1/3, but it is only an approximation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c2 incorrectly identifies 0.333 as equivalent to 1/3. Write 1/3 exactly, or explicitly identify 0.333 as an accepted rounded approximation rather than an equivalent value."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The derivative formulas, tangent line, and conclusion that g′(0) does not exist agree with the independent solution. The only numerical disagreement is criterion c2's claim that 0.333 is equivalent to the exact value 1/3; it is a rounded approximation.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:52:50.010Z",
+   "item": {
+    "title": "Power Rule with Radical and Rational Exponents",
+    "calculator": "not_permitted",
+    "stimulus": "Consider the functions f(x) = x³; g(x) = 1/∛(x²) for x ≠ 0; and h(x) = x²·√x for x ≥ 0.",
+    "model_answer": "(a) f′(2) = lim h→0 [(2+h)³ − 2³]/h = lim h→0 (8 + 12h + 6h² + h³ − 8)/h = lim h→0 (12h + 6h² + h³)/h = lim h→0 (12 + 6h + h²) = 12.\n\n(b) ∛(x²) = x^(2/3), so g(x) = 1/x^(2/3) = x^(−2/3), and r = −2/3. By the power rule, g′(x) = (−2/3)x^(−2/3 − 1) = −(2/3)x^(−5/3).\n\n(c) h(x) = x²·x^(1/2) = x^(5/2), so h′(x) = (5/2)x^(3/2).\nh(4) = 4²·√4 = 16·2 = 32, and h′(4) = (5/2)·4^(3/2) = (5/2)·8 = 20.\nThe tangent line is y = 32 + 20(x − 4).\n\n(d) By the power rule, f′(x) = 3x². Setting 3x² = (5/2)x^(3/2) and dividing both sides by x^(3/2), which is nonzero for x > 0, gives 3x^(1/2) = 5/2. Then √x = 5/6, so x = 25/36.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=x**3\ndq=sp.simplify(((2+h)**3-8)/h)\nassert sp.expand(dq)==12+6*h+h**2\nassert sp.limit(dq,h,0)==12\nassert sp.expand((2+h)**3)==8+12*h+6*h**2+h**3\nxp=sp.symbols('xp',positive=True)\ng=1/sp.cbrt(xp**2)\nassert sp.simplify(g-xp**sp.Rational(-2,3))==0\ngp=sp.diff(g,xp)\nassert sp.simplify(gp-(-sp.Rational(2,3))*xp**sp.Rational(-5,3))==0\nhh=xp**2*sp.sqrt(xp)\nassert sp.simplify(hh-xp**sp.Rational(5,2))==0\nhp=sp.diff(hh,xp)\nassert sp.simplify(hp-sp.Rational(5,2)*xp**sp.Rational(3,2))==0\nassert hh.subs(xp,4)==32\nassert hp.subs(xp,4)==20\nassert sp.expand(32+20*(x-4))==20*x-48\nfp=sp.diff(xp**3,xp)\nassert fp==3*xp**2\nsol=sp.solve(sp.Eq(fp,hp),xp)\nassert sol==[sp.Rational(25,36)]\nassert abs(25/36-0.694)<0.001\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the definition of the derivative to find f′(2). Show the limit and the algebra that evaluates it.",
+      "criteria": [
+       {
+        "text": "Writes the limit definition f′(2) = lim h→0 [(2+h)³ − 2³]/h, or an equivalent form such as lim x→2 (x³ − 8)/(x − 2).",
+        "evidence": "A correct difference-quotient limit for f at x = 2 appears, with the limit notation present.",
+        "fix": "Start with f′(a) = lim h→0 [f(a+h) − f(a)]/h, substitute a = 2 and f(x) = x³, and keep the limit notation.",
+        "accepted_variants": [
+         "lim x→2 (x³ − 8)/(x − 2)"
+        ]
+       },
+       {
+        "text": "Evaluates the limit algebraically to get f′(2) = 12.",
+        "evidence": "Expands (2+h)³ = 8 + 12h + 6h² + h³, or factors x³ − 8, cancels the common factor, and evaluates the limit to 12.",
+        "fix": "Expand (2+h)³ fully, cancel the common factor h, and only then let h → 0.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Write g(x) in the form x^r, and find g′(x).",
+      "criteria": [
+       {
+        "text": "Rewrites g(x) = x^(−2/3), so r = −2/3.",
+        "evidence": "States g(x) = x^(−2/3), using ∛(x²) = x^(2/3) and 1/x^a = x^(−a).",
+        "fix": "Convert the root to a fractional exponent first, then move it from the denominator by making the exponent negative.",
+        "accepted_variants": [
+         "r = −2/3"
+        ]
+       },
+       {
+        "text": "Finds g′(x) = −(2/3)x^(−5/3) using the power rule.",
+        "evidence": "Multiplies by the exponent −2/3 and subtracts 1 from it to get −5/3.",
+        "fix": "For the power rule with a negative fraction, compute −2/3 − 1 = −5/3 carefully; do not subtract from the numerator only.",
+        "accepted_variants": [
+         "−2/(3x^(5/3))",
+         "−2/(3∛(x⁵))"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find h′(x), and write an equation of the line tangent to the graph of h at x = 4.",
+      "criteria": [
+       {
+        "text": "Rewrites h(x) = x^(5/2) and finds h′(x) = (5/2)x^(3/2).",
+        "evidence": "Combines x²·x^(1/2) = x^(5/2) and applies the power rule to get (5/2)x^(3/2).",
+        "fix": "Add exponents when multiplying powers of x, so x²·x^(1/2) = x^(5/2), before applying the power rule.",
+        "accepted_variants": [
+         "(5/2)x√x",
+         "2.5x^(3/2)"
+        ]
+       },
+       {
+        "text": "Uses h(4) = 32 and slope h′(4) = 20 to write the tangent line y = 32 + 20(x − 4).",
+        "evidence": "Shows h(4) = 16·2 = 32 and h′(4) = (5/2)·8 = 20, and gives a correct line through (4, 32) with slope 20.",
+        "fix": "Evaluate both h(4) and h′(4), then use point-slope form y − h(4) = h′(4)(x − 4).",
+        "accepted_variants": [
+         "y = 20x − 48",
+         "y − 32 = 20(x − 4)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the value of x with x > 0 at which f′(x) = h′(x).",
+      "criteria": [
+       {
+        "text": "Sets up the equation 3x² = (5/2)x^(3/2).",
+        "evidence": "Uses f′(x) = 3x² from the power rule and equates it to h′(x) from part (c), or a consistent h′(x).",
+        "fix": "Differentiate each function with the power rule first, then set the two derivative expressions equal.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Solves to get x = 25/36.",
+        "evidence": "Divides both sides by x^(3/2) (valid since x > 0) to get 3x^(1/2) = 5/2, so √x = 5/6 and x = 25/36.",
+        "fix": "Divide by the common power x^(3/2), isolate √x, then square both sides to solve for x.",
+        "accepted_variants": [
+         "0.694"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 requires rewriting h as x^(5/2), although part (c) only asks for its derivative; a correct product-rule calculation should also earn credit. Criterion d2 requires division by x^(3/2), rejecting other valid algebraic solutions. Its accepted variant 0.694 is an approximation, not an equivalent form of 25/36.",
+       "accurate: Criterion d2 incorrectly lists 0.694 as an equivalent form of 25/36. It is only a three-decimal approximation and should be identified as such.",
+       "solution: The independent solution agrees with the rubric's exact results: f′(2) = 12, g′(x) = −(2/3)x^(−5/3), h′(x) = (5/2)x^(3/2) for x > 0, tangent line y = 20x − 48, and x = 25/36. The listed variant 0.694 is approximate rather than exactly equivalent to 25/36."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires rewriting h as x^(5/2), although part (c) only asks for its derivative; a correct product-rule calculation should also earn credit. Criterion d2 requires division by x^(3/2), rejecting other valid algebraic solutions. Its accepted variant 0.694 is an approximation, not an equivalent form of 25/36."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d2 incorrectly lists 0.694 as an equivalent form of 25/36. It is only a three-decimal approximation and should be identified as such."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's exact results: f′(2) = 12, g′(x) = −(2/3)x^(−5/3), h′(x) = (5/2)x^(3/2) for x > 0, tangent line y = 20x − 48, and x = 25/36. The listed variant 0.694 is approximate rather than exactly equivalent to 25/36.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 requires rewriting h as x^(5/2), although part (c) does not prescribe this method; correct differentiation by the product rule should also earn credit. Criterion d2 requires division by x^(3/2), excluding other valid algebraic solutions. Its accepted variant 0.694 is only an approximation, not an equivalent form of the exact answer 25/36, and no approximation is requested.",
+       "accurate: Criterion d2 incorrectly lists 0.694 as an equivalent form of 25/36. The exact value is 0.694444…, so 0.694 is a rounded approximation.",
+       "solution: The independent solution agrees with the rubric’s substantive results: f′(2) = 12; g′(x) = −(2/3)x^(−5/3); h′(x) = (5/2)x^(3/2) for x > 0; the tangent line is y = 20x − 48; and the unique positive solution in part (d) is x = 25/36. The sole numerical disagreement is d2’s claim that 0.694 is an equivalent form of the exact answer. No model answer was supplied."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 requires rewriting h as x^(5/2), although part (c) does not prescribe this method; correct differentiation by the product rule should also earn credit. Criterion d2 requires division by x^(3/2), excluding other valid algebraic solutions. Its accepted variant 0.694 is only an approximation, not an equivalent form of the exact answer 25/36, and no approximation is requested."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d2 incorrectly lists 0.694 as an equivalent form of 25/36. The exact value is 0.694444…, so 0.694 is a rounded approximation."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric’s substantive results: f′(2) = 12; g′(x) = −(2/3)x^(−5/3); h′(x) = (5/2)x^(3/2) for x > 0; the tangent line is y = 20x − 48; and the unique positive solution in part (d) is x = 25/36. The sole numerical disagreement is d2’s claim that 0.694 is an equivalent form of the exact answer. No model answer was supplied.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1, and part (d), criterion d2, prescribe a specific method: c1 requires rewriting x²√x as x^(5/2) and applying the power rule, and d2 requires dividing by x^(3/2) and isolating √x. The parts only ask for the derivative or solution, so valid alternatives such as using the product rule or squaring both sides first would not satisfy the evidence as written."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1, and part (d), criterion d2, prescribe a specific method: c1 requires rewriting x²√x as x^(5/2) and applying the power rule, and d2 requires dividing by x^(3/2) and isolating √x. The parts only ask for the derivative or solution, so valid alternatives such as using the product rule or squaring both sides first would not satisfy the evidence as written."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 requires rewriting h(x) as x^(5/2) and applying the power rule, but part (c) only asks for h′(x) and a tangent line. A valid product-rule answer such as h′(x)=2x√x+x²/(2√x), which simplifies to (5/2)x^(3/2), would not earn the point because it does not show x^(5/2); this prescribes a method not required."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 requires rewriting h(x) as x^(5/2) and applying the power rule, but part (c) only asks for h′(x) and a tangent line. A valid product-rule answer such as h′(x)=2x√x+x²/(2√x), which simplifies to (5/2)x^(3/2), would not earn the point because it does not show x^(5/2); this prescribes a method not required."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Power Rule with Negative and Fractional Exponents",
+   "calculator": "not_permitted",
+   "stimulus": "Let f(x) = x⁴.\n\nLet g(x) = 1/x³ for x ≠ 0.\n\nLet h(x) = x·∛x for x > 0.",
+   "parts": [
+    {
+     "prompt": "Rewrite g(x) in the form x^r, then use the power rule to find g′(x). Find g′(2).",
+     "criteria": [
+      {
+       "text": "Rewrites g(x) = x^(−3).",
+       "evidence": "Response writes g(x) as x^(−3), that is, x raised to the power −3.",
+       "fix": "Move a power of x from the denominator to the numerator by changing the sign of its exponent: 1/xⁿ = x^(−n).",
+       "accepted_variants": [
+        "x^(−3)",
+        "x⁻³"
+       ]
+      },
+      {
+       "text": "Finds g′(x) = −3x^(−4) by the power rule.",
+       "evidence": "Response multiplies by the exponent −3 and lowers the exponent by 1 to −4, giving g′(x) = −3x^(−4), equivalently −3/x⁴.",
+       "fix": "For x^r, bring down r and subtract 1 from the exponent; with a negative r, the new exponent is more negative.",
+       "accepted_variants": [
+        "−3x^(−4)",
+        "−3x⁻⁴",
+        "−3/x⁴"
+       ]
+      },
+      {
+       "text": "Finds g′(2) = −3/16.",
+       "evidence": "Response substitutes x = 2 into its g′(x): −3/2⁴ = −3/16.",
+       "fix": "Substitute into the derivative and evaluate the negative power as a reciprocal: 2^(−4) = 1/16.",
+       "accepted_variants": [
+        "−3/16",
+        "−0.1875"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write h(x) in the form x^r, then use the power rule to find h′(x).",
+     "criteria": [
+      {
+       "text": "Rewrites h(x) = x^(4/3).",
+       "evidence": "Response writes ∛x as x^(1/3) and combines x·x^(1/3) = x^(1 + 1/3) = x^(4/3).",
+       "fix": "Write each root as a fractional power, then add the exponents when multiplying powers of x.",
+       "accepted_variants": [
+        "x^(4/3)"
+       ]
+      },
+      {
+       "text": "Finds h′(x) = (4/3)x^(1/3).",
+       "evidence": "Response applies the power rule with r = 4/3 to get (4/3)x^(1/3), equivalently (4/3)∛x.",
+       "fix": "Subtract 1 from a fractional exponent using a common denominator: 4/3 − 1 = 1/3.",
+       "accepted_variants": [
+        "(4/3)x^(1/3)",
+        "(4/3)∛x",
+        "4∛x/3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find all points on the curve y = f(x) at which the line tangent to the curve has slope −32.",
+     "criteria": [
+      {
+       "text": "Finds f′(x) = 4x³ using the power rule.",
+       "evidence": "Response states f′(x) = 4x³.",
+       "fix": "Apply the power rule to x⁴: bring down the 4 and lower the exponent to 3.",
+       "accepted_variants": [
+        "4x³"
+       ]
+      },
+      {
+       "text": "Solves 4x³ = −32 to get x = −2 and gives the point (−2, 16).",
+       "evidence": "Response sets its f′(x) equal to −32, obtains x³ = −8 so x = −2 (the only real solution), and gives the point (−2, 16) using f(−2) = (−2)⁴ = 16.",
+       "fix": "Set the derivative equal to the given slope, solve for x, then evaluate f at that x to get the point.",
+       "accepted_variants": [
+        "(−2, 16)",
+        "x = −2, y = 16"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) g(x) = 1/x³ = x^(−3). By the power rule, g′(x) = −3x^(−3 − 1) = −3x^(−4) = −3/x⁴. Then g′(2) = −3/2⁴ = −3/16.\n\n(b) h(x) = x·x^(1/3) = x^(1 + 1/3) = x^(4/3). By the power rule, h′(x) = (4/3)x^(4/3 − 1) = (4/3)x^(1/3) = (4/3)∛x for x > 0.\n\n(c) By the power rule, f′(x) = 4x³. Setting 4x³ = −32 gives x³ = −8, so x = −2, the only real solution. Since f(−2) = (−2)⁴ = 16, the only such point is (−2, 16).",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x', positive=True)\ny = sp.symbols('y', real=True)\ng = 1/x**3\nassert sp.simplify(g - x**-3) == 0\ngp = sp.diff(g, x)\nassert sp.simplify(gp - (-3*x**-4)) == 0\nassert gp.subs(x, 2) == sp.Rational(-3, 16)\nassert sp.Rational(-3, 16) == sp.Rational(-1875, 10000)\nassert sp.Integer(2)**-4 == sp.Rational(1, 16)\nh = x*sp.cbrt(x)\nassert sp.simplify(h - x**sp.Rational(4, 3)) == 0\nassert sp.Rational(4, 3) - 1 == sp.Rational(1, 3)\nhp = sp.diff(h, x)\nassert sp.simplify(hp - sp.Rational(4, 3)*x**sp.Rational(1, 3)) == 0\nf = y**4\nfp = sp.diff(f, y)\nassert fp == 4*y**3\nsols = sp.solve(sp.Eq(fp, -32), y)\nassert sols == [-2]\nassert f.subs(y, -2) == 16\nprint('ALL_CHECKS_PASSED')\n"
+  },
+  "source": "Claude session author (calculus.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.833027Z"
+ },
+ "accepted_round": 1
+}

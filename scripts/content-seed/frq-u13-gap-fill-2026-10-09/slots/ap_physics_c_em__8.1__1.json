@@ -1,0 +1,1069 @@
+{
+ "id": "ap_physics_c_em__8.1__1",
+ "slot": {
+  "subject_key": "ap_physics_c_em",
+  "tsv": "ef9618c9-de85-4941-8837-4dce4c755e62",
+  "unit": 8,
+  "unit_title": "Electric Charges, Fields, and Gauss's Law",
+  "topic_code": "8.1",
+  "topic_title": "Electric Charge and Electric Force",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:16.890Z",
+   "source": "given",
+   "item": {
+    "title": "Net Coulomb Force on a Charge on a Line",
+    "calculator": "permitted",
+    "stimulus": "Three small charged spheres, which can be treated as point charges, are held fixed on the x-axis:\nSphere | Charge | Position\n1 | +4.0 μC | x = 0\n2 | −2.0 μC | x = 0.30 m\n3 | +1.0 μC | x = 0.60 m\nEach sphere has a mass of 2.0 g. Use k = 1/(4πε₀) = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "parts": [
+     {
+      "prompt": "Determine the magnitude and direction of the electric force exerted on sphere 3 by sphere 1, and of the electric force exerted on sphere 3 by sphere 2.",
+      "criteria": [
+       {
+        "text": "F₁₃ = k(4.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.60 m)² = 0.10 N, directed in the +x direction (repulsion between like charges).",
+        "evidence": "Response uses Coulomb's law with r = 0.60 m to obtain 0.10 N and states it points in +x, away from sphere 1.",
+        "fix": "Use the center-to-center distance between the two interacting spheres in Coulomb's law, and get the direction from whether they repel or attract.",
+        "accepted_variants": [
+         "0.1 N"
+        ]
+       },
+       {
+        "text": "F₂₃ = k(2.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.30 m)² = 0.20 N, directed in the −x direction (attraction toward sphere 2).",
+        "evidence": "Response uses r = 0.30 m to obtain 0.20 N and states it points in −x, toward sphere 2.",
+        "fix": "Use the 0.30 m separation between spheres 2 and 3, and remember opposite charges attract, so the force points toward sphere 2.",
+        "accepted_variants": [
+         "0.2 N"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the magnitude and direction of the net electric force on sphere 3.",
+      "criteria": [
+       {
+        "text": "F_net = +0.10 N − 0.20 N = −0.10 N: magnitude 0.10 N, directed in the −x direction (toward sphere 2).",
+        "evidence": "Response adds the two forces as vectors along the x-axis and reports 0.10 N in the −x direction, or the magnitude and direction that follow correctly from adding its own part (a) forces.",
+        "fix": "Give each force a sign from its direction along the axis, add them, then report the magnitude and the direction separately.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Sphere 3 is moved to a new position on the x-axis, with x > 0.30 m, where the net electric force on it from spheres 1 and 2 is zero. Determine this position.",
+      "criteria": [
+       {
+        "text": "Sets k(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30 m)², giving √2(x − 0.30 m) = x, so x = 0.30√2/(√2 − 1) m ≈ 1.02 m.",
+        "evidence": "Response equates the magnitudes of the two forces using distances x and x − 0.30 m and solves to obtain about 1.0 m.",
+        "fix": "Write equal-magnitude Coulomb forces using each sphere's distance to the new point, take square roots, and keep the root beyond 0.30 m.",
+        "accepted_variants": [
+         "1.0 m",
+         "1.024 m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "With sphere 3 back at its original position, x = 0.60 m, calculate the magnitude of the gravitational force between sphere 1 and sphere 3, and use it to explain whether gravitational forces between the spheres can be neglected in the earlier parts.",
+      "criteria": [
+       {
+        "text": "F_g = Gm²/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³ kg)²/(0.60 m)² ≈ 7.4 × 10⁻¹⁶ N, about 10¹⁴ times smaller than the 0.10 N electric force, so it is negligible.",
+        "evidence": "Response computes about 7 × 10⁻¹⁶ N and compares it with the electric force between the same spheres (0.10 N, or the response's own part (a) value) to conclude gravity is negligible.",
+        "fix": "Compute both forces for the same pair of spheres and compare their ratio; a ratio of many powers of ten justifies neglecting the smaller force.",
+        "accepted_variants": [
+         "7.41 × 10⁻¹⁶ N"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Force on sphere 3 from sphere 1 (separation 0.60 m):\nF₁₃ = k|q₁q₃|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.60)² = 0.10 N. Both charges are positive, so the force is repulsive and points in the +x direction.\nForce on sphere 3 from sphere 2 (separation 0.30 m):\nF₂₃ = (9.0 × 10⁹)(2.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.30)² = 0.20 N. The charges have opposite signs, so the force is attractive and points in the −x direction, toward sphere 2.\n\n(b) F_net = +0.10 N + (−0.20 N) = −0.10 N. The net force on sphere 3 has magnitude 0.10 N and points in the −x direction.\n\n(c) For x > 0.30 m, sphere 1 pushes sphere 3 in the +x direction and sphere 2 pulls it in the −x direction, so the two forces can cancel. Setting the magnitudes equal:\nk(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30)²\n2(x − 0.30)² = x², so √2(x − 0.30) = x (taking the positive root because x > 0.30 m).\nx = 0.30√2/(√2 − 1) ≈ 1.02 m.\n\n(d) With sphere 3 at x = 0.60 m, the separation is 0.60 m.\nF_g = Gm₁m₃/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.60)² ≈ 7.4 × 10⁻¹⁶ N.\nThis is about 1 × 10¹⁴ times smaller than the 0.10 N electric force between the same two spheres, so the gravitational forces between the spheres are negligible in parts (a) through (c).",
+    "verification_python": "import math\nk, G = 9.0e9, 6.67e-11\nq1, q2, q3 = 4.0e-6, -2.0e-6, 1.0e-6\nF13 = k*abs(q1*q3)/0.60**2\nF23 = k*abs(q2*q3)/0.30**2\nassert abs(F13 - 0.10) < 1e-12\nassert abs(F23 - 0.20) < 1e-12\nFnet = F13 - F23\nassert abs(Fnet + 0.10) < 1e-12\nx = 0.30*math.sqrt(2)/(math.sqrt(2) - 1)\nassert abs(x - 1.02) < 0.005\nassert abs(x - 1.024) < 0.0005\nassert abs(k*q1*q3/x**2 - k*abs(q2)*q3/(x - 0.30)**2) < 1e-12\nassert abs(2*(x - 0.30)**2 - x**2) < 1e-12\nm = 2.0e-3\nFg = G*m*m/0.60**2\nassert abs(Fg - 7.4e-16) < 0.05e-16\nassert abs(Fg - 7.41e-16) < 0.005e-16\nratio = F13/Fg\nassert 1e14 < ratio < 2e14\nassert round(math.log10(ratio)) == 14\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "8.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8
+    ],
+    "unitCount": {
+     "8": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "ced_scope: Part (d) criterion d1 requires using Newton's law of gravitation F_g = Gm₁m₃/r² to calculate the gravitational force. This formula is absent from the provided CED Unit 8 fact pack; 8.1.B only calls for qualitative comparison with electric force.",
+       "solution: My independent solution's part (d) statement that the gravitational force is about 10^-15 times the electric force is incorrect; the correct factor is about 10^-14 (equivalently, gravity is about 10^14 times smaller), as in the rubric and model answer."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": false,
+         "issue": "Part (d) criterion d1 requires using Newton's law of gravitation F_g = Gm₁m₃/r² to calculate the gravitational force. This formula is absent from the provided CED Unit 8 fact pack; 8.1.B only calls for qualitative comparison with electric force."
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My independent solution's part (d) statement that the gravitational force is about 10^-15 times the electric force is incorrect; the correct factor is about 10^-14 (equivalently, gravity is about 10^14 times smaller), as in the rubric and model answer.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Net Coulomb Force on a Charge on a Line",
+   "calculator": "permitted",
+   "stimulus": "Three small charged spheres, which can be treated as point charges, are held fixed on the x-axis:\nSphere | Charge | Position\n1 | +4.0 μC | x = 0\n2 | −2.0 μC | x = 0.30 m\n3 | +1.0 μC | x = 0.60 m\nEach sphere has a mass of 2.0 g. Use k = 1/(4πε₀) = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+   "parts": [
+    {
+     "prompt": "Determine the magnitude and direction of the electric force exerted on sphere 3 by sphere 1, and of the electric force exerted on sphere 3 by sphere 2.",
+     "criteria": [
+      {
+       "text": "F₁₃ = k(4.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.60 m)² = 0.10 N, directed in the +x direction (repulsion between like charges).",
+       "evidence": "Response uses Coulomb's law with r = 0.60 m to obtain 0.10 N and states it points in +x, away from sphere 1.",
+       "fix": "Use the center-to-center distance between the two interacting spheres in Coulomb's law, and get the direction from whether they repel or attract.",
+       "accepted_variants": [
+        "0.1 N"
+       ]
+      },
+      {
+       "text": "F₂₃ = k(2.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.30 m)² = 0.20 N, directed in the −x direction (attraction toward sphere 2).",
+       "evidence": "Response uses r = 0.30 m to obtain 0.20 N and states it points in −x, toward sphere 2.",
+       "fix": "Use the 0.30 m separation between spheres 2 and 3, and remember opposite charges attract, so the force points toward sphere 2.",
+       "accepted_variants": [
+        "0.2 N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the magnitude and direction of the net electric force on sphere 3.",
+     "criteria": [
+      {
+       "text": "F_net = +0.10 N − 0.20 N = −0.10 N: magnitude 0.10 N, directed in the −x direction (toward sphere 2).",
+       "evidence": "Response adds the two forces as vectors along the x-axis and reports 0.10 N in the −x direction, or the magnitude and direction that follow correctly from adding its own part (a) forces.",
+       "fix": "Give each force a sign from its direction along the axis, add them, then report the magnitude and the direction separately.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Sphere 3 is moved to a new position on the x-axis, with x > 0.30 m, where the net electric force on it from spheres 1 and 2 is zero. Determine this position.",
+     "criteria": [
+      {
+       "text": "Sets k(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30 m)², giving √2(x − 0.30 m) = x, so x = 0.30√2/(√2 − 1) m ≈ 1.02 m.",
+       "evidence": "Response equates the magnitudes of the two forces using distances x and x − 0.30 m and solves to obtain about 1.0 m.",
+       "fix": "Write equal-magnitude Coulomb forces using each sphere's distance to the new point, take square roots, and keep the root beyond 0.30 m.",
+       "accepted_variants": [
+        "1.0 m",
+        "1.024 m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "With sphere 3 back at its original position, x = 0.60 m, calculate the magnitude of the gravitational force between sphere 1 and sphere 3, and use it to explain whether gravitational forces between the spheres can be neglected in the earlier parts.",
+     "criteria": [
+      {
+       "text": "F_g = Gm²/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³ kg)²/(0.60 m)² ≈ 7.4 × 10⁻¹⁶ N, about 10¹⁴ times smaller than the 0.10 N electric force, so it is negligible.",
+       "evidence": "Response computes about 7 × 10⁻¹⁶ N and compares it with the electric force between the same spheres (0.10 N, or the response's own part (a) value) to conclude gravity is negligible.",
+       "fix": "Compute both forces for the same pair of spheres and compare their ratio; a ratio of many powers of ten justifies neglecting the smaller force.",
+       "accepted_variants": [
+        "7.41 × 10⁻¹⁶ N"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Force on sphere 3 from sphere 1 (separation 0.60 m):\nF₁₃ = k|q₁q₃|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.60)² = 0.10 N. Both charges are positive, so the force is repulsive and points in the +x direction.\nForce on sphere 3 from sphere 2 (separation 0.30 m):\nF₂₃ = (9.0 × 10⁹)(2.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.30)² = 0.20 N. The charges have opposite signs, so the force is attractive and points in the −x direction, toward sphere 2.\n\n(b) F_net = +0.10 N + (−0.20 N) = −0.10 N. The net force on sphere 3 has magnitude 0.10 N and points in the −x direction.\n\n(c) For x > 0.30 m, sphere 1 pushes sphere 3 in the +x direction and sphere 2 pulls it in the −x direction, so the two forces can cancel. Setting the magnitudes equal:\nk(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30)²\n2(x − 0.30)² = x², so √2(x − 0.30) = x (taking the positive root because x > 0.30 m).\nx = 0.30√2/(√2 − 1) ≈ 1.02 m.\n\n(d) With sphere 3 at x = 0.60 m, the separation is 0.60 m.\nF_g = Gm₁m₃/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.60)² ≈ 7.4 × 10⁻¹⁶ N.\nThis is about 1 × 10¹⁴ times smaller than the 0.10 N electric force between the same two spheres, so the gravitational forces between the spheres are negligible in parts (a) through (c).",
+   "verification_python": "import math\nk, G = 9.0e9, 6.67e-11\nq1, q2, q3 = 4.0e-6, -2.0e-6, 1.0e-6\nF13 = k*abs(q1*q3)/0.60**2\nF23 = k*abs(q2*q3)/0.30**2\nassert abs(F13 - 0.10) < 1e-12\nassert abs(F23 - 0.20) < 1e-12\nFnet = F13 - F23\nassert abs(Fnet + 0.10) < 1e-12\nx = 0.30*math.sqrt(2)/(math.sqrt(2) - 1)\nassert abs(x - 1.02) < 0.005\nassert abs(x - 1.024) < 0.0005\nassert abs(k*q1*q3/x**2 - k*abs(q2)*q3/(x - 0.30)**2) < 1e-12\nassert abs(2*(x - 0.30)**2 - x**2) < 1e-12\nm = 2.0e-3\nFg = G*m*m/0.60**2\nassert abs(Fg - 7.4e-16) < 0.05e-16\nassert abs(Fg - 7.41e-16) < 0.005e-16\nratio = F13/Fg\nassert 1e14 < ratio < 2e14\nassert round(math.log10(ratio)) == 14\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.873403Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "well_posed: Part (d) does not specify whether sphere 3 is at its original position or its new position from part (c). These interpretations give different gravi",
+      "ruling": "accept",
+      "reason": "Part (d) did not say which position of sphere 3 to use after part (c) moved it; the prompt now states sphere 3 is back at x = 0.60 m, so 7.4 × 10⁻¹⁶ N is the single correct value."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion d1 accepts only the gravitational force at the original separation, rejecting the defensible answer 2.5 × 10⁻¹⁶ N obtained using sphere",
+      "ruling": "accept",
+      "reason": "Same ambiguity as the well_posed objection; resolved by fixing the position in the part (d) prompt, so the rubric's single value is now the only defensible answer."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "solution: Parts (a)–(c) agree with the rubric. For part (d), 7.4 × 10⁻¹⁶ N agrees if the original separation is intended; using the position established in part",
+      "ruling": "accept",
+      "reason": "Parts (a)-(c) were confirmed correct; the part (d) ambiguity it notes is fixed by stating the position (x = 0.60 m) in the prompt. Re-derived: Gm²/r² = 7.41 × 10⁻¹⁶ N."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "well_posed: Part (d) does not specify whether the gravitational force between spheres 1 and 3 is computed at the original 0.60 m separation or after sphere 3 is",
+      "ruling": "accept",
+      "reason": "Real ambiguity: the original wording allowed 0.60 m or about 1.02 m. Prompt now fixes sphere 3 at x = 0.60 m."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "rubric_points: Part (d) criterion d1 accepts only the original-separation value 7.4×10⁻¹⁶ N; because the part's separation is ambiguous, a valid alternative usi",
+      "ruling": "accept",
+      "reason": "Same defect as the well_posed objection; with the position stated, the original-separation value is the only correct answer and no valid alternative is rejected."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "solution: Part (d): My independent solution misstated the ratio as 7.4×10¹⁵; the correct comparison is 0.10 N / 7.4×10⁻¹⁶ N ≈ 1.4×10¹⁴. The conclusion that grav",
+      "ruling": "reject",
+      "reason": "Not a defect in the item: the checker's own ratio was wrong and it agrees the rubric is correct. Re-derived: 0.10 N / 7.41 × 10⁻¹⁶ N = 1.35 × 10¹⁴, matching the item's 'about 10¹⁴'."
+     }
+    ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 requires the correct upstream values and the final value 0.10 N rather than allowing consistent vector addition of the stu",
+      "ruling": "accept",
+      "reason": "Part (b) adds part (a)'s two forces, and follow-through credit is now allowed for Physics C, so b1 now also accepts the magnitude and direction that follow correctly from the response's own part (a) forces. The same restoration is applied to d1, whose comparison uses the part (a) electric force. The key value is unchanged (re-derived: 0.10 N − 0.20 N = −0.10 N)."
+     }
+    ],
+    "accept_as_is": false
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:14:50.591Z",
+   "source": "given",
+   "item": {
+    "title": "Net Coulomb Force on a Charge on a Line",
+    "calculator": "permitted",
+    "stimulus": "Three small charged spheres, which can be treated as point charges, are held fixed on the x-axis:\nSphere | Charge | Position\n1 | +4.0 μC | x = 0\n2 | −2.0 μC | x = 0.30 m\n3 | +1.0 μC | x = 0.60 m\nEach sphere has a mass of 2.0 g. Use k = 1/(4πε₀) = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "parts": [
+     {
+      "prompt": "Determine the magnitude and direction of the electric force exerted on sphere 3 by sphere 1, and of the electric force exerted on sphere 3 by sphere 2.",
+      "criteria": [
+       {
+        "text": "F₁₃ = k(4.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.60 m)² = 0.10 N, directed in the +x direction (repulsion between like charges).",
+        "evidence": "Response uses Coulomb's law with r = 0.60 m to obtain 0.10 N and states it points in +x, away from sphere 1.",
+        "fix": "Use the center-to-center distance between the two interacting spheres in Coulomb's law, and get the direction from whether they repel or attract.",
+        "accepted_variants": [
+         "0.1 N"
+        ]
+       },
+       {
+        "text": "F₂₃ = k(2.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.30 m)² = 0.20 N, directed in the −x direction (attraction toward sphere 2).",
+        "evidence": "Response uses r = 0.30 m to obtain 0.20 N and states it points in −x, toward sphere 2.",
+        "fix": "Use the 0.30 m separation between spheres 2 and 3, and remember opposite charges attract, so the force points toward sphere 2.",
+        "accepted_variants": [
+         "0.2 N"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the magnitude and direction of the net electric force on sphere 3.",
+      "criteria": [
+       {
+        "text": "F_net = +0.10 N − 0.20 N = −0.10 N: magnitude 0.10 N, directed in the −x direction (toward sphere 2).",
+        "evidence": "Response adds the two forces as vectors along the x-axis and reports 0.10 N in the −x direction, consistent with its own part (a) values.",
+        "fix": "Give each force a sign from its direction along the axis, add them, then report the magnitude and the direction separately.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Sphere 3 is moved to a new position on the x-axis, with x > 0.30 m, where the net electric force on it from spheres 1 and 2 is zero. Determine this position.",
+      "criteria": [
+       {
+        "text": "Sets k(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30 m)², giving √2(x − 0.30 m) = x, so x = 0.30√2/(√2 − 1) m ≈ 1.02 m.",
+        "evidence": "Response equates the magnitudes of the two forces using distances x and x − 0.30 m and solves to obtain about 1.0 m.",
+        "fix": "Write equal-magnitude Coulomb forces using each sphere's distance to the new point, take square roots, and keep the root beyond 0.30 m.",
+        "accepted_variants": [
+         "1.0 m",
+         "1.024 m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the magnitude of the gravitational force between sphere 1 and sphere 3, and use it to explain whether gravitational forces between the spheres can be neglected in the earlier parts.",
+      "criteria": [
+       {
+        "text": "F_g = Gm²/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³ kg)²/(0.60 m)² ≈ 7.4 × 10⁻¹⁶ N, about 10¹⁴ times smaller than the 0.10 N electric force, so it is negligible.",
+        "evidence": "Response computes about 7 × 10⁻¹⁶ N and compares it with the electric force between the same spheres to conclude gravity is negligible.",
+        "fix": "Compute both forces for the same pair of spheres and compare their ratio; a ratio of many powers of ten justifies neglecting the smaller force.",
+        "accepted_variants": [
+         "7.41 × 10⁻¹⁶ N"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Force on sphere 3 from sphere 1 (separation 0.60 m):\nF₁₃ = k|q₁q₃|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.60)² = 0.10 N. Both charges are positive, so the force is repulsive and points in the +x direction.\nForce on sphere 3 from sphere 2 (separation 0.30 m):\nF₂₃ = (9.0 × 10⁹)(2.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.30)² = 0.20 N. The charges have opposite signs, so the force is attractive and points in the −x direction, toward sphere 2.\n\n(b) F_net = +0.10 N + (−0.20 N) = −0.10 N. The net force on sphere 3 has magnitude 0.10 N and points in the −x direction.\n\n(c) For x > 0.30 m, sphere 1 pushes sphere 3 in the +x direction and sphere 2 pulls it in the −x direction, so the two forces can cancel. Setting the magnitudes equal:\nk(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30)²\n2(x − 0.30)² = x², so √2(x − 0.30) = x (taking the positive root because x > 0.30 m).\nx = 0.30√2/(√2 − 1) ≈ 1.02 m.\n\n(d) F_g = Gm₁m₃/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.60)² ≈ 7.4 × 10⁻¹⁶ N.\nThis is about 1 × 10¹⁴ times smaller than the 0.10 N electric force between the same two spheres, so the gravitational forces between the spheres are negligible in parts (a) through (c).",
+    "verification_python": "import math\nk, G = 9.0e9, 6.67e-11\nq1, q2, q3 = 4.0e-6, -2.0e-6, 1.0e-6\nF13 = k*abs(q1*q3)/0.60**2\nF23 = k*abs(q2*q3)/0.30**2\nassert abs(F13 - 0.10) < 1e-12\nassert abs(F23 - 0.20) < 1e-12\nFnet = F13 - F23\nassert abs(Fnet + 0.10) < 1e-12\nx = 0.30*math.sqrt(2)/(math.sqrt(2) - 1)\nassert abs(x - 1.02) < 0.005\nassert abs(x - 1.024) < 0.0005\nassert abs(k*q1*q3/x**2 - k*abs(q2)*q3/(x - 0.30)**2) < 1e-12\nassert abs(2*(x - 0.30)**2 - x**2) < 1e-12\nm = 2.0e-3\nFg = G*m*m/0.60**2\nassert abs(Fg - 7.4e-16) < 0.05e-16\nassert abs(Fg - 7.41e-16) < 0.005e-16\nratio = F13/Fg\nassert 1e14 < ratio < 2e14\nassert round(math.log10(ratio)) == 14\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "8.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8
+    ],
+    "unitCount": {
+     "8": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) does not specify whether sphere 3 is at its original position or the new position determined in part (c). These give different gravitational-force magnitudes: 7.4 × 10⁻¹⁶ N and 2.5 × 10⁻¹⁶ N, respectively. Specify the position to use.",
+       "rubric_points: Criterion d1 requires the original separation and 7.4 × 10⁻¹⁶ N, rejecting the defensible answer 2.5 × 10⁻¹⁶ N obtained using sphere 3’s position after part (c). Clarify part (d), or accept either interpretation with supporting calculation and comparison.",
+       "solution: The independent solution agrees with criteria a1, a2, b1, and c1. It agrees with d1 only if the original separation is intended. Using the new position from part (c), an equally defensible reading of part (d), gives F_g ≈ 2.5 × 10⁻¹⁶ N; gravity remains negligible compared with the individual electric forces. No model answer was assessed."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (d) does not explicitly state whether to use sphere 3’s original position or its new position from part (c). Both gravitational-force values are provided. All other parts are well posed and within AP Physics C.",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) does not specify whether sphere 3 is at its original position or the new position determined in part (c). These give different gravitational-force magnitudes: 7.4 × 10⁻¹⁶ N and 2.5 × 10⁻¹⁶ N, respectively. Specify the position to use."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1 requires the original separation and 7.4 × 10⁻¹⁶ N, rejecting the defensible answer 2.5 × 10⁻¹⁶ N obtained using sphere 3’s position after part (c). Clarify part (d), or accept either interpretation with supporting calculation and comparison."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with criteria a1, a2, b1, and c1. It agrees with d1 only if the original separation is intended. Using the new position from part (c), an equally defensible reading of part (d), gives F_g ≈ 2.5 × 10⁻¹⁶ N; gravity remains negligible compared with the individual electric forces. No model answer was assessed.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) does not specify whether sphere 3 is at its original position or its new position from part (c). These interpretations give different gravitational-force magnitudes: 7.4 × 10⁻¹⁶ N and 2.5 × 10⁻¹⁶ N, respectively. Specify the position to use.",
+       "rubric_points: Criterion d1 accepts only the gravitational force at the original separation, rejecting the defensible answer 2.5 × 10⁻¹⁶ N obtained using sphere 3’s position from part (c). Clarify part (d) or accept both interpretations with corresponding work and comparisons.",
+       "solution: Parts (a)–(c) agree with the rubric. For part (d), 7.4 × 10⁻¹⁶ N agrees if the original separation is intended; using the position established in part (c) instead gives 2.5 × 10⁻¹⁶ N, which criterion d1 does not accept despite the ambiguous wording. Both are negligible compared with the corresponding individual electric force. No model answer was provided."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (d) does not explicitly state whether to use sphere 3’s original position or its new position from part (c). Both gravitational-force values are provided; the conclusion that gravity is negligible compared with the individual electric forces is the same.",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) does not specify whether sphere 3 is at its original position or its new position from part (c). These interpretations give different gravitational-force magnitudes: 7.4 × 10⁻¹⁶ N and 2.5 × 10⁻¹⁶ N, respectively. Specify the position to use."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1 accepts only the gravitational force at the original separation, rejecting the defensible answer 2.5 × 10⁻¹⁶ N obtained using sphere 3’s position from part (c). Clarify part (d) or accept both interpretations with corresponding work and comparisons."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a)–(c) agree with the rubric. For part (d), 7.4 × 10⁻¹⁶ N agrees if the original separation is intended; using the position established in part (c) instead gives 2.5 × 10⁻¹⁶ N, which criterion d1 does not accept despite the ambiguous wording. Both are negligible compared with the corresponding individual electric force. No model answer was provided.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d): after sphere 3 is moved in part (c), the question does not specify whether the gravitational force should use the original 0.60 m separation or the new position about 1.02 m; the rubric assumes 0.60 m, so a careful AP student could reasonably use the new position and produce a different defensible magnitude.",
+       "solution: In part (d) my solution said the ratio is roughly 10¹⁵; the correct ratio is about 1.4 × 10¹⁴ if compared to the 0.10 N force, or 2.7 × 10¹⁴ if compared to 0.20 N, so the exponent should be 10¹⁴, matching the rubric/model."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d): after sphere 3 is moved in part (c), the question does not specify whether the gravitational force should use the original 0.60 m separation or the new position about 1.02 m; the rubric assumes 0.60 m, so a careful AP student could reasonably use the new position and produce a different defensible magnitude."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "In part (d) my solution said the ratio is roughly 10¹⁵; the correct ratio is about 1.4 × 10¹⁴ if compared to the 0.10 N force, or 2.7 × 10¹⁴ if compared to 0.20 N, so the exponent should be 10¹⁴, matching the rubric/model.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (d) does not specify whether the gravitational force between spheres 1 and 3 is computed at the original 0.60 m separation or after sphere 3 is moved to about 1.02 m in part (c); a careful student could reasonably choose either, yielding about 7.4×10⁻¹⁶ N or 2.5×10⁻¹⁶ N.",
+       "rubric_points: Part (d) criterion d1 accepts only the original-separation value 7.4×10⁻¹⁶ N; because the part's separation is ambiguous, a valid alternative using the part (c) position and 2.5×10⁻¹⁶ N is rejected rather than accepted as an equivalent or credited via evidence.",
+       "solution: Part (d): My independent solution misstated the ratio as 7.4×10¹⁵; the correct comparison is 0.10 N / 7.4×10⁻¹⁶ N ≈ 1.4×10¹⁴. The conclusion that gravity is negligible still agrees with the rubric and model answer."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (d) does not specify whether the gravitational force between spheres 1 and 3 is computed at the original 0.60 m separation or after sphere 3 is moved to about 1.02 m in part (c); a careful student could reasonably choose either, yielding about 7.4×10⁻¹⁶ N or 2.5×10⁻¹⁶ N."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d) criterion d1 accepts only the original-separation value 7.4×10⁻¹⁶ N; because the part's separation is ambiguous, a valid alternative using the part (c) position and 2.5×10⁻¹⁶ N is rejected rather than accepted as an equivalent or credited via evidence."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Part (d): My independent solution misstated the ratio as 7.4×10¹⁵; the correct comparison is 0.10 N / 7.4×10⁻¹⁶ N ≈ 1.4×10¹⁴. The conclusion that gravity is negligible still agrees with the rubric and model answer.",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:53:53.774Z",
+   "source": "given",
+   "item": {
+    "title": "Net Coulomb Force on a Charge on a Line",
+    "calculator": "permitted",
+    "stimulus": "Three small charged spheres, which can be treated as point charges, are held fixed on the x-axis:\nSphere | Charge | Position\n1 | +4.0 μC | x = 0\n2 | −2.0 μC | x = 0.30 m\n3 | +1.0 μC | x = 0.60 m\nEach sphere has a mass of 2.0 g. Use k = 1/(4πε₀) = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "parts": [
+     {
+      "prompt": "Determine the magnitude and direction of the electric force exerted on sphere 3 by sphere 1, and of the electric force exerted on sphere 3 by sphere 2.",
+      "criteria": [
+       {
+        "text": "F₁₃ = k(4.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.60 m)² = 0.10 N, directed in the +x direction (repulsion between like charges).",
+        "evidence": "Response uses Coulomb's law with r = 0.60 m to obtain 0.10 N and states it points in +x, away from sphere 1.",
+        "fix": "Use the center-to-center distance between the two interacting spheres in Coulomb's law, and get the direction from whether they repel or attract.",
+        "accepted_variants": [
+         "0.1 N"
+        ]
+       },
+       {
+        "text": "F₂₃ = k(2.0 × 10⁻⁶ C)(1.0 × 10⁻⁶ C)/(0.30 m)² = 0.20 N, directed in the −x direction (attraction toward sphere 2).",
+        "evidence": "Response uses r = 0.30 m to obtain 0.20 N and states it points in −x, toward sphere 2.",
+        "fix": "Use the 0.30 m separation between spheres 2 and 3, and remember opposite charges attract, so the force points toward sphere 2.",
+        "accepted_variants": [
+         "0.2 N"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the magnitude and direction of the net electric force on sphere 3.",
+      "criteria": [
+       {
+        "text": "F_net = +0.10 N − 0.20 N = −0.10 N: magnitude 0.10 N, directed in the −x direction (toward sphere 2).",
+        "evidence": "Response adds the two forces as vectors along the x-axis and reports 0.10 N in the −x direction.",
+        "fix": "Give each force a sign from its direction along the axis, add them, then report the magnitude and the direction separately.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Sphere 3 is moved to a new position on the x-axis, with x > 0.30 m, where the net electric force on it from spheres 1 and 2 is zero. Determine this position.",
+      "criteria": [
+       {
+        "text": "Sets k(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30 m)², giving √2(x − 0.30 m) = x, so x = 0.30√2/(√2 − 1) m ≈ 1.02 m.",
+        "evidence": "Response equates the magnitudes of the two forces using distances x and x − 0.30 m and solves to obtain about 1.0 m.",
+        "fix": "Write equal-magnitude Coulomb forces using each sphere's distance to the new point, take square roots, and keep the root beyond 0.30 m.",
+        "accepted_variants": [
+         "1.0 m",
+         "1.024 m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "With sphere 3 back at its original position, x = 0.60 m, calculate the magnitude of the gravitational force between sphere 1 and sphere 3, and use it to explain whether gravitational forces between the spheres can be neglected in the earlier parts.",
+      "criteria": [
+       {
+        "text": "F_g = Gm²/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³ kg)²/(0.60 m)² ≈ 7.4 × 10⁻¹⁶ N, about 10¹⁴ times smaller than the 0.10 N electric force, so it is negligible.",
+        "evidence": "Response computes about 7 × 10⁻¹⁶ N and compares it with the electric force between the same spheres to conclude gravity is negligible.",
+        "fix": "Compute both forces for the same pair of spheres and compare their ratio; a ratio of many powers of ten justifies neglecting the smaller force.",
+        "accepted_variants": [
+         "7.41 × 10⁻¹⁶ N"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Force on sphere 3 from sphere 1 (separation 0.60 m):\nF₁₃ = k|q₁q₃|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.60)² = 0.10 N. Both charges are positive, so the force is repulsive and points in the +x direction.\nForce on sphere 3 from sphere 2 (separation 0.30 m):\nF₂₃ = (9.0 × 10⁹)(2.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.30)² = 0.20 N. The charges have opposite signs, so the force is attractive and points in the −x direction, toward sphere 2.\n\n(b) F_net = +0.10 N + (−0.20 N) = −0.10 N. The net force on sphere 3 has magnitude 0.10 N and points in the −x direction.\n\n(c) For x > 0.30 m, sphere 1 pushes sphere 3 in the +x direction and sphere 2 pulls it in the −x direction, so the two forces can cancel. Setting the magnitudes equal:\nk(4.0 μC)q₃/x² = k(2.0 μC)q₃/(x − 0.30)²\n2(x − 0.30)² = x², so √2(x − 0.30) = x (taking the positive root because x > 0.30 m).\nx = 0.30√2/(√2 − 1) ≈ 1.02 m.\n\n(d) With sphere 3 at x = 0.60 m, the separation is 0.60 m.\nF_g = Gm₁m₃/r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.60)² ≈ 7.4 × 10⁻¹⁶ N.\nThis is about 1 × 10¹⁴ times smaller than the 0.10 N electric force between the same two spheres, so the gravitational forces between the spheres are negligible in parts (a) through (c).",
+    "verification_python": "import math\nk, G = 9.0e9, 6.67e-11\nq1, q2, q3 = 4.0e-6, -2.0e-6, 1.0e-6\nF13 = k*abs(q1*q3)/0.60**2\nF23 = k*abs(q2*q3)/0.30**2\nassert abs(F13 - 0.10) < 1e-12\nassert abs(F23 - 0.20) < 1e-12\nFnet = F13 - F23\nassert abs(Fnet + 0.10) < 1e-12\nx = 0.30*math.sqrt(2)/(math.sqrt(2) - 1)\nassert abs(x - 1.02) < 0.005\nassert abs(x - 1.024) < 0.0005\nassert abs(k*q1*q3/x**2 - k*abs(q2)*q3/(x - 0.30)**2) < 1e-12\nassert abs(2*(x - 0.30)**2 - x**2) < 1e-12\nm = 2.0e-3\nFg = G*m*m/0.60**2\nassert abs(Fg - 7.4e-16) < 0.05e-16\nassert abs(Fg - 7.41e-16) < 0.005e-16\nratio = F13/Fg\nassert 1e14 < ratio < 2e14\nassert round(math.log10(ratio)) == 14\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "8.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8
+    ],
+    "unitCount": {
+     "8": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 requires the correct numerical result, 0.10 N in −x, rather than allowing correct vector addition consistent with the student's forces from part (a). The fact pack explicitly requires follow-through credit. Award this point for correctly adding the student's prior signed forces and reporting the resulting magnitude and direction."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires the correct numerical result, 0.10 N in −x, rather than allowing correct vector addition consistent with the student's forces from part (a). The fact pack explicitly requires follow-through credit. Award this point for correctly adding the student's prior signed forces and reporting the resulting magnitude and direction."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires the correct upstream values and the final value 0.10 N rather than allowing consistent vector addition of the student's answers from part (a). This conflicts with the fact pack's explicit follow-through scoring convention. Award this point for correctly adding the student's prior forces and reporting the resulting magnitude and direction."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires the correct upstream values and the final value 0.10 N rather than allowing consistent vector addition of the student's answers from part (a). This conflicts with the fact pack's explicit follow-through scoring convention. Award this point for correctly adding the student's prior forces and reporting the resulting magnitude and direction."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b) criterion b1 requires the correct upstream values from part (a) (0.10 N and 0.20 N) rather than allowing consistency with the student's own prior forces, contrary to the CED follow-through/consistency scoring convention."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b) criterion b1 requires the correct upstream values from part (a) (0.10 N and 0.20 N) rather than allowing consistency with the student's own prior forces, contrary to the CED follow-through/consistency scoring convention."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

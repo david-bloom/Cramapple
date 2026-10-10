@@ -1,0 +1,1020 @@
+[
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "10.1",
+  "item": {
+   "title": "Coulomb Force and Gravity Between Two Charged Spheres",
+   "calculator": "permitted",
+   "stimulus": "Two small spheres, A and B, are held at rest on insulating stands so that their centers are 0.030 m apart. Sphere A has charge +4.0 × 10⁻⁹ C and sphere B has charge −2.0 × 10⁻⁹ C. Each sphere has mass 2.0 × 10⁻³ kg. The spheres are small compared with their separation, so each can be modeled as a point charge and a point mass.\n\nUse k = 9.0 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+   "parts": [
+    {
+     "prompt": "Calculate the magnitude of the electric force that sphere A exerts on sphere B, and state the direction of that force.",
+     "criteria": [
+      {
+       "text": "Calculates the electric force magnitude as 8.0 × 10⁻⁵ N using Coulomb's law.",
+       "evidence": "Response substitutes into |F| = k|q_A q_B|/r² with r = 0.030 m and obtains 8.0 × 10⁻⁵ N (or an equivalent value).",
+       "fix": "Square the separation before dividing, and use the magnitudes of both charges in Coulomb's law.",
+       "accepted_variants": [
+        "8 × 10⁻⁵ N",
+        "0.000080 N",
+        "80 μN"
+       ]
+      },
+      {
+       "text": "States that the force on B is directed toward A (attractive), along the line joining the centers, because the charges have opposite signs.",
+       "evidence": "Response says the force on B points toward A, or is attractive, and connects this to the charges having opposite signs.",
+       "fix": "After finding the magnitude, compare the signs of the two charges: opposite signs attract along the line joining them.",
+       "accepted_variants": [
+        "toward sphere A",
+        "attractive"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the magnitude of the gravitational force between the two spheres.",
+     "criteria": [
+      {
+       "text": "Calculates the gravitational force magnitude as about 3.0 × 10⁻¹³ N.",
+       "evidence": "Response substitutes into F_G = G m_A m_B / r² with m = 2.0 × 10⁻³ kg and r = 0.030 m and obtains about 2.96 × 10⁻¹³ N.",
+       "fix": "Multiply the two masses, divide by the separation squared, then multiply by G; keep the powers of ten carefully.",
+       "accepted_variants": [
+        "2.96 × 10⁻¹³ N",
+        "3.0 × 10⁻¹³ N",
+        "3 × 10⁻¹³ N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The spheres are moved apart until their centers are 0.090 m apart; the charges and masses are unchanged. By what factor does the magnitude of the electric force change? Does the ratio of the electric force magnitude to the gravitational force magnitude increase, decrease, or stay the same? Justify your answers.",
+     "criteria": [
+      {
+       "text": "States that the electric force becomes 1/9 of its original value (8.9 × 10⁻⁶ N) because it is inversely proportional to the square of the separation, which tripled.",
+       "evidence": "Response identifies the separation tripling and uses the inverse-square dependence to give a factor of 1/9 (or a new value of about 8.9 × 10⁻⁶ N).",
+       "fix": "When the distance changes by a factor n, an inverse-square force changes by 1/n²; here n = 3.",
+       "accepted_variants": [
+        "1/9",
+        "decreases by a factor of 9",
+        "8.9 × 10⁻⁶ N"
+       ]
+      },
+      {
+       "text": "States that the ratio stays the same (about 2.7 × 10⁸) because both forces are inversely proportional to the square of the separation.",
+       "evidence": "Response answers 'stays the same' and justifies it by noting both the electric and gravitational forces depend on 1/r², so the factor cancels in the ratio.",
+       "fix": "Check how each force depends on r; if both scale as 1/r², the distance cancels when you divide them.",
+       "accepted_variants": [
+        "unchanged",
+        "same"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) |F_E| = k|q_A q_B|/r² = (9.0 × 10⁹)(4.0 × 10⁻⁹)(2.0 × 10⁻⁹)/(0.030)² = (7.2 × 10⁻⁸)/(9.0 × 10⁻⁴) = 8.0 × 10⁻⁵ N.\nThe charges have opposite signs, so the force is attractive: the force on B points toward A, along the line joining the centers.\n\n(b) F_G = G m_A m_B / r² = (6.67 × 10⁻¹¹)(2.0 × 10⁻³)(2.0 × 10⁻³)/(0.030)² = (2.668 × 10⁻¹⁶)/(9.0 × 10⁻⁴) ≈ 2.96 × 10⁻¹³ N.\n\n(c) The separation triples from 0.030 m to 0.090 m. The electric force is inversely proportional to r², so it changes by a factor of 1/3² = 1/9, to about 8.9 × 10⁻⁶ N.\nThe ratio stays the same. The gravitational force is also inversely proportional to r², so it also becomes 1/9 as large. In the ratio F_E/F_G the factor 1/9 cancels, and the ratio remains about 8.0 × 10⁻⁵ / 2.96 × 10⁻¹³ ≈ 2.7 × 10⁸ at both separations.",
+   "verification_python": "import math\nk=9.0e9; G=6.67e-11\nqA=4.0e-9; qB=-2.0e-9; m=2.0e-3; r=0.030\nFE=k*abs(qA*qB)/r**2\nassert abs(FE-8.0e-5)<1e-9\nassert abs(k*abs(qA*qB)-7.2e-8)<1e-12\nassert abs(r**2-9.0e-4)<1e-12\nFG=G*m*m/r**2\nassert abs(G*m*m-2.668e-16)<1e-19\nassert abs(FG-2.96e-13)<0.01e-13\nassert qA*qB<0\nr2=0.090\nFE2=k*abs(qA*qB)/r2**2\nassert abs(FE2/FE-1/9)<1e-12\nassert abs(FE2-8.9e-6)<0.05e-6\nFG2=G*m*m/r2**2\nratio1=FE/FG; ratio2=FE2/FG2\nassert abs(ratio1-ratio2)/ratio1<1e-12\nassert abs(ratio1-2.7e8)<0.01e8\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "10.2",
+  "item": {
+   "title": "Charging by Friction, Then by Induction with Grounding",
+   "calculator": "permitted",
+   "stimulus": "A rubber rod and a piece of wool are both initially electrically neutral. The rod is rubbed with the wool, and afterward the rod has a net charge of −4.8 × 10⁻⁹ C. Assume charge was transferred only between the rod and the wool. The elementary charge is e = 1.6 × 10⁻¹⁹ C.\n\nSeparately, an initially neutral metal sphere sits on an insulating stand. A thin wire with a switch connects the sphere to Earth (ground). The switch is initially open.",
+   "parts": [
+    {
+     "prompt": "Determine the number of electrons transferred during rubbing and state whether they moved from the wool to the rod or from the rod to the wool. Then determine the net charge on the wool.",
+     "criteria": [
+      {
+       "text": "Finds that 3.0 × 10¹⁰ electrons were transferred from the wool to the rod.",
+       "evidence": "Response divides 4.8 × 10⁻⁹ C by 1.6 × 10⁻¹⁹ C to get 3.0 × 10¹⁰ electrons and states the electrons moved from the wool to the rod (the rod gained negative charge).",
+       "fix": "Divide the charge magnitude by e, then note that a negative object has gained electrons from the other object.",
+       "accepted_variants": [
+        "3 × 10¹⁰ electrons",
+        "30 billion electrons"
+       ]
+      },
+      {
+       "text": "States that the wool's net charge is +4.8 × 10⁻⁹ C because charge is conserved: the wool lost exactly the electrons the rod gained.",
+       "evidence": "Response gives +4.8 × 10⁻⁹ C for the wool and justifies it with conservation of charge (total charge of rod plus wool stays zero).",
+       "fix": "Apply conservation of charge: two objects that start neutral and only exchange charge end with equal and opposite charges.",
+       "accepted_variants": [
+        "+4.8 nC",
+        "4.8 × 10⁻⁹ C positive"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "With the switch open, the negatively charged rod is brought near the left side of the metal sphere without touching it. Describe how charge is distributed on the sphere, and state the sphere's net charge.",
+     "criteria": [
+      {
+       "text": "States that electrons in the sphere are repelled toward the right side, leaving the left side (near the rod) positive and the right side negative, while the net charge remains zero because no charge was transferred.",
+       "evidence": "Response identifies positive charge on the side nearest the rod, negative charge on the far side, and a net charge of zero.",
+       "fix": "For induction without contact, describe both sides of the object and remember its net charge stays the same unless charge is transferred.",
+       "accepted_variants": [
+        "near side positive, far side negative, net zero"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "With the rod still held near the sphere, the switch is closed. Next the switch is opened, and only after that is the rod taken away. State the direction in which electrons move through the wire while the switch is closed, and state the sign of the sphere's final net charge. Justify your answers.",
+     "criteria": [
+      {
+       "text": "States that electrons move from the sphere through the wire to Earth, because they are repelled by the negatively charged rod.",
+       "evidence": "Response gives the direction as sphere to Earth (out of the sphere) and attributes it to repulsion by the negative rod.",
+       "fix": "Ask which way the nearby charge pushes electrons; grounding gives them a path to move in that direction.",
+       "accepted_variants": [
+        "from the sphere to the ground",
+        "out of the sphere"
+       ]
+      },
+      {
+       "text": "States that the sphere's final net charge is positive, because it lost electrons and opening the switch before removing the rod prevents any charge from returning.",
+       "evidence": "Response answers positive and explains that the sphere has fewer electrons than protons and that, once the switch is open, its net charge cannot change.",
+       "fix": "Track electrons that left the system: losing electrons makes an object positive, and its net charge stays fixed once the ground path is broken.",
+       "accepted_variants": [
+        "positive",
+        "+"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Number of electrons = |q|/e = (4.8 × 10⁻⁹ C)/(1.6 × 10⁻¹⁹ C) = 3.0 × 10¹⁰ electrons. The rod became negative, so it gained electrons: the electrons moved from the wool to the rod.\nCharge is conserved and was transferred only between the rod and the wool, which started neutral, so the wool's net charge is +4.8 × 10⁻⁹ C.\n\n(b) The negative rod repels electrons in the metal sphere, so electrons shift to the right side, away from the rod. The left side (nearest the rod) is left with positive charge and the right side has negative charge. No charge has been transferred to or from the sphere, so its net charge is still zero; it is only polarized.\n\n(c) With the switch closed, electrons are repelled by the negative rod and move from the sphere through the wire into Earth.\nThe sphere has lost electrons, so it has more protons than electrons. Because the switch is opened while the rod is still nearby, those electrons cannot return, and the net charge of the sphere stays constant after that. The sphere's final net charge is positive.",
+   "verification_python": "from fractions import Fraction\nq_rod=Fraction(-48,10)*Fraction(1,10**9)\ne=Fraction(16,10)*Fraction(1,10**19)\nn=abs(q_rod)/e\nassert n==3*10**10\nq_wool=-q_rod\nassert q_wool+q_rod==0\nassert q_wool==Fraction(48,10)/10**9\n# sphere: starts neutral, loses electrons -> positive\nelectrons_lost=1\nfinal_sign=+1 if electrons_lost>0 else 0\nassert final_sign==1\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "10.3",
+  "item": {
+   "title": "Net Electric Field of Two Positive Point Charges on a Line",
+   "calculator": "permitted",
+   "stimulus": "Point charge q₁ = +8.0 × 10⁻⁹ C is fixed at x = 0 on the x-axis, and point charge q₂ = +2.0 × 10⁻⁹ C is fixed at x = 0.30 m. Point P is on the x-axis at x = 0.10 m. The +x direction points from q₁ toward q₂.\n\nUse k = 9.0 × 10⁹ N·m²/C² and e = 1.6 × 10⁻¹⁹ C.",
+   "parts": [
+    {
+     "prompt": "Calculate the magnitude and direction of the net electric field at point P.",
+     "criteria": [
+      {
+       "text": "Finds the field at P due to q₁ as 7.2 × 10³ N/C in the +x direction and the field due to q₂ as 4.5 × 10² N/C in the −x direction.",
+       "evidence": "Response uses E = k|q|/r² with r = 0.10 m for q₁ and r = 0.20 m for q₂, and gives each field's direction as away from its positive charge.",
+       "fix": "Compute each charge's field separately with its own distance to P, and point each away from a positive charge.",
+       "accepted_variants": [
+        "7200 N/C and 450 N/C"
+       ]
+      },
+      {
+       "text": "Finds the net field at P as 6.75 × 10³ N/C in the +x direction.",
+       "evidence": "Response combines the two fields as vectors (subtracting because they point in opposite directions) to get about 6.8 × 10³ N/C, directed in +x.",
+       "fix": "Add fields as vectors: when they point in opposite directions, subtract magnitudes and take the direction of the larger one.",
+       "accepted_variants": [
+        "6750 N/C",
+        "6.8 × 10³ N/C",
+        "6.75 × 10³ N/C"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "There is one point between the two charges where the net electric field is zero. Determine the x-coordinate of that point.",
+     "criteria": [
+      {
+       "text": "Finds x = 0.20 m, the point between the charges where the field magnitudes from q₁ and q₂ are equal.",
+       "evidence": "Response shows the two field magnitudes are equal there (for example by solving k q₁/x² = k q₂/(0.30 m − x)²) and obtains x = 0.20 m.",
+       "fix": "Between two like charges the fields point opposite ways; set the magnitudes equal and solve, taking the root between the charges.",
+       "accepted_variants": [
+        "0.2 m",
+        "20 cm"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "An electron is placed at point P. Calculate the magnitude of the electric force on the electron and state its direction.",
+     "criteria": [
+      {
+       "text": "Calculates the force magnitude as about 1.1 × 10⁻¹⁵ N using F = qE.",
+       "evidence": "Response multiplies e = 1.6 × 10⁻¹⁹ C by the net field from the first part (6.75 × 10³ N/C) to get about 1.08 × 10⁻¹⁵ N.",
+       "fix": "Use F = |q|E with the net field at that point, not either individual field.",
+       "accepted_variants": [
+        "1.08 × 10⁻¹⁵ N",
+        "1.1 × 10⁻¹⁵ N"
+       ]
+      },
+      {
+       "text": "States that the force on the electron is in the −x direction, opposite the field, because the electron is negatively charged.",
+       "evidence": "Response gives the direction as −x (toward q₁) and explains that the force on a negative charge is opposite the electric field.",
+       "fix": "The field direction is the force direction on a positive charge; reverse it for an electron.",
+       "accepted_variants": [
+        "−x direction",
+        "toward q₁"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Field from q₁ at P (r = 0.10 m): E₁ = k q₁/r² = (9.0 × 10⁹)(8.0 × 10⁻⁹)/(0.10)² = 7.2 × 10³ N/C, pointing away from q₁, in the +x direction.\nField from q₂ at P (r = 0.30 − 0.10 = 0.20 m): E₂ = (9.0 × 10⁹)(2.0 × 10⁻⁹)/(0.20)² = 4.5 × 10² N/C, pointing away from q₂, in the −x direction.\nNet field: E = 7.2 × 10³ − 4.5 × 10² = 6.75 × 10³ N/C, in the +x direction.\n\n(b) Between the charges the two fields point in opposite directions, so the net field is zero where their magnitudes are equal:\nk(8.0 × 10⁻⁹)/x² = k(2.0 × 10⁻⁹)/(0.30 − x)²\n(0.30 − x)²/x² = 1/4, so (0.30 − x)/x = 1/2 (taking the positive root, since 0 < x < 0.30 m).\n0.60 − 2x = x, so x = 0.20 m.\n\n(c) |F| = eE = (1.6 × 10⁻¹⁹ C)(6.75 × 10³ N/C) ≈ 1.08 × 10⁻¹⁵ N.\nThe electron is negative, so the force on it is opposite the field: in the −x direction (toward q₁).",
+   "verification_python": "import sympy as sp\nk=9.0e9; q1=8.0e-9; q2=2.0e-9; e=1.6e-19\nE1=k*q1/0.10**2\nE2=k*q2/0.20**2\nassert abs(E1-7200)<1e-6\nassert abs(E2-450)<1e-6\nEnet=E1-E2\nassert abs(Enet-6750)<1e-6\nx=sp.symbols('x',positive=True)\nsols=[s for s in sp.solve(sp.Eq(8*(sp.Rational(3,10)-x)**2,2*x**2),x) if 0<s<sp.Rational(3,10)]\nassert sols==[sp.Rational(1,5)]\nF=e*Enet\nassert abs(F-1.08e-15)<1e-18\n# direction: Enet positive (+x), electron negative so force -x\nassert Enet>0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "10.4",
+  "item": {
+   "title": "Assembling a Three-Charge System: Work and Potential Energy",
+   "calculator": "permitted",
+   "stimulus": "Three point charges are placed in a plane:\nq₁ = +3.0 μC at the origin, (0, 0)\nq₂ = −2.0 μC at (0.40 m, 0)\nq₃ = +1.0 μC at (0, 0.30 m)\n\nThe electric potential energy of a pair of point charges is zero when they are infinitely far apart. Use k = 9.0 × 10⁹ N·m²/C².",
+   "parts": [
+    {
+     "prompt": "Before q₃ is brought in, only q₁ and q₂ are in place. Calculate the electric potential energy of the system of q₁ and q₂.",
+     "criteria": [
+      {
+       "text": "Calculates U₁₂ = −0.135 J.",
+       "evidence": "Response substitutes into U = k q₁q₂/r with r = 0.40 m, keeping the signs of the charges, and obtains −0.135 J.",
+       "fix": "Keep the signs of both charges in U = kq₁q₂/r; opposite charges give a negative potential energy.",
+       "accepted_variants": [
+        "−0.14 J",
+        "−1.35 × 10⁻¹ J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Charge q₃ is then moved slowly from very far away to its position while q₁ and q₂ are held fixed, so that q₃ is at rest at the start and the end. Calculate the work done by the external force on q₃.",
+     "criteria": [
+      {
+       "text": "Calculates the two new pair energies: U₁₃ = +0.090 J (r = 0.30 m) and U₂₃ = −0.036 J (r = 0.50 m).",
+       "evidence": "Response finds the q₂–q₃ distance as 0.50 m and computes the interaction of q₃ with q₁ (+0.090 J) and with q₂ (−0.036 J) with correct signs; equivalent terms such as q₃ times each charge's potential also earn this point.",
+       "fix": "List every new pair the arriving charge forms, find each distance, and compute each pair energy with its sign.",
+       "accepted_variants": [
+        "0.09 J and −0.036 J"
+       ]
+      },
+      {
+       "text": "States the external work is W = U₁₃ + U₂₃ = +0.054 J, because the work equals the increase in the system's electric potential energy when kinetic energy does not change.",
+       "evidence": "Response sums the two new pair energies to get +0.054 J and identifies this as the external work.",
+       "fix": "With no change in kinetic energy, the external work equals the change in electric potential energy, the sum of the new pair terms.",
+       "accepted_variants": [
+        "0.054 J",
+        "5.4 × 10⁻² J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the total electric potential energy of the three-charge system.",
+     "criteria": [
+      {
+       "text": "Calculates U_total = −0.135 J + 0.090 J − 0.036 J = −0.081 J.",
+       "evidence": "Response sums the potential energies of all three pairs and obtains −0.081 J.",
+       "fix": "Add the energy of every pair exactly once: three charges form three pairs.",
+       "accepted_variants": [
+        "−8.1 × 10⁻² J",
+        "−0.08 J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "All three charges are then moved, starting and ending at rest, until each is very far from the other two. Is the total work done by external forces positive, negative, or zero? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States the total external work is positive (+0.081 J) because the system's potential energy must increase from −0.081 J to zero with no change in kinetic energy.",
+       "evidence": "Response answers positive and supports it with the change in potential energy from the negative total in the previous part to zero at large separation.",
+       "fix": "Compare the final potential energy (zero when far apart) with the starting value; external work equals that change.",
+       "accepted_variants": [
+        "positive",
+        "+0.081 J"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) U₁₂ = k q₁q₂/r₁₂ = (9.0 × 10⁹)(3.0 × 10⁻⁶)(−2.0 × 10⁻⁶)/(0.40) = −0.135 J.\n\n(b) Distances from q₃: r₁₃ = 0.30 m, and r₂₃ = √(0.40² + 0.30²) = 0.50 m.\nU₁₃ = (9.0 × 10⁹)(3.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.30) = +0.090 J.\nU₂₃ = (9.0 × 10⁹)(−2.0 × 10⁻⁶)(1.0 × 10⁻⁶)/(0.50) = −0.036 J.\nq₃ starts and ends at rest, so the external work equals the change in electric potential energy of the system: W = U₁₃ + U₂₃ = 0.090 − 0.036 = +0.054 J.\n\n(c) U_total = U₁₂ + U₁₃ + U₂₃ = −0.135 + 0.090 − 0.036 = −0.081 J.\n\n(d) Positive. When the charges are all very far apart, the system's electric potential energy is zero. It starts at −0.081 J, so it must increase by 0.081 J. The charges start and end at rest, so the total external work equals this increase: W = +0.081 J, which is positive.",
+   "verification_python": "import math\nk=9.0e9\nq1=3.0e-6; q2=-2.0e-6; q3=1.0e-6\nr12=0.40; r13=0.30; r23=math.hypot(0.40,0.30)\nassert abs(r23-0.50)<1e-12\nU12=k*q1*q2/r12; U13=k*q1*q3/r13; U23=k*q2*q3/r23\nassert abs(U12-(-0.135))<1e-12\nassert abs(U13-0.090)<1e-12\nassert abs(U23-(-0.036))<1e-12\nW3=U13+U23\nassert abs(W3-0.054)<1e-12\nUt=U12+U13+U23\nassert abs(Ut-(-0.081))<1e-12\nWsep=0-Ut\nassert abs(Wsep-0.081)<1e-12 and Wsep>0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "11.1",
+  "item": {
+   "title": "Current, Charge Carriers, and Conventional Current Direction",
+   "calculator": "permitted",
+   "stimulus": "A copper wire is part of a closed circuit that contains a battery and a heating element. While the circuit is closed, charge passes through a cross section of the wire at a steady rate, and a total of 360 C passes through that cross section in 4.0 minutes. The conventional current in this wire is directed from end X of the wire toward end Y. The elementary charge is e = 1.6 × 10⁻¹⁹ C.",
+   "parts": [
+    {
+     "prompt": "Calculate the current in the wire.",
+     "criteria": [
+      {
+       "text": "Calculates I = Δq/Δt = 360 C / 240 s = 1.5 A.",
+       "evidence": "Response converts 4.0 minutes to 240 s and divides the charge by the time to obtain 1.5 A.",
+       "fix": "Convert time to seconds before dividing charge by time, since 1 A means 1 C per second.",
+       "accepted_variants": [
+        "1.5 A",
+        "1.5 C/s"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the number of electrons that pass through a cross section of the wire each second.",
+     "criteria": [
+      {
+       "text": "Finds about 9.4 × 10¹⁸ electrons per second.",
+       "evidence": "Response divides the charge per second (1.5 C/s) by e = 1.6 × 10⁻¹⁹ C to obtain about 9.4 × 10¹⁸ electrons each second.",
+       "fix": "The current gives coulombs per second; divide by the charge of one electron to count electrons per second.",
+       "accepted_variants": [
+        "9.375 × 10¹⁸",
+        "9.4 × 10¹⁸"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "State the direction in which the electrons in the wire actually move, and explain how this is related to the direction of the conventional current.",
+     "criteria": [
+      {
+       "text": "States that electrons move from Y toward X, opposite the conventional current, because conventional current is the direction positive charge would move and electrons are negative.",
+       "evidence": "Response gives the electron motion as from end Y to end X and explains that conventional current is defined by positive charge motion, so negative carriers move the opposite way.",
+       "fix": "Remember conventional current follows positive charge; in metal wires the moving carriers are electrons, so reverse the stated direction.",
+       "accepted_variants": [
+        "from Y to X"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The circuit is then opened, and the current in the wire becomes zero. A student claims that every electron in the wire is now at rest. Evaluate the student's claim.",
+     "criteria": [
+      {
+       "text": "States the claim is incorrect: zero current means zero net motion of charge carriers through a cross section, but individual electrons still move with nonzero speeds in random directions.",
+       "evidence": "Response rejects the claim and distinguishes zero net (average) motion of electrons from individual electrons having zero speed.",
+       "fix": "Separate net flow from individual motion: zero current only means equal numbers of carriers cross a section each way.",
+       "accepted_variants": [
+        "incorrect",
+        "the claim is wrong"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Δt = 4.0 min × 60 s/min = 240 s. I = Δq/Δt = 360 C / 240 s = 1.5 A.\n\n(b) Each second 1.5 C passes a cross section. Number of electrons per second = (1.5 C/s)/(1.6 × 10⁻¹⁹ C) ≈ 9.4 × 10¹⁸ electrons per second.\n\n(c) The electrons move from Y toward X. Conventional current is defined as the direction in which positive charge would move. Electrons are negative, so they actually move opposite to the conventional current, which points from X to Y.\n\n(d) The claim is incorrect. Zero current means that the net motion of the charge carriers through any cross section is zero, so there is no net flow of charge. Individual electrons still move with nonzero speeds in random directions; their motions simply produce no net transfer of charge.",
+   "verification_python": "from fractions import Fraction\nq=360; t=4.0*60\nI=q/t\nassert t==240\nassert abs(I-1.5)<1e-12\nn=I/1.6e-19\nassert abs(n-9.375e18)<1e12\nassert round(n/1e18,1)==9.4\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "11.2",
+  "item": {
+   "title": "Open, Closed, and Short Circuits in a Three-Bulb Circuit",
+   "calculator": "not_applicable",
+   "stimulus": "An ideal battery has a positive terminal P and a negative terminal N. The circuit is connected as follows.\n- Bulb 1 connects terminal P to junction B.\n- Bulb 2 connects junction B to junction C.\n- Switch S also connects junction B directly to junction C, giving a second path from B to C that contains nothing except the switch.\n- A wire connects junction C to terminal N.\n- Bulb 3 connects terminal P to point D, and switch T connects point D to terminal N.\n\nAll wires and closed switches have negligible resistance. A bulb is lit only when charge flows through it.",
+   "parts": [
+    {
+     "prompt": "Both switches are open. State which bulbs are lit and which are unlit. Justify your answer in terms of closed and open circuits.",
+     "criteria": [
+      {
+       "text": "States that bulbs 1 and 2 are lit because the path P → bulb 1 → B → bulb 2 → C → N is a closed loop through the battery.",
+       "evidence": "Response identifies bulbs 1 and 2 as lit and describes the closed path from the battery through bulb 1 and bulb 2 back to the battery.",
+       "fix": "Trace each bulb's path from one battery terminal to the other; a bulb lights only if that path forms a complete loop.",
+       "accepted_variants": [
+        "bulbs 1 and 2 lit"
+       ]
+      },
+      {
+       "text": "States that bulb 3 is unlit because open switch T breaks its only path back to the battery, so it is in an open circuit.",
+       "evidence": "Response identifies bulb 3 as unlit and explains that charge cannot flow through it because switch T is open.",
+       "fix": "Check every switch along a bulb's path; one open switch makes that path an open circuit with no charge flow.",
+       "accepted_variants": [
+        "bulb 3 unlit",
+        "bulb 3 is off"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Switch S is closed while switch T stays open. State whether bulb 2 is lit, and explain using the idea of a short circuit.",
+     "criteria": [
+      {
+       "text": "States that bulb 2 is unlit because closed switch S lets charge flow from B to C with no change in electric potential (a short circuit), so the potential difference across bulb 2 is zero and no charge flows through it.",
+       "evidence": "Response says bulb 2 goes out and explains that the switch path from B to C has no potential difference, so bulb 2, connected between the same two points, has none either.",
+       "fix": "When a wire or closed switch joins a bulb's two ends, the bulb has zero potential difference across it; say so explicitly.",
+       "accepted_variants": [
+        "bulb 2 is unlit",
+        "bulb 2 goes out"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Both switches are now closed. State whether bulb 3 is lit. Then identify two different closed loops that both contain the battery, listing the circuit elements each loop passes through.",
+     "criteria": [
+      {
+       "text": "States that bulb 3 is lit because closing T completes the closed loop P → bulb 3 → D → switch T → N.",
+       "evidence": "Response says bulb 3 is lit and identifies the now-complete path through bulb 3 and switch T back to the battery.",
+       "fix": "After a switch closes, retrace the bulb's path to the battery and confirm it now forms a complete loop.",
+       "accepted_variants": [
+        "bulb 3 lit"
+       ]
+      },
+      {
+       "text": "Identifies two valid closed loops containing the battery, chosen from: battery–bulb 1–switch S; battery–bulb 3–switch T; battery–bulb 1–bulb 2.",
+       "evidence": "Response lists two of these three loops by their elements, each starting and ending at the battery, showing the battery belongs to more than one loop.",
+       "fix": "Start at a battery terminal, follow connected elements without retracing, and stop when you return to the other terminal; repeat along a different route.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Bulbs 1 and 2 are lit. The path P → bulb 1 → B → bulb 2 → C → N is a closed loop through the battery, so charge can flow through both bulbs. Switch S is open, so the only path from B to C is through bulb 2.\nBulb 3 is unlit. Its only path back to the battery goes through switch T, which is open, so that path is an open circuit and no charge can flow through bulb 3.\n\n(b) Bulb 2 is unlit. Closing S gives charge a path from B to C through the switch alone, with no change in electric potential; this is a short circuit across bulb 2. Because bulb 2 is connected between the same points B and C, the potential difference across it is zero, so no charge flows through it and it does not light.\n\n(c) Bulb 3 is lit, because closing T completes the closed loop P → bulb 3 → D → switch T → N.\nTwo closed loops that contain the battery:\nLoop 1: battery (P) → bulb 1 → B → switch S → C → battery (N).\nLoop 2: battery (P) → bulb 3 → D → switch T → battery (N).\nThe battery is part of both loops.",
+   "verification_python": "# Enumerate simple loops through the battery with both switches closed\nedges={'bulb1':('P','B'),'bulb2':('B','C'),'S':('B','C'),'wireCN':('C','N'),'bulb3':('P','D'),'T':('D','N')}\ndef paths(start,end,used,node):\n    if node==end:\n        yield list(used); return\n    for name,(a,b) in edges.items():\n        if name in used: continue\n        if node in (a,b):\n            nxt=b if node==a else a\n            visited=set()\n            for u in used:\n                visited.update(edges[u])\n            if nxt in visited and not nxt==end: continue\n            yield from paths(start,end,used+[name],nxt)\nloops=[frozenset(p) for p in paths('P','N',[],'P')]\nnamed={frozenset(l)-{'wireCN'} for l in loops}\nassert named=={frozenset({'bulb1','S'}),frozenset({'bulb3','T'}),frozenset({'bulb1','bulb2'})}\nassert len(named)==3\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "11.3",
+  "item": {
+   "title": "Resistance of a Nichrome Wire and a Non-Ohmic Filament",
+   "calculator": "permitted",
+   "stimulus": "A uniform nichrome wire has length 2.0 m, cross-sectional area 5.0 × 10⁻⁷ m², and resistivity 1.1 × 10⁻⁶ Ω·m. Treat the wire as ohmic.\n\nSeparately, a student measures the current in a lightbulb filament for several potential differences across it. The filament is not assumed to be ohmic. The data are:\nΔV (V) | I (A)\n1.0 | 0.20\n2.0 | 0.36\n4.0 | 0.60\n8.0 | 0.90",
+   "parts": [
+    {
+     "prompt": "Calculate the resistance of the nichrome wire.",
+     "criteria": [
+      {
+       "text": "Calculates R = ρℓ/A = 4.4 Ω.",
+       "evidence": "Response substitutes ρ = 1.1 × 10⁻⁶ Ω·m, ℓ = 2.0 m and A = 5.0 × 10⁻⁷ m² into R = ρℓ/A and obtains 4.4 Ω.",
+       "fix": "Multiply resistivity by length, then divide by cross-sectional area, tracking powers of ten.",
+       "accepted_variants": [
+        "4.4 Ω",
+        "4.4 ohms"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The ends of the nichrome wire are connected across a potential difference of 6.6 V. Calculate the current in the wire.",
+     "criteria": [
+      {
+       "text": "Calculates I = ΔV/R = 6.6 V / 4.4 Ω = 1.5 A.",
+       "evidence": "Response applies Ohm's law with the resistance from the first part to get 1.5 A.",
+       "fix": "Use I = ΔV/R with the resistance you found, and check that volts divided by ohms gives amperes.",
+       "accepted_variants": [
+        "1.5 A"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A second wire is made of the same nichrome but has twice the length and twice the diameter of the first wire. Determine the resistance of the second wire.",
+     "criteria": [
+      {
+       "text": "Finds 2.2 Ω, because doubling the length doubles R while doubling the diameter makes the area four times larger, so R is multiplied by 2/4 = 1/2.",
+       "evidence": "Response recognizes that area scales with diameter squared (factor 4), combines this with the length factor 2, and gives 2.2 Ω.",
+       "fix": "Area depends on diameter squared; find the factors for length and area separately, then combine them in R = ρℓ/A.",
+       "accepted_variants": [
+        "2.2 Ω",
+        "half the original resistance"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using the filament data, determine whether the filament is ohmic. Then give a physical explanation for the trend in its resistance.",
+     "criteria": [
+      {
+       "text": "States that the filament is not ohmic because ΔV/I is not constant: it rises from 5.0 Ω at 1.0 V to about 8.9 Ω at 8.0 V.",
+       "evidence": "Response calculates ΔV/I for at least two rows (for example 5.0 Ω and 8.9 Ω) and concludes the resistance is not constant, so the filament is not ohmic.",
+       "fix": "Compute ΔV/I for several rows; an ohmic element gives the same resistance every time.",
+       "accepted_variants": [
+        "not ohmic",
+        "non-ohmic"
+       ]
+      },
+      {
+       "text": "Explains that resistance increases as current increases because the filament converts more electrical energy to thermal energy and gets hotter, and the resistivity of a conductor typically increases with temperature.",
+       "evidence": "Response links larger current to higher filament temperature and states that resistivity (and so resistance) increases with temperature.",
+       "fix": "Connect the change in resistance to temperature: more current heats the filament, and hotter conductors have greater resistivity.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) R = ρℓ/A = (1.1 × 10⁻⁶ Ω·m)(2.0 m)/(5.0 × 10⁻⁷ m²) = 4.4 Ω.\n\n(b) I = ΔV/R = 6.6 V / 4.4 Ω = 1.5 A.\n\n(c) R = ρℓ/A. The length doubles, which doubles R. The diameter doubles, so the cross-sectional area (proportional to diameter squared) becomes 4 times larger, which divides R by 4. The new resistance is 4.4 Ω × 2/4 = 2.2 Ω.\n\n(d) ΔV/I for each row: 1.0/0.20 = 5.0 Ω, 2.0/0.36 ≈ 5.6 Ω, 4.0/0.60 ≈ 6.7 Ω, 8.0/0.90 ≈ 8.9 Ω. The resistance is not constant, so the filament is not ohmic.\nAs the current increases, the filament converts electrical energy to thermal energy at a greater rate and its temperature rises. The resistivity of a conductor typically increases with temperature, so the filament's resistance increases as the current increases.",
+   "verification_python": "from fractions import Fraction as Fr\nrho=1.1e-6; L=2.0; A=5.0e-7\nR=rho*L/A\nassert abs(R-4.4)<1e-9\nI=6.6/R\nassert abs(I-1.5)<1e-9\nR2=rho*(2*L)/(4*A)\nassert abs(R2-2.2)<1e-9\nassert abs(R2/R-0.5)<1e-12\ndata=[(1.0,0.20),(2.0,0.36),(4.0,0.60),(8.0,0.90)]\nrs=[v/i for v,i in data]\nassert abs(rs[0]-5.0)<1e-9\nassert round(rs[1],1)==5.6\nassert round(rs[2],1)==6.7\nassert round(rs[3],1)==8.9\nassert all(rs[j]<rs[j+1] for j in range(3))\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "11.4",
+  "item": {
+   "title": "Power and Energy of a Heater and Bulb Brightness",
+   "calculator": "permitted",
+   "stimulus": "A space heater connected to a 120 V outlet has a current of 12.5 A. Treat the heater as an ohmic resistor.\n\nSeparately, bulb X and bulb Y are each connected alone across its own ideal battery, and the two batteries have the same potential difference ΔV. Both bulbs are ohmic, and the resistance of bulb Y is twice the resistance of bulb X: R_Y = 2R_X.",
+   "parts": [
+    {
+     "prompt": "Calculate the power delivered to the heater.",
+     "criteria": [
+      {
+       "text": "Calculates P = IΔV = (12.5 A)(120 V) = 1500 W.",
+       "evidence": "Response multiplies the current by the potential difference to obtain 1500 W (1.5 × 10³ W).",
+       "fix": "Power delivered to an element equals the current through it times the potential difference across it.",
+       "accepted_variants": [
+        "1500 W",
+        "1.5 × 10³ W",
+        "1.5 kW"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the electrical energy converted to thermal energy by the heater in 2.0 hours of operation at 120 V.",
+     "criteria": [
+      {
+       "text": "Calculates E = PΔt = (1500 W)(7200 s) = 1.08 × 10⁷ J.",
+       "evidence": "Response converts 2.0 hours to 7200 s and multiplies by the power to get 1.08 × 10⁷ J.",
+       "fix": "Power is energy per second, so convert hours to seconds and multiply the power by the time.",
+       "accepted_variants": [
+        "1.08 × 10⁷ J",
+        "1.1 × 10⁷ J",
+        "10,800,000 J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The heater is instead connected to a 60 V source, and its resistance does not change. Calculate the power delivered to the heater now.",
+     "criteria": [
+      {
+       "text": "Calculates 375 W, using the unchanged resistance of 9.6 Ω (for example P = (ΔV)²/R, so halving ΔV gives one quarter of 1500 W).",
+       "evidence": "Response obtains 375 W by any valid route, such as (60 V)²/(9.6 Ω), or I = 60 V/9.6 Ω = 6.25 A then P = IΔV, or scaling 1500 W by (1/2)².",
+       "fix": "When resistance is fixed, use P = (ΔV)²/R: power depends on the square of the potential difference.",
+       "accepted_variants": [
+        "375 W",
+        "3.75 × 10² W"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Derive an expression for the ratio P_X/P_Y of the power delivered to bulb X to the power delivered to bulb Y. Then state which bulb is brighter.",
+     "criteria": [
+      {
+       "text": "Derives P_X/P_Y = [(ΔV)²/R_X]/[(ΔV)²/R_Y] = R_Y/R_X = 2.",
+       "evidence": "Response writes P = (ΔV)²/R for each bulb with the same ΔV and simplifies the ratio to 2.",
+       "fix": "With the same potential difference across each bulb, write P = (ΔV)²/R for both and cancel ΔV in the ratio.",
+       "accepted_variants": [
+        "2",
+        "P_X = 2P_Y"
+       ]
+      },
+      {
+       "text": "States that bulb X is brighter because it has the greater power.",
+       "evidence": "Response identifies bulb X as brighter and links brightness to the power delivered to the bulb.",
+       "fix": "Brightness increases with power; once you know which bulb gets more power, that bulb is brighter.",
+       "accepted_variants": [
+        "bulb X"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) P = IΔV = (12.5 A)(120 V) = 1500 W.\n\n(b) Δt = 2.0 h × 3600 s/h = 7200 s. Energy = PΔt = (1500 W)(7200 s) = 1.08 × 10⁷ J.\n\n(c) The heater's resistance is R = ΔV/I = 120 V / 12.5 A = 9.6 Ω. At 60 V: P = (ΔV)²/R = (60 V)²/(9.6 Ω) = 375 W. (Equivalently, halving ΔV at constant R multiplies the power by 1/4: 1500 W × 1/4 = 375 W.)\n\n(d) Each bulb has potential difference ΔV across it, so P = (ΔV)²/R for each.\nP_X/P_Y = [(ΔV)²/R_X] / [(ΔV)²/R_Y] = R_Y/R_X = 2R_X/R_X = 2.\nBulb X receives twice the power, and brightness increases with power, so bulb X is brighter.",
+   "verification_python": "import sympy as sp\nI=12.5; V=120.0\nP=I*V\nassert abs(P-1500)<1e-9\nE=P*2.0*3600\nassert abs(E-1.08e7)<1e-3\nR=V/I\nassert abs(R-9.6)<1e-12\nP60=60.0**2/R\nassert abs(P60-375)<1e-9\nassert abs(P60/P-0.25)<1e-12\ndV,RX=sp.symbols('dV R_X',positive=True)\nratio=sp.simplify((dV**2/RX)/(dV**2/(2*RX)))\nassert ratio==2\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "11.6",
+  "item": {
+   "title": "Loop Rule and Potential Around a Three-Resistor Loop",
+   "calculator": "permitted",
+   "stimulus": "An ideal battery with emf 12.0 V is connected in a single loop with three resistors. Going around the loop in the direction of the conventional current, starting from the battery's positive terminal, charge passes through resistor R₁ = 2.0 Ω, then point M, then resistor R₂ = 4.0 Ω, then point K, then resistor R₃ of unknown resistance, and then returns to the battery's negative terminal. An ideal voltmeter connected across R₂ reads 4.0 V. Take the electric potential of the battery's negative terminal to be 0 V.",
+   "parts": [
+    {
+     "prompt": "Calculate the current in the loop.",
+     "criteria": [
+      {
+       "text": "Calculates I = ΔV₂/R₂ = 4.0 V / 4.0 Ω = 1.0 A.",
+       "evidence": "Response applies Ohm's law to R₂ using the voltmeter reading and obtains 1.0 A.",
+       "fix": "Use the element whose potential difference and resistance are both known to find the current in a single loop.",
+       "accepted_variants": [
+        "1.0 A",
+        "1 A"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use Kirchhoff's loop rule to determine the potential difference across R₃. Then determine the resistance R₃.",
+     "criteria": [
+      {
+       "text": "Applies the loop rule: 12.0 V − 2.0 V − 4.0 V − ΔV₃ = 0, so ΔV₃ = 6.0 V (with ΔV₁ = IR₁ = 2.0 V).",
+       "evidence": "Response writes a loop equation in which the battery's 12.0 V gain equals the sum of the drops across the three resistors and solves for 6.0 V.",
+       "fix": "Go once around the loop adding the battery's gain and each resistor's drop, set the sum to zero, then solve.",
+       "accepted_variants": [
+        "6.0 V",
+        "6 V"
+       ]
+      },
+      {
+       "text": "Calculates R₃ = ΔV₃/I = 6.0 V / 1.0 A = 6.0 Ω.",
+       "evidence": "Response divides the potential difference across R₃ by the loop current to get 6.0 Ω.",
+       "fix": "Once the potential difference across a resistor is known, divide by the current through it to find its resistance.",
+       "accepted_variants": [
+        "6.0 Ω",
+        "6 Ω"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the electric potential at the battery's positive terminal, at point M, and at point K.",
+     "criteria": [
+      {
+       "text": "Gives 12.0 V at the positive terminal, 10.0 V at M, and 6.0 V at K.",
+       "evidence": "Response starts at 12.0 V and subtracts each resistor's drop in order (2.0 V across R₁, then 4.0 V across R₂) to get 10.0 V and 6.0 V.",
+       "fix": "Start at the known potential and step around the loop, subtracting each drop in the order the current passes through elements.",
+       "accepted_variants": [
+        "12 V, 10 V, 6 V"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A charge of +2.0 C passes through R₃ in the direction of the conventional current. Calculate the change in the electric potential energy associated with this charge, and state whether it increases or decreases.",
+     "criteria": [
+      {
+       "text": "Calculates ΔU = qΔV = (2.0 C)(0 V − 6.0 V) = −12 J, a decrease of 12 J.",
+       "evidence": "Response multiplies the charge by the change in potential from K (6.0 V) to the negative terminal (0 V), giving −12 J, and states the energy decreases.",
+       "fix": "Use ΔU = qΔV with ΔV = final potential minus initial potential, keeping the sign to decide increase or decrease.",
+       "accepted_variants": [
+        "−12 J",
+        "decreases by 12 J"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The voltmeter shows ΔV₂ = 4.0 V across R₂ = 4.0 Ω, so I = ΔV₂/R₂ = 4.0 V / 4.0 Ω = 1.0 A. This is the current everywhere in the single loop.\n\n(b) ΔV₁ = IR₁ = (1.0 A)(2.0 Ω) = 2.0 V.\nLoop rule, going around in the direction of the current: +12.0 V − 2.0 V − 4.0 V − ΔV₃ = 0, so ΔV₃ = 6.0 V.\nR₃ = ΔV₃/I = 6.0 V / 1.0 A = 6.0 Ω.\n\n(c) The ideal battery raises the potential from 0 V at the negative terminal to 12.0 V at the positive terminal.\nAt M (after R₁): 12.0 V − 2.0 V = 10.0 V.\nAt K (after R₂): 10.0 V − 4.0 V = 6.0 V.\n(After R₃ the potential is 6.0 V − 6.0 V = 0 V, matching the negative terminal.)\n\n(d) The charge goes from K (6.0 V) to the negative terminal (0 V), so ΔV = −6.0 V.\nΔU = qΔV = (2.0 C)(−6.0 V) = −12 J. The electric potential energy decreases by 12 J.",
+   "verification_python": "emf=12.0; R1=2.0; R2=4.0; V2=4.0\nI=V2/R2\nassert abs(I-1.0)<1e-12\nV1=I*R1\nassert abs(V1-2.0)<1e-12\nV3=emf-V1-V2\nassert abs(V3-6.0)<1e-12\nassert abs(emf-V1-V2-V3)<1e-12\nR3=V3/I\nassert abs(R3-6.0)<1e-12\nVp=emf; VM=Vp-V1; VK=VM-V2\nassert (Vp,VM,VK)==(12.0,10.0,6.0)\nassert abs(VK-V3)<1e-12\ndU=2.0*(0-VK)\nassert abs(dU-(-12.0))<1e-12\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "11.7",
+  "item": {
+   "title": "Junction Rule at a Wire Junction and in Parallel Branches",
+   "calculator": "permitted",
+   "stimulus": "Situation 1: Three wires meet at junction J. Wire 1 carries a steady current of 3.0 A into J. Wire 2 carries a steady current of 1.2 A out of J. The current in wire 3 is unknown.\n\nSituation 2: An ideal battery with a potential difference of 12.0 V is connected to three parallel branches. Each branch runs from junction H, which is connected by a wire to the battery's positive terminal, to junction L, which is connected by a wire to the battery's negative terminal. Branch 1 contains a 6.0 Ω resistor, branch 2 contains a 4.0 Ω resistor, and branch 3 contains a lightbulb of unknown resistance. An ideal ammeter in the wire between the positive terminal and junction H reads 6.0 A. All wires have negligible resistance.",
+   "parts": [
+    {
+     "prompt": "In Situation 1, determine the magnitude of the current in wire 3 and state whether it is directed into or out of junction J.",
+     "criteria": [
+      {
+       "text": "Finds 1.8 A directed out of J, using the junction rule: current in equals current out, so 3.0 A = 1.2 A + I₃.",
+       "evidence": "Response applies ΣI_in = ΣI_out at J to get 1.8 A and states the current in wire 3 leaves the junction.",
+       "fix": "Add all currents entering and all leaving a junction, set the totals equal, and solve for the missing current and its direction.",
+       "accepted_variants": [
+        "1.8 A out of J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Situation 1, calculate the amount of charge that passes through wire 3 in 5.0 s.",
+     "criteria": [
+      {
+       "text": "Calculates Δq = IΔt = (1.8 A)(5.0 s) = 9.0 C.",
+       "evidence": "Response multiplies the current in wire 3 by 5.0 s to obtain 9.0 C.",
+       "fix": "Current is charge per unit time, so multiply the current by the time interval in seconds.",
+       "accepted_variants": [
+        "9.0 C",
+        "9 C"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Situation 2, determine the current in the lightbulb.",
+     "criteria": [
+      {
+       "text": "Finds the resistor currents as 2.0 A (6.0 Ω) and 3.0 A (4.0 Ω), using the 12.0 V potential difference across each parallel branch.",
+       "evidence": "Response divides 12.0 V by each resistance to get 2.0 A and 3.0 A.",
+       "fix": "Each parallel branch has the full battery potential difference across it; divide that by each branch's resistance.",
+       "accepted_variants": [
+        "2 A and 3 A"
+       ]
+      },
+      {
+       "text": "Uses the junction rule at H to find the bulb current: 6.0 A = 2.0 A + 3.0 A + I_bulb, so I_bulb = 1.0 A.",
+       "evidence": "Response sets the 6.0 A entering H equal to the sum of the three branch currents leaving H and obtains 1.0 A.",
+       "fix": "At the junction where branches split, the incoming current equals the sum of the branch currents; subtract the known branches.",
+       "accepted_variants": [
+        "1.0 A",
+        "1 A"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Situation 2, a student claims that the current in the wire from junction L back to the battery's negative terminal is less than 6.0 A, because the resistors and the bulb use up some of the current. Evaluate the student's claim.",
+     "criteria": [
+      {
+       "text": "States the claim is incorrect: by the junction rule at L, the branch currents 2.0 A + 3.0 A + 1.0 A = 6.0 A all leave L in the return wire, because charge is conserved and is not used up in the elements.",
+       "evidence": "Response rejects the claim, applies the junction rule at L to get 6.0 A in the return wire, and cites conservation of charge.",
+       "fix": "Apply the junction rule where branches rejoin, and remember elements transfer energy, not charge, so charge entering equals charge leaving.",
+       "accepted_variants": [
+        "incorrect",
+        "6.0 A"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Junction rule at J: total current in = total current out. 3.0 A = 1.2 A + I₃, so I₃ = 1.8 A. The current in wire 3 is directed out of J.\n\n(b) Δq = IΔt = (1.8 A)(5.0 s) = 9.0 C.\n\n(c) Each branch is connected between H and L, so each has the battery's 12.0 V across it.\nBranch 1: I₁ = 12.0 V / 6.0 Ω = 2.0 A. Branch 2: I₂ = 12.0 V / 4.0 Ω = 3.0 A.\nJunction rule at H: 6.0 A = 2.0 A + 3.0 A + I_bulb, so I_bulb = 1.0 A.\n\n(d) The claim is incorrect. The three branch currents, 2.0 A + 3.0 A + 1.0 A = 6.0 A, all enter junction L, and the only path out of L is the wire to the negative terminal. By the junction rule, the current in that wire is 6.0 A. Charge is conserved: the resistors and bulb transfer electrical energy, but charge is not used up, so the charge per unit time returning to the battery equals the charge per unit time leaving it.",
+   "verification_python": "I1=3.0; I2=1.2\nI3=I1-I2\nassert abs(I3-1.8)<1e-12 and I3>0\nq=I3*5.0\nassert abs(q-9.0)<1e-12\nIb1=12.0/6.0; Ib2=12.0/4.0\nassert (Ib1,Ib2)==(2.0,3.0)\nIbulb=6.0-Ib1-Ib2\nassert abs(Ibulb-1.0)<1e-12\nassert abs(Ib1+Ib2+Ibulb-6.0)<1e-12\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "9.2",
+  "item": {
+   "title": "Rigid-Container Gas Data: Zero-Pressure Temperature and Moles",
+   "calculator": "permitted",
+   "stimulus": "A fixed amount of an ideal gas is sealed in a rigid container of volume 4.0 × 10⁻³ m³. A student measures the gas pressure at several temperatures:\nT (°C) | P (kPa)\n20 | 120.0\n50 | 132.3\n80 | 144.6\n110 | 156.9\n\nUse R = 8.31 J/(mol·K) and T(K) = T(°C) + 273.",
+   "parts": [
+    {
+     "prompt": "Using the data, determine the temperature, in degrees Celsius, at which the pressure of the gas would be zero if the trend in the data continued.",
+     "criteria": [
+      {
+       "text": "Finds about −273 °C by extending the linear trend (slope 0.41 kPa per °C) to zero pressure.",
+       "evidence": "Response finds the pressure rises by 12.3 kPa per 30 °C (0.41 kPa/°C) and extrapolates from a data point to P = 0, getting a value between −276 °C and −270 °C.",
+       "fix": "Find the constant change in P per degree, then work backward from a data point until the pressure reaches zero.",
+       "accepted_variants": [
+        "−273 °C",
+        "−272.7 °C",
+        "about −270 °C"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the number of moles of gas in the container.",
+     "criteria": [
+      {
+       "text": "Calculates n = PV/(RT) ≈ 0.197 mol, using P = 1.200 × 10⁵ Pa and T = 293 K.",
+       "evidence": "Response converts 120.0 kPa to pascals and 20 °C to 293 K before substituting into PV = nRT, obtaining about 0.197 mol (or uses another row consistently).",
+       "fix": "In PV = nRT, always use pressure in pascals and absolute temperature in kelvins before substituting.",
+       "accepted_variants": [
+        "0.197 mol",
+        "0.20 mol",
+        "0.2 mol"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "All of the gas is moved into a different container with half the volume, and it is heated until its absolute temperature is twice its absolute temperature at 20 °C. No gas escapes. Determine the new pressure of the gas.",
+     "criteria": [
+      {
+       "text": "Finds the pressure increases by a factor of 4, to 480 kPa, because P = nRT/V with n constant, T doubled, and V halved.",
+       "evidence": "Response uses the ideal gas law with n fixed to combine a factor of 2 from temperature and a factor of 2 from volume, giving 4 × 120.0 kPa = 480 kPa.",
+       "fix": "Write P = nRT/V and apply each change as a factor: doubling T doubles P, and halving V doubles P again.",
+       "accepted_variants": [
+        "480 kPa",
+        "4.8 × 10⁵ Pa"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The ideal-gas model becomes less accurate when a gas is compressed into a very small volume. Identify one assumption of the ideal-gas model that fails under these conditions and explain why it fails.",
+     "criteria": [
+      {
+       "text": "Identifies a relevant assumption and explains its failure: the atoms' own volume is no longer negligible compared with the container volume, or the atoms are close enough that forces between them other than during collisions become appreciable.",
+       "evidence": "Response names one of these two assumptions and connects its failure to the atoms being packed closely together in a small volume.",
+       "fix": "Recall the model's assumptions (negligible atomic volume, forces only during collisions) and ask which depend on atoms being far apart.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Each 30 °C increase raises the pressure by 12.3 kPa, so the pressure is linear in temperature with slope 12.3/30 = 0.41 kPa/°C. Starting at 20 °C and 120.0 kPa, the pressure reaches zero after a decrease of 120.0/0.41 ≈ 293 °C, at T ≈ 20 − 293 ≈ −273 °C.\n\n(b) P = 120.0 kPa = 1.200 × 10⁵ Pa, T = 20 + 273 = 293 K.\nn = PV/(RT) = (1.200 × 10⁵ Pa)(4.0 × 10⁻³ m³)/[(8.31 J/(mol·K))(293 K)] = 480/2435 ≈ 0.197 mol.\n\n(c) From PV = nRT, P = nRT/V. The amount of gas n is constant. T doubles, which doubles P, and V is halved, which doubles P again. P_new = 2 × 2 × 120.0 kPa = 480 kPa.\n\n(d) The model assumes the volume of the atoms is negligible compared with the volume occupied by the gas. When the gas is squeezed into a very small volume, the atoms take up a significant fraction of that volume, so this assumption fails. (Also acceptable: the model assumes the only appreciable forces act during collisions, but when atoms are packed close together the forces between them at other times are no longer negligible.)",
+   "verification_python": "data=[(20,120.0),(50,132.3),(80,144.6),(110,156.9)]\nslopes=[(data[i+1][1]-data[i][1])/(data[i+1][0]-data[i][0]) for i in range(3)]\nfor s in slopes:\n    assert abs(s-0.41)<1e-9\nT0=20-120.0/0.41\nassert abs(T0-(-272.68))<0.01\nassert -276<T0<-270\nassert abs(120.0/0.41-292.68)<0.01\nP=1.200e5; V=4.0e-3; R=8.31; T=293\nn=P*V/(R*T)\nassert abs(P*V-480)<1e-9\nassert abs(R*T-2434.83)<0.01\nassert abs(n-0.197)<0.0005\nPnew=120.0*2/0.5\nassert abs(Pnew-480)<1e-9\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "9.3",
+  "item": {
+   "title": "Hot Block in Cool Water: Direction of Transfer and Equilibrium",
+   "calculator": "not_applicable",
+   "stimulus": "A metal block at 80 °C is placed into water at 20 °C inside a closed, well-insulated container, so energy exchange with the surroundings is negligible. The block is fully submerged. One thermometer is embedded in the block and another is in the water, and both are read over time.",
+   "parts": [
+    {
+     "prompt": "Immediately after the block is placed in the water, state the direction of the net energy transfer by thermal processes, and identify which system is being heated and which is being cooled. Then name the thermal process by which energy is transferred from the surface of the block into the water in contact with it.",
+     "criteria": [
+      {
+       "text": "States that the net energy transfer is from the block to the water because the block is at the higher temperature, so the water is heated and the block is cooled.",
+       "evidence": "Response gives the direction block → water, links it to the temperature difference, and identifies the water as heated and the block as cooled.",
+       "fix": "Energy flows spontaneously from higher to lower temperature; name the higher-temperature system as cooled and the other as heated.",
+       "accepted_variants": [
+        "from the block to the water"
+       ]
+      },
+      {
+       "text": "Names conduction as the process transferring energy from the block's surface into the water touching it.",
+       "evidence": "Response identifies conduction (energy transfer through direct contact and collisions) at the block–water surface; mentioning convection within the water as well does not lose the point.",
+       "fix": "Match each process to its mechanism: direct contact is conduction, bulk fluid motion is convection, and electromagnetic waves are radiation.",
+       "accepted_variants": [
+        "conduction"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain, in terms of collisions between particles, why the net energy transfer is in the direction you stated.",
+     "criteria": [
+      {
+       "text": "Explains that the block's atoms have a higher average kinetic energy, and in collisions between particles of the two systems energy is most likely transferred from the higher-energy particles to the lower-energy ones.",
+       "evidence": "Response connects higher temperature to higher average kinetic energy of the block's atoms and states that collisions tend to transfer energy from higher-energy to lower-energy particles.",
+       "fix": "Describe temperature as average particle kinetic energy, then state which particle usually gains energy when a fast one hits a slow one.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "After a long time, both thermometers read the same temperature, and the reading no longer changes. Name the condition the block and water have reached and describe the net energy transfer between them. Do individual collisions between particles of the block and particles of the water still transfer energy? Explain.",
+     "criteria": [
+      {
+       "text": "Names thermal equilibrium and states that there is no net energy transfer by thermal processes between the block and the water.",
+       "evidence": "Response identifies thermal equilibrium and says the net energy transfer between the two systems is zero.",
+       "fix": "Define thermal equilibrium by net energy transfer, not by particles stopping: equal temperatures mean zero net transfer.",
+       "accepted_variants": [
+        "thermal equilibrium"
+       ]
+      },
+      {
+       "text": "States that individual collisions still transfer energy in both directions, but on average the transfers balance, so the net transfer is zero.",
+       "evidence": "Response says particles keep colliding and exchanging energy, with transfers from block to water balanced by transfers from water to block.",
+       "fix": "Distinguish individual exchanges from the net result: particles keep colliding at equilibrium, but energy moves equally in both directions.",
+       "accepted_variants": [
+        "yes, but they balance"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The net energy transfer is from the block to the water, because energy is transferred spontaneously from the higher-temperature system (the block at 80 °C) to the lower-temperature system (the water at 20 °C). The water is being heated and the block is being cooled.\nEnergy passes from the block's surface into the water touching it by conduction. (Convection then carries warmed water away within the container.)\n\n(b) The block's higher temperature means its atoms have a higher average kinetic energy than the water molecules. When a particle of the block collides with a water molecule, energy is most likely transferred from the higher-energy particle to the lower-energy one. Over many collisions this produces a net transfer of energy from the block to the water.\n\n(c) The block and water have reached thermal equilibrium. There is no net energy transfer by thermal processes between them, which is why the temperatures stay equal and constant.\nYes, individual collisions still transfer energy. Particles keep moving and colliding, and in some collisions energy goes from block to water while in others it goes from water to block. These transfers balance on average, so the net transfer is zero.",
+   "verification_python": "T_block=80; T_water=20\nassert T_block>T_water\ndirection='block_to_water' if T_block>T_water else 'water_to_block'\nassert direction=='block_to_water'\ncriteria_counts=[2,1,2]\nassert sum(criteria_counts)==5\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "9.5",
+  "item": {
+   "title": "Heating Water, Conduction Through a Window, and Specific Heat",
+   "calculator": "permitted",
+   "stimulus": "Specific heats: water 4190 J/(kg·°C), aluminum 900 J/(kg·°C), copper 385 J/(kg·°C).\n\nA glass window pane has area 1.2 m², thickness 4.0 × 10⁻³ m, and thermal conductivity 0.80 W/(m·K). The inner surface of the glass is at 15 °C and the outer surface is at 5 °C, and these temperatures stay constant. Specific heats are independent of temperature.",
+   "parts": [
+    {
+     "prompt": "Calculate the energy that must be transferred to 0.50 kg of water to raise its temperature from 20 °C to 80 °C.",
+     "criteria": [
+      {
+       "text": "Calculates Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(60 °C) ≈ 1.26 × 10⁵ J.",
+       "evidence": "Response uses ΔT = 60 °C and obtains 125,700 J (about 1.26 × 10⁵ J).",
+       "fix": "Use the temperature change, not a single temperature, in Q = mcΔT, and check the units of c.",
+       "accepted_variants": [
+        "125700 J",
+        "1.26 × 10⁵ J",
+        "1.3 × 10⁵ J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the rate at which energy is conducted through the window pane.",
+     "criteria": [
+      {
+       "text": "Calculates Q/Δt = kAΔT/L = (0.80)(1.2)(10)/(4.0 × 10⁻³) = 2400 W.",
+       "evidence": "Response uses ΔT = 10 K (or 10 °C) and L = 4.0 × 10⁻³ m to obtain 2400 W (2.4 × 10³ W).",
+       "fix": "In Q/Δt = kAΔT/L use the temperature difference across the material and its thickness in meters.",
+       "accepted_variants": [
+        "2400 W",
+        "2.4 × 10³ W",
+        "2.4 kW"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The pane is replaced by a pane of the same glass and area but twice the thickness, and the temperature difference across it becomes 20 °C. Determine the new rate of energy conduction.",
+     "criteria": [
+      {
+       "text": "Finds the rate is unchanged at 2400 W, because doubling ΔT doubles the rate while doubling L halves it.",
+       "evidence": "Response applies the proportional dependence on ΔT and on 1/L (factor 2 × 1/2 = 1) and gives 2400 W.",
+       "fix": "Apply each change as a factor: the rate is proportional to ΔT and inversely proportional to thickness.",
+       "accepted_variants": [
+        "2400 W",
+        "unchanged",
+        "same rate"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Equal masses of aluminum and copper each absorb the same amount of energy. Which block has the larger temperature increase? Determine the ratio of the copper block's temperature increase to the aluminum block's temperature increase.",
+     "criteria": [
+      {
+       "text": "States that copper has the larger temperature increase, with ΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+       "evidence": "Response uses ΔT = Q/(mc) with equal Q and m to show ΔT is inversely proportional to c, identifies copper, and gives a ratio of about 2.3.",
+       "fix": "With the same energy and mass, ΔT = Q/(mc), so the material with the smaller specific heat warms more.",
+       "accepted_variants": [
+        "2.34",
+        "2.3",
+        "copper"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Q = mcΔT = (0.50 kg)(4190 J/(kg·°C))(80 °C − 20 °C) = (0.50)(4190)(60) = 125,700 J ≈ 1.26 × 10⁵ J.\n\n(b) ΔT = 15 °C − 5 °C = 10 °C, which is a difference of 10 K.\nQ/Δt = kAΔT/L = (0.80 W/(m·K))(1.2 m²)(10 K)/(4.0 × 10⁻³ m) = 2400 W.\n\n(c) The rate is proportional to ΔT and inversely proportional to L. ΔT doubles (10 °C to 20 °C), multiplying the rate by 2, and L doubles, multiplying the rate by 1/2. The net factor is 1, so the rate is unchanged: 2400 W.\n\n(d) ΔT = Q/(mc). With the same Q and m, ΔT is inversely proportional to c. Copper has the smaller specific heat, so copper has the larger temperature increase.\nΔT_Cu/ΔT_Al = c_Al/c_Cu = 900/385 ≈ 2.3.",
+   "verification_python": "Q=0.50*4190*(80-20)\nassert abs(Q-125700)<1e-9\nassert abs(Q-1.26e5)<0.01e5\nrate=0.80*1.2*10/4.0e-3\nassert abs(rate-2400)<1e-9\nrate2=0.80*1.2*20/(2*4.0e-3)\nassert abs(rate2-2400)<1e-9\nratio=900/385\nassert abs(ratio-2.34)<0.005\nassert round(ratio,1)==2.3\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_2",
+  "topic_code": "9.6",
+  "item": {
+   "title": "Entropy Changes in an Isolated and a Closed System",
+   "calculator": "not_applicable",
+   "stimulus": "System 1: Two copper blocks, one at 90 °C and one at 10 °C, are placed in contact inside a closed, perfectly insulated container. The two blocks together form an isolated system, and they eventually reach a common final temperature.\n\nSystem 2: A tray of liquid water is placed in a freezer, and the water freezes into ice. Energy is transferred between the water and the air in the freezer, but no matter enters or leaves the water.",
+   "parts": [
+    {
+     "prompt": "For System 1, state whether the total entropy of the two blocks increases, decreases, or stays the same as they approach the common temperature. Justify your answer using the second law of thermodynamics.",
+     "criteria": [
+      {
+       "text": "States that the total entropy increases, because the blocks form an isolated system undergoing an irreversible process (energy spreading from the hot block to the cold block), and the second law says entropy of an isolated system stays constant only for reversible processes.",
+       "evidence": "Response answers 'increases' and justifies it by citing the isolated system, the irreversible (spontaneous) energy transfer or spreading of energy, and the second law.",
+       "fix": "Identify the system as isolated, decide whether the process is reversible, then apply the second law's rule for isolated systems.",
+       "accepted_variants": [
+        "increases"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the blocks will not spontaneously return to temperatures of 90 °C and 10 °C.",
+     "criteria": [
+      {
+       "text": "Explains that returning to 90 °C and 10 °C would decrease the total entropy of the isolated system, which the second law forbids; the equal-temperature equilibrium state has the maximum entropy.",
+       "evidence": "Response states that the reverse process would require the isolated system's entropy to decrease (or to leave its maximum-entropy equilibrium state), which cannot happen.",
+       "fix": "Ask what the reverse process would do to the isolated system's entropy, and compare that with what the second law allows.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The entropy of the water in System 2 decreases as it freezes. A student says this violates the second law of thermodynamics. Evaluate the student's claim.",
+     "criteria": [
+      {
+       "text": "States the claim is incorrect because the water is a closed system, not an isolated one: energy is transferred out of it to its surroundings, so its entropy can decrease.",
+       "evidence": "Response rejects the claim and identifies the water as closed (exchanging energy with the freezer air), not isolated.",
+       "fix": "Before applying the second law, check whether the system is isolated; a closed system that loses energy can lose entropy.",
+       "accepted_variants": [
+        "incorrect",
+        "does not violate"
+       ]
+      },
+      {
+       "text": "States that the total entropy of a larger isolated system that includes the water and its surroundings does not decrease, so the second law is satisfied.",
+       "evidence": "Response explains that when the surroundings (freezer and room) are included to make an isolated system, the total entropy does not decrease.",
+       "fix": "Enlarge the system until it is isolated, then apply the second law to that total entropy.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For System 1, a second student claims that if the blocks had reached the same final state by a slower process, the entropy of that final state would be different. Evaluate this claim.",
+     "criteria": [
+      {
+       "text": "States the claim is incorrect because entropy is a state function: it depends only on the current state of the system, not on the process used to reach it.",
+       "evidence": "Response rejects the claim and explains that entropy depends only on the state (temperature, configuration), not on the path or speed of the process.",
+       "fix": "Recall that entropy is a state function; for any claim about a final state, ask whether the final state itself changed.",
+       "accepted_variants": [
+        "incorrect",
+        "same entropy"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The total entropy increases. The two blocks form an isolated system, and energy spreads spontaneously from the hot block to the cold block. This process is irreversible. The second law states that the total entropy of an isolated system never decreases and stays constant only when every process is reversible, so the entropy of the blocks increases.\n\n(b) The equal-temperature state is thermodynamic equilibrium, where the entropy of the isolated system is at its maximum. Returning to 90 °C and 10 °C would require the energy to become concentrated again and the total entropy of the isolated system to decrease, which the second law does not allow. So this never happens spontaneously.\n\n(c) The claim is incorrect. The water is a closed system, not an isolated one: energy is transferred out of the water to the air in the freezer. The entropy of a closed system can decrease when energy is transferred out of it. If the water is combined with its surroundings (the freezer and the room it operates in) to form an isolated system, the total entropy of that larger system does not decrease, so the second law is satisfied.\n\n(d) The claim is incorrect. Entropy is a state function, so it depends only on the current state of the system, not on how the system reached it. The same final state of the two blocks has the same entropy whether it was reached quickly or slowly.",
+   "verification_python": "T_hot=90; T_cold=10\nassert T_hot>T_cold\nparts=4\ncriteria=[1,1,2,1]\nassert len(criteria)==parts and sum(criteria)==5\nprint('ALL_CHECKS_PASSED')"
+  }
+ }
+]

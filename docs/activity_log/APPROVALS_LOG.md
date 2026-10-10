@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0146 — Publish 126 Units 1-3 FRQs to Production, One per Zero-FRQ Topic (FRQ Gap Fill) (2026-10-10)
 - APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111 (2026-10-09)
 - APPROVAL-0144 — Execute TASK-0069 to Production: Seven Migrations, Secrets, Four Function Deploys, Production Smoke, Dark Lovable Publish — DECISION-0109 / 0110 / 0111 (2026-10-10)
 - APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production) (2026-10-09)
@@ -2024,6 +2025,19 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0146 — Publish 126 Units 1-3 FRQs to Production, One per Zero-FRQ Topic (FRQ Gap Fill)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session), answering "Publish to Production on that basis?" with "Publish all 126". Earlier in the same session: "Every unit/topic pair must have 2 FRQs or more. Use the content creation protocol…", cut to "1 FRQ per subject/unit/topic… If a unit topic has 1 or more FRQs, do not create another", and "Where there are edge cases, you should arbitrate and correct ambiguities. Don't use Opus as primary author - that is your job."  
+**Related:** batch `scripts/content-seed/frq-u13-gap-fill-2026-10-09/` (README, `plan.json`, `publish_frq_batch.py`, slot files with every check and arbitration ruling, `answer_grades.json`), `APPROVAL-0143` (topic labels this batch builds on). Number note: `APPROVAL-0144` and `0145` are held by open PRs #398 and #399.  
+**Decision:** Approved
+
+**Approved scope:** publish 126 new short FRQs (`<subject>-frq-u13g-<topic>`), one for each Units 1-3 topic that had zero published FRQs (Physics 2 = registry units 9-11, Physics C: E&M = 8-10): Biology 10, Calculus AB 11, Calculus BC 13, Chemistry 18, Physics 1 8, Physics 2 14, Physics C: E&M 4, Physics C: Mechanics 11, Precalculus 23, Statistics 14. Per subject, one transaction: item, version and 1-point criteria; stored-text hash check against `plan.json`; owner approval decision (human review waived); validated serving label (required units from the six-vote probe or a recorded CED-text ruling) hash-fresh; validated primary topic cell; difficulty (checker majority, provisional); published. A guard refuses any topic that has gained a published FRQ.
+
+**Quality evidence:** every item passed lint, an exact recompute of every number, the six-vote topic probe (or a recorded CED-text topic ruling) and two checker families (GPT-6.1 Sol, DeepSeek V4 Pro), with planted-defect controls 8/8 caught before and after the rule calibration; 3 items accepted on recorded arbitration after every objection was rejected. Model answers: 126/126 full credit graded criterion by criterion by a third family (gemini-3.8-flash). The production grader's QA path grades only published AP Biology, so the Product Owner accepted the third-family grading in its place; the 10 Biology FRQs are also graded by the production grader after publishing and any below 100% is retired.
+
+**Rollback:** each FRQ is a new item with `content_key like '%-frq-u13g-%'`; retire the item and version (status `retired`) to remove it from serving.
 
 ## APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111
 

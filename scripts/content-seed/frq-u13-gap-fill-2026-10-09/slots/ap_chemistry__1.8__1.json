@@ -1,0 +1,558 @@
+{
+ "id": "ap_chemistry__1.8__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.8",
+  "topic_title": "Valence Electrons and Ionic Compounds",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:06:08.336Z",
+   "source": "given",
+   "item": {
+    "title": "Predicting Ionic Formulas from Periodic Table Position",
+    "calculator": "not_applicable",
+    "stimulus": "Magnesium and chlorine form the ionic compound MgCl₂. Sodium and oxygen form the ionic compound Na₂O. Use these formulas and the periodic table to answer the following.",
+    "parts": [
+     {
+      "prompt": "Predict the formula of the ionic compound formed from barium and bromine. Justify your prediction using the positions of the elements on the periodic table.",
+      "criteria": [
+       {
+        "text": "Predicts BaBr₂ because barium is in the same group as magnesium and bromine is in the same group as chlorine, so they form a compound analogous to MgCl₂.",
+        "evidence": "Response gives BaBr₂ and justifies it by group membership (Ba with Mg in group 2, Br with Cl in group 17), or by the typical charges Ba²⁺ and Br⁻ that follow from those positions.",
+        "fix": "Locate each element's column; elements in the same columns as those in a known compound form a compound with an analogous formula.",
+        "accepted_variants": [
+         "BaBr2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the formula of the ionic compound formed from potassium and sulfur. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts K₂S because potassium is in the same group as sodium and sulfur is in the same group as oxygen, so the compound is analogous to Na₂O.",
+        "evidence": "Response gives K₂S and justifies it by group membership (K with Na in group 1, S with O in group 16), or by the typical charges K⁺ and S²⁻.",
+        "fix": "Match potassium to sodium and sulfur to oxygen by column, then use the same subscripts as the known compound Na₂O.",
+        "accepted_variants": [
+         "K2S"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the formula of the ionic compound formed from aluminum and oxygen. Justify your prediction in terms of the number of valence electrons in each atom.",
+      "criteria": [
+       {
+        "text": "Predicts Al₂O₃ because aluminum (3 valence electrons) forms Al³⁺ and oxygen (6 valence electrons) forms O²⁻, and 2(+3) + 3(−2) = 0.",
+        "evidence": "Response gives Al₂O₃, states the charges +3 and −2 based on losing 3 or gaining 2 valence electrons, and shows that the charges balance.",
+        "fix": "Get each ion's charge from the valence electrons lost or gained to reach a noble-gas configuration, then choose subscripts giving zero total charge.",
+        "accepted_variants": [
+         "Al2O3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Potassium reacts with chlorine more vigorously than sodium does. Explain this difference in terms of the interactions between the valence electron and the nucleus in each atom.",
+      "criteria": [
+       {
+        "text": "Explains that potassium's valence electron is in a higher shell (n = 4 rather than n = 3), farther from the nucleus and more shielded, so it is attracted less strongly and is lost more easily when potassium forms an ionic compound.",
+        "evidence": "Response states that the K valence electron is farther from the nucleus (or in a higher shell) than the Na valence electron and links this to a weaker Coulombic attraction, making it easier to remove.",
+        "fix": "Compare the shell that holds each valence electron; a farther, more shielded electron feels weaker attraction and is lost more easily.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) BaBr₂. Barium is in group 2 with magnesium, and bromine is in group 17 with chlorine. Elements in the same column form analogous compounds, so barium and bromine form BaBr₂, just as magnesium and chlorine form MgCl₂ (Ba²⁺ and Br⁻ ions).\n\n(b) K₂S. Potassium is in group 1 with sodium, and sulfur is in group 16 with oxygen, so the compound is analogous to Na₂O, with K⁺ and S²⁻ ions.\n\n(c) Al₂O₃. An aluminum atom has 3 valence electrons and loses them to form Al³⁺. An oxygen atom has 6 valence electrons and gains 2 to form O²⁻. Two Al³⁺ ions (+6) balance three O²⁻ ions (−6), giving Al₂O₃.\n\n(d) The valence electron of potassium is in the fourth shell, while that of sodium is in the third shell. The potassium valence electron is farther from the nucleus and is shielded by more inner electrons, so by Coulomb's law it is attracted less strongly to the nucleus. It is therefore removed more easily, so potassium forms K⁺ and reacts with chlorine more readily than sodium does.",
+    "verification_python": "group={'Mg':2,'Ba':2,'Na':1,'K':1,'Cl':17,'Br':17,'O':16,'S':16,'Al':13}\nassert group['Ba']==group['Mg'] and group['Br']==group['Cl']\nassert group['K']==group['Na'] and group['S']==group['O']\nval={'Al':3,'O':6}\nqAl=val['Al']; qO=-(8-val['O'])\nassert qAl==3 and qO==-2\nassert 2*qAl+3*qO==0\nassert 1*2+2*(-1)==0  # BaBr2\nassert 2*1+1*(-2)==0  # K2S\nshell={'Na':3,'K':4}\nassert shell['K']>shell['Na']\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 2,
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:51:54.711Z",
+   "item": {
+    "title": "Strontium Chloride Formula and Group Reactivity Trends",
+    "calculator": "permitted",
+    "stimulus": "A student heats a 0.876 g sample of pure strontium metal, Sr, in excess chlorine gas, Cl2. All of the strontium reacts to form a single white ionic solid, which is the only product. The student records the data below.\n\nQuantity | Value\nMass of strontium before reaction | 0.876 g\nMass of ionic solid product | 1.585 g\nMolar mass of Sr | 87.62 g/mol\nMolar mass of Cl | 35.45 g/mol\n\nIn a separate demonstration, small equal-sized pieces of calcium and strontium are placed in water. Both metals react to form hydrogen gas, but strontium reacts noticeably more vigorously than calcium.",
+    "model_answer": "(a) Mass of Cl = 1.585 g − 0.876 g = 0.709 g. Moles of Sr = 0.876 g ÷ 87.62 g/mol = 0.0100 mol Sr. Moles of Cl = 0.709 g ÷ 35.45 g/mol = 0.0200 mol Cl.\n\n(b) Ratio Cl : Sr = 0.0200 mol ÷ 0.0100 mol = 2.00 : 1, so there are 2 Cl atoms for every Sr atom. The empirical formula is SrCl2.\n\n(c) Strontium is in Group 2 and has two valence electrons (5s²). It loses both to form Sr²⁺, which has the same electron configuration as the noble gas Kr. Chlorine is in Group 17 and has seven valence electrons (3s²3p⁵). It gains one electron to form Cl⁻, which has a complete octet and the configuration of Ar. One Sr²⁺ balances two Cl⁻, which matches SrCl2.\n\n(d) Barium is in the same column (Group 2) as strontium, so it also forms a 2+ ion and an analogous compound with chlorine: BaCl2. Oxygen is in Group 16 with six valence electrons, so it gains two electrons to form O²⁻. One Sr²⁺ balances one O²⁻, giving SrO.\n\n(e) The valence electrons of Sr are in the n = 5 shell, while those of Ca are in the n = 4 shell. Sr's valence electrons are farther from the nucleus and are shielded by more inner electrons, so the Coulombic attraction between the nucleus and its valence electrons is weaker. Sr therefore has a lower ionization energy and loses its valence electrons more easily than Ca, so it reacts more vigorously with water.",
+    "verification_python": "import math\nm_sr=0.876\nm_prod=1.585\nM_sr=87.62\nM_cl=35.45\nm_cl=m_prod-m_sr\nassert abs(m_cl-0.709)<1e-9\nn_sr=m_sr/M_sr\nn_cl=m_cl/M_cl\nassert abs(n_sr-0.0100)<5e-5\nassert abs(n_cl-0.0200)<5e-5\nratio=n_cl/n_sr\nassert abs(ratio-2.00)<0.01\nassert round(ratio)==2\n# charge balance checks\nassert 1*2+2*(-1)==0\nassert 1*2+1*(-2)==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data in the table, calculate the number of moles of strontium and the number of moles of chlorine atoms in the product. Show your work.",
+      "criteria": [
+       {
+        "text": "Calculates mol Sr = 0.876 g ÷ 87.62 g/mol = 0.0100 mol and mol Cl = (1.585 g − 0.876 g) ÷ 35.45 g/mol = 0.709 g ÷ 35.45 g/mol = 0.0200 mol.",
+        "evidence": "Response finds the mass of Cl by subtraction (0.709 g) and converts both masses to moles using the given molar masses, giving about 0.0100 mol Sr and 0.0200 mol Cl.",
+        "fix": "Find the mass of chlorine by subtracting metal mass from product mass, then divide each mass by its molar mass.",
+        "accepted_variants": [
+         "1.00 × 10⁻² mol Sr",
+         "2.00 × 10⁻² mol Cl",
+         "0.01000 mol Sr",
+         "0.02000 mol Cl"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Determine the empirical formula of the ionic solid. Justify your answer using your results from part (a).",
+      "criteria": [
+       {
+        "text": "Determines the empirical formula SrCl2 from a Cl:Sr mole ratio of 0.0200 : 0.0100 = 2.00 : 1.",
+        "evidence": "Response divides moles of Cl by moles of Sr (or vice versa) to obtain a 2:1 Cl-to-Sr ratio and states the formula SrCl2; credit is consistent with the moles found in part (a).",
+        "fix": "Divide each mole amount by the smallest one to get the whole-number atom ratio, then write the formula.",
+        "accepted_variants": [
+         "SrCl₂"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, in terms of valence electrons, why strontium is present as Sr²⁺ and chlorine is present as Cl⁻ in this compound.",
+      "criteria": [
+       {
+        "text": "States that Sr (Group 2) has two valence electrons (5s²) that it loses to form Sr²⁺, and Cl (Group 17) has seven valence electrons and gains one to form Cl⁻, each reaching a noble-gas electron configuration.",
+        "evidence": "Response connects each ion charge to the number of valence electrons: Sr loses its 2 valence electrons and Cl gains 1 electron to complete 8, with both ions having noble-gas configurations (Kr and Ar).",
+        "fix": "Count valence electrons from the group number, then state how many are lost or gained to reach a noble-gas configuration.",
+        "accepted_variants": [
+         "Sr loses 2 electrons; Cl gains 1 electron",
+         "isoelectronic with Kr and Ar"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the formula of the ionic compound formed between barium and chlorine, and the formula of the ionic compound formed between strontium and oxygen. Justify each prediction using the positions of the elements on the periodic table.",
+      "criteria": [
+       {
+        "text": "Predicts BaCl2 and SrO, justified by periodic table position: Ba is in Group 2 like Sr, so it forms Ba²⁺ and an analogous chloride; O is in Group 16, so it gains two electrons to form O²⁻, balancing one Sr²⁺.",
+        "evidence": "Response gives both formulas, BaCl2 and SrO, and justifies them with group membership (same column forms analogous compounds; Group 16 forms 2− ions) and charge balance.",
+        "fix": "Use group number to assign each ion's typical charge, then combine ions in the ratio that gives zero net charge.",
+        "accepted_variants": [
+         "BaCl₂ and SrO"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain, using Coulombic attractions at the particle level, why strontium reacts more vigorously with water than calcium does.",
+      "criteria": [
+       {
+        "text": "Explains that strontium's valence electrons are in a higher shell (n = 5 versus n = 4 for Ca), farther from the nucleus and more shielded by inner electrons, so they are attracted less strongly and are lost more easily (lower ionization energy), making Sr more reactive.",
+        "evidence": "Response links greater distance of the valence electrons from the nucleus (and/or more inner-electron shielding) to weaker Coulombic attraction, so Sr loses its valence electrons more easily than Ca.",
+        "fix": "Compare valence shell number and distance from the nucleus, then use Coulomb's law to explain how easily electrons are removed.",
+        "accepted_variants": [
+         "lower first ionization energy for Sr",
+         "weaker attraction between nucleus and valence electrons in Sr"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 bundles two independently scorable calculations—moles of Sr and moles of Cl—into one point. Criterion d1 likewise bundles two independently scorable formula predictions and their justifications. Each criterion must award one specific, observable element; split these criteria or narrow the corresponding parts."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles two independently scorable calculations—moles of Sr and moles of Cl—into one point. Criterion d1 likewise bundles two independently scorable formula predictions and their justifications. Each criterion must award one specific, observable element; split these criteria or narrow the corresponding parts."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 bundles two independently requested calculations—moles of Sr and moles of Cl—into one point. Criterion d1 likewise bundles two independently requested formula predictions and their justifications. Each criterion should award one specific observable element; split these into separate 1-point criteria."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles two independently requested calculations—moles of Sr and moles of Cl—into one point. Criterion d1 likewise bundles two independently requested formula predictions and their justifications. Each criterion should award one specific observable element; split these into separate 1-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Predicting Ionic Formulas from Periodic Table Position",
+   "calculator": "not_applicable",
+   "stimulus": "Magnesium and chlorine form the ionic compound MgCl₂. Sodium and oxygen form the ionic compound Na₂O. Use these formulas and the periodic table to answer the following.",
+   "parts": [
+    {
+     "prompt": "Predict the formula of the ionic compound formed from barium and bromine. Justify your prediction using the positions of the elements on the periodic table.",
+     "criteria": [
+      {
+       "text": "Predicts BaBr₂ because barium is in the same group as magnesium and bromine is in the same group as chlorine, so they form a compound analogous to MgCl₂.",
+       "evidence": "Response gives BaBr₂ and justifies it by group membership (Ba with Mg in group 2, Br with Cl in group 17), or by the typical charges Ba²⁺ and Br⁻ that follow from those positions.",
+       "fix": "Locate each element's column; elements in the same columns as those in a known compound form a compound with an analogous formula.",
+       "accepted_variants": [
+        "BaBr2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Predict the formula of the ionic compound formed from potassium and sulfur. Justify your prediction.",
+     "criteria": [
+      {
+       "text": "Predicts K₂S because potassium is in the same group as sodium and sulfur is in the same group as oxygen, so the compound is analogous to Na₂O.",
+       "evidence": "Response gives K₂S and justifies it by group membership (K with Na in group 1, S with O in group 16), or by the typical charges K⁺ and S²⁻.",
+       "fix": "Match potassium to sodium and sulfur to oxygen by column, then use the same subscripts as the known compound Na₂O.",
+       "accepted_variants": [
+        "K2S"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Predict the formula of the ionic compound formed from aluminum and oxygen. Justify your prediction in terms of the number of valence electrons in each atom.",
+     "criteria": [
+      {
+       "text": "Predicts Al₂O₃ because aluminum (3 valence electrons) forms Al³⁺ and oxygen (6 valence electrons) forms O²⁻, and 2(+3) + 3(−2) = 0.",
+       "evidence": "Response gives Al₂O₃, states the charges +3 and −2 based on losing 3 or gaining 2 valence electrons, and shows that the charges balance.",
+       "fix": "Get each ion's charge from the valence electrons lost or gained to reach a noble-gas configuration, then choose subscripts giving zero total charge.",
+       "accepted_variants": [
+        "Al2O3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Potassium reacts with chlorine more vigorously than sodium does. Explain this difference in terms of the interactions between the valence electron and the nucleus in each atom.",
+     "criteria": [
+      {
+       "text": "Explains that potassium's valence electron is in a higher shell (n = 4 rather than n = 3), farther from the nucleus and more shielded, so it is attracted less strongly and is lost more easily when potassium forms an ionic compound.",
+       "evidence": "Response states that the K valence electron is farther from the nucleus (or in a higher shell) than the Na valence electron and links this to a weaker Coulombic attraction, making it easier to remove.",
+       "fix": "Compare the shell that holds each valence electron; a farther, more shielded electron feels weaker attraction and is lost more easily.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) BaBr₂. Barium is in group 2 with magnesium, and bromine is in group 17 with chlorine. Elements in the same column form analogous compounds, so barium and bromine form BaBr₂, just as magnesium and chlorine form MgCl₂ (Ba²⁺ and Br⁻ ions).\n\n(b) K₂S. Potassium is in group 1 with sodium, and sulfur is in group 16 with oxygen, so the compound is analogous to Na₂O, with K⁺ and S²⁻ ions.\n\n(c) Al₂O₃. An aluminum atom has 3 valence electrons and loses them to form Al³⁺. An oxygen atom has 6 valence electrons and gains 2 to form O²⁻. Two Al³⁺ ions (+6) balance three O²⁻ ions (−6), giving Al₂O₃.\n\n(d) The valence electron of potassium is in the fourth shell, while that of sodium is in the third shell. The potassium valence electron is farther from the nucleus and is shielded by more inner electrons, so by Coulomb's law it is attracted less strongly to the nucleus. It is therefore removed more easily, so potassium forms K⁺ and reacts with chlorine more readily than sodium does.",
+   "verification_python": "group={'Mg':2,'Ba':2,'Na':1,'K':1,'Cl':17,'Br':17,'O':16,'S':16,'Al':13}\nassert group['Ba']==group['Mg'] and group['Br']==group['Cl']\nassert group['K']==group['Na'] and group['S']==group['O']\nval={'Al':3,'O':6}\nqAl=val['Al']; qO=-(8-val['O'])\nassert qAl==3 and qO==-2\nassert 2*qAl+3*qO==0\nassert 1*2+2*(-1)==0  # BaBr2\nassert 2*1+1*(-2)==0  # K2S\nshell={'Na':3,'K':4}\nassert shell['K']>shell['Na']\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.847478Z"
+ },
+ "accepted_round": 1
+}
