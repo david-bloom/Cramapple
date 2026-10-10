@@ -1,0 +1,57 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u6-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the direction of thermal energy flow and the sign of enthalpy change for exothermic and endothermic reactions as specified in EK 6.6.A.1, 6.6.A.2, and 6.1.A.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The sign convention matches 6.6.A.1: a negative enthalpy change means heat energy is released, while a positive value means it is absorbed. The stated directions match 6.6.A.2. However, 6.6 is not the first topic requiring this concept: 6.1.A.3 says that in an exothermic reaction energy lost by the system is gained by the surroundings, and in an endothermic reaction the system gains energy from the surroundings. The owner_topic_code should therefore be 6.1. No caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The direction and signs are supported by 6.6.A.1\u20132: negative enthalpy changes release heat, and thermal energy is transferred to the surroundings in an exothermic reaction and from the surroundings in an endothermic reaction. However, 6.1.A.3 first requires the direction of energy transfer: energy lost by an exothermic reacting system is gained by its surroundings, while an endothermic system gains energy from its surroundings. The owner should therefore be 6.1, not 6.6. Topic 6.4 also uses energy-flow direction for dissolution in 6.4.A.7. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

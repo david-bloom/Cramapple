@@ -1,0 +1,57 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u9-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects EK 9.1.A.1 regarding the dispersal of matter and entropy changes. The caution is highly appropriate for AP Chemistry, as the term 'disorder' is discouraged in favor of 'dispersal of matter/energy' and specific particle descriptions."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "9.1.A.1 supports the dispersal and phase-change examples, but says entropy only 'generally increases' when gas-phase products have more total moles than gas-phase reactants; the body states that outcome without qualification. The owner topic is correctly 9.1. Topic 9.2 requires calculating \u0394S from absolute entropies, not applying this dispersal convention, so it should not be listed. The caution correctly prefers a particulate explanation to 'more disorder,' but its categorical claim about what 'does not earn credit' is not established by the CED, and 'freer to move' is the CED's explanation for phase changes, not every listed case."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 9.1.A.1 supports the central claim: \u201cEntropy increases when matter becomes more dispersed.\u201d But it says entropy \u201cgenerally increases\u201d when gas-phase products have more moles than gas-phase reactants; the body presents that case without the qualification. The owner topic, 9.1, is correct. Topic 9.2 requires calculating entropy change from absolute entropies, and 9.3 addresses entropy in thermodynamic favorability; neither requires this matter-dispersal convention as stated. The caution appropriately steers away from a bare \u201cmore disorder\u201d explanation, but the CED does not establish that such wording \u201cdoes not earn credit\u201d or require describing particles as freer to move in every listed case."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

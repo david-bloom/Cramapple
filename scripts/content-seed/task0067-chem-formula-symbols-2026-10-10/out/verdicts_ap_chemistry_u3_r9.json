@@ -1,0 +1,741 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u3-r9-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the definition of mole fraction (XA = moles A / total moles) as explicitly stated in Essential Knowledge 3.4.A.2 of the AP Chemistry CED. All symbols are correctly defined with appropriate units."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4, EK 3.4.A.2 states \u201cwhere X_A = moles A/total moles.\u201d The formula and all three symbol definitions match; mole fraction is unitless because it is a ratio of moles. Topic 3.4 is the applicable topic, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula X_A = n_A/n_total matches 3.4.A.2 ('XA = moles A/total moles'). All three symbols are defined: X_A (unitless mole fraction of gas A), n_A (mol of A), and n_total (total mol of all gases). No symbol is missing or extra, and the units match the CED's implied unitless fraction of moles. b_topic_codes: 3.4.A.2 first introduces mole fraction in Topic 3.4 (Ideal Gas Law), and no other topic in the unit uses it, so owner_topic_code '3.4' and topic_codes ['3.4'] are correct. c_ced_required: 3.4.A.2 states 'the partial pressure of a gas within the mixture is proportional to its mole fraction (X)' with the explicit equation 'PA = Ptotal \u00d7 XA, where XA = moles A/total moles'. This is required essential knowledge under LO 3.4.A. d_caution: the entry's wording tracks the CED's equation wording closely, so no caution is needed and caution: null is correct. The entry does not state the partial-pressure use, but that is not a point-earning wording issue for a formula entry.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r9-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the partial pressure formula from Topic 3.4 (3.4.A.2 EQN: PA = Ptotal \u00d7 XA). All symbols are correctly defined, and the caution accurately reflects the CED's description of ideal gas mixtures."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4.A.2 states \u201cPA = Ptotal \u00d7 XA, where XA = moles A/total moles\u201d for a mixture of ideal gases. The formula, symbol definitions, unit constraints, and caution agree with that statement. Topic 3.4 is the correct topic, and no additional wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body P_A = P_total \u00d7 X_A matches 3.4.A.2 (\"EQN: PA = Ptotal \u00d7 XA\"), and the ced_evidence string matches. All three symbols are defined: P_A (partial pressure of A), P_total (total pressure), and X_A (mole fraction). The CED defines X_A = moles A/total moles, so unitless is implied by the ratio. Requiring the same pressure units for P_A and P_total is implied by the relation, though the CED does not state it explicitly. No symbol is missing or extra. b_topic_codes: Partial pressure and mole fraction are introduced in Topic 3.4 (3.4.A.2), which is the unit's first requirement, so owner_topic_code 3.4 is correct and topic_codes [3.4] is correct. c_ced_required: 3.4.A.2 (\"the partial pressure of a gas within the mixture is proportional to its mole fraction (X)... EQN: PA = Ptotal \u00d7 XA\") is required content under LO 3.4.A, so students must apply this relation. d_caution: The caution (\"Applies to a mixture of ideal gases, where each component's partial pressure is independent of the other components\") matches the CED condition, \"In a sample containing a mixture of ideal gases, the pressure exerted by each component... is independent of the other components.\" The caution is present and correct. hooks: The hooks array is empty, so there is nothing to evaluate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r9-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula c = \\lambda \\nu is explicitly required by Topic 3.12 (Essential Knowledge 3.12.A.2: 'EQN: c = \u03bb\u03bd'). All symbols are correctly defined with appropriate units, and the caution correctly notes the inverse relationship and unit consistency."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.12, Essential Knowledge 3.12.A.2 states, \u201cThe wavelength of the electromagnetic wave is related to its frequency and the speed of light by the equation: EQN: c = \u03bb\u03bd.\u201d The entry gives that equation, defines all three symbols with consistent units, and correctly notes that wavelength and frequency are inversely proportional when c is constant. No additional wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 'c = \\lambda \\nu' matches 3.12.A.2 verbatim ('EQN: c = \u03bb\u03bd'). All three symbols are defined: c as speed of light, \u03bb as wavelength, and \u03bd as frequency. Units are physically correct (m/s, m, s^-1). The CED does not state units explicitly, but they follow directly from the equation. b_topic_codes: 3.12.A.2 is the source, and topic 3.12 is where this equation is first required. Topic 3.11 covers spectral regions but does not use c = \u03bb\u03bd, so owner 3.12 is correct and the single topic code is valid. c_ced_required: 3.12.A.2 states the relationship as essential knowledge, and the topic 3.12 suggested skill 5.F ('Calculate, estimate, or predict an unknown quantity... performing dimensional analysis') requires students to apply it. d_caution: The caution is correct. Wavelength and frequency are inversely proportional at constant c, which the equation implies. The unit-consistency reminder is appropriate because c is given in m/s and \u03bb must be in m for the calculation to work. No caution is strictly required by the CED wording, but the one present is accurate and useful. hooks: none supplied, so no hook checks apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r9-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the Beer-Lambert law formula (A = \u03b5bc) and its variables as defined in Topic 3.13 (3.13.A.1). The caution correctly reflects the proportional relationship when path length and wavelength are held constant as stated in 3.13.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.13 states \u201cEQN: A = \u03b5bc\u201d and defines \u03b5 as how intensely a species absorbs light at a specific wavelength. It identifies b as path length and c as concentration; the entry\u2019s units are consistent with dimensionless absorbance. The caution matches 3.13.A.2: when path length and wavelength are held constant, absorbance is proportional only to concentration."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula matches the CED exactly. 3.13.A.1 reads 'EQN: A = \u03b5bc'. The items define all four symbols (A, \u03b5, b, c) with no missing or extra symbols. The meanings match 3.13.A.1: \u03b5 'describes how intensely a chemical species absorbs light of a specific wavelength'; b is the path length; c is the concentration of the absorbing species. The CED gives no units, so the stated units (A unitless; \u03b5 in L\u00b7mol\u207b\u00b9\u00b7cm\u207b\u00b9; b in cm; c in mol/L) are standard and not contradicted. b_topic_codes: Beer-Lambert law is Topic 3.13 ('Beer-Lambert Law', LO 3.13.A), and no other unit's topic uses it, so owner_topic_code 3.13 and topic_codes ['3.13'] are correct. c_ced_required: LO 3.13.A ('Explain the amount of light absorbed by a solution of molecules or ions in relationship to the concentration, path length, and molar absorptivity') requires students to apply this relation. d_caution: 3.13.A.2 states 'In most experiments the path length and wavelength of light are held constant. In such cases, the absorbance is proportional only to the concentration of absorbing molecules or ions.' The caution restates this condition correctly. The CED says 'most experiments' while the caution says 'when \u2026 held constant', which is an accurate conditional rather than an error. No hooks are present, so none are evaluated."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r9-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula PV = nRT is explicitly required by Topic 3.4 (3.4.A.1). All variables are correctly defined. The caution accurately reflects the deviations from ideal behavior described in Topic 3.6 (3.6.A.1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4 first requires the equation: \u201cPV = nRT\u201d (3.4.A.1). All five symbols are defined correctly, with compatible units and temperature in kelvin. Topic 3.6 also uses the law: \u201cDeviations from the ideal gas law may result from interparticle attractions\u201d near condensation or from \u201cparticle volumes\u201d at extremely high pressures (3.6.A.1). The caution matches those conditions."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 3.4.A.1 states 'EQN: PV = nRT' with 'macroscopic properties of ideal gases are related through the ideal gas law', so the formula is correct. All five symbols (P, V, n, R, T) are defined and none is extra. The unit notes (P in atm or kPa, V in L, n in mol, T in K) are consistent with the CED's requirement that units match R; the CED gives no specific units, so these are implied constraints and not contradicted. The caution's deviation statement matches 3.6.A.1 ('Deviations from the ideal gas law may result from interparticle attractions... particularly at conditions that are close to those resulting in condensation. Deviations may also arise from particle volumes, particularly at extremely high pressures'). The kelvin requirement is consistent with 3.5.A.3 ('The Kelvin temperature of a sample of matter is proportional to the average kinetic energy'). b_topic_codes: 3.4 is the topic that first requires the ideal gas law (3.4.A.1), and 3.6 (Deviation from Ideal Gas Law) explicitly builds on it ('The ideal gas law does not explain the actual behavior of real gases'). c_ced_required: 3.4.A.1 requires students to explain the macroscopic relationships through PV = nRT. d_caution: the wording 'PV = nRT' matches the CED exactly, and the caution adds the required conditions (kelvin, deviations from ideal behavior) that are correct per the CED. No hooks are present.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Planck's equation as specified in Topic 3.12 (3.12.A.2: 'EQN: E = \u210e\u03bd'). All variables are correctly defined with standard units, and the caution aligns with 3.12.A.1 regarding the energy change of the species."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.12.A.2 gives \u201cEQN: E = \u210e\u03bd\u201d and identifies \u03bd as the frequency of the electromagnetic wave. The symbol definitions and units are correct. CED 3.12.A.1 states that absorption or emission changes the species\u2019 energy by an amount equal to the photon\u2019s energy. Topic 3.12 is the first and only listed topic requiring this equation; no additional caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (3.12.A.2) states 'EQN: E = h\u03bd' and the items match the CED's symbols. E is photon energy, h is Planck's constant, and \u03bd is the frequency of the electromagnetic wave. The units J, J\u00b7s, and s^-1 (Hz) are correct, and no symbol is undefined or extra. b_topic_codes: Planck's equation first appears in Topic 3.12 (3.12.A.2). Topic 3.11 covers the spectrum regions but not this equation, so owner_topic_code 3.12 and topic_codes ['3.12'] are correct. c_ced_required: 3.12.A.2 states that 'The energy of a photon is related to the frequency of the electromagnetic wave through Planck's equation,' so students must apply it. d_caution: The CED does not say 'directly proportional' in those words, but E = h\u03bd implies it. The caution's second sentence matches 3.12.A.1: 'When a photon is absorbed (or emitted) by an atom or molecule, the energy of the species is increased (or decreased) by an amount equal to the energy of the photon.' The caution is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-fmt-01-wrong-meaning",
+    "control": "wrong symbol meaning: R defined as the Rydberg constant (CED 3.4.A.1 PV = nRT; R is the gas constant)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The item definition for 'R' is incorrect. In the ideal gas law (PV = nRT), 'R' represents the universal gas constant (or ideal gas constant), not the Rydberg constant."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The symbol 'R' in the ideal gas law (PV = nRT) represents the universal gas constant (or ideal gas constant), not the Rydberg constant. The Rydberg constant is a different physical constant used in atomic spectroscopy (Unit 1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The CED lists the ideal gas law in Topic 3.4 as \u201cEQN: PV = nRT.\u201d In that equation, R is the ideal gas constant, not the Rydberg constant. The formula and topic placement are otherwise supported by 3.4.A.1. No caution is needed for the entry\u2019s wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "CED 3.4.A.1 gives \u201cEQN: PV = nRT,\u201d but R is the ideal gas constant, not the Rydberg constant. The formula belongs in Topic 3.4 and is required by that essential-knowledge statement. No wording caution is needed.",
+              "hooks": []
+            }
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r9-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula KE = 1/2 mv^2 is explicitly required by Topic 3.5 (EK 3.5.A.2). All variables are correctly defined with appropriate SI units, and the caution correctly notes the relationship between Kelvin temperature and average kinetic energy as stated in EK 3.5.A.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.5, EK 3.5.A.2 states that \u201cthe average kinetic energy of a particle is related to its average velocity\u201d by \u201cKE = \u00bd mv\u00b2.\u201d The entry gives that formula, defines all three symbols, and uses consistent SI units. EK 3.5.A.3 supports the caution: Kelvin temperature is proportional to average particle kinetic energy."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 3.5.A.2 states \"EQN: KE = \u00bd mv2\" and that the average kinetic energy of a particle is related to its average velocity by this equation. The body matches exactly. Every symbol is defined (KE, m, v) with no extras or omissions. Units are correct and consistent: J for KE, kg for mass, m/s for speed, which is the SI set that makes the equation dimensionally consistent. The caution's Kelvin-proportionality statement matches CED 3.5.A.3. b_topic_codes: the formula first appears in Topic 3.5 (3.5.A.2) and appears nowhere else on these pages, so owner_topic_code 3.5 and topic_codes [\"3.5\"] are correct. c_ced_required: 3.5.A.2 is a required essential-knowledge statement that gives this equation, and Learning Objective 3.5.A requires students to relate particle motion to macroscopic gas properties using KMT, so reproducing and applying the formula is required content. d_caution: the CED says 'average velocity' while the meaning field says 'average velocity (speed)'. Speed is the magnitude that v\u00b2 actually uses, so the substitution is physically correct, and the caution supplies the unit guidance that matters. The caution does not explicitly address the velocity-versus-speed point, which is a minor gap rather than an error."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-fmt-02-missing-symbol",
+    "control": "symbol left undefined: Beer-Lambert items omit b (CED 3.13.A.1 A = \u03b5bc)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The symbol 'b' (representing path length) is present in the formula body 'A = \\varepsilon b c' but is missing from the 'items' list. A formula entry must define every symbol in the expression."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula body contains the symbol 'b' (representing path length, as described in Topic 3.13.A.1: 'The path length, b, and concentration, c...'), but 'b' is completely missing from the items list. A formula entry must define every symbol present in its expression."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula matches 3.13.A.1, \u201cEQN: A = \u03b5bc,\u201d but the items do not define b. The CED identifies b as \u201cthe path length.\u201d With the entry\u2019s stated units for \u03b5 and c, b must be in cm.",
+              "hooks": []
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula matches 3.13.A.1, \u201cEQN: A = \u03b5bc,\u201d but the items do not define every symbol: b is missing. The CED identifies b as \u201cthe path length.\u201d Topic 3.13 requires applying this relationship, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r9-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the molarity formula as given in the CED under Topic 3.7 (3.7.A.2: 'EQN: M = nsolute /Lsolution'). All symbols are correctly defined with appropriate units, and the caution correctly addresses a common student misconception regarding the denominator (solution vs. solvent)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 3.7.A.2 gives \u201cEQN: M = nsolute /Lsolution\u201d and says molarity is a way to express solution composition. The entry defines every symbol with consistent units. Its caution correctly distinguishes solution volume from solvent volume. Topic 3.7 is the required location."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 3.7.A.2 gives 'EQN: M = nsolute /Lsolution', and the entry matches it. The items define M (molarity, mol/L), n_solute (amount of solute, mol), and L_solution (volume of the solution, L). Every symbol is defined, nothing extra is listed, and the units are correct. b_topic_codes: 3.7 is the only unit-3 topic that introduces molarity (3.7.A.2), and the entry's owner and topic_codes both point to 3.7. c_ced_required: LO 3.7.A asks students to 'Calculate the number of solute particles, volume, or molarity of solutions', and 3.7.A.2 states 'molarity is the most common method used in the laboratory', so the formula is required content. d_caution: the CED does not state the solution-vs-solvent point in words, but the subscript L_solution in the CED equation supports the caution, which is correct and needed to earn the point. hooks: none present, so no hook evaluation applies."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u3-r9-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents Dalton's Law of Partial Pressures as specified in Topic 3.4 (Ideal Gas Law), Essential Knowledge 3.4.A.2: 'EQN: Ptotal = PA + PB + PC + \u2026'. All symbols in the formula are defined correctly with appropriate unit constraints, and the caution aligns with the CED's description of ideal gas mixtures."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 3.4.A.2 gives \u201cPtotal = PA + PB + PC + \u2026\u201d and states that, in a mixture of ideal gases, each component\u2019s partial pressure is independent of the others. The items define every pressure symbol in the expression, and the caution matches that condition."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula P_total = P_A + P_B + P_C + ... matches 3.4.A.2 exactly: 'EQN: Ptotal = PA + PB + PC + \u2026'. Every symbol is defined (P_total, P_A, P_B, P_C; the ellipsis is standard notation for additional components). The 'same pressure units' constraint is consistent with the CED's use of a single pressure quantity and is not contradicted by it. b_topic_codes: 3.4.A.2 sits in Topic 3.4 (Ideal Gas Law), where partial pressure is first introduced, and the entry lists only 3.4. c_ced_required: 3.4.A.2 states that 'the total pressure of the sample is the sum of the partial pressures' and gives 'Ptotal = PA + PB + PC + \u2026', so students are required to apply this. d_caution: the caution 'Applies to a mixture of ideal gases, where each partial pressure is independent of the other components' matches the CED's 'In a sample containing a mixture of ideal gases, the pressure exerted by each component (the partial pressure) is independent of the other components.' The caution is present and correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-fmt-03-wrong-unit",
+    "control": "wrong unit: molarity given as mol per kg of solvent (CED 3.7: M = n solute / L of solution; 3.8 excludes molality)",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition of molarity (M) in the items list is incorrect. It is defined as 'mol per kg of solvent', which is the definition of molality (m). According to Topic 3.7 (3.7.A.2), molarity is defined as moles of solute per liter of solution (M = nsolute / Lsolution)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition of molarity (M) in the items list is incorrect. It is defined as 'mol per kg of solvent', which is the definition of molality (m). Molarity is defined as moles of solute per liter of solution (mol/L), as shown in the CED under Topic 3.7 (EQN: M = nsolute / Lsolution)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition of M is wrong: mol per kg of solvent is not molarity. Topic 3.7 states, \u201cEQN: M = nsolute /Lsolution,\u201d so molarity is moles of solute per liter of solution. The formula\u2019s V_solution is correctly defined in liters, and Topic 3.7 requires students to calculate molarity. The cited equation is in 3.7.A.2, not 3.7.A.1. No caution is needed for the equivalent volume symbol."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The unit and topic are correct, and the CED requires molarity in 3.7.A.2: \u201cEQN: M = nsolute /Lsolution.\u201d But the item defines M as \u201cmol per kg of solvent\u201d; molarity is moles of solute per liter of solution. The cited evidence, 3.7.A.1, is also not the statement containing the equation. No caution is needed for the formula\u2019s notation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]

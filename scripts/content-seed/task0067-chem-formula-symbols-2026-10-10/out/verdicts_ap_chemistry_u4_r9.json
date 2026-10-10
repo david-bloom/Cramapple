@@ -1,0 +1,124 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u4-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents the ideal gas law (PV = nRT) which is explicitly required by Topic 4.5 (EK 4.5.A.3: 'Stoichiometric calculations can be combined with the ideal gas law...'). All symbols are defined accurately with appropriate unit constraints, and the caution correctly notes the temperature scale and R constant requirements."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "PV = nRT is the ideal gas law; all five symbols are correctly defined, and the unit and kelvin constraints are correct. Topic 4.5 is the unit\u2019s first stated use: 4.5.A.3 says, \u201cStoichiometric calculations can be combined with the ideal gas law.\u201d No additional wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: PV = nRT is the ideal gas law. All five symbols (P, V, n, R, T) are defined, none are extra, and the meanings match the physics. The unit constraints (P and V must match the units of R; T in kelvin) are correct and are implied by the CED's requirement to combine stoichiometry with the ideal gas law. b_topic_codes: 4.5.A.3 ('Stoichiometric calculations can be combined with the ideal gas law...') sits under Topic 4.5 Stoichiometry, which is the first and only Unit 4 topic that uses it, and the topic_codes list contains only 4.5. c_ced_required: 4.5.A.3 requires students to combine the ideal gas law with stoichiometric calculations to study gases, so applying the formula is required content. d_caution: the CED does not print the equation or the kelvin/unit-matching requirement, so the caution is needed; its content (kelvin, R units matching P and V, ideal-gas assumption) is correct and consistent with the CED.",
+            "e_expansion": true,
+            "f_admissible": true
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u4-r9-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for molarity (M = n/V) is correct and all symbols are defined accurately. Topic 4.5 (Stoichiometry) explicitly mentions 'calculations involving molarity' in EK 4.5.A.3, and Topic 4.6 (Titration) relies on concentration calculations (EK 4.6.A.1). The caution correctly warns about using liters for volume."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "M = n/V correctly expresses molarity using moles of solute and liters of solution; every symbol is defined, and the caution correctly distinguishes solution volume from solvent volume. Topic 4.5 first requires its use: 4.5.A.3 specifies \u201ccalculations involving molarity.\u201d Topic 4.6 also uses concentration in titration: 4.6.A.1 states that \u201cthe titrant has a known concentration.\u201d No additional point-earning wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: M = n/V with M = molarity (mol/L), n = moles of solute, V = volume of solution in liters is the standard definition and matches the CED's use of molarity in 4.5.A.3 ('calculations involving molarity to quantitatively study gases and solutions') and 4.6.A.1 ('The titrant has a known concentration'). The CED pages do not print the formula itself, so the expression is supported by the standard definition rather than quoted text. All three symbols are defined, none are missing or extra, and the units are correct. b_topic_codes: owner 4.5 is the first unit topic that requires molarity (4.5.A.3), and 4.6 uses it through the titrant concentration in 4.6.A.1, so both codes are correct. c_ced_required: 4.5.A.3 requires students to apply molarity calculations, so the entry is CED-required content. d_caution: the entry's wording differs from the CED, and the caution correctly states that V is total solution volume in liters, not solvent volume, and that mL must be converted to L. The caution is present and correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  }
+]

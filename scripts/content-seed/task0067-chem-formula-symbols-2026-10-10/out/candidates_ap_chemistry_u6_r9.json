@@ -1,0 +1,131 @@
+[
+  {
+    "owner_topic_code": "6.4",
+    "topic_codes": [
+      "6.4"
+    ],
+    "kind": "formula",
+    "title": "Heat transfer equation",
+    "body": "q = mc\\Delta T",
+    "items": [
+      {
+        "label": "q",
+        "meaning": "heat absorbed (+) or released (\u2212) by the substance; energy units such as J"
+      },
+      {
+        "label": "m",
+        "meaning": "mass of the substance whose temperature changes (g)"
+      },
+      {
+        "label": "c",
+        "meaning": "specific heat capacity of that substance (J/(g\u00b7\u00b0C) or J/(g\u00b7K))"
+      },
+      {
+        "label": "\\Delta T",
+        "meaning": "change in temperature of the substance, final minus initial (\u00b0C or K; the size of the change is the same on both scales)"
+      }
+    ],
+    "caution": "Use the total mass of the material that actually changes temperature (e.g., the whole solution, not just the solute). The equation uses specific heat capacity with mass; with molar heat capacity, use moles instead of mass (6.4.A.5). Report q with the correct significant figures.",
+    "ced_evidence": "6.4.A.1 \"EQN: q = mc\u0394T\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u6-r9-001",
+    "subject_key": "ap_chemistry",
+    "unit_number": 6,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "6.5",
+    "topic_codes": [
+      "6.5",
+      "6.6"
+    ],
+    "kind": "formula",
+    "title": "Heat from moles and molar enthalpy",
+    "body": "q = n\\,\\Delta H_{\\text{molar}}",
+    "items": [
+      {
+        "label": "q",
+        "meaning": "heat absorbed (+) or released (\u2212) by the system (kJ)"
+      },
+      {
+        "label": "n",
+        "meaning": "amount of the substance undergoing the phase transition or reaction (mol)"
+      },
+      {
+        "label": "\\Delta H_{\\text{molar}}",
+        "meaning": "molar enthalpy of the phase transition (fusion, vaporization) or of the reaction (kJ/mol)"
+      }
+    ],
+    "caution": "The CED states this as a relationship (amount in moles times molar enthalpy), not as a written equation. Sign matters: a positive \u0394H means heat is absorbed (endothermic) and a negative \u0394H means heat is released (exothermic). The reverse phase change has the opposite sign (\u0394H_condensation = \u2212\u0394H_vaporization). For a reaction, n must match the substance the molar enthalpy is quoted per mole of. Temperature stays constant during a phase change of a pure substance, so q = mc\u0394T does not apply there.",
+    "ced_evidence": "6.5.A / 6.6.A \"amount of the substance in moles and the molar enthalpy\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u6-r9-002",
+    "subject_key": "ap_chemistry",
+    "unit_number": 6,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "6.7",
+    "topic_codes": [
+      "6.7"
+    ],
+    "kind": "formula",
+    "title": "Enthalpy of reaction from average bond energies",
+    "body": "\\Delta H_{\\text{reaction}} \\approx \\Sigma E_{\\text{bonds broken}} - \\Sigma E_{\\text{bonds formed}}",
+    "items": [
+      {
+        "label": "\\Delta H_{\\text{reaction}}",
+        "meaning": "estimated enthalpy change of the reaction (kJ per mole of reaction as written)"
+      },
+      {
+        "label": "\\Sigma E_{\\text{bonds broken}}",
+        "meaning": "sum of average bond energies of all bonds in the reactant molecules (kJ/mol); energy required"
+      },
+      {
+        "label": "\\Sigma E_{\\text{bonds formed}}",
+        "meaning": "sum of average bond energies of all bonds in the product molecules (kJ/mol); energy released"
+      }
+    ],
+    "caution": "Count every bond in every molecule, using the balanced equation's coefficients. Because average bond energies are used, the result is an estimate. If energy released exceeds energy required, \u0394H is negative (exothermic); if energy required exceeds energy released, \u0394H is positive (endothermic).",
+    "ced_evidence": "6.7.A.2 \"adding up the average bond energies of all the bonds in the reactant molecules\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u6-r9-003",
+    "subject_key": "ap_chemistry",
+    "unit_number": 6,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "6.8",
+    "topic_codes": [
+      "6.8"
+    ],
+    "kind": "formula",
+    "title": "Standard enthalpy of reaction from enthalpies of formation",
+    "body": "\\Delta H^{\\circ}_{\\text{reaction}} = \\Sigma \\Delta H_f^{\\circ}{}_{\\text{products}} - \\Sigma \\Delta H_f^{\\circ}{}_{\\text{reactants}}",
+    "items": [
+      {
+        "label": "\\Delta H^{\\circ}_{\\text{reaction}}",
+        "meaning": "standard enthalpy change of the reaction (kJ per mole of reaction as written)"
+      },
+      {
+        "label": "\\Sigma",
+        "meaning": "sum over all species on that side of the balanced equation"
+      },
+      {
+        "label": "\\Delta H_f^{\\circ}{}_{\\text{products}}",
+        "meaning": "standard enthalpies of formation of the products (kJ/mol), from a table"
+      },
+      {
+        "label": "\\Delta H_f^{\\circ}{}_{\\text{reactants}}",
+        "meaning": "standard enthalpies of formation of the reactants (kJ/mol), from a table"
+      }
+    ],
+    "caution": "Products minus reactants, not the reverse. Multiply each tabulated value by its coefficient in the balanced equation before summing. Values are standard enthalpies from tables.",
+    "ced_evidence": "6.8.A.1 \"EQN: \u0394H\u00b0reaction = \u03a3\u0394Hf \u00b0products \u2212 \u03a3\u0394Hf \u00b0reactants\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u6-r9-004",
+    "subject_key": "ap_chemistry",
+    "unit_number": 6,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]
