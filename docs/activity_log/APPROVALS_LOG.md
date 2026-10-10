@@ -13,6 +13,7 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion) (2026-10-10)
 - APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production) (2026-10-10)
 - APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production) (2026-10-10)
+- APPROVAL-0151 — Nearest-Topic Availability RPC + Worked-Example Figure Signing (Production) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
@@ -2039,6 +2040,19 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Not approved by this entry:** the plan as a whole; D3 (default `photo_allowed` on all FRQs at launch vs. subject allow-list), D5 (spend and rate limits), D6 (partial grading as a visible state), D7 (grader roster), D8 (which FRQ surface hosts capture); any build, migration, deployment, or Lovable publish, including Phase 0 (porting the stranded TASK-0038 frontend). Each of those remains a separate Product Owner gate.
 
 **Next gates:** D3, D5–D8 answers; a Hard-Gate task record for the plan; go-ahead for Phase 0 (port + `DECISION-0059` Stage 1 run) and the Phase 1 Development build.
+
+## APPROVAL-0151 — Nearest-Topic Availability RPC + Worked-Example Figure Signing (Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session): "I approve both backend changes for Production". Before that he asked for the nearest-topic suggestion: "we should recommend a choice of the closest unused question behind or in front of the unit/topic which doesn't have content".  
+**Related:** commit `2fde897d`; unsent Lovable prompt `docs/handoffs/LOVABLE_PROMPT_NEAREST_TOPIC_FIGURE_SEEN_2026_10_10.md`; `APPROVAL-0145`.  
+**Decision:** Approved
+
+**Scope:**
+1. **Migration `20261010160000_practice_topic_availability`:** adds `public.get_practice_topic_availability(p_exam_pack_version_id, p_item_type, p_practice_format)`, which is read-only, `security definer`, and granted to authenticated and service_role. It returns per-topic `availableNow`/`availableLater`/`unlocksAtUnit` using `select_student_practice_items`' predicate. Pre-validation, read-only on Production data: for a real AP Chemistry student, per-topic counts are identical to the selector (39/39 across 1.1–1.8).
+2. **`student-session-items` deployed from `2fde897d`:** adds the `teaching_image` branch. It resolves the Open Hand teaching item through `get_open_hand_teaching_item` as the caller, then signs only that item's stimulus path with the service role, and only when its alt text is approved (staff QA excepted). No learning session is needed. 37/37 tests pass. The only change since the deployed v39 (`919ad68f`) is this branch in `index.ts`; no bundled `_shared` file changed.
+
+**Rollback:** `drop function public.get_practice_topic_availability(uuid, text, text);` and delete ledger row `20261010160000`; redeploy `student-session-items` from `919ad68f`.
 
 ## APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production)
 
