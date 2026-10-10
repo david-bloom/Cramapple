@@ -1,0 +1,482 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u9-r9-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula I = q/t is explicitly required in Topic 9.11 (EK 9.11.A.1). All symbols (I, q, t) are correctly defined with their standard units (amperes, coulombs, seconds), and the caution correctly notes the unit constraint for time."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.11, EK 9.11.A.1 gives \u201cEQN: I = q/t\u201d and lists current, time elapsed, and charge among the quantities used in Faraday\u2019s-law calculations. The entry defines every symbol with consistent units; its seconds caution correctly follows from amperes being coulombs per second. No wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED gives 'EQN: I = q/t' under 9.11.A.1, and the formula is reproduced exactly. All three symbols are defined and their meanings match the CED's usage: I is current, q is charge flow, t is time. Units are correct: current in amperes (C/s), charge in coulombs, time in seconds. b_topic_codes: 9.11 is the only topic listed, and the equation first appears in Topic 9.11 (Electrolysis and Faraday's Law), so the owner code is correct. c_ced_required: LO 9.11.A ('Calculate the amount of charge flow based on changes in the amounts of reactants and products in an electrochemical cell') and EK 9.11.A.1 ('EQN: I = q/t') require students to apply this relationship. d_caution: The CED does not print a units caution, but the caution ('time must be in seconds when current is in amperes and charge is in coulombs') is a correct unit constraint implied by I = q/t with I in A = C/s. It is present and correct, so the requirement is met."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u9-r9-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the standard Gibbs free energy of reaction equation from Topic 9.3 (9.3.A.3). All symbols in the formula are defined correctly, and the caution addresses the stoichiometric coefficients which are not explicitly written in the CED's simplified equation but are necessary for correct calculation."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 9.3.A.3 gives the equation \u201c\u0394G\u00b0reaction = \u03a3\u0394Gf\u00b0products \u2212 \u03a3\u0394Gf\u00b0reactants.\u201d The items define its symbols, and the caution correctly specifies stoichiometric scaling, products minus reactants, and standard-state conditions. Topic 9.3 is where the CED requires this relationship."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula matches CED 9.3.A.3 exactly: \"EQN: \u0394G\u00b0reaction = \u03a3\u0394Gf\u00b0products \u2212 \u03a3\u0394Gf\u00b0reactants\". All four symbols are defined. \u03a3 is defined as a sum over species on each side, and the products/reactants terms are correctly defined as standard free energies of formation. The CED gives no explicit units, so the entry does not introduce a unit error. b_topic_codes: The formula first appears in Topic 9.3 (9.3.A.3), and owner_topic_code and topic_codes are both 9.3. c_ced_required: 9.3.A.3 states the relationship, and LO 9.3.A asks students to explain thermodynamic favorability based on \u0394G\u00b0, which this formula supports. d_caution: The entry's wording tracks the CED. The caution ('Each \u0394Gf\u00b0 is scaled by its stoichiometric coefficient... Applies to standard-state conditions') is present. The standard-state condition matches 9.3.A.1. The stoichiometric-coefficient scaling is correct chemistry but is not stated in these CED pages; it is an accurate addition, not a conflict."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u9-r9-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula, symbols, and definitions are fully accurate and directly supported by Topic 9.2 (specifically EK 9.2.A.1)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.2.A requires students to calculate standard entropy change from absolute entropies. Essential Knowledge 9.2.A.1 gives the equation \u201c\u0394S\u00b0reaction = \u03a3S\u00b0products \u2212 \u03a3S\u00b0reactants.\u201d The entry defines every symbol, and its caution correctly specifies stoichiometric scaling and products minus reactants."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches the CED equation verbatim: 9.2.A.1 'EQN: \u0394S\u00b0reaction = \u03a3S\u00b0products \u2212 \u03a3S\u00b0reactants'. All four symbols are defined in items (\u0394S\u00b0reaction, \u03a3, S\u00b0products, S\u00b0reactants), and the meanings match the CED: the entropy change is calculated 'from the absolute entropies of the species involved before and after the process', and the S\u00b0 terms are standard molar (absolute) entropies. The CED gives no unit constraint for this equation, so none is required. b_topic_codes: 9.2 is the topic that introduces this equation (9.2.A.1), and topic_codes lists only 9.2. c_ced_required: 9.2.A.1 is the essential knowledge for LO 9.2.A ('Calculate the standard entropy change for a chemical or physical process based on the absolute entropies'), so students must apply this formula. d_caution: The caution says each S\u00b0 is scaled by its stoichiometric coefficient before summing. The CED does not state this explicitly, but it is correct chemistry and is the standard way the \u03a3-sum is applied, so it adds a correct point and contradicts nothing. The product-minus-reactant direction is also stated correctly and matches the CED."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u9-r9-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula K = e^(-\u0394G\u00b0/RT) is explicitly required by Topic 9.5 (EK 9.5.A.2). All symbols are correctly defined, and the caution accurately addresses the common unit mismatch trap (kJ vs J) as well as the qualitative relationships described in EK 9.5.A.3 and 9.5.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.5.A.2 gives \u201cK = e\u2212\u0394G\u00b0/RT.\u201d The entry defines every symbol in that expression, and its energy-unit constraint is correct. Its sign and near-zero cautions match 9.5.A.3\u20134: \u0394G\u00b0 near zero gives K close to 1; \u0394G\u00b0 < 0 gives K > 1; and \u0394G\u00b0 > 0 gives K < 1. Topic 9.5 is the required location for this relationship."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body K = e^{-\u0394G\u00b0/RT} matches 9.5.A.2 verbatim ('EQN: K = e\u2212\u0394G\u00b0/RT'). All five symbols (K, e, \u0394G\u00b0, R, T) are defined in items, with no missing or extra symbols. The meanings are correct: K is the equilibrium constant, e the base of the natural log, \u0394G\u00b0 the standard Gibbs free energy change, R the gas constant, and T temperature. The caution's unit requirement (\u0394G\u00b0 and RT in the same energy units) is implied by the exponent being dimensionless, and kelvin is implied by the RT form. b_topic_codes: The K\u2013\u0394G\u00b0 relationship first appears in Topic 9.5 (9.5.A.2). Topic 9.3 uses only \u0394G\u00b0 = \u0394H\u00b0 \u2212 T\u0394S\u00b0, so owner 9.5 is correct and topic_codes ['9.5'] is correct. c_ced_required: Learning Objective 9.5.A ('Explain whether a process is thermodynamically favored using the relationships between K, \u0394G\u00b0, and T') requires students to apply this relation. d_caution: The entry wording matches the CED. The caution is accurate against 9.5.A.3 ('When \u0394G\u00b0 is near zero, the equilibrium constant will be close to 1') and 9.5.A.4 ('\u0394G\u00b0 < 0 favor products (i.e., K > 1) and those with \u0394G\u00b0 > 0 favor reactants (i.e., K < 1)'). It adds only a valid unit constraint, so no mismatch is present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u9-r9-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula is explicitly required by Topic 9.3 (EK 9.3.A.5: 'EQN: \u0394G\u00b0 = \u0394H\u00b0 \u2212 T \u0394S\u00b0'). All symbols are correctly defined. The caution directly addresses the common student misconception highlighted in the 'Preparing for the AP Exam' section on page 163 regarding reasoning about whether enthalpy, entropy, or both drive a reaction."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.3.A.5 gives the equation exactly: \u201c\u0394G\u00b0 = \u0394H\u00b0 \u2212 T \u0394S\u00b0.\u201d All four symbols are defined correctly, and the caution to use consistent energy units is necessary when applying it. Topic 9.3.A.2 states that a process with \u0394G\u00b0 < 0 is thermodynamically favored; 9.3.A.6 supports reasoning from the signs of \u0394H\u00b0 and \u0394S\u00b0. Topic 9.3 is the appropriate owner and listed topic."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula matches 9.3.A.5 exactly: 'EQN: \u0394G\u00b0 = \u0394H\u00b0 \u2212 T \u0394S\u00b0'. All four symbols (\u0394G\u00b0, \u0394H\u00b0, T, \u0394S\u00b0) are defined, with no missing or extra items. The meanings match the CED: \u0394G\u00b0 below 0 means thermodynamically favored (9.3.A.2), and \u0394H\u00b0 and \u0394S\u00b0 are the standard enthalpy and entropy changes. T as kelvin is implied, since the equation is only valid with T in K. The caution's 'consistent energy units' requirement is implied by the equation and does not contradict the CED. b_topic_codes: 9.3 is the first topic that requires this equation (9.3.A.5). Topic 9.2 covers only absolute entropy, and 9.5 uses \u0394G\u00b0 = \u2212RT ln K instead. c_ced_required: 9.3.A.5 states that knowing \u0394H\u00b0 and \u0394S\u00b0 'allows \u0394G\u00b0 to be calculated directly', and LO 9.3.A requires explaining favorability from \u0394G\u00b0. d_caution: The CED's Preparing for the AP Exam section warns that students claim 'both enthalpy and entropy drive the reaction by using the equation for Gibbs free energy' instead of reasoning about which term drives it. The caution targets exactly that error. It is consistent with 9.3.A.4 (both terms may need consideration) and 9.3.A.6 (both signs must support favorability before both can be cited as helping)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u9-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula and its qualitative application are explicitly required by Topic 9.10 (specifically EK 9.10.A.4). All symbols in the formula are defined correctly, and the caution accurately reflects the CED's warnings against algorithmic calculations and the misapplication of Le Ch\u00e2telier's principle (EK 9.10.A.2)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 9.10.A.4 gives E = E\u00b0 \u2212 (RT/nF) ln Q and requires its qualitative use; every symbol in the entry is defined. CED 9.10.A.3 states that E\u00b0 corresponds to Q = 1 and that the magnitude of E reaches zero as Q approaches K. CED 9.10.A.2 says Le Ch\u00e2telier\u2019s principle does not apply to electrochemical systems. Topic 9.10 is the first listed use of this equation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula E = E\u00b0 \u2212 (RT/nF) ln Q matches the CED verbatim in 9.10.A.4 (\"EQN: E = Eo \u2212 (RT/nF) ln Q\"). All seven symbols (E, E\u00b0, R, T, n, F, Q) are defined, and none is extra. Each meaning is consistent with the CED: 9.10.A.3 says \"the standard cell potential Eo corresponds to the standard conditions of Q = 1\", and the units (volts for E, kelvin for T) are correct. R has no unit given, and the CED gives none, so that is acceptable. b_topic_codes: 9.10 is the only topic where the Nernst equation appears in Unit 9 (9.9 uses \u0394G\u00b0 = \u2212nFE\u00b0, not the Nernst form), so owner_topic_code 9.10 is where it is first required and is the only topic code listed. c_ced_required: 9.10.A.4 requires students to 'qualitatively use' the Nernst equation and to 'solve problems' with conceptual reasoning, so the entry is required content. d_caution: The CED phrases the point as 'the qualitative use of the Nernst equation' and says 'algorithmic calculations using the Nernst equation are insufficient'. The caution reproduces this (\"algorithmic Nernst calculations alone are insufficient\"). It also correctly states '|E| shrinks to zero as Q approaches K', which matches 9.10.A.3 ('reaching zero at equilibrium (when Q = K)'), and 'Do not apply Le Ch\u00e2telier's principle' matches 9.10.A.2. The caution is present and correct.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u9-r9-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula \u0394G\u00b0 = \u2212RT ln K is explicitly required by Essential Knowledge 9.5.A.2. All variables are correctly defined, and the caution accurately reflects the relationship between K and \u0394G\u00b0 as described in 9.5.A.1 and 9.5.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.5.A.2 gives the equation \u201c\u0394G\u00b0 = \u2212RT ln K.\u201d The entry defines every symbol in the expression. Its caution matches 9.5.A.4: \u201cProcesses with \u0394G\u00b0 < 0 favor products (i.e., K > 1).\u201d No additional wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (9.5.A.2) gives 'EQN: \u0394G\u00b0 = \u2212RT ln K' verbatim, so the body matches. Every symbol in the expression is defined in items: \u0394G\u00b0 (standard Gibbs free energy change), R (gas constant), T (temperature in kelvin, which the RT product implies), and K (equilibrium constant). No symbol is missing or extra. The caution matches 9.5.A.1, which says \u0394G\u00b0 < 0 means 'products are favored at equilibrium (K > 1) under standard conditions', and 9.5.A.4 says \u0394G\u00b0 < 0 favors products (K > 1). b_topic_codes: 9.5 is where the \u0394G\u00b0\u2013K relationship is first required in this unit (9.5.A.2), and the entry uses only that topic. c_ced_required: 9.5.A.2 requires students to relate K and \u0394G\u00b0 by this equation, and the LO 9.5.A asks students to explain thermodynamic favorability using the relationships between K, \u0394G\u00b0, and T. d_caution: the CED wording is the equation itself, so no rephrasing caution is needed for the formula. The sign convention caution is correct and reinforces the point-earning relationship. hooks: none present, so no hook checks apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u9-r9-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula \u0394G\u00b0 = -nFE\u00b0 is explicitly required by Topic 9.9 (EK 9.9.A.3: 'EQN: \u0394Go = \u2212nFEo'). All symbols are correctly defined, and the caution accurately reflects the relationship between standard cell potential and thermodynamic favorability as described in the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 9.9.A.3 gives the equation \u201c\u0394G\u00b0 = \u2212nFE\u00b0\u201d and states that positive E\u00b0 indicates a thermodynamically favored reaction, while negative E\u00b0 indicates an unfavored one. The entry defines every symbol, and its unit guidance is consistent with the equation. Topic 9.8.A.2 identifies galvanic cells with favored reactions; 9.9 is the first topic that requires this equation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED (Topic 9.9, 9.9.A.3) gives the equation '\u0394Go = \u2212nFEo'. The body matches it exactly. Every symbol is defined: \u0394G\u00b0 (standard Gibbs free energy change of the cell reaction), n (moles of electrons transferred), F (Faraday constant, charge per mole of electrons), and E\u00b0 (standard cell potential). No extra items are listed. The CED implies E\u00b0 in volts and F in C/mol e\u2212, which the items and caution respect, so the units are consistent. b_topic_codes: 9.9 is the first unit topic that uses \u0394G\u00b0 = \u2212nFE\u00b0. The equation appears only in 9.9.A.3 in these pages. The owner and only topic code are both 9.9. c_ced_required: 9.9.A.3 states '\u0394Go is proportional to the negative of the cell potential... EQN: \u0394Go = \u2212nFEo', and LO 9.9.A requires explaining thermodynamic favorability from E\u00b0 of an electrochemical cell, so students must apply this relation. d_caution: The caution states that positive E\u00b0 is thermodynamically favored (galvanic) and negative E\u00b0 is unfavored (needs an applied potential). This matches 9.9.A.1 ('positive voltage... negative voltage and requiring an externally applied potential') and 9.8.A.2 (galvanic = favored, electrolytic = unfavored). The caution about keeping units consistent is also a valid, non-contradicting instruction. The caution is present where the wording needs it, so the check passes."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

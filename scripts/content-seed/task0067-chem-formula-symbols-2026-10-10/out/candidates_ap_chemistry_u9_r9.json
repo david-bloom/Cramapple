@@ -1,0 +1,286 @@
+[
+  {
+    "owner_topic_code": "9.10",
+    "topic_codes": [
+      "9.10"
+    ],
+    "kind": "formula",
+    "title": "Nernst equation (qualitative use)",
+    "body": "E = E^{\\circ} - \\frac{RT}{nF}\\ln Q",
+    "items": [
+      {
+        "label": "E",
+        "meaning": "cell potential under the actual (nonstandard) conditions (volts)"
+      },
+      {
+        "label": "E^{\\circ}",
+        "meaning": "standard cell potential, which corresponds to Q = 1 (volts)"
+      },
+      {
+        "label": "R",
+        "meaning": "gas constant"
+      },
+      {
+        "label": "T",
+        "meaning": "temperature (kelvin)"
+      },
+      {
+        "label": "n",
+        "meaning": "moles of electrons transferred in the redox reaction"
+      },
+      {
+        "label": "F",
+        "meaning": "Faraday constant (charge per mole of electrons)"
+      },
+      {
+        "label": "Q",
+        "meaning": "reaction quotient for the cell reaction"
+      }
+    ],
+    "caution": "Use it qualitatively: algorithmic Nernst calculations alone are insufficient. Justify with concentration effects and distance from equilibrium (|E| shrinks to zero as Q approaches K). Do not apply Le Ch\u00e2telier's principle to the cell.",
+    "ced_evidence": "9.10.A.4 \"the qualitative use of the Nernst equation: E = Eo \u2212 (RT/nF) ln Q\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u9-r9-001",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "9.11",
+    "topic_codes": [
+      "9.11"
+    ],
+    "kind": "formula",
+    "title": "Current and charge",
+    "body": "I = \\frac{q}{t}",
+    "items": [
+      {
+        "label": "I",
+        "meaning": "current (amperes, i.e. coulombs per second)"
+      },
+      {
+        "label": "q",
+        "meaning": "charge that flows (coulombs)"
+      },
+      {
+        "label": "t",
+        "meaning": "time elapsed (seconds)"
+      }
+    ],
+    "caution": "Time must be in seconds when current is in amperes and charge is in coulombs.",
+    "ced_evidence": "9.11.A.1 EQN: I = q/t",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u9-r9-002",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "9.2",
+    "topic_codes": [
+      "9.2"
+    ],
+    "kind": "formula",
+    "title": "Standard entropy change of a reaction",
+    "body": "\\Delta S^{\\circ}_{reaction} = \\Sigma S^{\\circ}_{products} - \\Sigma S^{\\circ}_{reactants}",
+    "items": [
+      {
+        "label": "\\Delta S^{\\circ}_{reaction}",
+        "meaning": "standard entropy change for the process"
+      },
+      {
+        "label": "\\Sigma",
+        "meaning": "sum over all species on that side of the equation"
+      },
+      {
+        "label": "S^{\\circ}_{products}",
+        "meaning": "absolute (standard molar) entropies of the products"
+      },
+      {
+        "label": "S^{\\circ}_{reactants}",
+        "meaning": "absolute (standard molar) entropies of the reactants"
+      }
+    ],
+    "caution": "Each S\u00b0 is scaled by its stoichiometric coefficient before summing. Products minus reactants.",
+    "ced_evidence": "9.2.A.1 EQN: \u0394Sreaction = \u03a3Sproducts \u2212 \u03a3Sreactants",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u9-r9-003",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "9.3",
+    "topic_codes": [
+      "9.3"
+    ],
+    "kind": "formula",
+    "title": "Gibbs free energy equation",
+    "body": "\\Delta G^{\\circ} = \\Delta H^{\\circ} - T\\Delta S^{\\circ}",
+    "items": [
+      {
+        "label": "\\Delta G^{\\circ}",
+        "meaning": "standard Gibbs free energy change; below 0 means thermodynamically favored"
+      },
+      {
+        "label": "\\Delta H^{\\circ}",
+        "meaning": "standard enthalpy change"
+      },
+      {
+        "label": "T",
+        "meaning": "temperature (kelvin)"
+      },
+      {
+        "label": "\\Delta S^{\\circ}",
+        "meaning": "standard entropy change"
+      }
+    ],
+    "caution": "Use consistent energy units for \u0394H\u00b0 and T\u0394S\u00b0. When arguing favorability, reason from the signs of \u0394H\u00b0 and \u0394S\u00b0 and say which term drives the process; do not claim both help unless both signs support it.",
+    "ced_evidence": "9.3.A.5 EQN: \u0394G\u00b0 = \u0394H\u00b0 \u2212 T \u0394S\u00b0",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u9-r9-004",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "9.3",
+    "topic_codes": [
+      "9.3"
+    ],
+    "kind": "formula",
+    "title": "\u0394G\u00b0 from standard free energies of formation",
+    "body": "\\Delta G^{\\circ}_{reaction} = \\Sigma\\Delta G_f^{\\circ}{}_{products} - \\Sigma\\Delta G_f^{\\circ}{}_{reactants}",
+    "items": [
+      {
+        "label": "\\Delta G^{\\circ}_{reaction}",
+        "meaning": "standard Gibbs free energy change for the process"
+      },
+      {
+        "label": "\\Sigma",
+        "meaning": "sum over all species on that side of the equation"
+      },
+      {
+        "label": "\\Delta G_f^{\\circ}{}_{products}",
+        "meaning": "standard Gibbs free energies of formation of the products"
+      },
+      {
+        "label": "\\Delta G_f^{\\circ}{}_{reactants}",
+        "meaning": "standard Gibbs free energies of formation of the reactants"
+      }
+    ],
+    "caution": "Each \u0394Gf\u00b0 is scaled by its stoichiometric coefficient. Products minus reactants. Applies to standard-state conditions.",
+    "ced_evidence": "9.3.A.3 EQN: \u0394G\u00b0reaction = \u03a3\u0394Gf \u00b0products \u2212 \u03a3\u0394Gf \u00b0reactants",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u9-r9-005",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "9.5",
+    "topic_codes": [
+      "9.5"
+    ],
+    "kind": "formula",
+    "title": "Equilibrium constant from \u0394G\u00b0",
+    "body": "K = e^{-\\Delta G^{\\circ}/RT}",
+    "items": [
+      {
+        "label": "K",
+        "meaning": "equilibrium constant"
+      },
+      {
+        "label": "e",
+        "meaning": "base of the natural logarithm"
+      },
+      {
+        "label": "\\Delta G^{\\circ}",
+        "meaning": "standard Gibbs free energy change"
+      },
+      {
+        "label": "R",
+        "meaning": "gas constant"
+      },
+      {
+        "label": "T",
+        "meaning": "temperature (kelvin)"
+      }
+    ],
+    "caution": "\u0394G\u00b0 and RT must be in the same energy units. \u0394G\u00b0 < 0 gives K > 1 and \u0394G\u00b0 > 0 gives K < 1. When \u0394G\u00b0 is near zero, K is close to 1.",
+    "ced_evidence": "9.5.A.2 EQN: K = e^(\u2212\u0394G\u00b0/RT)",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u9-r9-006",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "9.5",
+    "topic_codes": [
+      "9.5"
+    ],
+    "kind": "formula",
+    "title": "\u0394G\u00b0 from the equilibrium constant",
+    "body": "\\Delta G^{\\circ} = -RT\\ln K",
+    "items": [
+      {
+        "label": "\\Delta G^{\\circ}",
+        "meaning": "standard Gibbs free energy change"
+      },
+      {
+        "label": "R",
+        "meaning": "gas constant"
+      },
+      {
+        "label": "T",
+        "meaning": "temperature (kelvin)"
+      },
+      {
+        "label": "K",
+        "meaning": "equilibrium constant"
+      }
+    ],
+    "caution": "The sign is negative: K > 1 corresponds to \u0394G\u00b0 < 0 (products favored at equilibrium under standard conditions).",
+    "ced_evidence": "9.5.A.2 EQN: \u0394G\u00b0 = \u2212RT ln K",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u9-r9-007",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "9.9",
+    "topic_codes": [
+      "9.9"
+    ],
+    "kind": "formula",
+    "title": "Free energy and standard cell potential",
+    "body": "\\Delta G^{\\circ} = -nFE^{\\circ}",
+    "items": [
+      {
+        "label": "\\Delta G^{\\circ}",
+        "meaning": "standard Gibbs free energy change of the cell reaction"
+      },
+      {
+        "label": "n",
+        "meaning": "moles of electrons transferred in the redox reaction"
+      },
+      {
+        "label": "F",
+        "meaning": "Faraday constant (charge per mole of electrons)"
+      },
+      {
+        "label": "E^{\\circ}",
+        "meaning": "standard cell potential (volts)"
+      }
+    ],
+    "caution": "\u0394G\u00b0 is proportional to the negative of E\u00b0. Positive E\u00b0 means thermodynamically favored (galvanic) and negative E\u00b0 means unfavored (needs an applied potential). Keep the units of F and E\u00b0 consistent with \u0394G\u00b0.",
+    "ced_evidence": "9.9.A.3 EQN: \u0394Go = \u2212nFEo",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u9-r9-008",
+    "subject_key": "ap_chemistry",
+    "unit_number": 9,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

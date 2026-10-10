@@ -875,6 +875,29 @@ export async function handleStudentSessionItems(
       teachingFiltered.items,
     );
 
+    // Question experience (APPROVAL-0145): record the served items, in order,
+    // so get_question_experience can give the N/M counter and resume position.
+    // Idempotent (a re-sent page appends nothing). Fail-soft: a recording
+    // failure is logged, never allowed to block serving -- `{ error }` is
+    // checked because supabase-js returns it rather than throwing (IDG-5).
+    if (annotatedItems.length > 0) {
+      const { error: appendError } = await service.schema("app").rpc(
+        "append_learning_session_items",
+        {
+          p_learning_session_id: learningSessionId,
+          p_content_item_version_ids: annotatedItems.map((i) =>
+            i.content_item_version_id
+          ),
+        },
+      );
+      if (appendError) {
+        console.error(
+          "learning_session_items_append_failed",
+          appendError.message,
+        );
+      }
+    }
+
     return respond({
       status: "ok",
       function: "student-session-items",

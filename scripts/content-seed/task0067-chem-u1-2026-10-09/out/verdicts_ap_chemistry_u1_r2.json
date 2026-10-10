@@ -1,0 +1,249 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u1-r2-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'empirical formula' is factually accurate and directly aligned with Essential Knowledge statement 1.3.A.3, which states: 'The chemical formula that lists the lowest whole number ratio of atoms of the elements in a compound is the empirical formula.' The topic code is correct and the content is required for Unit 1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 1.3, EK 1.3.A.3 states: \u201cThe chemical formula that lists the lowest whole number ratio of atoms of the elements in a compound is the empirical formula.\u201d The entry matches this definition exactly in substance, uses the correct topic, and needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 1.3.A.3 (\"The chemical formula that lists the lowest whole number ratio of atoms of the elements in a compound is the empirical formula\"). The body inverts the sentence order but keeps the same definition, with the same members and the same 'lowest whole number ratio of atoms' qualifier. b_topic_codes: 1.3.A (\"Explain the quantitative relationship between the elemental composition by mass and the empirical formula of a pure substance\") is the first and only place in these Unit 1 pages that requires the term, so owner 1.3 and topic_codes [1.3] are correct. c_ced_required: 1.3.A and essential knowledge 1.3.A.3 require students to know and apply the empirical formula, so this is CED-required content. d_caution: The entry wording is essentially the CED wording. The point-earning phrase ('lowest whole number ratio of atoms of the elements in a compound') is preserved verbatim, so no caution is needed and caution: null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r2-003",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 1.8.A.1, which states: 'The likelihood that two elements will form a chemical bond is determined by the interactions between the valence electrons and nuclei of elements.' The topic codes and unit number are correct."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.8.A.1 requires this relationship, but the CED says, \u201cThe likelihood that two elements will form a chemical bond is determined by the interactions between the valence electrons and nuclei of elements.\u201d The entry changes \u201clikelihood\u201d to \u201cwhether,\u201d turning a statement about likelihood into a categorical one. It provides no caution about that difference."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 1.8 is correct, and EK 1.8.A.1 requires this relationship. But the CED says, \u201cThe likelihood that two elements will form a chemical bond is determined by the interactions between the valence electrons and nuclei of elements.\u201d The entry changes \u201clikelihood\u201d to the categorical \u201cwhether\u201d and provides no caution about that difference."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r2-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula for Coulomb's law is factually correct and matches the equation given in Topic 1.5 (EK 1.5.A.2: 'EQN: Fcoulombic \u221d q1q2/r^2'). The topic codes are accurate as Coulomb's law is introduced in Topic 1.5 and used qualitatively to explain periodic trends in Topic 1.7 (EK 1.7.A.2)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches the equation in 1.5.A.2: \u201cFcoulombic \u221d q1q2/r\u00b2.\u201d Topic 1.5 first requires it; 1.7.A.2 also requires qualitative use of Coulomb\u2019s law to understand periodic trends. The wording needs no caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body F_{coulombic} \\propto q1q2/r^2 matches the CED EQN line in 1.5.A.2 (\"EQN: Fcoulombic \u221d q1q2/r^2\"). The symbols, proportionality, and the squared distance term are all as printed. b_topic_codes: 1.5.A.2 first appears in Topic 1.5 (Atomic Structure and Electron Configuration), so owner_topic_code 1.5 is correct. Topic 1.7 is also a valid entry because 1.7.A.2 requires Coulomb's law to qualitatively explain periodic trends, and 1.5.A.4 uses it the same way. c_ced_required: 1.5.A.2 states \"Coulomb's law is used to calculate the force between two charged particles\" and gives the equation, so students must reproduce and apply it. d_caution: The entry uses the CED's own proportional wording (\u221d with no constant k), so the point-earning wording is what the entry shows and no caution is needed. caution null is correct. hooks: none supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u1-r2-004",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the four concepts specified in EK 1.7.A.2 ('Coulomb\u2019s law, the shell model, and the concepts of shielding and effective nuclear charge') in the exact order they appear, with definitions aligned with Unit 1 content (e.g., Coulomb's law formula from EK 1.5.A.2 and shell model description from EK 1.5.A.3)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 1.7.A.2 says periodic trends can be \u201cqualitatively understood using Coulomb\u2019s law, the shell model, and the concepts of shielding and effective nuclear charge,\u201d in the entry\u2019s order. CED 1.5.A.2 gives the Coulombic-force proportionality q\u2081q\u2082/r\u00b2, and 1.5.A.3 describes shells and subshells. Topic 1.7 is where the CED requires these ideas together to explain periodic trends. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The four labels, their order, and the meanings match the CED. 1.7.A.2 reads 'qualitatively understood using Coulomb's law, the shell model, and the concepts of shielding and effective nuclear charge,' which is the same list in the same order. The Coulomb formula matches 1.5.A.2 (F \u221d q1q2/r\u00b2). The shell-model meaning matches 1.5.A.3 ('shells (energy levels)' and 'subshells (sublevels)'). The shielding and effective-charge meanings match 1.5.A.4 ('effective (shield) charge of the nucleus'). b_topic_codes: fails. owner_topic_code is 1.7, but the unit first requires these ideas in Topic 1.5. 1.5.A.2 introduces Coulomb's law, 1.5.A.3 introduces the shell model, and 1.5.A.4 introduces shielding and effective charge. Topic 1.7 (1.7.A.2) applies them, so 1.7 is a valid topic_codes entry, but the owner should be 1.5 under the 'first requires it' rule. c_ced_required: passes. 1.7.A.2 requires students to qualitatively explain periodic trends with these four ideas. d_caution: passes. The labels are the CED's own terms, and the meanings are paraphrases that do not contradict the CED, so no caution is needed. The null caution is correct."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body, the four items, and their order match 1.7.A.2 (\"qualitatively understood using Coulomb's law, the shell model, and the concepts of shielding and effective nuclear charge\"). The Coulomb's law meaning matches the 1.5.A.2 EQN (F \u221d q1q2/r^2). The shell model meaning matches 1.5.A.3 (\"shells (energy levels)\" and \"subshells (sublevels)\"). The shielding and effective nuclear charge meanings match 1.5.A.4 (\"effective (shield) charge of the nucleus\"). b_topic_codes: owner_topic_code 1.7 is not where the unit first requires these ideas. Topic 1.5 requires Coulomb's law (1.5.A.2), the shell model (1.5.A.3), and effective (shield) charge (1.5.A.4) before 1.7 does. The owner should be 1.5, or the entry should be justified as first required in 1.5 with 1.7 as a user. topic_codes [1.7] is itself valid because 1.7 uses the tools. c_ced_required: 1.7.A.1 and 1.7.A.2 require students to explain periodic trends with these ideas, so this is required. d_caution: the item labels and meanings use the CED's own terms (Coulomb's law, shell model, shielding, effective nuclear charge), so no caution is needed. accept is false solely because of b_topic_codes.",
+            "...": ""
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

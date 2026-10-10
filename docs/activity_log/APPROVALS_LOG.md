@@ -9,6 +9,11 @@ Most recent entries (full chronological list follows below):
 - APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111 (2026-10-09)
 - APPROVAL-0144 — Execute TASK-0069 to Production: Seven Migrations, Secrets, Four Function Deploys, Production Smoke, Dark Lovable Publish — DECISION-0109 / 0110 / 0111 (2026-10-10)
 - APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production) (2026-10-09)
+- APPROVAL-0145 — Question Experience Read Model Migration + BYOQ Topic Reference for Signed-Out Visitors (Production) (2026-10-10)
+- APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production (2026-10-10)
+- APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion) (2026-10-10)
+- APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production) (2026-10-10)
+- APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production) (2026-10-10)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
 - APPROVAL-0139 — Approve BYOQ Photo Extraction Plan v2 (Gate A) and Open TASK-0068; Close TASK-0039 — DECISION-0108 (2026-10-08)
@@ -2063,6 +2068,131 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
 - **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
 - Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
+
+## APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session). Claude recommended "generate practice MCQs for the thin Unit 1 topics, starting with 1.2 and 1.8, through the normal pipeline"; David answered: "do all of your recommendations".  
+**Related:** batch `scripts/content-seed/chem-u1-mcq-1-2-1-8-2026-10-10/` (branch `claude/chem-u1-mcq-1-2-1-8`, commit `f04bdc8d`), `publish_mcq_batch.py`, `DECISION-0099`/`0101`/`0102`, `APPROVAL-0134` (the earlier set-aside of bank duplicates).  
+**Decision:** Approved
+
+**Scope:** publish 9 generate-and-select practice MCQs (no hand edits).
+- **1.2 Mass Spectra of Elements:** `apchem-mcq-080`, `081` + `sv-081-v1`, `082` + `sv-082-v1`.
+- **1.8 Valence Electrons and Ionic Compounds:** `apchem-mcq-083` + `sv-083-v1`, `084` + `sv-084-v1`.
+- Before this, both topics had zero practice MCQs in Production; their only MCQs were the Open Hand teaching items.
+
+**Gates passed:**
+- Controls 6/6 caught; keys re-derived 9/9 (`recompute.py`).
+- Skill votes validated (4 of 4 on every seed except `080`, 3 of 4).
+- CED exclusions respected; compared against all 200 published Chemistry MCQs.
+- Two first seeds that copied the Open Hand items were set aside, as under APPROVAL-0134; one 1.2 slot stays escalated.
+
+**Noted:**
+- **Key distribution:** A1 B4 C3 D1, hash-placed and not reshuffled.
+- **No Development load:** Dev's schema has drifted (no `content_review_decisions.tutor_decision`; skill-grid and manifest rows missing). The safety step is the Production rehearsal, rolled back.
+- **Plan file:** `plan_publish.json` md5 `cf0781b3…`.
+
+**Rollback:** set the 9 items and their versions to `retired` by `content_key` (`apchem-mcq-080`–`084`, `apchem-sv-081-v1`–`084-v1`).
+
+## APPROVAL-0149 — AP Chemistry Formula Entries: Symbol Definitions Added via Re-Extraction (Development + Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session), on the recommendation "fix the extraction prompt, then re-run every Chemistry formula entry through the pipeline": "Go ahead with 5".  
+**Related:** `scripts/content-seed/task0067-chem-formula-symbols-2026-10-10/README.md`; `APPROVAL-0147`, `APPROVAL-0148`.  
+**Decision:** Approved
+
+**Scope:**
+- Re-extract all 46 AP Chemistry `formula` entries with REQUIRED symbol definitions in `items` (meanings + units) and use conditions in `caution`, then re-check them (two checkers + veto; 3/3 symbol-defect controls caught).
+- Write the 44 accepted rows in place on the unique key, changing only body/items/caution plus a `fmt=` provenance note. Topic tags, ids and hooks are unchanged.
+- Two rows (Unit 1 Coulomb's law; Unit 8 conjugate pair Ka·Kb = Kw) were not accepted and keep their current version.
+- Applied to Development (44 rows) and Production (37 rows; Unit 8 is not in Production).
+
+**Verified:** Development 44/46 and Production 37/38 formulas carry symbol definitions; QA checks 4–7 ok in both; the RPC serves the new `items`.
+
+**Rollback:** the prior body/caution for each row is in the batch's `out/current_formulas_dev.json` (Development values; the Production rows were loaded from the same SQL), with `items = '[]'`. Restore by the same unique key.
+
+## APPROVAL-0148 — AP Chemistry Reference Packs: All Nine Units to Production (Units 2–3 Loaded; 5–9 on Completion)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session). After learning that only Units 1 and 4 were in Production, he said: "Chemistry should have all units. Those were built as a beta." Then, on the plan to promote Units 2–3 and build 5–9 for one Production approval: "I approve".  
+**Related:** Units 2–3 batch `scripts/content-seed/ap-chemistry-reference-u2-u3-2026-10-10/` (branch `claude/task-0067-production-records`, commits `383d41c5`, `1fed307c`, handoff `docs/handoffs/REFERENCE_PACKS_UNITS_1_3_ALL_SUBJECTS_2026_10_10.md`); Units 5–9 batch `scripts/content-seed/task0067-chem-u5-u9-2026-10-10/`; `APPROVAL-0140`, `APPROVAL-0147`.  
+**Decision:** Approved
+
+**Units 2–3, loaded 2026-10-10:**
+- Source: that batch's committed `out/load_ap_chemistry_u2.sql` (md5 `225c2ee9…`, 21 entries) and `out/load_ap_chemistry_u3.sql` (md5 `35b3547d…`, 32 entries), as regenerated after the Product Owner–directed correction pass. Before loading, the entry keys (owner topic, kind, title) were compared with Development: identical, 21/21 and 32/32. No hooks; no open escalations in this batch.
+- Production now has AP Chemistry Units 1–4 = 26 / 21 / 32 / 22.
+- QA checks 1–8 ok. `get_topic_point_guides` probes match Development: 2.6 → 4, 3.4 → 4, Unit 2 → 21, Unit 3 → 32.
+
+**Units 5–9:** to be loaded unit by unit after each Development batch completes. Each unit needs controls 6/6 caught, both checkers plus the veto, the Development load and QA. Any unit with open escalations loads only its accepted rows; escalations wait for a Product Owner decision. Each load is recorded as an amendment below.
+
+**Amendment (same day), Units 5, 6, 7, 9 loaded:** each Development batch passed (controls 6/6 caught, both checkers plus the Haiku veto, the Development load, QA checks 4–7 ok). Each loaded to Production from its generated `out/load_ap_chemistry_u<n>.sql` in `scripts/content-seed/task0067-chem-u5-u9-2026-10-10/`, with no edits, and the Production counts matched Development:
+- Unit 5: 27 entries + 1 hook (md5 `ca7d8ba2…`)
+- Unit 6: 20 entries (md5 `5caf7385…`)
+- Unit 7: 20 entries (md5 `a0c0acb5…`)
+- Unit 9: 23 entries + 1 hook "An Ox, Red Cat" (md5 `75336ff8…`)
+
+QA checks 4–7 ok in Production after each load. **Unit 8 is held in Development** (29 entries): round 2 loaded two content duplicates (pKa, pKw), and the five escalations cover Henderson–Hasselbalch, Kb, buffer, titration curve, and weak base + strong acid. It needs a Product Owner decision before Production. Escalations awaiting decision: Unit 5 ×3, Unit 6 ×1, Unit 7 ×1 (Kp), Unit 8 ×5, Unit 9 ×1 (batch READMEs `out/README_u<n>.md`). Batch cost about $8.73 (Unit 5 $1.78, Unit 6 $1.21, Unit 7 $1.40, Unit 8 $2.79, Unit 9 $1.55).
+
+**Amendment 2 (same day), Unit 8 and the escalations (`DECISION-0113`):** Unit 8 loaded to Production complete. The steps, in order:
+1. Original batch SQL
+2. Its 7 formula symbol-definition updates
+3. Retire the 2 duplicates
+4. The round-3 rows
+
+Nine escalated rows were re-extracted, checked and loaded to Development and Production (`task0067-chem-escalations-r3-2026-10-10`). Production equals Development: U1 26 · U2 21 · U3 32 · U4 22 · U5 29 · U6 20 · U7 21 · U8 32 · U9 24 = **227 published AP Chemistry entries, all nine units**. QA checks 1–8 ok; RPC counts identical. No AP Chemistry escalation is open: catalysis types stays out (failed on content); Unit 6 thermal-energy-flow was dropped.
+
+**Rollback (any unit):** `update app.unit_reference_entries set status='retired' where subject_key='ap_chemistry' and unit_number = <n> and source_note like '%batch=<batch id>%';` (retire hooks first when present).
+
+## APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session): "Move all changes to production."  
+**Related:** batch `scripts/content-seed/task0067-chem-u1-2026-10-09/` (README: method, controls, completeness disposition, escalations), `docs/product/AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md` (Reference Pack build protocol), `docs/product/MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md`, `APPROVAL-0140` (the system this extends), `DECISION-0107` (Haiku 5.5 veto). Number note: `APPROVAL-0146` is held by another branch.  
+**Decision:** Approved
+
+**Approved scope:** load the batch's generated `out/load_ap_chemistry_u1.sql` (md5 `6c28a7605d1b1f2b3d354b809500694e`; 24 `app.unit_reference_entries` + 1 `app.topic_memory_hooks`) into Production, exactly as loaded into Development, with no retyping or edits.
+- Pipeline: Sonnet 5.5 extraction from CED pp. 29–45; Gemini 3.5 Flash + GPT-6 Sol checkers; Haiku 5.5 reject-only veto, smoke-tested 3/3 before first use. Controls 6/6 caught. Round 1 accepted 22 of 26; a stateless round 2 accepted 2 more.
+- **Not included:** the two Product Owner escalations (`ap_chemistry-u1-r2-003`, 1.8 "bond likelihood"; `ap_chemistry-u1-r2-004`, 1.7 "tools for periodic trends"). Both remain undecided and unloaded.
+
+**Production verification (2026-10-10):**
+- Before: 8 verified Unit 1 topics, 0 Unit 1 entries.
+- After: 24 Unit 1 entries (46 AP Chemistry entries in all), 4 hooks.
+- `unit_reference_and_memory_hooks_qa.sql` checks 1–8: all ok.
+- `get_topic_point_guides` (authenticated) returned the same counts as Development:
+  - 1.5 → 8 entries, 1 hook
+  - 1.7 → 6 entries
+  - Unit 1 roll-up → 24 entries
+  - 2.1 → 0 entries, briefs unchanged
+  - 4.9 regression → 4 entries, 1 hook
+- Signed-out `byoq` round trip on 1.5 → 8 entries + the diagonal-rule hook; the probe item was deleted.
+- No frontend publish was needed: the content reaches Lesson Notes, the reference pane, `/question` and BYOQ through the existing RPCs.
+
+**Amendment (same day):** David: "Accept the escalations." Under `DECISION-0112`, the two escalated entries (`ap_chemistry-u1-r2-003`, `-004`) were loaded to Development and Production from `out/load_ap_chemistry_u1_po_accept.sql` (generated by `load.py --po-accept`, with no edits). AP Chemistry Unit 1 is now 26 entries + 1 hook in both environments. QA checks 4–7 were rerun: all ok. The Development probe seed rows (`a0a0a0a0-…`, APPROVAL-0145 hand-back) were removed the same day with `scripts/qa/question_experience_dev_teardown.sql`; 0 rows remain.
+
+**Rollback:** retire the hook first, then the entries: `update app.topic_memory_hooks set status='retired' where reference_entry_id in (select reference_entry_id from app.unit_reference_entries where source_note like '%batch=task0067-chem-u1-2026-10-09%'); update app.unit_reference_entries set status='retired' where source_note like '%batch=task0067-chem-u1-2026-10-09%';`
+
+## APPROVAL-0145 — Question Experience Read Model Migration + BYOQ Topic Reference for Signed-Out Visitors (Production)
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session), after the Development hand-back: "I approve the migration plus the byoq change for Production."  
+**Related:** `docs/handoffs/QUESTION_EXPERIENCE_BACKEND_HANDBACK_2026_10_10.md` (findings, RPC contract, Development probes), `supabase/migrations/20261010040000_question_experience_read_model.sql`, commit `3a55ec87` (`byoq`), branch `claude/chem-reference-pack-u1`. Number note: `APPROVAL-0144` is held by open PR #398.  
+**Decision:** Approved
+
+**Approved scope:**
+- Migration `20261010040000_question_experience_read_model` applied to Production, with the ledger row recorded under the file's own version: `app.learning_session_items` (+ service-role-only `app.append_learning_session_items`), `app.content_item_comparison_answers` (per-variant `is_published`, publish guard, no client grant), and `public.get_question_experience(uuid, integer)` (authenticated + service_role only). Before applying, a read-only check confirmed every column and function the migration depends on exists in Production and that neither table did yet.
+- Edge function `byoq` deployed to Production as v15 (`verify_jwt` off, as before). A file-by-file comparison against the deployed v14 found the only difference was `store.ts` from `3a55ec87`: `get_item`'s `reference.guides` now also carries `reference[]` and `memoryHooks[]`, shaped like `get_topic_point_guides`.
+- Not in scope: no Production data seeded; no Lovable publish; `student-session-items` still does not write `learning_session_items` (so `counter` is null for real sessions until that change); the AP Chemistry Unit 1 reference batch remains Development-only.
+
+**Production verification (2026-10-10):**
+- Objects, ledger, forced RLS, zero client grants on comparison answers, anon cannot execute the RPC, authenticated cannot execute the append function.
+- RPC as anon → permission denied; with no user → `not_authenticated`; another user's session → `question_experience:session_not_found`; the most recent real session as its owner → `counter: null`, item null (no stored items yet, as expected).
+- `byoq` signed-out round trip: create item on AP Chemistry 4.9 → `get_item` returned 4 reference entries and the OIL RIG hook (matching the RPC) → the probe item was deleted (`delete_item` ok). Its anonymous owner row is left for the normal retention sweep.
+
+**Amendment (same day):** David: "approve student-session-items for Production; check first." Before the deploy, a file-by-file comparison of Production v38 (deployed 2026-10-10T03:18:29Z, already carrying the TASK-0069 changes) against the branch found exactly one difference: commit `919ad68f`, which records each served page through `app.append_learning_session_items` and only logs an error if that fails (`{ error }` checked). All six bundled `_shared` files were byte-identical. Deployed as v39 (`verify_jwt` off, as before). Smoke: a request with no user → 401; `service_role` can execute the append; 0 rows until the next real page is served. Rollback: redeploy from `919ad68f^`.
+
+**Amendment 2 (same day):** David: "I approve the migration." Migration `20261010120000_question_experience_served_items` (commit `9b35987d`) applied to Production, with the ledger row recorded under the file's version. It replaces only the function: `get_question_experience` gains `servedItems [{ordinal, contentItemVersionId, itemType, submitted}]` so the question page can rebuild its skip count from one call instead of one call per earlier question. Every existing key is unchanged; the Dev probes were byte-identical on the other keys. Pre-check: Production's latest migration was `20261010040000`. Probes (read-only): anon → permission denied; no user → `not_authenticated`; another user's session → `session_not_found`. The one real session with recorded items, read as its owner, returned `servedItems` 10, `counter 1/10`, `resume start_item`, and an item. Frontend counterpart: Lovable `a4359834` (reviewed, no defects; publishing is David's call). Rollback: re-run the `get_question_experience` definition from `20261010040000` and delete ledger row `20261010120000`.
+
+**Rollback:** redeploy `byoq` from `3a55ec87^`. For the migration: `drop function public.get_question_experience(uuid, integer); drop table app.content_item_comparison_answers; drop function app.guard_comparison_answer_publish(); drop table app.learning_session_items; drop function app.append_learning_session_items(uuid, uuid[]);` and delete the ledger row `20261010040000`. Both tables were empty at apply, and nothing else references them.
 
 ## APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production)
 

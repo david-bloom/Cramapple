@@ -7,6 +7,8 @@ This log records product, architecture, operating, security, design, and workflo
 Most recent entries (full chronological list follows below):
 
 - DECISION-0111 — Student Photo Retention for Hand-Drawn Responses: Kept While the Account Exists, Bytes Redacted 24 Months After the Attempt or on Deletion/Erasure, Audit Row and Digest Kept (Plan D4)
+- DECISION-0112 — AP Chemistry Unit 1 Reference Escalations: Both Accepted (1.8 Bond Likelihood, 1.7 Tools for Periodic Trends)
+- DECISION-0113 — AP Chemistry Units 5–9 Escalations: Owner/Tag Fixes, Qualifier-Preserving Re-Extraction, One Drop, Unit 8 Duplicates Retired
 - DECISION-0110 — A Photographed FRQ Answer Is Graded Only After the Student Confirms the Transcript; the Confirmation Screen Asks the Student to Add Anything Missing So Cramapple Can Help (Plan D2, Conditioned)
 - DECISION-0109 — Same-Device Camera Capture for Hand-Drawn Responses When the Student Is Already on a Phone; QR Remains the Desktop Handoff (Narrow Amendment to DECISION-0051; Plan D1)
 - DECISION-0108 — BYOQ Photo Extraction With Student Confirmation Replaces Typed Transcription and TASK-0039 Phase 3: Photos Only, Subject/Unit From Context, OpenAI Build-Measure-Switch, Student Answer Marks Stored, Phone-Side Review, No Policy Change, No Spend Cap; TASK-0068 Opened
@@ -62,6 +64,36 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0113 — AP Chemistry Units 5–9 Escalations: Owner/Tag Fixes, Qualifier-Preserving Re-Extraction, One Drop, Unit 8 Duplicates Retired
+
+- **Date:** 2026-10-10
+- **Decided by:** David Bloom (Product Owner), in session, on Claude's recommendations: "do all of your recommendations … yes, do those too."
+- **Decisions:**
+  1. Owner/tag escalations go through a fresh extraction with the corrected owner and tags pinned:
+     - Kp/Qp → 7.3 `[7.3, 7.4, 7.7]`
+     - Kb → 8.3 `[8.3]`
+     - Buffer solution → 8.4
+     - Maxwell–Boltzmann → 5.5 `[5.5]`
+     - Henderson–Hasselbalch → owner **8.4**, `[8.4, 8.9]`, by the first-requiring-topic rule (8.4.A.2). The models split between 8.9 and 8.4.
+  2. Wording escalations go through a fresh extraction under a new general rule: preserve every CED qualifier and scope limit. Applies to collision requirements, catalysis types, titration curve, weak base + strong acid (CED arrows verified as ⇄ on the rendered page) and entropy/dispersal.
+  3. When the only remaining objection is a topic tag that the checkers corrected from the CED, the same extracted content is re-checked with corrected tags. It is not re-extracted, so accepted content is not regenerated. This applied to collision → `[5.5]`, titration curve → `[8.5]` and H–H.
+  4. Unit 6 "Direction of thermal energy flow" is dropped (covered by the 6.1 entries). Catalysis types stays out after failing round 3 on content.
+  5. The Unit 8 duplicates are retired: standalone "pKa" and "pKw, pH and pOH at 25°C". Their content remains in the "Ka" and "Kw" entries.
+- **Consequences:** 9 rows were added to Development and Production. Unit 8 went to Production complete (32 entries). Topic 5.5 now has entries. Batch: `scripts/content-seed/task0067-chem-escalations-r3-2026-10-10/`. Recorded under `APPROVAL-0148`.
+
+## DECISION-0112 — AP Chemistry Unit 1 Reference Escalations: Both Accepted (1.8 Bond Likelihood, 1.7 Tools for Periodic Trends)
+
+- **Date:** 2026-10-10
+- **Decided by:** David Bloom (Product Owner), in session: "Accept the escalations."
+- **Context:** batch `scripts/content-seed/task0067-chem-u1-2026-10-09/`. Both entries were rejected in two rounds, so under the Reference Pack protocol they went to the Product Owner.
+  - `ap_chemistry-u1-r2-003` "Bond likelihood from valence electrons and nuclei" (1.8). GPT-6 Sol rejected it in both rounds: CED 1.8.A.1 says "The likelihood that two elements will form a chemical bond…", but the entry says "Whether two elements will form…" and has no caution. Claude had recommended rejecting it.
+  - `ap_chemistry-u1-r2-004` "Tools for explaining periodic trends" (1.7). Both checkers accepted it. The Haiku veto rejected it twice because each tool is first introduced in 1.5. Claude had recommended accepting it with 1.7 as owner.
+- **Decision:** both entries are accepted as extracted, with no hand edits, consistent with the no-edit rule. 1.7 stays the owner of the periodic-trends list.
+- **Consequences:**
+  - Both entries were loaded to Development and Production via `load.py --po-accept po_accept_ap_chemistry_u1.json`. Their `source_note` carries `po-override=DECISION-0112…`, and the SQL file is `out/load_ap_chemistry_u1_po_accept.sql`.
+  - AP Chemistry Unit 1 now has 26 entries + 1 hook in both environments.
+  - Known wording gap: the 1.8 entry states the CED's likelihood claim categorically. A later stateless re-extraction can replace it through the normal pipeline.
 
 ## DECISION-0111 — Student Photo Retention for Hand-Drawn Responses: Kept While the Account Exists, Bytes Redacted 24 Months After the Attempt or on Deletion/Erasure, Audit Row and Digest Kept (Plan D4)
 

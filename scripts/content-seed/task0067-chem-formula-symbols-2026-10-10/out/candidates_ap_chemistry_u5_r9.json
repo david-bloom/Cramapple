@@ -1,0 +1,176 @@
+[
+  {
+    "owner_topic_code": "5.2",
+    "topic_codes": [
+      "5.2",
+      "5.3",
+      "5.4",
+      "5.8",
+      "5.9"
+    ],
+    "kind": "formula",
+    "title": "General rate law expression",
+    "body": "\\text{rate} = k[A]^{m}[B]^{n}",
+    "items": [
+      {
+        "label": "rate",
+        "meaning": "reaction rate, in concentration per unit time (e.g., M/s)"
+      },
+      {
+        "label": "k",
+        "meaning": "rate constant; temperature dependent, and its units reflect the overall reaction order"
+      },
+      {
+        "label": "[A]",
+        "meaning": "concentration of reactant A (M)"
+      },
+      {
+        "label": "m",
+        "meaning": "order of the reaction with respect to A (the power of [A])"
+      },
+      {
+        "label": "[B]",
+        "meaning": "concentration of reactant B (M)"
+      },
+      {
+        "label": "n",
+        "meaning": "order of the reaction with respect to B (the power of [B])"
+      }
+    ],
+    "caution": "The rate is proportional to each reactant concentration raised to a power. The overall order is the sum of the powers (m + n). For an overall reaction the orders come from experimental data, such as comparing initial rates. Only for an elementary reaction can the powers be read from the stoichiometry of the colliding particles.",
+    "ced_evidence": "5.2.A.2 \"the rate of a reaction as proportional to the concentration of each reactant raised to a power\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u5-r9-001",
+    "subject_key": "ap_chemistry",
+    "unit_number": 5,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "5.3",
+    "topic_codes": [
+      "5.3"
+    ],
+    "kind": "formula",
+    "title": "First-order half-life",
+    "body": "t_{1/2} = \\frac{0.693}{k}",
+    "items": [
+      {
+        "label": "t_{1/2}",
+        "meaning": "half-life, the time for the reactant concentration to fall to half its value (time units)"
+      },
+      {
+        "label": "k",
+        "meaning": "first-order rate constant (units of inverse time, e.g., s^-1)"
+      }
+    ],
+    "caution": "Applies to first-order reactions, where the half-life is constant and does not depend on the starting concentration. The CED names half-life as a critical parameter only for first-order reactions. The number 0.693 is a fixed constant.",
+    "ced_evidence": "5.3.A.5 \"t1/2 = 0.693/k\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u5-r9-002",
+    "subject_key": "ap_chemistry",
+    "unit_number": 5,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "5.3",
+    "topic_codes": [
+      "5.3"
+    ],
+    "kind": "formula",
+    "title": "First-order integrated rate law",
+    "body": "\\ln[A]_t - \\ln[A]_0 = -kt",
+    "items": [
+      {
+        "label": "[A]_t",
+        "meaning": "concentration of reactant A at time t (M)"
+      },
+      {
+        "label": "[A]_0",
+        "meaning": "initial concentration of reactant A (M)"
+      },
+      {
+        "label": "k",
+        "meaning": "first-order rate constant (units of inverse time, e.g., s^-1)"
+      },
+      {
+        "label": "t",
+        "meaning": "elapsed time (time units, e.g., s)"
+      }
+    ],
+    "caution": "For a first-order reactant, a plot of ln[A] versus time is linear, and the slope is -k.",
+    "ced_evidence": "5.3.A.4 \"First order: ln[A]t \u2212 ln[A]0 = \u2212kt\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u5-r9-003",
+    "subject_key": "ap_chemistry",
+    "unit_number": 5,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "5.3",
+    "topic_codes": [
+      "5.3"
+    ],
+    "kind": "formula",
+    "title": "Second-order integrated rate law",
+    "body": "\\frac{1}{[A]_t} - \\frac{1}{[A]_0} = kt",
+    "items": [
+      {
+        "label": "[A]_t",
+        "meaning": "concentration of reactant A at time t (M)"
+      },
+      {
+        "label": "[A]_0",
+        "meaning": "initial concentration of reactant A (M)"
+      },
+      {
+        "label": "k",
+        "meaning": "second-order rate constant (units of M^-1 time^-1, e.g., M^-1 s^-1)"
+      },
+      {
+        "label": "t",
+        "meaning": "elapsed time (time units, e.g., s)"
+      }
+    ],
+    "caution": "For a second-order reactant, a plot of 1/[A] versus time is linear, and the slope is +k.",
+    "ced_evidence": "5.3.A.4 \"Second order: 1/[A]t \u2212 1/[A]0 = kt\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u5-r9-004",
+    "subject_key": "ap_chemistry",
+    "unit_number": 5,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "5.3",
+    "topic_codes": [
+      "5.3"
+    ],
+    "kind": "formula",
+    "title": "Zeroth-order integrated rate law",
+    "body": "[A]_t - [A]_0 = -kt",
+    "items": [
+      {
+        "label": "[A]_t",
+        "meaning": "concentration of reactant A at time t (M)"
+      },
+      {
+        "label": "[A]_0",
+        "meaning": "initial concentration of reactant A (M)"
+      },
+      {
+        "label": "k",
+        "meaning": "zeroth-order rate constant (units of M per unit time, e.g., M s^-1)"
+      },
+      {
+        "label": "t",
+        "meaning": "elapsed time (time units, e.g., s)"
+      }
+    ],
+    "caution": "For a zeroth-order reactant, a plot of [A] versus time is linear, and the slope is -k.",
+    "ced_evidence": "5.3.A.4 \"Zeroth order: [A]t \u2212 [A]0 = \u2212kt\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u5-r9-005",
+    "subject_key": "ap_chemistry",
+    "unit_number": 5,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

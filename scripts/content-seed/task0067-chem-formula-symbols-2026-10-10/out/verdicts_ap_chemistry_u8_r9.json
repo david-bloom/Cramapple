@@ -1,0 +1,494 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u8-r9-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula pOH = -log[OH-] is explicitly required by Topic 8.1 (8.1.A.1). All symbols are correctly defined with appropriate units (mol/L for concentration), and the caution correctly notes the temperature dependence of the pH/pOH relationship (pH + pOH = 14 at 25\u00b0C) as described in 8.1.A.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 8.1.A.1: \u201cpOH = \u2212log[OH\u2212].\u201d Both symbols are defined correctly. Topic 8.1 first introduces the formula; 8.2.A requires pOH calculations for strong bases, and 8.3.A requires explaining pOH in weak acid or base solutions. The caution correctly limits pH = 14 \u2212 pOH to 25\u00b0C, consistent with 8.1.A.3: \u201cpKw = 14 = pH + pOH at 25\u00b0C.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula matches 8.1.A.1 verbatim: \"EQN: pOH = \u2212log[OH\u2212]\". Both symbols are defined: pOH (unitless, consistent with a log quantity) and [OH\u2212] (mol/L, the molar hydroxide concentration). No symbol is missing or extra. The caution's condition matches 8.1.A.3, which gives \"pKw = 14 = pH + pOH at 25\u00b0C\", so pH = 14 \u2212 pOH at 25\u00b0C is correct. The caution's statement that [OH\u2212] gives pOH for a strong base is consistent with 8.2.A.2, which says the strong-base [OH\u2212] follows from the initial concentration of the base. b_topic_codes: 8.1 is the first topic that defines pOH (8.1.A.1). 8.2 uses it (8.2.A.1 and 8.2.A.2 ask for pH and pOH from strong acid/base concentrations). 8.3 uses it (8.3.A, \"Explain the relationship among pH, pOH, and concentrations\"). c_ced_required: LO 8.1.A requires students to \"Calculate the values of pH and pOH, based on Kw and the concentration of all species present in a neutral solution of water,\" so the formula is required content. d_caution: The entry uses the CED's own wording, so no caution is strictly needed. The caution that is present is accurate and does not change the point-earning wording, so this check passes."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r9-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula, definitions, and temperature dependence of Kw are factually correct and directly required by Topic 8.1 (specifically 8.1.A.2 and 8.1.A.4) and Topic 8.3 (8.3.A.6) of the AP Chemistry CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.1.A.2 gives \u201cKw = [H3O+][OH\u2212] = 1.0 \u00d7 10\u221214 at 25\u00b0C,\u201d and 8.1.A.4 states that Kw is temperature dependent. The items define every symbol in the formula. Topic 8.1 first requires it; 8.3.A.6 also uses Kw to relate Ka and Kb. The caution correctly limits the numerical value to 25\u00b0C."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 8.1.A.2 verbatim in substance: \"Kw = [H3O+][OH\u2212] = 1.0 \u00d7 10\u221214 at 25\u00b0C\". All three symbols (Kw, [H3O+], [OH\u2212]) appear in the expression and are each defined, with no extras. The CED gives no unit for Kw, and 'unitless' is not contradicted, so the unit annotation is acceptable. The concentration units (mol/L) are the implied standard. b_topic_codes: 8.1 is the first unit topic that requires Kw (8.1.A.2), so it is the correct owner. 8.3 uses Kw in 8.3.A.6 (\"Kw = Ka \u00d7 Kb\"; \"pKw = pKa + pKb\"), so listing it is justified. c_ced_required: LO 8.1.A requires students to 'Calculate the values of pH and pOH, based on Kw and the concentration of all species present', so applying Kw is required. d_caution: The CED states the 1.0 \u00d7 10\u221214 value with the condition 'at 25\u00b0C' (8.1.A.2), and 8.1.A.4 says 'The value of Kw is temperature dependent'. The caution reproduces both conditions correctly, so it is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula pH = -log[H3O+] is explicitly required by 8.1.A.1. The definitions of the symbols are accurate, and the caution correctly reflects the CED's note on the interchangeability of H+(aq) and H3O+(aq)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 8.1.A.1: \u201cpH = \u2212log[H3O+].\u201d Both symbols are defined correctly, and the caution matches the CED\u2019s statement that H+(aq) and H3O+(aq) are used interchangeably, with H3O+(aq) preferred. Topic 8.1 first requires the definition; topics 8.2, 8.3, 8.4, and 8.9 use pH to determine or describe acid\u2013base solutions."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED states \"8.1.A.1 EQN: pH = \u2212log[H3O+]\" (p. 146). The formula has two symbols, pH and [H3O+], and both are defined in items. The meanings are correct: pH is the negative base-10 log of hydronium concentration, and [H3O+] is molar concentration in mol/L. pH is unitless, which matches the CED's implied convention. No undefined or extra symbols appear. b_topic_codes: owner 8.1 is correct because 8.1.A.1 is the first place the CED requires this equation. The other codes (8.2, 8.3, 8.4, 8.9) all require calculating pH: 8.2.A calculates pH of strong acid/base solutions, 8.3.A explains pH of weak acid/base solutions, 8.4.A determines pH of mixtures, and 8.9.A identifies buffer pH. 8.9 uses the pH definition indirectly, since its own essential knowledge states the H-H equation rather than the definition. This is the weakest link, but it is defensible. c_ced_required: 8.1.A.1 lists the equation and 8.1.A calculates pH from [H3O+], so the CED requires it. d_caution: the CED says \"The terms 'hydrogen ion' and 'hydronium ion' and the symbols H+(aq) and H3O+(aq) are often used interchangeably... Hydronium ion and H3O+(aq) are preferred, but H+(aq) is also acceptable on the AP Exam.\" The entry uses the preferred H3O+ wording, and the caution states this correctly. Hooks: none present, so no hook checks apply."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r9-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the equation pKw = 14 = pH + pOH at 25\u00b0C as specified in Topic 8.1 (8.1.A.3). All symbols are defined correctly, and the caution correctly addresses the temperature dependence of Kw as described in 8.1.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The CED states, \u201cpKw = 14 = pH + pOH at 25\u00b0C\u201d (8.1.A.3) and defines pH = \u2212log[H3O+] and pOH = \u2212log[OH\u2212] (8.1.A.1). All symbols in the expression are defined. Topic 8.1 first requires the relationship; 8.2.A and 8.3.A require calculations or explanations involving pH and pOH. The caution correctly limits the value 14 to 25\u00b0C: 8.1.A.4 states that Kw is temperature dependent."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 'pK_w = 14 = pH + pOH' matches 8.1.A.3 verbatim ('EQN: pKw = 14 = pH + pOH at 25\u00b0C'). Every symbol in the expression (pK_w, pH, pOH) is defined in items. The item meanings match the CED: pH = \u2212log[H3O+] and pOH = \u2212log[OH\u2212] (8.1.A.1). pK_w is defined as the negative base-10 log of Kw, which is standard and consistent with pKa = \u2212log Ka in 8.3.A.2; the CED does not define pKw explicitly on these pages, but the definition is correct. Units are unitless, which is correct for pH, pOH, and pKw. The caution matches 8.1.A.4 ('The value of Kw is temperature dependent, so the pH of pure, neutral water will deviate from 7.0 at temperatures other than 25\u00b0C'). b_topic_codes: owner 8.1 is where pKw = 14 = pH + pOH is first required (8.1.A.3). 8.2 uses pH/pOH for strong acid/base calculations, and 8.3 uses Kw relations (8.3.A.6), so both listed codes are unit topics that use the relation. c_ced_required: 8.1.A.3 directly requires students to apply 'pKw = 14 = pH + pOH at 25\u00b0C'. d_caution: the body wording is the CED's own wording, so no caution is strictly required; the caution present is correct and does not conflict with 8.1.A.4."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r9-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the acid ionization constant (Ka) formula as specified in Topic 8.3 (8.3.A.2). All symbols are correctly defined with appropriate units (mol/L for concentrations, unitless for Ka), and the caution correctly notes that concentrations are equilibrium values and that [HA] is approximately equal to the initial concentration due to low percent ionization, which aligns with 8.3.A.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.3.A.2 gives the same expression: \u201cKa = [H3O+][A\u2212]/[HA].\u201d All symbols are defined correctly. Topic 8.3 first requires it; 8.9.A.1 uses the weak-acid equilibrium expression for buffer pH. The caution matches 8.3.A.1\u2019s statement that only a small percentage of weak-acid molecules ionize."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula Ka = [H3O+][A\u2212]/[HA] matches 8.3.A.2 ('EQN: Ka = [H3O+][A\u2212]/[HA]'). All four symbols (K_a, [H3O+], [A\u2212], [HA]) are defined, with no extra items. The meanings match the CED: Ka is the equilibrium constant for the un-ionized acid and its conjugate base, and the concentrations are equilibrium values. The CED states no units for Ka, so '(unitless)' is not contradicted, and mol/L for concentrations is standard. The caution matches 8.3.A.1, which says 'the vast majority of the acid molecules remain un-ionized', so [HA] is nearly the initial concentration. b_topic_codes: 8.3.A.2 is the first place Ka is required, so owner 8.3 is correct. 8.9 is a weaker fit: 8.9.A.1 says the H-H relation is 'a consequence of the equilibrium expression associated with the dissociation of a weak acid', which is indirectly this Ka expression, but 8.9 does not state the Ka expression itself. Accepted as a defensible secondary code, though it could be dropped. c_ced_required: 8.3.A.2 explicitly requires students to know this expression. d_caution: the entry wording matches the CED equation, and the caution is present and correct. hooks: none present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r9-006",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the relationship between Ka, Kb, and Kw for a conjugate acid-base pair as specified in Topic 8.3 (specifically 8.3.A.6). All symbols in the formula are defined correctly, and the caution correctly notes that they must belong to the same conjugate pair and mentions the logarithmic form."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 8.3.A.6 states, \u201cFor any conjugate acid-base pair,\u201d Kw = Ka \u00d7 Kb and pKw = pKa + pKb. CED 8.1.A.2 gives Kw = 1.0 \u00d7 10\u207b\u00b9\u2074 at 25\u00b0C. The formula defines every symbol, and its caution correctly requires Ka and Kb to be for the same conjugate pair. Topic 8.3 first requires the relationship; topic 8.4 uses conjugate-acid and conjugate-base equilibria to determine pH when reactants are equimolar (8.4.A.2\u20133)."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The formula Kw = Ka \u00d7 Kb matches 8.3.A.6 exactly. All three symbols (Kw, Ka, Kb) are defined, and Kw = 1.0 \u00d7 10^-14 at 25\u00b0C matches 8.1.A.2. The Ka and Kb meanings match 8.3.A.2 and 8.3.A.4, since Kb belongs to the conjugate base A\u2212 of the same pair. The CED gives no units for these constants, so 'unitless' is not contradicted. The equivalent form pKw = pKa + pKb in the caution matches 8.3.A.6. b_topic_codes: owner 8.3 is correct, since 8.3.A.6 is the first place the CED requires this relation. However, topic 8.4 is not correct. The 8.4 essential knowledge (8.4.A.1\u20138.4.A.4) covers strong/weak acid-base mixtures, buffers, and HA + B \u21cc A\u2212 + HB+, and never invokes Kw = Ka \u00d7 Kb. Remove 8.4 from topic_codes, or cite the CED statement that uses the relation in 8.4. c_ced_required: 8.3.A.6 requires students to apply Kw = Ka \u00d7 Kb for any conjugate acid-base pair. d_caution: the entry's wording matches the CED, and the caution is present and accurate. Hooks: none present, so no hook evaluation applies.",
+            "hooks": []
+          }
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: CED 8.3.A.6 states 'For any conjugate acid-base pair, the acid ionization constant and base ionization constant are related by Kw: Kw = Ka \u00d7 Kb' and 'pKw = pKa + pKb'. The body matches. All three symbols (K_w, K_a, K_b) are defined. K_w is correctly given as 1.0 \u00d7 10^-14 at 25\u00b0C, matching 8.1.A.2. Ka is for the acid member and Kb for the conjugate base member of the same pair, consistent with 8.3.A.2 and 8.3.A.4. Calling the constants unitless is acceptable because the CED gives no units for them. b_topic_codes: owner 8.3 is correct, since 8.3.A.6 first states the relation in this unit. The topic code 8.4 fails. No 8.4 learning objective or essential knowledge statement invokes Kw = Ka \u00d7 Kb. 8.4.A.2 and 8.4.A.3 use the equimolar equilibrium A\u2212 + H2O \u21cc HA + OH\u2212, which needs Kb only implicitly, so the entry is not 'a topic that uses it' as the CED states it. Removing 8.4 or restating its link would be needed. c_ced_required: 8.3.A.6 requires students to apply this relation, so it passes. d_caution: the caution says Ka and Kb must belong to the same conjugate pair and gives pKw = pKa + pKb, which matches the CED wording. The caution is correct and needed, so it passes."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r9-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula pKb = -log Kb is explicitly required in Topic 8.3 (8.3.A.4) and is also relevant to Topic 8.7 (8.7.A). All symbols are correctly defined and unitless as appropriate for equilibrium constants."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula and both symbol definitions match 8.3.A.4: \u201cEQN: pKb = \u2212log Kb,\u201d where Kb is the base ionization constant. Topic 8.3 first requires it; the 8.7.A learning objective also refers to \u201cthe pKb of the conjugate base.\u201d No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED gives the formula exactly as 8.3.A.4 'EQN: pKb = \u2212log Kb'. The only symbols are pKb and Kb, and both are defined in items with correct meanings (negative base-10 log of the base ionization constant; base ionization constant). The CED states no units for Kb. Calling it unitless is consistent with equilibrium constants and is not contradicted by the CED. c_ced_required: 8.3.A.4 requires students to use pKb = \u2212log Kb. Topic 8.7's learning objective 8.7.A also requires the 'pKb of the conjugate base'. d_caution: The entry's wording matches the CED wording, so no caution is needed and the null caution is correct. b_topic_codes: 8.3 is the first unit topic that introduces pKb (8.3.A.4), so owner 8.3 is correct. 8.7 is also a topic of this unit and uses pKb in 8.7.A, so it is a valid topic_codes entry.",
+            "}": ""
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u8-r9-007",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula pKa = -log Ka is explicitly required in Topic 8.3 (8.3.A.2). All symbols are correctly defined, and the topic codes accurately reflect where pKa is introduced and used throughout Unit 8 (8.3, 8.5, 8.7, and 8.9)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches 8.3.A.2: \u201cpKa = \u2212log Ka.\u201d Both symbols are defined, and the unitless descriptions are consistent with the logarithmic expression. Topic 8.3 first requires the formula; 8.5 uses pKa at half-equivalence, 8.7 compares pH with pKa, and 8.9 uses pKa in the Henderson\u2013Hasselbalch equation. No caution is needed because the formula uses the CED\u2019s wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula matches 8.3.A.2 verbatim: \"EQN: pKa = \u2212log Ka\". Both symbols are defined. pKa is the negative base-10 log of Ka, and Ka is the acid ionization constant. The CED states no units for Ka or pKa, so the 'unitless' note is not contradicted by the pages. b_topic_codes: 8.3 is the first unit topic that introduces Ka and pKa (8.3.A.2). 8.5 uses pKa at the half-equivalence point (8.5.A.3), 8.7 uses pKa in 8.7.A.1 and 8.7.A.3, and 8.9 uses pKa in the H-H relation (8.9.A.1), so every listed topic uses it. c_ced_required: 8.3.A.2 requires students to relate Ka to pKa through this definition. d_caution: The entry uses the CED's own wording and equation, so no caution is needed and caution is null."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

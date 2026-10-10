@@ -16,6 +16,7 @@ import {
   type ItemRow,
   type OwnerRow,
   type ResponseRow,
+  shapeTopicReference,
   StoreRpcError,
   type TokenRow,
   type TopicRow,
@@ -190,7 +191,12 @@ class Mem implements ByoqStore, ByoqStorage {
   async listSubjects() { return ["ap_biology", "ap_statistics"]; }
   async listTopics(s: string) { return this.topics.filter((t) => t.subject_key === s); }
   async topicGuides() {
-    return { briefs: [{ topicCode: "2.5", howPointsAreEarned: "Direction, form, strength in context." }], explainers: [] };
+    return {
+      briefs: [{ topicCode: "2.5", howPointsAreEarned: "Direction, form, strength in context." }],
+      explainers: [],
+      reference: [{ id: "ref-1", kind: "vocabulary", ownerTopicCode: "2.5", topicCodes: ["2.5"], title: "Correlation", memoryHooks: [] }],
+      memoryHooks: [],
+    };
   }
   async listResponses(itemId: string) { return this.responses.filter((r) => r.item_id === itemId); }
   async insertResponse(r: Omit<ResponseRow, "id" | "created_at">) {
@@ -451,6 +457,9 @@ Deno.test("topic selection resolves against the taxonomy and serves reference gu
   assertEquals(item.topic.topic_title, "Correlation");
   const get = await call({ operation: "get_item", owner_key: key, item_id: item.id });
   assertEquals(get.json.result.reference.missing, false);
+  // Reference entries reach anonymous visitors through get_item (the RPC requires sign-in).
+  assertEquals(get.json.result.reference.guides.reference[0].title, "Correlation");
+  assertEquals(get.json.result.reference.guides.memoryHooks, []);
   const topics = await call({ operation: "list_topics", subject_key: "ap_statistics" });
   assertEquals(topics.json.result.units[0].topics[0].topic_code, "2.5");
 });
@@ -940,4 +949,24 @@ Deno.test("an edit saved while the model is running is kept, and its leak flags 
   assertEquals(it.answer_text_detected, true, "leak flags describe the real text, not the pre-call snapshot");
   const confirm = await h.call({ operation: "confirm_item", owner_key: a.key, item_id: a.item.id });
   assertEquals(confirm.status, 409);
+});
+
+Deno.test("shapeTopicReference mirrors get_topic_point_guides field names and order", () => {
+  const e = (id: string, kind: string, owner: string, title: string) => ({
+    reference_entry_id: id, subject_key: "ap_chemistry", unit_number: 1, owner_topic_code: owner,
+    topic_codes: [owner, "1.7"], kind, title, body: "b", items: [], visual_asset_ref: null, caution: null,
+    source_note: "generated-checked",
+  });
+  const entries = [e("v2", "vocabulary", "1.7", "Zeta"), e("f1", "formula", "1.5", "Coulomb"), e("v1", "vocabulary", "1.5", "Alpha")];
+  const hooks = [{
+    memory_hook_id: "h1", reference_entry_id: "v1", kind: "phrase", hook_text: "A", expands_to: [],
+    when_to_use: "w", caution: null, source_note: "cramapple-authored", created_at: "2026-10-09T00:00:00Z",
+  }];
+  const { reference, memoryHooks } = shapeTopicReference(entries, hooks);
+  assertEquals(reference.map((r) => r.id), ["f1", "v1", "v2"]);  // kind order, then owner topic, then title
+  assertEquals(Object.keys(reference[0]), ["id", "subjectKey", "unitNumber", "ownerTopicCode", "topicCodes", "kind", "title", "body", "items", "visualAssetRef", "caution", "sourceNote", "memoryHooks"]);
+  assertEquals(reference[1].memoryHooks.map((h) => h.hookText), ["A"]);
+  assertEquals(memoryHooks[0].referenceTitle, "Alpha");
+  assertEquals(memoryHooks[0].referenceEntryId, "v1");
+  assertEquals(shapeTopicReference([], []), { reference: [], memoryHooks: [] });
 });

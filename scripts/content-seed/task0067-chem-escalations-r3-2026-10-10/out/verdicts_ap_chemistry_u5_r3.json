@@ -1,0 +1,320 @@
+[
+  {
+    "candidate_id": "ctrl-r3-01-hedge-dropped",
+    "control": "hedge removed: CED 5.5.A.2 says 'In most reactions, only a small fraction of the collisions' lead to reaction; this claims every collision with enough energy reacts",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry's body states that collisions produce a reaction 'regardless of orientation' if they have enough energy. This directly contradicts the CED under EK 5.5.A.2, which states: 'Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.'"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry's claim that collisions with enough energy always react 'regardless of orientation' is factually incorrect and directly contradicts the CED. Essential Knowledge 5.5.A.2 explicitly states: 'Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 5.5 is the correct location, but the claim contradicts 5.5.A.2: \u201cSuccessful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.\u201d Exceeding the activation energy does not guarantee a reaction regardless of orientation. The CED does not require students to reproduce or apply that false claim, and no caution flags the discrepancy."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The claim contradicts 5.5.A.2: \u201cSuccessful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.\u201d Topic 5.5 is the correct location, but the CED does not require students to reproduce this false claim. No caution identifies it as a misconception."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r3-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the Maxwell-Boltzmann distribution curve as described in EK 5.5.A.3. The axes, curve, activation energy marker, and temperature dependence are factually correct and directly aligned with the CED requirements. The caution correctly notes the qualitative nature and the orientation requirement from EK 5.5.A.2."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.5.A.3 states that the Maxwell-Boltzmann curve describes the distribution of particle energies and can be used to estimate qualitatively the fraction of collisions with sufficient energy and how that fraction depends on temperature. The diagram labels support that use. The caution correctly reflects 5.5.A.2: successful collisions require both sufficient energy and suitable orientation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.5.A.3 ('used to gain a qualitative estimate of the fraction of collisions withsufficient energy to lead to a reaction, and also how that fraction depends on temperature'). The ced_evidence quote matches 5.5.A.3 ('The Maxwell-Boltzmann distribution curve describes the distribution of particle energies'). The items (particle energy on the horizontal axis, fraction of particles on the vertical axis, temperature-dependent curves, activation-energy marker) are conventional and consistent with the CED. The CED does not spell out the axes or the marker, but nothing in the items contradicts it. The entry is a diagram, so the formula-symbol rule does not apply. b_topic_codes: 5.5 is the topic where 5.5.A.3 introduces the Maxwell-Boltzmann curve, and owner_topic_code and topic_codes are both 5.5. c_ced_required: 5.5.A.3 requires students to use the distribution to estimate qualitatively the fraction of energetic collisions and how it changes with temperature. d_caution: The CED says 'qualitative estimate' and 5.5.A.2 says successful collisions need both sufficient energy and suitable orientation. The caution states both points accurately, so it is present and correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r3-002",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the three types of catalysis described in EK 5.11.A.3, 5.11.A.4, and 5.11.A.5. The caution correctly notes the non-universal qualifiers ('some', 'often') used in the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The three items accurately summarize 5.11.A.3\u20135.11.A.5, and Topic 5.11 is the correct topic. However, the body overstates what is common to all three: 5.11.A.3 says, \u201cThere is often a new reaction intermediate,\u201d but does not say this binding mode typically introduces new elementary reactions. By contrast, 5.11.A.4 explicitly says, \u201cThis introduces a new reaction intermediate and new elementary reactions.\u201d The caution correctly warns against making the descriptions universal, but does not fix the body\u2019s claim."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The three item meanings track 5.11.A.3\u20135.11.A.5, and 5.11 is the correct topic. But the body overstates their shared features: 5.11.A.3 says binding catalysts 'often' form a new intermediate; it does not say this way typically introduces new elementary reactions. The caution addresses intermediates but does not correct the body's claim about elementary reactions."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r3-001",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements for a successful collision as stated in EK 5.5.A.2: 'Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.' The caution correctly addresses a common misconception regarding collision theory."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.5 first requires these two conditions: 5.5.A.2 states that successful collisions have both sufficient energy to overcome activation-energy requirements and orientations that allow bonds to rearrange. Topic 5.11 also uses them: 5.11.A.3 describes catalysts orienting reactants more favorably or enabling reaction with lower activation energy. The caution correctly preserves 5.5.A.2\u2019s qualification that, in most reactions, only a small fraction of collisions leads to a reaction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body, items, and order match 5.5.A.2: \"In most reactions, only a small fraction of the collisions leads to a reaction. Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.\" The items are energy first, then orientation, as in the CED. b_topic_codes: fails. 5.5 is the owner and first requires this content in 5.5.A.2. 5.11 does not use this two-part requirement. Its only related statement, 5.11.A.1, says a catalyst increases \"the number of effective collisions and/or provide[s] a reaction path with a lower activation energy.\" It never restates the sufficient-energy and suitable-orientation requirements, so 5.11 should be removed from topic_codes. c_ced_required: pass. 5.5.A.2 is an essential-knowledge statement that students must apply when explaining how collision energy and orientation relate to reaction rate (5.5.A). d_caution: pass. The entry wording (\"a successful collision has both of the following\") differs from the CED phrasing, and the caution correctly prohibits the overgeneralization that all or all energetic collisions react. The ced_evidence quote matches the CED text."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body, both items, and their meanings match CED 5.5.A.2: \"In most reactions, only a small fraction of the collisions leads to a reaction. Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.\" The two list members and their order are correct. b_topic_codes: owner_topic_code 5.5 is correct because 5.5.A.2 first appears there. The added topic code 5.11 fails. The only 5.11 content that touches this idea is 5.11.A.1, which says a catalyst must \"increase the number of effective collisions and/or provide a reaction path with a lower activation energy.\" That line does not state the two requirements for a successful collision (sufficient energy and suitable orientation), so topic 5.11 does not use this list. c_ced_required: 5.5.A.2 requires students to know that successful collisions need both sufficient energy and suitable orientation, so this is required content. d_caution: The entry's wording is a close paraphrase of the CED, not verbatim. The caution correctly forbids saying that all or all energetic collisions produce products, which matches the CED's 'only a small fraction' point, so the caution is present and correct. Reject because of the unsupported 5.11 topic code. Fix by setting topic_codes to [\"5.5\"] only, or by citing a 5.11 statement that actually uses the requirement list."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-r3-02-wrong-owner",
+    "control": "wrong owner: the Maxwell-Boltzmann distribution is first required in 5.5 (5.5.A.3), not 5.11",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Maxwell-Boltzmann distribution curve is first introduced and required in Topic 5.5 (Collision Model, EK 5.5.A.3: 'The Maxwell-Boltzmann distribution curve describes the distribution of particle energies...'). Therefore, the owner_topic_code must be 5.5 instead of 5.11."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Maxwell-Boltzmann distribution curve is first introduced and required in Topic 5.5 (Collision Model, EK 5.5.A.3: 'The Maxwell-Boltzmann distribution curve describes the distribution of particle energies...'). Therefore, the owner_topic_code must be 5.5 rather than 5.11. Additionally, if this diagram is specifically intended to represent catalysis, it should include labels or references to the activation energy (E_a) and the lowered activation energy with a catalyst (E_a,cat) to demonstrate how the catalyst increases the number of particles with sufficient energy to react."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The axes are consistent with the distribution of particle energies described in 5.5.A.3, which requires using a Maxwell\u2013Boltzmann distribution curve to estimate the fraction of collisions with sufficient energy. Its first required topic is 5.5, not 5.11. Topic 5.11 addresses how catalysts increase effective collisions and/or provide a lower-activation-energy path; it does not require this distribution diagram."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The curve and axis labels are consistent with 5.5.A.3: \u201cThe Maxwell-Boltzmann distribution curve describes the distribution of particle energies.\u201d That statement requires students to use the distribution qualitatively. Its first required topic is 5.5, not 5.11. Topic 5.11 addresses how catalysts affect collisions or provide a path with lower activation energy; it does not require a Maxwell-Boltzmann diagram. No wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  }
+]
