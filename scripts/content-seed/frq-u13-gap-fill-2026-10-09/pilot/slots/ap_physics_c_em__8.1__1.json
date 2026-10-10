@@ -1,0 +1,342 @@
+{
+ "id": "ap_physics_c_em__8.1__1",
+ "slot": {
+  "subject_key": "ap_physics_c_em",
+  "tsv": "ef9618c9-de85-4941-8837-4dce4c755e62",
+  "unit": 8,
+  "unit_title": "Electric Charges, Fields, and Gauss's Law",
+  "topic_code": "8.1",
+  "topic_title": "Electric Charge and Electric Force",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.667Z",
+   "item": {
+    "title": "Electric Versus Gravitational Force Between Charged Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two small metal spheres, each of mass m = 2.00 g and radius 2.0 mm, are held at rest in vacuum with their centers separated by d = 0.150 m. Sphere 1 carries charge q₁ = +3.0 nC and sphere 2 carries charge q₂ = −5.0 nC. Treat both spheres as point charges. Use k = 1/(4πε₀) = 8.99 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "model_answer": "(a) F_E = k|q₁q₂|/d² = (8.99 × 10⁹ N·m²/C²)(3.0 × 10⁻⁹ C)(5.0 × 10⁻⁹ C)/(0.150 m)² = (8.99 × 10⁹)(1.5 × 10⁻¹⁷)/(0.0225) N ≈ 5.99 × 10⁻⁶ N. The force is attractive: q₁ is positive and q₂ is negative, and charges of opposite sign attract, so sphere 2 is pulled toward sphere 1 along the line joining their centers.\n\n(b) F_G = Gm²/d² = (6.67 × 10⁻¹¹)(2.00 × 10⁻³ kg)²/(0.150 m)² = (6.67 × 10⁻¹¹)(4.00 × 10⁻⁶)/(0.0225) N ≈ 1.19 × 10⁻¹⁴ N. The ratio is F_E/F_G = k|q₁q₂|/(Gm²) = (1.3485 × 10⁻⁷)/(2.668 × 10⁻¹⁶) ≈ 5.05 × 10⁸. The electrostatic force is about half a billion times larger than the gravitational force.\n\n(c) Coulomb's law gives F ∝ q₁q₂/d². The charge q₁ doubles (3.0 nC to 6.0 nC), which doubles F. The separation triples (0.150 m to 0.450 m), which divides F by 3² = 9. The factor is 2 × (1/9) = 2/9 ≈ 0.222, so the new force is (2/9)(5.99 × 10⁻⁶ N) ≈ 1.33 × 10⁻⁶ N.",
+    "verification_python": "import math\nk=8.99e9\nG=6.67e-11\nq1=3.0e-9\nq2=-5.0e-9\nm=2.00e-3\nd=0.150\nFE=k*abs(q1*q2)/d**2\nassert abs(FE-5.99e-6)<0.01e-6\nassert q1*q2<0\nFG=G*m**2/d**2\nassert abs(FG-1.19e-14)<0.01e-14\nratio=FE/FG\nassert abs(ratio-5.05e8)<0.01e8\nassert abs(k*abs(q1*q2)-1.3485e-7)<1e-11\nassert abs(G*m**2-2.668e-16)<1e-19\nq1n=6.0e-9\ndn=0.450\nFEn=k*abs(q1n*q2)/dn**2\nfactor=FEn/FE\nassert abs(factor-2/9)<1e-12\nassert abs(factor-0.222)<0.001\nassert abs(FEn-1.33e-6)<0.01e-6\nassert abs(1/factor-4.5)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the magnitude of the electrostatic force that sphere 1 exerts on sphere 2. State whether the force is attractive or repulsive, and justify your answer.",
+      "criteria": [
+       {
+        "text": "Calculates the electrostatic force magnitude F_E = k|q₁q₂|/d² ≈ 5.99 × 10⁻⁶ N, with units.",
+        "evidence": "Substitutes k, |q₁q₂| = 1.5 × 10⁻¹⁷ C², and d² = 0.0225 m² into Coulomb's law and reports about 5.99 × 10⁻⁶ N (or 6.0 × 10⁻⁶ N) with newtons as the unit.",
+        "fix": "Convert nC to C (×10⁻⁹), square the separation in meters, and use F = k|q₁q₂|/d² with units written on the answer.",
+        "accepted_variants": [
+         "6.0 × 10⁻⁶ N",
+         "5.99 μN",
+         "6.0 μN",
+         "5.99e-6 N"
+        ]
+       },
+       {
+        "text": "States the force is attractive because the charges have opposite signs.",
+        "evidence": "Identifies the force as attractive and connects this to q₁ being positive and q₂ being negative (opposite signs attract), with the force directed along the line joining the centers toward sphere 1.",
+        "fix": "Check the signs of both charges: opposite signs attract, like signs repel; state this reason explicitly, not just the conclusion.",
+        "accepted_variants": [
+         "sphere 2 is pulled toward sphere 1",
+         "opposite charges attract"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the ratio F_E/F_G of the magnitude of the electrostatic force to the magnitude of the gravitational force between the two spheres.",
+      "criteria": [
+       {
+        "text": "Computes F_E/F_G = k|q₁q₂|/(Gm²) ≈ 5.05 × 10⁸ (dimensionless), using m = 2.00 × 10⁻³ kg.",
+        "evidence": "Shows F_G = Gm²/d² ≈ 1.19 × 10⁻¹⁴ N (or cancels d² directly) and obtains a ratio of about 5.05 × 10⁸, consistent with the student's own F_E from part (a).",
+        "fix": "Convert grams to kilograms before using F_G = Gm²/d², then divide F_E by F_G; note d² cancels in the ratio.",
+        "accepted_variants": [
+         "5.1 × 10⁸",
+         "5.05e8",
+         "about 5 × 10⁸"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The charge on sphere 1 is changed to +6.0 nC, the charge on sphere 2 is unchanged, and the separation of the centers is increased to 0.450 m. By what factor does the magnitude of the electrostatic force change compared with part (a)? Justify your answer using the functional dependence of Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Determines the force is multiplied by 2/9 (new force ≈ 1.33 × 10⁻⁶ N), justified by F ∝ q₁q₂/d².",
+        "evidence": "States that doubling q₁ doubles F and tripling d divides F by 3² = 9, giving a factor of 2/9 (about 0.222); a numeric new force of about 1.33 × 10⁻⁶ N consistent with part (a) is also acceptable if the factor is stated.",
+        "fix": "Write F₂/F₁ = (q₁′/q₁)(d/d′)²; remember distance enters squared, so tripling d reduces F by a factor of 9.",
+        "accepted_variants": [
+         "2/9",
+         "0.222",
+         "0.22",
+         "decreases by a factor of 4.5"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "8.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8
+    ],
+    "unitCount": {
+     "8": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "google/gemini-3.8-flash",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "meta/muse-spark-1.3",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "8.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 1
+}

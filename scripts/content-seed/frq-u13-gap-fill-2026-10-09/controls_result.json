@@ -1,0 +1,838 @@
+{
+ "checkers": [
+  "openai/gpt-6.1-sol",
+  "deepseek/deepseek-v4-pro"
+ ],
+ "at": "2026-10-10T00:26:56.548Z",
+ "batch_void": false,
+ "controls": [
+  {
+   "base": "ap_calculus_ab__1.4__1",
+   "kind": "wrong_value",
+   "planted": "Part (b), criterion b2: the right-hand limit was changed from the correct value -1 to 1, which is a sign error. The change appears in the criterion text, in its evidence and in its accepted variants (now '1.0' and 'approximately 1'). The model answer (b) was changed to match: the values 'approach 1, so lim x→1⁺ g(x) ≈ 1'. The table values -1.002, -1.02 and -1.2 actually approach -1. Nothing else was changed, so part (c) still cites -1 as the right-hand limit.",
+   "caught_by": [
+    "openai/gpt-6.1-sol",
+    "deepseek/deepseek-v4-pro"
+   ],
+   "accepted_by_pair": false,
+   "item": {
+    "title": "Estimating One-Sided and Two-Sided Limits from Tables",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f, g and h are defined for all real numbers, except that h is not defined at x = 0. The only information available about them is given below.\n\nSelected values of f near x = 3 (values rounded to four decimal places):\nx:    2.9     2.99    2.999   3.001   3.01    3.1\nf(x): 0.2516  0.2502  0.2500  0.2500  0.2498  0.2485\nIn addition, f(3) = 1.\n\nSelected values of g near x = 1:\nx:    0.9    0.99    0.999   1.001    1.01    1.1\ng(x): 2.8    2.98    2.998   -1.002   -1.02   -1.2\nIn addition, g(1) = -1.\n\nSelected values of h near x = 0:\nx:    -0.1   -0.01    -0.001     0.001      0.01     0.1\nh(x): 100    10000    1000000    1000000    10000    100\n\nAssume that the patterns shown in each table continue as x gets closer to the given point.",
+    "model_answer": "(a) As x→3⁻, f(x) takes the values 0.2516, 0.2502, 0.2500, and as x→3⁺, f(x) takes the values 0.2485, 0.2498, 0.2500. From both sides the values approach 0.25, so lim x→3 f(x) ≈ 0.25. The value f(3) = 1 does not matter, because a limit as x→3 depends only on the values of f(x) for x close to 3 with x ≠ 3, not on the value of f at x = 3.\n\n(b) From the left, g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998, which approach 3, so lim x→1⁻ g(x) ≈ 3. From the right, g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002, which approach 1, so lim x→1⁺ g(x) ≈ 1.\n\n(c) No. lim x→1 g(x) does not exist because the left-hand limit, 3, is not equal to the right-hand limit, -1. A two-sided limit exists only when both one-sided limits are equal.\n\n(d) As x approaches 0 from the left (-0.1, -0.01, -0.001) and from the right (0.1, 0.01, 0.001), h(x) goes 100, 10000, 1000000, growing larger and larger without bound, so h(x)→∞ as x→0. Since h(x) is unbounded near x = 0, lim x→0 h(x) does not exist as a real number.",
+    "verification_python": "import math\nfrom fractions import Fraction\n# f values generated from (sqrt(x+1)-2)/(x-3), limit 1/4\nf=lambda x:(math.sqrt(x+1)-2)/(x-3)\ntable={2.9:0.2516,2.99:0.2502,2.999:0.2500,3.001:0.2500,3.01:0.2498,3.1:0.2485}\nfor x,v in table.items():\n    assert abs(round(f(x),4)-v)<1e-9,(x,f(x))\nassert abs(f(3-1e-6)-0.25)<1e-5 and abs(f(3+1e-6)-0.25)<1e-5\n# g: 2x+1 for x<1, 1-2x for x>=1\ng=lambda x: 2*x+1 if x<1 else 1-2*x\ngt={Fraction(9,10):Fraction(28,10),Fraction(99,100):Fraction(298,100),Fraction(999,1000):Fraction(2998,1000),Fraction(1001,1000):Fraction(-1002,1000),Fraction(101,100):Fraction(-102,100),Fraction(11,10):Fraction(-12,10)}\nfor x,v in gt.items():\n    assert g(x)==v\nassert g(Fraction(1))==-1\nassert g(Fraction(1)-Fraction(1,10**9))-3==-Fraction(2,10**9)\nassert g(Fraction(1)+Fraction(1,10**9))+1==-Fraction(2,10**9)\nassert 3!=-1\n# h = 1/x^2\nh=lambda x: 1/x**2\nht={Fraction(-1,10):100,Fraction(-1,100):10000,Fraction(-1,1000):1000000,Fraction(1,1000):1000000,Fraction(1,100):10000,Fraction(1,10):100}\nfor x,v in ht.items():\n    assert h(x)==v\nassert h(Fraction(1,10**6))>10**11\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the table to estimate lim x→3 f(x). Explain why the given value f(3) = 1 does not change your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→3 f(x) ≈ 0.25, supported by the values from both sides of x = 3.",
+        "evidence": "States the estimate 0.25 and notes that f(x) approaches 0.25 both as x→3⁻ (0.2516, 0.2502, 0.2500) and as x→3⁺ (0.2500, 0.2498, 0.2485).",
+        "fix": "Read the f-values on each side of x = 3 separately, check they approach the same number, then state that common number.",
+        "accepted_variants": [
+         "1/4",
+         "0.250",
+         "approximately 0.25"
+        ]
+       },
+       {
+        "text": "Explains that a limit depends on the values of f near x = 3, not on the value f(3), so f(3) = 1 does not affect the estimate.",
+        "evidence": "States that the limit describes the behavior of f(x) as x approaches 3 (x ≠ 3), so the function value at x = 3 itself is irrelevant.",
+        "fix": "Remember lim x→c f(x) uses only x-values close to but not equal to c; the value f(c) plays no role.",
+        "accepted_variants": [
+         "the limit only uses x close to 3, not x = 3",
+         "f(3) is not used in finding the limit"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to estimate lim x→1⁻ g(x) and lim x→1⁺ g(x).",
+      "criteria": [
+       {
+        "text": "Estimates lim x→1⁻ g(x) ≈ 3 from the values to the left of x = 1.",
+        "evidence": "States 3, referring to g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998 approaching 3.",
+        "fix": "For a left-hand limit, use only the x-values less than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "3.0",
+         "approximately 3"
+        ]
+       },
+       {
+        "text": "Estimates lim x→1⁺ g(x) ≈ 1 from the values to the right of x = 1.",
+        "evidence": "States 1, referring to g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002 approaching 1.",
+        "fix": "For a right-hand limit, use only the x-values greater than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "1.0",
+         "approximately 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on your answers to part (b), does lim x→1 g(x) exist? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Concludes lim x→1 g(x) does not exist because the one-sided limit estimates, 3 and -1, are not equal.",
+        "evidence": "States the limit does not exist and gives the reason that the left-hand limit (3) and right-hand limit (-1) differ; citing g(1) = -1 alone is not a valid reason.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly with their values.",
+        "accepted_variants": [
+         "DNE because 3 ≠ -1",
+         "no, the left and right limits differ"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on the table, describe the behavior of h(x) as x approaches 0, and state whether lim x→0 h(x) exists as a real number. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Describes that h(x) increases without bound as x approaches 0 from both sides.",
+        "evidence": "Notes the values 100, 10000, 1000000 grow larger and larger from the left and from the right, so h(x)→∞ as x→0.",
+        "fix": "Look at how the h-values change as x moves toward 0 from each side; if they keep growing without settling, say unbounded.",
+        "accepted_variants": [
+         "lim x→0 h(x) = ∞",
+         "h(x) grows without bound",
+         "h(x) becomes arbitrarily large"
+        ]
+       },
+       {
+        "text": "Concludes lim x→0 h(x) does not exist as a real number because h(x) is unbounded near x = 0.",
+        "evidence": "States the limit does not exist (as a real number) and links this to the unbounded behavior, not to a mismatch of sides or to h being undefined at 0.",
+        "fix": "When function values grow without bound, state the limit does not exist as a real number, citing the unbounded behavior as the reason.",
+        "accepted_variants": [
+         "DNE because unbounded",
+         "the limit is infinite, so it does not exist as a real number"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "flags": {
+    "openai/gpt-6.1-sol": [
+     "rubric_points: Part (b), criterion b2 rejects the correct right-hand limit estimate −1 and instead awards credit for 1. A complete correct answer therefore cannot earn every criterion.",
+     "accurate: Part (b), criterion b2 incorrectly states that −1.2, −1.02, and −1.002 approach 1. They approach −1. Its criterion, evidence, and accepted variants must use −1; criterion c1 already uses the correct value.",
+     "solution: Criterion b2 disagrees with the independent solution: lim x→1⁺ g(x) ≈ −1, not 1. All other rubric conclusions agree: (a) approximately 0.25, unaffected by f(3); (b) left-hand limit approximately 3; (c) the two-sided limit does not exist because 3 ≠ −1; (d) h(x) grows without bound from both sides, so its limit does not exist as a real number."
+    ],
+    "deepseek/deepseek-v4-pro": [
+     "rubric_points: Criterion b2 awards the wrong right-hand limit: the table values -1.002, -1.02, -1.2 approach -1, not 1. This also conflicts with criterion c1, which correctly uses -1.",
+     "accurate: Model answer part (b) and criterion b2 state lim x→1⁺ g(x) ≈ 1, but the table values approach -1; model answer part (c) correctly uses -1, so the model answer is internally inconsistent.",
+     "model_answer: Part (b) of the model answer gives the incorrect right-hand limit as 1 and says the values -1.2, -1.02, -1.002 approach 1.",
+     "solution: My independent solution agrees with the rubric and model answer except in part (b): the right-hand values g(1.001) = -1.002, g(1.01) = -1.02, g(1.1) = -1.2 approach -1, so lim x→1⁺ g(x) ≈ -1. Criterion b2 and model answer part (b) incorrectly say 1, while part (c) correctly says -1."
+    ]
+   }
+  },
+  {
+   "base": "ap_calculus_ab__1.4__1",
+   "kind": "later_unit",
+   "planted": "Part (a) was rewritten: instead of asking why f(3) = 1 does not affect the limit estimate, it now gives the formula f(x) = (√(x+1) − 2)/(x − 3) and requires confirming the estimate with L'Hospital's Rule. L'Hospital's Rule is a Unit 4 topic (4.7), well outside topic 1.4 and earlier units. Criterion a2 was replaced with an L'Hospital's Rule criterion, and part (a) of the model answer was updated to match. Criterion a1, parts (b)-(d), the stimulus and verification_python are unchanged.",
+   "caught_by": [
+    "openai/gpt-6.1-sol",
+    "deepseek/deepseek-v4-pro"
+   ],
+   "accepted_by_pair": false,
+   "item": {
+    "title": "Estimating One-Sided and Two-Sided Limits from Tables",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f, g and h are defined for all real numbers, except that h is not defined at x = 0. The only information available about them is given below.\n\nSelected values of f near x = 3 (values rounded to four decimal places):\nx:    2.9     2.99    2.999   3.001   3.01    3.1\nf(x): 0.2516  0.2502  0.2500  0.2500  0.2498  0.2485\nIn addition, f(3) = 1.\n\nSelected values of g near x = 1:\nx:    0.9    0.99    0.999   1.001    1.01    1.1\ng(x): 2.8    2.98    2.998   -1.002   -1.02   -1.2\nIn addition, g(1) = -1.\n\nSelected values of h near x = 0:\nx:    -0.1   -0.01    -0.001     0.001      0.01     0.1\nh(x): 100    10000    1000000    1000000    10000    100\n\nAssume that the patterns shown in each table continue as x gets closer to the given point.",
+    "model_answer": "(a) As x→3⁻, f(x) takes the values 0.2516, 0.2502, 0.2500, and as x→3⁺, f(x) takes the values 0.2485, 0.2498, 0.2500. From both sides the values approach 0.25, so lim x→3 f(x) ≈ 0.25. To confirm, with f(x) = (√(x+1) − 2)/(x − 3): at x = 3 the numerator is √4 − 2 = 0 and the denominator is 0, so the limit has the indeterminate form 0/0. By L'Hospital's Rule, lim x→3 f(x) = lim x→3 [1/(2√(x+1))]/1 = 1/(2·2) = 1/4 = 0.25, which matches the estimate.\n\n(b) From the left, g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998, which approach 3, so lim x→1⁻ g(x) ≈ 3. From the right, g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002, which approach -1, so lim x→1⁺ g(x) ≈ -1.\n\n(c) No. lim x→1 g(x) does not exist because the left-hand limit, 3, is not equal to the right-hand limit, -1. A two-sided limit exists only when both one-sided limits are equal.\n\n(d) As x approaches 0 from the left (-0.1, -0.01, -0.001) and from the right (0.1, 0.01, 0.001), h(x) goes 100, 10000, 1000000, growing larger and larger without bound, so h(x)→∞ as x→0. Since h(x) is unbounded near x = 0, lim x→0 h(x) does not exist as a real number.",
+    "verification_python": "import math\nfrom fractions import Fraction\n# f values generated from (sqrt(x+1)-2)/(x-3), limit 1/4\nf=lambda x:(math.sqrt(x+1)-2)/(x-3)\ntable={2.9:0.2516,2.99:0.2502,2.999:0.2500,3.001:0.2500,3.01:0.2498,3.1:0.2485}\nfor x,v in table.items():\n    assert abs(round(f(x),4)-v)<1e-9,(x,f(x))\nassert abs(f(3-1e-6)-0.25)<1e-5 and abs(f(3+1e-6)-0.25)<1e-5\n# g: 2x+1 for x<1, 1-2x for x>=1\ng=lambda x: 2*x+1 if x<1 else 1-2*x\ngt={Fraction(9,10):Fraction(28,10),Fraction(99,100):Fraction(298,100),Fraction(999,1000):Fraction(2998,1000),Fraction(1001,1000):Fraction(-1002,1000),Fraction(101,100):Fraction(-102,100),Fraction(11,10):Fraction(-12,10)}\nfor x,v in gt.items():\n    assert g(x)==v\nassert g(Fraction(1))==-1\nassert g(Fraction(1)-Fraction(1,10**9))-3==-Fraction(2,10**9)\nassert g(Fraction(1)+Fraction(1,10**9))+1==-Fraction(2,10**9)\nassert 3!=-1\n# h = 1/x^2\nh=lambda x: 1/x**2\nht={Fraction(-1,10):100,Fraction(-1,100):10000,Fraction(-1,1000):1000000,Fraction(1,1000):1000000,Fraction(1,100):10000,Fraction(1,10):100}\nfor x,v in ht.items():\n    assert h(x)==v\nassert h(Fraction(1,10**6))>10**11\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the table to estimate lim x→3 f(x). Then, given that f(x) = (√(x+1) − 2)/(x − 3) for x ≠ 3, use L'Hospital's Rule to confirm your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→3 f(x) ≈ 0.25, supported by the values from both sides of x = 3.",
+        "evidence": "States the estimate 0.25 and notes that f(x) approaches 0.25 both as x→3⁻ (0.2516, 0.2502, 0.2500) and as x→3⁺ (0.2500, 0.2498, 0.2485).",
+        "fix": "Read the f-values on each side of x = 3 separately, check they approach the same number, then state that common number.",
+        "accepted_variants": [
+         "1/4",
+         "0.250",
+         "approximately 0.25"
+        ]
+       },
+       {
+        "text": "Applies L'Hospital's Rule correctly: verifies the 0/0 form, differentiates numerator and denominator, and obtains lim x→3 f(x) = 1/4.",
+        "evidence": "Notes √(3+1) − 2 = 0 and 3 − 3 = 0, then computes lim x→3 [1/(2√(x+1))]/1 = 1/(2·2) = 1/4, matching the table estimate.",
+        "fix": "Check the limit is 0/0, then differentiate numerator and denominator separately and evaluate the new quotient at x = 3.",
+        "accepted_variants": [
+         "0.25",
+         "1/(2√4) = 1/4",
+         "limit equals 1/4 by L'Hospital's Rule"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to estimate lim x→1⁻ g(x) and lim x→1⁺ g(x).",
+      "criteria": [
+       {
+        "text": "Estimates lim x→1⁻ g(x) ≈ 3 from the values to the left of x = 1.",
+        "evidence": "States 3, referring to g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998 approaching 3.",
+        "fix": "For a left-hand limit, use only the x-values less than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "3.0",
+         "approximately 3"
+        ]
+       },
+       {
+        "text": "Estimates lim x→1⁺ g(x) ≈ -1 from the values to the right of x = 1.",
+        "evidence": "States -1, referring to g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002 approaching -1.",
+        "fix": "For a right-hand limit, use only the x-values greater than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "-1.0",
+         "approximately -1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on your answers to part (b), does lim x→1 g(x) exist? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Concludes lim x→1 g(x) does not exist because the one-sided limit estimates, 3 and -1, are not equal.",
+        "evidence": "States the limit does not exist and gives the reason that the left-hand limit (3) and right-hand limit (-1) differ; citing g(1) = -1 alone is not a valid reason.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly with their values.",
+        "accepted_variants": [
+         "DNE because 3 ≠ -1",
+         "no, the left and right limits differ"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on the table, describe the behavior of h(x) as x approaches 0, and state whether lim x→0 h(x) exists as a real number. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Describes that h(x) increases without bound as x approaches 0 from both sides.",
+        "evidence": "Notes the values 100, 10000, 1000000 grow larger and larger from the left and from the right, so h(x)→∞ as x→0.",
+        "fix": "Look at how the h-values change as x moves toward 0 from each side; if they keep growing without settling, say unbounded.",
+        "accepted_variants": [
+         "lim x→0 h(x) = ∞",
+         "h(x) grows without bound",
+         "h(x) becomes arbitrarily large"
+        ]
+       },
+       {
+        "text": "Concludes lim x→0 h(x) does not exist as a real number because h(x) is unbounded near x = 0.",
+        "evidence": "States the limit does not exist (as a real number) and links this to the unbounded behavior, not to a mismatch of sides or to h being undefined at 0.",
+        "fix": "When function values grow without bound, state the limit does not exist as a real number, citing the unbounded behavior as the reason.",
+        "accepted_variants": [
+         "DNE because unbounded",
+         "the limit is infinite, so it does not exist as a real number"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "flags": {
+    "openai/gpt-6.1-sol": [
+     "on_topic: Although at least half the points assess table-based limit estimation, part (a) requires L'Hospital's Rule and differentiation, which are later topics unavailable to a student who has studied only Topic 1.4 and earlier content.",
+     "well_posed: The setup defines f for every real number, but part (a) assigns a square-root formula for every x ≠ 3 that is not real-valued when x < −1. Restrict the formula to a neighborhood of 3 or revise the domain.",
+     "rubric_points: Criterion a2 combines verification of the indeterminate form, differentiation, and final evaluation into one all-or-nothing point rather than separating setup and execution. Its accepted variants also explicitly include the bare value 0.25 and an unsupported assertion invoking L'Hospital's Rule, neither of which supplies the requested confirmation work.",
+     "accurate: The global domain assertion for f contradicts the formula in part (a): √(x+1) is not real-valued for x < −1. The table entries, estimated limits, and displayed L'Hospital calculation are otherwise correct."
+    ],
+    "deepseek/deepseek-v4-pro": [
+     "on_topic: Part (a), criterion a2 asks for L'Hospital's Rule, which is a Unit 4 topic; a student who has just studied topic 1.4 and earlier units cannot answer that part."
+    ]
+   }
+  },
+  {
+   "base": "ap_calculus_ab__1.4__1",
+   "kind": "bare_value_and_unasked",
+   "planted": "Part (d) only. Criterion d1 was changed from awarding a description that h(x) increases without bound as x→0 from both sides to awarding 'Identifies a formula for h consistent with the table, h(x) = 1/x²'. Part (d) never asks for a formula; the prompt says the tables are the only information available. Its evidence, fix and accepted variants were rewritten to match. In criterion d2, the bare final value 'DNE' was added to the accepted variants, although part (d) asks the student to justify the answer. The stimulus, all other parts and criteria, the model answer and verification_python are unchanged.",
+   "caught_by": [
+    "openai/gpt-6.1-sol",
+    "deepseek/deepseek-v4-pro"
+   ],
+   "accepted_by_pair": false,
+   "item": {
+    "title": "Estimating One-Sided and Two-Sided Limits from Tables",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f, g and h are defined for all real numbers, except that h is not defined at x = 0. The only information available about them is given below.\n\nSelected values of f near x = 3 (values rounded to four decimal places):\nx:    2.9     2.99    2.999   3.001   3.01    3.1\nf(x): 0.2516  0.2502  0.2500  0.2500  0.2498  0.2485\nIn addition, f(3) = 1.\n\nSelected values of g near x = 1:\nx:    0.9    0.99    0.999   1.001    1.01    1.1\ng(x): 2.8    2.98    2.998   -1.002   -1.02   -1.2\nIn addition, g(1) = -1.\n\nSelected values of h near x = 0:\nx:    -0.1   -0.01    -0.001     0.001      0.01     0.1\nh(x): 100    10000    1000000    1000000    10000    100\n\nAssume that the patterns shown in each table continue as x gets closer to the given point.",
+    "model_answer": "(a) As x→3⁻, f(x) takes the values 0.2516, 0.2502, 0.2500, and as x→3⁺, f(x) takes the values 0.2485, 0.2498, 0.2500. From both sides the values approach 0.25, so lim x→3 f(x) ≈ 0.25. The value f(3) = 1 does not matter, because a limit as x→3 depends only on the values of f(x) for x close to 3 with x ≠ 3, not on the value of f at x = 3.\n\n(b) From the left, g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998, which approach 3, so lim x→1⁻ g(x) ≈ 3. From the right, g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002, which approach -1, so lim x→1⁺ g(x) ≈ -1.\n\n(c) No. lim x→1 g(x) does not exist because the left-hand limit, 3, is not equal to the right-hand limit, -1. A two-sided limit exists only when both one-sided limits are equal.\n\n(d) As x approaches 0 from the left (-0.1, -0.01, -0.001) and from the right (0.1, 0.01, 0.001), h(x) goes 100, 10000, 1000000, growing larger and larger without bound, so h(x)→∞ as x→0. Since h(x) is unbounded near x = 0, lim x→0 h(x) does not exist as a real number.",
+    "verification_python": "import math\nfrom fractions import Fraction\n# f values generated from (sqrt(x+1)-2)/(x-3), limit 1/4\nf=lambda x:(math.sqrt(x+1)-2)/(x-3)\ntable={2.9:0.2516,2.99:0.2502,2.999:0.2500,3.001:0.2500,3.01:0.2498,3.1:0.2485}\nfor x,v in table.items():\n    assert abs(round(f(x),4)-v)<1e-9,(x,f(x))\nassert abs(f(3-1e-6)-0.25)<1e-5 and abs(f(3+1e-6)-0.25)<1e-5\n# g: 2x+1 for x<1, 1-2x for x>=1\ng=lambda x: 2*x+1 if x<1 else 1-2*x\ngt={Fraction(9,10):Fraction(28,10),Fraction(99,100):Fraction(298,100),Fraction(999,1000):Fraction(2998,1000),Fraction(1001,1000):Fraction(-1002,1000),Fraction(101,100):Fraction(-102,100),Fraction(11,10):Fraction(-12,10)}\nfor x,v in gt.items():\n    assert g(x)==v\nassert g(Fraction(1))==-1\nassert g(Fraction(1)-Fraction(1,10**9))-3==-Fraction(2,10**9)\nassert g(Fraction(1)+Fraction(1,10**9))+1==-Fraction(2,10**9)\nassert 3!=-1\n# h = 1/x^2\nh=lambda x: 1/x**2\nht={Fraction(-1,10):100,Fraction(-1,100):10000,Fraction(-1,1000):1000000,Fraction(1,1000):1000000,Fraction(1,100):10000,Fraction(1,10):100}\nfor x,v in ht.items():\n    assert h(x)==v\nassert h(Fraction(1,10**6))>10**11\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the table to estimate lim x→3 f(x). Explain why the given value f(3) = 1 does not change your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→3 f(x) ≈ 0.25, supported by the values from both sides of x = 3.",
+        "evidence": "States the estimate 0.25 and notes that f(x) approaches 0.25 both as x→3⁻ (0.2516, 0.2502, 0.2500) and as x→3⁺ (0.2500, 0.2498, 0.2485).",
+        "fix": "Read the f-values on each side of x = 3 separately, check they approach the same number, then state that common number.",
+        "accepted_variants": [
+         "1/4",
+         "0.250",
+         "approximately 0.25"
+        ]
+       },
+       {
+        "text": "Explains that a limit depends on the values of f near x = 3, not on the value f(3), so f(3) = 1 does not affect the estimate.",
+        "evidence": "States that the limit describes the behavior of f(x) as x approaches 3 (x ≠ 3), so the function value at x = 3 itself is irrelevant.",
+        "fix": "Remember lim x→c f(x) uses only x-values close to but not equal to c; the value f(c) plays no role.",
+        "accepted_variants": [
+         "the limit only uses x close to 3, not x = 3",
+         "f(3) is not used in finding the limit"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to estimate lim x→1⁻ g(x) and lim x→1⁺ g(x).",
+      "criteria": [
+       {
+        "text": "Estimates lim x→1⁻ g(x) ≈ 3 from the values to the left of x = 1.",
+        "evidence": "States 3, referring to g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998 approaching 3.",
+        "fix": "For a left-hand limit, use only the x-values less than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "3.0",
+         "approximately 3"
+        ]
+       },
+       {
+        "text": "Estimates lim x→1⁺ g(x) ≈ -1 from the values to the right of x = 1.",
+        "evidence": "States -1, referring to g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002 approaching -1.",
+        "fix": "For a right-hand limit, use only the x-values greater than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "-1.0",
+         "approximately -1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on your answers to part (b), does lim x→1 g(x) exist? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Concludes lim x→1 g(x) does not exist because the one-sided limit estimates, 3 and -1, are not equal.",
+        "evidence": "States the limit does not exist and gives the reason that the left-hand limit (3) and right-hand limit (-1) differ; citing g(1) = -1 alone is not a valid reason.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly with their values.",
+        "accepted_variants": [
+         "DNE because 3 ≠ -1",
+         "no, the left and right limits differ"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on the table, describe the behavior of h(x) as x approaches 0, and state whether lim x→0 h(x) exists as a real number. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Identifies a formula for h consistent with the table, namely h(x) = 1/x².",
+        "evidence": "Writes h(x) = 1/x² and checks it against at least one table entry, e.g. h(0.1) = 1/0.01 = 100.",
+        "fix": "Look for a simple expression in x that reproduces every h-value in the table, then state it as the formula for h.",
+        "accepted_variants": [
+         "h(x) = x^(-2)",
+         "h(x) = 1/(x·x)"
+        ]
+       },
+       {
+        "text": "Concludes lim x→0 h(x) does not exist as a real number because h(x) is unbounded near x = 0.",
+        "evidence": "States the limit does not exist (as a real number) and links this to the unbounded behavior, not to a mismatch of sides or to h being undefined at 0.",
+        "fix": "When function values grow without bound, state the limit does not exist as a real number, citing the unbounded behavior as the reason.",
+        "accepted_variants": [
+         "DNE because unbounded",
+         "the limit is infinite, so it does not exist as a real number",
+         "DNE"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "flags": {
+    "openai/gpt-6.1-sol": [
+     "rubric_points: Part (d), criterion d1 rewards identifying and checking a formula, which the part does not request; a complete correct description of unbounded growth cannot earn this point. Criterion d2 accepts bare 'DNE' despite the explicit justification requirement. Part (b), criteria b1 and b2 require references to individual table entries although the part requests only estimates.",
+     "accurate: Part (d), criterion d1 asserts h(x) = 1/x² without sufficient information. That formula fits the entries, but neither the finite table nor the continued-pattern assumption uniquely determines h. Its fix incorrectly instructs students to state a matching expression as the formula for h.",
+     "solution: The independent solution gives 0.25 in (a), one-sided estimates 3 and −1 in (b), no two-sided limit in (c), and positive unbounded growth with no real-valued limit in (d). These agree with the rubric's limit conclusions. However, the complete answer to (d) does not identify a formula and therefore cannot earn d1. The data support the stated limiting behavior, not the claim that h must equal 1/x². Criterion d2's acceptance of bare 'DNE' also omits the required description and justification. No model answer was evaluated."
+    ],
+    "deepseek/deepseek-v4-pro": [
+     "rubric_points: Part (d) asks only to describe the behavior of h(x) as x approaches 0 and whether the limit exists as a real number; criterion d1 additionally requires identifying a formula h(x)=1/x², which the part did not ask for.",
+     "model_answer: The model answer for part (d) does not identify h(x)=1/x², so it does not earn criterion d1.",
+     "solution: My solution agrees with the model answer on all asked parts; neither includes the formula h(x)=1/x² required by rubric criterion d1, because part (d) did not ask for it."
+    ]
+   }
+  },
+  {
+   "base": "ap_calculus_ab__1.4__1",
+   "kind": "insufficient",
+   "planted": "In the setup, the g table's values to the right of x = 1 (x = 1.001, 1.01, 1.1 with g(x) = -1.002, -1.02, -1.2) were deleted, leaving only the left-side values and g(1) = -1. Because the setup says this is the only information available, part (b) criterion b2 (estimating lim x→1⁺ g(x) ≈ -1) can no longer be answered; g(1) = -1 says nothing about the right-hand limit. Part (c), criterion c1, also loses its basis. The parts, rubric, model answer and verification_python are unchanged, and the model answer still cites the deleted values.",
+   "caught_by": [
+    "openai/gpt-6.1-sol",
+    "deepseek/deepseek-v4-pro"
+   ],
+   "accepted_by_pair": false,
+   "item": {
+    "title": "Estimating One-Sided and Two-Sided Limits from Tables",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f, g and h are defined for all real numbers, except that h is not defined at x = 0. The only information available about them is given below.\n\nSelected values of f near x = 3 (values rounded to four decimal places):\nx:    2.9     2.99    2.999   3.001   3.01    3.1\nf(x): 0.2516  0.2502  0.2500  0.2500  0.2498  0.2485\nIn addition, f(3) = 1.\n\nSelected values of g near x = 1:\nx:    0.9    0.99    0.999\ng(x): 2.8    2.98    2.998\nIn addition, g(1) = -1.\n\nSelected values of h near x = 0:\nx:    -0.1   -0.01    -0.001     0.001      0.01     0.1\nh(x): 100    10000    1000000    1000000    10000    100\n\nAssume that the patterns shown in each table continue as x gets closer to the given point.",
+    "model_answer": "(a) As x→3⁻, f(x) takes the values 0.2516, 0.2502, 0.2500, and as x→3⁺, f(x) takes the values 0.2485, 0.2498, 0.2500. From both sides the values approach 0.25, so lim x→3 f(x) ≈ 0.25. The value f(3) = 1 does not matter, because a limit as x→3 depends only on the values of f(x) for x close to 3 with x ≠ 3, not on the value of f at x = 3.\n\n(b) From the left, g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998, which approach 3, so lim x→1⁻ g(x) ≈ 3. From the right, g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002, which approach -1, so lim x→1⁺ g(x) ≈ -1.\n\n(c) No. lim x→1 g(x) does not exist because the left-hand limit, 3, is not equal to the right-hand limit, -1. A two-sided limit exists only when both one-sided limits are equal.\n\n(d) As x approaches 0 from the left (-0.1, -0.01, -0.001) and from the right (0.1, 0.01, 0.001), h(x) goes 100, 10000, 1000000, growing larger and larger without bound, so h(x)→∞ as x→0. Since h(x) is unbounded near x = 0, lim x→0 h(x) does not exist as a real number.",
+    "verification_python": "import math\nfrom fractions import Fraction\n# f values generated from (sqrt(x+1)-2)/(x-3), limit 1/4\nf=lambda x:(math.sqrt(x+1)-2)/(x-3)\ntable={2.9:0.2516,2.99:0.2502,2.999:0.2500,3.001:0.2500,3.01:0.2498,3.1:0.2485}\nfor x,v in table.items():\n    assert abs(round(f(x),4)-v)<1e-9,(x,f(x))\nassert abs(f(3-1e-6)-0.25)<1e-5 and abs(f(3+1e-6)-0.25)<1e-5\n# g: 2x+1 for x<1, 1-2x for x>=1\ng=lambda x: 2*x+1 if x<1 else 1-2*x\ngt={Fraction(9,10):Fraction(28,10),Fraction(99,100):Fraction(298,100),Fraction(999,1000):Fraction(2998,1000),Fraction(1001,1000):Fraction(-1002,1000),Fraction(101,100):Fraction(-102,100),Fraction(11,10):Fraction(-12,10)}\nfor x,v in gt.items():\n    assert g(x)==v\nassert g(Fraction(1))==-1\nassert g(Fraction(1)-Fraction(1,10**9))-3==-Fraction(2,10**9)\nassert g(Fraction(1)+Fraction(1,10**9))+1==-Fraction(2,10**9)\nassert 3!=-1\n# h = 1/x^2\nh=lambda x: 1/x**2\nht={Fraction(-1,10):100,Fraction(-1,100):10000,Fraction(-1,1000):1000000,Fraction(1,1000):1000000,Fraction(1,100):10000,Fraction(1,10):100}\nfor x,v in ht.items():\n    assert h(x)==v\nassert h(Fraction(1,10**6))>10**11\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the table to estimate lim x→3 f(x). Explain why the given value f(3) = 1 does not change your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→3 f(x) ≈ 0.25, supported by the values from both sides of x = 3.",
+        "evidence": "States the estimate 0.25 and notes that f(x) approaches 0.25 both as x→3⁻ (0.2516, 0.2502, 0.2500) and as x→3⁺ (0.2500, 0.2498, 0.2485).",
+        "fix": "Read the f-values on each side of x = 3 separately, check they approach the same number, then state that common number.",
+        "accepted_variants": [
+         "1/4",
+         "0.250",
+         "approximately 0.25"
+        ]
+       },
+       {
+        "text": "Explains that a limit depends on the values of f near x = 3, not on the value f(3), so f(3) = 1 does not affect the estimate.",
+        "evidence": "States that the limit describes the behavior of f(x) as x approaches 3 (x ≠ 3), so the function value at x = 3 itself is irrelevant.",
+        "fix": "Remember lim x→c f(x) uses only x-values close to but not equal to c; the value f(c) plays no role.",
+        "accepted_variants": [
+         "the limit only uses x close to 3, not x = 3",
+         "f(3) is not used in finding the limit"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to estimate lim x→1⁻ g(x) and lim x→1⁺ g(x).",
+      "criteria": [
+       {
+        "text": "Estimates lim x→1⁻ g(x) ≈ 3 from the values to the left of x = 1.",
+        "evidence": "States 3, referring to g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998 approaching 3.",
+        "fix": "For a left-hand limit, use only the x-values less than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "3.0",
+         "approximately 3"
+        ]
+       },
+       {
+        "text": "Estimates lim x→1⁺ g(x) ≈ -1 from the values to the right of x = 1.",
+        "evidence": "States -1, referring to g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002 approaching -1.",
+        "fix": "For a right-hand limit, use only the x-values greater than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "-1.0",
+         "approximately -1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on your answers to part (b), does lim x→1 g(x) exist? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Concludes lim x→1 g(x) does not exist because the one-sided limit estimates, 3 and -1, are not equal.",
+        "evidence": "States the limit does not exist and gives the reason that the left-hand limit (3) and right-hand limit (-1) differ; citing g(1) = -1 alone is not a valid reason.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly with their values.",
+        "accepted_variants": [
+         "DNE because 3 ≠ -1",
+         "no, the left and right limits differ"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on the table, describe the behavior of h(x) as x approaches 0, and state whether lim x→0 h(x) exists as a real number. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Describes that h(x) increases without bound as x approaches 0 from both sides.",
+        "evidence": "Notes the values 100, 10000, 1000000 grow larger and larger from the left and from the right, so h(x)→∞ as x→0.",
+        "fix": "Look at how the h-values change as x moves toward 0 from each side; if they keep growing without settling, say unbounded.",
+        "accepted_variants": [
+         "lim x→0 h(x) = ∞",
+         "h(x) grows without bound",
+         "h(x) becomes arbitrarily large"
+        ]
+       },
+       {
+        "text": "Concludes lim x→0 h(x) does not exist as a real number because h(x) is unbounded near x = 0.",
+        "evidence": "States the limit does not exist (as a real number) and links this to the unbounded behavior, not to a mismatch of sides or to h being undefined at 0.",
+        "fix": "When function values grow without bound, state the limit does not exist as a real number, citing the unbounded behavior as the reason.",
+        "accepted_variants": [
+         "DNE because unbounded",
+         "the limit is infinite, so it does not exist as a real number"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "flags": {
+    "openai/gpt-6.1-sol": [
+     "well_posed: Part (b) supplies no values of g for x > 1, so the right-hand limit cannot be estimated. Consequently, part (c) cannot definitively determine whether the two-sided limit exists. The pattern assumption does not supply information for an entirely missing side.",
+     "rubric_points: Criterion b2 requires −1 and supporting right-side values that are not supplied, rejecting the correct answer that the right-hand limit cannot be determined. Criterion c1 likewise rejects the correct conclusion that there is insufficient information to determine whether the two-sided limit exists.",
+     "accurate: Criterion b2 invents g(1.1) = −1.2, g(1.01) = −1.02, and g(1.001) = −1.002; none appears in the setup or follows from it. Its right-hand limit estimate of −1 and criterion c1's conclusion that the two-sided limit does not exist are unsupported by the given information.",
+     "solution: For b2, the right-hand limit cannot be determined from the supplied table; g(1) = −1 does not determine it. For c1, whether the two-sided limit exists cannot be determined because the right-hand behavior is unknown. The rubric's conclusions would require additional right-side data. The independent solution agrees with a1, a2, b1, d1, and d2."
+    ],
+    "deepseek/deepseek-v4-pro": [
+     "well_posed: Part (b), criterion b2, asks for lim x→1⁺ g(x), but the table for g provides no x-values greater than 1; only g(1) = -1 is given. Therefore the right-hand limit cannot be estimated, and part (c) is not determinable.",
+     "rubric_points: Criterion b2 awards a point for right-hand value data g(1.1), g(1.01), g(1.001) that are not in the question, so no response can legitimately earn this criterion as written.",
+     "rubric_evidence: Criterion b2's evidence states the response must refer to right-side values that are not provided in the table, so the evidence cannot be shown from the given information.",
+     "accurate: Part (b), criterion b2: the rubric and model answer assert g(1.1) = -1.2, g(1.01) = -1.02, and g(1.001) = -1.002, but these numbers are not in the question setup.",
+     "model_answer: Part (b) of the model answer uses right-side values absent from the table, so it answers a different question and cannot earn criterion b2 as written.",
+     "solution: My solution says part (b)'s right-hand limit cannot be estimated because no x>1 values for g are provided; the rubric and model answer invent g(1.1), g(1.01), and g(1.001) and conclude lim x→1⁺ g(x) ≈ -1. Thus part (c) cannot be answered from the given table. The remaining parts agree."
+    ]
+   }
+  },
+  {
+   "base": "ap_physics_c_em__8.1__1",
+   "kind": "wrong_value",
+   "planted": "Part (b), criterion b1: the ratio F_E/F_G was changed from the correct 5.05 × 10⁸ to the incorrect 5.05 × 10⁷ (a power-of-ten slip) in the criterion text and evidence, and correspondingly in the model answer's part (b) final ratio. The correct value is (1.3485 × 10⁻⁷)/(2.668 × 10⁻¹⁶) ≈ 5.05 × 10⁸. The accepted variants, the 'half a billion' remark, and verification_python were left unchanged.",
+   "caught_by": [
+    "openai/gpt-6.1-sol",
+    "deepseek/deepseek-v4-pro"
+   ],
+   "accepted_by_pair": false,
+   "item": {
+    "title": "Electric Versus Gravitational Force Between Charged Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two small metal spheres, each of mass m = 2.00 g and radius 2.0 mm, are held at rest in vacuum with their centers separated by d = 0.150 m. Sphere 1 carries charge q₁ = +3.0 nC and sphere 2 carries charge q₂ = −5.0 nC. Treat both spheres as point charges. Use k = 1/(4πε₀) = 8.99 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "model_answer": "(a) F_E = k|q₁q₂|/d² = (8.99 × 10⁹ N·m²/C²)(3.0 × 10⁻⁹ C)(5.0 × 10⁻⁹ C)/(0.150 m)² = (8.99 × 10⁹)(1.5 × 10⁻¹⁷)/(0.0225) N ≈ 5.99 × 10⁻⁶ N. The force is attractive: q₁ is positive and q₂ is negative, and charges of opposite sign attract, so sphere 2 is pulled toward sphere 1 along the line joining their centers.\n\n(b) F_G = Gm²/d² = (6.67 × 10⁻¹¹)(2.00 × 10⁻³ kg)²/(0.150 m)² = (6.67 × 10⁻¹¹)(4.00 × 10⁻⁶)/(0.0225) N ≈ 1.19 × 10⁻¹⁴ N. The ratio is F_E/F_G = k|q₁q₂|/(Gm²) = (1.3485 × 10⁻⁷)/(2.668 × 10⁻¹⁶) ≈ 5.05 × 10⁷. The electrostatic force is about half a billion times larger than the gravitational force.\n\n(c) Coulomb's law gives F ∝ q₁q₂/d². The charge q₁ doubles (3.0 nC to 6.0 nC), which doubles F. The separation triples (0.150 m to 0.450 m), which divides F by 3² = 9. The factor is 2 × (1/9) = 2/9 ≈ 0.222, so the new force is (2/9)(5.99 × 10⁻⁶ N) ≈ 1.33 × 10⁻⁶ N.",
+    "verification_python": "import math\nk=8.99e9\nG=6.67e-11\nq1=3.0e-9\nq2=-5.0e-9\nm=2.00e-3\nd=0.150\nFE=k*abs(q1*q2)/d**2\nassert abs(FE-5.99e-6)<0.01e-6\nassert q1*q2<0\nFG=G*m**2/d**2\nassert abs(FG-1.19e-14)<0.01e-14\nratio=FE/FG\nassert abs(ratio-5.05e8)<0.01e8\nassert abs(k*abs(q1*q2)-1.3485e-7)<1e-11\nassert abs(G*m**2-2.668e-16)<1e-19\nq1n=6.0e-9\ndn=0.450\nFEn=k*abs(q1n*q2)/dn**2\nfactor=FEn/FE\nassert abs(factor-2/9)<1e-12\nassert abs(factor-0.222)<0.001\nassert abs(FEn-1.33e-6)<0.01e-6\nassert abs(1/factor-4.5)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the magnitude of the electrostatic force that sphere 1 exerts on sphere 2. State whether the force is attractive or repulsive, and justify your answer.",
+      "criteria": [
+       {
+        "text": "Calculates the electrostatic force magnitude F_E = k|q₁q₂|/d² ≈ 5.99 × 10⁻⁶ N, with units.",
+        "evidence": "Substitutes k, |q₁q₂| = 1.5 × 10⁻¹⁷ C², and d² = 0.0225 m² into Coulomb's law and reports about 5.99 × 10⁻⁶ N (or 6.0 × 10⁻⁶ N) with newtons as the unit.",
+        "fix": "Convert nC to C (×10⁻⁹), square the separation in meters, and use F = k|q₁q₂|/d² with units written on the answer.",
+        "accepted_variants": [
+         "6.0 × 10⁻⁶ N",
+         "5.99 μN",
+         "6.0 μN",
+         "5.99e-6 N"
+        ]
+       },
+       {
+        "text": "States the force is attractive because the charges have opposite signs.",
+        "evidence": "Identifies the force as attractive and connects this to q₁ being positive and q₂ being negative (opposite signs attract), with the force directed along the line joining the centers toward sphere 1.",
+        "fix": "Check the signs of both charges: opposite signs attract, like signs repel; state this reason explicitly, not just the conclusion.",
+        "accepted_variants": [
+         "sphere 2 is pulled toward sphere 1",
+         "opposite charges attract"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the ratio F_E/F_G of the magnitude of the electrostatic force to the magnitude of the gravitational force between the two spheres.",
+      "criteria": [
+       {
+        "text": "Computes F_E/F_G = k|q₁q₂|/(Gm²) ≈ 5.05 × 10⁷ (dimensionless), using m = 2.00 × 10⁻³ kg.",
+        "evidence": "Shows F_G = Gm²/d² ≈ 1.19 × 10⁻¹⁴ N (or cancels d² directly) and obtains a ratio of about 5.05 × 10⁷, consistent with the student's own F_E from part (a).",
+        "fix": "Convert grams to kilograms before using F_G = Gm²/d², then divide F_E by F_G; note d² cancels in the ratio.",
+        "accepted_variants": [
+         "5.1 × 10⁸",
+         "5.05e8",
+         "about 5 × 10⁸"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The charge on sphere 1 is changed to +6.0 nC, the charge on sphere 2 is unchanged, and the separation of the centers is increased to 0.450 m. By what factor does the magnitude of the electrostatic force change compared with part (a)? Justify your answer using the functional dependence of Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Determines the force is multiplied by 2/9 (new force ≈ 1.33 × 10⁻⁶ N), justified by F ∝ q₁q₂/d².",
+        "evidence": "States that doubling q₁ doubles F and tripling d divides F by 3² = 9, giving a factor of 2/9 (about 0.222); a numeric new force of about 1.33 × 10⁻⁶ N consistent with part (a) is also acceptable if the factor is stated.",
+        "fix": "Write F₂/F₁ = (q₁′/q₁)(d/d′)²; remember distance enters squared, so tripling d reduces F by a factor of 9.",
+        "accepted_variants": [
+         "2/9",
+         "0.222",
+         "0.22",
+         "decreases by a factor of 4.5"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "flags": {
+    "openai/gpt-6.1-sol": [
+     "rubric_points: Criterion a2 accepts 'sphere 2 is pulled toward sphere 1' without the requested justification based on opposite charge signs. Criterion c1 lists bare factors as acceptable and permits a new force plus a factor without explicitly requiring the requested functional-dependence justification. These alternatives must require the corresponding reasoning.",
+     "accurate: Criterion b1 and its Evidence incorrectly give F_E/F_G ≈ 5.05 × 10⁷. The correct ratio is 5.05 × 10⁸; the listed accepted alternatives have the correct exponent.",
+     "solution: Part (b): F_G = 1.19 × 10⁻¹⁴ N, so F_E/F_G = (5.99 × 10⁻⁶)/(1.19 × 10⁻¹⁴) ≈ 5.05 × 10⁸, not the 5.05 × 10⁷ stated in criterion b1 and its Evidence. The accepted alternatives agree with the independent solution. Parts (a) and (c) agree numerically and physically."
+    ],
+    "deepseek/deepseek-v4-pro": [
+     "rubric_points: Part (b), criterion b1 gives the target as about 5.05 × 10⁷, but the correct ratio is about 5.05 × 10⁸. The main target and the accepted-variant values are not equivalent, so the criterion is ambiguous and a complete correct answer does not clearly match the stated criterion.",
+     "rubric_evidence: Part (b), criterion b1 evidence states the response must obtain a ratio of about 5.05 × 10⁷; the evidence should require about 5.05 × 10⁸.",
+     "accurate: Part (b) criterion b1 and the model answer's part (b) numerical result are off by a factor of 10: k|q₁q₂|/(Gm²) = (1.3485 × 10⁻⁷)/(2.668 × 10⁻¹⁶) ≈ 5.05 × 10⁸, not 5.05 × 10⁷.",
+     "model_answer: Part (b) model answer displays the ratio as 5.05 × 10⁷, but the correct value is 5.05 × 10⁸. The later 'half a billion' phrase is inconsistent with the displayed numerical value.",
+     "solution: My independent solution gives F_E/F_G = 5.05 × 10⁸ for part (b). This agrees with the rubric's accepted-variant values (5.1 × 10⁸, 5.05e8, about 5 × 10⁸) but disagrees with the b1 criterion's stated 5.05 × 10⁷ and with the model answer's displayed 5.05 × 10⁷."
+    ]
+   }
+  },
+  {
+   "base": "ap_physics_c_em__8.1__1",
+   "kind": "later_unit",
+   "planted": "Part (c), criterion c1: instead of directly stating the new charge q₁ = +6.0 nC, the prompt now gives sphere 1's electric potential (+26.97 kV relative to infinity) and requires the student to find the charge using the potential of an isolated conducting sphere, V = kq/R (q₁′ = RV/k = 6.0 nC). Electric potential is a later-unit concept outside topic 8.1 Electric Charge and Electric Force. Criterion c1 and the model answer for (c) were updated to include this step. All other parts are unchanged, and the numerical results (6.0 nC, factor 2/9, 1.33 × 10⁻⁶ N) are the same as in the original.",
+   "caught_by": [
+    "openai/gpt-6.1-sol",
+    "deepseek/deepseek-v4-pro"
+   ],
+   "accepted_by_pair": false,
+   "item": {
+    "title": "Electric Versus Gravitational Force Between Charged Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two small metal spheres, each of mass m = 2.00 g and radius 2.0 mm, are held at rest in vacuum with their centers separated by d = 0.150 m. Sphere 1 carries charge q₁ = +3.0 nC and sphere 2 carries charge q₂ = −5.0 nC. Treat both spheres as point charges. Use k = 1/(4πε₀) = 8.99 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "model_answer": "(a) F_E = k|q₁q₂|/d² = (8.99 × 10⁹ N·m²/C²)(3.0 × 10⁻⁹ C)(5.0 × 10⁻⁹ C)/(0.150 m)² = (8.99 × 10⁹)(1.5 × 10⁻¹⁷)/(0.0225) N ≈ 5.99 × 10⁻⁶ N. The force is attractive: q₁ is positive and q₂ is negative, and charges of opposite sign attract, so sphere 2 is pulled toward sphere 1 along the line joining their centers.\n\n(b) F_G = Gm²/d² = (6.67 × 10⁻¹¹)(2.00 × 10⁻³ kg)²/(0.150 m)² = (6.67 × 10⁻¹¹)(4.00 × 10⁻⁶)/(0.0225) N ≈ 1.19 × 10⁻¹⁴ N. The ratio is F_E/F_G = k|q₁q₂|/(Gm²) = (1.3485 × 10⁻⁷)/(2.668 × 10⁻¹⁶) ≈ 5.05 × 10⁸. The electrostatic force is about half a billion times larger than the gravitational force.\n\n(c) For an isolated conducting sphere, the potential at its surface is V = kq/R, so q₁′ = RV/k = (2.0 × 10⁻³ m)(2.697 × 10⁴ V)/(8.99 × 10⁹ N·m²/C²) = 6.0 × 10⁻⁹ C = +6.0 nC. Coulomb's law gives F ∝ q₁q₂/d². The charge q₁ doubles (3.0 nC to 6.0 nC), which doubles F. The separation triples (0.150 m to 0.450 m), which divides F by 3² = 9. The factor is 2 × (1/9) = 2/9 ≈ 0.222, so the new force is (2/9)(5.99 × 10⁻⁶ N) ≈ 1.33 × 10⁻⁶ N.",
+    "verification_python": "import math\nk=8.99e9\nG=6.67e-11\nq1=3.0e-9\nq2=-5.0e-9\nm=2.00e-3\nd=0.150\nFE=k*abs(q1*q2)/d**2\nassert abs(FE-5.99e-6)<0.01e-6\nassert q1*q2<0\nFG=G*m**2/d**2\nassert abs(FG-1.19e-14)<0.01e-14\nratio=FE/FG\nassert abs(ratio-5.05e8)<0.01e8\nassert abs(k*abs(q1*q2)-1.3485e-7)<1e-11\nassert abs(G*m**2-2.668e-16)<1e-19\nq1n=6.0e-9\ndn=0.450\nFEn=k*abs(q1n*q2)/dn**2\nfactor=FEn/FE\nassert abs(factor-2/9)<1e-12\nassert abs(factor-0.222)<0.001\nassert abs(FEn-1.33e-6)<0.01e-6\nassert abs(1/factor-4.5)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the magnitude of the electrostatic force that sphere 1 exerts on sphere 2. State whether the force is attractive or repulsive, and justify your answer.",
+      "criteria": [
+       {
+        "text": "Calculates the electrostatic force magnitude F_E = k|q₁q₂|/d² ≈ 5.99 × 10⁻⁶ N, with units.",
+        "evidence": "Substitutes k, |q₁q₂| = 1.5 × 10⁻¹⁷ C², and d² = 0.0225 m² into Coulomb's law and reports about 5.99 × 10⁻⁶ N (or 6.0 × 10⁻⁶ N) with newtons as the unit.",
+        "fix": "Convert nC to C (×10⁻⁹), square the separation in meters, and use F = k|q₁q₂|/d² with units written on the answer.",
+        "accepted_variants": [
+         "6.0 × 10⁻⁶ N",
+         "5.99 μN",
+         "6.0 μN",
+         "5.99e-6 N"
+        ]
+       },
+       {
+        "text": "States the force is attractive because the charges have opposite signs.",
+        "evidence": "Identifies the force as attractive and connects this to q₁ being positive and q₂ being negative (opposite signs attract), with the force directed along the line joining the centers toward sphere 1.",
+        "fix": "Check the signs of both charges: opposite signs attract, like signs repel; state this reason explicitly, not just the conclusion.",
+        "accepted_variants": [
+         "sphere 2 is pulled toward sphere 1",
+         "opposite charges attract"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the ratio F_E/F_G of the magnitude of the electrostatic force to the magnitude of the gravitational force between the two spheres.",
+      "criteria": [
+       {
+        "text": "Computes F_E/F_G = k|q₁q₂|/(Gm²) ≈ 5.05 × 10⁸ (dimensionless), using m = 2.00 × 10⁻³ kg.",
+        "evidence": "Shows F_G = Gm²/d² ≈ 1.19 × 10⁻¹⁴ N (or cancels d² directly) and obtains a ratio of about 5.05 × 10⁸, consistent with the student's own F_E from part (a).",
+        "fix": "Convert grams to kilograms before using F_G = Gm²/d², then divide F_E by F_G; note d² cancels in the ratio.",
+        "accepted_variants": [
+         "5.1 × 10⁸",
+         "5.05e8",
+         "about 5 × 10⁸"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Sphere 1 is momentarily connected to a terminal held at an electric potential of +26.97 kV relative to infinity and then disconnected, so that the isolated conducting sphere 1 (radius 2.0 mm) is at that potential. The charge on sphere 2 is unchanged, and the separation of the centers is then increased to 0.450 m. Determine the new charge on sphere 1, and determine by what factor the magnitude of the electrostatic force changes compared with part (a). Justify your answer.",
+      "criteria": [
+       {
+        "text": "Uses the potential of an isolated conducting sphere, V = kq/R, to find q₁′ = RV/k = 6.0 nC, then determines the force is multiplied by 2/9 (new force ≈ 1.33 × 10⁻⁶ N), justified by F ∝ q₁q₂/d².",
+        "evidence": "Computes q₁′ = (2.0 × 10⁻³ m)(2.697 × 10⁴ V)/(8.99 × 10⁹ N·m²/C²) = 6.0 × 10⁻⁹ C; states that doubling q₁ doubles F and tripling d divides F by 3² = 9, giving a factor of 2/9 (about 0.222); a numeric new force of about 1.33 × 10⁻⁶ N is also acceptable if the factor is stated.",
+        "fix": "Find the charge from V = kq/R for a conducting sphere, then write F₂/F₁ = (q₁′/q₁)(d/d′)², squaring the distance ratio.",
+        "accepted_variants": [
+         "q₁′ = 6.0 nC",
+         "2/9",
+         "0.222",
+         "0.22",
+         "decreases by a factor of 4.5"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "flags": {
+    "openai/gpt-6.1-sol": [
+     "on_topic: Although three of four points assess Topic 8.1, part (c) requires electric potential and the potential–charge relationship for a conducting sphere, from later Topics 9.2 and 10.1. Students cannot answer every part using Topic 8.1 and earlier material.",
+     "well_posed: Part (c) does not explicitly neglect sphere 2's contribution to sphere 1's potential during charging. Electrical isolation means disconnection, not absence of external charges. Consequently, V = kq/R alone requires an unstated assumption.",
+     "rubric_points: Criterion c1 bundles two independently observable answers—the new charge and the justified force-change factor—into one point. Criterion a2 additionally requires an explicit force direction that part (a) does not request. Its accepted variant 'sphere 2 is pulled toward sphere 1' also omits the requested justification.",
+     "accurate: Criterion c1 applies V = kq/R to sphere 1's total potential without accounting for nearby sphere 2. This relationship is valid here only if sphere 2's potential contribution is explicitly neglected. The numerical answers nevertheless agree after rounding to the supplied precision.",
+     "solution: Parts (a) and (b) agree with the rubric: F_E = 5.99 × 10⁻⁶ N, attractive because the charges have opposite signs, and F_E/F_G = 5.05 × 10⁸. Part (c) agrees conditionally: neglecting sphere 2's potential contribution gives q₁′ = +6.0 nC and a force multiplier of 2/9. Retaining that contribution at the original separation gives V = kq₁′/R + kq₂/d, q₁′ = +6.0067 nC, and a multiplier of 0.222469. These round to the rubric's values, but the rubric's unqualified potential equation is not justified by the stated setup. No model answer was supplied or assessed."
+    ],
+    "deepseek/deepseek-v4-pro": [
+     "on_topic: Part (c) requires V = kq/R for an isolated conducting sphere, an electric-potential/conductor concept from Unit 9/10, not from 8.1.",
+     "well_posed: Part (c) treats sphere 1 as isolated for V = kq/R while sphere 2 is 0.150 m away with q₂ = -5.0 nC; the potential contribution kq₂/d is about -300 V and is not stated negligible, so the new charge and force factor are not uniquely determined.",
+     "rubric_points: Part (c)'s single criterion c1 requires both the new charge and the force factor, which are two distinct observable results; it should be split into separate criteria."
+    ]
+   }
+  },
+  {
+   "base": "ap_physics_c_em__8.1__1",
+   "kind": "bare_value_and_unasked",
+   "planted": "Part (a). Criterion a1 originally awarded the electrostatic force F_E = k|q₁q₂|/d² ≈ 5.99 × 10⁻⁶ N. It now awards the electric field of sphere 1 at sphere 2, E = kq₁/d² ≈ 1.20 × 10³ N/C, which part (a) never asks for. Its text, evidence, fix and accepted variants were rewritten to match. In criterion a2, the bare conclusion 'attractive' was added as an accepted variant, even though part (a) explicitly requires a justification. Nothing else was changed: stimulus, prompts, the other criteria, the model answer and verification_python are all unchanged.",
+   "caught_by": [
+    "openai/gpt-6.1-sol",
+    "deepseek/deepseek-v4-pro"
+   ],
+   "accepted_by_pair": false,
+   "item": {
+    "title": "Electric Versus Gravitational Force Between Charged Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two small metal spheres, each of mass m = 2.00 g and radius 2.0 mm, are held at rest in vacuum with their centers separated by d = 0.150 m. Sphere 1 carries charge q₁ = +3.0 nC and sphere 2 carries charge q₂ = −5.0 nC. Treat both spheres as point charges. Use k = 1/(4πε₀) = 8.99 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "model_answer": "(a) F_E = k|q₁q₂|/d² = (8.99 × 10⁹ N·m²/C²)(3.0 × 10⁻⁹ C)(5.0 × 10⁻⁹ C)/(0.150 m)² = (8.99 × 10⁹)(1.5 × 10⁻¹⁷)/(0.0225) N ≈ 5.99 × 10⁻⁶ N. The force is attractive: q₁ is positive and q₂ is negative, and charges of opposite sign attract, so sphere 2 is pulled toward sphere 1 along the line joining their centers.\n\n(b) F_G = Gm²/d² = (6.67 × 10⁻¹¹)(2.00 × 10⁻³ kg)²/(0.150 m)² = (6.67 × 10⁻¹¹)(4.00 × 10⁻⁶)/(0.0225) N ≈ 1.19 × 10⁻¹⁴ N. The ratio is F_E/F_G = k|q₁q₂|/(Gm²) = (1.3485 × 10⁻⁷)/(2.668 × 10⁻¹⁶) ≈ 5.05 × 10⁸. The electrostatic force is about half a billion times larger than the gravitational force.\n\n(c) Coulomb's law gives F ∝ q₁q₂/d². The charge q₁ doubles (3.0 nC to 6.0 nC), which doubles F. The separation triples (0.150 m to 0.450 m), which divides F by 3² = 9. The factor is 2 × (1/9) = 2/9 ≈ 0.222, so the new force is (2/9)(5.99 × 10⁻⁶ N) ≈ 1.33 × 10⁻⁶ N.",
+    "verification_python": "import math\nk=8.99e9\nG=6.67e-11\nq1=3.0e-9\nq2=-5.0e-9\nm=2.00e-3\nd=0.150\nFE=k*abs(q1*q2)/d**2\nassert abs(FE-5.99e-6)<0.01e-6\nassert q1*q2<0\nFG=G*m**2/d**2\nassert abs(FG-1.19e-14)<0.01e-14\nratio=FE/FG\nassert abs(ratio-5.05e8)<0.01e8\nassert abs(k*abs(q1*q2)-1.3485e-7)<1e-11\nassert abs(G*m**2-2.668e-16)<1e-19\nq1n=6.0e-9\ndn=0.450\nFEn=k*abs(q1n*q2)/dn**2\nfactor=FEn/FE\nassert abs(factor-2/9)<1e-12\nassert abs(factor-0.222)<0.001\nassert abs(FEn-1.33e-6)<0.01e-6\nassert abs(1/factor-4.5)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the magnitude of the electrostatic force that sphere 1 exerts on sphere 2. State whether the force is attractive or repulsive, and justify your answer.",
+      "criteria": [
+       {
+        "text": "Calculates the magnitude of the electric field produced by sphere 1 at the location of sphere 2, E = kq₁/d² ≈ 1.20 × 10³ N/C, with units.",
+        "evidence": "Substitutes k, q₁ = 3.0 × 10⁻⁹ C, and d² = 0.0225 m² into E = kq₁/d² and reports about 1.20 × 10³ N/C with N/C (or V/m) as the unit.",
+        "fix": "Convert nC to C (×10⁻⁹), square the separation in meters, and use E = kq₁/d² with units written on the answer.",
+        "accepted_variants": [
+         "1.2 × 10³ N/C",
+         "1200 N/C",
+         "1.20 kN/C",
+         "1.20e3 V/m"
+        ]
+       },
+       {
+        "text": "States the force is attractive because the charges have opposite signs.",
+        "evidence": "Identifies the force as attractive and connects this to q₁ being positive and q₂ being negative (opposite signs attract), with the force directed along the line joining the centers toward sphere 1.",
+        "fix": "Check the signs of both charges: opposite signs attract, like signs repel; state this reason explicitly, not just the conclusion.",
+        "accepted_variants": [
+         "sphere 2 is pulled toward sphere 1",
+         "opposite charges attract",
+         "attractive"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the ratio F_E/F_G of the magnitude of the electrostatic force to the magnitude of the gravitational force between the two spheres.",
+      "criteria": [
+       {
+        "text": "Computes F_E/F_G = k|q₁q₂|/(Gm²) ≈ 5.05 × 10⁸ (dimensionless), using m = 2.00 × 10⁻³ kg.",
+        "evidence": "Shows F_G = Gm²/d² ≈ 1.19 × 10⁻¹⁴ N (or cancels d² directly) and obtains a ratio of about 5.05 × 10⁸, consistent with the student's own F_E from part (a).",
+        "fix": "Convert grams to kilograms before using F_G = Gm²/d², then divide F_E by F_G; note d² cancels in the ratio.",
+        "accepted_variants": [
+         "5.1 × 10⁸",
+         "5.05e8",
+         "about 5 × 10⁸"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The charge on sphere 1 is changed to +6.0 nC, the charge on sphere 2 is unchanged, and the separation of the centers is increased to 0.450 m. By what factor does the magnitude of the electrostatic force change compared with part (a)? Justify your answer using the functional dependence of Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Determines the force is multiplied by 2/9 (new force ≈ 1.33 × 10⁻⁶ N), justified by F ∝ q₁q₂/d².",
+        "evidence": "States that doubling q₁ doubles F and tripling d divides F by 3² = 9, giving a factor of 2/9 (about 0.222); a numeric new force of about 1.33 × 10⁻⁶ N consistent with part (a) is also acceptable if the factor is stated.",
+        "fix": "Write F₂/F₁ = (q₁′/q₁)(d/d′)²; remember distance enters squared, so tripling d reduces F by a factor of 9.",
+        "accepted_variants": [
+         "2/9",
+         "0.222",
+         "0.22",
+         "decreases by a factor of 4.5"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "flags": {
+    "openai/gpt-6.1-sol": [
+     "on_topic: Criterion a1 requires an electric-field calculation from later Topic 8.3. Although all requested parts concern Topic 8.1, earning full rubric credit requires later-topic knowledge.",
+     "rubric_points: Criterion a1 awards an unrequested electric-field calculation instead of the requested force magnitude, rejecting a complete direct Coulomb’s-law answer. Criterion a2's evidence additionally requires a direction not explicitly requested, while its accepted variants permit 'attractive' without the required justification. Criteria b1 and c1 list bare numerical answers as accepted variants despite requiring calculation evidence or justification; c1 also permits a numerical force and factor without explicitly requiring the requested functional-dependence justification.",
+     "solution: For part (a), Coulomb’s law gives F_E = k|q₁q₂|/d² = 5.99 × 10⁻⁶ N, attractive because the charges have opposite signs. Criterion a1 instead scores E = 1.20 × 10³ N/C, which is numerically correct but is not the requested quantity; the supplied independent solution correctly answers part (a) yet cannot earn a1. Parts (b) and (c) agree with the rubric numerically: F_E/F_G = 5.05 × 10⁸ and F_new/F_old = 2/9."
+    ],
+    "deepseek/deepseek-v4-pro": [
+     "rubric_points: Part (a) criterion a1 awards the electric field E = kq₁/d² ≈ 1.20 × 10³ N/C, but part (a) asks for the electrostatic force; a complete correct answer uses F = k|q₁q₂|/d² ≈ 5.99 × 10⁻⁶ N, so no criterion awards the requested force magnitude.",
+     "rubric_evidence: Part (a) criterion a1 gives evidence and fix for calculating electric field, but the part asks for electrostatic force; the evidence does not state what a correct response to part (a) must show.",
+     "model_answer: Part (a) model answer computes F_E = 5.99 × 10⁻⁶ N, not the electric field E = 1.20 × 10³ N/C required by criterion a1, so it does not earn that criterion.",
+     "solution: My independent solution agrees with the model answer: F_E = 5.99 × 10⁻⁶ N, F_E/F_G = 5.05 × 10⁸, and part (c) factor = 2/9. It disagrees with rubric criterion a1, which asks for electric field E = kq₁/d² ≈ 1.20 × 10³ N/C instead of the requested electrostatic force."
+    ]
+   }
+  },
+  {
+   "base": "ap_physics_c_em__8.1__1",
+   "kind": "insufficient",
+   "planted": "Deleted the sphere mass (\"each of mass m = 2.00 g\") from the setup; the stimulus now gives only the radius. Part (b), criterion b1, needs m to compute F_G = Gm²/d² and the ratio F_E/F_G ≈ 5.05 × 10⁸. The radius and the unspecified metal do not fix the mass, so part (b) cannot be answered. The parts, rubric (which still cites m = 2.00 × 10⁻³ kg), model answer and verification_python are unchanged.",
+   "caught_by": [
+    "openai/gpt-6.1-sol",
+    "deepseek/deepseek-v4-pro"
+   ],
+   "accepted_by_pair": false,
+   "item": {
+    "title": "Electric Versus Gravitational Force Between Charged Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two small metal spheres, each of radius 2.0 mm, are held at rest in vacuum with their centers separated by d = 0.150 m. Sphere 1 carries charge q₁ = +3.0 nC and sphere 2 carries charge q₂ = −5.0 nC. Treat both spheres as point charges. Use k = 1/(4πε₀) = 8.99 × 10⁹ N·m²/C² and G = 6.67 × 10⁻¹¹ N·m²/kg².",
+    "model_answer": "(a) F_E = k|q₁q₂|/d² = (8.99 × 10⁹ N·m²/C²)(3.0 × 10⁻⁹ C)(5.0 × 10⁻⁹ C)/(0.150 m)² = (8.99 × 10⁹)(1.5 × 10⁻¹⁷)/(0.0225) N ≈ 5.99 × 10⁻⁶ N. The force is attractive: q₁ is positive and q₂ is negative, and charges of opposite sign attract, so sphere 2 is pulled toward sphere 1 along the line joining their centers.\n\n(b) F_G = Gm²/d² = (6.67 × 10⁻¹¹)(2.00 × 10⁻³ kg)²/(0.150 m)² = (6.67 × 10⁻¹¹)(4.00 × 10⁻⁶)/(0.0225) N ≈ 1.19 × 10⁻¹⁴ N. The ratio is F_E/F_G = k|q₁q₂|/(Gm²) = (1.3485 × 10⁻⁷)/(2.668 × 10⁻¹⁶) ≈ 5.05 × 10⁸. The electrostatic force is about half a billion times larger than the gravitational force.\n\n(c) Coulomb's law gives F ∝ q₁q₂/d². The charge q₁ doubles (3.0 nC to 6.0 nC), which doubles F. The separation triples (0.150 m to 0.450 m), which divides F by 3² = 9. The factor is 2 × (1/9) = 2/9 ≈ 0.222, so the new force is (2/9)(5.99 × 10⁻⁶ N) ≈ 1.33 × 10⁻⁶ N.",
+    "verification_python": "import math\nk=8.99e9\nG=6.67e-11\nq1=3.0e-9\nq2=-5.0e-9\nm=2.00e-3\nd=0.150\nFE=k*abs(q1*q2)/d**2\nassert abs(FE-5.99e-6)<0.01e-6\nassert q1*q2<0\nFG=G*m**2/d**2\nassert abs(FG-1.19e-14)<0.01e-14\nratio=FE/FG\nassert abs(ratio-5.05e8)<0.01e8\nassert abs(k*abs(q1*q2)-1.3485e-7)<1e-11\nassert abs(G*m**2-2.668e-16)<1e-19\nq1n=6.0e-9\ndn=0.450\nFEn=k*abs(q1n*q2)/dn**2\nfactor=FEn/FE\nassert abs(factor-2/9)<1e-12\nassert abs(factor-0.222)<0.001\nassert abs(FEn-1.33e-6)<0.01e-6\nassert abs(1/factor-4.5)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the magnitude of the electrostatic force that sphere 1 exerts on sphere 2. State whether the force is attractive or repulsive, and justify your answer.",
+      "criteria": [
+       {
+        "text": "Calculates the electrostatic force magnitude F_E = k|q₁q₂|/d² ≈ 5.99 × 10⁻⁶ N, with units.",
+        "evidence": "Substitutes k, |q₁q₂| = 1.5 × 10⁻¹⁷ C², and d² = 0.0225 m² into Coulomb's law and reports about 5.99 × 10⁻⁶ N (or 6.0 × 10⁻⁶ N) with newtons as the unit.",
+        "fix": "Convert nC to C (×10⁻⁹), square the separation in meters, and use F = k|q₁q₂|/d² with units written on the answer.",
+        "accepted_variants": [
+         "6.0 × 10⁻⁶ N",
+         "5.99 μN",
+         "6.0 μN",
+         "5.99e-6 N"
+        ]
+       },
+       {
+        "text": "States the force is attractive because the charges have opposite signs.",
+        "evidence": "Identifies the force as attractive and connects this to q₁ being positive and q₂ being negative (opposite signs attract), with the force directed along the line joining the centers toward sphere 1.",
+        "fix": "Check the signs of both charges: opposite signs attract, like signs repel; state this reason explicitly, not just the conclusion.",
+        "accepted_variants": [
+         "sphere 2 is pulled toward sphere 1",
+         "opposite charges attract"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the ratio F_E/F_G of the magnitude of the electrostatic force to the magnitude of the gravitational force between the two spheres.",
+      "criteria": [
+       {
+        "text": "Computes F_E/F_G = k|q₁q₂|/(Gm²) ≈ 5.05 × 10⁸ (dimensionless), using m = 2.00 × 10⁻³ kg.",
+        "evidence": "Shows F_G = Gm²/d² ≈ 1.19 × 10⁻¹⁴ N (or cancels d² directly) and obtains a ratio of about 5.05 × 10⁸, consistent with the student's own F_E from part (a).",
+        "fix": "Convert grams to kilograms before using F_G = Gm²/d², then divide F_E by F_G; note d² cancels in the ratio.",
+        "accepted_variants": [
+         "5.1 × 10⁸",
+         "5.05e8",
+         "about 5 × 10⁸"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The charge on sphere 1 is changed to +6.0 nC, the charge on sphere 2 is unchanged, and the separation of the centers is increased to 0.450 m. By what factor does the magnitude of the electrostatic force change compared with part (a)? Justify your answer using the functional dependence of Coulomb's law.",
+      "criteria": [
+       {
+        "text": "Determines the force is multiplied by 2/9 (new force ≈ 1.33 × 10⁻⁶ N), justified by F ∝ q₁q₂/d².",
+        "evidence": "States that doubling q₁ doubles F and tripling d divides F by 3² = 9, giving a factor of 2/9 (about 0.222); a numeric new force of about 1.33 × 10⁻⁶ N consistent with part (a) is also acceptable if the factor is stated.",
+        "fix": "Write F₂/F₁ = (q₁′/q₁)(d/d′)²; remember distance enters squared, so tripling d reduces F by a factor of 9.",
+        "accepted_variants": [
+         "2/9",
+         "0.222",
+         "0.22",
+         "decreases by a factor of 4.5"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "flags": {
+    "openai/gpt-6.1-sol": [
+     "well_posed: Part (b) lacks the spheres' masses or densities. Their radii and description as metal do not determine their masses, so the requested numerical force ratio is underdetermined.",
+     "rubric_points: Criterion b1 requires an unstated mass of 2.00 × 10⁻³ kg for each sphere and would reject a correct symbolic answer identifying the missing information. Criterion a2 accepts 'sphere 2 is pulled toward sphere 1' without the requested sign-based justification. Criterion c1 lists bare factors as acceptable and permits a new force plus factor without explicitly requiring the requested functional-dependence justification.",
+     "accurate: Criterion b1 presents F_G ≈ 1.19 × 10⁻¹⁴ N and F_E/F_G ≈ 5.05 × 10⁸ as determined results, although they depend on an unsupported assumption that both spheres have mass 2.00 × 10⁻³ kg.",
+     "solution: Parts (a) and (c) agree with the rubric: F_E = 5.99 × 10⁻⁶ N, attractive because the charges have opposite signs, and F_new/F_old = 2/9. For part (b), the defensible result is F_E/F_G = k|q₁q₂|/(Gm₁m₂) = (2.02 × 10³ kg²)/(m₁m₂). No numerical ratio follows from the supplied information. The rubric's 5.05 × 10⁸ is correct only if both masses are additionally specified as 2.00 × 10⁻³ kg."
+    ],
+    "deepseek/deepseek-v4-pro": [
+     "well_posed: Part (b): the masses of the spheres are not given, and radius alone cannot determine mass, so the gravitational force and F_E/F_G cannot be calculated. The data are insufficient.",
+     "rubric_points: Part (b) criterion b1 awards a point for using m = 2.00 × 10⁻³ kg, a mass value not supplied or derivable from the prompt, so it does not correspond to a defensible correct-answer element.",
+     "rubric_evidence: Part (b) criterion b1: the evidence and fix refer to a mass in grams/kilograms that is absent from the prompt, so the suggested fix is not actionable from the given setup.",
+     "accurate: Part (b): the rubric and model answer assert each sphere has mass 2.00 × 10⁻³ kg, which is not in the question and would imply an unrealistic density for the stated radius; the ratio 5.05 × 10⁸ is unsupported.",
+     "model_answer: Part (b): the model answer inserts m = 2.00 × 10⁻³ kg with no source, so it does not show how a student could obtain the numerical ratio from the question as written.",
+     "solution: Parts (a) and (c) agree with the official solution. Part (b) disagrees: the prompt does not provide the sphere masses, so I concluded only the symbolic ratio F_E/F_G = k|q₁q₂|/(Gm₁m₂) is possible; the rubric/model answer assume equal masses of 2.00 × 10⁻³ kg and give 5.05 × 10⁸, which is unjustified."
+    ]
+   }
+  }
+ ]
+}

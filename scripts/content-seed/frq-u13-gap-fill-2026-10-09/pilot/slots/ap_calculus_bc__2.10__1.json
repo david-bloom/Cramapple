@@ -1,0 +1,488 @@
+{
+ "id": "ap_calculus_bc__2.10__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 2,
+  "unit_title": "Differentiation: Definition and Fundamental Properties",
+  "topic_code": "2.10",
+  "topic_title": "Derivatives of tan x, cot x, sec x, and csc x",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.662Z",
+   "item": {
+    "title": "Derivatives of Tangent, Secant, Cotangent and Cosecant",
+    "calculator": "not_permitted",
+    "stimulus": "Answer all parts without a calculator. Do not use any derivative formula for tan x, cot x, sec x or csc x in part (a); in parts (b) through (d) you may use the standard derivatives d/dx[tan x] = sec² x, d/dx[cot x] = −csc² x, d/dx[sec x] = sec x tan x and d/dx[csc x] = −csc x cot x.\n\nLet h(x) = x sec x for −π/2 < x < π/2.\nLet g(x) = cot x / (1 + csc x) for 0 < x < π.",
+    "model_answer": "(a) d/dx[tan x] = d/dx[sin x / cos x] = [cos x · cos x − sin x · (−sin x)] / cos² x = (cos² x + sin² x) / cos² x. Since sin² x + cos² x = 1, this equals 1/cos² x = sec² x.\n\n(b) By the product rule, h′(x) = (1)(sec x) + x(sec x tan x) = sec x + x sec x tan x. At x = π/3, sec(π/3) = 2 and tan(π/3) = √3, so h′(π/3) = 2 + (π/3)(2)(√3) = 2 + 2π√3/3.\n\n(c) By the quotient rule, g′(x) = [(−csc² x)(1 + csc x) − cot x(−csc x cot x)] / (1 + csc x)². At x = π/2, csc(π/2) = 1 and cot(π/2) = 0, so g′(π/2) = [(−1)(1 + 1) − 0] / (1 + 1)² = −2/4 = −1/2.\n\n(d) By the definition of the derivative, this limit is f′(π/4) where f(x) = sec x. Since f′(x) = sec x tan x, the limit equals sec(π/4) tan(π/4) = √2 · 1 = √2.",
+    "verification_python": "import sympy as sp\nx,hh=sp.symbols('x h')\n# (a)\nq=sp.diff(sp.sin(x)/sp.cos(x),x)\nassert sp.simplify(q-1/sp.cos(x)**2)==0\nassert sp.simplify(sp.diff(sp.tan(x),x)-sp.sec(x)**2)==0\n# (b)\nH=x*sp.sec(x)\nHp=sp.diff(H,x)\nassert sp.simplify(Hp-(sp.sec(x)+x*sp.sec(x)*sp.tan(x)))==0\nv=Hp.subs(x,sp.pi/3)\nassert sp.simplify(v-(2+2*sp.pi*sp.sqrt(3)/3))==0\n# (c)\nG=sp.cot(x)/(1+sp.csc(x))\nGp=sp.diff(G,x)\nmanual=((-sp.csc(x)**2)*(1+sp.csc(x))-sp.cot(x)*(-sp.csc(x)*sp.cot(x)))/(1+sp.csc(x))**2\nassert sp.simplify(Gp-manual)==0\nassert sp.simplify(Gp.subs(x,sp.pi/2)+sp.Rational(1,2))==0\n# (d)\nL=sp.limit((sp.sec(sp.pi/4+hh)-sp.sec(sp.pi/4))/hh,hh,0)\nassert sp.simplify(L-sp.sqrt(2))==0\nassert sp.simplify(sp.sec(sp.pi/4)*sp.tan(sp.pi/4)-sp.sqrt(2))==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write tan x as sin x / cos x and use the quotient rule to show that d/dx[tan x] = sec² x. Show each step.",
+      "criteria": [
+       {
+        "text": "Correct quotient rule setup: d/dx[sin x / cos x] = [cos x · cos x − sin x · (−sin x)] / cos² x",
+        "evidence": "The response writes the quotient rule structure with the correct derivatives of sin x (cos x) and cos x (−sin x) in the correct order over cos² x.",
+        "fix": "Write the quotient rule as (bottom·top′ − top·bottom′)/bottom² before substituting, and use d/dx[cos x] = −sin x.",
+        "accepted_variants": [
+         "(cos²x + sin²x)/cos²x",
+         "[cos x·cos x + sin x·sin x]/(cos x)²"
+        ]
+       },
+       {
+        "text": "Simplifies using sin² x + cos² x = 1 to get 1/cos² x = sec² x",
+        "evidence": "The response states the Pythagorean identity to reduce the numerator to 1 and rewrites 1/cos² x as sec² x.",
+        "fix": "After combining the numerator, cite sin² x + cos² x = 1 explicitly, then rewrite 1/cos² x as sec² x.",
+        "accepted_variants": [
+         "1/cos²x = sec²x",
+         "1/(cos x)² = sec² x"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find h′(x), and find the exact value of h′(π/3).",
+      "criteria": [
+       {
+        "text": "Correct derivative h′(x) = sec x + x sec x tan x using the product rule",
+        "evidence": "The response shows the product rule structure (1)(sec x) + x(sec x tan x) with the correct derivative of sec x.",
+        "fix": "Write h′(x) = (x)′·sec x + x·(sec x)′ first, then use d/dx[sec x] = sec x tan x.",
+        "accepted_variants": [
+         "sec x(1 + x tan x)",
+         "1·sec x + x·sec x·tan x"
+        ]
+       },
+       {
+        "text": "Correct value h′(π/3) = 2 + 2π√3/3",
+        "evidence": "The response substitutes sec(π/3) = 2 and tan(π/3) = √3 and obtains 2 + 2π√3/3 (unsimplified equivalents accepted). Follow-through credit for correctly evaluating an incorrect h′(x) of comparable difficulty is not awarded unless it uses sec(π/3) = 2 and tan(π/3) = √3 correctly.",
+        "fix": "Recall sec(π/3) = 1/cos(π/3) = 2 and tan(π/3) = √3, then substitute carefully into each term.",
+        "accepted_variants": [
+         "2 + (2π/√3)",
+         "2 + (π/3)(2)(√3)",
+         "2 + 2√3π/3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the exact value of g′(π/2).",
+      "criteria": [
+       {
+        "text": "Correct quotient rule setup: g′(x) = [(−csc² x)(1 + csc x) − cot x(−csc x cot x)] / (1 + csc x)²",
+        "evidence": "The response shows the quotient rule structure with d/dx[cot x] = −csc² x and d/dx[1 + csc x] = −csc x cot x, in the correct order.",
+        "fix": "Label top = cot x and bottom = 1 + csc x, find each derivative with its negative sign, then apply the quotient rule.",
+        "accepted_variants": [
+         "(−csc²x − csc³x + csc x cot²x)/(1 + csc x)²"
+        ]
+       },
+       {
+        "text": "Correct value g′(π/2) = −1/2",
+        "evidence": "The response substitutes csc(π/2) = 1 and cot(π/2) = 0 to get [(−1)(2) − 0]/(2)² = −1/2.",
+        "fix": "Evaluate csc(π/2) = 1 and cot(π/2) = cos(π/2)/sin(π/2) = 0 before substituting into the quotient.",
+        "accepted_variants": [
+         "−0.5",
+         "−2/4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find the exact value of lim h→0 [sec(π/4 + h) − sec(π/4)] / h. Explain how you know.",
+      "criteria": [
+       {
+        "text": "Identifies the limit as the definition of the derivative of sec x at x = π/4",
+        "evidence": "The response states that the limit is f′(π/4) for f(x) = sec x by the limit definition of the derivative, so it equals sec(π/4) tan(π/4).",
+        "fix": "Match the form lim h→0 [f(a + h) − f(a)]/h to f′(a), naming f and a explicitly.",
+        "accepted_variants": [
+         "the derivative of sec x at π/4",
+         "f′(π/4) where f(x) = sec x"
+        ]
+       },
+       {
+        "text": "Correct value √2",
+        "evidence": "The response evaluates sec(π/4) tan(π/4) = √2 · 1 = √2.",
+        "fix": "Use sec(π/4) = 1/cos(π/4) = √2 and tan(π/4) = 1, then multiply.",
+        "accepted_variants": [
+         "2/√2",
+         "√2 · 1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.10": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criteria c1 and c2 require the original quotient-rule setup and substitution of cosecant and cotangent values, rejecting a valid alternative: rewrite g(x) = cos x/(1 + sin x), differentiate to obtain g′(x) = −1/(1 + sin x), and evaluate g′(π/2) = −1/2. Part (d), criterion d1 requires identifying a derivative even though the prompt also permits a justified direct evaluation using trigonometric identities and standard limits. These criteria should accept equivalent correct methods."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criteria c1 and c2 require the original quotient-rule setup and substitution of cosecant and cotangent values, rejecting a valid alternative: rewrite g(x) = cos x/(1 + sin x), differentiate to obtain g′(x) = −1/(1 + sin x), and evaluate g′(π/2) = −1/2. Part (d), criterion d1 requires identifying a derivative even though the prompt also permits a justified direct evaluation using trigonometric identities and standard limits. These criteria should accept equivalent correct methods."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criteria c1 and c2 prescribe a quotient-rule calculation using cotangent and cosecant, although the prompt does not require that method. A valid alternative is g(x) = cos x/(1 + sin x), giving g′(x) = [−sin x(1 + sin x) − cos² x]/(1 + sin x)² = −1/(1 + sin x), hence g′(π/2) = −1/2. This complete correct solution does not show the evidence demanded by c1 or the substitutions demanded by c2. Accept equivalent derivative setups and evaluations."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criteria c1 and c2 prescribe a quotient-rule calculation using cotangent and cosecant, although the prompt does not require that method. A valid alternative is g(x) = cos x/(1 + sin x), giving g′(x) = [−sin x(1 + sin x) − cos² x]/(1 + sin x)² = −1/(1 + sin x), hence g′(π/2) = −1/2. This complete correct solution does not show the evidence demanded by c1 or the substitutions demanded by c2. Accept equivalent derivative setups and evaluations."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "google/gemini-3.8-flash",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b) criterion b1 requires the product rule structure and part (c) criterion c1 requires a quotient rule setup, but the prompt does not require those methods. Valid alternative approaches—for b, rewriting h(x)=x/cos x and using the quotient rule; for c, simplifying to g(x)=cos x/(1+sin x), giving g′(x)=−1/(1+sin x)—would not earn b1/c1 as written."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b) criterion b1 requires the product rule structure and part (c) criterion c1 requires a quotient rule setup, but the prompt does not require those methods. Valid alternative approaches—for b, rewriting h(x)=x/cos x and using the quotient rule; for c, simplifying to g(x)=cos x/(1+sin x), giving g′(x)=−1/(1+sin x)—would not earn b1/c1 as written."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part b1 requires the product rule structure and part c1 requires the cot/csc quotient-rule setup, but the parts only ask for the derivative or value and do not require those specific methods. Valid alternatives such as writing h(x) = x/cos x and using the quotient rule, or simplifying g(x) = cot x/(1 + csc x) = cos x/(1 + sin x) before differentiating, would not earn b1 or c1 even though the calculus is correct."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part b1 requires the product rule structure and part c1 requires the cot/csc quotient-rule setup, but the parts only ask for the derivative or value and do not require those specific methods. Valid alternatives such as writing h(x) = x/cos x and using the quotient rule, or simplifying g(x) = cot x/(1 + csc x) = cos x/(1 + sin x) before differentiating, would not earn b1 or c1 even though the calculus is correct."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "meta/muse-spark-1.3",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.10",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}

@@ -1,0 +1,515 @@
+{
+ "id": "ap_statistics__3.8__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 3,
+  "unit_title": "Inference for Categorical Data: Proportions",
+  "topic_code": "3.8",
+  "topic_title": "Potential Errors When Performing Tests",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.669Z",
+   "item": {
+    "title": "Type I and Type II Errors in a Hospital Infection Study",
+    "calculator": "not_permitted",
+    "stimulus": "Last year, 8% of surgical patients at a large hospital developed a post-surgical infection. The hospital adopted a new room-cleaning protocol. To find out whether the protocol lowers the infection rate, administrators will select a random sample of 400 surgical patients treated under the new protocol and record whether each patient develops an infection.\n\nThey will test H₀: p = 0.08 against Hₐ: p < 0.08 at significance level α = 0.05. Here p is the true proportion of all surgical patients at this hospital treated under the new protocol who develop a post-surgical infection.\n\nA statistician calculates that if the true infection rate under the new protocol is p = 0.05, the power of this test is 0.76.",
+    "model_answer": "(a) A Type I error would occur if the administrators find convincing statistical evidence that the proportion of all surgical patients under the new protocol who develop an infection is less than 0.08, when in fact the true proportion is 0.08 (the protocol does not actually lower the infection rate). If H₀ is true, the probability of a Type I error is the significance level, α = 0.05.\n\n(b) A Type II error would occur if the administrators do not find convincing statistical evidence that the infection proportion under the new protocol is less than 0.08, when in fact the true proportion is less than 0.08 (the protocol really does lower the rate). If the true rate is 0.05, P(Type II error) = 1 − power = 1 − 0.76 = 0.24.\n\n(c) The power would increase. With α and the true rate (0.05) unchanged, a larger sample of 600 patients makes the standard error of the sample proportion, √(p(1−p)/n), smaller. Sample proportions vary less around the true value of 0.05, so it is more likely that the sample result will be far enough below 0.08 to reject H₀. Therefore the probability of correctly rejecting the false null hypothesis increases, and the probability of a Type II error decreases.",
+    "verification_python": "import math\n\ndef Phi(z):\n    return 0.5*(1+math.erf(z/math.sqrt(2)))\n\ndef power(n, p0=0.08, p1=0.05, zstar=1.6448536):\n    se0 = math.sqrt(p0*(1-p0)/n)\n    crit = p0 - zstar*se0\n    se1 = math.sqrt(p1*(1-p1)/n)\n    return Phi((crit - p1)/se1)\n\nalpha = 0.05\nassert abs(alpha - 0.05) < 1e-12\npw400 = power(400)\nassert abs(pw400 - 0.76) < 0.01, pw400\ntype2 = 1 - 0.76\nassert abs(type2 - 0.24) < 1e-9\npw600 = power(600)\nassert pw600 > pw400\n# check standard error shrinks with n\nassert math.sqrt(0.05*0.95/600) < math.sqrt(0.05*0.95/400)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe a Type I error in the context of this study. Then state the probability that the test makes a Type I error if the null hypothesis is true.",
+      "criteria": [
+       {
+        "text": "Type I error described in context: concluding there is convincing evidence that the infection rate under the new protocol is less than 0.08 when the true rate is actually 0.08.",
+        "evidence": "Response states both that administrators conclude (find convincing evidence) the new protocol lowers the infection proportion below 0.08 and that in reality the true proportion is 0.08 (the protocol does not lower it), in the context of surgical infections.",
+        "fix": "Write a Type I error as two pieces in context: what you conclude (reject H₀, rate below 0.08) and what is actually true (rate is 0.08).",
+        "accepted_variants": [
+         "rejecting H₀ when the true infection proportion really is 0.08",
+         "deciding the protocol reduces infections when it actually does not"
+        ]
+       },
+       {
+        "text": "Probability of a Type I error is α = 0.05.",
+        "evidence": "Response gives 0.05 and identifies it as the significance level (or α).",
+        "fix": "Remember that the probability of a Type I error, given H₀ is true, equals the significance level α chosen before collecting data.",
+        "accepted_variants": [
+         "0.05",
+         "5%",
+         "α = 0.05"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe a Type II error in the context of this study. Then calculate the probability of a Type II error if the true infection rate under the new protocol is 0.05, and show how you obtained it.",
+      "criteria": [
+       {
+        "text": "Type II error described in context: not finding convincing evidence that the infection rate is less than 0.08 when the true rate actually is less than 0.08.",
+        "evidence": "Response states both that administrators fail to find convincing evidence (fail to reject H₀) that the infection proportion is below 0.08 and that in reality the true proportion is below 0.08 (for example 0.05), in the context of surgical infections.",
+        "fix": "State the Type II error as: fail to find convincing evidence for Hₐ in context, while Hₐ is actually true (true rate below 0.08).",
+        "accepted_variants": [
+         "failing to reject H₀ when the protocol actually lowers the infection rate",
+         "concluding there is not convincing evidence the protocol works when it really does"
+        ]
+       },
+       {
+        "text": "P(Type II error) = 1 − power = 1 − 0.76 = 0.24.",
+        "evidence": "Response shows the relationship 1 − power (or 1 − 0.76) and obtains 0.24.",
+        "fix": "Use P(Type II error) = 1 − power for the specified true parameter value; subtract the given power from 1.",
+        "accepted_variants": [
+         "0.24",
+         "24%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Suppose the administrators instead sample 600 patients, keeping α = 0.05, and the true infection rate is still 0.05. Explain whether the power of the test would increase, decrease, or stay the same.",
+      "criteria": [
+       {
+        "text": "Power increases, justified by the larger sample size producing a smaller standard error of p̂ (so the test is more likely to detect that p is less than 0.08).",
+        "evidence": "Response states the power increases (equivalently, the probability of a Type II error decreases) and gives a reason linking the larger sample size to a smaller standard error or less sampling variability, making it more likely to reject the false H₀.",
+        "fix": "When n increases with α and the true p unchanged, explain that the standard error √(p(1−p)/n) shrinks, so power increases.",
+        "accepted_variants": [
+         "power goes up because sample proportions vary less with n = 600",
+         "Type II error probability decreases because the standard error is smaller"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.8": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b2 explicitly accepts a bare '0.24' or '24%', although the part asks students to show how they obtained the probability. Require the subtraction or the relationship to power.",
+       "rubric_evidence: Part (a), criterion a1 has a 26-word fix, exceeding the 25-word limit. Shorten it to: 'State the incorrect conclusion (rate below 0.08) and the truth (rate equals 0.08), both in the context of surgical infections.'"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b2 explicitly accepts a bare '0.24' or '24%', although the part asks students to show how they obtained the probability. Require the subtraction or the relationship to power."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 has a 26-word fix, exceeding the 25-word limit. Shorten it to: 'State the incorrect conclusion (rate below 0.08) and the truth (rate equals 0.08), both in the context of surgical infections.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b2: 'Also accept: 0.24; 24%' permits a bare numerical answer, although the part explicitly requires showing how the probability was obtained. Require the subtraction or complement relationship.",
+       "rubric_evidence: Criterion a1's fix contains 26 words, exceeding the 25-word limit. Criterion b2 also contradicts its evidence requirement by accepting a numerical answer without the required work."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b2: 'Also accept: 0.24; 24%' permits a bare numerical answer, although the part explicitly requires showing how the probability was obtained. Require the subtraction or complement relationship."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion a1's fix contains 26 words, exceeding the 25-word limit. Criterion b2 also contradicts its evidence requirement by accepting a numerical answer without the required work."
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "google/gemini-3.8-flash",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_evidence: Part (a) criterion a1 fix is 26 words, exceeding the 25-word limit."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (a) criterion a1 fix is 26 words, exceeding the 25-word limit."
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "meta/muse-spark-1.3",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_evidence: Part (a) Criterion a1 Fix is 26 words, exceeding the 25-word limit"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (a) Criterion a1 Fix is 26 words, exceeding the 25-word limit"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_evidence: Criterion a1 fix is 26 words, exceeding the 25-word maximum."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.8",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Criterion a1 fix is 26 words, exceeding the 25-word maximum."
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}
