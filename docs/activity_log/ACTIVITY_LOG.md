@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Ownership Rule Written into the Reference-Content Protocol (2026-10-10): the protocol's "owned by the topic that first requires it" was being read by the checkers as earliest mention, which caused most of the ownership escalations in the units 1-3 run. New §1.1 states the rule the Product Owner has applied five times (the topic whose LO/EK requires the entry as stated), gives the test, lists the ruled examples, bars a pre-owner topic from `topic_codes`, tells a session to escalate rather than re-key to satisfy a checker, and carries the exact prompt wording for `extract.py` and `check.py`. The AP Chemistry inventory's matching phrasing was aligned. Codification of existing rulings, so no new decision id; docs only, no content or database change.
 - Last Four Reference-Row Escalations Ruled and Loaded; Development Found to Be Shared Mid-Run (2026-10-10): David ruled owners 1.3, 2.7, 1.3 and 10.7, loaded via `load.py --po-accept`, so all 50 escalations are now dispositioned (43 corrected and loaded, 7 rejected for having no LO/EK basis). The ownership principle is now ruled three times and should be written into the production protocol. Separately, Development is shared: another session loaded PR #399's 2 Chemistry Unit 1 escalations and a new Chemistry units 5-9 batch (119 rows) during this run, so Development's 1,076 entries include 247 rows from outside this branch and only 829 are this session's. A Production approval must therefore name batches, not a row count. All 8 QA checks still pass. Production untouched.
 - Escalation Correction Pass: 39 of 50 Escalated Reference Rows Corrected, Re-Checked and Loaded (2026-10-10): David directed the session to correct the escalations itself rather than regenerate them (a recorded deviation from the protocol's no-hand-edit rule, under his authority over escalations). Each correction restored the CED wording the checker had identified as missing and was re-checked by both independent checkers plus the reject-only veto; 39 passed and loaded, 7 were rejected as having no LO/EK basis (boundary statements, a suggested skill, exam-prep guidance), and 4 remain open — three are one ownership question David has already ruled on twice, and one is a genuine deadlock between the two checker families. Development: 951 entries, 11 hooks; all 8 QA checks ok. The earlier count of 45 escalations was wrong and is corrected to 50. Production untouched.
 - Reference Packs Built for Units 1-3 of Nine Subjects: 786 Entries + 6 Hooks Loaded to Development, Controls 150/150, $37.80 (2026-10-10): David scoped units 1-3 for all subjects, Development only, and supplied the four missing Physics CEDs that had blocked Physics 1 / 2 / C Mechanics / C E&M; 25 unit batches run through the two-checker plus reject-only Haiku veto pipeline with six CED-verified controls each (6/6 every batch). Development now holds 912 entries and 10 hooks; all 8 QA checks ok and RPC probes correct. `load.py` gained a schema guard after one bad `topic_codes` row silently voided a whole batch load; `extract.py` now requires a caution on mnemonic hooks. Calculus BC units 1-3 left to a Product Owner call (identical taxonomy and CED to AB, re-key SQL generated not applied); 45 escalations open, grouped into three patterns. Production untouched.
@@ -408,6 +409,36 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Ownership Rule Written into the Reference-Content Protocol — 2026-10-10
+
+**Why.** The protocol said an entry is "owned by the topic that first requires it". Both checker families read
+that as *earliest mention*, so they rejected correctly-owned entries on `b_topic_codes`; that single phrase
+produced most of the ownership escalations in the units 1-3 run across nine subjects, and the Product Owner
+overrode the checkers on it five times.
+
+**What changed.** New `§1.1 Ownership: which topic owns an entry` in
+`MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md`:
+
+- the rule — the owner is the topic whose LO/EK requires the entry *as stated*, not the earliest topic to
+  mention the idea;
+- the test — which topic's LO/EK would be incomplete without this entry stated this way;
+- `topic_codes` is the owner plus *later* reuse topics, and a topic preceding the owner is never a reuse tag;
+  if an earlier topic needs its own lookup, that is a separate entry owned by that topic;
+- five worked examples, each a ruling rather than an inference: AP Statistics 1.13 (`DECISION-0107` rule 2), AP
+  Chemistry 1.7, AP Physics 1's kinematic equation (1.3) and normal force (2.7), AP Precalculus concavity (1.3);
+- the instruction that a checker's ownership objection is not by itself grounds to move the owner — re-apply the
+  test and escalate for an override instead of re-keying to satisfy the checker, and escalate rather than cycling
+  encodings when the two checker families disagree with each other (AP Physics 2's 10.7 case took three attempts);
+- the exact prompt wording for `extract.py` and `check.py`, so the next batch's copied-forward scripts apply the
+  rule instead of re-escalating it.
+
+The same loose phrasing in `AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md` §3 was aligned, and its
+`topic_codes` bullet now bars a pre-owner topic too.
+
+**Governance.** This codifies `DECISION-0107` rule 2 and the Product Owner's 2026-10-10 rulings rather than
+setting new policy, so it carries no new decision id; the protocol's RECORDS line and a change note say so. Docs
+only: no content, database, migration or Production change, and no previously loaded row changes disposition.
+
 ## Last Four Escalations Ruled; Development Found to Be Shared Mid-Run — 2026-10-10
 
 **Ruling.** David: keep **1.3, 2.7 and 1.3** as owners, and **10.7** for Physics 2. All four loaded with

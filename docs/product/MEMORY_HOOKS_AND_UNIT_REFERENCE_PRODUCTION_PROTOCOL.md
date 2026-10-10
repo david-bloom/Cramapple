@@ -1,12 +1,14 @@
 # Memory Hooks and Unit Reference Production Protocol
 
 STATUS: CURRENT
-DATE: 2026-10-09
+DATE: 2026-10-10 (§1.1 ownership rule added; see the change note at the end)
 OWNER: Product Owner / Learning Quality. Executed by a Claude session.
 GOVERNS: `app.unit_reference_entries` (formulas, vocabulary, lists/sequences, conventions, diagrams) and
 `app.topic_memory_hooks` (acronyms, acrostics, phrases, formula sentences, visual cues, diagram parts).
 RECORDS: `DECISION-0104` (hooks), `DECISION-0105` (reference content is the companion), `DECISION-0107`
-(CED-named hooks, veto model), `APPROVAL-0140` (first Production ship). Tasks `TASK-0066`, `TASK-0067`.
+(CED-named hooks, veto model, and rule 2 on ownership), `APPROVAL-0140` (first Production ship). Tasks
+`TASK-0066`, `TASK-0067`. The §1.1 ownership rule codifies `DECISION-0107` rule 2 plus the Product Owner's
+rulings of 2026-10-10; it introduces no new policy and so carries no new decision id.
 FIRST RUN: `scripts/content-seed/task0067-reference-pilot-2026-10-09/README.md` (AP Statistics Unit 1,
 AP Chemistry Unit 4; 102 entries, 3 hooks, $20.29).
 
@@ -14,8 +16,53 @@ AP Chemistry Unit 4; 102 entries, 3 hooks, $20.29).
 
 A **reference entry** is one thing a student may look up for a topic: a formula (LaTeX), a vocabulary
 term with its CED definition, an ordered list or sequence, a sign or direction convention, or the
-labelled parts of a diagram the CED requires. It is owned by the topic that first requires it
-(`owner_topic_code`) and lists every later topic in the unit that reuses it (`topic_codes`).
+labelled parts of a diagram the CED requires. It is owned by one topic (`owner_topic_code`) and lists
+every later topic in the unit that reuses it (`topic_codes`). Ownership follows the rule in §1.1.
+
+### 1.1 Ownership: which topic owns an entry
+
+**The owner is the topic whose learning objective or essential-knowledge statement requires the entry
+as such — not the earliest topic that mentions the idea.**
+
+Apply it as a test. For a candidate entry, ask which topic's LO/EK would be incomplete without this
+entry *stated the way the entry states it*. That topic owns it. A topic that merely alludes to the
+idea, uses it as a step toward something else, or prints a formula incidentally while making a
+different point does not become the owner; it belongs in `topic_codes` only if it is a *later* topic
+whose own LO/EK uses the entry.
+
+`topic_codes` is the owner plus later reuse topics. A topic that precedes the owner never goes in
+`topic_codes`, even when it touches the idea. If an earlier topic genuinely needs its own lookup, that
+is a second, separately-worded entry owned by that earlier topic — not a reuse tag on this one.
+
+**Worked examples. Every row below is a Product Owner ruling, not an inference:**
+
+| Entry | Earliest mention | Owner, as ruled | Why |
+|---|---|---|---|
+| AP Statistics "Scope of conclusions from an experiment" | 1.10 (1.10.A.3, 1.10.E.4 need the scope distinction) | **1.13** | 1.13's objective is the one that requires the scope statement itself (`DECISION-0107` rule 2) |
+| AP Chemistry "Tools for explaining periodic trends" (1.7) | 1.5 introduces each tool separately | **1.7** | 1.7.A.2 requires the four tools *as a set used to explain trends*; the individual tools are separate 1.5-owned entries |
+| AP Physics 1 kinematic equation v = v0 + at | 1.1 (1.1.A.3.ii prints it as a derived equation while making a point about vector notation) | **1.3** | 1.3.A.2 requires it *as* one of the three constant-acceleration kinematic equations |
+| AP Physics 1 "Normal force" | 2.6 (2.6.C.1 uses its magnitude to define apparent weight) | **2.7** | 2.7.A.2.ii is the statement that defines the force |
+| AP Precalculus "Concavity from changing average rates of change" | 1.1 (1.1.B.3-4 give concavity from rate of change) | **1.3** | the entry states 1.3.B.3's average-rate-over-equal-length-intervals criterion, which is a different statement from 1.1.B.3 |
+
+**Why this is written down.** The checkers systematically read "first requires it" as earliest mention
+and will reject a correctly-owned entry on `b_topic_codes`. That produced most of the ownership
+escalations in the 2026-10-10 units 1-3 run. A checker's ownership objection is **not** on its own a
+reason to move the owner: re-apply the test above, and if the entry is correctly owned, escalate it for
+a Product Owner override rather than re-keying it to satisfy the checker. Where the two checker
+families disagree with each other about ownership, escalate rather than cycling encodings — one such
+case (AP Physics 2's change in electric potential energy, owner 10.7 as ruled) survived three attempts
+before being settled by ruling.
+
+**Prompt wording for the next batch.** Carry this into the copied-forward scripts so the models apply
+the rule rather than re-escalating it:
+
+- `extract.py` schema, for `owner_topic_code`: *the topic whose own learning objective or essential
+  knowledge requires this entry as stated — not the earliest topic that mentions the idea*.
+- `extract.py` schema, for `topic_codes`: *owner first, then only LATER topics of this unit whose own
+  LO/EK use the entry; never a topic that precedes the owner*.
+- `check.py` check (b): *`owner_topic_code` is the topic whose own LO/EK requires this entry as
+  stated, not the earliest topic to mention it; every other code is a later topic of this unit that
+  uses it.*
 
 A **memory hook** is a device for recalling exactly one reference entry. It never exists on its own
 (`reference_entry_id` is required). It is for recall; the exam answer is written in CED language, and
@@ -117,3 +164,12 @@ then the remaining subjects by active-student count. One unit per run; two units
 Open design items that do not block content: row limits for the pane's "Look up" block; a formula
 renderer (formulas currently display as LaTeX source in monospace); `TASK-0054`'s taxonomy FK, which
 both tables should adopt together when it lands.
+
+## Change note
+
+**2026-10-10 — §1.1 ownership rule added.** The previous wording, "owned by the topic that first requires
+it", was read by the checkers as *earliest mention* and produced most of the ownership escalations in the
+units 1-3 run across nine subjects. §1.1 states the rule the Product Owner has now applied five times, gives
+the test, lists the ruled examples, and carries the prompt wording for `extract.py` and `check.py` so the
+models apply the rule instead of re-escalating it. No other policy changed, and no previously loaded row
+changes disposition.

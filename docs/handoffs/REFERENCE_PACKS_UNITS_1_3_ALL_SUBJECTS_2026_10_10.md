@@ -394,9 +394,11 @@ David ruled: **keep 1.3, 2.7 and 1.3 as owners, and 10.7 for Physics 2.** All fo
 | `ap_physics_2-u10-r4-003` | Change in the electric potential energy of the object-field system | owner **10.7**, topic_codes 10.7 |
 
 This settles the ownership principle for later batches: **the topic whose objective requires the entry owns
-it**, not the earliest topic that mentions the idea. That is now ruled three times (`DECISION-0107` rule 2, the
-AP Chemistry Unit 1 periodic-trends call, and this one), and it is worth promoting into
-`MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md` so the next session does not re-escalate it.
+it**, not the earliest topic that mentions the idea. It is now written into the protocol as
+`MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md` **§1.1**, with the test, the five ruled examples, the
+bar on tagging a pre-owner topic in `topic_codes`, the instruction to escalate rather than re-key to satisfy a
+checker, and the prompt wording for `extract.py` and `check.py`. The AP Chemistry inventory's matching phrasing
+was aligned. The next session should not have to re-escalate this question.
 
 For Physics 2 the 10.5 reuse code was dropped rather than kept, because `topic_codes` means the owner plus
 *later* topics that reuse an entry, and 10.5 precedes 10.7. Checked for a serving gap before loading: topic 10.5

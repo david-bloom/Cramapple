@@ -79,9 +79,11 @@ student-facing writing:
 
 - one entry should answer one lookup need;
 - combine synonyms and inseparable ideas; split ideas with different definitions, conditions, or uses;
-- assign the entry to the first topic that requires it (`owner_topic_code`);
+- assign the entry to the topic whose own learning objective or essential knowledge requires it as stated,
+  which is not necessarily the earliest topic that mentions the idea (`owner_topic_code`; the rule, its test
+  and five ruled examples are in `MEMORY_HOOKS_AND_UNIT_REFERENCE_PRODUCTION_PROTOCOL.md` §1.1);
 - add a later topic to `topic_codes` only when that topic's own CED objective or essential knowledge
-  uses the entry; and
+  uses the entry, and never add a topic that precedes the owner; and
 - never duplicate an entry merely because later topics reuse it.
 
 Every candidate manifest row must record:
