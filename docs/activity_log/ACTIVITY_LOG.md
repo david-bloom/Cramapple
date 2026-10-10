@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0070 Opened and Applied to Development: Calculus BC Serves AB's Shared Reference Content, No Duplicate Rows (2026-10-10): David asked why BC needed its own units 1-3 pack; it did not — AB and BC share one CED, BC's units 1-5 topic sets are identical and 6-8 a superset, and only `subject_key` keying made BC serve nothing. Duplicating was rejected because the same duplication in `topic_explainers` has already drifted (all 81 shared AB/BC explainers differ; units 1-8 AB 35 of 81 repaired against BC 85 of 87), so copying would have hidden the same divergence and required mirroring today's 43 corrections. Shipped a general `app.subject_reference_aliases` table plus an RPC union with three guards (own row wins, unit range, requesting subject's taxonomy). No content row created, copied or deleted. Verified against a 30-probe pre-change baseline: 23 of 30 payloads byte-identical once the additive key is stripped, the 7 that differ are exactly BC units 1-3, both guards exercised and rolled back, alias table unreadable by `authenticated`, migration idempotent, all 8 QA checks ok. AB's stale explainers recorded as F2; anonymous BYOQ sharing as F1. Code change, so the PR goes to David; Production untouched.
 - Extractor Prompt Fixed for Boundary Statements, Skills and Exam-Prep Text; Pipeline Scripts Given a Canonical Template (2026-10-10): the seven unit 1-3 entries that had to be dropped rather than corrected all came from CED sections that are not course content — Exclusion/Boundary Statements, SUGGESTED SKILL lists, "Preparing for the AP Exam", ILLUSTRATIVE EXAMPLES alone. New protocol §1.2 names the admissible source, keeps a boundary statement's legitimate use in a `caution`, and makes an LO/EK citation a hard gate; `extract.py` and `check.py` (b)(c) now enforce it. Scripts moved to a canonical baseline at `scripts/content-seed/reference-pack-template/` so prompt lessons stop being lost between batches. Verified by re-extracting Physics C: E&M unit 8 and Calculus AB unit 2: all three previously-inadmissible entries gone, no entry citing a non-LO/EK section. Test extractions not loaded; no batch re-run; Production untouched.
 - Ownership Rule Written into the Reference-Content Protocol (2026-10-10): the protocol's "owned by the topic that first requires it" was being read by the checkers as earliest mention, which caused most of the ownership escalations in the units 1-3 run. New §1.1 states the rule the Product Owner has applied five times (the topic whose LO/EK requires the entry as stated), gives the test, lists the ruled examples, bars a pre-owner topic from `topic_codes`, tells a session to escalate rather than re-key to satisfy a checker, and carries the exact prompt wording for `extract.py` and `check.py`. The AP Chemistry inventory's matching phrasing was aligned. Codification of existing rulings, so no new decision id; docs only, no content or database change.
 - Last Four Reference-Row Escalations Ruled and Loaded; Development Found to Be Shared Mid-Run (2026-10-10): David ruled owners 1.3, 2.7, 1.3 and 10.7, loaded via `load.py --po-accept`, so all 50 escalations are now dispositioned (43 corrected and loaded, 7 rejected for having no LO/EK basis). The ownership principle is now ruled three times and should be written into the production protocol. Separately, Development is shared: another session loaded PR #399's 2 Chemistry Unit 1 escalations and a new Chemistry units 5-9 batch (119 rows) during this run, so Development's 1,076 entries include 247 rows from outside this branch and only 829 are this session's. A Production approval must therefore name batches, not a row count. All 8 QA checks still pass. Production untouched.
@@ -410,6 +411,55 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0070: Calculus BC Serves AB's Shared Reference Content — 2026-10-10
+
+**The question.** David, on reviewing the proposed Calculus BC re-key: *"why do we need a separate reference
+pack for units 1-3?"* Investigated rather than answered from the data model, and the answer was **we do not**.
+
+**Evidence.** AB and BC share one CED PDF. BC's units 1-5 topic sets are *identical* to AB's (16/10/6/7/12,
+zero asymmetric difference), units 6-8 BC is a *superset* (adds 3, 2, 1; `ab_only = 0` for every unit 1-8),
+and units 9-10 are BC-only. The only thing making BC serve nothing was that `unit_reference_entries` is keyed
+by `subject_key` and `get_topic_point_guides` filters on it.
+
+**Why duplication was rejected, not just declined.** The precedent exists — `topic_explainers` and
+`topic_point_briefs` do carry separate BC rows — but it has already failed. All 81 shared AB/BC explainers
+differ in text, and units 1-8 show **AB 81 rows with 35 repaired against BC 87 with 85**: a 2026-08-21 repair
+pass BC received and AB largely did not. An AB student on topic 1.1 currently gets a thinner explainer than a
+BC student on the same topic. Duplicating per subject concealed a one-sided repair rather than keeping the
+copies aligned, and copying the reference pack would have started the same clock plus required mirroring all
+43 corrections made earlier today.
+
+**Shipped to Development** (`supabase/migrations/20261010170000_task0070_shared_reference_serving.sql`): a
+general `app.subject_reference_aliases` table, seeded with one row (`ap_calculus_bc` reads `ap_calculus_ab`,
+units 1-8), and a `CREATE OR REPLACE` of `public.get_topic_point_guides` whose `published_reference` CTE
+unions the requesting subject's rows with alias-sourced rows under three guards: the requesting subject's own
+row always wins on `(owner_topic_code, kind, title)`, the unit range is bounded, and an alias row is served
+only when its owner topic exists in the *requesting* subject's latest verified taxonomy. Reference objects
+gain an additive `sharedFromSubjectKey`. **No content row was created, copied, re-keyed or deleted.**
+
+**Verified against a 30-probe pre-change baseline:** 23 of 30 payloads byte-identical once the new additive
+key is stripped, and the 7 that differ are exactly the BC units 1-3 probes (0 → 24/17/10 on the roll-ups,
+matching AB topic for topic). BC units 6/9/10 stayed empty, correctly. Both guards were exercised in
+rolled-back transactions — a BC row duplicating an AB row replaced it rather than doubling it, and an AB entry
+on a topic absent from BC's taxonomy reached AB but never BC including in the roll-up — and the database
+confirms nothing was left behind. The alias table is RLS-forced with no policies and no grants beyond
+`postgres`; an `authenticated` role reading it gets `permission denied`. The migration applied twice with no
+drift. All 8 QA checks ok.
+
+**A mistake worth recording.** The first apply failed on a syntax error: `pg_get_functiondef` returns no
+trailing semicolon, so the appended `commit;` was swallowed into the function body. Before diagnosing it the
+migration ledger row had already been inserted, claiming a migration that had not applied. Both were
+corrected — ledger row deleted, Development verified untouched (alias table absent, function md5 still
+matching the pre-change hash) — before re-applying with the terminator fixed.
+
+**Scoped out on purpose.** The anonymous BYOQ path reads the `public.unit_reference_entries` and
+`public.topic_memory_hooks` views rather than this RPC, so a BC visitor there still sees nothing (0 BC rows
+against 51 for AB). Those views are read by the edge function in the still-open PR #399, so widening them is
+recorded as follow-up **F1** instead of being changed underneath work in flight. AB's apparently pre-repair
+explainers are **F2** and need a Product Owner call.
+
+Code change, so the PR goes to David. Production untouched.
+
 ## Extractor Prompt Fixed for Boundary Statements; Pipeline Scripts Given a Canonical Template — 2026-10-10
 
 **Why.** Of the 50 escalations in the units 1-3 run, 7 could not be corrected at all, only dropped: each had no

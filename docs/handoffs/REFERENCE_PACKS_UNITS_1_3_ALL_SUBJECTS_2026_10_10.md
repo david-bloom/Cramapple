@@ -2,7 +2,8 @@
 
 **STATUS:** Development complete for 25 new unit batches. Production untouched and still a Hard Gate.
 All 50 escalations are dispositioned: 43 corrected and loaded, 7 rejected as having no LO/EK basis (sections 11
-and 12). Only the Calculus BC decision remains open. Development is shared and another session loaded into it
+and 12). The Calculus BC question is answered and closed by TASK-0070 (section 14): BC serves AB's shared
+reference content, with no duplicate rows. Development is shared and another session loaded into it
 mid-run; see section 13 for what is this session's and what is not.
 
 **DATE:** 2026-10-10 (America/New_York)
@@ -436,3 +437,61 @@ Two consequences worth acting on:
    database is not reproducible, and the 1,076 figure includes 247 rows from batches outside this branch.
 2. All 8 QA checks still pass across the whole table, so the concurrent batch has not broken the invariants
    this session's guard protects. That is a check, not an endorsement: those 119 rows have not been reviewed here.
+
+## 14. TASK-0070: Calculus BC now serves AB's shared reference content (no duplicate rows)
+
+David, 2026-10-10: *"For Calc BC, why do we need a separate reference pack for units 1-3?"* then
+*"write it up as a task and execute it."* The answer was that we do not — the requirement came from the
+data model, not the content. `docs/tasks/TASK-0070-SHARED-REFERENCE-CONTENT-ACROSS-SIBLING-SUBJECTS.md`
+carries the task; this is the verification.
+
+**The finding that changed the recommendation.** The duplication precedent exists — `topic_explainers`
+and `topic_point_briefs` do carry separate BC rows — but it has already drifted. All 81 shared AB/BC
+explainers differ in text, and `source_note` says why: units 1-8 show **AB 81 rows with 35 repaired
+against BC 87 with 85 repaired**, a 2026-08-21 repair pass BC got and AB largely did not. On topic 1.1 an
+AB student gets a thinner explainer than a BC student on the same topic. Duplicating per subject did not
+keep the copies in sync; it concealed a one-sided repair. Copying the reference pack would have started
+the same clock and would have required mirroring all 43 corrections made earlier today.
+
+**What shipped to Development.** Migration
+`supabase/migrations/20261010170000_task0070_shared_reference_serving.sql`: a general
+`app.subject_reference_aliases` table (one row: `ap_calculus_bc` reads `ap_calculus_ab` for units 1-8)
+and a `CREATE OR REPLACE` of `public.get_topic_point_guides` whose `published_reference` CTE unions the
+requesting subject's rows with alias-sourced rows under three guards. **No content row was created,
+copied, re-keyed or deleted.**
+
+**Verification, by comparison against a pre-change baseline of 30 probes:**
+
+| Check | Result |
+|---|---|
+| Payloads byte-identical to baseline once the new additive key is stripped | **23 of 30**; the only 7 that differ are the Calculus BC units 1-3 probes |
+| Calculus BC units 1-3 | `reference[]` 0 → 2 (1.1), 4 (1.16), 1 (2.8), 3 (3.2); roll-ups 0 → 24, 17, 10 — equal to AB's counts topic for topic |
+| Calculus BC units 6, 9, 10 | still 0, correct: AB has no entries there |
+| Every other subject | AB, Precalculus, Biology, Statistics, Chemistry, Physics 1, Physics 2, Physics C Mechanics and E&M all unchanged |
+| Guard — own row wins | a temporary BC row duplicating an AB row's `(owner_topic_code, kind, title)` replaced the shared one rather than appearing beside it: BC 3.2 stayed at 3 entries, 2 shared plus 1 marked `own` |
+| Guard — taxonomy | a temporary AB entry on topic `1.99`, which BC's taxonomy lacks, was served to AB (1) and never to BC (0), including in BC's roll-up |
+| Alias table locked down | RLS enabled and forced, no policies, grants to `postgres` only; an `authenticated` role reading it directly gets `permission denied` |
+| Migration idempotent | applied twice; alias rows stayed 1, entries 1083, BC u1 refs 24 |
+| QA script | all 8 checks ok |
+
+Both guard tests ran inside transactions that were rolled back, and the database confirms nothing was
+left behind (0 rows matching the test `source_note`, 0 rows on topic `1.99`).
+
+**Known gap, scoped out on purpose.** The anonymous BYOQ path reads the `public.unit_reference_entries`
+and `public.topic_memory_hooks` views, not this RPC, so a BC visitor on anonymous BYOQ still sees nothing
+(measured: that view returns 0 BC rows against 51 for AB). Widening those views would touch an object the
+edge function in the still-open PR #399 reads, so it is recorded as follow-up **F1** rather than changed
+underneath work in flight.
+
+**A mistake worth recording.** The first apply failed with a syntax error, because
+`pg_get_functiondef` returns no trailing semicolon and the appended `commit;` was swallowed into the
+function body. Before diagnosing it I had already inserted the migration ledger row, which then claimed a
+migration that had not applied. Both were corrected: the ledger row was deleted, and Development was
+verified untouched — the alias table did not exist and the function's md5 still matched the pre-change
+hash — before re-applying with the terminator fixed.
+
+**Development is still shared.** During this task another session loaded a
+`task0067-chem-escalations-r3-2026-10-10` batch and revised its Chemistry units 5-9 batch, taking the
+table from 1,076 to 1,083 published entries. This session's own contribution is unchanged at **829
+entries**, and TASK-0070 added none. Attribution is by `created_at` and the `batch=` tag in `source_note`;
+a Production approval should still name batches rather than a row count.
