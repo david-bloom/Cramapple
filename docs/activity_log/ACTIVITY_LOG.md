@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- TASK-0069 in Production, Dark (APPROVAL-0144) (2026-10-10): seven migrations applied verbatim and recorded at repository versions (one file corrected first: the attachment delete guard it had dropped), four functions deployed byte-identical, secrets set, Lovable App published (`e8c11dce`); integrity test 8/8 on Production; ~3-minute selector window with no student activity; API smoke owed (no Production secret key locally). Counts corrected: 619 published FRQ items, 37 published hand-drawn. **Next Owner:** David Bloom. **Next Action:** live admin run (runbook step 6), then decide on widening `FRQ_PHOTO_SUBJECTS`.
 - AP Chemistry Unit 1 Reference Pack to Production (APPROVAL-0147) (2026-10-10): the same generated SQL as Development; 24 entries + 1 hook; QA 8/8; probe counts identical to Dev; two escalations still unloaded.
 - Question Experience Backend to Production (APPROVAL-0145) + BYOQ Reference for Signed-Out Visitors; AP Chemistry Unit 1 Reference Batch in Development; Shared Question-Page Shell in Lovable Preview (2026-10-10): `get_question_experience` RPC + session items + comparison answers live in Production (probed read-only); `byoq` v15 serves reference/hooks signed-out; Chem U1 24 entries + 1 hook in Dev, 2 PO escalations; Lovable `84f287f0` Preview only.
 - TASK-0069 Codex QA Fail Remediated: Submission Integrity Moved Into the Database, photo_required Enforced Server-Side, Server-Driven Rollout, Resumable Redaction (2026-10-10): Codex found the confirmation was not content-bound (owner PATCH after confirm), a retake/submit TOCTOU (plus a second submit function that bypassed the Edge gate), a typed-submit path for `photo_required` (hand-drawn items were served to every student), and redaction false success; all fixed with migration `20261010002322`, a submission guard trigger, `app.confirm_response_transcript`, `FRQ_PHOTO_SUBJECTS`, and `_shared/attachment-redaction.ts`; Development integration test 8/8, two-connection race test, smoke, Deno 596/596; Lovable `e8c11dce`. **Next Owner:** Codex (re-QA per `docs/qa/QA_TASK0069_REMEDIATION_2026_10_09.md`), then David (PR #397). **Next Action:** re-QA.
@@ -412,6 +413,18 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## TASK-0069 Hand-Drawn Responses in Production, Dark for Students (APPROVAL-0144) — 2026-10-10
+
+**Context:** David merged PR #397 and said "run the production runbook". `APPROVAL-0144` was recorded and pushed before the first Production write.
+
+**Done:** runbook steps 1–5 on Production `pcntajvbdfqhbeewmdry`. Seven migrations applied verbatim from the repository (CLI from a worktree temporarily linked to Production) and recorded at the repository versions, so the ledger matches the filenames. The pre-apply capture caught that `20261009230918` had dropped the "rows are never deleted" branch of the attachment guard; the file was corrected, `20261010031448` repairs Development and joins the set. Four functions deployed and verified byte-identical. Secrets set; `FRQ_PHOTO_SUBJECTS` left unset (admins only). Lovable App published (`e8c11dce`), live bundle verified. Rollback-only integration test on Production: 8/8, nothing persisted.
+
+**Exceptions:** (1) a ~3-minute window between migration 1 and the serving deploy during which the old serving function could have handed hand-drawn items to students; checked: no attempts, no student sessions. (2) The Production API smoke did not run: no Production secret key is available to the session (masked by the CLI; reading the legacy key was refused by the permission guard). (3) The publish also carried two earlier preview edits (David's BYOQ navigation request; a privacy-policy markdown line that the app does not serve, since `/privacy` redirects to marketing).
+
+**Correction:** earlier TASK-0069 records said 1,090 published FRQs and 40 hand-drawn items; those counted item versions. Production: 619 published FRQ items, 37 published hand-drawn items (52 all statuses). The plan, task record, and remediation record are corrected.
+
+**Next Owner:** David Bloom. **Next Action:** step 6, the live admin run on `app.cramapple.com`; then step 7 (widen `FRQ_PHOTO_SUBJECTS`) at his call; then the Done decision.
+
 ## AP Chemistry Unit 1 Reference Pack to Production (APPROVAL-0147) — 2026-10-10
 
 **Context:** David: "Move all changes to production." The question-experience backend and frontend were already live (APPROVAL-0145 + 2 amendments; PR #399 merged). The only Dev-only change left was the AP Chemistry Unit 1 reference batch.

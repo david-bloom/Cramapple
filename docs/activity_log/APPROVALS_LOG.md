@@ -7,6 +7,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 Most recent entries (full chronological list follows below):
 
 - APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111 (2026-10-09)
+- APPROVAL-0144 — Execute TASK-0069 to Production: Seven Migrations, Secrets, Four Function Deploys, Production Smoke, Dark Lovable Publish — DECISION-0109 / 0110 / 0111 (2026-10-10)
 - APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production) (2026-10-09)
 - APPROVAL-0145 — Question Experience Read Model Migration + BYOQ Topic Reference for Signed-Out Visitors (Production) (2026-10-10)
 - APPROVAL-0147 — AP Chemistry Unit 1 Reference Pack (24 Entries + 1 Hook) to Production (2026-10-10)
@@ -2039,6 +2040,34 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 **Not approved by this entry:** the plan as a whole; D3 (default `photo_allowed` on all FRQs at launch vs. subject allow-list), D5 (spend and rate limits), D6 (partial grading as a visible state), D7 (grader roster), D8 (which FRQ surface hosts capture); any build, migration, deployment, or Lovable publish, including Phase 0 (porting the stranded TASK-0038 frontend). Each of those remains a separate Product Owner gate.
 
 **Next gates:** D3, D5–D8 answers; a Hard-Gate task record for the plan; go-ahead for Phase 0 (port + `DECISION-0059` Stage 1 run) and the Phase 1 Development build.
+
+## APPROVAL-0144 — Execute TASK-0069 to Production: Seven Migrations, Secrets, Four Function Deploys, Production Smoke, Dark Lovable Publish — DECISION-0109 / 0110 / 0111
+
+**Date:** 2026-10-10  
+**Approved By:** David Bloom (2026-10-10 Claude session), after merging PR #397: "PR 397 merged, run the production runbook". The merge was the Production go-ahead he set ("move hand drawn responses to production as a PR. I will review and merge the PR").  
+**Related:** `docs/tasks/TASK-0069-HAND-DRAWN-RESPONSES-EVERY-FRQ.md`, `docs/handoffs/TASK0069_FRQ_PHOTO_EXECUTION_2026_10_09.md` (runbook), `docs/qa/QA_TASK0069_CODEX_2026_10_09.md` (Codex re-QA Pass), `docs/qa/QA_TASK0069_REMEDIATION_2026_10_09.md`, PR #397 (merged `6c82de4b`), `APPROVAL-0142`  
+**Decision:** Approved — recorded before the Production write.
+
+**Approved scope (the runbook, steps 1–5):**
+1. Production `pcntajvbdfqhbeewmdry` migrations, in order: `frq_photo_responses_content`, `frq_photo_responses_attachments`, `capture_access_path_phone_reported`, `frq_photo_responses_hardening`, `merge_response_parts_invoker`, `frq_photo_submission_integrity`, `restore_attachment_delete_guard`.
+2. Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` left unset (admins only), except a brief window set to `ap-chemistry` (a subject with no hand-drawn items, so nothing a student sees changes) to let the smoke student exercise the flow, then unset.
+3. Functions `attempt-response`, `student-session-items`, `capture-pairing`, `evaluate-attempt`.
+4. Production smoke (`scripts/frq_photo_smoke.mjs`; one `smoke+frqphoto-*` student left in place) and the rollback-only integration test.
+5. Lovable App `56cae479` publish, dark for students (the control follows the server's `photo_enabled`), after reviewing what else is in preview.
+
+**Deviation found before execution and handled within scope:** the pre-apply capture showed Production's `app.response_attachments_guard_immutable_fields()` carries the delete-refusal branch from `20260818011720`, which the merged `20261009230918` file omitted. Applying the file as merged would have replaced the explicit "rows are never deleted" rule with an accidental one. The file is corrected on branch `claude/task-0069-production` (PR to follow), `20261010031448_restore_attachment_delete_guard` repairs Development (already applied there) and is applied to Production for parity; Production runs the corrected `20261009230918`. Development verified: a delete now raises "rows are never deleted".
+
+**Not covered by this entry:** step 6 (David's live admin run on `app.cramapple.com`), step 7 (widening `FRQ_PHOTO_SUBJECTS` to students), and the Done decision.
+
+**Rollback:** `FRQ_PHOTO_SUBJECTS=none` (admins only) and/or `FRQ_PHOTO_RESPONSES_ENABLED=false`, no redeploy. Pre-apply definitions of the four replaced functions are saved in `scripts/task0069-production/pre_apply_definitions.sql`.
+
+**Executed (2026-10-10, 03:15–03:30 UTC):**
+- Migrations applied verbatim from the repository files (each wrapped in a transaction) through the CLI, from a worktree temporarily linked to Production and relinked to Development afterwards; each recorded with `supabase migration repair --status applied`, so Production's ledger versions now equal the repository filenames: `20261009230917`, `20261009230918` (corrected file), `20261009231314`, `20261009233521`, `20261009233645`, `20261010002322`, `20261010031448`. Post-apply: every FRQ has a policy (0 null), 37 published items `photo_required` (52 all statuses), 2,209 validated serving labels intact, delete guard present, every new/changed function identical to Development ignoring comments (Development had comments stripped when first applied by hand).
+- Functions deployed 03:18:29–03:18:38 and downloaded back: all ten source files byte-identical to the merged branch.
+- **Exposure window:** between migration 1 and the `student-session-items` deploy (~3 minutes) the live selector returned `photo_required` items while the previous function still served them to students. Checked: 0 attempts on `photo_required` items, 0 attempts of any kind, the only session touched was an internal admin's, archived before the apply.
+- Secrets: `FRQ_TRANSCRIPT_MODEL=gpt-4.1-mini`, `FRQ_PHOTO_RESPONSES_ENABLED=true`; `FRQ_PHOTO_SUBJECTS` set to `ap-chemistry` 03:19:22–03:20:44 for the smoke, then unset (admins only).
+- **API smoke not run on Production:** the local secrets file holds only the Development secret key, the CLI returns Production's secret keys masked, and reading the legacy service-role key was refused by the session's permission guard. Instead the rollback-only integration test ran on Production against an internal test account: `TASK0069_INTEGRITY ALL PASS` (8/8); nothing persisted (0 attachments, 0 attempts, 0 response versions afterwards). The end-to-end Edge/model path on Production is first exercised by step 6.
+- Lovable App `56cae479` published (deployment `2af7560c`, commit `e8c11dce`); live bundle verified to carry the photo control, the server-driven flag, `SAME_DEVICE` capture, and the admin grading routes. The publish also carried two earlier unpublished preview edits: David's BYOQ navigation request (`6f5c0cc4`) and a privacy-policy markdown line listing AI models among service providers (`0830a718`); the app's `/privacy` redirects to the marketing site (live policy unchanged), so the latter is not user-visible from this publish.
 
 ## APPROVAL-0150 — Publish 9 AP Chemistry Practice MCQs for Topics 1.2 and 1.8 (Production)
 
