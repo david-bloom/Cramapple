@@ -36,6 +36,13 @@ language plpgsql
 set search_path = 'app', 'pg_catalog'
 as $$
 begin
+  -- Kept from 20260818011720_response_attachments_fixes.sql: rows are never
+  -- deleted (the trigger fires BEFORE UPDATE OR DELETE). Omitting this branch
+  -- was caught by the Production pre-apply capture on 2026-10-10.
+  if tg_op = 'DELETE' then
+    raise exception 'response_attachments: rows are never deleted (row %); retakes supersede via is_current instead', old.id;
+  end if;
+
   if new.response_version_id is distinct from old.response_version_id
     or new.attempt_id is distinct from old.attempt_id
     or new.content_item_version_id is distinct from old.content_item_version_id
