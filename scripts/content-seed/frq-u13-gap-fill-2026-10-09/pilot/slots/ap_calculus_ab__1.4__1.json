@@ -1,0 +1,371 @@
+{
+ "id": "ap_calculus_ab__1.4__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.4",
+  "topic_title": "Estimating Limit Values from Tables",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.661Z",
+   "item": {
+    "title": "Estimating One-Sided and Two-Sided Limits from Tables",
+    "calculator": "not_permitted",
+    "stimulus": "The functions f, g and h are defined for all real numbers, except that h is not defined at x = 0. The only information available about them is given below.\n\nSelected values of f near x = 3 (values rounded to four decimal places):\nx:    2.9     2.99    2.999   3.001   3.01    3.1\nf(x): 0.2516  0.2502  0.2500  0.2500  0.2498  0.2485\nIn addition, f(3) = 1.\n\nSelected values of g near x = 1:\nx:    0.9    0.99    0.999   1.001    1.01    1.1\ng(x): 2.8    2.98    2.998   -1.002   -1.02   -1.2\nIn addition, g(1) = -1.\n\nSelected values of h near x = 0:\nx:    -0.1   -0.01    -0.001     0.001      0.01     0.1\nh(x): 100    10000    1000000    1000000    10000    100\n\nAssume that the patterns shown in each table continue as x gets closer to the given point.",
+    "model_answer": "(a) As x→3⁻, f(x) takes the values 0.2516, 0.2502, 0.2500, and as x→3⁺, f(x) takes the values 0.2485, 0.2498, 0.2500. From both sides the values approach 0.25, so lim x→3 f(x) ≈ 0.25. The value f(3) = 1 does not matter, because a limit as x→3 depends only on the values of f(x) for x close to 3 with x ≠ 3, not on the value of f at x = 3.\n\n(b) From the left, g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998, which approach 3, so lim x→1⁻ g(x) ≈ 3. From the right, g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002, which approach -1, so lim x→1⁺ g(x) ≈ -1.\n\n(c) No. lim x→1 g(x) does not exist because the left-hand limit, 3, is not equal to the right-hand limit, -1. A two-sided limit exists only when both one-sided limits are equal.\n\n(d) As x approaches 0 from the left (-0.1, -0.01, -0.001) and from the right (0.1, 0.01, 0.001), h(x) goes 100, 10000, 1000000, growing larger and larger without bound, so h(x)→∞ as x→0. Since h(x) is unbounded near x = 0, lim x→0 h(x) does not exist as a real number.",
+    "verification_python": "import math\nfrom fractions import Fraction\n# f values generated from (sqrt(x+1)-2)/(x-3), limit 1/4\nf=lambda x:(math.sqrt(x+1)-2)/(x-3)\ntable={2.9:0.2516,2.99:0.2502,2.999:0.2500,3.001:0.2500,3.01:0.2498,3.1:0.2485}\nfor x,v in table.items():\n    assert abs(round(f(x),4)-v)<1e-9,(x,f(x))\nassert abs(f(3-1e-6)-0.25)<1e-5 and abs(f(3+1e-6)-0.25)<1e-5\n# g: 2x+1 for x<1, 1-2x for x>=1\ng=lambda x: 2*x+1 if x<1 else 1-2*x\ngt={Fraction(9,10):Fraction(28,10),Fraction(99,100):Fraction(298,100),Fraction(999,1000):Fraction(2998,1000),Fraction(1001,1000):Fraction(-1002,1000),Fraction(101,100):Fraction(-102,100),Fraction(11,10):Fraction(-12,10)}\nfor x,v in gt.items():\n    assert g(x)==v\nassert g(Fraction(1))==-1\nassert g(Fraction(1)-Fraction(1,10**9))-3==-Fraction(2,10**9)\nassert g(Fraction(1)+Fraction(1,10**9))+1==-Fraction(2,10**9)\nassert 3!=-1\n# h = 1/x^2\nh=lambda x: 1/x**2\nht={Fraction(-1,10):100,Fraction(-1,100):10000,Fraction(-1,1000):1000000,Fraction(1,1000):1000000,Fraction(1,100):10000,Fraction(1,10):100}\nfor x,v in ht.items():\n    assert h(x)==v\nassert h(Fraction(1,10**6))>10**11\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the table to estimate lim x→3 f(x). Explain why the given value f(3) = 1 does not change your estimate.",
+      "criteria": [
+       {
+        "text": "Estimates lim x→3 f(x) ≈ 0.25, supported by the values from both sides of x = 3.",
+        "evidence": "States the estimate 0.25 and notes that f(x) approaches 0.25 both as x→3⁻ (0.2516, 0.2502, 0.2500) and as x→3⁺ (0.2500, 0.2498, 0.2485).",
+        "fix": "Read the f-values on each side of x = 3 separately, check they approach the same number, then state that common number.",
+        "accepted_variants": [
+         "1/4",
+         "0.250",
+         "approximately 0.25"
+        ]
+       },
+       {
+        "text": "Explains that a limit depends on the values of f near x = 3, not on the value f(3), so f(3) = 1 does not affect the estimate.",
+        "evidence": "States that the limit describes the behavior of f(x) as x approaches 3 (x ≠ 3), so the function value at x = 3 itself is irrelevant.",
+        "fix": "Remember lim x→c f(x) uses only x-values close to but not equal to c; the value f(c) plays no role.",
+        "accepted_variants": [
+         "the limit only uses x close to 3, not x = 3",
+         "f(3) is not used in finding the limit"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the table to estimate lim x→1⁻ g(x) and lim x→1⁺ g(x).",
+      "criteria": [
+       {
+        "text": "Estimates lim x→1⁻ g(x) ≈ 3 from the values to the left of x = 1.",
+        "evidence": "States 3, referring to g(0.9) = 2.8, g(0.99) = 2.98, g(0.999) = 2.998 approaching 3.",
+        "fix": "For a left-hand limit, use only the x-values less than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "3.0",
+         "approximately 3"
+        ]
+       },
+       {
+        "text": "Estimates lim x→1⁺ g(x) ≈ -1 from the values to the right of x = 1.",
+        "evidence": "States -1, referring to g(1.1) = -1.2, g(1.01) = -1.02, g(1.001) = -1.002 approaching -1.",
+        "fix": "For a right-hand limit, use only the x-values greater than 1 and identify the number their g-values approach.",
+        "accepted_variants": [
+         "-1.0",
+         "approximately -1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on your answers to part (b), does lim x→1 g(x) exist? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Concludes lim x→1 g(x) does not exist because the one-sided limit estimates, 3 and -1, are not equal.",
+        "evidence": "States the limit does not exist and gives the reason that the left-hand limit (3) and right-hand limit (-1) differ; citing g(1) = -1 alone is not a valid reason.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly with their values.",
+        "accepted_variants": [
+         "DNE because 3 ≠ -1",
+         "no, the left and right limits differ"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on the table, describe the behavior of h(x) as x approaches 0, and state whether lim x→0 h(x) exists as a real number. Justify your answer.",
+      "criteria": [
+       {
+        "text": "Describes that h(x) increases without bound as x approaches 0 from both sides.",
+        "evidence": "Notes the values 100, 10000, 1000000 grow larger and larger from the left and from the right, so h(x)→∞ as x→0.",
+        "fix": "Look at how the h-values change as x moves toward 0 from each side; if they keep growing without settling, say unbounded.",
+        "accepted_variants": [
+         "lim x→0 h(x) = ∞",
+         "h(x) grows without bound",
+         "h(x) becomes arbitrarily large"
+        ]
+       },
+       {
+        "text": "Concludes lim x→0 h(x) does not exist as a real number because h(x) is unbounded near x = 0.",
+        "evidence": "States the limit does not exist (as a real number) and links this to the unbounded behavior, not to a mismatch of sides or to h being undefined at 0.",
+        "fix": "When function values grow without bound, state the limit does not exist as a real number, citing the unbounded behavior as the reason.",
+        "accepted_variants": [
+         "DNE because unbounded",
+         "the limit is infinite, so it does not exist as a real number"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "google/gemini-3.8-flash",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "meta/muse-spark-1.3",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 1
+}

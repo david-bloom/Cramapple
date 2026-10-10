@@ -1,0 +1,97 @@
+{
+ "id": "ap_physics_1__2.2__1",
+ "slot": {
+  "subject_key": "ap_physics_1",
+  "tsv": "27111dec-ee07-48f1-86cf-1a5833dd2962",
+  "unit": 2,
+  "unit_title": "Force and Translational Dynamics",
+  "topic_code": "2.2",
+  "topic_title": "Forces and Free-Body Diagrams",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.664Z",
+   "item": {
+    "title": "Forces on a Block Pulled Up a Frictionless Ramp",
+    "calculator": "permitted",
+    "stimulus": "A block of mass 4.0 kg is on a ramp inclined at 30° above the horizontal. The ramp surface is frictionless. A light rope, held parallel to the ramp surface, pulls the block up the ramp with a constant tension of 30 N. Air resistance is negligible. The block slides up the ramp and stays in contact with the ramp surface. Use g = 10 m/s².",
+    "model_answer": "(a) Three forces are exerted on the block. (1) The gravitational force (weight, mg = 40 N) is exerted by Earth and points vertically downward. (2) The normal force is exerted by the ramp surface and points perpendicular to the ramp surface, away from it. (3) The tension force is exerted by the rope and points parallel to the ramp, up the slope. There is no friction because the ramp is frictionless, and there are no other forces.\n\n(b) The student is not correct. A force is an interaction between two objects, so every force on the block must be exerted by some other object. An object cannot exert a net force on itself. The block's tendency to slide down the ramp is caused by the gravitational force exerted by Earth: its component parallel to the ramp, mg sin 30°, points down the slope. That component is already represented by the gravitational force, so no additional force belongs on the diagram.\n\n(c) The block moves along the ramp surface, so its acceleration is parallel to the ramp. With one axis along the ramp, the acceleration perpendicular to the ramp is zero, so the perpendicular forces balance and all of the acceleration lies along one axis. The tension and the normal force already point along the axes, so only the gravitational force has to be resolved into components.\nAlong the ramp (up the slope positive): T − mg sin 30° = ma.\nmg sin 30° = (4.0 kg)(10 m/s²)(0.5) = 20 N.\n30 N − 20 N = (4.0 kg)a, so a = 10 N / 4.0 kg = 2.5 m/s², directed up the ramp.\n(Perpendicular check: F_N = mg cos 30° ≈ 34.6 N, so the net perpendicular force is zero.)",
+    "verification_python": "import math\nm=4.0\ng=10.0\nT=30.0\nth=math.radians(30)\nW=m*g\nassert abs(W-40.0)<1e-9\npar=m*g*math.sin(th)\nassert abs(par-20.0)<1e-9\nperp=m*g*math.cos(th)\nassert abs(perp-34.64)<0.01\na=(T-par)/m\nassert abs(a-2.5)<1e-9\nassert a>0\na98=(T-m*9.8*math.sin(th))/m\nassert abs(a98-2.6)<0.06\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe in words the free-body diagram of the block while it is moving up the ramp. List every force exerted on the block. For each force, name the object that exerts it and state its direction.",
+      "criteria": [
+       {
+        "text": "Identifies exactly three forces with correct agents: the gravitational force exerted by Earth, the normal force exerted by the ramp surface, and the tension force exerted by the rope. No extra forces are included.",
+        "evidence": "Response names gravity (Earth), normal force (ramp), and tension (rope) as the only forces. It includes no friction, no net force, no 'force of motion', and no separate parallel or perpendicular components of gravity listed as extra forces.",
+        "fix": "For each force you list, name the other object pushing or pulling the block; delete any force with no agent, such as a net or motion force.",
+        "accepted_variants": [
+         "weight, mg, or F_g exerted by Earth",
+         "support force from the ramp",
+         "force of the rope on the block"
+        ]
+       },
+       {
+        "text": "States the correct direction of each force: gravitational force vertically downward, normal force perpendicular to the ramp surface pointing away from the surface, tension parallel to the ramp pointing up the slope.",
+        "evidence": "All three directions are stated correctly. In particular, the normal force is perpendicular to the incline, not vertical, and gravity is vertical, not perpendicular to the incline.",
+        "fix": "Remember the normal force is always perpendicular to the contact surface, while gravity always points straight down toward Earth's center.",
+        "accepted_variants": [
+         "normal force perpendicular to the incline, away from the ramp",
+         "gravity straight down toward Earth",
+         "tension up the incline, along the rope"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims that the free-body diagram should also include a force exerted by the block on itself, directed down the ramp, because the block has a tendency to slide down the ramp. Is the student correct? Justify your answer using the definition of a force.",
+      "criteria": [
+       {
+        "text": "States that the student is incorrect and justifies this by explaining that a force is an interaction between two objects, so an object cannot exert a net force on itself; the tendency to slide down comes from the gravitational force exerted by Earth (its component along the ramp).",
+        "evidence": "Response says the student is wrong, gives the reason that every force requires a second object (an object cannot exert a net force on itself), and attributes the down-ramp effect to Earth's gravitational force.",
+        "fix": "Test every proposed force by asking which other object exerts it; if none exists, it is not a force on the diagram.",
+        "accepted_variants": [
+         "no, every force is an interaction with another object; the down-slope effect is part of gravity from Earth",
+         "incorrect, a system cannot exert a net force on itself; the downhill pull is the parallel component of mg"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "To write Newton's second law for the block, a student chooses one coordinate axis parallel to the ramp surface and the other perpendicular to it. Explain why this choice of axes is useful in this situation, and calculate the magnitude and direction of the block's acceleration.",
+      "criteria": [
+       {
+        "text": "Explains that the block's acceleration is parallel to the ramp, so with these axes the net force perpendicular to the ramp is zero and the acceleration lies along a single axis. Also, the tension and normal force each lie along an axis, so only the gravitational force needs to be resolved into components.",
+        "evidence": "Response connects the axis choice to the direction of acceleration being along the incline, with zero perpendicular acceleration, and/or notes that only gravity must be split into components.",
+        "fix": "Choose one axis along the direction the object accelerates; then explain that the other axis has zero net force.",
+        "accepted_variants": [
+         "acceleration is along the incline so only one axis has nonzero acceleration",
+         "only mg has to be broken into components; tension and normal force are already along the axes"
+        ]
+       },
+       {
+        "text": "Calculates the acceleration as 2.5 m/s² directed up the ramp, using T − mg sin 30° = ma along the incline.",
+        "evidence": "Shows the along-incline component of gravity as mg sin 30° = 20 N and writes 30 N − 20 N = (4.0 kg)a. Obtains a = 2.5 m/s² and states the direction as up the ramp.",
+        "fix": "Along the incline, use the gravity component mg sin θ (not mg cos θ), subtract it from the tension, then divide by the mass.",
+        "accepted_variants": [
+         "2.5 m/s² up the incline",
+         "+2.5 m/s² with up-the-ramp positive",
+         "about 2.6 m/s² up the ramp if g = 9.8 m/s² is used"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "stage": "lint"
+  }
+ ]
+}

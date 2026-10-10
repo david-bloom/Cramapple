@@ -1,0 +1,59 @@
+# FRQ gap fill, Units 1-3, all subjects (2026-10-09)
+
+**Goal (Product Owner, David Bloom, 2026-10-09):** "Every unit/topic pair must have 2 FRQs or more. Use the content
+creation protocol to create FRQs in any unit/topic with 0 or 1 FRQ. Limit this exercise to units 1-3 in all subjects.
+Do not look at any unit 4 or greater." Then, at the pre-run questions: "cut the run to 1 FRQ per subject/unit/topic.
+If a unit topic has 1 or more FRQs, do not create another", confirmed: "Do not make FRQs if there is even a single
+FRQ in the topic."
+
+**Scope as run:** one FRQ for each of the **126** Units 1-3 topics with zero published FRQs (topic = primary topic cell
+on a published version, after APPROVAL-0143). Physics 2 = registry units 9-11; Physics C: E&M = 8-10.
+`inputs/slots.json` is the plan (126 rows, `need = 1`); `inputs/slots_all_202_before_scope_cut.json` is the earlier
+202-topic / 328-FRQ plan, kept for the record only. The publish step re-checks Production and skips any topic that has
+gained an FRQ since.
+
+| Subject | Topics filled |
+|---|---|
+| AP Biology | 10 |
+| AP Calculus AB | 11 |
+| AP Calculus BC | 13 |
+| AP Chemistry | 18 |
+| AP Physics 1 | 8 |
+| AP Physics 2 | 14 |
+| AP Physics C: E&M | 4 |
+| AP Physics C: Mechanics | 11 |
+| AP Precalculus | 23 |
+| AP Statistics | 14 |
+
+## Protocol and pre-run answers (`CONTENT_AUTHORING_AND_QA_PROTOCOL.md` §2.1, §3.2 rule 3)
+- **Author:** `anthropic/claude-opus-5.5` (non-OpenAI, so the model answer is not written by the grader's family, §3.1).
+- **Checkers (Product Owner pick, 2026-10-09):** `openai/gpt-6.1-sol` and `deepseek/deepseek-v4-pro`. The OpenAI checker is
+  never shown the model answer. Menu offered: GPT-6.1 Sol, DeepSeek V4 Pro, Gemini 3.8 Flash, Muse Spark 1.3; all four
+  smoke-tested in `pilot/` (valid structured output on every call).
+- **Variants:** none.
+- **Publish:** approved in principle, conditional on every check passing and each model answer scoring 100% through the
+  production grader (`app.qa_grade_frq`) on an unpublished draft. Human review waived (precedent: Calc AB Unit 1 batch).
+  The Hard-Gate approval is recorded in `APPROVALS_LOG.md` before any Production write.
+- **Topic labels:** the runbook six-vote probe (gemini-3.8-flash, deepseek-v4-pro, gpt-6.1-sol x2), >= 5 of 6 on the
+  target topic, no required unit later than the topic's unit.
+
+## Method (FRQs: protocol §4-§6 and §9; seeded protocol class A for format)
+Per topic, up to 3 candidates, each accepted whole or discarded whole (no hand edits; a failing candidate is regenerated):
+1. Author against the unit-scoped CED fact pack, the official CED topic text extracted from the course and exam
+   description PDFs in `subject packs/` (`inputs/ced_topic_excerpts.json`), the Units 1-3 topic list, and one house-format
+   example FRQ per subject (`inputs/seed_items.json`; format only, never content).
+2. Deterministic lint (`frq_pipeline/rubric.mjs`): part and point counts per subject, 1 point per criterion, fix <= 25 words,
+   no figure/diagram/drawing, no LaTeX/HTML.
+3. Deterministic recompute: the author's sympy script, run with an import allowlist in an empty directory.
+4. Six-vote topic probe.
+5. Both checkers solve blind, then audit scope (§4) and re-derive the rubric against their own solution (§9). A flag counts
+   only if it repeats on one re-sample.
+6. Planted-defect controls gate the batch (`controls_result.json`): eight known-bad copies of two pilot items; if the pair
+   passes any of them, the batch is void.
+
+Tooling: `scripts/vercel-gateway-check/frq_pipeline/` (`frq_pipeline.mjs run|report|controls`, `rubric.mjs`).
+Inputs: `prepare_inputs.py` (read-only Production queries). Pilot (11 topics, all four menu checkers, $3.02): `pilot/`.
+
+## Pilot lessons applied to the rubric before the batch
+Hard limits stated to the author; fix lines counted to 25 words; accepted variants may not accept a bare value where work
+is required; criteria may not prescribe an unrequired method; magnitudes stated as magnitudes; no figure or diagram words.
