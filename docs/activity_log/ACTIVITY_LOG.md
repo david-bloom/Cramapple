@@ -6,6 +6,7 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- AP Chemistry Unit 1 Reference Pack to Production (APPROVAL-0147) (2026-10-10): the same generated SQL as Development; 24 entries + 1 hook; QA 8/8; probe counts identical to Dev; two escalations still unloaded.
 - Question Experience Backend to Production (APPROVAL-0145) + BYOQ Reference for Signed-Out Visitors; AP Chemistry Unit 1 Reference Batch in Development; Shared Question-Page Shell in Lovable Preview (2026-10-10): `get_question_experience` RPC + session items + comparison answers live in Production (probed read-only); `byoq` v15 serves reference/hooks signed-out; Chem U1 24 entries + 1 hook in Dev, 2 PO escalations; Lovable `84f287f0` Preview only.
 - TASK-0069 Codex QA Fail Remediated: Submission Integrity Moved Into the Database, photo_required Enforced Server-Side, Server-Driven Rollout, Resumable Redaction (2026-10-10): Codex found the confirmation was not content-bound (owner PATCH after confirm), a retake/submit TOCTOU (plus a second submit function that bypassed the Edge gate), a typed-submit path for `photo_required` (hand-drawn items were served to every student), and redaction false success; all fixed with migration `20261010002322`, a submission guard trigger, `app.confirm_response_transcript`, `FRQ_PHOTO_SUBJECTS`, and `_shared/attachment-redaction.ts`; Development integration test 8/8, two-connection race test, smoke, Deno 596/596; Lovable `e8c11dce`. **Next Owner:** Codex (re-QA per `docs/qa/QA_TASK0069_REMEDIATION_2026_10_09.md`), then David (PR #397). **Next Action:** re-QA.
 - TASK-0069 Built: Hand-Drawn Responses on Every FRQ — Backend on Development, Frontend in Lovable Preview, Independent Review Fixed, Build PR Open (2026-10-09): `response_policy` on every FRQ, transcript propose/confirm with a digest-tied submit gate, retention by redaction, `SAME_DEVICE` capture; five migrations + three functions on Development, `scripts/frq_photo_smoke.mjs` all checks pass; Lovable App commits `42c5028e`/`700965bd` (dark default, 834 tests, unpublished); fresh-context review found 2 High/4 Medium/3 Low, all but one Low fixed; Codex QA handoff written. **Next Owner:** David Bloom (merge = Production go-ahead) and Codex (QA). **Next Action:** Codex runs `docs/handoffs/HANDOFF_TASK0069_CODEX_QA_2026_10_09.md`; on merge, execute the Production runbook in `docs/handoffs/TASK0069_FRQ_PHOTO_EXECUTION_2026_10_09.md`.
@@ -411,6 +412,14 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## AP Chemistry Unit 1 Reference Pack to Production (APPROVAL-0147) — 2026-10-10
+
+**Context:** David: "Move all changes to production." The question-experience backend and frontend were already live (APPROVAL-0145 + 2 amendments; PR #399 merged). The only Dev-only change left was the AP Chemistry Unit 1 reference batch.
+
+**Done:** loaded `load_ap_chemistry_u1.sql` (md5 `6c28a760…`) to Production. QA checks 1–8 ok. `get_topic_point_guides` probes matched Development exactly. Signed-out BYOQ on 1.5 serves 8 entries + the diagonal-rule hook. The Development seed rows from the question-experience probes stay Development-only by design.
+
+**Next Owner:** David Bloom. **Next Action:** decide the two Chemistry Unit 1 escalations (1.8 recommend reject, 1.7 recommend accept); choose the next AP Chemistry unit to build.
+
 ## Question Experience Backend to Production (APPROVAL-0145); Chem U1 Reference Batch (Dev); Question-Page Shell (Preview) — 2026-10-10
 
 **Context:** David: "Start a session focused on the new question page design and adding the content from this document into the app: AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md"; then the backend brief for the revised question experience; then "I approve the migration plus the byoq change for Production. send a single combined prompt".
