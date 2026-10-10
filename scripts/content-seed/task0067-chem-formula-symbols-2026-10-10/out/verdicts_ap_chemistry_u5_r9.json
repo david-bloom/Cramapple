@@ -1,0 +1,303 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u5-r9-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the zeroth-order integrated rate law as explicitly required by Topic 5.3 (EK 5.3.A.4: 'Zeroth order: [A]t \u2212 [A]0 = \u2212kt'). All symbols are correctly defined with appropriate units, and the caution correctly describes the graphical relationship and slope."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.3, EK 5.3.A.4 gives the zeroth-order equation \u201c[A]t \u2212 [A]0 = \u2212kt\u201d and states that slopes of concentration-versus-time data can determine the rate constant. The entry defines every symbol, gives units consistent with the equation, and correctly identifies the slope as \u2212k."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body '[A]_t - [A]_0 = -kt' matches the CED exactly: 5.3.A.4 lists 'Zeroth order: [A]t \u2212 [A]0 = \u2212kt'. All four symbols are defined: [A]_t and [A]_0 as reactant concentrations at time t and initially (M), k as the zeroth-order rate constant, and t as elapsed time. The unit for k (M per unit time, e.g., M s^-1) is correct because [A] is in M and k*t must be in M. No symbol is missing and no extra symbol appears. b_topic_codes: The zeroth-order integrated rate law first appears in Topic 5.3 (5.3.A.4), so owner_topic_code '5.3' is correct and the topic_codes list is correct. Topic 5.2 covers rate laws in general but not integrated forms. c_ced_required: 5.3.A.4 requires students to use the zeroth-order equation, and LO 5.3.A asks students to identify rate laws from concentration-versus-time data, so the entry is required content. d_caution: The caution ('a plot of [A] versus time is linear, and the slope is -k') is mathematically consistent with the CED equation ([A]t = -kt + [A]0). The CED does not state the slope sentence explicitly, but the caution is correct and does not contradict the CED, so its presence is acceptable."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r9-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the first-order half-life equation as explicitly required by Topic 5.3 (Essential Knowledge 5.3.A.5: 't1/2 = 0.693/k'). All symbols are correctly defined with appropriate units, and the caution correctly notes that this constant half-life behavior is unique to first-order reactions under the AP Chemistry curriculum."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.3.A.5 states that for first-order reactions, half-life is constant and is related to the rate constant by t\u2081/\u2082 = 0.693/k. The entry defines both symbols correctly, gives units consistent with the equation, and places the formula in Topic 5.3."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 5.3.A.5 states \"t1/2 = 0.693/k\" verbatim. Both symbols are defined: t1/2 as half-life in time units and k as the first-order rate constant in inverse-time units (s^-1). The CED does not state units for k explicitly, but inverse time is the correct unit for a first-order constant, consistent with 5.3.A.2 and 5.3.A.4 (ln[A]t - ln[A]0 = -kt). The number 0.693 is ln 2 rounded, which the CED's formula uses. b_topic_codes: 5.3.A.5 appears in Topic 5.3 (Concentration Changes Over Time), so owner_topic_code 5.3 is correct and the only topic code. c_ced_required: 5.3.A.5 requires students to relate half-life to the rate constant for first-order reactions, so this is required content. d_caution: the caution correctly states the first-order condition and that half-life is constant and independent of starting concentration, matching 5.3.A.5 (\"the half-life is constant\"). One overstatement: the caution says the CED names half-life as critical \"only\" for first-order reactions. 5.3.A.5 is scoped to first-order reactions but does not say other orders lack a half-life, so the word \"only\" attributes a claim to the CED that it does not make. This does not change the accept decision, since the stated condition itself matches the CED, but the wording should be trimmed to avoid the overreach. No hooks were submitted."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r9-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula body matches the equation given in EK 5.3.A.4 ('Second order: 1/[A]t \u2212 1/[A]0 = kt'). All symbols are correctly defined with appropriate units, and the caution accurately reflects the graphical behavior described in EK 5.3.A.3."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.3.A.4 states, \u201cSecond order: 1/[A]t \u2212 1/[A]0 = kt,\u201d and says the slope of the concentration-versus-time data can determine k. CED 5.3.A.3 states that a plot of reciprocal concentration versus time is linear. The entry defines every symbol, gives units consistent with the equation, and correctly identifies the slope as +k. Topic 5.3 is the first and only listed topic requiring this formula; no additional caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body 1/[A]_t \u2212 1/[A]_0 = kt matches CED 5.3.A.4 verbatim: \"Second order: 1/[A]t \u2212 1/[A]0 = kt\". All four symbols ([A]_t, [A]_0, k, t) are defined, with no missing or extra items. Units are correct for a second-order process: k in M^-1 time^-1 and t in time units. b_topic_codes: The formula is introduced in Topic 5.3 (LO 5.3.A, EK 5.3.A.4), so owner_topic_code 5.3 is correct and topic_codes ['5.3'] is the only and correct entry. c_ced_required: LO 5.3.A requires students to identify the rate law from concentration-vs-time data, and EK 5.3.A.4 explicitly lists this integrated form for second-order reactions, so the entry is CED-required. d_caution: The entry's wording is the CED's wording, so no caution is strictly needed. The caution that a 1/[A] vs. t plot is linear with slope +k is consistent with CED 5.3.A.3 (reciprocal plot is linear) and is algebraically correct (from 1/[A]_t = 1/[A]_0 + kt, slope = k). It is not contradicted by the CED, so d_caution holds.",
+            "hooks_note": "No hooks present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r9-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the first-order integrated rate law as explicitly written in Topic 5.3 (EK 5.3.A.4: 'First order: ln[A]t \u2212 ln[A]0 = \u2212kt'). All symbols are correctly defined with appropriate units, and the caution correctly describes the graphical relationship and slope as detailed in EK 5.3.A.2 and 5.3.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.3 is the correct placement. The formula matches 5.3.A.4: \u201cFirst order: ln[A]t \u2212 ln[A]0 = \u2212kt.\u201d The items define its variables with correct meanings and first-order units for k; ln is the natural-log operation, identified in 5.3.A.2, rather than an additional variable. The caution correctly states the linear-plot result in 5.3.A.2 and the slope implied by 5.3.A.4."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body ln[A]_t - ln[A]_0 = -kt matches the CED 5.3.A.4 first-order equation exactly (same symbols, order, and sign). All four symbols ([A]_t, [A]_0, k, t) are defined, with none missing or extra. Units are correct: [A] in M, k in inverse time (s^-1 for a first-order reaction, consistent with the CED's note that units reflect overall reaction order), and t in time units. b_topic_codes: 5.3.A.4 is in Topic 5.3, the owner topic, and 5.3 is the only listed code. c_ced_required: 5.3.A.4 explicitly lists 'First order: EQN: ln[A]t - ln[A]0 = -kt' under the LO 'Identify the rate law expression ... using data that show how the concentrations of reaction species change over time', and it says slopes can be used to determine the rate constant, so students must apply this equation. d_caution: The body wording is the CED wording, so no caution is strictly required. The caution (ln[A] vs. time is linear with slope -k) is correct: it follows from the equation and is consistent with 5.3.A.2 ('a plot of the natural log (ln) of the reactant concentration as a function of time will be linear'), so its presence does no harm and the requirement is met."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r9-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the general rate law expression as required by Topic 5.2 (specifically EK 5.2.A.2, 5.2.A.3, and 5.2.A.4). All symbols in the formula are defined correctly with appropriate units and temperature-dependence notes. The topic codes are correct, mapping to all sections in Unit 5 where rate laws are constructed, analyzed, or derived (5.2, 5.3, 5.4, 5.8, 5.9). The caution correctly distinguishes between overall reactions (experimental data) and elementary reactions (stoichiometry) as specified in EK 5.2.A.5 and EK 5.4.A.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula and every symbol\u2019s definition match 5.2.A.2\u20135.2.A.4: the rate law uses reactant concentrations raised to powers, their sum is the overall order, and k is temperature dependent with units reflecting that order. The caution correctly distinguishes experimental determination of overall-reaction orders (5.2.A.5) from inferring an elementary reaction\u2019s rate law from collision stoichiometry (5.4.A.1). Topic 5.2 first requires the expression; 5.3, 5.4, 5.8, and 5.9 each require applying rate laws."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body rate = k[A]^m[B]^n matches the CED's rate-law form in 5.2.A.2 ('the rate of a reaction as proportional to the concentration of each reactant raised to a power'). All six symbols (rate, k, [A], m, [B], n) are defined, with no missing or extra symbols. The meanings match the CED: 5.2.A.3 defines the power of each reactant as the order with respect to that reactant, and 5.2.A.4 says k is temperature dependent and its 'units reflect the overall reaction order'. The unit M/s for rate and M for [A] and [B] are consistent with the CED's rate-per-unit-time and concentration definitions (5.1.A.1, 5.2.A.1). b_topic_codes: owner 5.2 is where the rate law is first required (5.2.A, 'Represent experimental data with a consistent rate law expression'). 5.3 uses rate-law identification and integrated forms (5.3.A), 5.4 represents elementary reactions as rate laws (5.4.A), and 5.8 and 5.9 identify rate laws from mechanisms (5.8.A, 5.9.A), so each listed code uses the expression. c_ced_required: 5.2.A requires students to apply a rate law expression to experimental data, so the entry is required content. d_caution: the caution restates the CED's wording in 5.2.A.2, 5.2.A.3, 5.2.A.5 ('comparing initial rates') and 5.4.A.1 ('the rate law of an elementary reaction can be inferred from the stoichiometry of the particles participating in a collision'). These qualifiers are correct, and the caution is present because the entry's bare formula does not carry the CED's proportionality and elementary-reaction conditions. No hooks are present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

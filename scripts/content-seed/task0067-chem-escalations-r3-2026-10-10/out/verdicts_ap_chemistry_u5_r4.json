@@ -1,0 +1,63 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u5-r4-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements for a successful collision as stated in Essential Knowledge 5.5.A.2: 'Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.' The caution is appropriate and aligns with the CED's emphasis on only a small fraction of collisions being successful."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.5, EK 5.5.A.2 states: \u201cIn most reactions, only a small fraction of the collisions leads to a reaction. Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.\u201d The body, both list items, their order, and the caution match this requirement."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 5.5.A.2: \"In most reactions, only a small fraction of the collisions leads to a reaction. Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.\" The two items, 'Sufficient energy' and 'Suitable orientation', are the two required conditions, listed in the CED's order, and their meanings match the CED wording. b_topic_codes: Topic 5.5 (Collision Model) is the unit's first topic that requires successful-collision criteria, and it is the only listed topic code, so both owner_topic_code and topic_codes are correct. c_ced_required: LO 5.5.A ('Explain the relationship between the rate of an elementary reaction and the frequency, energy, and orientation of particle collisions') and EK 5.5.A.2 directly require students to know these two conditions. d_caution: The entry paraphrases the CED rather than quoting it, and the caution ('Do not state that all collisions... produce products') matches the CED's 'only a small fraction' statement, so the caution is present and correct. No hooks are present.",
+            "}": null
+          },
+          "hooks": []
+        }
+      ]
+    }
+  }
+]

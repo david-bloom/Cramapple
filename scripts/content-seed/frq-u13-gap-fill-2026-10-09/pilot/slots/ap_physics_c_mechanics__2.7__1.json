@@ -1,0 +1,465 @@
+{
+ "id": "ap_physics_c_mechanics__2.7__1",
+ "slot": {
+  "subject_key": "ap_physics_c_mechanics",
+  "tsv": "d77d7801-441d-49bb-a2cf-a02f6bff407d",
+  "unit": 2,
+  "unit_title": "Force and Translational Dynamics",
+  "topic_code": "2.7",
+  "topic_title": "Kinetic and Static Friction",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.667Z",
+   "item": {
+    "title": "Static Versus Kinetic Friction on a Pushed Crate",
+    "calculator": "not_permitted",
+    "stimulus": "A crate of mass m = 5.0 kg rests on a level floor. The coefficient of static friction between the crate and the floor is μs = 0.60, and the coefficient of kinetic friction is μk = 0.40. Use g = 10 m/s². Air resistance is negligible, and the floor is an inertial frame. In parts (a) and (b), a student pushes the crate with a horizontal force P.",
+    "model_answer": "(a) The normal force is FN = mg = (5.0)(10) = 50 N, so the maximum static friction is Ff,s,max = μs·FN = (0.60)(50) = 30 N. The 20 N push is less than 30 N, so the crate does not slide and stays at rest. With zero acceleration, the net horizontal force is zero, so static friction adjusts to 20 N, directed opposite to the push.\n\n(b) The crate begins to slide when P reaches the maximum static friction: P = μs·mg = 30 N. Once it slides, kinetic friction acts: Ff,k = μk·FN = (0.40)(50) = 20 N, opposite the motion. Newton's second law gives a = (P − Ff,k)/m = (30 − 20)/5.0 = 2.0 m/s².\n\n(c) Vertical direction (no vertical acceleration): FN + T sinθ − mg = 0, so FN = mg − T sinθ. Kinetic friction is Ff,k = μk(mg − T sinθ), opposite the motion. Horizontal direction: T cosθ − μk(mg − T sinθ) = ma, so a = [T cosθ − μk(mg − T sinθ)]/m.",
+    "verification_python": "import sympy as sp\nm=5.0; mus=0.60; muk=0.40; g=10.0\nFN=m*g\nassert abs(FN-50)<1e-9\nfsmax=mus*FN\nassert abs(fsmax-30)<1e-9\nP=20.0\nassert P<fsmax\nfs=P\nassert abs(fs-20)<1e-9\nPslide=fsmax\nassert abs(Pslide-30)<1e-9\nfk=muk*FN\nassert abs(fk-20)<1e-9\na=(Pslide-fk)/m\nassert abs(a-2.0)<1e-9\nT,th,M,mu,G,N,A=sp.symbols('T theta m mu_k g N a',positive=True)\nNsol=sp.solve(sp.Eq(N+T*sp.sin(th)-M*G,0),N)[0]\nassert sp.simplify(Nsol-(M*G-T*sp.sin(th)))==0\nAsol=sp.solve(sp.Eq(T*sp.cos(th)-mu*Nsol,M*A),A)[0]\nassert sp.simplify(Asol-(T*sp.cos(th)-mu*(M*G-T*sp.sin(th)))/M)==0\nassert sp.simplify(Asol-((T/M)*(sp.cos(th)+mu*sp.sin(th))-mu*G))==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "The student pushes with a constant horizontal force P = 20 N, starting with the crate at rest. Determine the magnitude and direction of the friction force exerted on the crate by the floor, and justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the friction force is static friction of magnitude 20 N, directed opposite to P, justified by comparing P with the maximum static friction μs·mg = 30 N.",
+        "evidence": "Response computes the maximum static friction (0.60)(5.0)(10) = 30 N, notes that 20 N < 30 N so the crate does not slide, and concludes that static friction equals 20 N, opposite the push, because the net force is zero.",
+        "fix": "Compute Ff,s,max = μs·FN first. If the push is smaller, the crate stays at rest and static friction equals the push, not μs·FN.",
+        "accepted_variants": [
+         "20 N opposite the push",
+         "20 N static friction, since 20 N < 30 N maximum"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The student slowly increases P until the crate just begins to slide, then holds P constant at that value. Calculate the value of P at which the crate begins to slide, and calculate the magnitude of the crate's acceleration once it is sliding.",
+      "criteria": [
+       {
+        "text": "Calculates the push needed to start sliding: P = μs·mg = 30 N.",
+        "evidence": "Response sets the push equal to the maximum static friction, Ff,s,max = μs·FN with FN = mg = 50 N, giving P = 30 N.",
+        "fix": "Sliding begins when the push exceeds the maximum static friction, so set P = μs·FN with FN = mg.",
+        "accepted_variants": [
+         "30 N",
+         "P = 0.60 × 50 N = 30 N"
+        ]
+       },
+       {
+        "text": "Calculates the sliding acceleration using kinetic friction: a = (30 N − 20 N)/5.0 kg = 2.0 m/s².",
+        "evidence": "Response switches to kinetic friction Ff,k = μk·FN = 20 N once the crate slides and applies Newton's second law, (30 − 20)/5.0, to obtain 2.0 m/s². A response that carries forward its own value of P from the previous step consistently earns the point.",
+        "fix": "Once surfaces slide relative to each other, use Ff,k = μk·FN, not μs, then apply ΣF = ma.",
+        "accepted_variants": [
+         "2.0 m/s²",
+         "2 m/s²"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In a separate trial, the student instead pulls the sliding crate with a rope that makes an angle θ above the horizontal. The rope tension T is constant, and T sinθ < mg, so the crate stays on the floor. Derive an expression for the magnitude of the crate's acceleration while it slides in the direction of the horizontal component of the pull. Express your answer in terms of T, θ, m, μk, and g.",
+      "criteria": [
+       {
+        "text": "Derives the normal force from vertical equilibrium: FN = mg − T sinθ.",
+        "evidence": "Response applies Newton's first law in the vertical direction (FN + T sinθ − mg = 0) and obtains FN = mg − T sinθ, rather than assuming FN = mg.",
+        "fix": "Sum vertical forces including the upward rope component T sinθ before computing the normal force; FN is not always mg.",
+        "accepted_variants": [
+         "FN = mg − T sin θ",
+         "N = mg − T sinθ"
+        ]
+       },
+       {
+        "text": "Derives a = [T cosθ − μk(mg − T sinθ)]/m.",
+        "evidence": "Response uses kinetic friction μk·FN with its own normal-force expression, applies Newton's second law horizontally, and arrives at a = [T cosθ − μk(mg − T sinθ)]/m or an algebraically equivalent form.",
+        "fix": "Write ΣFx = T cosθ − μk·FN = ma horizontally, substitute your normal-force expression, then solve for a.",
+        "accepted_variants": [
+         "a = (T cosθ + μk T sinθ − μk mg)/m",
+         "a = (T/m)(cosθ + μk sinθ) − μk g"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "1": 2,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c2 requires a signed acceleration expression although part (c) asks for magnitude. It must accept |T cosθ − μk(mg − T sinθ)|/m; this is not algebraically equivalent to the required expression for all allowed parameters.",
+       "accurate: Criterion c2 incorrectly identifies [T cosθ − μk(mg − T sinθ)]/m as the acceleration magnitude. The numerator can be negative: sliding along the pull does not imply accelerating along it. The magnitude requires absolute-value bars.",
+       "solution: Parts (a) and (b) agree with the rubric: friction is 20 N opposite the push, the limiting sliding threshold is 30 N, and the sliding acceleration is 2.0 m/s². In part (c), c1 is correct, but c2 gives signed horizontal acceleration rather than the requested magnitude. The correct magnitude is |T cosθ − μk(mg − T sinθ)|/m. No given condition guarantees that acceleration points along the pull."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c2 requires a signed acceleration expression although part (c) asks for magnitude. It must accept |T cosθ − μk(mg − T sinθ)|/m; this is not algebraically equivalent to the required expression for all allowed parameters."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c2 incorrectly identifies [T cosθ − μk(mg − T sinθ)]/m as the acceleration magnitude. The numerator can be negative: sliding along the pull does not imply accelerating along it. The magnitude requires absolute-value bars."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a) and (b) agree with the rubric: friction is 20 N opposite the push, the limiting sliding threshold is 30 N, and the sliding acceleration is 2.0 m/s². In part (c), c1 is correct, but c2 gives signed horizontal acceleration rather than the requested magnitude. The correct magnitude is |T cosθ − μk(mg − T sinθ)|/m. No given condition guarantees that acceleration points along the pull.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c2 requires a signed acceleration expression rather than the requested magnitude, rejecting the valid absolute-value expression. Criterion a1 also explicitly accepts '20 N opposite the push' without the justification required by part (a).",
+       "accurate: Criterion c2 incorrectly identifies [T cosθ − μk(mg − T sinθ)]/m as an acceleration magnitude. The stated conditions allow this expression to be negative; sliding along the pull does not imply acceleration along the pull. The magnitude requires absolute-value signs.",
+       "solution: Parts (a) and (b) agree with the rubric. In part (c), vertical equilibrium gives FN = mg − T sinθ, and horizontal dynamics gives a_x = [T cosθ − μk(mg − T sinθ)]/m. The requested magnitude is |T cosθ − μk(mg − T sinθ)|/m, not the signed expression required by criterion c2. No model answer was supplied or assessed."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c2 requires a signed acceleration expression rather than the requested magnitude, rejecting the valid absolute-value expression. Criterion a1 also explicitly accepts '20 N opposite the push' without the justification required by part (a)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion c2 incorrectly identifies [T cosθ − μk(mg − T sinθ)]/m as an acceleration magnitude. The stated conditions allow this expression to be negative; sliding along the pull does not imply acceleration along the pull. The magnitude requires absolute-value signs."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Parts (a) and (b) agree with the rubric. In part (c), vertical equilibrium gives FN = mg − T sinθ, and horizontal dynamics gives a_x = [T cosθ − μk(mg − T sinθ)]/m. The requested magnitude is |T cosθ − μk(mg − T sinθ)|/m, not the signed expression required by criterion c2. No model answer was supplied or assessed.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "google/gemini-3.8-flash",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (c) asks for the magnitude of the crate's acceleration, but the rubric and model answer provide the signed horizontal component a = [T cosθ - μk(mg - T sinθ)]/m. For parameter values with T cosθ < μk(mg - T sinθ), this expression is negative, so it is not a magnitude unless an absolute value is taken or T is explicitly assumed large enough that the crate speeds up while sliding."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c) asks for the magnitude of the crate's acceleration, but the rubric and model answer provide the signed horizontal component a = [T cosθ - μk(mg - T sinθ)]/m. For parameter values with T cosθ < μk(mg - T sinθ), this expression is negative, so it is not a magnitude unless an absolute value is taken or T is explicitly assumed large enough that the crate speeds up while sliding."
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "well_posed: Part (c): The problem asks for the magnitude of the crate's acceleration while it slides in the direction of the horizontal component of the pull, but it does not state that T cosθ > μk(mg − T sinθ). If that inequality fails, the acceleration is opposite the motion and the correct magnitude is [μk(mg − T sinθ) − T cosθ]/m, making the question underdetermined.",
+       "rubric_points: Part (c), criterion c2: It awards only the signed expression [T cosθ − μk(mg − T sinθ)]/m as the magnitude and does not accept the condition-dependent absolute value or braking-direction expression. This rejects a valid answer when T cosθ < μk(mg − T sinθ).",
+       "accurate: Model answer part (c) states a = [T cosθ − μk(mg − T sinθ)]/m as the magnitude without the condition T cosθ > μk(mg − T sinθ). Without that condition, the expression can be negative and is not a magnitude.",
+       "model_answer: Part (c): The model answer gives the unqualified signed expression as the magnitude and omits the needed absolute value or the condition T cosθ > μk(mg − T sinθ).",
+       "solution: Part (c): My solution explicitly states that the magnitude is |T cosθ − μk(mg − T sinθ)|/m, and that it reduces to the signed expression only if T cosθ > μk(mg − T sinθ). The rubric and model answer omit this condition and give only the signed expression as the magnitude."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": false,
+         "issue": "Part (c): The problem asks for the magnitude of the crate's acceleration while it slides in the direction of the horizontal component of the pull, but it does not state that T cosθ > μk(mg − T sinθ). If that inequality fails, the acceleration is opposite the motion and the correct magnitude is [μk(mg − T sinθ) − T cosθ]/m, making the question underdetermined."
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c2: It awards only the signed expression [T cosθ − μk(mg − T sinθ)]/m as the magnitude and does not accept the condition-dependent absolute value or braking-direction expression. This rejects a valid answer when T cosθ < μk(mg − T sinθ)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Model answer part (c) states a = [T cosθ − μk(mg − T sinθ)]/m as the magnitude without the condition T cosθ > μk(mg − T sinθ). Without that condition, the expression can be negative and is not a magnitude."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (c): The model answer gives the unqualified signed expression as the magnitude and omits the needed absolute value or the condition T cosθ > μk(mg − T sinθ)."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "Part (c): My solution explicitly states that the magnitude is |T cosθ − μk(mg − T sinθ)|/m, and that it reduces to the signed expression only if T cosθ > μk(mg − T sinθ). The rubric and model answer omit this condition and give only the signed expression as the magnitude.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "meta/muse-spark-1.3",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}

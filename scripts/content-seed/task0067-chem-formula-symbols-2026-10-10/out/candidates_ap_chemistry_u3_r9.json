@@ -1,0 +1,281 @@
+[
+  {
+    "owner_topic_code": "3.12",
+    "topic_codes": [
+      "3.12"
+    ],
+    "kind": "formula",
+    "title": "Planck's equation",
+    "body": "E = h\\nu",
+    "items": [
+      {
+        "label": "E",
+        "meaning": "energy of a photon (J)"
+      },
+      {
+        "label": "h",
+        "meaning": "Planck's constant (J\u00b7s)"
+      },
+      {
+        "label": "\\nu",
+        "meaning": "frequency of the electromagnetic wave (s^-1, i.e., Hz)"
+      }
+    ],
+    "caution": "Energy is directly proportional to frequency. When a photon is absorbed or emitted, the species' energy changes by exactly this amount.",
+    "ced_evidence": "3.12.A.2 EQN: E = h\u03bd",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-001",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.12",
+    "topic_codes": [
+      "3.12"
+    ],
+    "kind": "formula",
+    "title": "Wavelength, frequency, and speed of light",
+    "body": "c = \\lambda \\nu",
+    "items": [
+      {
+        "label": "c",
+        "meaning": "speed of light (m/s)"
+      },
+      {
+        "label": "\\lambda",
+        "meaning": "wavelength of the electromagnetic wave (m)"
+      },
+      {
+        "label": "\\nu",
+        "meaning": "frequency of the electromagnetic wave (s^-1, i.e., Hz)"
+      }
+    ],
+    "caution": "Wavelength and frequency are inversely proportional because c is constant. Keep wavelength units consistent with the units of c.",
+    "ced_evidence": "3.12.A.2 EQN: c = \u03bb\u03bd",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-002",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.13",
+    "topic_codes": [
+      "3.13"
+    ],
+    "kind": "formula",
+    "title": "Beer-Lambert law",
+    "body": "A = \\varepsilon b c",
+    "items": [
+      {
+        "label": "A",
+        "meaning": "absorbance (unitless)"
+      },
+      {
+        "label": "\\varepsilon",
+        "meaning": "molar absorptivity, how intensely a species absorbs light of a specific wavelength (units such as L\u00b7mol^-1\u00b7cm^-1)"
+      },
+      {
+        "label": "b",
+        "meaning": "path length of light through the solution (e.g., cm)"
+      },
+      {
+        "label": "c",
+        "meaning": "concentration of the absorbing species (e.g., mol/L)"
+      }
+    ],
+    "caution": "When path length and wavelength are held constant, absorbance is proportional only to the concentration of the absorbing species.",
+    "ced_evidence": "3.13.A.1 EQN: A = \u03b5bc",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-003",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4",
+      "3.6"
+    ],
+    "kind": "formula",
+    "title": "Ideal gas law",
+    "body": "PV = nRT",
+    "items": [
+      {
+        "label": "P",
+        "meaning": "pressure of the gas (units must match R, e.g., atm or kPa)"
+      },
+      {
+        "label": "V",
+        "meaning": "volume of the gas (units must match R, e.g., L)"
+      },
+      {
+        "label": "n",
+        "meaning": "amount of gas (mol)"
+      },
+      {
+        "label": "R",
+        "meaning": "universal gas constant (choose the value whose units match P and V)"
+      },
+      {
+        "label": "T",
+        "meaning": "absolute temperature (K)"
+      }
+    ],
+    "caution": "T must be in kelvin. Real gases deviate from this law when interparticle attractions matter (near condensation) or particle volume matters (extremely high pressure).",
+    "ced_evidence": "3.4.A.1 EQN: PV = nRT",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-004",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Mole fraction",
+    "body": "X_A = \\frac{n_A}{n_{total}}",
+    "items": [
+      {
+        "label": "X_A",
+        "meaning": "mole fraction of gas A in the mixture (unitless)"
+      },
+      {
+        "label": "n_A",
+        "meaning": "moles of gas A (mol)"
+      },
+      {
+        "label": "n_{total}",
+        "meaning": "total moles of all gases in the mixture (mol)"
+      }
+    ],
+    "caution": null,
+    "ced_evidence": "3.4.A.2 where XA = moles A/total moles",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-005",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Partial pressure from mole fraction",
+    "body": "P_A = P_{total} \\times X_A",
+    "items": [
+      {
+        "label": "P_A",
+        "meaning": "partial pressure of gas A (same pressure units as P_total)"
+      },
+      {
+        "label": "P_{total}",
+        "meaning": "total pressure of the gas mixture"
+      },
+      {
+        "label": "X_A",
+        "meaning": "mole fraction of gas A (unitless)"
+      }
+    ],
+    "caution": "Applies to a mixture of ideal gases, where each component's partial pressure is independent of the other components.",
+    "ced_evidence": "3.4.A.2 EQN: PA = Ptotal \u00d7 XA",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-006",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.4",
+    "topic_codes": [
+      "3.4"
+    ],
+    "kind": "formula",
+    "title": "Total pressure of a gas mixture",
+    "body": "P_{total} = P_A + P_B + P_C + \\ldots",
+    "items": [
+      {
+        "label": "P_{total}",
+        "meaning": "total pressure of the gas mixture"
+      },
+      {
+        "label": "P_A, P_B, P_C",
+        "meaning": "partial pressures of each component gas, in the same pressure units"
+      }
+    ],
+    "caution": "Applies to a mixture of ideal gases, where each partial pressure is independent of the other components.",
+    "ced_evidence": "3.4.A.2 EQN: Ptotal = PA + PB + PC + \u2026",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-007",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.5",
+    "topic_codes": [
+      "3.5"
+    ],
+    "kind": "formula",
+    "title": "Average kinetic energy of a particle",
+    "body": "KE = \\tfrac{1}{2} m v^2",
+    "items": [
+      {
+        "label": "KE",
+        "meaning": "average kinetic energy of a particle (J)"
+      },
+      {
+        "label": "m",
+        "meaning": "mass of the particle (kg)"
+      },
+      {
+        "label": "v",
+        "meaning": "average velocity (speed) of the particle (m/s)"
+      }
+    ],
+    "caution": "Use consistent units (e.g., J, kg, m/s). Kelvin temperature is proportional to the average kinetic energy of the particles.",
+    "ced_evidence": "3.5.A.2: \"EQN: KE = \u00bd mv2\"",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-008",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  },
+  {
+    "owner_topic_code": "3.7",
+    "topic_codes": [
+      "3.7"
+    ],
+    "kind": "formula",
+    "title": "Molarity",
+    "body": "M = \\frac{n_{solute}}{L_{solution}}",
+    "items": [
+      {
+        "label": "M",
+        "meaning": "molarity (mol/L)"
+      },
+      {
+        "label": "n_{solute}",
+        "meaning": "amount of solute (mol)"
+      },
+      {
+        "label": "L_{solution}",
+        "meaning": "volume of the solution (L)"
+      }
+    ],
+    "caution": "The denominator is liters of solution, not liters of solvent.",
+    "ced_evidence": "3.7.A.2 EQN: M = nsolute /Lsolution",
+    "hooks": [],
+    "candidate_id": "ap_chemistry-u3-r9-009",
+    "subject_key": "ap_chemistry",
+    "unit_number": 3,
+    "extractor": "anthropic/claude-sonnet-5.5"
+  }
+]

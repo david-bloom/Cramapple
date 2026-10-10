@@ -1,0 +1,399 @@
+{
+ "id": "ap_physics_2__11.6__1",
+ "slot": {
+  "subject_key": "ap_physics_2",
+  "tsv": "b3e41b93-95d8-40c6-bef5-98cc99111915",
+  "unit": 11,
+  "unit_title": "Electric Circuits",
+  "topic_code": "11.6",
+  "topic_title": "Kirchhoff's Loop Rule",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.666Z",
+   "item": {
+    "title": "Loop Rule in a Circuit with Opposing Batteries",
+    "calculator": "not_permitted",
+    "stimulus": "A single closed loop contains two ideal batteries and two ohmic resistors connected in series. Going around the loop, the elements are connected in this order. Start at point G, which is assigned an electric potential of 0 V. From G, a wire connects to the negative terminal of battery 1 (emf ε₁ = 12.0 V), whose positive terminal connects to point A. From A, a wire connects through resistor R₁ = 2.0 Ω to point B. From B, a wire connects to the positive terminal of battery 2 (emf ε₂ = 3.0 V), whose negative terminal connects to point C. From C, a wire connects through resistor R₂ = 4.0 Ω back to point G. Wires are ideal and have negligible resistance.",
+    "model_answer": "(a) Going around the loop G→A→B→C→G in the direction of the current, the loop rule gives ΣΔV = 0: ε₁ − IR₁ − ε₂ − IR₂ = 0. Rearranging, ε₁ − ε₂ = I(R₁ + R₂), so I = (ε₁ − ε₂)/(R₁ + R₂).\n\n(b) I = (12.0 V − 3.0 V)/(2.0 Ω + 4.0 Ω) = 9.0 V/6.0 Ω = 1.5 A, directed G→A→B→C→G. Starting at V_G = 0, crossing battery 1 from − to + gives V_A = 12.0 V. Moving through R₁ in the current direction drops the potential by IR₁ = (1.5 A)(2.0 Ω) = 3.0 V, so V_B = 9.0 V. Crossing battery 2 from + to − drops the potential by 3.0 V, so V_C = 6.0 V. Check: through R₂ the drop is (1.5 A)(4.0 Ω) = 6.0 V, returning to V_G = 0, as the loop rule requires.\n\n(c) The potential difference across R₁ increases. With battery 2 reversed, both batteries now raise the potential in the same direction around the loop, so the loop rule becomes ε₁ + ε₂ − IR₁ − IR₂ = 0, giving I = (ε₁ + ε₂)/(R₁ + R₂) = 15.0 V/6.0 Ω = 2.5 A. The total resistance is unchanged but the net emf is larger, so the current is larger, and ΔV across R₁ = IR₁ = (2.5 A)(2.0 Ω) = 5.0 V, greater than the original 3.0 V.",
+    "verification_python": "from fractions import Fraction as F\ne1=F(12);e2=F(3);R1=F(2);R2=F(4)\nI=(e1-e2)/(R1+R2)\nassert I==F(3,2)\nVA=e1\nVB=VA-I*R1\nassert VB==9\nVC=VB-e2\nassert VC==6\nassert VC-I*R2==0\nassert I*R1==3\nI2=(e1+e2)/(R1+R2)\nassert I2==F(5,2)\nassert I2*R1==5\nassert I2*R1>I*R1\nassert e1+e2==15 and R1+R2==6 and I*R2==6\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Starting with Kirchhoff's loop rule, derive an expression for the magnitude of the current I in the loop in terms of ε₁, ε₂, R₁, R₂, and physical constants as appropriate.",
+      "criteria": [
+       {
+        "text": "Writes a correct loop-rule equation with correct signs: ε₁ − IR₁ − ε₂ − IR₂ = 0 (traversing G→A→B→C→G).",
+        "evidence": "A sum of potential differences around the loop set equal to zero, with the two emfs having opposite signs and both resistor terms having the same sign, opposite to ε₁.",
+        "fix": "Traverse the loop once, adding +ε when going − to + through a battery, −ε going + to −, and −IR along the current.",
+        "accepted_variants": [
+         "−ε₁ + IR₂ + ε₂ + IR₁ = 0 (opposite traversal)",
+         "ε₁ − ε₂ = I(R₁ + R₂)"
+        ]
+       },
+       {
+        "text": "Obtains I = (ε₁ − ε₂)/(R₁ + R₂).",
+        "evidence": "A correct isolated final expression for I; a correct final expression also earns the previous point.",
+        "fix": "Collect the IR terms on one side, factor out I, and divide by the total resistance R₁ + R₂.",
+        "accepted_variants": [
+         "I = (ε₁ − ε₂)/(R₂ + R₁)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the electric potential at point B and at point C. Show your use of the loop rule.",
+      "criteria": [
+       {
+        "text": "Electric potential at B is 9.0 V, with supporting work: I = (12.0 − 3.0)/(2.0 + 4.0) = 1.5 A, and V_B = 12.0 V − (1.5 A)(2.0 Ω).",
+        "evidence": "Computes I = 1.5 A and subtracts the 3.0 V drop across R₁ from V_A = 12.0 V to obtain V_B = 9.0 V.",
+        "fix": "Track potential step by step from G: rise ε₁ across battery 1, then drop IR₁ moving through R₁ in the current direction.",
+        "accepted_variants": [
+         "9 V",
+         "+9.0 V"
+        ]
+       },
+       {
+        "text": "Electric potential at C is 6.0 V, obtained as V_B − ε₂ or as 0 + IR₂.",
+        "evidence": "Value of 6.0 V with work showing a 3.0 V drop across battery 2 from B, or a 6.0 V rise from G going backward through R₂; follow-through from an incorrect V_B or I accepted if consistent.",
+        "fix": "Passing from a battery's positive to negative terminal lowers potential by its emf; check that V_C − IR₂ returns to 0 V at G.",
+        "accepted_variants": [
+         "6 V",
+         "+6.0 V"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Battery 2 is removed and reinserted with its terminals reversed, so its negative terminal now connects to B and its positive terminal to C. All other elements are unchanged. Indicate whether the potential difference across R₁ increases, decreases, or stays the same compared with the original circuit. Justify your claim using the loop rule.",
+      "criteria": [
+       {
+        "text": "Claims the potential difference across R₁ increases, justified by the loop rule: the emfs now add, ε₁ + ε₂ = I(R₁ + R₂), so with the same total resistance the current is larger and IR₁ is larger (from 3.0 V to 5.0 V).",
+        "evidence": "Correct claim (increases) plus reasoning that the net emf around the loop increases while total resistance is unchanged, so the current and ΔV = IR₁ increase; a numerical comparison alone is acceptable if derived from the loop rule.",
+        "fix": "Rewrite the loop equation with the reversed battery's sign changed, then compare the new current and IR₁ with the original.",
+        "accepted_variants": [
+         "increases from 3.0 V to 5.0 V",
+         "current rises from 1.5 A to 2.5 A so ΔV across R₁ increases"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "11.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     11
+    ],
+    "unitCount": {
+     "10": 3,
+     "11": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires calculating V_B by subtracting IR₁ from V_A. It should also credit valid loop-rule alternatives, such as V_B = ε₂ + IR₂ = 9.0 V. Part (c), criterion c1 explicitly accepts a numerical comparison alone, although the CED definition of 'justify' requires conceptual reasoning beyond algebraic solutions."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires calculating V_B by subtracting IR₁ from V_A. It should also credit valid loop-rule alternatives, such as V_B = ε₂ + IR₂ = 9.0 V. Part (c), criterion c1 explicitly accepts a numerical comparison alone, although the CED definition of 'justify' requires conceptual reasoning beyond algebraic solutions."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 explicitly accepts a numerical comparison alone if derived from the loop rule. Part (c) asks students to justify their claim, and the supplied CED definition requires qualitative reasoning beyond mathematical derivations or expressions. Require an explanation that reversing battery 2 increases the net emf while resistance remains unchanged, increasing current and the potential difference across R₁.",
+       "solution: No mathematical disagreement with the rubric: the original current is 1.5 A, V_B = 9.0 V, V_C = 6.0 V, and reversing battery 2 increases the potential difference across R₁ from 3.0 V to 5.0 V. The general current-magnitude expression uses |ε₁ − ε₂|, but the rubric's expression is correct for the specified ε₁ > ε₂. Criterion c1's acceptance of numerical reasoning alone conflicts with the CED definition of justify. No model answer was supplied or evaluated."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 explicitly accepts a numerical comparison alone if derived from the loop rule. Part (c) asks students to justify their claim, and the supplied CED definition requires qualitative reasoning beyond mathematical derivations or expressions. Require an explanation that reversing battery 2 increases the net emf while resistance remains unchanged, increasing current and the potential difference across R₁."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "No mathematical disagreement with the rubric: the original current is 1.5 A, V_B = 9.0 V, V_C = 6.0 V, and reversing battery 2 increases the potential difference across R₁ from 3.0 V to 5.0 V. The general current-magnitude expression uses |ε₁ − ε₂|, but the rubric's expression is correct for the specified ε₁ > ε₂. Criterion c1's acceptance of numerical reasoning alone conflicts with the CED definition of justify. No model answer was supplied or evaluated.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "google/gemini-3.8-flash",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "meta/muse-spark-1.3",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ]
+}

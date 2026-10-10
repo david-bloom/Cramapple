@@ -89,7 +89,7 @@ records.
 | `UX-004` | Student-Provided Question Intake | High | In Progress | Learning Quality, accessibility, security, privacy, rights, academic-integrity, and Product Owner review |
 | `TASK-0066` | Memory Hooks: Schema, Pilot Authoring, and Student Surfaces | Medium | Shipped to Production 2026-10-09 (`APPROVAL-0140`); 3 hooks live | Product Owner look at the live surfaces; Units 2+ as new batches |
 | `TASK-0067` | Unit Reference Content: Formulas, Vocabulary, Lists, and Diagrams | Medium | Shipped to Production 2026-10-09 (`APPROVAL-0140`); 102 entries live (Stats U1, Chem U4) | Product Owner look; row limits + formula renderer open; Units 2+ |
-| `TASK-0068` | BYOQ Photo Extraction With Student Confirmation | High | Approved at Gate A, not started (`DECISION-0108` / `APPROVAL-0139`); supersedes `TASK-0039` Phase 3 | Gate B (Development build), Gate C (Production pilot), Gate D (expand) are each Hard Gates |
+| `TASK-0068` | BYOQ Photo Extraction With Student Confirmation | High | Deployed to Production 2026-10-09 (`APPROVAL-0141`); backend QA Pass; Sol browser QA + Done pending | Rollback = `BYOQ_EXTRACTION_ENABLED=false` |
 
 ## 5. P0 Legal, Privacy, and Trust Backlog
 

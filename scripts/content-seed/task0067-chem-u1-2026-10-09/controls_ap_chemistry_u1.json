@@ -1,0 +1,21 @@
+[
+  {"candidate_id": "ctrl-chem-u1-01-wrong-formula", "control": "wrong formula (number of particles divided, not multiplied, by Avogadro's number; CED 1.1.A.2)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 1, "owner_topic_code": "1.1", "topic_codes": ["1.1"], "kind": "formula",
+   "title": "Number of particles from moles", "body": "N = \\frac{n}{N_A}", "items": [], "caution": null, "ced_evidence": "1.1.A.2", "hooks": []},
+  {"candidate_id": "ctrl-chem-u1-02-excluded", "control": "explicitly excluded by the CED (1.5 exclusion: assignment of quantum numbers is not assessed)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 1, "owner_topic_code": "1.5", "topic_codes": ["1.5"], "kind": "list_sequence",
+   "title": "The four quantum numbers", "body": "The set of four numbers assigned to each electron in an atom.", "items": [{"label": "n", "meaning": "principal quantum number"}, {"label": "l", "meaning": "angular momentum quantum number"}, {"label": "m_l", "meaning": "magnetic quantum number"}, {"label": "m_s", "meaning": "spin quantum number"}], "caution": null, "ced_evidence": "1.5.A.3", "hooks": []},
+  {"candidate_id": "ctrl-chem-u1-03-wrong-owner", "control": "wrong owner topic (mass spectrum / average atomic mass is 1.2, not 1.6)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 1, "owner_topic_code": "1.6", "topic_codes": ["1.6"], "kind": "formula",
+   "title": "Average atomic mass from a mass spectrum", "body": "\\text{average atomic mass} = \\sum_i (\\text{isotope mass}_i \\times \\text{fractional abundance}_i)", "items": [], "caution": null, "ced_evidence": "1.2.A.2", "hooks": []},
+  {"candidate_id": "ctrl-chem-u1-04-bad-hook", "control": "hook expansion inverted (Coulomb's law: distance on top, charges below)", "control_target": "hook",
+   "subject_key": "ap_chemistry", "unit_number": 1, "owner_topic_code": "1.5", "topic_codes": ["1.5", "1.7"], "kind": "formula",
+   "title": "Coulomb's law", "body": "F_{coulombic} \\propto \\frac{q_1 q_2}{r^2}", "items": [], "caution": null, "ced_evidence": "1.5.A.2",
+   "hooks": [{"kind": "formula_sentence", "hook_text": "Distance up top, charges below", "expands_to": [{"cue": "Distance up top", "means": "r^2 is in the numerator"}, {"cue": "charges below", "means": "q_1 q_2 is in the denominator"}], "when_to_use": "when recalling how charge and distance affect Coulombic force", "caution": null, "source_note": "cramapple-authored"}]},
+  {"candidate_id": "ctrl-chem-u1-05-wrong-order", "control": "wrong list order (Aufbau filling order places 4s before 3d)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 1, "owner_topic_code": "1.5", "topic_codes": ["1.5"], "kind": "list_sequence",
+   "title": "Aufbau filling order through 4p", "body": "The order in which subshells fill in ground-state electron configurations.", "items": [{"label": "1s", "meaning": ""}, {"label": "2s", "meaning": ""}, {"label": "2p", "meaning": ""}, {"label": "3s", "meaning": ""}, {"label": "3p", "meaning": ""}, {"label": "3d", "meaning": ""}, {"label": "4s", "meaning": ""}, {"label": "4p", "meaning": ""}], "caution": null, "ced_evidence": "1.5.A.4", "hooks": []},
+  {"candidate_id": "ctrl-chem-u1-06-other-unit", "control": "content from another unit (rate law is Unit 5 kinetics, topic 5.2)", "control_target": "entry",
+   "subject_key": "ap_chemistry", "unit_number": 1, "owner_topic_code": "1.1", "topic_codes": ["1.1"], "kind": "formula",
+   "title": "Rate law", "body": "\\text{rate} = k[A]^m[B]^n", "items": [], "caution": null, "ced_evidence": "1.1", "hooks": []}
+]

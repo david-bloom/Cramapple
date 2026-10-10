@@ -1,0 +1,62 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u8-r5-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the Henderson-Hasselbalch equation as presented in Topic 8.9 (8.9.A.1) and referenced in Topic 8.4 (8.4.A.2). All symbols in the formula are correctly defined with appropriate units/meanings, and the caution correctly incorporates the exclusion statements regarding derivation and computation of pH changes upon addition of acid/base."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula and all four symbol definitions match 8.9.A.1: \u201cpH = pKa + log([A\u2212]/[HA]).\u201d Topic 8.4 first requires its use: 8.4.A.2 says buffer pH \u201ccan be determined from the Henderson-Hasselbalch (H\u2212H) equation (see 8.9.A.1),\u201d and 8.4.A.3 also uses it. Topic 8.9 states the equation. The caution correctly reflects both 8.9.A.1 exclusion statements: derivation and computation of the pH change on adding acid or base to a buffer are not assessed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula matches the CED EQN under 8.9.A.1 exactly: pH = pKa + log([A\u2212]/[HA]). All four symbols (pH, pKa, [A\u2212], [HA]) are defined, and no extra symbols appear. The meanings match the CED: pKa is the negative log of Ka for the weak acid, and [A\u2212] and [HA] are the conjugate base and weak acid of the pair. Units are correct: pH and pKa are unitless, and the concentrations are in mol/L (the ratio is dimensionless). b_topic_codes: 8.4.A.2 and 8.4.A.3 state that buffer pH 'can be determined from the Henderson-Hasselbalch (H\u2212H) equation (see 8.9.A.1)', so 8.4 is the first place in the unit that requires it and both 8.4 and 8.9 use it. c_ced_required: 8.9.A.1 states 'The pH of the buffer is related to the pKa of the acid and the concentration ratio of the conjugate acid-base pair... described by the Henderson-Hasselbalch equation', and LO 8.9.A requires identifying buffer pH from the conjugate pair. d_caution: The caution matches the CED exclusion statements under 8.9.A.1 (derivation of H-H not assessed; computation of pH change on adding acid or base to a buffer not assessed). No hooks are present.",
+            "hooks": []
+          }
+        }
+      ]
+    }
+  }
+]

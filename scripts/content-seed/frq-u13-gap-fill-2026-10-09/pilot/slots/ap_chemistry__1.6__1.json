@@ -1,0 +1,93 @@
+{
+ "id": "ap_chemistry__1.6__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.6",
+  "topic_title": "Photoelectron Spectroscopy",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.663Z",
+   "item": {
+    "title": "Interpreting the Photoelectron Spectrum of an Unknown Element",
+    "calculator": "not_permitted",
+    "stimulus": "A student analyzes a gaseous sample of an unknown element, X, by photoelectron spectroscopy (PES). The table lists every peak in the spectrum of X. For each peak it gives the energy needed to remove an electron from that subshell (the binding energy) and the relative height of the peak.\n\nPeak | Binding energy (MJ/mol) | Relative peak height\n1 | 151 | 2\n2 | 12.1 | 2\n3 | 7.19 | 6\n4 | 1.09 | 2\n5 | 0.58 | 1",
+    "model_answer": "(a) Listed from highest to lowest binding energy, the peaks correspond to the 1s, 2s, 2p, 3s and 3p subshells. The relative peak heights give the number of electrons in each subshell: 2, 2, 6, 2 and 1. The electron configuration of X is therefore 1s² 2s² 2p⁶ 3s² 3p¹. The total is 2 + 2 + 6 + 2 + 1 = 13 electrons, so the neutral atom has 13 protons and X is aluminum (Al).\n\n(b) The 1s electrons are in the first shell, much closer to the nucleus than the 3s electrons. No inner electrons shield them, so they feel nearly the full +13 nuclear charge. The 3s electrons are in the n = 3 shell, farther from the nucleus, and are shielded by the 10 core electrons (1s, 2s, 2p). They therefore feel a much smaller effective nuclear charge. By Coulomb's law, the force is proportional to q₁q₂/r². A larger effective charge and a smaller distance both make the attraction of the 1s electrons much stronger, so far more energy is needed to remove a 1s electron than a 3s electron.\n\n(c) The Si 1s peak appears at a binding energy greater than 151 MJ/mol. Si has 14 protons and Al has 13. In both atoms the 1s electrons are in the same innermost shell with essentially no shielding, so the larger nuclear charge of Si attracts its 1s electrons more strongly. More energy is therefore needed to remove them.\n\n(d) The electron configuration of Si is 1s² 2s² 2p⁶ 3s² 3p². The 3s and 3p subshells each contain 2 electrons. Peak height is proportional to the number of electrons in the subshell, so the 3p peak of Si is the same height as its 3s peak (a 1:1 ratio). In Al, by contrast, the 3p peak is half the height of the 3s peak.",
+    "verification_python": "from fractions import Fraction\nheights = [2, 2, 6, 2, 1]\nenergies = [151, 12.1, 7.19, 1.09, 0.58]\n# peaks ordered by decreasing binding energy\nassert all(energies[i] > energies[i+1] for i in range(len(energies)-1))\n# subshell capacities consistent\ncaps = [2, 2, 6, 2, 6]\nassert all(h <= c for h, c in zip(heights, caps))\nZ = sum(heights)\nassert Z == 13  # aluminum\n# core electrons shielding 3s\ncore = heights[0] + heights[1] + heights[2]\nassert core == 10\n# Al 3p:3s ratio\nassert Fraction(heights[4], heights[3]) == Fraction(1, 2)\n# Si configuration\nsi = [2, 2, 6, 2, 2]\nassert sum(si) == 14\nassert sum(si) > Z\nassert Fraction(si[4], si[3]) == 1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data in the table, write the complete ground-state electron configuration of element X and identify element X. Justify your identification using the relative peak heights.",
+      "criteria": [
+       {
+        "text": "Gives the electron configuration 1s² 2s² 2p⁶ 3s² 3p¹ and identifies X as aluminum (Al), justified by peak heights that sum to 13 electrons.",
+        "evidence": "The response assigns the peaks, in order of decreasing binding energy, to 1s, 2s, 2p, 3s and 3p. It reads the electron counts 2, 2, 6, 2 and 1 from the relative peak heights. It states that these total 13 electrons, so X is Al.",
+        "fix": "Assign peaks from highest to lowest binding energy as 1s, 2s, 2p, 3s, 3p. Treat each peak height as an electron count, then add the counts to find the atomic number.",
+        "accepted_variants": [
+         "[Ne] 3s² 3p¹",
+         "1s2 2s2 2p6 3s2 3p1",
+         "Al",
+         "aluminium"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The 1s peak of X appears at 151 MJ/mol, while the 3s peak appears at only 1.09 MJ/mol. Explain this large difference in terms of the interactions between the electrons and the nucleus.",
+      "criteria": [
+       {
+        "text": "Explains that 1s electrons are much closer to the nucleus and experience little shielding. Their Coulombic attraction to the nucleus is therefore much stronger than that of the 3s electrons, which are in the n = 3 shell and shielded by 10 core electrons.",
+        "evidence": "The response states that 1s electrons are closer to the nucleus (smaller r) than 3s electrons. It also states that 1s electrons are less shielded, so they feel a greater effective nuclear charge. It connects both points to a stronger Coulombic attraction, so more energy is needed to remove a 1s electron.",
+        "fix": "Use Coulomb's law: name both distance from the nucleus and shielding by inner electrons, then link the stronger attraction to a higher binding energy.",
+        "accepted_variants": [
+         "1s electrons feel a higher effective nuclear charge and are closer to the nucleus",
+         "3s electrons are farther away and shielded by the 1s, 2s and 2p electrons, so they are attracted less strongly"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The student next records the PES spectrum of silicon (Si). Predict whether the 1s peak of Si appears at a binding energy greater than, less than, or equal to 151 MJ/mol. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts that the Si 1s peak appears at a binding energy greater than 151 MJ/mol, because Si has 14 protons compared with 13 for Al and its 1s electrons are in the same shell.",
+        "evidence": "The response claims a greater binding energy for the Si 1s peak. It justifies the claim by stating that Si has a larger nuclear charge (14 vs 13 protons). With the 1s electrons in the same shell with essentially no shielding, they are attracted more strongly and need more energy to remove.",
+        "fix": "When comparing the same subshell in two atoms, compare the number of protons; more protons means stronger attraction and higher binding energy.",
+        "accepted_variants": [
+         "greater, because Si has a greater nuclear charge",
+         "higher energy, because of 14 protons versus 13"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In the spectrum of X, the 3p peak is half the height of the 3s peak. In the PES spectrum of Si, how will the height of the 3p peak compare with the height of the 3s peak? Justify your answer using the electron configuration of Si.",
+      "criteria": [
+       {
+        "text": "States that in Si the 3p and 3s peaks have equal heights (1:1 ratio), because Si (1s² 2s² 2p⁶ 3s² 3p²) has 2 electrons in each of those subshells.",
+        "evidence": "The response gives the Si configuration, or at least states that Si has 3s² 3p². It concludes that the two peaks have equal heights because peak height is proportional to the number of electrons in the subshell.",
+        "fix": "Write the configuration first, then compare electron counts in each subshell; peak height is proportional to the number of electrons in that subshell.",
+        "accepted_variants": [
+         "the same height",
+         "ratio of 1:1",
+         "3p peak is twice as tall relative to 3s as it was in X, making them equal"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 31 words"
+   ],
+   "stage": "lint"
+  }
+ ]
+}

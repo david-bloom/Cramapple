@@ -42,6 +42,7 @@
 import { createServiceClient } from "../_shared/supabase.ts";
 import { jsonResponse, readJsonBody } from "../_shared/http.ts";
 import { requireProfile } from "../_shared/auth.ts";
+import { photoEnabledFor } from "../_shared/frq-photo-rollout.ts";
 import {
   applyItemPackageFallback,
   type AssetMetadata,
@@ -50,6 +51,7 @@ import {
   buildRenderItem,
   buildResolvedCells,
   indexAssets,
+  deriveResponsePolicy,
   isStaffQaRole,
   type ItemPackagePayload,
   type LearnerFacingCriterion,
@@ -84,6 +86,9 @@ type EmptyQueueReason = "no_matching_content" | "all_items_omitted";
 // The selector caps a page at 50 (51 with the look-ahead row). Clients page
 // with `offset`; answered items never come back, so a page is always fresh.
 const UNIT_GATED_PAGE_SIZE = 50;
+// TASK-0069 rollout knob, shared with attempt-response: "none" (default:
+// admins only), "all", or a subject list.
+const FRQ_PHOTO_SUBJECTS = Deno.env.get("FRQ_PHOTO_SUBJECTS") ?? null;
 
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -491,7 +496,7 @@ export async function handleStudentSessionItems(
       .schema("app")
       .from("learning_sessions")
       .select(
-        "id, user_id, exam_pack_version_id, practice_format, status, exam_pack_version:exam_pack_versions!inner(exam_pack:exam_packs!inner(exam_code))",
+        "id, user_id, exam_pack_version_id, practice_format, status, exam_pack_version:exam_pack_versions!inner(exam_pack:exam_packs!inner(exam_code, subject:subjects(subject_key)))",
       )
       .eq("id", learningSessionId)
       .maybeSingle();
@@ -811,9 +816,31 @@ export async function handleStudentSessionItems(
     // authored `prompt` / `prompt_text` fields, never criteria, so widening
     // it exposes no scoring text; it stops the FRQ adapter rejecting whole
     // subjects (Calc BC, Precalculus) whose prompts were already authored.
-    const rows = withHandDrawnFlag((selected ?? []) as SelectedRow[], {
+    const selectedRows = withHandDrawnFlag((selected ?? []) as SelectedRow[], {
       questionParts: true,
     });
+    // TASK-0069 QA P2-a: photo_required items are served only where the
+    // photo experience is on (FRQ_PHOTO_SUBJECTS; admins always). Withheld
+    // items are reported in `omitted`, never silently dropped.
+    const sessionSubject = (() => {
+      const subject = (embeddedPack as { subject?: unknown } | null | undefined)?.subject;
+      const one = Array.isArray(subject) ? subject[0] : subject;
+      const key = (one as { subject_key?: unknown } | null | undefined)?.subject_key;
+      return typeof key === "string" ? key : null;
+    })();
+    const photoEnabled = photoEnabledFor({
+      subjectKey: sessionSubject,
+      configured: FRQ_PHOTO_SUBJECTS,
+      isAdmin: profile.role === "admin",
+    });
+    const rows = photoEnabled
+      ? selectedRows
+      : selectedRows.filter((r) => deriveResponsePolicy(r) !== "photo_required");
+    const photoWithheld = photoEnabled
+      ? []
+      : selectedRows
+        .filter((r) => deriveResponsePolicy(r) === "photo_required")
+        .map((r) => ({ content_key: r.content_key, reason: "photo_capture_not_enabled" as const }));
     const delivered = await deliverRows(service, rows, qaMode);
     if (!delivered.ok) {
       return respond({ error: delivered.error }, { status: 500 });
@@ -828,7 +855,7 @@ export async function handleStudentSessionItems(
     // needs a reason.
     const emptyQueueReason: EmptyQueueReason | null = delivered.items.length > 0
       ? null
-      : rows.length === 0
+      : selectedRows.length === 0
       ? "no_matching_content"
       : "all_items_omitted";
 
@@ -848,6 +875,29 @@ export async function handleStudentSessionItems(
       teachingFiltered.items,
     );
 
+    // Question experience (APPROVAL-0145): record the served items, in order,
+    // so get_question_experience can give the N/M counter and resume position.
+    // Idempotent (a re-sent page appends nothing). Fail-soft: a recording
+    // failure is logged, never allowed to block serving -- `{ error }` is
+    // checked because supabase-js returns it rather than throwing (IDG-5).
+    if (annotatedItems.length > 0) {
+      const { error: appendError } = await service.schema("app").rpc(
+        "append_learning_session_items",
+        {
+          p_learning_session_id: learningSessionId,
+          p_content_item_version_ids: annotatedItems.map((i) =>
+            i.content_item_version_id
+          ),
+        },
+      );
+      if (appendError) {
+        console.error(
+          "learning_session_items_append_failed",
+          appendError.message,
+        );
+      }
+    }
+
     return respond({
       status: "ok",
       function: "student-session-items",
@@ -857,7 +907,9 @@ export async function handleStudentSessionItems(
         qa_mode: qaMode,
         signed_url_ttl_seconds: SIGNED_URL_TTL_SECONDS,
         items: annotatedItems,
-        omitted: delivered.omitted,
+        omitted: [...delivered.omitted, ...photoWithheld],
+        // TASK-0069: whether this caller gets the photograph-your-work control.
+        photo_enabled: photoEnabled,
         reason: emptyQueueReason,
         // unit_gated only: paging contract for the client (2026-10-08).
         offset: ordinaryMode === "unit_gated" ? offset : null,

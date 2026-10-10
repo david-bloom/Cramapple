@@ -6,6 +6,11 @@ This log records product, architecture, operating, security, design, and workflo
 
 Most recent entries (full chronological list follows below):
 
+- DECISION-0111 — Student Photo Retention for Hand-Drawn Responses: Kept While the Account Exists, Bytes Redacted 24 Months After the Attempt or on Deletion/Erasure, Audit Row and Digest Kept (Plan D4)
+- DECISION-0112 — AP Chemistry Unit 1 Reference Escalations: Both Accepted (1.8 Bond Likelihood, 1.7 Tools for Periodic Trends)
+- DECISION-0113 — AP Chemistry Units 5–9 Escalations: Owner/Tag Fixes, Qualifier-Preserving Re-Extraction, One Drop, Unit 8 Duplicates Retired
+- DECISION-0110 — A Photographed FRQ Answer Is Graded Only After the Student Confirms the Transcript; the Confirmation Screen Asks the Student to Add Anything Missing So Cramapple Can Help (Plan D2, Conditioned)
+- DECISION-0109 — Same-Device Camera Capture for Hand-Drawn Responses When the Student Is Already on a Phone; QR Remains the Desktop Handoff (Narrow Amendment to DECISION-0051; Plan D1)
 - DECISION-0108 — BYOQ Photo Extraction With Student Confirmation Replaces Typed Transcription and TASK-0039 Phase 3: Photos Only, Subject/Unit From Context, OpenAI Build-Measure-Switch, Student Answer Marks Stored, Phone-Side Review, No Policy Change, No Spend Cap; TASK-0068 Opened
 - DECISION-0107 — Memory Hooks Pilot Rulings: a CED-Named Hook Overrides the Veto's Order Objection (SOCS Loaded); 1.13 Owns "Scope of Conclusions"; the Own-Family Veto Moves from Opus 5.5 to Haiku 5.5 on Cost
 - DECISION-0105 — Unit Reference Content (Formulas, Vocabulary, Lists, Conventions, Diagrams) Is the Companion Content for Memory Hooks: TASK-0067 Opened, Hooks Require a Reference Entry (Amends DECISION-0104 D3), Fact-Pack Extraction First, Diagrams Text-Only Until TASK-0006 Renders
@@ -59,6 +64,66 @@ Most recent entries (full chronological list follows below):
 (Note: the same collision recurred 2026-09-26. The `claude/launch-planning-cram-4oyh2g` branch independently claimed DECISION-0068 through 0072 for five launch-planning decisions, not knowing `main` had already recorded its own DECISION-0068 (BYOQ parallel tables, TASK-0039 Phase 1) by the time this branch merged. Per the rule above, this branch — the later-merging side — renumbered its five decisions to DECISION-0069 through 0073 at merge time; main's DECISION-0068 is untouched. If you are reading an older copy of any of the five renumbered decisions (in a plan doc, a chat log, or a stale local checkout) under its original 0068-0072 number, this is why the number no longer matches — the content is unchanged, only the ID moved.)
 
 <!-- INDEX_END -->
+
+## DECISION-0113 — AP Chemistry Units 5–9 Escalations: Owner/Tag Fixes, Qualifier-Preserving Re-Extraction, One Drop, Unit 8 Duplicates Retired
+
+- **Date:** 2026-10-10
+- **Decided by:** David Bloom (Product Owner), in session, on Claude's recommendations: "do all of your recommendations … yes, do those too."
+- **Decisions:**
+  1. Owner/tag escalations go through a fresh extraction with the corrected owner and tags pinned:
+     - Kp/Qp → 7.3 `[7.3, 7.4, 7.7]`
+     - Kb → 8.3 `[8.3]`
+     - Buffer solution → 8.4
+     - Maxwell–Boltzmann → 5.5 `[5.5]`
+     - Henderson–Hasselbalch → owner **8.4**, `[8.4, 8.9]`, by the first-requiring-topic rule (8.4.A.2). The models split between 8.9 and 8.4.
+  2. Wording escalations go through a fresh extraction under a new general rule: preserve every CED qualifier and scope limit. Applies to collision requirements, catalysis types, titration curve, weak base + strong acid (CED arrows verified as ⇄ on the rendered page) and entropy/dispersal.
+  3. When the only remaining objection is a topic tag that the checkers corrected from the CED, the same extracted content is re-checked with corrected tags. It is not re-extracted, so accepted content is not regenerated. This applied to collision → `[5.5]`, titration curve → `[8.5]` and H–H.
+  4. Unit 6 "Direction of thermal energy flow" is dropped (covered by the 6.1 entries). Catalysis types stays out after failing round 3 on content.
+  5. The Unit 8 duplicates are retired: standalone "pKa" and "pKw, pH and pOH at 25°C". Their content remains in the "Ka" and "Kw" entries.
+- **Consequences:** 9 rows were added to Development and Production. Unit 8 went to Production complete (32 entries). Topic 5.5 now has entries. Batch: `scripts/content-seed/task0067-chem-escalations-r3-2026-10-10/`. Recorded under `APPROVAL-0148`.
+
+## DECISION-0112 — AP Chemistry Unit 1 Reference Escalations: Both Accepted (1.8 Bond Likelihood, 1.7 Tools for Periodic Trends)
+
+- **Date:** 2026-10-10
+- **Decided by:** David Bloom (Product Owner), in session: "Accept the escalations."
+- **Context:** batch `scripts/content-seed/task0067-chem-u1-2026-10-09/`. Both entries were rejected in two rounds, so under the Reference Pack protocol they went to the Product Owner.
+  - `ap_chemistry-u1-r2-003` "Bond likelihood from valence electrons and nuclei" (1.8). GPT-6 Sol rejected it in both rounds: CED 1.8.A.1 says "The likelihood that two elements will form a chemical bond…", but the entry says "Whether two elements will form…" and has no caution. Claude had recommended rejecting it.
+  - `ap_chemistry-u1-r2-004` "Tools for explaining periodic trends" (1.7). Both checkers accepted it. The Haiku veto rejected it twice because each tool is first introduced in 1.5. Claude had recommended accepting it with 1.7 as owner.
+- **Decision:** both entries are accepted as extracted, with no hand edits, consistent with the no-edit rule. 1.7 stays the owner of the periodic-trends list.
+- **Consequences:**
+  - Both entries were loaded to Development and Production via `load.py --po-accept po_accept_ap_chemistry_u1.json`. Their `source_note` carries `po-override=DECISION-0112…`, and the SQL file is `out/load_ap_chemistry_u1_po_accept.sql`.
+  - AP Chemistry Unit 1 now has 26 entries + 1 hook in both environments.
+  - Known wording gap: the 1.8 entry states the CED's likelihood claim categorically. A later stateless re-extraction can replace it through the normal pipeline.
+
+## DECISION-0111 — Student Photo Retention for Hand-Drawn Responses: Kept While the Account Exists, Bytes Redacted 24 Months After the Attempt or on Deletion/Erasure, Audit Row and Digest Kept (Plan D4)
+
+- **Date:** 2026-10-09
+- **Decided by:** David Bloom (Product Owner), in session: "I approve D1, D4."
+- **Context:** `docs/product/HAND_DRAWN_RESPONSES_ALL_FRQS_PLAN_2026_10_09.md` §4 and D4. `app.response_attachments` is immutable by trigger (TASK-0025, for grading-dispute and audit integrity; blocks `service_role` too), while the privacy policy (§11, §13) promises retention "as long as needed" and deletion requests "subject to applicable law and operational constraints". No image has ever been deleted or redacted because none has ever been stored (0 rows in Production as of this date).
+- **Decision:** Student response photos are kept while the account exists. Image bytes (original and any derived copy) are **redacted**, not deleted, 24 months after the attempt, or earlier on account deletion or an erasure request handled by support. The `response_attachments` row, SHA-256 digest, dimensions, and all grading records survive redaction. Redaction is the only write the immutability trigger will permit, through one service-role function; a pg_cron sweep applies the age rule. Unbound uploads keep the existing bucket sweep. Research/benchmark use of student photos stays outside this path (deidentified, reviewed, separately consented corpora only).
+- **Still recommended, not blocking:** a counsel read of the policy's retention section against this rule before Phase 1 reaches Production.
+- **Consequences:** schema additions `response_attachments.redacted_at` and the redaction function are in the Phase 1 build list; `APPROVAL-0142` records the approval.
+
+## DECISION-0110 — A Photographed FRQ Answer Is Graded Only After the Student Confirms the Transcript; the Confirmation Screen Asks the Student to Add Anything Missing So Cramapple Can Help (Plan D2, Conditioned)
+
+- **Date:** 2026-10-09
+- **Decided by:** David Bloom (Product Owner), in session: "D2 should have a prompt for the student to confirm or add missing content so Cramapple can help. With that condition I approve D2."
+- **Context:** Plan §2 step 4 and §5. The plan's safety argument is that the grader works only on text the student has confirmed, never on an unverified vision read (the Engine 4 finding of 2026-08-18: vision reads cannot be trusted as the decider). BYOQ (`TASK-0068`) proved the read-then-confirm loop for questions.
+- **Decision:**
+  1. A response that carries a photo is never submitted for grading until the student has confirmed the per-part transcript. There is no "grade the photo directly" path.
+  2. **Condition:** the confirmation screen actively invites completion, not only agreement. Each `[unreadable]` span is an inline prompt to type what was written; a part with no transcribed answer says so and offers a field; the screen ends with an explicit "anything we missed? add it so we can score your whole answer and show you what to fix" prompt. The framing is help, not policing.
+  3. Text added at review is stored distinctly (`student_added` spans in `response_parts`) so audits and the transcript-fidelity metric can separate what was photographed from what was typed afterwards.
+- **Unchanged:** `DECISION-0057`/`DECISION-0068` (BYOQ stays a separate, never-graded path); the Engine 4 DR-1 gates for any automated judgement of image-only criteria.
+- **Consequences:** `attempt-response` gains `propose_transcript`/`confirm_transcript`; `submit_response` refuses a response with a current attachment and no confirmed transcript; the Practice FRQ review screen is specified in the plan; `APPROVAL-0142`.
+
+## DECISION-0109 — Same-Device Camera Capture for Hand-Drawn Responses When the Student Is Already on a Phone; QR Remains the Desktop Handoff (Narrow Amendment to DECISION-0051; Plan D1)
+
+- **Date:** 2026-10-09
+- **Decided by:** David Bloom (Product Owner), in session: "I approve D1, D4."
+- **Context:** `DECISION-0051`/`APPROVAL-0046` (2026-08-19) made QR handoff Engine 4's sole capture path, rejecting a direct-upload fallback because laptop-camera capture is awkward. That reasoning addressed a student at a desktop. BYOQ (`TASK-0039`/`TASK-0068`) later shipped an "I'm on my phone — use this device" path for the case the earlier decision did not consider. Plan §2 step 2 proposes the same for responses.
+- **Decision:** From a desktop or laptop, capture is QR handoff to a phone, unchanged. When the student's primary device is a phone or tablet, the capture control uses that device's camera directly. Both paths land in the same `capture-pairing` token and `submit_capture` flow (validate, strip metadata, quality-check, bind); the token's `access_path` records which path was used. No laptop-camera or desktop file-upload path is added.
+- **Unchanged:** everything else in `DECISION-0051` (generic retake copy for image-quality failures, technical failures logged not blamed, image preserved and bound before submit).
+- **Consequences:** `capture-pairing` same-device branch and the shared capture component are in the Phase 1 build list; `APPROVAL-0142`.
 
 ## DECISION-0108 — BYOQ Photo Extraction With Student Confirmation Replaces Typed Transcription and TASK-0039 Phase 3: Photos Only, Subject/Unit From Context, OpenAI Build-Measure-Switch, Student Answer Marks Stored, Phone-Side Review, No Policy Change, No Spend Cap; TASK-0068 Opened
 

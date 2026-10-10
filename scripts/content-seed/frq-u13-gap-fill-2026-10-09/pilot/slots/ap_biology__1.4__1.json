@@ -1,0 +1,104 @@
+{
+ "id": "ap_biology__1.4__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 1,
+  "unit_title": "Chemistry of Life",
+  "topic_code": "1.4",
+  "topic_title": "Carbohydrates",
+  "existing": [],
+  "need": 2
+ },
+ "n": 1,
+ "status": "escalated",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-09T23:44:50.641Z",
+   "item": {
+    "title": "Branching of Polysaccharides and Rate of Glucose Release",
+    "calculator": "not_permitted",
+    "stimulus": "Many organisms store glucose as polysaccharides. Two polysaccharides were purified from an animal tissue. Both are polymers made only of glucose monomers. Polymer L is a single unbranched (linear) chain. Polymer B is highly branched, so each molecule has many free chain ends.\n\nStudents prepared two solutions. Each contained the same total number of glucose monomers, in the form of either polymer L or polymer B. They added equal amounts of enzyme E to each solution. Enzyme E removes one glucose monomer at a time by hydrolysis, and it can act only at a free chain end. The students kept temperature and pH constant and measured the total amount of free glucose released.\n\nTime (min) | Glucose released from Polymer L (µmol) | Glucose released from Polymer B (µmol)\n0 | 0 | 0\n2 | 12 | 48\n4 | 24 | 96\n6 | 36 | 144",
+    "model_answer": "(a) Glucose monomers are joined by dehydration synthesis. A covalent bond forms between two monomers, and a water molecule is released as the bond forms. Repeating this reaction builds the polymer.\n\n(b) The 1,200 monomers in one connected molecule are linked by 1,200 − 1 = 1,199 covalent bonds. This holds even with branching, because each monomer except the first is attached by one new bond. Hydrolysis uses one water molecule for each bond broken, so 1,199 water molecules are needed.\n\n(c) Polymer L: (36 − 0) µmol ÷ (6 − 0) min = 6 µmol/min. Polymer B: (144 − 0) µmol ÷ (6 − 0) min = 24 µmol/min. Polymer B releases glucose 4 times as fast. Enzyme E can remove glucose only at free chain ends. Polymer B is highly branched, so it has many more chain ends than linear polymer L. More enzyme molecules can therefore hydrolyze glucose from polymer B at the same time, which gives a faster rate.\n\n(d) The mutant animal will release glucose from storage more slowly than a normal animal during sudden activity. Its stored polysaccharide is unbranched, so it has far fewer free chain ends where glucose-releasing enzymes can act. Fewer enzyme molecules can work at once, so less glucose is released per minute, even though the total stored glucose is the same.",
+    "verification_python": "from fractions import Fraction\nn = 1200\nwaters = n - 1\nassert waters == 1199\nt = [0, 2, 4, 6]\nL = [0, 12, 24, 36]\nB = [0, 48, 96, 144]\nrate_L = Fraction(L[-1] - L[0], t[-1] - t[0])\nrate_B = Fraction(B[-1] - B[0], t[-1] - t[0])\nassert rate_L == 6\nassert rate_B == 24\nassert rate_B / rate_L == 4\nfor i in range(1, 4):\n    assert Fraction(L[i] - L[i-1], t[i] - t[i-1]) == 6\n    assert Fraction(B[i] - B[i-1], t[i] - t[i-1]) == 24\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe the type of chemical reaction that joins glucose monomers into a polysaccharide such as polymer L or polymer B. Include the type of bond that forms.",
+      "criteria": [
+       {
+        "text": "Monomers are joined by dehydration synthesis, which forms a covalent bond and releases a water molecule.",
+        "evidence": "The response names dehydration synthesis (or condensation) and states that a covalent bond forms between monomers. It must also state that water is released or removed.",
+        "fix": "Remember: building polymers is dehydration synthesis, which forms a covalent bond and releases one water per bond; breaking them is hydrolysis.",
+        "accepted_variants": [
+         "condensation reaction forming a covalent bond and releasing water",
+         "dehydration reaction that removes H2O and forms a covalent (glycosidic) bond"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "One molecule of polymer B contains 1,200 glucose monomers. Calculate the number of water molecules needed to completely hydrolyze this molecule into free glucose. Show your reasoning.",
+      "criteria": [
+       {
+        "text": "1,199 water molecules, because the molecule contains 1,200 − 1 = 1,199 covalent bonds between monomers and each hydrolysis uses one water molecule.",
+        "evidence": "The response gives 1,199. It must reason that one water is used per bond broken and that 1,200 connected monomers are linked by 1,199 bonds. A branched molecule with no rings still has n − 1 bonds.",
+        "fix": "Count bonds, not monomers: n connected monomers in one molecule are held by n − 1 bonds, and each bond needs one water to hydrolyze.",
+        "accepted_variants": [
+         "1199",
+         "1,200 − 1 = 1,199"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, calculate the rate of glucose release (in µmol per minute) for each polymer over the 6-minute period. Then explain why the rates differ, based on the structures of the two polymers.",
+      "criteria": [
+       {
+        "text": "Polymer L: 36 µmol ÷ 6 min = 6 µmol/min. Polymer B: 144 µmol ÷ 6 min = 24 µmol/min.",
+        "evidence": "The response gives both rates with correct values and units, showing the division or the change over time.",
+        "fix": "Compute rate as change in amount divided by change in time, for example (36 − 0) µmol ÷ (6 − 0) min, and include units.",
+        "accepted_variants": [
+         "6 µmol/min and 24 µmol/min",
+         "polymer B releases glucose 4 times as fast as polymer L, with values 6 and 24 µmol/min"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "",
+      "criteria": [
+       {
+        "text": "Polymer B releases glucose faster because its branching provides many more free chain ends. Enzyme E, which acts only at chain ends, can therefore remove glucose at many sites at the same time. Linear polymer L has few ends.",
+        "evidence": "The response links branching to a greater number of free chain ends. It must also connect the number of ends to more simultaneous sites for enzyme E to hydrolyze glucose, giving a faster rate.",
+        "fix": "Connect structure to function: say how branching changes the number of sites where the enzyme can act, then link that to rate.",
+        "accepted_variants": [
+         "more branches mean more ends for the enzyme to work on at once",
+         "the linear chain offers only one or two ends, limiting how many enzyme molecules can act simultaneously"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A mutation inactivates the enzyme that adds branches during polysaccharide synthesis. As a result, the animal stores the same amount of glucose but only as linear chains. Predict how the rate at which this animal can release glucose from storage during sudden intense activity will compare with that of a normal animal. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Glucose will be released more slowly than in a normal animal. Linear storage chains have far fewer free ends where glucose-releasing enzymes can act, even though total stored glucose is the same.",
+        "evidence": "The response predicts slower glucose release (reduced rate). It must justify this with fewer chain ends, or fewer sites for enzyme action, in unbranched polymers. A prediction without justification does not earn the point.",
+        "fix": "Pair your prediction with its cause: state the rate change, then explain that losing branches reduces chain ends available to enzymes.",
+        "accepted_variants": [
+         "glucose mobilization would be slower because unbranched chains have fewer ends for enzymes to hydrolyze",
+         "less glucose released per minute because fewer enzyme-accessible ends exist"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "5 parts (allowed 3-4)"
+   ],
+   "stage": "lint"
+  }
+ ]
+}

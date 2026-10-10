@@ -1,0 +1,2345 @@
+[
+  {
+    "candidate_id": "ap_chemistry-u5-r1-002",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry is factual, directly matches the CED Essential Knowledge 5.1.A.2 ('The rates of change of reactant and product concentrations are determined by the stoichiometry in the balanced chemical equation'), and is correctly mapped to Topic 5.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body reproduces Essential Knowledge 5.1.A.2: \u201cThe rates of change of reactant and product concentrations are determined by the stoichiometry in the balanced chemical equation.\u201d Topic 5.1 is the correct owner and only listed topic. No caution is needed because the body uses the CED wording."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches Essential Knowledge 5.1.A.2 verbatim: \"The rates of change of reactant and product concentrations are determined by the stoichiometry in the balanced chemical equation.\" No formula or list is involved. b_topic_codes: 5.1.A.2 appears under Topic 5.1 (Reaction Rates), so owner_topic_code \"5.1\" is where the unit first requires it, and topic_codes [\"5.1\"] is the only topic that uses it. c_ced_required: 5.1.A.2 is an essential-knowledge statement under learning objective 5.1.A (\"Explain the relationship between the rate of a chemical reaction and experimental parameters\"), and it requires students to apply stoichiometry to relate rates of change of species. d_caution: The entry uses the CED's own wording, which is the point-earning wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-003",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists the five factors that influence the rate of a reaction as explicitly stated in Essential Knowledge 5.1.A.3: 'reactant concentrations, temperature, surface area, catalysts, and other environmental factors'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "5.1.A.3 states: \u201cThe rate of a reaction is influenced by reactant concentrations, temperature, surface area, catalysts, and other environmental factors.\u201d The entry lists exactly these factors in the same order. Topic 5.1 is the appropriate owner, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 5.1.A.3 reads \"The rate of a reaction is influenced by reactant concentrations, temperature, surface area, catalysts, and other environmental factors.\" The five items match these members in the same order, and each 'influences the rate' meaning is a faithful restatement of 'influenced by'. b_topic_codes: 5.1.A.3 first appears in Topic 5.1 (Reaction Rates), so owner_topic_code 5.1 is correct, and topic_codes ['5.1'] lists only that topic. c_ced_required: Learning Objective 5.1.A ('Explain the relationship between the rate of a chemical reaction and experimental parameters') and Essential Knowledge 5.1.A.3 require students to apply these factors. d_caution: The CED's point-earning wording is the list of factors and their influence on rate; the entry's phrasing ('These factors influence the rate') conveys the same claim, so no caution is needed. The minor variation between 'Influence' and 'Influences' in the meaning fields is grammatical only.",
+            "hook_check": "No hooks present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-006",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'Rate constant (k)' is highly accurate and directly supported by EK 5.2.A.4: 'The proportionality constant in the rate law is called the rate constant. The value of this constant is temperature dependent and the units reflect the overall reaction order.' The topic codes are correct as Topic 5.2 introduces the rate constant and Topic 5.3 applies it to concentration changes over time (EK 5.3.A.4)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.2.A.4 states, \u201cThe proportionality constant in the rate law is called the rate constant. The value of this constant is temperature dependent and the units reflect the overall reaction order.\u201d Topic 5.2 first requires it; 5.3.A.4 also uses the rate constant when determining it from concentration-versus-time data. The entry closely follows CED wording, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.2.A.4, which states that 'the proportionality constant in the rate law is called the rate constant. The value of this constant is temperature dependent and the units reflect the overall reaction order.' The entry's definition and its two properties are correct. b_topic_codes: Owner 5.2 is the first topic that requires the rate constant (5.2.A.4). 5.3 also uses it in 5.3.A.4 (slopes of concentration-versus-time data give k), so listing 5.3 is valid. c_ced_required: 5.2.A.4 requires students to know what k is, that it is temperature dependent, and what its units reflect. The entry covers this directly. d_caution: The wording closely tracks the CED, so the point-earning wording is effectively present and no caution is needed (caution is null, which is correct)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-001",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of kinetics matches the exact wording of Essential Knowledge 5.1.A.1: 'The kinetics of a chemical reaction is defined as the rate at which an amount of reactants is converted to products per unit of time.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body reproduces essential knowledge 5.1.A.1: \u201cThe kinetics of a chemical reaction is defined as the rate at which an amount of reactants is converted to products per unit of time.\u201d Topic 5.1 is the correct placement. No caution is needed because the wording matches the CED definition."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED Essential Knowledge 5.1.A.1, which defines the kinetics of a chemical reaction as 'the rate at which an amount of reactants is converted to products per unit of time.' The body omits the words 'is defined as' but keeps the same definition. b_topic_codes: owner_topic_code 5.1 is the topic where this definition first appears, and topic_codes ['5.1'] is the only topic listed. c_ced_required: 5.1.A.1 is an essential-knowledge statement under LO 5.1.A ('Explain the relationship between the rate of a chemical reaction and experimental parameters'), so students are expected to know this definition. d_caution: The entry's wording is essentially the CED definition with only the 'defined as' phrasing dropped, so no caution is needed and none is required. The ced_evidence quote matches the CED text."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-005",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately defines the individual and overall reaction orders as specified in EK 5.2.A.3: 'The power of each reactant in the rate law is the order of the reaction with respect to that reactant. The sum of the powers of the reactant concentrations in the rate law is the overall order of the reaction.' The topic codes are correct as Topic 5.2 introduces the rate law and Topic 5.3 applies reaction orders to concentration changes over time."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition closely matches 5.2.A.3: \u201cThe power of each reactant in the rate law is the order of the reaction with respect to that reactant. The sum of the powers of the reactant concentrations in the rate law is the overall order of the reaction.\u201d Topic 5.2 first requires it; 5.3 also uses reaction order to identify rate laws from concentration-over-time data (5.3.A). No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 5.2.A.3 ('The power of each reactant in the rate law is the order of the reaction with respect to that reactant. The sum of the powers of the reactant concentrations in the rate law is the overall order of the reaction.'). The entry restates the same two definitions in the same order, with no formula or list to misstate. b_topic_codes: owner 5.2 is where order first appears (5.2.A.3). 5.3 also uses it: 5.3.A.1 infers order from concentration-time graphs, and 5.3.A.2/5.3.A.3 classify first- and second-order reactions by order. c_ced_required: 5.2.A.3 requires students to know the individual and overall order definitions. d_caution: The entry's wording ('power of each reactant's concentration') is equivalent to the CED's ('power of each reactant in the rate law'), so the point-earning idea is preserved and no caution is needed."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-010",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches the second-order integrated rate law equation explicitly provided in Essential Knowledge 5.3.A.4: 'Second order: 1/[A]t \u2212 1/[A]0 = kt'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches Topic 5.3, EK 5.3.A.4: \u201cSecond order: 1/[A]t \u2212 1/[A]0 = kt.\u201d That statement requires use of the integrated rate law to determine the rate constant. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.3.A.4 exactly: \"Second order: EQN: 1/[A]t \u2212 1/[A]0 = kt\". The symbols, sign, and placement of k and t are correct. b_topic_codes: The second-order integrated rate law first appears in this unit under Topic 5.3 (LO 5.3.A, EK 5.3.A.4), and 5.3 is the only topic code listed, which is the topic that uses it. c_ced_required: LO 5.3.A asks students to identify the rate law from concentration-vs-time data, and EK 5.3.A.3\u20135.3.A.4 state that a second-order plot is linear in 1/[A] and that the slope gives k. Reproducing and applying this equation is required. d_caution: The entry wording is identical to the CED wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-009",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches the first-order integrated rate law equation given in EK 5.3.A.4 ('First order: ln[A]t \u2212 ln[A]0 = \u2212kt') exactly."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches Topic 5.3, EK 5.3.A.4: \u201cFirst order: ln[A]t \u2212 ln[A]0 = \u2212kt.\u201d That statement requires using the relationship to determine the rate constant. The CED uses only topic 5.3 for this formula, and no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 5.3.A.4 exactly in symbols and order: 'First order: EQN: ln[A]t \u2212 ln[A]0 = \u2212kt'. The entry uses a hyphen-minus where the CED uses a true minus sign (U+2212), which is typographic and does not change the formula. b_topic_codes: owner_topic_code '5.3' is the first unit topic where the first-order integrated rate law appears (5.3.A.4, under 'Concentration Changes Over Time'), and topic_codes ['5.3'] is the only topic that uses it. c_ced_required: 5.3.A.4 states that slopes of concentration-vs-time data for zeroth, first, and second order reactions are used to determine k, and lists the first-order equation. Students are required to apply it in the 5.3.A learning objective ('Identify the rate law expression ... using data that show how the concentrations of reaction species change over time'). d_caution: The entry's wording is identical to the CED's equation, so the point-earning wording is already present and no caution is needed (caution is null, which is correct)."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-008",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the zeroth-order integrated rate law formula as explicitly required and written in Essential Knowledge 5.3.A.4 of the AP Chemistry CED: '[A]t \u2212 [A]0 = \u2212kt'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula matches Topic 5.3, EK 5.3.A.4: \u201cZeroth order: [A]t \u2212 [A]0 = \u2212kt.\u201d That EK also states that concentration-versus-time data can be used to determine the rate constant. No caution is needed because the entry uses the CED\u2019s formula and terminology."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body '[A]t \u2212 [A]0 = \u2212kt' matches the CED exactly. Essential knowledge 5.3.A.4 gives 'Zeroth order: EQN: [A]t \u2212 [A]0 = \u2212kt', with the same symbols, the same order of terms, and the same sign convention. b_topic_codes: The equation first appears in Topic 5.3 (LO 5.3.A, essential knowledge 5.3.A.4), so owner_topic_code '5.3' is correct and topic_codes ['5.3'] is the only topic that uses it in this unit. c_ced_required: LO 5.3.A ('Identify the rate law expression of a chemical reaction using data that show how the concentrations of reaction species change over time') and 5.3.A.4 ('The slopes of the concentration versus time data for zeroth, first, and second order reactions can be used to determine the rate constant') require students to apply the zeroth-order integrated relationship. d_caution: The entry's wording is the CED's own wording, so no caution is needed and the null caution is correct. The ced_evidence field cites 5.3.A.4 accurately."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-004",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The formula correctly represents the general rate law expression as described in EK 5.2.A.2 ('The rate law expresses the rate of a reaction as proportional to the concentration of each reactant raised to a power') and is relevant to the associated topics on elementary reactions, mechanisms, and pre-equilibrium approximations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.2 first requires rate laws: 5.2.A.2 says the rate is proportional to each reactant concentration raised to a power, and 5.2.A.4 identifies k as the rate constant. Topics 5.4, 5.8, and 5.9 also require students to determine rate laws from elementary reactions or mechanisms. The formula is a valid general two-reactant expression; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The formula is chemically correct and matches the CED. 5.2.A.2 says the rate law expresses \"the rate of a reaction as proportional to the concentration of each reactant raised to a power,\" and 5.2.A.4 identifies the proportionality constant as the rate constant, so k, [A], [B], m and n are the right symbols. The CED does not print the equation itself, but the form is a faithful representation. b_topic_codes: 5.2 is the owner, since 5.2 is titled \"Introduction to Rate Law\" and 5.2.A.2 introduces the rate law. 5.4 (5.4.A, \"Represent an elementary reaction as a rate law expression\"), 5.8 (5.8.A, \"Identify the rate law for a reaction from a mechanism\") and 5.9 (5.9.A, rate law from a mechanism where the first step is not rate limiting) each use the rate law form. c_ced_required: 5.2.A (\"Represent experimental data with a consistent rate law expression\") requires students to apply this form. d_caution: false. The entry gives the general form with unspecified exponents, but the CED's point is that the powers are the reaction orders determined from experimental data (5.2.A.3, 5.2.A.5). Because the entry is attached to 5.4, where stoichiometry is discussed, a caution is needed to state that m and n are not automatically the balanced-equation coefficients unless the step is elementary (5.4.A.1). Without that caution the entry invites the common coefficient-as-exponent error, so the entry is not accepted."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The formula rate = k[A]^m[B]^n matches the CED's description in 5.2.A.2 (\"the rate law expresses the rate of a reaction as proportional to the concentration of each reactant raised to a power\"). The symbols are consistent with 5.2.A.4, where k is the proportionality constant, and with 5.2.A.3, where each power is the order with respect to that reactant. b_topic_codes: 5.2 is the first topic that introduces the rate law expression (5.2.A.2), so it is the correct owner. 5.4 (5.4.A.1, rate law of an elementary reaction from stoichiometry), 5.8 (5.8.A.1, rate law set by the rate-limiting step) and 5.9 (5.9.A.1, rate law derived with approximations) each require building or applying a rate law expression, so each topic code is valid. c_ced_required: 5.2.A is the learning objective \"Represent experimental data with a consistent rate law expression,\" and 5.2.A.2 states the rate law form, so the CED requires students to apply it. d_caution: The CED phrases the idea as proportionality with powers, and the equation with k is the standard way to earn that point, so no caution is strictly required. A caution that m and n are determined experimentally and are not necessarily the stoichiometric coefficients would be helpful (5.2.A.5 and 5.4.A.1 only tie coefficients to elementary steps), but its absence does not make the entry incorrect."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-007",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry states that comparing initial rates 'is the method' to determine the order, which is factually incorrect and contradicts the CED. Essential Knowledge 5.2.A.5 states it is 'a method' (not 'the' sole method), as Topic 5.3 subsequently teaches that graphical analysis of concentration over time is another primary method to determine reaction order. The entry lacks a caution or correct phrasing to reflect this."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The entry states that comparing initial rates is 'the' method to determine the order of a reactant. However, the CED (EK 5.2.A.5) states it is 'a' method. Other methods, such as graphical analysis of concentration changes over time (Topic 5.3), are also used to determine reaction order. Therefore, calling it 'the' method is factually incorrect and requires a caution or correction to 'a method'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 5.2.A.5 says comparing initial rates is \u201ca method to determine the order with respect to each reactant,\u201d not \u201cthe method.\u201d Topic 5.3.A.1 also says order can be inferred from concentration-versus-time data. The entry\u2019s exclusive wording is therefore incorrect, and it has no caution addressing the difference."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 5.2.A.5 says comparing initial rates is \u201ca method,\u201d not \u201cthe method,\u201d for determining the order with respect to each reactant. Topic 5.3.A.1 also says reaction order can be inferred from a graph of reactant concentration versus time. The entry\u2019s exclusive wording is therefore incorrect, and no caution flags the difference."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-013",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge statement 5.3.A.6 from the AP Chemistry CED: 'Radioactive decay processes provide an important illustration of first order kinetics.' The topic code is correct and the content is directly required."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.3, Essential Knowledge 5.3.A.6 states: \u201cRadioactive decay processes provide an important illustration of first order kinetics.\u201d The entry matches this statement; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches essential knowledge 5.3.A.6 verbatim ('Radioactive decay processes provide an important illustration of first order kinetics.'), apart from a hyphen in 'first-order'. No formula or list is involved, so nothing else can be wrong. b_topic_codes: 5.3.A.6 appears on the Topic 5.3 page (p. 97), and 5.3 is the only topic listed and the owner, so owner_topic_code and topic_codes are correct. c_ced_required: 5.3.A.6 is an essential-knowledge statement on these pages, and it sits under learning objective 5.3.A, which asks students to identify rate laws from concentration-versus-time data. The statement is a CED requirement, not trivia from another unit. d_caution: The wording is the CED's own, so no caution is needed and the null caution is correct. The title is a convention label and does not change the point-earning wording."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-011",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {
+      "Plain, ln, reciprocal": true
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Plain, ln, reciprocal": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the integrated rate laws and linear plots for zeroth, first, and second-order reactions as detailed in EK 5.3.A.2, 5.3.A.3, and 5.3.A.4. The caution correctly addresses common student errors in identifying the plotted quantity and the sign of the slope."
+            },
+            "hooks": [
+              {
+                "hook_text": "Plain, ln, reciprocal",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "The hook is a highly effective mnemonic for remembering the y-axis variables for zeroth, first, and second-order linear plots. The expansion is accurate, and the caution correctly warns students to use the actual chemical terms rather than the mnemonic in their exam answers."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Plain, ln, reciprocal": true
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.3 requires identifying reaction order from concentration-over-time data. CED 5.3.A.2 says ln[A] versus time is linear for first order, and 5.3.A.3 says 1/[A] versus time is linear for second order. The integrated equations in 5.3.A.4 support [A] versus time with slope \u2212k for zeroth order, ln[A] versus time with slope \u2212k for first order, and 1/[A] versus time with slope k for second order. The caution correctly calls for naming the specific plotted quantity rather than merely calling it a concentration-versus-time plot."
+            },
+            "hooks": [
+              {
+                "hook_text": "Plain, ln, reciprocal",
+                "e_expansion": true,
+                "f_admissible": true,
+                "accept": true,
+                "reasons": "Each cue maps, in order, to the required zeroth-, first-, and second-order plots. CED 5.3.A.2\u20135.3.A.4 supports those plots; the hook\u2019s caution correctly says to state the actual plotted quantity and order in an answer."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Plain, ln, reciprocal": true
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The CED integrated equations give the plots and slopes exactly as the items state. Zeroth order: [A]t \u2212 [A]0 = \u2212kt, so [A] vs. t is linear with slope \u2212k. First order: ln[A]t \u2212 ln[A]0 = \u2212kt, so ln[A] vs. t is linear with slope \u2212k. Second order: 1/[A]t \u2212 1/[A]0 = kt, so 1/[A] vs. t is linear with slope +k. The list order (zeroth, first, second) matches the CED. The body's 'the slope gives the rate constant' is correct up to the sign, which the caution covers. b_topic_codes: 5.3 (Concentration Changes Over Time) is where concentration-vs-time integrated rate laws first appear; 5.2 covers only the rate law expression, so 5.3 is the first unit-topic that requires this. c_ced_required: 5.3.A.1 ('order can be inferred from a graph of concentration of reactant versus time'), 5.3.A.2, 5.3.A.3 and 5.3.A.4 ('slopes of the concentration versus time data for zeroth, first, and second order reactions can be used to determine the rate constant') directly require this. d_caution: The CED phrases the content as equations, not as 'plot X vs. t'. The caution correctly states the sign convention (negative for zeroth and first, positive for second) and asks that the plotted quantity be named. The caution is present and correct."
+          },
+          "hooks": [
+            {
+              "hook_text": "Plain, ln, reciprocal",
+              "e_expansion": true,
+              "f_admissible": true,
+              "accept": true,
+              "reasons": "e_expansion: 'Plain' \u2192 zeroth order, plot [A] vs. t; 'ln' \u2192 first order, plot ln[A] vs. t; 'reciprocal' \u2192 second order, plot 1/[A] vs. t. The cues are in the same order as the entry's items and match the CED integrated equations in 5.3.A.4. f_admissible: The hook is a mnemonic recalling which quantity is plotted against time for each order, which is the plot-to-order relationship required by 5.3.A.2 and 5.3.A.3. It is not a song lyric. The caution requires stating the order and the specific straight-line quantity (e.g., 'ln[A] vs. time is linear, so first order'), which is the wording that earns the point, so the caution is present and correct."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-015",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's body is a direct quote of Essential Knowledge statement 5.4.A.2: 'Elementary reactions involving the simultaneous collision of three or more particles are rare.' The topic code is correct and no caution is needed as the wording is identical to the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.4, Essential Knowledge 5.4.A.2 states: \u201cElementary reactions involving the simultaneous collision of three or more particles are rare.\u201d The entry reproduces this statement exactly; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.4.A.2 word for word: \"Elementary reactions involving the simultaneous collision of three or more particles are rare.\" b_topic_codes: The statement first appears in Topic 5.4 (Elementary Reactions), so owner_topic_code 5.4 is correct, and topic_codes [\"5.4\"] is the only topic that uses it. c_ced_required: 5.4.A.2 is an essential-knowledge statement under LO 5.4.A (represent an elementary reaction as a rate law using stoichiometry). It is a required statement that bears on that LO, so it is not trivia or out-of-unit content. d_caution: The entry wording is the CED wording, so no caution is needed and caution is null, which is correct. ev quote is an accurate excerpt of 5.4.A.2."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-012",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the first-order half-life equation as explicitly required by Essential Knowledge 5.3.A.5 ('t1/2 = 0.693/k'). The caution is highly relevant as it addresses a common student misconception regarding the order-dependence of constant half-life."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.3, EK 5.3.A.5 states that for first-order reactions, \u201cthe half-life is constant\u201d and gives \u201ct1/2 = 0.693/k.\u201d The formula and caution match that statement. Topic 5.3 is the first listed topic requiring it."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 5.3.A.5 gives 'EQN: t1/2 = 0.693/k.' The entry's formula t_{1/2}=\\frac{0.693}{k} matches the symbols and structure. b_topic_codes: 5.3.A.5 sits under Topic 5.3 (Concentration Changes Over Time), so owner_topic_code 5.3 is where this unit first requires it, and topic_codes ['5.3'] contains only that topic. c_ced_required: 5.3.A.5 states 'Half-life is a critical parameter for first order reactions because the half-life is constant and related to the rate constant,' and LO 5.3.A asks students to identify rate laws from concentration-versus-time data, so applying t1/2 = 0.693/k is required. d_caution: the CED says half-life is constant for first-order reactions and does not state this in the entry's 'independent of concentration' wording. The caution restates the first-order condition and is correct, so it is needed and present. ced_evidence cites 5.3.A.5 with the CED equation text, which is accurate."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-014",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects LO 5.4.A and EK 5.4.A.1, which state that the rate law of an elementary reaction can be inferred from the stoichiometry of the particles participating in a collision. The caution correctly warns students not to apply this rule to overall reactions, which is a common misconception. The topic codes are correct as Topic 5.4 introduces this concept and Topic 5.8 applies it to write rate laws from mechanisms."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.4.A.1 states that the rate law of an elementary reaction can be inferred from the stoichiometry of particles participating in a collision. Topic 5.8 also applies elementary-step molecularity to a rate law: 5.8.A.1 says the rate law is set by the molecularity of the slowest elementary step under the stated conditions. The caution correctly limits this rule to elementary steps rather than an overall multistep equation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: Matches 5.4.A.1: \"The rate law of an elementary reaction can be inferred from the stoichiometry of the particles participating in a collision.\" The entry's \"written directly\" and \"(coefficients)\" are faithful glosses. The coefficients of an elementary step equal the molecularity, so no list, order, or symbol is wrong. b_topic_codes: 5.4 is the first topic in this unit that requires inferring a rate law from elementary-step stoichiometry (5.4.A.1). 5.8 is a valid additional code because 5.8.A.1 applies the same molecularity-based rate-law logic to the rate-limiting step. c_ced_required: 5.4.A.1 directly requires students to apply this. d_caution: The CED does not use the word 'overall', so the entry's wording differs from the CED's. The caution \"This applies only to elementary steps, not to an overall reaction equation of a multistep mechanism\" is present and correct, and it is consistent with 5.8.A.1 (\"the rate law of the reaction is set by the molecularity of the slowest elementary step\")."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-019",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's definition of 'reaction coordinate' is taken verbatim from Essential Knowledge statement 5.6.A.2 in the AP Chemistry CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body reproduces the definition in 5.6.A.2: \u201cThe reaction coordinate is the axis along which the complex set of motions involved in rearranging reactants to form products can be plotted.\u201d Topic 5.6 first requires it. The wording matches the CED, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches CED 5.6.A.2 verbatim: \"The reaction coordinate is the axis along which the complex set of motions involved in rearranging reactants to form products can be plotted.\" b_topic_codes: owner_topic_code 5.6 is where this term is first required (5.6.A.2), and topic_codes [\"5.6\"] is the only unit topic that uses it. c_ced_required: 5.6.A.2 is an essential knowledge statement, and it is the definition the 5.6.A learning objective (represent activation energy and overall energy change with a reaction energy profile) depends on. d_caution: the entry wording is the CED wording, so no caution is needed and caution is null, which is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-018",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry's definition of activation energy for the forward reaction is factually accurate and directly quoted from EK 5.6.A.3. The topic codes are correct as Topic 5.6 is the first topic where this is required, and Topic 5.10 also deals with reaction energy profiles."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 5.6.A.3: \u201cThe energy difference between the reactants and the transition state is the activation energy for the forward reaction.\u201d Topic 5.6 first requires it; 5.10.A also requires students to represent activation energy in a multistep reaction energy profile. No caution is needed because the wording matches the CED."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.6.A.3 verbatim: \"The energy difference between the reactants and the transition state is the activation energy for the forward reaction.\" b_topic_codes: 5.6 is the owner. 5.5.A.2 mentions activation energy only in passing, without defining it, and 5.6.A.3 is the defining statement. 5.10 is listed correctly because LO 5.10.A (\"Represent the activation energy and overall energy change in a multistep reaction with a reaction energy profile\") applies the same concept. c_ced_required: LO 5.6.A and essential knowledge 5.6.A.3 require students to represent and apply this definition on an energy profile. d_caution: The entry wording is the CED's own wording, so no caution is needed and caution is correctly null."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-021",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the content of Essential Knowledge 5.6.A.4, which states that the rate of an elementary reaction is temperature dependent because the proportion of particle collisions energetic enough to reach the transition state varies with temperature. The caution correctly identifies the exclusion statement regarding calculations involving the Arrhenius equation."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body closely follows 5.6.A.4: the rate of an elementary reaction is temperature dependent because the proportion of collisions energetic enough to reach the transition state varies with temperature. Topic 5.6 explicitly requires this relationship. The caution correctly reflects the exclusion: \u201cCalculations involving the Arrhenius equation will not be assessed on the AP Exam.\u201d"
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches Essential Knowledge 5.6.A.4: \"The rate of an elementary reaction is temperature dependent because the proportion of particle collisions that are energetic enough to reach the transition state varies with temperature.\" The entry states the same claim and reason. b_topic_codes: 5.6.A.4 is first required in Topic 5.6 (Reaction Energy Profile), and 5.6 is the only topic code listed, so owner_topic_code and topic_codes are correct. c_ced_required: 5.6.A.4 is essential knowledge under Learning Objective 5.6.A, which requires students to represent activation energy and energy change for an elementary reaction. The temperature dependence of the elementary rate is part of that required content. d_caution: The entry paraphrases the CED (\"depends on temperature\" vs. \"is temperature dependent\"), so a caution is warranted. The caution correctly reflects the Topic 5.6 exclusion statement that Arrhenius equation calculations will not be assessed on the AP Exam, and it limits the student to the qualitative relationship."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-020",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the components of a single-step reaction energy profile as described in Topic 5.6. Specifically, LO 5.6.A requires representing the activation energy and overall energy change using a reaction energy profile, and EK 5.6.A.2 and 5.6.A.3 define the reaction coordinate, energy axis, reactants, transition state, products, and activation energy."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.6 is the first and only listed topic requiring this single-step profile. LO 5.6.A requires students to represent activation energy and overall energy change using a reaction energy profile. EK 5.6.A.3 says the profile gives energy along the reaction coordinate, proceeds \u201cfrom reactants, through a transition state, to products,\u201d and defines forward activation energy as the energy difference between reactants and the transition state. The labels and definitions are consistent with those requirements; no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: 5.6.A.2 defines the reaction coordinate as the axis along which the motions from reactants to products are plotted, and 5.6.A.3 says the energy profile gives energy along the reaction coordinate, proceeding from reactants through a transition state to products. The activation energy is defined in 5.6.A.3 as the energy difference between reactants and transition state for the forward reaction, which matches the item. The 'overall energy change' item (products minus reactants) is not spelled out in these pages but is consistent with LO 5.6.A, which asks students to represent the overall energy change, so it is not an error. The 'energy maximum' description of the transition state is the standard depiction and does not conflict with 5.6.A.3. b_topic_codes: 5.6 is the first unit topic that requires the reaction energy profile for an elementary reaction (LO 5.6.A); 5.10 extends it to multistep reactions, so 5.6 is the correct owner and the only code. c_ced_required: LO 5.6.A reads 'Represent the activation energy and overall energy change in an elementary reaction using a reaction energy profile', so the entry's content is required. d_caution: the title 'Single-step' is a restatement of 'elementary reaction' and the wording is close to the CED's, so no caution is needed. hooks: none supplied."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-016",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the requirements for a successful collision as specified in Essential Knowledge 5.5.A.2: 'Successful collisions have both sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner.' The topic code is correct and the content is directly required by the CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.5.A.2 states that \u201conly a small fraction of the collisions leads to a reaction\u201d and that successful collisions have both \u201csufficient energy to overcome the activation energy requirements\u201d and \u201corientations that allow the bonds to rearrange in the required manner.\u201d The two items match those requirements. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": false,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual fails on the body. CED 5.5.A.2 reads: \"In most reactions, only a small fraction of the collisions leads to a reaction.\" The body drops the qualifier \"In most reactions\" and states \"Only a small fraction of collisions lead to reaction\" as a universal claim. Some reactions have a large fraction of effective collisions, so this overstates the CED. The two items are correct: CED 5.5.A.2 says successful collisions need \"sufficient energy to overcome the activation energy requirements and orientations that allow the bonds to rearrange in the required manner,\" and the item meanings match that wording. Fix: restore \"In most reactions\" in the body. b_topic_codes passes: 5.5.A.2 sits in Topic 5.5 (Collision Model), and 5.5 is the only code listed. c_ced_required passes: LO 5.5.A requires explaining the relationship between particle collisions and reaction, and 5.5.A.2 names both requirements. d_caution passes with no caution: the items paraphrase the CED, but the two-requirement list is the point being assessed, so no caution is needed. Hooks: none present."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The two items match 5.5.A.2 in content and order. The 'Sufficient energy' meaning ('Enough to overcome the activation energy requirements') and the 'Proper orientation' meaning ('Orientation that allows bonds to rearrange in the required manner') both track the CED. b_topic_codes: 5.5.A.2 is the topic that first requires collision requirements in this unit, so owner_topic_code 5.5 and topic_codes [5.5] are correct. c_ced_required: 5.5.A.2 requires students to explain that successful collisions need sufficient energy and proper orientation. d_caution: The body says 'Only a small fraction of collisions lead to reaction.' The CED (5.5.A.2) says 'In most reactions, only a small fraction of the collisions leads to a reaction.' The entry drops the qualifier 'in most reactions', so it reads as a universal claim. The entry has caution: null, but a caution (or the restored qualifier) is needed. Reject until the qualifier is restored or a caution is added."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-022",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'Reaction mechanism' is factually accurate and directly aligned with EK 5.7.A.1, which states: 'A reaction mechanism consists of a series of elementary reactions, or steps, that occur in sequence. The components may include reactants, intermediates, products, and catalysts.' The topic codes are appropriate as Topic 5.7 is the introduction to reaction mechanisms, and subsequent topics (5.8 through 5.11) directly build upon this concept."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.7.A.1 defines a reaction mechanism as \u201ca series of elementary reactions, or steps, that occur in sequence\u201d and lists reactants, intermediates, products, and catalysts as possible components. Topic 5.7 first requires this definition; topics 5.8\u20135.11 also address reaction mechanisms. The entry follows the CED wording, so no caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.7.A.1, which says a reaction mechanism 'consists of a series of elementary reactions, or steps, that occur in sequence' and that 'the components may include reactants, intermediates, products, and catalysts.' The list members and their order are correct, and the ced_evidence quote is accurate. b_topic_codes: 5.7 is where the concept is first required (5.7.A.1, Identify the components of a reaction mechanism). 5.8 (rate law from a mechanism), 5.9 (pre-equilibrium in a mechanism), 5.10 (energy profile of a multistep mechanism) and 5.11 (catalysts in a reaction mechanism, 5.11.A.1-A.2) all use the concept. c_ced_required: Learning objective 5.7.A ('Identify the components of a reaction mechanism') requires students to apply this definition. d_caution: The wording is a close restatement of 5.7.A.1, so no caution is needed for point-earning wording. Caution is null and correctly so. e/f: No hooks are present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-025",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the essential knowledge statement 5.8.A.1 from the CED, which states: 'For reaction mechanisms in which each elementary step is irreversible, or in which the first step is rate limiting, the rate law of the reaction is set by the molecularity of the slowest elementary step (i.e., the rate-limiting step).'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body closely follows Topic 5.8, EK 5.8.A.1: \u201cFor reaction mechanisms in which each elementary step is irreversible, or in which the first step is rate limiting, the rate law of the reaction is set by the molecularity of the slowest elementary step (i.e., the rate-limiting step).\u201d Topic 5.8 is the appropriate owner and topic code. The wording does not need a caution."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.8.A.1, which states: \"For reaction mechanisms in which each elementary step is irreversible, or in which the first step is rate limiting, the rate law of the reaction is set by the molecularity of the slowest elementary step (i.e., the rate-limiting step).\" The entry's wording is a paraphrase ('every' for 'each', and it drops 'of the reaction'), but the content and the 'molecularity of the slowest step' point are unchanged. b_topic_codes: Topic 5.7 introduces mechanisms but does not yet require deriving a rate law from one; 5.8 (LO 5.8.A) is where this first appears, so owner 5.8 and topic_codes [\"5.8\"] are correct. c_ced_required: LO 5.8.A, 'Identify the rate law for a reaction from a mechanism in which the first step is rate limiting', requires this skill. d_caution: The entry's wording is close enough to the CED's point-earning wording ('molecularity of the slowest elementary step', 'rate-limiting step') that no caution is needed; caution is null, which is correct. The title's 'rate-limiting first step' is narrower than the body's 'every step irreversible OR first step rate limiting', but the title is not the factual claim and this does not make the body wrong.",
+            "note": "Minor: the title could be broadened to cover the irreversible-steps case to match the body."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-017",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the Maxwell-Boltzmann distribution curve as described in EK 5.5.A.3. The axes, activation energy marker, and temperature effects are factual and directly aligned with the CED's requirement to qualitatively estimate the fraction of collisions with sufficient energy to react and how that fraction depends on temperature."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.5.A.3 says the Maxwell\u2013Boltzmann curve describes the distribution of particle energies and can be used to estimate the fraction of collisions with sufficient energy and how that fraction depends on temperature. CED 5.6.A.4 connects that temperature-dependent fraction to reaction rate, supporting both topic codes. No caution is needed: the entry describes an energy threshold, not energy as the sole requirement for a successful collision; 5.5.A.2 also requires suitable orientation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": false,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": false,
+            "accept": false,
+            "reasons": "a_factual: The body matches 5.5.A.3 ('The Maxwell-Boltzmann distribution curve describes the distribution of particle energies; this distribution can be used to gain a qualitative estimate of the fraction of collisions with sufficient energy to lead to a reaction, and also how that fraction depends on temperature'). The items (energy on the horizontal axis, fraction on the vertical axis, activation energy as threshold, area beyond Ea as the reacting fraction, higher-T curve with more particles above Ea) are standard readings consistent with the CED and do not contradict it. b_topic_codes: owner 5.5 is correct because 5.5.A.3 is where the distribution curve first appears. The second code 5.6 is not supported. Topic 5.6 (5.6.A.4) discusses temperature dependence of energetic collisions reaching the transition state and names the Arrhenius equation, not the Maxwell-Boltzmann curve, so 5.6 does not use this entry. c_ced_required: 5.5.A.3 requires students to use the curve qualitatively to estimate the fraction of collisions with sufficient energy and how it changes with temperature, so the entry is required. d_caution: the entry's 'Higher-temperature curve ... so a faster rate' implies the curve alone determines rate. 5.5.A.1 says rate depends on frequency, energy, and orientation of collisions, and the curve addresses only energy. The entry also uses 'enough energy' where the CED says 'sufficient energy to lead to a reaction'. A caution is needed to state that the curve shows energy only and the reacting fraction is the area beyond Ea, but caution is null."
+          },
+          "hooks": []
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": false,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": false,
+            "reasons": "a_factual: The body matches 5.5.A.3: \"The Maxwell-Boltzmann distribution curve describes the distribution of particle energies; this distribution can be used to gain a qualitative estimate of the fraction of collisions with sufficient energy to lead to a reaction, and also how that fraction depends on temperature.\" The CED does not spell out axis labels, but the items are consistent with the CED: the activation energy marker matches 5.5.A.2 and 5.6.A.3, and the higher-temperature shift matches 5.5.A.3. No formula is given, so none is wrong. b_topic_codes: owner 5.5 is correct, since 5.5.A.3 is the first place the curve is required. The second code, 5.6, fails. The Maxwell-Boltzmann curve is named only in 5.5.A.3. Topic 5.6 (5.6.A.4) covers the temperature dependence of collisions reaching the transition state, but it does not name or use the distribution. Drop 5.6 or justify it explicitly. c_ced_required: 5.5.A.3 requires students to use the curve qualitatively to estimate the fraction of energetic collisions and how it depends on temperature. d_caution: \"enough energy to react\" is a synonym of the CED's \"sufficient energy to lead to a reaction,\" so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-026",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge statement 5.9.A.1 from the AP Chemistry CED, which states: 'If the first elementary reaction is not rate limiting, approximations (such as pre-equilibrium) must be made to determine a rate law expression.'"
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 5.9.A.1: \u201cIf the first elementary reaction is not rate limiting, approximations (such as pre-equilibrium) must be made to determine a rate law expression.\u201d Topic 5.9 is the appropriate owner and topic code. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.9.A.1 ('If the first elementary reaction is not rate limiting, approximations (such as pre-equilibrium) must be made to determine a rate law expression'). The only difference is 'the' versus 'a' before 'rate law expression', which does not change the content. b_topic_codes: 5.9.A.1 appears only under Topic 5.9 in Unit 5, so owner_topic_code 5.9 is correct and topic_codes ['5.9'] is correct. c_ced_required: 5.9.A.1 is an essential-knowledge statement that requires students to apply approximations such as pre-equilibrium to determine a rate law, and the learning objective 5.9.A asks students to identify the rate law for a mechanism whose first step is not rate limiting. d_caution: The entry's wording is essentially the CED wording, so no caution is needed and caution null is correct."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-023",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 5.7.A.2, which states that 'The elementary steps when combined should align with the overall balanced equation of a chemical reaction.' The topic codes are correct and relevant to reaction mechanisms (5.7, 5.8, 5.9)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.7.A.2 states, \u201cThe elementary steps when combined should align with the overall balanced equation of a chemical reaction.\u201d This is first required in 5.7 and applies when using mechanisms in 5.8 and 5.9. The caution correctly distinguishes checking the net equation from examining the steps for intermediates, catalysts, and the rate-limiting step; identifying the rate-limiting step requires information about which step is slowest."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.7.A.2 ('The elementary steps when combined should align with the overall balanced equation of a chemical reaction'). No formula or list is involved, so nothing else can be wrong. b_topic_codes: owner 5.7 is the first unit topic that requires the alignment, since 5.7.A.2 sits in Topic 5.7. The extra codes 5.8 and 5.9 are weaker. Neither CED statement restates the alignment, but both work from mechanisms to derive rate laws, which depends on the steps being consistent with the overall equation, so the link is acceptable. c_ced_required: 5.7.A.2 requires students to apply this check to mechanisms. d_caution: the title says steps 'must' sum to the overall equation, but the CED says 'should align'. The caution correctly restates the check as a validity test and sends students to the individual steps for catalysts, intermediates and the rate-determining step (5.7.A.1, 5.7.A.3, 5.8.A.1), so the caution is needed and present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-027",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately represents the components of a multistep reaction energy profile as required by Learning Objective 5.10.A ('Represent the activation energy and overall energy change in a multistep reaction with a reaction energy profile') and Essential Knowledge 5.10.A.1."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.10.A requires students to represent activation energy and overall energy change in a multistep reaction energy profile. The listed parts are consistent with 5.10.A.1, which says the energetics of each elementary reaction allow construction of that profile, and with 5.6.A.3\u2019s definitions of the reaction coordinate, transition state, and activation energy. Topic 5.10 is the appropriate owner for the multistep profile. No caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body paraphrases 5.10.A.1, which says \"Knowledge of the energetics of each elementary reaction in a mechanism allows for the construction of an energy profile for a multistep reaction.\" Item meanings match the CED where it speaks to them. 5.6.A.2 defines the reaction coordinate as the axis along which the motions are plotted, and 5.6.A.3 says the energy profile gives energy along that coordinate. 5.6.A.3 defines activation energy as the reactants-to-transition-state energy difference, which matches the 'barrier from starting level to transition state' item. The overall energy change item matches the 5.10.A learning objective. 'Horizontal axis' and 'energy maximum' are standard conventions the CED does not state, but they are chemically correct and do not contradict it. Intermediates as species between steps follows 5.7.A.3. b_topic_codes: 5.10 is the first unit topic that requires a multistep energy profile (5.6 covers only single elementary reactions), and 5.10 is the only listed code, so it uses the entry correctly. c_ced_required: Learning objective 5.10.A ('Represent the activation energy and overall energy change in a multistep reaction with a reaction energy profile') requires this. d_caution: The entry's wording is a faithful paraphrase of the point-earning content, so no caution is needed and null is correct.",
+            "hooks_note": "No hooks present."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-024",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The definition of 'reaction intermediate' is highly accurate and directly mirrors the language in EK 5.7.A.3 ('produced by some elementary steps and consumed by others, such that it is present only while a reaction is occurring'). The caution correctly distinguishes it from a catalyst, which is a critical distinction in AP Chemistry kinetics (EK 5.11.A.2)."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The body matches 5.7.A.3: an intermediate is \u201cproduced by some elementary steps and consumed by others.\u201d Topic 5.7 first requires the concept; 5.10 uses mechanisms in multistep energy profiles, and 5.11 explicitly discusses reaction intermediates in catalysis. The caution overstates the contrast: 5.11.A.2 says a catalyst will \u201cfrequently\u201d be consumed and later regenerated, not that every catalyst is consumed then regenerated."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The body closely matches 5.7.A.3: an intermediate is \u201cproduced by some elementary steps and consumed by others.\u201d Topic 5.11 also discusses reaction intermediates, and 5.10 uses mechanisms to construct multistep energy profiles. The caution is too categorical about catalysts: 5.11.A.2 says a catalyst is \u201cfrequently\u201d consumed and subsequently regenerated, while its net concentration remains constant; it does not state that every catalyst follows that sequence."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-028",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects Essential Knowledge 5.11.A.1, which states that a catalyst must 'increase the number of effective collisions and/or provide a reaction path with a lower activation energy relative to the original reaction coordinate.' The caution is highly appropriate for AP Chemistry free-response questions where students often lose points for vague descriptions like 'speeds up the reaction' without explaining the mechanism."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The body matches 5.11.A.1: a catalyst must \u201cincrease the number of effective collisions and/or provide a reaction path with a lower activation energy relative to the original reaction coordinate.\u201d Topic 5.11 is where this is required. The caution correctly distinguishes those specific effects from merely saying that a catalyst speeds up a reaction."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.11.A.1 nearly verbatim: \"the addition of the catalyst must increase the number of effective collisions and/or provide a reaction path with a lower activation energy relative to the original reaction coordinate.\" The entry drops the lead-in \"In order for a catalyst to increase the rate of a reaction,\" but the stated requirement is unchanged. b_topic_codes: The catalyst-rate mechanism first appears in Topic 5.11 (5.11.A.1). Topic 5.5 covers activation energy and collisions but does not mention catalysts, so 5.11 is the correct owner and the only topic code. c_ced_required: LO 5.11.A asks students to \"Explain the relationship between the effect of a catalyst on a reaction and changes in the reaction mechanism,\" and 5.11.A.1 is the essential knowledge for that explanation. d_caution: The caution matches the CED's two named effects (more effective collisions, or a lower-Ea path relative to the original reaction coordinate) and correctly rejects the vague answer 'it speeds up the reaction.' The caution is present and appropriate because the entry's wording is the CED's general statement rather than the specific point-earning answer."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-029",
+    "control": null,
+    "control_target": null,
+    "accepted": true,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately reflects the essential knowledge in 5.11.A.2 regarding the behavior of a catalyst in a reaction mechanism (net concentration is constant, consumed in an early step, and regenerated in a subsequent step). The caution correctly distinguishes it from an intermediate."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "CED 5.11.A.2 states that \u201cthe net concentration of the catalyst is constant\u201d and that it is frequently \u201cconsumed in the rate-determining step,\u201d then \u201cregenerated in a subsequent step.\u201d Topic 5.11 is the first to require these specific mechanism details. The caution correctly distinguishes a catalyst from an intermediate."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {},
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.11.A.2 nearly verbatim: \"In a reaction mechanism containing a catalyst, the net concentration of the catalyst is constant. However, the catalyst will frequently be consumed in the rate-determining step of the reaction, only to be regenerated in a subsequent step.\" The ced_evidence quote is accurate. The caution's claim that the catalyst is absent from the overall equation is not stated in these pages, but it follows from the catalyst being consumed and regenerated, and it does not contradict the CED. The 'do not confuse with an intermediate' point is consistent with 5.7.A.3 and 5.11.A.3. b_topic_codes: 5.11 is the unit's catalysis topic (5.11.A.2 is the mechanism-level catalyst statement). Topic 5.1.A.3 mentions catalysts only generally as a rate influence, so 5.11 is the right owner and the only code, and 5.11 uses it. c_ced_required: 5.11.A.2 requires students to explain the catalyst's constant net concentration and its consumption and regeneration within a mechanism. d_caution: The body already uses the CED wording, so the caution is not strictly needed. It adds correct, CED-consistent guidance on citing step evidence and separating catalysts from intermediates, so its presence is acceptable."
+          },
+          "hooks": []
+        }
+      ]
+    }
+  },
+  {
+    "candidate_id": "ctrl-chem-u5-01-wrong-formula",
+    "control": "wrong formula (first-order half-life inverted to k/0.693). CED p.97 5.3.A.5 checked: 'EQN: t1/2 = 0.693/k.'",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula provided in the body is mathematically incorrect and contradicts the CED. The CED (EK 5.3.A.5) states the equation as 't1/2 = 0.693/k', whereas the entry defines it as 't_{1/2} = \\frac{k}{0.693}' (with k in the numerator instead of the denominator)."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula provided in the body is mathematically incorrect and contradicts the CED. The entry states 't_{1/2} = \\frac{k}{0.693}', whereas CED Essential Knowledge 5.3.A.5 explicitly defines the equation as 't1/2 = 0.693/k'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is inverted. CED 5.3.A.5 states: \u201ct1/2 = 0.693/k,\u201d not k/0.693. Topic 5.3 is the correct topic, and the CED requires this relationship. No wording caution is needed; the formula itself must be corrected."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula is inverted. Topic 5.3, EK 5.3.A.5 states: \u201ct1/2 = 0.693/k,\u201d not k/0.693. Topic 5.3 is the appropriate topic, and no wording caution is needed."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ap_chemistry-u5-r1-030",
+    "control": null,
+    "control_target": null,
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry accurately lists and describes the three types of catalysis mechanisms detailed in Essential Knowledge statements 5.11.A.3, 5.11.A.4, and 5.11.A.5 of the AP Chemistry CED."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The three examples occur in Topic 5.11 (5.11.A.3\u20135), but the body overstates what they share. For catalysts that bind reactants, 5.11.A.3 says there is \u201coften a new reaction intermediate,\u201d not that every such catalyst acts through one. That statement also does not say each example introduces new elementary reactions; 5.11.A.4 and 5.11.A.5 do. No caution flags the body\u2019s stronger wording."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "Topic 5.11 names these three forms of catalysis in this order, and 5.11.A.3\u20135.11.A.5 support their inclusion. But the body and first item make a new bound intermediate categorical for reactant-binding catalysts. The CED says, \u201cThere is often a new reaction intermediate in which the catalyst is bound to the reactant(s)\u201d (5.11.A.3), not that one is always formed. It also explicitly says that new elementary reactions are introduced for acid-base and surface catalysis (5.11.A.4\u20135.11.A.5), but does not make that statement for every reactant-binding catalyst. No caution qualifies these departures."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u5-03-wrong-owner",
+    "control": "wrong owner topic (Maxwell-Boltzmann distribution is 5.5, not 5.9). CED p.99 5.5.A.3 checked: 'The Maxwell-Boltzmann distribution curve describes the distribution of particle energies'; 5.9 (p.103) has only 5.9.A.1 on pre-equilibrium approximations and never mentions it.",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code is set to '5.9' (Pre-Equilibrium Approximation), but the Maxwell-Boltzmann distribution is introduced and required in Topic 5.5 (Collision Model), specifically under EK 5.5.A.3. The owner_topic_code and topic_codes should be updated to '5.5'."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The owner_topic_code and topic_codes are set to '5.9' (Pre-Equilibrium Approximation), but the concept of the Maxwell-Boltzmann distribution is introduced and required in Topic 5.5 (Collision Model), specifically under EK 5.5.A.3. The owner_topic_code should be updated to '5.5'."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition matches 5.5.A.3: the Maxwell-Boltzmann distribution describes particle energies and supports a qualitative estimate of the fraction of collisions with sufficient energy and how it depends on temperature. But its owner and sole topic code should be 5.5, where the CED requires it, not 5.9 (Pre-Equilibrium Approximation). No caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The definition matches 5.5.A.3: the Maxwell-Boltzmann distribution curve describes particle energies and can be used to estimate qualitatively the fraction of collisions with sufficient energy to react and how that fraction depends on temperature. But the CED requires it in Topic 5.5, not the listed owner and sole topic, 5.9. Topic 5.9 concerns the pre-equilibrium approximation."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u5-04-wrong-order",
+    "control": "wrong list order (transition state placed after products). CED p.100 5.6.A.3 checked: 'the energy along the reaction coordinate, which typically proceeds from reactants, through a transition state, to products.'",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The sequence order in the entry is incorrect. According to EK 5.6.A.3, the reaction coordinate 'typically proceeds from reactants, through a transition state, to products.' The entry incorrectly lists 'products' as the second item and 'transition state' as the third item."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The sequence of items is factually incorrect. According to EK 5.6.A.3, the reaction coordinate 'typically proceeds from reactants, through a transition state, to products.' The entry incorrectly lists 'products' as the second item and 'transition state' as the third."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The sequence is wrong: item 2 should be the transition state and item 3 the products. CED 5.6.A.3 says the energy profile 'typically proceeds from reactants, through a transition state, to products.' Topic 5.6 requires students to represent this profile; no wording caution is needed."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The sequence is incorrect. CED 5.6.A.3 says the energy profile 'typically proceeds from reactants, through a transition state, to products.' The items instead place products before the transition state. Topic 5.6 is appropriate, and no caution is needed for this terminology."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u5-02-excluded",
+    "control": "explicitly excluded by the CED (two-point Arrhenius calculation). CED p.100 5.6 checked: 'Exclusion Statement: Calculations involving the Arrhenius equation will not be assessed on the AP Exam.'",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The Arrhenius equation calculations are explicitly excluded from the AP Chemistry Exam. Under Topic 5.6, Essential Knowledge 5.6.A.4, the CED states: 'Exclusion Statement: Calculations involving the Arrhenius equation will not be assessed on the AP Exam.'"
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The CED explicitly excludes calculations involving the Arrhenius equation under Topic 5.6 (Exclusion Statement: 'Calculations involving the Arrhenius equation will not be assessed on the AP Exam.'). Therefore, this formula is not required course content."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The two-point equation is mathematically correct and belongs to Topic 5.6, but the CED does not require students to reproduce or apply it. EK 5.6.A.4 describes the Arrhenius equation qualitatively, then explicitly states: \u201cCalculations involving the Arrhenius equation will not be assessed on the AP Exam.\u201d The title presents it as a calculation formula, and the entry has no caution noting that exclusion."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The two-point equation is mathematically correct, and Topic 5.6 discusses the Arrhenius equation. However, 5.6.A.4 requires understanding that it relates temperature dependence to activation energy, not calculating activation energy. Its exclusion statement explicitly says, \u201cCalculations involving the Arrhenius equation will not be assessed on the AP Exam.\u201d The title presents such a calculation as the entry\u2019s purpose, with no caution noting the exclusion."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u5-06-other-unit",
+    "control": "content from another unit (Gibbs free energy is Unit 9 thermodynamics). Verified absent from CED pp.96-113: no occurrence of 'Gibbs', 'free energy', 'entropy', '\u0394G', or '\u0394H' in the Unit 5 page text.",
+    "control_target": "entry",
+    "accepted": false,
+    "hooks_accepted": {},
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for Gibbs free energy change (\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ) is not part of Unit 5 (Kinetics). Topic 5.6 (Reaction Energy Profile) and EK 5.6.A.3 discuss reaction energy profiles, activation energy, and transition states, not thermodynamic free energy calculations, which belong to Unit 9."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": true,
+              "accept": false,
+              "reasons": "The formula for Gibbs free energy change (\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ) is not introduced or required in Unit 5 (Kinetics). It belongs to Unit 9 (Thermodynamics). Topic 5.6 (Reaction Energy Profile) and its associated EK 5.6.A.3 discuss the energy along a reaction coordinate (activation energy, transition state, reactants, and products), not thermodynamic free energy calculations."
+            },
+            "hooks": []
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": false,
+        "hooks": {},
+        "samples": [
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The Gibbs free energy equation is not stated in the supplied Unit 5 CED pages. Topic 5.6 instead requires students to represent activation energy and overall energy change on a reaction energy profile. Cited statement 5.6.A.3 says, \u201cThe energy difference between the reactants and the transition state is the activation energy for the forward reaction.\u201d It does not identify that difference as \u0394G\u00b0 or require \u0394G\u00b0 = \u0394H\u00b0 \u2212 T\u0394S\u00b0. The 5.6 topic code and evidence citation are therefore unsupported, and the entry has no caution distinguishing the formula from the energy-profile quantities the topic requires."
+            },
+            "hooks": []
+          },
+          {
+            "entry": {
+              "a_factual": false,
+              "b_topic_codes": false,
+              "c_ced_required": false,
+              "d_caution": false,
+              "accept": false,
+              "reasons": "The equation is chemically valid, but it is not stated in the supplied Unit 5 CED pages. Topic 5.6 requires students to represent activation energy and overall energy change using a reaction energy profile (5.6.A); 5.6.A.3 defines forward activation energy as the energy difference between reactants and the transition state. It does not require \u0394G\u00b0 = \u0394H\u00b0 \u2212 T\u0394S\u00b0, so 5.6 is not a supported owner topic. No caution distinguishes this unrelated equation from the required energy-profile content."
+            },
+            "hooks": []
+          }
+        ]
+      }
+    },
+    "veto": null
+  },
+  {
+    "candidate_id": "ctrl-chem-u5-05-bad-hook",
+    "control": "hook expansion swapped (first order mapped to 1/[A] and second order to ln[A]); entry itself correct. CED p.96 5.3.A.2 checked: 'If a reaction is first order ... a plot of the natural log (ln) of the reactant concentration as a function of time will be linear.' and 5.3.A.3: 'If a reaction is second order ... a plot of the reciprocal of the concentration of that reactant versus time will be linear.'",
+    "control_target": "hook",
+    "accepted": true,
+    "hooks_accepted": {
+      "Plain, flip, log": false
+    },
+    "checkers": {
+      "google/gemini-3.5-flash": {
+        "accept": true,
+        "hooks": {
+          "Plain, flip, log": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents the linear plots for zeroth, first, and second-order reactions as specified in EK 5.3.A.2, 5.3.A.3, and 5.3.A.4."
+            },
+            "hooks": [
+              {
+                "hook_text": "Plain, flip, log",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook expansion is factually incorrect and contradicts the entry. 'Flip' (reciprocal, 1/[A]) corresponds to second order, and 'log' (ln[A]) corresponds to first order, but the hook maps 'flip' to first order and 'log' to second order."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "The entry correctly represents the linear plots for zeroth, first, and second-order reactions as described in EK 5.3.A.1, 5.3.A.2, and 5.3.A.3."
+            },
+            "hooks": [
+              {
+                "hook_text": "Plain, flip, log",
+                "e_expansion": false,
+                "f_admissible": false,
+                "accept": false,
+                "reasons": "The hook expansion is factually incorrect and contradicts the entry: it maps 'flip' (reciprocal, 1/[A]) to first order, and 'log' (ln[A]) to second order, whereas first order is logarithmic (ln[A]) and second order is reciprocal (1/[A])."
+              }
+            ]
+          }
+        ]
+      },
+      "openai/gpt-6-sol": {
+        "accept": true,
+        "hooks": {
+          "Plain, flip, log": false
+        },
+        "samples": [
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.3 requires identifying order from concentration-over-time data. The CED says ln[A] versus time is linear for first order (5.3.A.2) and 1/[A] versus time is linear for second order (5.3.A.3). Its zeroth-order equation, [A]t \u2212 [A]0 = \u2212kt (5.3.A.4), makes [A] versus time linear. The entry\u2019s explicit plot-and-order wording needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "Plain, flip, log",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "A cue for the required plot-to-order mapping is admissible, and the hook includes a caution to state the plot and order explicitly. But its expansions reverse first and second order: the CED says ln[A] versus time is linear for first order (5.3.A.2), while 1/[A] versus time is linear for second order (5.3.A.3)."
+              }
+            ]
+          },
+          {
+            "entry": {
+              "a_factual": true,
+              "b_topic_codes": true,
+              "c_ced_required": true,
+              "d_caution": true,
+              "accept": true,
+              "reasons": "Topic 5.3 requires identifying order from concentration-over-time data. The CED states that ln[A] versus time is linear for first order (5.3.A.2) and 1/[A] versus time is linear for second order (5.3.A.3). Its zeroth-order equation, '[A]t \u2212 [A]0 = \u2212kt' (5.3.A.4), makes [A] versus time linear. The entry uses those plot names and needs no caution."
+            },
+            "hooks": [
+              {
+                "hook_text": "Plain, flip, log",
+                "e_expansion": false,
+                "f_admissible": true,
+                "accept": false,
+                "reasons": "The hook reverses the first- and second-order plots. The CED says 'a plot of the natural log (ln) of the reactant concentration as a function of time will be linear' for first order (5.3.A.2), and 'a plot of the reciprocal of the concentration of that reactant versus time will be linear' for second order (5.3.A.3). A mnemonic for this required list is admissible, and its caution calls for naming the plot and order explicitly, but the incorrect cue mappings make the hook unacceptable."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "veto": {
+      "accept": true,
+      "hooks": {
+        "Plain, flip, log": false
+      },
+      "samples": [
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: CED 5.3.A.2 says 'a plot of the natural log (ln) of the reactant concentration as a function of time will be linear' for first order, and 5.3.A.3 says 'a plot of the reciprocal of the concentration... versus time will be linear' for second order. The zeroth-order equation in 5.3.A.4 ([A]t \u2212 [A]0 = \u2212kt) makes [A] versus t linear. The items list the three orders in the correct sequence and the correct plots. b_topic_codes: 5.3 is the topic whose Learning Objective 5.3.A ('Identify the rate law expression... using data that show how the concentrations... change over time') first requires this, and it is the only topic code listed. c_ced_required: 5.3.A.1 ('The order of a reaction can be inferred from a graph of concentration of reactant versus time') and 5.3.A.2\u20135.3.A.4 require students to identify order from these plots. d_caution: the entry's wording ('ln[A] versus t is linear') is equivalent to the CED's phrasing, so no caution is strictly required. The null caution is acceptable."
+          },
+          "hooks": [
+            {
+              "hook_text": "Plain, flip, log",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: the cues are mismapped. 'flip' is expanded to 'first order: 1/[A] versus t is linear', but the CED (5.3.A.2, 5.3.A.3) gives 1/[A] versus t for SECOND order and ln[A] versus t for FIRST order. 'log' is expanded to 'second order: ln[A] versus t is linear', which is the reverse of the CED. Plain (zeroth, [A] vs t) is correct, but the expansion is not in the correct order or with the correct members. f_admissible: a mnemonic recalling the three-order sequence is the right kind of hook, and its caution ('name the plot and the order explicitly') matches the exam-wording point, but the hook as built encodes the wrong plot-to-order associations for first and second order, so it would teach students incorrect content the CED requires them to get right."
+            }
+          ]
+        },
+        {
+          "entry": {
+            "a_factual": true,
+            "b_topic_codes": true,
+            "c_ced_required": true,
+            "d_caution": true,
+            "accept": true,
+            "reasons": "a_factual: The body matches 5.3.A.1 ('The order of a reaction can be inferred from a graph of concentration of reactant versus time'). The three items match 5.3.A.2-5.3.A.3 and the integrated forms: zeroth order is [A]t - [A]0 = -kt (linear in [A] vs t), first order is ln[A]t - ln[A]0 = -kt (linear in ln[A] vs t), and second order is 1/[A]t - 1/[A]0 = kt (linear in 1/[A] vs t). The order and membership are correct. b_topic_codes: 5.3 is where integrated rate-law plots first appear, and the entry's only topic code is 5.3. c_ced_required: LO 5.3.A ('Identify the rate law expression of a chemical reaction using data that show how the concentrations of reaction species change over time') requires exactly this plot-to-order identification. d_caution: The entry's wording is essentially the CED's ('linear', 'reciprocal of the concentration', 'natural log'), so no caution is strictly required. The entry is accepted."
+          },
+          "hooks": [
+            {
+              "hook_text": "Plain, flip, log",
+              "e_expansion": false,
+              "f_admissible": false,
+              "accept": false,
+              "reasons": "e_expansion: The cue-to-order mapping is wrong for two of three cues. 'flip' is mapped to 'first order: 1/[A] versus t is linear', but 1/[A] versus t is linear for second order (CED 5.3.A.3). 'log' is mapped to 'second order: ln[A] versus t is linear', but ln[A] versus t is linear for first order (CED 5.3.A.2). Only 'Plain' (zeroth order, [A] versus t, CED 5.3.A.4 equation) is correct. The expansions are also out of step with the entry's own items, which assign first order to ln and second order to 1/[A]. f_admissible: The hook is meant to recall the plot-to-order list, which the CED requires. As written, though, it recalls an incorrect mapping that would lead students to name the wrong order on the exam, so it is not admissible. Its caution about naming the plot and order explicitly does not fix the swapped expansions."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
