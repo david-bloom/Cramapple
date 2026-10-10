@@ -11,8 +11,91 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Identifying the Forces on a Sled Pulled Up a Hill",
+   "calculator": "permitted",
+   "stimulus": "A child pulls a sled up a snowy hill that is inclined at 20° above the horizontal. The child pulls on a rope attached to the sled, and the rope is parallel to the surface of the hill. The sled slides up the hill while staying in contact with the snow. The snow exerts a friction force on the sled that is directed opposite to the sled's motion relative to the snow. Air resistance is negligible.",
+   "parts": [
+    {
+     "prompt": "Identify every force exerted on the sled. For each force, name the object that exerts it and state the force's direction.",
+     "criteria": [
+      {
+       "text": "Identifies exactly four forces, each with the object exerting it: the gravitational force exerted by Earth, the normal force exerted by the snow, the friction force exerted by the snow, and the tension force exerted by the rope.",
+       "evidence": "Response lists these four forces, names Earth, the snow (for both normal and friction) and the rope as the exerting objects, and includes no extra forces.",
+       "fix": "For each force, name the other object that touches or pulls the sled; if no such object exists, the force does not exist.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Gives correct directions: gravity vertically downward, normal force perpendicular to the hill's surface and away from it, friction parallel to the surface and down the hill, tension parallel to the surface and up the hill.",
+       "evidence": "Response states all four directions correctly, relative to the vertical or to the hill's surface.",
+       "fix": "Describe the normal force as perpendicular to the contact surface, not vertical, and state friction and tension directions along the surface explicitly.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate suggests adding a fifth force: \"the force the sled exerts on itself to keep moving up the hill.\" Explain whether this force should be included.",
+     "criteria": [
+      {
+       "text": "No: every force is an interaction between two different objects, and an object cannot exert a net force on itself, so this force does not exist.",
+       "evidence": "Response rejects the proposed force and explains that forces come from interactions with other objects, so an object cannot exert a net force on itself.",
+       "fix": "Test any proposed force by asking which other object exerts it; a force with no other object behind it is not a real force.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The normal, friction and tension forces on the sled are contact forces, while the gravitational force is not. At the level of atoms, what kind of interaction is responsible for these contact forces?",
+     "criteria": [
+      {
+       "text": "Contact forces are large-scale effects of electric forces between the atoms of the objects in contact.",
+       "evidence": "Response attributes the contact forces to electric forces (interactions) between the atoms or molecules of the surfaces in contact.",
+       "fix": "Remember that contact forces such as normal, friction and tension are large-scale results of electric forces between atoms.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "To turn the forces into equations, a student wants to choose x- and y-axes that make the analysis simplest. Describe a convenient choice of axes, and state which of the forces then has components along both axes.",
+     "criteria": [
+      {
+       "text": "Chooses one axis parallel to the hill's surface (along the sled's motion) and the other perpendicular to it; then only the gravitational force has components along both axes.",
+       "evidence": "Response picks axes parallel and perpendicular to the incline and identifies gravity as the only force that must be split into components.",
+       "fix": "On an incline, align one axis with the surface so the normal, friction and tension forces each lie along a single axis.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Four forces are exerted on the sled:\n1. The gravitational force exerted by Earth, directed vertically downward.\n2. The normal force exerted by the snow (the hill's surface), directed perpendicular to the surface of the hill and away from it.\n3. The friction force exerted by the snow, directed parallel to the hill's surface and down the slope, opposite to the sled's motion.\n4. The tension force exerted by the rope, directed parallel to the hill's surface and up the slope.\n\n(b) The classmate is not correct. Every force is an interaction between two objects, so each force on the sled must be exerted by some other object. An object cannot exert a net force on itself, so there is no force of the sled on itself. The four forces in part (a) are the only forces exerted on the sled.\n\n(c) The normal, friction and tension forces arise where the sled touches the snow and the rope. These contact forces are the large-scale result of electric forces between the atoms of the surfaces that touch.\n\n(d) Choose the x-axis parallel to the hill's surface, pointing up the slope along the sled's motion, and the y-axis perpendicular to the surface. With these axes the tension and friction forces lie along the x-axis and the normal force lies along the y-axis, so only the gravitational force has components along both axes.",
+   "verification_python": "forces = {'gravitational': 'Earth', 'normal': 'snow', 'friction': 'snow', 'tension': 'rope'}\nassert len(forces) == 4\ncontact = [f for f in forces if f not in ('gravitational',)]\nassert len(contact) == 3\nassert 'gravitational' not in contact\ndirections = {'gravitational': 'vertical', 'normal': 'perpendicular', 'friction': 'parallel', 'tension': 'parallel'}\nboth_axes = [f for f, d in directions.items() if d == 'vertical']\nassert both_axes == ['gravitational']\nassert 0 < 20 < 90\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.870358Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion c1 combines two independently observable elements into one point: classifying the contact forces and explaining their interatomic elect",
+      "ruling": "accept",
+      "reason": "Real bundle. The item is at the 5-point maximum, so part (c) is narrowed: the stem now states which forces are contact forces and c1 scores only their interatomic electric origin."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:17:07.732Z",
@@ -270,70 +353,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Identifying the Forces on a Sled Pulled Up a Hill",
-   "calculator": "permitted",
-   "stimulus": "A child pulls a sled up a snowy hill that is inclined at 20° above the horizontal. The child pulls on a rope attached to the sled, and the rope is parallel to the surface of the hill. The sled slides up the hill while staying in contact with the snow. The snow exerts a friction force on the sled that is directed opposite to the sled's motion relative to the snow. Air resistance is negligible.",
-   "parts": [
-    {
-     "prompt": "Identify every force exerted on the sled. For each force, name the object that exerts it and state the force's direction.",
-     "criteria": [
-      {
-       "text": "Identifies exactly four forces, each with the object exerting it: the gravitational force exerted by Earth, the normal force exerted by the snow, the friction force exerted by the snow, and the tension force exerted by the rope.",
-       "evidence": "Response lists these four forces, names Earth, the snow (for both normal and friction) and the rope as the exerting objects, and includes no extra forces.",
-       "fix": "For each force, name the other object that touches or pulls the sled; if no such object exists, the force does not exist.",
-       "accepted_variants": []
-      },
-      {
-       "text": "Gives correct directions: gravity vertically downward, normal force perpendicular to the hill's surface and away from it, friction parallel to the surface and down the hill, tension parallel to the surface and up the hill.",
-       "evidence": "Response states all four directions correctly, relative to the vertical or to the hill's surface.",
-       "fix": "Describe the normal force as perpendicular to the contact surface, not vertical, and state friction and tension directions along the surface explicitly.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "A classmate suggests adding a fifth force: \"the force the sled exerts on itself to keep moving up the hill.\" Explain whether this force should be included.",
-     "criteria": [
-      {
-       "text": "No: every force is an interaction between two different objects, and an object cannot exert a net force on itself, so this force does not exist.",
-       "evidence": "Response rejects the proposed force and explains that forces come from interactions with other objects, so an object cannot exert a net force on itself.",
-       "fix": "Test any proposed force by asking which other object exerts it; a force with no other object behind it is not a real force.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "Which of the forces you identified are contact forces? At the level of atoms, what kind of interaction is responsible for these contact forces?",
-     "criteria": [
-      {
-       "text": "Normal, friction and tension forces are contact forces, and gravity is not; contact forces are large-scale effects of electric forces between the atoms of the objects in contact.",
-       "evidence": "Response names the normal, friction and tension forces as contact forces, excludes gravity, and attributes contact forces to interatomic electric forces.",
-       "fix": "Remember that contact forces such as normal, friction and tension are large-scale results of electric forces between atoms; gravity acts without contact.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "To turn the forces into equations, a student wants to choose x- and y-axes that make the analysis simplest. Describe a convenient choice of axes, and state which of the forces then has components along both axes.",
-     "criteria": [
-      {
-       "text": "Chooses one axis parallel to the hill's surface (along the sled's motion) and the other perpendicular to it; then only the gravitational force has components along both axes.",
-       "evidence": "Response picks axes parallel and perpendicular to the incline and identifies gravity as the only force that must be split into components.",
-       "fix": "On an incline, align one axis with the surface so the normal, friction and tension forces each lie along a single axis.",
-       "accepted_variants": []
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) Four forces are exerted on the sled:\n1. The gravitational force exerted by Earth, directed vertically downward.\n2. The normal force exerted by the snow (the hill's surface), directed perpendicular to the surface of the hill and away from it.\n3. The friction force exerted by the snow, directed parallel to the hill's surface and down the slope, opposite to the sled's motion.\n4. The tension force exerted by the rope, directed parallel to the hill's surface and up the slope.\n\n(b) The classmate is not correct. Every force is an interaction between two objects, so each force on the sled must be exerted by some other object. An object cannot exert a net force on itself, so there is no force of the sled on itself. The four forces in part (a) are the only forces exerted on the sled.\n\n(c) The normal force, the friction force and the tension force are contact forces. The gravitational force is not, because Earth exerts it without touching the sled. Contact forces are the large-scale result of electric forces between the atoms of the surfaces that touch.\n\n(d) Choose the x-axis parallel to the hill's surface, pointing up the slope along the sled's motion, and the y-axis perpendicular to the surface. With these axes the tension and friction forces lie along the x-axis and the normal force lies along the y-axis, so only the gravitational force has components along both axes.",
-   "verification_python": "forces = {'gravitational': 'Earth', 'normal': 'snow', 'friction': 'snow', 'tension': 'rope'}\nassert len(forces) == 4\ncontact = [f for f in forces if f not in ('gravitational',)]\nassert len(contact) == 3\ndirections = {'gravitational': 'vertical', 'normal': 'perpendicular', 'friction': 'parallel', 'tension': 'parallel'}\nboth_axes = [f for f, d in directions.items() if d == 'vertical']\nassert both_axes == ['gravitational']\nassert 0 < 20 < 90\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.870358Z"
- }
+ ]
 }

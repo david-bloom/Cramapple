@@ -11,8 +11,96 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Identifying the Forces on a Box Sliding Down a Ramp",
+   "calculator": "not_applicable",
+   "stimulus": "A box slides down a rough, straight ramp that makes an angle of 25° with the horizontal. The box speeds up as it slides. The ramp is fixed to the ground, air resistance is negligible, and nothing touches the box except the ramp.",
+   "parts": [
+    {
+     "prompt": "List every force exerted on the box while it slides. For each force, name the object that exerts it and describe its direction in words. Do not resolve the forces into components.",
+     "criteria": [
+      {
+       "text": "Gravitational force exerted by Earth on the box, directed vertically downward.",
+       "evidence": "Response lists the gravitational force (weight, F_g, or mg), names Earth as the object exerting it, and gives its direction as straight down, not perpendicular to the ramp.",
+       "fix": "Name Earth as the source of the gravitational force and point it straight down, whatever the tilt of the surface.",
+       "accepted_variants": [
+        "weight exerted by Earth, straight down"
+       ]
+      },
+      {
+       "text": "Normal force exerted by the ramp on the box, directed perpendicular to the ramp surface and away from it.",
+       "evidence": "Response lists the normal force, names the ramp as the object exerting it, and gives its direction as perpendicular to the ramp surface, away from the surface.",
+       "fix": "A surface pushes perpendicular to itself: point the normal force at a right angle to the ramp, away from it, not straight up.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Friction force exerted by the ramp on the box, directed parallel to the ramp surface and up the ramp, opposite to the box's motion.",
+       "evidence": "Response lists a friction force, names the ramp as the object exerting it, and gives its direction as along the ramp surface, up the ramp.",
+       "fix": "On a rough surface add friction from that surface, directed along the surface opposite to the object's sliding motion.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate's list of forces on the box also includes \"the force of the box's motion,\" directed down the ramp. Explain why this force should not be included.",
+     "criteria": [
+      {
+       "text": "Explains that every force is an interaction between the box and another object, and no object exerts a \"force of motion\" on the box; motion results from the forces exerted on the box and is not itself a force.",
+       "evidence": "Response states that no other object exerts this force (an object cannot exert a force on itself), so it is not an interaction and does not belong on the list.",
+       "fix": "Before listing a force, name the other object that exerts it; if no object can be named, it is not a force.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "To write equations for the box, a student chooses one coordinate axis parallel to the ramp surface and the other perpendicular to it. Explain one reason this choice of axes simplifies the analysis.",
+     "criteria": [
+      {
+       "text": "Gives a valid reason: the box accelerates along the ramp, so with an axis parallel to the ramp the acceleration lies entirely along one axis and its perpendicular component is zero; or, the normal and friction forces already lie along the chosen axes, so only the gravitational force must be split into components.",
+       "evidence": "Response states either that the acceleration is parallel to the ramp and so has a component along only one axis, or that only the gravitational force is not along an axis.",
+       "fix": "Choose one axis along the direction of acceleration; then the acceleration has a single nonzero component and the other axis has zero acceleration.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Three forces are exerted on the box:\n1. The gravitational force exerted by Earth, directed vertically downward.\n2. The normal force exerted by the ramp, directed perpendicular to the ramp surface, away from the ramp.\n3. The kinetic friction force exerted by the ramp, directed parallel to the ramp surface, up the ramp (opposite to the box's motion down the ramp).\n\n(b) A force is always an interaction between the box and another object. No object exerts a \"force of the box's motion\" on the box, and an object cannot exert a force on itself. The box's motion down the ramp is the result of the forces listed above, not an additional force, so it should not be included.\n\n(c) The box slides along the ramp, so its acceleration is parallel to the ramp surface. With one axis parallel to the ramp, the acceleration lies entirely along that axis and its component perpendicular to the ramp is zero. Also, the normal force and the friction force already lie along the two axes, so only the gravitational force has to be split into components.",
+   "verification_python": "forces=[('gravitational','Earth','down'),('normal','ramp','perpendicular away'),('friction','ramp','up the ramp')]\nassert len(forces)==3\nassert len([f for f in forces if f[1]=='ramp'])==2\nassert len([f for f in forces if f[1]=='Earth'])==1\nangle=25\nassert 0<angle<90\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.852689Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics1_biology_resolved.json",
+    "decisions": [
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "on_topic: Part (a) criterion a1 requires the gravitational force (Topic 2.6) and criterion a3 requires kinetic friction (Topic 2.7), both later topics in Unit 2",
+      "ruling": "reject",
+      "reason": "Naming each force on the box with its source and direction is exactly 2.2.A/2.2.B (forces as interactions, free-body representation); the CED's own 2.2.B.4 example is an object on an incline. No part needs Newton's law of gravitation (2.6) or a friction coefficient or friction equation (2.7): criterion a3 credits 'a friction force' from the rough ramp opposing the sliding, identified qualitatively."
+     }
+    ]
+   }
+  ],
+  "topic_ruling": {
+   "topic": "2.2",
+   "required_units": [
+    2
+   ],
+   "basis": "ced_text_tiebreak",
+   "reason": "Every part assesses 2.2 learning objectives (2.2.A.1 force as interaction, 2.2.A.1.ii no force on itself, 2.2.B forces on an object, 2.2.B.4 incline axis choice). Weight and friction are only identified by source and direction, not quantified, so no later topic is required."
+  }
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:09:07.400Z",
@@ -321,67 +409,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Identifying the Forces on a Box Sliding Down a Ramp",
-   "calculator": "not_applicable",
-   "stimulus": "A box slides down a rough, straight ramp that makes an angle of 25° with the horizontal. The box speeds up as it slides. The ramp is fixed to the ground, air resistance is negligible, and nothing touches the box except the ramp.",
-   "parts": [
-    {
-     "prompt": "List every force exerted on the box while it slides. For each force, name the object that exerts it and describe its direction in words. Do not resolve the forces into components.",
-     "criteria": [
-      {
-       "text": "Gravitational force exerted by Earth on the box, directed vertically downward.",
-       "evidence": "Response lists the gravitational force (weight, F_g, or mg), names Earth as the object exerting it, and gives its direction as straight down, not perpendicular to the ramp.",
-       "fix": "Name Earth as the source of the gravitational force and point it straight down, whatever the tilt of the surface.",
-       "accepted_variants": [
-        "weight exerted by Earth, straight down"
-       ]
-      },
-      {
-       "text": "Normal force exerted by the ramp on the box, directed perpendicular to the ramp surface and away from it.",
-       "evidence": "Response lists the normal force, names the ramp as the object exerting it, and gives its direction as perpendicular to the ramp surface, away from the surface.",
-       "fix": "A surface pushes perpendicular to itself: point the normal force at a right angle to the ramp, away from it, not straight up.",
-       "accepted_variants": []
-      },
-      {
-       "text": "Friction force exerted by the ramp on the box, directed parallel to the ramp surface and up the ramp, opposite to the box's motion.",
-       "evidence": "Response lists a friction force, names the ramp as the object exerting it, and gives its direction as along the ramp surface, up the ramp.",
-       "fix": "On a rough surface add friction from that surface, directed along the surface opposite to the object's sliding motion.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "A classmate's list of forces on the box also includes \"the force of the box's motion,\" directed down the ramp. Explain why this force should not be included.",
-     "criteria": [
-      {
-       "text": "Explains that every force is an interaction between the box and another object, and no object exerts a \"force of motion\" on the box; motion results from the forces exerted on the box and is not itself a force.",
-       "evidence": "Response states that no other object exerts this force (an object cannot exert a force on itself), so it is not an interaction and does not belong on the list.",
-       "fix": "Before listing a force, name the other object that exerts it; if no object can be named, it is not a force.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "To write equations for the box, a student chooses one coordinate axis parallel to the ramp surface and the other perpendicular to it. Explain one reason this choice of axes simplifies the analysis.",
-     "criteria": [
-      {
-       "text": "Gives a valid reason: the box accelerates along the ramp, so with an axis parallel to the ramp the acceleration lies entirely along one axis and its perpendicular component is zero; or, the normal and friction forces already lie along the chosen axes, so only the gravitational force must be split into components.",
-       "evidence": "Response states either that the acceleration is parallel to the ramp and so has a component along only one axis, or that only the gravitational force is not along an axis.",
-       "fix": "Choose one axis along the direction of acceleration; then the acceleration has a single nonzero component and the other axis has zero acceleration.",
-       "accepted_variants": []
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) Three forces are exerted on the box:\n1. The gravitational force exerted by Earth, directed vertically downward.\n2. The normal force exerted by the ramp, directed perpendicular to the ramp surface, away from the ramp.\n3. The kinetic friction force exerted by the ramp, directed parallel to the ramp surface, up the ramp (opposite to the box's motion down the ramp).\n\n(b) A force is always an interaction between the box and another object. No object exerts a \"force of the box's motion\" on the box, and an object cannot exert a force on itself. The box's motion down the ramp is the result of the forces listed above, not an additional force, so it should not be included.\n\n(c) The box slides along the ramp, so its acceleration is parallel to the ramp surface. With one axis parallel to the ramp, the acceleration lies entirely along that axis and its component perpendicular to the ramp is zero. Also, the normal force and the friction force already lie along the two axes, so only the gravitational force has to be split into components.",
-   "verification_python": "forces=[('gravitational','Earth','down'),('normal','ramp','perpendicular away'),('friction','ramp','up the ramp')]\nassert len(forces)==3\nassert len([f for f in forces if f[1]=='ramp'])==2\nassert len([f for f in forces if f[1]=='Earth'])==1\nangle=25\nassert 0<angle<90\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.852689Z"
- }
+ ]
 }

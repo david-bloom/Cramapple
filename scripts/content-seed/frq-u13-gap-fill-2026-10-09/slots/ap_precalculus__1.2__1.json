@@ -11,8 +11,104 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Estimating Rates of Change on a Hiking Trail",
+   "calculator": "not_permitted",
+   "stimulus": "A hiker walks along a trail that climbs and then descends. The function E gives the hiker's elevation, in meters, when the hiker is d kilometers from the trailhead along the trail. The table gives selected values of E.\nd (kilometers) | 2.9 | 3.0 | 3.1 | 6.9 | 7.0 | 7.1 | 10.0\nE(d) (meters) | 412 | 418 | 423 | 655 | 651 | 646 | 530",
+   "parts": [
+    {
+     "prompt": "Use the average rate of change of E over the interval 2.9 ≤ d ≤ 3.1 to estimate the rate of change of E at d = 3. Interpret your estimate in the context of the problem, including units.",
+     "criteria": [
+      {
+       "text": "Estimates the rate of change at d = 3 as (423 − 412)/(3.1 − 2.9) = 55 meters per kilometer.",
+       "evidence": "Response computes the difference quotient over 2.9 ≤ d ≤ 3.1 and obtains 55 meters per kilometer.",
+       "fix": "Divide the change in output by the change in input over the given small interval: (E(3.1) − E(2.9))/(3.1 − 2.9).",
+       "accepted_variants": [
+        "55",
+        "55 m/km"
+       ]
+      },
+      {
+       "text": "Interprets: near 3 kilometers from the trailhead, the elevation is increasing at about 55 meters per kilometer walked.",
+       "evidence": "Response states that elevation increases (positive rate) by approximately 55 meters for each additional kilometer near d = 3, with units.",
+       "fix": "State that a positive rate means both quantities increase together, and give the amount of output change per one unit of input.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use the average rate of change of E over the interval 6.9 ≤ d ≤ 7.1 to estimate the rate of change of E at d = 7. At which of d = 3 or d = 7 is the elevation changing more rapidly, meaning its rate of change has the greater absolute value? Explain.",
+     "criteria": [
+      {
+       "text": "Estimates the rate of change at d = 7 as (646 − 655)/(7.1 − 6.9) = −45 meters per kilometer.",
+       "evidence": "Response computes the difference quotient over 6.9 ≤ d ≤ 7.1 and obtains −45 meters per kilometer, including the negative sign.",
+       "fix": "Subtract outputs in the same order as inputs, later minus earlier, so a drop in elevation gives a negative rate.",
+       "accepted_variants": [
+        "−45",
+        "−45 m/km"
+       ]
+      },
+      {
+       "text": "Concludes the elevation is changing more rapidly at d = 3, because |55| = 55 is greater than |−45| = 45.",
+       "evidence": "Response compares absolute values of the two estimates and chooses d = 3.",
+       "fix": "Compare how fast quantities change using absolute values of the rates, ignoring sign, as the question defines.",
+       "accepted_variants": [
+        "d = 3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the average rate of change of E over the interval 3 ≤ d ≤ 10. Explain why this value is not a good estimate of the rate of change of E at d = 7.",
+     "criteria": [
+      {
+       "text": "Average rate of change over 3 ≤ d ≤ 10 is (530 − 418)/(10 − 3) = 16 meters per kilometer.",
+       "evidence": "Response computes (E(10) − E(3))/(10 − 3) = 112/7 = 16 meters per kilometer.",
+       "fix": "Use the endpoint values of the stated interval: (E(10) − E(3))/(10 − 3).",
+       "accepted_variants": [
+        "16",
+        "16 m/km",
+        "112/7"
+       ]
+      },
+      {
+       "text": "Explains why 16 is a poor estimate at d = 7: either 3 ≤ d ≤ 10 is not a small interval containing d = 7 (it spans the climb and the descent), or 16 is positive while the small-interval estimate near d = 7 is about −45.",
+       "evidence": "Response gives at least one valid reason: the interval is long, not small, and includes both rising and falling elevation; or 16 m/km disagrees in sign with the estimate of about −45 m/km near d = 7.",
+       "fix": "Compare with the small-interval estimate at the point, and remember a rate at a point needs a small interval containing it.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) (E(3.1) − E(2.9))/(3.1 − 2.9) = (423 − 412)/0.2 = 11/0.2 = 55. The rate of change of E at d = 3 is approximately 55 meters per kilometer: when the hiker is about 3 kilometers from the trailhead, the elevation is increasing by about 55 meters for each additional kilometer walked.\n\n(b) (E(7.1) − E(6.9))/(7.1 − 6.9) = (646 − 655)/0.2 = −9/0.2 = −45. The rate of change of E at d = 7 is approximately −45 meters per kilometer, so elevation is decreasing there.\nSince |55| = 55 > 45 = |−45|, the elevation is changing more rapidly at d = 3.\n\n(c) (E(10) − E(3))/(10 − 3) = (530 − 418)/7 = 112/7 = 16 meters per kilometer.\nThe rate of change at a point is approximated by average rates of change over small intervals containing that point. The interval 3 ≤ d ≤ 10 is long and includes the climb and the descent, so its average of 16 meters per kilometer is positive even though the elevation is decreasing near d = 7, where the small-interval estimate is about −45 meters per kilometer.",
+   "verification_python": "from fractions import Fraction as F\nE={F('2.9'):412,F('3.0'):418,F('3.1'):423,F('6.9'):655,F('7.0'):651,F('7.1'):646,F('10.0'):530}\nr=lambda a,b:F(E[F(b)]-E[F(a)])/(F(b)-F(a))\nassert r('2.9','3.1')==55\nassert r('6.9','7.1')==-45\nassert abs(55)>abs(-45)\nassert r('3.0','10.0')==16 and F(112,7)==16\nassert 530-418==112\n# climbs then descends\nassert E[F('3.0')]<E[F('7.0')] and E[F('10.0')]<E[F('7.0')]\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.875075Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u12_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion c2 requires both an explanation about interval size and a comparison with the decreasing elevation near d = 7. Part (c) asks only why t",
+      "ruling": "accept",
+      "reason": "Correct: the prompt asks only why 16 is a poor estimate. Either the interval-size reason (1.2.A.2) or the contrast with the small-interval estimate −45 is sufficient. c2 now accepts either one."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:20:30.175Z",
@@ -280,83 +376,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Estimating Rates of Change on a Hiking Trail",
-   "calculator": "not_permitted",
-   "stimulus": "A hiker walks along a trail that climbs and then descends. The function E gives the hiker's elevation, in meters, when the hiker is d kilometers from the trailhead along the trail. The table gives selected values of E.\nd (kilometers) | 2.9 | 3.0 | 3.1 | 6.9 | 7.0 | 7.1 | 10.0\nE(d) (meters) | 412 | 418 | 423 | 655 | 651 | 646 | 530",
-   "parts": [
-    {
-     "prompt": "Use the average rate of change of E over the interval 2.9 ≤ d ≤ 3.1 to estimate the rate of change of E at d = 3. Interpret your estimate in the context of the problem, including units.",
-     "criteria": [
-      {
-       "text": "Estimates the rate of change at d = 3 as (423 − 412)/(3.1 − 2.9) = 55 meters per kilometer.",
-       "evidence": "Response computes the difference quotient over 2.9 ≤ d ≤ 3.1 and obtains 55 meters per kilometer.",
-       "fix": "Divide the change in output by the change in input over the given small interval: (E(3.1) − E(2.9))/(3.1 − 2.9).",
-       "accepted_variants": [
-        "55",
-        "55 m/km"
-       ]
-      },
-      {
-       "text": "Interprets: near 3 kilometers from the trailhead, the elevation is increasing at about 55 meters per kilometer walked.",
-       "evidence": "Response states that elevation increases (positive rate) by approximately 55 meters for each additional kilometer near d = 3, with units.",
-       "fix": "State that a positive rate means both quantities increase together, and give the amount of output change per one unit of input.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "Use the average rate of change of E over the interval 6.9 ≤ d ≤ 7.1 to estimate the rate of change of E at d = 7. At which of d = 3 or d = 7 is the elevation changing more rapidly, meaning its rate of change has the greater absolute value? Explain.",
-     "criteria": [
-      {
-       "text": "Estimates the rate of change at d = 7 as (646 − 655)/(7.1 − 6.9) = −45 meters per kilometer.",
-       "evidence": "Response computes the difference quotient over 6.9 ≤ d ≤ 7.1 and obtains −45 meters per kilometer, including the negative sign.",
-       "fix": "Subtract outputs in the same order as inputs, later minus earlier, so a drop in elevation gives a negative rate.",
-       "accepted_variants": [
-        "−45",
-        "−45 m/km"
-       ]
-      },
-      {
-       "text": "Concludes the elevation is changing more rapidly at d = 3, because |55| = 55 is greater than |−45| = 45.",
-       "evidence": "Response compares absolute values of the two estimates and chooses d = 3.",
-       "fix": "Compare how fast quantities change using absolute values of the rates, ignoring sign, as the question defines.",
-       "accepted_variants": [
-        "d = 3"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "Find the average rate of change of E over the interval 3 ≤ d ≤ 10. Explain why this value is not a good estimate of the rate of change of E at d = 7.",
-     "criteria": [
-      {
-       "text": "Average rate of change over 3 ≤ d ≤ 10 is (530 − 418)/(10 − 3) = 16 meters per kilometer.",
-       "evidence": "Response computes (E(10) − E(3))/(10 − 3) = 112/7 = 16 meters per kilometer.",
-       "fix": "Use the endpoint values of the stated interval: (E(10) − E(3))/(10 − 3).",
-       "accepted_variants": [
-        "16",
-        "16 m/km",
-        "112/7"
-       ]
-      },
-      {
-       "text": "Explains that a rate of change at a point is approximated by average rates over small intervals containing the point; 3 ≤ d ≤ 10 is long and includes both climbing and descending, so its positive value does not reflect the decrease near d = 7.",
-       "evidence": "Response says the interval is not small (it covers both rising and falling elevation) and notes the elevation is actually decreasing near d = 7 (about −45 meters per kilometer).",
-       "fix": "Estimate a rate at a point only with a small interval containing it; a long interval averages away changes in direction.",
-       "accepted_variants": []
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) (E(3.1) − E(2.9))/(3.1 − 2.9) = (423 − 412)/0.2 = 11/0.2 = 55. The rate of change of E at d = 3 is approximately 55 meters per kilometer: when the hiker is about 3 kilometers from the trailhead, the elevation is increasing by about 55 meters for each additional kilometer walked.\n\n(b) (E(7.1) − E(6.9))/(7.1 − 6.9) = (646 − 655)/0.2 = −9/0.2 = −45. The rate of change of E at d = 7 is approximately −45 meters per kilometer, so elevation is decreasing there.\nSince |55| = 55 > 45 = |−45|, the elevation is changing more rapidly at d = 3.\n\n(c) (E(10) − E(3))/(10 − 3) = (530 − 418)/7 = 112/7 = 16 meters per kilometer.\nThe rate of change at a point is approximated by average rates of change over small intervals containing that point. The interval 3 ≤ d ≤ 10 is long and includes the climb and the descent, so its average of 16 meters per kilometer is positive even though the elevation is decreasing near d = 7, where the small-interval estimate is about −45 meters per kilometer.",
-   "verification_python": "from fractions import Fraction as F\nE={F('2.9'):412,F('3.0'):418,F('3.1'):423,F('6.9'):655,F('7.0'):651,F('7.1'):646,F('10.0'):530}\nr=lambda a,b:F(E[F(b)]-E[F(a)])/(F(b)-F(a))\nassert r('2.9','3.1')==55\nassert r('6.9','7.1')==-45\nassert abs(55)>abs(-45)\nassert r('3.0','10.0')==16 and F(112,7)==16\nassert 530-418==112\n# climbs then descends\nassert E[F('3.0')]<E[F('7.0')] and E[F('10.0')]<E[F('7.0')]\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.875075Z"
- }
+ ]
 }

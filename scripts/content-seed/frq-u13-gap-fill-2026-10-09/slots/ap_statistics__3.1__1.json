@@ -11,8 +11,121 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Comparing Two Estimators of a Germination Proportion",
+   "calculator": "permitted",
+   "stimulus": "A seed company wants to estimate p, the proportion of all seeds in a large bin that germinate. Two estimators are proposed, each based on a random sample of 10 seeds, where X is the number of sampled seeds that germinate.\n\nEstimator A: X/10 (the sample proportion)\nEstimator B: (X + 2)/14\n\nTo study the estimators, a statistics class used a computer to simulate 1,000 random samples of 10 seeds from a large bin in which exactly 40% of the seeds germinate. For each simulated sample, the class calculated the value of both estimators. The results are summarized in the table.\n\nEstimator | Mean of the 1,000 simulated values\nA | 0.401\nB | 0.429",
+   "parts": [
+    {
+     "prompt": "Based on the simulation, which estimator appears to be unbiased and which appears to be biased? Justify your answers.",
+     "criteria": [
+      {
+       "text": "Identifies Estimator A as appearing unbiased because the mean of its simulated values, 0.401, is approximately equal to the true proportion, 0.40.",
+       "evidence": "Response compares the mean of A's simulated values (0.401) with p = 0.40, states that they are approximately equal, and so A does not tend to overestimate or underestimate p.",
+       "fix": "Judge bias by comparing the center (mean) of the estimator's simulated values with the true parameter used in the simulation, here 0.40.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Identifies Estimator B as biased because the mean of its simulated values, 0.429, is greater than 0.40, so on average B overestimates the true proportion.",
+       "evidence": "Response states that B is biased and explains that its simulated values are centered above 0.40, so it tends to overestimate p.",
+       "fix": "When simulated values center above or below the true parameter, call the estimator biased and name the direction: overestimates or underestimates.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The company then selects a random sample of 10 seeds from a new bin whose germination proportion is unknown, and 7 of the 10 seeds germinate. Calculate the value of each estimator for this sample, and identify which value the company should report as an unbiased point estimate of the proportion of all seeds in the new bin that germinate.",
+     "criteria": [
+      {
+       "text": "Calculates Estimator A = 7/10 = 0.70.",
+       "evidence": "Response substitutes X = 7 into X/10 to get 0.70.",
+       "fix": "Substitute the observed count X into each estimator's formula exactly as written, then simplify.",
+       "accepted_variants": [
+        "0.7",
+        "7/10",
+        "70%"
+       ]
+      },
+      {
+       "text": "Calculates Estimator B = (7 + 2)/14 = 9/14 ≈ 0.643.",
+       "evidence": "Response substitutes X = 7 into (X + 2)/14 to get 9/14, about 0.643.",
+       "fix": "Add 2 to the observed count before dividing by 14; do not divide by the sample size 10.",
+       "accepted_variants": [
+        "9/14",
+        "0.643",
+        "0.64"
+       ]
+      },
+      {
+       "text": "Identifies 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate to report.",
+       "evidence": "Response names the value of Estimator A as the unbiased point estimate, because A was the estimator shown to be unbiased.",
+       "fix": "Report the value from the estimator the simulation showed to be unbiased, here the sample proportion X/10.",
+       "accepted_variants": [
+        "0.7",
+        "7/10"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A student says, \"Because Estimator A is unbiased, its value from any single sample will be closer to the true proportion than the value of Estimator B.\" Explain why the student's statement is incorrect.",
+     "criteria": [
+      {
+       "text": "Explains that unbiased describes the average of the estimator's values over many random samples, so in a particular sample the value of Estimator A can be farther from the true proportion than the value of Estimator B.",
+       "evidence": "Response states that unbiasedness refers to the estimator's values on average across repeated samples, not to the accuracy of one sample's value, so A can miss p by more than B in a given sample.",
+       "fix": "Remember unbiased means correct on average across many samples; state that the value from one sample can still miss the parameter by more.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Estimator A appears to be unbiased. In the simulation the true proportion was 0.40, and the mean of A's 1,000 simulated values is 0.401, which is approximately 0.40, so on average A neither overestimates nor underestimates p.\nEstimator B appears to be biased. The mean of its simulated values is 0.429, which is clearly greater than 0.40, so on average B overestimates the true proportion of seeds that germinate.\n\n(b) Estimator A: 7/10 = 0.70. Estimator B: (7 + 2)/14 = 9/14 ≈ 0.643.\nThe company should report 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate of the proportion of all seeds in the new bin that germinate.\n\n(c) Unbiased means that the values of Estimator A are centered at the true proportion on average over many random samples. It does not mean that the value from a single sample is close to p, or closer than B's value. For example, if p = 0.40 and a sample has X = 7, Estimator A gives 0.70 (0.30 away from 0.40) while Estimator B gives about 0.643 (about 0.243 away), so in that sample A is farther from the true proportion.",
+   "verification_python": "from fractions import Fraction as F\np=F(2,5);n=10\nEA=p\nEB=(n*p+2)/14\nassert EA==F(2,5)\nassert EB==F(3,7) and abs(float(EB)-0.429)<0.001\nmA=0.401\nmB=(10*mA+2)/14\nassert round(mB,3)==0.429\nassert abs(mA-0.40)<0.005 and 0.429>0.40\nA=F(7,10);B=F(7+2,14)\nassert A==F(7,10) and B==F(9,14) and abs(float(B)-0.643)<0.0005\nassert abs(A-p)==F(3,10)\nassert abs(float(abs(B-p))-0.243)<0.0005\nassert abs(A-p)>abs(B-p)\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.880583Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "statistics_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "well_posed: The setup's simulation table is internally inconsistent. Both estimators use the same samples, so mean(B) = (10 mean(A) + 2)/14. A mean of 0.401 req",
+      "ruling": "accept",
+      "reason": "Re-derived: B = (10A + 2)/14 for every sample, so mean(B) = (10(0.401) + 2)/14 = 0.42929, which rounds to 0.429, not 0.428. Changed 0.428 to 0.429 in the table, a2 and the model answer; verification now derives it."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion b1 bundles three separately observable elements into one point: calculating Estimator A, calculating Estimator B, and selecting the unb",
+      "ruling": "accept",
+      "reason": "b1 scored three elements. Split into A = 0.70, B ≈ 0.643, and the choice of 0.70 as the unbiased estimate (item now 6 points)."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "accurate: The setup's reported simulation means cannot both be correct. Because B = (10A + 2)/14 for every sample, a simulated mean of A equal to 0.401 implies ",
+      "ruling": "accept",
+      "reason": "Same inconsistency as the well_posed objection; fixed by the same change (B's mean is 0.429)."
+     },
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "solution: The rubric's intended answers agree with the independent solution: A appears unbiased, B appears upward-biased at p = 0.40, the sample estimates are 0",
+      "ruling": "accept",
+      "reason": "Agrees with the intended answers; its only defect is the inconsistent simulated means, fixed above."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:27:23.119Z",
@@ -323,62 +436,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Comparing Two Estimators of a Germination Proportion",
-   "calculator": "permitted",
-   "stimulus": "A seed company wants to estimate p, the proportion of all seeds in a large bin that germinate. Two estimators are proposed, each based on a random sample of 10 seeds, where X is the number of sampled seeds that germinate.\n\nEstimator A: X/10 (the sample proportion)\nEstimator B: (X + 2)/14\n\nTo study the estimators, a statistics class used a computer to simulate 1,000 random samples of 10 seeds from a large bin in which exactly 40% of the seeds germinate. For each simulated sample, the class calculated the value of both estimators. The results are summarized in the table.\n\nEstimator | Mean of the 1,000 simulated values\nA | 0.401\nB | 0.428",
-   "parts": [
-    {
-     "prompt": "Based on the simulation, which estimator appears to be unbiased and which appears to be biased? Justify your answers.",
-     "criteria": [
-      {
-       "text": "Identifies Estimator A as appearing unbiased because the mean of its simulated values, 0.401, is approximately equal to the true proportion, 0.40.",
-       "evidence": "Response compares the mean of A's simulated values (0.401) with p = 0.40, states that they are approximately equal, and so A does not tend to overestimate or underestimate p.",
-       "fix": "Judge bias by comparing the center (mean) of the estimator's simulated values with the true parameter used in the simulation, here 0.40.",
-       "accepted_variants": []
-      },
-      {
-       "text": "Identifies Estimator B as biased because the mean of its simulated values, 0.428, is greater than 0.40, so on average B overestimates the true proportion.",
-       "evidence": "Response states that B is biased and explains that its simulated values are centered above 0.40, so it tends to overestimate p.",
-       "fix": "When simulated values center above or below the true parameter, call the estimator biased and name the direction: overestimates or underestimates.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "The company then selects a random sample of 10 seeds from a new bin whose germination proportion is unknown, and 7 of the 10 seeds germinate. Calculate the value of each estimator for this sample, and identify which value the company should report as an unbiased point estimate of the proportion of all seeds in the new bin that germinate.",
-     "criteria": [
-      {
-       "text": "Calculates Estimator A = 7/10 = 0.70 and Estimator B = (7 + 2)/14 ≈ 0.643, and identifies 0.70 (the sample proportion) as the unbiased point estimate.",
-       "evidence": "Response shows 7/10 = 0.70 and 9/14 ≈ 0.643 and names 0.70, the value of Estimator A, as the unbiased point estimate.",
-       "fix": "Substitute the observed count X into each estimator's formula, then report the value from the estimator shown to be unbiased.",
-       "accepted_variants": [
-        "0.7 and 9/14",
-        "0.70 and 0.64"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "A student says, \"Because Estimator A is unbiased, its value from any single sample will be closer to the true proportion than the value of Estimator B.\" Explain why the student's statement is incorrect.",
-     "criteria": [
-      {
-       "text": "Explains that unbiased describes the average of the estimator's values over many random samples, so in a particular sample the value of Estimator A can be farther from the true proportion than the value of Estimator B.",
-       "evidence": "Response states that unbiasedness refers to the estimator's values on average across repeated samples, not to the accuracy of one sample's value, so A can miss p by more than B in a given sample.",
-       "fix": "Remember unbiased means correct on average across many samples; state that the value from one sample can still miss the parameter by more.",
-       "accepted_variants": []
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) Estimator A appears to be unbiased. In the simulation the true proportion was 0.40, and the mean of A's 1,000 simulated values is 0.401, which is approximately 0.40, so on average A neither overestimates nor underestimates p.\nEstimator B appears to be biased. The mean of its simulated values is 0.428, which is clearly greater than 0.40, so on average B overestimates the true proportion of seeds that germinate.\n\n(b) Estimator A: 7/10 = 0.70. Estimator B: (7 + 2)/14 = 9/14 ≈ 0.643.\nThe company should report 0.70, the value of Estimator A (the sample proportion), as the unbiased point estimate of the proportion of all seeds in the new bin that germinate.\n\n(c) Unbiased means that the values of Estimator A are centered at the true proportion on average over many random samples. It does not mean that the value from a single sample is close to p, or closer than B's value. For example, if p = 0.40 and a sample has X = 7, Estimator A gives 0.70 (0.30 away from 0.40) while Estimator B gives about 0.643 (about 0.243 away), so in that sample A is farther from the true proportion.",
-   "verification_python": "from fractions import Fraction as F\np=F(2,5);n=10\nEA=p\nEB=(n*p+2)/14\nassert EA==F(2,5)\nassert EB==F(3,7) and abs(float(EB)-0.428)<0.001\nassert abs(0.401-0.40)<0.005 and 0.428>0.40\nA=F(7,10);B=F(7+2,14)\nassert A==F(7,10) and B==F(9,14) and abs(float(B)-0.643)<0.0005\nassert abs(A-p)==F(3,10)\nassert abs(float(abs(B-p))-0.243)<0.0005\nassert abs(A-p)>abs(B-p)\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.880583Z"
- }
+ ]
 }

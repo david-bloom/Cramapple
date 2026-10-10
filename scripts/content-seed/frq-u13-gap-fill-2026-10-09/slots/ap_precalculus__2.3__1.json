@@ -11,8 +11,102 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Key Characteristics of Exponential Functions",
+   "calculator": "not_permitted",
+   "stimulus": "Let f be the function defined by f(x) = 5(0.8)ˣ.\n\nThe function h is defined for all real numbers. The table gives selected values of h.\nx | 0 | 1 | 2 | 3\nh(x) | 7 | 10 | 16 | 28",
+   "parts": [
+    {
+     "prompt": "Does f demonstrate exponential growth or exponential decay? Explain. Then describe the behavior of f(x) as x increases without bound and as x decreases without bound.",
+     "criteria": [
+      {
+       "text": "Exponential decay, because the initial value a = 5 is positive and the base b = 0.8 satisfies 0 < b < 1.",
+       "evidence": "Response says decay and cites both a > 0 and 0 < b < 1.",
+       "fix": "Check both conditions in the general form a·bˣ: the sign of a and whether b is between 0 and 1.",
+       "accepted_variants": [
+        "decay"
+       ]
+      },
+      {
+       "text": "As x increases without bound, f(x) approaches 0 (lim x→∞ f(x) = 0); as x decreases without bound, f(x) increases without bound (lim x→−∞ f(x) = ∞).",
+       "evidence": "Response gives both end behaviors correctly, in words or with limit notation.",
+       "fix": "Test large positive and large negative inputs: (0.8)ˣ shrinks toward 0 for large x and grows without bound for very negative x.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the maximum value and the minimum value of f on the closed interval −2 ≤ x ≤ 3, and give the input value at which each occurs. Explain how you know where they occur.",
+     "criteria": [
+      {
+       "text": "Maximum value 7.8125 at x = −2, because f is always decreasing, so its largest output on the interval is at the left endpoint.",
+       "evidence": "Response computes f(−2) = 5/(0.8)² = 5/0.64 = 7.8125 and explains the locations by f being always decreasing (or another valid reason), so the extremes are at the endpoints.",
+       "fix": "For an always-decreasing exponential on a closed interval, evaluate at the left endpoint for the maximum.",
+       "accepted_variants": [
+        "125/16",
+        "7.8125"
+       ]
+      },
+      {
+       "text": "Minimum value 2.56 at x = 3.",
+       "evidence": "Response computes f(3) = 5(0.8)³ = 5(0.512) = 2.56 and identifies x = 3 as the location of the minimum.",
+       "fix": "Evaluate the decreasing function at the right endpoint for the minimum, and compute 0.8³ = 0.512 carefully.",
+       "accepted_variants": [
+        "64/25",
+        "2.56"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Show that the output values of h are not proportional over the equal-length input intervals in the table, but that the values of h(x) − 4 are. Then write an expression for h(x), as an additive transformation of an exponential function, that agrees with every value in the table.",
+     "criteria": [
+      {
+       "text": "Shows 10/7 ≠ 16/10, so h is not proportional, while h(x) − 4 gives 3, 6, 12, 24, with constant ratio 2.",
+       "evidence": "Response computes at least two unequal ratios of consecutive h values and the constant ratio 2 for consecutive values of h(x) − 4.",
+       "fix": "Test proportional change by dividing consecutive outputs; repeat after subtracting the given constant from each output.",
+       "accepted_variants": []
+      },
+      {
+       "text": "h(x) = 3(2)ˣ + 4.",
+       "evidence": "Response writes h(x) = 3·2ˣ + 4, with initial value 3 = h(0) − 4 and base 2.",
+       "fix": "Write the exponential for h(x) − 4 using its value at x = 0 and its ratio, then add 4 back.",
+       "accepted_variants": [
+        "3·2ˣ + 4"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) f is in the form a·bˣ with a = 5 > 0 and b = 0.8, where 0 < 0.8 < 1, so f demonstrates exponential decay.\nAs x increases without bound, (0.8)ˣ gets arbitrarily close to 0, so lim x→∞ f(x) = 0. As x decreases without bound, (0.8)ˣ = (1.25)^(−x) increases without bound, so lim x→−∞ f(x) = ∞.\n\n(b) Because f is exponential decay, it is always decreasing. So on −2 ≤ x ≤ 3 its maximum is at the left endpoint and its minimum is at the right endpoint.\nMaximum: f(−2) = 5(0.8)^(−2) = 5/0.64 = 7.8125, at x = −2.\nMinimum: f(3) = 5(0.8)³ = 5(0.512) = 2.56, at x = 3.\n\n(c) For h: 10/7 ≈ 1.43 and 16/10 = 1.6. These ratios are not equal, so the outputs of h are not proportional over equal-length intervals.\nFor h(x) − 4 the values are 3, 6, 12, 24, and 6/3 = 12/6 = 24/12 = 2, so these outputs are proportional with ratio 2.\nSo h(x) − 4 = 3(2)ˣ, and h(x) = 3(2)ˣ + 4. Check: 3 + 4 = 7, 6 + 4 = 10, 12 + 4 = 16, 24 + 4 = 28.",
+   "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nx=sp.symbols('x')\nf=5*sp.Rational(4,5)**x\nassert f.subs(x,-2)==F(125,16) and float(F(125,16))==7.8125\nassert f.subs(x,3)==F(64,25) and float(F(64,25))==2.56\nassert sp.limit(f,x,sp.oo)==0 and sp.limit(f,x,-sp.oo)==sp.oo\nH=[7,10,16,28]\nassert F(10,7)!=F(16,10)\ns=[v-4 for v in H]; assert s==[3,6,12,24]\nassert all(F(s[i+1],s[i])==2 for i in range(3))\nassert all(3*2**k+4==H[k] for k in range(4))\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.876086Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u12_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 requires a justification using monotonicity, although the part asks only for the maximum, minimum, and their input values.",
+      "ruling": "accept",
+      "reason": "Correct: b1 scored a justification the prompt did not ask for. Because 2.3.A.3 (always decreasing, extrema only on a closed interval at the endpoints) is the point of the part, the prompt now asks for the explanation, and b1 accepts any valid reason."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:21:13.046Z",
@@ -278,81 +372,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Key Characteristics of Exponential Functions",
-   "calculator": "not_permitted",
-   "stimulus": "Let f be the function defined by f(x) = 5(0.8)ˣ.\n\nThe function h is defined for all real numbers. The table gives selected values of h.\nx | 0 | 1 | 2 | 3\nh(x) | 7 | 10 | 16 | 28",
-   "parts": [
-    {
-     "prompt": "Does f demonstrate exponential growth or exponential decay? Explain. Then describe the behavior of f(x) as x increases without bound and as x decreases without bound.",
-     "criteria": [
-      {
-       "text": "Exponential decay, because the initial value a = 5 is positive and the base b = 0.8 satisfies 0 < b < 1.",
-       "evidence": "Response says decay and cites both a > 0 and 0 < b < 1.",
-       "fix": "Check both conditions in the general form a·bˣ: the sign of a and whether b is between 0 and 1.",
-       "accepted_variants": [
-        "decay"
-       ]
-      },
-      {
-       "text": "As x increases without bound, f(x) approaches 0 (lim x→∞ f(x) = 0); as x decreases without bound, f(x) increases without bound (lim x→−∞ f(x) = ∞).",
-       "evidence": "Response gives both end behaviors correctly, in words or with limit notation.",
-       "fix": "Test large positive and large negative inputs: (0.8)ˣ shrinks toward 0 for large x and grows without bound for very negative x.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "Find the maximum value and the minimum value of f on the closed interval −2 ≤ x ≤ 3, and give the input value at which each occurs.",
-     "criteria": [
-      {
-       "text": "Maximum value 7.8125 at x = −2, because f is always decreasing, so its largest output on the interval is at the left endpoint.",
-       "evidence": "Response computes f(−2) = 5/(0.8)² = 5/0.64 = 7.8125 and justifies the location using f always decreasing.",
-       "fix": "For an always-decreasing exponential on a closed interval, evaluate at the left endpoint for the maximum.",
-       "accepted_variants": [
-        "125/16",
-        "7.8125"
-       ]
-      },
-      {
-       "text": "Minimum value 2.56 at x = 3.",
-       "evidence": "Response computes f(3) = 5(0.8)³ = 5(0.512) = 2.56 and identifies x = 3 as the location of the minimum.",
-       "fix": "Evaluate the decreasing function at the right endpoint for the minimum, and compute 0.8³ = 0.512 carefully.",
-       "accepted_variants": [
-        "64/25",
-        "2.56"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "Show that the output values of h are not proportional over the equal-length input intervals in the table, but that the values of h(x) − 4 are. Then write an expression for h(x), as an additive transformation of an exponential function, that agrees with every value in the table.",
-     "criteria": [
-      {
-       "text": "Shows 10/7 ≠ 16/10, so h is not proportional, while h(x) − 4 gives 3, 6, 12, 24, with constant ratio 2.",
-       "evidence": "Response computes at least two unequal ratios of consecutive h values and the constant ratio 2 for consecutive values of h(x) − 4.",
-       "fix": "Test proportional change by dividing consecutive outputs; repeat after subtracting the given constant from each output.",
-       "accepted_variants": []
-      },
-      {
-       "text": "h(x) = 3(2)ˣ + 4.",
-       "evidence": "Response writes h(x) = 3·2ˣ + 4, with initial value 3 = h(0) − 4 and base 2.",
-       "fix": "Write the exponential for h(x) − 4 using its value at x = 0 and its ratio, then add 4 back.",
-       "accepted_variants": [
-        "3·2ˣ + 4"
-       ]
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) f is in the form a·bˣ with a = 5 > 0 and b = 0.8, where 0 < 0.8 < 1, so f demonstrates exponential decay.\nAs x increases without bound, (0.8)ˣ gets arbitrarily close to 0, so lim x→∞ f(x) = 0. As x decreases without bound, (0.8)ˣ = (1.25)^(−x) increases without bound, so lim x→−∞ f(x) = ∞.\n\n(b) Because f is exponential decay, it is always decreasing. So on −2 ≤ x ≤ 3 its maximum is at the left endpoint and its minimum is at the right endpoint.\nMaximum: f(−2) = 5(0.8)^(−2) = 5/0.64 = 7.8125, at x = −2.\nMinimum: f(3) = 5(0.8)³ = 5(0.512) = 2.56, at x = 3.\n\n(c) For h: 10/7 ≈ 1.43 and 16/10 = 1.6. These ratios are not equal, so the outputs of h are not proportional over equal-length intervals.\nFor h(x) − 4 the values are 3, 6, 12, 24, and 6/3 = 12/6 = 24/12 = 2, so these outputs are proportional with ratio 2.\nSo h(x) − 4 = 3(2)ˣ, and h(x) = 3(2)ˣ + 4. Check: 3 + 4 = 7, 6 + 4 = 10, 12 + 4 = 16, 24 + 4 = 28.",
-   "verification_python": "from fractions import Fraction as F\nimport sympy as sp\nx=sp.symbols('x')\nf=5*sp.Rational(4,5)**x\nassert f.subs(x,-2)==F(125,16) and float(F(125,16))==7.8125\nassert f.subs(x,3)==F(64,25) and float(F(64,25))==2.56\nassert sp.limit(f,x,sp.oo)==0 and sp.limit(f,x,-sp.oo)==sp.oo\nH=[7,10,16,28]\nassert F(10,7)!=F(16,10)\ns=[v-4 for v in H]; assert s==[3,6,12,24]\nassert all(F(s[i+1],s[i])==2 for i in range(3))\nassert all(3*2**k+4==H[k] for k in range(4))\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.876086Z"
- }
+ ]
 }

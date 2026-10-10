@@ -11,8 +11,111 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Grade Group and Preferred Study Location",
+   "calculator": "permitted",
+   "stimulus": "A high school surveyed 500 of its students about where they prefer to study. Each student was classified by grade group and by preferred study location. The results are shown in the table.\n\nGrade group | Home | Library | Café | Total\nGrades 9–10 | 156 | 52 | 52 | 260\nGrades 11–12 | 96 | 84 | 60 | 240\nTotal | 252 | 136 | 112 | 500",
+   "parts": [
+    {
+     "prompt": "For these 500 students, calculate the joint relative frequency of being in grades 11–12 and preferring the library, and calculate the marginal relative frequency of preferring the library.",
+     "criteria": [
+      {
+       "text": "Joint relative frequency: 84/500 = 0.168.",
+       "evidence": "Response divides the single cell count 84 by the table total 500 to get 0.168.",
+       "fix": "For a joint relative frequency, divide the one cell count by the total for the entire table, not by a row or column total.",
+       "accepted_variants": [
+        "0.168",
+        "16.8%",
+        "84/500"
+       ]
+      },
+      {
+       "text": "Marginal relative frequency: 136/500 = 0.272.",
+       "evidence": "Response divides the Library column total 136 by the table total 500 to get 0.272.",
+       "fix": "For a marginal relative frequency, divide the row or column total for that category by the total for the entire table.",
+       "accepted_variants": [
+        "0.272",
+        "27.2%",
+        "136/500"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In grades 9–10, 52 of the 260 students (0.20) prefer the library. Calculate the proportion of students in grades 11–12 who prefer the library. Based on the conditional relative frequencies of preferred study location for the two grade groups, is there an association between grade group and preferred study location for these students? Justify your answer.",
+     "criteria": [
+      {
+       "text": "Calculates the conditional relative frequency 84/240 = 0.35 for students in grades 11–12 who prefer the library.",
+       "evidence": "Response divides the grades 11–12 Library count 84 by the grades 11–12 row total 240 to get 0.35.",
+       "fix": "To condition on grade group, divide each cell count by that grade group's row total, not by the column total or table total.",
+       "accepted_variants": [
+        "0.35",
+        "35%",
+        "84/240",
+        "7/20"
+       ]
+      },
+      {
+       "text": "States that there is an association, because the conditional distributions of preferred study location differ between the grade groups, citing at least one comparison of conditional relative frequencies (for example 0.20 versus 0.35 for the library, or 0.60 versus 0.40 for home).",
+       "evidence": "Response says yes, there is an association, and supports it by comparing conditional relative frequencies (not raw counts) for the two grade groups.",
+       "fix": "Compare the same conditional relative frequency across the groups; if the values differ noticeably, state that the variables are associated and cite them.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A student claims: \"Most of the students who prefer the library are in grades 11–12.\" Use an appropriate relative frequency to determine whether the data support this claim.",
+     "criteria": [
+      {
+       "text": "Computes 84/136 ≈ 0.618, the proportion of library-preferring students who are in grades 11–12.",
+       "evidence": "Response divides the grades 11–12 Library count 84 by the Library column total 136 to get about 0.618.",
+       "fix": "Identify the group the claim restricts to, students who prefer the library, and divide by that group's column total.",
+       "accepted_variants": [
+        "84/136",
+        "21/34",
+        "0.618",
+        "0.62",
+        "61.8%"
+       ]
+      },
+      {
+       "text": "Concludes that the data support the claim because 0.618 is greater than 0.5 (more than half of library-preferring students are in grades 11–12).",
+       "evidence": "Response compares the conditional relative frequency it computed with 0.5 (one half) and states that the claim is supported.",
+       "fix": "Most means more than half: compare the relative frequency with 0.5, then state whether the claim is supported.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Joint relative frequency of grades 11–12 and library = 84/500 = 0.168.\nMarginal relative frequency of library = 136/500 = 0.272.\n\n(b) Grades 9–10: 52/260 = 0.20 prefer the library (given). Grades 11–12: 84/240 = 0.35 prefer the library.\nYes, there is an association between grade group and preferred study location for these students. The conditional distributions differ: 35% of students in grades 11–12 prefer the library compared with 20% in grades 9–10, and 60% (156/260) of students in grades 9–10 prefer home compared with 40% (96/240) in grades 11–12. If the variables were not associated, these conditional relative frequencies would be about the same for both grade groups.\n\n(c) Among the 136 students who prefer the library, 84 are in grades 11–12, so the proportion is 84/136 ≈ 0.618. Because 0.618 is greater than 0.5, most of the students who prefer the library are in grades 11–12, so the data support the claim.",
+   "verification_python": "from fractions import Fraction as F\nrows={'a':[156,52,52],'b':[96,84,60]}\nassert sum(rows['a'])==260 and sum(rows['b'])==240\ncols=[156+96,52+84,52+60]\nassert cols==[252,136,112] and sum(cols)==500\nassert F(84,500)==F(168,1000)\nassert F(136,500)==F(272,1000)\nassert F(52,260)==F(1,5)\nassert F(84,240)==F(35,100)\nassert F(156,260)==F(3,5) and F(96,240)==F(2,5)\nassert abs(84/136-0.618)<0.0005 and 84/136>0.5\nassert F(84,136)==F(21,34) and F(84,136)>F(1,2)\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.880239Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "statistics_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion b1 bundles two independently assessable calculations into one point: the library proportion for each grade group. Criterion c1 bundles ",
+      "ruling": "accept",
+      "reason": "Both bundles are real: b1 scored two separate calculations and c1 scored a calculation plus a judgment. c1 is split into the calculation (84/136) and the comparison with 0.5; to stay within 6 points, part (b) now gives the grades 9–10 value (0.20) so b1 scores the single grades 11–12 calculation."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:26:31.532Z",
@@ -278,81 +381,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Grade Group and Preferred Study Location",
-   "calculator": "permitted",
-   "stimulus": "A high school surveyed 500 of its students about where they prefer to study. Each student was classified by grade group and by preferred study location. The results are shown in the table.\n\nGrade group | Home | Library | Café | Total\nGrades 9–10 | 156 | 52 | 52 | 260\nGrades 11–12 | 96 | 84 | 60 | 240\nTotal | 252 | 136 | 112 | 500",
-   "parts": [
-    {
-     "prompt": "For these 500 students, calculate the joint relative frequency of being in grades 11–12 and preferring the library, and calculate the marginal relative frequency of preferring the library.",
-     "criteria": [
-      {
-       "text": "Joint relative frequency: 84/500 = 0.168.",
-       "evidence": "Response divides the single cell count 84 by the table total 500 to get 0.168.",
-       "fix": "For a joint relative frequency, divide the one cell count by the total for the entire table, not by a row or column total.",
-       "accepted_variants": [
-        "0.168",
-        "16.8%",
-        "84/500"
-       ]
-      },
-      {
-       "text": "Marginal relative frequency: 136/500 = 0.272.",
-       "evidence": "Response divides the Library column total 136 by the table total 500 to get 0.272.",
-       "fix": "For a marginal relative frequency, divide the row or column total for that category by the total for the entire table.",
-       "accepted_variants": [
-        "0.272",
-        "27.2%",
-        "136/500"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "Calculate the proportion of students in grades 9–10 who prefer the library and the proportion of students in grades 11–12 who prefer the library. Based on the conditional relative frequencies of preferred study location for the two grade groups, is there an association between grade group and preferred study location for these students? Justify your answer.",
-     "criteria": [
-      {
-       "text": "Calculates the conditional relative frequencies 52/260 = 0.20 for grades 9–10 and 84/240 = 0.35 for grades 11–12.",
-       "evidence": "Response divides each Library count by the total for its own grade group to get 0.20 and 0.35.",
-       "fix": "To condition on grade group, divide each cell count by that grade group's row total, not by the column total or table total.",
-       "accepted_variants": [
-        "0.2 and 0.35",
-        "20% and 35%"
-       ]
-      },
-      {
-       "text": "States that there is an association, because the conditional distributions of preferred study location differ between the grade groups, citing at least one comparison of conditional relative frequencies (for example 0.20 versus 0.35 for the library, or 0.60 versus 0.40 for home).",
-       "evidence": "Response says yes, there is an association, and supports it by comparing conditional relative frequencies (not raw counts) for the two grade groups.",
-       "fix": "Compare the same conditional relative frequency across the groups; if the values differ noticeably, state that the variables are associated and cite them.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "A student claims: \"Most of the students who prefer the library are in grades 11–12.\" Use an appropriate relative frequency to determine whether the data support this claim.",
-     "criteria": [
-      {
-       "text": "Computes 84/136 ≈ 0.618, the proportion of library-preferring students who are in grades 11–12, and concludes that the claim is supported because 0.618 is greater than 0.5.",
-       "evidence": "Response divides by the Library column total (84/136 ≈ 0.62), compares the result with one half, and states that the claim is supported.",
-       "fix": "Identify the group the claim restricts to (students who prefer the library), divide by that column total, then compare the result with 0.5.",
-       "accepted_variants": [
-        "84/136",
-        "0.618",
-        "0.62",
-        "61.8%"
-       ]
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) Joint relative frequency of grades 11–12 and library = 84/500 = 0.168.\nMarginal relative frequency of library = 136/500 = 0.272.\n\n(b) Grades 9–10: 52/260 = 0.20 prefer the library. Grades 11–12: 84/240 = 0.35 prefer the library.\nYes, there is an association between grade group and preferred study location for these students. The conditional distributions differ: 35% of students in grades 11–12 prefer the library compared with 20% in grades 9–10, and 60% (156/260) of students in grades 9–10 prefer home compared with 40% (96/240) in grades 11–12. If the variables were not associated, these conditional relative frequencies would be about the same for both grade groups.\n\n(c) Among the 136 students who prefer the library, 84 are in grades 11–12, so the proportion is 84/136 ≈ 0.618. Because 0.618 is greater than 0.5, most of the students who prefer the library are in grades 11–12, so the data support the claim.",
-   "verification_python": "from fractions import Fraction as F\nrows={'a':[156,52,52],'b':[96,84,60]}\nassert sum(rows['a'])==260 and sum(rows['b'])==240\ncols=[156+96,52+84,52+60]\nassert cols==[252,136,112] and sum(cols)==500\nassert F(84,500)==F(168,1000)\nassert F(136,500)==F(272,1000)\nassert F(52,260)==F(1,5)\nassert F(84,240)==F(35,100)\nassert F(156,260)==F(3,5) and F(96,240)==F(2,5)\nassert abs(84/136-0.618)<0.0005 and 84/136>0.5\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.880239Z"
- }
+ ]
 }

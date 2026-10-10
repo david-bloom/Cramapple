@@ -11,8 +11,99 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Interpreting an Interval for Library Use in Two Towns",
+   "calculator": "permitted",
+   "stimulus": "A regional library board selected a random sample of 500 adult residents of Riverton and, independently, a random sample of 400 adult residents of Lakeside. Each town has more than 20,000 adult residents. In the samples, 230 of the Riverton residents (0.46) and 140 of the Lakeside residents (0.35) said they had used a public library in the past month. All conditions for inference were met, and the board calculated a 95% confidence interval for p₁ − p₂, where p₁ is the proportion of all adult residents of Riverton who used a public library in the past month and p₂ is the proportion of all adult residents of Lakeside who used a public library in the past month. The interval is (0.046, 0.174).",
+   "parts": [
+    {
+     "prompt": "Interpret the 95% confidence interval in context.",
+     "criteria": [
+      {
+       "text": "States that we are 95% confident that the interval from 0.046 to 0.174 captures the difference (Riverton minus Lakeside) between the proportions of all adult residents of each town who used a public library in the past month.",
+       "evidence": "Response says \"95% confident\", gives the interval limits, and describes the parameter as the difference in population proportions with the order (Riverton minus Lakeside), both towns' adult residents and library use.",
+       "fix": "Name the parameter fully: the difference in the proportions of all adults in each town who used a library, and say which town is subtracted.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the 95% confidence level in context.",
+     "criteria": [
+      {
+       "text": "Explains that if many pairs of independent random samples of 500 Riverton adults and 400 Lakeside adults were taken and a 95% interval calculated from each pair, about 95% of the intervals would capture the true difference p₁ − p₂ in the proportions of adults who used a public library in the past month.",
+       "evidence": "Response refers to repeated random sampling with the same sample sizes from the same two towns and states that about 95% of the resulting intervals capture the true difference, in context.",
+       "fix": "Describe the long-run capture rate: in repeated random samples of the same sizes, about 95% of intervals would contain the true difference.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "One board member claims that the proportions of adults who used a public library in the past month are different in the two towns. A second board member claims that Riverton's proportion is more than 20 percentage points higher than Lakeside's. Does the interval support each claim? Explain.",
+     "criteria": [
+      {
+       "text": "States that the interval supports the first claim (gives convincing evidence of a difference) because 0 is not in the interval; every plausible value of p₁ − p₂ is positive.",
+       "evidence": "Response notes that the interval (0.046, 0.174) does not contain 0 and concludes there is convincing evidence that the two population proportions differ.",
+       "fix": "To judge a claimed difference, check whether 0 is in the interval; if 0 is excluded, there is convincing evidence of a difference.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that the interval does not support the second claim because every plausible value of p₁ − p₂ is less than 0.20 (0.20 is above the upper limit 0.174).",
+       "evidence": "Response compares 0.20 with the interval, notes that 0.20 is not in it and that all plausible differences are below 0.20, and states that the claim is not supported.",
+       "fix": "Convert percentage points to a difference, here 0.20, and check whether any plausible value in the interval is as large as that.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A resident says, \"Since the interval was calculated from the data, the true difference p₁ − p₂ must be between 0.046 and 0.174.\" Explain why the resident's statement is not correct.",
+     "criteria": [
+      {
+       "text": "Explains that the interval is calculated from random samples, so it may or may not contain the true difference; the 95% confidence level means about 5% of such intervals miss the true difference.",
+       "evidence": "Response states that an interval based on samples might not capture p₁ − p₂, so the true difference is not guaranteed to lie between 0.046 and 0.174.",
+       "fix": "Remember that confidence is not certainty: a sample-based interval may or may not contain the parameter, so never say it must be inside.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) We are 95% confident that the interval from 0.046 to 0.174 captures the true difference (Riverton minus Lakeside) between the proportion of all adult residents of Riverton and the proportion of all adult residents of Lakeside who used a public library in the past month.\n\n(b) If the board took many pairs of independent random samples of 500 Riverton adults and 400 Lakeside adults and calculated a 95% confidence interval from each pair, about 95% of those intervals would capture the true difference p₁ − p₂ between the proportions of adults in the two towns who used a public library in the past month.\n\n(c) First claim: supported. The interval (0.046, 0.174) does not contain 0, and every plausible value of p₁ − p₂ is positive, so there is convincing evidence that the proportions of adults who used a public library in the past month differ between the two towns.\nSecond claim: not supported. A difference of more than 20 percentage points means p₁ − p₂ > 0.20, but every value in the interval is less than 0.20 (the upper limit is 0.174), so a difference that large is not plausible.\n\n(d) The interval was calculated from random samples, and a different pair of samples would give a different interval. An interval built this way may or may not contain the true difference p₁ − p₂; about 5% of 95% intervals miss it. So we can be 95% confident, but not certain, that the true difference is between 0.046 and 0.174.",
+   "verification_python": "from math import sqrt\nx1,n1,x2,n2=230,500,140,400\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.46)<1e-12 and abs(p2-0.35)<1e-12\nd=p1-p2\nse=sqrt(p1*(1-p1)/n1+p2*(1-p2)/n2)\nlo,hi=d-1.96*se,d+1.96*se\nassert abs(lo-0.046)<0.0005 and abs(hi-0.174)<0.0005\nassert n1<=0.10*20000 and n2<=0.10*20000\nfor c in [x1,n1-x1,x2,n2-x2]: assert c>=10\nassert not (0.046<=0<=0.174)\nassert 0.174<0.20\nassert abs((1-0.95)-0.05)<1e-12\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.882050Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "statistics_resolved.json",
+    "decisions": [
+     {
+      "source": "six-vote topic classifier",
+      "objection": "topic votes {'3.11': 4, '3.10': 2}, required units [3]",
+      "ruling": "reject",
+      "reason": "The interval is given, so no part constructs it (3.10). The parts interpret the interval (3.11.A.3), the confidence level (3.11.A.2), justify claims with it (3.11.B.1) and note it may miss the parameter (3.11.A.1): all Topic 3.11. The 4-of-6 majority vote is correct."
+     }
+    ]
+   }
+  ],
+  "topic_ruling": {
+   "topic": "3.11",
+   "required_units": [
+    3
+   ],
+   "basis": "ced_text_tiebreak",
+   "reason": "Every part matches CED 3.11.A/3.11.B; the interval is supplied, so 3.10 construction is not needed."
+  }
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:27:41.318Z",
@@ -98,70 +189,5 @@
    },
    "stage": "topic_vote"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Interpreting an Interval for Library Use in Two Towns",
-   "calculator": "permitted",
-   "stimulus": "A regional library board selected a random sample of 500 adult residents of Riverton and, independently, a random sample of 400 adult residents of Lakeside. Each town has more than 20,000 adult residents. In the samples, 230 of the Riverton residents (0.46) and 140 of the Lakeside residents (0.35) said they had used a public library in the past month. All conditions for inference were met, and the board calculated a 95% confidence interval for p₁ − p₂, where p₁ is the proportion of all adult residents of Riverton who used a public library in the past month and p₂ is the proportion of all adult residents of Lakeside who used a public library in the past month. The interval is (0.046, 0.174).",
-   "parts": [
-    {
-     "prompt": "Interpret the 95% confidence interval in context.",
-     "criteria": [
-      {
-       "text": "States that we are 95% confident that the interval from 0.046 to 0.174 captures the difference (Riverton minus Lakeside) between the proportions of all adult residents of each town who used a public library in the past month.",
-       "evidence": "Response says \"95% confident\", gives the interval limits, and describes the parameter as the difference in population proportions with the order (Riverton minus Lakeside), both towns' adult residents and library use.",
-       "fix": "Name the parameter fully: the difference in the proportions of all adults in each town who used a library, and say which town is subtracted.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "Interpret the 95% confidence level in context.",
-     "criteria": [
-      {
-       "text": "Explains that if many pairs of independent random samples of 500 Riverton adults and 400 Lakeside adults were taken and a 95% interval calculated from each pair, about 95% of the intervals would capture the true difference p₁ − p₂ in the proportions of adults who used a public library in the past month.",
-       "evidence": "Response refers to repeated random sampling with the same sample sizes from the same two towns and states that about 95% of the resulting intervals capture the true difference, in context.",
-       "fix": "Describe the long-run capture rate: in repeated random samples of the same sizes, about 95% of intervals would contain the true difference.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "One board member claims that the proportions of adults who used a public library in the past month are different in the two towns. A second board member claims that Riverton's proportion is more than 20 percentage points higher than Lakeside's. Does the interval support each claim? Explain.",
-     "criteria": [
-      {
-       "text": "States that the interval supports the first claim (gives convincing evidence of a difference) because 0 is not in the interval; every plausible value of p₁ − p₂ is positive.",
-       "evidence": "Response notes that the interval (0.046, 0.174) does not contain 0 and concludes there is convincing evidence that the two population proportions differ.",
-       "fix": "To judge a claimed difference, check whether 0 is in the interval; if 0 is excluded, there is convincing evidence of a difference.",
-       "accepted_variants": []
-      },
-      {
-       "text": "States that the interval does not support the second claim because every plausible value of p₁ − p₂ is less than 0.20 (0.20 is above the upper limit 0.174).",
-       "evidence": "Response compares 0.20 with the interval, notes that 0.20 is not in it and that all plausible differences are below 0.20, and states that the claim is not supported.",
-       "fix": "Convert percentage points to a difference, here 0.20, and check whether any plausible value in the interval is as large as that.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "A resident says, \"Since the interval was calculated from the data, the true difference p₁ − p₂ must be between 0.046 and 0.174.\" Explain why the resident's statement is not correct.",
-     "criteria": [
-      {
-       "text": "Explains that the interval is calculated from random samples, so it may or may not contain the true difference; the 95% confidence level means about 5% of such intervals miss the true difference.",
-       "evidence": "Response states that an interval based on samples might not capture p₁ − p₂, so the true difference is not guaranteed to lie between 0.046 and 0.174.",
-       "fix": "Remember that confidence is not certainty: a sample-based interval may or may not contain the parameter, so never say it must be inside.",
-       "accepted_variants": []
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) We are 95% confident that the interval from 0.046 to 0.174 captures the true difference (Riverton minus Lakeside) between the proportion of all adult residents of Riverton and the proportion of all adult residents of Lakeside who used a public library in the past month.\n\n(b) If the board took many pairs of independent random samples of 500 Riverton adults and 400 Lakeside adults and calculated a 95% confidence interval from each pair, about 95% of those intervals would capture the true difference p₁ − p₂ between the proportions of adults in the two towns who used a public library in the past month.\n\n(c) First claim: supported. The interval (0.046, 0.174) does not contain 0, and every plausible value of p₁ − p₂ is positive, so there is convincing evidence that the proportions of adults who used a public library in the past month differ between the two towns.\nSecond claim: not supported. A difference of more than 20 percentage points means p₁ − p₂ > 0.20, but every value in the interval is less than 0.20 (the upper limit is 0.174), so a difference that large is not plausible.\n\n(d) The interval was calculated from random samples, and a different pair of samples would give a different interval. An interval built this way may or may not contain the true difference p₁ − p₂; about 5% of 95% intervals miss it. So we can be 95% confident, but not certain, that the true difference is between 0.046 and 0.174.",
-   "verification_python": "from math import sqrt\nx1,n1,x2,n2=230,500,140,400\np1=x1/n1;p2=x2/n2\nassert abs(p1-0.46)<1e-12 and abs(p2-0.35)<1e-12\nd=p1-p2\nse=sqrt(p1*(1-p1)/n1+p2*(1-p2)/n2)\nlo,hi=d-1.96*se,d+1.96*se\nassert abs(lo-0.046)<0.0005 and abs(hi-0.174)<0.0005\nassert n1<=0.10*20000 and n2<=0.10*20000\nfor c in [x1,n1-x1,x2,n2-x2]: assert c>=10\nassert not (0.046<=0<=0.174)\nassert 0.174<0.20\nassert abs((1-0.95)-0.05)<1e-12\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.882050Z"
- }
+ ]
 }

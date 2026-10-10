@@ -11,8 +11,103 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Evaluating, Building and Decomposing Composite Functions",
+   "calculator": "not_permitted",
+   "stimulus": "Let f and g be the functions defined by f(x) = 1/(x − 3) and g(x) = x² − 1.\nLet k be the function defined by k(x) = (2x + 5)³.\nLet w be the function defined by w(x) = f(x) + 7, and let t be the function defined by t(x) = x + 7.",
+   "parts": [
+    {
+     "prompt": "Find f(g(1)) and g(f(1)). What do your results show about the order in which two functions are composed?",
+     "criteria": [
+      {
+       "text": "f(g(1)) = −1/3, since g(1) = 0 and f(0) = 1/(0 − 3) = −1/3.",
+       "evidence": "Response evaluates g(1) = 0 first and then f(0) = −1/3.",
+       "fix": "Evaluate the inner function first, then use its output as the input of the outer function.",
+       "accepted_variants": [
+        "−1/3"
+       ]
+      },
+      {
+       "text": "g(f(1)) = −3/4, since f(1) = −1/2 and g(−1/2) = 1/4 − 1 = −3/4; the two results differ, so composition is not commutative (order matters).",
+       "evidence": "Response obtains −3/4 and states that f(g(1)) ≠ g(f(1)), so changing the order of composition changes the result.",
+       "fix": "Compute both orders separately and compare; composition generally gives different results when the order is reversed.",
+       "accepted_variants": [
+        "−3/4"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write an expression for f(g(x)) and find the domain of the composite function f∘g. Explain why each excluded value is excluded.",
+     "criteria": [
+      {
+       "text": "f(g(x)) = 1/(x² − 4).",
+       "evidence": "Response substitutes g(x) for x in f to get 1/((x² − 1) − 3) and simplifies to 1/(x² − 4).",
+       "fix": "Replace every x in f with the whole expression g(x), using parentheses, then simplify the denominator.",
+       "accepted_variants": [
+        "1/((x² − 1) − 3)"
+       ]
+      },
+      {
+       "text": "The domain is all real x except x = 2 and x = −2, because g(2) = g(−2) = 3, and 3 is not in the domain of f.",
+       "evidence": "Response excludes exactly x = ±2 and explains that these inputs make g(x) = 3, where f is undefined, or equivalently make the denominator (x² − 1) − 3 = x² − 4 equal 0.",
+       "fix": "Exclude inputs whose inner output falls outside the domain of the outer function; solve g(x) = 3.",
+       "accepted_variants": [
+        "x ≠ ±2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write k as a composition u(v(x)) of two functions u and v, neither of which is the identity function. Then write w as a composition of t and f, and explain why composing them in the other order does not give w.",
+     "criteria": [
+      {
+       "text": "Gives a valid decomposition, such as v(x) = 2x + 5 and u(x) = x³, so that u(v(x)) = (2x + 5)³ = k(x).",
+       "evidence": "Response names u and v explicitly, neither equal to x, and u(v(x)) simplifies to (2x + 5)³. Any valid pair, such as v(x) = 2x and u(x) = (x + 5)³, is accepted.",
+       "fix": "Identify the inner expression that is being operated on, call it v(x), and let u describe what is done to it.",
+       "accepted_variants": []
+      },
+      {
+       "text": "w(x) = t(f(x)), that is w = t∘f; the other order gives f(t(x)) = 1/(x + 4), which is not w.",
+       "evidence": "Response writes w = t∘f (adding 7 to the output of f) and shows the reverse order differs, for example f(t(x)) = 1/(x + 4) ≠ f(x) + 7, a numerical counterexample, or different domains.",
+       "fix": "A vertical translation adds to the output, so t must be applied after f; check the reverse order by substituting.",
+       "accepted_variants": [
+        "t(f(x))",
+        "t∘f"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) g(1) = 1² − 1 = 0, so f(g(1)) = f(0) = 1/(0 − 3) = −1/3.\nf(1) = 1/(1 − 3) = −1/2, so g(f(1)) = (−1/2)² − 1 = 1/4 − 1 = −3/4.\nSince −1/3 ≠ −3/4, f(g(1)) ≠ g(f(1)). The order of composition matters: composition of functions is not commutative.\n\n(b) f(g(x)) = 1/(g(x) − 3) = 1/((x² − 1) − 3) = 1/(x² − 4).\ng is defined for all real numbers, but g(x) must be in the domain of f, so g(x) ≠ 3. g(x) = 3 means x² − 1 = 3, so x² = 4 and x = 2 or x = −2. The domain of f∘g is all real numbers except x = 2 and x = −2.\n\n(c) Let v(x) = 2x + 5 and u(x) = x³. Then u(v(x)) = (2x + 5)³ = k(x).\nw(x) = f(x) + 7 = t(f(x)), so w = t∘f.\nIn the other order, f(t(x)) = 1/((x + 7) − 3) = 1/(x + 4), which is not equal to f(x) + 7 (for example, at x = 0, f(t(0)) = 1/4 while w(0) = −1/3 + 7 = 20/3). So only t∘f gives w.",
+   "verification_python": "import sympy as sp\nx=sp.symbols('x')\nf=lambda z:1/(z-3); g=lambda z:z**2-1; t=lambda z:z+7\nassert f(g(sp.Integer(1)))==sp.Rational(-1,3)\nassert g(f(sp.Integer(1)))==sp.Rational(-3,4)\nassert sp.simplify(f(g(x))-1/(x**2-4))==0\nassert sorted(sp.solve(sp.Eq(g(x),3),x))==[-2,2]\nu=lambda z:z**3; v=lambda z:2*z+5\nassert sp.expand(u(v(x))-(2*x+5)**3)==0\nu2=lambda z:(z+5)**3; v2=lambda z:2*z\nassert sp.expand(u2(v2(x))-(2*x+5)**3)==0\nw=f(x)+7\nassert sp.simplify(t(f(x))-w)==0\nassert sp.simplify(f(t(x))-1/(x+4))==0\nassert sp.simplify(f(t(x))-w)!=0\nassert f(t(sp.Integer(0)))==sp.Rational(1,4) and w.subs(x,0)==sp.Rational(20,3)\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.876829Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u12_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b2 requires explaining the exclusions specifically through g(x) = 3, rather than accepting the equally valid explanation that",
+      "ruling": "accept",
+      "reason": "Correct on both: x = ±2 making g(x) − 3 = x² − 4 zero is the same condition as g(x) = 3, and a counterexample such as f(t(0)) = 1/4 versus w(0) = 20/3 also shows the other order fails. b2 and c2 evidence widened."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:21:36.009Z",
@@ -281,82 +376,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Evaluating, Building and Decomposing Composite Functions",
-   "calculator": "not_permitted",
-   "stimulus": "Let f and g be the functions defined by f(x) = 1/(x − 3) and g(x) = x² − 1.\nLet k be the function defined by k(x) = (2x + 5)³.\nLet w be the function defined by w(x) = f(x) + 7, and let t be the function defined by t(x) = x + 7.",
-   "parts": [
-    {
-     "prompt": "Find f(g(1)) and g(f(1)). What do your results show about the order in which two functions are composed?",
-     "criteria": [
-      {
-       "text": "f(g(1)) = −1/3, since g(1) = 0 and f(0) = 1/(0 − 3) = −1/3.",
-       "evidence": "Response evaluates g(1) = 0 first and then f(0) = −1/3.",
-       "fix": "Evaluate the inner function first, then use its output as the input of the outer function.",
-       "accepted_variants": [
-        "−1/3"
-       ]
-      },
-      {
-       "text": "g(f(1)) = −3/4, since f(1) = −1/2 and g(−1/2) = 1/4 − 1 = −3/4; the two results differ, so composition is not commutative (order matters).",
-       "evidence": "Response obtains −3/4 and states that f(g(1)) ≠ g(f(1)), so changing the order of composition changes the result.",
-       "fix": "Compute both orders separately and compare; composition generally gives different results when the order is reversed.",
-       "accepted_variants": [
-        "−3/4"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "Write an expression for f(g(x)) and find the domain of the composite function f∘g. Explain why each excluded value is excluded.",
-     "criteria": [
-      {
-       "text": "f(g(x)) = 1/(x² − 4).",
-       "evidence": "Response substitutes g(x) for x in f to get 1/((x² − 1) − 3) and simplifies to 1/(x² − 4).",
-       "fix": "Replace every x in f with the whole expression g(x), using parentheses, then simplify the denominator.",
-       "accepted_variants": [
-        "1/((x² − 1) − 3)"
-       ]
-      },
-      {
-       "text": "The domain is all real x except x = 2 and x = −2, because g(2) = g(−2) = 3, and 3 is not in the domain of f.",
-       "evidence": "Response excludes exactly x = ±2 and explains that these inputs make g(x) = 3, where f is undefined.",
-       "fix": "Exclude inputs whose inner output falls outside the domain of the outer function; solve g(x) = 3.",
-       "accepted_variants": [
-        "x ≠ ±2"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "Write k as a composition u(v(x)) of two functions u and v, neither of which is the identity function. Then write w as a composition of t and f, and explain why composing them in the other order does not give w.",
-     "criteria": [
-      {
-       "text": "Gives a valid decomposition, such as v(x) = 2x + 5 and u(x) = x³, so that u(v(x)) = (2x + 5)³ = k(x).",
-       "evidence": "Response names u and v explicitly, neither equal to x, and u(v(x)) simplifies to (2x + 5)³. Any valid pair, such as v(x) = 2x and u(x) = (x + 5)³, is accepted.",
-       "fix": "Identify the inner expression that is being operated on, call it v(x), and let u describe what is done to it.",
-       "accepted_variants": []
-      },
-      {
-       "text": "w(x) = t(f(x)), that is w = t∘f; the other order gives f(t(x)) = 1/(x + 4), which is not w.",
-       "evidence": "Response writes w = t∘f (adding 7 to the output of f) and shows f(t(x)) = 1/(x + 7 − 3) = 1/(x + 4) ≠ f(x) + 7.",
-       "fix": "A vertical translation adds to the output, so t must be applied after f; check the reverse order by substituting.",
-       "accepted_variants": [
-        "t(f(x))",
-        "t∘f"
-       ]
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) g(1) = 1² − 1 = 0, so f(g(1)) = f(0) = 1/(0 − 3) = −1/3.\nf(1) = 1/(1 − 3) = −1/2, so g(f(1)) = (−1/2)² − 1 = 1/4 − 1 = −3/4.\nSince −1/3 ≠ −3/4, f(g(1)) ≠ g(f(1)). The order of composition matters: composition of functions is not commutative.\n\n(b) f(g(x)) = 1/(g(x) − 3) = 1/((x² − 1) − 3) = 1/(x² − 4).\ng is defined for all real numbers, but g(x) must be in the domain of f, so g(x) ≠ 3. g(x) = 3 means x² − 1 = 3, so x² = 4 and x = 2 or x = −2. The domain of f∘g is all real numbers except x = 2 and x = −2.\n\n(c) Let v(x) = 2x + 5 and u(x) = x³. Then u(v(x)) = (2x + 5)³ = k(x).\nw(x) = f(x) + 7 = t(f(x)), so w = t∘f.\nIn the other order, f(t(x)) = 1/((x + 7) − 3) = 1/(x + 4), which is not equal to f(x) + 7 (for example, at x = 0, f(t(0)) = 1/4 while w(0) = −1/3 + 7 = 20/3). So only t∘f gives w.",
-   "verification_python": "import sympy as sp\nx=sp.symbols('x')\nf=lambda z:1/(z-3); g=lambda z:z**2-1; t=lambda z:z+7\nassert f(g(sp.Integer(1)))==sp.Rational(-1,3)\nassert g(f(sp.Integer(1)))==sp.Rational(-3,4)\nassert sp.simplify(f(g(x))-1/(x**2-4))==0\nassert sorted(sp.solve(sp.Eq(g(x),3),x))==[-2,2]\nu=lambda z:z**3; v=lambda z:2*z+5\nassert sp.expand(u(v(x))-(2*x+5)**3)==0\nu2=lambda z:(z+5)**3; v2=lambda z:2*z\nassert sp.expand(u2(v2(x))-(2*x+5)**3)==0\nw=f(x)+7\nassert sp.simplify(t(f(x))-w)==0\nassert sp.simplify(f(t(x))-1/(x+4))==0\nassert sp.simplify(f(t(x))-w)!=0\nassert f(t(sp.Integer(0)))==sp.Rational(1,4) and w.subs(x,0)==sp.Rational(20,3)\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.876829Z"
- }
+ ]
 }

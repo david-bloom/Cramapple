@@ -11,8 +11,103 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Converting Between Polar, Rectangular and Complex Forms",
+   "calculator": "not_permitted",
+   "stimulus": "In the xy-plane, point A has polar coordinates (r, θ) = (−4, 2π/3), and point B has rectangular coordinates (−3, 3√3).\n\nIn the complex plane, the complex number w corresponds to the point with polar coordinates (4, 5π/4).",
+   "parts": [
+    {
+     "prompt": "Find the rectangular coordinates of point A. Then describe where A is located relative to the terminal ray of the angle 2π/3.",
+     "criteria": [
+      {
+       "text": "A = (2, −2√3), from x = r cos θ = −4cos(2π/3) = 2 and y = r sin θ = −4 sin(2π/3) = −2√3.",
+       "evidence": "Response obtains (2, −2√3) by a valid conversion, such as x = r cos θ and y = r sin θ with r = −4, or first rewriting A as (4, 5π/3) and then converting.",
+       "fix": "Substitute the negative r directly into x = r cos θ and y = r sin θ; do not drop its sign.",
+       "accepted_variants": [
+        "(2, −2√3)"
+       ]
+      },
+      {
+       "text": "Because r = −4 is negative, A is 4 units from the origin on the line containing the terminal ray of 2π/3, but in the direction opposite to that ray (so A is in quadrant IV).",
+       "evidence": "Response explains that a negative r places the point 4 units from the origin in the opposite direction of the terminal ray of 2π/3.",
+       "fix": "For negative r, go |r| units along the line through the terminal ray but on the opposite side of the origin.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find polar coordinates (r, θ) for point B with r > 0 and 0 ≤ θ < 2π. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "r = √((−3)² + (3√3)²) = √(9 + 27) = √36 = 6.",
+       "evidence": "Response computes r = √(x² + y²) = 6.",
+       "fix": "Use r = √(x² + y²) with both coordinates squared, then simplify the square root exactly.",
+       "accepted_variants": [
+        "6"
+       ]
+      },
+      {
+       "text": "θ = 2π/3: since x < 0, θ = arctan(3√3/(−3)) + π = arctan(−√3) + π = −π/3 + π = 2π/3.",
+       "evidence": "Response gives θ = 2π/3 with a reason that accounts for x < 0, such as adding π to arctan(y/x) or using cos θ = −1/2 and sin θ = √3/2.",
+       "fix": "When x < 0, add π to arctan(y/x); check that the angle's quadrant matches the signs of x and y.",
+       "accepted_variants": [
+        "2π/3"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write w in the form a + bi, where a and b are exact real numbers. Then give polar coordinates (r, θ) for the point corresponding to w with r = −4 and 0 ≤ θ < 2π.",
+     "criteria": [
+      {
+       "text": "w = 4cos(5π/4) + i·4 sin(5π/4) = −2√2 − 2√2 i.",
+       "evidence": "Response uses (r cos θ) + i(r sin θ) with cos(5π/4) = sin(5π/4) = −√2/2 to get −2√2 − 2√2 i.",
+       "fix": "Write a complex number with polar coordinates (r, θ) as r cos θ + i·r sin θ, using exact values with correct signs.",
+       "accepted_variants": [
+        "−2√2 − 2√2i",
+        "−2√2 + (−2√2)i"
+       ]
+      },
+      {
+       "text": "(−4, π/4), because the terminal ray of π/4 points opposite to the point, so r = −4 along it reaches (−2√2, −2√2); π/4 = 5π/4 − π.",
+       "evidence": "Response gives the polar coordinates (−4, π/4).",
+       "fix": "To use a negative r, change the angle by π so the terminal ray points opposite the point, then check by converting back.",
+       "accepted_variants": [
+        "(−4, π/4)"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) x = r cos θ = −4cos(2π/3) = −4(−1/2) = 2 and y = r sin θ = −4 sin(2π/3) = −4(√3/2) = −2√3. So A = (2, −2√3).\nThe terminal ray of 2π/3 points into quadrant II. Because r = −4 is negative, A lies 4 units from the origin on the line containing that ray, but in the opposite direction from the ray, which places A in quadrant IV.\n\n(b) r = √((−3)² + (3√3)²) = √(9 + 27) = √36 = 6.\nSince x = −3 < 0, θ = arctan(y/x) + π = arctan(3√3/(−3)) + π = arctan(−√3) + π = −π/3 + π = 2π/3. Check: 6cos(2π/3) = −3 and 6 sin(2π/3) = 3√3. So B has polar coordinates (6, 2π/3).\n\n(c) w = 4cos(5π/4) + i·4 sin(5π/4) = 4(−√2/2) + i·4(−√2/2) = −2√2 − 2√2 i.\nWith r = −4, the point must lie opposite the terminal ray of θ. The point (−2√2, −2√2) is in direction 5π/4, so the opposite direction is 5π/4 − π = π/4, and the polar coordinates are (−4, π/4). Check: −4cos(π/4) = −2√2 and −4 sin(π/4) = −2√2.",
+   "verification_python": "import sympy as sp\nxA = sp.simplify(-4*sp.cos(2*sp.pi/3)); yA = sp.simplify(-4*sp.sin(2*sp.pi/3))\nassert xA == 2 and sp.simplify(yA + 2*sp.sqrt(3)) == 0\nassert xA > 0 and yA < 0\nassert sp.sqrt(xA**2 + yA**2) == 4\nx, y = -3, 3*sp.sqrt(3)\nr = sp.sqrt(x**2 + y**2)\nassert r == 6\nth = sp.atan(y/x) + sp.pi\nassert sp.simplify(th - 2*sp.pi/3) == 0\nassert sp.simplify(6*sp.cos(2*sp.pi/3) + 3) == 0 and sp.simplify(6*sp.sin(2*sp.pi/3) - 3*sp.sqrt(3)) == 0\nw = 4*sp.cos(5*sp.pi/4) + sp.I*4*sp.sin(5*sp.pi/4)\nassert sp.simplify(w - (-2*sp.sqrt(2) - 2*sp.sqrt(2)*sp.I)) == 0\nassert sp.simplify(-4*sp.cos(sp.pi/4) + 2*sp.sqrt(2)) == 0 and sp.simplify(-4*sp.sin(sp.pi/4) + 2*sp.sqrt(2)) == 0\nassert 5*sp.pi/4 - sp.pi == sp.pi/4\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.879280Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u3_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion a1 requires substitution with r = −4, rejecting the valid alternative of first rewriting A as (4, 5π/3) and then converting to rectangu",
+      "ruling": "accept",
+      "reason": "Valid on both counts. a1 evidence widened to accept rewriting A as (4, 5π/3) before converting (same point, valid method). Part (c) asks only to give the polar coordinates, so c2 evidence no longer requires an explanation; the criterion text keeps the reason as feedback."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:23:54.982Z",
@@ -279,82 +374,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Converting Between Polar, Rectangular and Complex Forms",
-   "calculator": "not_permitted",
-   "stimulus": "In the xy-plane, point A has polar coordinates (r, θ) = (−4, 2π/3), and point B has rectangular coordinates (−3, 3√3).\n\nIn the complex plane, the complex number w corresponds to the point with polar coordinates (4, 5π/4).",
-   "parts": [
-    {
-     "prompt": "Find the rectangular coordinates of point A. Then describe where A is located relative to the terminal ray of the angle 2π/3.",
-     "criteria": [
-      {
-       "text": "A = (2, −2√3), from x = r cos θ = −4cos(2π/3) = 2 and y = r sin θ = −4 sin(2π/3) = −2√3.",
-       "evidence": "Response uses x = r cos θ and y = r sin θ with r = −4 and obtains (2, −2√3).",
-       "fix": "Substitute the negative r directly into x = r cos θ and y = r sin θ; do not drop its sign.",
-       "accepted_variants": [
-        "(2, −2√3)"
-       ]
-      },
-      {
-       "text": "Because r = −4 is negative, A is 4 units from the origin on the line containing the terminal ray of 2π/3, but in the direction opposite to that ray (so A is in quadrant IV).",
-       "evidence": "Response explains that a negative r places the point 4 units from the origin in the opposite direction of the terminal ray of 2π/3.",
-       "fix": "For negative r, go |r| units along the line through the terminal ray but on the opposite side of the origin.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "Find polar coordinates (r, θ) for point B with r > 0 and 0 ≤ θ < 2π. Show the work that leads to your answer.",
-     "criteria": [
-      {
-       "text": "r = √((−3)² + (3√3)²) = √(9 + 27) = √36 = 6.",
-       "evidence": "Response computes r = √(x² + y²) = 6.",
-       "fix": "Use r = √(x² + y²) with both coordinates squared, then simplify the square root exactly.",
-       "accepted_variants": [
-        "6"
-       ]
-      },
-      {
-       "text": "θ = 2π/3: since x < 0, θ = arctan(3√3/(−3)) + π = arctan(−√3) + π = −π/3 + π = 2π/3.",
-       "evidence": "Response gives θ = 2π/3 with a reason that accounts for x < 0, such as adding π to arctan(y/x) or using cos θ = −1/2 and sin θ = √3/2.",
-       "fix": "When x < 0, add π to arctan(y/x); check that the angle's quadrant matches the signs of x and y.",
-       "accepted_variants": [
-        "2π/3"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "Write w in the form a + bi, where a and b are exact real numbers. Then give polar coordinates (r, θ) for the point corresponding to w with r = −4 and 0 ≤ θ < 2π.",
-     "criteria": [
-      {
-       "text": "w = 4cos(5π/4) + i·4 sin(5π/4) = −2√2 − 2√2 i.",
-       "evidence": "Response uses (r cos θ) + i(r sin θ) with cos(5π/4) = sin(5π/4) = −√2/2 to get −2√2 − 2√2 i.",
-       "fix": "Write a complex number with polar coordinates (r, θ) as r cos θ + i·r sin θ, using exact values with correct signs.",
-       "accepted_variants": [
-        "−2√2 − 2√2i",
-        "−2√2 + (−2√2)i"
-       ]
-      },
-      {
-       "text": "(−4, π/4), because the terminal ray of π/4 points opposite to the point, so r = −4 along it reaches (−2√2, −2√2); π/4 = 5π/4 − π.",
-       "evidence": "Response gives (−4, π/4) and explains that a negative r reverses the direction of the terminal ray (or that adding or subtracting π pairs with changing the sign of r).",
-       "fix": "To use a negative r, change the angle by π so the terminal ray points opposite the point, then check by converting back.",
-       "accepted_variants": [
-        "(−4, π/4)"
-       ]
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) x = r cos θ = −4cos(2π/3) = −4(−1/2) = 2 and y = r sin θ = −4 sin(2π/3) = −4(√3/2) = −2√3. So A = (2, −2√3).\nThe terminal ray of 2π/3 points into quadrant II. Because r = −4 is negative, A lies 4 units from the origin on the line containing that ray, but in the opposite direction from the ray, which places A in quadrant IV.\n\n(b) r = √((−3)² + (3√3)²) = √(9 + 27) = √36 = 6.\nSince x = −3 < 0, θ = arctan(y/x) + π = arctan(3√3/(−3)) + π = arctan(−√3) + π = −π/3 + π = 2π/3. Check: 6cos(2π/3) = −3 and 6 sin(2π/3) = 3√3. So B has polar coordinates (6, 2π/3).\n\n(c) w = 4cos(5π/4) + i·4 sin(5π/4) = 4(−√2/2) + i·4(−√2/2) = −2√2 − 2√2 i.\nWith r = −4, the point must lie opposite the terminal ray of θ. The point (−2√2, −2√2) is in direction 5π/4, so the opposite direction is 5π/4 − π = π/4, and the polar coordinates are (−4, π/4). Check: −4cos(π/4) = −2√2 and −4 sin(π/4) = −2√2.",
-   "verification_python": "import sympy as sp\nxA = sp.simplify(-4*sp.cos(2*sp.pi/3)); yA = sp.simplify(-4*sp.sin(2*sp.pi/3))\nassert xA == 2 and sp.simplify(yA + 2*sp.sqrt(3)) == 0\nassert xA > 0 and yA < 0\nassert sp.sqrt(xA**2 + yA**2) == 4\nx, y = -3, 3*sp.sqrt(3)\nr = sp.sqrt(x**2 + y**2)\nassert r == 6\nth = sp.atan(y/x) + sp.pi\nassert sp.simplify(th - 2*sp.pi/3) == 0\nassert sp.simplify(6*sp.cos(2*sp.pi/3) + 3) == 0 and sp.simplify(6*sp.sin(2*sp.pi/3) - 3*sp.sqrt(3)) == 0\nw = 4*sp.cos(5*sp.pi/4) + sp.I*4*sp.sin(5*sp.pi/4)\nassert sp.simplify(w - (-2*sp.sqrt(2) - 2*sp.sqrt(2)*sp.I)) == 0\nassert sp.simplify(-4*sp.cos(sp.pi/4) + 2*sp.sqrt(2)) == 0 and sp.simplify(-4*sp.sin(sp.pi/4) + 2*sp.sqrt(2)) == 0\nassert 5*sp.pi/4 - sp.pi == sp.pi/4\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.879280Z"
- }
+ ]
 }

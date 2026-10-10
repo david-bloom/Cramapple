@@ -11,8 +11,103 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Transformations of a Function Given by a Table",
+   "calculator": "not_permitted",
+   "stimulus": "The function f has domain −2 ≤ x ≤ 6 and range −3 ≤ y ≤ 5. The table gives selected values of f.\nx | −2 | 0 | 2 | 6\nf(x) | 1 | 5 | −3 | 2\n\nLet g be the function defined by g(x) = −2f(x + 3) + 1.",
+   "parts": [
+    {
+     "prompt": "Describe in words, in an order that produces g, the transformations that map the graph of f onto the graph of g, giving the direction and size of each. Then find the value of g(−1).",
+     "criteria": [
+      {
+       "text": "Describes a horizontal translation of 3 units to the left, a vertical dilation by a factor of 2 combined with a reflection over the x-axis, and a vertical translation of 1 unit up applied after the dilation (or an equivalent sequence).",
+       "evidence": "Response names all three: left 3 units (not right), vertical dilation by a factor of 2 with a reflection over the x-axis, and up 1 unit after the dilation. An equivalent order, such as down 1/2 before the dilation, is accepted.",
+       "fix": "For f(x + h) with h > 0, shift left h units; apply the vertical dilation and reflection before the vertical translation.",
+       "accepted_variants": [
+        "left 3, reflect over the x-axis, vertical stretch by 2, up 1"
+       ]
+      },
+      {
+       "text": "Finds g(−1) = 7.",
+       "evidence": "Response substitutes x = −1 to get g(−1) = −2f(2) + 1, uses f(2) = −3 from the table, and obtains −2(−3) + 1 = 7.",
+       "fix": "Replace x by −1 inside f first, read f(2) from the table, then multiply by −2 and add 1.",
+       "accepted_variants": [
+        "7"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find the domain and the range of g. Show how each is obtained from the domain and range of f.",
+     "criteria": [
+      {
+       "text": "Domain of g is −5 ≤ x ≤ 3, because x + 3 must lie in the domain of f (equivalently, the shift 3 units left subtracts 3 from each domain endpoint).",
+       "evidence": "Response obtains −5 ≤ x ≤ 3 by a valid method: solving −2 ≤ x + 3 ≤ 6, or explaining that the left translation by 3 subtracts 3 from both endpoints of the domain of f.",
+       "fix": "Set x + 3 between the domain endpoints of f and solve, or shift each domain endpoint 3 units left.",
+       "accepted_variants": [
+        "[−5, 3]"
+       ]
+      },
+      {
+       "text": "Range of g is −9 ≤ y ≤ 7, because multiplying −3 ≤ f ≤ 5 by −2 gives −10 ≤ −2f ≤ 6 and adding 1 gives −9 ≤ y ≤ 7.",
+       "evidence": "Response transforms the range of f by multiplying by −2 (reversing the order of the bounds) and adding 1, giving −9 ≤ y ≤ 7.",
+       "fix": "Apply the outside operations to both range endpoints, and swap their order when multiplying by a negative number.",
+       "accepted_variants": [
+        "[−9, 7]"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The function h is obtained from f by a horizontal dilation by a factor of 3 followed by a vertical translation of 4 units down. Write an expression for h(x) in terms of f. Then give the point on the graph of h that is the image of the point (2, −3) on the graph of f.",
+     "criteria": [
+      {
+       "text": "h(x) = f(x/3) − 4.",
+       "evidence": "Response writes h(x) = f(x/3) − 4 or an equivalent form, with the factor 1/3 multiplying x inside f.",
+       "fix": "A horizontal dilation by factor 3 uses f(x/3), not f(3x); then subtract 4 outside f for the downward translation.",
+       "accepted_variants": [
+        "f((1/3)x) − 4",
+        "f(x/3) − 4"
+       ]
+      },
+      {
+       "text": "The image of (2, −3) is (6, −7).",
+       "evidence": "Response multiplies the x-coordinate by 3 and subtracts 4 from the y-coordinate to get (6, −7), or checks h(6) = f(2) − 4 = −7.",
+       "fix": "Apply the horizontal dilation to the input coordinate and the vertical translation to the output coordinate separately.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) g(x) = −2f(x + 3) + 1. Replacing x by x + 3 translates the graph of f horizontally 3 units to the left. Multiplying f by −2 dilates the graph vertically by a factor of 2 and reflects it over the x-axis. Adding 1 after that translates the graph 1 unit up.\ng(−1) = −2f(−1 + 3) + 1 = −2f(2) + 1 = −2(−3) + 1 = 7.\n\n(b) Domain: x + 3 must be in the domain of f, so −2 ≤ x + 3 ≤ 6, which gives −5 ≤ x ≤ 3.\nRange: −3 ≤ f(x + 3) ≤ 5. Multiplying by −2 reverses the inequalities: −10 ≤ −2f(x + 3) ≤ 6. Adding 1 gives −9 ≤ g(x) ≤ 7. So the range of g is −9 ≤ y ≤ 7.\n\n(c) h(x) = f(x/3) − 4.\nThe horizontal dilation by a factor of 3 sends (2, −3) to (6, −3), and the translation 4 units down sends it to (6, −7). Check: h(6) = f(6/3) − 4 = f(2) − 4 = −3 − 4 = −7. The image is (6, −7).",
+   "verification_python": "from fractions import Fraction as F\nf={-2:1,0:5,2:-3,6:2}\ng=lambda x:-2*f[x+3]+1\nassert g(-1)==7\n# domain: -2<=x+3<=6\nassert (-2-3,6-3)==(-5,3)\n# range\nlo,hi=-3,5\nvals=sorted([-2*lo+1,-2*hi+1])\nassert vals==[-9,7]\n# table values stay inside stated range\nassert all(lo<=v<=hi for v in f.values())\nassert min(f.values())==-3 and max(f.values())==5\n# image points of g from table lie in range\nassert all(-9<=-2*v+1<=7 for v in f.values())\n# (c)\nh=lambda x:f[F(x,3)]-4 if F(x,3) in f else None\nassert h(6)==-7\nassert (2*3,-3-4)==(6,-7)\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.874620Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u12_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criterion b1 prescribes solving −2 ≤ x + 3 ≤ 6. A valid alternative is to explain that the left translation subtracts 3 from both domai",
+      "ruling": "accept",
+      "reason": "Correct: the prompt asks to show how the domain comes from f's domain; subtracting 3 from each endpoint because of the left shift is a valid derivation. Widened b1 text, evidence and fix to accept it."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:20:06.604Z",
@@ -279,82 +374,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Transformations of a Function Given by a Table",
-   "calculator": "not_permitted",
-   "stimulus": "The function f has domain −2 ≤ x ≤ 6 and range −3 ≤ y ≤ 5. The table gives selected values of f.\nx | −2 | 0 | 2 | 6\nf(x) | 1 | 5 | −3 | 2\n\nLet g be the function defined by g(x) = −2f(x + 3) + 1.",
-   "parts": [
-    {
-     "prompt": "Describe in words, in an order that produces g, the transformations that map the graph of f onto the graph of g, giving the direction and size of each. Then find the value of g(−1).",
-     "criteria": [
-      {
-       "text": "Describes a horizontal translation of 3 units to the left, a vertical dilation by a factor of 2 combined with a reflection over the x-axis, and a vertical translation of 1 unit up applied after the dilation (or an equivalent sequence).",
-       "evidence": "Response names all three: left 3 units (not right), vertical dilation by a factor of 2 with a reflection over the x-axis, and up 1 unit after the dilation. An equivalent order, such as down 1/2 before the dilation, is accepted.",
-       "fix": "For f(x + h) with h > 0, shift left h units; apply the vertical dilation and reflection before the vertical translation.",
-       "accepted_variants": [
-        "left 3, reflect over the x-axis, vertical stretch by 2, up 1"
-       ]
-      },
-      {
-       "text": "Finds g(−1) = 7.",
-       "evidence": "Response substitutes x = −1 to get g(−1) = −2f(2) + 1, uses f(2) = −3 from the table, and obtains −2(−3) + 1 = 7.",
-       "fix": "Replace x by −1 inside f first, read f(2) from the table, then multiply by −2 and add 1.",
-       "accepted_variants": [
-        "7"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "Find the domain and the range of g. Show how each is obtained from the domain and range of f.",
-     "criteria": [
-      {
-       "text": "Domain of g is −5 ≤ x ≤ 3, because x + 3 must lie in the domain of f.",
-       "evidence": "Response requires −2 ≤ x + 3 ≤ 6 and subtracts 3 to obtain −5 ≤ x ≤ 3.",
-       "fix": "Set the inside expression x + 3 between the endpoints of the domain of f, then solve for x.",
-       "accepted_variants": [
-        "[−5, 3]"
-       ]
-      },
-      {
-       "text": "Range of g is −9 ≤ y ≤ 7, because multiplying −3 ≤ f ≤ 5 by −2 gives −10 ≤ −2f ≤ 6 and adding 1 gives −9 ≤ y ≤ 7.",
-       "evidence": "Response transforms the range of f by multiplying by −2 (reversing the order of the bounds) and adding 1, giving −9 ≤ y ≤ 7.",
-       "fix": "Apply the outside operations to both range endpoints, and swap their order when multiplying by a negative number.",
-       "accepted_variants": [
-        "[−9, 7]"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "The function h is obtained from f by a horizontal dilation by a factor of 3 followed by a vertical translation of 4 units down. Write an expression for h(x) in terms of f. Then give the point on the graph of h that is the image of the point (2, −3) on the graph of f.",
-     "criteria": [
-      {
-       "text": "h(x) = f(x/3) − 4.",
-       "evidence": "Response writes h(x) = f(x/3) − 4 or an equivalent form, with the factor 1/3 multiplying x inside f.",
-       "fix": "A horizontal dilation by factor 3 uses f(x/3), not f(3x); then subtract 4 outside f for the downward translation.",
-       "accepted_variants": [
-        "f((1/3)x) − 4",
-        "f(x/3) − 4"
-       ]
-      },
-      {
-       "text": "The image of (2, −3) is (6, −7).",
-       "evidence": "Response multiplies the x-coordinate by 3 and subtracts 4 from the y-coordinate to get (6, −7), or checks h(6) = f(2) − 4 = −7.",
-       "fix": "Apply the horizontal dilation to the input coordinate and the vertical translation to the output coordinate separately.",
-       "accepted_variants": []
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) g(x) = −2f(x + 3) + 1. Replacing x by x + 3 translates the graph of f horizontally 3 units to the left. Multiplying f by −2 dilates the graph vertically by a factor of 2 and reflects it over the x-axis. Adding 1 after that translates the graph 1 unit up.\ng(−1) = −2f(−1 + 3) + 1 = −2f(2) + 1 = −2(−3) + 1 = 7.\n\n(b) Domain: x + 3 must be in the domain of f, so −2 ≤ x + 3 ≤ 6, which gives −5 ≤ x ≤ 3.\nRange: −3 ≤ f(x + 3) ≤ 5. Multiplying by −2 reverses the inequalities: −10 ≤ −2f(x + 3) ≤ 6. Adding 1 gives −9 ≤ g(x) ≤ 7. So the range of g is −9 ≤ y ≤ 7.\n\n(c) h(x) = f(x/3) − 4.\nThe horizontal dilation by a factor of 3 sends (2, −3) to (6, −3), and the translation 4 units down sends it to (6, −7). Check: h(6) = f(6/3) − 4 = f(2) − 4 = −3 − 4 = −7. The image is (6, −7).",
-   "verification_python": "from fractions import Fraction as F\nf={-2:1,0:5,2:-3,6:2}\ng=lambda x:-2*f[x+3]+1\nassert g(-1)==7\n# domain: -2<=x+3<=6\nassert (-2-3,6-3)==(-5,3)\n# range\nlo,hi=-3,5\nvals=sorted([-2*lo+1,-2*hi+1])\nassert vals==[-9,7]\n# table values stay inside stated range\nassert all(lo<=v<=hi for v in f.values())\nassert min(f.values())==-3 and max(f.values())==5\n# image points of g from table lie in range\nassert all(-9<=-2*v+1<=7 for v in f.values())\n# (c)\nh=lambda x:f[F(x,3)]-4 if F(x,3) in f else None\nassert h(6)==-7\nassert (2*3,-3-4)==(6,-7)\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (precalc_u12.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.874620Z"
- }
+ ]
 }

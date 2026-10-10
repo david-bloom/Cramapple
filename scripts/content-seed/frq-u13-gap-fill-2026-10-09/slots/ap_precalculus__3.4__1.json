@@ -11,8 +11,108 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Sine and Cosine from a Point Moving Around the Unit Circle",
+   "calculator": "not_permitted",
+   "stimulus": "A point P moves counterclockwise around the unit circle centered at the origin. When P is where the terminal ray of an angle θ in standard position intersects the unit circle, the y-coordinate of P is sin θ and the x-coordinate of P is cos θ.\n\nLet f(θ) = sin θ and g(θ) = cos θ.",
+   "parts": [
+    {
+     "prompt": "As θ increases from π/2 to π, describe how the position of P changes. Use this to determine whether f is increasing or decreasing and whether g is increasing or decreasing on the interval π/2 < θ < π.",
+     "criteria": [
+      {
+       "text": "f is decreasing on π/2 < θ < π, because P moves from (0, 1) toward (−1, 0), so its vertical displacement from the x-axis decreases from 1 to 0.",
+       "evidence": "Response states f is decreasing and explains with P moving downward, its y-coordinate going from 1 to 0.",
+       "fix": "Track the y-coordinate of P as it moves through the quadrant; sine increases only while P moves upward.",
+       "accepted_variants": [
+        "sin θ decreasing"
+       ]
+      },
+      {
+       "text": "g is decreasing on π/2 < θ < π, because P moves to the left, so its horizontal displacement from the y-axis changes from 0 to −1.",
+       "evidence": "Response states g is decreasing and explains with P moving left, its x-coordinate going from 0 to −1.",
+       "fix": "Track the x-coordinate of P; cosine decreases whenever P moves to the left, even when the values are negative.",
+       "accepted_variants": [
+        "cos θ decreasing"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the equation sin θ = 0.7 has at least one solution, but the equation cos θ = 1.3 has no solution.",
+     "criteria": [
+      {
+       "text": "sin θ = 0.7 has a solution because, as θ increases, sin θ oscillates between −1 and 1 and takes every value in between, and 0.7 is between −1 and 1.",
+       "evidence": "Response states that sine takes on every value from −1 to 1 (the y-coordinate of P takes every such value) and that 0.7 is in this range.",
+       "fix": "State the output range of sine, −1 to 1, and that sine takes every value in it, then check the target value.",
+       "accepted_variants": []
+      },
+      {
+       "text": "cos θ = 1.3 has no solution because cos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1, and 1.3 > 1.",
+       "evidence": "Response states that cosine values are never greater than 1 (x-coordinates on the unit circle lie from −1 to 1) and that 1.3 is outside this range.",
+       "fix": "Before solving, compare the target value with the output range −1 to 1; values outside it give no solution.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the interval of θ values, with 0 ≤ θ ≤ 2π, on which f is decreasing and g is increasing at the same time. Explain your reasoning in terms of the motion of P.",
+     "criteria": [
+      {
+       "text": "Gives the interval π < θ < 3π/2.",
+       "evidence": "Response states π < θ < 3π/2 (open or closed endpoints both accepted) as the interval on which f decreases and g increases.",
+       "fix": "Find where P moves both downward and to the right at once, and write that set of angles as one interval.",
+       "accepted_variants": [
+        "(π, 3π/2)",
+        "[π, 3π/2]",
+        "π ≤ θ ≤ 3π/2"
+       ]
+      },
+      {
+       "text": "Justifies with the motion of P: P moves downward only for π/2 < θ < 3π/2 and to the right only for π < θ < 2π, so both happen only for π < θ < 3π/2, as P goes from (−1, 0) to (0, −1).",
+       "evidence": "Response explains that on this interval the y-coordinate of P decreases (0 to −1) while its x-coordinate increases (−1 to 0), and that outside it at least one of these fails.",
+       "fix": "List where each coordinate of P decreases or increases separately, then intersect the two sets of angles.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) As θ increases from π/2 to π, P moves along the unit circle from (0, 1) to (−1, 0), through quadrant II. P moves down toward the x-axis, so its y-coordinate decreases from 1 to 0: f(θ) = sin θ is decreasing on π/2 < θ < π. P also moves to the left, so its x-coordinate decreases from 0 to −1: g(θ) = cos θ is decreasing on π/2 < θ < π.\n\n(b) As θ increases, sin θ, the y-coordinate of P, oscillates between −1 and 1 and takes every value in between. Since −1 < 0.7 < 1, there is at least one angle with sin θ = 0.7.\ncos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1 for every θ. Since 1.3 > 1, no angle has cos θ = 1.3.\n\n(c) f is decreasing when P moves downward, which happens for π/2 < θ < 3π/2 (from the top of the circle to the bottom). g is increasing when P moves to the right, which happens for π < θ < 2π (from the leftmost point to the rightmost point). Both happen only for π < θ < 3π/2. On this interval P moves through quadrant III from (−1, 0) to (0, −1), so its y-coordinate falls from 0 to −1 while its x-coordinate rises from −1 to 0. The interval is π < θ < 3π/2.",
+   "verification_python": "import math\ndef inc(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) > fn(xs[i]) for i in range(len(xs)-1))\ndef dec(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) < fn(xs[i]) for i in range(len(xs)-1))\npi = math.pi\nassert dec(math.sin, pi/2, pi) and dec(math.cos, pi/2, pi)\nassert abs(math.sin(pi/2) - 1) < 1e-12 and abs(math.sin(pi)) < 1e-12\nassert abs(math.cos(pi/2)) < 1e-12 and abs(math.cos(pi) + 1) < 1e-12\nassert -1 < 0.7 < 1 and abs(math.sin(math.asin(0.7)) - 0.7) < 1e-12\nassert 1.3 > 1\nassert dec(math.sin, pi/2, 3*pi/2) and inc(math.cos, pi, 2*pi)\nassert dec(math.sin, pi, 3*pi/2) and inc(math.cos, pi, 3*pi/2)\n# outside (pi, 3pi/2) the two conditions are not both true\nN = 2000\nboth = []\nfor k in range(1, N):\n    t = 2*pi*k/N\n    h = 1e-6\n    sd = math.sin(t + h) - math.sin(t - h) < 0\n    ci = math.cos(t + h) - math.cos(t - h) > 0\n    if sd and ci:\n        both.append(t)\nassert abs(min(both) - pi) < 0.01 and abs(max(both) - 3*pi/2) < 0.01\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.878057Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u3_resolved.json",
+    "decisions": [
+     {
+      "source": "six-vote topic classifier",
+      "objection": "topic votes {'3.2': 4, '3.4': 2}, required units [3]",
+      "ruling": "reject",
+      "reason": "The item matches 3.4's CED text: every part treats f(θ) = sin θ and g(θ) = cos θ as functions of θ built from the unit circle (3.4.A.1, 3.4.A.3), asks how outputs change as inputs increase (increasing/decreasing intervals), and uses that outputs oscillate between −1 and 1 taking every value in between (3.4.A.2, 3.4.A.4). The unit-circle language that drew the 3.2 votes is how 3.4.A defines these functions; no part asks for a single angle's sine or cosine value."
+     }
+    ]
+   }
+  ],
+  "topic_ruling": {
+   "topic": "3.4",
+   "required_units": [
+    3
+   ],
+   "basis": "ced_text_tiebreak",
+   "reason": "On topic for 3.4 (Sine and Cosine Function Graphs): all six points assess 3.4.A.1-3.4.A.4 (function behavior and range of sine and cosine via the unit circle); only Unit 3 is needed."
+  }
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:24:37.991Z",
@@ -107,79 +207,5 @@
    },
    "stage": "topic_vote"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Sine and Cosine from a Point Moving Around the Unit Circle",
-   "calculator": "not_permitted",
-   "stimulus": "A point P moves counterclockwise around the unit circle centered at the origin. When P is where the terminal ray of an angle θ in standard position intersects the unit circle, the y-coordinate of P is sin θ and the x-coordinate of P is cos θ.\n\nLet f(θ) = sin θ and g(θ) = cos θ.",
-   "parts": [
-    {
-     "prompt": "As θ increases from π/2 to π, describe how the position of P changes. Use this to determine whether f is increasing or decreasing and whether g is increasing or decreasing on the interval π/2 < θ < π.",
-     "criteria": [
-      {
-       "text": "f is decreasing on π/2 < θ < π, because P moves from (0, 1) toward (−1, 0), so its vertical displacement from the x-axis decreases from 1 to 0.",
-       "evidence": "Response states f is decreasing and explains with P moving downward, its y-coordinate going from 1 to 0.",
-       "fix": "Track the y-coordinate of P as it moves through the quadrant; sine increases only while P moves upward.",
-       "accepted_variants": [
-        "sin θ decreasing"
-       ]
-      },
-      {
-       "text": "g is decreasing on π/2 < θ < π, because P moves to the left, so its horizontal displacement from the y-axis changes from 0 to −1.",
-       "evidence": "Response states g is decreasing and explains with P moving left, its x-coordinate going from 0 to −1.",
-       "fix": "Track the x-coordinate of P; cosine decreases whenever P moves to the left, even when the values are negative.",
-       "accepted_variants": [
-        "cos θ decreasing"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "Explain why the equation sin θ = 0.7 has at least one solution, but the equation cos θ = 1.3 has no solution.",
-     "criteria": [
-      {
-       "text": "sin θ = 0.7 has a solution because, as θ increases, sin θ oscillates between −1 and 1 and takes every value in between, and 0.7 is between −1 and 1.",
-       "evidence": "Response states that sine takes on every value from −1 to 1 (the y-coordinate of P takes every such value) and that 0.7 is in this range.",
-       "fix": "State the output range of sine, −1 to 1, and that sine takes every value in it, then check the target value.",
-       "accepted_variants": []
-      },
-      {
-       "text": "cos θ = 1.3 has no solution because cos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1, and 1.3 > 1.",
-       "evidence": "Response states that cosine values are never greater than 1 (x-coordinates on the unit circle lie from −1 to 1) and that 1.3 is outside this range.",
-       "fix": "Before solving, compare the target value with the output range −1 to 1; values outside it give no solution.",
-       "accepted_variants": []
-      }
-     ]
-    },
-    {
-     "prompt": "Find the interval of θ values, with 0 ≤ θ ≤ 2π, on which f is decreasing and g is increasing at the same time. Explain your reasoning in terms of the motion of P.",
-     "criteria": [
-      {
-       "text": "Gives the interval π < θ < 3π/2.",
-       "evidence": "Response states π < θ < 3π/2 (open or closed endpoints both accepted) as the interval on which f decreases and g increases.",
-       "fix": "Find where P moves both downward and to the right at once, and write that set of angles as one interval.",
-       "accepted_variants": [
-        "(π, 3π/2)",
-        "[π, 3π/2]",
-        "π ≤ θ ≤ 3π/2"
-       ]
-      },
-      {
-       "text": "Justifies with the motion of P: P moves downward only for π/2 < θ < 3π/2 and to the right only for π < θ < 2π, so both happen only for π < θ < 3π/2, as P goes from (−1, 0) to (0, −1).",
-       "evidence": "Response explains that on this interval the y-coordinate of P decreases (0 to −1) while its x-coordinate increases (−1 to 0), and that outside it at least one of these fails.",
-       "fix": "List where each coordinate of P decreases or increases separately, then intersect the two sets of angles.",
-       "accepted_variants": []
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) As θ increases from π/2 to π, P moves along the unit circle from (0, 1) to (−1, 0), through quadrant II. P moves down toward the x-axis, so its y-coordinate decreases from 1 to 0: f(θ) = sin θ is decreasing on π/2 < θ < π. P also moves to the left, so its x-coordinate decreases from 0 to −1: g(θ) = cos θ is decreasing on π/2 < θ < π.\n\n(b) As θ increases, sin θ, the y-coordinate of P, oscillates between −1 and 1 and takes every value in between. Since −1 < 0.7 < 1, there is at least one angle with sin θ = 0.7.\ncos θ is the x-coordinate of a point on the unit circle, so −1 ≤ cos θ ≤ 1 for every θ. Since 1.3 > 1, no angle has cos θ = 1.3.\n\n(c) f is decreasing when P moves downward, which happens for π/2 < θ < 3π/2 (from the top of the circle to the bottom). g is increasing when P moves to the right, which happens for π < θ < 2π (from the leftmost point to the rightmost point). Both happen only for π < θ < 3π/2. On this interval P moves through quadrant III from (−1, 0) to (0, −1), so its y-coordinate falls from 0 to −1 while its x-coordinate rises from −1 to 0. The interval is π < θ < 3π/2.",
-   "verification_python": "import math\ndef inc(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) > fn(xs[i]) for i in range(len(xs)-1))\ndef dec(fn, a, b, n=400):\n    xs = [a + (b - a)*k/n for k in range(1, n)]\n    return all(fn(xs[i+1]) < fn(xs[i]) for i in range(len(xs)-1))\npi = math.pi\nassert dec(math.sin, pi/2, pi) and dec(math.cos, pi/2, pi)\nassert abs(math.sin(pi/2) - 1) < 1e-12 and abs(math.sin(pi)) < 1e-12\nassert abs(math.cos(pi/2)) < 1e-12 and abs(math.cos(pi) + 1) < 1e-12\nassert -1 < 0.7 < 1 and abs(math.sin(math.asin(0.7)) - 0.7) < 1e-12\nassert 1.3 > 1\nassert dec(math.sin, pi/2, 3*pi/2) and inc(math.cos, pi, 2*pi)\nassert dec(math.sin, pi, 3*pi/2) and inc(math.cos, pi, 3*pi/2)\n# outside (pi, 3pi/2) the two conditions are not both true\nN = 2000\nboth = []\nfor k in range(1, N):\n    t = 2*pi*k/N\n    h = 1e-6\n    sd = math.sin(t + h) - math.sin(t - h) < 0\n    ci = math.cos(t + h) - math.cos(t - h) > 0\n    if sd and ci:\n        both.append(t)\nassert abs(min(both) - pi) < 0.01 and abs(max(both) - 3*pi/2) < 0.01\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.878057Z"
- }
+ ]
 }

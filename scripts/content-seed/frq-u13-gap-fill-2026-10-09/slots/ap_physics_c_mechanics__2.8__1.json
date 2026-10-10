@@ -11,8 +11,99 @@
   "need": 1
  },
  "n": 1,
- "status": "given_flagged",
- "candidates": [
+ "status": "pending_checks",
+ "candidates": [],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Springs in Series and in Parallel Supporting a Block",
+   "calculator": "permitted",
+   "stimulus": "Two ideal springs have spring constants k₁ = 200 N/m and k₂ = 300 N/m. Use g = 10 m/s².\n\nArrangement 1: Spring 1 hangs from a fixed ceiling hook, spring 2 hangs from the bottom of spring 1, and a 3.0 kg block hangs from the bottom of spring 2. The block hangs at rest.\n\nArrangement 2: Both springs hang side by side from the ceiling, and their lower ends are attached to a light horizontal bar from which the same 3.0 kg block hangs. The bar stays horizontal, so both springs stretch by the same amount, and the block hangs at rest.",
+   "parts": [
+    {
+     "prompt": "For Arrangement 1, calculate the equivalent spring constant of the two springs and the total stretch of the two-spring combination.",
+     "criteria": [
+      {
+       "text": "1/k_eq = 1/200 + 1/300, so k_eq = 120 N/m.",
+       "evidence": "Response obtains 120 N/m by any valid method, for example adding reciprocals of the spring constants, or dividing the 30 N load by the total stretch.",
+       "fix": "For springs connected end to end, add the reciprocals of the spring constants, then take the reciprocal of that sum.",
+       "accepted_variants": [
+        "120 N/m"
+       ]
+      },
+      {
+       "text": "Total stretch = mg/k_eq = (30 N)/(120 N/m) = 0.25 m (equivalently 0.15 m + 0.10 m for the two springs).",
+       "evidence": "Response obtains 0.25 m by any valid method, for example dividing 30 N by its own k_eq or adding the two springs' individual stretches.",
+       "fix": "At rest, the spring force equals the weight; divide that force by the equivalent spring constant to find the total stretch.",
+       "accepted_variants": [
+        "25 cm"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "For Arrangement 1, explain why spring 1 and spring 2 exert forces of the same magnitude.",
+     "criteria": [
+      {
+       "text": "Spring 2 is ideal (massless), so the net force on it must be zero: spring 1 pulls up on spring 2 with the same force the block pulls down on it, so both springs exert 30 N.",
+       "evidence": "Response explains that because a massless spring must have zero net force, the forces at its two ends are equal, so both springs exert the same force.",
+       "fix": "Apply ΣF = 0 to a massless spring: the forces pulling its two ends must be equal in magnitude.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For Arrangement 2, calculate the equivalent spring constant and the distance each spring stretches.",
+     "criteria": [
+      {
+       "text": "k_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.",
+       "evidence": "Response obtains 500 N/m by any valid method, for example adding the spring constants, or from k₁x + k₂x = mg with the load divided by the common stretch.",
+       "fix": "For springs side by side that stretch by the same amount, add the spring constants directly.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Each spring stretches (30 N)/(500 N/m) = 0.060 m.",
+       "evidence": "Response obtains 0.060 m by any valid method, for example dividing 30 N by its own parallel k_eq, or solving k₁x + k₂x = 30 N.",
+       "fix": "Divide the total load by the parallel equivalent spring constant; each spring then stretches by that same amount.",
+       "accepted_variants": [
+        "6.0 cm",
+        "0.06 m"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Springs connected end to end are in series:\n1/k_eq = 1/k₁ + 1/k₂ = 1/200 + 1/300 = 5/600, so k_eq = 120 N/m.\nAt rest, the spring force on the block balances its weight, mg = (3.0 kg)(10 m/s²) = 30 N.\nTotal stretch = (30 N)/(120 N/m) = 0.25 m.\n\n(b) Spring 2 pulls up on the block with 30 N, so the block pulls down on spring 2 with 30 N. Spring 2 is ideal and has no mass, so the net force on it must be zero: spring 1 must pull up on spring 2 with the same 30 N. Both springs therefore exert forces of magnitude 30 N.\n(Check: spring 1 stretches (30 N)/(200 N/m) = 0.15 m and spring 2 stretches (30 N)/(300 N/m) = 0.10 m, which add to the 0.25 m found in part (a).)\n\n(c) Side by side and stretching equally, the springs are in parallel:\nk_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.\nEach spring stretches Δx = (30 N)/(500 N/m) = 0.060 m.\nCheck: spring 1 exerts (200)(0.060) = 12 N and spring 2 exerts (300)(0.060) = 18 N, which total 30 N.",
+   "verification_python": "from fractions import Fraction as Fr\nk1, k2 = Fr(200), Fr(300)\nW = Fr(3)*Fr(10)\nassert W == 30\ninv = 1/k1 + 1/k2\nassert inv == Fr(5,600)\nkser = 1/inv\nassert kser == 120\nassert kser < min(k1, k2)\nx_tot = W/kser\nassert x_tot == Fr(1,4)\nx1, x2 = W/k1, W/k2\nassert x1 == Fr(15,100) and x2 == Fr(10,100)\nassert x1 + x2 == x_tot\nkpar = k1 + k2\nassert kpar == 500\nxp = W/kpar\nassert xp == Fr(6,100)\nassert k1*xp == 12 and k2*xp == 18 and k1*xp + k2*xp == W\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.872793Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criteria a1, a2, c1, and c2 prescribe particular computational methods although the parts only ask students to calculate values. For example, a s",
+      "ruling": "accept",
+      "reason": "Real: the a1, a2, c1, c2 evidence now accepts any valid method (individual stretches, k₁x + k₂x = mg). b1 bundled three elements and the item is at the 5-point maximum, so part (b) is narrowed to the equal-force explanation, which also removes the dependence on part (a)."
+     },
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "rubric_points: Part (b), criterion b1: one point combines two required tasks—explaining why both springs exert equal force magnitudes and computing two separate",
+      "ruling": "accept",
+      "reason": "Same defects as the GPT objection; resolved by the same changes (part (b) narrowed to the explanation; a2 accepts summing the individual stretches)."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
   {
    "round": 1,
    "at": "2026-10-10T03:18:57.342Z",
@@ -329,74 +420,5 @@
    ],
    "stage": "checkers"
   }
- ],
- "removed_gateway_credit_failures": 3,
- "history_before_session_authoring": [],
- "given": {
-  "item": {
-   "title": "Springs in Series and in Parallel Supporting a Block",
-   "calculator": "permitted",
-   "stimulus": "Two ideal springs have spring constants k₁ = 200 N/m and k₂ = 300 N/m. Use g = 10 m/s².\n\nArrangement 1: Spring 1 hangs from a fixed ceiling hook, spring 2 hangs from the bottom of spring 1, and a 3.0 kg block hangs from the bottom of spring 2. The block hangs at rest.\n\nArrangement 2: Both springs hang side by side from the ceiling, and their lower ends are attached to a light horizontal bar from which the same 3.0 kg block hangs. The bar stays horizontal, so both springs stretch by the same amount, and the block hangs at rest.",
-   "parts": [
-    {
-     "prompt": "For Arrangement 1, calculate the equivalent spring constant of the two springs and the total stretch of the two-spring combination.",
-     "criteria": [
-      {
-       "text": "1/k_eq = 1/200 + 1/300, so k_eq = 120 N/m.",
-       "evidence": "Response adds the reciprocals of the two spring constants and obtains 120 N/m.",
-       "fix": "For springs connected end to end, add the reciprocals of the spring constants, then take the reciprocal of that sum.",
-       "accepted_variants": [
-        "120 N/m"
-       ]
-      },
-      {
-       "text": "Total stretch = mg/k_eq = (30 N)/(120 N/m) = 0.25 m.",
-       "evidence": "Response divides the 30 N spring force (equal to the block's weight) by its own k_eq and obtains 0.25 m.",
-       "fix": "At rest, the spring force equals the weight; divide that force by the equivalent spring constant to find the total stretch.",
-       "accepted_variants": [
-        "25 cm"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "For Arrangement 1, determine how much each spring stretches, and explain why the two springs exert forces of the same magnitude.",
-     "criteria": [
-      {
-       "text": "Both ideal (massless) springs carry the full 30 N, so spring 1 stretches (30 N)/(200 N/m) = 0.15 m and spring 2 stretches (30 N)/(300 N/m) = 0.10 m.",
-       "evidence": "Response states that each massless spring transmits the same 30 N force and gives stretches of 0.15 m and 0.10 m, which add to the total from part (a).",
-       "fix": "In a chain of massless springs each spring carries the whole load; divide that force by each individual spring constant.",
-       "accepted_variants": [
-        "15 cm and 10 cm"
-       ]
-      }
-     ]
-    },
-    {
-     "prompt": "For Arrangement 2, calculate the equivalent spring constant and the distance each spring stretches.",
-     "criteria": [
-      {
-       "text": "k_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.",
-       "evidence": "Response adds the two spring constants to obtain 500 N/m.",
-       "fix": "For springs side by side that stretch by the same amount, add the spring constants directly.",
-       "accepted_variants": []
-      },
-      {
-       "text": "Each spring stretches (30 N)/(500 N/m) = 0.060 m.",
-       "evidence": "Response divides the 30 N load by its own parallel k_eq and obtains 0.060 m.",
-       "fix": "Divide the total load by the parallel equivalent spring constant; each spring then stretches by that same amount.",
-       "accepted_variants": [
-        "6.0 cm",
-        "0.06 m"
-       ]
-      }
-     ]
-    }
-   ],
-   "model_answer": "(a) Springs connected end to end are in series:\n1/k_eq = 1/k₁ + 1/k₂ = 1/200 + 1/300 = 5/600, so k_eq = 120 N/m.\nAt rest, the spring force on the block balances its weight, mg = (3.0 kg)(10 m/s²) = 30 N.\nTotal stretch = (30 N)/(120 N/m) = 0.25 m.\n\n(b) Spring 2 pulls up on the block with 30 N. Because spring 2 is ideal and has no mass, spring 1 must pull up on spring 2 with the same 30 N, so both springs exert 30 N.\nSpring 1: Δx₁ = (30 N)/(200 N/m) = 0.15 m.\nSpring 2: Δx₂ = (30 N)/(300 N/m) = 0.10 m.\nCheck: 0.15 m + 0.10 m = 0.25 m, matching part (a).\n\n(c) Side by side and stretching equally, the springs are in parallel:\nk_eq = k₁ + k₂ = 200 N/m + 300 N/m = 500 N/m.\nEach spring stretches Δx = (30 N)/(500 N/m) = 0.060 m.\nCheck: spring 1 exerts (200)(0.060) = 12 N and spring 2 exerts (300)(0.060) = 18 N, which total 30 N.",
-   "verification_python": "from fractions import Fraction as Fr\nk1, k2 = Fr(200), Fr(300)\nW = Fr(3)*Fr(10)\nassert W == 30\ninv = 1/k1 + 1/k2\nassert inv == Fr(5,600)\nkser = 1/inv\nassert kser == 120\nassert kser < min(k1, k2)\nx_tot = W/kser\nassert x_tot == Fr(1,4)\nx1, x2 = W/k1, W/k2\nassert x1 == Fr(15,100) and x2 == Fr(10,100)\nassert x1 + x2 == x_tot\nkpar = k1 + k2\nassert kpar == 500\nxp = W/kpar\nassert xp == Fr(6,100)\nassert k1*xp == 12 and k2*xp == 18 and k1*xp + k2*xp == W\nprint('ALL_CHECKS_PASSED')"
-  },
-  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
-  "at": "2026-10-10T03:02:43.872793Z"
- }
+ ]
 }
