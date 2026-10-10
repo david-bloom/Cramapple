@@ -1,8 +1,8 @@
 # AP Chemistry Unit 1 — Reference Pack batch (`task0067-chem-u1-2026-10-09`)
 
 **Scope:** AP Chemistry Unit 1 (topics 1.1–1.8), following the Reference Pack build protocol in
-`docs/product/AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md`. **Environment:** loaded to Development
-(`wmgjsdkphcyhngaffbqf`) only. Production is a Hard Gate and has not been touched.
+`docs/product/AP_CHEMISTRY_CED_SCOPE_INVENTORY_2026_10_09.md`. **Environment:** Development, then **Production on 2026-10-10 (APPROVAL-0147)**: the same SQL file, the same
+QA checks and the same probe counts. The two escalations below are not loaded in either environment.
 
 ## Roster (smoke-tested 3/3 each, 2026-10-09)
 
