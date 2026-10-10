@@ -1,0 +1,933 @@
+{
+ "id": "ap_precalculus__3.12__1",
+ "slot": {
+  "subject_key": "ap_precalculus",
+  "tsv": "16383753-6775-430d-960a-544cd6ee0972",
+  "unit": 3,
+  "unit_title": "Trigonometric and Polar Functions",
+  "topic_code": "3.12",
+  "topic_title": "Equivalent Representations of Trigonometric Functions",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:17:51.560Z",
+   "source": "given",
+   "item": {
+    "title": "Using Pythagorean and Sum Identities to Evaluate and Solve",
+    "calculator": "not_permitted",
+    "stimulus": "Angle α satisfies sin α = 3/5 and π/2 < α < π.\nAngle β satisfies sin β = 12/13 and cos β = 5/13.",
+    "parts": [
+     {
+      "prompt": "Use a Pythagorean identity to find the exact value of cos α. Then find the exact value of tan α. Show the work that leads to your answers.",
+      "criteria": [
+       {
+        "text": "cos α = −4/5: from the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, and cos α < 0 because π/2 < α < π.",
+        "evidence": "Response uses sin²α + cos²α = 1 to get cos²α = 16/25 and chooses the negative root because α is in quadrant II.",
+        "fix": "After using sin²θ + cos²θ = 1, choose the sign of the square root from the quadrant of the angle.",
+        "accepted_variants": [
+         "−4/5",
+         "−0.8"
+        ]
+       },
+       {
+        "text": "tan α = −3/4, for example tan α = sin α/cos α = (3/5)/(−4/5) = −3/4.",
+        "evidence": "Response gets tan α = −3/4 with valid work, such as sin α/cos α, or tan²α = sec²α − 1 = 9/16 with the negative root because α is in quadrant II.",
+        "fix": "Compute tan α as sin α divided by cos α using the signed values just found, then check the sign against the quadrant.",
+        "accepted_variants": [
+         "−3/4",
+         "−0.75"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the sum identity for sine to find the exact value of sin(α + β). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Writes sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13).",
+        "evidence": "Response applies the sine sum identity and substitutes all four values, including cos α = −4/5.",
+        "fix": "Write sin(α + β) = sin α cos β + cos α sin β before substituting; never add the two sines.",
+        "accepted_variants": []
+       },
+       {
+        "text": "sin(α + β) = 15/65 − 48/65 = −33/65.",
+        "evidence": "Response simplifies the substituted expression to −33/65.",
+        "fix": "Put both products over the common denominator 65 and keep the negative sign from cos α.",
+        "accepted_variants": [
+         "−33/65"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use a Pythagorean identity to rewrite the equation 2cos²x + 3 sin x − 3 = 0 in terms of sin x only. Then find all solutions of the equation in the interval 0 ≤ x < 2π.",
+      "criteria": [
+       {
+        "text": "Replaces cos²x with 1 − sin²x to get 2sin²x − 3 sin x + 1 = 0, which factors as (2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.",
+        "evidence": "Response shows the substitution cos²x = 1 − sin²x, an equivalent quadratic in sin x, and the two values sin x = 1/2 and sin x = 1.",
+        "fix": "Substitute cos²x = 1 − sin²x, collect terms into a quadratic in sin x, then factor or use the quadratic formula.",
+        "accepted_variants": [
+         "2sin²x − 3sin x + 1 = 0"
+        ]
+       },
+       {
+        "text": "The solutions are x = π/6, π/2 and 5π/6.",
+        "evidence": "Response lists exactly π/6, π/2 and 5π/6, from sin x = 1/2 (two angles) and sin x = 1 (one angle).",
+        "fix": "For each sine value find every angle in 0 ≤ x < 2π; sin x = 1/2 has solutions in quadrants I and II.",
+        "accepted_variants": [
+         "π/6, π/2, 5π/6"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) By the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, so cos α = ±4/5. Because π/2 < α < π, α is in quadrant II, where cosine is negative, so cos α = −4/5.\ntan α = sin α/cos α = (3/5)/(−4/5) = −3/4.\n\n(b) sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13) = 15/65 − 48/65 = −33/65.\n\n(c) Using cos²x = 1 − sin²x:\n2(1 − sin²x) + 3 sin x − 3 = 0\n2 − 2sin²x + 3 sin x − 3 = 0\n−2sin²x + 3 sin x − 1 = 0\n2sin²x − 3 sin x + 1 = 0\n(2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.\nIn 0 ≤ x < 2π, sin x = 1/2 gives x = π/6 and x = 5π/6, and sin x = 1 gives x = π/2. The solutions are x = π/6, π/2 and 5π/6.",
+    "verification_python": "import sympy as sp\nsa = sp.Rational(3, 5)\nca = -sp.sqrt(1 - sa**2)\nassert ca == sp.Rational(-4, 5) and 1 - sa**2 == sp.Rational(16, 25)\nassert sa/ca == sp.Rational(-3, 4)\nsb, cb = sp.Rational(12, 13), sp.Rational(5, 13)\nassert sb**2 + cb**2 == 1\nval = sa*cb + ca*sb\nassert val == sp.Rational(-33, 65)\nassert sa*cb == sp.Rational(15, 65) and ca*sb == sp.Rational(-48, 65)\nalpha = sp.pi - sp.asin(sa); beta = sp.asin(sb)\nassert abs(float(sp.sin(alpha + beta)) - float(val)) < 1e-12\nx, s = sp.symbols('x s')\nassert sp.expand(2*(1 - s**2) + 3*s - 3 + (2*s**2 - 3*s + 1)) == 0\nassert sp.expand((2*s - 1)*(s - 1) - (2*s**2 - 3*s + 1)) == 0\nsols = sp.solveset(2*sp.cos(x)**2 + 3*sp.sin(x) - 3, x, sp.Interval.Ropen(0, 2*sp.pi))\nassert sols == sp.FiniteSet(sp.pi/6, sp.pi/2, 5*sp.pi/6)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Using Pythagorean and Sum Identities to Evaluate and Solve",
+   "calculator": "not_permitted",
+   "stimulus": "Angle α satisfies sin α = 3/5 and π/2 < α < π.\nAngle β satisfies sin β = 12/13 and cos β = 5/13.",
+   "parts": [
+    {
+     "prompt": "Use a Pythagorean identity to find the exact value of cos α. Then find the exact value of tan α. Show the work that leads to your answers.",
+     "criteria": [
+      {
+       "text": "cos α = −4/5: from the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, and cos α < 0 because π/2 < α < π.",
+       "evidence": "Response uses sin²α + cos²α = 1 to get cos²α = 16/25 and chooses the negative root because α is in quadrant II.",
+       "fix": "After using sin²θ + cos²θ = 1, choose the sign of the square root from the quadrant of the angle.",
+       "accepted_variants": [
+        "−4/5",
+        "−0.8"
+       ]
+      },
+      {
+       "text": "tan α = −3/4, for example tan α = sin α/cos α = (3/5)/(−4/5) = −3/4.",
+       "evidence": "Response gets tan α = −3/4 with valid work, such as sin α/cos α, or tan²α = sec²α − 1 = 9/16 with the negative root because α is in quadrant II.",
+       "fix": "Compute tan α as sin α divided by cos α using the signed values just found, then check the sign against the quadrant.",
+       "accepted_variants": [
+        "−3/4",
+        "−0.75"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use the sum identity for sine to find the exact value of sin(α + β). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Writes sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13).",
+       "evidence": "Response applies the sine sum identity and substitutes all four values, including cos α = −4/5.",
+       "fix": "Write sin(α + β) = sin α cos β + cos α sin β before substituting; never add the two sines.",
+       "accepted_variants": []
+      },
+      {
+       "text": "sin(α + β) = 15/65 − 48/65 = −33/65.",
+       "evidence": "Response simplifies the substituted expression to −33/65.",
+       "fix": "Put both products over the common denominator 65 and keep the negative sign from cos α.",
+       "accepted_variants": [
+        "−33/65"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use a Pythagorean identity to rewrite the equation 2cos²x + 3 sin x − 3 = 0 in terms of sin x only. Then find all solutions of the equation in the interval 0 ≤ x < 2π.",
+     "criteria": [
+      {
+       "text": "Replaces cos²x with 1 − sin²x to get 2sin²x − 3 sin x + 1 = 0, which factors as (2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.",
+       "evidence": "Response shows the substitution cos²x = 1 − sin²x, an equivalent quadratic in sin x, and the two values sin x = 1/2 and sin x = 1.",
+       "fix": "Substitute cos²x = 1 − sin²x, collect terms into a quadratic in sin x, then factor or use the quadratic formula.",
+       "accepted_variants": [
+        "2sin²x − 3sin x + 1 = 0"
+       ]
+      },
+      {
+       "text": "The solutions are x = π/6, π/2 and 5π/6.",
+       "evidence": "Response lists exactly π/6, π/2 and 5π/6, from sin x = 1/2 (two angles) and sin x = 1 (one angle).",
+       "fix": "For each sine value find every angle in 0 ≤ x < 2π; sin x = 1/2 has solutions in quadrants I and II.",
+       "accepted_variants": [
+        "π/6, π/2, 5π/6"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) By the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, so cos α = ±4/5. Because π/2 < α < π, α is in quadrant II, where cosine is negative, so cos α = −4/5.\ntan α = sin α/cos α = (3/5)/(−4/5) = −3/4.\n\n(b) sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13) = 15/65 − 48/65 = −33/65.\n\n(c) Using cos²x = 1 − sin²x:\n2(1 − sin²x) + 3 sin x − 3 = 0\n2 − 2sin²x + 3 sin x − 3 = 0\n−2sin²x + 3 sin x − 1 = 0\n2sin²x − 3 sin x + 1 = 0\n(2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.\nIn 0 ≤ x < 2π, sin x = 1/2 gives x = π/6 and x = 5π/6, and sin x = 1 gives x = π/2. The solutions are x = π/6, π/2 and 5π/6.",
+   "verification_python": "import sympy as sp\nsa = sp.Rational(3, 5)\nca = -sp.sqrt(1 - sa**2)\nassert ca == sp.Rational(-4, 5) and 1 - sa**2 == sp.Rational(16, 25)\nassert sa/ca == sp.Rational(-3, 4)\nsb, cb = sp.Rational(12, 13), sp.Rational(5, 13)\nassert sb**2 + cb**2 == 1\nval = sa*cb + ca*sb\nassert val == sp.Rational(-33, 65)\nassert sa*cb == sp.Rational(15, 65) and ca*sb == sp.Rational(-48, 65)\nalpha = sp.pi - sp.asin(sa); beta = sp.asin(sb)\nassert abs(float(sp.sin(alpha + beta)) - float(val)) < 1e-12\nx, s = sp.symbols('x s')\nassert sp.expand(2*(1 - s**2) + 3*s - 3 + (2*s**2 - 3*s + 1)) == 0\nassert sp.expand((2*s - 1)*(s - 1) - (2*s**2 - 3*s + 1)) == 0\nsols = sp.solveset(2*sp.cos(x)**2 + 3*sp.sin(x) - 3, x, sp.Interval.Ropen(0, 2*sp.pi))\nassert sols == sp.FiniteSet(sp.pi/6, sp.pi/2, 5*sp.pi/6)\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (precalc_u3.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.879073Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "precalc_u3_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion a1 requires explicit use of sin²α + cos²α = 1, although part (a) does not prescribe that method. A correct reference-triangle calculati",
+      "ruling": "accept",
+      "reason": "Valid: the prompt did not require the Pythagorean identity, yet a1 did. Using the identity is the point of topic 3.12 (equivalent representations), so the prompt now says 'Use a Pythagorean identity to find the exact value of cos α', matching a1 and the model answer."
+     }
+    ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "precalc_stats_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (a), criterion a2 requires dividing sine by cosine, although the prompt does not prescribe a method for finding tangent. A valid alternative",
+      "ruling": "accept",
+      "reason": "Valid: the prompt names the Pythagorean identity only for cos α, not for tan α. a2 now accepts any valid method, including sec²α − 1 with the quadrant II sign; the value −3/4 is unchanged."
+     }
+    ],
+    "accept_as_is": false
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:23:39.910Z",
+   "source": "given",
+   "item": {
+    "title": "Using Pythagorean and Sum Identities to Evaluate and Solve",
+    "calculator": "not_permitted",
+    "stimulus": "Angle α satisfies sin α = 3/5 and π/2 < α < π.\nAngle β satisfies sin β = 12/13 and cos β = 5/13.",
+    "parts": [
+     {
+      "prompt": "Find the exact values of cos α and tan α. Show the work that leads to your answers.",
+      "criteria": [
+       {
+        "text": "cos α = −4/5: from the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, and cos α < 0 because π/2 < α < π.",
+        "evidence": "Response uses sin²α + cos²α = 1 to get cos²α = 16/25 and chooses the negative root because α is in quadrant II.",
+        "fix": "After using sin²θ + cos²θ = 1, choose the sign of the square root from the quadrant of the angle.",
+        "accepted_variants": [
+         "−4/5",
+         "−0.8"
+        ]
+       },
+       {
+        "text": "tan α = sin α/cos α = (3/5)/(−4/5) = −3/4.",
+        "evidence": "Response divides sin α by cos α to get tan α = −3/4.",
+        "fix": "Compute tangent as sine divided by cosine using the signed values just found.",
+        "accepted_variants": [
+         "−3/4",
+         "−0.75"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the sum identity for sine to find the exact value of sin(α + β). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Writes sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13).",
+        "evidence": "Response applies the sine sum identity and substitutes all four values, including cos α = −4/5.",
+        "fix": "Write sin(α + β) = sin α cos β + cos α sin β before substituting; never add the two sines.",
+        "accepted_variants": []
+       },
+       {
+        "text": "sin(α + β) = 15/65 − 48/65 = −33/65.",
+        "evidence": "Response simplifies the substituted expression to −33/65.",
+        "fix": "Put both products over the common denominator 65 and keep the negative sign from cos α.",
+        "accepted_variants": [
+         "−33/65"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use a Pythagorean identity to rewrite the equation 2cos²x + 3 sin x − 3 = 0 in terms of sin x only. Then find all solutions of the equation in the interval 0 ≤ x < 2π.",
+      "criteria": [
+       {
+        "text": "Replaces cos²x with 1 − sin²x to get 2sin²x − 3 sin x + 1 = 0, which factors as (2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.",
+        "evidence": "Response shows the substitution cos²x = 1 − sin²x, an equivalent quadratic in sin x, and the two values sin x = 1/2 and sin x = 1.",
+        "fix": "Substitute cos²x = 1 − sin²x, collect terms into a quadratic in sin x, then factor or use the quadratic formula.",
+        "accepted_variants": [
+         "2sin²x − 3sin x + 1 = 0"
+        ]
+       },
+       {
+        "text": "The solutions are x = π/6, π/2 and 5π/6.",
+        "evidence": "Response lists exactly π/6, π/2 and 5π/6, from sin x = 1/2 (two angles) and sin x = 1 (one angle).",
+        "fix": "For each sine value find every angle in 0 ≤ x < 2π; sin x = 1/2 has solutions in quadrants I and II.",
+        "accepted_variants": [
+         "π/6, π/2, 5π/6"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) By the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, so cos α = ±4/5. Because π/2 < α < π, α is in quadrant II, where cosine is negative, so cos α = −4/5.\ntan α = sin α/cos α = (3/5)/(−4/5) = −3/4.\n\n(b) sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13) = 15/65 − 48/65 = −33/65.\n\n(c) Using cos²x = 1 − sin²x:\n2(1 − sin²x) + 3 sin x − 3 = 0\n2 − 2sin²x + 3 sin x − 3 = 0\n−2sin²x + 3 sin x − 1 = 0\n2sin²x − 3 sin x + 1 = 0\n(2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.\nIn 0 ≤ x < 2π, sin x = 1/2 gives x = π/6 and x = 5π/6, and sin x = 1 gives x = π/2. The solutions are x = π/6, π/2 and 5π/6.",
+    "verification_python": "import sympy as sp\nsa = sp.Rational(3, 5)\nca = -sp.sqrt(1 - sa**2)\nassert ca == sp.Rational(-4, 5) and 1 - sa**2 == sp.Rational(16, 25)\nassert sa/ca == sp.Rational(-3, 4)\nsb, cb = sp.Rational(12, 13), sp.Rational(5, 13)\nassert sb**2 + cb**2 == 1\nval = sa*cb + ca*sb\nassert val == sp.Rational(-33, 65)\nassert sa*cb == sp.Rational(15, 65) and ca*sb == sp.Rational(-48, 65)\nalpha = sp.pi - sp.asin(sa); beta = sp.asin(sb)\nassert abs(float(sp.sin(alpha + beta)) - float(val)) < 1e-12\nx, s = sp.symbols('x s')\nassert sp.expand(2*(1 - s**2) + 3*s - 3 + (2*s**2 - 3*s + 1)) == 0\nassert sp.expand((2*s - 1)*(s - 1) - (2*s**2 - 3*s + 1)) == 0\nsols = sp.solveset(2*sp.cos(x)**2 + 3*sp.sin(x) - 3, x, sp.Interval.Ropen(0, 2*sp.pi))\nassert sols == sp.FiniteSet(sp.pi/6, sp.pi/2, 5*sp.pi/6)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 requires the specific intermediate statement cos²α = 16/25 obtained using the trigonometric Pythagorean identity, although the prompt requires only supporting work. A valid alternative uses a reference triangle with opposite side 3 and hypotenuse 5, obtains adjacent side √(25 − 9) = 4, and applies the quadrant-II sign to obtain cos α = −4/5. Accept this equivalent supporting derivation rather than requiring the prescribed intermediate statement."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 requires the specific intermediate statement cos²α = 16/25 obtained using the trigonometric Pythagorean identity, although the prompt requires only supporting work. A valid alternative uses a reference triangle with opposite side 3 and hypotenuse 5, obtains adjacent side √(25 − 9) = 4, and applies the quadrant-II sign to obtain cos α = −4/5. Accept this equivalent supporting derivation rather than requiring the prescribed intermediate statement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 requires explicit use of sin²α + cos²α = 1, although part (a) does not prescribe that method. A correct reference-triangle calculation using sides 3, 4, and 5, with a quadrant-II sign justification, should also earn credit."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires explicit use of sin²α + cos²α = 1, although part (a) does not prescribe that method. A correct reference-triangle calculation using sides 3, 4, and 5, with a quadrant-II sign justification, should also earn credit."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a) criteria a1 and a2 prescribe methods not required by the part: a1 requires using the Pythagorean identity, and a2 requires dividing sin α by cos α, while part (a) only asks for the exact values and would reject a valid reference-triangle solution."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a) criteria a1 and a2 prescribe methods not required by the part: a1 requires using the Pythagorean identity, and a2 requires dividing sin α by cos α, while part (a) only asks for the exact values and would reject a valid reference-triangle solution."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:59:48.695Z",
+   "source": "given",
+   "item": {
+    "title": "Using Pythagorean and Sum Identities to Evaluate and Solve",
+    "calculator": "not_permitted",
+    "stimulus": "Angle α satisfies sin α = 3/5 and π/2 < α < π.\nAngle β satisfies sin β = 12/13 and cos β = 5/13.",
+    "parts": [
+     {
+      "prompt": "Use a Pythagorean identity to find the exact value of cos α. Then find the exact value of tan α. Show the work that leads to your answers.",
+      "criteria": [
+       {
+        "text": "cos α = −4/5: from the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, and cos α < 0 because π/2 < α < π.",
+        "evidence": "Response uses sin²α + cos²α = 1 to get cos²α = 16/25 and chooses the negative root because α is in quadrant II.",
+        "fix": "After using sin²θ + cos²θ = 1, choose the sign of the square root from the quadrant of the angle.",
+        "accepted_variants": [
+         "−4/5",
+         "−0.8"
+        ]
+       },
+       {
+        "text": "tan α = sin α/cos α = (3/5)/(−4/5) = −3/4.",
+        "evidence": "Response divides sin α by cos α to get tan α = −3/4.",
+        "fix": "Compute tangent as sine divided by cosine using the signed values just found.",
+        "accepted_variants": [
+         "−3/4",
+         "−0.75"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use the sum identity for sine to find the exact value of sin(α + β). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Writes sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13).",
+        "evidence": "Response applies the sine sum identity and substitutes all four values, including cos α = −4/5.",
+        "fix": "Write sin(α + β) = sin α cos β + cos α sin β before substituting; never add the two sines.",
+        "accepted_variants": []
+       },
+       {
+        "text": "sin(α + β) = 15/65 − 48/65 = −33/65.",
+        "evidence": "Response simplifies the substituted expression to −33/65.",
+        "fix": "Put both products over the common denominator 65 and keep the negative sign from cos α.",
+        "accepted_variants": [
+         "−33/65"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use a Pythagorean identity to rewrite the equation 2cos²x + 3 sin x − 3 = 0 in terms of sin x only. Then find all solutions of the equation in the interval 0 ≤ x < 2π.",
+      "criteria": [
+       {
+        "text": "Replaces cos²x with 1 − sin²x to get 2sin²x − 3 sin x + 1 = 0, which factors as (2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.",
+        "evidence": "Response shows the substitution cos²x = 1 − sin²x, an equivalent quadratic in sin x, and the two values sin x = 1/2 and sin x = 1.",
+        "fix": "Substitute cos²x = 1 − sin²x, collect terms into a quadratic in sin x, then factor or use the quadratic formula.",
+        "accepted_variants": [
+         "2sin²x − 3sin x + 1 = 0"
+        ]
+       },
+       {
+        "text": "The solutions are x = π/6, π/2 and 5π/6.",
+        "evidence": "Response lists exactly π/6, π/2 and 5π/6, from sin x = 1/2 (two angles) and sin x = 1 (one angle).",
+        "fix": "For each sine value find every angle in 0 ≤ x < 2π; sin x = 1/2 has solutions in quadrants I and II.",
+        "accepted_variants": [
+         "π/6, π/2, 5π/6"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) By the Pythagorean identity, cos²α = 1 − sin²α = 1 − 9/25 = 16/25, so cos α = ±4/5. Because π/2 < α < π, α is in quadrant II, where cosine is negative, so cos α = −4/5.\ntan α = sin α/cos α = (3/5)/(−4/5) = −3/4.\n\n(b) sin(α + β) = sin α cos β + cos α sin β = (3/5)(5/13) + (−4/5)(12/13) = 15/65 − 48/65 = −33/65.\n\n(c) Using cos²x = 1 − sin²x:\n2(1 − sin²x) + 3 sin x − 3 = 0\n2 − 2sin²x + 3 sin x − 3 = 0\n−2sin²x + 3 sin x − 1 = 0\n2sin²x − 3 sin x + 1 = 0\n(2 sin x − 1)(sin x − 1) = 0, so sin x = 1/2 or sin x = 1.\nIn 0 ≤ x < 2π, sin x = 1/2 gives x = π/6 and x = 5π/6, and sin x = 1 gives x = π/2. The solutions are x = π/6, π/2 and 5π/6.",
+    "verification_python": "import sympy as sp\nsa = sp.Rational(3, 5)\nca = -sp.sqrt(1 - sa**2)\nassert ca == sp.Rational(-4, 5) and 1 - sa**2 == sp.Rational(16, 25)\nassert sa/ca == sp.Rational(-3, 4)\nsb, cb = sp.Rational(12, 13), sp.Rational(5, 13)\nassert sb**2 + cb**2 == 1\nval = sa*cb + ca*sb\nassert val == sp.Rational(-33, 65)\nassert sa*cb == sp.Rational(15, 65) and ca*sb == sp.Rational(-48, 65)\nalpha = sp.pi - sp.asin(sa); beta = sp.asin(sb)\nassert abs(float(sp.sin(alpha + beta)) - float(val)) < 1e-12\nx, s = sp.symbols('x s')\nassert sp.expand(2*(1 - s**2) + 3*s - 3 + (2*s**2 - 3*s + 1)) == 0\nassert sp.expand((2*s - 1)*(s - 1) - (2*s**2 - 3*s + 1)) == 0\nsols = sp.solveset(2*sp.cos(x)**2 + 3*sp.sin(x) - 3, x, sp.Interval.Ropen(0, 2*sp.pi))\nassert sols == sp.FiniteSet(sp.pi/6, sp.pi/2, 5*sp.pi/6)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2 requires dividing sine by cosine, although the prompt does not prescribe that method for tangent. A valid alternative uses tan²α = sec²α − 1 = 9/16 and the quadrant-II sign to obtain tan α = −3/4. Accept equivalent supporting work rather than requiring division."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2 requires dividing sine by cosine, although the prompt does not prescribe that method for tangent. A valid alternative uses tan²α = sec²α − 1 = 9/16 and the quadrant-II sign to obtain tan α = −3/4. Accept equivalent supporting work rather than requiring division."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a2 requires dividing sine by cosine, although the prompt does not prescribe a method for finding tangent. A valid alternative is tan²α = sec²α − 1 = 25/16 − 1 = 9/16, followed by tan α = −3/4 because α is in quadrant II. Accept correct supporting work using either method."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a2 requires dividing sine by cosine, although the prompt does not prescribe a method for finding tangent. A valid alternative is tan²α = sec²α − 1 = 25/16 − 1 = 9/16, followed by tan α = −3/4 because α is in quadrant II. Accept correct supporting work using either method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

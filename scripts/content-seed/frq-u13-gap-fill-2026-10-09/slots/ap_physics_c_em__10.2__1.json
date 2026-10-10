@@ -1,0 +1,957 @@
+{
+ "id": "ap_physics_c_em__10.2__1",
+ "slot": {
+  "subject_key": "ap_physics_c_em",
+  "tsv": "ef9618c9-de85-4941-8837-4dce4c755e62",
+  "unit": 10,
+  "unit_title": "Conductors and Capacitors",
+  "topic_code": "10.2",
+  "topic_title": "Redistribution of Charge between Conductors",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:17.839Z",
+   "source": "given",
+   "item": {
+    "title": "Sharing Charge Between Two Connected Metal Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two solid metal spheres are very far apart. Sphere A has radius 0.10 m and initially carries a charge of +6.0 nC. Sphere B has radius 0.050 m and is initially neutral. The spheres are then connected by a long, thin conducting wire that holds a negligible amount of charge. Because the spheres are far apart, each sphere's charge spreads uniformly over its own surface, and a sphere with charge Q and radius R has electric potential kQ/R, with the potential taken as zero very far away. Use k = 9.0 × 10⁹ N·m²/C².",
+    "parts": [
+     {
+      "prompt": "Explain what condition determines how the charge is shared between the spheres once charge stops moving through the wire.",
+      "criteria": [
+       {
+        "text": "Charge flows until the surfaces of both spheres are at the same electric potential; then there is no potential difference along the wire to drive more charge.",
+        "evidence": "Response states that the final condition is equal electric potential on both spheres, not equal charge.",
+        "fix": "For conductors in electrical contact, say charge moves until every surface is at one common potential, not until the charges are equal.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the final charge on each sphere.",
+      "criteria": [
+       {
+        "text": "Applies the equal-potential condition to relate the charges: kQ_A/(0.10 m) = kQ_B/(0.050 m), so Q_A = 2Q_B (each charge is proportional to its sphere's radius).",
+        "evidence": "Response sets the two spheres' potentials equal (or states that each final charge is proportional to its radius) to obtain Q_A = 2Q_B.",
+        "fix": "Set kQ/R equal for the two spheres; with equal potentials each sphere's charge is proportional to its radius.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Using conservation of charge, Q_A + Q_B = 6.0 nC, the final charges are Q_A = 4.0 nC and Q_B = 2.0 nC.",
+        "evidence": "Response obtains 4.0 nC on sphere A and 2.0 nC on sphere B, with the two charges adding to the original 6.0 nC.",
+        "fix": "The wire only moves charge, so the final charges must add to 6.0 nC; split that total in the ratio of the radii.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the final electric potential of the spheres.",
+      "criteria": [
+       {
+        "text": "V = 360 V by any valid method, for example kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V, or kQ_total/(R_A + R_B) = 360 V.",
+        "evidence": "Response obtains 360 V by any valid calculation (kQ/R for either sphere, or k(Q_A + Q_B)/(R_A + R_B)), or the value that follows correctly from the response's own part (b) charges.",
+        "fix": "Substitute either sphere's final charge and radius into kQ/R, then confirm that the other sphere gives the same value.",
+        "accepted_variants": [
+         "3.6 × 10² V"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Separately, a neutral metal sphere C on an insulating stand is connected to ground by a wire while a positively charged rod is held near sphere C without touching it. The ground wire is disconnected, and then the rod is removed. State the sign of the final charge on sphere C, and explain how sphere C acquired this charge.",
+      "criteria": [
+       {
+        "text": "Negative: the positive rod attracts electrons, which flow from ground onto sphere C through the wire; because the wire is disconnected before the rod is removed, the extra electrons cannot return.",
+        "evidence": "Response states negative and explains that electrons flowed from ground to the sphere and were trapped when the ground connection was removed before the rod.",
+        "fix": "Track electron flow through the ground wire while the external charge is present, then note which connection is removed first.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Charge moves through the wire until both spheres, which now form one connected conductor, are at the same electric potential. Once the potentials are equal, there is no potential difference along the wire to drive more charge, so the distribution stops changing.\n\n(b) Conservation of charge: Q_A + Q_B = 6.0 nC.\nEqual potentials: kQ_A/(0.10 m) = kQ_B/(0.050 m), so Q_A = 2Q_B.\nThen 2Q_B + Q_B = 6.0 nC, giving Q_B = 2.0 nC and Q_A = 4.0 nC.\n\n(c) V = kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V.\nCheck: kQ_B/R_B = (9.0 × 10⁹)(2.0 × 10⁻⁹)/(0.050) = 360 V, and equivalently k(Q_A + Q_B)/(R_A + R_B) = (9.0 × 10⁹)(6.0 × 10⁻⁹)/(0.15) = 360 V.\n\n(d) Sphere C ends with a negative charge. While the positive rod is nearby, it attracts electrons, and the ground connection lets electrons flow from ground onto sphere C, giving C an induced negative charge. The ground wire is disconnected before the rod is removed, so the extra electrons cannot flow back to ground. When the rod is then taken away, these electrons spread over C's surface, and C keeps a net negative charge.",
+    "verification_python": "from fractions import Fraction as Fr\nQt = Fr(6)\nRA, RB = Fr(1,10), Fr(1,20)\nassert RA/RB == 2\nQB = Qt/(RA/RB + 1)\nQA = Qt - QB\nassert QA == 4 and QB == 2\nassert QA/RA == QB/RB\nk = 9.0e9\nVA = k*4.0e-9/0.10\nVB = k*2.0e-9/0.050\nassert abs(VA - 360) < 1e-9\nassert abs(VB - 360) < 1e-9\nVtot = k*6.0e-9/0.15\nassert abs(Vtot - 360) < 1e-9\nassert abs((0.10 + 0.050) - 0.15) < 1e-12\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "10.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8,
+     9,
+     10
+    ],
+    "unitCount": {
+     "8": 6,
+     "9": 6,
+     "10": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Sharing Charge Between Two Connected Metal Spheres",
+   "calculator": "permitted",
+   "stimulus": "Two solid metal spheres are very far apart. Sphere A has radius 0.10 m and initially carries a charge of +6.0 nC. Sphere B has radius 0.050 m and is initially neutral. The spheres are then connected by a long, thin conducting wire that holds a negligible amount of charge. Because the spheres are far apart, each sphere's charge spreads uniformly over its own surface, and a sphere with charge Q and radius R has electric potential kQ/R, with the potential taken as zero very far away. Use k = 9.0 × 10⁹ N·m²/C².",
+   "parts": [
+    {
+     "prompt": "Explain what condition determines how the charge is shared between the spheres once charge stops moving through the wire.",
+     "criteria": [
+      {
+       "text": "Charge flows until the surfaces of both spheres are at the same electric potential; then there is no potential difference along the wire to drive more charge.",
+       "evidence": "Response states that the final condition is equal electric potential on both spheres, not equal charge.",
+       "fix": "For conductors in electrical contact, say charge moves until every surface is at one common potential, not until the charges are equal.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the final charge on each sphere.",
+     "criteria": [
+      {
+       "text": "Applies the equal-potential condition to relate the charges: kQ_A/(0.10 m) = kQ_B/(0.050 m), so Q_A = 2Q_B (each charge is proportional to its sphere's radius).",
+       "evidence": "Response sets the two spheres' potentials equal (or states that each final charge is proportional to its radius) to obtain Q_A = 2Q_B.",
+       "fix": "Set kQ/R equal for the two spheres; with equal potentials each sphere's charge is proportional to its radius.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Using conservation of charge, Q_A + Q_B = 6.0 nC, the final charges are Q_A = 4.0 nC and Q_B = 2.0 nC.",
+       "evidence": "Response obtains 4.0 nC on sphere A and 2.0 nC on sphere B, with the two charges adding to the original 6.0 nC.",
+       "fix": "The wire only moves charge, so the final charges must add to 6.0 nC; split that total in the ratio of the radii.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the final electric potential of the spheres.",
+     "criteria": [
+      {
+       "text": "V = 360 V by any valid method, for example kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V, or kQ_total/(R_A + R_B) = 360 V.",
+       "evidence": "Response obtains 360 V by any valid calculation (kQ/R for either sphere, or k(Q_A + Q_B)/(R_A + R_B)), or the value that follows correctly from the response's own part (b) charges.",
+       "fix": "Substitute either sphere's final charge and radius into kQ/R, then confirm that the other sphere gives the same value.",
+       "accepted_variants": [
+        "3.6 × 10² V"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Separately, a neutral metal sphere C on an insulating stand is connected to ground by a wire while a positively charged rod is held near sphere C without touching it. The ground wire is disconnected, and then the rod is removed. State the sign of the final charge on sphere C, and explain how sphere C acquired this charge.",
+     "criteria": [
+      {
+       "text": "Negative: the positive rod attracts electrons, which flow from ground onto sphere C through the wire; because the wire is disconnected before the rod is removed, the extra electrons cannot return.",
+       "evidence": "Response states negative and explains that electrons flowed from ground to the sphere and were trapped when the ground connection was removed before the rod.",
+       "fix": "Track electron flow through the ground wire while the external charge is present, then note which connection is removed first.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Charge moves through the wire until both spheres, which now form one connected conductor, are at the same electric potential. Once the potentials are equal, there is no potential difference along the wire to drive more charge, so the distribution stops changing.\n\n(b) Conservation of charge: Q_A + Q_B = 6.0 nC.\nEqual potentials: kQ_A/(0.10 m) = kQ_B/(0.050 m), so Q_A = 2Q_B.\nThen 2Q_B + Q_B = 6.0 nC, giving Q_B = 2.0 nC and Q_A = 4.0 nC.\n\n(c) V = kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V.\nCheck: kQ_B/R_B = (9.0 × 10⁹)(2.0 × 10⁻⁹)/(0.050) = 360 V, and equivalently k(Q_A + Q_B)/(R_A + R_B) = (9.0 × 10⁹)(6.0 × 10⁻⁹)/(0.15) = 360 V.\n\n(d) Sphere C ends with a negative charge. While the positive rod is nearby, it attracts electrons, and the ground connection lets electrons flow from ground onto sphere C, giving C an induced negative charge. The ground wire is disconnected before the rod is removed, so the extra electrons cannot flow back to ground. When the rod is then taken away, these electrons spread over C's surface, and C keeps a net negative charge.",
+   "verification_python": "from fractions import Fraction as Fr\nQt = Fr(6)\nRA, RB = Fr(1,10), Fr(1,20)\nassert RA/RB == 2\nQB = Qt/(RA/RB + 1)\nQA = Qt - QB\nassert QA == 4 and QB == 2\nassert QA/RA == QB/RB\nk = 9.0e9\nVA = k*4.0e-9/0.10\nVB = k*2.0e-9/0.050\nassert abs(VA - 360) < 1e-9\nassert abs(VB - 360) < 1e-9\nVtot = k*6.0e-9/0.15\nassert abs(Vtot - 360) < 1e-9\nassert abs((0.10 + 0.050) - 0.15) < 1e-12\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.874123Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion b1 bundles two independently observable elements—charge conservation and equal potentials—into one point; split them into separate crit",
+      "ruling": "accept",
+      "reason": "The single setup point scored two independent equations; the item is at the 5-point maximum, so b1 is narrowed to the equal-potential relation (the topic's core idea, also accepting Q ∝ R reasoning) and conservation of charge is scored through b2's total. c1 evidence now gives explicit follow-through credit for the student's own part (b) charges, per the fact pack's consistency convention."
+     }
+    ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (c), criterion c1 requires substituting an individual sphere's final charge into kQ/R, rejecting the valid alternative V = k(Q_A + Q_B)/(R_A",
+      "ruling": "accept",
+      "reason": "Both points are real. Re-derived: each sphere's charge is VR/k, so V = kQ_total/(R_A + R_B) = (9.0 × 10⁹)(6.0 × 10⁻⁹)/0.15 = 360 V, a valid route c1 rejected; and part (c) uses part (b)'s charges, so follow-through credit (now allowed for Physics C) is restored. c1 evidence now accepts any valid calculation or the value that follows from the response's own part (b) charges."
+     }
+    ],
+    "accept_as_is": false
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:15:32.444Z",
+   "source": "given",
+   "item": {
+    "title": "Sharing Charge Between Two Connected Metal Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two solid metal spheres are very far apart. Sphere A has radius 0.10 m and initially carries a charge of +6.0 nC. Sphere B has radius 0.050 m and is initially neutral. The spheres are then connected by a long, thin conducting wire that holds a negligible amount of charge. Because the spheres are far apart, each sphere's charge spreads uniformly over its own surface, and a sphere with charge Q and radius R has electric potential kQ/R, with the potential taken as zero very far away. Use k = 9.0 × 10⁹ N·m²/C².",
+    "parts": [
+     {
+      "prompt": "Explain what condition determines how the charge is shared between the spheres once charge stops moving through the wire.",
+      "criteria": [
+       {
+        "text": "Charge flows until the surfaces of both spheres are at the same electric potential; then there is no potential difference along the wire to drive more charge.",
+        "evidence": "Response states that the final condition is equal electric potential on both spheres, not equal charge.",
+        "fix": "For conductors in electrical contact, say charge moves until every surface is at one common potential, not until the charges are equal.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the final charge on each sphere.",
+      "criteria": [
+       {
+        "text": "Writes Q_A + Q_B = 6.0 nC (conservation of charge) and kQ_A/(0.10 m) = kQ_B/(0.050 m) (equal potentials).",
+        "evidence": "Response writes both the charge-conservation equation and the equal-potential equation.",
+        "fix": "Pair a total-charge equation with an equal-potential equation so that you have two equations for the two unknown charges.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Q_A = 4.0 nC and Q_B = 2.0 nC.",
+        "evidence": "Response solves to obtain 4.0 nC on sphere A and 2.0 nC on sphere B, consistent with its equations.",
+        "fix": "With equal potentials, each charge is proportional to its sphere's radius; split the 6.0 nC total in the ratio of the radii, 2 : 1.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the final electric potential of the spheres.",
+      "criteria": [
+       {
+        "text": "V = kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V, equal to kQ_B/R_B.",
+        "evidence": "Response obtains 360 V from either sphere, consistent with its own charges from part (b).",
+        "fix": "Substitute either sphere's final charge and radius into kQ/R, then confirm that the other sphere gives the same value.",
+        "accepted_variants": [
+         "3.6 × 10² V"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Separately, a neutral metal sphere C on an insulating stand is connected to ground by a wire while a positively charged rod is held near sphere C without touching it. The ground wire is disconnected, and then the rod is removed. State the sign of the final charge on sphere C, and explain how sphere C acquired this charge.",
+      "criteria": [
+       {
+        "text": "Negative: the positive rod attracts electrons, which flow from ground onto sphere C through the wire; because the wire is disconnected before the rod is removed, the extra electrons cannot return.",
+        "evidence": "Response states negative and explains that electrons flowed from ground to the sphere and were trapped when the ground connection was removed before the rod.",
+        "fix": "Track electron flow through the ground wire while the external charge is present, then note which connection is removed first.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Charge moves through the wire until both spheres, which now form one connected conductor, are at the same electric potential. Once the potentials are equal, there is no potential difference along the wire to drive more charge, so the distribution stops changing.\n\n(b) Conservation of charge: Q_A + Q_B = 6.0 nC.\nEqual potentials: kQ_A/(0.10 m) = kQ_B/(0.050 m), so Q_A = 2Q_B.\nThen 2Q_B + Q_B = 6.0 nC, giving Q_B = 2.0 nC and Q_A = 4.0 nC.\n\n(c) V = kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V.\nCheck: kQ_B/R_B = (9.0 × 10⁹)(2.0 × 10⁻⁹)/(0.050) = 360 V.\n\n(d) Sphere C ends with a negative charge. While the positive rod is nearby, it attracts electrons, and the ground connection lets electrons flow from ground onto sphere C, giving C an induced negative charge. The ground wire is disconnected before the rod is removed, so the extra electrons cannot flow back to ground. When the rod is then taken away, these electrons spread over C's surface, and C keeps a net negative charge.",
+    "verification_python": "from fractions import Fraction as Fr\nQt = Fr(6)\nRA, RB = Fr(1,10), Fr(1,20)\nassert RA/RB == 2\nQB = Qt/(RA/RB + 1)\nQA = Qt - QB\nassert QA == 4 and QB == 2\nassert QA/RA == QB/RB\nk = 9.0e9\nVA = k*4.0e-9/0.10\nVB = k*2.0e-9/0.050\nassert abs(VA - 360) < 1e-9\nassert abs(VB - 360) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "10.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8,
+     9,
+     10
+    ],
+    "unitCount": {
+     "8": 6,
+     "9": 6,
+     "10": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 bundles two independently observable elements—charge conservation and equal potentials—into one point; separate them into individual criteria. Criterion c1 requires 360 V even while referring to consistency with the student's own charges. It should explicitly award correct use of V = kQ/R with the student's part (b) charge, including follow-through from an incorrect charge."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 bundles two independently observable elements—charge conservation and equal potentials—into one point; separate them into individual criteria. Criterion c1 requires 360 V even while referring to consistency with the student's own charges. It should explicitly award correct use of V = kQ/R with the student's part (b) charge, including follow-through from an incorrect charge."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 bundles two independently observable elements—charge conservation and equal potentials—into one point; split them into separate criteria. Criterion c1 explicitly requires 360 V despite mentioning consistency with the student's own charges, so it does not clearly allow the required follow-through credit for correctly using an incorrect charge from part (b)."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 bundles two independently observable elements—charge conservation and equal potentials—into one point; split them into separate criteria. Criterion c1 explicitly requires 360 V despite mentioning consistency with the student's own charges, so it does not clearly allow the required follow-through credit for correctly using an incorrect charge from part (b)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: it requires substituting one sphere's charge and radius into kQ/R, which prescribes a method and would reject a valid alternative such as V = k(Q_A + Q_B)/(R_A + R_B)."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: it requires substituting one sphere's charge and radius into kQ/R, which prescribes a method and would reject a valid alternative such as V = k(Q_A + Q_B)/(R_A + R_B)."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:54:25.823Z",
+   "source": "given",
+   "item": {
+    "title": "Sharing Charge Between Two Connected Metal Spheres",
+    "calculator": "permitted",
+    "stimulus": "Two solid metal spheres are very far apart. Sphere A has radius 0.10 m and initially carries a charge of +6.0 nC. Sphere B has radius 0.050 m and is initially neutral. The spheres are then connected by a long, thin conducting wire that holds a negligible amount of charge. Because the spheres are far apart, each sphere's charge spreads uniformly over its own surface, and a sphere with charge Q and radius R has electric potential kQ/R, with the potential taken as zero very far away. Use k = 9.0 × 10⁹ N·m²/C².",
+    "parts": [
+     {
+      "prompt": "Explain what condition determines how the charge is shared between the spheres once charge stops moving through the wire.",
+      "criteria": [
+       {
+        "text": "Charge flows until the surfaces of both spheres are at the same electric potential; then there is no potential difference along the wire to drive more charge.",
+        "evidence": "Response states that the final condition is equal electric potential on both spheres, not equal charge.",
+        "fix": "For conductors in electrical contact, say charge moves until every surface is at one common potential, not until the charges are equal.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the final charge on each sphere.",
+      "criteria": [
+       {
+        "text": "Applies the equal-potential condition to relate the charges: kQ_A/(0.10 m) = kQ_B/(0.050 m), so Q_A = 2Q_B (each charge is proportional to its sphere's radius).",
+        "evidence": "Response sets the two spheres' potentials equal (or states that each final charge is proportional to its radius) to obtain Q_A = 2Q_B.",
+        "fix": "Set kQ/R equal for the two spheres; with equal potentials each sphere's charge is proportional to its radius.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Using conservation of charge, Q_A + Q_B = 6.0 nC, the final charges are Q_A = 4.0 nC and Q_B = 2.0 nC.",
+        "evidence": "Response obtains 4.0 nC on sphere A and 2.0 nC on sphere B, with the two charges adding to the original 6.0 nC.",
+        "fix": "The wire only moves charge, so the final charges must add to 6.0 nC; split that total in the ratio of the radii.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the final electric potential of the spheres.",
+      "criteria": [
+       {
+        "text": "V = kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V, equal to kQ_B/R_B.",
+        "evidence": "Response substitutes a sphere's final charge and radius into kQ/R and obtains 360 V.",
+        "fix": "Substitute either sphere's final charge and radius into kQ/R, then confirm that the other sphere gives the same value.",
+        "accepted_variants": [
+         "3.6 × 10² V"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Separately, a neutral metal sphere C on an insulating stand is connected to ground by a wire while a positively charged rod is held near sphere C without touching it. The ground wire is disconnected, and then the rod is removed. State the sign of the final charge on sphere C, and explain how sphere C acquired this charge.",
+      "criteria": [
+       {
+        "text": "Negative: the positive rod attracts electrons, which flow from ground onto sphere C through the wire; because the wire is disconnected before the rod is removed, the extra electrons cannot return.",
+        "evidence": "Response states negative and explains that electrons flowed from ground to the sphere and were trapped when the ground connection was removed before the rod.",
+        "fix": "Track electron flow through the ground wire while the external charge is present, then note which connection is removed first.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Charge moves through the wire until both spheres, which now form one connected conductor, are at the same electric potential. Once the potentials are equal, there is no potential difference along the wire to drive more charge, so the distribution stops changing.\n\n(b) Conservation of charge: Q_A + Q_B = 6.0 nC.\nEqual potentials: kQ_A/(0.10 m) = kQ_B/(0.050 m), so Q_A = 2Q_B.\nThen 2Q_B + Q_B = 6.0 nC, giving Q_B = 2.0 nC and Q_A = 4.0 nC.\n\n(c) V = kQ_A/R_A = (9.0 × 10⁹)(4.0 × 10⁻⁹)/(0.10) = 360 V.\nCheck: kQ_B/R_B = (9.0 × 10⁹)(2.0 × 10⁻⁹)/(0.050) = 360 V.\n\n(d) Sphere C ends with a negative charge. While the positive rod is nearby, it attracts electrons, and the ground connection lets electrons flow from ground onto sphere C, giving C an induced negative charge. The ground wire is disconnected before the rod is removed, so the extra electrons cannot flow back to ground. When the rod is then taken away, these electrons spread over C's surface, and C keeps a net negative charge.",
+    "verification_python": "from fractions import Fraction as Fr\nQt = Fr(6)\nRA, RB = Fr(1,10), Fr(1,20)\nassert RA/RB == 2\nQB = Qt/(RA/RB + 1)\nQA = Qt - QB\nassert QA == 4 and QB == 2\nassert QA/RA == QB/RB\nk = 9.0e9\nVA = k*4.0e-9/0.10\nVB = k*2.0e-9/0.050\nassert abs(VA - 360) < 1e-9\nassert abs(VB - 360) < 1e-9\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "10.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     8,
+     9,
+     10
+    ],
+    "unitCount": {
+     "8": 6,
+     "9": 6,
+     "10": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 requires substituting a sphere’s final charge and radius into kQ/R, excluding the valid alternative V = k(Q_A + Q_B)/(R_A + R_B) = 360 V. It also requires 360 V without allowing follow-through credit for correctly using a student's earlier charge value."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 requires substituting a sphere’s final charge and radius into kQ/R, excluding the valid alternative V = k(Q_A + Q_B)/(R_A + R_B) = 360 V. It also requires 360 V without allowing follow-through credit for correctly using a student's earlier charge value."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 requires substituting an individual sphere's final charge into kQ/R, rejecting the valid alternative V = k(Q_A + Q_B)/(R_A + R_B) = 360 V. It also requires the correct upstream charge and numerical potential rather than allowing consistent use of a student's part (b) charge, contrary to the stated follow-through convention. Accept equivalent valid calculations and consistent downstream substitution."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 requires substituting an individual sphere's final charge into kQ/R, rejecting the valid alternative V = k(Q_A + Q_B)/(R_A + R_B) = 360 V. It also requires the correct upstream charge and numerical potential rather than allowing consistent use of a student's part (b) charge, contrary to the stated follow-through convention. Accept equivalent valid calculations and consistent downstream substitution."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c) criterion c1 requires obtaining 360 V, the correct upstream numeric value from part (b), rather than awarding a potential consistent with the student's own part (b) charges."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c) criterion c1 requires obtaining 360 V, the correct upstream numeric value from part (b), rather than awarding a potential consistent with the student's own part (b) charges."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "10.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

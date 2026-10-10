@@ -1,0 +1,975 @@
+{
+ "id": "ap_chemistry__1.4__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.4",
+  "topic_title": "Composition of Mixtures",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:45.038Z",
+   "source": "given",
+   "item": {
+    "title": "Purity of a Limestone Sample from Its Calcium Content",
+    "calculator": "permitted",
+    "stimulus": "A geologist analyzes a 2.000 g sample of powdered limestone. The sample is a mixture of only calcium carbonate, CaCO₃, and silicon dioxide, SiO₂. Silicon dioxide contains no calcium. Elemental analysis shows that the sample contains 0.7208 g of calcium. Use the molar masses below.\n\nSubstance | Molar mass (g/mol)\nCa | 40.08\nCaCO₃ | 100.09\nSiO₂ | 60.09\n\nAnswer the following.",
+    "parts": [
+     {
+      "prompt": "Calculate the percent by mass of calcium in pure CaCO₃.",
+      "criteria": [
+       {
+        "text": "Calculates 40.04% calcium by mass in pure CaCO₃.",
+        "evidence": "Response divides the molar mass of Ca by the molar mass of CaCO₃ (40.08 ÷ 100.09) and reports 40.04%.",
+        "fix": "For a pure compound, divide the mass of the element in one mole by the compound's molar mass, then multiply by 100.",
+        "accepted_variants": [
+         "40.04 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the elemental analysis data show that the limestone sample is not pure CaCO₃.",
+      "criteria": [
+       {
+        "text": "Shows that the sample's calcium content (36.04% Ca, or 0.7208 g Ca in 2.000 g) is less than that of pure CaCO₃ (40.04% Ca, or 0.8009 g Ca in 2.000 g), so the sample cannot be pure CaCO₃.",
+        "evidence": "Response compares a calcium composition value obtained from the data with the corresponding value for pure CaCO₃, notes that they differ, and concludes that the sample contains another substance.",
+        "fix": "Calculate the measured percent of the element and compare it with the fixed percent in the pure compound; a mismatch means a mixture.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the mass of CaCO₃ in the 2.000 g sample.",
+      "criteria": [
+       {
+        "text": "Calculates 1.800 g of CaCO₃ in the sample.",
+        "evidence": "Response attributes all of the calcium to CaCO₃ (for example 0.7208 g Ca ÷ 40.08 g/mol × 100.09 g/mol, or 0.7208 g ÷ 0.4004) and reports 1.800 g.",
+        "fix": "All the calcium is in CaCO₃, so convert the calcium mass to moles of Ca, equal to moles of CaCO₃, then to grams.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the ratio of the number of calcium atoms to the number of silicon atoms in the sample. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Calculates a Ca : Si atom ratio of 5.40 : 1.",
+        "evidence": "Response reports 5.40 Ca atoms per Si atom with a correct supporting calculation by any valid route (for example finding the SiO₂ mass by subtraction and converting both elements to moles, or a single combined expression), or a ratio consistent with the student’s earlier answers.",
+        "fix": "Find the other component's mass by subtraction, convert each element to moles, then divide, because mole ratios equal atom ratios.",
+        "accepted_variants": [
+         "5.40",
+         "5.40 to 1"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Percent Ca in CaCO₃ = (40.08 g/mol ÷ 100.09 g/mol) × 100% = 40.04%.\n\n(b) Percent Ca in the sample = (0.7208 g ÷ 2.000 g) × 100% = 36.04%. Pure CaCO₃ always contains 40.04% Ca by mass, so 2.000 g of pure CaCO₃ would contain 0.8009 g of Ca. The measured value, 36.04%, is lower, so the sample cannot be pure CaCO₃; it must contain another substance (here SiO₂) mixed with the CaCO₃.\n\n(c) Moles of Ca = 0.7208 g ÷ 40.08 g/mol = 0.01798 mol. Each formula unit of CaCO₃ contains one Ca atom, so there are 0.01798 mol of CaCO₃. Mass of CaCO₃ = 0.01798 mol × 100.09 g/mol = 1.800 g.\n\n(d) Mass of SiO₂ = 2.000 g − 1.800 g = 0.200 g. Moles of SiO₂ = 0.200 g ÷ 60.09 g/mol = 3.33 × 10⁻³ mol, so there are 3.33 × 10⁻³ mol of Si atoms. Ratio Ca : Si = 0.01798 mol ÷ 3.33 × 10⁻³ mol = 5.40, so there are 5.40 calcium atoms for every silicon atom.",
+    "verification_python": "Ca,CaCO3,SiO2=40.08,100.09,60.09\nassert abs(40.08+12.01+3*16.00-CaCO3)<1e-9\nassert abs(28.09+2*16.00-SiO2)<1e-9\npct=Ca/CaCO3*100\nassert abs(pct-40.04)<0.005\nmCa,ms=0.7208,2.000\nassert abs(mCa/ms*100-36.04)<0.005\nassert abs(ms*Ca/CaCO3-0.8009)<0.00005\nnCa=mCa/Ca\nassert abs(nCa-0.01798)<0.000005\nmCaCO3=nCa*CaCO3\nassert abs(mCaCO3-1.800)<0.0005\nassert abs(mCa/0.4004-1.800)<0.0005\nmSiO2=ms-1.800\nassert abs(mSiO2-0.200)<1e-9\nnSi=mSiO2/SiO2\nassert abs(nSi-3.33e-3)<0.005e-3\nr=nCa/nSi\nassert abs(r-5.40)<0.005\nassert abs(0.01798/3.33e-3-5.40)<0.005\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:41:02.485Z",
+   "item": {
+    "title": "Elemental Analysis of a Sodium Chloride and Potassium Chloride Mixture",
+    "calculator": "permitted",
+    "stimulus": "A chemist receives a 2.000 g white crystalline sample labeled as sodium chloride, NaCl. The chemist suspects that the sample may also contain potassium chloride, KCl. Assume NaCl and KCl are the only possible components. Elemental analysis of the entire 2.000 g sample gives the result shown below.\n\nQuantity | Value\nMass of sample | 2.000 g\nMass of chlorine (Cl) in sample | 1.108 g\nMolar mass of Na | 22.99 g/mol\nMolar mass of K | 39.10 g/mol\nMolar mass of Cl | 35.45 g/mol",
+    "model_answer": "(a) Molar mass of NaCl = 22.99 + 35.45 = 58.44 g/mol. Mass percent Cl = (35.45 g ÷ 58.44 g) × 100 = 60.66% Cl.\n\n(b) The sample's mass percent Cl = (1.108 g ÷ 2.000 g) × 100 = 55.40%. Pure NaCl would be 60.66% Cl (2.000 g of pure NaCl would contain 1.213 g Cl). Because 55.40% is lower than 60.66%, the sample cannot be pure NaCl, so the claim is incorrect. The value lies between that of pure KCl (35.45 ÷ 74.55 = 47.55%) and pure NaCl, consistent with a mixture of NaCl and KCl.\n\n(c) Let x = mass of NaCl; mass of KCl = 2.000 − x. Molar mass KCl = 39.10 + 35.45 = 74.55 g/mol.\nx(35.45/58.44) + (2.000 − x)(35.45/74.55) = 1.108\n0.6066x + 0.9510 − 0.4755x = 1.108\n0.1311x = 0.157\nx = 1.20 g NaCl\n\n(d) A sample of pure NaCl contains only one type of particle, NaCl formula units, each with one Na⁺ and one Cl⁻. Because every formula unit has the same composition, the ratio of Cl mass to total mass is the same in any sample, 60.66%. A NaCl–KCl mixture contains two types of formula units, and their relative numbers can vary from sample to sample. KCl formula units have a lower Cl mass fraction than NaCl formula units, so a sample with a larger proportion of KCl has a lower overall mass percent of Cl.",
+    "verification_python": "M_Na=22.99\nM_K=39.10\nM_Cl=35.45\nM_NaCl=M_Na+M_Cl\nM_KCl=M_K+M_Cl\nassert abs(M_NaCl-58.44)<1e-9\nassert abs(M_KCl-74.55)<1e-9\nfNa=M_Cl/M_NaCl\nfK=M_Cl/M_KCl\nassert abs(fNa*100-60.66)<0.005\nassert abs(fK*100-47.55)<0.005\nassert abs(fNa-0.6066)<0.00005\nassert abs(fK-0.4755)<0.00005\nsample=2.000\nCl=1.108\nassert abs(Cl/sample*100-55.40)<1e-9\nassert abs(sample*fNa-1.213)<0.0005\nassert abs(sample*fK-0.9510)<0.0001\nassert abs((Cl-sample*fK)-0.157)<0.0005\nassert abs((fNa-fK)-0.1311)<0.00005\nx=(Cl-sample*fK)/(fNa-fK)\nassert abs(x-1.197)<0.001\nassert abs(round(x,2)-1.20)<1e-9\nback=x*fNa+(sample-x)*fK\nassert abs(back-Cl)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the mass percent of chlorine in pure NaCl. Show your work.",
+      "criteria": [
+       {
+        "text": "Mass percent of Cl in pure NaCl is 60.66%, from 35.45 g ÷ 58.44 g × 100.",
+        "evidence": "Response computes the molar mass of NaCl as 58.44 g/mol and divides the mass of Cl per mole by it to get about 60.66% (60.7% accepted).",
+        "fix": "Add the molar masses of Na and Cl for the formula mass, then divide Cl's molar mass by that total and multiply by 100.",
+        "accepted_variants": [
+         "60.66%",
+         "60.7%",
+         "0.6066"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims the sample is pure NaCl. Use the elemental analysis data and your answer to part (a) to evaluate this claim.",
+      "criteria": [
+       {
+        "text": "Rejects the claim: measured Cl mass percent is 55.40%, which is lower than 60.66% for pure NaCl, so the sample is not pure NaCl.",
+        "evidence": "Response calculates the sample's Cl mass percent (1.108 g ÷ 2.000 g = 55.40%, or compares 1.108 g to the 1.213 g expected for 2.000 g of pure NaCl) and states that the mismatch means the sample is not pure NaCl. A comparison consistent with an incorrect part (a) value earns the point.",
+        "fix": "Compute the sample's measured mass percent of the element and compare it numerically to the value for the pure compound before making a claim.",
+        "accepted_variants": [
+         "55.40%",
+         "55.4%",
+         "1.213 g expected Cl"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Assuming the sample contains only NaCl and KCl, determine the mass of NaCl in the 2.000 g sample. Show your setup and report your answer with the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Sets up a correct mass balance for chlorine, such as x(35.45/58.44) + (2.000 − x)(35.45/74.55) = 1.108, where x is the mass of NaCl.",
+        "evidence": "Response writes an equation (or equivalent system of two equations) that expresses total Cl mass as the sum of Cl from NaCl and Cl from KCl, with the component masses summing to 2.000 g and correct Cl mass fractions (0.6066 and 0.4755).",
+        "fix": "Let x be the NaCl mass, write 2.000 − x for KCl, and add each component's mass times its chlorine mass fraction to equal the total chlorine.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Mass of NaCl is 1.20 g.",
+        "evidence": "Response solves the mass balance to obtain 1.20 g of NaCl (values from 1.19 g to 1.20 g accepted), reported with units.",
+        "fix": "Solve the linear equation carefully: subtract 0.9510 from 1.108, then divide by the difference in Cl mass fractions, 0.1311.",
+        "accepted_variants": [
+         "1.20 g",
+         "1.2 g",
+         "1.197 g",
+         "1.19 g"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "At the particle level, explain why every sample of pure NaCl has the same mass percent of chlorine, whereas the mass percent of chlorine in NaCl–KCl samples can differ from one sample to another.",
+      "criteria": [
+       {
+        "text": "Pure NaCl contains only NaCl formula units with a fixed 1:1 Na to Cl ratio, so its Cl mass fraction is fixed; a mixture contains both NaCl and KCl formula units whose relative proportions can vary, so its Cl mass percent varies.",
+        "evidence": "Response states both ideas: a pure substance has a single type of formula unit with a fixed composition, and a mixture has two types of formula units in variable proportions, which changes the overall Cl mass percent (for example, more KCl lowers it).",
+        "fix": "Describe what particles each sample contains: one fixed formula unit in a pure substance versus variable proportions of two formula units in a mixture.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 27 words"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:47:43.017Z",
+   "item": {
+    "title": "Determining the NaCl Contamination in a KCl Sample",
+    "calculator": "permitted",
+    "stimulus": "A student is given a white solid labeled as pure potassium chloride, KCl. The student suspects that the solid is contaminated with sodium chloride, NaCl. An elemental analysis of a sample of the solid gives the results below. Assume that chlorine is present only as chloride in KCl and NaCl.\n\nQuantity | Value\nMass of solid sample | 1.500 g\nMass of chlorine in sample | 0.7500 g\n\nMolar masses (g/mol): Na 22.99; K 39.10; Cl 35.45; NaCl 58.44; KCl 74.55",
+    "model_answer": "(a) Mass percent Cl = (35.45 g/mol ÷ 74.55 g/mol) × 100 = 47.55%.\n\n(b) The claim is supported. Measured mass percent Cl = (0.7500 g ÷ 1.500 g) × 100 = 50.00%. A pure substance contains only one type of formula unit, so its composition by mass is fixed; pure KCl must be 47.55% Cl. Because the sample is 50.00% Cl, it cannot be pure KCl and must be a mixture containing a substance with a higher chlorine fraction, such as NaCl.\n\n(c) Let x = mass of NaCl. Then mass of KCl = 1.500 − x.\nx(35.45/58.44) + (1.500 − x)(35.45/74.55) = 0.7500\n0.60661x + 0.71328 − 0.47552x = 0.7500\n0.13109x = 0.03672\nx = 0.2801 g NaCl (and 1.220 g KCl).\n\n(d) In both compounds each formula unit contains one Cl⁻ ion paired with one metal ion. A Na⁺ ion (about 22.99 amu) has much less mass than a K⁺ ion (about 39.10 amu), so a NaCl formula unit has a smaller total mass while containing the same chloride mass. Chlorine therefore makes up a larger fraction of the mass in NaCl (60.66%) than in KCl (47.55%).",
+    "verification_python": "Na=22.99;K=39.10;Cl=35.45\nNaCl=58.44;KCl=74.55\nassert abs(Na+Cl-NaCl)<0.01 and abs(K+Cl-KCl)<0.01\npK=Cl/KCl*100\nassert abs(pK-47.55)<0.005\npNa=Cl/NaCl*100\nassert abs(pNa-60.66)<0.005\nmeas=0.7500/1.500*100\nassert abs(meas-50.00)<1e-9\nassert meas>pK\na=Cl/NaCl;b=Cl/KCl\nassert abs(a-0.60661)<1e-5 and abs(b-0.47552)<1e-5\nassert abs(1.5*b-0.71328)<1e-5\nassert abs((a-b)-0.13109)<1e-5\nx=(0.7500-1.500*b)/(a-b)\nassert abs(x-0.2801)<0.00005\nassert abs((1.500-x)-1.220)<0.0005\nassert abs((0.7500-1.5*b)-0.03672)<1e-5\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the mass percent of chlorine in pure KCl.",
+      "criteria": [
+       {
+        "text": "Mass percent Cl in pure KCl = 47.55%",
+        "evidence": "Shows (35.45 g/mol ÷ 74.55 g/mol) × 100 and reports 47.55% (accept 47.6% or 47.5%).",
+        "fix": "Divide the molar mass of Cl by the molar mass of the whole formula unit, then multiply by 100.",
+        "accepted_variants": [
+         "47.55%",
+         "47.6%",
+         "0.4755"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The student claims that the solid is not pure KCl. Use the analysis data and your answer from the previous part to support or refute this claim.",
+      "criteria": [
+       {
+        "text": "Supports the claim: measured mass percent Cl (50.00%) differs from (is greater than) the fixed 47.55% for pure KCl",
+        "evidence": "Calculates 0.7500 g ÷ 1.500 g × 100 = 50.00%, compares it to the pure-KCl value, and states that a pure substance always has the same composition by mass, so the sample must be a mixture.",
+        "fix": "Compute the sample's measured element percent and compare it to the pure compound's fixed percent; a mismatch means a mixture.",
+        "accepted_variants": [
+         "50.00% Cl",
+         "50.0%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Assuming the solid contains only KCl and NaCl, calculate the mass of NaCl in the 1.500 g sample.",
+      "criteria": [
+       {
+        "text": "Correct setup relating total chlorine mass to the masses of NaCl and KCl",
+        "evidence": "Writes an equation such as x(35.45/58.44) + (1.500 − x)(35.45/74.55) = 0.7500, where x is the mass of NaCl, or an equivalent mole-based system.",
+        "fix": "Let x be one component's mass, express the other as total minus x, and sum each component's chlorine mass.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Mass of NaCl = 0.2801 g",
+        "evidence": "Solves the setup and reports 0.2801 g NaCl (accept 0.280 g) with units; KCl = 1.220 g may also appear.",
+        "fix": "Carry unrounded mass fractions through the algebra and report the final mass with units and four significant figures.",
+        "accepted_variants": [
+         "0.2801 g",
+         "0.280 g"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "NaCl and KCl both contain one chloride ion for every one metal ion. Explain at the particle level why the mass percent of chlorine in NaCl is greater than in KCl.",
+      "criteria": [
+       {
+        "text": "Same 1:1 ion ratio, but a Na+ ion has less mass than a K+ ion, so Cl makes up a larger fraction of the formula unit mass in NaCl",
+        "evidence": "States that each formula unit contains one Cl and one metal ion in both compounds and that the Na atom/ion (22.99) is lighter than K (39.10), so chlorine accounts for a larger fraction of the total mass.",
+        "fix": "Compare the masses of the particles in one formula unit when the ion ratio is identical; the lighter partner raises the other element's percent.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 requires explicitly stating the general law of constant composition and concluding that the sample is a mixture. Part (b) only asks students to support or refute the claim that it is not pure KCl. Calculating 50.00% Cl, comparing it with 47.55%, and concluding that the sample is not pure KCl fully answers the question and should earn the point without those additional statements.",
+       "solution: The independent solution agrees with all numerical results and chemical explanations: (a) 47.55% Cl; (b) 50.00% Cl supports the claim that the sample is not pure KCl; (c) 0.2801 g NaCl; (d) the lighter sodium ion makes chlorine a larger fraction of the formula-unit mass. However, its complete answer to (b) would not satisfy b1's unnecessary requirements to explicitly state the constant-composition principle and identify the sample as a mixture. No model answer was provided for comparison."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 requires explicitly stating the general law of constant composition and concluding that the sample is a mixture. Part (b) only asks students to support or refute the claim that it is not pure KCl. Calculating 50.00% Cl, comparing it with 47.55%, and concluding that the sample is not pure KCl fully answers the question and should earn the point without those additional statements."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all numerical results and chemical explanations: (a) 47.55% Cl; (b) 50.00% Cl supports the claim that the sample is not pure KCl; (c) 0.2801 g NaCl; (d) the lighter sodium ion makes chlorine a larger fraction of the formula-unit mass. However, its complete answer to (b) would not satisfy b1's unnecessary requirements to explicitly state the constant-composition principle and identify the sample as a mixture. No model answer was provided for comparison.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 requires an explicit statement that pure substances have fixed composition and that the sample must be a mixture. The requested claim is only that the sample is not pure KCl. Calculating 50.00% Cl, comparing it with 47.55%, and concluding that the sample is not pure KCl fully answers the part and should earn credit without those additional statements.",
+       "solution: The numerical results and particle-level explanation agree: (a) 47.55% Cl; (b) 50.00% Cl supports nonpurity; (c) 0.2801 g NaCl; (d) the lighter sodium ion makes chlorine a larger fraction of the formula-unit mass. However, the independently supplied answer to (b) correctly supports nonpurity without explicitly stating that the sample must be a mixture or reciting the fixed-composition principle, so b1's evidence requirement is unnecessarily restrictive. No model answer was provided for comparison."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 requires an explicit statement that pure substances have fixed composition and that the sample must be a mixture. The requested claim is only that the sample is not pure KCl. Calculating 50.00% Cl, comparing it with 47.55%, and concluding that the sample is not pure KCl fully answers the part and should earn credit without those additional statements."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The numerical results and particle-level explanation agree: (a) 47.55% Cl; (b) 50.00% Cl supports nonpurity; (c) 0.2801 g NaCl; (d) the lighter sodium ion makes chlorine a larger fraction of the formula-unit mass. However, the independently supplied answer to (b) correctly supports nonpurity without explicitly stating that the sample must be a mixture or reciting the fixed-composition principle, so b1's evidence requirement is unnecessarily restrictive. No model answer was provided for comparison.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:52:22.449Z",
+   "item": {
+    "title": "Elemental Analysis of a KCl Sample Contaminated with NaCl",
+    "calculator": "permitted",
+    "stimulus": "A chemist receives a bottle labeled potassium chloride, KCl. She suspects the solid has been contaminated with sodium chloride, NaCl. She assumes the solid contains only KCl and NaCl. She dissolves a sample of the solid in water and precipitates all of the chloride. She uses the precipitate to find the mass of chlorine in the sample. Her results are shown below.\n\nQuantity | Value\nMass of solid sample | 2.000 g\nMass of chlorine in sample | 0.9904 g\n\nMolar masses (g/mol): K = 39.10, Na = 22.99, Cl = 35.45",
+    "model_answer": "(a) Molar mass of KCl = 39.10 + 35.45 = 74.55 g/mol. Mass percent Cl = (35.45 / 74.55) × 100 = 47.55%.\n\n(b) Mass percent Cl in the sample = (0.9904 g / 2.000 g) × 100 = 49.52%. Every formula unit of KCl has one K and one Cl, so pure KCl always has the same composition, 47.55% Cl. The sample is 49.52% Cl, which is different. Therefore the sample is not pure KCl; it is a mixture.\n\n(c) Let x = mass of NaCl, so the mass of KCl is (2.000 − x) g. The mass fraction of Cl in NaCl is 35.45/58.44 = 0.6066, and in KCl it is 0.4755.\n0.6066x + 0.4755(2.000 − x) = 0.9904\n0.1311x = 0.9904 − 0.9510 = 0.0394\nx = 0.300 g NaCl\nMass percent NaCl = (0.300 g / 2.000 g) × 100 = 15.0%.\n\n(d) SiO2 particles contain no chlorine atoms. Mixing them into KCl would add mass without adding any Cl, so the mass percent of Cl would be lower than 47.55%. The measured value is higher, 49.52%. Each NaCl formula unit also contains one Cl atom, but it pairs Cl with an Na atom (22.99 amu), which is lighter than a K atom (39.10 amu). As a result, NaCl is 60.66% Cl. Replacing some KCl formula units with NaCl formula units increases the number of Cl atoms per gram of sample. This raises the % Cl above 47.55%, which is consistent with the data.",
+    "verification_python": "K=39.10; Na=22.99; Cl=35.45\nmKCl=K+Cl; mNaCl=Na+Cl\nassert abs(mKCl-74.55)<1e-9\nassert abs(mNaCl-58.44)<1e-9\nfK=Cl/mKCl; fN=Cl/mNaCl\nassert abs(fK*100-47.55)<0.01\nassert abs(fN*100-60.66)<0.01\nsample=2.000; mCl=0.9904\npct=mCl/sample*100\nassert abs(pct-49.52)<0.001\nassert pct>fK*100\nx=(mCl-sample*fK)/(fN-fK)\nassert abs(x-0.300)<0.001\nassert abs(round(x,4)-0.3003)<1e-9\npctN=x/sample*100\nassert abs(pctN-15.0)<0.05\nassert abs(fN-0.6066)<0.0001 and abs(fK-0.4755)<0.0001\nassert abs(2.000*0.4755-0.9510)<1e-9\nassert abs(0.6066-0.4755-0.1311)<1e-9\nassert abs(0.9904-0.9510-0.0394)<1e-9\nassert abs(0.0394/0.1311-0.300)<0.001\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the mass percent of chlorine in pure KCl.",
+      "criteria": [
+       {
+        "text": "Mass percent Cl in pure KCl = 47.55%",
+        "evidence": "Shows 35.45 g/mol divided by 74.55 g/mol (39.10 + 35.45), times 100, giving 47.55% or an equivalent value with appropriate significant figures.",
+        "fix": "Divide the molar mass of chlorine by the molar mass of the whole formula unit, KCl = 74.55 g/mol, then multiply by 100.",
+        "accepted_variants": [
+         "47.55%",
+         "47.6%",
+         "0.4755"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the mass percent of chlorine in the chemist's sample. Then use this value and your answer to part (a) to state whether the sample is pure KCl, and justify your claim.",
+      "criteria": [
+       {
+        "text": "Sample is 49.52% Cl, which differs from 47.55%, so the sample is not pure KCl",
+        "evidence": "Calculates 0.9904 g / 2.000 g × 100 = 49.52%. States that pure KCl always has the fixed composition of 47.55% Cl because every formula unit has the same 1:1 K:Cl ratio. Concludes that the different measured value means the sample is a mixture.",
+        "fix": "Compare the measured percent with the fixed percent for the pure compound; explain that a pure substance always has one constant composition by mass.",
+        "accepted_variants": [
+         "49.52%",
+         "49.5%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Assume the sample contains only KCl and NaCl. Calculate the mass of NaCl in the 2.000 g sample and the mass percent of NaCl in the sample.",
+      "criteria": [
+       {
+        "text": "Correct mass-balance setup relating chlorine mass to the masses of NaCl and KCl",
+        "evidence": "Lets x = mass of NaCl and (2.000 − x) = mass of KCl. Writes x(35.45/58.44) + (2.000 − x)(35.45/74.55) = 0.9904 g. Equivalent setups are accepted, such as a two-equation system in moles.",
+        "fix": "Write one equation for total sample mass and one for total chlorine mass, using each compound's chlorine mass fraction, then solve together.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Mass of NaCl = 0.300 g, which is 15.0% of the sample",
+        "evidence": "Solves the setup to obtain about 0.300 g NaCl (0.3003 g is accepted). Reports a mass percent of about 15.0% NaCl, consistent with the computed mass.",
+        "fix": "After solving for grams of NaCl, divide by the 2.000 g sample mass and multiply by 100 to report the mass percent.",
+        "accepted_variants": [
+         "0.3003 g",
+         "0.30 g",
+         "15.0%",
+         "15%",
+         "15.01%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims the contaminant could instead be a chlorine-free solid such as sand (SiO2). Using particle-level reasoning about the formula units present, explain why the data are inconsistent with a sample of KCl contaminated only with a chlorine-free solid, but are consistent with contamination by NaCl.",
+      "criteria": [
+       {
+        "text": "Particle-level explanation: a chlorine-free impurity would lower the % Cl, while NaCl raises it because an Na atom has less mass than a K atom",
+        "evidence": "States that adding formula units that contain no Cl atoms adds mass without adding chlorine, so the % Cl would fall below 47.55%. States that each NaCl formula unit also has one Cl atom but a lighter Na atom (22.99 vs 39.10), so NaCl is about 60.66% Cl. Concludes that mixing in NaCl raises the % Cl above 47.55%, matching the measured 49.52%.",
+        "fix": "Reason per formula unit: compare the Cl atom's mass to the total mass of each kind of particle, and predict which direction each impurity shifts % Cl.",
+        "accepted_variants": [
+         "NaCl is 60.66% Cl",
+         "60.7% Cl"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 27 words"
+   ],
+   "stage": "lint"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Purity of a Limestone Sample from Its Calcium Content",
+   "calculator": "permitted",
+   "stimulus": "A geologist analyzes a 2.000 g sample of powdered limestone. The sample is a mixture of only calcium carbonate, CaCO₃, and silicon dioxide, SiO₂. Silicon dioxide contains no calcium. Elemental analysis shows that the sample contains 0.7208 g of calcium. Use the molar masses below.\n\nSubstance | Molar mass (g/mol)\nCa | 40.08\nCaCO₃ | 100.09\nSiO₂ | 60.09\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Calculate the percent by mass of calcium in pure CaCO₃.",
+     "criteria": [
+      {
+       "text": "Calculates 40.04% calcium by mass in pure CaCO₃.",
+       "evidence": "Response divides the molar mass of Ca by the molar mass of CaCO₃ (40.08 ÷ 100.09) and reports 40.04%.",
+       "fix": "For a pure compound, divide the mass of the element in one mole by the compound's molar mass, then multiply by 100.",
+       "accepted_variants": [
+        "40.04 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how the elemental analysis data show that the limestone sample is not pure CaCO₃.",
+     "criteria": [
+      {
+       "text": "Shows that the sample's calcium content (36.04% Ca, or 0.7208 g Ca in 2.000 g) is less than that of pure CaCO₃ (40.04% Ca, or 0.8009 g Ca in 2.000 g), so the sample cannot be pure CaCO₃.",
+       "evidence": "Response compares a calcium composition value obtained from the data with the corresponding value for pure CaCO₃, notes that they differ, and concludes that the sample contains another substance.",
+       "fix": "Calculate the measured percent of the element and compare it with the fixed percent in the pure compound; a mismatch means a mixture.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the mass of CaCO₃ in the 2.000 g sample.",
+     "criteria": [
+      {
+       "text": "Calculates 1.800 g of CaCO₃ in the sample.",
+       "evidence": "Response attributes all of the calcium to CaCO₃ (for example 0.7208 g Ca ÷ 40.08 g/mol × 100.09 g/mol, or 0.7208 g ÷ 0.4004) and reports 1.800 g.",
+       "fix": "All the calcium is in CaCO₃, so convert the calcium mass to moles of Ca, equal to moles of CaCO₃, then to grams.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the ratio of the number of calcium atoms to the number of silicon atoms in the sample. Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Calculates a Ca : Si atom ratio of 5.40 : 1.",
+       "evidence": "Response reports 5.40 Ca atoms per Si atom with a correct supporting calculation by any valid route (for example finding the SiO₂ mass by subtraction and converting both elements to moles, or a single combined expression), or a ratio consistent with the student’s earlier answers.",
+       "fix": "Find the other component's mass by subtraction, convert each element to moles, then divide, because mole ratios equal atom ratios.",
+       "accepted_variants": [
+        "5.40",
+        "5.40 to 1"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Percent Ca in CaCO₃ = (40.08 g/mol ÷ 100.09 g/mol) × 100% = 40.04%.\n\n(b) Percent Ca in the sample = (0.7208 g ÷ 2.000 g) × 100% = 36.04%. Pure CaCO₃ always contains 40.04% Ca by mass, so 2.000 g of pure CaCO₃ would contain 0.8009 g of Ca. The measured value, 36.04%, is lower, so the sample cannot be pure CaCO₃; it must contain another substance (here SiO₂) mixed with the CaCO₃.\n\n(c) Moles of Ca = 0.7208 g ÷ 40.08 g/mol = 0.01798 mol. Each formula unit of CaCO₃ contains one Ca atom, so there are 0.01798 mol of CaCO₃. Mass of CaCO₃ = 0.01798 mol × 100.09 g/mol = 1.800 g.\n\n(d) Mass of SiO₂ = 2.000 g − 1.800 g = 0.200 g. Moles of SiO₂ = 0.200 g ÷ 60.09 g/mol = 3.33 × 10⁻³ mol, so there are 3.33 × 10⁻³ mol of Si atoms. Ratio Ca : Si = 0.01798 mol ÷ 3.33 × 10⁻³ mol = 5.40, so there are 5.40 calcium atoms for every silicon atom.",
+   "verification_python": "Ca,CaCO3,SiO2=40.08,100.09,60.09\nassert abs(40.08+12.01+3*16.00-CaCO3)<1e-9\nassert abs(28.09+2*16.00-SiO2)<1e-9\npct=Ca/CaCO3*100\nassert abs(pct-40.04)<0.005\nmCa,ms=0.7208,2.000\nassert abs(mCa/ms*100-36.04)<0.005\nassert abs(ms*Ca/CaCO3-0.8009)<0.00005\nnCa=mCa/Ca\nassert abs(nCa-0.01798)<0.000005\nmCaCO3=nCa*CaCO3\nassert abs(mCaCO3-1.800)<0.0005\nassert abs(mCa/0.4004-1.800)<0.0005\nmSiO2=ms-1.800\nassert abs(mSiO2-0.200)<1e-9\nnSi=mSiO2/SiO2\nassert abs(nSi-3.33e-3)<0.005e-3\nr=nCa/nSi\nassert abs(r-5.40)<0.005\nassert abs(0.01798/3.33e-3-5.40)<0.005\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.845920Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "d1 accepts any correct supported calculation of the atom ratio (rubric_points)."
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:05:38.255Z",
+   "source": "given",
+   "item": {
+    "title": "Purity of a Limestone Sample from Its Calcium Content",
+    "calculator": "permitted",
+    "stimulus": "A geologist analyzes a 2.000 g sample of powdered limestone. The sample is a mixture of only calcium carbonate, CaCO₃, and silicon dioxide, SiO₂. Silicon dioxide contains no calcium. Elemental analysis shows that the sample contains 0.7208 g of calcium. Use the molar masses below.\n\nSubstance | Molar mass (g/mol)\nCa | 40.08\nCaCO₃ | 100.09\nSiO₂ | 60.09\n\nAnswer the following.",
+    "parts": [
+     {
+      "prompt": "Calculate the percent by mass of calcium in pure CaCO₃.",
+      "criteria": [
+       {
+        "text": "Calculates 40.04% calcium by mass in pure CaCO₃.",
+        "evidence": "Response divides the molar mass of Ca by the molar mass of CaCO₃ (40.08 ÷ 100.09) and reports 40.04%.",
+        "fix": "For a pure compound, divide the mass of the element in one mole by the compound's molar mass, then multiply by 100.",
+        "accepted_variants": [
+         "40.04 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the elemental analysis data show that the limestone sample is not pure CaCO₃.",
+      "criteria": [
+       {
+        "text": "Shows that the sample's calcium content (36.04% Ca, or 0.7208 g Ca in 2.000 g) is less than that of pure CaCO₃ (40.04% Ca, or 0.8009 g Ca in 2.000 g), so the sample cannot be pure CaCO₃.",
+        "evidence": "Response compares a calcium composition value obtained from the data with the corresponding value for pure CaCO₃, notes that they differ, and concludes that the sample contains another substance.",
+        "fix": "Calculate the measured percent of the element and compare it with the fixed percent in the pure compound; a mismatch means a mixture.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the mass of CaCO₃ in the 2.000 g sample.",
+      "criteria": [
+       {
+        "text": "Calculates 1.800 g of CaCO₃ in the sample.",
+        "evidence": "Response attributes all of the calcium to CaCO₃ (for example 0.7208 g Ca ÷ 40.08 g/mol × 100.09 g/mol, or 0.7208 g ÷ 0.4004) and reports 1.800 g.",
+        "fix": "All the calcium is in CaCO₃, so convert the calcium mass to moles of Ca, equal to moles of CaCO₃, then to grams.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the ratio of the number of calcium atoms to the number of silicon atoms in the sample.",
+      "criteria": [
+       {
+        "text": "Calculates a Ca : Si atom ratio of 5.40 : 1.",
+        "evidence": "Response finds the mass of SiO₂ (2.000 g − 1.800 g = 0.200 g), converts calcium and SiO₂ to amounts (0.01798 mol Ca and 3.33 × 10⁻³ mol Si), and reports 5.40 Ca atoms per Si atom, or a ratio consistent with the student's earlier answers.",
+        "fix": "Find the other component's mass by subtraction, convert each element to moles, then divide, because mole ratios equal atom ratios.",
+        "accepted_variants": [
+         "5.40",
+         "5.40 to 1"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Percent Ca in CaCO₃ = (40.08 g/mol ÷ 100.09 g/mol) × 100% = 40.04%.\n\n(b) Percent Ca in the sample = (0.7208 g ÷ 2.000 g) × 100% = 36.04%. Pure CaCO₃ always contains 40.04% Ca by mass, so 2.000 g of pure CaCO₃ would contain 0.8009 g of Ca. The measured value, 36.04%, is lower, so the sample cannot be pure CaCO₃; it must contain another substance (here SiO₂) mixed with the CaCO₃.\n\n(c) Moles of Ca = 0.7208 g ÷ 40.08 g/mol = 0.01798 mol. Each formula unit of CaCO₃ contains one Ca atom, so there are 0.01798 mol of CaCO₃. Mass of CaCO₃ = 0.01798 mol × 100.09 g/mol = 1.800 g.\n\n(d) Mass of SiO₂ = 2.000 g − 1.800 g = 0.200 g. Moles of SiO₂ = 0.200 g ÷ 60.09 g/mol = 3.33 × 10⁻³ mol, so there are 3.33 × 10⁻³ mol of Si atoms. Ratio Ca : Si = 0.01798 mol ÷ 3.33 × 10⁻³ mol = 5.40, so there are 5.40 calcium atoms for every silicon atom.",
+    "verification_python": "Ca,CaCO3,SiO2=40.08,100.09,60.09\nassert abs(40.08+12.01+3*16.00-CaCO3)<1e-9\nassert abs(28.09+2*16.00-SiO2)<1e-9\npct=Ca/CaCO3*100\nassert abs(pct-40.04)<0.005\nmCa,ms=0.7208,2.000\nassert abs(mCa/ms*100-36.04)<0.005\nassert abs(ms*Ca/CaCO3-0.8009)<0.00005\nnCa=mCa/Ca\nassert abs(nCa-0.01798)<0.000005\nmCaCO3=nCa*CaCO3\nassert abs(mCaCO3-1.800)<0.0005\nassert abs(mCa/0.4004-1.800)<0.0005\nmSiO2=ms-1.800\nassert abs(mSiO2-0.200)<1e-9\nnSi=mSiO2/SiO2\nassert abs(nSi-3.33e-3)<0.005e-3\nr=nCa/nSi\nassert abs(r-5.40)<0.005\nassert abs(0.01798/3.33e-3-5.40)<0.005\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.4": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion d1 prescribes finding the SiO₂ mass and calculating intermediate mole amounts, although part (d) requires only the atom ratio. A valid alternative directly solves 0.3604 = 40.08r/(100.09r + 60.09), where r is the Ca:Si atom ratio. Accept equivalent quantitative reasoning without requiring the listed intermediate quantities.",
+       "solution: The independent solution agrees with all numerical results: (a) 40.04%, (b) 36.04% < 40.04%, (c) 1.800 g CaCO₃, and (d) 5.40:1. The only disagreement is criterion d1's mandatory calculation pathway, which excludes valid direct atom-ratio reasoning. No model answer was evaluated."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1 prescribes finding the SiO₂ mass and calculating intermediate mole amounts, although part (d) requires only the atom ratio. A valid alternative directly solves 0.3604 = 40.08r/(100.09r + 60.09), where r is the Ca:Si atom ratio. Accept equivalent quantitative reasoning without requiring the listed intermediate quantities."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all numerical results: (a) 40.04%, (b) 36.04% < 40.04%, (c) 1.800 g CaCO₃, and (d) 5.40:1. The only disagreement is criterion d1's mandatory calculation pathway, which excludes valid direct atom-ratio reasoning. No model answer was evaluated.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1 prescribes finding the SiO₂ mass and converting both elements to molar amounts as required evidence. A valid direct calculation, N(Ca)/N(Si) = (0.7208 × 60.09)/(2.000 × 40.08 − 0.7208 × 100.09) = 5.40, need not separately report those intermediate quantities. Accept any correct, supported calculation of the atom ratio."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1 prescribes finding the SiO₂ mass and converting both elements to molar amounts as required evidence. A valid direct calculation, N(Ca)/N(Si) = (0.7208 × 60.09)/(2.000 × 40.08 − 0.7208 × 100.09) = 5.40, need not separately report those intermediate quantities. Accept any correct, supported calculation of the atom ratio."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.4",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

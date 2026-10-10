@@ -1,0 +1,303 @@
+{
+ "id": "ap_calculus_bc__2.3__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 2,
+  "unit_title": "Differentiation: Definition and Fundamental Properties",
+  "topic_code": "2.3",
+  "topic_title": "Estimating Derivatives of a Function at a Point",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.216Z",
+   "item": {
+    "title": "Estimating Cooling Rates of a Liquid from a Table",
+    "calculator": "not_permitted",
+    "stimulus": "A cup of hot liquid is left on a counter to cool. Its temperature, in degrees Celsius (°C), is modeled by a differentiable function T of time t, in minutes, for 0 ≤ t ≤ 12. Selected values of T(t) are given in the table below.\n\nt (minutes): 0 | 3 | 5 | 7 | 10 | 12\nT(t) (°C): 90 | 78 | 71 | 65 | 57 | 53\n\nAnswer all parts of the following question. Show the computations that lead to your answers.",
+    "model_answer": "(a) T′(5) ≈ (T(7) − T(3))/(7 − 3) = (65 − 78)/4 = −13/4 = −3.25 °C per minute.\n\n(b) The table times closest to 8.5 are t = 7 and t = 10.\nT′(8.5) ≈ (T(10) − T(7))/(10 − 7) = (57 − 65)/3 = −8/3 ≈ −2.667 °C per minute.\n\n(c) T′(12) ≈ (T(12) − T(10))/(12 − 10) = (53 − 57)/2 = −2 °C per minute.\nThe function is only defined, and data are only given, for 0 ≤ t ≤ 12, so there are no values after t = 12; the difference quotient must use an earlier time such as t = 10.\n\n(d) The temperature is decreasing faster at t = 5. Both estimated rates are negative, and the magnitude of the estimate at t = 5 is 3.25 °C per minute, which is greater than the magnitude 2 °C per minute at t = 12 (equivalently −3.25 < −2).",
+    "verification_python": "from fractions import Fraction as F\nT={0:90,3:78,5:71,7:65,10:57,12:53}\na=F(T[7]-T[3],7-3)\nassert a==F(-13,4) and float(a)==-3.25\nb=F(T[10]-T[7],10-7)\nassert b==F(-8,3) and abs(float(b)+2.667)<0.001\nassert 7<8.5<10\nc=F(T[12]-T[10],12-10)\nassert c==-2\nassert abs(a)>abs(c) and a<c\nassert T[7]-T[3]==-13 and T[10]-T[7]==-8 and T[12]-T[10]==-4\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data at t = 3 and t = 7, estimate T′(5). Show the computation that leads to your answer and indicate units of measure.",
+      "criteria": [
+       {
+        "text": "Sets up the difference quotient (T(7) − T(3))/(7 − 3) = (65 − 78)/4.",
+        "evidence": "Response shows a difference quotient using the table values at t = 3 and t = 7, with the change in temperature divided by the change in time.",
+        "fix": "Divide the change in T by the change in t for the two given table times; write the quotient with both values before simplifying.",
+        "accepted_variants": [
+         "(78 − 65)/(3 − 7)",
+         "−13/4"
+        ]
+       },
+       {
+        "text": "Obtains T′(5) ≈ −3.25 °C per minute, with correct units.",
+        "evidence": "Response states the estimate −3.25 (or −13/4) together with the units degrees Celsius per minute.",
+        "fix": "Simplify the quotient carefully, keep its negative sign, and label a rate as output units per input unit, here °C per minute.",
+        "accepted_variants": [
+         "−13/4 °C/min",
+         "−3.25 degrees Celsius per minute"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the two times in the table closest to t = 8.5, estimate T′(8.5). Show the computation that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Identifies t = 7 and t = 10 as the bracketing times and sets up (T(10) − T(7))/(10 − 7) = (57 − 65)/3.",
+        "evidence": "Response uses the table values at t = 7 and t = 10 in a difference quotient.",
+        "fix": "Locate the two table times immediately on either side of 8.5, then form the quotient of their temperature change over their time change.",
+        "accepted_variants": [
+         "(65 − 57)/(7 − 10)"
+        ]
+       },
+       {
+        "text": "Obtains T′(8.5) ≈ −8/3 °C per minute.",
+        "evidence": "Response states the estimate −8/3 (approximately −2.667).",
+        "fix": "Divide −8 by 3 and keep the negative sign; a falling temperature gives a negative rate.",
+        "accepted_variants": [
+         "−8/3",
+         "−2.667",
+         "−2.67"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the two greatest times in the table, estimate T′(12). Explain why your difference quotient cannot use a time later than t = 12.",
+      "criteria": [
+       {
+        "text": "Computes T′(12) ≈ (T(12) − T(10))/(12 − 10) = (53 − 57)/2 = −2 °C per minute.",
+        "evidence": "Response shows the difference quotient using t = 10 and t = 12 and obtains −2.",
+        "fix": "At the last table time, pair it with the previous table time and compute the difference quotient (T(12) − T(10))/(12 − 10).",
+        "accepted_variants": [
+         "−2",
+         "(57 − 53)/(10 − 12)"
+        ]
+       },
+       {
+        "text": "Explains that T is only defined (and data only given) for 0 ≤ t ≤ 12, so no values after t = 12 exist and the estimate must use an earlier time.",
+        "evidence": "Response states that there is no data, or the function is not defined, for t > 12, so only times before 12 can be used.",
+        "fix": "Check the domain and table: when a point is at the end of the data, explain that only times on one side are available.",
+        "accepted_variants": [
+         "no data beyond t = 12",
+         "domain ends at t = 12"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on your estimates from parts (a) and (c), is the temperature of the liquid decreasing faster at t = 5 or at t = 12? Justify your answer.",
+      "criteria": [
+       {
+        "text": "Concludes the temperature is decreasing faster at t = 5, because the estimated rate there has greater magnitude (3.25 > 2 °C per minute, i.e. −3.25 < −2).",
+        "evidence": "Response names t = 5 and compares the magnitudes of the two estimates (or notes −3.25 is more negative than −2), consistent with its values from (a) and (c).",
+        "fix": "Compare how large the negative rates are: the rate with the greater absolute value means faster decrease. State both values in your justification.",
+        "accepted_variants": [
+         "|−3.25| > |−2|",
+         "−13/4 < −2"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 combines the difference-quotient setup and numerical execution into one all-or-nothing point, contrary to the fact pack’s requirement to score these separately. Its evidence also requires obtaining −2 rather than accepting a correct unsimplified expression. Split setup and evaluation into separate one-point criteria and accept equivalent unsimplified answers."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 combines the difference-quotient setup and numerical execution into one all-or-nothing point, contrary to the fact pack’s requirement to score these separately. Its evidence also requires obtaining −2 rather than accepting a correct unsimplified expression. Split setup and evaluation into separate one-point criteria and accept equivalent unsimplified answers."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 1
+}

@@ -1,0 +1,237 @@
+{
+ "id": "ap_calculus_bc__1.12__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.12",
+  "topic_title": "Confirming Continuity over an Interval",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:35:06.052Z",
+   "item": {
+    "title": "Intervals of Continuity and a Piecewise Parameter",
+    "calculator": "not_permitted",
+    "stimulus": "Let g(x) = ln(5 − x)/(x² − 4).\n\nLet h be the function defined by\nh(x) = x² + kx for x < 2,\nh(x) = 3k − x for x ≥ 2,\nwhere k is a constant.",
+    "model_answer": "(a) ln(5 − x) requires 5 − x > 0, so x < 5. The denominator x² − 4 = (x − 2)(x + 2) is zero at x = −2 and x = 2, so these are excluded. Domain: (−∞, −2) ∪ (−2, 2) ∪ (2, 5). The function ln(5 − x) is a logarithmic function of a linear expression and is continuous for x < 5, and x² − 4 is a polynomial, continuous everywhere. A quotient of continuous functions is continuous wherever the denominator is not zero, so g is continuous at every point of each of the three intervals, and therefore continuous on each interval.\n\n(b) For x < 2, h(x) = x² + kx is a polynomial, and for x > 2, h(x) = 3k − x is a polynomial, so h is continuous on (−∞, 2) and (2, ∞). Only x = 2 must be checked.\nlim x→2⁻ h(x) = 2² + 2k = 4 + 2k.\nlim x→2⁺ h(x) = 3k − 2, and h(2) = 3k − 2.\nFor continuity, 4 + 2k = 3k − 2, so k = 6.\nCheck: with k = 6, lim x→2⁻ h(x) = 16, lim x→2⁺ h(x) = 16, so lim x→2 h(x) = 16 = h(2). Since h(2) is defined, the limit exists, and they are equal, h is continuous at 2, and hence on (−∞, ∞).\n\n(c) [−1, 1]: Yes. Every point of [−1, 1] lies in (−2, 2), where g is continuous by part (a), so g is continuous at every point of [−1, 1].\n[1, 3]: No. The point x = 2 is in [1, 3], and g(2) is undefined because 2² − 4 = 0. Since g is not continuous at x = 2, it is not continuous on [1, 3].",
+    "verification_python": "import sympy as sp\nx,k=sp.symbols('x k',real=True)\ng=sp.log(5-x)/(x**2-4)\nassert set(sp.solve(x**2-4,x))=={-2,2}\nleft=(x**2+k*x).subs(x,2)\nright=(3*k-x).subs(x,2)\nassert sp.expand(left-(4+2*k))==0\nassert sp.expand(right-(3*k-2))==0\nsol=sp.solve(sp.Eq(left,right),k)\nassert sol==[6]\nassert left.subs(k,6)==16 and right.subs(k,6)==16\nassert sp.limit((x**2+6*x),x,2,'-')==16\nassert sp.limit((18-x),x,2,'+')==16\n# g defined on [-1,1]\nfor t in [sp.Rational(-1),sp.Rational(0),sp.Rational(1)]:\n    assert (t**2-4)!=0 and 5-t>0\nassert -2< -1 and 1<2\nassert (2**2-4)==0 and 1<=2<=3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write the domain of g as a union of open intervals. Explain why g is continuous on each of these intervals.",
+      "criteria": [
+       {
+        "text": "States the domain of g as (−∞, −2) ∪ (−2, 2) ∪ (2, 5).",
+        "evidence": "Response requires 5 − x > 0 (x < 5), excludes x = −2 and x = 2 where x² − 4 = 0, and gives the three intervals (−∞, −2), (−2, 2), (2, 5).",
+        "fix": "Find where the logarithm's input is positive, then remove every x that makes the denominator zero before writing intervals.",
+        "accepted_variants": [
+         "x < 5, x ≠ −2, x ≠ 2",
+         "{x : x < 5, x ≠ ±2}"
+        ]
+       },
+       {
+        "text": "Justifies continuity using function types: ln(5 − x) and x² − 4 are continuous on their domains, so the quotient is continuous wherever it is defined.",
+        "evidence": "Response states that logarithmic (or composite logarithmic) and polynomial functions are continuous on their domains and that a quotient of continuous functions is continuous where the denominator is nonzero, hence g is continuous at every point of each interval.",
+        "fix": "Cite that logarithmic and polynomial functions are continuous on their domains, and a quotient is continuous wherever its denominator is nonzero.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find the value of k for which h is continuous on (−∞, ∞). Justify your answer using the definition of continuity.",
+      "criteria": [
+       {
+        "text": "Explains that h is continuous for all x ≠ 2 because each piece is a polynomial, so only x = 2 needs to be checked.",
+        "evidence": "Response states that x² + kx and 3k − x are polynomials, continuous everywhere, so h is continuous on (−∞, 2) and (2, ∞), and identifies x = 2 as the only point to check.",
+        "fix": "Before checking the break point, state that each piece is a polynomial and therefore continuous on its own open interval.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Sets the left-hand limit equal to h(2): lim x→2⁻ h(x) = 4 + 2k and lim x→2⁺ h(x) = h(2) = 3k − 2, so 4 + 2k = 3k − 2.",
+        "evidence": "Response computes both one-sided limits at x = 2 (or the left-hand limit and h(2)) and sets them equal.",
+        "fix": "Compute lim x→2⁻ h(x) from the left piece and h(2) from the right piece, then set them equal.",
+        "accepted_variants": [
+         "4 + 2k = 3k − 2",
+         "2² + 2k = 3k − 2"
+        ]
+       },
+       {
+        "text": "Solves to get k = 6 and confirms lim x→2 h(x) = h(2) = 16.",
+        "evidence": "Response gives k = 6 and verifies that with k = 6 the limit at x = 2 exists and equals h(2) = 16, so h is continuous on (−∞, ∞).",
+        "fix": "After solving for k, substitute back to show the limit and the function value at x = 2 are both 16.",
+        "accepted_variants": [
+         "k=6"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "For each of the closed intervals [−1, 1] and [1, 3], determine whether g is continuous on that interval. Justify each answer.",
+      "criteria": [
+       {
+        "text": "Concludes g is continuous on [−1, 1] because [−1, 1] lies inside (−2, 2), where g is continuous.",
+        "evidence": "Response states yes and justifies that every point of [−1, 1] is in (−2, 2), an interval on which g is continuous (or that g is defined and continuous at each point of [−1, 1]).",
+        "fix": "Check whether every point of the interval lies inside one of the intervals of continuity found in part (a).",
+        "accepted_variants": [
+         "yes, continuous on [−1, 1]"
+        ]
+       },
+       {
+        "text": "Concludes g is not continuous on [1, 3] because g(2) is undefined (x² − 4 = 0 at x = 2) and 2 is in [1, 3].",
+        "evidence": "Response states no and identifies x = 2 in [1, 3] as a point where g is undefined, so g fails to be continuous at a point of the interval.",
+        "fix": "A function is continuous on an interval only if continuous at every point; look for excluded x-values inside the interval.",
+        "accepted_variants": [
+         "no, not continuous on [1, 3]"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.12": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.12",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 1
+}

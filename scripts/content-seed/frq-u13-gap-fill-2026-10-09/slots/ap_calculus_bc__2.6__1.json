@@ -1,0 +1,662 @@
+{
+ "id": "ap_calculus_bc__2.6__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 2,
+  "unit_title": "Differentiation: Definition and Fundamental Properties",
+  "topic_code": "2.6",
+  "topic_title": "Derivative Rules: Constant, Sum, Difference, and Constant Multiple",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.216Z",
+   "item": {
+    "title": "Sum, Difference, and Constant Multiple Rules with a Table",
+    "calculator": "not_permitted",
+    "stimulus": "Let p(x) = 2x⁴ − 5x³ + 3x − 7.\n\nThe functions f and g are differentiable for all real numbers. Selected values of f, f′, g, and g′ are given in the table below.\n\nx | f(x) | f′(x) | g(x) | g′(x)\n1 | 3 | −2 | 4 | 5\n2 | −1 | 6 | 0 | −3",
+    "model_answer": "(a) Using the power rule with the sum, difference, and constant multiple rules,\np′(x) = 2(4x³) − 5(3x²) + 3(1) − 0 = 8x³ − 15x² + 3.\np′(2) = 8(8) − 15(4) + 3 = 64 − 60 + 3 = 7.\n\n(b) h′(x) = 3f′(x) − 2g′(x) + 5.\nh′(1) = 3f′(1) − 2g′(1) + 5 = 3(−2) − 2(5) + 5 = −6 − 10 + 5 = −11.\n\n(c) k′(x) = 4f′(x) + 2x, so k′(2) = 4(6) + 2(2) = 24 + 4 = 28.\nk(2) = 4f(2) + 2² = 4(−1) + 4 = 0.\nTangent line: y − 0 = 28(x − 2), that is, y = 28(x − 2).\n\n(d) r′(x) = 3cx² + p′(x), so r′(1) = 3c + p′(1).\np′(1) = 8(1) − 15(1) + 3 = −4, so r′(1) = 3c − 4.\nSetting 3c − 4 = 0 gives c = 4/3.",
+    "verification_python": "import sympy as sp\nx, c = sp.symbols('x c')\np = 2*x**4 - 5*x**3 + 3*x - 7\ndp = sp.diff(p, x)\nassert sp.expand(dp - (8*x**3 - 15*x**2 + 3)) == 0\nassert dp.subs(x, 2) == 7\nf = {1: 3, 2: -1}\nfp = {1: -2, 2: 6}\ng = {1: 4, 2: 0}\ngp = {1: 5, 2: -3}\nh1 = 3*fp[1] - 2*gp[1] + 5\nassert h1 == -11\nk2 = 4*f[2] + 2**2\nkp2 = 4*fp[2] + 2*2\nassert k2 == 0 and kp2 == 28\nline = k2 + kp2*(x - 2)\nassert sp.expand(line - (28*x - 56)) == 0\nassert dp.subs(x, 1) == -4\nr = c*x**3 + p\nrp1 = sp.diff(r, x).subs(x, 1)\nassert sp.expand(rp1 - (3*c - 4)) == 0\nsol = sp.solve(sp.Eq(rp1, 0), c)\nassert sol == [sp.Rational(4, 3)]\nassert abs(float(sol[0]) - 1.333) < 0.001\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find p′(x). Then find p′(2).",
+      "criteria": [
+       {
+        "text": "Correct derivative p′(x) = 8x³ − 15x² + 3",
+        "evidence": "Response states p′(x) = 8x³ − 15x² + 3, with the constant −7 differentiating to 0.",
+        "fix": "Differentiate term by term: apply the power rule to each term, keep constant coefficients, and remember the derivative of a constant is 0.",
+        "accepted_variants": [
+         "8x^3 − 15x^2 + 3"
+        ]
+       },
+       {
+        "text": "Correct value p′(2) = 7",
+        "evidence": "Response substitutes x = 2 into its p′(x), showing 8(8) − 15(4) + 3 or equivalent, and obtains 7.",
+        "fix": "Substitute into the derivative, not into p itself, and evaluate each power carefully: 2³ = 8 and 2² = 4.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Let h(x) = 3f(x) − 2g(x) + 5x. Find h′(1). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Correct derivative expression h′(x) = 3f′(x) − 2g′(x) + 5",
+        "evidence": "Response writes h′(x) = 3f′(x) − 2g′(x) + 5 or h′(1) = 3f′(1) − 2g′(1) + 5, using the constant multiple, sum, and difference rules.",
+        "fix": "Keep each constant coefficient in front of the derivative: d/dx[3f(x)] = 3f′(x), and d/dx[5x] = 5.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Correct value h′(1) = −11",
+        "evidence": "Response substitutes f′(1) = −2 and g′(1) = 5 to get 3(−2) − 2(5) + 5 = −11.",
+        "fix": "Use the derivative columns f′ and g′ from the table at x = 1, not the function values f(1) and g(1).",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Let k(x) = 4f(x) + x². Write an equation for the line tangent to the graph of k at x = 2.",
+      "criteria": [
+       {
+        "text": "Correct slope k′(2) = 28",
+        "evidence": "Response shows k′(2) = 4f′(2) + 2(2) = 4(6) + 4 = 28.",
+        "fix": "Find the slope by differentiating k first, then evaluate: k′(2) = 4f′(2) + 2·2.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Correct tangent line y = 28(x − 2), using k(2) = 0",
+        "evidence": "Response computes k(2) = 4(−1) + 4 = 0 and writes the tangent line y − 0 = 28(x − 2) or an equivalent form (consistent with its slope).",
+        "fix": "Compute the point k(2) from function values, then use point-slope form y − k(2) = k′(2)(x − 2).",
+        "accepted_variants": [
+         "y = 28x − 56",
+         "y − 0 = 28(x − 2)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Let r(x) = c·x³ + p(x), where c is a constant. Find the value of c for which r′(1) = 0.",
+      "criteria": [
+       {
+        "text": "Correct derivative equation r′(1) = 3c + p′(1) = 3c − 4",
+        "evidence": "Response writes r′(x) = 3cx² + p′(x) and uses p′(1) = 8 − 15 + 3 = −4 to obtain r′(1) = 3c − 4.",
+        "fix": "Treat c as a fixed constant multiple: d/dx[c·x³] = 3cx². Then add p′(1) using your answer from part (a).",
+        "accepted_variants": [
+         "3c + 8 − 15 + 3"
+        ]
+       },
+       {
+        "text": "Correct value c = 4/3",
+        "evidence": "Response sets 3c − 4 = 0 and solves to get c = 4/3 (or a value consistent with its expression for r′(1)).",
+        "fix": "Set your expression for r′(1) equal to 0 and solve the resulting linear equation for c.",
+        "accepted_variants": [
+         "4/3",
+         "1.333"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion d1 requires writing r′(x) before evaluating r′(1), rejecting the valid direct calculation r′(1) = 3c + 8 − 15 + 3 = 3c − 4. Accept either derivative setup. Criterion d2 lists 1.333 as an equivalent form of 4/3, although it is only an approximation and no rounding instruction is given.",
+       "accurate: Criterion d2 incorrectly identifies 1.333 as an equivalent form of 4/3. Their exact values differ; remove this variant or explicitly identify an accepted approximation.",
+       "solution: The independent solution agrees with all principal rubric results: p′(x) = 8x³ − 15x² + 3, p′(2) = 7, h′(1) = −11, the tangent line is y = 28(x − 2), and c = 4/3. The only numerical disagreement is d2’s claim that 1.333 is an equivalent form of 4/3."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1 requires writing r′(x) before evaluating r′(1), rejecting the valid direct calculation r′(1) = 3c + 8 − 15 + 3 = 3c − 4. Accept either derivative setup. Criterion d2 lists 1.333 as an equivalent form of 4/3, although it is only an approximation and no rounding instruction is given."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d2 incorrectly identifies 1.333 as an equivalent form of 4/3. Their exact values differ; remove this variant or explicitly identify an accepted approximation."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all principal rubric results: p′(x) = 8x³ − 15x² + 3, p′(2) = 7, h′(1) = −11, the tangent line is y = 28(x − 2), and c = 4/3. The only numerical disagreement is d2’s claim that 1.333 is an equivalent form of 4/3.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion d1 requires writing the general expression r′(x), unnecessarily excluding a valid direct calculation of r′(1) = 3c + 8 − 15 + 3 = 3c − 4. Criterion d2 lists 1.333 as an equivalent form of 4/3, although it is only an approximation and no rounding is requested.",
+       "accurate: Criterion d2 incorrectly identifies 1.333 as equivalent to 4/3. In fact, 3(1.333) − 4 = −0.001, not 0. Remove this variant or explicitly allow a rounded approximation.",
+       "solution: The independent solution agrees with all exact rubric results: p′(x) = 8x³ − 15x² + 3, p′(2) = 7, h′(1) = −11, tangent line y = 28(x − 2), and c = 4/3. The sole mathematical disagreement is d2's claim that 1.333 is an equivalent form of the exact answer."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion d1 requires writing the general expression r′(x), unnecessarily excluding a valid direct calculation of r′(1) = 3c + 8 − 15 + 3 = 3c − 4. Criterion d2 lists 1.333 as an equivalent form of 4/3, although it is only an approximation and no rounding is requested."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d2 incorrectly identifies 1.333 as equivalent to 4/3. In fact, 3(1.333) − 4 = −0.001, not 0. Remove this variant or explicitly allow a rounded approximation."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all exact rubric results: p′(x) = 8x³ − 15x² + 3, p′(2) = 7, h′(1) = −11, tangent line y = 28(x − 2), and c = 4/3. The sole mathematical disagreement is d2's claim that 1.333 is an equivalent form of the exact answer.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (d), criterion d1: it requires the response to write r′(x) before evaluating; a valid response may directly write r′(1)=3c(1)²+p′(1)=3c−4, so the criterion rejects a valid alternative method."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (d), criterion d1: it requires the response to write r′(x) before evaluating; a valid response may directly write r′(1)=3c(1)²+p′(1)=3c−4, so the criterion rejects a valid alternative method."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:51:09.091Z",
+   "item": {
+    "title": "Sum, Difference, and Constant Multiple Rules for Derivatives",
+    "calculator": "not_permitted",
+    "stimulus": "Let f be the polynomial function f(x) = 4x³ − 6x² + 5x − 9.\n\nLet g and h be differentiable functions with the following values at x = 2:\n\nx | g(x) | g′(x) | h(x) | h′(x)\n2 | 3 | −1 | 5 | 4\n\nThe function k is defined by k(x) = 3g(x) − 2h(x) + x³ − 8.",
+    "model_answer": "(a) Using the power rule with the constant multiple, sum, and difference rules, and the fact that the derivative of a constant is 0:\nf′(x) = 4(3x²) − 6(2x) + 5(1) − 0 = 12x² − 12x + 5.\nf′(2) = 12(4) − 12(2) + 5 = 48 − 24 + 5 = 29.\n\n(b) The line y = 5x + 1 has slope 5, and parallel lines have equal slopes, so set f′(x) = 5:\n12x² − 12x + 5 = 5\n12x² − 12x = 0\n12x(x − 1) = 0\nx = 0 or x = 1.\n\n(c) By the sum, difference, and constant multiple rules:\nk′(x) = 3g′(x) − 2h′(x) + 3x² − 0.\nk′(2) = 3(−1) − 2(4) + 3(2)² = −3 − 8 + 12 = 1.\n\n(d) k(2) = 3g(2) − 2h(2) + 2³ − 8 = 3(3) − 2(5) + 8 − 8 = −1.\nThe slope is k′(2) = 1, so the tangent line is y = −1 + 1(x − 2), which is y = x − 3.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\nf=4*x**3-6*x**2+5*x-9\nfp=sp.diff(f,x)\nassert sp.expand(fp-(12*x**2-12*x+5))==0\nassert fp.subs(x,2)==29\nsols=sp.solve(sp.Eq(fp,5),x)\nassert set(sols)=={0,1}\ng2,gp2,h2,hp2=3,-1,5,4\nkp2=3*gp2-2*hp2+3*2**2\nassert kp2==1\nk2=3*g2-2*h2+2**3-8\nassert k2==-1\nline=k2+kp2*(x-2)\nassert sp.expand(line-(x-3))==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find f′(x). Then find f′(2).",
+      "criteria": [
+       {
+        "text": "Correct derivative f′(x) = 12x² − 12x + 5",
+        "evidence": "Response shows f′(x) = 12x² − 12x + 5, with the constant term −9 differentiating to 0 and each term differentiated with the power rule and constant multiple rule.",
+        "fix": "Differentiate term by term: multiply each coefficient by the exponent, lower the exponent by one, and remember a constant's derivative is 0.",
+        "accepted_variants": [
+         "12x^2 − 12x + 5"
+        ]
+       },
+       {
+        "text": "Correct value f′(2) = 29",
+        "evidence": "Response substitutes x = 2 into its f′(x) and obtains 29, for example 12(4) − 12(2) + 5 = 29. A value consistent with an incorrect f′(x) earns this point.",
+        "fix": "Substitute x = 2 into f′(x), not into f(x), and evaluate each term carefully before adding.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find all values of x at which the line tangent to the graph of f is parallel to the line y = 5x + 1. Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Sets the derivative equal to the slope 5: 12x² − 12x + 5 = 5",
+        "evidence": "Response states that parallel lines have equal slopes and writes f′(x) = 5 using its derivative from part (a).",
+        "fix": "Parallel tangent lines have the same slope, so set f′(x) equal to the given line's slope and solve.",
+        "accepted_variants": [
+         "12x² − 12x = 0",
+         "f′(x) = 5"
+        ]
+       },
+       {
+        "text": "Correct solutions x = 0 and x = 1",
+        "evidence": "Response solves the equation, for example by factoring 12x(x − 1) = 0, and gives both x = 0 and x = 1.",
+        "fix": "Factor out the common factor 12x rather than dividing by x, so the solution x = 0 is not lost.",
+        "accepted_variants": [
+         "x = 0, 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find k′(2). Show the work that leads to your answer.",
+      "criteria": [
+       {
+        "text": "Correct derivative k′(x) = 3g′(x) − 2h′(x) + 3x²",
+        "evidence": "Response applies the sum, difference, and constant multiple rules to write k′(x) = 3g′(x) − 2h′(x) + 3x², with the constant −8 differentiating to 0.",
+        "fix": "Keep the constant multipliers 3 and −2 in front of g′ and h′; differentiate x³ to 3x² and the constant −8 to 0.",
+        "accepted_variants": [
+         "k′(2) = 3g′(2) − 2h′(2) + 3(2)²"
+        ]
+       },
+       {
+        "text": "Correct value k′(2) = 1",
+        "evidence": "Response substitutes the table values to get 3(−1) − 2(4) + 12 = 1.",
+        "fix": "Use the derivative columns g′(2) = −1 and h′(2) = 4, not g(2) and h(2), when evaluating k′(2).",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Write an equation for the line tangent to the graph of k at x = 2.",
+      "criteria": [
+       {
+        "text": "Correct tangent line y = −1 + 1(x − 2), using k(2) = −1",
+        "evidence": "Response computes k(2) = 3(3) − 2(5) + 8 − 8 = −1 and writes a line through (2, −1) with slope k′(2) from part (c). An equation consistent with an incorrect k′(2) from part (c) earns this point if k(2) = −1 is correct.",
+        "fix": "Find the point by evaluating k(2) with g(2) and h(2), then use point-slope form with slope k′(2).",
+        "accepted_variants": [
+         "y = x − 3",
+         "y + 1 = 1(x − 2)"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "on_topic: Only criteria a1 and c1 assess topic 2.6 derivative rules; criteria a2, b1, b2, c2, and d1 assess evaluation, tangent-line slope, solving, and tangent-line equation, so fewer than half of the 7 points assess the designated topic."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": false,
+         "issue": "Only criteria a1 and c1 assess topic 2.6 derivative rules; criteria a2, b1, b2, c2, and d1 assess evaluation, tangent-line slope, solving, and tangent-line equation, so fewer than half of the 7 points assess the designated topic."
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:39:36.406Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Sum, Difference, and Constant Multiple Rules with Table Data"
+  },
+  {
+   "at": "2026-10-10T01:40:03.133Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Sum, Difference and Constant Multiple Rules with Polynomials"
+  },
+  {
+   "at": "2026-10-10T01:40:38.295Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Sum, Difference and Constant Multiple Rules with a Table"
+  }
+ ],
+ "accepted_round": 2
+}

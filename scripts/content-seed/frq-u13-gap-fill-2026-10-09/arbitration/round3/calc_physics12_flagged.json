@@ -1,0 +1,563 @@
+[
+ {
+  "slot_id": "ap_calculus_ab__1.1__1",
+  "subject_key": "ap_calculus_ab",
+  "topic_code": "1.1",
+  "topic_title": "Introducing Calculus: Can Change Occur at an Instant?",
+  "prior_arbitration": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "Topic ruling by CED text: Ruling approved by the Product Owner for AB 1.1: average rates over shrinking intervals on both sides, the zero-length interval (CHA-1.A.2) and interpretation only; no limit notation, no derivative. 1.1 and 2.1 overlap by design in the CED."
+   }
+  ],
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (b): b1 requires explicitly evaluating both endpoint positions, rejecting a valid calculation using [s(b) − s(a)]/(b − a) = b² + ab + a² − 4. The prompt does not prescribe the endpoint-evaluation method. Also, b1 and b2 both award credit for the same −0.9699 result on [1, 1.01], double-counting that answer. Make b1 a calculation/setup point accepting equivalent methods, and b2 the numerical-results point."
+   }
+  ],
+  "item": {
+   "title": "Velocity at an Instant from Average Velocities",
+   "calculator": "permitted",
+   "stimulus": "The position of a particle moving along a straight line is s(t) = t³ − 4t + 2, where s(t) is measured in meters and t is measured in seconds, for 0 ≤ t ≤ 5.",
+   "parts": [
+    {
+     "prompt": "A student says: \"To find the particle's velocity at exactly t = 1, I will use the average velocity formula [s(b) − s(a)] / (b − a) on the interval from t = 1 to t = 1.\" Explain why this does not work.",
+     "criteria": [
+      {
+       "text": "Explains that the interval has length 0, so b − a = 0 and the formula divides by zero, which is undefined.",
+       "evidence": "Response states that the change in time is 0 (b − a = 0) and that dividing by 0 makes the average velocity undefined.",
+       "fix": "Check the denominator: an average rate needs two different times, so b − a cannot be 0.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the average velocity of the particle on each of these intervals: [0.9, 1], [0.99, 1], [0.999, 1], [1, 1.1], [1, 1.01] and [1, 1.001]. Show the calculation for the interval [1, 1.01]. Give each answer to four decimal places.",
+     "criteria": [
+      {
+       "text": "Shows the average velocity on [1, 1.01]: [s(1.01) − s(1)] / (1.01 − 1) = (−1.009699 − (−1)) / 0.01 = −0.9699 m/s.",
+       "evidence": "Response shows s(1.01) = −1.009699 and s(1) = −1, the difference quotient over a change in time of 0.01, and the value −0.9699.",
+       "fix": "Write s(b) − s(a) over b − a with both position values before dividing.",
+       "accepted_variants": [
+        "-0.9699"
+       ]
+      },
+      {
+       "text": "Gives all six average velocities correctly: −1.2900, −1.0299, −1.0030, −0.6900, −0.9699 and −0.9970 m/s.",
+       "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+       "fix": "Recompute s at each endpoint and keep s(1) = −1 the same in every quotient.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use your results from part (b) to estimate the velocity of the particle at the instant t = 1. Explain how the values support your estimate.",
+     "criteria": [
+      {
+       "text": "Estimates the velocity at t = 1 as −1 m/s.",
+       "evidence": "Response states a single estimate of −1 meter per second for the velocity at t = 1.",
+       "fix": "State one value with units, read from where the averages are heading.",
+       "accepted_variants": [
+        "-1 m/s",
+        "-1 meter per second"
+       ]
+      },
+      {
+       "text": "Justifies that as the intervals shrink toward t = 1 from both sides, the average velocities approach −1.",
+       "evidence": "Response notes that the left-interval values (−1.29, −1.0299, −1.0030) and the right-interval values (−0.69, −0.9699, −0.9970) both close in on −1 as the intervals get smaller.",
+       "fix": "Describe what the averages do as the intervals shrink, from the left and from the right.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The average velocity of the particle over the interval [1, 4] is 17 meters per second. Explain what your answer to part (c) tells you about the particle's motion at the instant t = 1 that the average velocity over [1, 4] does not.",
+     "criteria": [
+      {
+       "text": "States that at t = 1 the particle is moving in the negative direction (backward) at about 1 meter per second.",
+       "evidence": "Response interprets the negative velocity at t = 1 as motion in the negative direction with speed about 1 meter per second.",
+       "fix": "Interpret the sign of a velocity as a direction of motion.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Contrasts this with the 17 m/s average, which describes the overall change in position over the 3 seconds and hides the backward motion at t = 1.",
+       "evidence": "Response explains that the average over [1, 4] reflects only the net change in position over the whole interval, so it does not show the direction or speed at the instant t = 1.",
+       "fix": "Contrast one instant with a whole interval, in the context of the particle.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) On the interval from t = 1 to t = 1, b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) s(1) = −1 and s(1.01) = −1.009699, so the average velocity on [1, 1.01] is (−1.009699 − (−1)) / 0.01 = −0.009699 / 0.01 = −0.9699 m/s.\nAverage velocities: [0.9, 1]: −1.2900 m/s; [0.99, 1]: −1.0299 m/s; [0.999, 1]: −1.0030 m/s; [1, 1.1]: −0.6900 m/s; [1, 1.01]: −0.9699 m/s; [1, 1.001]: −0.9970 m/s.\n\n(c) The velocity at t = 1 is about −1 m/s. As the intervals shrink toward t = 1, the averages from the left (−1.29, −1.0299, −1.0030) and from the right (−0.69, −0.9699, −0.9970) close in on −1 from both sides.\n\n(d) At t = 1 the particle is moving backward, in the negative direction, at about 1 meter per second. The average velocity of 17 m/s over [1, 4] only describes the net change in position from t = 1 to t = 4; it suggests steady forward motion and hides that the particle is moving backward at t = 1.",
+   "verification_python": "from fractions import Fraction as F\ns = lambda t: t**3 - 4*t + 2\ndef avg(a, b): return (s(F(b)) - s(F(a))) / (F(b) - F(a))\nassert s(1) == -1 and s(F(101, 100)) == F(-1009699, 1000000) and s(4) == 50\nexpected = [((F(9,10),1), -1.29), ((F(99,100),1), -1.0299), ((F(999,1000),1), -1.0030), ((1,F(11,10)), -0.69), ((1,F(101,100)), -0.9699), ((1,F(1001,1000)), -0.9970)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(1, 4) == 17\nassert 3*1**2 - 4 == -1\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "slot_id": "ap_calculus_bc__1.15__1",
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "1.15",
+  "topic_title": "Connecting Limits at Infinity and Horizontal Asymptotes",
+  "prior_arbitration": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "b1 now accepts any valid argument that handles the sign for negative x (rubric_points)."
+   }
+  ],
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (d), criterion d1: The evidence requirement restricts credit to dividing by n³ or comparing degrees, although the question permits any valid work. Dividing by n² gives (200 + 50/n²)/(n + 10/n²), whose numerator approaches 200 and denominator approaches ∞, also correctly establishing the limit. Explicitly accept any valid limit argument."
+   }
+  ],
+  "item": {
+   "title": "End Behavior, Two Horizontal Asymptotes and Comparing Growth",
+   "calculator": "not_permitted",
+   "stimulus": "Let f be the function defined by f(x) = √(16x² + 9) / (2x + 5).\n\nTwo computer programs each process a list of n items. Program A takes a(n) = 200n² + 50 microseconds and program B takes b(n) = n³ + 10 microseconds, where n > 0.",
+   "parts": [
+    {
+     "prompt": "Find lim x→∞ f(x). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Shows valid work for x → ∞, such as dividing the numerator and denominator by x, using x = √(x²) for x > 0, to get √(16 + 9/x²) / (2 + 5/x).",
+       "evidence": "Response gives a valid algebraic or end-behavior argument for x → ∞: for example, dividing the numerator and denominator by x (with x = √(x²) for x > 0), or explaining that for large positive x, √(16x² + 9) behaves like 4x and 2x + 5 behaves like 2x.",
+       "fix": "For large positive x, divide the numerator and denominator by x, writing x as √(x²) inside the root.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim x→∞ f(x) = 2.",
+       "evidence": "Response gives the value 2 for the limit as x → ∞.",
+       "fix": "As x → ∞, terms like 9/x² and 5/x approach 0, so the quotient approaches √16 / 2 = 2.",
+       "accepted_variants": [
+        "2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim x→−∞ f(x). Show the work that leads to your answer.",
+     "criteria": [
+      {
+       "text": "Shows valid work for x → −∞ that accounts for x being negative.",
+       "evidence": "Any valid argument earns the point: dividing by x with √(x²) = |x| = −x, a dominant-term argument (√(16x² + 9) behaves like −4x while 2x + 5 behaves like 2x), or showing f(x)² → 4 with f(x) < 0 for large negative x.",
+       "fix": "When x is negative, √(x²) equals −x, not x; carry that negative sign when dividing by x.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim x→−∞ f(x) = −2.",
+       "evidence": "Response gives the value −2 for the limit as x → −∞.",
+       "fix": "Check the sign: for large negative x the numerator is positive and the denominator is negative, so the limit is negative.",
+       "accepted_variants": [
+        "−2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Write an equation for each horizontal asymptote of the curve y = f(x). Explain how your answers to parts (a) and (b) determine them.",
+     "criteria": [
+      {
+       "text": "States the horizontal asymptotes are y = 2 and y = −2, because the limits of f as x → ∞ and as x → −∞ are 2 and −2.",
+       "evidence": "Response names both lines y = 2 and y = −2 and links each to the corresponding limit at infinity (y = 2 from x → ∞ and y = −2 from x → −∞).",
+       "fix": "Each finite limit as x → ∞ or x → −∞ gives a horizontal asymptote; check both directions, since they can differ.",
+       "accepted_variants": [
+        "y = 2 and y = −2",
+        "y = ±2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Find lim n→∞ a(n)/b(n), showing the work that leads to your answer. Explain what this limit tells you about the two programs for very long lists.",
+     "criteria": [
+      {
+       "text": "Shows valid work, such as dividing the numerator and denominator by n³ to get (200/n + 50/n³) / (1 + 10/n³), or noting that the denominator has the higher degree.",
+       "evidence": "Response divides by n³, the highest power in the denominator, or compares the degrees (3 for b(n) and 2 for a(n)) to support the value of the limit.",
+       "fix": "Divide every term by the highest power of n in the denominator, then let each term with n in a denominator approach 0.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States lim n→∞ a(n)/b(n) = 0.",
+       "evidence": "Response gives the value 0.",
+       "fix": "When the denominator's degree is larger than the numerator's, the ratio approaches 0 as n → ∞.",
+       "accepted_variants": [
+        "0"
+       ]
+      },
+      {
+       "text": "Interprets the limit: for very long lists, program A's time is a negligible fraction of program B's time, so program A is much faster.",
+       "evidence": "Response explains in context that the ratio approaching 0 means b(n) grows much faster than a(n), so for large n program A takes far less time than program B.",
+       "fix": "Translate a ratio approaching 0 into context: the denominator's quantity becomes far larger than the numerator's quantity.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) For x > 0, x = √(x²). Dividing the numerator and denominator by x gives f(x) = [√(16x² + 9)/√(x²)] / [(2x + 5)/x] = √(16 + 9/x²) / (2 + 5/x). As x → ∞, 9/x² → 0 and 5/x → 0, so lim x→∞ f(x) = √16 / 2 = 4/2 = 2.\n\n(b) For x < 0, √(x²) = |x| = −x, so x = −√(x²) and √(16x² + 9)/x = −√(16x² + 9)/√(x²) = −√(16 + 9/x²). Dividing the numerator and denominator by x gives f(x) = −√(16 + 9/x²) / (2 + 5/x). As x → −∞, 9/x² → 0 and 5/x → 0, so lim x→−∞ f(x) = −√16 / 2 = −2.\n\n(c) Because lim x→∞ f(x) = 2, the line y = 2 is a horizontal asymptote, and because lim x→−∞ f(x) = −2, the line y = −2 is also a horizontal asymptote. The horizontal asymptotes are y = 2 and y = −2.\n\n(d) a(n)/b(n) = (200n² + 50)/(n³ + 10). Dividing the numerator and denominator by n³ gives (200/n + 50/n³) / (1 + 10/n³). As n → ∞ the numerator approaches 0 and the denominator approaches 1, so lim n→∞ a(n)/b(n) = 0. For very long lists, program A's running time becomes a negligible fraction of program B's running time: b(n) grows much faster than a(n), so program A is far faster than program B for large n.",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x', real=True)\nxp = sp.symbols('xp', positive=True)\nn = sp.symbols('n', positive=True)\nf = sp.sqrt(16*x**2 + 9)/(2*x + 5)\nassert sp.limit(f, x, sp.oo) == 2\nassert sp.limit(f, x, -sp.oo) == -2\nassert sp.simplify(f.subs(x, xp) - sp.sqrt(16 + 9/xp**2)/(2 + 5/xp)) == 0\n# for x = -xp < 0, the rewritten form is -sqrt(16 + 9/x^2)/(2 + 5/x)\nassert sp.simplify(f.subs(x, -xp) - (-sp.sqrt(16 + 9/xp**2)/(2 + 5/(-xp)))) == 0\nassert sp.sqrt(16)/2 == 2\nr = (200*n**2 + 50)/(n**3 + 10)\nassert sp.simplify(r - (200/n + 50/n**3)/(1 + 10/n**3)) == 0\nassert sp.limit(r, n, sp.oo) == 0\nassert sp.degree(n**3 + 10, n) == 3 and sp.degree(200*n**2 + 50, n) == 2\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "slot_id": "ap_calculus_bc__1.1__1",
+  "subject_key": "ap_calculus_bc",
+  "topic_code": "1.1",
+  "topic_title": "Introducing Calculus: Can Change Occur at an Instant?",
+  "prior_arbitration": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "Topic ruling by CED text: Same 1.1 ruling as AB 1.1 (identical CED text for BC)."
+   }
+  ],
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (b), criterion b1 requires separately computing both endpoint altitudes, rejecting valid algebraic calculations such as substituting h = 0.01 into the derived average-velocity expression −13 − h + h². It also awards the value −13.0099 again in b2. Make b1 a calculation/setup point accepting equivalent valid work, and score the six numerical answers only in b2."
+   }
+  ],
+  "item": {
+   "title": "A Drone's Velocity at an Instant from Average Velocities",
+   "calculator": "permitted",
+   "stimulus": "A drone flies straight up and down along a vertical line, with upward as the positive direction. Its altitude above the ground is A(t) = t³ − 10t² + 20t + 200 feet, where t is measured in seconds, for 0 ≤ t ≤ 10.",
+   "parts": [
+    {
+     "prompt": "A classmate wants the drone's velocity at exactly t = 3 and proposes using the average velocity formula [A(b) − A(a)] / (b − a) with a = 3 and b = 3. Explain why this cannot give a value.",
+     "criteria": [
+      {
+       "text": "Explains that with a = b = 3 the change in time b − a is 0, so the formula divides by zero and is undefined.",
+       "evidence": "Response states that the time interval has length 0 (b − a = 0) and that division by 0 is undefined, so an average velocity needs two different times.",
+       "fix": "Look at the denominator: an average velocity divides by the change in time, which cannot be 0.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Find the average velocity of the drone on each of these intervals: [2.9, 3], [2.99, 3], [2.999, 3], [3, 3.1], [3, 3.01] and [3, 3.001]. Show the calculation for the interval [3, 3.01]. Give each answer to four decimal places.",
+     "criteria": [
+      {
+       "text": "Shows the average velocity on [3, 3.01]: [A(3.01) − A(3)] / (3.01 − 3) = (196.869901 − 197) / 0.01 = −13.0099 ft/s.",
+       "evidence": "Response shows A(3.01) = 196.869901 and A(3) = 197, divides their difference by a change in time of 0.01, and obtains −13.0099.",
+       "fix": "Write A(b) − A(a) over b − a, computing both altitudes before dividing.",
+       "accepted_variants": [
+        "−13.0099"
+       ]
+      },
+      {
+       "text": "Gives all six average velocities correctly: −12.8900, −12.9899, −12.9990, −13.0900, −13.0099 and −13.0010 ft/s.",
+       "evidence": "Response lists the six values for the intervals in the order given, each correct to four decimal places.",
+       "fix": "Recompute A at each endpoint, keep A(3) = 197 in every quotient, and divide by that interval's own length.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Use your results from part (b) to estimate the velocity of the drone at the instant t = 3. Explain how the values support your estimate.",
+     "criteria": [
+      {
+       "text": "Estimates the velocity at t = 3 as −13 ft/s.",
+       "evidence": "Response states a single estimate of −13 feet per second for the velocity at t = 3.",
+       "fix": "State one value with units, read from where the averages on both sides are heading.",
+       "accepted_variants": [
+        "−13 ft/s",
+        "−13 feet per second"
+       ]
+      },
+      {
+       "text": "Justifies that as the intervals shrink toward t = 3 from both sides, the average velocities approach −13.",
+       "evidence": "Response notes that the left-interval values (−12.89, −12.9899, −12.9990) and the right-interval values (−13.09, −13.0099, −13.0010) both close in on −13 as the intervals get shorter.",
+       "fix": "Describe what the averages from the left and from the right do as the interval length shrinks.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The average velocity of the drone over the interval [3, 9] is 17 feet per second. Explain what your answer to part (c) tells you about the drone's motion at the instant t = 3 that this average velocity does not.",
+     "criteria": [
+      {
+       "text": "States that at t = 3 the drone is moving downward (its altitude is decreasing) at about 13 feet per second.",
+       "evidence": "Response interprets the negative velocity at t = 3 as the drone descending, with speed about 13 feet per second.",
+       "fix": "Interpret the sign of a velocity as a direction: negative means the altitude is decreasing, so the drone is descending.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Contrasts this with the 17 ft/s average, which reflects only the net change in altitude from t = 3 to t = 9 and hides the descent at t = 3.",
+       "evidence": "Response explains that the average over [3, 9] describes only the overall change in altitude across the 6 seconds, so it does not show the direction or speed at the instant t = 3.",
+       "fix": "Contrast one instant with a whole interval: an average uses only the endpoint altitudes and ignores the motion in between.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) With a = 3 and b = 3, the change in time is b − a = 0, so the formula divides by zero and the average velocity is undefined. An average velocity needs two different times.\n\n(b) A(3) = 27 − 90 + 60 + 200 = 197 and A(3.01) = 196.869901, so the average velocity on [3, 3.01] is (196.869901 − 197) / (3.01 − 3) = −0.130099 / 0.01 = −13.0099 ft/s.\nAverage velocities: [2.9, 3]: −12.8900 ft/s; [2.99, 3]: −12.9899 ft/s; [2.999, 3]: −12.9990 ft/s; [3, 3.1]: −13.0900 ft/s; [3, 3.01]: −13.0099 ft/s; [3, 3.001]: −13.0010 ft/s.\n\n(c) The velocity at t = 3 is about −13 ft/s. As the intervals shrink toward t = 3, the averages from the left (−12.89, −12.9899, −12.9990) and from the right (−13.09, −13.0099, −13.0010) close in on −13 from both sides.\n\n(d) At t = 3 the drone is descending: its altitude is decreasing at about 13 feet per second. The average velocity of 17 ft/s over [3, 9] only reflects the net change in altitude, A(9) − A(3) = 299 − 197 = 102 feet over 6 seconds. It suggests the drone is rising and hides that the drone is moving downward at t = 3.",
+   "verification_python": "from fractions import Fraction as F\nA = lambda t: t**3 - 10*t**2 + 20*t + 200\ndef avg(a, b): return (A(F(b)) - A(F(a))) / (F(b) - F(a))\nassert A(3) == 197 and A(F(301, 100)) == F(196869901, 1000000) and A(9) == 299\nassert A(F(301, 100)) - A(3) == F(-130099, 1000000)\nexpected = [((F(29, 10), 3), -12.89), ((F(299, 100), 3), -12.9899), ((F(2999, 1000), 3), -12.9990), ((3, F(31, 10)), -13.09), ((3, F(301, 100)), -13.0099), ((3, F(3001, 1000)), -13.0010)]\nfor (a, b), v in expected:\n    assert abs(round(float(avg(a, b)), 4) - v) < 1e-9, (a, b, float(avg(a, b)))\nassert avg(3, 9) == 17 and A(9) - A(3) == 102 and 9 - 3 == 6\nassert 3*3**2 - 20*3 + 20 == -13\n# altitude stays positive on [0, 10]\nassert min(A(F(k, 100)) for k in range(0, 1001)) > 0\nprint('ALL_CHECKS_PASSED')\n"
+  }
+ },
+ {
+  "slot_id": "ap_physics_1__2.2__1",
+  "subject_key": "ap_physics_1",
+  "topic_code": "2.2",
+  "topic_title": "Forces and Free-Body Diagrams",
+  "prior_arbitration": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics1_biology_resolved.json",
+    "decisions": [
+     {
+      "source": "deepseek/deepseek-v4-pro",
+      "objection": "on_topic: Part (a) criterion a1 requires the gravitational force (Topic 2.6) and criterion a3 requires kinetic friction (Topic 2.7), both later topics in Unit 2",
+      "ruling": "reject",
+      "reason": "Naming each force on the box with its source and direction is exactly 2.2.A/2.2.B (forces as interactions, free-body representation); the CED's own 2.2.B.4 example is an object on an incline. No part needs Newton's law of gravitation (2.6) or a friction coefficient or friction equation (2.7): criterion a3 credits 'a friction force' from the rough ramp opposing the sliding, identified qualitatively."
+     }
+    ]
+   }
+  ],
+  "flags": [
+   {
+    "source": "deepseek/deepseek-v4-pro",
+    "objection": "on_topic: Part (a), criteria a1 and a3, require students to identify the gravitational force exerted by Earth and the friction force exerted by the ramp. Those specific force types are taught in later Unit 2 topics (2.6 Gravitational Force and 2.7 Kinetic and Static Friction), so a student who has studied only topic 2.2 and earlier units cannot answer every part."
+   }
+  ],
+  "item": {
+   "title": "Identifying the Forces on a Box Sliding Down a Ramp",
+   "calculator": "not_applicable",
+   "stimulus": "A box slides down a rough, straight ramp that makes an angle of 25° with the horizontal. The box speeds up as it slides. The ramp is fixed to the ground, air resistance is negligible, and nothing touches the box except the ramp.",
+   "parts": [
+    {
+     "prompt": "List every force exerted on the box while it slides. For each force, name the object that exerts it and describe its direction in words. Do not resolve the forces into components.",
+     "criteria": [
+      {
+       "text": "Gravitational force exerted by Earth on the box, directed vertically downward.",
+       "evidence": "Response lists the gravitational force (weight, F_g, or mg), names Earth as the object exerting it, and gives its direction as straight down, not perpendicular to the ramp.",
+       "fix": "Name Earth as the source of the gravitational force and point it straight down, whatever the tilt of the surface.",
+       "accepted_variants": [
+        "weight exerted by Earth, straight down"
+       ]
+      },
+      {
+       "text": "Normal force exerted by the ramp on the box, directed perpendicular to the ramp surface and away from it.",
+       "evidence": "Response lists the normal force, names the ramp as the object exerting it, and gives its direction as perpendicular to the ramp surface, away from the surface.",
+       "fix": "A surface pushes perpendicular to itself: point the normal force at a right angle to the ramp, away from it, not straight up.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Friction force exerted by the ramp on the box, directed parallel to the ramp surface and up the ramp, opposite to the box's motion.",
+       "evidence": "Response lists a friction force, names the ramp as the object exerting it, and gives its direction as along the ramp surface, up the ramp.",
+       "fix": "On a rough surface add friction from that surface, directed along the surface opposite to the object's sliding motion.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate's list of forces on the box also includes \"the force of the box's motion,\" directed down the ramp. Explain why this force should not be included.",
+     "criteria": [
+      {
+       "text": "Explains that every force is an interaction between the box and another object, and no object exerts a \"force of motion\" on the box; motion results from the forces exerted on the box and is not itself a force.",
+       "evidence": "Response states that no other object exerts this force (an object cannot exert a force on itself), so it is not an interaction and does not belong on the list.",
+       "fix": "Before listing a force, name the other object that exerts it; if no object can be named, it is not a force.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "To write equations for the box, a student chooses one coordinate axis parallel to the ramp surface and the other perpendicular to it. Explain one reason this choice of axes simplifies the analysis.",
+     "criteria": [
+      {
+       "text": "Gives a valid reason: the box accelerates along the ramp, so with an axis parallel to the ramp the acceleration lies entirely along one axis and its perpendicular component is zero; or, the normal and friction forces already lie along the chosen axes, so only the gravitational force must be split into components.",
+       "evidence": "Response states either that the acceleration is parallel to the ramp and so has a component along only one axis, or that only the gravitational force is not along an axis.",
+       "fix": "Choose one axis along the direction of acceleration; then the acceleration has a single nonzero component and the other axis has zero acceleration.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Three forces are exerted on the box:\n1. The gravitational force exerted by Earth, directed vertically downward.\n2. The normal force exerted by the ramp, directed perpendicular to the ramp surface, away from the ramp.\n3. The kinetic friction force exerted by the ramp, directed parallel to the ramp surface, up the ramp (opposite to the box's motion down the ramp).\n\n(b) A force is always an interaction between the box and another object. No object exerts a \"force of the box's motion\" on the box, and an object cannot exert a force on itself. The box's motion down the ramp is the result of the forces listed above, not an additional force, so it should not be included.\n\n(c) The box slides along the ramp, so its acceleration is parallel to the ramp surface. With one axis parallel to the ramp, the acceleration lies entirely along that axis and its component perpendicular to the ramp is zero. Also, the normal force and the friction force already lie along the two axes, so only the gravitational force has to be split into components.",
+   "verification_python": "forces=[('gravitational','Earth','down'),('normal','ramp','perpendicular away'),('friction','ramp','up the ramp')]\nassert len(forces)==3\nassert len([f for f in forces if f[1]=='ramp'])==2\nassert len([f for f in forces if f[1]=='Earth'])==1\nangle=25\nassert 0<angle<90\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_2__11.2__1",
+  "subject_key": "ap_physics_2",
+  "topic_code": "11.2",
+  "topic_title": "Simple Circuits",
+  "prior_arbitration": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "Topic ruling by CED text: Item tests only closed, open and short circuits and multiple loops through one element (CED 11.2.A.1-3); no series/parallel or equivalent resistance (11.5). Vote tied 3-3."
+   }
+  ],
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (c), criterion c1 requires explaining why bulb 3 is lit and identifying its completed path, but the part asks only to state whether bulb 3 is lit. A complete answer could correctly state that it is lit and list the two permitted loops through bulb 1, without describing bulb 3's path. Remove the explanation requirement from c1 or explicitly ask students to justify bulb 3's status."
+   }
+  ],
+  "item": {
+   "title": "Open, Closed, and Short Circuits in a Three-Bulb Circuit",
+   "calculator": "not_applicable",
+   "stimulus": "An ideal battery has a positive terminal P and a negative terminal N. The circuit is connected as follows.\n- Bulb 1 connects terminal P to junction B.\n- Bulb 2 connects junction B to junction C.\n- Switch S also connects junction B directly to junction C, giving a second path from B to C that contains nothing except the switch.\n- A wire connects junction C to terminal N.\n- Bulb 3 connects terminal P to point D, and switch T connects point D to terminal N.\n\nAll wires and closed switches have negligible resistance. A bulb is lit only when charge flows through it.",
+   "parts": [
+    {
+     "prompt": "Both switches are open. State which bulbs are lit and which are unlit. Justify your answer in terms of closed and open circuits.",
+     "criteria": [
+      {
+       "text": "States that bulbs 1 and 2 are lit because the path P → bulb 1 → B → bulb 2 → C → N is a closed loop through the battery.",
+       "evidence": "Response identifies bulbs 1 and 2 as lit and describes the closed path from the battery through bulb 1 and bulb 2 back to the battery.",
+       "fix": "Trace each bulb's path from one battery terminal to the other; a bulb lights only if that path forms a complete loop.",
+       "accepted_variants": [
+        "bulbs 1 and 2 lit"
+       ]
+      },
+      {
+       "text": "States that bulb 3 is unlit because open switch T breaks its only path back to the battery, so it is in an open circuit.",
+       "evidence": "Response identifies bulb 3 as unlit and explains that charge cannot flow through it because switch T is open.",
+       "fix": "Check every switch along a bulb's path; one open switch makes that path an open circuit with no charge flow.",
+       "accepted_variants": [
+        "bulb 3 unlit",
+        "bulb 3 is off"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Switch S is closed while switch T stays open. State whether bulb 2 is lit, and explain using the idea of a short circuit.",
+     "criteria": [
+      {
+       "text": "States that bulb 2 is unlit because closed switch S lets charge flow from B to C with no change in electric potential (a short circuit), so the potential difference across bulb 2 is zero and no charge flows through it.",
+       "evidence": "Response says bulb 2 goes out and explains that the switch path from B to C has no potential difference, so bulb 2, connected between the same two points, has none either.",
+       "fix": "When a wire or closed switch joins a bulb's two ends, the bulb has zero potential difference across it; say so explicitly.",
+       "accepted_variants": [
+        "bulb 2 is unlit",
+        "bulb 2 goes out"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Both switches are now closed. State whether bulb 3 is lit. Then identify two different closed loops that both contain the battery, listing the circuit elements each loop passes through.",
+     "criteria": [
+      {
+       "text": "States that bulb 3 is lit because closing T completes the closed loop P → bulb 3 → D → switch T → N.",
+       "evidence": "Response says bulb 3 is lit and identifies the now-complete path through bulb 3 and switch T back to the battery.",
+       "fix": "After a switch closes, retrace the bulb's path to the battery and confirm it now forms a complete loop.",
+       "accepted_variants": [
+        "bulb 3 lit"
+       ]
+      },
+      {
+       "text": "Identifies two valid closed loops containing the battery, chosen from: battery–bulb 1–switch S; battery–bulb 3–switch T; battery–bulb 1–bulb 2.",
+       "evidence": "Response lists two of these three loops by their elements, each starting and ending at the battery, showing the battery belongs to more than one loop.",
+       "fix": "Start at a battery terminal, follow connected elements without retracing, and stop when you return to the other terminal; repeat along a different route.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Bulbs 1 and 2 are lit. The path P → bulb 1 → B → bulb 2 → C → N is a closed loop through the battery, so charge can flow through both bulbs. Switch S is open, so the only path from B to C is through bulb 2.\nBulb 3 is unlit. Its only path back to the battery goes through switch T, which is open, so that path is an open circuit and no charge can flow through bulb 3.\n\n(b) Bulb 2 is unlit. Closing S gives charge a path from B to C through the switch alone, with no change in electric potential; this is a short circuit across bulb 2. Because bulb 2 is connected between the same points B and C, the potential difference across it is zero, so no charge flows through it and it does not light.\n\n(c) Bulb 3 is lit, because closing T completes the closed loop P → bulb 3 → D → switch T → N.\nTwo closed loops that contain the battery:\nLoop 1: battery (P) → bulb 1 → B → switch S → C → battery (N).\nLoop 2: battery (P) → bulb 3 → D → switch T → battery (N).\nThe battery is part of both loops.",
+   "verification_python": "# Enumerate simple loops through the battery with both switches closed\nedges={'bulb1':('P','B'),'bulb2':('B','C'),'S':('B','C'),'wireCN':('C','N'),'bulb3':('P','D'),'T':('D','N')}\ndef paths(start,end,used,node):\n    if node==end:\n        yield list(used); return\n    for name,(a,b) in edges.items():\n        if name in used: continue\n        if node in (a,b):\n            nxt=b if node==a else a\n            visited=set()\n            for u in used:\n                visited.update(edges[u])\n            if nxt in visited and not nxt==end: continue\n            yield from paths(start,end,used+[name],nxt)\nloops=[frozenset(p) for p in paths('P','N',[],'P')]\nnamed={frozenset(l)-{'wireCN'} for l in loops}\nassert named=={frozenset({'bulb1','S'}),frozenset({'bulb3','T'}),frozenset({'bulb1','bulb2'})}\nassert len(named)==3\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "slot_id": "ap_physics_2__11.6__1",
+  "subject_key": "ap_physics_2",
+  "topic_code": "11.6",
+  "topic_title": "Kirchhoff's Loop Rule",
+  "prior_arbitration": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics2_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criterion b2 requires dividing the potential difference across R₃ by the current, excluding the valid alternative R₃ = 12.0 V/I − R₁ − R₂ = 6.0 Ω",
+      "ruling": "accept",
+      "reason": "Valid: part (b) prescribes the loop rule only for ΔV₃, not for R₃, and part (c) prescribes no direction. b2 now accepts R₃ = 12.0 V/I − R₁ − R₂; c1 accepts stepping from either terminal."
+     }
+    ]
+   }
+  ],
+  "flags": [
+   {
+    "source": "openai/gpt-6.1-sol",
+    "objection": "rubric_points: Part (c), criterion c1 bundles three independently assessable answers—the potentials at the positive terminal, M, and K—into one point rather than awarding one specific observable element. Split these into separate 1-point criteria."
+   }
+  ],
+  "item": {
+   "title": "Loop Rule and Potential Around a Three-Resistor Loop",
+   "calculator": "permitted",
+   "stimulus": "An ideal battery with emf 12.0 V is connected in a single loop with three resistors. Going around the loop in the direction of the conventional current, starting from the battery's positive terminal, charge passes through resistor R₁ = 2.0 Ω, then point M, then resistor R₂ = 4.0 Ω, then point K, then resistor R₃ of unknown resistance, and then returns to the battery's negative terminal. An ideal voltmeter connected across R₂ reads 4.0 V. Take the electric potential of the battery's negative terminal to be 0 V.",
+   "parts": [
+    {
+     "prompt": "Calculate the current in the loop.",
+     "criteria": [
+      {
+       "text": "Calculates I = ΔV₂/R₂ = 4.0 V / 4.0 Ω = 1.0 A.",
+       "evidence": "Response applies Ohm's law to R₂ using the voltmeter reading and obtains 1.0 A.",
+       "fix": "Use the element whose potential difference and resistance are both known to find the current in a single loop.",
+       "accepted_variants": [
+        "1.0 A",
+        "1 A"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use Kirchhoff's loop rule to determine the potential difference across R₃. Then determine the resistance R₃.",
+     "criteria": [
+      {
+       "text": "Applies the loop rule: 12.0 V − 2.0 V − 4.0 V − ΔV₃ = 0, so ΔV₃ = 6.0 V (with ΔV₁ = IR₁ = 2.0 V).",
+       "evidence": "Response writes a loop equation in which the battery's 12.0 V gain equals the sum of the drops across the three resistors and solves for 6.0 V.",
+       "fix": "Go once around the loop adding the battery's gain and each resistor's drop, set the sum to zero, then solve.",
+       "accepted_variants": [
+        "6.0 V",
+        "6 V"
+       ]
+      },
+      {
+       "text": "Calculates R₃ = 6.0 Ω (for example ΔV₃/I = 6.0 V / 1.0 A).",
+       "evidence": "Response obtains 6.0 Ω by any valid route, such as dividing the potential difference across R₃ by the loop current, or R₃ = 12.0 V/I − R₁ − R₂.",
+       "fix": "Once the potential difference across a resistor is known, divide by the current through it to find its resistance.",
+       "accepted_variants": [
+        "6.0 Ω",
+        "6 Ω"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the electric potential at the battery's positive terminal, at point M, and at point K.",
+     "criteria": [
+      {
+       "text": "Gives 12.0 V at the positive terminal, 10.0 V at M, and 6.0 V at K.",
+       "evidence": "Response gives 12.0 V, 10.0 V and 6.0 V by any valid stepping around the loop, such as subtracting drops from 12.0 V or adding rises from 0 V at the negative terminal.",
+       "fix": "Start at a point of known potential and step around the loop, subtracting each drop along the current or adding it going against the current.",
+       "accepted_variants": [
+        "12 V, 10 V, 6 V"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A charge of +2.0 C passes through R₃ in the direction of the conventional current. Calculate the change in the electric potential energy associated with this charge, and state whether it increases or decreases.",
+     "criteria": [
+      {
+       "text": "Calculates ΔU = qΔV = (2.0 C)(0 V − 6.0 V) = −12 J, a decrease of 12 J.",
+       "evidence": "Response multiplies the charge by the change in potential from K (6.0 V) to the negative terminal (0 V), giving −12 J, and states the energy decreases.",
+       "fix": "Use ΔU = qΔV with ΔV = final potential minus initial potential, keeping the sign to decide increase or decrease.",
+       "accepted_variants": [
+        "−12 J",
+        "decreases by 12 J"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The voltmeter shows ΔV₂ = 4.0 V across R₂ = 4.0 Ω, so I = ΔV₂/R₂ = 4.0 V / 4.0 Ω = 1.0 A. This is the current everywhere in the single loop.\n\n(b) ΔV₁ = IR₁ = (1.0 A)(2.0 Ω) = 2.0 V.\nLoop rule, going around in the direction of the current: +12.0 V − 2.0 V − 4.0 V − ΔV₃ = 0, so ΔV₃ = 6.0 V.\nR₃ = ΔV₃/I = 6.0 V / 1.0 A = 6.0 Ω.\n\n(c) The ideal battery raises the potential from 0 V at the negative terminal to 12.0 V at the positive terminal.\nAt M (after R₁): 12.0 V − 2.0 V = 10.0 V.\nAt K (after R₂): 10.0 V − 4.0 V = 6.0 V.\n(After R₃ the potential is 6.0 V − 6.0 V = 0 V, matching the negative terminal.)\n\n(d) The charge goes from K (6.0 V) to the negative terminal (0 V), so ΔV = −6.0 V.\nΔU = qΔV = (2.0 C)(−6.0 V) = −12 J. The electric potential energy decreases by 12 J.",
+   "verification_python": "emf=12.0; R1=2.0; R2=4.0; V2=4.0\nI=V2/R2\nassert abs(I-1.0)<1e-12\nV1=I*R1\nassert abs(V1-2.0)<1e-12\nV3=emf-V1-V2\nassert abs(V3-6.0)<1e-12\nassert abs(emf-V1-V2-V3)<1e-12\nR3=V3/I\nassert abs(R3-6.0)<1e-12\nVp=emf; VM=Vp-V1; VK=VM-V2\nassert (Vp,VM,VK)==(12.0,10.0,6.0)\nassert abs(VK-V3)<1e-12\ndU=2.0*(0-VK)\nassert abs(dU-(-12.0))<1e-12\nassert abs(emf/I-R1-R2-6.0)<1e-12\nassert abs(0+I*R3-VK)<1e-12 and abs(VK+I*R2-VM)<1e-12\nprint('ALL_CHECKS_PASSED')"
+  }
+ }
+]

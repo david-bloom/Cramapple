@@ -1,0 +1,926 @@
+{
+ "id": "ap_biology__2.9__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 2,
+  "unit_title": "Cells",
+  "topic_code": "2.9",
+  "topic_title": "Cell Compartmentalization",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.405Z",
+   "source": "given",
+   "item": {
+    "title": "Internal Membranes Separate and Support Cellular Reactions",
+    "calculator": "permitted",
+    "stimulus": "Liver cells make a molecule, Q, in the cytosol. The reactions that break Q down occur only inside a membrane-bound organelle, compartment K. Researchers prepared two extracts from the same liver tissue and supplied each with the raw materials needed to make Q.\n\nExtract 1: cells were broken open gently, so the organelles, including compartment K, stayed intact.\nExtract 2: cells were broken open harshly, so organelle membranes ruptured and the contents of compartment K mixed with the cytosol.\n\nTable 1: Amount of Q present (μmol per gram of tissue)\nTime (min) | Extract 1 | Extract 2\n0 | 0 | 0\n10 | 4.0 | 0.6\n20 | 8.1 | 1.0\n30 | 12.0 | 1.5\n\nIn a second study, the researchers compared two cell types in which reaction R is carried out by proteins embedded in internal membranes.\n\nTable 2\nCell type | Internal membrane surface area per cell (μm²) | Rate of reaction R (relative units)\nM | 1,500 | 30\nN | 4,500 | 90",
+    "parts": [
+     {
+      "prompt": "Calculate the percent decrease in the amount of Q present at 30 minutes in Extract 2 compared with Extract 1.",
+      "criteria": [
+       {
+        "text": "Calculates a percent decrease of 87.5%: (12.0 − 1.5) ÷ 12.0 × 100 = 87.5%.",
+        "evidence": "Response shows the difference (10.5 μmol per gram) divided by the Extract 1 value (12.0) and expresses the result as 87.5%, or uses an equivalent valid method such as (1 − 1.5/12.0) × 100.",
+        "fix": "For percent decrease, divide the drop by the original (reference) value, then multiply by 100.",
+        "accepted_variants": [
+         "87.5 percent"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data in Table 1, explain how the membrane of compartment K allows Q to accumulate in Extract 1, and why much less Q accumulated in Extract 2.",
+      "criteria": [
+       {
+        "text": "Explains that the membrane of compartment K keeps the reactions that break down Q separate from the cytosol where Q is made, minimizing competing reactions; when the membrane ruptures (Extract 2), breakdown occurs in the same space as synthesis, so Q is broken down as it is made and only 1.5 μmol per gram accumulates versus 12.0.",
+        "evidence": "Response links the intact membrane to separation of the competing synthesis and breakdown reactions, and links rupture to Q being broken down in the mixed extract, citing the lower amount of Q.",
+        "fix": "Name the two opposing processes, state where each happens, and explain that the membrane keeps them apart so they cannot compete.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between internal membrane surface area and the rate of reaction R shown in Table 2.",
+      "criteria": [
+       {
+        "text": "Describes that the rate of reaction R increases as internal membrane surface area increases, in proportion: tripling the area (1,500 to 4,500 μm²) triples the rate (30 to 90).",
+        "evidence": "Response states that greater internal membrane surface area is associated with a higher rate of reaction R, and notes the threefold change in both.",
+        "fix": "Describe the direction of the trend and its size: compare how many times each variable changed between the two cell types.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how a larger area of internal membranes leads to the higher rate of reaction R in cell type N.",
+      "criteria": [
+       {
+        "text": "Explains that internal membranes increase the surface area where membrane-associated reactions can occur, providing room for more of the embedded proteins that carry out reaction R, so more reaction R can happen at the same time.",
+        "evidence": "Response states that more internal membrane provides more surface area on which reaction R can take place (more embedded proteins), increasing the rate.",
+        "fix": "Connect membrane area to reaction sites: more membrane surface holds more embedded proteins, so more reactions run at once.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Percent decrease = (12.0 − 1.5) ÷ 12.0 × 100 = 10.5 ÷ 12.0 × 100 = 87.5%.\n\n(b) In Extract 1, compartment K is intact, so its membrane keeps the reactions that break down Q inside the compartment, separate from the cytosol where Q is made. Because the opposing reactions are kept apart, they do not compete, and Q builds up steadily, reaching 12.0 μmol per gram at 30 minutes. In Extract 2, the ruptured membrane lets the contents of compartment K mix with the cytosol, so Q is broken down in the same space where it is being made. Much of the Q is broken down as soon as it forms, so only 1.5 μmol per gram accumulates.\n\n(c) The rate of reaction R increases as internal membrane surface area increases. Cell type N has 3 times the internal membrane surface area of M (4,500 versus 1,500 μm²) and 3 times the rate (90 versus 30), so the rate rises in proportion to the membrane area.\n\n(d) Reaction R is carried out by proteins embedded in internal membranes, so the reaction can occur only on membrane surfaces. A larger area of internal membrane increases the surface area where the reaction can occur and holds more of the embedded proteins, so more reaction R takes place at the same time and the rate is higher.",
+    "verification_python": "from fractions import Fraction as F\ne1=F(120,10);e2=F(15,10)\nassert e1-e2==F(105,10)\npct=(e1-e2)/e1*100\nassert pct==F(875,10)\nassert (1-e2/e1)*100==pct\nassert F(4500,1500)==3\nassert F(90,30)==3\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "solution: My solution to part (b) did not cite the specific 30-minute amounts (12.0 vs 1.5 μmol/g) that rubric b1 requires as evidence; otherwise my solution agrees with the rubric and model answer."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My solution to part (b) did not cite the specific 30-minute amounts (12.0 vs 1.5 μmol/g) that rubric b1 requires as evidence; otherwise my solution agrees with the rubric and model answer.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.9",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:29:04.019Z",
+   "item": {
+    "title": "Lysosome Membrane Integrity and Mitochondrial Membrane Folding",
+    "calculator": "permitted",
+    "stimulus": "Researchers studying compartmentalization in eukaryotic cells isolated lysosomes from liver cells. A lysosome is a membrane-bound sac containing hydrolytic enzymes.\n\nThe lysosomes were suspended in a buffered solution containing a substrate that the enzymes can break down. The substrate cannot cross an intact lysosomal membrane. Enzyme activity was measured in two samples:\n- Sample 1: lysosomes left intact.\n- Sample 2: lysosomes treated with a detergent that dissolves membranes.\n\nAssume that the detergent exposes all of the lysosomal enzyme to the substrate and does not change enzyme activity.\n\nTreatment | Enzyme activity detected (units)\nIntact lysosomes | 12\nDetergent-treated lysosomes | 96\n\nIn a separate part of the study, the researchers compared mitochondria from two cell types. Mitochondria in heart muscle cells have many more inner-membrane folds than mitochondria in liver cells.",
+    "model_answer": "(a) The lysosomal membrane surrounds the hydrolytic enzymes and keeps them separate from the cytosol and from the rest of the cell's molecules. Because of this, the hydrolysis reactions happen only inside the lysosome.\n\n(b) The detergent exposes all of the enzyme, so 96 units is the total activity. Percentage detected with intact lysosomes = (12 ÷ 96) × 100 = 12.5%.\n\n(c) I predict that the released hydrolytic enzymes will break down the cell's own proteins, nucleic acids and other macromolecules, damaging the cell and possibly killing it. Normally the lysosomal membrane keeps these enzymes apart from cytosolic molecules. Once the membrane ruptures, the enzymes are no longer compartmentalized and can reach substrates they normally never contact. The data support this: removing the membrane with detergent raised the detected activity from 12 to 96 units.\n\n(d) The inner mitochondrial membrane is where the ATP-producing reactions of aerobic respiration take place. More folds give the membrane more surface area, so more of these reactions can occur at once. Heart mitochondria can therefore make more ATP, which matches the high, continuous energy demand of heart muscle.",
+    "verification_python": "from fractions import Fraction\nintact = 12\ntotal = 96\npct = Fraction(intact, total) * 100\nassert pct == Fraction(25, 2)\nassert abs(float(pct) - 12.5) < 1e-9\nassert Fraction(intact, total) == Fraction(1, 8)\nassert total // intact == 8\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe the role of the lysosomal membrane in compartmentalizing the hydrolytic enzymes of the cell.",
+      "criteria": [
+       {
+        "text": "The lysosomal membrane encloses the hydrolytic enzymes and keeps them separated from the cytosol and other cell components, so hydrolysis occurs only inside the lysosome.",
+        "evidence": "States that the membrane separates or isolates the enzymes or their reactions from the rest of the cell, confining the reactions to the lysosome interior.",
+        "fix": "State that a membrane boundary keeps enzymes and their reactions inside one compartment, separated from the cytosol and other cell molecules.",
+        "accepted_variants": [
+         "the membrane keeps the digestive enzymes inside the lysosome, away from the rest of the cell",
+         "membrane confines hydrolysis reactions to the lysosome interior"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percentage of the total lysosomal enzyme activity that was detected when the lysosomes were left intact. Show your work.",
+      "criteria": [
+       {
+        "text": "Percentage = (12 ÷ 96) × 100 = 12.5%.",
+        "evidence": "Shows that the intact-lysosome activity is divided by the detergent-treated (total) activity and multiplied by 100, giving 12.5%.",
+        "fix": "Divide the intact value by the total from detergent-treated lysosomes, then multiply by 100; show this setup before giving the answer.",
+        "accepted_variants": [
+         "12.5 percent",
+         "12/96 × 100 = 12.5%",
+         "0.125 × 100 = 12.5%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In a living cell, many lysosomal membranes rupture. Predict the effect on the cell, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the released hydrolytic enzymes break down the cell's own macromolecules, such as proteins and nucleic acids, damaging the cell or causing cell death.",
+        "evidence": "Predicts breakdown of cell components, cell damage, or cell death following lysosome rupture.",
+        "fix": "Predict a specific outcome, such as digestion of the cell's own molecules and cell death, rather than saying only that the cell changes.",
+        "accepted_variants": [
+         "the cell digests itself",
+         "cytosolic proteins and organelles are hydrolyzed and the cell dies"
+        ]
+       },
+       {
+        "text": "Justification: without an intact membrane, the enzymes are no longer compartmentalized and can contact cytosolic molecules, so competing or harmful interactions are no longer prevented.",
+        "evidence": "Connects the loss of the membrane barrier to the enzymes gaining access to substrates outside the lysosome. A response may use the class data, where removing the membrane increased the activity detected eightfold.",
+        "fix": "Link your prediction to the loss of separation: explain that, without the membrane, the enzymes reach molecules they normally cannot contact.",
+        "accepted_variants": [
+         "the enzymes are no longer separated from cytosolic substrates",
+         "the detergent data show that removing the membrane lets the enzymes act on many more substrate molecules"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the greater folding of the inner mitochondrial membrane in heart muscle cells contributes to mitochondrial function.",
+      "criteria": [
+       {
+        "text": "More folding increases the surface area of the inner membrane, where the reactions of aerobic respiration that produce ATP occur. This allows more ATP to be made to meet the high energy demand of heart muscle.",
+        "evidence": "States that folds increase membrane surface area and links this to more reactions or more ATP production in the mitochondrion.",
+        "fix": "Connect structure to function: say that folds increase surface area, so more membrane-associated reactions run, producing more ATP.",
+        "accepted_variants": [
+         "more cristae means more surface area for ATP synthesis",
+         "folds provide more membrane area for respiration reactions, so more ATP is produced"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 4
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:30:20.589Z",
+   "item": {
+    "title": "Mitochondrial Inner Membrane Folding and Lysosome Containment",
+    "calculator": "not_permitted",
+    "stimulus": "Researchers isolated mitochondria from two types of animal cells: heart muscle cells and liver cells. The mitochondria from both cell types were of similar overall size. The researchers measured the surface area of the outer and inner mitochondrial membranes. They supplied each sample with excess substrate and oxygen, then measured the relative rate of ATP synthesis per mitochondrion. Mean results are shown below.\n\nSource of mitochondria | Outer membrane area (µm²) | Inner membrane area (µm²) | Relative ATP synthesis rate (arbitrary units)\nHeart muscle cell | 6.0 | 30.0 | 120\nLiver cell | 6.0 | 15.0 | 60\n\nIn a separate experiment, the researchers treated cultured liver cells with a drug that makes lysosomal membranes leaky, so that the contents of lysosomes escape into the cytosol.",
+    "model_answer": "(a) Heart muscle: 30.0 µm² ÷ 6.0 µm² = 5.0. Liver: 15.0 µm² ÷ 6.0 µm² = 2.5. Heart mitochondria have an inner to outer membrane area ratio of 5.0, and liver mitochondria have a ratio of 2.5.\n\n(b) There is a positive, proportional relationship. Heart mitochondria have twice the inner membrane area of liver mitochondria (30.0 vs 15.0 µm²) and twice the ATP synthesis rate (120 vs 60). The rate per µm² of inner membrane is the same in both: 120 ÷ 30.0 = 4 and 60 ÷ 15.0 = 4.\n\n(c) The inner membrane is folded, which greatly increases its surface area without increasing the size of the mitochondrion. The reactions that synthesize ATP occur on the inner membrane, so more membrane surface provides more sites for these reactions, allowing the mitochondrion to produce more ATP.\n\n(d) The cells will be damaged and are likely to die, because the hydrolytic enzymes released from lysosomes will break down the cell's own proteins, membranes and organelles. Normally the lysosomal membrane compartmentalizes these hydrolytic enzymes, keeping digestion inside the lysosome and separate from the cytosol. This separation minimizes competing interactions between digestive reactions and the rest of the cell's processes. When the membrane leaks, that separation is lost.",
+    "verification_python": "from fractions import Fraction as F\nouter_h=F(6);inner_h=F(30);outer_l=F(6);inner_l=F(15)\nrate_h=F(120);rate_l=F(60)\nassert inner_h/outer_h==5\nassert inner_l/outer_l==F(5,2)\nassert inner_h/inner_l==2\nassert rate_h/rate_l==2\nassert rate_h/inner_h==4\nassert rate_l/inner_l==4\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the ratio of inner membrane surface area to outer membrane surface area for mitochondria from each cell type. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct ratios with work: heart 30.0 ÷ 6.0 = 5.0; liver 15.0 ÷ 6.0 = 2.5.",
+        "evidence": "Response shows the division for both cell types and reports 5.0 for heart muscle and 2.5 for liver mitochondria.",
+        "fix": "Divide the inner membrane area by the outer membrane area for each row, writing the setup before the answer.",
+        "accepted_variants": [
+         "5:1 and 2.5:1",
+         "5 and 2.5",
+         "heart 5, liver 5/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between inner membrane surface area and the rate of ATP synthesis shown in the data.",
+      "criteria": [
+       {
+        "text": "As inner membrane area increases, ATP synthesis rate increases proportionally: twice the inner membrane area (30.0 vs 15.0 µm²) gives twice the rate (120 vs 60).",
+        "evidence": "Response states a positive relationship and supports it with the data, such as the doubling of both values or the equal rate per µm² (4 units per µm²) in both types.",
+        "fix": "State the direction of the trend and cite specific values from the table, such as comparing how much each quantity changes.",
+        "accepted_variants": [
+         "Rate per µm² of inner membrane is 4 for both cell types",
+         "Doubling inner membrane area doubles ATP synthesis rate"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the folding of the mitochondrial inner membrane contributes to the function of the mitochondrion.",
+      "criteria": [
+       {
+        "text": "Folding increases the surface area of the inner membrane, providing more membrane where the reactions of ATP synthesis occur, so more ATP can be made in a mitochondrion of the same size.",
+        "evidence": "Response links folding to increased surface area and links that area to more sites for membrane-associated reactions of ATP synthesis, increasing ATP production.",
+        "fix": "Connect structure to function: say folds increase membrane surface area, then say why more area means more reactions can occur.",
+        "accepted_variants": [
+         "Cristae increase surface area for the reactions of aerobic respiration that make ATP",
+         "More inner membrane means more space for membrane-embedded ATP-producing proteins"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the effect of the drug on the liver cells. Justify your prediction based on the role of the lysosomal membrane.",
+      "criteria": [
+       {
+        "text": "Prediction: hydrolytic enzymes released into the cytosol will break down the cell's own macromolecules and organelles, damaging the cell or causing cell death.",
+        "evidence": "Response predicts digestion of cellular components (proteins, membranes, organelles) by released enzymes, leading to cell damage or death.",
+        "fix": "Name what lysosomes contain, then predict what those contents would do to molecules in the cytosol if released.",
+        "accepted_variants": [
+         "Cell undergoes self-digestion and dies",
+         "Cellular proteins and organelles are hydrolyzed, killing the cell"
+        ]
+       },
+       {
+        "text": "Justification: the intact lysosomal membrane compartmentalizes hydrolytic enzymes, keeping digestive reactions separate from the rest of the cell and minimizing competing or harmful interactions.",
+        "evidence": "Response explains that the membrane normally separates hydrolytic enzymes from cytosolic contents so digestion occurs only inside the lysosome.",
+        "fix": "Explain the membrane's job: it separates specific enzymatic reactions from the cytosol so they do not interfere with other cell processes.",
+        "accepted_variants": [
+         "The membrane isolates digestive enzymes from the cytosol",
+         "Compartmentalization prevents hydrolytic enzymes from acting on the cell's own molecules"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 2,
+     "3.5": 2,
+     "2.9": 2
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 4
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:32:46.722Z",
+   "item": {
+    "title": "Lysosomal Compartmentalization and Enzyme pH Dependence",
+    "calculator": "permitted",
+    "stimulus": "Lysosomes are membrane-bound organelles containing hydrolytic enzymes. The lysosomal membrane contains ATP-driven proton pumps that move H⁺ ions from the cytosol into the lysosome, keeping the lysosomal interior at about pH 4.8, while the surrounding cytosol is at about pH 7.2. A researcher purified two enzymes from liver cells: a lysosomal protease (enzyme L) and a cytosolic enzyme that participates in a metabolic pathway in the cytosol (enzyme C). The activity of each enzyme was measured in buffers at three pH values under otherwise identical conditions.\n\nEnzyme activity (nmol product formed per minute per mg enzyme)\npH | Enzyme L (lysosomal protease) | Enzyme C (cytosolic enzyme)\n4.8 | 84 | 7\n6.0 | 38 | 31\n7.2 | 5 | 66",
+    "model_answer": "(a) Enzyme L is a hydrolytic enzyme that breaks down proteins. Because it is enclosed inside the lysosomal membrane, it is physically separated from the cytosol, so it cannot reach and hydrolyze the cell's own cytosolic proteins and other macromolecules. Digestion is confined to material inside the lysosome.\n\n(b) Percent decrease = (84 − 5) / 84 × 100 = 79 / 84 × 100 ≈ 94.0%.\n\n(c) The breakdown of proteins inside the lysosomes will decrease greatly. The proton pumps normally use ATP to move H⁺ into the lysosome, keeping it at pH 4.8. With the pumps blocked, the lumen rises to pH 7.2. The data show enzyme L activity falls from 84 to 5 nmol/min/mg at pH 7.2, a decrease of about 94%, so very little protein will be hydrolyzed.\n\n(d) The lysosomal membrane keeps two different environments in one cell: an acidic interior near pH 4.8 and a neutral cytosol near pH 7.2. Enzyme L has its highest activity at pH 4.8 (84) and enzyme C has its highest activity at pH 7.2 (66). If both were in a single compartment at one pH, one enzyme would work poorly (enzyme C has only 7 at pH 4.8, and enzyme L has only 5 at pH 7.2). Compartmentalization minimizes these competing requirements, so each enzyme operates near its optimum at the same time.",
+    "verification_python": "L = {4.8: 84, 6.0: 38, 7.2: 5}\nC = {4.8: 7, 6.0: 31, 7.2: 66}\ndiff = L[4.8] - L[7.2]\nassert diff == 79\npct = diff / L[4.8] * 100\nassert abs(pct - 94.0) < 0.1\nassert abs(round(pct, 2) - 94.05) < 0.01\nassert max(L, key=L.get) == 4.8\nassert max(C, key=C.get) == 7.2\nassert L[4.8] == 84 and C[7.2] == 66 and C[4.8] == 7 and L[7.2] == 5\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe how enclosing enzyme L within the lysosomal membrane protects the cell's own cytosolic macromolecules.",
+      "criteria": [
+       {
+        "text": "The lysosomal membrane physically separates the hydrolytic enzymes from the cytosol, so they cannot hydrolyze the cell's own cytosolic proteins and other macromolecules.",
+        "evidence": "States that the membrane keeps enzyme L enclosed or separated from the cytosol AND that this prevents digestion (hydrolysis) of the cell's own cytosolic molecules.",
+        "fix": "State both pieces: the membrane isolates the hydrolytic enzymes from the cytosol, and this isolation prevents them from digesting the cell's own molecules.",
+        "accepted_variants": [
+         "The membrane compartmentalizes the protease away from cytosolic proteins so they are not broken down",
+         "Enzymes are sealed inside the lysosome and cannot reach and digest cytosolic components"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, calculate the percent decrease in the activity of enzyme L when the pH changes from 4.8 to 7.2. Show your work.",
+      "criteria": [
+       {
+        "text": "Percent decrease = (84 − 5)/84 × 100 ≈ 94.0%, with the setup shown.",
+        "evidence": "Shows the difference 79 divided by the original value 84 (times 100) and reports approximately 94%.",
+        "fix": "Use percent change = (original − new) ÷ original × 100, with the pH 4.8 value as the original.",
+        "accepted_variants": [
+         "94%",
+         "94.0%",
+         "94.05%",
+         "79/84 × 100 = 94%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A drug blocks the proton pumps in the lysosomal membrane, so the pH inside lysosomes rises to 7.2. Predict the effect of the drug on the breakdown of proteins that have been taken into lysosomes, and justify your prediction using the data.",
+      "criteria": [
+       {
+        "text": "Prediction: breakdown (hydrolysis) of proteins inside the lysosomes will decrease.",
+        "evidence": "Clearly predicts that protein digestion in lysosomes decreases, slows, or largely stops.",
+        "fix": "Make an explicit directional prediction about protein breakdown inside the lysosome, such as decreases, before justifying it.",
+        "accepted_variants": [
+         "Protein digestion in lysosomes slows greatly",
+         "Engulfed proteins accumulate undigested"
+        ]
+       },
+       {
+        "text": "Justification: without H⁺ pumping the lumen loses its acidic pH, and the data show enzyme L activity drops from 84 to 5 nmol/min/mg (about 94%) at pH 7.2.",
+        "evidence": "Links the loss of proton pumping to the higher lysosomal pH AND cites the data showing much lower enzyme L activity at pH 7.2 than at pH 4.8.",
+        "fix": "Connect the mechanism to the data: blocked pumps raise lumen pH, then quote enzyme L activity at pH 4.8 versus pH 7.2.",
+        "accepted_variants": [
+         "Enzyme L works best at pH 4.8 (84) but only 5 at pH 7.2, so a neutral lysosome digests little",
+         "Activity falls about 94% at pH 7.2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Enzyme L and enzyme C require different conditions. Using the data, explain how compartmentalization by the lysosomal membrane allows both enzymes to function efficiently in the same cell.",
+      "criteria": [
+       {
+        "text": "The membrane maintains two separate environments (acidic lysosome near pH 4.8, neutral cytosol near pH 7.2), each matching one enzyme's highest activity (enzyme L 84 at pH 4.8; enzyme C 66 at pH 7.2), minimizing competing interactions so neither condition must be shared.",
+        "evidence": "Explains that the membrane keeps different pH conditions in separate compartments AND uses data showing enzyme L is most active at pH 4.8 while enzyme C is most active at pH 7.2.",
+        "fix": "Name each compartment's pH, match it to the enzyme with highest activity there using table values, and state the membrane keeps these conditions separate.",
+        "accepted_variants": [
+         "Separate compartments let each enzyme operate at its own optimal pH: L at 4.8 (84) and C at 7.2 (66)",
+         "If both were in one compartment at a single pH, one enzyme would work poorly, e.g. C has only 7 at pH 4.8"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 6
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:21:21.635Z",
+   "item": {
+    "title": "Membrane Compartments in Mitochondria and Lysosomes",
+    "calculator": "not_permitted",
+    "stimulus": "Eukaryotic cells contain internal membranes that divide the cell into specialized compartments. A group of researchers isolated mitochondria from two cell types, X and Y, taken from the same animal. For a typical mitochondrion from each cell type, they measured the surface area of the outer mitochondrial membrane and the surface area of the folded inner mitochondrial membrane. They also measured the rate of ATP synthesis per mitochondrion under identical conditions. The results are shown below.\n\nCell type | Outer membrane area (µm²) | Inner membrane area (µm²) | ATP synthesis rate (arbitrary units per mitochondrion)\nX | 6 | 30 | 100\nY | 6 | 12 | 40\n\nIn a separate experiment, the researchers treated cultured cells with a compound that makes lysosomal membranes leaky. The lysosomes remain present, but their contents can escape into the cytosol.",
+    "model_answer": "(a) Cell type X: 30 µm² / 6 µm² = 5. Cell type Y: 12 µm² / 6 µm² = 2. The inner-to-outer membrane ratio is 5 for X and 2 for Y.\n\n(b) The inner membrane of a mitochondrion from X has 30 µm² of surface area compared with 12 µm² in Y, which is 2.5 times as much. The ATP synthesis rate in X (100) is also 2.5 times the rate in Y (40). The folded inner membrane is where the membrane-embedded proteins that carry out ATP synthesis are located, so a more highly folded inner membrane provides more surface area and more sites for these reactions to occur at the same time. This allows mitochondria from X to synthesize ATP faster than those from Y.\n\n(c) I predict that proteins and other macromolecules, and even organelles, in the cytosol will be broken down or damaged, which will impair cell function and may kill the cell. Lysosomes contain hydrolytic enzymes that digest macromolecules. The lysosomal membrane normally compartmentalizes these enzymes, keeping them separate from the cytosol so that they do not interact with the cell's own molecules. When the membrane becomes leaky, this separation is lost, so the hydrolytic enzymes can reach and hydrolyze cytosolic components.",
+    "verification_python": "from fractions import Fraction as F\nouter_x, inner_x, atp_x = 6, 30, 100\nouter_y, inner_y, atp_y = 6, 12, 40\nassert F(inner_x, outer_x) == 5\nassert F(inner_y, outer_y) == 2\nassert F(inner_x, inner_y) == F(5, 2)\nassert F(atp_x, atp_y) == F(5, 2)\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the ratio of inner membrane surface area to outer membrane surface area for a mitochondrion from cell type X and for a mitochondrion from cell type Y.",
+      "criteria": [
+       {
+        "text": "Correct ratios: 5 for cell type X (30/6) and 2 for cell type Y (12/6).",
+        "evidence": "Response shows the division of inner area by outer area for each cell type and reports 5 for X and 2 for Y.",
+        "fix": "Divide the inner membrane area by the outer membrane area for each row of the table, and report both results.",
+        "accepted_variants": [
+         "5:1 and 2:1",
+         "5.0 and 2.0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, explain how the difference in inner membrane surface area accounts for the difference in ATP synthesis rate between cell types X and Y.",
+      "criteria": [
+       {
+        "text": "Uses data to link greater inner membrane area to a greater ATP synthesis rate (X has 2.5 times the inner membrane area and 2.5 times the ATP synthesis rate of Y).",
+        "evidence": "Response cites values from the table showing that X has more inner membrane area (30 vs 12 µm², or ratio 5 vs 2) and a higher ATP synthesis rate (100 vs 40).",
+        "fix": "Quote specific table values for both inner membrane area and ATP synthesis rate when connecting the two variables.",
+        "accepted_variants": [
+         "2.5 times",
+         "2.5-fold"
+        ]
+       },
+       {
+        "text": "Explains that the folded inner membrane provides more surface area where the membrane-associated reactions that synthesize ATP can occur.",
+        "evidence": "Response states that more inner membrane surface area provides more space or sites (for example, more embedded enzymes or proteins) for ATP-synthesizing reactions, so more ATP is made.",
+        "fix": "State that the inner membrane is the site of ATP synthesis reactions, so more folded membrane means more reaction sites.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the effect of the leaky lysosomal membranes on the macromolecules and organelles in the cytosol of the treated cells. Justify your prediction based on the role of the lysosomal membrane in compartmentalization.",
+      "criteria": [
+       {
+        "text": "Predicts that cytosolic macromolecules and organelles will be broken down or damaged, harming or killing the cell.",
+        "evidence": "Response predicts that proteins, other macromolecules, or organelles in the cytosol will be digested or damaged, leading to impaired function or death of the cell.",
+        "fix": "Make a clear prediction about what happens to cytosolic molecules when hydrolytic enzymes leave the lysosome.",
+        "accepted_variants": [
+         "cell damage",
+         "cell death",
+         "digestion of cytosolic components"
+        ]
+       },
+       {
+        "text": "Justifies that the intact lysosomal membrane normally keeps hydrolytic enzymes separated from the rest of the cell, preventing competing or harmful interactions with cytosolic molecules.",
+        "evidence": "Response explains that lysosomes contain hydrolytic (digestive) enzymes and that the membrane compartmentalizes them so they do not act on cytosolic components; leakage removes this separation.",
+        "fix": "Explain that the lysosomal membrane isolates hydrolytic enzymes, minimizing competing interactions, and that leakage lets those enzymes reach cytosolic molecules.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.9": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 4
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:22:44.042Z",
+   "item": {
+    "title": "Lysosomal Enzyme pH and Membrane Compartmentalization",
+    "calculator": "permitted",
+    "stimulus": "Lysosomes are membrane-bound organelles that contain hydrolytic enzymes. Proton pumps in the lysosomal membrane use ATP to move H⁺ ions from the cytosol into the lysosome. This keeps the lysosome interior near pH 4.8, while the surrounding cytosol is near pH 7.2.\n\nResearchers purified one lysosomal enzyme that hydrolyzes proteins. They measured its activity in buffered solutions at different pH values, keeping temperature, enzyme concentration, and substrate concentration the same. The results are shown below.\n\npH | Enzyme activity (nmol of substrate hydrolyzed per minute per mg enzyme)\n4.0 | 70\n4.8 | 96\n5.6 | 58\n6.4 | 21\n7.2 | 6",
+    "model_answer": "(a) The lysosomal membrane keeps the hydrolytic enzymes separate from the cytosol. Digestion therefore happens only inside the lysosome, and the enzymes do not hydrolyze the cell's own proteins and other macromolecules. This compartmentalization minimizes competing or harmful interactions with other cellular processes.\n\n(b) Percent decrease = (96 − 6) ÷ 96 × 100 = 90 ÷ 96 × 100 = 93.75%, or about 94%.\n\n(c) The released enzyme will hydrolyze cytosolic proteins at a low rate. At the cytosolic pH of 7.2, the enzyme's activity is only 6 nmol/min per mg, compared with 96 at the lysosomal pH of 4.8. That is only about 6% of its activity inside the lysosome. The neutral pH of the cytosol greatly reduces the enzyme's activity, so the few released enzymes cause little damage.\n\n(d) Protein digestion inside the lysosome will decrease. The proton pumps use ATP to actively transport H⁺ into the lysosome, which keeps the interior near pH 4.8. If the pumps are blocked, H⁺ is no longer pumped in, and the lysosome interior becomes less acidic, with its pH rising toward the cytosolic pH. The data show that the enzyme's activity falls sharply as pH rises above 4.8, for example to 21 at pH 6.4 and 6 at pH 7.2. As a result, the enzymes hydrolyze proteins more slowly.",
+    "verification_python": "from fractions import Fraction\nact = {4.0:70, 4.8:96, 5.6:58, 6.4:21, 7.2:6}\nhi = act[4.8]; lo = act[7.2]\nassert hi == 96 and lo == 6\nassert hi - lo == 90\npct = Fraction(hi - lo, hi) * 100\nassert pct == Fraction(9375, 100)\nassert abs(float(pct) - 93.75) < 1e-9\nassert round(float(pct)) == 94\nfrac = Fraction(lo, hi) * 100\nassert abs(float(frac) - 6.25) < 1e-9\nassert round(float(frac)) == 6\nassert max(act, key=act.get) == 4.8\nassert act[6.4] == 21\nassert act[6.4] < act[5.6] < act[4.8] and act[7.2] < act[6.4]\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Describe how enclosing hydrolytic enzymes inside the lysosomal membrane benefits the eukaryotic cell.",
+      "criteria": [
+       {
+        "text": "The lysosomal membrane separates hydrolytic enzymes from the cytosol, so they digest only material inside the lysosome and do not break down the cell's own macromolecules. This minimizes competing or harmful interactions.",
+        "evidence": "The response states that the membrane keeps the enzymes separate from the rest of the cell. It also states a benefit, such as protecting cytosolic macromolecules from hydrolysis or keeping digestion confined to one compartment.",
+        "fix": "State both what the membrane separates (enzymes from cytosol) and the consequence (cell's own molecules are protected from digestion).",
+        "accepted_variants": [
+         "prevents self-digestion",
+         "minimizes competing interactions",
+         "protects cytosolic proteins from hydrolysis"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percent decrease in enzyme activity when the pH changes from the lysosomal pH (4.8) to the cytosolic pH (7.2).",
+      "criteria": [
+       {
+        "text": "The percent decrease is 93.75%, calculated as (96 − 6) ÷ 96 × 100.",
+        "evidence": "The response shows the set-up using 96 as the starting value and 6 as the final value, and it reports approximately 93.75%.",
+        "fix": "Use percent change = (initial − final) ÷ initial × 100, with the lysosomal-pH value 96 as the initial value.",
+        "accepted_variants": [
+         "93.75%",
+         "93.8%",
+         "94%",
+         "0.9375"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A few lysosomes in a cell rupture and release this enzyme into the cytosol. Predict whether the released enzyme will hydrolyze cytosolic proteins at a high rate or a low rate. Justify your prediction using the data.",
+      "criteria": [
+       {
+        "text": "The response predicts that the released enzyme will hydrolyze cytosolic proteins at a low rate.",
+        "evidence": "The response gives a clear prediction of a low rate, or of little damage to cytosolic proteins.",
+        "fix": "Make an explicit prediction (high or low rate) before giving any reasoning.",
+        "accepted_variants": [
+         "little hydrolysis",
+         "slow rate",
+         "minimal damage to cytosolic proteins"
+        ]
+       },
+       {
+        "text": "The response justifies the prediction with the data: at pH 7.2 the activity is only 6, about 6% of the activity at pH 4.8 (96). The cytosolic pH therefore greatly reduces the enzyme's activity.",
+        "evidence": "The response cites the low activity at pH 7.2 (6), or compares it to the activity at pH 4.8. It links the cytosol's pH to the reduced enzyme activity.",
+        "fix": "Quote the specific table values at pH 7.2 and 4.8 and connect the cytosol's pH to reduced enzyme activity.",
+        "accepted_variants": [
+         "6 vs 96",
+         "about 6% of maximum",
+         "activity reduced by about 94%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A drug blocks the ATP-powered proton pumps in the lysosomal membrane. Predict the effect of the drug on the rate of protein digestion inside the lysosome, and explain your prediction.",
+      "criteria": [
+       {
+        "text": "The response predicts that digestion inside the lysosome will decrease. Without active pumping of H⁺ into the lysosome, the lysosome interior becomes less acidic (its pH rises toward 7.2), so the enzyme's activity drops.",
+        "evidence": "The response predicts a decrease in digestion. It explains that H⁺ is no longer pumped in, so the lysosomal pH rises, and connects the higher pH to lower enzyme activity, as shown by the data.",
+        "fix": "Trace the chain: pump blocked → fewer H⁺ inside → lysosomal pH rises → enzyme activity falls → slower digestion.",
+        "accepted_variants": [
+         "digestion slows",
+         "lysosomal pH increases",
+         "lumen becomes less acidic"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.9": 3,
+     "3.2": 3
+    },
+    "onTarget": 3,
+    "n": 6,
+    "required_units": [
+     2,
+     3
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:24:39.456Z",
+   "item": {
+    "title": "Mitochondrial Membrane Folding and Lysosome Compartments",
+    "calculator": "not_permitted",
+    "stimulus": "A cell biologist uses electron microscopy to compare mitochondria from two types of mammalian cells: liver cells and heart muscle cells. Heart muscle cells contract continuously and have a very high demand for ATP. For a typical mitochondrion of each cell type, the biologist estimates the surface area of the outer mitochondrial membrane and of the folded inner mitochondrial membrane. The results are shown below.\n\nCell type | Outer membrane area per mitochondrion (µm²) | Inner membrane area per mitochondrion (µm²)\nLiver | 12 | 36\nHeart muscle | 12 | 120\n\nIn a separate experiment, the biologist treats cultured liver cells with a chemical that makes lysosomal membranes break open. This releases the lysosome's hydrolytic enzymes into the cytosol. The chemical has no other direct effects on the cell.",
+    "model_answer": "(a) Ratio = inner membrane area ÷ outer membrane area = 120 µm² ÷ 12 µm² = 10. The inner membrane has 10 times the area of the outer membrane, a 10:1 ratio.\n\n(b) The heart muscle mitochondrion has 120 µm² of inner membrane, compared with 36 µm² in the liver mitochondrion. That is about 3.3 times as much, even though the outer membranes are the same size. The inner membrane is where the reactions and proteins that synthesize ATP are located. Its greater folding gives heart mitochondria more surface area where these reactions can occur. As a result, each heart mitochondrion can produce more ATP. This meets the high, continuous energy demand of contracting heart muscle cells.\n\n(c) The proteins and other macromolecules in the cytosol will be hydrolyzed, or digested. Organelles may also be damaged, so the cells will be harmed and are likely to die. Normally the lysosomal membrane compartmentalizes the hydrolytic enzymes and keeps them separated from the rest of the cell. This minimizes competing and harmful interactions between the enzymes and the cell's own molecules. When the membrane breaks open, the enzymes reach cytosolic macromolecules they could not contact before, and they break them down.",
+    "verification_python": "from fractions import Fraction\nliver_outer, liver_inner = 12, 36\nheart_outer, heart_inner = 12, 120\nratio_heart = Fraction(heart_inner, heart_outer)\nassert ratio_heart == 10\nratio_liver = Fraction(liver_inner, liver_outer)\nassert ratio_liver == 3\ncompare = heart_inner / liver_inner\nassert abs(compare - 3.333) < 0.01\nassert round(compare, 1) == 3.3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the ratio of inner membrane area to outer membrane area for a heart muscle mitochondrion. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct ratio of 10 (120 µm² ÷ 12 µm²) for the heart muscle mitochondrion",
+        "evidence": "Response divides the inner membrane area (120 µm²) by the outer membrane area (12 µm²) and reports a ratio of 10 (or 10:1).",
+        "fix": "Divide the inner membrane value by the outer membrane value from the same row, and write the setup before the answer.",
+        "accepted_variants": [
+         "10",
+         "10:1",
+         "10 to 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, explain how the difference in inner membrane area between liver and heart muscle mitochondria relates to the function of heart muscle cells.",
+      "criteria": [
+       {
+        "text": "Heart muscle mitochondria have more inner membrane area (120 vs 36 µm²), which provides more surface area for the reactions of ATP synthesis, so they can produce ATP faster to meet the heart's high energy demand",
+        "evidence": "Response cites the larger inner membrane area of heart mitochondria from the data. It states that the inner membrane is where ATP-producing reactions or proteins are located. It links the greater surface area to more ATP production for the high-energy needs of contracting heart cells.",
+        "fix": "Name the inner membrane as the site of ATP-making reactions, then connect more folded surface area to more ATP for an energy-demanding cell.",
+        "accepted_variants": [
+         "about 3.3 times more inner membrane area",
+         "more cristae",
+         "more folding of the inner membrane"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict the effect of the lysosome-rupturing chemical on the proteins and other macromolecules in the cytosol of the treated liver cells. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: cytosolic proteins and other macromolecules (and possibly organelles) will be broken down or digested, harming or killing the cell",
+        "evidence": "Response predicts that the cell's own cytosolic macromolecules will be hydrolyzed or digested, or that cell structures will be damaged, leading to cell damage or death.",
+        "fix": "State directly what happens to the cell's own molecules once digestive enzymes reach the cytosol, not just that the enzymes are released.",
+        "accepted_variants": [
+         "self-digestion of the cell",
+         "hydrolysis of cytosolic proteins",
+         "cell death"
+        ]
+       },
+       {
+        "text": "Justification: the lysosomal membrane normally keeps the hydrolytic enzymes separated from the rest of the cell, which minimizes competing or harmful interactions; without it, the enzymes contact and hydrolyze the cell's own molecules",
+        "evidence": "Response explains that compartmentalization by the lysosomal membrane normally isolates the hydrolytic enzymes from cytosolic components. Removing this barrier allows the enzymes to act on molecules they normally cannot reach.",
+        "fix": "Explain the membrane's role as a barrier that separates incompatible reactions, and say what interaction that barrier normally prevents.",
+        "accepted_variants": [
+         "minimizes competing interactions",
+         "keeps digestive enzymes isolated"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "2.1": 2,
+     "2.9": 4
+    },
+    "onTarget": 4,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6,
+     "3": 3
+    }
+   },
+   "stage": "topic_vote"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Internal Membranes Separate and Support Cellular Reactions",
+   "calculator": "permitted",
+   "stimulus": "Liver cells make a molecule, Q, in the cytosol. The reactions that break Q down occur only inside a membrane-bound organelle, compartment K. Researchers prepared two extracts from the same liver tissue and supplied each with the raw materials needed to make Q.\n\nExtract 1: cells were broken open gently, so the organelles, including compartment K, stayed intact.\nExtract 2: cells were broken open harshly, so organelle membranes ruptured and the contents of compartment K mixed with the cytosol.\n\nTable 1: Amount of Q present (μmol per gram of tissue)\nTime (min) | Extract 1 | Extract 2\n0 | 0 | 0\n10 | 4.0 | 0.6\n20 | 8.1 | 1.0\n30 | 12.0 | 1.5\n\nIn a second study, the researchers compared two cell types in which reaction R is carried out by proteins embedded in internal membranes.\n\nTable 2\nCell type | Internal membrane surface area per cell (μm²) | Rate of reaction R (relative units)\nM | 1,500 | 30\nN | 4,500 | 90",
+   "parts": [
+    {
+     "prompt": "Calculate the percent decrease in the amount of Q present at 30 minutes in Extract 2 compared with Extract 1.",
+     "criteria": [
+      {
+       "text": "Calculates a percent decrease of 87.5%: (12.0 − 1.5) ÷ 12.0 × 100 = 87.5%.",
+       "evidence": "Response shows the difference (10.5 μmol per gram) divided by the Extract 1 value (12.0) and expresses the result as 87.5%, or uses an equivalent valid method such as (1 − 1.5/12.0) × 100.",
+       "fix": "For percent decrease, divide the drop by the original (reference) value, then multiply by 100.",
+       "accepted_variants": [
+        "87.5 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using the data in Table 1, explain how the membrane of compartment K allows Q to accumulate in Extract 1, and why much less Q accumulated in Extract 2.",
+     "criteria": [
+      {
+       "text": "Explains that the membrane of compartment K keeps the reactions that break down Q separate from the cytosol where Q is made, minimizing competing reactions; when the membrane ruptures (Extract 2), breakdown occurs in the same space as synthesis, so Q is broken down as it is made and only 1.5 μmol per gram accumulates versus 12.0.",
+       "evidence": "Response links the intact membrane to separation of the competing synthesis and breakdown reactions, and links rupture to Q being broken down in the mixed extract, citing the lower amount of Q.",
+       "fix": "Name the two opposing processes, state where each happens, and explain that the membrane keeps them apart so they cannot compete.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Describe the relationship between internal membrane surface area and the rate of reaction R shown in Table 2.",
+     "criteria": [
+      {
+       "text": "Describes that the rate of reaction R increases as internal membrane surface area increases, in proportion: tripling the area (1,500 to 4,500 μm²) triples the rate (30 to 90).",
+       "evidence": "Response states that greater internal membrane surface area is associated with a higher rate of reaction R, and notes the threefold change in both.",
+       "fix": "Describe the direction of the trend and its size: compare how many times each variable changed between the two cell types.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how a larger area of internal membranes leads to the higher rate of reaction R in cell type N.",
+     "criteria": [
+      {
+       "text": "Explains that internal membranes increase the surface area where membrane-associated reactions can occur, providing room for more of the embedded proteins that carry out reaction R, so more reaction R can happen at the same time.",
+       "evidence": "Response states that more internal membrane provides more surface area on which reaction R can take place (more embedded proteins), increasing the rate.",
+       "fix": "Connect membrane area to reaction sites: more membrane surface holds more embedded proteins, so more reactions run at once.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Percent decrease = (12.0 − 1.5) ÷ 12.0 × 100 = 10.5 ÷ 12.0 × 100 = 87.5%.\n\n(b) In Extract 1, compartment K is intact, so its membrane keeps the reactions that break down Q inside the compartment, separate from the cytosol where Q is made. Because the opposing reactions are kept apart, they do not compete, and Q builds up steadily, reaching 12.0 μmol per gram at 30 minutes. In Extract 2, the ruptured membrane lets the contents of compartment K mix with the cytosol, so Q is broken down in the same space where it is being made. Much of the Q is broken down as soon as it forms, so only 1.5 μmol per gram accumulates.\n\n(c) The rate of reaction R increases as internal membrane surface area increases. Cell type N has 3 times the internal membrane surface area of M (4,500 versus 1,500 μm²) and 3 times the rate (90 versus 30), so the rate rises in proportion to the membrane area.\n\n(d) Reaction R is carried out by proteins embedded in internal membranes, so the reaction can occur only on membrane surfaces. A larger area of internal membrane increases the surface area where the reaction can occur and holds more of the embedded proteins, so more reaction R takes place at the same time and the rate is higher.",
+   "verification_python": "from fractions import Fraction as F\ne1=F(120,10);e2=F(15,10)\nassert e1-e2==F(105,10)\npct=(e1-e2)/e1*100\nassert pct==F(875,10)\nassert (1-e2/e1)*100==pct\nassert F(4500,1500)==3\nassert F(90,30)==3\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.862604Z"
+ },
+ "accepted_round": 1
+}

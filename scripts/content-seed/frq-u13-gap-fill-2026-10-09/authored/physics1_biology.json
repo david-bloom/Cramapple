@@ -1,0 +1,1008 @@
+[
+ {
+  "subject_key": "ap_physics_1",
+  "topic_code": "1.1",
+  "item": {
+   "title": "Distance, Displacement, and Speed of a Hallway Robot",
+   "calculator": "permitted",
+   "stimulus": "A delivery robot moves along a straight east–west hallway. Take east as the positive direction. Starting from its charging station, the robot makes three trips in order. During each trip it moves in only one direction.\n\nTrip | Direction | Distance moved (m)\n1 | east | 12\n2 | west | 20\n3 | east | 5\n\nA second robot, Robot B, starts at the same charging station and makes a single trip of 3 m west.",
+   "parts": [
+    {
+     "prompt": "Calculate the total distance traveled by the first robot during the three trips. Then calculate its displacement from the charging station at the end of trip 3, giving it as a signed value and stating its direction.",
+     "criteria": [
+      {
+       "text": "Total distance = 12 m + 20 m + 5 m = 37 m, found by adding the sizes of the three trips without regard to direction.",
+       "evidence": "Response adds the three trip lengths as positive quantities and gets 37 m.",
+       "fix": "Distance is a scalar: add the length of every trip as a positive number, ignoring direction.",
+       "accepted_variants": [
+        "37 meters"
+       ]
+      },
+      {
+       "text": "Displacement = (+12 m) + (−20 m) + (+5 m) = −3 m, that is, 3 m west of the charging station.",
+       "evidence": "Response gives east trips positive signs and the west trip a negative sign, sums them to −3 m, and states the direction is west.",
+       "fix": "Displacement is a vector: give each trip a sign for its direction, add the signed values, then read direction from the sign.",
+       "accepted_variants": [
+        "−3 m",
+        "3 m west"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the first robot's displacement at the end of trip 3 is equal to Robot B's displacement, even though the first robot traveled a much greater distance.",
+     "criteria": [
+      {
+       "text": "Explains that displacement is a vector sum in which trips in opposite directions have opposite signs and partly cancel, so the first robot's net change in position, −3 m, equals Robot B's −3 m; distance is a scalar, so nothing cancels.",
+       "evidence": "Response states both displacements are −3 m (3 m west) and explains that the westward −20 m cancels most of the eastward +17 m in the vector sum, while distance only adds.",
+       "fix": "When comparing displacements, add signed values so opposite trips cancel; only the net change in position from start to finish matters.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "During trip 2, the robot's velocity component is v_x = −0.80 m/s. A student states that the robot's speed during trip 2 is −0.80 m/s. Explain what is wrong with the student's statement, and give the robot's correct speed during trip 2.",
+     "criteria": [
+      {
+       "text": "States that the speed is 0.80 m/s, because speed is a scalar equal to the magnitude of the velocity and is never negative.",
+       "evidence": "Response gives the speed as 0.80 m/s (positive) and identifies speed as a scalar or as the magnitude of velocity.",
+       "fix": "Speed is a scalar: report the size of the velocity only, as a positive number, and drop the sign.",
+       "accepted_variants": [
+        "0.8 m/s"
+       ]
+      },
+      {
+       "text": "Explains that the negative sign in v_x = −0.80 m/s is direction information: the velocity, a vector, points west (the negative direction).",
+       "evidence": "Response states that the minus sign shows the velocity is directed west, opposite to the chosen positive direction, and that speed does not carry direction.",
+       "fix": "In one dimension, read the sign of a vector component as its direction; negative here means west.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Total distance = 12 m + 20 m + 5 m = 37 m. Distance is a scalar, so each trip adds its length regardless of direction.\nDisplacement = (+12 m) + (−20 m) + (+5 m) = −3 m. The first robot ends 3 m west of the charging station.\n\n(b) Displacement is a vector, so in the sum the eastward trips (+12 m and +5 m, total +17 m) and the westward trip (−20 m) have opposite signs and mostly cancel, leaving a net change in position of −3 m. Robot B's single trip also gives a displacement of −3 m, so the two displacements are equal (3 m west). Distance is a scalar, so for the first robot nothing cancels and it is 37 m, compared with 3 m for Robot B.\n\n(c) Speed is a scalar equal to the magnitude of the velocity, so it cannot be negative. The robot's speed during trip 2 is 0.80 m/s. The negative sign in v_x = −0.80 m/s tells the direction of the velocity vector: the robot is moving west, the negative direction.",
+   "verification_python": "trips=[12,-20,5]\ndist=sum(abs(t) for t in trips)\nassert dist==37\ndisp=sum(trips)\nassert disp==-3\nrobotB=-3\nassert disp==robotB\nassert 12+5==17\nvx=-0.80\nspeed=abs(vx)\nassert abs(speed-0.80)<1e-12\nassert vx<0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_1",
+  "topic_code": "2.1",
+  "item": {
+   "title": "Center of Mass of a Loaded Rectangular Frame",
+   "calculator": "permitted",
+   "stimulus": "Four small objects are fixed to the corners of a light, rigid rectangular frame of negligible mass. The frame lies flat in a horizontal plane. Positions are measured from corner A, with the x-axis along the 0.60 m side and the y-axis along the 0.40 m side. Treat each object as a particle.\n\nCorner | x (m) | y (m)\nA | 0 | 0\nB | 0.60 | 0\nC | 0.60 | 0.40\nD | 0 | 0.40\n\nArrangement 1: a 1.0 kg object is fixed at each of the four corners.\nArrangement 2: the object at corner C is replaced by a 5.0 kg object; corners A, B, and D still hold 1.0 kg objects.",
+   "parts": [
+    {
+     "prompt": "Without using the center-of-mass equation, determine the location (x, y) of the center of mass of Arrangement 1. Justify your answer.",
+     "criteria": [
+      {
+       "text": "Locates the center of mass at (0.30 m, 0.20 m), justified because the four equal masses form a symmetric distribution, so the center of mass lies on both lines of symmetry, x = 0.30 m and y = 0.20 m, at their intersection.",
+       "evidence": "Response gives (0.30 m, 0.20 m), the center of the rectangle, and justifies it with symmetry of the equal masses (the center of mass lies on the lines of symmetry).",
+       "fix": "For equal masses placed symmetrically, find the lines of symmetry; the center of mass lies on each one, so it is where they cross.",
+       "accepted_variants": [
+        "(0.3 m, 0.2 m)",
+        "the center of the rectangle"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the x-coordinate and the y-coordinate of the center of mass of Arrangement 2.",
+     "criteria": [
+      {
+       "text": "x_cm = (1.0·0 + 1.0·0.60 + 5.0·0.60 + 1.0·0)/8.0 = 3.6/8.0 = 0.45 m.",
+       "evidence": "Response uses x_cm = Σm·x/Σm with total mass 8.0 kg and obtains 0.45 m.",
+       "fix": "Multiply each mass by its x-coordinate, add the products, then divide by the total mass of all four objects.",
+       "accepted_variants": []
+      },
+      {
+       "text": "y_cm = (1.0·0 + 1.0·0 + 5.0·0.40 + 1.0·0.40)/8.0 = 2.4/8.0 = 0.30 m.",
+       "evidence": "Response uses y_cm = Σm·y/Σm with total mass 8.0 kg and obtains 0.30 m.",
+       "fix": "Repeat the weighted average for y separately; objects on the x-axis contribute zero to the sum but still count in total mass.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The loaded frame in Arrangement 2 slides across a frictionless horizontal table without rotating. A student wants to describe how the frame moves as a whole without tracking the four objects separately. Describe how the student can model the system, including the mass of the model object and where it is located.",
+     "criteria": [
+      {
+       "text": "Models the frame and its four objects as a single object (particle) of mass 8.0 kg located at the system's center of mass, (0.45 m, 0.30 m).",
+       "evidence": "Response states the system can be treated as one object (particle) with the total mass 8.0 kg, placed at the system's center of mass (the location found in the previous part, including a consistent follow-through value).",
+       "fix": "To describe a system's overall motion, replace it with one object carrying the total mass and place it at the center of mass.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The four objects have equal masses and sit at the corners of a rectangle, so the mass distribution is symmetric about the line x = 0.30 m and about the line y = 0.20 m. The center of mass lies on every line of symmetry, so it is at their intersection: (0.30 m, 0.20 m), the center of the rectangle.\n\n(b) Total mass = 1.0 + 1.0 + 5.0 + 1.0 = 8.0 kg.\nx_cm = (1.0·0 + 1.0·0.60 + 5.0·0.60 + 1.0·0)/8.0 = 3.6/8.0 = 0.45 m.\ny_cm = (1.0·0 + 1.0·0 + 5.0·0.40 + 1.0·0.40)/8.0 = 2.4/8.0 = 0.30 m.\nThe center of mass is at (0.45 m, 0.30 m), shifted toward the heavy object at corner C.\n\n(c) The four objects are rigidly attached and move together, so their individual properties do not matter for the motion of the whole system. The student can model the system as a single object of mass 8.0 kg located at the system's center of mass, (0.45 m, 0.30 m), and describe the motion of that one object.",
+   "verification_python": "from fractions import Fraction as F\npts={'A':(F(0),F(0)),'B':(F(6,10),F(0)),'C':(F(6,10),F(4,10)),'D':(F(0),F(4,10))}\nm1={'A':F(1),'B':F(1),'C':F(1),'D':F(1)}\nM1=sum(m1.values())\nx1=sum(m1[k]*pts[k][0] for k in pts)/M1\ny1=sum(m1[k]*pts[k][1] for k in pts)/M1\nassert x1==F(3,10) and y1==F(2,10)\nm2={'A':F(1),'B':F(1),'C':F(5),'D':F(1)}\nM2=sum(m2.values())\nassert M2==8\nsx=sum(m2[k]*pts[k][0] for k in pts)\nsy=sum(m2[k]*pts[k][1] for k in pts)\nassert sx==F(36,10) and sy==F(24,10)\nassert sx/M2==F(45,100)\nassert sy/M2==F(30,100)\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_1",
+  "topic_code": "2.2",
+  "item": {
+   "title": "Identifying the Forces on a Box Sliding Down a Ramp",
+   "calculator": "not_applicable",
+   "stimulus": "A box slides down a rough, straight ramp that makes an angle of 25° with the horizontal. The box speeds up as it slides. The ramp is fixed to the ground, air resistance is negligible, and nothing touches the box except the ramp.",
+   "parts": [
+    {
+     "prompt": "List every force exerted on the box while it slides. For each force, name the object that exerts it and describe its direction in words. Do not resolve the forces into components.",
+     "criteria": [
+      {
+       "text": "Gravitational force exerted by Earth on the box, directed vertically downward.",
+       "evidence": "Response lists the gravitational force (weight, F_g, or mg), names Earth as the object exerting it, and gives its direction as straight down, not perpendicular to the ramp.",
+       "fix": "Name Earth as the source of the gravitational force and point it straight down, whatever the tilt of the surface.",
+       "accepted_variants": [
+        "weight exerted by Earth, straight down"
+       ]
+      },
+      {
+       "text": "Normal force exerted by the ramp on the box, directed perpendicular to the ramp surface and away from it.",
+       "evidence": "Response lists the normal force, names the ramp as the object exerting it, and gives its direction as perpendicular to the ramp surface, away from the surface.",
+       "fix": "A surface pushes perpendicular to itself: point the normal force at a right angle to the ramp, away from it, not straight up.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Friction force exerted by the ramp on the box, directed parallel to the ramp surface and up the ramp, opposite to the box's motion.",
+       "evidence": "Response lists a friction force, names the ramp as the object exerting it, and gives its direction as along the ramp surface, up the ramp.",
+       "fix": "On a rough surface add friction from that surface, directed along the surface opposite to the object's sliding motion.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A classmate's list of forces on the box also includes \"the force of the box's motion,\" directed down the ramp. Explain why this force should not be included.",
+     "criteria": [
+      {
+       "text": "Explains that every force is an interaction between the box and another object, and no object exerts a \"force of motion\" on the box; motion results from the forces exerted on the box and is not itself a force.",
+       "evidence": "Response states that no other object exerts this force (an object cannot exert a force on itself), so it is not an interaction and does not belong on the list.",
+       "fix": "Before listing a force, name the other object that exerts it; if no object can be named, it is not a force.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "To write equations for the box, a student chooses one coordinate axis parallel to the ramp surface and the other perpendicular to it. Explain one reason this choice of axes simplifies the analysis.",
+     "criteria": [
+      {
+       "text": "Gives a valid reason: the box accelerates along the ramp, so with an axis parallel to the ramp the acceleration lies entirely along one axis and its perpendicular component is zero; or, the normal and friction forces already lie along the chosen axes, so only the gravitational force must be split into components.",
+       "evidence": "Response states either that the acceleration is parallel to the ramp and so has a component along only one axis, or that only the gravitational force is not along an axis.",
+       "fix": "Choose one axis along the direction of acceleration; then the acceleration has a single nonzero component and the other axis has zero acceleration.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Three forces are exerted on the box:\n1. The gravitational force exerted by Earth, directed vertically downward.\n2. The normal force exerted by the ramp, directed perpendicular to the ramp surface, away from the ramp.\n3. The kinetic friction force exerted by the ramp, directed parallel to the ramp surface, up the ramp (opposite to the box's motion down the ramp).\n\n(b) A force is always an interaction between the box and another object. No object exerts a \"force of the box's motion\" on the box, and an object cannot exert a force on itself. The box's motion down the ramp is the result of the forces listed above, not an additional force, so it should not be included.\n\n(c) The box slides along the ramp, so its acceleration is parallel to the ramp surface. With one axis parallel to the ramp, the acceleration lies entirely along that axis and its component perpendicular to the ramp is zero. Also, the normal force and the friction force already lie along the two axes, so only the gravitational force has to be split into components.",
+   "verification_python": "forces=[('gravitational','Earth','down'),('normal','ramp','perpendicular away'),('friction','ramp','up the ramp')]\nassert len(forces)==3\nassert len([f for f in forces if f[1]=='ramp'])==2\nassert len([f for f in forces if f[1]=='Earth'])==1\nangle=25\nassert 0<angle<90\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_1",
+  "topic_code": "2.3",
+  "item": {
+   "title": "Paired Forces Between a Tow Truck, a Cable, and a Car",
+   "calculator": "not_applicable",
+   "stimulus": "A tow truck pulls a car east along a straight, level road using a horizontal cable. The truck is east of the car. Treat the cable as ideal: its mass is negligible and it does not stretch. At one instant, the cable exerts a force of 1500 N directed east on the car.",
+   "parts": [
+    {
+     "prompt": "Determine the magnitude and direction of the force that the car exerts on the cable at this instant. Justify your answer.",
+     "criteria": [
+      {
+       "text": "The car exerts a force of 1500 N directed west on the cable, by Newton's third law: the force of the car on the cable is equal in magnitude and opposite in direction to the force of the cable on the car.",
+       "evidence": "Response gives 1500 N, west, and justifies it with Newton's third law (paired forces equal in magnitude and opposite in direction).",
+       "fix": "For a force of A on B, the third-law partner is B on A: same magnitude, opposite direction, exerted on the other object.",
+       "accepted_variants": [
+        "1500 N west",
+        "−1500 N with east positive"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Determine the magnitude and direction of the force that the cable exerts on the truck at this instant. Justify your answer using a property of the cable.",
+     "criteria": [
+      {
+       "text": "The cable exerts a force of 1500 N directed west on the truck, because the tension in an ideal cable is the same at all points, so it pulls on the truck with the same magnitude as on the car, directed along the cable toward the car (west).",
+       "evidence": "Response gives 1500 N, west, and justifies the magnitude by stating that tension is the same throughout an ideal (massless) cable.",
+       "fix": "In an ideal string or cable, tension is equal at every point; each end pulls on its attached object along the cable, toward the middle.",
+       "accepted_variants": [
+        "1500 N west"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A student says: \"The car pulls back on the cable with a force equal in size and opposite in direction to the cable's pull on the car, so these two forces cancel and the car cannot speed up.\" Explain the error in the student's reasoning.",
+     "criteria": [
+      {
+       "text": "Explains that the two forces in a third-law pair are exerted on different objects (one on the car, one on the cable), so they cannot cancel; only forces exerted on the car itself combine to determine the car's motion.",
+       "evidence": "Response states that the paired forces act on different objects and therefore do not add together or cancel in describing the car's motion.",
+       "fix": "Check which object each force is exerted on; third-law partners are always on different objects, so never cancel them against each other.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Consider the system made up of the truck, the cable, and the car. Explain whether the forces that the cable exerts on the truck and on the car can change the velocity of this system's center of mass.",
+     "criteria": [
+      {
+       "text": "They cannot: the cable's forces on the truck and car are interactions between objects inside the chosen system (internal forces), and internal forces do not influence the motion of the system's center of mass.",
+       "evidence": "Response identifies the cable forces as internal to the truck–cable–car system and states that internal forces do not change the motion of the system's center of mass.",
+       "fix": "First decide whether both interacting objects are inside the system; if so, the forces are internal and cannot change the center-of-mass motion.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) By Newton's third law, the force the car exerts on the cable is equal in magnitude and opposite in direction to the force the cable exerts on the car: F(car on cable) = −F(cable on car). So the car exerts 1500 N directed west on the cable.\n\n(b) The cable is ideal, so the tension is the same at all points along it. The cable pulls on each attached object along the cable toward the other object. It pulls the car east with 1500 N, so it pulls the truck with 1500 N directed west, toward the car.\n\n(c) The two forces the student describes form a third-law pair, and they are exerted on different objects: one is exerted on the car and the other on the cable. Forces exerted on different objects cannot cancel each other. Only forces exerted on the car itself determine whether the car speeds up, so the student's conclusion does not follow.\n\n(d) No. The cable, truck, and car are all inside the chosen system, so the forces the cable exerts on the truck and on the car are internal forces. Internal forces do not influence the motion of a system's center of mass, so they cannot change the velocity of the center of mass of the truck–cable–car system.",
+   "verification_python": "F_cable_on_car=1500\nF_car_on_cable=-F_cable_on_car\nassert F_car_on_cable==-1500\nT=abs(F_car_on_cable)\nF_cable_on_truck=-T\nassert F_cable_on_truck==-1500\nassert abs(F_cable_on_truck)==abs(F_cable_on_car)\nassert F_cable_on_car+F_cable_on_truck==0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_1",
+  "topic_code": "2.4",
+  "item": {
+   "title": "Balanced and Unbalanced Forces in Three Situations",
+   "calculator": "permitted",
+   "stimulus": "Situation 1: A child pulls a sled across level snow with a rope. The rope is at 37° above the horizontal and the tension in the rope is 50 N. The sled moves east in a straight line at a constant speed of 1.5 m/s. The gravitational force exerted on the sled by Earth is 300 N. The snow exerts a normal force and a horizontal friction force on the sled. Use sin 37° = 0.60 and cos 37° = 0.80.\n\nSituation 2: A hockey puck slides east at 3.0 m/s across frictionless, level ice. Starting at time t = 0, a steady wind exerts a constant horizontal force on the puck directed north. The vertical forces on the puck remain balanced.\n\nSituation 3: A bus on a straight, level road is speeding up while moving east. A small block of ice is placed on the floor of the bus, and friction between the ice and the floor is negligible. A passenger in the bus sees the block slide toward the back of the bus, even though no horizontal force is exerted on the block.",
+   "parts": [
+    {
+     "prompt": "For Situation 1, calculate the magnitude of the friction force and the magnitude of the normal force that the snow exerts on the sled.",
+     "criteria": [
+      {
+       "text": "Friction force magnitude = 50 N × cos 37° = 50 × 0.80 = 40 N, because the sled's velocity is constant, so the net force is zero and the horizontal forces balance.",
+       "evidence": "Response sets the horizontal net force to zero (constant velocity) and finds friction = 40 N from the rope's horizontal component.",
+       "fix": "Constant velocity means zero net force; balance the rope's horizontal component, T cos θ, against friction.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Normal force magnitude = 300 N − 50 N × sin 37° = 300 − 30 = 270 N, from balancing the vertical forces.",
+       "evidence": "Response sets the vertical net force to zero, including the rope's upward component of 30 N, and finds the normal force = 270 N.",
+       "fix": "Include the rope's upward component when balancing vertical forces; the normal force equals 300 N minus T sin θ, not 300 N.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For Situation 2, describe what happens after t = 0 to the east component and to the north component of the puck's velocity. Justify your answer.",
+     "criteria": [
+      {
+       "text": "The east component of velocity stays constant at 3.0 m/s, because there is no east–west force on the puck, so the forces are balanced in that direction.",
+       "evidence": "Response states the east component remains 3.0 m/s (unchanged) and justifies it with zero net force in the east–west direction.",
+       "fix": "Treat each direction separately: if forces along a direction are balanced, the velocity component along that direction stays constant.",
+       "accepted_variants": [
+        "east component unchanged at 3.0 m/s"
+       ]
+      },
+      {
+       "text": "The north component of velocity changes, increasing from zero in the northward direction, because the wind's force makes the net force northward, unbalanced in that direction.",
+       "evidence": "Response states the north component of velocity changes (grows from zero, directed north) and justifies it with the unbalanced northward force.",
+       "fix": "Velocity changes only in the direction of the unbalanced force; identify that direction and state that component changes.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "For Situation 3, is the bus an inertial reference frame? Justify your answer using Newton's first law.",
+     "criteria": [
+      {
+       "text": "No: in the bus's frame the ice block's velocity changes (it starts moving toward the back) even though the net force on it is zero, so an observer in the bus would not verify Newton's first law, and the bus is not an inertial frame.",
+       "evidence": "Response says the bus is not inertial and justifies it by noting the block accelerates relative to the bus while the net force on it is zero, contradicting Newton's first law.",
+       "fix": "Test a frame by asking whether objects with zero net force keep constant velocity there; if not, the frame is noninertial.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The sled moves at constant velocity, so by Newton's first law the net force on it is zero.\nHorizontal: the rope's horizontal component is 50 N × 0.80 = 40 N east, so the friction force has magnitude 40 N (directed west).\nVertical: the rope's vertical component is 50 N × 0.60 = 30 N up. F_N + 30 N − 300 N = 0, so the normal force has magnitude 270 N.\n\n(b) After t = 0 there is still no force on the puck in the east–west direction, so the forces in that direction are balanced and the east component of velocity stays constant at 3.0 m/s. The wind's force makes the net force point north, so the forces are unbalanced in that direction and the north component of velocity changes: it increases from zero, directed north.\n\n(c) No. The net force on the ice block is zero: the vertical forces balance and no horizontal force is exerted on it. Yet an observer in the bus sees the block's velocity change as it starts sliding toward the back. Newton's first law says an object with zero net force keeps a constant velocity, so this observer would not verify the first law. The speeding-up bus is therefore not an inertial reference frame.",
+   "verification_python": "import math\nT=50;W=300;s=0.60;c=0.80\nassert abs(s**2+c**2-1)<1e-12\nassert abs(math.sin(math.radians(37))-s)<0.01\nassert abs(math.cos(math.radians(37))-c)<0.01\nfric=T*c\nassert abs(fric-40)<1e-9\nup=T*s\nassert abs(up-30)<1e-9\nN=W-up\nassert abs(N-270)<1e-9\nassert abs(N+up-W)<1e-9\nv_east=3.0\nF_east=0\nassert F_east==0 and v_east==3.0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_1",
+  "topic_code": "2.6",
+  "item": {
+   "title": "Weight and Apparent Weight on a Larger Planet",
+   "calculator": "permitted",
+   "stimulus": "Planet P has twice the mass of Earth and twice the radius of Earth. Treat both planets as spheres with symmetrically distributed mass, and ignore their rotation. At Earth's surface the gravitational field strength is 10 N/kg. An astronaut has a mass of 60 kg. Ignore gravitational forces from all objects other than the planet being discussed.",
+   "parts": [
+    {
+     "prompt": "Calculate the gravitational field strength at the surface of Planet P.",
+     "criteria": [
+      {
+       "text": "g_P = G(2M)/(2R)² = (2/4)·GM/R² = (1/2)(10 N/kg) = 5.0 N/kg.",
+       "evidence": "Response applies g = GM/r² with doubled mass and doubled radius and obtains 5.0 N/kg (or 5.0 m/s²).",
+       "fix": "Write g = GM/r², replace M and r by their multiples, and simplify: doubling r divides g by four.",
+       "accepted_variants": [
+        "5 N/kg",
+        "5.0 m/s²"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the magnitude of the gravitational force exerted by Planet P on the astronaut when the astronaut stands on its surface.",
+     "criteria": [
+      {
+       "text": "F_g = mg_P = (60 kg)(5.0 N/kg) = 300 N.",
+       "evidence": "Response multiplies the astronaut's 60 kg mass by the surface field strength of Planet P to obtain 300 N (a consistent follow-through value from the previous part also earns this point).",
+       "fix": "Weight is mass times the local field strength; use the field strength for Planet P, not Earth's 10 N/kg.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The astronaut later travels in a spacecraft to a point that is a distance 3R from the center of Planet P, where R is the radius of Planet P. Calculate the magnitude of the gravitational force exerted by Planet P on the astronaut at that point.",
+     "criteria": [
+      {
+       "text": "The distance from the center triples, so F_g falls by a factor of 3² = 9: F = 300 N/9 ≈ 33 N.",
+       "evidence": "Response uses the inverse-square dependence on distance from the planet's center (3R, not 2R) and obtains about 33 N (100/3 N).",
+       "fix": "Measure r from the planet's center; with F ∝ 1/r², tripling r divides the force by nine.",
+       "accepted_variants": [
+        "100/3 N",
+        "33.3 N"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Back on the surface of Planet P, the astronaut stands on a scale in an elevator that has an upward acceleration of magnitude 2.0 m/s². Calculate the astronaut's apparent weight.",
+     "criteria": [
+      {
+       "text": "Apparent weight = normal force: F_N − mg_P = ma, so F_N = m(g_P + a) = 60(5.0 + 2.0) = 420 N.",
+       "evidence": "Response identifies apparent weight as the normal (scale) force and obtains 420 N from F_N − mg = ma with upward acceleration.",
+       "fix": "Apparent weight is the normal force; apply net force = ma with the acceleration's direction, so F_N exceeds mg when accelerating upward.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The field strength at a planet's surface is g = GM/R². For Planet P, g_P = G(2M)/(2R)² = (2/4)(GM/R²) = (1/2)(10 N/kg) = 5.0 N/kg.\n\n(b) F_g = m·g_P = (60 kg)(5.0 N/kg) = 300 N.\n\n(c) The gravitational force is inversely proportional to the square of the distance between centers. On the surface the distance is R; at the new point it is 3R, three times larger, so the force is 1/9 as large: F = 300 N/9 ≈ 33 N.\n\n(d) The apparent weight is the magnitude of the normal force exerted by the scale. Taking up as positive, F_N − m·g_P = m·a, so F_N = m(g_P + a) = (60 kg)(5.0 m/s² + 2.0 m/s²) = 420 N. The apparent weight is 420 N, greater than the 300 N gravitational force because the astronaut accelerates upward.",
+   "verification_python": "from fractions import Fraction as F\ngE=F(10)\ngP=gE*F(2)/F(2)**2\nassert gP==5\nm=60\nW=m*gP\nassert W==300\nF3=W/F(3)**2\nassert F3==F(100,3)\nassert abs(float(F3)-33.3)<0.05\na=2\nFN=m*(gP+a)\nassert FN==420\nassert FN-m*gP==m*a\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_1",
+  "topic_code": "3.1",
+  "item": {
+   "title": "Kinetic Energy of a Car Measured by Different Observers",
+   "calculator": "permitted",
+   "stimulus": "A car of mass 1200 kg travels east along a straight, level road at 15 m/s, as measured by an observer standing beside the road. Take east as the positive direction.",
+   "parts": [
+    {
+     "prompt": "Calculate the car's translational kinetic energy as measured by the roadside observer.",
+     "criteria": [
+      {
+       "text": "K = (1/2)mv² = (1/2)(1200 kg)(15 m/s)² = 135,000 J.",
+       "evidence": "Response substitutes m = 1200 kg and v = 15 m/s into K = (1/2)mv² and obtains 135,000 J.",
+       "fix": "Square the speed before multiplying: K = (1/2)mv², with v² = 225 m²/s² here.",
+       "accepted_variants": [
+        "1.35 × 10⁵ J",
+        "135 kJ"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A truck with twice the mass of the car travels at half the car's speed, as measured by the roadside observer. Determine the ratio of the truck's kinetic energy to the car's kinetic energy.",
+     "criteria": [
+      {
+       "text": "K_truck/K_car = (1/2)(2m)(v/2)² ÷ (1/2)mv² = 2 × 1/4 = 1/2.",
+       "evidence": "Response shows that doubling the mass doubles K while halving the speed divides K by 4, giving a ratio of 1/2.",
+       "fix": "Use K ∝ mv²: multiply the mass factor by the square of the speed factor.",
+       "accepted_variants": [
+        "0.5",
+        "1:2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A second car, identical to the first, travels west at 15 m/s. A student says this car has negative kinetic energy because its velocity is negative. Explain whether the student is correct.",
+     "criteria": [
+      {
+       "text": "The student is incorrect: kinetic energy is a scalar that depends on v², which is positive for either direction, so the westbound car's kinetic energy is also +135,000 J.",
+       "evidence": "Response states the student is wrong because kinetic energy is a scalar (no direction) and squaring the velocity removes the sign, so the second car has the same 135,000 J.",
+       "fix": "Remember kinetic energy is a scalar: squaring velocity gives a positive value, so direction never affects K.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "An observer riding in a van that moves west at 5.0 m/s, as measured by the roadside observer, measures the motion of the first car. Calculate the first car's translational kinetic energy as measured by the observer in the van.",
+     "criteria": [
+      {
+       "text": "Car's velocity relative to the van = (+15 m/s) − (−5.0 m/s) = +20 m/s, so K = (1/2)(1200 kg)(20 m/s)² = 240,000 J.",
+       "evidence": "Response finds the car's speed relative to the van as 20 m/s and obtains 240,000 J, recognizing that kinetic energy depends on the observer's reference frame.",
+       "fix": "Find the object's velocity relative to the observer first (subtract the observer's signed velocity), then compute K with that speed.",
+       "accepted_variants": [
+        "2.4 × 10⁵ J",
+        "240 kJ"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) K = (1/2)mv² = (1/2)(1200 kg)(15 m/s)² = (600)(225) = 135,000 J.\n\n(b) K_truck = (1/2)(2m)(v/2)² = (1/2)(2m)(v²/4) = (1/2)·(1/2)mv². So K_truck/K_car = 1/2. Doubling the mass doubles K, but halving the speed divides K by 4.\n\n(c) The student is not correct. Kinetic energy is a scalar, K = (1/2)mv², and v² is positive whether the velocity is +15 m/s or −15 m/s. The westbound car has the same kinetic energy, 135,000 J, not a negative value.\n\n(d) Relative to the van, the car's velocity is (+15 m/s) − (−5.0 m/s) = +20 m/s. The van observer measures K = (1/2)(1200 kg)(20 m/s)² = (600)(400) = 240,000 J. Kinetic energy depends on the observer's reference frame.",
+   "verification_python": "from fractions import Fraction as F\nm=1200;v=15\nK=F(1,2)*m*v**2\nassert K==135000\nKt=F(1,2)*(2*m)*(F(v,2))**2\nassert Kt/K==F(1,2)\nK2=F(1,2)*m*(-15)**2\nassert K2==135000\nvvan=-5\nvrel=15-vvan\nassert vrel==20\nKv=F(1,2)*m*vrel**2\nassert Kv==240000\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_physics_1",
+  "topic_code": "3.3",
+  "item": {
+   "title": "Elastic and Gravitational Potential Energy and the Choice of Zero",
+   "calculator": "permitted",
+   "stimulus": "System 1: A block on a horizontal surface rests against an ideal spring with spring constant 400 N/m. The block is pushed so that the spring is compressed 0.15 m from its equilibrium length, and the block is held at rest.\n\nSystem 2: A 2.0 kg book and Earth form a system. The book is moved from a shelf 1.50 m above the floor to a tabletop 0.80 m above the floor. Use g = 10 N/kg. Student A chooses the floor as the zero of gravitational potential energy, and Student B chooses the tabletop as the zero.",
+   "parts": [
+    {
+     "prompt": "Calculate the elastic potential energy of the block–spring system when the spring is compressed 0.15 m.",
+     "criteria": [
+      {
+       "text": "U_s = (1/2)k(Δx)² = (1/2)(400 N/m)(0.15 m)² = 4.5 J.",
+       "evidence": "Response substitutes k = 400 N/m and Δx = 0.15 m into U_s = (1/2)k(Δx)² and obtains 4.5 J.",
+       "fix": "Square the compression before multiplying: U_s = (1/2)k(Δx)², with Δx measured from the spring's equilibrium length.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The spring is instead compressed 0.30 m from its equilibrium length. Determine the factor by which the elastic potential energy of the system changes compared with the 0.15 m compression.",
+     "criteria": [
+      {
+       "text": "The elastic potential energy increases by a factor of 4 (to 18 J), because U_s is proportional to (Δx)² and the compression doubles.",
+       "evidence": "Response states a factor of 4 (or computes 18 J ÷ 4.5 J = 4) using the squared dependence on compression.",
+       "fix": "Use U_s ∝ (Δx)²: the energy factor is the square of the compression factor, so doubling Δx gives four times.",
+       "accepted_variants": [
+        "quadruples",
+        "4 times"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the change in gravitational potential energy of the book–Earth system as the book moves from the shelf to the tabletop, according to Student A and according to Student B.",
+     "criteria": [
+      {
+       "text": "Both students find ΔU_g = mgΔy = (2.0 kg)(10 N/kg)(0.80 m − 1.50 m) = −14 J (Student A: 16 J − 30 J; Student B: 0 J − 14 J).",
+       "evidence": "Response obtains −14 J (a decrease of 14 J) for both Student A and Student B, by direct use of mgΔy or by subtracting each student's values.",
+       "fix": "Compute ΔU as final minus initial; with Δy negative here, the potential energy decreases.",
+       "accepted_variants": [
+        "a decrease of 14 J for both students"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the two students assign different values to the gravitational potential energy of the system when the book is on the shelf but agree on the change in potential energy.",
+     "criteria": [
+      {
+       "text": "Explains that the location of zero potential energy is a choice made by the observer; changing it shifts every potential energy value by the same constant (here 16 J), so individual values differ but the difference between two positions is unchanged.",
+       "evidence": "Response states the zero of potential energy is arbitrary (chosen by the observer) and that this choice adds the same constant to both values, which cancels when finding the change.",
+       "fix": "Remember only changes in potential energy are fixed by physics; the zero level is a choice that shifts all values equally.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) U_s = (1/2)k(Δx)² = (1/2)(400 N/m)(0.15 m)² = (200)(0.0225) = 4.5 J.\n\n(b) U_s is proportional to (Δx)². Doubling the compression from 0.15 m to 0.30 m multiplies U_s by 2² = 4. Check: (1/2)(400)(0.30)² = 18 J, and 18 J/4.5 J = 4.\n\n(c) Student A (zero at floor): U_shelf = (2.0)(10)(1.50) = 30 J and U_table = (2.0)(10)(0.80) = 16 J, so ΔU_g = 16 J − 30 J = −14 J.\nStudent B (zero at tabletop): U_shelf = (2.0)(10)(0.70) = 14 J and U_table = 0 J, so ΔU_g = 0 J − 14 J = −14 J.\nBoth find ΔU_g = −14 J; the potential energy of the system decreases by 14 J.\n\n(d) The position of zero potential energy is a choice made by the observer. Measuring heights from the tabletop instead of the floor lowers every potential energy value by the same amount, mg(0.80 m) = 16 J. The values at a single position differ (30 J versus 14 J at the shelf), but when one value is subtracted from another the shared 16 J cancels, so the change in potential energy is the same for both students.",
+   "verification_python": "from fractions import Fraction as F\nk=400;x1=F(15,100);x2=F(30,100)\nU1=F(1,2)*k*x1**2\nassert U1==F(9,2)\nU2=F(1,2)*k*x2**2\nassert U2==18 and U2/U1==4\nm=2;g=10;hs=F(150,100);ht=F(80,100)\nUA_s=m*g*hs;UA_t=m*g*ht\nassert UA_s==30 and UA_t==16\nUB_s=m*g*(hs-ht);UB_t=0\nassert UB_s==14\ndA=UA_t-UA_s;dB=UB_t-UB_s\nassert dA==-14 and dB==-14\nassert UA_s-UB_s==m*g*ht==16\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_biology",
+  "topic_code": "1.2",
+  "item": {
+   "title": "Tracing Labeled Sulfur and Phosphorus into Macromolecules",
+   "calculator": "not_applicable",
+   "stimulus": "Researchers grew two cultures of the same bacterium. Each culture's food source contained one radioactively labeled element. Cells use a radioactive form of an element in the same way as the ordinary form.\n\nCulture 1: sulfur-35 (³⁵S)\nCulture 2: phosphorus-32 (³²P)\n\nAfter several generations, the cells from each culture were broken open and their molecules were separated into four fractions: carbohydrates, lipids, proteins, and nucleic acids. The radioactivity of each fraction was measured in counts per minute (cpm). Readings below 100 cpm are background and show that the label was not incorporated.\n\nFraction | Culture 1 (³⁵S), cpm | Culture 2 (³²P), cpm\nCarbohydrates | 30 | 40\nLipids | 25 | 2100\nProteins | 8800 | 35\nNucleic acids | 20 | 6400",
+   "parts": [
+    {
+     "prompt": "Explain why the ³⁵S in Culture 1 was incorporated into the protein fraction.",
+     "criteria": [
+      {
+       "text": "Explains that sulfur is an element used in building proteins, so the cells built ³⁵S into the proteins they made.",
+       "evidence": "Response states that sulfur is used to build proteins (is part of proteins) and connects this to the label appearing in the protein fraction.",
+       "fix": "Memorize the element linked to each macromolecule: sulfur is used in building proteins, so a sulfur label marks protein.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "In Culture 2, ³²P was incorporated into two different fractions. Explain why each of these two fractions became labeled.",
+     "criteria": [
+      {
+       "text": "Explains that phosphorus is used in building nucleic acids, so ³²P was incorporated into the nucleic acid fraction (6400 cpm).",
+       "evidence": "Response links the labeled nucleic acid fraction to phosphorus being an element used to build nucleic acids.",
+       "fix": "Recall phosphorus is used in building nucleic acids; check that fraction first when a phosphorus label is used.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Explains that phosphorus is used in building phospholipids, a type of lipid, so ³²P was incorporated into the lipid fraction (2100 cpm).",
+       "evidence": "Response links the labeled lipid fraction to phosphorus being an element used to build phospholipids.",
+       "fix": "Recall phosphorus also builds phospholipids, which are lipids; a phosphorus label therefore appears in the lipid fraction too.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Cellulose is a carbohydrate. A researcher grows cotton plants with ³²P in their water and then purifies cellulose from the cotton fibers. Predict whether the purified cellulose will contain ³²P, and justify your prediction.",
+     "criteria": [
+      {
+       "text": "Predicts that the purified cellulose will not contain ³²P (it will not be radioactive).",
+       "evidence": "Response states the cellulose will not be labeled with ³²P.",
+       "fix": "Decide whether the molecule class contains the labeled element; if not, predict no label in the purified molecule.",
+       "accepted_variants": [
+        "not radioactive",
+        "no ³²P"
+       ]
+      },
+      {
+       "text": "Justifies the prediction: carbohydrates such as cellulose are built from carbon, hydrogen, and oxygen and do not contain phosphorus.",
+       "evidence": "Response states that carbohydrates are made of carbon, hydrogen, and oxygen (no phosphorus), so phosphorus is not built into cellulose.",
+       "fix": "Justify with elemental composition: carbohydrates are built of carbon, hydrogen, and oxygen only, so they lack phosphorus.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Sulfur is one of the elements used in building proteins. As the bacteria made new proteins, they used the ³⁵S from their food, so the label appeared in the protein fraction (8800 cpm), while the other fractions stayed at background.\n\n(b) Phosphorus is used in building nucleic acids, so the cells built ³²P into their nucleic acids, labeling the nucleic acid fraction (6400 cpm).\nPhosphorus is also used in building phospholipids, which are a type of lipid, so ³²P was built into phospholipids and the lipid fraction was labeled (2100 cpm).\n\n(c) The purified cellulose will not contain ³²P. Cellulose is a carbohydrate, and carbohydrates are built from carbon, hydrogen, and oxygen; they do not contain phosphorus. This matches the data: the carbohydrate fraction in Culture 2 stayed at background (40 cpm).",
+   "verification_python": "c1={'carb':30,'lipid':25,'protein':8800,'nucleic':20}\nc2={'carb':40,'lipid':2100,'protein':35,'nucleic':6400}\nbg=100\nlab1=sorted(k for k,v in c1.items() if not v<bg)\nlab2=sorted(k for k,v in c2.items() if not v<bg)\nassert lab1==['protein']\nassert lab2==['lipid','nucleic']\nassert len(lab2)==2\nassert c2['carb']<bg\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_biology",
+  "topic_code": "1.4",
+  "item": {
+   "title": "Linear and Branched Storage Polysaccharides",
+   "calculator": "permitted",
+   "stimulus": "Two storage polysaccharides were purified. Every molecule of each polysaccharide is built from exactly 1,200 glucose monomers.\n\nPolysaccharide L: one unbranched (linear) chain.\nPolysaccharide B: highly branched; it consists of 100 chains joined to one another.\n\nCells break these polysaccharides down by removing glucose monomers one at a time, and a monomer can be removed only from the free end of a chain. Each chain, in either polysaccharide, has exactly one free end from which monomers can be removed. In a test, glucose was removed from every free end at the same rate, 10 glucose monomers per second per free end.",
+   "parts": [
+    {
+     "prompt": "Identify the type of bond that links the glucose monomers together in both polysaccharides.",
+     "criteria": [
+      {
+       "text": "Identifies the bonds between monomers as covalent bonds.",
+       "evidence": "Response states that the glucose monomers are joined by covalent bonds.",
+       "fix": "Remember monosaccharide monomers are joined into polysaccharides by covalent bonds, not hydrogen or ionic bonds.",
+       "accepted_variants": [
+        "covalent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "For one molecule of each polysaccharide, calculate how many times faster glucose is released from Polysaccharide B than from Polysaccharide L at the start of the test.",
+     "criteria": [
+      {
+       "text": "Calculates that B releases glucose 100 times faster: L has 1 free end (10 monomers per second) and B has 100 free ends (1,000 monomers per second); 1,000 ÷ 10 = 100.",
+       "evidence": "Response compares the number of free ends (100 versus 1), or the release rates (1,000 versus 10 monomers per second), and obtains a factor of 100.",
+       "fix": "Count free ends in each molecule, multiply by the rate per end, then divide the two release rates.",
+       "accepted_variants": [
+        "100 times faster",
+        "100-fold"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Animals store glucose in glycogen, a highly branched polysaccharide, in cells such as muscle cells that may need glucose very quickly. Using the results of the test, explain how a branched structure suits this function.",
+     "criteria": [
+      {
+       "text": "Explains that branching produces many chains and therefore many free ends, so glucose can be removed from many ends at the same time, releasing glucose quickly when the cell needs it.",
+       "evidence": "Response connects the many free chain ends of a branched polymer to simultaneous removal of monomers and faster glucose release, using the test result.",
+       "fix": "Link structure to function: more branches mean more free ends, and more ends mean more monomers released at once.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "One molecule of L and one molecule of B are each completely broken down into glucose. Predict whether the two molecules release the same or different numbers of glucose monomers, and justify your prediction.",
+     "criteria": [
+      {
+       "text": "Predicts that both molecules release the same number of glucose monomers, 1,200 each.",
+       "evidence": "Response states that the numbers are the same (1,200 glucose monomers from each molecule).",
+       "fix": "Compare total monomer counts, not rates; complete breakdown of a polymer releases every monomer it contains.",
+       "accepted_variants": [
+        "the same number",
+        "1,200 each"
+       ]
+      },
+      {
+       "text": "Justifies that both are polymers of 1,200 glucose monomers; branching changes how the monomers are connected (and how fast they can be removed), not how many monomers the polymer contains.",
+       "evidence": "Response explains that complete breakdown releases every monomer in each polymer and that branched versus linear arrangement does not change the number of monomers.",
+       "fix": "Separate structure from composition: linear or branched describes how monomers are joined, while the monomer count sets total glucose released.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The glucose monomers (monosaccharides) are linked by covalent bonds to form the polysaccharide polymers.\n\n(b) Polysaccharide L has one chain and therefore 1 free end: 1 × 10 = 10 glucose monomers per second.\nPolysaccharide B has 100 chains and therefore 100 free ends: 100 × 10 = 1,000 glucose monomers per second.\n1,000 ÷ 10 = 100, so B releases glucose 100 times faster than L at the start.\n\n(c) Glucose can be removed only from free chain ends. A highly branched polysaccharide such as glycogen contains many chains and so has many free ends, so glucose can be removed from all of these ends at the same time. As the test shows, this releases glucose much faster than from a linear chain, which suits muscle cells that may need glucose quickly.\n\n(d) Both molecules release the same number of glucose monomers, 1,200 each. Both are polymers built from 1,200 glucose monomers, and complete breakdown releases every monomer. Being linear or branched changes how the monomers are connected and how fast they can be removed, not how many monomers the molecule contains.",
+   "verification_python": "rate=10\nends_L=1\nends_B=100\nrL=ends_L*rate\nrB=ends_B*rate\nassert rL==10 and rB==1000\nassert rB//rL==100 and rB%rL==0\nn=1200\nassert n/ends_B==12\nassert n==1200\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_biology",
+  "topic_code": "1.5",
+  "item": {
+   "title": "Double Bonds and the Physical State of Fatty Acids",
+   "calculator": "not_applicable",
+   "stimulus": "A student compares four fatty acids. Each has a chain of 18 carbon atoms, and they differ only in the number of carbon–carbon double bonds (C=C) in the chain. A fatty acid is liquid at temperatures above its melting point and solid at temperatures below it.\n\nFatty acid | Number of C=C double bonds | Approximate melting point (°C)\nW | 0 | 69\nX | 1 | 13\nY | 2 | −5\nZ | 3 | −11",
+   "parts": [
+    {
+     "prompt": "Identify the fatty acid in the table that is saturated.",
+     "criteria": [
+      {
+       "text": "Identifies fatty acid W, the fatty acid with zero carbon–carbon double bonds.",
+       "evidence": "Response names W.",
+       "fix": "A saturated fatty acid has only single bonds between carbons; pick the one with zero C=C double bonds.",
+       "accepted_variants": [
+        "W"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Describe the relationship between the number of carbon–carbon double bonds and the melting point shown in the data.",
+     "criteria": [
+      {
+       "text": "As the number of carbon–carbon double bonds increases, the melting point decreases (from 69 °C with 0 double bonds to −11 °C with 3).",
+       "evidence": "Response states that more double bonds is associated with a lower melting point across the four fatty acids.",
+       "fix": "Describe the trend across all rows in one sentence: as the first variable increases, the second variable decreases.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "At a room temperature of 20 °C, fatty acid W is solid and fatty acid Y is liquid. Explain this difference in terms of the structure of the carbon chains of W and Y.",
+     "criteria": [
+      {
+       "text": "Explains that Y's two double bonds put kinks in its carbon chain, making Y unsaturated, and that unsaturated fatty acids are more liquid at room temperature than saturated ones such as W, whose chain has only single bonds.",
+       "evidence": "Response states that the double bonds in Y cause kinks in the carbon chain and links being unsaturated (kinked) to being liquid at room temperature, in contrast to saturated W.",
+       "fix": "Connect each double bond to a kink in the carbon chain, then state that more unsaturated lipids are more liquid at room temperature.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Seals live in very cold ocean water and have a thick layer of fat beneath the skin. Other than serving as a store of energy, explain how this fat layer helps a seal maintain its body temperature in this environment.",
+     "criteria": [
+      {
+       "text": "Explains that the fat layer provides insulation, reducing the loss of heat from the seal's body to the cold water and helping keep the seal warm.",
+       "evidence": "Response identifies insulation (reduced heat loss to the surroundings) as the function of the fat layer.",
+       "fix": "Recall that besides energy storage, fats can insulate mammals, slowing heat loss to a cold environment.",
+       "accepted_variants": [
+        "insulation"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Fatty acid W is saturated. It has no carbon–carbon double bonds, so its chain contains only single bonds between carbon atoms.\n\n(b) As the number of carbon–carbon double bonds increases, the melting point decreases: 69 °C with 0 double bonds, 13 °C with 1, −5 °C with 2, and −11 °C with 3.\n\n(c) Fatty acid W is saturated: its carbon chain has only single bonds. Fatty acid Y is unsaturated: it has two double bonds, and each double bond causes a kink in the carbon chain. The more unsaturated a lipid is, the more liquid it is at room temperature, so Y is liquid at 20 °C (above its melting point of −5 °C) while W is solid (below its melting point of 69 °C).\n\n(d) Fat provides insulation. The thick fat layer beneath the skin slows the loss of heat from the seal's body to the cold water, helping the seal stay warm.",
+   "verification_python": "data=[('W',0,69),('X',1,13),('Y',2,-5),('Z',3,-11)]\nsat=[n for n,d,mp in data if d==0]\nassert sat==['W']\nmps=[mp for n,d,mp in data]\nassert all(mps[i]>mps[i+1] for i in range(3))\nassert all(data[i][1]<data[i+1][1] for i in range(3))\nroom=20\nassert 69>room\nassert -5<room\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_biology",
+  "topic_code": "2.2",
+  "item": {
+   "title": "Surface Area-to-Volume Ratio in Cells and in Mammals",
+   "calculator": "permitted",
+   "stimulus": "Two spherical cells are compared.\n\nCell | Shape | Radius (μm)\nA | sphere | 2\nB | sphere | 6\n\nFor a sphere, surface area SA = 4πr² and volume V = (4/3)πr³.\n\nIn a separate comparison, researchers study two mammals that both keep a constant body temperature: a shrew with a body mass of about 5 g and a moose with a body mass of about 400 kg.",
+   "parts": [
+    {
+     "prompt": "Calculate the surface area-to-volume ratio of cell A. Include units.",
+     "criteria": [
+      {
+       "text": "Calculates SA:V of cell A = 1.5 μm⁻¹, by any valid method, for example SA = 16π μm² and V = (32/3)π μm³, so SA/V = 16π ÷ (32π/3) = 1.5 μm⁻¹, or SA/V = 3/r = 3/2.",
+       "evidence": "Response shows a correct calculation for a sphere of radius 2 μm and reports 1.5 μm⁻¹ (1.5 per μm).",
+       "fix": "Substitute r into both sphere formulas, or simplify SA/V to 3/r first, and report the ratio with units of μm⁻¹.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate how many times greater the surface area-to-volume ratio of cell A is than that of cell B.",
+     "criteria": [
+      {
+       "text": "Calculates that cell A's SA:V is 3 times that of cell B, by any valid method, for example 1.5 μm⁻¹ ÷ 0.5 μm⁻¹ = 3 (cell B: SA/V = 3/6 = 0.5 μm⁻¹).",
+       "evidence": "Response shows cell B's ratio (0.5 μm⁻¹) or the radius ratio reasoning and obtains a factor of 3.",
+       "fix": "Compute the second cell's ratio the same way, then divide the larger ratio by the smaller one.",
+       "accepted_variants": [
+        "3 times",
+        "three times"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using your calculated values, explain why cell B is less efficient than cell A at exchanging materials with its environment.",
+     "criteria": [
+      {
+       "text": "Explains, citing the calculated values, that cell B has a lower SA:V (0.5 μm⁻¹ versus 1.5 μm⁻¹, one-third as much), so it has less plasma membrane surface per unit of volume through which nutrients can enter and wastes can leave, relative to the needs of its larger volume.",
+       "evidence": "Response cites B's lower calculated SA:V and explains that less membrane area is available per unit volume for taking in nutrients or removing wastes.",
+       "fix": "Quote both calculated ratios, then link a lower ratio to less membrane surface available to serve each unit of cell volume.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Predict which animal, the shrew or the moose, has the higher metabolic rate per unit body mass, and justify your prediction using surface area-to-volume ratio.",
+     "criteria": [
+      {
+       "text": "Predicts that the shrew has the higher metabolic rate per unit body mass.",
+       "evidence": "Response names the shrew.",
+       "fix": "Smaller organisms typically have higher metabolic rates per unit body mass; choose the smaller animal.",
+       "accepted_variants": [
+        "the shrew"
+       ]
+      },
+      {
+       "text": "Justifies that the smaller shrew has a higher SA:V, so it exchanges (loses) heat with its environment proportionally faster, and must produce more heat by metabolism per unit body mass to keep its body temperature constant.",
+       "evidence": "Response links the shrew's higher SA:V to proportionally greater heat loss and to a greater need for metabolic heat production per unit mass.",
+       "fix": "Chain the reasoning: smaller size, higher SA:V, faster heat loss per unit mass, so more metabolism is needed to stay warm.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) For cell A, r = 2 μm.\nSA = 4π(2)² = 16π μm².\nV = (4/3)π(2)³ = (32/3)π μm³.\nSA/V = 16π ÷ (32π/3) = 48/32 = 1.5 μm⁻¹.\n\n(b) For cell B, r = 6 μm: SA = 4π(6)² = 144π μm² and V = (4/3)π(6)³ = 288π μm³, so SA/V = 0.5 μm⁻¹.\n1.5 μm⁻¹ ÷ 0.5 μm⁻¹ = 3, so cell A's surface area-to-volume ratio is 3 times that of cell B.\n\n(c) Cell B's SA:V (0.5 μm⁻¹) is only one-third of cell A's (1.5 μm⁻¹). Materials are exchanged across the plasma membrane, so cell B has much less membrane surface for each unit of volume that needs nutrients and produces wastes. Exchange across the membrane therefore cannot keep up with the needs of B's volume as well as it can in A, so B is less efficient at exchanging materials.\n\n(d) The shrew has the higher metabolic rate per unit body mass. Because it is much smaller, the shrew has a much higher surface area-to-volume ratio, so it exchanges heat with its environment proportionally faster and loses heat quickly for its mass. To keep its body temperature constant, it must produce more heat through metabolism per unit of body mass than the moose does.",
+   "verification_python": "from fractions import Fraction as F\ndef sa(r): return 4*r*r\ndef vol(r): return F(4,3)*r**3\n# pi cancels in SA/V, so work with coefficients of pi\nA=F(sa(2))/vol(2)\nB=F(sa(6))/vol(6)\nassert sa(2)==16 and vol(2)==F(32,3)\nassert sa(6)==144 and vol(6)==288\nassert A==F(3,2) and A==F(3,2)\nassert B==F(1,2) and B==F(3,6)\nassert A/B==3\nassert F(48,32)==F(3,2)\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_biology",
+  "topic_code": "2.5",
+  "item": {
+   "title": "Passive, Active, and Bulk Transport in an Amoeba",
+   "calculator": "not_applicable",
+   "stimulus": "A freshwater amoeba is a single-celled eukaryote. Researchers measured the concentrations of two small solutes, G and K, inside the amoeba and in the surrounding water. Both solutes show net movement into the cell.\n\nTable 1\nSolute | Concentration inside cell (mM) | Concentration in surrounding water (mM) | Direction of net movement\nG | 0.8 | 6.0 | into cell\nK | 25.0 | 1.5 | into cell\n\nThe researchers also added tiny plastic beads to the water. Each bead is far too large to pass through the plasma membrane. After 20 minutes, beads were found inside small membrane-bound vesicles in the amoeba's cytoplasm. The researchers then repeated the measurements on amoebas treated with a chemical that blocks the cell's supply of metabolic energy.\n\nTable 2\nMeasurement | Untreated amoebas | Energy-blocked amoebas\nUptake rate of G (relative units) | 100 | 98\nUptake rate of K (relative units) | 100 | 3\nBeads taken in per cell in 20 minutes | 40 | 0",
+   "parts": [
+    {
+     "prompt": "Using Table 1, explain why solute K must be moved into the cell by active transport.",
+     "criteria": [
+      {
+       "text": "Explains that K moves from a lower concentration outside (1.5 mM) to a higher concentration inside (25.0 mM), against its concentration gradient, and moving a substance from low to high concentration requires the direct input of energy (active transport).",
+       "evidence": "Response cites K's concentrations (or states K moves from low to high concentration) and states that this movement requires an input of energy.",
+       "fix": "Compare outside and inside concentrations; net movement from low to high concentration cannot be passive and requires energy input.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Using Table 2, describe the evidence that solute G enters the cell by passive transport.",
+     "criteria": [
+      {
+       "text": "Describes that G's uptake rate is almost unchanged when the energy supply is blocked (100 versus 98), showing that G's net movement into the cell, from 6.0 mM outside to 0.8 mM inside, does not require a direct input of metabolic energy.",
+       "evidence": "Response cites G's nearly unchanged uptake rate under the energy block (100 versus 98) as evidence that no direct energy input is needed.",
+       "fix": "Compare each solute's rate with and without energy; a rate that barely changes shows the movement does not depend on metabolic energy.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Describe how the plasma membrane brings the beads into the cell.",
+     "criteria": [
+      {
+       "text": "Describes endocytosis: the plasma membrane folds inward around the beads and pinches off, forming a new small vesicle that encloses them inside the cell.",
+       "evidence": "Response describes the membrane folding in (or surrounding the beads) and forming a vesicle containing the beads; naming endocytosis or phagocytosis without describing the membrane movement is not enough.",
+       "fix": "Describe the membrane's movement step by step: it folds in around the material, then closes off as a vesicle inside the cell.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Inside the amoeba, undigested material is enclosed in vesicles that normally fuse with the plasma membrane to release the material outside the cell. Predict the effect of the energy-blocking chemical on the release of this material, and justify your prediction.",
+     "criteria": [
+      {
+       "text": "Predicts that release of the undigested material will stop or greatly decrease in energy-blocked amoebas.",
+       "evidence": "Response states that the energy-blocked amoebas will release little or none of the material.",
+       "fix": "State the direction of the change clearly: release stops, decreases, or stays the same.",
+       "accepted_variants": []
+      },
+      {
+       "text": "Justifies that release by vesicle fusion is exocytosis, which requires energy (consistent with bead uptake by endocytosis falling from 40 to 0 when energy was blocked).",
+       "evidence": "Response identifies the release as exocytosis (vesicle fusing with the membrane) and states that this process requires energy, optionally citing the bead data.",
+       "fix": "Remember both endocytosis and exocytosis move large amounts of material in vesicles and both require an input of energy.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Solute K is 1.5 mM in the surrounding water but 25.0 mM inside the cell, yet its net movement is into the cell. K is therefore moving from a region of low concentration to a region of high concentration, against its concentration gradient. Passive transport only produces net movement from high to low concentration, so moving K inward requires the direct input of energy: active transport.\n\n(b) When the cell's supply of metabolic energy is blocked, the uptake rate of G stays almost the same (98 compared with 100), while the uptake of K drops to 3. G's movement into the cell therefore does not depend on a direct input of metabolic energy. This fits passive transport: G moves from high concentration outside (6.0 mM) to low concentration inside (0.8 mM).\n\n(c) The beads enter by endocytosis. The plasma membrane folds inward around the beads, and the folded region closes and pinches off as a new small vesicle that contains the beads inside the cell.\n\n(d) Release of the undigested material will stop (or nearly stop) in the energy-blocked amoebas. The material is released by exocytosis, in which a vesicle fuses with the plasma membrane, and exocytosis requires energy. The bead data show the same dependence for vesicle transport in the other direction: endocytosis fell from 40 beads to 0 when energy was blocked.",
+   "verification_python": "G_in,G_out=0.8,6.0\nK_in,K_out=25.0,1.5\nassert G_out>G_in\nassert K_in>K_out\nassert 100-98==2\nassert 100-3==97\nbeads=(40,0)\nassert beads[1]==0\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_biology",
+  "topic_code": "2.9",
+  "item": {
+   "title": "Internal Membranes Separate and Support Cellular Reactions",
+   "calculator": "permitted",
+   "stimulus": "Liver cells make a molecule, Q, in the cytosol. The reactions that break Q down occur only inside a membrane-bound organelle, compartment K. Researchers prepared two extracts from the same liver tissue and supplied each with the raw materials needed to make Q.\n\nExtract 1: cells were broken open gently, so the organelles, including compartment K, stayed intact.\nExtract 2: cells were broken open harshly, so organelle membranes ruptured and the contents of compartment K mixed with the cytosol.\n\nTable 1: Amount of Q present (μmol per gram of tissue)\nTime (min) | Extract 1 | Extract 2\n0 | 0 | 0\n10 | 4.0 | 0.6\n20 | 8.1 | 1.0\n30 | 12.0 | 1.5\n\nIn a second study, the researchers compared two cell types in which reaction R is carried out by proteins embedded in internal membranes.\n\nTable 2\nCell type | Internal membrane surface area per cell (μm²) | Rate of reaction R (relative units)\nM | 1,500 | 30\nN | 4,500 | 90",
+   "parts": [
+    {
+     "prompt": "Calculate the percent decrease in the amount of Q present at 30 minutes in Extract 2 compared with Extract 1.",
+     "criteria": [
+      {
+       "text": "Calculates a percent decrease of 87.5%: (12.0 − 1.5) ÷ 12.0 × 100 = 87.5%.",
+       "evidence": "Response shows the difference (10.5 μmol per gram) divided by the Extract 1 value (12.0) and expresses the result as 87.5%, or uses an equivalent valid method such as (1 − 1.5/12.0) × 100.",
+       "fix": "For percent decrease, divide the drop by the original (reference) value, then multiply by 100.",
+       "accepted_variants": [
+        "87.5 percent"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using the data in Table 1, explain how the membrane of compartment K allows Q to accumulate in Extract 1, and why much less Q accumulated in Extract 2.",
+     "criteria": [
+      {
+       "text": "Explains that the membrane of compartment K keeps the reactions that break down Q separate from the cytosol where Q is made, minimizing competing reactions; when the membrane ruptures (Extract 2), breakdown occurs in the same space as synthesis, so Q is broken down as it is made and only 1.5 μmol per gram accumulates versus 12.0.",
+       "evidence": "Response links the intact membrane to separation of the competing synthesis and breakdown reactions, and links rupture to Q being broken down in the mixed extract, citing the lower amount of Q.",
+       "fix": "Name the two opposing processes, state where each happens, and explain that the membrane keeps them apart so they cannot compete.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Describe the relationship between internal membrane surface area and the rate of reaction R shown in Table 2.",
+     "criteria": [
+      {
+       "text": "Describes that the rate of reaction R increases as internal membrane surface area increases, in proportion: tripling the area (1,500 to 4,500 μm²) triples the rate (30 to 90).",
+       "evidence": "Response states that greater internal membrane surface area is associated with a higher rate of reaction R, and notes the threefold change in both.",
+       "fix": "Describe the direction of the trend and its size: compare how many times each variable changed between the two cell types.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how a larger area of internal membranes leads to the higher rate of reaction R in cell type N.",
+     "criteria": [
+      {
+       "text": "Explains that internal membranes increase the surface area where membrane-associated reactions can occur, providing room for more of the embedded proteins that carry out reaction R, so more reaction R can happen at the same time.",
+       "evidence": "Response states that more internal membrane provides more surface area on which reaction R can take place (more embedded proteins), increasing the rate.",
+       "fix": "Connect membrane area to reaction sites: more membrane surface holds more embedded proteins, so more reactions run at once.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Percent decrease = (12.0 − 1.5) ÷ 12.0 × 100 = 10.5 ÷ 12.0 × 100 = 87.5%.\n\n(b) In Extract 1, compartment K is intact, so its membrane keeps the reactions that break down Q inside the compartment, separate from the cytosol where Q is made. Because the opposing reactions are kept apart, they do not compete, and Q builds up steadily, reaching 12.0 μmol per gram at 30 minutes. In Extract 2, the ruptured membrane lets the contents of compartment K mix with the cytosol, so Q is broken down in the same space where it is being made. Much of the Q is broken down as soon as it forms, so only 1.5 μmol per gram accumulates.\n\n(c) The rate of reaction R increases as internal membrane surface area increases. Cell type N has 3 times the internal membrane surface area of M (4,500 versus 1,500 μm²) and 3 times the rate (90 versus 30), so the rate rises in proportion to the membrane area.\n\n(d) Reaction R is carried out by proteins embedded in internal membranes, so the reaction can occur only on membrane surfaces. A larger area of internal membrane increases the surface area where the reaction can occur and holds more of the embedded proteins, so more reaction R takes place at the same time and the rate is higher.",
+   "verification_python": "from fractions import Fraction as F\ne1=F(120,10);e2=F(15,10)\nassert e1-e2==F(105,10)\npct=(e1-e2)/e1*100\nassert pct==F(875,10)\nassert (1-e2/e1)*100==pct\nassert F(4500,1500)==3\nassert F(90,30)==3\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_biology",
+  "topic_code": "3.1",
+  "item": {
+   "title": "Charge Compatibility at an Enzyme's Active Site",
+   "calculator": "permitted",
+   "stimulus": "An enzyme catalyzes the breakdown of substrate S. The part of S that binds to the enzyme carries a negative charge, and the enzyme's active site contains amino acids with positively charged R groups. Researchers measured the initial rate of product formation in four tubes kept at the same temperature and pH.\n\nTube | Contents | Initial rate of product formation (μmol/min)\n1 | Substrate S + normal enzyme | 48\n2 | Substrate S + mutant enzyme | 2\n3 | Substrate S, no enzyme | 0.5\n4 | Substrate S′ + normal enzyme | 4\n\nIn the mutant enzyme, one positively charged R group in the active site is replaced by a negatively charged R group; the overall shape of the active site is unchanged. Substrate S′ has the same shape as substrate S but carries no charge.",
+   "parts": [
+    {
+     "prompt": "Calculate how many times faster product forms in tube 1 than in tube 3.",
+     "criteria": [
+      {
+       "text": "Calculates 48 ÷ 0.5 = 96, so product forms 96 times faster in tube 1.",
+       "evidence": "Response divides the tube 1 rate by the tube 3 rate and obtains 96.",
+       "fix": "To find how many times faster, divide the larger rate by the smaller rate; do not subtract.",
+       "accepted_variants": [
+        "96 times",
+        "96-fold"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how the normal enzyme causes the rate of product formation in tube 1 to be much higher than in tube 3.",
+     "criteria": [
+      {
+       "text": "Explains that the enzyme is a biological catalyst that lowers the activation energy of the reaction, so the reaction proceeds much faster than without the enzyme.",
+       "evidence": "Response states that the enzyme lowers the activation energy (energy needed to start the reaction), which increases the reaction rate.",
+       "fix": "When explaining an enzyme's effect on rate, name activation energy and state that the enzyme lowers it.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain why the mutant enzyme in tube 2 has much lower activity than the normal enzyme.",
+     "criteria": [
+      {
+       "text": "Explains that the substituted negatively charged R group makes the charge of the active site incompatible with the negatively charged substrate S (like charges repel), so S binds poorly and few enzyme–substrate complexes form.",
+       "evidence": "Response links the new negative charge in the active site to loss of charge compatibility with negative S and to reduced substrate binding or reduced enzyme–substrate complex formation.",
+       "fix": "Compare the charges of active site and substrate; opposite charges attract, while like charges repel and prevent the enzyme–substrate complex.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "The normal enzyme acts slowly on substrate S′ even though S′ has the same shape as S. Explain why.",
+     "criteria": [
+      {
+       "text": "Explains that for the reaction to occur, both the shape and the charge of the substrate must be compatible with the active site; S′ fits the shape but lacks the negative charge attracted by the positive R groups, so it binds poorly and forms few enzyme–substrate complexes.",
+       "evidence": "Response states that charge, not only shape, must match the active site and that uncharged S′ is not attracted to the positively charged R groups, so binding is reduced.",
+       "fix": "Remember the enzyme–substrate model requires compatible shape and charge; check both properties for any substrate.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) 48 μmol/min ÷ 0.5 μmol/min = 96. Product forms 96 times faster in tube 1 than in tube 3.\n\n(b) The enzyme is a biological catalyst. It lowers the activation energy of the reaction, so far more substrate molecules can react per minute than in tube 3, where the reaction occurs without the enzyme.\n\n(c) Substrate S binds through a negatively charged region, which is attracted to the positively charged R groups in the normal active site. In the mutant, a negatively charged R group replaces a positive one, so the active site's charge is no longer compatible with S; the like charges repel. S therefore binds poorly, few enzyme–substrate complexes form, and the rate drops to 2 μmol/min.\n\n(d) For an enzyme-mediated reaction to occur, both the shape and the charge of the substrate must be compatible with the active site. S′ has the right shape but no charge, so it is not attracted to the positively charged R groups in the active site. S′ binds poorly, few enzyme–substrate complexes form, and the rate is only 4 μmol/min.",
+   "verification_python": "from fractions import Fraction as F\nr1=F(48);r2=F(2);r3=F(1,2);r4=F(4)\nassert r1/r3==96\nassert r2<r1 and r4<r1\nassert r3<r2\nprint('ALL_CHECKS_PASSED')"
+  }
+ },
+ {
+  "subject_key": "ap_biology",
+  "topic_code": "3.3",
+  "item": {
+   "title": "A Sequential Pathway and Energy Coupling in a Bacterium",
+   "calculator": "permitted",
+   "stimulus": "A bacterium makes molecule D from molecule A through a three-step pathway. Each step is catalyzed by a different enzyme.\n\nStep 1: A → B\nStep 2: B → C\nStep 3: C → D\n\nResearchers measured the concentrations of the pathway molecules in normal cells and in a mutant strain that lacks a working enzyme for one of the three steps.\n\nMolecule | Normal cells (mM) | Mutant cells (mM)\nA | 1.0 | 1.1\nB | 0.4 | 6.5\nC | 0.3 | 0.0\nD | 2.0 | 0.0\n\nStep 3 requires an input of energy. In the cell, step 3 is coupled to reaction E, which releases energy. Reaction E releases 30 kJ of energy per mole, and step 3 requires 21 kJ of energy per mole.",
+   "parts": [
+    {
+     "prompt": "Using the data, identify the step that is blocked in the mutant strain.",
+     "criteria": [
+      {
+       "text": "Identifies step 2 (B → C) as the blocked step.",
+       "evidence": "Response names step 2 (B → C).",
+       "fix": "Find where a pathway molecule piles up and the next molecule is missing; the blocked step lies between them.",
+       "accepted_variants": [
+        "B → C",
+        "step 2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The enzyme for step 3 works normally in the mutant cells. Explain why the mutant cells contain no D.",
+     "criteria": [
+      {
+       "text": "Explains that in a sequential pathway the product of one step is the reactant for the next step: C, the product of step 2, is the reactant for step 3, so with no C made, step 3 cannot produce D.",
+       "evidence": "Response states that step 3 needs C as its reactant and that C is not made because step 2 is blocked, so no D is formed.",
+       "fix": "Trace the pathway forward: each step's product feeds the next step, so a missing reactant stops every later step.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Explain how coupling step 3 to reaction E allows step 3 to occur in the cell.",
+     "criteria": [
+      {
+       "text": "Explains that the energy released by reaction E is used to supply the energy that step 3 requires; because E releases more energy (30 kJ per mole) than step 3 needs (21 kJ per mole), the coupled processes can proceed together.",
+       "evidence": "Response states that the energy-releasing reaction E provides the energy input required by the energy-requiring step 3, and notes that E releases at least as much energy as step 3 needs.",
+       "fix": "Describe coupling as an energy-releasing process paying for an energy-requiring one, and check that energy released exceeds energy required.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the amount of energy per mole released by reaction E that is not used to drive step 3, and describe what happens to this energy.",
+     "criteria": [
+      {
+       "text": "Calculates 30 kJ − 21 kJ = 9 kJ per mole not used by step 3.",
+       "evidence": "Response subtracts the energy required by step 3 from the energy released by E and obtains 9 kJ per mole.",
+       "fix": "Subtract energy required from energy released; the difference is the energy left over from the coupled reactions.",
+       "accepted_variants": [
+        "9 kJ/mol"
+       ]
+      },
+      {
+       "text": "Describes that the extra energy is released to the surroundings as heat (thermal energy); it is not destroyed, consistent with the first law of thermodynamics.",
+       "evidence": "Response states that the unused energy is lost to the surroundings as heat (thermal energy), not destroyed or stored.",
+       "fix": "Remember energy transfers are never complete: energy not captured is released as heat, and energy is never destroyed.",
+       "accepted_variants": [
+        "lost as heat"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Step 2 (B → C) is blocked. In the mutant, B builds up to 6.5 mM (compared with 0.4 mM in normal cells), while C is absent (0.0 mM). B is the reactant of step 2 and C is its product, so the block is at step 2.\n\n(b) The pathway is sequential: the product of one step is the reactant for the next. C, the product of step 2, is the reactant for step 3. Because step 2 is blocked, no C is made, so even though the step 3 enzyme works, step 3 has no reactant and no D is produced.\n\n(c) Step 3 requires an input of energy that it cannot supply itself. When step 3 is coupled to reaction E, the energy released by reaction E is used to provide the energy step 3 requires. Reaction E releases 30 kJ per mole, more than the 21 kJ per mole step 3 needs, so the coupled processes can proceed together.\n\n(d) 30 kJ − 21 kJ = 9 kJ per mole is not used to drive step 3. This energy is released to the surroundings as heat (thermal energy). It is not destroyed, consistent with the first law of thermodynamics.",
+   "verification_python": "normal={'A':1.0,'B':0.4,'C':0.3,'D':2.0}\nmut={'A':1.1,'B':6.5,'C':0.0,'D':0.0}\nassert mut['B']>normal['B']\nassert mut['C']==0.0 and mut['D']==0.0\nE=30;S3=21\nassert E>S3\nassert E-S3==9\nprint('ALL_CHECKS_PASSED')"
+  }
+ }
+]

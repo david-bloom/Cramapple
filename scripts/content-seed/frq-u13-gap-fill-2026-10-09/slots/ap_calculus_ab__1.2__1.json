@@ -1,0 +1,594 @@
+{
+ "id": "ap_calculus_ab__1.2__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.2",
+  "topic_title": "Defining Limits and Using Limit Notation",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:24:57.598Z",
+   "item": {
+    "title": "Interpreting and Writing Limits with Correct Notation",
+    "calculator": "not_permitted",
+    "stimulus": "A function f is defined for all real numbers. For every x ≠ 3, f(x) = 2x + 1, and f(3) = 10.\n\nA second function h has the property lim x→−2 h(x) = −4. No other information about h is given.\n\nThe temperature of a room, in degrees Fahrenheit, t minutes after a heater is switched off is T(t).",
+    "model_answer": "(a) The definition of a limit only considers x close to 3 with x ≠ 3. For all such x, f(x) = 2x + 1. As x gets sufficiently close to 3, 2x + 1 gets arbitrarily close to 2(3) + 1 = 7. Therefore lim x→3 f(x) = 7.\n\n(b) The student is using the value of f at x = 3, but a limit as x→3 is determined by the values f(x) for x near 3 and not equal to 3. The value f(3) = 10 plays no role. Near 3, f(x) = 2x + 1 is close to 7, not 10, so the limit is 7, and the fact that f(3) = 10 does not change it.\n\n(c) lim t→5 T(t) = 68.\n\n(d) The statement means that the values h(x) can be made arbitrarily close to −4 by taking x sufficiently close to −2, but not equal to −2. No, h(−2) does not have to equal −4. The limit depends only on the values of h near −2, so h(−2) could be a different number or could be undefined. For example, h(x) = x − 2 for x ≠ −2 with h undefined at x = −2 has limit −4 as x→−2.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\nL=sp.limit(2*x+1,x,3)\nassert L==7\nassert 2*3+1==7\nassert L!=10\n# example h for part (d)\nh=(x**2-4)/(x+2)\nassert sp.limit(h,x,-2)==-4\nassert sp.limit(x-2,x,-2)==-4\n# h undefined at -2: denominator zero\nassert (x+2).subs(x,-2)==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the definition of a limit to determine lim x→3 f(x). Explain your reasoning, referring to the values of f(x) for x close to 3.",
+      "criteria": [
+       {
+        "text": "States lim x→3 f(x) = 7.",
+        "evidence": "The response gives the value 7 for the limit as x approaches 3.",
+        "fix": "Use the formula f(x) = 2x + 1, which holds for x ≠ 3, to find what value f(x) approaches near 3.",
+        "accepted_variants": [
+         "lim x→3 f(x) = 7",
+         "the limit is 7"
+        ]
+       },
+       {
+        "text": "Justifies the value: for x close to but not equal to 3, f(x) = 2x + 1 can be made arbitrarily close to 7.",
+        "evidence": "The response explains that only values of x near 3 with x ≠ 3 matter, and for those x the values f(x) = 2x + 1 get arbitrarily close to 7.",
+        "fix": "State the definition: the limit is R if f(x) is arbitrarily close to R for x sufficiently close to c, but not equal to c.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A student claims that lim x→3 f(x) = 10 because f(3) = 10. Explain why the student's reasoning is incorrect.",
+      "criteria": [
+       {
+        "text": "Explains that the limit does not depend on the value of f at x = 3, so f(3) = 10 does not determine the limit; the limit is 7.",
+        "evidence": "The response states that the definition of a limit uses x near 3 but not equal to 3, so the value f(3) is irrelevant, and the values f(x) near 3 approach 7, not 10.",
+        "fix": "Remember the limit as x→c ignores x = c itself; compare f(c) with the values f(x) takes near c.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The temperature T(t) can be made arbitrarily close to 68 degrees Fahrenheit by taking t sufficiently close to 5 minutes, but not equal to 5. Write this statement using correct limit notation.",
+      "criteria": [
+       {
+        "text": "Writes lim t→5 T(t) = 68.",
+        "evidence": "The response uses limit notation with the variable t approaching 5, the function T(t), and the limit value 68.",
+        "fix": "Put the approached input under lim (t→5), write the function T(t), then set it equal to the value approached, 68.",
+        "accepted_variants": [
+         "lim t→5 T(t) = 68",
+         "lim_(t→5) T(t) = 68"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the statement lim x→−2 h(x) = −4 in words. Then state whether h(−2) must equal −4, and explain.",
+      "criteria": [
+       {
+        "text": "Interprets the statement: h(x) can be made arbitrarily close to −4 by taking x sufficiently close to −2 (but not equal to −2).",
+        "evidence": "The response describes, in words, that the outputs h(x) get arbitrarily close to −4 as the inputs x get sufficiently close to −2, without requiring x = −2.",
+        "fix": "Translate each symbol: x→−2 means x approaches −2, and = −4 means the outputs h(x) approach −4.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that h(−2) need not equal −4 (h(−2) may be undefined or a different value), because the limit does not use x = −2.",
+        "evidence": "The response says no, h(−2) is not required to be −4, and explains that the limit depends only on x near −2, not at −2.",
+        "fix": "Recall that a limit describes behavior near c, not at c; the function value at c may differ or not exist.",
+        "accepted_variants": [
+         "No",
+         "h(−2) does not have to equal −4"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:37:13.001Z",
+   "item": {
+    "title": "Interpreting Limit Notation and the Definition of a Limit",
+    "calculator": "not_permitted",
+    "stimulus": "The function f is defined by f(x) = 2x + 1 for x ≠ 3, and f(3) = 10.\n\nA second function g is described in words: as x takes values closer and closer to −1, from both sides but never equal to −1, the values of g(x) become and stay arbitrarily close to 5. The value g(−1) is undefined.\n\nIn a laboratory test, P(t) is the pressure inside a sealed container, in kilopascals (kPa), t seconds after the test begins. A technician reports that lim t→8 P(t) = 120.",
+    "model_answer": "(a) For x ≠ 3, f(x) = 2x + 1. As x gets close to 3 (but x ≠ 3), 2x + 1 gets arbitrarily close to 2(3) + 1 = 7. So lim x→3 f(x) = 7. By the definition of a limit, only values of x sufficiently close to 3 but not equal to 3 are considered, so the value f(3) = 10 is never used. The limit is 7 even though f(3) = 10.\n\n(b) lim x→−1 g(x) = 5. No, g(−1) being undefined does not prevent the limit from existing. The definition requires only that g(x) can be made arbitrarily close to 5 by taking x sufficiently close to −1 with x ≠ −1, so g does not need a value at −1. The limit exists and equals 5.\n\n(c) As the time t gets closer and closer to 8 seconds (t ≠ 8), the pressure inside the container gets arbitrarily close to 120 kPa. This does not guarantee P(8) = 120, because the limit describes P(t) only for t near 8, not at t = 8; P(8) could be a different value or the limit statement alone tells nothing about it.",
+    "verification_python": "from fractions import Fraction\nf=lambda x: 10 if x==3 else 2*x+1\nassert 2*3+1==7\nfor k in range(1,8):\n    h=Fraction(1,10**k)\n    assert abs(f(3+h)-7)<=2*h and abs(f(3-h)-7)<=2*h\nassert f(3)==10 and f(3)!=7\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→3 f(x), written in correct limit notation. Using the definition of a limit, explain why the value f(3) = 10 does not affect your answer.",
+      "criteria": [
+       {
+        "text": "States lim x→3 f(x) = 7, supported by the fact that f(x) = 2x + 1 for x near 3 (x ≠ 3) and 2x + 1 gets arbitrarily close to 2(3) + 1 = 7.",
+        "evidence": "Correct notation lim x→3 f(x) = 7 with a reason based on the rule f(x) = 2x + 1 used for x ≠ 3.",
+        "fix": "Use only the rule that applies for x near c but not equal to c, then see which value those outputs approach.",
+        "accepted_variants": [
+         "lim(x→3) f(x) = 7",
+         "the limit of f(x) as x approaches 3 is 7"
+        ]
+       },
+       {
+        "text": "Explains that the definition of the limit uses only x sufficiently close to 3 but not equal to 3, so f(3) = 10 plays no role.",
+        "evidence": "An explicit statement that x = 3 itself is excluded when finding the limit, so the limit (7) can differ from f(3) (10).",
+        "fix": "Recall the definition: the limit depends on f(x) for x near c with x ≠ c, never on the value f(c).",
+        "accepted_variants": [
+         "the limit only considers x ≠ 3",
+         "f(3) is not used because x approaches 3 without equaling 3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Write the given information about g using correct limit notation. Does the fact that g(−1) is undefined prevent this limit from existing? Explain.",
+      "criteria": [
+       {
+        "text": "Writes lim x→−1 g(x) = 5.",
+        "evidence": "The limit statement with the correct approach value −1 and limit value 5 in standard notation.",
+        "fix": "Put the value x approaches under lim and the value g(x) approaches on the right side of the equals sign.",
+        "accepted_variants": [
+         "lim(x→−1) g(x) = 5"
+        ]
+       },
+       {
+        "text": "States that the limit still exists (equals 5) because the definition requires only x close to −1 with x ≠ −1, so g need not be defined at −1.",
+        "evidence": "A conclusion that the limit exists, justified by the definition excluding x = −1.",
+        "fix": "Remember a limit can exist at a point where the function is undefined; the definition never evaluates the function at c.",
+        "accepted_variants": [
+         "Yes the limit exists, since x never equals −1 in the definition"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the statement lim t→8 P(t) = 120 in the context of the problem, including units. Does this statement guarantee that P(8) = 120? Explain.",
+      "criteria": [
+       {
+        "text": "Interprets the statement: as the time t gets close to 8 seconds (t ≠ 8), the pressure in the container gets arbitrarily close to 120 kPa.",
+        "evidence": "A contextual interpretation mentioning time near 8 seconds, pressure approaching 120, and units kPa.",
+        "fix": "Translate each symbol into context: t→8 means time near 8 seconds; the limit value is the pressure approached, with units.",
+        "accepted_variants": [
+         "pressure approaches 120 kPa as time approaches 8 seconds"
+        ]
+       },
+       {
+        "text": "States that P(8) = 120 is not guaranteed because the limit describes values of P(t) for t near 8 but not equal to 8.",
+        "evidence": "A clear no, with a reason that the limit does not use the value at t = 8.",
+        "fix": "Distinguish the limit value from the function value; the limit gives no information about P(8) itself.",
+        "accepted_variants": [
+         "No, P(8) could be different or undefined"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 explicitly accepts a verbal statement instead of the correct limit notation requested in part (a), and its accepted variants omit the support required by the criterion. Criterion c2 accepts 'No, P(8) could be different or undefined' without explaining why the limit does not determine P(8), although part (c) asks for an explanation. Require accepted responses to retain the requested notation and justification."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 explicitly accepts a verbal statement instead of the correct limit notation requested in part (a), and its accepted variants omit the support required by the criterion. Criterion c2 accepts 'No, P(8) could be different or undefined' without explaining why the limit does not determine P(8), although part (c) asks for an explanation. Require accepted responses to retain the requested notation and justification."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1's accepted variants omit its required supporting reason, and its verbal variant does not supply the limit notation requested in part (a). Criterion c2 accepts 'No, P(8) could be different or undefined' without the explanation requested in part (c). Require accepted variants to include the same evidence as the main criterion."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1's accepted variants omit its required supporting reason, and its verbal variant does not supply the limit notation requested in part (a). Criterion c2 accepts 'No, P(8) could be different or undefined' without the explanation requested in part (c). Require accepted variants to include the same evidence as the main criterion."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:40:57.801Z",
+   "item": {
+    "title": "Reading and Writing Limit Notation for a Temperature Sensor",
+    "calculator": "not_permitted",
+    "stimulus": "The temperature of a laboratory sample, in degrees Celsius, is T(t), where t is the time in minutes after an experiment begins, for 0 ≤ t ≤ 12. The following facts are known.\n\nFact 1: The sensor recorded T(5) = 37.\nFact 2: The values of T(t) can be made as close to 40 as desired by taking t sufficiently close to 5, but not equal to 5.\nFact 3: lim t→8 T(t) = 52.\nFact 4: For 9 ≤ t ≤ 12, T(t) = 2t + 34.",
+    "model_answer": "(a) lim t→5 T(t) = 40.\n\n(b) By definition, lim t→5 T(t) = 40 means T(t) can be made as close to 40 as desired by taking t close to 5 but not equal to 5. The value at t = 5 is never used, so T(5) = 37 is allowed to differ from the limit. There is no contradiction.\n\n(c) As the time gets closer and closer to 8 minutes, without equaling 8, the temperature of the sample gets arbitrarily close to 52 degrees Celsius. Fact 3 alone does not determine T(8). The limit only describes values of T(t) for t near 8 with t ≠ 8, so T(8) could be 52, a different number, or undefined.\n\n(d) For t between 9 and 12, T(t) = 2t + 34, and this includes every t near 10. T(t) − 54 = 2t − 20 = 2(t − 10), so the distance between T(t) and 54 is 2|t − 10|. This can be made as small as desired by taking t sufficiently close to 10. Therefore lim t→10 T(t) = 54.",
+    "verification_python": "import sympy as sp\nt=sp.symbols('t')\nT=2*t+34\nassert sp.limit(T,t,10)==54\nassert sp.limit(T,t,10,'+')==54 and sp.limit(T,t,10,'-')==54\nassert sp.simplify((T-54)-2*(t-10))==0\nassert 9<10<12\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Write Fact 2 as a single statement using limit notation.",
+      "criteria": [
+       {
+        "text": "Writes lim t→5 T(t) = 40.",
+        "evidence": "The response gives the limit statement with the variable t approaching 5, the function T(t), and the value 40, in correct notation.",
+        "fix": "Translate 'T(t) gets close to R as t gets close to c' directly into lim t→c T(t) = R, keeping c and R in their places.",
+        "accepted_variants": [
+         "lim(t→5) T(t) = 40",
+         "the limit of T(t) as t approaches 5 equals 40, written lim t→5 T(t) = 40"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Fact 1 gives T(5) = 37, and Fact 2 gives a limit value of 40 as t approaches 5. Explain why these two facts do not contradict each other. Refer to the definition of a limit.",
+      "criteria": [
+       {
+        "text": "Explains that the limit as t→5 depends only on values of T(t) for t near 5 with t ≠ 5, so the value T(5) = 37 does not affect the limit of 40.",
+        "evidence": "The response states that the definition of a limit uses t close to 5 but not equal to 5, so the function value at t = 5 can differ from the limit.",
+        "fix": "Recall the definition says x close to c but not equal to c; state that the function value at c plays no role.",
+        "accepted_variants": [
+         "the limit describes the values T(t) approach, not the value at t = 5",
+         "T(5) is excluded from the definition because t ≠ 5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret Fact 3 in the context of the problem, including units. Then, using only Fact 3, can the value of T(8) be determined? Explain.",
+      "criteria": [
+       {
+        "text": "Interprets Fact 3: as the time gets closer and closer to 8 minutes (but not equal to 8), the sample's temperature gets arbitrarily close to 52 degrees Celsius.",
+        "evidence": "The response refers to time approaching 8 minutes and temperature approaching (or getting arbitrarily close to) 52 degrees Celsius, with both units or context words present.",
+        "fix": "Describe both variables in context with units: say what t approaches in minutes and what T(t) approaches in degrees Celsius.",
+        "accepted_variants": [
+         "temperatures at times near 8 minutes are as close to 52 °C as desired",
+         "near t = 8 minutes the temperature approaches 52 degrees Celsius"
+        ]
+       },
+       {
+        "text": "States that T(8) cannot be determined, because the limit gives no information about the value at t = 8 itself.",
+        "evidence": "The response answers no and explains that the limit uses only t ≠ 8, so T(8) could equal 52, some other value, or be undefined.",
+        "fix": "Remember a limit at c never fixes f(c); answer 'cannot be determined' and say the definition excludes x = c.",
+        "accepted_variants": [
+         "No, T(8) might not equal 52 since the limit excludes t = 8",
+         "No; the limit only describes nearby values"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use Fact 4 to find lim t→10 T(t). Explain, in terms of the definition of a limit, why your value is correct.",
+      "criteria": [
+       {
+        "text": "Finds lim t→10 T(t) = 54.",
+        "evidence": "The response gives the value 54 using T(t) = 2t + 34 for t near 10.",
+        "fix": "Use the formula valid near t = 10 and find the value 2t + 34 approaches as t approaches 10.",
+        "accepted_variants": [
+         "54",
+         "lim(t→10) T(t) = 54"
+        ]
+       },
+       {
+        "text": "Justifies that T(t) = 2t + 34 can be made arbitrarily close to 54 by taking t sufficiently close to 10 (t ≠ 10), for example because the distance from 54 is 2|t − 10|.",
+        "evidence": "The response connects closeness of t to 10 with closeness of T(t) to 54, such as noting T(t) − 54 = 2(t − 10), and notes Fact 4 applies for all t near 10.",
+        "fix": "Show T(t) − 54 = 2(t − 10), then explain this distance shrinks to as small as desired when t is close to 10.",
+        "accepted_variants": [
+         "|T(t) − 54| = 2|t − 10|, which is as small as desired for t near 10",
+         "as t gets close to 10, 2t gets close to 20, so 2t + 34 gets close to 54"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 26 words"
+   ],
+   "stage": "lint"
+  }
+ ],
+ "accepted_round": 1
+}

@@ -1,0 +1,677 @@
+{
+ "id": "ap_chemistry__1.6__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 1,
+  "unit_title": "Atomic Structure and Properties",
+  "topic_code": "1.6",
+  "topic_title": "Photoelectron Spectroscopy",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:49:24.045Z",
+   "item": {
+    "title": "Interpreting a Photoelectron Spectrum of an Unknown Element",
+    "calculator": "permitted",
+    "stimulus": "A student analyzes a gaseous sample of a single unknown element using photoelectron spectroscopy (PES). The photoelectron spectrum shows five peaks. The binding energy of each peak and its relative height (relative number of electrons) are listed in the table below.\n\nPeak | Binding energy (MJ/mol) | Relative peak height\n1 | 151 | 2\n2 | 12.1 | 2\n3 | 7.19 | 6\n4 | 1.09 | 2\n5 | 0.58 | 1\n\nAvogadro's number is 6.022 × 10²³ mol⁻¹.",
+    "model_answer": "(a) Peaks are assigned from highest to lowest binding energy: peak 1 = 1s, peak 2 = 2s, peak 3 = 2p, peak 4 = 3s, peak 5 = 3p. The relative peak heights are proportional to the number of electrons in each subshell, so the configuration is 1s² 2s² 2p⁶ 3s² 3p¹. The total number of electrons is 2 + 2 + 6 + 2 + 1 = 13, so the element is aluminum (Al).\n\n(b) Peak 1 corresponds to 1s electrons and peak 4 to 3s electrons. The 1s electrons are in the first shell, much closer to the nucleus, and are not shielded by any inner electrons, so they feel nearly the full +13 nuclear charge. The 3s electrons are in the third shell, farther from the nucleus, and are shielded by the 10 core electrons. By Coulomb's law, the 1s electrons are attracted much more strongly to the nucleus, so much more energy is needed to remove them.\n\n(c) (i) The Si 1s peak will be at a binding energy greater than 151 MJ/mol. Si has 14 protons compared with 13 for Al. Its 1s electrons are in the same shell with essentially no shielding, so the larger nuclear charge attracts them more strongly, requiring more energy to remove them.\n(ii) Si has the configuration 1s² 2s² 2p⁶ 3s² 3p², so the 3p peak has a relative height of 2 (twice the Al 3p peak).\n\n(d) 0.58 MJ/mol × (10⁶ J / 1 MJ) = 5.8 × 10⁵ J/mol. (5.8 × 10⁵ J/mol) ÷ (6.022 × 10²³ electrons/mol) = 9.6 × 10⁻¹⁹ J per electron.",
+    "verification_python": "import math\nheights=[2,2,6,2,1]\nassert sum(heights)==13\nsi=[2,2,6,2,2]\nassert sum(si)==14 and si[4]==2\nE=0.58e6/6.022e23\nassert abs(E-9.63e-19)<0.01e-19\nassert float('%.2g'%E)==9.6e-19\nassert 151>1.09\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Use the data in the table to write the complete ground-state electron configuration of the unknown element and identify the element. Explain how the relative peak heights support your answer.",
+      "criteria": [
+       {
+        "text": "Writes the configuration 1s² 2s² 2p⁶ 3s² 3p¹ and identifies the element as aluminum (Al), using the peak heights (2 + 2 + 6 + 2 + 1 = 13 electrons).",
+        "evidence": "Response gives the full configuration with each peak assigned to a subshell in order of decreasing binding energy, states that relative peak heights give electrons per subshell totaling 13, and names aluminum.",
+        "fix": "Assign peaks from highest to lowest binding energy as 1s, 2s, 2p, 3s, 3p, and add peak heights to count total electrons.",
+        "accepted_variants": [
+         "Al",
+         "[Ne] 3s² 3p¹"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The binding energy of peak 1 (151 MJ/mol) is much greater than that of peak 4 (1.09 MJ/mol). Explain this difference in terms of the interactions between the electrons and the nucleus.",
+      "criteria": [
+       {
+        "text": "Explains that the 1s electrons (peak 1) are in the first shell, closer to the nucleus and essentially unshielded, so they experience a much stronger Coulombic attraction than 3s electrons (peak 4), which are farther away and shielded by the inner 10 electrons.",
+        "evidence": "Response identifies peak 1 as 1s and peak 4 as 3s and attributes the larger binding energy to smaller distance from the nucleus and/or less shielding (greater effective nuclear charge), linking this to stronger Coulombic attraction.",
+        "fix": "Connect binding energy to Coulomb's law: compare each electron's distance from the nucleus and the shielding by inner electrons.",
+        "accepted_variants": [
+         "greater effective nuclear charge on 1s electrons",
+         "stronger electrostatic attraction for 1s electrons"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The PES spectrum of silicon (Si) is then recorded under the same conditions. (i) Predict whether the binding energy of the 1s peak of Si is greater than, less than, or equal to 151 MJ/mol, and justify your prediction. (ii) Give the relative height of the 3p peak of Si.",
+      "criteria": [
+       {
+        "text": "Predicts the Si 1s binding energy is greater than 151 MJ/mol because Si has 14 protons versus 13, so its 1s electrons, in the same shell with essentially no shielding, experience greater nuclear attraction.",
+        "evidence": "Response states greater than 151 MJ/mol and justifies it with the larger nuclear charge (more protons) of Si acting on 1s electrons at a similar distance with no additional shielding.",
+        "fix": "When comparing the same subshell in neighboring elements, compare the number of protons; more protons means stronger attraction and higher binding energy.",
+        "accepted_variants": [
+         "greater",
+         "higher"
+        ]
+       },
+       {
+        "text": "States that the Si 3p peak has a relative height of 2, because Si (1s² 2s² 2p⁶ 3s² 3p²) has two 3p electrons, twice the height of the aluminum 3p peak.",
+        "evidence": "Response gives a relative height of 2 for the 3p peak, supported by the Si configuration or by noting that Si has one more 3p electron than Al.",
+        "fix": "Write the electron configuration of the new element and use the number of electrons in each subshell as the relative peak height.",
+        "accepted_variants": [
+         "2",
+         "twice the Al 3p peak height"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the minimum energy, in joules, required to remove a single electron from the subshell represented by peak 5. Report your answer with the correct number of significant figures.",
+      "criteria": [
+       {
+        "text": "Converts 0.58 MJ/mol to energy per electron: (0.58 × 10⁶ J/mol) ÷ (6.022 × 10²³ mol⁻¹) = 9.6 × 10⁻¹⁹ J, reported to two significant figures.",
+        "evidence": "Response shows conversion of MJ to J and division by Avogadro's number, giving 9.6 × 10⁻¹⁹ J with units and two significant figures.",
+        "fix": "Convert MJ/mol to J/mol by multiplying by 10⁶, divide by Avogadro's number, and match significant figures to the given 0.58.",
+        "accepted_variants": [
+         "9.6e-19 J",
+         "9.6 × 10⁻¹⁹ J/electron"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 bundles three separately observable answer elements—complete electron configuration, element identification, and peak-height explanation—into one point rather than awarding one specific element. Criterion c2 requires supporting electron-configuration reasoning, although part (c)(ii) asks only for the relative peak height; a correct answer of 2 should earn that point without additional justification."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 bundles three separately observable answer elements—complete electron configuration, element identification, and peak-height explanation—into one point rather than awarding one specific element. Criterion c2 requires supporting electron-configuration reasoning, although part (c)(ii) asks only for the relative peak height; a correct answer of 2 should earn that point without additional justification."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 combines separately requested elements—writing the complete configuration, identifying the element, and explaining the peak heights—into one point rather than awarding one specific element. Its accepted variant '[Ne] 3s² 3p¹' is an abbreviated configuration, not the complete configuration requested in part (a). Criterion c2 requires configuration-based support even though part (c)(ii) only asks students to give the relative peak height; a correct answer of 2 should earn that point without an explanation."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 combines separately requested elements—writing the complete configuration, identifying the element, and explaining the peak heights—into one point rather than awarding one specific element. Its accepted variant '[Ne] 3s² 3p¹' is an abbreviated configuration, not the complete configuration requested in part (a). Criterion c2 requires configuration-based support even though part (c)(ii) only asks students to give the relative peak height; a correct answer of 2 should earn that point without an explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c)(ii) asks only to give the relative height of the Si 3p peak, but criterion c2 requires the response to support it with an electron configuration or a note about one more 3p electron. A correct answer '2' would not earn the point, so the rubric requires something the part did not ask for."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c)(ii) asks only to give the relative height of the Si 3p peak, but criterion c2 requires the response to support it with an electron configuration or a note about one more 3p electron. A correct answer '2' would not earn the point, so the rubric requires something the part did not ask for."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:56:38.568Z",
+   "item": {
+    "title": "Identifying an Element from Photoelectron Spectrum Data",
+    "calculator": "not_permitted",
+    "stimulus": "A gaseous sample of a single unknown element is analyzed by photoelectron spectroscopy (PES). High-energy photons eject electrons from every occupied subshell of the atoms. The binding energy of each peak and the relative height of each peak are listed below, from highest to lowest binding energy.\n\nPeak | Binding energy (MJ/mol) | Relative peak height\n1 | 208 | 2\n2 | 18.7 | 2\n3 | 13.5 | 6\n4 | 1.95 | 2\n5 | 1.06 | 3",
+    "model_answer": "(a) The relative peak heights give the number of electrons in each subshell: 2 + 2 + 6 + 2 + 3 = 15 electrons. A neutral atom with 15 electrons has atomic number 15, so the element is phosphorus. Assigning peaks in order of decreasing binding energy: peak 1 is 1s, peak 2 is 2s, peak 3 is 2p, peak 4 is 3s, peak 5 is 3p. The configuration is 1s² 2s² 2p⁶ 3s² 3p³.\n\n(b) Peak 1 is from the 1s electrons and peak 4 is from the 3s electrons. The 1s electrons are in the first shell, much closer to the nucleus, and have no inner electrons shielding them, so they experience nearly the full nuclear charge. By Coulomb's law, the attraction is much stronger at smaller distance with greater effective nuclear charge, so much more energy is required to remove a 1s electron. The 3s electrons are farther from the nucleus and are shielded by the 10 electrons in the first and second shells, so they are held much less strongly.\n\n(c) Greater than 208 MJ/mol. Sulfur has 16 protons compared with 15 for phosphorus. The 1s electrons in both atoms are in the same innermost shell, so the greater nuclear charge of sulfur attracts its 1s electrons more strongly, requiring more energy to remove them.\n\n(d) Sulfur has the configuration 1s² 2s² 2p⁶ 3s² 3p⁴. The 3p subshell holds 4 electrons and the 3s subshell holds 2 electrons. Since peak height is proportional to the number of electrons in the subshell, the 3p peak is twice as tall as the 3s peak (4 : 2, or 2 : 1).",
+    "verification_python": "from fractions import Fraction\nheights_P = [2, 2, 6, 2, 3]\nassert sum(heights_P) == 15\nZ_P = 15\nZ_S = 16\nassert Z_S > Z_P\nconfig_P = {'1s':2,'2s':2,'2p':6,'3s':2,'3p':3}\nassert list(config_P.values()) == heights_P\nconfig_S = {'1s':2,'2s':2,'2p':6,'3s':2,'3p':4}\nassert sum(config_S.values()) == Z_S\nassert Fraction(config_S['3p'], config_S['3s']) == Fraction(2,1)\nbe = [208, 18.7, 13.5, 1.95, 1.06]\nassert all(be[i] > be[i+1] for i in range(len(be)-1))\ninner = config_P['1s'] + config_P['2s'] + config_P['2p']\nassert inner == 10\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Identify the unknown element and write its complete ground-state electron configuration. Justify the identity using the PES data.",
+      "criteria": [
+       {
+        "text": "Identifies the element as phosphorus (P) by summing the relative peak heights to 15 electrons, equal to the atomic number of a neutral atom.",
+        "evidence": "States phosphorus and shows or states that the peak heights total 2 + 2 + 6 + 2 + 3 = 15 electrons, so Z = 15.",
+        "fix": "Add all relative peak heights to find the total electrons; for a neutral atom this equals the atomic number, then locate it on the periodic table.",
+        "accepted_variants": [
+         "P",
+         "phosphorus"
+        ]
+       },
+       {
+        "text": "Writes the ground-state configuration 1s² 2s² 2p⁶ 3s² 3p³, matching each peak to a subshell.",
+        "evidence": "Gives 1s² 2s² 2p⁶ 3s² 3p³, consistent with the peak heights in order of decreasing binding energy.",
+        "fix": "Assign peaks in order of decreasing binding energy to 1s, 2s, 2p, 3s, 3p, using each peak height as the electron count.",
+        "accepted_variants": [
+         "[Ne] 3s² 3p³",
+         "1s2 2s2 2p6 3s2 3p3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The binding energy of peak 1 (208 MJ/mol) is much greater than that of peak 4 (1.95 MJ/mol). Explain this difference in terms of the interactions between the electrons and the nucleus.",
+      "criteria": [
+       {
+        "text": "Explains that 1s electrons (peak 1) are much closer to the nucleus and experience little shielding, so they feel a stronger Coulombic attraction than 3s electrons (peak 4).",
+        "evidence": "Identifies peak 1 as 1s and peak 4 as 3s, and attributes the higher binding energy to smaller distance from the nucleus and/or less shielding, giving stronger Coulombic attraction.",
+        "fix": "Link binding energy to Coulomb's law: name the subshells, then compare distance from the nucleus and shielding by inner electrons.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Predict whether the 1s peak in the PES spectrum of sulfur would appear at a binding energy greater than, less than, or equal to 208 MJ/mol. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts the sulfur 1s peak is at a binding energy greater than 208 MJ/mol because sulfur has one more proton (16 vs 15), increasing the nuclear attraction on 1s electrons at a similar distance.",
+        "evidence": "Claims greater than 208 MJ/mol and justifies with the larger nuclear charge of sulfur attracting the 1s electrons more strongly.",
+        "fix": "Compare the number of protons in the two nuclei; electrons in the same innermost subshell are held more tightly by a larger nuclear charge.",
+        "accepted_variants": [
+         "higher",
+         "greater"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In the PES spectrum of sulfur, the lowest-energy peak corresponds to the 3p subshell. State the relative height of this 3p peak compared with the 3s peak of sulfur, and justify your answer using the electron configuration of sulfur.",
+      "criteria": [
+       {
+        "text": "States the sulfur 3p peak is twice as tall as its 3s peak (ratio 4 : 2) because sulfur's configuration is 1s² 2s² 2p⁶ 3s² 3p⁴.",
+        "evidence": "Gives a 2 : 1 ratio (or 4 : 2) and supports it with 3p⁴ and 3s² from the sulfur electron configuration, linking peak height to electron number.",
+        "fix": "Write the configuration first, then remember peak height is proportional to the number of electrons in that subshell.",
+        "accepted_variants": [
+         "2:1",
+         "4:2",
+         "twice as tall"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "fix length 26 words"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:57:22.378Z",
+   "item": {
+    "title": "Interpreting the Photoelectron Spectrum of an Unknown Element",
+    "calculator": "not_permitted",
+    "stimulus": "A student obtains the photoelectron spectrum of a gaseous sample of an unknown element X. All atoms are in the ground state. The spectrum shows five peaks. The binding energy of each peak and its relative peak height are listed below.\n\nPeak | Binding energy (MJ/mol) | Relative peak height\n1 | 210 | 2\n2 | 18.7 | 2\n3 | 13.5 | 6\n4 | 1.95 | 2\n5 | 1.06 | 3\n\nAnswer the following.",
+    "model_answer": "(a) In PES, the relative height of each peak is proportional to the number of electrons in that subshell. Assigning subshells from highest to lowest binding energy: peak 1 = 1s (2 electrons), peak 2 = 2s (2), peak 3 = 2p (6), peak 4 = 3s (2), peak 5 = 3p (3). The configuration is 1s² 2s² 2p⁶ 3s² 3p³. The total is 2 + 2 + 6 + 2 + 3 = 15 electrons, so a neutral atom has 15 protons and X is phosphorus.\n\n(b) Peak 1 corresponds to 1s electrons and peak 4 to 3s electrons. The 1s electrons are in the first shell, much closer to the nucleus, and have no inner electrons shielding them, so they experience a much greater effective nuclear charge. By Coulomb's law, the attraction between the nucleus and the 1s electrons is much stronger than for the 3s electrons, which are farther away and shielded by the 10 electrons in the first and second shells. Therefore much more energy is required to remove a 1s electron.\n\n(c) Sulfur has 16 electrons, with configuration 1s² 2s² 2p⁶ 3s² 3p⁴. The peak with the lowest binding energy corresponds to the 3p subshell, which holds 4 electrons, so its relative height is 4.\n\n(d) The sulfur 1s peak appears at a binding energy greater than 210 MJ/mol. Sulfur has 16 protons compared with 15 for phosphorus, while its 1s electrons are still in the first shell at a similar distance and with no shielding. The greater nuclear charge attracts the 1s electrons more strongly, so more energy is needed to remove them.",
+    "verification_python": "heights={'1s':2,'2s':2,'2p':6,'3s':2,'3p':3}\ntotal=sum(heights.values())\nassert total==15\nZ_P=15\nassert total==Z_P\nenergies=[210,18.7,13.5,1.95,1.06]\nassert energies==sorted(energies,reverse=True)\nassert energies[0]>energies[3]\n# sulfur configuration\nZ_S=16\ncaps=[('1s',2),('2s',2),('2p',6),('3s',2),('3p',6)]\nrem=Z_S\nconf={}\nfor s,c in caps:\n    n=min(c,rem)\n    conf[s]=n\n    rem-=n\nassert conf=={'1s':2,'2s':2,'2p':6,'3s':2,'3p':4}\nassert conf['3p']==4\nassert Z_S>Z_P\ninner=heights['1s']+heights['2s']+heights['2p']\nassert inner==10\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the data in the table, write the complete ground-state electron configuration of element X and identify the element. Explain how the relative peak heights support your answer.",
+      "criteria": [
+       {
+        "text": "Gives the configuration 1s² 2s² 2p⁶ 3s² 3p³ and identifies X as phosphorus (P), using the peak heights as electron counts.",
+        "evidence": "States the full configuration 1s² 2s² 2p⁶ 3s² 3p³, names phosphorus, and explains that each relative peak height equals the number of electrons in that subshell, totaling 15 electrons.",
+        "fix": "Treat each relative peak height as the electron count in a subshell, assign subshells from highest to lowest binding energy, then sum electrons.",
+        "accepted_variants": [
+         "[Ne] 3s² 3p³",
+         "P"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The binding energy of peak 1 (210 MJ/mol) is much greater than that of peak 4 (1.95 MJ/mol). Explain this difference in terms of the interactions between the electrons and the nucleus.",
+      "criteria": [
+       {
+        "text": "Explains that 1s electrons are much closer to the nucleus and experience little shielding, so the Coulombic attraction to the nucleus is much stronger than for 3s electrons.",
+        "evidence": "Identifies peak 1 as 1s and peak 4 as 3s, and states that the 1s electrons are closer to the nucleus (smaller distance) and less shielded (greater effective nuclear charge), giving greater Coulombic attraction and requiring more energy to remove.",
+        "fix": "Use Coulomb's law: compare distance from the nucleus and shielding by inner electrons for each subshell, then link stronger attraction to larger binding energy.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A photoelectron spectrum of sulfur (atomic number 16) is obtained under the same conditions. Identify the relative height of the sulfur peak with the lowest binding energy, and justify your answer using the electron configuration of sulfur.",
+      "criteria": [
+       {
+        "text": "States the lowest-energy (3p) peak of sulfur has a relative height of 4 because sulfur's configuration is 1s² 2s² 2p⁶ 3s² 3p⁴.",
+        "evidence": "Gives a relative height of 4 for the lowest binding energy peak and supports it with the configuration ending in 3p⁴ (four 3p electrons).",
+        "fix": "Write the configuration of the new element first, then match the lowest binding energy peak to its outermost subshell and count those electrons.",
+        "accepted_variants": [
+         "4",
+         "3p⁴"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Predict whether the 1s peak of sulfur appears at a binding energy greater than, less than, or equal to 210 MJ/mol. Justify your prediction in terms of the interactions between the electrons and the nucleus.",
+      "criteria": [
+       {
+        "text": "Predicts the sulfur 1s peak is at a binding energy greater than 210 MJ/mol because sulfur has one more proton, giving greater nuclear charge and stronger attraction for 1s electrons.",
+        "evidence": "Claims greater than 210 MJ/mol and justifies it by sulfur's larger nuclear charge (16 protons versus 15) attracting the 1s electrons, which are in the same shell and essentially unshielded, more strongly.",
+        "fix": "For the same subshell in two elements, compare the number of protons; more protons means greater Coulombic attraction and a higher binding energy.",
+        "accepted_variants": [
+         "greater than",
+         "higher"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 bundles three separately requested, observable elements into one point: writing the complete electron configuration, identifying phosphorus, and explaining the peak-height evidence. This violates the requirement that each criterion award one specific element. Separate these into individual 1-point criteria or narrow the part and criterion."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 bundles three separately requested, observable elements into one point: writing the complete electron configuration, identifying phosphorus, and explaining the peak-height evidence. This violates the requirement that each criterion award one specific element. Separate these into individual 1-point criteria or narrow the part and criterion."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "accepted_round": 3
+}

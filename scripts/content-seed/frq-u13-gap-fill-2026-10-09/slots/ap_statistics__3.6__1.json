@@ -1,0 +1,293 @@
+{
+ "id": "ap_statistics__3.6__1",
+ "slot": {
+  "subject_key": "ap_statistics",
+  "tsv": "dae3c72e-82ca-4960-9552-1b034bd347e5",
+  "unit": 3,
+  "unit_title": "Inference for Categorical Data: Proportions",
+  "topic_code": "3.6",
+  "topic_title": "p-Values",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:28:49.401Z",
+   "source": "given",
+   "item": {
+    "title": "Simulated p-Value for Mobile Fare Payments",
+    "calculator": "permitted",
+    "stimulus": "A city transit agency reports that 25% of its riders pay their fares with a mobile app. A transportation analyst believes the proportion is greater than 25%. In a random sample of 50 of the agency's riders, 20 paid with the mobile app. The analyst will test H₀: p = 0.25 versus Hₐ: p > 0.25, where p is the proportion of all the agency's riders who pay with the mobile app.\n\nTo obtain the null distribution, the analyst used a computer to simulate 200 random samples of 50 riders, assuming p = 0.25, and recorded the number of riders in each simulated sample who paid with the app. The results are shown in the table.\n\nNumber who paid with app | Number of simulated samples\n6 or fewer | 4\n7 | 6\n8 | 11\n9 | 17\n10 | 22\n11 | 25\n12 | 26\n13 | 24\n14 | 20\n15 | 15\n16 | 11\n17 | 7\n18 | 5\n19 | 3\n20 | 2\n21 or more | 2\nTotal | 200",
+    "parts": [
+     {
+      "prompt": "Use the simulation results to estimate the p-value of the test. Show how you obtained it.",
+      "criteria": [
+       {
+        "text": "Estimates the p-value as 4/200 = 0.02 by counting the simulated samples with 20 or more riders who paid with the app (2 + 2 = 4).",
+        "evidence": "Response counts the simulated samples at or above the observed value of 20 (the direction of Hₐ), gets 4, and divides by 200.",
+        "fix": "Count simulated results as extreme as or more extreme than the observed value in the direction of Hₐ, including the observed value itself.",
+        "accepted_variants": [
+         "0.02",
+         "4/200",
+         "2%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Interpret the p-value you estimated in context.",
+      "criteria": [
+       {
+        "text": "Describes the p-value as the probability of getting 20 or more riders who pay with the app in a random sample of 50 riders (a result as extreme as or more extreme than the one observed).",
+        "evidence": "Response states the event as 20 or more of 50 randomly sampled riders paying with the app (or a sample proportion of 0.40 or more), in context.",
+        "fix": "Name the event the p-value measures: a sample result at least as extreme as the observed one, in the direction of Hₐ, in context.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States that this probability is calculated assuming that the proportion of all the agency's riders who pay with the app is 0.25.",
+        "evidence": "Response includes the condition that the null hypothesis is true, stated in context (if the true proportion of all riders who pay with the app is 0.25).",
+        "fix": "End every p-value interpretation with the assumption, for example: assuming the true proportion of all riders who pay with the app is 0.25.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "What does the p-value suggest about the agency's report that 25% of its riders pay with the app? Explain.",
+      "criteria": [
+       {
+        "text": "Explains that because the p-value (about 0.02) is small, getting 20 or more app users in a sample of 50 would be unusual if p were 0.25, so the data provide evidence that the proportion of all the agency's riders who pay with the app is greater than 0.25.",
+        "evidence": "Response links the small p-value to the observed result being unusual if the null hypothesis were true and states that this is evidence for the alternative (proportion greater than 0.25), in context.",
+        "fix": "Translate a small p-value into words: the observed result would rarely happen if H₀ were true, so it is evidence for Hₐ.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A second analyst took a different random sample of 50 riders and obtained a p-value of 0.41 for the same test. The second analyst concluded that this proves that exactly 25% of all the agency's riders pay with the app. Explain why this conclusion is not justified.",
+      "criteria": [
+       {
+        "text": "Explains that a p-value that is not small means the observed result would not be unusual if p were 0.25, so it fails to provide convincing evidence for Hₐ, but it does not provide evidence that H₀ is true or prove that p = 0.25.",
+        "evidence": "Response states that a large p-value only means there is not convincing evidence for the alternative and that it cannot prove, or give evidence for, the null hypothesis being true.",
+        "fix": "Remember a large p-value means not enough evidence for Hₐ, never that H₀ is true; other values of p remain plausible.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The observed value is 20 riders who paid with the app. Because Hₐ is p > 0.25, I count the simulated samples with 20 or more app users: 2 (for 20) + 2 (for 21 or more) = 4. The estimated p-value is 4/200 = 0.02.\n\n(b) Assuming the true proportion of all the agency's riders who pay with the mobile app is 0.25, the probability of getting 20 or more riders who pay with the app in a random sample of 50 riders is about 0.02.\n\n(c) The p-value of about 0.02 is small. If 25% of all riders paid with the app, a sample with 20 or more app users out of 50 would happen only about 2% of the time, so the observed result would be unusual. This provides evidence against the agency's report and for the analyst's belief that the proportion of all the agency's riders who pay with the app is greater than 0.25.\n\n(d) A p-value of 0.41 means that a result like the second sample's would not be unusual if p = 0.25, so the second sample does not provide convincing evidence that the proportion is greater than 0.25. However, a large p-value does not provide evidence that the null hypothesis is true. Other values of p, such as 0.27, could also produce such a sample, so the data cannot prove that exactly 25% of riders pay with the app.",
+    "verification_python": "rows=[4,6,11,17,22,25,26,24,20,15,11,7,5,3,2,2]\nvals=['6-',7,8,9,10,11,12,13,14,15,16,17,18,19,20,'21+']\nassert len(rows)==len(vals)\nassert sum(rows)==200\nextreme=rows[vals.index(20)]+rows[vals.index('21+')]\nassert extreme==4\npv=extreme/200\nassert abs(pv-0.02)<1e-12\nassert abs(20/50-0.40)<1e-12\nassert 0.41>pv\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.6": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "2": 3,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.6",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Simulated p-Value for Mobile Fare Payments",
+   "calculator": "permitted",
+   "stimulus": "A city transit agency reports that 25% of its riders pay their fares with a mobile app. A transportation analyst believes the proportion is greater than 25%. In a random sample of 50 of the agency's riders, 20 paid with the mobile app. The analyst will test H₀: p = 0.25 versus Hₐ: p > 0.25, where p is the proportion of all the agency's riders who pay with the mobile app.\n\nTo obtain the null distribution, the analyst used a computer to simulate 200 random samples of 50 riders, assuming p = 0.25, and recorded the number of riders in each simulated sample who paid with the app. The results are shown in the table.\n\nNumber who paid with app | Number of simulated samples\n6 or fewer | 4\n7 | 6\n8 | 11\n9 | 17\n10 | 22\n11 | 25\n12 | 26\n13 | 24\n14 | 20\n15 | 15\n16 | 11\n17 | 7\n18 | 5\n19 | 3\n20 | 2\n21 or more | 2\nTotal | 200",
+   "parts": [
+    {
+     "prompt": "Use the simulation results to estimate the p-value of the test. Show how you obtained it.",
+     "criteria": [
+      {
+       "text": "Estimates the p-value as 4/200 = 0.02 by counting the simulated samples with 20 or more riders who paid with the app (2 + 2 = 4).",
+       "evidence": "Response counts the simulated samples at or above the observed value of 20 (the direction of Hₐ), gets 4, and divides by 200.",
+       "fix": "Count simulated results as extreme as or more extreme than the observed value in the direction of Hₐ, including the observed value itself.",
+       "accepted_variants": [
+        "0.02",
+        "4/200",
+        "2%"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Interpret the p-value you estimated in context.",
+     "criteria": [
+      {
+       "text": "Describes the p-value as the probability of getting 20 or more riders who pay with the app in a random sample of 50 riders (a result as extreme as or more extreme than the one observed).",
+       "evidence": "Response states the event as 20 or more of 50 randomly sampled riders paying with the app (or a sample proportion of 0.40 or more), in context.",
+       "fix": "Name the event the p-value measures: a sample result at least as extreme as the observed one, in the direction of Hₐ, in context.",
+       "accepted_variants": []
+      },
+      {
+       "text": "States that this probability is calculated assuming that the proportion of all the agency's riders who pay with the app is 0.25.",
+       "evidence": "Response includes the condition that the null hypothesis is true, stated in context (if the true proportion of all riders who pay with the app is 0.25).",
+       "fix": "End every p-value interpretation with the assumption, for example: assuming the true proportion of all riders who pay with the app is 0.25.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "What does the p-value suggest about the agency's report that 25% of its riders pay with the app? Explain.",
+     "criteria": [
+      {
+       "text": "Explains that because the p-value (about 0.02) is small, getting 20 or more app users in a sample of 50 would be unusual if p were 0.25, so the data provide evidence that the proportion of all the agency's riders who pay with the app is greater than 0.25.",
+       "evidence": "Response links the small p-value to the observed result being unusual if the null hypothesis were true and states that this is evidence for the alternative (proportion greater than 0.25), in context.",
+       "fix": "Translate a small p-value into words: the observed result would rarely happen if H₀ were true, so it is evidence for Hₐ.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "A second analyst took a different random sample of 50 riders and obtained a p-value of 0.41 for the same test. The second analyst concluded that this proves that exactly 25% of all the agency's riders pay with the app. Explain why this conclusion is not justified.",
+     "criteria": [
+      {
+       "text": "Explains that a p-value that is not small means the observed result would not be unusual if p were 0.25, so it fails to provide convincing evidence for Hₐ, but it does not provide evidence that H₀ is true or prove that p = 0.25.",
+       "evidence": "Response states that a large p-value only means there is not convincing evidence for the alternative and that it cannot prove, or give evidence for, the null hypothesis being true.",
+       "fix": "Remember a large p-value means not enough evidence for Hₐ, never that H₀ is true; other values of p remain plausible.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The observed value is 20 riders who paid with the app. Because Hₐ is p > 0.25, I count the simulated samples with 20 or more app users: 2 (for 20) + 2 (for 21 or more) = 4. The estimated p-value is 4/200 = 0.02.\n\n(b) Assuming the true proportion of all the agency's riders who pay with the mobile app is 0.25, the probability of getting 20 or more riders who pay with the app in a random sample of 50 riders is about 0.02.\n\n(c) The p-value of about 0.02 is small. If 25% of all riders paid with the app, a sample with 20 or more app users out of 50 would happen only about 2% of the time, so the observed result would be unusual. This provides evidence against the agency's report and for the analyst's belief that the proportion of all the agency's riders who pay with the app is greater than 0.25.\n\n(d) A p-value of 0.41 means that a result like the second sample's would not be unusual if p = 0.25, so the second sample does not provide convincing evidence that the proportion is greater than 0.25. However, a large p-value does not provide evidence that the null hypothesis is true. Other values of p, such as 0.27, could also produce such a sample, so the data cannot prove that exactly 25% of riders pay with the app.",
+   "verification_python": "rows=[4,6,11,17,22,25,26,24,20,15,11,7,5,3,2,2]\nvals=['6-',7,8,9,10,11,12,13,14,15,16,17,18,19,20,'21+']\nassert len(rows)==len(vals)\nassert sum(rows)==200\nextreme=rows[vals.index(20)]+rows[vals.index('21+')]\nassert extreme==4\npv=extreme/200\nassert abs(pv-0.02)<1e-12\nassert abs(20/50-0.40)<1e-12\nassert 0.41>pv\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (statistics.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.881043Z"
+ },
+ "accepted_round": 1
+}

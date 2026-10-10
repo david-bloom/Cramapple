@@ -6,6 +6,8 @@ This log records meaningful operating activity, approvals, closeouts, blockers, 
 
 Most recent entries (full reverse-chronological list follows below):
 
+- Session Close: FRQ Coverage Audit, Topic Labels and FRQ Gap Fill, Units 1-3 (2026-10-10): handoff `docs/handoffs/SESSION_CLOSE_2026_10_10_FRQ_GAP_FILL_UNITS_1_3.md`; next owner David (merge PR #400; decide on the second FRQ for 202 single-FRQ topics).
+- 126 New FRQs Published to Production and Development: Every Units 1-3 Topic Now Has an FRQ (APPROVAL-0146) (2026-10-10): 104 written in session after the Product Owner stopped paid authoring ($47 for 20 before; $21 for 106 after); three arbitration rounds; model answers 126/126 full credit (Biology also 10/10 on the production grader); 0 of 271 topics empty (was 126), 202 still have one FRQ.
 - TASK-0069 in Production, Dark (APPROVAL-0144) (2026-10-10): seven migrations applied verbatim and recorded at repository versions (one file corrected first: the attachment delete guard it had dropped), four functions deployed byte-identical, secrets set, Lovable App published (`e8c11dce`); integrity test 8/8 on Production; ~3-minute selector window with no student activity; API smoke owed (no Production secret key locally). Counts corrected: 619 published FRQ items, 37 published hand-drawn. **Next Owner:** David Bloom. **Next Action:** live admin run (runbook step 6), then decide on widening `FRQ_PHOTO_SUBJECTS`.
 - AP Chemistry Unit 1 Reference Pack to Production (APPROVAL-0147) (2026-10-10): the same generated SQL as Development; 24 entries + 1 hook; QA 8/8; probe counts identical to Dev; two escalations still unloaded.
 - Question Experience Backend to Production (APPROVAL-0145) + BYOQ Reference for Signed-Out Visitors; AP Chemistry Unit 1 Reference Batch in Development; Shared Question-Page Shell in Lovable Preview (2026-10-10): `get_question_experience` RPC + session items + comparison answers live in Production (probed read-only); `byoq` v15 serves reference/hooks signed-out; Chem U1 24 entries + 1 hook in Dev, 2 PO escalations; Lovable `84f287f0` Preview only.
@@ -413,6 +415,28 @@ Most recent entries (full reverse-chronological list follows below):
 **Rotation rule:** once this log exceeds ~400 lines, archive the older (bottom-of-file) entries to `docs/activity_log/archive/ACTIVITY_LOG-<range>.md` and update this index. Keep the index itself to the last ~10 entries.
 
 <!-- INDEX_END -->
+## Session Close: FRQ Coverage Audit, Topic Labels and FRQ Gap Fill, Units 1-3 — 2026-10-10
+
+**Context:** David: "document using the end of session protocol and end the session."
+
+**Recorded:** `docs/handoffs/SESSION_CLOSE_2026_10_10_FRQ_GAP_FILL_UNITS_1_3.md` (the ten close-out points, handoff packet, lessons, restart prompt); `docs/INDEX.md` pointer.
+
+**State:** 126 FRQs live in Production (APPROVAL-0146) and Development; 0 of 271 Units 1-3 topics without an FRQ; 183 FRQ topic cells (APPROVAL-0143). PR #396 merged; **PR #400 open** (scripts, so David merges). **Open:** 202 topics with one FRQ; Units 4+; Development schema lag.
+
+**Next Owner:** David Bloom. **Next Action:** merge PR #400; decide whether to fill the second FRQ for the 202 single-FRQ topics.
+
+## FRQ Gap Fill, Units 1-3: 126 FRQs Published to Production and Development — 2026-10-10
+
+**Context:** David asked for FRQ generation with existing FRQs as seeds, then: every Unit 1-3 topic needs FRQs (scope cut to one FRQ per topic with none; "Do not make FRQs if there is even a single FRQ in the topic"). After the paid-author run cost $47.09 for 20 accepted FRQs, he directed: "Don't use Opus as primary author - that is your job" and "Where there are edge cases, you should arbitrate and correct ambiguities." Later: "add FRQ content to dev" (content-only load chosen), "publish to dev as well", and Production publish approved (`APPROVAL-0146`).
+
+**What was done:** 104 FRQs written in session (eight parallel sub-sessions with self-contained briefs built from the official CED PDFs in `subject packs/` and the unit-scoped fact packs), plus the Product Owner's own Calculus AB 1.1 and 2.1 drafts rewritten to their CED topics. Every item went through lint, an exact recompute, the six-vote topic probe and two checkers (GPT-6.1 Sol, DeepSeek V4 Pro); planted-defect controls 8/8 before and after calibrating the rules to AP level. Three arbitration rounds by Claude: genuine rubric defects fixed (method prescribed, unasked justification scored, bundled points, missing givens), wrong checker claims rejected after recomputation, topic overlaps ruled from the CED text. Follow-through credit is used for Calculus and Physics only (documented in those fact packs). Model answers 126/126 full credit by a third family; Biology also 10/10 on the production grader after publish.
+
+**Result:** Production 126/126 published and verified (text hash, primary topic cell, hash-fresh validated label, difficulty). 0 of 271 Units 1-3 topics now lack an FRQ (was 126); the live selector serves the new items. Development: 126/126 published as a content-only copy (packs created for 8 subjects it lacked; no labels or difficulty there). Spend after the change of method: $21.24 for 106 FRQs. Batch record: `scripts/content-seed/frq-u13-gap-fill-2026-10-09/README.md`.
+
+**Open:** 202 Units 1-3 topics have exactly one FRQ (the original two-per-topic goal is not met); Units 4+ untouched; Development's schema still lags Production (no difficulty, validation-decision tables or label hash function).
+
+**Next Owner:** David Bloom. **Next Action:** merge the PR; decide whether to fill the second FRQ for the 202 single-FRQ topics with the same in-session method.
+
 ## TASK-0069 Hand-Drawn Responses in Production, Dark for Students (APPROVAL-0144) — 2026-10-10
 
 **Context:** David merged PR #397 and said "run the production runbook". `APPROVAL-0144` was recorded and pushed before the first Production write.

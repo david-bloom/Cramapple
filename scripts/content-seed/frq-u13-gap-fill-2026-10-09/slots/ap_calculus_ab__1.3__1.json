@@ -1,0 +1,697 @@
+{
+ "id": "ap_calculus_ab__1.3__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.3",
+  "topic_title": "Estimating Limit Values from Graphs",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.208Z",
+   "item": {
+    "title": "Reading Limits from a Described Graph and Oscillation",
+    "calculator": "not_permitted",
+    "stimulus": "The graph of a function g on the interval −5 ≤ x ≤ 6 is described in words below. The graph has no other points.\n\n• For −5 ≤ x < −2, the graph is a line segment from the filled point (−5, 1) to an open circle at (−2, 4).\n• At x = −2, the only point on the graph is the filled point (−2, 0).\n• For −2 < x < 1, the graph is a line segment from an open circle at (−2, 4) to an open circle at (1, −2).\n• For 1 ≤ x < 3, the graph starts at the filled point (1, 3) and increases without bound as x approaches 3 from the left.\n• g(3) is not defined, and the line x = 3 is a vertical asymptote.\n• For 3 < x ≤ 6, the graph decreases from arbitrarily large values near x = 3 down to the filled point (6, 2).\n\nSeparately, let p(x) = sin(π/x) for x ≠ 0.",
+    "model_answer": "(a) The filled point at x = −2 is (−2, 0), so g(−2) = 0. From the left, the segment from (−5, 1) approaches the open circle at (−2, 4), so lim x→−2⁻ g(x) = 4. From the right, the segment approaches the same open circle, so lim x→−2⁺ g(x) = 4. Since both one-sided limits equal 4, lim x→−2 g(x) = 4, even though g(−2) = 0.\n\n(b) To the left of 1, the segment approaches the open circle at (1, −2), so lim x→1⁻ g(x) = −2. To the right, the graph starts at the filled point (1, 3), so lim x→1⁺ g(x) = 3. Because −2 ≠ 3, the left-hand and right-hand limits are not equal, so lim x→1 g(x) does not exist.\n\n(c) As x→3⁻, g(x) increases without bound, and as x→3⁺, g(x) also takes arbitrarily large values. So lim x→3⁻ g(x) = ∞ and lim x→3⁺ g(x) = ∞, and we write lim x→3 g(x) = ∞. This means g is unbounded near x = 3, so the limit does not exist as a finite number.\n\n(d) p(1/n) = sin(π/(1/n)) = sin(nπ) = 0. p(2/(4n+1)) = sin(π(4n+1)/2) = sin(2nπ + π/2) = 1. Both 1/n and 2/(4n+1) are positive and approach 0 as n grows, so arbitrarily close to 0 on the right p takes the value 0 and also the value 1. The function oscillates and does not approach a single number, so lim x→0⁺ p(x) does not exist. The student is wrong; the plot sampled only points where p = 0 and missed the oscillation between them.",
+    "verification_python": "import sympy as sp\nfrom fractions import Fraction\nx=sp.symbols('x')\nn=sp.symbols('n',integer=True,positive=True)\n# segment from (-5,1) to (-2,4)\nL1=1+(x+5)*Fraction(3,3)\nassert sp.simplify(L1.subs(x,-2))==4\n# segment from (-2,4) to (1,-2)\nm=Fraction(-2-4,1-(-2))\nL2=4+m*(x+2)\nassert sp.simplify(L2.subs(x,-2))==4\nassert sp.simplify(L2.subs(x,1))==-2\nassert -2!=3\n# part d\np=sp.sin(sp.pi/x)\nfor k in range(1,30):\n    assert sp.simplify(p.subs(x,sp.Rational(1,k)))==0\n    assert sp.simplify(p.subs(x,sp.Rational(2,4*k+1)))==1\nassert sp.simplify(sp.sin(n*sp.pi))==0\nassert sp.simplify(sp.sin((4*n+1)*sp.pi/2))==1\nassert sp.limit(sp.Rational(1,1)/n,n,sp.oo)==0\nassert sp.limit(2/(4*n+1),n,sp.oo)==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find g(−2) and lim x→−2 g(x). Explain your reasoning using one-sided limits.",
+      "criteria": [
+       {
+        "text": "States g(−2) = 0.",
+        "evidence": "Response gives g(−2) = 0, read from the filled point (−2, 0).",
+        "fix": "The function value is the filled point's y-coordinate at that x; open circles show where the graph approaches but is not defined.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States lim x→−2 g(x) = 4, supported by both one-sided limits equal to 4.",
+        "evidence": "Response states lim x→−2⁻ g(x) = 4 and lim x→−2⁺ g(x) = 4, and concludes the limit is 4.",
+        "fix": "Find the limit from the y-values the graph approaches on each side, not from the filled point at that x.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→1⁻ g(x) and lim x→1⁺ g(x). Does lim x→1 g(x) exist? Justify your answer.",
+      "criteria": [
+       {
+        "text": "States lim x→1⁻ g(x) = −2 and lim x→1⁺ g(x) = 3.",
+        "evidence": "Both one-sided limit values are correct and clearly matched to the correct side.",
+        "fix": "For x→1⁻ use the piece defined just left of 1; for x→1⁺ use the piece starting at 1.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes lim x→1 g(x) does not exist because the left-hand and right-hand limits are not equal.",
+        "evidence": "Response says the limit does not exist and cites −2 ≠ 3, or says the one-sided limits differ.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; state that comparison explicitly.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the behavior of g(x) as x approaches 3 from each side and state lim x→3 g(x). If the limit is infinite, write it as ∞ and explain what that means about the existence of the limit.",
+      "criteria": [
+       {
+        "text": "States lim x→3 g(x) = ∞ because g increases without bound from both sides, so the limit does not exist as a finite number.",
+        "evidence": "Response notes g(x) → ∞ as x→3⁻ and as x→3⁺, writes lim x→3 g(x) = ∞, and says the limit does not exist because g is unbounded.",
+        "fix": "Check both sides of a vertical asymptote; if both rise without bound write ∞ and state the function is unbounded, so no finite limit exists.",
+        "accepted_variants": [
+         "+∞",
+         "infinity"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student plots p(x) = sin(π/x) using only the x-values 1, 1/2, 1/3, 1/4, … . Every plotted point lies on the x-axis, so the student concludes that lim x→0⁺ p(x) = 0. For each positive integer n, compute p(1/n) and p(2/(4n+1)). Then explain whether the student's conclusion is correct.",
+      "criteria": [
+       {
+        "text": "Computes p(1/n) = sin(nπ) = 0 and p(2/(4n+1)) = sin((4n+1)π/2) = 1.",
+        "evidence": "Both values are shown with the substitution into sin(π/x).",
+        "fix": "Substitute the given x into π/x, simplify, then use that sin(nπ) = 0 and sin(π/2 + 2nπ) = 1.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes the student is wrong: lim x→0⁺ p(x) does not exist because p oscillates, taking values 0 and 1 at x-values arbitrarily close to 0.",
+        "evidence": "Response notes both sequences of x-values approach 0 from the right yet p equals 0 on one and 1 on the other, so p oscillates and the limit does not exist; may mention the plot missed behavior between sampled points.",
+        "fix": "A plot can miss behavior between sampled points; if outputs keep taking two different values arbitrarily close to a point, the limit does not exist.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": false,
+    "votes": {
+     "1.2": 3,
+     "1.9": 1,
+     "1.3": 2
+    },
+    "onTarget": 2,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "stage": "topic_vote"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:45:24.024Z",
+   "item": {
+    "title": "Reading Limits from a Described Piecewise Graph",
+    "calculator": "not_applicable",
+    "stimulus": "A function g is defined for -4 ≤ x ≤ 6 except at x = 4. Its graph is described in words below. A closed point is part of the graph. An open circle marks a point that is not on the graph.\n\n1. For -4 ≤ x < -1, the graph is a straight line segment. It starts at the closed point (-4, 0) and ends at an open circle at (-1, 3).\n2. At x = -1 there is a single closed point at (-1, 1), so g(-1) = 1.\n3. For -1 < x < 2, the graph is a straight line segment. It runs from an open circle at (-1, -2) to an open circle at (2, 4).\n4. At x = 2 there is a single closed point at (2, 0), so g(2) = 0.\n5. For 2 < x < 4, the graph is an unbroken increasing curve. It starts at the open circle at (2, 4) and rises without bound as x approaches 4 from the left.\n6. The vertical line x = 4 is a vertical asymptote, and g(4) is not defined.\n7. For 4 < x ≤ 6, the graph is an unbroken decreasing curve. It comes down from arbitrarily large values just to the right of x = 4 and ends at the closed point (6, 1).",
+    "model_answer": "(a) As x → -1 from the left, the first segment approaches the open circle at (-1, 3), so lim x→-1⁻ g(x) = 3. As x → -1 from the right, the second segment approaches the open circle at (-1, -2), so lim x→-1⁺ g(x) = -2. Since 3 ≠ -2, the left-hand and right-hand limits are not equal. Therefore lim x→-1 g(x) does not exist. The closed point (-1, 1) does not affect this.\n\n(b) From the left, the segment on (-1, 2) approaches the height 4 at x = 2. From the right, the curve on (2, 4) starts at the open circle (2, 4), so it also approaches 4. Both one-sided limits equal 4, so lim x→2 g(x) = 4. The closed point at (2, 0) gives g(2) = 0. These values can differ because a limit describes the values g(x) approaches as x gets close to 2, not the value of g at x = 2 itself.\n\n(c) As x approaches 4 from the left, the graph rises without bound, so lim x→4⁻ g(x) = ∞. As x approaches 4 from the right, the graph comes down from arbitrarily large values, so lim x→4⁺ g(x) = ∞. Thus lim x→4 g(x) = ∞. This means g is unbounded near x = 4, so the limit does not exist as a real number.\n\n(d) As x → -4 from the right, the first segment approaches its starting point (-4, 0), so lim x→-4⁺ g(x) = 0. As x → 6 from the left, the decreasing curve approaches (6, 1), so lim x→6⁻ g(x) = 1.\nThe limit fails to exist at exactly two values of c.\nAt c = -1, the one-sided limits are 3 and -2, which are unequal.\nAt c = 4, g is unbounded on both sides.\nAt c = 2, the limit exists and equals 4, even though g(2) = 0. Everywhere else in (-4, 6), the graph is an unbroken segment or curve, so the limit exists.",
+    "verification_python": "from fractions import Fraction as F\n\ndef seg(p, q):\n    (x1, y1), (x2, y2) = p, q\n    m = F(y2 - y1, x2 - x1)\n    return lambda x: y1 + m * (x - x1)\n\ns1 = seg((-4, 0), (-1, 3))\ns2 = seg((-1, -2), (2, 4))\n\n# part (a)\nassert s1(-1) == 3\nassert s2(-1) == -2\nassert s1(-1) != s2(-1)\n\n# part (b): left-hand limit at 2 is 4, and the right-hand curve starts at the open circle (2, 4)\nassert s2(2) == 4\nright_start = 4\nassert s2(2) == right_start\ng2 = 0\nassert g2 != 4\n\n# part (d)\nassert s1(-4) == 0\nend_value = 1\nassert end_value == 1\n\n# points where the limit fails: unequal one-sided limits or unbounded behavior\nbreaks = {-1: (s1(-1), s2(-1)), 2: (s2(2), right_start)}\nfail = sorted([c for c, (l, r) in breaks.items() if l != r] + [4])\nassert fail == [-1, 4]\n\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the description of the graph, find lim x→-1⁻ g(x) and lim x→-1⁺ g(x). Does lim x→-1 g(x) exist? Explain.",
+      "criteria": [
+       {
+        "text": "States lim x→-1⁻ g(x) = 3 and lim x→-1⁺ g(x) = -2.",
+        "evidence": "Both one-sided limit values are correct. Each is read from the segment that approaches x = -1 from that side, not from the closed point (-1, 1).",
+        "fix": "For a one-sided limit, follow the graph toward x = -1 from that side only and ignore the isolated point at x = -1.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes lim x→-1 g(x) does not exist because the left-hand limit (3) does not equal the right-hand limit (-2).",
+        "evidence": "The response states that the limit does not exist. It justifies this by comparing the two unequal one-sided limits.",
+        "fix": "State that a two-sided limit exists only when both one-sided limits exist and are equal, then compare the two values.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 g(x) and g(2). Explain why these two values can be different.",
+      "criteria": [
+       {
+        "text": "States lim x→2 g(x) = 4, supported by both one-sided limits equal to 4.",
+        "evidence": "The response gives the value 4. It notes that the graph approaches the height 4 from both the left and the right of x = 2.",
+        "fix": "Check both sides of x = 2. If the left-hand and right-hand heights agree, that common height is the limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States g(2) = 0 and explains that the limit depends on values of g near x = 2, not on the value at x = 2.",
+        "evidence": "The response correctly gives g(2) = 0 from the closed point. It gives a reason that the limit describes behavior as x approaches 2 and does not depend on g(2).",
+        "fix": "Read g(2) from the closed point, then explain that a limit describes nearby behavior and ignores the function value itself.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the behavior of g(x) as x approaches 4 from each side, using limit notation. Does lim x→4 g(x) exist as a real number? Explain.",
+      "criteria": [
+       {
+        "text": "States lim x→4⁻ g(x) = ∞ and lim x→4⁺ g(x) = ∞.",
+        "evidence": "The response uses correct one-sided limit notation showing that g increases without bound from both sides of x = 4.",
+        "fix": "Near a vertical asymptote, describe each side separately and write ∞ or -∞ according to the direction the graph goes.",
+        "accepted_variants": [
+         "+∞"
+        ]
+       },
+       {
+        "text": "Concludes lim x→4 g(x) does not exist as a real number because g is unbounded near x = 4. The response may also write lim x→4 g(x) = ∞.",
+        "evidence": "The response states that the limit is not a real number and attributes this to the unbounded behavior of g near x = 4.",
+        "fix": "Remember that writing a limit equals ∞ describes unbounded growth. The limit still does not exist as a finite real number.",
+        "accepted_variants": [
+         "DNE because unbounded",
+         "lim x→4 g(x) = ∞"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→-4⁺ g(x) and lim x→6⁻ g(x). Then list every value of c with -4 < c < 6 for which lim x→c g(x) does not exist, giving a reason for each value.",
+      "criteria": [
+       {
+        "text": "States lim x→-4⁺ g(x) = 0 and lim x→6⁻ g(x) = 1.",
+        "evidence": "Both endpoint one-sided limits are correct. Each is read from the graph approaching the endpoint from inside the domain.",
+        "fix": "At an endpoint of the domain, use the one-sided limit from inside the interval and read the height the graph approaches.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Lists exactly c = -1 and c = 4, giving a reason for each.",
+        "evidence": "The response lists c = -1, where the one-sided limits are unequal, and c = 4, where g is unbounded. It does not include c = 2 or any other value.",
+        "fix": "Test each break in the graph. A limit fails only for unequal one-sided limits, unbounded behavior, or oscillation, not for a misplaced point.",
+        "accepted_variants": [
+         "c ∈ {-1, 4}"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1, c1, and d1 each bundle two independently requested one-sided limit values into one point, rather than awarding one specific observable element. Criterion b2 likewise combines the separately requested value g(2) with the explanation of why the function value and limit can differ. Split these independently assessable elements into separate 1-point criteria."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1, c1, and d1 each bundle two independently requested one-sided limit values into one point, rather than awarding one specific observable element. Criterion b2 likewise combines the separately requested value g(2) with the explanation of why the function value and limit can differ. Split these independently assessable elements into separate 1-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:38:04.202Z",
+   "item": {
+    "title": "Reading Limits from a Verbally Described Graph",
+    "calculator": "not_permitted",
+    "stimulus": "The graph of a function g on the interval −4 ≤ x ≤ 5, x ≠ 3, is described in words below. An open circle means the point is not on the graph; a filled dot means the point is on the graph.\n\n• For −4 ≤ x < −1, the graph is the line segment from the filled dot (−4, 0) to an open circle at (−1, 3).\n• At x = −1, there is a filled dot at (−1, 1).\n• For −1 < x < 2, the graph is the line segment from an open circle at (−1, −2) to an open circle at (2, 4).\n• At x = 2, there is a filled dot at (2, 0).\n• For 2 < x < 3, the graph starts at an open circle at (2, 4) and increases without bound as x approaches 3 from the left.\n• For 3 < x ≤ 5, the graph increases without bound as x approaches 3 from the right, and it decreases to the filled dot (5, 1). The line x = 3 is a vertical asymptote, and g(3) is not defined.\n\nA second function is k(x) = sin(π/x) for x > 0.",
+    "model_answer": "(a) Approaching −1 from the left, the graph follows the segment from (−4, 0) toward the open circle at (−1, 3), so lim x→−1⁻ g(x) = 3. Approaching from the right, the graph follows the segment from the open circle at (−1, −2), so lim x→−1⁺ g(x) = −2. Since 3 ≠ −2, the one-sided limits are not equal, so lim x→−1 g(x) does not exist. (The value g(−1) = 1 does not affect this.)\n\n(b) From the left, the segment approaches the open circle at (2, 4); from the right, the graph starts at the open circle at (2, 4). Both one-sided limits equal 4, so lim x→2 g(x) = 4. The filled dot at (2, 0) gives g(2) = 0. They differ because a limit depends only on the values of g for x near 2, not on the value of g at x = 2 itself.\n\n(c) As x→3⁻ and as x→3⁺, g(x) increases without bound, so lim x→3⁻ g(x) = ∞ and lim x→3⁺ g(x) = ∞, which we write as lim x→3 g(x) = ∞. Because g is unbounded near x = 3, there is no finite value L; the limit does not exist as a real number.\n\n(d) At x = 2/5, k(2/5) = sin(5π/2) = 1, and at x = 2/3, k(2/3) = sin(3π/2) = −1. More generally k(2/(4n+1)) = 1 and k(2/(4n+3)) = −1 for every positive integer n, while k(1/n) = sin(nπ) = 0. So in every interval (0, δ) there are x-values where k equals 1, where it equals −1, and where it equals 0. The function oscillates between −1 and 1 infinitely often as x→0⁺, so it does not approach a single value, and lim x→0⁺ k(x) does not exist. The student's plot sampled only the zeros, so its scale missed the oscillation.",
+    "verification_python": "import math\nfrom fractions import Fraction\n# segment 1: (-4,0) to (-1,3): y = x+4\nseg1 = lambda x: x + 4\nassert seg1(-4) == 0 and seg1(-1) == 3\n# segment 2: (-1,-2) to (2,4): y = 2x\nseg2 = lambda x: 2*x\nassert seg2(-1) == -2 and seg2(2) == 4\nleft_m1 = seg1(-1); right_m1 = seg2(-1)\nassert left_m1 == 3 and right_m1 == -2 and left_m1 != right_m1\nlim2_left = seg2(2); lim2_right = 4\nassert lim2_left == lim2_right == 4\ng2 = 0\nassert g2 != 4\nk = lambda x: math.sin(math.pi / x)\nassert abs(k(2/5) - 1) < 1e-12\nassert abs(k(2/3) + 1) < 1e-12\nassert abs(k(2/9) - 1) < 1e-12\nfor n in range(1, 50):\n    assert abs(k(1/n)) < 1e-9\n    assert abs(k(2/(4*n+1)) - 1) < 1e-9\n    assert abs(k(2/(4*n+3)) + 1) < 1e-9\nassert 0 < 2/5 < 1 and 0 < 2/3 < 1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→−1⁻ g(x) and lim x→−1⁺ g(x). Does lim x→−1 g(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "Reads both one-sided limits correctly: lim x→−1⁻ g(x) = 3 and lim x→−1⁺ g(x) = −2.",
+        "evidence": "States the left-hand limit as 3 and the right-hand limit as −2, each tied to the correct piece of the graph.",
+        "fix": "For a one-sided limit, follow only the piece of graph on that side toward the x-value, ignoring the filled dot there.",
+        "accepted_variants": [
+         "left limit 3, right limit −2"
+        ]
+       },
+       {
+        "text": "Concludes lim x→−1 g(x) does not exist because the left-hand limit 3 does not equal the right-hand limit −2.",
+        "evidence": "States the two-sided limit does not exist and gives unequal one-sided limits as the reason.",
+        "fix": "Remember a two-sided limit exists only when both one-sided limits exist and are equal; cite the two values when they differ.",
+        "accepted_variants": [
+         "DNE since 3 ≠ −2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2 g(x) and find g(2). Explain why these two values are different.",
+      "criteria": [
+       {
+        "text": "Finds lim x→2 g(x) = 4, supported by both one-sided limits equal to 4.",
+        "evidence": "States the limit is 4 and notes the graph approaches height 4 from both the left and the right of x = 2.",
+        "fix": "Check the height the graph approaches from each side of x = 2; if both sides agree, that common height is the limit.",
+        "accepted_variants": [
+         "both one-sided limits are 4, so the limit is 4"
+        ]
+       },
+       {
+        "text": "States g(2) = 0 and explains that a limit depends on values of g near x = 2, not on the value at x = 2.",
+        "evidence": "Gives g(2) = 0 from the filled dot and explains that the limit describes nearby behavior, so it need not equal g(2).",
+        "fix": "Read the function value from the filled dot, and explain that limits describe approach behavior, not the value at the point.",
+        "accepted_variants": [
+         "g(2) = 0 ≠ 4 because the limit ignores the isolated point"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the behavior of g(x) as x approaches 3, and use limit notation to state lim x→3 g(x). Is there a finite value L with lim x→3 g(x) = L? Explain.",
+      "criteria": [
+       {
+        "text": "States lim x→3 g(x) = ∞ because g increases without bound from both sides, so no finite limit exists (the function is unbounded).",
+        "evidence": "Writes lim x→3 g(x) = ∞ (or both one-sided limits equal ∞) and explains that unbounded growth means the limit does not exist as a real number.",
+        "fix": "When a graph rises without bound on both sides of a vertical asymptote, write the limit as ∞ and note no finite limit exists.",
+        "accepted_variants": [
+         "lim x→3⁻ g(x) = ∞ and lim x→3⁺ g(x) = ∞, so the limit does not exist as a finite number"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student graphs k(x) = sin(π/x) by plotting only the points x = 1, 1/2, 1/3, 1/4, …, connecting them, and sees a flat line along y = 0. The student concludes that lim x→0⁺ k(x) = 0. Give a specific value of x between 0 and 1 at which k(x) is not 0, and use this to explain whether lim x→0⁺ k(x) exists.",
+      "criteria": [
+       {
+        "text": "Gives a valid x in (0, 1) with k(x) ≠ 0, such as k(2/5) = sin(5π/2) = 1 or k(2/3) = sin(3π/2) = −1.",
+        "evidence": "Names a specific x between 0 and 1 and correctly evaluates k there to a nonzero value.",
+        "fix": "Choose x so that π/x is an odd multiple of π/2, such as x = 2/5, then evaluate sin(π/x).",
+        "accepted_variants": [
+         "x = 2/5, k = 1",
+         "x = 2/3, k = −1",
+         "x = 2/9, k = 1",
+         "x = 2/(4n+1), k = 1"
+        ]
+       },
+       {
+        "text": "Concludes lim x→0⁺ k(x) does not exist because k oscillates between −1 and 1 infinitely often as x→0⁺, which the sparse plot missed.",
+        "evidence": "States the limit does not exist and explains oscillation: arbitrarily close to 0 there are x-values with k = 1 and with k = −1 (or with k = 0 and k = 1), so k does not approach a single value.",
+        "fix": "Show values of 1 and −1 occur arbitrarily close to 0, then state oscillation means no single limiting value; plotted points can miss behavior.",
+        "accepted_variants": [
+         "DNE due to oscillation"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:39:07.863Z",
+   "item": {
+    "title": "Reading One-Sided and Two-Sided Limits from a Described Graph",
+    "calculator": "not_applicable",
+    "stimulus": "The function g is defined for all x with −5 < x < 6 except x = 4. Its graph is described in words below. An open circle means the point is not on the graph; a filled point means the point is on the graph.\n\n• For −5 < x < −2, the graph is a line segment that rises from near the point (−5, 1) to an open circle at (−2, 4).\n• For −2 ≤ x < 1, the graph is a smooth curve that starts at a filled point at (−2, 1) and rises to an open circle at (1, 3).\n• At x = 1, there is a single filled point at (1, −1) that is not attached to any curve.\n• For 1 < x < 4, the graph is a curve that starts at the open circle (1, 3). As x approaches 4 from the left, the curve increases without bound along the vertical line x = 4.\n• For 4 < x < 6, as x approaches 4 from the right, the graph also increases without bound. Moving right, the curve decreases to near the point (6, 2).",
+    "model_answer": "(a) Approaching x = −2 from the left, the line segment heads to the open circle at (−2, 4), so lim x→−2⁻ g(x) = 4. Approaching from the right, the curve starts at the filled point (−2, 1), so lim x→−2⁺ g(x) = 1. Since the left-hand limit 4 does not equal the right-hand limit 1, lim x→−2 g(x) does not exist.\n\n(b) From the left, the curve on −2 ≤ x < 1 rises toward (1, 3); from the right, the curve on 1 < x < 4 starts at the open circle (1, 3). Both one-sided limits equal 3, so lim x→1 g(x) = 3. The filled point gives g(1) = −1. The limit describes the values of g(x) for x close to, but not equal to, 1, so the isolated value g(1) = −1 has no effect on the limit.\n\n(c) As x → 4⁻ and as x → 4⁺, g(x) increases without bound, so lim x→4 g(x) = ∞. The limit does not exist as a real number, because g is unbounded near x = 4 and does not approach any finite value.",
+    "verification_python": "left_m2 = 4\nright_m2 = 1\nassert left_m2 != right_m2\nlim1_left = 3\nlim1_right = 3\nassert lim1_left == lim1_right == 3\ng1 = -1\nassert g1 != 3\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the description of the graph, find lim x→−2⁻ g(x) and lim x→−2⁺ g(x). Does lim x→−2 g(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "States lim x→−2⁻ g(x) = 4 and lim x→−2⁺ g(x) = 1.",
+        "evidence": "Both one-sided limit values are given correctly: 4 from the left and 1 from the right.",
+        "fix": "Follow each piece toward x = −2 from its own side; the left limit uses the left piece, the right limit uses the right piece.",
+        "accepted_variants": [
+         "left-hand limit is 4 and right-hand limit is 1"
+        ]
+       },
+       {
+        "text": "Concludes lim x→−2 g(x) does not exist because the left-hand limit (4) does not equal the right-hand limit (1).",
+        "evidence": "Response says the two-sided limit does not exist and justifies it by comparing the unequal one-sided limits.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly and state the conclusion.",
+        "accepted_variants": [
+         "DNE since 4 ≠ 1",
+         "does not exist because the one-sided limits are different"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→1 g(x) and g(1). Explain why the value of g(1) does not affect the value of lim x→1 g(x).",
+      "criteria": [
+       {
+        "text": "States lim x→1 g(x) = 3, supported by both one-sided limits approaching 3.",
+        "evidence": "Response gives 3 and notes that the graph approaches 3 from both the left and the right of x = 1 (the open circle at (1, 3)).",
+        "fix": "Check the y-value the graph approaches from each side of x = 1; if both sides approach the same value, that is the limit.",
+        "accepted_variants": [
+         "lim x→1⁻ g(x) = lim x→1⁺ g(x) = 3, so the limit is 3"
+        ]
+       },
+       {
+        "text": "States g(1) = −1 and explains that a limit depends only on values of g near x = 1, not at x = 1.",
+        "evidence": "Response gives g(1) = −1 from the filled point and explains the limit describes behavior as x approaches 1, so the isolated point does not change it.",
+        "fix": "Distinguish the function value (the filled point) from the limit (where the graph heads as x gets close but not equal to 1).",
+        "accepted_variants": [
+         "g(1) = −1; the limit is about x-values close to but not equal to 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the behavior of g(x) as x approaches 4 using limit notation. Does lim x→4 g(x) exist as a real number? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "Writes lim x→4 g(x) = ∞, noting g increases without bound from both the left and the right.",
+        "evidence": "Response uses limit notation showing g(x) → ∞ as x → 4 (either as a two-sided statement or as both one-sided limits equal to ∞).",
+        "fix": "When a graph rises without bound on both sides of a vertical line, write lim x→a f(x) = ∞ and mention both sides.",
+        "accepted_variants": [
+         "lim x→4⁻ g(x) = ∞ and lim x→4⁺ g(x) = ∞",
+         "lim x→4 g(x) = +∞"
+        ]
+       },
+       {
+        "text": "States the limit does not exist as a real number because g is unbounded near x = 4.",
+        "evidence": "Response says no and gives unbounded behavior (values grow without bound, no finite value approached) as the reason.",
+        "fix": "Remember that writing = ∞ describes unbounded behavior; the limit still does not exist as a finite real number.",
+        "accepted_variants": [
+         "does not exist because g(x) grows without bound",
+         "no, the function is unbounded as x approaches 4"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "stage": "lint"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:40:01.300Z",
+   "item": {
+    "title": "Reading One-Sided and Two-Sided Limits from a Described Graph",
+    "calculator": "not_permitted",
+    "stimulus": "The graph of a function f, defined for −5 < x < 6 with x ≠ 4, is described below in words. An open circle means the point is not on the graph; a closed circle means it is on the graph.\n\n• For −5 < x < −2, the graph is a straight line segment from an open circle at (−5, 0) to an open circle at (−2, 3).\n• For −2 ≤ x < 1, the graph is a straight line segment from a closed circle at (−2, −1) to an open circle at (1, 2).\n• At x = 1, the graph has a single closed circle at (1, −2).\n• For 1 < x ≤ 3, the graph is a straight line segment from an open circle at (1, 2) to a closed circle at (3, 0).\n• For 3 < x < 4, the graph rises from (3, 0) and increases without bound as x approaches 4. The line x = 4 is a vertical asymptote.\n• For 4 < x < 6, the graph comes down from arbitrarily large values near x = 4 and decreases toward an open circle at (6, 1).\n\nA second function g is defined for all x ≠ 0. Its graph is described as follows: in every open interval containing x = 0, no matter how small, the graph of g oscillates between y = −1 and y = 1, reaching each of these values infinitely many times.",
+    "model_answer": "(a) As x approaches −2 from the left, the graph follows the segment ending at the open circle (−2, 3), so lim x→−2⁻ f(x) = 3. From the right, the graph starts at (−2, −1), so lim x→−2⁺ f(x) = −1. Since 3 ≠ −1, the one-sided limits are not equal, so lim x→−2 f(x) does not exist.\n\n(b) From the left, the segment approaches the open circle (1, 2), and from the right the segment also approaches the open circle (1, 2). So lim x→1⁻ f(x) = lim x→1⁺ f(x) = 2, and lim x→1 f(x) = 2. The closed circle gives f(1) = −2. The limit depends only on the values of f(x) for x near 1, not at x = 1, so the isolated point (1, −2) does not change the limit.\n\n(c) As x→4⁻, the graph increases without bound, so lim x→4⁻ f(x) = ∞. As x→4⁺, the graph also comes down from arbitrarily large values, so lim x→4⁺ f(x) = ∞. Because f(x) is unbounded near x = 4, f(x) does not approach any real number, so lim x→4 f(x) does not exist as a real number (it can be described as lim x→4 f(x) = ∞).\n\n(d) In every interval around x = 0, g(x) oscillates between −1 and 1, taking both values infinitely often. So g(x) does not get close to any single number as x→0, and lim x→0 g(x) does not exist.",
+    "verification_python": "import sympy as sp\nx=sp.symbols('x')\ndef line(p,q):\n    m=sp.Rational(q[1]-p[1],q[0]-p[0])\n    return p[1]+m*(x-p[0])\nA=line((-5,0),(-2,3))\nB=line((-2,-1),(1,2))\nC=line((1,2),(3,0))\nassert A.subs(x,-5)==0 and A.subs(x,-2)==3\nassert sp.limit(A,x,-2,'-')==3\nassert sp.limit(B,x,-2,'+')==-1\nassert B.subs(x,-2)==-1\nassert sp.limit(A,x,-2,'-')!=sp.limit(B,x,-2,'+')\nassert sp.limit(B,x,1,'-')==2\nassert sp.limit(C,x,1,'+')==2\nassert C.subs(x,3)==0\nf1=-2\nassert f1!=2\n# model for asymptote behavior: 1/(x-4)^2 type growth\nh=1/(x-4)**2\nassert sp.limit(h,x,4,'-')==sp.oo and sp.limit(h,x,4,'+')==sp.oo\n# oscillation: sin(1/x) takes 1 and -1 at points approaching 0\nimport math\nfor k in range(1,6):\n    a=1/(math.pi/2+2*math.pi*k); b=1/(3*math.pi/2+2*math.pi*k)\n    assert abs(math.sin(1/a)-1)<1e-9 and abs(math.sin(1/b)+1)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the description of the graph of f, find lim x→−2⁻ f(x) and lim x→−2⁺ f(x). Does lim x→−2 f(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "States lim x→−2⁻ f(x) = 3 and lim x→−2⁺ f(x) = −1.",
+        "evidence": "Both one-sided limit values are given correctly and attached to the correct side.",
+        "fix": "Trace the graph toward x = −2 from each side separately; the left side ends at the open circle (−2, 3).",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes lim x→−2 f(x) does not exist because the left-hand limit (3) does not equal the right-hand limit (−1).",
+        "evidence": "A statement that the two-sided limit does not exist, justified by the unequal one-sided limits.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly before concluding.",
+        "accepted_variants": [
+         "DNE because 3 ≠ −1",
+         "does not exist since the one-sided limits differ"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→1 f(x) and f(1). Explain why the value of the limit is not affected by the value of f(1).",
+      "criteria": [
+       {
+        "text": "States lim x→1 f(x) = 2, supported by both one-sided limits approaching 2.",
+        "evidence": "Value 2 with a reason that the graph approaches the height 2 from both the left and the right of x = 1.",
+        "fix": "Read the heights the graph approaches near x = 1 from each side, ignoring the isolated point at x = 1.",
+        "accepted_variants": [
+         "lim x→1⁻ f(x) = lim x→1⁺ f(x) = 2, so the limit is 2"
+        ]
+       },
+       {
+        "text": "States f(1) = −2 and explains that a limit depends on values of f near x = 1, not at x = 1.",
+        "evidence": "Correct value f(1) = −2 together with a statement that the limit describes behavior as x approaches 1, so the isolated point does not change it.",
+        "fix": "Distinguish the closed circle giving f(1) from the open circles showing where the graph heads as x approaches 1.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the behavior of f(x) as x→4⁻ and as x→4⁺. Does lim x→4 f(x) exist as a real number? Explain.",
+      "criteria": [
+       {
+        "text": "States lim x→4⁻ f(x) = ∞ and lim x→4⁺ f(x) = ∞.",
+        "evidence": "Both one-sided behaviors identified as increasing without bound (positive infinity).",
+        "fix": "Near a vertical asymptote, check from each side whether the graph rises or falls without bound.",
+        "accepted_variants": [
+         "f(x) increases without bound from both sides",
+         "f(x)→+∞ as x→4 from either side"
+        ]
+       },
+       {
+        "text": "Concludes lim x→4 f(x) does not exist as a real number because f is unbounded near x = 4.",
+        "evidence": "Explicit statement that no finite limit exists, citing unbounded behavior; writing lim x→4 f(x) = ∞ with this explanation also earns the point.",
+        "fix": "Remember that a limit equal to ∞ describes unbounded behavior; it is not a real-number value, so the limit does not exist.",
+        "accepted_variants": [
+         "lim x→4 f(x) = ∞, so the limit does not exist as a finite value"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the description of the graph of g, does lim x→0 g(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "Concludes lim x→0 g(x) does not exist because g oscillates and does not approach a single value near x = 0.",
+        "evidence": "States the limit does not exist and gives oscillation between −1 and 1 near 0 as the reason.",
+        "fix": "If the graph keeps swinging between two heights in every interval around the point, it approaches no single value, so the limit does not exist.",
+        "accepted_variants": [
+         "DNE due to oscillation",
+         "does not exist because g(x) keeps taking values −1 and 1 arbitrarily close to 0"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "stage": "lint"
+  }
+ ],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:27:33.843Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Reading Limits from a Described Piecewise Graph"
+  },
+  {
+   "at": "2026-10-10T01:28:08.279Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Reading One-Sided Limits from a Described Graph"
+  },
+  {
+   "at": "2026-10-10T01:28:51.083Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Reading Limits from a Verbally Described Graph"
+  }
+ ],
+ "accepted_round": 2
+}

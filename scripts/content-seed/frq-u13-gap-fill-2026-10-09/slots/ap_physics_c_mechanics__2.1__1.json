@@ -1,0 +1,871 @@
+{
+ "id": "ap_physics_c_mechanics__2.1__1",
+ "slot": {
+  "subject_key": "ap_physics_c_mechanics",
+  "tsv": "d77d7801-441d-49bb-a2cf-a02f6bff407d",
+  "unit": 2,
+  "unit_title": "Force and Translational Dynamics",
+  "topic_code": "2.1",
+  "topic_title": "Systems and Center of Mass",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T04:16:17.922Z",
+   "source": "given",
+   "item": {
+    "title": "Center of Mass of a Rod with Increasing Density",
+    "calculator": "permitted",
+    "stimulus": "A thin rod lies along the x-axis from x = 0 to x = 4.0 m. Its linear mass density is not uniform and is given by λ(x) = 1.0 + 0.50x, where λ is in kg/m and x is in meters.",
+    "parts": [
+     {
+      "prompt": "Calculate the total mass of the rod.",
+      "criteria": [
+       {
+        "text": "M = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.",
+        "evidence": "Response obtains 8.0 kg by integrating λ(x) over 0 to 4.0 m, or by another valid method such as multiplying the average of this linear density by the length.",
+        "fix": "For a nonuniform rod, write dm = λ(x) dx and integrate over the full length rather than using the density at a single point.",
+        "accepted_variants": [
+         "8 kg"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Use integration to calculate the x-coordinate of the rod's center of mass.",
+      "criteria": [
+       {
+        "text": "Sets up x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx.",
+        "evidence": "Response writes the center-of-mass integral with integrand x·λ(x) over 0 to 4.0 m, divided by the total mass (8.0 kg or the response's own part (a) mass).",
+        "fix": "Weight each mass element by its position: integrate x·λ(x) dx over the rod, then divide by the total mass.",
+        "accepted_variants": []
+       },
+       {
+        "text": "x_cm = (56/3 kg·m)/(8.0 kg) = 7/3 m ≈ 2.33 m.",
+        "evidence": "Response evaluates the integral to about 18.7 kg·m and divides by the total mass to get about 2.3 m, or the value that follows correctly from its own part (a) mass.",
+        "fix": "Evaluate the antiderivative x²/2 + x³/6 at both limits carefully, then divide by the total mass found in part (a).",
+        "accepted_variants": [
+         "7/3 m",
+         "2.3 m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A small block of mass 4.0 kg, which can be treated as a point object, is fastened to the rod at its end x = 0. Calculate the x-coordinate of the center of mass of the rod–block system.",
+      "criteria": [
+       {
+        "text": "x_cm = (8.0 kg × 7/3 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 14/9 m ≈ 1.56 m.",
+        "evidence": "Response obtains about 1.56 m by treating the rod as 8.0 kg at its center of mass or by adding the block's terms to the rod's integrals, or the value that follows correctly from its own parts (a) and (b).",
+        "fix": "Replace an extended object by its total mass placed at its center of mass, then apply Σmᵢxᵢ/Σmᵢ to the combined system.",
+        "accepted_variants": [
+         "14/9 m",
+         "1.6 m"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) dm = λ(x) dx, so\nM = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.\n\n(b) x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx = (1/8.0)∫ from 0 to 4.0 of (x + 0.50x²) dx.\n∫ from 0 to 4.0 of (x + 0.50x²) dx = [x²/2 + x³/6] from 0 to 4.0 = 8.0 + 10.67 = 18.67 kg·m (exactly 56/3 kg·m).\nx_cm = 18.67/8.0 ≈ 2.33 m (exactly 7/3 m). This is beyond the midpoint (2.0 m), as expected, because the rod is denser toward x = 4.0 m.\n\n(c) The rod can be modeled as a single 8.0 kg object located at its center of mass, x = 2.33 m, and the block is at x = 0.\nx_cm = (8.0 kg × 2.33 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 18.67/12 ≈ 1.56 m (exactly 14/9 m).",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x')\nlam = sp.Rational(1) + sp.Rational(1,2)*x\nM = sp.integrate(lam, (x, 0, 4))\nassert M == 8\nassert sp.integrate(sp.Rational(1), (x,0,4)) == 4\nassert sp.integrate(sp.Rational(1,2)*x, (x,0,4)) == 4\nmom = sp.integrate(x*lam, (x, 0, 4))\nassert mom == sp.Rational(56,3)\nassert sp.integrate(x, (x,0,4)) == 8\nassert sp.integrate(sp.Rational(1,2)*x**2, (x,0,4)) == sp.Rational(32,3)\nassert abs(float(sp.Rational(32,3)) - 10.67) < 0.005\nassert abs(float(mom) - 18.67) < 0.005\nxcm = mom/M\nassert xcm == sp.Rational(7,3)\nassert abs(float(xcm) - 2.33) < 0.005\nassert float(xcm) > 2.0\nX = (M*xcm + 4*0)/(M + 4)\nassert X == sp.Rational(14,9)\nassert abs(float(X) - 1.56) < 0.005\nassert abs(float(mom)/12 - 1.56) < 0.005\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Center of Mass of a Rod with Increasing Density",
+   "calculator": "permitted",
+   "stimulus": "A thin rod lies along the x-axis from x = 0 to x = 4.0 m. Its linear mass density is not uniform and is given by λ(x) = 1.0 + 0.50x, where λ is in kg/m and x is in meters.",
+   "parts": [
+    {
+     "prompt": "Calculate the total mass of the rod.",
+     "criteria": [
+      {
+       "text": "M = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.",
+       "evidence": "Response obtains 8.0 kg by integrating λ(x) over 0 to 4.0 m, or by another valid method such as multiplying the average of this linear density by the length.",
+       "fix": "For a nonuniform rod, write dm = λ(x) dx and integrate over the full length rather than using the density at a single point.",
+       "accepted_variants": [
+        "8 kg"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Use integration to calculate the x-coordinate of the rod's center of mass.",
+     "criteria": [
+      {
+       "text": "Sets up x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx.",
+       "evidence": "Response writes the center-of-mass integral with integrand x·λ(x) over 0 to 4.0 m, divided by the total mass (8.0 kg or the response's own part (a) mass).",
+       "fix": "Weight each mass element by its position: integrate x·λ(x) dx over the rod, then divide by the total mass.",
+       "accepted_variants": []
+      },
+      {
+       "text": "x_cm = (56/3 kg·m)/(8.0 kg) = 7/3 m ≈ 2.33 m.",
+       "evidence": "Response evaluates the integral to about 18.7 kg·m and divides by the total mass to get about 2.3 m, or the value that follows correctly from its own part (a) mass.",
+       "fix": "Evaluate the antiderivative x²/2 + x³/6 at both limits carefully, then divide by the total mass found in part (a).",
+       "accepted_variants": [
+        "7/3 m",
+        "2.3 m"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "A small block of mass 4.0 kg, which can be treated as a point object, is fastened to the rod at its end x = 0. Calculate the x-coordinate of the center of mass of the rod–block system.",
+     "criteria": [
+      {
+       "text": "x_cm = (8.0 kg × 7/3 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 14/9 m ≈ 1.56 m.",
+       "evidence": "Response obtains about 1.56 m by treating the rod as 8.0 kg at its center of mass or by adding the block's terms to the rod's integrals, or the value that follows correctly from its own parts (a) and (b).",
+       "fix": "Replace an extended object by its total mass placed at its center of mass, then apply Σmᵢxᵢ/Σmᵢ to the combined system.",
+       "accepted_variants": [
+        "14/9 m",
+        "1.6 m"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) dm = λ(x) dx, so\nM = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.\n\n(b) x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx = (1/8.0)∫ from 0 to 4.0 of (x + 0.50x²) dx.\n∫ from 0 to 4.0 of (x + 0.50x²) dx = [x²/2 + x³/6] from 0 to 4.0 = 8.0 + 10.67 = 18.67 kg·m (exactly 56/3 kg·m).\nx_cm = 18.67/8.0 ≈ 2.33 m (exactly 7/3 m). This is beyond the midpoint (2.0 m), as expected, because the rod is denser toward x = 4.0 m.\n\n(c) The rod can be modeled as a single 8.0 kg object located at its center of mass, x = 2.33 m, and the block is at x = 0.\nx_cm = (8.0 kg × 2.33 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 18.67/12 ≈ 1.56 m (exactly 14/9 m).",
+   "verification_python": "import sympy as sp\nx = sp.symbols('x')\nlam = sp.Rational(1) + sp.Rational(1,2)*x\nM = sp.integrate(lam, (x, 0, 4))\nassert M == 8\nassert sp.integrate(sp.Rational(1), (x,0,4)) == 4\nassert sp.integrate(sp.Rational(1,2)*x, (x,0,4)) == 4\nmom = sp.integrate(x*lam, (x, 0, 4))\nassert mom == sp.Rational(56,3)\nassert sp.integrate(x, (x,0,4)) == 8\nassert sp.integrate(sp.Rational(1,2)*x**2, (x,0,4)) == sp.Rational(32,3)\nassert abs(float(sp.Rational(32,3)) - 10.67) < 0.005\nassert abs(float(mom) - 18.67) < 0.005\nxcm = mom/M\nassert xcm == sp.Rational(7,3)\nassert abs(float(xcm) - 2.33) < 0.005\nassert float(xcm) > 2.0\nX = (M*xcm + 4*0)/(M + 4)\nassert X == sp.Rational(14,9)\nassert abs(float(X) - 1.56) < 0.005\nassert abs(float(mom)/12 - 1.56) < 0.005\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.870063Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Criteria a1 and c1 prescribe methods the parts do not require. In (a), averaging the endpoint densities of this linear density function and multi",
+      "ruling": "accept",
+      "reason": "Both real: averaging the end densities of a linear λ(x) gives 8.0 kg exactly, and adding the block's terms directly to the integrals gives 14/9 m. The a1 and c1 evidence now accept any valid method; a1's fix no longer forbids the average-density route."
+     }
+    ]
+   },
+   {
+    "at": "2026-10-10T04:16:15.470898Z",
+    "round": 3,
+    "file": "physics_c_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (b), criteria b1 and b2 require setting up and evaluating an integral, although the prompt only asks students to calculate the center of mas",
+      "ruling": "accept",
+      "reason": "Real: the decomposition route is valid (uniform part 4 kg at 2 m, linear part 4 kg at 8/3 m gives 7/3 m). But the continuous integral is the Physics C content of 2.1 (CED x_cm = ∫x dm/∫dm), so the method is the point: the prompt now says 'Use integration', which b1 and b2 score. Follow-through from part (a) mass is added to b1, b2 and c1."
+     }
+    ],
+    "accept_as_is": false
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:16:49.625Z",
+   "source": "given",
+   "item": {
+    "title": "Center of Mass of a Rod with Increasing Density",
+    "calculator": "permitted",
+    "stimulus": "A thin rod lies along the x-axis from x = 0 to x = 4.0 m. Its linear mass density is not uniform and is given by λ(x) = 1.0 + 0.50x, where λ is in kg/m and x is in meters.",
+    "parts": [
+     {
+      "prompt": "Calculate the total mass of the rod.",
+      "criteria": [
+       {
+        "text": "M = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.",
+        "evidence": "Response integrates λ(x) over the rod's length from 0 to 4.0 m and obtains 8.0 kg.",
+        "fix": "For a nonuniform rod, write dm = λ(x) dx and integrate over the full length instead of multiplying one density value by the length.",
+        "accepted_variants": [
+         "8 kg"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the x-coordinate of the rod's center of mass.",
+      "criteria": [
+       {
+        "text": "Sets up x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx.",
+        "evidence": "Response writes the center-of-mass integral with integrand x·λ(x) over 0 to 4.0 m, divided by the total mass (its own value from part (a)).",
+        "fix": "Weight each mass element by its position: integrate x·λ(x) dx over the rod, then divide by the total mass.",
+        "accepted_variants": []
+       },
+       {
+        "text": "x_cm = (56/3 kg·m)/(8.0 kg) = 7/3 m ≈ 2.33 m.",
+        "evidence": "Response evaluates the integral to about 18.7 kg·m and divides by the total mass to get about 2.3 m, consistent with its own setup.",
+        "fix": "Evaluate the antiderivative x²/2 + x³/6 at both limits carefully, then divide by the total mass found in part (a).",
+        "accepted_variants": [
+         "7/3 m",
+         "2.3 m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A small block of mass 4.0 kg, which can be treated as a point object, is fastened to the rod at its end x = 0. Calculate the x-coordinate of the center of mass of the rod–block system.",
+      "criteria": [
+       {
+        "text": "Treats the rod as a single 8.0 kg object at x = 7/3 m: x_cm = (8.0 × 2.33 + 4.0 × 0)/(8.0 + 4.0) ≈ 1.56 m (14/9 m).",
+        "evidence": "Response combines the rod, located at its own center of mass, with the block using Σmᵢxᵢ/Σmᵢ and gets about 1.6 m (or a value consistent with its earlier answers).",
+        "fix": "Replace an extended object by its total mass placed at its center of mass, then apply Σmᵢxᵢ/Σmᵢ to the combined system.",
+        "accepted_variants": [
+         "14/9 m",
+         "1.6 m"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) dm = λ(x) dx, so\nM = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.\n\n(b) x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx = (1/8.0)∫ from 0 to 4.0 of (x + 0.50x²) dx.\n∫ from 0 to 4.0 of (x + 0.50x²) dx = [x²/2 + x³/6] from 0 to 4.0 = 8.0 + 10.67 = 18.67 kg·m (exactly 56/3 kg·m).\nx_cm = 18.67/8.0 ≈ 2.33 m (exactly 7/3 m). This is beyond the midpoint (2.0 m), as expected, because the rod is denser toward x = 4.0 m.\n\n(c) The rod can be modeled as a single 8.0 kg object located at its center of mass, x = 2.33 m, and the block is at x = 0.\nx_cm = (8.0 kg × 2.33 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 18.67/12 ≈ 1.56 m (exactly 14/9 m).",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x')\nlam = sp.Rational(1) + sp.Rational(1,2)*x\nM = sp.integrate(lam, (x, 0, 4))\nassert M == 8\nassert sp.integrate(sp.Rational(1), (x,0,4)) == 4\nassert sp.integrate(sp.Rational(1,2)*x, (x,0,4)) == 4\nmom = sp.integrate(x*lam, (x, 0, 4))\nassert mom == sp.Rational(56,3)\nassert sp.integrate(x, (x,0,4)) == 8\nassert sp.integrate(sp.Rational(1,2)*x**2, (x,0,4)) == sp.Rational(32,3)\nassert abs(float(sp.Rational(32,3)) - 10.67) < 0.005\nassert abs(float(mom) - 18.67) < 0.005\nxcm = mom/M\nassert xcm == sp.Rational(7,3)\nassert abs(float(xcm) - 2.33) < 0.005\nassert float(xcm) > 2.0\nX = (M*xcm + 4*0)/(M + 4)\nassert X == sp.Rational(14,9)\nassert abs(float(X) - 1.56) < 0.005\nassert abs(float(mom)/12 - 1.56) < 0.005\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 requires integration although part (a) only asks for the mass: averaging the endpoint densities for this linear density function gives M = [(1.0 + 3.0)/2](4.0) = 8.0 kg and is equally valid. Criterion c1 requires replacing the rod by a point mass and using the discrete sum, excluding the equally valid direct calculation x_cm = [∫₀⁴ xλ(x) dx + (4.0 kg)(0 m)]/[∫₀⁴ λ(x) dx + 4.0 kg]. Accept these alternative methods without requiring the prescribed intermediate representations.",
+       "solution: No mathematical disagreements. Independent calculation gives (a) 8.0 kg, (b) 7/3 m ≈ 2.33 m, and (c) 14/9 m ≈ 1.56 m, matching the rubric. No model answer was supplied for review."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires integration although part (a) only asks for the mass: averaging the endpoint densities for this linear density function gives M = [(1.0 + 3.0)/2](4.0) = 8.0 kg and is equally valid. Criterion c1 requires replacing the rod by a point mass and using the discrete sum, excluding the equally valid direct calculation x_cm = [∫₀⁴ xλ(x) dx + (4.0 kg)(0 m)]/[∫₀⁴ λ(x) dx + 4.0 kg]. Accept these alternative methods without requiring the prescribed intermediate representations."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "No mathematical disagreements. Independent calculation gives (a) 8.0 kg, (b) 7/3 m ≈ 2.33 m, and (c) 14/9 m ≈ 1.56 m, matching the rubric. No model answer was supplied for review.",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1 and c1 prescribe methods the parts do not require. In (a), averaging the endpoint densities of this linear density function and multiplying by length correctly gives 8.0 kg without explicitly integrating. In (c), directly calculating [∫₀⁴ xλ(x) dx + (4.0 kg)(0 m)]/[∫₀⁴ λ(x) dx + 4.0 kg] correctly gives 14/9 m without explicitly replacing the rod by a point object at its center of mass. The evidence requirements should accept these valid alternative methods."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1 and c1 prescribe methods the parts do not require. In (a), averaging the endpoint densities of this linear density function and multiplying by length correctly gives 8.0 kg without explicitly integrating. In (c), directly calculating [∫₀⁴ xλ(x) dx + (4.0 kg)(0 m)]/[∫₀⁴ λ(x) dx + 4.0 kg] correctly gives 14/9 m without explicitly replacing the rod by a point object at its center of mass. The evidence requirements should accept these valid alternative methods."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 1,
+   "at": "2026-10-10T03:54:59.138Z",
+   "source": "given",
+   "item": {
+    "title": "Center of Mass of a Rod with Increasing Density",
+    "calculator": "permitted",
+    "stimulus": "A thin rod lies along the x-axis from x = 0 to x = 4.0 m. Its linear mass density is not uniform and is given by λ(x) = 1.0 + 0.50x, where λ is in kg/m and x is in meters.",
+    "parts": [
+     {
+      "prompt": "Calculate the total mass of the rod.",
+      "criteria": [
+       {
+        "text": "M = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.",
+        "evidence": "Response obtains 8.0 kg by integrating λ(x) over 0 to 4.0 m, or by another valid method such as multiplying the average of this linear density by the length.",
+        "fix": "For a nonuniform rod, write dm = λ(x) dx and integrate over the full length rather than using the density at a single point.",
+        "accepted_variants": [
+         "8 kg"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the x-coordinate of the rod's center of mass.",
+      "criteria": [
+       {
+        "text": "Sets up x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx.",
+        "evidence": "Response writes the center-of-mass integral with integrand x·λ(x) over 0 to 4.0 m, divided by the total mass (the total mass from part (a)).",
+        "fix": "Weight each mass element by its position: integrate x·λ(x) dx over the rod, then divide by the total mass.",
+        "accepted_variants": []
+       },
+       {
+        "text": "x_cm = (56/3 kg·m)/(8.0 kg) = 7/3 m ≈ 2.33 m.",
+        "evidence": "Response evaluates the integral to about 18.7 kg·m and divides by the total mass to get about 2.3 m.",
+        "fix": "Evaluate the antiderivative x²/2 + x³/6 at both limits carefully, then divide by the total mass found in part (a).",
+        "accepted_variants": [
+         "7/3 m",
+         "2.3 m"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A small block of mass 4.0 kg, which can be treated as a point object, is fastened to the rod at its end x = 0. Calculate the x-coordinate of the center of mass of the rod–block system.",
+      "criteria": [
+       {
+        "text": "x_cm = (8.0 kg × 7/3 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 14/9 m ≈ 1.56 m.",
+        "evidence": "Response obtains about 1.56 m (or a value consistent with its earlier answers), by treating the rod as 8.0 kg at its center of mass or by adding the block's terms to the rod's integrals.",
+        "fix": "Replace an extended object by its total mass placed at its center of mass, then apply Σmᵢxᵢ/Σmᵢ to the combined system.",
+        "accepted_variants": [
+         "14/9 m",
+         "1.6 m"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) dm = λ(x) dx, so\nM = ∫ from 0 to 4.0 of (1.0 + 0.50x) dx = [x + 0.25x²] from 0 to 4.0 = 4.0 + 4.0 = 8.0 kg.\n\n(b) x_cm = (1/M)∫ x dm = (1/8.0)∫ from 0 to 4.0 of x(1.0 + 0.50x) dx = (1/8.0)∫ from 0 to 4.0 of (x + 0.50x²) dx.\n∫ from 0 to 4.0 of (x + 0.50x²) dx = [x²/2 + x³/6] from 0 to 4.0 = 8.0 + 10.67 = 18.67 kg·m (exactly 56/3 kg·m).\nx_cm = 18.67/8.0 ≈ 2.33 m (exactly 7/3 m). This is beyond the midpoint (2.0 m), as expected, because the rod is denser toward x = 4.0 m.\n\n(c) The rod can be modeled as a single 8.0 kg object located at its center of mass, x = 2.33 m, and the block is at x = 0.\nx_cm = (8.0 kg × 2.33 m + 4.0 kg × 0)/(8.0 kg + 4.0 kg) = 18.67/12 ≈ 1.56 m (exactly 14/9 m).",
+    "verification_python": "import sympy as sp\nx = sp.symbols('x')\nlam = sp.Rational(1) + sp.Rational(1,2)*x\nM = sp.integrate(lam, (x, 0, 4))\nassert M == 8\nassert sp.integrate(sp.Rational(1), (x,0,4)) == 4\nassert sp.integrate(sp.Rational(1,2)*x, (x,0,4)) == 4\nmom = sp.integrate(x*lam, (x, 0, 4))\nassert mom == sp.Rational(56,3)\nassert sp.integrate(x, (x,0,4)) == 8\nassert sp.integrate(sp.Rational(1,2)*x**2, (x,0,4)) == sp.Rational(32,3)\nassert abs(float(sp.Rational(32,3)) - 10.67) < 0.005\nassert abs(float(mom) - 18.67) < 0.005\nxcm = mom/M\nassert xcm == sp.Rational(7,3)\nassert abs(float(xcm) - 2.33) < 0.005\nassert float(xcm) > 2.0\nX = (M*xcm + 4*0)/(M + 4)\nassert X == sp.Rational(14,9)\nassert abs(float(X) - 1.56) < 0.005\nassert abs(float(mom)/12 - 1.56) < 0.005\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.1": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criteria b1 and b2 require setting up and evaluating an integral, although the prompt only asks students to calculate the center of mass. This rejects valid alternative methods, such as decomposing the density into a uniform contribution of 4 kg centered at 2 m and a linearly increasing contribution of 4 kg centered at 8/3 m, then taking their mass-weighted average. Accept equivalent center-of-mass setups and their correct evaluation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criteria b1 and b2 require setting up and evaluating an integral, although the prompt only asks students to calculate the center of mass. This rejects valid alternative methods, such as decomposing the density into a uniform contribution of 4 kg centered at 2 m and a linearly increasing contribution of 4 kg centered at 8/3 m, then taking their mass-weighted average. Accept equivalent center-of-mass setups and their correct evaluation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criteria b1 and b2 require setting up and evaluating an integral, although the prompt only asks students to calculate the center of mass. This rejects valid alternative methods, such as decomposing the density into uniform and linearly increasing contributions and combining their masses and centers of mass. Accept equivalent center-of-mass setups and calculations without requiring integral notation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criteria b1 and b2 require setting up and evaluating an integral, although the prompt only asks students to calculate the center of mass. This rejects valid alternative methods, such as decomposing the density into uniform and linearly increasing contributions and combining their masses and centers of mass. Accept equivalent center-of-mass setups and calculations without requiring integral notation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Model answer part (c) writes 8.0 kg × 2.33 m = 18.67 kg·m, but 8.0 × 2.33 = 18.64; using the rounded 2.33 m makes the stated equality false. Use the exact value 7/3 m to get 56/3 kg·m.",
+       "model_answer: Part (c) substitutes 2.33 m but then uses 18.67 kg·m as the product, so the work is not internally consistent; a strong-student answer would use 7/3 m in the calculation."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Model answer part (c) writes 8.0 kg × 2.33 m = 18.67 kg·m, but 8.0 × 2.33 = 18.64; using the rounded 2.33 m makes the stated equality false. Use the exact value 7/3 m to get 56/3 kg·m."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (c) substitutes 2.33 m but then uses 18.67 kg·m as the product, so the work is not internally consistent; a strong-student answer would use 7/3 m in the calculation."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.1",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

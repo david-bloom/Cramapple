@@ -1,0 +1,652 @@
+{
+ "id": "ap_physics_2__11.7__1",
+ "slot": {
+  "subject_key": "ap_physics_2",
+  "tsv": "b3e41b93-95d8-40c6-bef5-98cc99111915",
+  "unit": 11,
+  "unit_title": "Electric Circuits",
+  "topic_code": "11.7",
+  "topic_title": "Kirchhoff's Junction Rule",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:53:24.237Z",
+   "source": "given",
+   "item": {
+    "title": "Junction Rule at a Wire Junction and in Parallel Branches",
+    "calculator": "permitted",
+    "stimulus": "Situation 1: Three wires meet at junction J. Wire 1 carries a steady current of 3.0 A into J. Wire 2 carries a steady current of 1.2 A out of J. The current in wire 3 is unknown.\n\nSituation 2: An ideal battery with a potential difference of 12.0 V is connected to three parallel branches. Each branch runs from junction H, which is connected by a wire to the battery's positive terminal, to junction L, which is connected by a wire to the battery's negative terminal. Branch 1 contains a 6.0 Ω resistor, branch 2 contains a 4.0 Ω resistor, and branch 3 contains a lightbulb of unknown resistance. An ideal ammeter in the wire between the positive terminal and junction H reads 6.0 A. All wires have negligible resistance.",
+    "parts": [
+     {
+      "prompt": "In Situation 1, determine the magnitude of the current in wire 3 and state whether it is directed into or out of junction J.",
+      "criteria": [
+       {
+        "text": "Finds 1.8 A directed out of J, using the junction rule: current in equals current out, so 3.0 A = 1.2 A + I₃.",
+        "evidence": "Response applies ΣI_in = ΣI_out at J to get 1.8 A and states the current in wire 3 leaves the junction.",
+        "fix": "Add all currents entering and all leaving a junction, set the totals equal, and solve for the missing current and its direction.",
+        "accepted_variants": [
+         "1.8 A out of J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Situation 1, calculate the amount of charge that passes through wire 3 in 5.0 s.",
+      "criteria": [
+       {
+        "text": "Calculates Δq = IΔt = (1.8 A)(5.0 s) = 9.0 C.",
+        "evidence": "Response multiplies the current in wire 3 by 5.0 s to obtain 9.0 C.",
+        "fix": "Current is charge per unit time, so multiply the current by the time interval in seconds.",
+        "accepted_variants": [
+         "9.0 C",
+         "9 C"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Situation 2, determine the current in the lightbulb.",
+      "criteria": [
+       {
+        "text": "Finds the current through the two resistors from the 12.0 V across each parallel branch: 2.0 A and 3.0 A separately, or 5.0 A combined.",
+        "evidence": "Response divides 12.0 V by each resistance to get 2.0 A and 3.0 A, or divides 12.0 V by the resistors' equivalent resistance 2.4 Ω to get 5.0 A.",
+        "fix": "Each parallel branch has the full battery potential difference across it; divide that by each branch's resistance.",
+        "accepted_variants": [
+         "2 A and 3 A"
+        ]
+       },
+       {
+        "text": "Uses the junction rule at H to find the bulb current: 6.0 A = 2.0 A + 3.0 A + I_bulb (or 5.0 A + I_bulb), so I_bulb = 1.0 A.",
+        "evidence": "Response sets the 6.0 A entering H equal to the total current leaving H through the branches and obtains 1.0 A.",
+        "fix": "At the junction where branches split, the incoming current equals the sum of the branch currents; subtract the known branches.",
+        "accepted_variants": [
+         "1.0 A",
+         "1 A"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Situation 2, a student claims that the current in the wire from junction L back to the battery's negative terminal is less than 6.0 A, because the resistors and the bulb use up some of the current. Evaluate the student's claim.",
+      "criteria": [
+       {
+        "text": "States the claim is incorrect: by the junction rule at L, the branch currents 2.0 A + 3.0 A + 1.0 A = 6.0 A all leave L in the return wire, because charge is conserved and is not used up in the elements.",
+        "evidence": "Response rejects the claim, applies the junction rule at L to get 6.0 A in the return wire, and cites conservation of charge.",
+        "fix": "Apply the junction rule where branches rejoin, and remember elements transfer energy, not charge, so charge entering equals charge leaving.",
+        "accepted_variants": [
+         "incorrect",
+         "6.0 A"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Junction rule at J: total current in = total current out. 3.0 A = 1.2 A + I₃, so I₃ = 1.8 A. The current in wire 3 is directed out of J.\n\n(b) Δq = IΔt = (1.8 A)(5.0 s) = 9.0 C.\n\n(c) Each branch is connected between H and L, so each has the battery's 12.0 V across it.\nBranch 1: I₁ = 12.0 V / 6.0 Ω = 2.0 A. Branch 2: I₂ = 12.0 V / 4.0 Ω = 3.0 A.\nJunction rule at H: 6.0 A = 2.0 A + 3.0 A + I_bulb, so I_bulb = 1.0 A.\n\n(d) The claim is incorrect. The three branch currents, 2.0 A + 3.0 A + 1.0 A = 6.0 A, all enter junction L, and the only path out of L is the wire to the negative terminal. By the junction rule, the current in that wire is 6.0 A. Charge is conserved: the resistors and bulb transfer electrical energy, but charge is not used up, so the charge per unit time returning to the battery equals the charge per unit time leaving it.",
+    "verification_python": "I1=3.0; I2=1.2\nI3=I1-I2\nassert abs(I3-1.8)<1e-12 and I3>0\nq=I3*5.0\nassert abs(q-9.0)<1e-12\nIb1=12.0/6.0; Ib2=12.0/4.0\nassert (Ib1,Ib2)==(2.0,3.0)\nIbulb=6.0-Ib1-Ib2\nassert abs(Ibulb-1.0)<1e-12\nassert abs(Ib1+Ib2+Ibulb-6.0)<1e-12\nReq=1/(1/6.0+1/4.0)\nassert abs(Req-2.4)<1e-12\nassert abs(12.0/Req-5.0)<1e-12\nassert abs(6.0-12.0/Req-Ibulb)<1e-12\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "11.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     11
+    ],
+    "unitCount": {
+     "11": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c) criteria c1 and c2 require the branch-current/junction-rule method, and part (d) criterion d1 requires applying the junction rule at L. The prompts only ask to determine/evaluate, and valid alternative methods—for part (c) solving via total equivalent resistance to find the bulb resistance then using Ohm's law, and for part (d) arguing the return wire is in series with the ammeter so the current is 6.0 A—would not earn the criteria."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c) criteria c1 and c2 require the branch-current/junction-rule method, and part (d) criterion d1 requires applying the junction rule at L. The prompts only ask to determine/evaluate, and valid alternative methods—for part (c) solving via total equivalent resistance to find the bulb resistance then using Ohm's law, and for part (d) arguing the return wire is in series with the ammeter so the current is 6.0 A—would not earn the criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Junction Rule at a Wire Junction and in Parallel Branches",
+   "calculator": "permitted",
+   "stimulus": "Situation 1: Three wires meet at junction J. Wire 1 carries a steady current of 3.0 A into J. Wire 2 carries a steady current of 1.2 A out of J. The current in wire 3 is unknown.\n\nSituation 2: An ideal battery with a potential difference of 12.0 V is connected to three parallel branches. Each branch runs from junction H, which is connected by a wire to the battery's positive terminal, to junction L, which is connected by a wire to the battery's negative terminal. Branch 1 contains a 6.0 Ω resistor, branch 2 contains a 4.0 Ω resistor, and branch 3 contains a lightbulb of unknown resistance. An ideal ammeter in the wire between the positive terminal and junction H reads 6.0 A. All wires have negligible resistance.",
+   "parts": [
+    {
+     "prompt": "In Situation 1, determine the magnitude of the current in wire 3 and state whether it is directed into or out of junction J.",
+     "criteria": [
+      {
+       "text": "Finds 1.8 A directed out of J, using the junction rule: current in equals current out, so 3.0 A = 1.2 A + I₃.",
+       "evidence": "Response applies ΣI_in = ΣI_out at J to get 1.8 A and states the current in wire 3 leaves the junction.",
+       "fix": "Add all currents entering and all leaving a junction, set the totals equal, and solve for the missing current and its direction.",
+       "accepted_variants": [
+        "1.8 A out of J"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Situation 1, calculate the amount of charge that passes through wire 3 in 5.0 s.",
+     "criteria": [
+      {
+       "text": "Calculates Δq = IΔt = (1.8 A)(5.0 s) = 9.0 C.",
+       "evidence": "Response multiplies the current in wire 3 by 5.0 s to obtain 9.0 C.",
+       "fix": "Current is charge per unit time, so multiply the current by the time interval in seconds.",
+       "accepted_variants": [
+        "9.0 C",
+        "9 C"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Situation 2, determine the current in the lightbulb.",
+     "criteria": [
+      {
+       "text": "Finds the current through the two resistors from the 12.0 V across each parallel branch: 2.0 A and 3.0 A separately, or 5.0 A combined.",
+       "evidence": "Response divides 12.0 V by each resistance to get 2.0 A and 3.0 A, or divides 12.0 V by the resistors' equivalent resistance 2.4 Ω to get 5.0 A.",
+       "fix": "Each parallel branch has the full battery potential difference across it; divide that by each branch's resistance.",
+       "accepted_variants": [
+        "2 A and 3 A"
+       ]
+      },
+      {
+       "text": "Uses the junction rule at H to find the bulb current: 6.0 A = 2.0 A + 3.0 A + I_bulb (or 5.0 A + I_bulb), so I_bulb = 1.0 A.",
+       "evidence": "Response sets the 6.0 A entering H equal to the total current leaving H through the branches and obtains 1.0 A.",
+       "fix": "At the junction where branches split, the incoming current equals the sum of the branch currents; subtract the known branches.",
+       "accepted_variants": [
+        "1.0 A",
+        "1 A"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "In Situation 2, a student claims that the current in the wire from junction L back to the battery's negative terminal is less than 6.0 A, because the resistors and the bulb use up some of the current. Evaluate the student's claim.",
+     "criteria": [
+      {
+       "text": "States the claim is incorrect: by the junction rule at L, the branch currents 2.0 A + 3.0 A + 1.0 A = 6.0 A all leave L in the return wire, because charge is conserved and is not used up in the elements.",
+       "evidence": "Response rejects the claim, applies the junction rule at L to get 6.0 A in the return wire, and cites conservation of charge.",
+       "fix": "Apply the junction rule where branches rejoin, and remember elements transfer energy, not charge, so charge entering equals charge leaving.",
+       "accepted_variants": [
+        "incorrect",
+        "6.0 A"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Junction rule at J: total current in = total current out. 3.0 A = 1.2 A + I₃, so I₃ = 1.8 A. The current in wire 3 is directed out of J.\n\n(b) Δq = IΔt = (1.8 A)(5.0 s) = 9.0 C.\n\n(c) Each branch is connected between H and L, so each has the battery's 12.0 V across it.\nBranch 1: I₁ = 12.0 V / 6.0 Ω = 2.0 A. Branch 2: I₂ = 12.0 V / 4.0 Ω = 3.0 A.\nJunction rule at H: 6.0 A = 2.0 A + 3.0 A + I_bulb, so I_bulb = 1.0 A.\n\n(d) The claim is incorrect. The three branch currents, 2.0 A + 3.0 A + 1.0 A = 6.0 A, all enter junction L, and the only path out of L is the wire to the negative terminal. By the junction rule, the current in that wire is 6.0 A. Charge is conserved: the resistors and bulb transfer electrical energy, but charge is not used up, so the charge per unit time returning to the battery equals the charge per unit time leaving it.",
+   "verification_python": "I1=3.0; I2=1.2\nI3=I1-I2\nassert abs(I3-1.8)<1e-12 and I3>0\nq=I3*5.0\nassert abs(q-9.0)<1e-12\nIb1=12.0/6.0; Ib2=12.0/4.0\nassert (Ib1,Ib2)==(2.0,3.0)\nIbulb=6.0-Ib1-Ib2\nassert abs(Ibulb-1.0)<1e-12\nassert abs(Ib1+Ib2+Ibulb-6.0)<1e-12\nReq=1/(1/6.0+1/4.0)\nassert abs(Req-2.4)<1e-12\nassert abs(12.0/Req-5.0)<1e-12\nassert abs(6.0-12.0/Req-Ibulb)<1e-12\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics2.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.868053Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:48:32.914215Z",
+    "round": 2,
+    "file": "physics2_resolved.json",
+    "decisions": [
+     {
+      "source": "openai/gpt-6.1-sol",
+      "objection": "rubric_points: Part (c), criterion c1 requires calculating and reporting the two resistor currents separately, rejecting a valid alternative method. A student c",
+      "ruling": "accept",
+      "reason": "Valid: the part asks only for the bulb current. c1 now accepts the combined resistor current 5.0 A via R_eq = 2.4 Ω (earlier-topic background); c2 adjusted to accept that route."
+     }
+    ]
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:14:33.796Z",
+   "source": "given",
+   "item": {
+    "title": "Junction Rule at a Wire Junction and in Parallel Branches",
+    "calculator": "permitted",
+    "stimulus": "Situation 1: Three wires meet at junction J. Wire 1 carries a steady current of 3.0 A into J. Wire 2 carries a steady current of 1.2 A out of J. The current in wire 3 is unknown.\n\nSituation 2: An ideal battery with a potential difference of 12.0 V is connected to three parallel branches. Each branch runs from junction H, which is connected by a wire to the battery's positive terminal, to junction L, which is connected by a wire to the battery's negative terminal. Branch 1 contains a 6.0 Ω resistor, branch 2 contains a 4.0 Ω resistor, and branch 3 contains a lightbulb of unknown resistance. An ideal ammeter in the wire between the positive terminal and junction H reads 6.0 A. All wires have negligible resistance.",
+    "parts": [
+     {
+      "prompt": "In Situation 1, determine the magnitude of the current in wire 3 and state whether it is directed into or out of junction J.",
+      "criteria": [
+       {
+        "text": "Finds 1.8 A directed out of J, using the junction rule: current in equals current out, so 3.0 A = 1.2 A + I₃.",
+        "evidence": "Response applies ΣI_in = ΣI_out at J to get 1.8 A and states the current in wire 3 leaves the junction.",
+        "fix": "Add all currents entering and all leaving a junction, set the totals equal, and solve for the missing current and its direction.",
+        "accepted_variants": [
+         "1.8 A out of J"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Situation 1, calculate the amount of charge that passes through wire 3 in 5.0 s.",
+      "criteria": [
+       {
+        "text": "Calculates Δq = IΔt = (1.8 A)(5.0 s) = 9.0 C.",
+        "evidence": "Response multiplies the current in wire 3 by 5.0 s to obtain 9.0 C.",
+        "fix": "Current is charge per unit time, so multiply the current by the time interval in seconds.",
+        "accepted_variants": [
+         "9.0 C",
+         "9 C"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Situation 2, determine the current in the lightbulb.",
+      "criteria": [
+       {
+        "text": "Finds the resistor currents as 2.0 A (6.0 Ω) and 3.0 A (4.0 Ω), using the 12.0 V potential difference across each parallel branch.",
+        "evidence": "Response divides 12.0 V by each resistance to get 2.0 A and 3.0 A.",
+        "fix": "Each parallel branch has the full battery potential difference across it; divide that by each branch's resistance.",
+        "accepted_variants": [
+         "2 A and 3 A"
+        ]
+       },
+       {
+        "text": "Uses the junction rule at H to find the bulb current: 6.0 A = 2.0 A + 3.0 A + I_bulb, so I_bulb = 1.0 A.",
+        "evidence": "Response sets the 6.0 A entering H equal to the sum of the three branch currents leaving H and obtains 1.0 A.",
+        "fix": "At the junction where branches split, the incoming current equals the sum of the branch currents; subtract the known branches.",
+        "accepted_variants": [
+         "1.0 A",
+         "1 A"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "In Situation 2, a student claims that the current in the wire from junction L back to the battery's negative terminal is less than 6.0 A, because the resistors and the bulb use up some of the current. Evaluate the student's claim.",
+      "criteria": [
+       {
+        "text": "States the claim is incorrect: by the junction rule at L, the branch currents 2.0 A + 3.0 A + 1.0 A = 6.0 A all leave L in the return wire, because charge is conserved and is not used up in the elements.",
+        "evidence": "Response rejects the claim, applies the junction rule at L to get 6.0 A in the return wire, and cites conservation of charge.",
+        "fix": "Apply the junction rule where branches rejoin, and remember elements transfer energy, not charge, so charge entering equals charge leaving.",
+        "accepted_variants": [
+         "incorrect",
+         "6.0 A"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Junction rule at J: total current in = total current out. 3.0 A = 1.2 A + I₃, so I₃ = 1.8 A. The current in wire 3 is directed out of J.\n\n(b) Δq = IΔt = (1.8 A)(5.0 s) = 9.0 C.\n\n(c) Each branch is connected between H and L, so each has the battery's 12.0 V across it.\nBranch 1: I₁ = 12.0 V / 6.0 Ω = 2.0 A. Branch 2: I₂ = 12.0 V / 4.0 Ω = 3.0 A.\nJunction rule at H: 6.0 A = 2.0 A + 3.0 A + I_bulb, so I_bulb = 1.0 A.\n\n(d) The claim is incorrect. The three branch currents, 2.0 A + 3.0 A + 1.0 A = 6.0 A, all enter junction L, and the only path out of L is the wire to the negative terminal. By the junction rule, the current in that wire is 6.0 A. Charge is conserved: the resistors and bulb transfer electrical energy, but charge is not used up, so the charge per unit time returning to the battery equals the charge per unit time leaving it.",
+    "verification_python": "I1=3.0; I2=1.2\nI3=I1-I2\nassert abs(I3-1.8)<1e-12 and I3>0\nq=I3*5.0\nassert abs(q-9.0)<1e-12\nIb1=12.0/6.0; Ib2=12.0/4.0\nassert (Ib1,Ib2)==(2.0,3.0)\nIbulb=6.0-Ib1-Ib2\nassert abs(Ibulb-1.0)<1e-12\nassert abs(Ib1+Ib2+Ibulb-6.0)<1e-12\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "11.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     11
+    ],
+    "unitCount": {
+     "11": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Parts (a) and (c), criteria a1 and c2, require explicit junction-rule work although the parts only ask students to determine currents. Part (c), criterion c1, mandates separately calculating both resistor currents, excluding a valid aggregate-conductance method. Part (d), criterion d1, requires applying the junction rule specifically at L; a correct explanation that charge is conserved throughout the circuit and therefore the return current equals the supplied 6.0 A also evaluates the claim fully. Accept these valid alternatives or explicitly request the specified work in the parts."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Parts (a) and (c), criteria a1 and c2, require explicit junction-rule work although the parts only ask students to determine currents. Part (c), criterion c1, mandates separately calculating both resistor currents, excluding a valid aggregate-conductance method. Part (d), criterion d1, requires applying the junction rule specifically at L; a correct explanation that charge is conserved throughout the circuit and therefore the return current equals the supplied 6.0 A also evaluates the claim fully. Accept these valid alternatives or explicitly request the specified work in the parts."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 requires calculating and reporting the two resistor currents separately, rejecting a valid alternative method. A student can combine the resistors into R_eq = 2.4 Ω, calculate their combined current as 12.0 V / 2.4 Ω = 5.0 A, and subtract from 6.0 A to obtain the bulb current of 1.0 A. Allow evidence establishing the combined resistor current without requiring separate branch-current values."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 requires calculating and reporting the two resistor currents separately, rejecting a valid alternative method. A student can combine the resistors into R_eq = 2.4 Ω, calculate their combined current as 12.0 V / 2.4 Ω = 5.0 A, and subtract from 6.0 A to obtain the bulb current of 1.0 A. Allow evidence establishing the combined resistor current without requiring separate branch-current values."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "11.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

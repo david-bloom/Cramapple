@@ -1,0 +1,280 @@
+{
+ "id": "ap_physics_c_mechanics__2.5__1",
+ "slot": {
+  "subject_key": "ap_physics_c_mechanics",
+  "tsv": "d77d7801-441d-49bb-a2cf-a02f6bff407d",
+  "unit": 2,
+  "unit_title": "Force and Translational Dynamics",
+  "topic_code": "2.5",
+  "topic_title": "Newton's Second Law",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:18:32.167Z",
+   "source": "given",
+   "item": {
+    "title": "Velocity of a Block Under a Time-Varying Net Force",
+    "calculator": "permitted",
+    "stimulus": "A 2.0 kg block is at rest on a horizontal, frictionless surface at time t = 0. Starting at t = 0, two horizontal forces are exerted on the block: a constant force of 12 N directed east, and a force of magnitude F₂(t) = 3.0t² directed west, where F₂ is in newtons and t is in seconds. Take east as the positive direction.",
+    "parts": [
+     {
+      "prompt": "Derive an expression for the acceleration a(t) of the block for t ≥ 0.",
+      "criteria": [
+       {
+        "text": "Applies Newton's second law with the net force: a(t) = (12 − 3.0t²)/2.0 = 6.0 − 1.5t², in m/s², with positive meaning east.",
+        "evidence": "Response writes the net force as 12 − 3.0t² (both forces with signs) and divides by 2.0 kg to obtain a(t) = 6.0 − 1.5t².",
+        "fix": "Add all forces with signs to get the net force first, then divide by the mass; never use only one of the forces.",
+        "accepted_variants": [
+         "a = 6 − 1.5t²",
+         "a(t) = (12 − 3t²)/2"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "At what time during the interval 0 ≤ t ≤ 3.0 s is the block's speed greatest? Justify your answer in terms of the net force on the block.",
+      "criteria": [
+       {
+        "text": "t = 2.0 s: the net force is zero when 12 = 3.0t²; before then the net force is east, along the velocity, so the block speeds up, and after then it is west, opposite the velocity, so the block slows.",
+        "evidence": "Response finds t = 2.0 s from the net force (or acceleration) being zero and explains that the block speeds up before that time and slows down after it.",
+        "fix": "Speed peaks where the net force changes sign; set the net force to zero and compare its direction with the velocity on each side.",
+        "accepted_variants": [
+         "2 s"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the block's velocity at t = 2.0 s.",
+      "criteria": [
+       {
+        "text": "Integrates the acceleration from rest: v(2.0) = 0 + ∫ from 0 to 2.0 of (6.0 − 1.5t²) dt.",
+        "evidence": "Response writes a definite integral of its own a(t) from 0 to 2.0 s, or an antiderivative of a(t) with v(0) = 0.",
+        "fix": "When acceleration changes with time, integrate a(t) over the time interval; the constant-acceleration equations do not apply.",
+        "accepted_variants": []
+       },
+       {
+        "text": "v(2.0) = 6.0(2.0) − 0.50(2.0)³ = 12 − 4.0 = 8.0 m/s, directed east.",
+        "evidence": "Response obtains 8.0 m/s in the east (positive) direction, consistent with its own a(t).",
+        "fix": "Evaluate 6.0t − 0.50t³ at t = 2.0 s, subtract its value at t = 0, and state the direction of the result.",
+        "accepted_variants": [
+         "+8.0 m/s",
+         "8 m/s east"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) Taking east as positive, the net force on the block is F_net = 12 − 3.0t² (in N). By Newton's second law,\na(t) = F_net/m = (12 − 3.0t²)/2.0 = 6.0 − 1.5t², in m/s² (positive is east).\n\n(b) The speed is greatest at t = 2.0 s. The net force is zero when 12 = 3.0t², which gives t = 2.0 s. The block starts from rest, and for 0 < t < 2.0 s the net force is east, so the block moves east and speeds up because the net force is in the direction of its velocity. For 2.0 s < t ≤ 3.0 s the net force is west, opposite the velocity (the velocity is still east, since v(3.0) = 6.0(3.0) − 0.50(3.0)³ = 4.5 m/s), so the block slows down. Therefore its maximum speed occurs at t = 2.0 s.\n\n(c) v(2.0) = v(0) + ∫ from 0 to 2.0 of (6.0 − 1.5t²) dt = 0 + [6.0t − 0.50t³] from 0 to 2.0 = 12 − 4.0 = 8.0 m/s.\nThe velocity at t = 2.0 s is 8.0 m/s directed east.",
+    "verification_python": "import sympy as sp\nt = sp.symbols('t', nonnegative=True)\nm = 2\nFnet = 12 - 3*t**2\na = sp.simplify(Fnet/m)\nassert sp.simplify(a - (6 - sp.Rational(3,2)*t**2)) == 0\nroots = sp.solve(sp.Eq(Fnet, 0), t)\nassert roots == [2]\nv = sp.integrate(a, (t, 0, t))\nassert sp.simplify(v - (6*t - sp.Rational(1,2)*t**3)) == 0\nassert v.subs(t, 2) == 8\nassert 6*2 == 12 and sp.Rational(1,2)*2**3 == 4\nassert v.subs(t, 3) == sp.Rational(9,2)\n# velocity stays positive on (0, 3]\nfor k in range(1, 31):\n    assert v.subs(t, sp.Rational(k,10)) > 0\n# speed is maximal at t = 2 on [0, 3]\nvals = [v.subs(t, sp.Rational(k,100)) for k in range(0, 301)]\nassert max(vals) == 8\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1,
+     2
+    ],
+    "unitCount": {
+     "1": 6,
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Medium"
+  }
+ ],
+ "removed_gateway_credit_failures": 3,
+ "history_before_session_authoring": [],
+ "given": {
+  "item": {
+   "title": "Velocity of a Block Under a Time-Varying Net Force",
+   "calculator": "permitted",
+   "stimulus": "A 2.0 kg block is at rest on a horizontal, frictionless surface at time t = 0. Starting at t = 0, two horizontal forces are exerted on the block: a constant force of 12 N directed east, and a force of magnitude F₂(t) = 3.0t² directed west, where F₂ is in newtons and t is in seconds. Take east as the positive direction.",
+   "parts": [
+    {
+     "prompt": "Derive an expression for the acceleration a(t) of the block for t ≥ 0.",
+     "criteria": [
+      {
+       "text": "Applies Newton's second law with the net force: a(t) = (12 − 3.0t²)/2.0 = 6.0 − 1.5t², in m/s², with positive meaning east.",
+       "evidence": "Response writes the net force as 12 − 3.0t² (both forces with signs) and divides by 2.0 kg to obtain a(t) = 6.0 − 1.5t².",
+       "fix": "Add all forces with signs to get the net force first, then divide by the mass; never use only one of the forces.",
+       "accepted_variants": [
+        "a = 6 − 1.5t²",
+        "a(t) = (12 − 3t²)/2"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "At what time during the interval 0 ≤ t ≤ 3.0 s is the block's speed greatest? Justify your answer in terms of the net force on the block.",
+     "criteria": [
+      {
+       "text": "t = 2.0 s: the net force is zero when 12 = 3.0t²; before then the net force is east, along the velocity, so the block speeds up, and after then it is west, opposite the velocity, so the block slows.",
+       "evidence": "Response finds t = 2.0 s from the net force (or acceleration) being zero and explains that the block speeds up before that time and slows down after it.",
+       "fix": "Speed peaks where the net force changes sign; set the net force to zero and compare its direction with the velocity on each side.",
+       "accepted_variants": [
+        "2 s"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate the block's velocity at t = 2.0 s.",
+     "criteria": [
+      {
+       "text": "Integrates the acceleration from rest: v(2.0) = 0 + ∫ from 0 to 2.0 of (6.0 − 1.5t²) dt.",
+       "evidence": "Response writes a definite integral of its own a(t) from 0 to 2.0 s, or an antiderivative of a(t) with v(0) = 0.",
+       "fix": "When acceleration changes with time, integrate a(t) over the time interval; the constant-acceleration equations do not apply.",
+       "accepted_variants": []
+      },
+      {
+       "text": "v(2.0) = 6.0(2.0) − 0.50(2.0)³ = 12 − 4.0 = 8.0 m/s, directed east.",
+       "evidence": "Response obtains 8.0 m/s in the east (positive) direction, consistent with its own a(t).",
+       "fix": "Evaluate 6.0t − 0.50t³ at t = 2.0 s, subtract its value at t = 0, and state the direction of the result.",
+       "accepted_variants": [
+        "+8.0 m/s",
+        "8 m/s east"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) Taking east as positive, the net force on the block is F_net = 12 − 3.0t² (in N). By Newton's second law,\na(t) = F_net/m = (12 − 3.0t²)/2.0 = 6.0 − 1.5t², in m/s² (positive is east).\n\n(b) The speed is greatest at t = 2.0 s. The net force is zero when 12 = 3.0t², which gives t = 2.0 s. The block starts from rest, and for 0 < t < 2.0 s the net force is east, so the block moves east and speeds up because the net force is in the direction of its velocity. For 2.0 s < t ≤ 3.0 s the net force is west, opposite the velocity (the velocity is still east, since v(3.0) = 6.0(3.0) − 0.50(3.0)³ = 4.5 m/s), so the block slows down. Therefore its maximum speed occurs at t = 2.0 s.\n\n(c) v(2.0) = v(0) + ∫ from 0 to 2.0 of (6.0 − 1.5t²) dt = 0 + [6.0t − 0.50t³] from 0 to 2.0 = 12 − 4.0 = 8.0 m/s.\nThe velocity at t = 2.0 s is 8.0 m/s directed east.",
+   "verification_python": "import sympy as sp\nt = sp.symbols('t', nonnegative=True)\nm = 2\nFnet = 12 - 3*t**2\na = sp.simplify(Fnet/m)\nassert sp.simplify(a - (6 - sp.Rational(3,2)*t**2)) == 0\nroots = sp.solve(sp.Eq(Fnet, 0), t)\nassert roots == [2]\nv = sp.integrate(a, (t, 0, t))\nassert sp.simplify(v - (6*t - sp.Rational(1,2)*t**3)) == 0\nassert v.subs(t, 2) == 8\nassert 6*2 == 12 and sp.Rational(1,2)*2**3 == 4\nassert v.subs(t, 3) == sp.Rational(9,2)\n# velocity stays positive on (0, 3]\nfor k in range(1, 31):\n    assert v.subs(t, sp.Rational(k,10)) > 0\n# speed is maximal at t = 2 on [0, 3]\nvals = [v.subs(t, sp.Rational(k,100)) for k in range(0, 301)]\nassert max(vals) == 8\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics_c.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.871094Z"
+ },
+ "accepted_round": 1
+}

@@ -1,0 +1,830 @@
+{
+ "id": "ap_chemistry__3.5__1",
+ "slot": {
+  "subject_key": "ap_chemistry",
+  "tsv": "cbe3116f-6ef5-410c-b535-e9fb711c4c2c",
+  "unit": 3,
+  "unit_title": "Properties of Substances and Mixtures",
+  "topic_code": "3.5",
+  "topic_title": "Kinetic Molecular Theory",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:48:45.162Z",
+   "source": "given",
+   "item": {
+    "title": "Kinetic Energy and Speed of Helium and Argon Atoms",
+    "calculator": "permitted",
+    "stimulus": "Two rigid containers of equal volume are both at 300 K. Container A holds helium gas (molar mass 4.00 g/mol), and container B holds argon gas (molar mass 39.95 g/mol). Both gases behave ideally.\n\nAnswer the following.",
+    "parts": [
+     {
+      "prompt": "Compare the average kinetic energy of the helium atoms with the average kinetic energy of the argon atoms at 300 K. Justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the average kinetic energies are equal because average kinetic energy is proportional to Kelvin temperature and both gases are at 300 K.",
+        "evidence": "Response says the average kinetic energies are the same and justifies this by the equal Kelvin temperatures of the two gases.",
+        "fix": "Compare the two Kelvin temperatures, then state that equal temperatures mean equal average kinetic energies.",
+        "accepted_variants": [
+         "equal"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the relationship KE = ½mv², calculate the ratio of the average speed of the helium atoms to the average speed of the argon atoms at 300 K.",
+      "criteria": [
+       {
+        "text": "Calculates a ratio of 3.16 (helium atoms move on average 3.16 times as fast as argon atoms).",
+        "evidence": "Response sets the average kinetic energies equal, ½m(He)v(He)² = ½m(Ar)v(Ar)², and finds v(He)/v(Ar) = √(39.95/4.00) = 3.16.",
+        "fix": "Set the two kinetic energies equal, solve for v(He)/v(Ar) = √(m(Ar)/m(He)), and use the molar mass ratio for the mass ratio.",
+        "accepted_variants": [
+         "3.16 : 1",
+         "3.16 to 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The argon in container B is heated from 300 K to 600 K at constant volume. By what factor does the average kinetic energy of the argon atoms change? Justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the average kinetic energy doubles (increases by a factor of 2).",
+        "evidence": "Response gives a factor of 2 and bases it on average kinetic energy being proportional to Kelvin temperature (600 K ÷ 300 K = 2).",
+        "fix": "Take the ratio of the Kelvin temperatures; the average kinetic energy changes by that same factor.",
+        "accepted_variants": [
+         "factor of 2",
+         "doubles"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe how the fraction of argon atoms with speeds greater than 600 m/s changes when the argon is heated from 300 K to 600 K. Justify your answer using the Maxwell-Boltzmann distribution.",
+      "criteria": [
+       {
+        "text": "States that the fraction increases because at the higher temperature the Maxwell-Boltzmann distribution of speeds shifts toward higher speeds, so more of the atoms have speeds above 600 m/s.",
+        "evidence": "Response says the fraction increases and justifies it by the distribution moving to higher speeds (its peak at a higher speed and more atoms in the high-speed region) at 600 K.",
+        "fix": "Describe how the speed distribution changes with temperature: at higher temperature it shifts to higher speeds, so more atoms exceed a given speed.",
+        "accepted_variants": [
+         "increases"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The average kinetic energies are equal. The average kinetic energy of the particles in a gas is proportional to its Kelvin temperature, and both gases are at 300 K.\n\n(b) Because the average kinetic energies are equal, ½m(He)v(He)² = ½m(Ar)v(Ar)². Then v(He)/v(Ar) = √(m(Ar)/m(He)) = √(39.95/4.00) = √9.99 = 3.16. Helium atoms move on average 3.16 times as fast as argon atoms.\n\n(c) Average kinetic energy is proportional to Kelvin temperature. 600 K ÷ 300 K = 2, so the average kinetic energy of the argon atoms doubles (increases by a factor of 2).\n\n(d) The fraction increases. At 600 K the Maxwell-Boltzmann distribution of speeds shifts toward higher speeds: its peak moves to a higher speed and the distribution spreads out, so a larger fraction of the argon atoms have speeds greater than 600 m/s.",
+    "verification_python": "import math\nmHe,mAr=4.00,39.95\nr=math.sqrt(mAr/mHe)\nassert abs(r-3.16)<0.005\nassert abs(mAr/mHe-9.99)<0.005\nf=600/300\nassert f==2\nR=8.314\ndef frac_above(v,T,M):\n    # Maxwell-Boltzmann speed distribution, numeric integration\n    a=M/(2*R*T)\n    def p(x): return 4*math.pi*(a/math.pi)**1.5*x*x*math.exp(-a*x*x)\n    n=20000; hi=5000.0; dx=(hi-v)/n\n    return sum(p(v+(i+0.5)*dx) for i in range(n))*dx\nM=0.03995\nf300=frac_above(600,300,M); f600=frac_above(600,600,M)\nassert f600>f300\nvp300=math.sqrt(2*R*300/M); vp600=math.sqrt(2*R*600/M)\nassert vp600>vp300\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "Part (b) has a minor terminology issue: averaging KE = ½mv² gives ⟨KE⟩ = ½m⟨v²⟩, which directly determines root-mean-square speed, not average speed. However, for equilibrium ideal gases, both average and root-mean-square speeds scale as √(T/M), so the requested average-speed ratio is well defined and is also 3.16.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "removed_gateway_credit_failures": 2,
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:59:44.364Z",
+   "item": {
+    "title": "Kinetic Energy and Speed of Neon and Argon Samples",
+    "calculator": "permitted",
+    "stimulus": "A student prepares three gas samples in identical rigid 2.00 L containers. Each container holds 0.100 mol of a single monatomic gas. Assume ideal behavior. The molar masses are Ne = 20.18 g/mol and Ar = 39.95 g/mol.\n\nSample | Gas | Temperature (K)\n1 | Ne | 250.\n2 | Ne | 500.\n3 | Ar | 500.",
+    "model_answer": "(a) The average kinetic energy of particles is proportional to the Kelvin temperature. KE(2)/KE(1) = T(2)/T(1) = 500. K / 250. K = 2.00. The Ne atoms in sample 2 have twice the average kinetic energy of those in sample 1.\n\n(b) Samples 2 and 3 are both at 500. K, so the Ne atoms and Ar atoms have the same average kinetic energy. Setting ½m(Ne)v(Ne)² = ½m(Ar)v(Ar)² gives v(Ne)/v(Ar) = √(m(Ar)/m(Ne)) = √(39.95/20.18) = √1.980 = 1.41. The lighter Ne atoms move about 1.41 times as fast on average as the Ar atoms.\n\n(c) Compared with sample 1, the distribution for sample 2 has its peak at a higher speed, and the peak is lower and the curve is broader (more spread out toward high speeds). The total area under each curve is the same because both samples contain the same number of atoms (0.100 mol).\n\n(d) Both samples have the same volume and number of atoms, but the Ne atoms in sample 2 are at a higher temperature and so move faster on average. Faster atoms strike the container walls more often and hit with greater force, so the pressure in sample 2 is greater.",
+    "verification_python": "import math\nT1=250.0;T2=500.0\nratio_ke=T2/T1\nassert abs(ratio_ke-2.00)<1e-9\nmNe=20.18;mAr=39.95\nmr=mAr/mNe\nassert abs(mr-1.980)<0.001\nv=math.sqrt(mr)\nassert abs(v-1.41)<0.005\nassert abs(v-1.407)<0.001\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the ratio of the average kinetic energy of the Ne atoms in sample 2 to the average kinetic energy of the Ne atoms in sample 1. Justify your calculation.",
+      "criteria": [
+       {
+        "text": "Ratio of average kinetic energies (sample 2 : sample 1) = 2.00, because average kinetic energy is proportional to Kelvin temperature.",
+        "evidence": "Response states that average KE is proportional to Kelvin temperature and computes 500./250. = 2.00.",
+        "fix": "Remember Kelvin temperature is directly proportional to average kinetic energy; divide the two Kelvin temperatures to get the KE ratio.",
+        "accepted_variants": [
+         "2.00",
+         "2.0",
+         "2",
+         "2:1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Compare the average kinetic energy of the Ne atoms in sample 2 with that of the Ar atoms in sample 3, then use KE = ½mv² to calculate the ratio of the average speed of the Ne atoms to the average speed of the Ar atoms.",
+      "criteria": [
+       {
+        "text": "Claims the average kinetic energies are equal, justified by both samples being at the same temperature (500. K).",
+        "evidence": "Response states equal average KE and cites the identical Kelvin temperature as the reason.",
+        "fix": "When temperatures are equal, state that average kinetic energies are equal regardless of particle mass or identity.",
+        "accepted_variants": [
+         "same average kinetic energy",
+         "equal average KE"
+        ]
+       },
+       {
+        "text": "Speed ratio v(Ne)/v(Ar) = √(39.95/20.18) = 1.41.",
+        "evidence": "Response sets ½m(Ne)v(Ne)² = ½m(Ar)v(Ar)², solves for v(Ne)/v(Ar) = √(m(Ar)/m(Ne)), and reports about 1.41.",
+        "fix": "Set the two ½mv² expressions equal, solve for the speed ratio, and take the square root of the inverted mass ratio.",
+        "accepted_variants": [
+         "1.41",
+         "1.407",
+         "1.41:1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe how the Maxwell-Boltzmann distribution of atomic speeds for sample 2 differs from that for sample 1. Address the position of the peak, the height of the peak, and the total area under the curve.",
+      "criteria": [
+       {
+        "text": "Sample 2 curve has its peak at a higher speed, a lower and broader peak, and the same total area as sample 1 (same number of atoms).",
+        "evidence": "Response states all three: peak shifted to higher speed, peak lower with wider spread, and equal area because both samples contain 0.100 mol.",
+        "fix": "For a hotter sample, describe the peak shifting right, flattening and broadening, with area unchanged because particle count is constant.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The pressure in sample 2 is greater than the pressure in sample 1. Explain this difference in terms of the motion of the Ne atoms.",
+      "criteria": [
+       {
+        "text": "Atoms in sample 2 move faster on average, so they collide with the container walls more frequently and with greater force, producing greater pressure.",
+        "evidence": "Response links higher temperature to greater average speed and states both more frequent wall collisions and more forceful collisions (same volume and moles).",
+        "fix": "Explain pressure using collisions with walls: mention both collision frequency and collision force increasing with faster particle motion.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 bundles three independently observable comparisons—peak position, peak height, and total area—into one point rather than awarding one specific element. It also requires a wider spread, although part (c) asks only about peak position, peak height, and total area; a complete answer to those requested comparisons could therefore lose the point."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "Part (b) has a minor terminology issue: applying KE = ½mv² to average kinetic energy directly yields a root-mean-square speed ratio, not a mean-speed ratio, because ⟨v²⟩ is not equal to ⟨v⟩². However, both speed measures have the same mass and temperature scaling for Maxwell–Boltzmann gases, so the requested average-speed ratio is still unambiguously 1.41.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 bundles three independently observable comparisons—peak position, peak height, and total area—into one point rather than awarding one specific element. It also requires a wider spread, although part (c) asks only about peak position, peak height, and total area; a complete answer to those requested comparisons could therefore lose the point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion c1 combines three independently requested distribution features into one point. It also requires a broader spread, although part (c) asks only about peak position, peak height, and total area. Separate the requested features into individual criteria and remove the unrequested breadth requirement."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (b) has a minor wording imprecision: applying KE = ½mv² to average kinetic energy directly yields a root-mean-square speed ratio, not a mean-speed ratio. For Maxwell–Boltzmann distributions at equal temperature, both ratios equal √(MAr/MNe), so the requested numerical answer is nevertheless well defined.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion c1 combines three independently requested distribution features into one point. It also requires a broader spread, although part (c) asks only about peak position, peak height, and total area. Separate the requested features into individual criteria and remove the unrequested breadth requirement."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Kinetic Energy and Speed of Helium and Argon Atoms",
+   "calculator": "permitted",
+   "stimulus": "Two rigid containers of equal volume are both at 300 K. Container A holds helium gas (molar mass 4.00 g/mol), and container B holds argon gas (molar mass 39.95 g/mol). Both gases behave ideally.\n\nAnswer the following.",
+   "parts": [
+    {
+     "prompt": "Compare the average kinetic energy of the helium atoms with the average kinetic energy of the argon atoms at 300 K. Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the average kinetic energies are equal because average kinetic energy is proportional to Kelvin temperature and both gases are at 300 K.",
+       "evidence": "Response says the average kinetic energies are the same and justifies this by the equal Kelvin temperatures of the two gases.",
+       "fix": "Compare the two Kelvin temperatures, then state that equal temperatures mean equal average kinetic energies.",
+       "accepted_variants": [
+        "equal"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using the relationship KE = ½mv², calculate the ratio of the average speed of the helium atoms to the average speed of the argon atoms at 300 K.",
+     "criteria": [
+      {
+       "text": "Calculates a ratio of 3.16 (helium atoms move on average 3.16 times as fast as argon atoms).",
+       "evidence": "Response sets the average kinetic energies equal, ½m(He)v(He)² = ½m(Ar)v(Ar)², and finds v(He)/v(Ar) = √(39.95/4.00) = 3.16.",
+       "fix": "Set the two kinetic energies equal, solve for v(He)/v(Ar) = √(m(Ar)/m(He)), and use the molar mass ratio for the mass ratio.",
+       "accepted_variants": [
+        "3.16 : 1",
+        "3.16 to 1"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "The argon in container B is heated from 300 K to 600 K at constant volume. By what factor does the average kinetic energy of the argon atoms change? Justify your answer.",
+     "criteria": [
+      {
+       "text": "States that the average kinetic energy doubles (increases by a factor of 2).",
+       "evidence": "Response gives a factor of 2 and bases it on average kinetic energy being proportional to Kelvin temperature (600 K ÷ 300 K = 2).",
+       "fix": "Take the ratio of the Kelvin temperatures; the average kinetic energy changes by that same factor.",
+       "accepted_variants": [
+        "factor of 2",
+        "doubles"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Describe how the fraction of argon atoms with speeds greater than 600 m/s changes when the argon is heated from 300 K to 600 K. Justify your answer using the Maxwell-Boltzmann distribution.",
+     "criteria": [
+      {
+       "text": "States that the fraction increases because at the higher temperature the Maxwell-Boltzmann distribution of speeds shifts toward higher speeds, so more of the atoms have speeds above 600 m/s.",
+       "evidence": "Response says the fraction increases and justifies it by the distribution moving to higher speeds (its peak at a higher speed and more atoms in the high-speed region) at 600 K.",
+       "fix": "Describe how the speed distribution changes with temperature: at higher temperature it shifts to higher speeds, so more atoms exceed a given speed.",
+       "accepted_variants": [
+        "increases"
+       ]
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) The average kinetic energies are equal. The average kinetic energy of the particles in a gas is proportional to its Kelvin temperature, and both gases are at 300 K.\n\n(b) Because the average kinetic energies are equal, ½m(He)v(He)² = ½m(Ar)v(Ar)². Then v(He)/v(Ar) = √(m(Ar)/m(He)) = √(39.95/4.00) = √9.99 = 3.16. Helium atoms move on average 3.16 times as fast as argon atoms.\n\n(c) Average kinetic energy is proportional to Kelvin temperature. 600 K ÷ 300 K = 2, so the average kinetic energy of the argon atoms doubles (increases by a factor of 2).\n\n(d) The fraction increases. At 600 K the Maxwell-Boltzmann distribution of speeds shifts toward higher speeds: its peak moves to a higher speed and the distribution spreads out, so a larger fraction of the argon atoms have speeds greater than 600 m/s.",
+   "verification_python": "import math\nmHe,mAr=4.00,39.95\nr=math.sqrt(mAr/mHe)\nassert abs(r-3.16)<0.005\nassert abs(mAr/mHe-9.99)<0.005\nf=600/300\nassert f==2\nR=8.314\ndef frac_above(v,T,M):\n    # Maxwell-Boltzmann speed distribution, numeric integration\n    a=M/(2*R*T)\n    def p(x): return 4*math.pi*(a/math.pi)**1.5*x*x*math.exp(-a*x*x)\n    n=20000; hi=5000.0; dx=(hi-v)/n\n    return sum(p(v+(i+0.5)*dx) for i in range(n))*dx\nM=0.03995\nf300=frac_above(600,300,M); f600=frac_above(600,600,M)\nassert f600>f300\nvp300=math.sqrt(2*R*300/M); vp600=math.sqrt(2*R*600/M)\nassert vp600>vp300\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (chemistry.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.850698Z"
+ },
+ "arbitration": {
+  "log": [
+   {
+    "at": "2026-10-10T03:15:24.384233Z",
+    "round": 1,
+    "note": "a1 fix is now a concrete action; part (c) asks for the justification its criterion scores (rubric_evidence, rubric_points)."
+   }
+  ]
+ },
+ "history_flagged": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:08:25.463Z",
+   "source": "given",
+   "item": {
+    "title": "Kinetic Energy and Speed of Helium and Argon Atoms",
+    "calculator": "permitted",
+    "stimulus": "Two rigid containers of equal volume are both at 300 K. Container A holds helium gas (molar mass 4.00 g/mol), and container B holds argon gas (molar mass 39.95 g/mol). Both gases behave ideally.\n\nAnswer the following.",
+    "parts": [
+     {
+      "prompt": "Compare the average kinetic energy of the helium atoms with the average kinetic energy of the argon atoms at 300 K. Justify your answer.",
+      "criteria": [
+       {
+        "text": "States that the average kinetic energies are equal because average kinetic energy is proportional to Kelvin temperature and both gases are at 300 K.",
+        "evidence": "Response says the average kinetic energies are the same and justifies this by the equal Kelvin temperatures of the two gases.",
+        "fix": "Average kinetic energy depends only on Kelvin temperature, not on particle mass; equal temperatures mean equal average kinetic energies.",
+        "accepted_variants": [
+         "equal"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the relationship KE = ½mv², calculate the ratio of the average speed of the helium atoms to the average speed of the argon atoms at 300 K.",
+      "criteria": [
+       {
+        "text": "Calculates a ratio of 3.16 (helium atoms move on average 3.16 times as fast as argon atoms).",
+        "evidence": "Response sets the average kinetic energies equal, ½m(He)v(He)² = ½m(Ar)v(Ar)², and finds v(He)/v(Ar) = √(39.95/4.00) = 3.16.",
+        "fix": "Set the two kinetic energies equal, solve for v(He)/v(Ar) = √(m(Ar)/m(He)), and use the molar mass ratio for the mass ratio.",
+        "accepted_variants": [
+         "3.16 : 1",
+         "3.16 to 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "The argon in container B is heated from 300 K to 600 K at constant volume. By what factor does the average kinetic energy of the argon atoms change?",
+      "criteria": [
+       {
+        "text": "States that the average kinetic energy doubles (increases by a factor of 2).",
+        "evidence": "Response gives a factor of 2 and bases it on average kinetic energy being proportional to Kelvin temperature (600 K ÷ 300 K = 2).",
+        "fix": "Take the ratio of the Kelvin temperatures; the average kinetic energy changes by that same factor.",
+        "accepted_variants": [
+         "factor of 2",
+         "doubles"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe how the fraction of argon atoms with speeds greater than 600 m/s changes when the argon is heated from 300 K to 600 K. Justify your answer using the Maxwell-Boltzmann distribution.",
+      "criteria": [
+       {
+        "text": "States that the fraction increases because at the higher temperature the Maxwell-Boltzmann distribution of speeds shifts toward higher speeds, so more of the atoms have speeds above 600 m/s.",
+        "evidence": "Response says the fraction increases and justifies it by the distribution moving to higher speeds (its peak at a higher speed and more atoms in the high-speed region) at 600 K.",
+        "fix": "Describe how the speed distribution changes with temperature: at higher temperature it shifts to higher speeds, so more atoms exceed a given speed.",
+        "accepted_variants": [
+         "increases"
+        ]
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) The average kinetic energies are equal. The average kinetic energy of the particles in a gas is proportional to its Kelvin temperature, and both gases are at 300 K.\n\n(b) Because the average kinetic energies are equal, ½m(He)v(He)² = ½m(Ar)v(Ar)². Then v(He)/v(Ar) = √(m(Ar)/m(He)) = √(39.95/4.00) = √9.99 = 3.16. Helium atoms move on average 3.16 times as fast as argon atoms.\n\n(c) Average kinetic energy is proportional to Kelvin temperature. 600 K ÷ 300 K = 2, so the average kinetic energy of the argon atoms doubles (increases by a factor of 2).\n\n(d) The fraction increases. At 600 K the Maxwell-Boltzmann distribution of speeds shifts toward higher speeds: its peak moves to a higher speed and the distribution spreads out, so a larger fraction of the argon atoms have speeds greater than 600 m/s.",
+    "verification_python": "import math\nmHe,mAr=4.00,39.95\nr=math.sqrt(mAr/mHe)\nassert abs(r-3.16)<0.005\nassert abs(mAr/mHe-9.99)<0.005\nf=600/300\nassert f==2\nR=8.314\ndef frac_above(v,T,M):\n    # Maxwell-Boltzmann speed distribution, numeric integration\n    a=M/(2*R*T)\n    def p(x): return 4*math.pi*(a/math.pi)**1.5*x*x*math.exp(-a*x*x)\n    n=20000; hi=5000.0; dx=(hi-v)/n\n    return sum(p(v+(i+0.5)*dx) for i in range(n))*dx\nM=0.03995\nf300=frac_above(600,300,M); f600=frac_above(600,600,M)\nassert f600>f300\nvp300=math.sqrt(2*R*300/M); vp600=math.sqrt(2*R*600/M)\nassert vp600>vp300\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "3.5": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     3
+    ],
+    "unitCount": {
+     "1": 1,
+     "3": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: The evidence requires proportionality reasoning or a temperature-ratio calculation, although the part asks only for the factor. A correct response of 'doubles' should earn this point without additional justification, or the prompt should explicitly request justification.",
+       "rubric_evidence: Part (a), criterion a1: The fix states a principle but gives no concrete action for the student to take. Replace it with: 'Compare the Kelvin temperatures and use their equality to justify equal average kinetic energies.'"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (b) has a minor terminology imprecision: applying KE = ½mv² to average kinetic energy directly gives root-mean-square speed, not arithmetic mean speed. However, both speeds scale as √(T/M) for an ideal gas, so the requested mean-speed ratio is unambiguous and equals the root-mean-square-speed ratio.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: The evidence requires proportionality reasoning or a temperature-ratio calculation, although the part asks only for the factor. A correct response of 'doubles' should earn this point without additional justification, or the prompt should explicitly request justification."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (a), criterion a1: The fix states a principle but gives no concrete action for the student to take. Replace it with: 'Compare the Kelvin temperatures and use their equality to justify equal average kinetic energies.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1 requires supporting reasoning or a temperature-ratio calculation, although the part asks only for the factor of change. Accept a correct factor alone, or explicitly ask students to justify their answer.",
+       "rubric_evidence: Part (a), criterion a1: the fix states a principle but gives no concrete action. Replace it with: 'Compare the Kelvin temperatures, then use their equality to explain why the average kinetic energies are equal.'"
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "Part (b) has a minor terminology subtlety: applying the average kinetic-energy relationship directly gives the root-mean-square speed, not the arithmetic average speed, because ⟨KE⟩ = (1/2)m⟨v²⟩ rather than (1/2)m⟨v⟩². The requested ratio is nevertheless well defined and equals 3.16 for both speed measures under the Maxwell–Boltzmann distribution.",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1 requires supporting reasoning or a temperature-ratio calculation, although the part asks only for the factor of change. Accept a correct factor alone, or explicitly ask students to justify their answer."
+        },
+        "rubric_evidence": {
+         "pass": false,
+         "issue": "Part (a), criterion a1: the fix states a principle but gives no concrete action. Replace it with: 'Compare the Kelvin temperatures, then use their equality to explain why the average kinetic energies are equal.'"
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "3.5",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "accepted_round": 1
+}

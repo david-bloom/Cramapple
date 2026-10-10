@@ -1,0 +1,943 @@
+{
+ "id": "ap_calculus_bc__1.3__1",
+ "slot": {
+  "subject_key": "ap_calculus_bc",
+  "tsv": "ab088009-dc9a-4f93-8824-803e1913505b",
+  "unit": 1,
+  "unit_title": "Limits and Continuity",
+  "topic_code": "1.3",
+  "topic_title": "Estimating Limit Values from Graphs",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.211Z",
+   "item": {
+    "title": "Reading One-Sided and Two-Sided Limits from a Described Graph",
+    "calculator": "not_permitted",
+    "stimulus": "The graph of a function g is described in words below. Read every limit directly from this description.\n\n- For x < 1, the graph of g is the line y = x + 2. It ends at an open circle at the point (1, 3).\n- At x = 1, there is a single solid dot at the point (1, 5). So g(1) = 5.\n- For 1 < x < 3, the graph is a straight line segment. It runs from an open circle at (1, 0) to an open circle at (3, 4).\n- There is no point on the graph at x = 3, so g(3) is undefined.\n- For 3 < x ≤ 5, the graph is a straight line segment. It runs from an open circle at (3, 4) to a solid dot at (5, 0).\n- For 5 < x < 6 and for x > 6, the graph rises without bound as x approaches 6 from either side. The line x = 6 is a vertical asymptote, and g(6) is undefined.\n\nSeparately, a student uses a graphing calculator to graph q(x) = 1 + 0.001/(x − 2)². The viewing window is −10 ≤ x ≤ 10 and −10 ≤ y ≤ 10. On the screen, the graph looks like the horizontal line y = 1 with no visible break or spike near x = 2.",
+    "model_answer": "(a) As x → 1⁻, g follows y = x + 2 toward the open circle at (1, 3), so lim x→1⁻ g(x) = 3. As x → 1⁺, g follows the segment starting at the open circle (1, 0), so lim x→1⁺ g(x) = 0. Because 3 ≠ 0, the left-hand and right-hand limits are unequal. Therefore lim x→1 g(x) does not exist. The value g(1) = 5 does not affect this.\n\n(b) From the left, the segment on 1 < x < 3 approaches height 4. From the right, the segment on 3 < x ≤ 5 also approaches height 4. Both one-sided limits equal 4, so lim x→3 g(x) = 4. The limit describes the values of g as x gets close to 3, with x ≠ 3. It never uses g(3) itself, so the limit exists even though g(3) is undefined.\n\n(c) As x → 6⁻ and as x → 6⁺, the graph rises without bound, so lim x→6⁻ g(x) = ∞ and lim x→6⁺ g(x) = ∞. Because g is unbounded near x = 6, lim x→6 g(x) does not exist as a real number. We describe this behavior by writing lim x→6 g(x) = ∞.\n\n(d) The student is not correct. As x → 2, (x − 2)² → 0 through positive values, so 0.001/(x − 2)² increases without bound. Therefore lim x→2 q(x) = ∞. For example, q(2.001) = 1 + 0.001/0.000001 = 1 + 1000 = 1001. The value of q only exceeds 10 when x is within 0.01 of 2, for instance q(2.01) = 11. That spike is far too narrow for the calculator's scale to show in this window, so the screen misses the unbounded behavior.",
+    "verification_python": "from fractions import Fraction as F\n\ndef left(x): return x + 2\ndef mid(x): return F(0) + (F(4) - 0) / (3 - 1) * (x - 1)\ndef right(x): return F(4) + (F(0) - 4) / (5 - 3) * (x - 3)\n\nassert left(F(1)) == 3\nassert mid(F(1)) == 0\nassert left(F(1)) != mid(F(1))\nassert mid(F(3)) == 4 and right(F(3)) == 4\nassert right(F(5)) == 0\n\ndef q(x): return 1 + F(1, 1000) / (x - 2) ** 2\n\nassert q(F(2001, 1000)) == 1001\nassert q(F(1999, 1000)) == 1001\nassert q(F(201, 100)) == 11\nassert q(F(2000001, 1000000)) > 10 ** 8\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→1⁻ g(x) and lim x→1⁺ g(x). Does lim x→1 g(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "States lim x→1⁻ g(x) = 3 and lim x→1⁺ g(x) = 0.",
+        "evidence": "Both one-sided values must be given correctly. The left value comes from the line y = x + 2 approaching the open circle at (1, 3). The right value comes from the segment starting at the open circle at (1, 0).",
+        "fix": "Follow the graph toward x = 1 from each side separately. Record the height it approaches, ignoring the solid dot at (1, 5).",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes lim x→1 g(x) does not exist because the left-hand limit (3) does not equal the right-hand limit (0).",
+        "evidence": "Must state that the limit does not exist. The reason must be that the two one-sided limits are unequal. Citing g(1) = 5 as the reason does not earn the point.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal. Compare them explicitly before concluding.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→3 g(x). Explain why this limit exists even though g(3) is undefined.",
+      "criteria": [
+       {
+        "text": "States lim x→3 g(x) = 4, supported by both one-sided limits equaling 4.",
+        "evidence": "Must give the value 4. Must note that the graph approaches height 4 from the left (segment on 1 < x < 3) and from the right (segment on 3 < x ≤ 5).",
+        "fix": "Check the height the graph approaches from each side of x = 3. When the two heights agree, that common height is the limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Explains that a limit depends only on the values of g near x = 3, not on the value at x = 3, so g(3) being undefined does not matter.",
+        "evidence": "Must state that the limit describes the behavior of g as x approaches 3 and does not use g(3). A response that simply restates that the one-sided limits are equal does not earn this point.",
+        "fix": "Remember that lim x→a f(x) describes outputs as x gets close to a, with x ≠ a. The value f(a) is never used.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the behavior of g(x) as x approaches 6 from the left and from the right. Does lim x→6 g(x) exist as a real number? Explain.",
+      "criteria": [
+       {
+        "text": "States lim x→6⁻ g(x) = ∞ and lim x→6⁺ g(x) = ∞.",
+        "evidence": "Must indicate that g(x) increases without bound from both sides of x = 6. Either the ∞ notation or an equivalent verbal description is acceptable.",
+        "fix": "Near a vertical asymptote, check whether the graph rises or falls on each side. Write ∞ or −∞ for each one-sided limit.",
+        "accepted_variants": [
+         "increases without bound",
+         "unbounded above"
+        ]
+       },
+       {
+        "text": "Concludes that lim x→6 g(x) does not exist as a real number because g is unbounded near x = 6.",
+        "evidence": "Must state that there is no real-number limit. The reason must be that the function values grow without bound. Writing lim x→6 g(x) = ∞ together with this explanation is acceptable.",
+        "fix": "Writing a limit as ∞ describes unbounded behavior. It is not a real-number value, so state that no finite limit exists.",
+        "accepted_variants": [
+         "DNE",
+         "lim x→6 g(x) = ∞"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on the screen, the student claims that lim x→2 q(x) = 1. Is the student correct? Find lim x→2 q(x). Explain what the calculator view missed, and support your answer by evaluating q at a value of x close to 2.",
+      "criteria": [
+       {
+        "text": "States that the student is incorrect and that lim x→2 q(x) = ∞ (q is unbounded near x = 2).",
+        "evidence": "Must reject the claim. Must identify that q(x) increases without bound as x approaches 2 from either side, with reasoning such as 0.001/(x − 2)² growing without bound as (x − 2)² approaches 0 through positive values.",
+        "fix": "Analyze the formula, not just the screen. A positive constant divided by a quantity shrinking to 0 grows without bound.",
+        "accepted_variants": [
+         "increases without bound",
+         "does not exist (unbounded)"
+        ]
+       },
+       {
+        "text": "Explains that the window's scale hides the behavior, supported by a correct value such as q(2.001) = 1001.",
+        "evidence": "Must explain that q only exceeds the window height when x is extremely close to 2, so the screen misses the spike. Must support this with a correctly computed value near 2, for example q(2.001) = 1001 or q(1.999) = 1001.",
+        "fix": "When a graph looks suspicious, evaluate the function very close to the point. Explain that the window's scale can hide narrow, tall behavior.",
+        "accepted_variants": [
+         "q(1.999) = 1001",
+         "q(2.01) = 11"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Model answer part (d) states q only exceeds 10 when x is within 0.01 of 2. The exact threshold is |x−2| < sqrt(0.001/9) ≈ 0.01054, so q(2.0105) > 10 even though 2.0105 is more than 0.01 from 2.",
+       "model_answer: Part (d) includes the false threshold claim that q only exceeds 10 when x is within 0.01 of 2; a strong-student answer should state the correct approximate threshold or omit the false quantification.",
+       "solution: My solution agrees with the rubric and all correct limit values. The model answer part (d) adds the false claim that q only exceeds 10 when x is within 0.01 of 2; the exact threshold is |x−2| < sqrt(0.001/9) ≈ 0.01054, so that sentence should be removed or corrected."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Model answer part (d) states q only exceeds 10 when x is within 0.01 of 2. The exact threshold is |x−2| < sqrt(0.001/9) ≈ 0.01054, so q(2.0105) > 10 even though 2.0105 is more than 0.01 from 2."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (d) includes the false threshold claim that q only exceeds 10 when x is within 0.01 of 2; a strong-student answer should state the correct approximate threshold or omit the false quantification."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "My solution agrees with the rubric and all correct limit values. The model answer part (d) adds the false claim that q only exceeds 10 when x is within 0.01 of 2; the exact threshold is |x−2| < sqrt(0.001/9) ≈ 0.01054, so that sentence should be removed or corrected.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Part (d) model answer: the extra claim 'The value of q only exceeds 10 when x is within 0.01 of 2' is false. q(x) > 10 for |x − 2| < √(0.001/9) ≈ 0.01054, so for example x = 2.0104 gives q > 10 even though its distance from 2 is greater than 0.01.",
+       "model_answer: Part (d): the model answer includes the false threshold statement about q exceeding 10 only within 0.01 of 2, so it is not fully correct as a strong-student answer even though it earns the rubric points.",
+       "solution: I agree with all required limits and the computed q(2.001) = 1001. The model answer's extra claim that q exceeds 10 only when x is within 0.01 of 2 is false; the correct threshold is |x − 2| < √(0.001/9) ≈ 0.01054."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d) model answer: the extra claim 'The value of q only exceeds 10 when x is within 0.01 of 2' is false. q(x) > 10 for |x − 2| < √(0.001/9) ≈ 0.01054, so for example x = 2.0104 gives q > 10 even though its distance from 2 is greater than 0.01."
+        },
+        "model_answer": {
+         "pass": false,
+         "issue": "Part (d): the model answer includes the false threshold statement about q exceeding 10 only within 0.01 of 2, so it is not fully correct as a strong-student answer even though it earns the rubric points."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "I agree with all required limits and the computed q(2.001) = 1001. The model answer's extra claim that q exceeds 10 only when x is within 0.01 of 2 is false; the correct threshold is |x − 2| < √(0.001/9) ≈ 0.01054.",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:51:50.143Z",
+   "item": {
+    "title": "Estimating Limits from a Graph Described in Words",
+    "calculator": "not_permitted",
+    "stimulus": "A function g is defined for −5 ≤ x ≤ 6, except at x = −2. Its graph is described below.\n\n• On −5 ≤ x < −2 and on −2 < x < 1, the graph is a smooth curve. As x approaches −2 from the left and from the right, the graph rises without bound. The vertical line x = −2 is an asymptote.\n• As x approaches 1 from the left, the curve approaches the point (1, 4), which is shown as an open circle.\n• For 1 ≤ x < 3, the graph is the line segment from the closed circle at (1, −1) to the open circle at (3, 3).\n• At x = 3, there is a single closed circle at (3, 0), not connected to any other part of the graph.\n• For 3 < x ≤ 6, the graph is the line segment from the open circle at (3, 3) to the closed circle at (6, 0).\n\nSeparately, a student uses graphing software to graph k(x) = sin(π/x). On the window −1 ≤ x ≤ 1, −2 ≤ y ≤ 2, the graph near x = 0 looks like a solid band filling the region between y = −1 and y = 1. Zooming in to the window −0.01 ≤ x ≤ 0.01 produces the same solid band.",
+    "model_answer": "(a) As x approaches 1 from the left, the curve approaches the open circle at (1, 4), so lim x→1⁻ g(x) = 4. As x approaches 1 from the right, the segment approaches (1, −1), so lim x→1⁺ g(x) = −1. Since 4 ≠ −1, the left- and right-hand limits are not equal, so lim x→1 g(x) does not exist.\n\n(b) From the left, the segment from (1, −1) to (3, 3) approaches height 3; from the right, the segment from (3, 3) to (6, 0) also approaches height 3. Both one-sided limits equal 3, so lim x→3 g(x) = 3. The closed circle at (3, 0) gives g(3) = 0. Since 3 ≠ 0, the limit is not equal to g(3).\n\n(c) As x approaches −2 from either side, g(x) increases without bound. Because g is unbounded near x = −2, lim x→−2 g(x) does not exist as a real number; we can write lim x→−2 g(x) = ∞.\n\n(d) The limit does not exist. As x→0, π/x grows without bound in size, so sin(π/x) oscillates between −1 and 1 infinitely many times in every interval around 0. For example, k(1/n) = sin(nπ) = 0 and k(2/(4n+1)) = sin((4n+1)π/2) = 1 for every positive integer n, and both sequences of x-values approach 0. Since k keeps taking the values 0 and 1 arbitrarily close to 0, it does not approach a single number. Because there are infinitely many oscillations in any window around 0, no matter how much the student zooms in, the screen cannot resolve them and shows the same solid band between y = −1 and y = 1.",
+    "verification_python": "import math\nfrom fractions import Fraction\n# segment (1,-1) to (3,3)\ndef seg1(x):\n    return Fraction(-1) + Fraction(3-(-1),3-1)*(x-1)\ndef seg2(x):\n    return Fraction(3) + Fraction(0-3,6-3)*(x-3)\nassert seg1(Fraction(1)) == -1\nassert seg1(Fraction(3)) == 3\nassert seg2(Fraction(3)) == 3\nassert seg2(Fraction(6)) == 0\n# left limit at 1 is 4, right is -1, unequal\nassert 4 != seg1(Fraction(1))\n# g(3)=0 differs from limit 3\nassert seg1(Fraction(3)) == seg2(Fraction(3)) == 3 and 0 != 3\n# oscillation of sin(pi/x)\nfor n in range(1, 50):\n    assert abs(math.sin(math.pi/(1/n))) < 1e-9\n    assert abs(math.sin(math.pi/(2/(4*n+1))) - 1) < 1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Using the graph of g, find lim x→1⁻ g(x) and lim x→1⁺ g(x). Does lim x→1 g(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "States lim x→1⁻ g(x) = 4 and lim x→1⁺ g(x) = −1.",
+        "evidence": "Both one-sided limits are given with the correct values, 4 from the left and −1 from the right.",
+        "fix": "Read a one-sided limit from the height the graph approaches on that side only, whether the endpoint circle is open or closed.",
+        "accepted_variants": []
+       },
+       {
+        "text": "Concludes lim x→1 g(x) does not exist because the left-hand limit (4) does not equal the right-hand limit (−1).",
+        "evidence": "A statement that the two-sided limit does not exist, supported by citing that the one-sided limits are unequal.",
+        "fix": "Remember a two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly before concluding.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the graph of g, find lim x→3 g(x). Is lim x→3 g(x) equal to g(3)? Explain.",
+      "criteria": [
+       {
+        "text": "States lim x→3 g(x) = 3, supported by both one-sided limits equaling 3.",
+        "evidence": "The value 3 with reasoning that the graph approaches height 3 from both the left (segment ending at open circle (3, 3)) and the right (segment starting at open circle (3, 3)).",
+        "fix": "Find the height the graph approaches from each side of x = 3; ignore the isolated point when estimating the limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "States g(3) = 0, so the limit is not equal to g(3).",
+        "evidence": "Identifies g(3) = 0 from the closed circle at (3, 0) and concludes 3 ≠ 0.",
+        "fix": "Use the closed circle for the function value; the limit depends on nearby values, not the value at the point itself.",
+        "accepted_variants": [
+         "3 ≠ 0"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the behavior of g(x) as x approaches −2, and state whether lim x→−2 g(x) exists.",
+      "criteria": [
+       {
+        "text": "States that g(x) increases without bound as x→−2 from both sides, so the limit does not exist as a finite value (unbounded).",
+        "evidence": "Identifies unbounded behavior on both sides of x = −2 and concludes the limit does not exist because g is unbounded; writing lim x→−2 g(x) = ∞ with this description is acceptable.",
+        "fix": "When a graph rises without bound near a vertical asymptote, state the limit does not exist because the function is unbounded, or write = ∞.",
+        "accepted_variants": [
+         "lim x→−2 g(x) = ∞",
+         "does not exist (unbounded)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Based on the student's graphs and the formula for k, does lim x→0 k(x) exist? Justify your answer, and explain why zooming in does not change the appearance of the graph near x = 0.",
+      "criteria": [
+       {
+        "text": "Concludes that lim x→0 k(x) does not exist.",
+        "evidence": "An explicit statement that the limit as x→0 of sin(π/x) does not exist.",
+        "fix": "Recognize that a graph filling a band between two heights near a point signals oscillation, so no single limiting value exists.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       },
+       {
+        "text": "Justifies by oscillation: k takes values 1 and −1 (or 0 and 1) at x-values arbitrarily close to 0, so it approaches no single number; zooming cannot remove infinitely many oscillations.",
+        "evidence": "Explains that π/x grows without bound as x→0, so sin(π/x) oscillates between −1 and 1 infinitely often in every interval around 0, for example k(1/n) = 0 and k(2/(4n+1)) = 1 for every positive integer n; therefore any window around 0 shows the same band.",
+        "fix": "Give specific x-values approaching 0 where the function takes different fixed values, then state no single limit value is approached.",
+        "accepted_variants": [
+         "oscillates between −1 and 1"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "accurate: Part (d), criterion d2 evidence incorrectly says that π/x grows without bound as x→0. In fact, π/x→+∞ as x→0⁺ and π/x→−∞ as x→0⁻. Replace this with '|π/x| grows without bound as x→0' or explicitly distinguish the two sides.",
+       "solution: The independent solution agrees with all scored limit values and conclusions: (a) 4 and −1, so DNE; (b) limit 3 but g(3)=0; (c) +∞, with no finite limit; (d) DNE because oscillations persist arbitrarily close to 0. The only disagreement is criterion d2's claim that π/x grows without bound in the two-sided approach to 0; its signed behavior differs on the two sides. No model answer was provided."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d), criterion d2 evidence incorrectly says that π/x grows without bound as x→0. In fact, π/x→+∞ as x→0⁺ and π/x→−∞ as x→0⁻. Replace this with '|π/x| grows without bound as x→0' or explicitly distinguish the two sides."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with all scored limit values and conclusions: (a) 4 and −1, so DNE; (b) limit 3 but g(3)=0; (c) +∞, with no finite limit; (d) DNE because oscillations persist arbitrarily close to 0. The only disagreement is criterion d2's claim that π/x grows without bound in the two-sided approach to 0; its signed behavior differs on the two sides. No model answer was provided.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 bundles two independently requested limit values into one point. Split the left-hand and right-hand limit evaluations into separate one-point criteria.",
+       "accurate: Part (d), criterion d2's evidence incorrectly says π/x grows without bound as x→0. It tends to +∞ from the right and −∞ from the left. Replace this with '|π/x| grows without bound as x→0.'",
+       "solution: All requested limit values and conclusions agree with the rubric. However, d2's claim about π/x growing without bound in the two-sided approach is incorrect; the independent solution correctly states that π/x becomes unbounded in magnitude."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 bundles two independently requested limit values into one point. Split the left-hand and right-hand limit evaluations into separate one-point criteria."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Part (d), criterion d2's evidence incorrectly says π/x grows without bound as x→0. It tends to +∞ from the right and −∞ from the left. Replace this with '|π/x| grows without bound as x→0.'"
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "All requested limit values and conclusions agree with the rubric. However, d2's claim about π/x growing without bound in the two-sided approach is incorrect; the independent solution correctly states that π/x becomes unbounded in magnitude.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:55:51.370Z",
+   "item": {
+    "title": "Reading One-Sided and Two-Sided Limits from a Described Graph",
+    "calculator": "not_permitted",
+    "stimulus": "The graph of a function f on the interval -4 ≤ x ≤ 6 is described below in words. Use only this description.\n\n1. For -4 ≤ x < -1, the graph is a straight line segment from the filled point (-4, 0) to an open circle at (-1, 3).\n2. There is an isolated filled point at (-1, 1), so f(-1) = 1.\n3. For -1 < x < 2, the graph is a straight line segment from an open circle at (-1, 3) to an open circle at (2, -1).\n4. For 2 ≤ x < 4, the graph is a curve that begins at the filled point (2, 2) and increases without bound as x approaches 4 from the left.\n5. The line x = 4 is a vertical asymptote, and f is not defined at x = 4.\n6. For 4 < x ≤ 6, the graph is a curve that decreases without bound as x approaches 4 from the right and rises to end at the filled point (6, 1).",
+    "model_answer": "(a) As x approaches -1 from the left, the first segment approaches the open circle at (-1, 3), so lim x→-1⁻ f(x) = 3. As x approaches -1 from the right, the second segment also approaches (-1, 3), so lim x→-1⁺ f(x) = 3. Since both one-sided limits equal 3, lim x→-1 f(x) = 3. The filled point at (-1, 1) gives f(-1) = 1. They differ because a limit describes the values f(x) approaches for x near -1, not the value at x = -1, so the isolated point does not change the limit.\n\n(b) From the left, the segment approaches the open circle at (2, -1), so lim x→2⁻ f(x) = -1. From the right, the curve starts at (2, 2), so lim x→2⁺ f(x) = 2. Because -1 ≠ 2, the left-hand and right-hand limits are not equal, so lim x→2 f(x) does not exist.\n\n(c) The curve increases without bound as x approaches 4 from the left, so lim x→4⁻ f(x) = ∞. The curve decreases without bound as x approaches 4 from the right, so lim x→4⁺ f(x) = -∞. Therefore lim x→4 f(x) does not exist, because f is unbounded near x = 4 (and the one-sided behaviors also disagree).",
+    "verification_python": "from fractions import Fraction as F\n\ndef line(p, q):\n    (x1, y1), (x2, y2) = p, q\n    m = F(y2 - y1, x2 - x1)\n    return lambda x: y1 + m * (x - x1)\n\nseg1 = line((-4, 0), (-1, 3))\nseg2 = line((-1, 3), (2, -1))\nleft_m1 = seg1(-1)\nright_m1 = seg2(-1)\nassert left_m1 == 3 and right_m1 == 3\nlim_m1 = left_m1\nf_m1 = 1\nassert lim_m1 != f_m1\nleft_2 = seg2(2)\nright_2 = 2\nassert left_2 == -1 and right_2 == 2\nassert left_2 != right_2\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find lim x→-1 f(x) and the value of f(-1). Explain why these two values are not equal.",
+      "criteria": [
+       {
+        "text": "lim x→-1 f(x) = 3, supported by both one-sided limits equaling 3",
+        "evidence": "States the limit is 3 and notes that the graph approaches the height 3 from both the left and the right of x = -1 (both segments end at open circles at (-1, 3)).",
+        "fix": "Check the heights the graph approaches from each side of x = -1; if both sides approach the same height, that height is the limit.",
+        "accepted_variants": []
+       },
+       {
+        "text": "f(-1) = 1, with the explanation that the limit depends on nearby values, not the value at x = -1",
+        "evidence": "States f(-1) = 1 from the isolated filled point and explains that the limit describes the y-values approached as x nears -1, so the isolated point does not affect the limit.",
+        "fix": "Remember the filled point gives the function value, while the limit comes from the graph's behavior near, not at, the input.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Find lim x→2⁻ f(x) and lim x→2⁺ f(x). Does lim x→2 f(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "lim x→2⁻ f(x) = -1",
+        "evidence": "Gives -1, based on the segment from the left approaching the open circle at (2, -1).",
+        "fix": "For a left-hand limit, follow only the piece of the graph with x < 2 and read the height it approaches.",
+        "accepted_variants": []
+       },
+       {
+        "text": "lim x→2⁺ f(x) = 2",
+        "evidence": "Gives 2, based on the curve for x ≥ 2 starting at the filled point (2, 2) and approaching height 2 from the right.",
+        "fix": "For a right-hand limit, follow only the piece of the graph with x > 2 and read the height it approaches.",
+        "accepted_variants": []
+       },
+       {
+        "text": "lim x→2 f(x) does not exist because the left-hand limit (-1) does not equal the right-hand limit (2)",
+        "evidence": "States the limit does not exist and gives the reason that the two one-sided limits are unequal, citing or consistent with the values found.",
+        "fix": "A two-sided limit exists only when both one-sided limits exist and are equal; compare them explicitly before concluding.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe lim x→4⁻ f(x) and lim x→4⁺ f(x) using limit notation. Does lim x→4 f(x) exist? Explain your reasoning.",
+      "criteria": [
+       {
+        "text": "lim x→4⁻ f(x) = ∞",
+        "evidence": "Writes lim x→4⁻ f(x) = ∞ (or states f increases without bound as x approaches 4 from the left).",
+        "fix": "When a graph rises without bound toward a vertical asymptote, write the one-sided limit as ∞.",
+        "accepted_variants": [
+         "+∞",
+         "increases without bound"
+        ]
+       },
+       {
+        "text": "lim x→4⁺ f(x) = -∞",
+        "evidence": "Writes lim x→4⁺ f(x) = -∞ (or states f decreases without bound as x approaches 4 from the right).",
+        "fix": "When a graph falls without bound toward a vertical asymptote, write the one-sided limit as -∞.",
+        "accepted_variants": [
+         "decreases without bound"
+        ]
+       },
+       {
+        "text": "lim x→4 f(x) does not exist because f is unbounded near x = 4",
+        "evidence": "States the limit does not exist with a valid reason: f is unbounded near x = 4, or the one-sided behaviors (∞ and -∞) do not agree. Either reason earns the point.",
+        "fix": "State why a limit fails to exist: unbounded behavior, oscillation, or unequal one-sided limits; name the one that applies.",
+        "accepted_variants": [
+         "DNE"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "1.3": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     1
+    ],
+    "unitCount": {
+     "1": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criteria c1 and c2 explicitly allow verbal descriptions alone, although the part requires limit notation. Require the corresponding one-sided limit notation as evidence rather than allowing prose to replace it."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criteria c1 and c2 explicitly allow verbal descriptions alone, although the part requires limit notation. Require the corresponding one-sided limit notation as evidence rather than allowing prose to replace it."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c) asks for limits described using limit notation, but criteria c1 and c2 accept a verbal description (increases/decreases without bound) as equivalent evidence, so a response lacking the required limit notation could still earn the point."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c) asks for limits described using limit notation, but criteria c1 and c2 accept a verbal description (increases/decreases without bound) as equivalent evidence, so a response lacking the required limit notation could still earn the point."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "1.3",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "difficulty": "Easy",
+   "stage": "accepted"
+  }
+ ],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:36:34.988Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Reading One-Sided and Two-Sided Limits from a Described Graph"
+  },
+  {
+   "at": "2026-10-10T01:37:33.857Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Reading Limits from a Described Graph and Oscillation"
+  },
+  {
+   "at": "2026-10-10T01:38:29.437Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Reading One-Sided and Two-Sided Limits from a Described Graph"
+  }
+ ],
+ "accepted_round": 3
+}

@@ -1,0 +1,1978 @@
+{
+ "id": "ap_biology__2.2__1",
+ "slot": {
+  "subject_key": "ap_biology",
+  "tsv": "c676d1fc-3b58-4896-89e3-852d9bd1f81b",
+  "unit": 2,
+  "unit_title": "Cells",
+  "topic_code": "2.2",
+  "topic_title": "Cell Size",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T03:03:02.323Z",
+   "source": "given",
+   "item": {
+    "title": "Surface Area-to-Volume Ratio in Cells and in Mammals",
+    "calculator": "permitted",
+    "stimulus": "Two spherical cells are compared.\n\nCell | Shape | Radius (μm)\nA | sphere | 2\nB | sphere | 6\n\nFor a sphere, surface area SA = 4πr² and volume V = (4/3)πr³.\n\nIn a separate comparison, researchers study two mammals that both keep a constant body temperature: a shrew with a body mass of about 5 g and a moose with a body mass of about 400 kg.",
+    "parts": [
+     {
+      "prompt": "Calculate the surface area-to-volume ratio of cell A. Include units.",
+      "criteria": [
+       {
+        "text": "Calculates SA:V of cell A = 1.5 μm⁻¹, by any valid method, for example SA = 16π μm² and V = (32/3)π μm³, so SA/V = 16π ÷ (32π/3) = 1.5 μm⁻¹, or SA/V = 3/r = 3/2.",
+        "evidence": "Response shows a correct calculation for a sphere of radius 2 μm and reports 1.5 μm⁻¹ (1.5 per μm).",
+        "fix": "Substitute r into both sphere formulas, or simplify SA/V to 3/r first, and report the ratio with units of μm⁻¹.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate how many times greater the surface area-to-volume ratio of cell A is than that of cell B.",
+      "criteria": [
+       {
+        "text": "Calculates that cell A's SA:V is 3 times that of cell B, by any valid method, for example 1.5 μm⁻¹ ÷ 0.5 μm⁻¹ = 3 (cell B: SA/V = 3/6 = 0.5 μm⁻¹).",
+        "evidence": "Response shows cell B's ratio (0.5 μm⁻¹) or the radius ratio reasoning and obtains a factor of 3.",
+        "fix": "Compute the second cell's ratio the same way, then divide the larger ratio by the smaller one.",
+        "accepted_variants": [
+         "3 times",
+         "three times"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using your calculated values, explain why cell B is less efficient than cell A at exchanging materials with its environment.",
+      "criteria": [
+       {
+        "text": "Explains, citing the calculated values, that cell B has a lower SA:V (0.5 μm⁻¹ versus 1.5 μm⁻¹, one-third as much), so it has less plasma membrane surface per unit of volume through which nutrients can enter and wastes can leave, relative to the needs of its larger volume.",
+        "evidence": "Response cites B's lower calculated SA:V and explains that less membrane area is available per unit volume for taking in nutrients or removing wastes.",
+        "fix": "Quote both calculated ratios, then link a lower ratio to less membrane surface available to serve each unit of cell volume.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "Predict which animal, the shrew or the moose, has the higher metabolic rate per unit body mass, and justify your prediction using surface area-to-volume ratio.",
+      "criteria": [
+       {
+        "text": "Predicts that the shrew has the higher metabolic rate per unit body mass.",
+        "evidence": "Response names the shrew.",
+        "fix": "Smaller organisms typically have higher metabolic rates per unit body mass; choose the smaller animal.",
+        "accepted_variants": [
+         "the shrew"
+        ]
+       },
+       {
+        "text": "Justifies that the smaller shrew has a higher SA:V, so it exchanges (loses) heat with its environment proportionally faster, and must produce more heat by metabolism per unit body mass to keep its body temperature constant.",
+        "evidence": "Response links the shrew's higher SA:V to proportionally greater heat loss and to a greater need for metabolic heat production per unit mass.",
+        "fix": "Chain the reasoning: smaller size, higher SA:V, faster heat loss per unit mass, so more metabolism is needed to stay warm.",
+        "accepted_variants": []
+       }
+      ]
+     }
+    ],
+    "model_answer": "(a) For cell A, r = 2 μm.\nSA = 4π(2)² = 16π μm².\nV = (4/3)π(2)³ = (32/3)π μm³.\nSA/V = 16π ÷ (32π/3) = 48/32 = 1.5 μm⁻¹.\n\n(b) For cell B, r = 6 μm: SA = 4π(6)² = 144π μm² and V = (4/3)π(6)³ = 288π μm³, so SA/V = 0.5 μm⁻¹.\n1.5 μm⁻¹ ÷ 0.5 μm⁻¹ = 3, so cell A's surface area-to-volume ratio is 3 times that of cell B.\n\n(c) Cell B's SA:V (0.5 μm⁻¹) is only one-third of cell A's (1.5 μm⁻¹). Materials are exchanged across the plasma membrane, so cell B has much less membrane surface for each unit of volume that needs nutrients and produces wastes. Exchange across the membrane therefore cannot keep up with the needs of B's volume as well as it can in A, so B is less efficient at exchanging materials.\n\n(d) The shrew has the higher metabolic rate per unit body mass. Because it is much smaller, the shrew has a much higher surface area-to-volume ratio, so it exchanges heat with its environment proportionally faster and loses heat quickly for its mass. To keep its body temperature constant, it must produce more heat through metabolism per unit of body mass than the moose does.",
+    "verification_python": "from fractions import Fraction as F\ndef sa(r): return 4*r*r\ndef vol(r): return F(4,3)*r**3\n# pi cancels in SA/V, so work with coefficients of pi\nA=F(sa(2))/vol(2)\nB=F(sa(6))/vol(6)\nassert sa(2)==16 and vol(2)==F(32,3)\nassert sa(6)==144 and vol(6)==288\nassert A==F(3,2) and A==F(3,2)\nassert B==F(1,2) and B==F(3,6)\nassert A/B==3\nassert F(48,32)==F(3,2)\nprint('ALL_CHECKS_PASSED')"
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    }
+   ],
+   "stage": "accepted",
+   "difficulty": "Easy"
+  }
+ ],
+ "history_before_rule_calibration": [
+  {
+   "round": 1,
+   "at": "2026-10-10T00:29:04.017Z",
+   "item": {
+    "title": "Agar Cube Diffusion and Surface Area-to-Volume Ratio",
+    "calculator": "permitted",
+    "stimulus": "Students model cells using cubes of agar that contain a pH indicator. The indicator changes color wherever acid has diffused into the agar. Three cubes with side lengths of 1 cm, 2 cm, and 3 cm were fully submerged in the same dilute acid solution at the same temperature for 10 minutes. Each cube was then removed, blotted, and cut in half. In every cube, the acid had diffused inward to a depth of 0.3 cm from every face. This left an inner cube of unchanged color with a side length 0.6 cm shorter than the original cube.\n\nUseful relationships for a cube with side length s: surface area SA = 6s² and volume V = s³. For a sphere with radius r: SA = 4πr² and V = (4/3)πr³.\n\nTable 1. Results after 10 minutes in acid\nCube side length (cm) | SA:V ratio (cm⁻¹) | Depth of acid penetration (cm) | Side length of unchanged inner cube (cm) | Percent of cube volume reached by acid\n1 | 6.0 | 0.3 | 0.4 | 93.6%\n2 | ? | 0.3 | 1.4 | 65.7%\n3 | 2.0 | 0.3 | 2.4 | ?",
+    "model_answer": "(a) SA = 6s² = 6(2 cm)² = 24 cm². V = s³ = (2 cm)³ = 8 cm³. SA:V = 24 cm² / 8 cm³ = 3 cm⁻¹.\n\n(b) Total volume = (3 cm)³ = 27 cm³. Unchanged inner volume = (2.4 cm)³ = 13.824 cm³. Volume reached by acid = 27 − 13.824 = 13.176 cm³. Percent = 13.176 / 27 × 100 = 48.8%.\n\n(c) As the SA:V ratio decreases, the percent of the cube's volume reached by the acid also decreases. The 1 cm cube (SA:V 6.0 cm⁻¹) was 93.6% penetrated. The 2 cm cube (3 cm⁻¹) was 65.7% penetrated. The 3 cm cube (2.0 cm⁻¹) was only 48.8% penetrated.\n\n(d) The SA:V ratio will be cut in half. For a sphere, SA:V = 4πr² / ((4/3)πr³) = 3/r. At r = 5 µm, SA:V = 3/5 = 0.6 µm⁻¹. At r = 10 µm, SA:V = 3/10 = 0.3 µm⁻¹. This happens because surface area increases 4 times while volume increases 8 times. The larger cell has much more cytoplasm that needs nutrients and oxygen and produces waste. However, it has relatively less plasma membrane per unit of volume through which these materials can move. Exchange with the environment therefore becomes less efficient, and the cell may not be able to obtain resources or remove wastes fast enough to meet its needs.",
+    "verification_python": "import math\n# part a\ns=2\nSA=6*s**2; V=s**3\nassert SA==24 and V==8 and SA/V==3\n# table SA:V values\nassert 6*1**2/1**3==6 and abs(6*3**2/3**3-2.0)<1e-12\n# percent reached for each cube, depth 0.3 cm\ndef pct(s):\n    inner=s-0.6\n    return (1-(inner/s)**3)*100\nassert abs((1-0.6)-0.4)<1e-12 and abs((2-0.6)-1.4)<1e-12 and abs((3-0.6)-2.4)<1e-12\nassert abs(pct(1)-93.6)<0.05\nassert abs(pct(2)-65.7)<0.05\nassert abs(pct(3)-48.8)<0.05\n# part b details\nassert abs(2.4**3-13.824)<1e-9\nassert abs(27-2.4**3-13.176)<1e-9\nassert abs(13.176/27*100-48.8)<0.05\n# part d\ndef sav(r):\n    return (4*math.pi*r**2)/((4/3)*math.pi*r**3)\nassert abs(sav(5)-0.6)<1e-12 and abs(sav(10)-0.3)<1e-12\nassert abs((4*math.pi*10**2)/(4*math.pi*5**2)-4)<1e-12\nassert abs(((4/3)*math.pi*10**3)/((4/3)*math.pi*5**3)-8)<1e-12\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the surface area-to-volume ratio of the 2 cm cube. Show your work and include units.",
+      "criteria": [
+       {
+        "text": "SA:V of the 2 cm cube = 3 cm⁻¹ (SA = 24 cm², V = 8 cm³), with work shown",
+        "evidence": "Response shows SA = 6(2)² = 24 cm² and V = 2³ = 8 cm³, divides them, and gives 3 cm⁻¹ (or 3:1 per cm).",
+        "fix": "Compute surface area with 6s² and volume with s³ separately, then divide SA by V and report units of cm⁻¹.",
+        "accepted_variants": [
+         "3 /cm",
+         "3:1",
+         "24 cm² / 8 cm³ = 3 cm⁻¹",
+         "3.0 cm⁻¹"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percent of the 3 cm cube's volume that the acid reached. Show your work.",
+      "criteria": [
+       {
+        "text": "Percent of 3 cm cube volume reached = 48.8% (27 cm³ total, 13.824 cm³ unchanged, 13.176 cm³ reached), with work shown",
+        "evidence": "Response computes total volume 27 cm³ and unchanged inner volume 2.4³ = 13.824 cm³. It subtracts to get 13.176 cm³, divides by 27, and reports about 48.8%.",
+        "fix": "Subtract the unchanged inner cube's volume from the total cube volume, then divide by the total volume and multiply by 100.",
+        "accepted_variants": [
+         "48.8%",
+         "about 49%",
+         "13.176/27 × 100 = 48.8%",
+         "1 − (2.4/3)³ = 0.488 = 48.8%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between the surface area-to-volume ratio and the percent of cube volume reached by the acid, using data from Table 1.",
+      "criteria": [
+       {
+        "text": "As SA:V decreases, the percent of volume reached by the acid decreases (direct relationship), supported by specific values from the table",
+        "evidence": "Response states that a lower SA:V corresponds to a smaller percent of volume reached. It cites data such as 6.0 cm⁻¹ → 93.6%, 3 cm⁻¹ → 65.7%, 2.0 cm⁻¹ → 48.8%.",
+        "fix": "State the direction of the trend between both variables and quote at least two paired values from the table as support.",
+        "accepted_variants": [
+         "higher SA:V gives a higher percent of volume reached",
+         "positive relationship between SA:V and percent reached"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A spherical cell with a radius of 5 µm grows until its radius is 10 µm. Predict how the cell's surface area-to-volume ratio changes and justify your prediction with a calculation. Then explain how this change affects the cell's ability to meet its needs through exchange across the plasma membrane.",
+      "criteria": [
+       {
+        "text": "Prediction that SA:V halves, from 0.6 µm⁻¹ to 0.3 µm⁻¹, justified by calculation",
+        "evidence": "Response shows SA:V of a sphere = 3/r, or computes SA and V at each radius. It gives 0.6 µm⁻¹ at r = 5 µm and 0.3 µm⁻¹ at r = 10 µm and concludes that the ratio is halved.",
+        "fix": "Divide 4πr² by (4/3)πr³ to get 3/r, then substitute each radius to compare the ratios.",
+        "accepted_variants": [
+         "ratio decreases by half",
+         "SA increases 4 times while V increases 8 times, so SA:V halves",
+         "3/5 = 0.6 and 3/10 = 0.3"
+        ]
+       },
+       {
+        "text": "Explanation that volume (internal demand for resources and waste production) increases faster than membrane surface area, so exchange per unit volume becomes less efficient",
+        "evidence": "Response explains that the larger cell has more cytoplasm needing nutrients and producing waste but proportionally less membrane. As a result, exchange of materials such as nutrients, wastes, or gases is less efficient or may not meet the cell's needs.",
+        "fix": "Connect the smaller SA:V to the cell: more volume needs resources while relatively less membrane is available, so exchange becomes less efficient.",
+        "accepted_variants": [
+         "exchange cannot keep up with demand",
+         "less membrane per unit volume slows uptake and waste removal relative to needs"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1 and b1 explicitly accept bare answers despite requiring work; a1 also accepts unitless '3:1' despite the requested units. Criterion a1's evidence unnecessarily prescribes separate surface-area and volume calculations, although SA/V = 6/s is valid. Criterion c1 accepts trend-only statements without the requested supporting data. Criterion d1 accepts 'ratio decreases by half' without the requested calculation. Make every accepted variant satisfy the complete criterion and permit equivalent calculation methods.",
+       "accurate: Criterion d2 accepts the categorical claim 'exchange cannot keep up with demand.' A decreased SA:V establishes less membrane area per unit volume, not inevitable failure to meet demand. Accept a qualified claim that exchange may not keep pace, or an explanation of reduced exchange capacity relative to demand.",
+       "solution: The independent solution agrees with the numerical results: (a) 3.0 cm⁻¹; (b) 48.8%; (c) higher SA:V corresponds to a greater percentage reached; (d) SA:V halves from 0.60 to 0.30 µm⁻¹. In part (d), the solution correctly qualifies possible exchange limitations, whereas criterion d2 also accepts an unsupported categorical failure claim. Several accepted rubric variants omit required work, units, or supporting data."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1 and b1 explicitly accept bare answers despite requiring work; a1 also accepts unitless '3:1' despite the requested units. Criterion a1's evidence unnecessarily prescribes separate surface-area and volume calculations, although SA/V = 6/s is valid. Criterion c1 accepts trend-only statements without the requested supporting data. Criterion d1 accepts 'ratio decreases by half' without the requested calculation. Make every accepted variant satisfy the complete criterion and permit equivalent calculation methods."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion d2 accepts the categorical claim 'exchange cannot keep up with demand.' A decreased SA:V establishes less membrane area per unit volume, not inevitable failure to meet demand. Accept a qualified claim that exchange may not keep pace, or an explanation of reduced exchange capacity relative to demand."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the numerical results: (a) 3.0 cm⁻¹; (b) 48.8%; (c) higher SA:V corresponds to a greater percentage reached; (d) SA:V halves from 0.60 to 0.30 µm⁻¹. In part (d), the solution correctly qualifies possible exchange limitations, whereas criterion d2 also accepts an unsupported categorical failure claim. Several accepted rubric variants omit required work, units, or supporting data.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1 and b1 explicitly accept bare numerical answers despite the requirement to show work; a1 also accepts '3:1' without the required units. Criterion c1 accepts a trend alone without the requested supporting table data. Criterion d1 accepts 'ratio decreases by half' without the requested calculation. Additionally, a1's evidence requires separate surface-area and volume calculations, although directly simplifying SA/V = 6/s and substituting s = 2 cm is a valid full-credit method. Revise accepted variants to require all requested evidence and allow equivalent calculation methods."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1 and b1 explicitly accept bare numerical answers despite the requirement to show work; a1 also accepts '3:1' without the required units. Criterion c1 accepts a trend alone without the requested supporting table data. Criterion d1 accepts 'ratio decreases by half' without the requested calculation. Additionally, a1's evidence requires separate surface-area and volume calculations, although directly simplifying SA/V = 6/s and substituting s = 2 cm is a valid full-credit method. Revise accepted variants to require all requested evidence and allow equivalent calculation methods."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T00:31:50.969Z",
+   "item": {
+    "title": "Agar Cube Diffusion and Surface Area-to-Volume Ratio",
+    "calculator": "permitted",
+    "stimulus": "Students model cells using cubes of agar that contain phenolphthalein, an indicator that turns pink when sodium hydroxide (NaOH) is present. They cut cubes with side lengths of 1 cm, 2 cm, and 4 cm and soak all three cubes in the same NaOH solution for 10 minutes. They then rinse the cubes, cut them in half, and find that NaOH reached a depth of 0.4 cm from every face in every cube. From this depth they calculate the percent of each cube's volume that turned pink. The relevant equations are: surface area of a cube SA = 6s² and volume of a cube V = s³, where s is the length of one side.\n\nCube side (cm) | SA:V ratio (cm⁻¹) | Percent of volume turned pink\n1 | 6.0 | 99.2\n2 | 3.0 | 78.4\n4 | ? | 48.8",
+    "model_answer": "(a) SA = 6s² = 6(4 cm)² = 96 cm². V = s³ = (4 cm)³ = 64 cm³. SA:V = 96/64 = 1.5 cm⁻¹.\n\n(b) As the SA:V ratio decreases, the percent of the cube's volume that turned pink decreases. The 1 cm cube (SA:V 6.0 cm⁻¹) was 99.2% pink, while the 4 cm cube (SA:V 1.5 cm⁻¹) was only 48.8% pink.\n\n(c) When a cell grows, its volume increases faster than its surface area (volume scales with s³, surface area with s²), so the SA:V ratio falls. The demand for nutrients and the production of wastes depend on the volume, but exchange can occur only across the membrane surface. In a very large cell, the membrane could not supply enough materials or remove wastes fast enough for the whole volume, just as NaOH failed to reach about half of the 4 cm cube in 10 minutes.\n\n(d) The folded cube will have a greater percent of its volume turn pink than the 48.8% of the unfolded 4 cm cube. The folds increase surface area without changing volume, so the SA:V ratio increases. More surface is available for NaOH to enter per unit of volume, and the interior is closer to a surface, so more of the volume is reached in the same time. This is why cells such as gut epithelial cells have membrane folds.",
+    "verification_python": "from fractions import Fraction as F\nd=F(4,10)\ndef ratio(s): return F(6*s*s, s**3)\ndef pink(s):\n    inner=s-2*d\n    return (1-(inner/s)**3)*100\nassert ratio(1)==6 and ratio(2)==3 and ratio(4)==F(3,2)\nassert 6*4**2==96 and 4**3==64\nassert abs(float(pink(1))-99.2)<1e-9\nassert abs(float(pink(2))-78.4)<1e-9\nassert abs(float(pink(4))-48.8)<1e-9\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the surface area-to-volume ratio of the 4 cm cube. Show your work.",
+      "criteria": [
+       {
+        "text": "SA:V of the 4 cm cube = 1.5 cm⁻¹, from SA = 6(4)² = 96 cm² and V = 4³ = 64 cm³",
+        "evidence": "Response shows SA = 96 cm² and V = 64 cm³ (or the setup 6s²/s³) and gives a ratio of 1.5 (cm⁻¹ or as 1.5:1).",
+        "fix": "Compute surface area with 6s² and volume with s³ separately, then divide surface area by volume and include units of cm⁻¹.",
+        "accepted_variants": [
+         "1.5:1",
+         "3:2",
+         "96/64 = 1.5",
+         "6/s = 6/4 = 1.5"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between the SA:V ratio of a cube and the percent of its volume that turned pink.",
+      "criteria": [
+       {
+        "text": "As SA:V ratio decreases (larger cube), the percent of volume turned pink decreases",
+        "evidence": "Response states that cubes with a higher SA:V ratio had a greater percent of their volume turn pink, or equivalently that lower SA:V corresponds to a lower percent; may cite values such as 6.0 to 99.2% versus 1.5 to 48.8%.",
+        "fix": "State the direction of the trend linking the two variables, using paired values from the table as support.",
+        "accepted_variants": [
+         "higher SA:V gives a greater percent of volume reached by NaOH",
+         "positive relationship between SA:V and percent pink"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the results of this model, explain why cells cannot grow indefinitely large while relying on exchange across the plasma membrane.",
+      "criteria": [
+       {
+        "text": "As a cell grows, volume increases faster than surface area, so SA:V decreases and the membrane cannot exchange enough materials to meet the larger volume's demand",
+        "evidence": "Response links increasing size to a falling SA:V (volume grows faster than surface area) AND states that the larger volume's need for nutrients or removal of wastes then exceeds what the membrane surface can exchange, as with the unreached center of the 4 cm cube.",
+        "fix": "Connect two ideas: volume grows faster than surface area, and resource demand scales with volume while exchange is limited by membrane surface.",
+        "accepted_variants": [
+         "volume increases as the cube of length while surface area increases as the square",
+         "interior of a large cell would not receive enough nutrients or remove wastes fast enough"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "A student modifies one 4 cm cube so that its surface has many deep folds, increasing its surface area while keeping its volume the same. Predict how the percent of volume that turns pink in 10 minutes will compare to the unfolded 4 cm cube, and justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the folded cube will have a greater percent of its volume turn pink than 48.8%",
+        "evidence": "Response predicts that a larger percent of the folded cube's volume turns pink than in the unfolded 4 cm cube.",
+        "fix": "Make a clear directional prediction comparing the modified cube to the unfolded cube's 48.8% value.",
+        "accepted_variants": [
+         "more of the cube turns pink",
+         "higher percent pink than the unfolded 4 cm cube"
+        ]
+       },
+       {
+        "text": "Justification: folds raise SA:V, giving more surface for NaOH to enter per unit volume and shortening the distance to the interior, like membrane folds or microvilli in cells",
+        "evidence": "Response states that the folds increase the SA:V ratio (more surface area for the same volume) so more NaOH can enter per unit volume and reach more of the interior.",
+        "fix": "Justify by stating that folding increases SA:V, so more exchange surface is available per unit of volume.",
+        "accepted_variants": [
+         "higher surface area for the same volume increases the rate of exchange",
+         "like microvilli on gut epithelial cells, folds increase exchange surface"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 lists bare ratios '1.5:1' and '3:2' as accepted answers even though part (a) requires work. Require those ratios to accompany a valid calculation. Criterion c1 lists incomplete accepted alternatives: the square-versus-cube scaling statement alone does not explain the exchange limitation, and insufficient nutrient delivery alone does not explain how increasing size causes it. Require both the decreasing SA:V relationship and its consequence for exchange relative to cellular demand."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 lists bare ratios '1.5:1' and '3:2' as accepted answers even though part (a) requires work. Require those ratios to accompany a valid calculation. Criterion c1 lists incomplete accepted alternatives: the square-versus-cube scaling statement alone does not explain the exchange limitation, and insufficient nutrient delivery alone does not explain how increasing size causes it. Require both the decreasing SA:V relationship and its consequence for exchange relative to cellular demand."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 explicitly accepts bare ratios such as '1.5:1' and '3:2', although part (a) requires work. Criterion c1 lists incomplete alternatives: the size-scaling statement alone lacks the exchange-demand explanation, and the interior-delivery statement alone lacks the decreasing-SA:V mechanism. Require the complete evidence specified for each criterion.",
+       "solution: The independent solution agrees with the numerical results, trend, cell-size explanation, and folded-cube prediction. However, a1's bare-ratio alternatives do not satisfy the requested work, and c1's separately listed alternatives do not each provide its required complete explanation. No model answer was provided for comparison."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 explicitly accepts bare ratios such as '1.5:1' and '3:2', although part (a) requires work. Criterion c1 lists incomplete alternatives: the size-scaling statement alone lacks the exchange-demand explanation, and the interior-delivery statement alone lacks the decreasing-SA:V mechanism. Require the complete evidence specified for each criterion."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the numerical results, trend, cell-size explanation, and folded-cube prediction. However, a1's bare-ratio alternatives do not satisfy the requested work, and c1's separately listed alternatives do not each provide its required complete explanation. No model answer was provided for comparison.",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T00:33:47.037Z",
+   "item": {
+    "title": "Agar Cube Size, SA:V, and Diffusion Efficiency",
+    "calculator": "permitted",
+    "stimulus": "Students modeled cells using agar blocks containing phenolphthalein. Phenolphthalein is colorless but turns pink wherever sodium hydroxide (NaOH) has diffused into the agar. They cut cubes with side lengths of 1 cm, 2 cm and 3 cm. They placed each cube in NaOH solution for 10 minutes, then removed and sliced it. In every cube the pink layer had a uniform depth of 0.30 cm on all faces. The colorless, unpenetrated core of each cube is therefore a cube with side length (s − 0.60 cm), where s is the cube's side length.\n\nRelevant equations: surface area of a cube, SA = 6s²; volume of a cube, V = s³; surface area of a rectangular solid, SA = 2lh + 2lw + 2wh; volume of a rectangular solid, V = lwh.\n\nSide length (cm) | SA:V (cm⁻¹) | Depth of pink layer (cm) | Percent of volume pink\n1 | 6.0 | 0.30 | 93.6\n2 | ? | 0.30 | 65.7\n3 | 2.0 | 0.30 | ?",
+    "model_answer": "(a) SA = 6s² = 6(2 cm)² = 24 cm². V = s³ = (2 cm)³ = 8 cm³. SA:V = 24/8 = 3.0 cm⁻¹.\n\n(b) Total volume = 3³ = 27 cm³. The core has side 3 − 0.60 = 2.4 cm, so core volume = 2.4³ = 13.824 cm³. Pink volume = 27 − 13.824 = 13.176 cm³. Percent pink = 13.176/27 × 100 ≈ 48.8%.\n\n(c) As the cubes get larger, SA:V drops from 6.0 to 3.0 to 2.0 cm⁻¹, and the percent of volume reached by NaOH drops from 93.6% to 65.7% to about 48.8%. Materials enter and leave a cell only across its plasma membrane (the surface), but the cell's demand for nutrients and its production of wastes depend on its volume. In a large cell there is too little membrane surface relative to volume, so exchange cannot keep up and inner regions are poorly supplied. Small cells have a high SA:V and exchange materials efficiently, so cells are typically small.\n\n(d) The percent pink will be greater than in the 2 cm cube. The block has SA = 2(1)(8) + 2(1)(8) + 2(1)(1) = 34 cm² and V = 8 cm³, so SA:V = 4.25 cm⁻¹, higher than the cube's 3.0 cm⁻¹. With more surface per unit volume, and no point more than 0.5 cm from a surface, NaOH reaches a larger fraction of the volume. The core would be 0.4 × 0.4 × 7.4 = 1.184 cm³, so about (8 − 1.184)/8 × 100 ≈ 85.2% turns pink.",
+    "verification_python": "import math\nd=0.30\ndef cube(s):\n    sa=6*s**2; v=s**3; core=(s-2*d)**3\n    return sa,v,sa/v,(v-core)/v*100\nsa,v,r,p=cube(2)\nassert sa==24 and v==8 and math.isclose(r,3.0)\nassert abs(p-65.7)<0.05\nsa1,v1,r1,p1=cube(1)\nassert math.isclose(r1,6.0) and abs(p1-93.6)<0.05\nsa3,v3,r3,p3=cube(3)\nassert math.isclose(r3,2.0)\nassert math.isclose((3-0.6)**3,13.824,abs_tol=1e-9)\nassert math.isclose(27-13.824,13.176,abs_tol=1e-9)\nassert abs(p3-48.8)<0.05\nl,w,h=1,1,8\nsab=2*l*h+2*l*w+2*w*h\nvb=l*w*h\nassert sab==34 and vb==8 and math.isclose(sab/vb,4.25)\ncore=(l-2*d)*(w-2*d)*(h-2*d)\nassert math.isclose(core,1.184,abs_tol=1e-9)\npb=(vb-core)/vb*100\nassert abs(pb-85.2)<0.05\nassert pb>p\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the surface area-to-volume ratio of the 2 cm cube. Show your work.",
+      "criteria": [
+       {
+        "text": "SA:V of the 2 cm cube is 3.0 cm⁻¹ (SA = 24 cm², V = 8 cm³)",
+        "evidence": "Response shows SA = 6(2)² = 24 cm² and V = 2³ = 8 cm³, and divides to get 3 (or 3:1, 3 cm⁻¹).",
+        "fix": "Compute surface area with 6s² and volume with s³ separately, then divide surface area by volume.",
+        "accepted_variants": [
+         "3:1",
+         "3 cm⁻¹",
+         "24/8 = 3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percent of the 3 cm cube's volume that turned pink. Show your work.",
+      "criteria": [
+       {
+        "text": "Percent pink for the 3 cm cube is about 48.8%",
+        "evidence": "Response finds total volume 27 cm³, core side 2.4 cm and core volume 13.824 cm³, then (27 − 13.824)/27 × 100 ≈ 48.8%.",
+        "fix": "Find the core volume using side s − 0.60 cm, subtract it from total volume, then divide by total volume.",
+        "accepted_variants": [
+         "48.8%",
+         "about 49%",
+         "0.488"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, explain why cells are typically small rather than large.",
+      "criteria": [
+       {
+        "text": "Links decreasing SA:V with decreasing percent of volume reached, and explains that exchange occurs across the surface while needs scale with volume",
+        "evidence": "Response cites the trend (SA:V falls from 6.0 to 2.0 as percent pink falls from 93.6% to about 48.8%) and explains that a larger cell has relatively less membrane surface to exchange nutrients and wastes for its volume, so exchange becomes inadequate.",
+        "fix": "Cite specific data values showing the trend, then connect membrane surface (exchange) to volume (demand for resources and waste removal).",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "A student reshapes 8 cm³ of agar into a rectangular block measuring 1 cm × 1 cm × 8 cm and soaks it in NaOH for 10 minutes under the same conditions. Predict whether the percent of volume that turns pink will be greater than, less than, or equal to that of the 2 cm cube. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts the rectangular block will have a greater percent of volume pink than the 2 cm cube (65.7%)",
+        "evidence": "Response states the percent pink will be greater than 65.7% (about 85.2% if calculated).",
+        "fix": "Compare shapes of equal volume by asking which places more of its volume close to the surface.",
+        "accepted_variants": [
+         "greater",
+         "about 85%",
+         "85.2%"
+        ]
+       },
+       {
+        "text": "Justifies using the higher SA:V of the block, 4.25 cm⁻¹ (SA = 34 cm², V = 8 cm³) versus 3.0 cm⁻¹, or the shorter distance from surface to center",
+        "evidence": "Response explains that the block has more surface area for the same volume (SA:V 4.25 versus 3.0) or that no point is more than 0.5 cm from a surface, so diffusion reaches a larger fraction of the volume.",
+        "fix": "Calculate the block's surface area with 2lh + 2lw + 2wh, divide by volume, and compare to the cube's ratio.",
+        "accepted_variants": [
+         "SA:V = 34/8 = 4.25",
+         "center is only 0.5 cm from the surface"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1 and b1 explicitly accept bare answers despite both parts requiring work. Criterion d2 explicitly accepts a bare SA:V calculation or distance statement without connecting it to the predicted greater fraction reached, although part (d) requires justification. Qualify these accepted variants to require the requested work or reasoning.",
+       "accurate: Criterion b1 accepts 0.488 as the requested percent. This is the fraction of volume pink, not the percentage; the percentage is 48.8%. Accept 0.488 only when explicitly converted to 48.8%.",
+       "solution: The independent solution agrees with the rubric's intended results: (a) 3.0 cm⁻¹, (b) 48.8%, (c) smaller cells have more exchange surface per unit volume, and (d) greater penetration percentage, approximately 85.2%, with SA:V = 4.25 cm⁻¹. However, b1's accepted value 0.488 is a fraction rather than a percentage. The bare-answer variants in a1, b1, and d2 do not establish all the work or reasoning requested. No model answer was provided for comparison."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1 and b1 explicitly accept bare answers despite both parts requiring work. Criterion d2 explicitly accepts a bare SA:V calculation or distance statement without connecting it to the predicted greater fraction reached, although part (d) requires justification. Qualify these accepted variants to require the requested work or reasoning."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 accepts 0.488 as the requested percent. This is the fraction of volume pink, not the percentage; the percentage is 48.8%. Accept 0.488 only when explicitly converted to 48.8%."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's intended results: (a) 3.0 cm⁻¹, (b) 48.8%, (c) smaller cells have more exchange surface per unit volume, and (d) greater penetration percentage, approximately 85.2%, with SA:V = 4.25 cm⁻¹. However, b1's accepted value 0.488 is a fraction rather than a percentage. The bare-answer variants in a1, b1, and d2 do not establish all the work or reasoning requested. No model answer was provided for comparison.",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criteria a1 and b1 explicitly accept bare answers although both parts require work. Criterion a1 also requires separate surface-area and volume calculations, potentially rejecting the valid method SA/V = 6/s = 6/2 = 3 cm⁻¹. Criterion d2 accepts a bare ratio or distance although justification requires connecting that quantity to greater penetration.",
+       "accurate: Criterion b1 accepts 0.488 as the requested percent. This is the pink fraction, not the percent; the correct percent is 48.8%. Accept 0.488 only when explicitly converted to a percentage.",
+       "solution: The independent solution agrees with the rubric's substantive results: (a) 3.0 cm⁻¹; (b) 48.8%; (c) higher SA:V supports exchange relative to volume-dependent demands; (d) greater penetration, approximately 85.2%, with SA:V = 4.25 cm⁻¹. However, b1's accepted bare value 0.488 is not a percent. The bare-answer alternatives in a1, b1, and d2 do not demonstrate the requested work or justification. No model answer was supplied for comparison."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criteria a1 and b1 explicitly accept bare answers although both parts require work. Criterion a1 also requires separate surface-area and volume calculations, potentially rejecting the valid method SA/V = 6/s = 6/2 = 3 cm⁻¹. Criterion d2 accepts a bare ratio or distance although justification requires connecting that quantity to greater penetration."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": false,
+         "issue": "Criterion b1 accepts 0.488 as the requested percent. This is the pink fraction, not the percent; the correct percent is 48.8%. Accept 0.488 only when explicitly converted to a percentage."
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's substantive results: (a) 3.0 cm⁻¹; (b) 48.8%; (c) higher SA:V supports exchange relative to volume-dependent demands; (d) greater penetration, approximately 85.2%, with SA:V = 4.25 cm⁻¹. However, b1's accepted bare value 0.488 is not a percent. The bare-answer alternatives in a1, b1, and d2 do not demonstrate the requested work or justification. No model answer was supplied for comparison.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "history_before_session_authoring": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:21:21.633Z",
+   "item": {
+    "title": "Agar Cube Diffusion and Surface Area-to-Volume Ratio",
+    "calculator": "permitted",
+    "stimulus": "Students model cells with cube-shaped blocks of agar that contain a pH indicator. The indicator turns pink where a basic solution has diffused into the agar. Three cubes with side lengths of 1 cm, 2 cm, and 4 cm are placed on a mesh support in a basic solution, so every face is exposed. After 10 minutes, the students cut each cube in half. In every cube, the solution has diffused 0.25 cm inward from each face. They then calculate the percentage of each cube's volume that turned pink.\n\nCube side length (cm) | Surface area-to-volume ratio (cm⁻¹) | Percent of volume colored pink\n1 | 6.0 | 87.5\n2 | 3.0 | 57.8\n4 | ? | 33.0",
+    "model_answer": "(a) SA = 6s² = 6(4 cm)² = 96 cm². V = s³ = (4 cm)³ = 64 cm³. SA:V = 96/64 = 1.5 cm⁻¹.\n\n(b) As the surface area-to-volume ratio decreases, the percent of volume colored pink decreases. The cube with SA:V 6.0 was 87.5% pink, while the cube with SA:V 1.5 was only 33.0% pink.\n\n(c) When a cell's volume increases, its surface area increases more slowly, so its SA:V decreases. That leaves less plasma membrane per unit of volume through which nutrients enter and wastes leave, even though the larger volume demands more resources. In the model, diffusion travels the same distance (0.25 cm) in every cube. So in larger cubes a smaller fraction of the interior is reached in the same time, falling from 87.5% to 33.0%. A large cell would likewise be unable to supply its interior efficiently.\n\n(d) The flat block will have a greater percent of its volume colored pink than the 4 cm cube; in fact, about 100%. Its surface area is 2(16×8) + 2(16×0.5) + 2(8×0.5) = 256 + 16 + 8 = 280 cm². Its SA:V is therefore 280/64 ≈ 4.4 cm⁻¹, much higher than the cube's 1.5 cm⁻¹. Also, the block is only 0.5 cm thick, so the 0.25 cm of diffusion from each face meets in the middle. That leaves no uncolored interior, compared with 67% uncolored in the cube.",
+    "verification_python": "from fractions import Fraction as F\n\ndef cube(s):\n    return 6*s*s, s**3\n\nd = F(1,4)\ndef pct_cube(s):\n    inner = (s-2*d)**3\n    return float((s**3-inner)/s**3*100)\n\nsa, v = cube(4)\nassert sa == 96 and v == 64\nassert F(sa, v) == F(3,2)\nassert F(*cube(1)) == 6 and F(*cube(2)) == 3\nassert abs(pct_cube(1)-87.5) < 0.05\nassert abs(pct_cube(2)-57.8) < 0.05\nassert abs(pct_cube(4)-33.0) < 0.05\nl, w, h = F(16), F(8), F(1,2)\nV = l*w*h\nassert V == 64\nSA = 2*l*w + 2*l*h + 2*w*h\nassert 2*l*w == 256 and 2*l*h == 16 and 2*w*h == 8\nassert SA == 280\nassert SA/V == F(35,8)\nassert abs(float(SA/V)-4.375) < 1e-9\ninner = max(F(0), l-2*d)*max(F(0), w-2*d)*max(F(0), h-2*d)\nassert inner == 0\nassert (V-inner)/V*100 == 100\nassert abs(100-pct_cube(4) - 67) < 0.1\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the surface area-to-volume ratio of the 4 cm cube. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct surface area-to-volume ratio of 1.5 cm⁻¹ with supporting work (SA = 96 cm², V = 64 cm³).",
+        "evidence": "Response shows SA = 6s² = 96 cm² and V = s³ = 64 cm³ (or the equivalent ratio 6/s) and reaches 1.5.",
+        "fix": "Use SA = 6s² and V = s³ for a cube, compute both for s = 4 cm, then divide surface area by volume.",
+        "accepted_variants": [
+         "1.5",
+         "3/2",
+         "1.5:1",
+         "96/64"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between the surface area-to-volume ratio of the cubes and the percent of volume colored pink.",
+      "criteria": [
+       {
+        "text": "As surface area-to-volume ratio decreases, the percent of volume colored pink decreases (a direct, positive relationship).",
+        "evidence": "Response states the direction of the relationship correctly; it may cite values such as 6.0 giving 87.5% and 1.5 giving 33.0%.",
+        "fix": "Read both columns together and state whether one variable rises or falls as the other decreases, citing two data points.",
+        "accepted_variants": [
+         "higher SA:V gives a greater percent colored",
+         "positive relationship"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, explain why an increase in a cell's volume can limit the cell's ability to exchange materials with its environment.",
+      "criteria": [
+       {
+        "text": "As volume increases, SA:V decreases, so there is less membrane surface relative to the volume that needs materials, and a smaller fraction of the interior is reached by diffusion in a given time.",
+        "evidence": "Response links larger volume to lower SA:V, and links lower SA:V to less exchange surface per unit volume or to a smaller fraction reached. Support can be the drop from 87.5% to 33.0%, or the idea that demand for internal resources increases.",
+        "fix": "Connect three steps: larger volume lowers SA:V, which means less membrane per unit volume, so less of the interior is supplied.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The students make a fourth agar block shaped as a rectangular solid measuring 16 cm × 8 cm × 0.5 cm. It has the same volume as the 4 cm cube (64 cm³). They treat it in the same way for 10 minutes. Predict whether the percent of this block's volume colored pink will be greater than, less than, or equal to that of the 4 cm cube. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the flat block will have a greater percent of its volume colored pink than the 4 cm cube (essentially 100%).",
+        "evidence": "Response clearly predicts a greater percentage than 33.0%.",
+        "fix": "Compare shapes of equal volume by asking which shape puts more of its interior close to a surface.",
+        "accepted_variants": [
+         "greater",
+         "about 100%",
+         "entire block colored"
+        ]
+       },
+       {
+        "text": "Justification: the flat block has a higher SA:V (280 cm² / 64 cm³ ≈ 4.4 cm⁻¹ versus 1.5 cm⁻¹), or equivalently no point lies more than 0.25 cm from a surface, so diffusion reaches all of it.",
+        "evidence": "Response supports the prediction with a higher SA:V, a correct calculation (SA = 280 cm², ratio ≈ 4.375 cm⁻¹), or the reasoning that the 0.5 cm thickness means the 0.25 cm diffusion from each face meets in the middle.",
+        "fix": "Calculate SA = 2lw + 2lh + 2wh for the block and compare its SA:V to the cube's 1.5 cm⁻¹.",
+        "accepted_variants": [
+         "4.375",
+         "4.4",
+         "35/8",
+         "280/64"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: The prompt requires an explanation using the data, but the evidence permits a purely conceptual explanation supported only by increasing resource demand. Require an explicit qualitative or quantitative observation from the table, connected to the explanation."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: The prompt requires an explanation using the data, but the evidence permits a purely conceptual explanation supported only by increasing resource demand. Require an explicit qualitative or quantitative observation from the table, connected to the explanation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (c), criterion c1: The prompt requires using the data, but the evidence allows full credit for a purely conceptual explanation linking increased volume, decreased SA:V, and increased resource demand without referencing the observed results. Require a qualitative or numerical comparison from the table."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (c), criterion c1: The prompt requires using the data, but the evidence allows full credit for a purely conceptual explanation linking increased volume, decreased SA:V, and increased resource demand without referencing the observed results. Require a qualitative or numerical comparison from the table."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 2,
+   "at": "2026-10-10T01:24:48.027Z",
+   "item": {
+    "title": "Agar Cube Model of Cell Size and Diffusion",
+    "calculator": "permitted",
+    "stimulus": "Students modeled cells using agar cubes that contain phenolphthalein, an indicator that turns pink when exposed to a base. They cut cubes with side lengths of 1 cm, 2 cm and 4 cm. They soaked all cubes in the same sodium hydroxide (NaOH) solution for 10 minutes. They then cut each cube in half and measured how far the pink color had spread inward from each face. In every cube, NaOH had diffused 0.4 cm inward from every face. The unpenetrated center of each cube is a smaller cube whose side length equals the original side length minus 0.8 cm.\n\nSide length (cm) | Surface area (cm²) | Volume (cm³) | SA:V (cm⁻¹) | Depth of diffusion (cm) | Percent of volume turned pink\n1 | 6 | 1 | 6.0 | 0.4 | 99.2%\n2 | 24 | 8 | ? | 0.4 | 78.4%\n4 | 96 | 64 | 1.5 | 0.4 | ?",
+    "model_answer": "(a) SA = 6 × 2² = 24 cm². V = 2³ = 8 cm³. SA:V = 24 ÷ 8 = 3 cm⁻¹ (3:1).\n\n(b) The unpenetrated center has side 4 − 0.8 = 3.2 cm, so its volume is 3.2³ = 32.768 cm³. Pink volume = 64 − 32.768 = 31.232 cm³. Percent pink = 31.232 ÷ 64 × 100 = 48.8%.\n\n(c) As SA:V decreases, the percent of the volume reached by NaOH decreases: the 1 cm cube (SA:V 6.0 cm⁻¹) was 99.2% pink, the 2 cm cube (3 cm⁻¹) was 78.4% pink, and the 4 cm cube (1.5 cm⁻¹) was only 48.8% pink. As a cell gets larger, its volume increases with the cube of its side length while its surface area increases only with the square. A larger cell therefore has less plasma membrane per unit of volume through which to take in nutrients and remove wastes. More of its interior is far from the surface, so diffusion cannot supply the interior fast enough to meet its internal demand.\n\n(d) The rectangular solid will have a greater percent of its volume turn pink than the 2 cm cube. Its SA = 2(1×2) + 2(1×4) + 2(2×4) = 28 cm², so SA:V = 28 ÷ 8 = 3.5 cm⁻¹, which is higher than 3 cm⁻¹ for the cube of the same volume. With more surface per unit of volume, and no point more than 0.5 cm from a surface, NaOH reaches more of the interior. Its unpenetrated core is 0.2 × 1.2 × 3.2 = 0.768 cm³, so about 90.4% turns pink, compared with 78.4% for the cube.",
+    "verification_python": "import math\nd=0.4\ndef cube(s):\n    sa=6*s**2; v=s**3; core=max(s-2*d,0)**3\n    return sa,v,sa/v,(v-core)/v*100\nsa,v,r,p=cube(1)\nassert sa==6 and v==1 and abs(r-6)<1e-9 and abs(p-99.2)<1e-6\nsa,v,r,p=cube(2)\nassert sa==24 and v==8 and abs(r-3)<1e-9 and abs(p-78.4)<1e-6\nsa,v,r,p=cube(4)\nassert sa==96 and v==64 and abs(r-1.5)<1e-9 and abs(p-48.8)<1e-6\nassert abs(3.2**3-32.768)<1e-9 and abs(64-32.768-31.232)<1e-9\nl,w,h=1,2,4\nsa2=2*l*h+2*l*w+2*w*h; v2=l*w*h\nassert sa2==28 and v2==8 and abs(sa2/v2-3.5)<1e-9\ncore2=(l-0.8)*(w-0.8)*(h-0.8)\nassert abs(core2-0.768)<1e-9\nassert abs((v2-core2)/v2*100-90.4)<1e-6\nassert (v2-core2)/v2*100>78.4\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the surface area-to-volume ratio of the 2 cm cube. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct SA:V for the 2 cm cube: 3 cm⁻¹ (24 cm² ÷ 8 cm³).",
+        "evidence": "Response divides surface area (24 cm², or 6 × 2²) by volume (8 cm³, or 2³) and reports 3 (cm⁻¹ or 3:1).",
+        "fix": "Compute surface area as 6s² and volume as s³, then divide surface area by volume.",
+        "accepted_variants": [
+         "3:1",
+         "3.0 cm⁻¹",
+         "3"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Calculate the percent of the 4 cm cube's volume that turned pink. Show your work.",
+      "criteria": [
+       {
+        "text": "Correct percent of volume turned pink: 48.8%.",
+        "evidence": "Response finds the unpenetrated center cube side as 4 − 0.8 = 3.2 cm, its volume as 3.2³ = 32.768 cm³, subtracts from 64 cm³ to get 31.232 cm³, and divides by 64 to get 48.8%.",
+        "fix": "Subtract the unpenetrated center volume from total volume, then divide the pink volume by total volume and multiply by 100.",
+        "accepted_variants": [
+         "48.8%",
+         "0.488",
+         "about 49%"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Using the data, describe the relationship between surface area-to-volume ratio and the percent of cube volume reached by NaOH. Then explain why a larger cell exchanges materials with its environment less efficiently than a smaller cell.",
+      "criteria": [
+       {
+        "text": "Describes the trend: as SA:V decreases, the percent of volume reached by NaOH decreases.",
+        "evidence": "Response states that lower SA:V corresponds to a smaller percent of volume turned pink, citing data such as 6.0 cm⁻¹ with 99.2% versus 1.5 cm⁻¹ with 48.8%.",
+        "fix": "State the direction of the relationship between the two variables and cite at least two specific data pairs from the table.",
+        "accepted_variants": [
+         "direct relationship",
+         "positive relationship"
+        ]
+       },
+       {
+        "text": "Explains that volume increases faster than surface area as size increases, so there is less membrane surface per unit volume to supply the interior.",
+        "evidence": "Response explains that volume grows as the cube of side length while surface area grows as the square, so larger cells have less surface for exchange relative to the volume needing materials, and more of the interior lies far from the surface, so diffusion cannot meet internal demand quickly enough.",
+        "fix": "Explain that volume scales with s³ but surface area with s², so each unit of volume has less membrane available for exchange.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The students reshape an 8 cm³ piece of agar into a rectangular solid measuring 1 cm × 2 cm × 4 cm and soak it under the same conditions. Predict whether the percent of its volume that turns pink will be greater than, less than, or equal to that of the 2 cm cube. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Predicts a greater percent turned pink than the 2 cm cube, justified by its higher SA:V (3.5 cm⁻¹ versus 3 cm⁻¹) or shorter distance from surface to center.",
+        "evidence": "Response predicts greater than 78.4% and justifies it by showing the rectangular solid has a larger SA:V (28 cm² ÷ 8 cm³ = 3.5 cm⁻¹ compared with 3 cm⁻¹) or by noting that no point is more than 0.5 cm from a surface, so NaOH reaches more of the volume.",
+        "fix": "Compare the shapes' SA:V using SA = 2lh + 2lw + 2wh, and link higher SA:V to more volume reached by diffusion.",
+        "accepted_variants": [
+         "greater",
+         "about 90.4%"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (b), criterion b1 prescribes every intermediate calculation rather than accepting any valid calculation with shown work, such as [1 − (3.2/4)³] × 100 = 48.8%. Part (c), criterion c2 unnecessarily requires explicit cubic-versus-square scaling and increased diffusion distance; explaining that larger cells have less membrane area per unit volume to meet internal demand sufficiently answers the question. Part (d), criterion d1 omits a valid justification: calculating the rectangular solid's pink fraction as 90.4% and comparing it with 78.4%, without separately calculating SA:V or stating the maximum distance from a surface. Broaden these evidence requirements to accept valid alternative reasoning and calculations."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (b), criterion b1 prescribes every intermediate calculation rather than accepting any valid calculation with shown work, such as [1 − (3.2/4)³] × 100 = 48.8%. Part (c), criterion c2 unnecessarily requires explicit cubic-versus-square scaling and increased diffusion distance; explaining that larger cells have less membrane area per unit volume to meet internal demand sufficiently answers the question. Part (d), criterion d1 omits a valid justification: calculating the rectangular solid's pink fraction as 90.4% and comparing it with 78.4%, without separately calculating SA:V or stating the maximum distance from a surface. Broaden these evidence requirements to accept valid alternative reasoning and calculations."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion b1 prescribes a particular calculation sequence, excluding valid alternatives such as [1 − (3.2/4)³] × 100 = 48.8%. Criterion c2 unnecessarily requires explicit square/cube scaling, increased diffusion distance, and a claim that diffusion cannot meet demand quickly enough; explaining that volume increases faster than surface area, leaving less exchange surface per unit volume, correctly answers the question. Criterion d1 excludes a valid justification based directly on calculating 90.4% penetration and comparing it with 78.4%, unless the response additionally discusses SA:V or distance.",
+       "solution: The independent solution agrees with the rubric's numerical results and predictions: (a) 3.0 cm⁻¹; (b) 48.8%; (c) higher SA:V corresponds to greater penetration; (d) greater penetration, calculated as 90.4%. However, its correct explanation in (c) does not explicitly state square/cube scaling or that diffusion cannot meet demand quickly enough, so it would not satisfy c2's unnecessarily restrictive evidence requirements."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion b1 prescribes a particular calculation sequence, excluding valid alternatives such as [1 − (3.2/4)³] × 100 = 48.8%. Criterion c2 unnecessarily requires explicit square/cube scaling, increased diffusion distance, and a claim that diffusion cannot meet demand quickly enough; explaining that volume increases faster than surface area, leaving less exchange surface per unit volume, correctly answers the question. Criterion d1 excludes a valid justification based directly on calculating 90.4% penetration and comparing it with 78.4%, unless the response additionally discusses SA:V or distance."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "The independent solution agrees with the rubric's numerical results and predictions: (a) 3.0 cm⁻¹; (b) 48.8%; (c) higher SA:V corresponds to greater penetration; (d) greater penetration, calculated as 90.4%. However, its correct explanation in (c) does not explicitly state square/cube scaling or that diffusion cannot meet demand quickly enough, so it would not satisfy c2's unnecessarily restrictive evidence requirements.",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  },
+  {
+   "round": 3,
+   "at": "2026-10-10T01:28:26.929Z",
+   "item": {
+    "title": "Agar Cube Size, Shape, and Diffusion Efficiency",
+    "calculator": "permitted",
+    "stimulus": "Students modeled cells using cubes of agar that contain phenolphthalein, an indicator that turns pink when sodium hydroxide (NaOH) enters the agar. They cut cubes of three side lengths and soaked each cube in NaOH solution for 10 minutes. In every cube, the NaOH diffused 0.3 cm inward from each exposed face. The students then cut each cube open and calculated the percent of the cube's volume that had turned pink. For a cube, surface area SA = 6s² and volume V = s³, where s is the side length. For a rectangular solid, SA = 2lh + 2lw + 2wh and V = lwh.\n\nSide length (cm) | SA (cm²) | V (cm³) | SA:V (cm⁻¹) | Percent of volume turned pink\n1 | 6 | 1 | 6.0 | 93.6%\n2 | 24 | 8 | 3.0 | 65.7%\n3 | ? | ? | ? | 48.8%",
+    "model_answer": "(a) SA = 6s² = 6(3 cm)² = 54 cm². V = s³ = (3 cm)³ = 27 cm³. SA:V = 54/27 = 2 cm⁻¹ (2:1).\n\n(b) As the surface area-to-volume ratio decreases, the percent of the cube's volume that turned pink also decreases. The 1 cm cube (SA:V = 6.0) was 93.6% pink, the 2 cm cube (SA:V = 3.0) was 65.7% pink, and the 3 cm cube (SA:V = 2.0) was only 48.8% pink.\n\n(c) As a cell gets larger, its volume increases faster than its surface area, so its SA:V decreases. The volume determines how much material the cell needs and how much waste it produces, while the plasma membrane surface is where exchange happens. In a large cell, like the large agar cubes whose centers never turned pink, the membrane cannot exchange nutrients and wastes fast enough to supply the whole interior. Small cells have a high SA:V and exchange materials efficiently, so cell size is limited.\n\n(d) The percent of the block that turns pink will be greater than 65.7%. The block's SA = 2(4)(1) + 2(4)(2) + 2(2)(1) = 8 + 16 + 4 = 28 cm², and V = 8 cm³, so SA:V = 28/8 = 3.5 cm⁻¹, which is higher than the cube's 3.0 cm⁻¹. With more surface area per unit of volume, and a thin 1 cm dimension so that no point is far from a surface, NaOH diffusing 0.3 cm inward reaches a larger fraction of the block (about 76%).",
+    "verification_python": "from fractions import Fraction as F\n\ndef cube(s):\n    return 6*s*s, s**3\n\nsa, v = cube(3)\nassert sa == 54 and v == 27\nassert F(sa, v) == 2\nsa1, v1 = cube(1)\nassert sa1 == 6 and v1 == 1 and F(sa1, v1) == 6\nsa2, v2 = cube(2)\nassert sa2 == 24 and v2 == 8 and F(sa2, v2) == 3\n\nd = 0.3\ndef pct_cube(s):\n    inner = (s - 2*d)**3\n    return 100*(s**3 - inner)/s**3\nassert abs(pct_cube(1) - 93.6) < 0.05\nassert abs(pct_cube(2) - 65.7) < 0.05\nassert abs(pct_cube(3) - 48.8) < 0.05\n\nl, w, h = 4, 2, 1\nsab = 2*l*h + 2*l*w + 2*w*h\nvb = l*w*h\nassert sab == 28 and vb == 8\nassert F(sab, vb) == F(7, 2)\nassert F(sab, vb) > F(sa2, v2)\ninner_b = (l - 2*d)*(w - 2*d)*(h - 2*d)\npct_b = 100*(vb - inner_b)/vb\nassert abs(pct_b - 76.2) < 0.05\nassert pct_b > 65.7\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Calculate the surface area-to-volume ratio of the 3 cm cube. Show your work.",
+      "criteria": [
+       {
+        "text": "SA:V of the 3 cm cube is 2 cm⁻¹ (SA = 54 cm², V = 27 cm³).",
+        "evidence": "Response shows SA = 6(3)² = 54 cm² and V = 3³ = 27 cm³, and divides to obtain a ratio of 2.",
+        "fix": "Square the side and multiply by 6 for surface area, cube the side for volume, then divide surface area by volume.",
+        "accepted_variants": [
+         "2",
+         "2:1",
+         "2.0 cm⁻¹",
+         "54/27"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Describe the relationship between the surface area-to-volume ratio of a cube and the percent of its volume that turned pink, using data from the table.",
+      "criteria": [
+       {
+        "text": "As SA:V decreases, the percent of volume reached by NaOH decreases.",
+        "evidence": "Response states a direct (positive) relationship and cites supporting values, for example SA:V 6.0 with 93.6% pink versus SA:V 2.0 with 48.8% pink.",
+        "fix": "State the direction of the trend between the two variables and quote at least two paired values from the table as support.",
+        "accepted_variants": [
+         "higher SA:V gives a higher percent pink",
+         "positive relationship"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Explain how the results of this model help explain why most cells are small.",
+      "criteria": [
+       {
+        "text": "As a cell grows, its volume (and its demand for materials) increases faster than its membrane surface area, so SA:V falls and exchange cannot keep up with the cell's needs.",
+        "evidence": "Response connects increasing size to a decreasing SA:V and states that a larger cell's membrane cannot exchange nutrients, wastes, or other materials fast enough to supply its whole volume, as in the large cubes with unpinked centers.",
+        "fix": "Link larger volume to lower SA:V, then state that the membrane area becomes too small to supply or clear materials for the whole cell.",
+        "accepted_variants": []
+       }
+      ]
+     },
+     {
+      "prompt": "The students cut a new agar block measuring 4 cm × 2 cm × 1 cm, which has the same volume as the 2 cm cube, and soaked it in NaOH for 10 minutes under the same conditions. Predict whether the percent of the block's volume that turns pink will be greater than, less than, or equal to 65.7%. Justify your prediction.",
+      "criteria": [
+       {
+        "text": "Prediction: the percent of the block's volume that turns pink will be greater than 65.7%.",
+        "evidence": "Response clearly states the block will have a greater percent of its volume turned pink than the 2 cm cube.",
+        "fix": "Compare the block to the cube of equal volume and state a clear direction: greater, less, or equal.",
+        "accepted_variants": [
+         "more than 65.7%",
+         "higher percent pink",
+         "about 76%"
+        ]
+       },
+       {
+        "text": "Justification: the block has a larger SA:V (28/8 = 3.5 cm⁻¹) than the 2 cm cube (3.0 cm⁻¹), so more surface is available per unit volume and diffusion reaches a larger fraction of the interior.",
+        "evidence": "Response calculates or correctly compares the block's SA:V (SA = 28 cm², SA:V = 3.5 cm⁻¹) with the cube's 3.0 cm⁻¹, or explains that its thin, flattened shape gives more surface per volume so no point is far from the surface.",
+        "fix": "Calculate the block's surface area with 2lh + 2lw + 2wh, divide by volume, and compare with the cube's ratio.",
+        "accepted_variants": [
+         "3.5",
+         "3.5 cm⁻¹",
+         "7:2",
+         "28/8"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.2": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": false,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Criterion a1 requires separately calculating SA = 54 and V = 27, rejecting valid work such as SA/V = 6s²/s³ = 6/s = 6/3 = 2 cm⁻¹. Criterion d2 requires an SA:V comparison or its stated shape explanation, excluding a valid justification based solely on calculating the unpink interior volume and obtaining 76.2% pink. Both criteria should accept these alternative methods."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Criterion a1 requires separately calculating SA = 54 and V = 27, rejecting valid work such as SA/V = 6s²/s³ = 6/s = 6/3 = 2 cm⁻¹. Criterion d2 requires an SA:V comparison or its stated shape explanation, excluding a valid justification based solely on calculating the unpink interior volume and obtaining 76.2% pink. Both criteria should accept these alternative methods."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part (a), criterion a1 prescribes separately calculating surface area and volume, rejecting valid shown work such as SA:V = 6s²/s³ = 6/s = 2 cm⁻¹. Part (d), criterion d2 rejects a valid justification based solely on calculating the penetrated volume, which gives 76.2% pink. Its evidence also permits a numerical SA:V comparison without explicitly requiring the causal explanation demanded by 'Justify.' Accept either a comparison linked to exchange area per volume or a correctly explained penetrated-volume calculation."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part (a), criterion a1 prescribes separately calculating surface area and volume, rejecting valid shown work such as SA:V = 6s²/s³ = 6/s = 2 cm⁻¹. Part (d), criterion d2 rejects a valid justification based solely on calculating the penetrated volume, which gives 76.2% pink. Its evidence also permits a numerical SA:V comparison without explicitly requiring the causal explanation demanded by 'Justify.' Accept either a comparison linked to exchange area per volume or a correctly explained penetrated-volume calculation."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Part d1: 'about 76%' is listed as an equivalent form of the required comparative prediction 'greater than 65.7%'. It is a specific numeric prediction, not an equivalent phrase, and could credit a response that never states the comparison the part asks for."
+      ],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Part d1: 'about 76%' is listed as an equivalent form of the required comparative prediction 'greater than 65.7%'. It is a specific numeric prediction, not an equivalent phrase, and could credit a response that never states the comparison the part asks for."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.2 Cell Size",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "stage": "checkers"
+  }
+ ],
+ "given": {
+  "item": {
+   "title": "Surface Area-to-Volume Ratio in Cells and in Mammals",
+   "calculator": "permitted",
+   "stimulus": "Two spherical cells are compared.\n\nCell | Shape | Radius (μm)\nA | sphere | 2\nB | sphere | 6\n\nFor a sphere, surface area SA = 4πr² and volume V = (4/3)πr³.\n\nIn a separate comparison, researchers study two mammals that both keep a constant body temperature: a shrew with a body mass of about 5 g and a moose with a body mass of about 400 kg.",
+   "parts": [
+    {
+     "prompt": "Calculate the surface area-to-volume ratio of cell A. Include units.",
+     "criteria": [
+      {
+       "text": "Calculates SA:V of cell A = 1.5 μm⁻¹, by any valid method, for example SA = 16π μm² and V = (32/3)π μm³, so SA/V = 16π ÷ (32π/3) = 1.5 μm⁻¹, or SA/V = 3/r = 3/2.",
+       "evidence": "Response shows a correct calculation for a sphere of radius 2 μm and reports 1.5 μm⁻¹ (1.5 per μm).",
+       "fix": "Substitute r into both sphere formulas, or simplify SA/V to 3/r first, and report the ratio with units of μm⁻¹.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Calculate how many times greater the surface area-to-volume ratio of cell A is than that of cell B.",
+     "criteria": [
+      {
+       "text": "Calculates that cell A's SA:V is 3 times that of cell B, by any valid method, for example 1.5 μm⁻¹ ÷ 0.5 μm⁻¹ = 3 (cell B: SA/V = 3/6 = 0.5 μm⁻¹).",
+       "evidence": "Response shows cell B's ratio (0.5 μm⁻¹) or the radius ratio reasoning and obtains a factor of 3.",
+       "fix": "Compute the second cell's ratio the same way, then divide the larger ratio by the smaller one.",
+       "accepted_variants": [
+        "3 times",
+        "three times"
+       ]
+      }
+     ]
+    },
+    {
+     "prompt": "Using your calculated values, explain why cell B is less efficient than cell A at exchanging materials with its environment.",
+     "criteria": [
+      {
+       "text": "Explains, citing the calculated values, that cell B has a lower SA:V (0.5 μm⁻¹ versus 1.5 μm⁻¹, one-third as much), so it has less plasma membrane surface per unit of volume through which nutrients can enter and wastes can leave, relative to the needs of its larger volume.",
+       "evidence": "Response cites B's lower calculated SA:V and explains that less membrane area is available per unit volume for taking in nutrients or removing wastes.",
+       "fix": "Quote both calculated ratios, then link a lower ratio to less membrane surface available to serve each unit of cell volume.",
+       "accepted_variants": []
+      }
+     ]
+    },
+    {
+     "prompt": "Predict which animal, the shrew or the moose, has the higher metabolic rate per unit body mass, and justify your prediction using surface area-to-volume ratio.",
+     "criteria": [
+      {
+       "text": "Predicts that the shrew has the higher metabolic rate per unit body mass.",
+       "evidence": "Response names the shrew.",
+       "fix": "Smaller organisms typically have higher metabolic rates per unit body mass; choose the smaller animal.",
+       "accepted_variants": [
+        "the shrew"
+       ]
+      },
+      {
+       "text": "Justifies that the smaller shrew has a higher SA:V, so it exchanges (loses) heat with its environment proportionally faster, and must produce more heat by metabolism per unit body mass to keep its body temperature constant.",
+       "evidence": "Response links the shrew's higher SA:V to proportionally greater heat loss and to a greater need for metabolic heat production per unit mass.",
+       "fix": "Chain the reasoning: smaller size, higher SA:V, faster heat loss per unit mass, so more metabolism is needed to stay warm.",
+       "accepted_variants": []
+      }
+     ]
+    }
+   ],
+   "model_answer": "(a) For cell A, r = 2 μm.\nSA = 4π(2)² = 16π μm².\nV = (4/3)π(2)³ = (32/3)π μm³.\nSA/V = 16π ÷ (32π/3) = 48/32 = 1.5 μm⁻¹.\n\n(b) For cell B, r = 6 μm: SA = 4π(6)² = 144π μm² and V = (4/3)π(6)³ = 288π μm³, so SA/V = 0.5 μm⁻¹.\n1.5 μm⁻¹ ÷ 0.5 μm⁻¹ = 3, so cell A's surface area-to-volume ratio is 3 times that of cell B.\n\n(c) Cell B's SA:V (0.5 μm⁻¹) is only one-third of cell A's (1.5 μm⁻¹). Materials are exchanged across the plasma membrane, so cell B has much less membrane surface for each unit of volume that needs nutrients and produces wastes. Exchange across the membrane therefore cannot keep up with the needs of B's volume as well as it can in A, so B is less efficient at exchanging materials.\n\n(d) The shrew has the higher metabolic rate per unit body mass. Because it is much smaller, the shrew has a much higher surface area-to-volume ratio, so it exchanges heat with its environment proportionally faster and loses heat quickly for its mass. To keep its body temperature constant, it must produce more heat through metabolism per unit of body mass than the moose does.",
+   "verification_python": "from fractions import Fraction as F\ndef sa(r): return 4*r*r\ndef vol(r): return F(4,3)*r**3\n# pi cancels in SA/V, so work with coefficients of pi\nA=F(sa(2))/vol(2)\nB=F(sa(6))/vol(6)\nassert sa(2)==16 and vol(2)==F(32,3)\nassert sa(6)==144 and vol(6)==288\nassert A==F(3,2) and A==F(3,2)\nassert B==F(1,2) and B==F(3,6)\nassert A/B==3\nassert F(48,32)==F(3,2)\nprint('ALL_CHECKS_PASSED')"
+  },
+  "source": "Claude session author (physics1_biology.json), Product Owner direction 2026-10-10",
+  "at": "2026-10-10T03:02:43.859790Z"
+ },
+ "accepted_round": 1
+}

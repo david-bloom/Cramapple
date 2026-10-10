@@ -1,0 +1,328 @@
+{
+ "id": "ap_calculus_ab__2.7__1",
+ "slot": {
+  "subject_key": "ap_calculus_ab",
+  "tsv": "33b4408b-0ecc-4c7a-b0b1-612db81164a1",
+  "unit": 2,
+  "unit_title": "Differentiation: Definition and Fundamental Properties",
+  "topic_code": "2.7",
+  "topic_title": "Derivatives of cos x, sin x, e^x, and ln x",
+  "existing": [],
+  "need": 1
+ },
+ "n": 1,
+ "status": "accepted",
+ "candidates": [
+  {
+   "round": 1,
+   "at": "2026-10-10T01:43:55.211Z",
+   "item": {
+    "title": "Derivatives of Sine, Cosine, Exponential and Log Functions",
+    "calculator": "not_permitted",
+    "stimulus": "Let f(x) = 4 sin x + 2 cos x for all real x, and let g(x) = e^x − 3 ln x for x > 0.",
+    "model_answer": "(a) f′(x) = 4 cos x − 2 sin x, so f′(π/2) = 4 cos(π/2) − 2 sin(π/2) = 4(0) − 2(1) = −2. Also f(π/2) = 4 sin(π/2) + 2 cos(π/2) = 4. The tangent line is y − 4 = −2(x − π/2), that is, y = 4 − 2(x − π/2).\n\n(b) g′(x) = e^x − 3·(1/x) = e^x − 3/x. The instantaneous rate of change at x = 3 is g′(3) = e³ − 3/3 = e³ − 1.\n\n(c) Since ln e = 1, the limit is lim h→0 [ln(e + h) − ln e]/h, which is the definition of the derivative of p(x) = ln x at x = e. Because p′(x) = 1/x, the limit equals p′(e) = 1/e.\n\n(d) Since cos π = −1, the limit is lim x→π [cos x − cos π]/(x − π), which is the definition of the derivative of q(x) = cos x at x = π. Because q′(x) = −sin x, the limit equals q′(π) = −sin π = 0.",
+    "verification_python": "import sympy as sp\nx,h=sp.symbols('x h')\nf=4*sp.sin(x)+2*sp.cos(x)\nfp=sp.diff(f,x)\nassert sp.simplify(fp-(4*sp.cos(x)-2*sp.sin(x)))==0\nassert sp.simplify(fp.subs(x,sp.pi/2)+2)==0\nassert sp.simplify(f.subs(x,sp.pi/2)-4)==0\ntl=4-2*(x-sp.pi/2)\nassert sp.simplify(tl-(-2*x+sp.pi+4))==0\ng=sp.exp(x)-3*sp.log(x)\ngp=sp.diff(g,x)\nassert sp.simplify(gp-(sp.exp(x)-3/x))==0\nassert sp.simplify(gp.subs(x,3)-(sp.exp(3)-1))==0\nL1=sp.limit((sp.log(sp.E+h)-1)/h,h,0)\nassert sp.simplify(L1-1/sp.E)==0\nassert sp.log(sp.E)==1\nL2=sp.limit((sp.cos(x)+1)/(x-sp.pi),x,sp.pi)\nassert L2==0\nassert sp.cos(sp.pi)==-1\nassert -sp.sin(sp.pi)==0\nprint('ALL_CHECKS_PASSED')",
+    "parts": [
+     {
+      "prompt": "Find f′(π/2). Then write an equation for the line tangent to the graph of f at x = π/2.",
+      "criteria": [
+       {
+        "text": "Finds f′(x) = 4 cos x − 2 sin x and f′(π/2) = −2",
+        "evidence": "Shows the derivative 4 cos x − 2 sin x (or equivalent) and evaluates it at π/2 to get −2.",
+        "fix": "Memorize d/dx sin x = cos x and d/dx cos x = −sin x, then substitute the x-value carefully.",
+        "accepted_variants": [
+         "f′(π/2) = −2"
+        ]
+       },
+       {
+        "text": "Writes the tangent line y = 4 − 2(x − π/2)",
+        "evidence": "Computes f(π/2) = 4 and writes a correct line through (π/2, 4) with slope −2 (or a slope consistent with their f′(π/2)).",
+        "fix": "Evaluate f at the point to get the y-coordinate, then use point-slope form y − f(a) = f′(a)(x − a).",
+        "accepted_variants": [
+         "y − 4 = −2(x − π/2)",
+         "y = −2x + π + 4"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Find g′(x). Then find the instantaneous rate of change of g with respect to x at x = 3.",
+      "criteria": [
+       {
+        "text": "Finds g′(x) = e^x − 3/x",
+        "evidence": "States the derivative e^x − 3/x using d/dx e^x = e^x and d/dx ln x = 1/x.",
+        "fix": "Recall that e^x is its own derivative and the derivative of ln x is 1/x; apply the constant multiple rule.",
+        "accepted_variants": [
+         "e^x − 3x^(−1)"
+        ]
+       },
+       {
+        "text": "Finds g′(3) = e³ − 1",
+        "evidence": "Substitutes x = 3 into their g′(x) to get e³ − 1, identifying this as the instantaneous rate of change.",
+        "fix": "Instantaneous rate of change at a point is the derivative evaluated there; substitute x = 3 into g′(x).",
+        "accepted_variants": [
+         "e^3 − 1"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Evaluate lim h→0 [ln(e + h) − 1]/h by recognizing the limit as the derivative of a function at a point. Name the function and the point.",
+      "criteria": [
+       {
+        "text": "Identifies the limit as the derivative of ln x at x = e",
+        "evidence": "States that since ln e = 1, the expression is the difference quotient [ln(e + h) − ln e]/h, so the limit equals the derivative of ln x at x = e.",
+        "fix": "Match the expression to [p(a + h) − p(a)]/h; notice that 1 = ln e to find p and a.",
+        "accepted_variants": [
+         "p′(e) where p(x) = ln x"
+        ]
+       },
+       {
+        "text": "Evaluates the limit as 1/e",
+        "evidence": "Uses d/dx ln x = 1/x at x = e to obtain 1/e.",
+        "fix": "After identifying the function and point, evaluate the known derivative formula at that point.",
+        "accepted_variants": [
+         "e^(−1)"
+        ]
+       }
+      ]
+     },
+     {
+      "prompt": "Evaluate lim x→π (cos x + 1)/(x − π) by recognizing the limit as the derivative of a function at a point. Name the function and the point.",
+      "criteria": [
+       {
+        "text": "Identifies the limit as the derivative of cos x at x = π",
+        "evidence": "States that cos π = −1, so the expression is [cos x − cos π]/(x − π), whose limit is the derivative of cos x at x = π.",
+        "fix": "Use the form lim x→a [q(x) − q(a)]/(x − a); rewrite +1 as −cos π to identify q and a.",
+        "accepted_variants": [
+         "q′(π) where q(x) = cos x"
+        ]
+       },
+       {
+        "text": "Evaluates the limit as 0",
+        "evidence": "Uses d/dx cos x = −sin x at x = π to obtain −sin π = 0.",
+        "fix": "Evaluate −sin x at the identified point; remember sin π = 0.",
+        "accepted_variants": [
+         "−sin π = 0"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "lint": [],
+   "py": {
+    "ok": true,
+    "out": "ALL_CHECKS_PASSED\n"
+   },
+   "probe": {
+    "pass": true,
+    "votes": {
+     "2.7": 6
+    },
+    "onTarget": 6,
+    "n": 6,
+    "required_units": [
+     2
+    ],
+    "unitCount": {
+     "2": 6
+    }
+   },
+   "checks": [
+    {
+     "model": "openai/gpt-6.1-sol",
+     "pass": true,
+     "difficulty": "Easy",
+     "first": {
+      "ok": true,
+      "flagged": true,
+      "failed": [
+       "rubric_points: Parts (c) and (d), criteria c1 and d1, require specific functions and rewrites, rejecting valid alternative derivative identifications. For (c), p(x) = ln x − 1 at x = e gives the stated difference quotient because p(e) = 0. For (d), q(x) = cos x + 1 at x = π likewise gives the stated quotient because q(π) = 0. Accept these identifications when supported by the corresponding derivative-definition setup."
+      ],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": false,
+         "issue": "Parts (c) and (d), criteria c1 and d1, require specific functions and rewrites, rejecting valid alternative derivative identifications. For (c), p(x) = ln x − 1 at x = e gives the stated difference quotient because p(e) = 0. For (d), q(x) = cos x + 1 at x = π likewise gives the stated quotient because q(π) = 0. Accept these identifications when supported by the corresponding derivative-definition setup."
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     },
+     "second": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Easy",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Easy"
+      }
+     }
+    },
+    {
+     "model": "deepseek/deepseek-v4-pro",
+     "pass": true,
+     "difficulty": "Medium",
+     "first": {
+      "ok": true,
+      "flagged": false,
+      "failed": [],
+      "difficulty": "Medium",
+      "solve_issues": "",
+      "audit": {
+       "primary_topic_code": "2.7",
+       "rules": {
+        "on_topic": {
+         "pass": true,
+         "issue": ""
+        },
+        "ced_scope": {
+         "pass": true,
+         "issue": ""
+        },
+        "self_contained_typed": {
+         "pass": true,
+         "issue": ""
+        },
+        "well_posed": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_points": {
+         "pass": true,
+         "issue": ""
+        },
+        "rubric_evidence": {
+         "pass": true,
+         "issue": ""
+        },
+        "accurate": {
+         "pass": true,
+         "issue": ""
+        },
+        "model_answer": {
+         "pass": true,
+         "issue": ""
+        },
+        "style": {
+         "pass": true,
+         "issue": ""
+        },
+        "distinct": {
+         "pass": true,
+         "issue": ""
+        }
+       },
+       "solution_disagreements": "",
+       "difficulty": "Medium"
+      }
+     }
+    }
+   ],
+   "difficulty": "Medium",
+   "stage": "accepted"
+  }
+ ],
+ "lint_false_positive_dropped": [
+  {
+   "at": "2026-10-10T01:34:24.254Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivatives and Limits of Sine, Cosine, Exponential, and Log"
+  },
+  {
+   "at": "2026-10-10T01:35:09.031Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Derivatives of Sine, Cosine, Exponential and Logarithm"
+  },
+  {
+   "at": "2026-10-10T01:35:55.363Z",
+   "lint": [
+    "refers to a figure/graph/diagram"
+   ],
+   "title": "Tangent Lines and Derivative Limits with Basic Functions"
+  }
+ ],
+ "accepted_round": 1
+}
