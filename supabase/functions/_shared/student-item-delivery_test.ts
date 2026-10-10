@@ -266,6 +266,7 @@ Deno.test("render payload carries no grading or answer-bearing field", () => {
     "parts_source",
     "practice_format",
     "response_mode",
+    "response_policy",
     "stem",
     "stimulus",
     "title",
@@ -842,4 +843,41 @@ Deno.test("dropTeachingItems does not query for an empty queue", async () => {
   const out = await dropTeachingItems(service as any, []);
   assertEquals(out.items, []);
   assertEquals(calls.length, 0);
+});
+
+Deno.test("response_policy: explicit row value wins except hand-drawn always requires a photo", () => {
+  const typed = buildRenderItem(row(), null, null, "2026-08-05T00:15:00Z", []);
+  assert(typed);
+  assertEquals(typed.response_policy, "photo_allowed");
+
+  const explicit = buildRenderItem(
+    { ...row(), response_policy: "typed_only" },
+    null,
+    null,
+    "2026-08-05T00:15:00Z",
+    [],
+  );
+  assert(explicit);
+  assertEquals(explicit.response_policy, "typed_only");
+
+  const handDrawn = buildRenderItem(
+    { ...row(), hand_drawn: true, response_policy: "photo_allowed" },
+    null,
+    null,
+    "2026-08-05T00:15:00Z",
+    [],
+  );
+  assert(handDrawn);
+  assertEquals(handDrawn.response_policy, "photo_required");
+
+  const mcq = buildRenderItem(
+    { ...row(), item_type: "mcq" },
+    null,
+    null,
+    "2026-08-05T00:15:00Z",
+    [],
+    [{ choice_key: "A", choice_text: "x" }],
+  );
+  assert(mcq);
+  assertEquals(mcq.response_policy, "typed_only");
 });

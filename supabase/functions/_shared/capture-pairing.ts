@@ -127,13 +127,18 @@ export const PAIRING_ACTORS = [
 ] as const;
 export type PairingActor = typeof PAIRING_ACTORS[number];
 
-export const PAIRING_ACCESS_PATHS = ["QR", "FALLBACK_DIRECT"] as const;
+// "SAME_DEVICE": the student's primary device is the phone itself, so the
+// phone leg runs in the same browser that minted the pairing (DECISION-0109,
+// 2026-10-09). The capability, upload, validation, and binding are identical
+// to the QR path; only the recorded access path differs.
+export const PAIRING_ACCESS_PATHS = ["QR", "FALLBACK_DIRECT", "SAME_DEVICE"] as const;
 export type PairingAccessPath = typeof PAIRING_ACCESS_PATHS[number];
 
 export function isPairingAccessPath(
   value: unknown,
 ): value is PairingAccessPath {
-  return value === "QR" || value === "FALLBACK_DIRECT";
+  return typeof value === "string" &&
+    (PAIRING_ACCESS_PATHS as readonly string[]).includes(value);
 }
 
 /* -------------------------------------------------------------------------- */

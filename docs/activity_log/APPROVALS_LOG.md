@@ -6,6 +6,7 @@ This log records approvals, rejections, Done decisions, and risk acceptances.
 
 Most recent entries (full chronological list follows below):
 
+- APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111 (2026-10-09)
 - APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production) (2026-10-09)
 - APPROVAL-0141 — Execute TASK-0068 to Production: Development Build, Production Deploy, and Capability On for All Students (Gates B–D) — DECISION-0108 (2026-10-09)
 - APPROVAL-0140 — Move Unit Reference Content and Memory Hooks to Production: Migration 20261009003237, 102 Entries + 3 Hooks, Lovable Publish (TASK-0067 / TASK-0066) (2026-10-09)
@@ -2017,6 +2018,22 @@ The Statistics 2.12 brief asked for "sample size tightens the spread", which is 
 - Cost: about $4.30.
 
 **Rollback:** set the 18 items and their published versions to `retired`.
+
+## APPROVAL-0142 — Approve Plan Decisions D1, D2 (Conditioned) and D4 of "Hand-Drawn Responses on Every FRQ" — DECISION-0109 / 0110 / 0111
+
+**Date:** 2026-10-09  
+**Approved By:** David Bloom (2026-10-09 Claude session): "I approve D1, D4. D2 should have a prompt for the student to confirm or add missing content so Cramapple can help. With that condition I approve D2."  
+**Related:** `docs/product/HAND_DRAWN_RESPONSES_ALL_FRQS_PLAN_2026_10_09.md` (draft, branch `claude/hand-drawn-deployment-2026-10-09`), `DECISION-0109`, `DECISION-0110`, `DECISION-0111`, `TASK-0038`, `DECISION-0051`, `DECISION-0059`  
+**Decision:** Approved (three plan decisions)
+
+**Approved scope:**
+- D1 — same-device camera capture when the student is already on a phone; QR stays the desktop handoff (`DECISION-0109`).
+- D2 — transcript confirmation is mandatory before a photographed answer is graded, **conditioned** on the confirmation screen prompting the student to confirm or add missing content so Cramapple can help (`DECISION-0110`).
+- D4 — photo retention: kept while the account exists, bytes redacted 24 months after the attempt or on deletion/erasure, audit row and digest kept (`DECISION-0111`).
+
+**Not approved by this entry:** the plan as a whole; D3 (default `photo_allowed` on all FRQs at launch vs. subject allow-list), D5 (spend and rate limits), D6 (partial grading as a visible state), D7 (grader roster), D8 (which FRQ surface hosts capture); any build, migration, deployment, or Lovable publish, including Phase 0 (porting the stranded TASK-0038 frontend). Each of those remains a separate Product Owner gate.
+
+**Next gates:** D3, D5–D8 answers; a Hard-Gate task record for the plan; go-ahead for Phase 0 (port + `DECISION-0059` Stage 1 run) and the Phase 1 Development build.
 
 ## APPROVAL-0143 — Write Validated Primary Topic Cells for 181 Published FRQs in Units 1-3 (Six-Vote Probe, Production)
 

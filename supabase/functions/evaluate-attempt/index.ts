@@ -1452,7 +1452,7 @@ export async function handleEvaluateAttempt(
   ] = await Promise.all([
     service.schema("app")
       .from("content_items")
-      .select("id, exam_pack_version_id, content_key, item_type, title, status")
+      .select("id, exam_pack_version_id, content_key, item_type, title, status, response_policy")
       .eq("id", contentVersion.content_item_id)
       .maybeSingle(),
     service.schema("app")
@@ -1493,6 +1493,12 @@ export async function handleEvaluateAttempt(
     examPackVersion.status !== "published"
   ) {
     return respond({ error: "content_not_published" }, { status: 409 });
+  }
+
+  // TASK-0069 (QA P2-a): a photo_required item is scored by a human reviewer
+  // (DECISION-0059); automated grading would move it out of the manual queue.
+  if ((contentItem as { response_policy?: string | null }).response_policy === "photo_required") {
+    return respond({ error: "human_review_required" }, { status: 409 });
   }
 
   // Product access is authoritative on the server. Paid/beta users pass
