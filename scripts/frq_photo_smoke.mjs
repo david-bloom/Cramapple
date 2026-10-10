@@ -230,6 +230,19 @@ async function main() {
   const forgedText = await forged.text();
   check("a student cannot write reserved transcript keys through PostgREST", forged.status >= 400 && /reserved_keys_are_server_only/.test(forgedText), `${forged.status} ${forgedText.slice(0, 200)}`);
 
+  // --- (Codex QA P1-a) the owner edits the confirmed text directly; submit is refused --
+  const edited = await fetch(`${URL_BASE}/rest/v1/response_versions?id=eq.${rvId}`, {
+    method: "PATCH",
+    headers: { apikey: PUB, authorization: `Bearer ${student.token}`, "content-type": "application/json", "accept-profile": "app", "content-profile": "app", prefer: "return=representation" },
+    body: JSON.stringify({ response_text: "an answer the student never confirmed" }),
+  });
+  const editedText = await edited.text();
+  check("the owner can still edit a draft through PostgREST (the attack precondition)", edited.status === 200, `${edited.status} ${editedText.slice(0, 200)}`);
+  const afterEdit = await fn("attempt-response", { operation: "submit_response", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId }, student.token);
+  check("submit after a post-confirm edit is refused", afterEdit.status === 409 && afterEdit.json?.error === "transcript_confirmation_required", `${afterEdit.status} ${afterEdit.text}`);
+  const reconfirmAfterEdit = await fn("attempt-response", { operation: "confirm_transcript", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId, parts: confirmedParts }, student.token);
+  check("re-confirming restores the confirmed text", reconfirmAfterEdit.status === 200 && result(reconfirmAfterEdit).response_version?.response_text?.includes(addedLine), `${reconfirmAfterEdit.status} ${reconfirmAfterEdit.text.slice(0, 200)}`);
+
   // --- a retake after confirming re-closes the gate (review H1) -----------------
   const minted2 = await fn("capture-pairing", { operation: "mint_pairing", idempotency_key: uuid(), attempt_id: attemptId, response_version_id: rvId, submission_slot_id: "slot-1" }, student.token);
   const handle2 = result(minted2).pairing_handle;

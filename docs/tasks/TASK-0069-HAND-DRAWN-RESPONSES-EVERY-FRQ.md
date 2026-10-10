@@ -4,7 +4,7 @@
 **Title:** Any student can photograph a handwritten or drawn answer to any FRQ (current or future), confirm what we read from it, and get it graded; image management and retention included
 **Owner:** Claude session (implementation). **Product Owner:** David Bloom
 **Tier:** Hard-Gate (model processing of student photos, schema migrations, new owner/admin ops, production frontend publish, retention rule)
-**Status:** **Blocked — Codex QA failed (2026-10-09).** Backend and Lovable remain Development/preview only; Production is unchanged. Adversarial QA found two P1 submission-integrity defects (confirmation is not content-bound; retake/submit TOCTOU) plus a reachable `photo_required` typed-submit bypass. See `docs/qa/QA_TASK0069_CODEX_2026_10_09.md`. PR #397 must remain unmerged until remediation and independent re-QA.
+**Status:** **Ready for Review (re-QA).** Codex QA failed on 2026-10-09 (`docs/qa/QA_TASK0069_CODEX_2026_10_09.md`); every finding has been remediated and verified on Development (`docs/qa/QA_TASK0069_REMEDIATION_2026_10_09.md`): the confirmation is content-bound and enforced by a database trigger inside the submit transaction, `photo_required` is enforced server-side, the rollout is server-driven, redaction is resumable. Lovable preview updated (`e8c11dce`, unpublished). Production unchanged; PR #397 unmerged pending Codex re-QA and David.
 **Priority:** High
 **Created Date:** 2026-10-09
 **Approved Date:** 2026-10-09 for the three plan decisions D1, D2 (conditioned), D4 (`APPROVAL-0142`); David then directed "execute the build including Lovable front end work, and move hand drawn responses to production as a PR. I will review and merge the PR." Open plan decisions D3, D5–D8 are taken at the plan's recommended defaults and recorded below as assumptions for his review.
@@ -28,7 +28,7 @@ On any FRQ, a student may type, photograph their page, or both. We read the phot
 
 ## Assumptions standing in for open decisions (David to confirm or change at review)
 
-- **D3:** flag-gated subject allow-list at launch; first publish dark for students (admins only), then AP Biology + AP Statistics, then all. One env value (`VITE_FRQ_PHOTO_SUBJECTS`) widens it.
+- **D3:** server-side subject allow-list at launch (`FRQ_PHOTO_SUBJECTS`, default `none` = admins only), then AP Biology + AP Statistics, then `all`. One secret widens it; no redeploy or publish.
 - **D5:** 30 transcript reads per student per day; `FRQ_PHOTO_DAILY_CAP_USD` 50; reservation 0.03 USD per read against the shared `OPENAI_DAILY_CAP_USD`, failing closed to "type your answer".
 - **D6:** partial grading is NOT built in this slice; `photo_required` items are wholly human-graded, as under `DECISION-0059`; every other FRQ grades automatically from the transcript.
 - **D7:** grader stays David alone (`DECISION-0059`).
@@ -42,7 +42,7 @@ BYOQ; worksheet upload; Engine 4 automated grading of image-judgeable criteria (
 
 ## Routes / Components / Systems Affected
 
-- Supabase: migrations `20261009230917_frq_photo_responses_content`, `20261009230918_frq_photo_responses_attachments`, `20261009231314_capture_access_path_phone_reported`, `20261009233521_frq_photo_responses_hardening`, `20261009233645_merge_response_parts_invoker` (Development versions); functions `attempt-response`, `student-session-items`, `capture-pairing`; new env `FRQ_PHOTO_RESPONSES_ENABLED`, `FRQ_TRANSCRIPT_MODEL`, `FRQ_TRANSCRIPT_DAILY_RUNS`, `FRQ_PHOTO_DAILY_CAP_USD`, `FRQ_TRANSCRIPT_RESERVED_COST_USD`, `FRQ_TRANSCRIPT_TIMEOUT_MS`.
+- Supabase: migrations `20261010002322_frq_photo_submission_integrity` (remediation), `20261009230917_frq_photo_responses_content`, `20261009230918_frq_photo_responses_attachments`, `20261009231314_capture_access_path_phone_reported`, `20261009233521_frq_photo_responses_hardening`, `20261009233645_merge_response_parts_invoker` (Development versions); functions `attempt-response`, `student-session-items`, `capture-pairing`; new env `FRQ_PHOTO_SUBJECTS` (server rollout, default admins only), `FRQ_PHOTO_RESPONSES_ENABLED`, `FRQ_TRANSCRIPT_MODEL`, `FRQ_TRANSCRIPT_DAILY_RUNS`, `FRQ_PHOTO_DAILY_CAP_USD`, `FRQ_TRANSCRIPT_RESERVED_COST_USD`, `FRQ_TRANSCRIPT_TIMEOUT_MS`.
 - Lovable App: `PracticeFrqScreen`, `LivePracticeFrq`, new `ResponseCapture` / `CapturePhoneFlow`, `capture-phone` route, `live-practice-frq/{adapt,photo,photo-review}.ts`, `feature-flags.ts`, `posthog.ts`, `admin.grade-response.index.tsx`, `admin.grade-response.$attemptId.tsx`.
 
 ## Data / Security / Integration Impact
@@ -52,7 +52,7 @@ Student photos continue to live in the private `learner-uploads` bucket under th
 ## Acceptance Criteria
 
 - [x] Every published FRQ carries `response_policy`; hand-drawn items are `photo_required`; a future FRQ inherits `photo_allowed` and cannot publish without a policy (Development verified).
-- [ ] A photo bound to a response cannot be submitted until its transcript is confirmed; confirmation writes the response text; the grader scores the confirmed text. The sequential Development smoke passed, but Codex QA found post-confirm mutation and concurrent-retake bypasses; P1 remediation is required.
+- [x] A photo bound to a response cannot be submitted until its transcript is confirmed for that photo and that text; enforced by `app.response_versions_guard_submission` inside the submit transaction (Development: integration test 8/8, two-connection race test both orderings, smoke including post-confirm PATCH). Pending Codex re-QA.
 - [x] Same-device capture is recorded as `SAME_DEVICE` (Development smoke).
 - [x] An admin can read the grading context with transcript and judgement kinds, and redact a photo; the row survives with its digest; the object is gone (Development smoke).
 - [x] Frontend: capture control, confirm-or-add review, pending-review state, admin queue, consent copy, flag — built in preview (Lovable commits `42c5028e`, `700965bd`), 834 vitest passing, `tsc` and `vite build` clean; read against the brief.

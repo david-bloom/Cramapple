@@ -24,17 +24,17 @@ import {
   type TranscriptMediaType,
 } from "../_shared/drawn-response-extraction.ts";
 import {
-  buildConfirmationPatch,
   CONFIRMATION_KEYS,
   confirmationIsStale,
   deriveItemParts,
   inferStudentAdded,
   readResponseParts,
   readTranscriptRecord,
-  transcriptRequiredBeforeSubmit,
   transcriptView,
   validateConfirmedParts,
 } from "../_shared/response-transcript.ts";
+import { redactLineage, type RedactionRow } from "../_shared/attachment-redaction.ts";
+import { photoEnabledFor } from "../_shared/frq-photo-rollout.ts";
 
 type Operation =
   | "create_attempt"
@@ -81,6 +81,21 @@ const FRQ_TRANSCRIPT_SHARED_CAP_USD = Number(Deno.env.get("OPENAI_DAILY_CAP_USD"
 const FRQ_TRANSCRIPT_DAILY_RUNS = Number(Deno.env.get("FRQ_TRANSCRIPT_DAILY_RUNS")) || 30;
 const FRQ_PHOTO_DAILY_CAP_USD = Number(Deno.env.get("FRQ_PHOTO_DAILY_CAP_USD")) || 50;
 const LEARNER_UPLOADS_BUCKET = "learner-uploads";
+// Server-side rollout (QA P2-a): "none" (default, admins only), "all", or a
+// subject list. Same knob student-session-items reads.
+const FRQ_PHOTO_SUBJECTS = Deno.env.get("FRQ_PHOTO_SUBJECTS") ?? null;
+
+async function subjectKeyForPackVersion(service: Service, packVersionId: string | null): Promise<string | null> {
+  if (!packVersionId) return null;
+  const { data } = await service.schema("app")
+    .from("exam_pack_versions")
+    .select("exam_pack:exam_packs!inner(subject:subjects(subject_key))")
+    .eq("id", packVersionId)
+    .maybeSingle();
+  const pack = Array.isArray(data?.exam_pack) ? data?.exam_pack[0] : data?.exam_pack;
+  const subject = Array.isArray(pack?.subject) ? pack?.subject[0] : pack?.subject;
+  return typeof subject?.subject_key === "string" ? subject.subject_key : null;
+}
 
 // Entitlement gating on SUBMISSION (2026-09-20), closing a gap
 // `evaluate-attempt` already closed for grading (TASK-0026, 2026-08-15) but
@@ -346,6 +361,8 @@ function mapSubmitError(message: string | undefined) {
       return { status: 403, body: { error: "forbidden" } };
     case "response_attempt_mismatch":
     case "response_already_submitted":
+    case "transcript_confirmation_required":
+    case "photo_required":
       return { status: 409, body: { error: code } };
     case "attempt_not_submittable":
       return {
@@ -1037,7 +1054,7 @@ export async function handleAttemptResponse(
       }
       const { data: tAttempt, error: tAttemptError } = await service.schema("app")
         .from("attempts")
-        .select("id, user_id, status, content_item_version_id")
+        .select("id, user_id, status, content_item_version_id, exam_pack_version_id")
         .eq("id", tAttemptId)
         .maybeSingle();
       if (tAttemptError || !tAttempt) {
@@ -1045,6 +1062,11 @@ export async function handleAttemptResponse(
       }
       if (tAttempt.user_id !== user.id) {
         return respond({ error: "forbidden" }, { status: 403 });
+      }
+      // Dark launch is enforced here too, not only in the UI (QA P2-a).
+      const tSubjectKey = await subjectKeyForPackVersion(service, tAttempt.exam_pack_version_id as string | null);
+      if (!photoEnabledFor({ subjectKey: tSubjectKey, configured: FRQ_PHOTO_SUBJECTS, isAdmin: profile.role === "admin" })) {
+        return respond({ error: "feature_disabled" }, { status: 409 });
       }
       if (!["draft", "failed"].includes(tAttempt.status as string)) {
         return respond(
@@ -1213,27 +1235,41 @@ export async function handleAttemptResponse(
         studentAdded[k] = [...new Set([...(studentAdded[k] ?? []), ...spans])];
       }
       const confirmedAt = new Date().toISOString();
-      // The confirmation names the photo it was given for (review H1); the
-      // write is an atomic merge that drops only the draft placeholder (H2).
-      const patch = buildConfirmationPatch({
-        parts: validation.parts,
-        studentAdded,
-        confirmedAt,
-        confirmedDigest: attachments.original.sha256_digest,
-      });
+      // One SQL function, under the attempt -> response lock order: checks
+      // the current photo still matches, writes the confirmed text, and stores
+      // the photo and content digests the submission guard re-checks inside
+      // the submit transaction (QA P1-a, P1-b).
       const { data: confirmedRow, error: confirmError } = await service.schema("app")
-        .rpc("merge_response_parts", {
+        .rpc("confirm_response_transcript", {
+          p_attempt_id: tAttemptId,
           p_response_version_id: tResponseVersionId,
-          p_patch: patch,
+          p_actor_id: user.id,
+          p_parts: validation.parts,
           p_response_text: validation.responseText,
-          p_drop_keys: ["capture"],
+          p_student_added: studentAdded,
+          p_photo_digest: attachments.original.sha256_digest,
+          p_confirmed_at: confirmedAt,
         })
         .single<{ id: string; attempt_id: string; response_text: string | null; version_number: number; is_submitted: boolean }>();
       if (confirmError || !confirmedRow) {
-        if (/already_submitted/.test(confirmError?.message ?? "")) {
-          return respond({ error: "response_already_submitted" }, { status: 409 });
+        const code = confirmError?.message?.match(/confirm_transcript:([a-z_]+)/)?.[1] ?? null;
+        switch (code) {
+          case "photo_changed":
+          case "no_attachment":
+          case "response_already_submitted":
+          case "attempt_not_editable":
+          case "response_attempt_mismatch":
+            return respond({ error: code }, { status: 409 });
+          case "forbidden":
+            return respond({ error: "forbidden" }, { status: 403 });
+          case "attempt_not_found":
+          case "response_not_found":
+            return respond({ error: "not_found" }, { status: 404 });
+          case "invalid_parts":
+            return respond({ error: "unknown_part" }, { status: 422 });
+          default:
+            return respond({ error: "transcript_confirm_failed" }, { status: 500 });
         }
-        return respond({ error: "transcript_confirm_failed" }, { status: 500 });
       }
       const result = {
         response_version: {
@@ -1271,44 +1307,44 @@ export async function handleAttemptResponse(
       if (targetError || !target) {
         return respond({ error: "attachment_not_found" }, { status: 404 });
       }
-      const { data: lineage } = await service.schema("app")
+      const { data: lineage, error: lineageError } = await service.schema("app")
         .from("response_attachments")
         .select("id, storage_bucket, storage_path, kind, redacted_at")
         .eq("response_version_id", target.response_version_id);
-      const rows = (lineage ?? []) as Array<{ id: string; storage_bucket: string; storage_path: string; kind: string; redacted_at: string | null }>;
-      const pending = rows.filter((r) => !r.redacted_at);
-      // Remove per bucket and require every requested object to come back in
-      // the removed list; a silently missing object is never stamped as
-      // redacted (review M4).
-      const byBucket = new Map<string, string[]>();
-      for (const r of pending) {
-        const bucket = r.storage_bucket || LEARNER_UPLOADS_BUCKET;
-        byBucket.set(bucket, [...(byBucket.get(bucket) ?? []), r.storage_path]);
+      // A lookup failure is a failure, never an empty lineage (QA P2-b).
+      if (lineageError || !Array.isArray(lineage) || lineage.length === 0) {
+        return respond({ error: "redaction_lookup_failed" }, { status: 500 });
       }
-      const removedPaths = new Set<string>();
-      for (const [bucket, paths] of byBucket) {
-        const { data: removedObjects, error: removeError } = await service.storage.from(bucket).remove(paths);
-        if (removeError) {
-          return respond({ error: "redaction_storage_failed" }, { status: 502 });
-        }
-        for (const obj of removedObjects ?? []) {
-          const name = (obj as { name?: string }).name;
-          if (name) removedPaths.add(name);
-        }
+      const outcome = await redactLineage(lineage as RedactionRow[], {
+        defaultBucket: LEARNER_UPLOADS_BUCKET,
+        remove: async (bucket, paths) => {
+          const { data, error } = await service.storage.from(bucket).remove(paths);
+          return {
+            removed: (data ?? []).map((o) => (o as { name?: string }).name ?? "").filter(Boolean),
+            error: error ? error.message : null,
+          };
+        },
+        exists: async (bucket, path) => {
+          const slash = path.lastIndexOf("/");
+          const dir = slash >= 0 ? path.slice(0, slash) : "";
+          const file = slash >= 0 ? path.slice(slash + 1) : path;
+          const { data, error } = await service.storage.from(bucket).list(dir, { search: file, limit: 100 });
+          if (error) return null;
+          return (data ?? []).some((o) => (o as { name?: string }).name === file);
+        },
+        stamp: async (id) => {
+          const { error } = await service.schema("app").rpc("redact_response_attachment", { p_attachment_id: id });
+          return !error;
+        },
+      });
+      if (!outcome.ok) {
+        // Not recorded as an idempotent result: a retry with the same key resumes.
+        return respond(
+          { error: outcome.error, redacted: outcome.redacted, ...(outcome.attachments ? { attachments: outcome.attachments } : {}) },
+          { status: outcome.status },
+        );
       }
-      const notRemoved = pending.filter((r) => !removedPaths.has(r.storage_path)).map((r) => r.id);
-      if (notRemoved.length) {
-        return respond({ error: "redaction_object_missing", attachments: notRemoved }, { status: 409 });
-      }
-      const redacted: string[] = [];
-      for (const r of pending) {
-        const { error: stampError } = await service.schema("app").rpc("redact_response_attachment", { p_attachment_id: r.id });
-        if (stampError) {
-          return respond({ error: "redaction_stamp_failed", redacted }, { status: 500 });
-        }
-        redacted.push(r.id);
-      }
-      const result = { redacted, already_redacted: rows.filter((r) => r.redacted_at).map((r) => r.id) };
+      const result = { redacted: outcome.redacted, already_redacted: outcome.alreadyRedacted };
       await recordIdempotentResult(service, idempotencyKey, requestHash, operation, user.id, "response_attachment", rAttachmentId, result);
       return respond({ status: "ok", function: "attempt-response", operation, result });
     }
@@ -1733,29 +1769,9 @@ export async function handleAttemptResponse(
       );
     }
 
-    // DECISION-0110 item 1: a response that carries a bound photo is never
-    // submitted (and so never graded) until its transcript is confirmed.
-    // Inert while the feature flag is off, so the legacy Stage D2 capture
-    // path on /session is unchanged until the Practice FRQ screen ships.
-    if (FRQ_PHOTO_RESPONSES_ENABLED) {
-      const gateAttachments = await loadCurrentAttachments(service, responseVersionId);
-      if (gateAttachments.original) {
-        const { data: gateVersion } = await service.schema("app")
-          .from("response_versions")
-          .select("response_parts")
-          .eq("id", responseVersionId)
-          .maybeSingle();
-        if (
-          transcriptRequiredBeforeSubmit({
-            hasCurrentAttachment: true,
-            responseParts: readResponseParts(gateVersion?.response_parts),
-            currentDigest: gateAttachments.original.sha256_digest,
-          })
-        ) {
-          return respond({ error: "transcript_confirmation_required" }, { status: 409 });
-        }
-      }
-    }
+    // The photo-confirmation and photo_required rules are enforced by
+    // app.response_versions_guard_submission INSIDE the submit transaction
+    // (QA P1-a, P1-b, P2-a); errors arrive as submit_response:<code> below.
 
     // Admin calls are operational and intentionally bypass learner
     // entitlements, same exemption evaluate-attempt grants.

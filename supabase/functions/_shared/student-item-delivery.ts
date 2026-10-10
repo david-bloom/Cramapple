@@ -94,6 +94,7 @@ export type LearnerFacingCriterion = {
 // Enum strings only. Never echo a storage path or a raw database error --
 // that would turn the omission list into a probe for private paths.
 export type OmissionReason =
+  | "photo_capture_not_enabled"
   | "asset_metadata_missing"
   | "asset_not_approved_for_students"
   | "asset_sign_failed"

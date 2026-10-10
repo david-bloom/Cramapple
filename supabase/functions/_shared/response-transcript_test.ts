@@ -1,16 +1,14 @@
 import { assertEquals } from "jsr:@std/assert@1";
 import {
-  buildConfirmedResponseParts,
   CONFIRM_PART_MAX_CHARS,
+  CONFIRMATION_KEYS,
+  confirmationIsStale,
   deriveItemParts,
   inferStudentAdded,
   isTranscriptConfirmed,
   readResponseParts,
   readTranscriptRecord,
-  transcriptRequiredBeforeSubmit,
   transcriptView,
-  confirmationIsStale,
-  buildConfirmationPatch,
   validateConfirmedParts,
 } from "./response-transcript.ts";
 
@@ -44,18 +42,14 @@ Deno.test("readResponseParts tolerates objects, JSON strings, and junk", () => {
   assertEquals(readResponseParts(null), {});
 });
 
-Deno.test("the submit gate requires a transcript confirmed for the CURRENT photo", () => {
+Deno.test("a confirmation is stale when the bound photo changed", () => {
   const d = "a".repeat(64);
-  assertEquals(transcriptRequiredBeforeSubmit({ hasCurrentAttachment: true, responseParts: { capture: "pending" }, currentDigest: d }), true);
-  assertEquals(transcriptRequiredBeforeSubmit({ hasCurrentAttachment: true, responseParts: { _confirmed_at: "2026-10-09T00:00:00Z", _confirmed_digest: d }, currentDigest: d }), false);
-  // Retake after confirming: the bound photo changed, the gate closes again.
-  assertEquals(transcriptRequiredBeforeSubmit({ hasCurrentAttachment: true, responseParts: { _confirmed_at: "2026-10-09T00:00:00Z", _confirmed_digest: d }, currentDigest: "b".repeat(64) }), true);
-  // A confirmation with no digest (never produced by confirm_transcript) does not pass.
-  assertEquals(transcriptRequiredBeforeSubmit({ hasCurrentAttachment: true, responseParts: { _confirmed_at: "2026-10-09T00:00:00Z" }, currentDigest: d }), true);
-  assertEquals(transcriptRequiredBeforeSubmit({ hasCurrentAttachment: false, responseParts: {} }), false);
-  assertEquals(isTranscriptConfirmed({ _confirmed_at: "" }), false);
   assertEquals(confirmationIsStale({ _confirmed_at: "T", _confirmed_digest: d }, d), false);
+  assertEquals(confirmationIsStale({ _confirmed_at: "T", _confirmed_digest: d }, "b".repeat(64)), true);
+  assertEquals(confirmationIsStale({ _confirmed_at: "T" }, d), true);
   assertEquals(confirmationIsStale({}, d), false);
+  assertEquals(isTranscriptConfirmed({ _confirmed_at: "" }), false);
+  assertEquals(CONFIRMATION_KEYS.includes("_confirmed_content_digest"), true);
 });
 
 const ITEM = [{ part_key: "a", prompt_text: null }, { part_key: "b", prompt_text: null }];
@@ -74,23 +68,8 @@ Deno.test("validateConfirmedParts fills every item part, refuses unknown keys, a
   assertEquals(validateConfirmedParts({ itemParts: ITEM, submitted: { a: "x" }, studentAdded: { a: "bad" } }), { ok: false, reason: "student_added_invalid" });
 });
 
-Deno.test("buildConfirmedResponseParts drops the capture placeholder and keeps the proposal", () => {
-  const existing = { capture: "pending", _transcript: { status: "proposed", key: "k" } };
-  const out = buildConfirmedResponseParts({ existing, parts: { a: "A", b: "" }, studentAdded: { a: ["A"] }, confirmedAt: "T", confirmedDigest: "d".repeat(64) });
-  assertEquals(out, {
-    _transcript: { status: "proposed", key: "k" },
-    a: "A",
-    b: "",
-    _source: "photo_transcript",
-    _student_added: { a: ["A"] },
-    _confirmed_at: "T",
-    _confirmed_digest: "d".repeat(64),
-  });
-  assertEquals(buildConfirmationPatch({ parts: { a: "A" }, studentAdded: {}, confirmedAt: "T", confirmedDigest: "x" }), {
-    a: "A", _source: "photo_transcript", _student_added: {}, _confirmed_at: "T", _confirmed_digest: "x",
-  });
-  assertEquals(isTranscriptConfirmed(out), true);
-  assertEquals(readTranscriptRecord(out)?.key, "k");
+Deno.test("readTranscriptRecord reads only a well-formed record", () => {
+  assertEquals(readTranscriptRecord({ _transcript: { status: "proposed", key: "k" } })?.key, "k");
   assertEquals(readTranscriptRecord({ _transcript: { nope: 1 } }), null);
 });
 

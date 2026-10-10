@@ -11,8 +11,15 @@
 //     "_transcript": { ...TranscriptRecord },      -- the model's proposal, kept
 //     "_student_added": { "<part_key>": [spans] }, -- typed at review, not read
 //     "_confirmed_at": "<iso timestamp>",
-//     "_confirmed_digest": "<sha256 of the original photo the student confirmed>"
+//     "_confirmed_digest": "<sha256 of the original photo the student confirmed>",
+//     "_confirmed_content_digest": "<app.response_content_digest of the confirmed text + parts>"
 //   }
+//
+// The confirmation is written by app.confirm_response_transcript and checked
+// by app.response_versions_guard_submission INSIDE the submit transaction
+// (TASK-0069 QA P1-a/P1-b): the photo digest must equal the current original
+// and the content digest must equal the current text and parts, so neither a
+// retake nor a direct edit after confirming can reach the grader.
 //
 // Keys beginning with "_" are reserved: app.response_versions_guard_reserved_parts
 // refuses them from any non-service-role writer, so a student cannot PATCH a
@@ -104,23 +111,8 @@ export function confirmationIsStale(
   return typeof confirmed !== "string" || confirmed.length === 0 || confirmed !== currentDigest;
 }
 
-/**
- * The submit gate (DECISION-0110 item 1): a response that carries a bound
- * photo may only be submitted once its transcript is confirmed FOR THAT PHOTO.
- */
-export function transcriptRequiredBeforeSubmit(params: {
-  hasCurrentAttachment: boolean;
-  responseParts: Record<string, unknown>;
-  /** sha256 of the current original attachment; null when none is bound. */
-  currentDigest?: string | null;
-}): boolean {
-  if (!params.hasCurrentAttachment) return false;
-  if (!isTranscriptConfirmed(params.responseParts)) return true;
-  return confirmationIsStale(params.responseParts, params.currentDigest ?? null);
-}
-
 /** Reserved keys a re-propose for a NEW photo clears, so a stale confirmation cannot survive a retake. */
-export const CONFIRMATION_KEYS = ["_confirmed_at", "_confirmed_digest", "_source", "_student_added"] as const;
+export const CONFIRMATION_KEYS = ["_confirmed_at", "_confirmed_digest", "_confirmed_content_digest", "_source", "_student_added"] as const;
 
 export type ConfirmValidation =
   | {
@@ -177,42 +169,6 @@ export function validateConfirmedParts(params: {
 
   const ordered = params.itemParts.map((p) => ({ part_key: p.part_key, text: parts[p.part_key] ?? "" }));
   return { ok: true, parts, studentAdded, responseText: flattenTranscript(ordered) };
-}
-
-/** The response_parts value written on confirmation. Keeps the proposal for audit. */
-export function buildConfirmedResponseParts(params: {
-  existing: Record<string, unknown>;
-  parts: Record<string, string>;
-  studentAdded: Record<string, string[]>;
-  confirmedAt: string;
-  /** sha256 of the original photo being confirmed. */
-  confirmedDigest: string;
-}): Record<string, unknown> {
-  const { capture: _capture, ...rest } = params.existing;
-  return {
-    ...rest,
-    ...params.parts,
-    _source: "photo_transcript",
-    _student_added: params.studentAdded,
-    _confirmed_at: params.confirmedAt,
-    _confirmed_digest: params.confirmedDigest,
-  };
-}
-
-/** The jsonb patch confirm_transcript sends to app.merge_response_parts (same keys, no spread of the old row). */
-export function buildConfirmationPatch(params: {
-  parts: Record<string, string>;
-  studentAdded: Record<string, string[]>;
-  confirmedAt: string;
-  confirmedDigest: string;
-}): Record<string, unknown> {
-  return {
-    ...params.parts,
-    _source: "photo_transcript",
-    _student_added: params.studentAdded,
-    _confirmed_at: params.confirmedAt,
-    _confirmed_digest: params.confirmedDigest,
-  };
 }
 
 /**
